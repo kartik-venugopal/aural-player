@@ -19,6 +19,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     @IBOutlet weak var lblPanR: NSTextField!
     @IBOutlet weak var lblPanL: NSTextField!
     
+    // Displays the playlist
+    @IBOutlet weak var playlistView: NSTableView!
+    
     // Static labels (their colors are initialized at startup)
     @IBOutlet weak var playlistBox: NSBox!
     @IBOutlet weak var effectsBox: NSBox!
@@ -31,17 +34,28 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     @IBOutlet weak var btnVolume: NSButton!
     @IBOutlet weak var btnPlayPause: NSButton!
     
-    // Displays the playlist
-    @IBOutlet weak var playlistView: NSTableView!
-    
     // Volume/pan/effects controls
     @IBOutlet weak var volumeSlider: NSSlider!
     @IBOutlet weak var panSlider: NSSlider!
+    
+    @IBOutlet weak var btnPitchBypass: NSButton!
     @IBOutlet weak var pitchSlider: NSSlider!
     @IBOutlet weak var pitchOverlapSlider: NSSlider!
+    
+    @IBOutlet weak var btnReverbBypass: NSButton!
     @IBOutlet weak var reverbMenu: NSPopUpButton!
     @IBOutlet weak var reverbSlider: NSSlider!
-    @IBOutlet weak var delaySlider: NSSlider!
+    
+    @IBOutlet weak var btnDelayBypass: NSButton!
+    @IBOutlet weak var delayTimeSlider: NSSlider!
+    @IBOutlet weak var delayAmountSlider: NSSlider!
+    @IBOutlet weak var delayCutoffSlider: NSSlider!
+    @IBOutlet weak var delayFeedbackSlider: NSSlider!
+    
+    
+    @IBOutlet weak var btnFilterBypass: NSButton!
+    @IBOutlet weak var filterLowPassSlider: NSSlider!
+    @IBOutlet weak var filterHighPassSlider: NSSlider!
     
     // Parametric equalizer controls
     @IBOutlet weak var eqGlobalGainSlider: NSSlider!
@@ -121,13 +135,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     
     func initStatelessUI() {
         
-        // Remove playlist header
-        playlistView.headerView = nil
-        
         // Set up a mouse listener (for double clicks -> play selected track)
         playlistView.doubleAction = Selector("playlistDoubleClickAction:")
-        
-        btnMoreInfo.hidden = true
     }
     
     func initStatefulUI(playerState: SavedPlayerState) {
@@ -165,39 +174,30 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         eqSlider8k.floatValue = playerState.eqBands[8192]!
         eqSlider16k.floatValue = playerState.eqBands[16384]!
         
+        btnPitchBypass.image = playerState.pitchBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         pitchSlider.floatValue = playerState.pitch / 1200
         pitchOverlapSlider.floatValue = playerState.pitchOverlap
         
-        reverbMenu.removeAllItems()
-        reverbMenu.addItemWithTitle(ReverbPresets.None.description)
-        
-        reverbMenu.addItemWithTitle(ReverbPresets.SmallRoom.description)
-        reverbMenu.addItemWithTitle(ReverbPresets.MediumRoom.description)
-        reverbMenu.addItemWithTitle(ReverbPresets.LargeRoom.description)
-        
-        reverbMenu.addItemWithTitle(ReverbPresets.MediumChamber.description)
-        reverbMenu.addItemWithTitle(ReverbPresets.LargeChamber.description)
-        
-        reverbMenu.addItemWithTitle(ReverbPresets.MediumHall.description)
-        reverbMenu.addItemWithTitle(ReverbPresets.LargeHall.description)
-        
-        reverbMenu.addItemWithTitle(ReverbPresets.Cathedral.description)
-        reverbMenu.addItemWithTitle(ReverbPresets.Plate.description)
-        
+        btnReverbBypass.image = playerState.reverbBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         // TODO: Change this lookup to o(1) instead of o(n) ... HashMap !
         for item in reverbMenu.itemArray {
             
-            if item.title == playerState.reverb.description {
+            if item.title == playerState.reverbPreset.description {
                 reverbMenu.selectItem(item)
             }
         }
-        
         reverbSlider.floatValue = playerState.reverbAmount
         
-        eqPresets.removeAllItems()
-        eqPresets.addItemWithTitle(EQPresets.Flat.description)
-        eqPresets.addItemWithTitle(EQPresets.Soft.description)
-        eqPresets.addItemWithTitle(EQPresets.HighBassHighTreble.description)
+        btnDelayBypass.image = playerState.delayBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        delayAmountSlider.floatValue = playerState.delayAmount
+        delayTimeSlider.doubleValue = playerState.delayTime
+        delayFeedbackSlider.floatValue = playerState.delayFeedback
+        delayCutoffSlider.floatValue = playerState.delayLowPassCutoff
+        
+        btnFilterBypass.image = playerState.filterBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        filterHighPassSlider.floatValue = playerState.filterHighPassCutoff
+        filterLowPassSlider.floatValue = playerState.filterLowPassCutoff
+        
         eqPresets.selectItemAtIndex(-1)
         
         fxTabView.selectFirstTabViewItem(self)
@@ -558,8 +558,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
             eqBands = EQPresets.Soft.bands
         }
         
-        if (eqPresets.selectedItem?.title == EQPresets.HighBassHighTreble.description) {
-            eqBands = EQPresets.HighBassHighTreble.bands
+        if (eqPresets.selectedItem?.title == EQPresets.HighBassAndTreble.description) {
+            eqBands = EQPresets.HighBassAndTreble.bands
         }
         
         player.setEQBands(eqBands)
@@ -627,6 +627,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         window.miniaturize(self)
     }
     
+    @IBAction func pitchBypassAction(sender: AnyObject) {
+        
+        let newBypassState = player.togglePitchBypass()
+        
+        btnPitchBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+    }
+    
     @IBAction func pitchAction(sender: AnyObject) {
         player.setPitch(pitchSlider.floatValue)
     }
@@ -635,17 +642,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         player.setPitchOverlap(pitchOverlapSlider.floatValue)
     }
     
+    @IBAction func reverbBypassAction(sender: AnyObject) {
+
+        let newBypassState = player.toggleReverbBypass()
+        
+        btnReverbBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+    }
+    
     @IBAction func reverbAction(sender: AnyObject) {
         
         var preset: ReverbPresets
         
         switch reverbMenu.selectedItem?.title {
             
-        case ReverbPresets.None.description?: preset = .None
-            
         case ReverbPresets.SmallRoom.description?: preset = .SmallRoom
         case ReverbPresets.MediumRoom.description?: preset = .MediumRoom
-                    case ReverbPresets.LargeRoom.description?: preset = .LargeRoom
+        case ReverbPresets.LargeRoom.description?: preset = .LargeRoom
 
         case ReverbPresets.MediumChamber.description?: preset = .MediumChamber
         case ReverbPresets.LargeChamber.description?: preset = .LargeChamber
@@ -655,7 +667,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
             
         case ReverbPresets.Cathedral.description?: preset = .Cathedral
         case ReverbPresets.Plate.description?: preset = .Plate
-        default: preset = .None
+            
+        // This should never happen
+        default: preset = .SmallRoom
         }
         
         player.setReverb(preset)
@@ -665,8 +679,42 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         player.setReverbAmount(reverbSlider.floatValue)
     }
     
+    @IBAction func delayBypassAction(sender: AnyObject) {
+        
+        let newBypassState = player.toggleDelayBypass()
+        
+        btnDelayBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+    }
+    
     @IBAction func delayAmountAction(sender: AnyObject) {
-        player.setDelayAmount(delaySlider.floatValue)
+        player.setDelayAmount(delayAmountSlider.floatValue)
+    }
+    
+    @IBAction func delayTimeAction(sender: AnyObject) {
+        player.setDelayTime(delayTimeSlider.doubleValue)
+    }
+    
+    @IBAction func delayFeedbackAction(sender: AnyObject) {
+        player.setDelayFeedback(delayFeedbackSlider.floatValue)
+    }
+    
+    @IBAction func delayCutoffAction(sender: AnyObject) {
+        player.setDelayLowPassCutoff(delayCutoffSlider.floatValue)
+    }
+    
+    @IBAction func filterBypassAction(sender: AnyObject) {
+        
+        let newBypassState = player.toggleFilterBypass()
+        
+        btnFilterBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+    }
+    
+    @IBAction func filterHighPassAction(sender: AnyObject) {
+        player.setFilterHighPassCutoff(filterHighPassSlider.floatValue)
+    }
+    
+    @IBAction func filterLowPassAction(sender: AnyObject) {
+        player.setFilterLowPassCutoff(filterLowPassSlider.floatValue)
     }
     
     @IBAction func eqGlobalGainAction(sender: AnyObject) {

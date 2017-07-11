@@ -15,12 +15,20 @@
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="bigLblTrack" destination="siU-Sg-IBb" id="Sra-S0-RRR"/>
+                <outlet property="btnDelayBypass" destination="hFd-0O-hii" id="UXH-dM-P28"/>
+                <outlet property="btnFilterBypass" destination="9sH-hV-CNS" id="G4b-mn-oex"/>
                 <outlet property="btnMoreInfo" destination="0Mb-en-nxS" id="wGo-JQ-F9n"/>
+                <outlet property="btnPitchBypass" destination="OGV-jG-nOV" id="Ga3-rh-lAm"/>
                 <outlet property="btnPlayPause" destination="52R-Hv-S0B" id="mK4-VJ-VKN"/>
                 <outlet property="btnRepeat" destination="Fpa-Ii-3YA" id="en0-OB-Uwa"/>
+                <outlet property="btnReverbBypass" destination="R9b-lC-8tk" id="EIK-S0-qLa"/>
                 <outlet property="btnShuffle" destination="kQL-4a-kyh" id="eJE-qZ-92B"/>
                 <outlet property="btnVolume" destination="Y0j-zk-a3t" id="JEt-SA-sLv"/>
                 <outlet property="controlsBox" destination="X7y-oM-7MJ" id="pWh-jP-HJH"/>
+                <outlet property="delayAmountSlider" destination="w57-Jo-8d2" id="fXJ-R0-OV8"/>
+                <outlet property="delayCutoffSlider" destination="Czy-vK-eST" id="ec0-iO-Xbc"/>
+                <outlet property="delayFeedbackSlider" destination="D1K-bn-CdT" id="SeQ-DA-NoR"/>
+                <outlet property="delayTimeSlider" destination="n58-zU-hzG" id="qwH-1a-rYH"/>
                 <outlet property="effectsBox" destination="DYI-NL-cxu" id="sRS-Qq-iYa"/>
                 <outlet property="eqGlobalGainSlider" destination="XKK-aS-eMn" id="iBk-45-gwb"/>
                 <outlet property="eqPresets" destination="hG3-Ir-qkY" id="aPR-W2-25b"/>
@@ -34,6 +42,8 @@
                 <outlet property="eqSlider512" destination="Lgr-1t-FRb" id="wGU-IT-afA"/>
                 <outlet property="eqSlider64" destination="mTb-nz-ndF" id="2vO-0Q-a5c"/>
                 <outlet property="eqSlider8k" destination="qHV-Kz-sUG" id="Qvt-Ah-CUu"/>
+                <outlet property="filterHighPassSlider" destination="E3u-TZ-Qnb" id="4TS-wo-0Xg"/>
+                <outlet property="filterLowPassSlider" destination="Snr-AS-UIT" id="ndn-Il-RTy"/>
                 <outlet property="fxTabView" destination="ajb-w5-ueo" id="nb7-Ak-DyM"/>
                 <outlet property="lblAppName" destination="saz-qI-SEO" id="j3q-6x-5AB"/>
                 <outlet property="lblOctaves" destination="uOU-Zl-fv2" id="AXp-gI-H71"/>
@@ -61,12 +71,12 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <window title="Aural" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="415" height="627"/>
+            <rect key="contentRect" x="335" y="390" width="420" height="627"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <value key="minSize" type="size" width="415" height="627"/>
             <value key="maxSize" type="size" width="415" height="627"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="415" height="627"/>
+                <rect key="frame" x="0.0" y="0.0" width="420" height="627"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <box fixedFrame="YES" cornerRadius="5" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="DYI-NL-cxu" userLabel="Effects Box">
@@ -134,10 +144,22 @@
                                         </textField>
                                         <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hG3-Ir-qkY" userLabel="EQ Presets Menu">
                                             <rect key="frame" x="268" y="-2" width="106" height="22"/>
-                                            <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" altersStateOfSelectedItem="NO" id="fct-Jo-Wiy" customClass="EQPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                                            <popUpButtonCell key="cell" type="disclosure" title="High bass and treble" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" altersStateOfSelectedItem="NO" selectedItem="nOb-eq-8jY" id="fct-Jo-Wiy" customClass="EQPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" size="10" name="CenturyGothic"/>
-                                                <menu key="menu" showsStateColumn="NO" id="N5y-An-5RH"/>
+                                                <menu key="menu" showsStateColumn="NO" id="N5y-An-5RH">
+                                                    <items>
+                                                        <menuItem title="Flat" id="2Lk-wt-lDu">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Soft" id="VSH-Aj-pmk">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="High bass and treble" id="nOb-eq-8jY">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                    </items>
+                                                </menu>
                                             </popUpButtonCell>
                                             <connections>
                                                 <action selector="eqPresetsAction:" target="Voe-Tx-rLC" id="Kks-3X-9LI"/>
@@ -272,72 +294,92 @@
                                     </subviews>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="Pitch Shift" identifier="2" id="but-RP-Sa9" userLabel="Pitch Shift">
-                                <view key="view" ambiguous="YES" id="N8R-hT-UU9">
+                            <tabViewItem label="Pitch" identifier="2" id="but-RP-Sa9" userLabel="Pitch">
+                                <view key="view" id="N8R-hT-UU9">
                                     <rect key="frame" x="10" y="33" width="376" height="140"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vmk-7Z-Qi0">
-                                            <rect key="frame" x="42" y="34" width="117" height="19"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Pitch shift (octaves)" id="2n1-mk-9fY">
-                                                <font key="font" size="12" name="CenturyGothic-Bold"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5v6-Tw-Ks9" userLabel="Overlap">
-                                            <rect key="frame" x="219" y="34" width="117" height="19"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Overlap" id="6db-qO-YcI">
-                                                <font key="font" size="12" name="CenturyGothic-Bold"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uOU-Zl-fv2" userLabel="Octaves">
-                                            <rect key="frame" x="41" y="4" width="117" height="17"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-2       -1        0        1        2" id="cwF-Xh-fyW">
-                                                <font key="font" size="9" name="CenturyGothic-Bold"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ee3-6j-MM9" userLabel="Overlap">
-                                            <rect key="frame" x="229" y="4" width="117" height="17"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="3                              32" id="hHM-pr-qvp">
-                                                <font key="font" size="9" name="CenturyGothic-Bold"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g6a-qD-rnZ" userLabel="Pitch Slider">
-                                            <rect key="frame" x="43" y="14" width="115" height="17"/>
-                                            <shadow key="shadow" blurRadius="1">
-                                                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            </shadow>
-                                            <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" minValue="-2" maxValue="2" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="z27-ON-8be" customClass="TickedSliderCell" customModule="Aural" customModuleProvider="target"/>
-                                            <connections>
-                                                <action selector="pitchAction:" target="Voe-Tx-rLC" id="QaL-0n-KjT"/>
-                                            </connections>
-                                        </slider>
-                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9E2-MV-Hi7" userLabel="Overlap Slider">
-                                            <rect key="frame" x="228" y="14" width="95" height="17"/>
-                                            <shadow key="shadow" blurRadius="1">
-                                                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            </shadow>
-                                            <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" minValue="3" maxValue="32" doubleValue="8" tickMarkPosition="below" numberOfTickMarks="2" sliderType="linear" id="dxd-fC-XwN" customClass="TickedSliderCell" customModule="Aural" customModuleProvider="target"/>
-                                            <connections>
-                                                <action selector="pitchOverlapAction:" target="Voe-Tx-rLC" id="gmc-Ks-U7t"/>
-                                            </connections>
-                                        </slider>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h0F-Gd-eBB" userLabel="Pitch Shift Desc">
-                                            <rect key="frame" x="15" y="20" width="354" height="120"/>
-                                            <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" id="rMK-Ih-dm7">
+                                            <rect key="frame" x="63" y="15" width="304" height="120"/>
+                                            <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Raises or lowers the pitch of the sound by a certain number (or fraction) of octaves" id="rMK-Ih-dm7">
                                                 <font key="font" size="13" name="CenturyGothic"/>
-                                                <string key="title">Raises or lowers the pitch of the sound by a certain number (or fraction) of octaves. A higher overlap (impacts CPU) value results in fewer artifacts in the output signal.</string>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OGV-jG-nOV" userLabel="Bypass button">
+                                            <rect key="frame" x="12" y="72" width="22" height="60"/>
+                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="g78-ka-ylX">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="pitchBypassAction:" target="Voe-Tx-rLC" id="VlM-FZ-Aiq"/>
+                                            </connections>
+                                        </button>
+                                        <box fixedFrame="YES" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Yu8-uy-WrY" userLabel="Controls Box">
+                                            <rect key="frame" x="57" y="1" width="306" height="78"/>
+                                            <view key="contentView" id="98N-CG-xwt">
+                                                <rect key="frame" x="1" y="1" width="304" height="62"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vmk-7Z-Qi0">
+                                                        <rect key="frame" x="24" y="38" width="117" height="19"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Pitch Shift" id="2n1-mk-9fY">
+                                                            <font key="font" size="12" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g6a-qD-rnZ" userLabel="Pitch Slider">
+                                                        <rect key="frame" x="25" y="20" width="115" height="15"/>
+                                                        <shadow key="shadow" blurRadius="1">
+                                                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </shadow>
+                                                        <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" minValue="-2" maxValue="2" tickMarkPosition="below" sliderType="linear" id="z27-ON-8be" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                        <connections>
+                                                            <action selector="pitchAction:" target="Voe-Tx-rLC" id="QaL-0n-KjT"/>
+                                                        </connections>
+                                                    </slider>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uOU-Zl-fv2" userLabel="Octaves">
+                                                        <rect key="frame" x="18" y="8" width="124" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title=" -2       -1         0         1        2" id="cwF-Xh-fyW">
+                                                            <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5v6-Tw-Ks9" userLabel="Overlap">
+                                                        <rect key="frame" x="169" y="38" width="117" height="19"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Overlap" id="6db-qO-YcI">
+                                                            <font key="font" size="12" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9E2-MV-Hi7" userLabel="Overlap Slider">
+                                                        <rect key="frame" x="170" y="20" width="115" height="15"/>
+                                                        <shadow key="shadow" blurRadius="1">
+                                                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </shadow>
+                                                        <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" minValue="3" maxValue="32" doubleValue="8" tickMarkPosition="below" sliderType="linear" id="dxd-fC-XwN" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                        <connections>
+                                                            <action selector="pitchOverlapAction:" target="Voe-Tx-rLC" id="gmc-Ks-U7t"/>
+                                                        </connections>
+                                                    </slider>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ee3-6j-MM9" userLabel="Overlap values">
+                                                        <rect key="frame" x="168" y="8" width="117" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="3                                        32" id="hHM-pr-qvp">
+                                                            <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                            </view>
+                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </box>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -346,68 +388,388 @@
                                     <rect key="frame" x="10" y="33" width="376" height="140"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="si3-ai-Wgb">
-                                            <rect key="frame" x="66" y="35" width="59" height="17"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Preset" id="EK0-ms-D9e">
-                                                <font key="font" size="12" name="CenturyGothic-Bold"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0ja-8B-SwE">
-                                            <rect key="frame" x="245" y="35" width="59" height="17"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Amount" id="F4M-QZ-E5z">
-                                                <font key="font" size="12" name="CenturyGothic-Bold"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6kC-nQ-BsO" userLabel="Reverb Menu">
-                                            <rect key="frame" x="32" y="8" width="136" height="22"/>
-                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" id="yEa-5P-jND" customClass="ReverbPopupMenuCell" customModule="Aural" customModuleProvider="target">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" size="10" name="CenturyGothic"/>
-                                                <menu key="menu" id="jlg-5b-dHq"/>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="reverbAction:" target="Voe-Tx-rLC" id="hE0-Ke-IZJ"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SVL-7D-xpL" userLabel="ReverbAmount Slider">
-                                            <rect key="frame" x="218" y="11" width="108" height="17"/>
-                                            <shadow key="shadow" blurRadius="1">
-                                                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            </shadow>
-                                            <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="3" sliderType="linear" id="X3x-xr-Pvi" customClass="TickedSliderCell" customModule="Aural" customModuleProvider="target"/>
-                                            <connections>
-                                                <action selector="reverbAmountAction:" target="Voe-Tx-rLC" id="k9q-nA-gpi"/>
-                                            </connections>
-                                        </slider>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qip-hC-Kub">
-                                            <rect key="frame" x="214" y="0.0" width="38" height="17"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Dry" id="aDe-TK-wM1">
-                                                <font key="font" size="9" name="CenturyGothic-Bold"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gMd-Mc-pkI" userLabel="Wet">
-                                            <rect key="frame" x="309" y="0.0" width="38" height="17"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Wet" id="hPV-w6-g9M">
-                                                <font key="font" size="9" name="CenturyGothic-Bold"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qUl-hb-KdY" userLabel="Reverb Desc">
-                                            <rect key="frame" x="17" y="20" width="354" height="120"/>
-                                            <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" id="sJv-Pt-Gu6">
+                                            <rect key="frame" x="63" y="15" width="304" height="120"/>
+                                            <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Simulates the acoustic characteristics of a particular space or environment" id="sJv-Pt-Gu6">
                                                 <font key="font" size="13" name="CenturyGothic"/>
-                                                <string key="title">Simulates the acoustic characteristics of a particular environment. Use the different presets to simulate a particular space and blend it in with the original signal using the wet/dry amount parameter.</string>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R9b-lC-8tk" userLabel="Bypass button">
+                                            <rect key="frame" x="12" y="72" width="22" height="60"/>
+                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="YRR-YJ-I2g">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="reverbBypassAction:" target="Voe-Tx-rLC" id="vGA-4Y-v5A"/>
+                                            </connections>
+                                        </button>
+                                        <box fixedFrame="YES" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="chO-yB-LP0" userLabel="Controls Box">
+                                            <rect key="frame" x="57" y="1" width="306" height="66"/>
+                                            <view key="contentView" ambiguous="YES" id="I4b-K0-6Me">
+                                                <rect key="frame" x="1" y="1" width="304" height="64"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="si3-ai-Wgb">
+                                                        <rect key="frame" x="53" y="40" width="59" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Preset" id="EK0-ms-D9e">
+                                                            <font key="font" size="12" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6kC-nQ-BsO" userLabel="Reverb Menu">
+                                                        <rect key="frame" x="14" y="11" width="136" height="22"/>
+                                                        <popUpButtonCell key="cell" type="push" title="Plate" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="i6t-X9-aQc" id="yEa-5P-jND" customClass="ReverbPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" size="10" name="CenturyGothic"/>
+                                                            <menu key="menu" id="jlg-5b-dHq">
+                                                                <items>
+                                                                    <menuItem title="Small room" id="FZg-6R-jky">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Medium room" id="F3h-tN-WOn">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Large room" id="bTZ-i9-mQ2">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Medium hall" id="EQl-ky-FTp">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Large hall" id="WQe-np-eNK">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Medium chamber" id="PW0-mZ-Xwt">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Large chamber" id="I3r-UX-VsT">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Cathedral" id="QjC-cR-3wT">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Plate" id="i6t-X9-aQc">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                </items>
+                                                            </menu>
+                                                        </popUpButtonCell>
+                                                        <connections>
+                                                            <action selector="reverbAction:" target="Voe-Tx-rLC" id="hE0-Ke-IZJ"/>
+                                                        </connections>
+                                                    </popUpButton>
+                                                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SVL-7D-xpL" userLabel="ReverbAmount Slider">
+                                                        <rect key="frame" x="178" y="20" width="105" height="15"/>
+                                                        <shadow key="shadow" blurRadius="1">
+                                                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </shadow>
+                                                        <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" sliderType="linear" id="X3x-xr-Pvi" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                        <connections>
+                                                            <action selector="reverbAmountAction:" target="Voe-Tx-rLC" id="k9q-nA-gpi"/>
+                                                        </connections>
+                                                    </slider>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0ja-8B-SwE">
+                                                        <rect key="frame" x="205" y="40" width="59" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Amount" id="F4M-QZ-E5z">
+                                                            <font key="font" size="12" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qip-hC-Kub">
+                                                        <rect key="frame" x="173" y="8" width="38" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Dry" id="aDe-TK-wM1">
+                                                            <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gMd-Mc-pkI" userLabel="Wet">
+                                                        <rect key="frame" x="268" y="8" width="38" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Wet" id="hPV-w6-g9M">
+                                                            <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                            </view>
+                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </box>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Delay" identifier="" id="Obn-Ia-hsb">
+                                <view key="view" id="xRz-PY-Dbe">
+                                    <rect key="frame" x="10" y="33" width="376" height="140"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hFd-0O-hii" userLabel="Bypass button">
+                                            <rect key="frame" x="12" y="72" width="22" height="60"/>
+                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qup-b5-rY3">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="delayBypassAction:" target="Voe-Tx-rLC" id="CYe-eB-QhF"/>
+                                            </connections>
+                                        </button>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4YG-X5-3A9" userLabel="Delay Desc">
+                                            <rect key="frame" x="63" y="95" width="298" height="40"/>
+                                            <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Creates an echo effect" id="rMf-VW-VxL">
+                                                <font key="font" size="13" name="CenturyGothic"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <box fixedFrame="YES" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="v6p-Ex-kdh" userLabel="Controls Box">
+                                            <rect key="frame" x="57" y="1" width="306" height="106"/>
+                                            <view key="contentView" ambiguous="YES" id="vGm-MT-zIN">
+                                                <rect key="frame" x="1" y="1" width="304" height="104"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vmz-Gs-ID0">
+                                                        <rect key="frame" x="67" y="82" width="38" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Time" id="2la-27-ezZ">
+                                                            <font key="font" size="12" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n58-zU-hzG" userLabel="Time Slider">
+                                                        <rect key="frame" x="25" y="63" width="115" height="15"/>
+                                                        <shadow key="shadow" blurRadius="1">
+                                                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </shadow>
+                                                        <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="2" doubleValue="1" tickMarkPosition="below" sliderType="linear" id="7vI-uT-xr0" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                        <connections>
+                                                            <action selector="delayTimeAction:" target="Voe-Tx-rLC" id="UAJ-iK-FRc"/>
+                                                        </connections>
+                                                    </slider>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kgf-KN-kIc" userLabel="Zero Secs">
+                                                        <rect key="frame" x="22" y="52" width="38" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0s" id="ixj-69-IYf">
+                                                            <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eCo-hO-Dvn" userLabel="One Sec">
+                                                        <rect key="frame" x="75" y="52" width="38" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="1s" id="TCa-IC-e7k">
+                                                            <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V5o-i0-UVQ" userLabel="Two Secs">
+                                                        <rect key="frame" x="127" y="52" width="38" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="2s" id="3wc-q1-s6s">
+                                                            <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w57-Jo-8d2" userLabel="Amount Slider">
+                                                        <rect key="frame" x="170" y="63" width="115" height="15"/>
+                                                        <shadow key="shadow" blurRadius="1">
+                                                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </shadow>
+                                                        <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="100" tickMarkPosition="below" sliderType="linear" id="xXd-GB-Kij" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                        <connections>
+                                                            <action selector="delayAmountAction:" target="Voe-Tx-rLC" id="GAK-H4-U6d"/>
+                                                        </connections>
+                                                    </slider>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QE3-J1-O6B">
+                                                        <rect key="frame" x="204" y="83" width="64" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Amount" id="O1A-FD-PNW">
+                                                            <font key="font" size="12" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W18-JZ-GJi" userLabel="Zero">
+                                                        <rect key="frame" x="172" y="52" width="38" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0" id="5gL-ez-R9t">
+                                                            <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d70-H8-4PT" userLabel="Hundred">
+                                                        <rect key="frame" x="267" y="52" width="38" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="100" id="3Ig-84-iJi">
+                                                            <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D1K-bn-CdT" userLabel="Feedback Slider">
+                                                        <rect key="frame" x="25" y="16" width="115" height="15"/>
+                                                        <shadow key="shadow" blurRadius="1">
+                                                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </shadow>
+                                                        <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" minValue="-100" maxValue="100" doubleValue="50" tickMarkPosition="below" sliderType="linear" id="Sfn-GO-Dbz" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                        <connections>
+                                                            <action selector="delayFeedbackAction:" target="Voe-Tx-rLC" id="Q7h-Md-IXH"/>
+                                                        </connections>
+                                                    </slider>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="asA-YU-fnH">
+                                                        <rect key="frame" x="49" y="35" width="79" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Feedback" id="Ys0-ba-MpE">
+                                                            <font key="font" size="12" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SJK-Fz-OFO" userLabel="Minus100Perc">
+                                                        <rect key="frame" x="12" y="5" width="38" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-100%" id="cnN-LP-1Bw">
+                                                            <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nUd-8k-gzI" userLabel="Hundred Perc">
+                                                        <rect key="frame" x="117" y="5" width="38" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+100%" id="gjA-Vt-PEX">
+                                                            <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Czy-vK-eST" userLabel="Cutoff Slider">
+                                                        <rect key="frame" x="170" y="16" width="115" height="15"/>
+                                                        <shadow key="shadow" blurRadius="1">
+                                                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </shadow>
+                                                        <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" minValue="10" maxValue="20000" doubleValue="15000" tickMarkPosition="below" sliderType="linear" id="mNy-W3-GyQ" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                        <connections>
+                                                            <action selector="delayCutoffAction:" target="Voe-Tx-rLC" id="JkP-39-VrT"/>
+                                                        </connections>
+                                                    </slider>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tcb-5c-KlH">
+                                                        <rect key="frame" x="181" y="35" width="104" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Low Pass Cutoff" id="WAl-dI-gs2">
+                                                            <font key="font" size="12" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cmI-Ds-2k4" userLabel="Ten Hz">
+                                                        <rect key="frame" x="167" y="5" width="38" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="10Hz" id="5e1-Do-Il6">
+                                                            <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eSt-nG-RzO" userLabel="Twenty KHz">
+                                                        <rect key="frame" x="262" y="5" width="38" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="20KHz" id="TEX-1I-APK">
+                                                            <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                            </view>
+                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </box>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Filter" identifier="" id="wCL-UO-nMJ">
+                                <view key="view" ambiguous="YES" id="eRG-iQ-ZQv">
+                                    <rect key="frame" x="10" y="33" width="376" height="140"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9sH-hV-CNS" userLabel="Bypass button">
+                                            <rect key="frame" x="12" y="72" width="22" height="60"/>
+                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="pWg-An-hIH">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="filterBypassAction:" target="Voe-Tx-rLC" id="dCb-Uo-E87"/>
+                                            </connections>
+                                        </button>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kQr-of-0kc" userLabel="Filter Desc">
+                                            <rect key="frame" x="63" y="85" width="298" height="50"/>
+                                            <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Completely eliminates unwanted frequencies" id="sQP-fn-Bcr">
+                                                <font key="font" size="13" name="CenturyGothic"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <box fixedFrame="YES" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="u8a-sR-ENw" userLabel="Controls Box">
+                                            <rect key="frame" x="57" y="1" width="306" height="66"/>
+                                            <view key="contentView" ambiguous="YES" id="Sew-df-aAW">
+                                                <rect key="frame" x="1" y="1" width="304" height="64"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E3u-TZ-Qnb" userLabel="High pass slider">
+                                                        <rect key="frame" x="25" y="20" width="115" height="15"/>
+                                                        <shadow key="shadow" blurRadius="1">
+                                                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </shadow>
+                                                        <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" minValue="10" maxValue="20000" doubleValue="10" tickMarkPosition="above" sliderType="linear" id="jFi-AG-Ert" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                        <connections>
+                                                            <action selector="filterHighPassAction:" target="Voe-Tx-rLC" id="XoH-lL-ErM"/>
+                                                        </connections>
+                                                    </slider>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hR3-mw-BHf">
+                                                        <rect key="frame" x="54" y="38" width="104" height="19"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="High pass" id="1ux-44-0gO">
+                                                            <font key="font" size="12" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Snr-AS-UIT" userLabel="Low pass slider">
+                                                        <rect key="frame" x="170" y="20" width="115" height="15"/>
+                                                        <shadow key="shadow" blurRadius="1">
+                                                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </shadow>
+                                                        <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" minValue="10" maxValue="20000" doubleValue="20000" tickMarkPosition="above" sliderType="linear" id="4vQ-MC-jWu" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                        <connections>
+                                                            <action selector="filterLowPassAction:" target="Voe-Tx-rLC" id="reG-d5-a0W"/>
+                                                        </connections>
+                                                    </slider>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rul-5B-yEN" userLabel="Low pass">
+                                                        <rect key="frame" x="199" y="38" width="104" height="19"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Low pass" id="Mri-wM-3dG">
+                                                            <font key="font" size="12" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uwB-It-pcP" userLabel="HighPass 10Hz                             20KHz">
+                                                        <rect key="frame" x="21" y="9" width="134" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="10Hz                             20KHz" id="SPw-rY-hlY">
+                                                            <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jIT-XY-Boa" userLabel="LowPass 10Hz                             20KHz">
+                                                        <rect key="frame" x="166" y="9" width="134" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="10Hz                             20KHz" id="ICR-nS-k0Q">
+                                                            <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                            </view>
+                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </box>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -642,7 +1004,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <button toolTip="More track information" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Mb-en-nxS" userLabel="More Info Button">
+                                <button hidden="YES" toolTip="More track information" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Mb-en-nxS" userLabel="More Info Button">
                                     <rect key="frame" x="362" y="63" width="16" height="16"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MoreInfo" imagePosition="only" alignment="center" toolTip="More information about this track" imageScaling="proportionallyUpOrDown" inset="2" id="ZZn-7x-hTb">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -705,7 +1067,7 @@
                         <shadow key="shadow" blurRadius="1">
                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </shadow>
-                        <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="9dI-lu-F5h" customClass="VolumeSliderCell" customModule="Aural" customModuleProvider="target"/>
+                        <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="9dI-lu-F5h" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
                         <connections>
                             <action selector="volumeAction:" target="Voe-Tx-rLC" id="BN5-Uz-7hN"/>
                         </connections>
@@ -835,6 +1197,13 @@ G1BhbiBTbGlkZXI
                             <action selector="moveTrackDownAction:" target="Voe-Tx-rLC" id="cZJ-AR-tnk"/>
                         </connections>
                     </button>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S0y-Y6-ftc">
+                        <rect key="frame" x="238" y="289" width="48" height="48"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8Zm-Pt-ZIY">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
                 </subviews>
             </view>
             <userDefinedRuntimeAttributes>
@@ -842,7 +1211,7 @@ G1BhbiBTbGlkZXI
                     <color key="value" red="0.6470588235294118" green="0.6470588235294118" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="291.5" y="-5.5"/>
+            <point key="canvasLocation" x="294" y="-5.5"/>
         </window>
         <viewController id="THs-LC-lDb" customClass="PlaylistViewController" customModule="Aural" customModuleProvider="target"/>
         <menu title="Main Menu" systemMenu="main" id="Cnt-hZ-QmI">
@@ -866,6 +1235,19 @@ G1BhbiBTbGlkZXI
                 </menuItem>
             </items>
         </menu>
+        <slider verticalHuggingPriority="750" id="Pg7-aE-7Oh">
+            <rect key="frame" x="0.0" y="0.0" width="96" height="21"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="gUH-hc-qiK"/>
+        </slider>
+        <button id="eF1-en-8P0">
+            <rect key="frame" x="0.0" y="0.0" width="61" height="18"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="RhC-Ru-FZO">
+                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                <font key="font" metaFont="system"/>
+            </buttonCell>
+        </button>
     </objects>
     <resources>
         <image name="Add" width="129" height="129"/>
@@ -885,6 +1267,7 @@ G1BhbiBTbGlkZXI
         <image name="SeekBackward" width="239.37661743164062" height="239.37661743164062"/>
         <image name="SeekForward" width="239.37661743164062" height="239.37661743164062"/>
         <image name="ShuffleOff" width="256" height="256"/>
+        <image name="SwitchOff" width="185" height="512"/>
         <image name="Up" width="25.600000381469727" height="25.600000381469727"/>
         <image name="VolumeMedium" width="768" height="768"/>
     </resources>

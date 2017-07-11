@@ -6,12 +6,31 @@ import AVFoundation
 */
 class PlayerDefaults {
     
+    static let repeatMode: RepeatMode = .OFF
+    static let shuffleMode: ShuffleMode = .OFF
+    
     static let volume: Float = 0.5
     static let balance: Float = 0
     static let muted: Bool = false
-    static let pitch: Float = 0
-    static let reverbPreset: AVAudioUnitReverbPreset? = nil
-    static let reverbAmount: Float = 50
-    static let delayAmount: Float = 50
+    
     static let eqGlobalGain: Float = 0
+    static let eqBandGain: Float = 0
+    
+    static let pitchBypass: Bool = true
+    static let pitch: Float = 0
+    static let pitchOverlap: Float = 8
+    
+    static let reverbBypass: Bool = true
+    static let reverbPreset: ReverbPresets = .MediumHall
+    static let reverbAmount: Float = 50
+    
+    static let delayBypass: Bool = true
+    static let delayAmount: Float = 100
+    static let delayTime: Double = 1
+    static let delayFeedback: Float = 50
+    static let delayLowPassCutoff: Float = 15000
+
+    static let filterBypass: Bool = true
+    static let filterLowPassCutoff: Float = AppConstants.audibleRangeMax
+    static let filterHighPassCutoff: Float = AppConstants.audibleRangeMin
 }

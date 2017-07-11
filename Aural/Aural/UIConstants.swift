@@ -22,6 +22,9 @@ class UIConstants {
     
     static let imgShuffleOff: NSImage = NSImage(named: "ShuffleOff")!
     static let imgShuffleOn: NSImage = NSImage(named: "ShuffleOn")!
+
+    static let imgSwitchOff: NSImage = NSImage(named: "SwitchOff")!
+    static let imgSwitchOn: NSImage = NSImage(named: "SwitchOn")!
     
     static let imgMusicArt: NSImage = NSImage(named: "MusicArt")!
     

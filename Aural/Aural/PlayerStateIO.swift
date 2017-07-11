@@ -7,7 +7,7 @@ import AVFoundation
 
 class PlayerStateIO {
     
-    static let configFileName = "auralPlayer-state.json"
+    private static let configFileName = "auralPlayer-state.json"
     
     // Saves app config to default user documents directory
     static func save(state: SavedPlayerState) {

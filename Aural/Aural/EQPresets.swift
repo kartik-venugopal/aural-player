@@ -4,7 +4,7 @@ import Foundation
 enum EQPresets {
     
     case Flat // default
-    case HighBassHighTreble
+    case HighBassAndTreble
 //    case HighBass
 //    case Classical
     case Soft
@@ -14,7 +14,7 @@ enum EQPresets {
         switch self {
             
         case Flat: return "Flat"
-        case HighBassHighTreble: return "High bass, high treble"
+        case HighBassAndTreble: return "High bass and treble"
         case Soft: return "Soft"
             
         }
@@ -25,7 +25,7 @@ enum EQPresets {
         switch self {
             
         case Flat: return flatBands
-        case HighBassHighTreble: return highBassHighTrebleBands
+        case HighBassAndTreble: return highBassAndTrebleBands
         case Soft: return softBands
             
         }
@@ -43,7 +43,7 @@ enum EQPresets {
         return bands
     }
     
-    private var highBassHighTrebleBands: [Int: Float] {
+    private var highBassAndTrebleBands: [Int: Float] {
         
         var bands = [Int: Float]()
         

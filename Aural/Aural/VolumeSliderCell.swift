@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class VolumeSliderCell: NSSliderCell {
+class HorizontalSliderCell: NSSliderCell {
     
     override internal func drawKnob(knobRect: NSRect) {
         

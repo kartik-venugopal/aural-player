@@ -355,6 +355,10 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         player.setEQBands(bands)
     }
     
+    func togglePitchBypass() -> Bool {
+        return player.togglePitchBypass()
+    }
+    
     func setPitch(pitch: Float) {
         // Convert from octaves (-2, 2) to cents (-2400, 2400)
         player.setPitch(pitch * 1200)
@@ -364,17 +368,48 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         player.setPitchOverlap(overlap)
     }
     
+    func toggleReverbBypass() -> Bool {
+        return player.toggleReverbBypass()
+    }
+    
     func setReverb(preset: ReverbPresets) {
         player.setReverb(preset)
     }
     
     func setReverbAmount(amount: Float) {
-        player.setReverbAmount(amount)
+        return player.setReverbAmount(amount)
     }
     
-    // Sets the delay (echo) amount, specified as a value between 0 (dry) and 100 (wet)
+    func toggleDelayBypass() -> Bool {
+        return player.toggleDelayBypass()
+    }
+    
     func setDelayAmount(amount: Float) {
         player.setDelayAmount(amount)
+    }
+    
+    func setDelayTime(time: Double) {
+        player.setDelayTime(time)
+    }
+    
+    func setDelayFeedback(percent: Float) {
+        player.setDelayFeedback(percent)
+    }
+    
+    func setDelayLowPassCutoff(cutoff: Float) {
+        player.setDelayLowPassCutoff(cutoff)
+    }
+    
+    func toggleFilterBypass() -> Bool {
+        return player.toggleFilterBypass()
+    }
+    
+    func setFilterHighPassCutoff(cutoff: Float) {
+        player.setFilterHighPassCutoff(cutoff)
+    }
+    
+    func setFilterLowPassCutoff(cutoff: Float) {
+        player.setFilterLowPassCutoff(cutoff)
     }
     
     // Playback completed

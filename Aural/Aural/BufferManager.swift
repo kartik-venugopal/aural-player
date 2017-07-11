@@ -28,7 +28,7 @@ class BufferManager {
     
     // Start track playback from the beginning
     func play(avFile: AVAudioFile) {
-        startPlaybackFromFrame(avFile, frame: 0)
+        startPlaybackFromFrame(avFile, frame: BufferManager.FRAME_ZERO)
     }
     
     // Starts track playback from a given frame position

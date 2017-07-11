@@ -9,35 +9,33 @@ class SavedPlayerState {
     // Set defaults so that, if the config file cannot be found/loaded, UI can
     // use defaults
     
-    // Range: -20 to 20
-    var eqGlobalGain: Float = 0
+    var repeatMode: RepeatMode = PlayerDefaults.repeatMode
+    var shuffleMode: ShuffleMode = PlayerDefaults.shuffleMode
     
-    // Freq -> Gain
-    // Gain range: -20 to 20
-    var eqBands: [Int: Float] = [Int: Float]()
+    var volume: Float = PlayerDefaults.volume
+    var muted: Bool = PlayerDefaults.muted
+    var balance: Float = PlayerDefaults.balance
     
-    // Range: -2400 to 2400
-    var pitch: Float = 0
+    var eqGlobalGain: Float = PlayerDefaults.eqGlobalGain
+    var eqBands: [Int: Float] = [Int: Float]() // Freq -> Gain
     
-    // Range: 3 to 32
-    var pitchOverlap: Float = 3
+    var pitchBypass: Bool = PlayerDefaults.pitchBypass
+    var pitch: Float = PlayerDefaults.pitch
+    var pitchOverlap: Float = PlayerDefaults.pitchOverlap
     
-    var reverb: ReverbPresets = ReverbPresets.None
+    var reverbBypass: Bool = PlayerDefaults.reverbBypass
+    var reverbPreset: ReverbPresets = PlayerDefaults.reverbPreset
+    var reverbAmount: Float = PlayerDefaults.reverbAmount
     
-    // Range: 0 to 100
-    var reverbAmount: Float = 0
-    
-    // Range: 0 to 1
-    var volume: Float = 0.5
-    
-    var muted: Bool = false
-    
-    // (Pan) Range: -1 (L) to 1 (R)
-    var balance: Float = 0
-    
-    var repeatMode: RepeatMode = .OFF
-    
-    var shuffleMode: ShuffleMode = .OFF
+    var delayBypass: Bool = PlayerDefaults.delayBypass
+    var delayAmount: Float = PlayerDefaults.delayAmount
+    var delayTime: Double = PlayerDefaults.delayTime
+    var delayFeedback: Float = PlayerDefaults.delayFeedback
+    var delayLowPassCutoff: Float = PlayerDefaults.delayLowPassCutoff
+
+    var filterBypass: Bool = PlayerDefaults.filterBypass
+    var filterLowPassCutoff: Float = PlayerDefaults.filterLowPassCutoff
+    var filterHighPassCutoff: Float = PlayerDefaults.filterHighPassCutoff
     
     // List of track file paths
     var playlist: [String] = [String]()
@@ -48,7 +46,7 @@ class SavedPlayerState {
         
         // Freqs are powers of 2, starting with 2^5=32 ... 2^14=16k
         for i in 5...14 {
-            eqBands[Int(pow(2.0, Double(i)))] = 0
+            eqBands[Int(pow(2.0, Double(i)))] = PlayerDefaults.eqBandGain
         }
     }
     
@@ -56,6 +54,13 @@ class SavedPlayerState {
     func forWritingAsJSON() -> NSDictionary {
         
         var dict = [NSString: AnyObject]()
+        
+        dict["repeatMode"] = repeatMode.toString
+        dict["shuffleMode"] = shuffleMode.toString
+        
+        dict["volume"] = volume as NSNumber
+        dict["muted"] = String(muted)
+        dict["balance"] = balance as NSNumber
         
         dict["eqGlobalGain"] = eqGlobalGain as NSNumber
         
@@ -65,18 +70,31 @@ class SavedPlayerState {
         }
         dict["eqBands"] = eqBandsDict
         
-        dict["pitch"] = pitch as NSNumber
-        dict["pitchOverlap"] = pitchOverlap as NSNumber
+        var pitchDict = [NSString: AnyObject]()
+        pitchDict["bypass"] = String(pitchBypass)
+        pitchDict["pitch"] = pitch as NSNumber
+        pitchDict["overlap"] = pitchOverlap as NSNumber
+        dict["pitch"] = pitchDict
         
-        dict["reverbPreset"] = reverb.toString
-        dict["reverbAmount"] = reverbAmount as NSNumber
+        var reverbDict = [NSString: AnyObject]()
+        reverbDict["bypass"] = String(reverbBypass)
+        reverbDict["preset"] = reverbPreset.toString
+        reverbDict["amount"] = reverbAmount as NSNumber
+        dict["reverb"] = reverbDict
         
-        dict["volume"] = volume as NSNumber
-        dict["muted"] = String(muted)
-        dict["balance"] = balance as NSNumber
+        var delayDict = [NSString: AnyObject]()
+        delayDict["bypass"] = String(delayBypass)
+        delayDict["amount"] = delayAmount as NSNumber
+        delayDict["time"] = delayTime as NSNumber
+        delayDict["feedback"] = delayFeedback as NSNumber
+        delayDict["lowPassCutoff"] = delayLowPassCutoff as NSNumber
+        dict["delay"] = delayDict
         
-        dict["repeatMode"] = repeatMode.toString
-        dict["shuffleMode"] = shuffleMode.toString
+        var filterDict = [NSString: AnyObject]()
+        filterDict["bypass"] = String(filterBypass)
+        filterDict["highPassCutoff"] = filterHighPassCutoff as NSNumber
+        filterDict["lowPassCutoff"] = filterLowPassCutoff as NSNumber
+        dict["filter"] = filterDict
         
         dict["playlist"] = NSArray(array: playlist)
         
@@ -88,6 +106,13 @@ class SavedPlayerState {
         
         let state = SavedPlayerState()
         
+        state.repeatMode = RepeatMode.fromString(jsonObject["repeatMode"] as! String)
+        state.shuffleMode = ShuffleMode.fromString(jsonObject["shuffleMode"] as! String)
+        
+        state.volume = (jsonObject["volume"] as! NSNumber).floatValue
+        state.muted = (jsonObject["muted"] as! NSString).boolValue
+        state.balance = (jsonObject["balance"] as! NSNumber).floatValue
+        
         state.eqGlobalGain = (jsonObject["eqGlobalGain"] as! NSNumber).floatValue
         
         let eqBands: NSDictionary = jsonObject["eqBands"] as! NSDictionary
@@ -96,18 +121,27 @@ class SavedPlayerState {
             state.eqBands[freqInt!] = (gain as! NSNumber).floatValue
         }
         
-        state.volume = (jsonObject["volume"] as! NSNumber).floatValue
-        state.muted = (jsonObject["muted"] as! NSString).boolValue
-        state.balance = (jsonObject["balance"] as! NSNumber).floatValue
+        let pitchDict = (jsonObject["pitch"] as! NSDictionary)
+        state.pitchBypass = (pitchDict["bypass"] as! NSString).boolValue
+        state.pitch = (pitchDict["pitch"] as! NSNumber).floatValue
+        state.pitchOverlap = (pitchDict["overlap"] as! NSNumber).floatValue
+
+        let reverbDict = (jsonObject["reverb"] as! NSDictionary)
+        state.reverbBypass = (reverbDict["bypass"] as! NSString).boolValue
+        state.reverbPreset = ReverbPresets.fromString(reverbDict["preset"] as! String)
+        state.reverbAmount = (reverbDict["amount"] as! NSNumber).floatValue
         
-        state.pitch = (jsonObject["pitch"] as! NSNumber).floatValue
-        state.pitchOverlap = (jsonObject["pitchOverlap"] as! NSNumber).floatValue
+        let delayDict = (jsonObject["delay"] as! NSDictionary)
+        state.delayBypass = (delayDict["bypass"] as! NSString).boolValue
+        state.delayAmount = (delayDict["amount"] as! NSNumber).floatValue
+        state.delayTime = (delayDict["time"] as! NSNumber).doubleValue
+        state.delayFeedback = (delayDict["feedback"] as! NSNumber).floatValue
+        state.delayLowPassCutoff = (delayDict["lowPassCutoff"] as! NSNumber).floatValue
         
-        state.reverb = ReverbPresets.fromString(jsonObject["reverbPreset"] as! String)
-        state.reverbAmount = (jsonObject["reverbAmount"] as! NSNumber).floatValue
-        
-        state.repeatMode = RepeatMode.fromString(jsonObject["repeatMode"] as! String)
-        state.shuffleMode = ShuffleMode.fromString(jsonObject["shuffleMode"] as! String)
+        let filterDict = (jsonObject["filter"] as! NSDictionary)
+        state.filterBypass = (filterDict["bypass"] as! NSString).boolValue
+        state.filterHighPassCutoff = (filterDict["highPassCutoff"] as! NSNumber).floatValue
+        state.filterLowPassCutoff = (filterDict["lowPassCutoff"] as! NSNumber).floatValue
         
         state.playlist = jsonObject["playlist"] as! [String]
         

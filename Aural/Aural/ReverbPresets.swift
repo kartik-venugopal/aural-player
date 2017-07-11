@@ -25,10 +25,8 @@ enum ReverbPresets {
     
     case Plate
     
-    case None
-    
-    // Maps a ReverbPresets to a AVAudioUnitReverbPreset (nil if preset is .NONE)
-    var avPreset: AVAudioUnitReverbPreset? {
+    // Maps a ReverbPresets to a AVAudioUnitReverbPreset
+    var avPreset: AVAudioUnitReverbPreset {
         
         switch self {
             
@@ -44,7 +42,6 @@ enum ReverbPresets {
             
         case .Cathedral: return AVAudioUnitReverbPreset.Cathedral
         case .Plate: return AVAudioUnitReverbPreset.Plate
-        case .None: return nil
             
         }
     }
@@ -66,7 +63,6 @@ enum ReverbPresets {
             
         case .Cathedral: return "Cathedral"
         case .Plate: return "Plate"
-        case .None: return "None"
             
         }
     }
@@ -88,19 +84,13 @@ enum ReverbPresets {
             
         case .Cathedral: return "Cathedral"
         case .Plate: return "Plate"
-        case .None: return "None"
             
         }
     }
     
-    static func mapFromAVPreset(preset: AVAudioUnitReverbPreset?) -> ReverbPresets {
+    static func mapFromAVPreset(preset: AVAudioUnitReverbPreset) -> ReverbPresets {
         
-        if (preset == nil) {
-            return .None
-        }
-        
-        let _preset = preset!
-        switch _preset {
+        switch preset {
             
         case AVAudioUnitReverbPreset.SmallRoom: return ReverbPresets.SmallRoom
         case AVAudioUnitReverbPreset.MediumRoom: return ReverbPresets.MediumRoom
@@ -114,16 +104,15 @@ enum ReverbPresets {
             
         case AVAudioUnitReverbPreset.Cathedral: return ReverbPresets.Cathedral
         case AVAudioUnitReverbPreset.Plate: return ReverbPresets.Plate
-        default: return .None
             
+        // This should never happen
+        default: return ReverbPresets.SmallRoom
         }
     }
     
     static func fromString(string: String) -> ReverbPresets {
         
         switch string {
-            
-        case "None": return .None
             
         case "SmallRoom": return .SmallRoom
         case "MediumRoom": return .MediumRoom
@@ -137,8 +126,9 @@ enum ReverbPresets {
             
         case "Cathedral": return .Cathedral
         case "Plate": return .Plate
-        default: return .None
-            
+     
+        // This should never happen
+        default: return .SmallRoom
         }
     }
 }

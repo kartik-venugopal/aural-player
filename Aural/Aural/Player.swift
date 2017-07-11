@@ -1,5 +1,5 @@
 /*
-Wrapper around AVAudioEngine. Handles all audio-related operations ... playback, effects (DSP), etc. Receives calls from AppDelegate to modify settings and perform playback.
+Wrapper around AVAudioEngine. Handles all audio-related operations ... playback, effects (DSP), etc. Receives calls from PlayerDelegate to modify settings and perform playback.
 */
 
 import Cocoa
@@ -20,12 +20,13 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
     // Used for conversions of sample rates / channel counts
     private let auxMixer: AVAudioMixerNode
     
-    private let eqNode: AVAudioUnitEQ
+    private let eqNode: ParametricEQNode
     private let timePitchNode: AVAudioUnitTimePitch
     private let reverbNode: AVAudioUnitReverb
+    private let filterNode: FilterNode
     
     // TODO
-//    private let delayNode: AVAudioUnitDelay
+    private let delayNode: AVAudioUnitDelay
 //    private let distortionNode: AVAudioUnitDistortion
     
     // Helper
@@ -34,7 +35,7 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
     // Sound setting value holders
     private var playerVolume: Float
     private var muted: Bool
-    private var reverbPreset: AVAudioUnitReverbPreset?
+    private var reverbPreset: AVAudioUnitReverbPreset
     
     private var bufferManager: BufferManager
     
@@ -48,37 +49,29 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
     private init() {
         
         playerNode = AVAudioPlayerNode()
-        playerNode.volume = PlayerDefaults.volume
-        playerNode.pan = PlayerDefaults.balance
-        playerVolume = playerNode.volume
-        
+
+        playerVolume = PlayerDefaults.volume
         muted = PlayerDefaults.muted
+        reverbPreset = PlayerDefaults.reverbPreset.avPreset
         
         audioEngine = AVAudioEngine()
         mainMixer = audioEngine.mainMixerNode
-        eqNode = AVAudioUnitEQ(numberOfBands: 10)
+        eqNode = ParametricEQNode()
         timePitchNode = AVAudioUnitTimePitch()
         reverbNode = AVAudioUnitReverb()
+        delayNode = AVAudioUnitDelay()
+        filterNode = FilterNode()
         auxMixer = AVAudioMixerNode()
-        
-        //        delayNode = AVAudioUnitDelay()
-        //        distortionNode = AVAudioUnitDistortion()
-        
-        timePitchNode.pitch = PlayerDefaults.pitch
-        reverbPreset = PlayerDefaults.reverbPreset
-        reverbNode.wetDryMix = PlayerDefaults.reverbAmount
-        reverbNode.bypass = true
-        eqNode.globalGain = PlayerDefaults.eqGlobalGain
-        
-//        delayNode.wetDryMix = PlayerDefaults.delayAmount
         
         audioEngineHelper = AudioEngineHelper(engine: audioEngine)
         
-        audioEngineHelper.addNodes([playerNode, auxMixer, eqNode, timePitchNode, reverbNode])
+        audioEngineHelper.addNodes([playerNode, auxMixer, eqNode, filterNode, timePitchNode, reverbNode, delayNode])
         audioEngineHelper.connectNodes()
         audioEngineHelper.prepareAndStart()
         
         bufferManager = BufferManager(playerNode: playerNode)
+        
+        loadPlayerState(SavedPlayerState.defaults)
         
         // Register self as a publisher of playback completion events
         EventRegistry.registerPublisher(.PlaybackCompleted, publisher: self)
@@ -88,26 +81,34 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
         
         playerVolume = state.volume
         muted = state.muted
-        
-        if (muted) {
-            playerNode.volume = 0
-        } else {
-            playerNode.volume = playerVolume
-        }
-        
+        playerNode.volume = muted ? 0 : playerVolume
         playerNode.pan = state.balance
         
-        setPitch(state.pitch)
-        setPitchOverlap(state.pitchOverlap)
-        
-        setReverb(state.reverb)
-        setReverbAmount(state.reverbAmount)
-        
-        var ctr = 0
-        for (freq,gain) in state.eqBands {
-            setEQParam(eqNode.bands[ctr++], freq: Float(freq), gain: gain)
-        }
+        // EQ
+        eqNode.setBands(state.eqBands)
         eqNode.globalGain = state.eqGlobalGain
+        
+        // Pitch
+        timePitchNode.bypass = state.pitchBypass
+        timePitchNode.pitch = state.pitch
+        timePitchNode.overlap = state.pitchOverlap
+        
+        // Reverb
+        reverbNode.bypass = state.reverbBypass
+        setReverb(state.reverbPreset)
+        reverbNode.wetDryMix = state.reverbAmount
+        
+        // Delay
+        delayNode.bypass = state.delayBypass
+        delayNode.wetDryMix = state.delayAmount
+        delayNode.delayTime = state.delayTime
+        delayNode.feedback = state.delayFeedback
+        delayNode.lowPassCutoff = state.delayLowPassCutoff
+        
+        // Filter
+        filterNode.bypass = state.filterBypass
+        filterNode.highPassBand.frequency = state.filterHighPassCutoff
+        filterNode.lowPassBand.frequency = state.filterLowPassCutoff
     }
     
     // Prepares the player to play a given track
@@ -200,53 +201,22 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
         playerNode.pan = balance
     }
     
-    // Helper function to set parameters of an EQ band
-    private func setEQParam(band: AVAudioUnitEQFilterParameters, freq: Float, gain: Float) {
-        
-        band.frequency = freq
-        band.gain = gain
-        
-        // Constant
-        band.bypass = false
-        band.filterType = AVAudioUnitEQFilterType.Parametric
-        band.bandwidth = 0.5
-    }
-    
     func setEQGlobalGain(gain: Float) {
         eqNode.globalGain = gain
     }
     
     func setEQBand(freq: Int , gain: Float) {
-        getEQBandParamsForFrequency(freq)!.gain = gain
+        eqNode.setBand(Float(freq), gain: gain)
     }
     
     func setEQBands(bands: [Int: Float]) {
-        for (freq, gain) in bands {
-            getEQBandParamsForFrequency(freq)!.gain = gain
-        }
+        eqNode.setBands(bands)
     }
     
-    // Helper function to retrieve EQ band params for a given frequency
-    private func getEQBandParamsForFrequency(freq: Int) -> AVAudioUnitEQFilterParameters? {
-        
-        for band in eqNode.bands {
-            if Int(band.frequency) == freq {
-                return band
-            }
-        }
-        
-        return nil
-    }
-    
-    func getEQBandForFrequency(freq: Int) -> Float {
-        
-        for band in eqNode.bands {
-            if Int(band.frequency) == freq {
-                return band.gain
-            }
-        }
-        
-        return 0
+    func togglePitchBypass() -> Bool {
+        let newState = !timePitchNode.bypass
+        timePitchNode.bypass = newState
+        return newState
     }
     
     func setPitch(pitch: Float) {
@@ -257,25 +227,61 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
         timePitchNode.overlap = overlap
     }
     
+    func toggleReverbBypass() -> Bool {
+        let newState = !reverbNode.bypass
+        reverbNode.bypass = newState
+        return newState
+    }
+    
     func setReverb(preset: ReverbPresets) {
         
-        let avPreset: AVAudioUnitReverbPreset? = preset.avPreset
+        let avPreset: AVAudioUnitReverbPreset = preset.avPreset
         reverbPreset = avPreset
-        
-        if (avPreset != nil) {
-            reverbNode.bypass = false
-            reverbNode.loadFactoryPreset(reverbPreset!)
-        } else {
-            reverbNode.bypass = true
-        }
+        reverbNode.loadFactoryPreset(reverbPreset)
     }
     
     func setReverbAmount(amount: Float) {
         reverbNode.wetDryMix = amount
     }
     
+    func toggleDelayBypass() -> Bool {
+        let newState = !delayNode.bypass
+        delayNode.bypass = newState
+        return newState
+    }
+    
     func setDelayAmount(amount: Float) {
-        // Not implemented, for now
+        delayNode.wetDryMix = amount
+        print("mix=" + String(delayNode.wetDryMix))
+    }
+    
+    func setDelayTime(time: Double) {
+        delayNode.delayTime = time
+        print("time=" + String(delayNode.delayTime))
+    }
+    
+    func setDelayFeedback(percent: Float) {
+        delayNode.feedback = percent
+        print("fb=" + String(delayNode.feedback))
+    }
+    
+    func setDelayLowPassCutoff(cutoff: Float) {
+        delayNode.lowPassCutoff = cutoff
+        print("lpco=" + String(delayNode.lowPassCutoff))
+    }
+    
+    func toggleFilterBypass() -> Bool {
+        let newState = !filterNode.bypass
+        filterNode.bypass = newState
+        return newState
+    }
+    
+    func setFilterHighPassCutoff(cutoff: Float) {
+        filterNode.highPassBand.frequency = cutoff
+    }
+    
+    func setFilterLowPassCutoff(cutoff: Float) {
+        filterNode.lowPassBand.frequency = cutoff
     }
     
     func stop() {
@@ -315,23 +321,38 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
         
         let state: SavedPlayerState = SavedPlayerState()
         
-        // Read volume, pan (balance), and repeat and shuffle modes
+        // Volume and pan (balance)
         state.volume = playerVolume
         state.muted = muted
         state.balance = playerNode.pan
         
-        // Read eq bands
+        // EQ
         for band in eqNode.bands {
             state.eqBands[Int(band.frequency)] = band.gain
         }
         state.eqGlobalGain = eqNode.globalGain
         
-        // Pitch and reverb
+        // Pitch
+        state.pitchBypass = timePitchNode.bypass
         state.pitch = timePitchNode.pitch
         state.pitchOverlap = timePitchNode.overlap
         
-        state.reverb = ReverbPresets.mapFromAVPreset(reverbPreset)
+        // Reverb
+        state.reverbBypass = reverbNode.bypass
+        state.reverbPreset = ReverbPresets.mapFromAVPreset(reverbPreset)
         state.reverbAmount = reverbNode.wetDryMix
+        
+        // Delay
+        state.delayBypass = delayNode.bypass
+        state.delayAmount = delayNode.wetDryMix
+        state.delayTime = delayNode.delayTime
+        state.delayFeedback = delayNode.feedback
+        state.delayLowPassCutoff = delayNode.lowPassCutoff
+        
+        // Filter
+        state.filterBypass = filterNode.bypass
+        state.filterLowPassCutoff = filterNode.lowPassBand.frequency
+        state.filterHighPassCutoff = filterNode.highPassBand.frequency
         
         return state
     }
