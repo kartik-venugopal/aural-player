@@ -162,17 +162,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         }
         
         eqGlobalGainSlider.floatValue = playerState.eqGlobalGain
-        
-        eqSlider32.floatValue = playerState.eqBands[32]!
-        eqSlider64.floatValue = playerState.eqBands[64]!
-        eqSlider128.floatValue = playerState.eqBands[128]!
-        eqSlider256.floatValue = playerState.eqBands[256]!
-        eqSlider512.floatValue = playerState.eqBands[512]!
-        eqSlider1k.floatValue = playerState.eqBands[1024]!
-        eqSlider2k.floatValue = playerState.eqBands[2048]!
-        eqSlider4k.floatValue = playerState.eqBands[4096]!
-        eqSlider8k.floatValue = playerState.eqBands[8192]!
-        eqSlider16k.floatValue = playerState.eqBands[16384]!
+        updateEQSliders(playerState.eqBands)
         
         btnPitchBypass.image = playerState.pitchBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         pitchSlider.floatValue = playerState.pitch / 1200
@@ -203,6 +193,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         fxTabView.selectFirstTabViewItem(self)
         
         playlistView.reloadData()
+    }
+    
+    private func updateEQSliders(eqBands: [Int: Float]) {
+        
+        eqSlider32.floatValue = eqBands[32]!
+        eqSlider64.floatValue = eqBands[64]!
+        eqSlider128.floatValue = eqBands[128]!
+        eqSlider256.floatValue = eqBands[256]!
+        eqSlider512.floatValue = eqBands[512]!
+        eqSlider1k.floatValue = eqBands[1024]!
+        eqSlider2k.floatValue = eqBands[2048]!
+        eqSlider4k.floatValue = eqBands[4096]!
+        eqSlider8k.floatValue = eqBands[8192]!
+        eqSlider16k.floatValue = eqBands[16384]!
     }
     
     func tearDown() {
@@ -546,35 +550,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     
     @IBAction func eqPresetsAction(sender: AnyObject) {
         
-        var eqBands: [Int: Float] = [Int: Float]()
-        
         // TODO: Change this lookup to o(1) instead of o(n) ... HashMap !
+        let preset = EQPresets.fromDescription((eqPresets.selectedItem?.title)!)
         
-        if (eqPresets.selectedItem?.title == EQPresets.Flat.description) {
-            eqBands = EQPresets.Flat.bands
-        }
-        
-        if (eqPresets.selectedItem?.title == EQPresets.Soft.description) {
-            eqBands = EQPresets.Soft.bands
-        }
-        
-        if (eqPresets.selectedItem?.title == EQPresets.HighBassAndTreble.description) {
-            eqBands = EQPresets.HighBassAndTreble.bands
-        }
-        
+        let eqBands: [Int: Float] = preset.bands
         player.setEQBands(eqBands)
-        
-        // Update sliders
-        eqSlider32.floatValue = eqBands[32]!
-        eqSlider64.floatValue = eqBands[64]!
-        eqSlider128.floatValue = eqBands[128]!
-        eqSlider256.floatValue = eqBands[256]!
-        eqSlider512.floatValue = eqBands[512]!
-        eqSlider1k.floatValue = eqBands[1024]!
-        eqSlider2k.floatValue = eqBands[2048]!
-        eqSlider4k.floatValue = eqBands[4096]!
-        eqSlider8k.floatValue = eqBands[8192]!
-        eqSlider16k.floatValue = eqBands[16384]!
+        updateEQSliders(eqBands)
         
         eqPresets.selectItemAtIndex(-1)
     }
@@ -651,26 +632,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     
     @IBAction func reverbAction(sender: AnyObject) {
         
-        var preset: ReverbPresets
-        
-        switch reverbMenu.selectedItem?.title {
-            
-        case ReverbPresets.SmallRoom.description?: preset = .SmallRoom
-        case ReverbPresets.MediumRoom.description?: preset = .MediumRoom
-        case ReverbPresets.LargeRoom.description?: preset = .LargeRoom
-
-        case ReverbPresets.MediumChamber.description?: preset = .MediumChamber
-        case ReverbPresets.LargeChamber.description?: preset = .LargeChamber
-        
-        case ReverbPresets.MediumHall.description?: preset = .MediumHall
-        case ReverbPresets.LargeHall.description?: preset = .LargeHall
-            
-        case ReverbPresets.Cathedral.description?: preset = .Cathedral
-        case ReverbPresets.Plate.description?: preset = .Plate
-            
-        // This should never happen
-        default: preset = .SmallRoom
-        }
+        let preset: ReverbPresets = ReverbPresets.fromDescription((reverbMenu.selectedItem?.title)!)
         
         player.setReverb(preset)
     }

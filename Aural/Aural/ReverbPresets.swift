@@ -131,4 +131,30 @@ enum ReverbPresets {
         default: return .SmallRoom
         }
     }
+    
+    static func fromDescription(description: String) -> ReverbPresets {
+        
+        var preset: ReverbPresets
+        
+        switch description {
+            
+        case SmallRoom.description: preset = .SmallRoom
+        case MediumRoom.description: preset = .MediumRoom
+        case LargeRoom.description: preset = .LargeRoom
+            
+        case MediumChamber.description: preset = .MediumChamber
+        case LargeChamber.description: preset = .LargeChamber
+            
+        case MediumHall.description: preset = .MediumHall
+        case LargeHall.description: preset = .LargeHall
+            
+        case Cathedral.description: preset = .Cathedral
+        case Plate.description: preset = .Plate
+            
+            // This should never happen
+        default: preset = .SmallRoom
+        }
+        
+        return preset
+    }
 }

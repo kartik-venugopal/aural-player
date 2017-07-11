@@ -96,7 +96,7 @@
                         <font key="font" size="11" name="CenturyGothic-Bold"/>
                         <tabViewItems>
                             <tabViewItem label="EQ" identifier="1" id="McD-gg-qp9" userLabel="EQ">
-                                <view key="view" id="vC5-27-GiC">
+                                <view key="view" ambiguous="YES" id="vC5-27-GiC">
                                     <rect key="frame" x="10" y="33" width="376" height="140"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -144,7 +144,7 @@
                                         </textField>
                                         <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hG3-Ir-qkY" userLabel="EQ Presets Menu">
                                             <rect key="frame" x="268" y="-2" width="106" height="22"/>
-                                            <popUpButtonCell key="cell" type="disclosure" title="High bass and treble" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" altersStateOfSelectedItem="NO" selectedItem="nOb-eq-8jY" id="fct-Jo-Wiy" customClass="EQPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                                            <popUpButtonCell key="cell" type="disclosure" title="Vocal" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" altersStateOfSelectedItem="NO" selectedItem="z8X-aR-fwU" id="fct-Jo-Wiy" customClass="EQPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" size="10" name="CenturyGothic"/>
                                                 <menu key="menu" showsStateColumn="NO" id="N5y-An-5RH">
@@ -153,6 +153,12 @@
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
                                                         <menuItem title="Soft" id="VSH-Aj-pmk">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Karaoke" id="qDz-Fb-0u8">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Vocal" id="z8X-aR-fwU">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
                                                         <menuItem title="High bass and treble" id="nOb-eq-8jY">
@@ -685,7 +691,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Filter" identifier="" id="wCL-UO-nMJ">
-                                <view key="view" ambiguous="YES" id="eRG-iQ-ZQv">
+                                <view key="view" id="eRG-iQ-ZQv">
                                     <rect key="frame" x="10" y="33" width="376" height="140"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
