@@ -91,7 +91,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         }()
     
     // PlayerDelegate accepts all requests originating from the UI
-    var player: PlayerDelegate = PlayerDelegate.instance()
+    let player: PlayerDelegate = PlayerDelegate.instance()
     
     // Timer that periodically updates the seek bar
     var seekTimer: ScheduledTaskExecutor? = nil
