@@ -91,13 +91,10 @@ class ScheduledTaskExecutor {
         stopped = true
         if (timer != nil) {
             dispatch_source_cancel(timer!)
-            print("\nCancelled")
             
             while (dispatch_source_testcancel(timer!) == 0) {
                 // Wait for timer to be cancelled
-                print("\tWaiting ...")
             }
-            print("\tDone waiting ! Cancelation complete !")
         }
     }
     

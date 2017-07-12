@@ -69,19 +69,48 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
             
             for file in files {
                 
-                let ext = file.pathExtension!
-                
-                if (ext == "apl") {
-                    // Playlist
-                    PlaylistIO.loadPlaylist(file)
-                    
+                if (Utils.isDirectory(file)) {
+                    addTracksFromDir(file)
                 } else {
-                    // Track
-                    if (!playlist.trackExists(file.path!)) {
-                        playlist.addTrack(file)
-                    }
+                    addSingleTrack(file)
                 }
             }
+        }
+    }
+    
+    private func addSingleTrack(file: NSURL) {
+        
+        let fileExtension = file.pathExtension!.lowercaseString
+        
+        if (fileExtension == AppConstants.customPlaylistExtension) {
+            // Playlist
+            PlaylistIO.loadPlaylist(file)
+            
+        } else if (AppConstants.supportedAudioFileTypes.contains(fileExtension)) {
+            // Track
+            if (!playlist.trackExists(file.path!)) {
+                playlist.addTrack(file)
+            }
+        } else {
+            // Unsupported file type, ignore
+            print("Ignoring unsupported file: " + file.path!)
+        }
+    }
+    
+    private func addTracksFromDir(dir: NSURL) {
+        
+        let fileManager: NSFileManager = NSFileManager.defaultManager()
+        
+        do {
+            
+        // Retrieve all files/subfolders within this folder
+        let files = try fileManager.contentsOfDirectoryAtURL(dir, includingPropertiesForKeys: [], options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
+            
+            // Add them
+            addTracks(files)
+            
+        } catch let error as NSError {
+            print(error.description)
         }
     }
     

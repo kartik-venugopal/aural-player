@@ -20,8 +20,7 @@ class UIElements {
         dialog.showsResizeIndicator    = true;
         dialog.showsHiddenFiles        = false;
         
-        // TODO: Allow this
-        dialog.canChooseDirectories    = false;
+        dialog.canChooseDirectories    = true;
         
         dialog.canCreateDirectories    = true;
         dialog.allowsMultipleSelection = true;

@@ -107,4 +107,12 @@ class Utils {
             NSCharacterSet.whitespaceAndNewlineCharacterSet()
         )
     }
+    
+    static func isDirectory(url: NSURL) -> Bool {
+        
+        var isDirectory: ObjCBool = ObjCBool(false)
+        NSFileManager.defaultManager().fileExistsAtPath(url.path!, isDirectory: &isDirectory)
+        
+        return isDirectory.boolValue
+    }
 }

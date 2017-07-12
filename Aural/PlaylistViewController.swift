@@ -26,4 +26,22 @@ class PlaylistViewController: NSViewController, NSTableViewDataSource, NSTableVi
         
         return view
     }
+    
+    // Drag n drop
+    func tableView(tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
+        
+        // No validation required here
+        return NSDragOperation.Copy;
+    }
+    
+    // Drag n drop
+    func tableView(tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
+        
+        let objects = info.draggingPasteboard().readObjectsForClasses([NSURL.classForArchiver()!], options: nil)
+        
+        let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.addTracks(objects! as! [NSURL])
+        
+        return true
+    }
 }

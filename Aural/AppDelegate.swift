@@ -137,6 +137,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         
         // Set up a mouse listener (for double clicks -> play selected track)
         playlistView.doubleAction = Selector("playlistDoubleClickAction:")
+        
+        // Enable drag n drop into the playlist view
+        playlistView.registerForDraggedTypes([String(kUTTypeFileURL)])
     }
     
     func initStatefulUI(playerState: SavedPlayerState) {
@@ -224,10 +227,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         modalDialogOpen = false
         
         if (modalResponse == NSModalResponseOK) {
-            player.addTracks(dialog.URLs)
-            
-            // Refresh the playlist view with the new files
-            playlistView.reloadData()
+            addTracks(dialog.URLs)
         }
     }
     
@@ -730,5 +730,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         
         let _event = event as! TrackChangedEvent
         trackChange(_event.newTrack, newTrackIndex: _event.newTrackIndex)
+    }
+    
+    // Adds a set of files (or directories, i.e. files within them) to the current playlist, if supported
+    func addTracks(files: [NSURL]) {
+        
+        player.addTracks(files)
+        
+        // Refresh the playlist view with the new files
+        playlistView.reloadData()
     }
 }
