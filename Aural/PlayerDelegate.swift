@@ -38,11 +38,26 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
     }
     
     private init() {
+        
+        // TODO: This is a horribly ugly hack, should be in AppDelegate
+        PlayerDelegate.configureLogging()
+        
         player = Player.instance()
         loadPlayerState()
         
         // Register self as a subscriber to PlaybackCompleted events (published by Player)
         EventRegistry.subscribe(.PlaybackCompleted, subscriber: self)
+    }
+    
+    
+    // Make sure all logging is done to the app's log file
+    private static func configureLogging() {
+        
+        let allPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let documentsDirectory = allPaths.first!
+        let pathForLog = documentsDirectory.stringByAppendingString("/" + AppConstants.logFileName)
+        
+        freopen(pathForLog.cStringUsingEncoding(NSASCIIStringEncoding)!, "a+", stderr)
     }
     
     // Loads saved player state from app config file, and initializes the player with that state
@@ -93,7 +108,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
             }
         } else {
             // Unsupported file type, ignore
-            print("Ignoring unsupported file: " + file.path!)
+            NSLog("Ignoring unsupported file: %@", file.path!)
         }
     }
     
@@ -110,7 +125,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
             addTracks(files)
             
         } catch let error as NSError {
-            print(error.description)
+            NSLog("Error retrieving contents of directory '%@': %@", dir.path!, error.description)
         }
     }
     

@@ -62,7 +62,7 @@ class AudioEngineHelper {
         do {
             try audioEngine.start()
         } catch let error as NSError {
-            print(error.description)
+            NSLog("Error starting audio engine: %@", error.description)
         }
     }
 }

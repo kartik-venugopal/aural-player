@@ -37,7 +37,7 @@ class PlaylistIO {
             currentPlaylist.addPlaylist(playlist)
             
         } catch let error as NSError {
-            print(error.description)
+            NSLog("Error reading playlist file '%@': %@", file.path!, error.description)
         }
     }
 }

@@ -70,7 +70,7 @@ class BufferManager {
         do {
             try avFile.readIntoBuffer(buffer)
         } catch let error as NSError {
-            print(error.description)
+            NSLog("Error reading from audio file '%@': %@", avFile.debugDescription, error.description)
         }
         
         if (Int64(buffer.frameLength) >= BufferManager.MIN_PLAYBACK_FRAMES) {

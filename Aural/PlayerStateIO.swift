@@ -7,14 +7,12 @@ import AVFoundation
 
 class PlayerStateIO {
     
-    private static let configFileName = "auralPlayer-state.json"
-    
     // Saves app config to default user documents directory
     static func save(state: SavedPlayerState) {
         
         if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
             
-            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(configFileName)
+            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(AppConstants.stateFileName)
             
             let outputStream = NSOutputStream(URL: path, append: false)
             outputStream?.open()
@@ -30,7 +28,7 @@ class PlayerStateIO {
         
         if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
             
-            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(configFileName)
+            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(AppConstants.stateFileName)
             
             let inputStream = NSInputStream(URL: path)
             inputStream?.open()
@@ -43,7 +41,7 @@ class PlayerStateIO {
                 return SavedPlayerState.fromJSON(data as! NSDictionary)
                 
             } catch let error as NSError {
-                print(error.description)
+                NSLog("Error loading player state config file: %@", error.description)
             }
         }
         

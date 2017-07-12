@@ -89,7 +89,7 @@ class TrackIO {
                 track.preparedForPlayback = true
                 
             } catch let error as NSError {
-                print("Error reading track: " + track.file!.path! + ", error=" + error.description)
+                NSLog("Error reading track '%@': %@", track.file!.path!, error.description)
             }
         }
     }
@@ -128,7 +128,7 @@ class TrackIO {
             }
             
         } catch let error as NSError {
-            print("Error reading track:" + error.description)
+            NSLog("Error reading track '%@': %@", track.file!.path!, error.description)
         }
         
         let sourceAsset = track.avAsset!

@@ -52,7 +52,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     @IBOutlet weak var delayCutoffSlider: NSSlider!
     @IBOutlet weak var delayFeedbackSlider: NSSlider!
     
-    
     @IBOutlet weak var btnFilterBypass: NSButton!
     @IBOutlet weak var filterLowPassSlider: NSSlider!
     @IBOutlet weak var filterHighPassSlider: NSSlider!
@@ -92,7 +91,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         }()
     
     // PlayerDelegate accepts all requests originating from the UI
-    let player: PlayerDelegate = PlayerDelegate.instance()
+    var player: PlayerDelegate = PlayerDelegate.instance()
     
     // Timer that periodically updates the seek bar
     var seekTimer: ScheduledTaskExecutor? = nil

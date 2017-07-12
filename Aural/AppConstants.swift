@@ -14,5 +14,7 @@ class AppConstants {
     
     static let audibleRangeMin: Float = 10      // 10 Hz
     static let audibleRangeMax: Float = 20480   // 20 KHz
-
+    
+    static let stateFileName = "auralPlayer-state.json"
+    static let logFileName = "auralPlayer.log"
 }

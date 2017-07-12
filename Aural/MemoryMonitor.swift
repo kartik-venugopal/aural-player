@@ -27,12 +27,12 @@ class MemoryMonitor: NSObject {
         if (memUsed != nil) {
             
             if (memUsed!.greaterThan(MAX_MEMORY_USAGE)) {
-                print(String(format: "\n**** Max memory used (%@), exiting ... ****\n", (memUsed?.toString())!))
+                NSLog("\n**** Max memory used (%@), exiting ... ****\n", (memUsed?.toString())!)
                 exit(1)
             }
             
         } else {
-            print("Unable to obtain memory usage !\n")
+            NSLog("Unable to obtain memory usage !\n")
         }
     }
     
@@ -55,7 +55,7 @@ class MemoryMonitor: NSObject {
             return Size(sizeBytes: info.resident_size)
             
         } else {
-            print("Error with task_info(): " +
+            NSLog("Error obtaining memory usage: %@",
                 (String.fromCString(mach_error_string(kerr)) ?? "unknown error"))
             return nil
         }

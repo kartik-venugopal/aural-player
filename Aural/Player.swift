@@ -252,22 +252,18 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
     
     func setDelayAmount(amount: Float) {
         delayNode.wetDryMix = amount
-        print("mix=" + String(delayNode.wetDryMix))
     }
     
     func setDelayTime(time: Double) {
         delayNode.delayTime = time
-        print("time=" + String(delayNode.delayTime))
     }
     
     func setDelayFeedback(percent: Float) {
         delayNode.feedback = percent
-        print("fb=" + String(delayNode.feedback))
     }
     
     func setDelayLowPassCutoff(cutoff: Float) {
         delayNode.lowPassCutoff = cutoff
-        print("lpco=" + String(delayNode.lowPassCutoff))
     }
     
     func toggleFilterBypass() -> Bool {

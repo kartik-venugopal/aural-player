@@ -383,8 +383,6 @@ class Playlist {
             let upIndex = index - 1
             swapTracks(index, trackIndex2: upIndex)
             clearShuffleSequence()
-        } else {
-            print("Cannot shift track up because it is already at the top !")
         }
     }
     
@@ -397,8 +395,6 @@ class Playlist {
             let downIndex = index + 1
             swapTracks(index, trackIndex2: downIndex)
             clearShuffleSequence()
-        } else {
-            print("Cannot shift track down because it is already at the bottom !")
         }
     }
     
