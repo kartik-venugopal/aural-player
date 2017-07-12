@@ -13,8 +13,13 @@ class Track: NSObject {
     // Used during playback (to avoid reading from disk multiple times)
     var avFile: AVAudioFile?
     
+    // Used to load ID3 metadata and duration
+    var avAsset: AVURLAsset?
+    
     // Used to display the track in playlist (table), and when no ID3 metadata is available
     var shortDisplayName: String?
+    
+    var duration: Double?    // seconds
     
     // (Optional) ID3 metadata to be used in main display (Now Playing)
     var longDisplayName: (title: String?, artist: String?)?
@@ -24,7 +29,6 @@ class Track: NSObject {
     var extendedMetadata: [String: String] = [String: String]()
 
     // Extended info
-    var duration: Double?    // seconds
     var size: Size?
     var bitRate: Int?
     var numChannels: Int?
@@ -32,6 +36,7 @@ class Track: NSObject {
     var frames: Int64?
     var sampleRate: Double?
     
+    // Used for lazy loading
     var preparedForPlayback: Bool = false
     var detailedInfoLoaded: Bool = false
     

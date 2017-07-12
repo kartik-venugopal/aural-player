@@ -14,6 +14,7 @@ class TrackIO {
         track.file = file
         
         let sourceAsset = AVURLAsset(URL: file, options: nil)
+        track.avAsset = sourceAsset
         track.duration = sourceAsset.duration.seconds
 
         let metadataList = sourceAsset.commonMetadata
@@ -130,7 +131,7 @@ class TrackIO {
             print("Error reading track:" + error.description)
         }
         
-        let sourceAsset = AVURLAsset(URL: track.file!, options: nil)
+        let sourceAsset = track.avAsset!
         
         // Determine codec
         let assetTrack = sourceAsset.tracksWithMediaType(AVMediaTypeAudio)[0]

@@ -84,7 +84,7 @@ class Size: NSObject {
     }
     
     func toString() -> String {
-        return String(String(format: "%.2lf %@", size, sizeUnit.toString))
+        return String(format: "%.2lf %@", size, sizeUnit.toString)
     }
     
     func greaterThan(otherSize: Size) -> Bool {

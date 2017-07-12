@@ -32,7 +32,7 @@ class KeyPressHandler {
         let app = self.app!
         
         // Ignore key press events when an open/save dialog is open
-        // Otherwise, the handers here will interfere with dialog interaction
+        // Otherwise, the handlers here will interfere with dialog interaction
         if (app.modalDialogOpen) {
             return
         }
