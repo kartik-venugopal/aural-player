@@ -95,13 +95,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     let player: PlayerDelegate = PlayerDelegate.instance()
     
     // Timer that periodically updates the seek bar
-    var seekTimer: NSTimer? = nil
+    var seekTimer: ScheduledTaskExecutor? = nil
     
     // Indicates whether the open/save dialog is currently open
     // Used in KeyPressHandler
     var modalDialogOpen: Bool = false
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
+        
+        MemoryMonitor.start()
         
         // Initialize UI with presentation settings (colors, sizes, etc)
         // No app state is needed here
@@ -132,7 +134,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     func applicationWillTerminate(aNotification: NSNotification) {
         tearDown()
     }
-    
+
     func initStatelessUI() {
         
         // Set up a mouse listener (for double clicks -> play selected track)
@@ -140,6 +142,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         
         // Enable drag n drop into the playlist view
         playlistView.registerForDraggedTypes([String(kUTTypeFileURL)])
+        
+        seekTimer = ScheduledTaskExecutor(intervalMillis: UIConstants.seekTimerIntervalMillis, task: {self.updatePlayingTime()}, queue: DispatchQueue(queueType: QueueType.MAIN))
     }
     
     func initStatefulUI(playerState: SavedPlayerState) {
@@ -333,14 +337,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     
     private func setSeekTimerState(timerOn: Bool) {
         
-        if (seekTimer != nil) {
-            seekTimer!.invalidate()
-        }
-        
         if (timerOn) {
-            
-            seekTimer = NSTimer.scheduledTimerWithTimeInterval(UIConstants.seekTimerInterval, target: self, selector: "updatePlayingTime:", userInfo: nil, repeats: true)
-            updatePlayingTime()
+            seekTimer?.startOrResume()
+        } else {
+            seekTimer?.pause()
         }
     }
     
@@ -348,6 +348,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         
         if (player.getPlaybackState() == .PLAYING) {
             let seekPosn = player.getSeekSecondsAndPercentage()
+            
             lblPlayingTime.stringValue = Utils.formatDuration(seekPosn.seconds)
             seekSlider.doubleValue = seekPosn.percentage
         }

@@ -18,21 +18,18 @@ class ScheduledTaskExecutor {
     private var task: () -> Void
     
     // The queue on which the task will be put
-    private var queue: String
+    private var queue: DispatchQueue
     
-    // Flags indicating whether this timer has been paused/stopped
-    private var paused: Bool = false
-    private var stopped: Bool = false
+    // Flags indicating whether this timer is currently running
+    private var running: Bool = false
     
-    init(intervalMillis: UInt32, task: () -> Void, queue: String) {
+    init(intervalMillis: UInt32, task: () -> Void, queue: DispatchQueue) {
         
         self.intervalMillis = intervalMillis
         self.task = task
         self.queue = queue
         
-        let dispatchQueue = dispatch_queue_create(queue, nil)
-        
-        timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatchQueue)
+        timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue.underlyingQueue)
         
         let intervalNanos = UInt64(intervalMillis) * NSEC_PER_MSEC
         
@@ -40,73 +37,37 @@ class ScheduledTaskExecutor {
         dispatch_source_set_timer(timer!, DISPATCH_TIME_NOW, intervalNanos , intervalNanos / 10)
         
         dispatch_source_set_event_handler(timer!) { [weak self] in
-            
-            if ((!self!.stopped) && (!self!.paused)) {
-                self!.task()
-            }
+            self!.task()
         }
     }
     
-    // Start executing the task
-    func start() {
+    // Start/resume task execution
+    func startOrResume() {
         
-        if (timer != nil) {
+        if (!running && timer != nil) {
             dispatch_resume(timer!)
+            running = true
         }
     }
     
     // Pause task execution
     func pause() {
         
-        if (stopped || paused) {
-            return
-        }
-        
-        paused = true
-        if (timer != nil) {
+        if (!running && timer != nil) {
             dispatch_suspend(timer!)
+            running = false
         }
     }
     
-    // Resume task execution
-    func resume() {
-        
-        if (stopped || !paused) {
-            return
-        }
-        
-        paused = false
-        if (timer != nil) {
-            dispatch_resume(timer!)
-        }
-    }
-    
-    // Stop executing the task
-    func stop() {
-        
-        if (stopped) {
-            return
-        }
-        
-        stopped = true
-        if (timer != nil) {
-            dispatch_source_cancel(timer!)
-            
-            while (dispatch_source_testcancel(timer!) == 0) {
-                // Wait for timer to be cancelled
-            }
-        }
-    }
-    
-    func isStopped() -> Bool {
-        return stopped
-    }
-    
-    func isPaused() -> Bool {
-        return paused
+    func isRunning() -> Bool {
+        return running
     }
     
     deinit {
-        self.stop()
+        
+        // Cancel the timer
+        if (timer != nil) {
+            dispatch_source_cancel(timer!)
+        }
     }
 }

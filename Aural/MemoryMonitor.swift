@@ -15,8 +15,8 @@ class MemoryMonitor: NSObject {
     // Start the memory monitor
     static func start() {
         
-        taskExecutor = ScheduledTaskExecutor(intervalMillis: UInt32(MONITOR_FREQUENCY_MILLIS), task: {checkMemory()}, queue: "Aural.monitoring")
-        taskExecutor?.start()
+        taskExecutor = ScheduledTaskExecutor(intervalMillis: UInt32(MONITOR_FREQUENCY_MILLIS), task: {checkMemory()}, queue: DispatchQueue(queueName: "Aural.queues.monitoring"))
+        taskExecutor?.startOrResume()
     }
     
     // Checks memory usage. If it exceeds the limit, the app is exited.
@@ -33,13 +33,6 @@ class MemoryMonitor: NSObject {
             
         } else {
             print("Unable to obtain memory usage !\n")
-        }
-    }
-    
-    // Stops the memory monitor
-    static func stop() {
-        if (taskExecutor != nil) {
-            taskExecutor?.stop()
         }
     }
     

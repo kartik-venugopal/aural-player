@@ -47,6 +47,7 @@
 		3E85F25A1EFA78D6007BE830 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E85F2591EFA78D6007BE830 /* AppDelegate.swift */; };
 		3E85F25C1EFA78D6007BE830 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E85F25B1EFA78D6007BE830 /* Assets.xcassets */; };
 		3E85F25F1EFA78D6007BE830 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E85F25D1EFA78D6007BE830 /* MainMenu.xib */; };
+		3E95877B1F15F17700007E57 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E95877A1F15F17600007E57 /* DispatchQueue.swift */; settings = {ASSET_TAGS = (); }; };
 		3E97967D1F00286200690DA2 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E97967C1F00286200690DA2 /* Track.swift */; };
 		3E9796811F00BA3000690DA2 /* RepeatMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9796801F00BA3000690DA2 /* RepeatMode.swift */; };
 		3E9796831F00BA5A00690DA2 /* ShuffleMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9796821F00BA5A00690DA2 /* ShuffleMode.swift */; };
@@ -112,6 +113,7 @@
 		3E85F25B1EFA78D6007BE830 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E85F25E1EFA78D6007BE830 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/\U001bMainMenu.xib"; sourceTree = "<group>"; };
 		3E85F2601EFA78D6007BE830 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E95877A1F15F17600007E57 /* DispatchQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
 		3E97967C1F00286200690DA2 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		3E9796801F00BA3000690DA2 /* RepeatMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatMode.swift; sourceTree = "<group>"; };
 		3E9796821F00BA5A00690DA2 /* ShuffleMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShuffleMode.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				3E40A9841F0617BC00A66856 /* ScheduledTaskExecutor.swift */,
 				3E76D9BE1F0F7F67007FF3F8 /* StoppableScheduledTaskExecutor.swift */,
 				3EF4FA0E1F10467E004158BB /* AsyncExecutor.swift */,
+				3E95877A1F15F17600007E57 /* DispatchQueue.swift */,
 			);
 			name = Concurrency;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				3E76D9BF1F0F7F67007FF3F8 /* StoppableScheduledTaskExecutor.swift in Sources */,
 				3EFFE6BE1F0381FA003728BD /* EQPresets.swift in Sources */,
 				3E3C20A31F0A3A9700AF5A62 /* AuralPlayer.swift in Sources */,
+				3E95877B1F15F17700007E57 /* DispatchQueue.swift in Sources */,
 				3E3C20AC1F0A7C0500AF5A62 /* AuralSoundTuner.swift in Sources */,
 				3EB2A7E21F043256001DF748 /* SeekSliderCell.swift in Sources */,
 				3E722F791EFCE59F00916BF2 /* Playlist.swift in Sources */,

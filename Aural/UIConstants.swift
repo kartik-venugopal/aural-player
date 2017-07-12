@@ -48,8 +48,8 @@ class UIConstants {
     static let trackInfoLongValueRowHeight: CGFloat = 1.75 * trackInfoValueRowHeight
     static let trackInfoLongValueRowHeightMultiplier: CGFloat = 0.9
     
-    // Seek timer interval
-    static let seekTimerInterval: Double = 0.5
+    // Seek timer interval (milliseconds)
+    static let seekTimerIntervalMillis: UInt32 = 500
     
     // Default user's music directory (default place to look in, when opening/saving files)
     static let musicDirURL: NSURL = NSURL.fileURLWithPath(NSHomeDirectory() + "/Music")
