@@ -103,8 +103,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         
-        MemoryMonitor.start()
-        
         // Initialize UI with presentation settings (colors, sizes, etc)
         // No app state is needed here
         initStatelessUI()
