@@ -161,6 +161,7 @@ class BufferManager {
         sessionTimestamp = INVALID_TIMESTAMP
         
         // Stop playback without clearing the player queue (and triggering the completion handlers)
+        // WARNING - This might be causing problems
         playerNode.pause()
         
         // Let the operation queue finish all tasks ... this may result in a stray buffer (if a task is currently executing) getting put on the player's schedule, but will be cleared by the following stop() call on playerNode

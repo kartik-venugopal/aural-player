@@ -40,7 +40,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
     private init() {
         
         // TODO: This is a horribly ugly hack, should be in AppDelegate
-//        PlayerDelegate.configureLogging()
+        PlayerDelegate.configureLogging()
         
         player = Player.instance()
         loadPlayerState()
