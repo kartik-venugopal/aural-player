@@ -4,6 +4,8 @@ import AVFoundation
 
 /*
     Manages audio buffer allocation, scheduling, and playback. Provides two main operations - play() and seekToTime(). Works in conjunction with a playerNode to perform playback.
+
+    A "playback session" begins when playback is started, as a result of either play() or seekToTime(). It ends when either playback is completed or a new request is received (and stop() is called).
 */
 class BufferManager {
     
@@ -16,101 +18,132 @@ class BufferManager {
     // Seconds of playback
     private static let BUFFER_SIZE: UInt32 = 5
     
-    // Timer used to schedule buffers at regular intervals
-    private var bufferTimer: StoppableScheduledTaskExecutor?
+    // A constant to represent a timestamp in the past ... used to invalidate currently scheduled buffers and scheduling tasks. Used during the transition between two playback sessions (i.e. when stop() is called).
+    private let INVALID_TIMESTAMP: NSDate
+    
+    // The (serial) dispatch queue on which all scheduling tasks will be enqueued
+    private var queue: NSOperationQueue
     
     // Player node used for actual playback
     private var playerNode: AVAudioPlayerNode
     
+    // The currently playing audio file
+    private var playingFile: AVAudioFile?
+    
+    // Flag marking if EOF has been reached when reading the current audio file
+    private var reachedEOF: Bool = false
+    
+    // This timestamp is used to mark which playback session a buffer scheduling task belongs to, i.e., it is a unique identifier for a playback session
+    private var sessionTimestamp: NSDate = NSDate()
+    
     init(playerNode: AVAudioPlayerNode) {
+        
         self.playerNode = playerNode
+        
+        // Serial operation queue
+        queue = NSOperationQueue()
+        queue.underlyingQueue = DispatchQueue(queueName: "Aural.queues.bufferManager").underlyingQueue
+        queue.maxConcurrentOperationCount = 1
+        
+        // Set the INVALID_TIMESTAMP constant to some time in the past
+        let now = NSDate()
+        let unitFlags: NSCalendarUnit = [.Year]
+        let nowComponents = NSCalendar.currentCalendar().components(unitFlags, fromDate: now)
+        
+        let invalidTimestampComponents = NSDateComponents()
+        invalidTimestampComponents.year = nowComponents.year - 2
+        
+        INVALID_TIMESTAMP = (NSCalendar(identifier: NSCalendarIdentifierGregorian)?.dateFromComponents(invalidTimestampComponents))!
     }
     
     // Start track playback from the beginning
     func play(avFile: AVAudioFile) {
-        startPlaybackFromFrame(avFile, frame: BufferManager.FRAME_ZERO)
+        
+        playingFile = avFile
+        startPlaybackFromFrame(BufferManager.FRAME_ZERO)
     }
     
     // Starts track playback from a given frame position
-    private func startPlaybackFromFrame(avFile: AVAudioFile, frame: AVAudioFramePosition) {
+    private func startPlaybackFromFrame(frame: AVAudioFramePosition) {
         
         // Set the position in the audio file from which reading is to begin
-        avFile.framePosition = frame
+        playingFile!.framePosition = frame
+        
+        // Reset the EOF flag
+        reachedEOF = false
+        
+        // Mark the current playback session's timestamp
+        sessionTimestamp = NSDate()
         
         // Schedule one buffer for immediate playback
-        scheduleNextBuffer(avFile)
+        scheduleNextBuffer(sessionTimestamp)
         
         // Start playing the file
         playerNode.play()
         
-        // Then, start a timer to schedule more "look-ahead" buffers as playback progresses
-        // This will ensure x seconds of playback data is always available
-        bufferTimer = StoppableScheduledTaskExecutor(intervalMillis: BufferManager.BUFFER_SIZE * 1000, task: {
-            
-            if (!self.bufferTimer!.isStopped() && !self.bufferTimer!.isPaused()) {
-                
-                let done = self.scheduleNextBuffer(avFile)
-                if (done) {
-                    self.bufferTimer!.stop()
-                }
-            }   
-            
-        }, queue: "Aural.player.bufferManager")
+        // Schedule one more ("look ahead") buffer
+        scheduleNextBufferIfNecessary(sessionTimestamp)
+    }
+    
+    // Checks if more buffers are needed for the playback session indicated by the given timestamp, and if so, schedules one for playback. The timestamp argument indicates which playback session this task was initiated for. If the given timestamp does not match the current playback session timestamp, or the end of file has been reached, no scheduling will occur.
+    private func scheduleNextBufferIfNecessary(timestamp: NSDate) {
         
-        bufferTimer!.start()
+        // This flag indicates whether this scheduling task belongs to the current playback session
+        let timestampCurrent = timestamp.compare(sessionTimestamp) == NSComparisonResult.OrderedSame
+        
+        if (timestampCurrent && !reachedEOF) {
+            queue.addOperationWithBlock({self.scheduleNextBuffer(timestamp)})
+        }
     }
     
     // Schedules a single audio buffer for playback
-    private func scheduleNextBuffer(avFile: AVAudioFile) -> Bool {
+    // The timestamp argument indicates which playback session this task was initiated for
+    private func scheduleNextBuffer(timestamp: NSDate) {
         
-        let sampleRate = avFile.processingFormat.sampleRate
+        let sampleRate = playingFile!.processingFormat.sampleRate
         
-        let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(PCMFormat: avFile.processingFormat, frameCapacity: AVAudioFrameCount(Double(BufferManager.BUFFER_SIZE) * sampleRate))
+        let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(PCMFormat: playingFile!.processingFormat, frameCapacity: AVAudioFrameCount(Double(BufferManager.BUFFER_SIZE) * sampleRate))
         
         do {
-            try avFile.readIntoBuffer(buffer)
+            try playingFile!.readIntoBuffer(buffer)
         } catch let error as NSError {
-            NSLog("Error reading from audio file '%@': %@", avFile.debugDescription, error.description)
+            NSLog("Error reading from audio file '%@': %@", playingFile!.url.lastPathComponent!, error.description)
         }
         
-        if (Int64(buffer.frameLength) >= BufferManager.MIN_PLAYBACK_FRAMES) {
-        
-            playerNode.scheduleBuffer(buffer, atTime: nil, options: AVAudioPlayerNodeBufferOptions(), completionHandler: nil)
-        }
-
-        let readAllFrames = avFile.framePosition >= avFile.length
+        let readAllFrames = playingFile!.framePosition >= playingFile!.length
         let bufferNotFull = buffer.frameLength < buffer.frameCapacity
         
         // If all frames have been read, OR the buffer is not full, consider track done playing (EOF)
-        return readAllFrames || bufferNotFull
+        reachedEOF = readAllFrames || bufferNotFull
+        
+        // Redundant timestamp check, in case the first one in scheduleNextBufferIfNecessary() was performed too soon (stop() called between scheduleNextBufferIfNecessary() and now). This will come in handy when disk seeking suddenly slows down abnormally and the task takes much longer to complete.
+        let timestampCurrent = timestamp.compare(sessionTimestamp) == NSComparisonResult.OrderedSame
+        
+        if (timestampCurrent && Int64(buffer.frameLength) >= BufferManager.MIN_PLAYBACK_FRAMES) {
+        
+            playerNode.scheduleBuffer(buffer, atTime: nil, options: AVAudioPlayerNodeBufferOptions(), completionHandler: {
+                    self.scheduleNextBufferIfNecessary(timestamp)
+            })
+        }
     }
     
     // Seeks to a certain position (seconds) in the audio file being played back. Returns the calculated start frame and whether or not playback has completed after this seek (i.e. end of file)
-    func seekToTime(avFile: AVAudioFile, seconds: Double) -> (playbackCompleted: Bool, startFrame: AVAudioFramePosition?) {
+    func seekToTime(seconds: Double) -> (playbackCompleted: Bool, startFrame: AVAudioFramePosition?) {
         
-        // Stop scheduling more buffers, *** wait for currently executing scheduling tasks ***, and invalidate the timer
         stop()
         
-        let sampleRate = avFile.processingFormat.sampleRate
-        let startFrameDouble = seconds * sampleRate
+        let sampleRate = playingFile!.processingFormat.sampleRate
         
         //  Multiply your sample rate by the new time in seconds. This will give you the exact frame of the song at which you want to start the player
-        let firstFrame = Int64(startFrameDouble)
+        let firstFrame = Int64(seconds * sampleRate)
         
-        let framesToPlay = avFile.length - firstFrame
+        let framesToPlay = playingFile!.length - firstFrame
         
         // If not enough frames left to play, consider playback finished
         if framesToPlay > BufferManager.MIN_PLAYBACK_FRAMES {
             
-            // Stop player node, start scheduling buffers of audio, and restart the player node
-            
-            playerNode.stop()
-            
-            // Seek to the new first frame, within the audio file
-            avFile.framePosition = firstFrame
-            
             // Start playback
-            startPlaybackFromFrame(avFile, frame: firstFrame)
+            startPlaybackFromFrame(firstFrame)
             
             // Return the start frame to later determine seek position and end of file
             return (false, firstFrame)
@@ -122,34 +155,20 @@ class BufferManager {
         }
     }
     
-    // Stops the scheduling of audio buffers, in response to a request to stop playback (or when seeking to a new position)
+    // Stops the scheduling of audio buffers, in response to a request to stop playback (or when seeking to a new position). Waits till all previously scheduled buffers are cleared. After execution of this method, code can assume no scheduled buffers.
     func stop() {
         
-        if (bufferTimer != nil) {
-            
-            // TODO: Figure out why this is needed (a GCD timer cannot be paused, then stopped, then deallocated)
-            if (bufferTimer!.isPaused()) {
-                bufferTimer!.resume()
-            }
-            
-            bufferTimer!.stop()
-            bufferTimer = nil
-        }
-    }
-    
-    // Pause buffer scheduling (when playback is paused)
-    func pause() {
+        // Immediately invalidate all existing buffer scheduling tasks
+        sessionTimestamp = INVALID_TIMESTAMP
         
-        if (bufferTimer != nil) {
-            bufferTimer!.pause()
-        }
-    }
-    
-    // Resume buffer scheduling (when playback is resumed)
-    func resume() {
+        // Stop playback without clearing the player queue (and triggering the completion handlers)
+        playerNode.pause()
         
-        if (bufferTimer != nil) {
-            bufferTimer!.resume()
-        }
+        // Let the operation queue finish all tasks ... this may result in a stray buffer (if a task is currently executing) getting put on the player's schedule, but will be cleared by the following stop() call on playerNode
+        queue.cancelAllOperations()
+        queue.waitUntilAllOperationsAreFinished()
+        
+        // Flush out all player scheduled buffers and let their completion handlers execute (harmlessly)
+        playerNode.stop()
     }
 }

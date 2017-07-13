@@ -24,7 +24,7 @@ class TrackInfoViewController: NSViewController, NSTableViewDataSource, NSTableV
         info.append((key: "Filename", value: track.file!.path!))
         info.append((key: "Size", value: track.size!.toString()))
         info.append((key: "Format", value: track.format!))
-        info.append((key: "Duration", value: Utils.formatDuration(Int(round(track.duration!)))))
+        info.append((key: "Duration", value: Utils.formatDuration(track.duration!)))
         
         if (track.metadata != nil) {
             

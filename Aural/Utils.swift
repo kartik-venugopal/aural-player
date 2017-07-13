@@ -11,12 +11,10 @@ class Utils {
     static let oneHour = 60 * oneMin
     
     // Formats a duration (time interval) from seconds to a displayable string showing hours, minutes, and seconds. For example, 500 seconds becomes "8:20", and 3675 seconds becomes "1:01:15"
-    static func formatDuration(duration: Double) -> String {
-        return formatDuration(Int(round(duration)))
-    }
+    static func formatDuration(_duration: Double) -> String {
     
-    static func formatDuration(var duration: Int) -> String {
-        
+        var duration = Int(round(_duration))
+    
         let hrs = duration / oneHour
         duration -= hrs * oneHour
         

@@ -135,11 +135,9 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
     
     func pause() {
         playerNode.pause()
-        bufferManager.pause()
     }
     
     func resume() {
-        bufferManager.resume()
         playerNode.play()
     }
     
@@ -283,7 +281,6 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
     func stop() {
         
         bufferManager.stop()
-        playerNode.stop()
         playerNode.reset()
         audioEngine.reset()
         
@@ -304,7 +301,7 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
     
     func seekToTime(seconds: Double) {
         
-        let seekResult = bufferManager.seekToTime(playingTrack!.avFile!, seconds: seconds)
+        let seekResult = bufferManager.seekToTime(seconds)
         
         if (seekResult.playbackCompleted) {
             playbackCompleted()

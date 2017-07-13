@@ -1,0 +1,6 @@
+import Cocoa
+
+class BufferAllocationState {
+
+    
+}

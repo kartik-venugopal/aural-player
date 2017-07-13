@@ -17,7 +17,7 @@ class PlaylistViewController: NSViewController, NSTableViewDataSource, NSTableVi
     func tableView(tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
         
         let trackName = playlist.getTrackAt(row)?.shortDisplayName
-        let duration = Utils.formatDuration(Int(round((playlist.getTrackAt(row)?.duration)!)))
+        let duration = Utils.formatDuration((playlist.getTrackAt(row)?.duration)!)
         
         let view = PlaylistSongView()
         view.trackName = trackName
