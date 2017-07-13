@@ -63,7 +63,7 @@ class BufferManager {
         startPlaybackFromFrame(BufferManager.FRAME_ZERO)
     }
     
-    // Starts track playback from a given frame position
+    // Starts track playback from a given frame position. Marks the beginning of a "playback session".
     private func startPlaybackFromFrame(frame: AVAudioFramePosition) {
         
         // Set the position in the audio file from which reading is to begin
@@ -101,7 +101,6 @@ class BufferManager {
     private func scheduleNextBuffer(timestamp: NSDate) {
         
         let sampleRate = playingFile!.processingFormat.sampleRate
-        
         let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(PCMFormat: playingFile!.processingFormat, frameCapacity: AVAudioFrameCount(Double(BufferManager.BUFFER_SIZE) * sampleRate))
         
         do {
@@ -155,7 +154,7 @@ class BufferManager {
         }
     }
     
-    // Stops the scheduling of audio buffers, in response to a request to stop playback (or when seeking to a new position). Waits till all previously scheduled buffers are cleared. After execution of this method, code can assume no scheduled buffers.
+    // Stops the scheduling of audio buffers, in response to a request to stop playback (or when seeking to a new position). Waits till all previously scheduled buffers are cleared. After execution of this method, code can assume no scheduled buffers. Marks the end of a "playback session".
     func stop() {
         
         // Immediately invalidate all existing buffer scheduling tasks

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3E047B0E1F01436700ADE0F1 /* ReverbPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E047B0D1F01436700ADE0F1 /* ReverbPresets.swift */; };
+		3E0A29471F1763E7007E81D6 /* VolumeSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A29461F1763E7007E81D6 /* VolumeSliderCell.swift */; settings = {ASSET_TAGS = (); }; };
 		3E2188A41F0763F50085BAB3 /* TrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2188A31F0763F50085BAB3 /* TrackInfoViewController.swift */; };
 		3E2188A61F0767290085BAB3 /* TrackInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2188A51F0767290085BAB3 /* TrackInfoView.swift */; };
 		3E2188A81F0771390085BAB3 /* PopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2188A71F0771390085BAB3 /* PopoverController.swift */; };
@@ -58,7 +59,7 @@
 		3EB20B4D1EFF2C13008138A4 /* StringBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB20B4C1EFF2C13008138A4 /* StringBuilder.swift */; };
 		3EB2A7E21F043256001DF748 /* SeekSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7E11F043256001DF748 /* SeekSliderCell.swift */; };
 		3EB2A7E41F0436D5001DF748 /* EQSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7E31F0436D5001DF748 /* EQSliderCell.swift */; };
-		3EB2A7E61F043989001DF748 /* VolumeSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7E51F043989001DF748 /* VolumeSliderCell.swift */; };
+		3EB2A7E61F043989001DF748 /* HorizontalSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7E51F043989001DF748 /* HorizontalSliderCell.swift */; };
 		3EB2A7E81F043BBE001DF748 /* TickedSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7E71F043BBE001DF748 /* TickedSliderCell.swift */; };
 		3EB2A7EA1F04424E001DF748 /* ReverbPopupMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7E91F04424E001DF748 /* ReverbPopupMenuCell.swift */; };
 		3EB2A7EC1F04508B001DF748 /* EQPopupMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7EB1F04508B001DF748 /* EQPopupMenuCell.swift */; };
@@ -72,6 +73,7 @@
 
 /* Begin PBXFileReference section */
 		3E047B0D1F01436700ADE0F1 /* ReverbPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverbPresets.swift; sourceTree = "<group>"; };
+		3E0A29461F1763E7007E81D6 /* VolumeSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeSliderCell.swift; sourceTree = "<group>"; };
 		3E2188A31F0763F50085BAB3 /* TrackInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "\U001bTrackInfoViewController.swift"; sourceTree = "<group>"; };
 		3E2188A51F0767290085BAB3 /* TrackInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackInfoView.swift; sourceTree = "<group>"; };
 		3E2188A71F0771390085BAB3 /* PopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverController.swift; sourceTree = "<group>"; };
@@ -124,7 +126,7 @@
 		3EB20B4C1EFF2C13008138A4 /* StringBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringBuilder.swift; sourceTree = "<group>"; };
 		3EB2A7E11F043256001DF748 /* SeekSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeekSliderCell.swift; sourceTree = "<group>"; };
 		3EB2A7E31F0436D5001DF748 /* EQSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EQSliderCell.swift; sourceTree = "<group>"; };
-		3EB2A7E51F043989001DF748 /* VolumeSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeSliderCell.swift; sourceTree = "<group>"; };
+		3EB2A7E51F043989001DF748 /* HorizontalSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSliderCell.swift; sourceTree = "<group>"; };
 		3EB2A7E71F043BBE001DF748 /* TickedSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickedSliderCell.swift; sourceTree = "<group>"; };
 		3EB2A7E91F04424E001DF748 /* ReverbPopupMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverbPopupMenuCell.swift; sourceTree = "<group>"; };
 		3EB2A7EB1F04508B001DF748 /* EQPopupMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EQPopupMenuCell.swift; sourceTree = "<group>"; };
@@ -186,7 +188,8 @@
 				3E58CC261F025B0D00C36DC1 /* ColorSchemes.swift */,
 				3EB2A7E11F043256001DF748 /* SeekSliderCell.swift */,
 				3EB2A7E31F0436D5001DF748 /* EQSliderCell.swift */,
-				3EB2A7E51F043989001DF748 /* VolumeSliderCell.swift */,
+				3EB2A7E51F043989001DF748 /* HorizontalSliderCell.swift */,
+				3E0A29461F1763E7007E81D6 /* VolumeSliderCell.swift */,
 				3EB2A7E71F043BBE001DF748 /* TickedSliderCell.swift */,
 				3EB2A7E91F04424E001DF748 /* ReverbPopupMenuCell.swift */,
 				3EB2A7EB1F04508B001DF748 /* EQPopupMenuCell.swift */,
@@ -401,6 +404,7 @@
 				3EFFE6B71F036D82003728BD /* SavedPlaylist.swift in Sources */,
 				3E80E66F1F04FA60007480CC /* Size.swift in Sources */,
 				3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */,
+				3E0A29471F1763E7007E81D6 /* VolumeSliderCell.swift in Sources */,
 				3E426F801EFDDDEE002F5F18 /* Utils.swift in Sources */,
 				3EA29ADA1F0B47FC00DA239E /* EventProtocols.swift in Sources */,
 				3E85F25A1EFA78D6007BE830 /* AppDelegate.swift in Sources */,
@@ -441,7 +445,7 @@
 				3E40A9851F0617BC00A66856 /* ScheduledTaskExecutor.swift in Sources */,
 				3E80E66D1F04F57F007480CC /* MemoryMonitor.swift in Sources */,
 				3E633C471F14C6530040ECBC /* FilterNode.swift in Sources */,
-				3EB2A7E61F043989001DF748 /* VolumeSliderCell.swift in Sources */,
+				3EB2A7E61F043989001DF748 /* HorizontalSliderCell.swift in Sources */,
 				3E58CC271F025B0D00C36DC1 /* ColorSchemes.swift in Sources */,
 				3E2188B01F07BC0E0085BAB3 /* TrackInfoCellView.swift in Sources */,
 				3E3C20A81F0A697800AF5A62 /* AppConstants.swift in Sources */,

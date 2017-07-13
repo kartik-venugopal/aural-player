@@ -52,6 +52,12 @@ protocol AuralSoundTuningDelegate {
 
     func setPitchOverlap(overlap: Float)
     
+    // Toggles the bypass state of the time audio effect unit, and returns its new bypass state
+    func toggleTimeBypass() -> Bool
+    
+    // Sets the playback rate, specified as a value between 1/32 and 32
+    func setTimeStretchRate(rate: Float)
+    
     // Toggles the bypass state of the reverb audio effect unit, and returns its new bypass state
     func toggleReverbBypass() -> Bool
     

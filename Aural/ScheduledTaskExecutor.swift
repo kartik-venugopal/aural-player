@@ -40,7 +40,7 @@ class ScheduledTaskExecutor {
             self!.task()
         }
     }
-    
+
     // Start/resume task execution
     func startOrResume() {
         
@@ -61,6 +61,17 @@ class ScheduledTaskExecutor {
     
     func isRunning() -> Bool {
         return running
+    }
+    
+    func getInterval() -> UInt32 {
+        return intervalMillis
+    }
+    
+    func stop() {
+        
+        if (timer != nil) {
+            dispatch_source_cancel(timer!)
+        }
     }
     
     deinit {

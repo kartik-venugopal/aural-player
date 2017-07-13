@@ -20,6 +20,9 @@ class PlayerDefaults {
     static let pitch: Float = 0
     static let pitchOverlap: Float = 8
     
+    static let timeBypass: Bool = true
+    static let timeStretchRate: Float = 1
+    
     static let reverbBypass: Bool = true
     static let reverbPreset: ReverbPresets = .MediumHall
     static let reverbAmount: Float = 50

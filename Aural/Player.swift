@@ -21,12 +21,13 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
     private let auxMixer: AVAudioMixerNode
     
     private let eqNode: ParametricEQNode
-    private let timePitchNode: AVAudioUnitTimePitch
+    private let pitchNode: AVAudioUnitTimePitch
     private let reverbNode: AVAudioUnitReverb
     private let filterNode: FilterNode
+    private let delayNode: AVAudioUnitDelay
+    private let timeNode: AVAudioUnitTimePitch
     
     // TODO
-    private let delayNode: AVAudioUnitDelay
 //    private let distortionNode: AVAudioUnitDistortion
     
     // Helper
@@ -57,15 +58,16 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
         audioEngine = AVAudioEngine()
         mainMixer = audioEngine.mainMixerNode
         eqNode = ParametricEQNode()
-        timePitchNode = AVAudioUnitTimePitch()
+        pitchNode = AVAudioUnitTimePitch()
         reverbNode = AVAudioUnitReverb()
         delayNode = AVAudioUnitDelay()
         filterNode = FilterNode()
+        timeNode = AVAudioUnitTimePitch()
         auxMixer = AVAudioMixerNode()
         
         audioEngineHelper = AudioEngineHelper(engine: audioEngine)
         
-        audioEngineHelper.addNodes([playerNode, auxMixer, eqNode, filterNode, timePitchNode, reverbNode, delayNode])
+        audioEngineHelper.addNodes([playerNode, auxMixer, eqNode, filterNode, pitchNode, reverbNode, delayNode, timeNode])
         audioEngineHelper.connectNodes()
         audioEngineHelper.prepareAndStart()
         
@@ -89,9 +91,13 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
         eqNode.globalGain = state.eqGlobalGain
         
         // Pitch
-        timePitchNode.bypass = state.pitchBypass
-        timePitchNode.pitch = state.pitch
-        timePitchNode.overlap = state.pitchOverlap
+        pitchNode.bypass = state.pitchBypass
+        pitchNode.pitch = state.pitch
+        pitchNode.overlap = state.pitchOverlap
+        
+        // Time
+        timeNode.bypass = state.timeBypass
+        timeNode.rate = state.timeStretchRate
         
         // Reverb
         reverbNode.bypass = state.reverbBypass
@@ -212,17 +218,27 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
     }
     
     func togglePitchBypass() -> Bool {
-        let newState = !timePitchNode.bypass
-        timePitchNode.bypass = newState
+        let newState = !pitchNode.bypass
+        pitchNode.bypass = newState
         return newState
     }
     
     func setPitch(pitch: Float) {
-        timePitchNode.pitch = pitch
+        pitchNode.pitch = pitch
     }
     
     func setPitchOverlap(overlap: Float) {
-        timePitchNode.overlap = overlap
+        pitchNode.overlap = overlap
+    }
+    
+    func toggleTimeBypass() -> Bool {
+        let newState = !timeNode.bypass
+        timeNode.bypass = newState
+        return newState
+    }
+    
+    func setTimeStretchRate(rate: Float) {
+        timeNode.rate = rate
     }
     
     func toggleReverbBypass() -> Bool {
@@ -326,9 +342,13 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
         state.eqGlobalGain = eqNode.globalGain
         
         // Pitch
-        state.pitchBypass = timePitchNode.bypass
-        state.pitch = timePitchNode.pitch
-        state.pitchOverlap = timePitchNode.overlap
+        state.pitchBypass = pitchNode.bypass
+        state.pitch = pitchNode.pitch
+        state.pitchOverlap = pitchNode.overlap
+        
+        // Time
+        state.timeBypass = timeNode.bypass
+        state.timeStretchRate = timeNode.rate
         
         // Reverb
         state.reverbBypass = reverbNode.bypass

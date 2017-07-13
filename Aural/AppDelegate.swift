@@ -42,6 +42,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     @IBOutlet weak var pitchSlider: NSSlider!
     @IBOutlet weak var pitchOverlapSlider: NSSlider!
     
+    @IBOutlet weak var timeSlider: NSSlider!
+    
     @IBOutlet weak var btnReverbBypass: NSButton!
     @IBOutlet weak var reverbMenu: NSPopUpButton!
     @IBOutlet weak var reverbSlider: NSSlider!
@@ -49,6 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     @IBOutlet weak var btnDelayBypass: NSButton!
     @IBOutlet weak var delayTimeSlider: NSSlider!
     @IBOutlet weak var delayAmountSlider: NSSlider!
+    @IBOutlet weak var btnTimeBypass: NSButton!
     @IBOutlet weak var delayCutoffSlider: NSSlider!
     @IBOutlet weak var delayFeedbackSlider: NSSlider!
     
@@ -171,6 +174,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         btnPitchBypass.image = playerState.pitchBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         pitchSlider.floatValue = playerState.pitch / 1200
         pitchOverlapSlider.floatValue = playerState.pitchOverlap
+        
+        btnTimeBypass.image = playerState.timeBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        timeSlider.floatValue = playerState.timeStretchRate
         
         btnReverbBypass.image = playerState.reverbBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         // TODO: Change this lookup to o(1) instead of o(n) ... HashMap !
@@ -619,6 +625,41 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     
     @IBAction func pitchOverlapAction(sender: AnyObject) {
         player.setPitchOverlap(pitchOverlapSlider.floatValue)
+    }
+    
+    @IBAction func timeBypassAction(sender: AnyObject) {
+        
+        let newBypassState = player.toggleTimeBypass()
+        
+        btnTimeBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        
+        let interval = UInt32(newBypassState ? 500 : 1000 / (2 * timeSlider.floatValue))
+        
+        if (interval != seekTimer?.getInterval()) {
+        
+            seekTimer?.stop()
+            
+            seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: DispatchQueue(queueType: QueueType.MAIN))
+            
+            if (player.getPlaybackState() == .PLAYING) {
+                setSeekTimerState(true)
+            }
+        }
+    }
+    
+    @IBAction func timeStretchAction(sender: AnyObject) {
+        
+        player.setTimeStretchRate(timeSlider.floatValue)
+        
+        let interval = 1000 / (2 * timeSlider.floatValue)
+        
+        seekTimer?.stop()
+        
+        seekTimer = ScheduledTaskExecutor(intervalMillis: UInt32(interval), task: {self.updatePlayingTime()}, queue: DispatchQueue(queueType: QueueType.MAIN))
+        
+        if (player.getPlaybackState() == .PLAYING) {
+            setSeekTimerState(true)
+        }
     }
     
     @IBAction func reverbBypassAction(sender: AnyObject) {

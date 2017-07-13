@@ -38,8 +38,8 @@ class TrackInfoViewController: NSViewController, NSTableViewDataSource, NSTableV
         }
         
         for (key, value) in track.extendedMetadata {
-            // Some tracks have a "Format" metadata entry ... ignore them
-            if (key != "Format") {
+            // Some tracks have a "Format" metadata entry ... ignore it
+            if (key.lowercaseString != "format") {
                 info.append((key: Utils.splitCamelCaseWord(key), value: value))
             }
         }

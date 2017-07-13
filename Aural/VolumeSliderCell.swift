@@ -1,10 +1,10 @@
 /*
-    Customizes the look and feel of the volume slider
+Customizes the look and feel of the volume slider
 */
 
 import Cocoa
 
-class HorizontalSliderCell: NSSliderCell {
+class VolumeSliderCell: NSSliderCell {
     
     override internal func drawKnob(knobRect: NSRect) {
         

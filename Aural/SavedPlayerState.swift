@@ -23,6 +23,9 @@ class SavedPlayerState {
     var pitch: Float = PlayerDefaults.pitch
     var pitchOverlap: Float = PlayerDefaults.pitchOverlap
     
+    var timeBypass: Bool = PlayerDefaults.timeBypass
+    var timeStretchRate: Float = PlayerDefaults.timeStretchRate
+    
     var reverbBypass: Bool = PlayerDefaults.reverbBypass
     var reverbPreset: ReverbPresets = PlayerDefaults.reverbPreset
     var reverbAmount: Float = PlayerDefaults.reverbAmount
@@ -76,6 +79,11 @@ class SavedPlayerState {
         pitchDict["overlap"] = pitchOverlap as NSNumber
         dict["pitch"] = pitchDict
         
+        var timeDict = [NSString: AnyObject]()
+        timeDict["bypass"] = String(timeBypass)
+        timeDict["rate"] = timeStretchRate as NSNumber
+        dict["time"] = timeDict
+        
         var reverbDict = [NSString: AnyObject]()
         reverbDict["bypass"] = String(reverbBypass)
         reverbDict["preset"] = reverbPreset.toString
@@ -125,6 +133,10 @@ class SavedPlayerState {
         state.pitchBypass = (pitchDict["bypass"] as! NSString).boolValue
         state.pitch = (pitchDict["pitch"] as! NSNumber).floatValue
         state.pitchOverlap = (pitchDict["overlap"] as! NSNumber).floatValue
+        
+        let timeDict = (jsonObject["time"] as! NSDictionary)
+        state.timeBypass = (timeDict["bypass"] as! NSString).boolValue
+        state.timeStretchRate = (timeDict["rate"] as! NSNumber).floatValue
 
         let reverbDict = (jsonObject["reverb"] as! NSDictionary)
         state.reverbBypass = (reverbDict["bypass"] as! NSString).boolValue

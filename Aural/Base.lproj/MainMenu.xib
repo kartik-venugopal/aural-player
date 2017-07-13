@@ -23,6 +23,7 @@
                 <outlet property="btnRepeat" destination="Fpa-Ii-3YA" id="en0-OB-Uwa"/>
                 <outlet property="btnReverbBypass" destination="R9b-lC-8tk" id="EIK-S0-qLa"/>
                 <outlet property="btnShuffle" destination="kQL-4a-kyh" id="eJE-qZ-92B"/>
+                <outlet property="btnTimeBypass" destination="KK7-yq-mkB" id="EAW-5b-HRs"/>
                 <outlet property="btnVolume" destination="Y0j-zk-a3t" id="JEt-SA-sLv"/>
                 <outlet property="controlsBox" destination="X7y-oM-7MJ" id="pWh-jP-HJH"/>
                 <outlet property="delayAmountSlider" destination="w57-Jo-8d2" id="fXJ-R0-OV8"/>
@@ -64,6 +65,7 @@
                 <outlet property="reverbMenu" destination="6kC-nQ-BsO" id="T7b-0N-Gyx"/>
                 <outlet property="reverbSlider" destination="SVL-7D-xpL" id="qkM-tE-q03"/>
                 <outlet property="seekSlider" destination="0m5-4l-3Wg" id="m8W-Pi-SGb"/>
+                <outlet property="timeSlider" destination="tFD-kd-aEZ" id="1j6-vB-MfK"/>
                 <outlet property="volumeSlider" destination="7fw-31-38g" id="YIc-Xx-p98"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
@@ -96,12 +98,12 @@
                         <font key="font" size="11" name="CenturyGothic-Bold"/>
                         <tabViewItems>
                             <tabViewItem label="EQ" identifier="1" id="McD-gg-qp9" userLabel="EQ">
-                                <view key="view" ambiguous="YES" id="vC5-27-GiC">
-                                    <rect key="frame" x="10" y="33" width="257" height="0.0"/>
+                                <view key="view" id="vC5-27-GiC">
+                                    <rect key="frame" x="10" y="33" width="376" height="140"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Zm-Bg-NEY">
-                                            <rect key="frame" x="38" y="-74" width="15" height="14"/>
+                                            <rect key="frame" x="38" y="66" width="15" height="14"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0" id="Je7-rK-ohz">
                                                 <font key="font" size="10" name="CenturyGothic-Bold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -109,7 +111,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dtf-Xs-OQp">
-                                            <rect key="frame" x="31" y="-126" width="23" height="21"/>
+                                            <rect key="frame" x="31" y="14" width="23" height="21"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-20" id="9U6-wA-5ze">
                                                 <font key="font" size="10" name="CenturyGothic-Bold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -117,25 +119,25 @@
                                             </textFieldCell>
                                         </textField>
                                         <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="asJ-7c-oOz" userLabel="EQ 0db">
-                                            <rect key="frame" x="74" y="-72" width="252" height="5"/>
+                                            <rect key="frame" x="74" y="68" width="252" height="5"/>
                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <font key="titleFont" metaFont="system"/>
                                         </box>
                                         <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Wwi-eU-yUf" userLabel="EQ 0db">
-                                            <rect key="frame" x="73" y="-71" width="252" height="5"/>
+                                            <rect key="frame" x="73" y="69" width="252" height="5"/>
                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <font key="titleFont" metaFont="system"/>
                                         </box>
                                         <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="D8U-TF-UeU" userLabel="EQ 0db">
-                                            <rect key="frame" x="74" y="-70" width="252" height="5"/>
+                                            <rect key="frame" x="74" y="70" width="252" height="5"/>
                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <font key="titleFont" metaFont="system"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vsR-0Q-cXe">
-                                            <rect key="frame" x="263" y="-143" width="84" height="23"/>
+                                            <rect key="frame" x="263" y="-3" width="84" height="23"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Presets" id="ems-fH-sOb">
                                                 <font key="font" size="12" name="CenturyGothic-Bold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -143,7 +145,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hG3-Ir-qkY" userLabel="EQ Presets Menu">
-                                            <rect key="frame" x="268" y="-142" width="106" height="22"/>
+                                            <rect key="frame" x="268" y="-2" width="106" height="22"/>
                                             <popUpButtonCell key="cell" type="disclosure" title="Vocal" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" altersStateOfSelectedItem="NO" selectedItem="z8X-aR-fwU" id="fct-Jo-Wiy" customClass="EQPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" size="10" name="CenturyGothic"/>
@@ -172,7 +174,7 @@
                                             </connections>
                                         </popUpButton>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lg0-FS-2I5">
-                                            <rect key="frame" x="66" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="66" y="22" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -182,7 +184,7 @@
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mTb-nz-ndF">
-                                            <rect key="frame" x="94" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="94" y="22" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -192,7 +194,7 @@
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iEd-37-pLD">
-                                            <rect key="frame" x="122" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="122" y="22" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -202,7 +204,7 @@
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuJ-l0-5ih">
-                                            <rect key="frame" x="150" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="150" y="22" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -212,7 +214,7 @@
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lgr-1t-FRb">
-                                            <rect key="frame" x="178" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="178" y="22" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -222,7 +224,7 @@
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JGZ-0h-WTH" userLabel="Eq Slider1k">
-                                            <rect key="frame" x="206" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="206" y="22" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -232,7 +234,7 @@
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DDL-Kj-I4h" userLabel="Eq Slider2k">
-                                            <rect key="frame" x="234" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="234" y="22" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -242,7 +244,7 @@
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VSQ-5C-2KO" userLabel="Eq Slider4k">
-                                            <rect key="frame" x="262" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="262" y="22" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -252,7 +254,7 @@
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qHV-Kz-sUG" userLabel="Eq Slider8k">
-                                            <rect key="frame" x="290" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="290" y="22" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -262,7 +264,7 @@
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z4B-Hr-jie" userLabel="Eq Slider16k">
-                                            <rect key="frame" x="318" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="318" y="22" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -272,7 +274,7 @@
                                             </connections>
                                         </slider>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EOh-fy-QB5" userLabel="Frequencies">
-                                            <rect key="frame" x="66" y="-27" width="274" height="26"/>
+                                            <rect key="frame" x="66" y="113" width="274" height="26"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="32      64     128    256    512     1k      2k      4k      8k     16k" id="KZ1-aN-0Yl">
                                                 <font key="font" size="10" name="CenturyGothic-Bold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -280,7 +282,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XKK-aS-eMn" userLabel="EQGlobalGain">
-                                            <rect key="frame" x="19" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="19" y="22" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -290,7 +292,7 @@
                                             </connections>
                                         </slider>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a3V-ab-jaC">
-                                            <rect key="frame" x="31" y="-35" width="23" height="21"/>
+                                            <rect key="frame" x="31" y="105" width="23" height="21"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+20" id="E9O-1s-8rC">
                                                 <font key="font" size="10" name="CenturyGothic-Bold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -377,6 +379,69 @@
                                                         <rect key="frame" x="168" y="8" width="117" height="17"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="3                                        32" id="hHM-pr-qvp">
                                                             <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                            </view>
+                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </box>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Time" identifier="" id="ifs-vg-o0B" userLabel="Time">
+                                <view key="view" ambiguous="YES" id="jLB-l1-UdU">
+                                    <rect key="frame" x="10" y="33" width="376" height="140"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n8Y-va-1kY" userLabel="Time Desc">
+                                            <rect key="frame" x="63" y="15" width="304" height="120"/>
+                                            <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Changes the playback rate (aka time stretching)" id="eKf-ya-88i">
+                                                <font key="font" size="13" name="CenturyGothic"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KK7-yq-mkB" userLabel="Bypass button">
+                                            <rect key="frame" x="12" y="72" width="22" height="60"/>
+                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ksr-y2-eDd">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="timeBypassAction:" target="Voe-Tx-rLC" id="ozM-rN-zrW"/>
+                                            </connections>
+                                        </button>
+                                        <box fixedFrame="YES" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="y0c-x9-eVo" userLabel="Controls Box">
+                                            <rect key="frame" x="57" y="1" width="306" height="76"/>
+                                            <view key="contentView" ambiguous="YES" id="oDh-XH-33j">
+                                                <rect key="frame" x="1" y="1" width="304" height="74"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFD-kd-aEZ">
+                                                        <rect key="frame" x="22" y="24" width="260" height="26"/>
+                                                        <shadow key="shadow" blurRadius="1">
+                                                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </shadow>
+                                                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.25" maxValue="4" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="16" sliderType="linear" id="ZRz-hS-z6X" customClass="TickedSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                        <connections>
+                                                            <action selector="timeStretchAction:" target="Voe-Tx-rLC" id="tJR-fl-Kfm"/>
+                                                        </connections>
+                                                    </slider>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U9Q-aW-OQp" userLabel="Values">
+                                                        <rect key="frame" x="19" y="10" width="304" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="1/4   1/2        1          1.5         2         2.5         3         3.5         4" id="fjR-9E-1ru">
+                                                            <font key="font" size="9" name="CenturyGothic-Bold"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cjs-74-Vf8" userLabel="Rate">
+                                                        <rect key="frame" x="135" y="52" width="38" height="17"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Rate" id="9Z2-pz-Kqr">
+                                                            <font key="font" size="12" name="CenturyGothic-Bold"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -1073,7 +1138,7 @@
                         <shadow key="shadow" blurRadius="1">
                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </shadow>
-                        <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="9dI-lu-F5h" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
+                        <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="9dI-lu-F5h" customClass="VolumeSliderCell" customModule="Aural" customModuleProvider="target"/>
                         <connections>
                             <action selector="volumeAction:" target="Voe-Tx-rLC" id="BN5-Uz-7hN"/>
                         </connections>
@@ -1089,11 +1154,11 @@
                         </connections>
                     </button>
                     <slider toolTip="Pan / Balance" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wom-j6-eli">
-                        <rect key="frame" x="309" y="432" width="79" height="17"/>
+                        <rect key="frame" x="309" y="434" width="79" height="15"/>
                         <shadow key="shadow" blurRadius="1">
                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </shadow>
-                        <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" minValue="-1" maxValue="1" tickMarkPosition="below" numberOfTickMarks="3" sliderType="linear" id="44O-U1-j5I" customClass="TickedSliderCell" customModule="Aural" customModuleProvider="target"/>
+                        <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" minValue="-1" maxValue="1" tickMarkPosition="below" sliderType="linear" id="44O-U1-j5I" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
                         <string key="userLabel" base64-UTF8="YES">
 G1BhbiBTbGlkZXI
 </string>
@@ -1241,19 +1306,6 @@ G1BhbiBTbGlkZXI
                 </menuItem>
             </items>
         </menu>
-        <slider verticalHuggingPriority="750" id="Pg7-aE-7Oh">
-            <rect key="frame" x="0.0" y="0.0" width="96" height="21"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="gUH-hc-qiK"/>
-        </slider>
-        <button id="eF1-en-8P0">
-            <rect key="frame" x="0.0" y="0.0" width="61" height="18"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="RhC-Ru-FZO">
-                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                <font key="font" metaFont="system"/>
-            </buttonCell>
-        </button>
     </objects>
     <resources>
         <image name="Add" width="129" height="129"/>

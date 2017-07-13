@@ -40,7 +40,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
     private init() {
         
         // TODO: This is a horribly ugly hack, should be in AppDelegate
-        PlayerDelegate.configureLogging()
+//        PlayerDelegate.configureLogging()
         
         player = Player.instance()
         loadPlayerState()
@@ -410,6 +410,14 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
     
     func setPitchOverlap(overlap: Float) {
         player.setPitchOverlap(overlap)
+    }
+    
+    func toggleTimeBypass() -> Bool {
+        return player.toggleTimeBypass()
+    }
+    
+    func setTimeStretchRate(rate: Float) {
+        player.setTimeStretchRate(rate)
     }
     
     func toggleReverbBypass() -> Bool {
