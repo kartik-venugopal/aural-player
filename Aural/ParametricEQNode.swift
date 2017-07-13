@@ -31,6 +31,7 @@ class ParametricEQNode: AVAudioUnitEQ {
         bands[index].gain = gain
     }
     
+    // Helper function to set gain for all bands
     func setBands(allBands: [Int: Float]) {
         
         for (freq, gain) in allBands {
