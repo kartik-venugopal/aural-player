@@ -3,14 +3,14 @@ Aural Player is a free and open source audio player application for the MacOS (f
 
 (Please see User Guide and Developer-readme under /Documentation, for more details)
 
-![App screenshot](/Documentation/Aural.png?raw=true "App screenshot")
+![App screenshot](/Documentation/Screenshots/Aural.png?raw=true "App screenshot")
 
-![Pitch](/Documentation/Pitch.png?raw=true "Pitch Shift")
+![Pitch](/Documentation/Screenshots/Pitch.png?raw=true "Pitch Shift")
 
-![Time](/Documentation/Time.png?raw=true "Time Stretch")
+![Time](/Documentation/Screenshots/Time.png?raw=true "Time Stretch")
 
-![Reverb](/Documentation/Reverb.png?raw=true "Reverb")
+![Reverb](/Documentation/Screenshots/Reverb.png?raw=true "Reverb")
 
-![Delay](/Documentation/Delay.png?raw=true "Delay")
+![Delay](/Documentation/Screenshots/Delay.png?raw=true "Delay")
 
-![Filter](/Documentation/Filter.png?raw=true "Filter")
+![Filter](/Documentation/Screenshots/Filter.png?raw=true "Filter")
