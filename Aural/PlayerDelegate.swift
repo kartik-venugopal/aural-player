@@ -523,8 +523,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
     // Called when playback of the current track completes
     func consumeEvent(event: Event) {
         
-        print("\nGot event !")
-        
         player.stop()
         
         let newTrackInfo = continuePlaying()

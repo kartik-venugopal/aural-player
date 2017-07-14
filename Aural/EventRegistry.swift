@@ -10,6 +10,7 @@ class EventRegistry {
     private static var subscriberRegistry: [EventType: [(EventSubscriber, DispatchQueue)]] = [EventType: [(EventSubscriber, DispatchQueue)]]()
     
     // Called by a subscriber who is interested in notifications of a certain type of event
+    // The queue argument specifies which queue the event notification should be dispatched to (for the UI, this should be the main dispatch queue)
     static func subscribe(eventType: EventType, subscriber: EventSubscriber, dispatchQueue: DispatchQueue) {
         
         let subscribers = subscriberRegistry[eventType]
@@ -19,17 +20,6 @@ class EventRegistry {
         
         subscriberRegistry[eventType]?.append(subscriber, dispatchQueue)
     }
-    
-    // Called by a publisher who provides notifications of a certain type of event
-    //    static func registerPublisher(eventType: EventType, publisher: EventPublisher) {
-    //
-    //        let publishers = publisherRegistry[eventType]
-    //        if (publishers == nil) {
-    //            publisherRegistry[eventType] = [EventPublisher]()
-    //        }
-    //
-    //        publisherRegistry[eventType]?.append(publisher)
-    //    }
     
     // Called by a publisher to publish an event
     static func publishEvent(eventType: EventType, event: Event) {

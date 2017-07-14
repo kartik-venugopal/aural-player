@@ -292,8 +292,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
                 lblTrackArtist.stringValue = "Artist: " + track.longDisplayName!.artist!
                 lblTrackTitle.stringValue = "Title: " + track.longDisplayName!.title!
                 
-//                print("\nSet title to: ", track.longDisplayName!.title!)
-                
                 bigLblTrack.hidden = true
                 lblTrackArtist.hidden = false
                 lblTrackTitle.hidden = false
@@ -775,8 +773,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         
         let _event = event as! TrackChangedEvent
         trackChange(_event.newTrack, newTrackIndex: _event.newTrackIndex)
-        
-                print("\nConsumed ... ", _event.newTrack?.shortDisplayName)
     }
     
     // Adds a set of files (or directories, i.e. files within them) to the current playlist, if supported
