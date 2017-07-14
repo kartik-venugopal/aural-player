@@ -1,76 +1,3081 @@
 diff --git a/Aural.xcodeproj/project.xcworkspace/xcuserdata/kven.xcuserdatad/UserInterfaceState.xcuserstate b/Aural.xcodeproj/project.xcworkspace/xcuserdata/kven.xcuserdatad/UserInterfaceState.xcuserstate
-index b05b41a..492b3a4 100644
+index 492b3a4..c938649 100644
 Binary files a/Aural.xcodeproj/project.xcworkspace/xcuserdata/kven.xcuserdatad/UserInterfaceState.xcuserstate and b/Aural.xcodeproj/project.xcworkspace/xcuserdata/kven.xcuserdatad/UserInterfaceState.xcuserstate differ
+diff --git a/Aural/AppDelegate.swift b/Aural/AppDelegate.swift
+index 90d6f43..57e6b6f 100644
+--- a/Aural/AppDelegate.swift
++++ b/Aural/AppDelegate.swift
+@@ -125,7 +125,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
+         }
+         
+         // Register self as a subscriber to TrackChangedEvent notifications (published when the player is done playing a track)
+-        EventRegistry.subscribe(.TrackChanged, subscriber: self)
++        EventRegistry.subscribe(.TrackChanged, subscriber: self, dispatchQueue: DispatchQueue(queueType: QueueType.MAIN))
+         
+         window.movableByWindowBackground  = true
+         window.makeKeyAndOrderFront(self)
+@@ -369,6 +369,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
+     }
+     
+     func playlistDoubleClickAction(sender: AnyObject) {
++        playSelectedTrack()
++    }
++    
++    func playSelectedTrack() {
+         let track = player.play(playlistView.selectedRow)
+         trackChange(track, newTrackIndex: playlistView.selectedRow)
+     }
+diff --git a/Aural/AsyncExecutor.swift b/Aural/AsyncExecutor.swift
+index 0c23525..945594c 100644
+--- a/Aural/AsyncExecutor.swift
++++ b/Aural/AsyncExecutor.swift
+@@ -7,10 +7,9 @@ import Cocoa
+ class AsyncExecutor {
+     
+     // Execute a block of code asynchronously
+-    static func execute(block: () -> Void) {
++    static func execute(block: () -> Void, dispatchQueue: DispatchQueue) {
+         
+-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
+-            
++        dispatch_async(dispatchQueue.underlyingQueue, { () -> Void in
+             block()
+         })
+     }
+diff --git a/Aural/AuralPlayer.swift b/Aural/AuralPlayer.swift
+index 86e178b..8157096 100644
+--- a/Aural/AuralPlayer.swift
++++ b/Aural/AuralPlayer.swift
+@@ -21,7 +21,7 @@ protocol AuralPlayer {
+     // Stops playback of the currently playing track, in preparation for playback of a new track. Releases all resources associated with the currently playing track.
+     func stop()
+     
+-    // Seeks to a certain time in the currently playing track
++    // Seeks to a certain time in the currently playing track. Returns a flag indicating whether or not playback of the current track has completed as a result of this seek.
+     func seekToTime(seconds: Double)
+     
+     // Gets the playback position (in seconds) of the currently playing track
+diff --git a/Aural/BufferManager.swift b/Aural/BufferManager.swift
+index 1d1e357..a1109fa 100644
+--- a/Aural/BufferManager.swift
++++ b/Aural/BufferManager.swift
+@@ -29,10 +29,7 @@ class BufferManager {
+     
+     // The currently playing audio file
+     private var playingFile: AVAudioFile?
+-    
+-    // Flag marking if EOF has been reached when reading the current audio file
+-    private var reachedEOF: Bool = false
+-    
++
+     // This timestamp is used to mark which playback session a buffer scheduling task belongs to, i.e., it is a unique identifier for a playback session
+     private var sessionTimestamp: NSDate = NSDate()
+     
+@@ -69,36 +66,44 @@ class BufferManager {
+         // Set the position in the audio file from which reading is to begin
+         playingFile!.framePosition = frame
+         
+-        // Reset the EOF flag
+-        reachedEOF = false
+-        
+         // Mark the current playback session's timestamp
+         sessionTimestamp = NSDate()
+         
+         // Schedule one buffer for immediate playback
+-        scheduleNextBuffer(sessionTimestamp)
++        let reachedEOF = scheduleNextBuffer(sessionTimestamp)
+         
+         // Start playing the file
+         playerNode.play()
+         
+         // Schedule one more ("look ahead") buffer
+-        scheduleNextBufferIfNecessary(sessionTimestamp)
++        if (!reachedEOF) {
++            queue.addOperationWithBlock({self.scheduleNextBuffer(sessionTimestamp)})
++        }
+     }
+     
+-    // Checks if more buffers are needed for the playback session indicated by the given timestamp, and if so, schedules one for playback. The timestamp argument indicates which playback session this task was initiated for. If the given timestamp does not match the current playback session timestamp, or the end of file has been reached, no scheduling will occur.
+-    private func scheduleNextBufferIfNecessary(timestamp: NSDate) {
++    // Upon the completion of playback of a buffer, checks if more buffers are needed for the playback session indicated by the given timestamp, and if so, schedules one for playback. The timestamp argument indicates which playback session this task was initiated for.
++    private func bufferCompletionHandler(timestamp: NSDate, reachedEOF: Bool) {
+         
+-        // This flag indicates whether this scheduling task belongs to the current playback session
++        // If this timestamp doesn't match the current playback session timestamp, it is not current
+         let timestampCurrent = timestamp.compare(sessionTimestamp) == NSComparisonResult.OrderedSame
+         
+-        if (timestampCurrent && !reachedEOF) {
+-            queue.addOperationWithBlock({self.scheduleNextBuffer(timestamp)})
++        if (timestampCurrent) {
++            
++            if (reachedEOF) {
++                
++                // Notify observers about playback completion
++                EventRegistry.publishEvent(EventType.PlaybackCompleted, event: PlaybackCompletedEvent.instance)
++            } else {
++                
++                // Continue scheduling more buffers
++                queue.addOperationWithBlock({self.scheduleNextBuffer(timestamp)})
++            }
+         }
+     }
+     
+     // Schedules a single audio buffer for playback
+     // The timestamp argument indicates which playback session this task was initiated for
+-    private func scheduleNextBuffer(timestamp: NSDate) {
++    private func scheduleNextBuffer(timestamp: NSDate) -> Bool {
+         
+         let sampleRate = playingFile!.processingFormat.sampleRate
+         let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(PCMFormat: playingFile!.processingFormat, frameCapacity: AVAudioFrameCount(Double(BufferManager.BUFFER_SIZE) * sampleRate))
+@@ -113,17 +118,19 @@ class BufferManager {
+         let bufferNotFull = buffer.frameLength < buffer.frameCapacity
+         
+         // If all frames have been read, OR the buffer is not full, consider track done playing (EOF)
+-        reachedEOF = readAllFrames || bufferNotFull
++        let reachedEOF = readAllFrames || bufferNotFull
+         
+         // Redundant timestamp check, in case the first one in scheduleNextBufferIfNecessary() was performed too soon (stop() called between scheduleNextBufferIfNecessary() and now). This will come in handy when disk seeking suddenly slows down abnormally and the task takes much longer to complete.
+         let timestampCurrent = timestamp.compare(sessionTimestamp) == NSComparisonResult.OrderedSame
+         
+-        if (timestampCurrent && Int64(buffer.frameLength) >= BufferManager.MIN_PLAYBACK_FRAMES) {
++        if (timestampCurrent) {
+         
+             playerNode.scheduleBuffer(buffer, atTime: nil, options: AVAudioPlayerNodeBufferOptions(), completionHandler: {
+-                    self.scheduleNextBufferIfNecessary(timestamp)
++                    self.bufferCompletionHandler(timestamp, reachedEOF: reachedEOF)
+             })
+         }
++        
++        return reachedEOF
+     }
+     
+     // Seeks to a certain position (seconds) in the audio file being played back. Returns the calculated start frame and whether or not playback has completed after this seek (i.e. end of file)
+@@ -135,21 +142,25 @@ class BufferManager {
+         
+         //  Multiply your sample rate by the new time in seconds. This will give you the exact frame of the song at which you want to start the player
+         let firstFrame = Int64(seconds * sampleRate)
+-        
++
+         let framesToPlay = playingFile!.length - firstFrame
+         
+         // If not enough frames left to play, consider playback finished
+-        if framesToPlay > BufferManager.MIN_PLAYBACK_FRAMES {
++        if framesToPlay > 0 {
+             
+             // Start playback
+             startPlaybackFromFrame(firstFrame)
+             
+-            // Return the start frame to later determine seek position and end of file
++            // Return the start frame to later determine seek position
+             return (false, firstFrame)
+             
+         } else {
+             
+-            // Reached end of track. Stop playback
++            // Nothing to play means playback has completed
++            
++            // Notify observers about playback completion
++            EventRegistry.publishEvent(EventType.PlaybackCompleted, event: PlaybackCompletedEvent.instance)
++            
+             return (true, nil)
+         }
+     }
+diff --git a/Aural/EventProtocols.swift b/Aural/EventProtocols.swift
+index 8299b01..4411a82 100644
+--- a/Aural/EventProtocols.swift
++++ b/Aural/EventProtocols.swift
+@@ -6,9 +6,6 @@ import Cocoa
+ protocol Event {
+ }
+ 
+-protocol EventPublisher {
+-}
+-
+ protocol EventSubscriber {
+     
+     // Every event subscriber must implement this method to consume an event it is interested in
+diff --git a/Aural/EventRegistry.swift b/Aural/EventRegistry.swift
+index 20641a6..7e63ebd 100644
+--- a/Aural/EventRegistry.swift
++++ b/Aural/EventRegistry.swift
+@@ -2,34 +2,23 @@
+ import Cocoa
+ 
+ /*
+-    Orchestrates publishing of, and subscription to, event notifications, to facilitate callbacks between the UI and the player layers.
++Orchestrates publishing of, and subscription to, event notifications, to facilitate callbacks between the UI and the player layers.
+ */
+ class EventRegistry {
+     
+-    // Keeps track of publishers and subscribers
+-    private static var subscriberRegistry: [EventType: [EventSubscriber]] = [EventType: [EventSubscriber]]()
+-    private static var publisherRegistry: [EventType: [EventPublisher]] = [EventType: [EventPublisher]]()
++    // Keeps track of subscribers
++    private static var subscriberRegistry: [EventType: [(EventSubscriber, DispatchQueue)]] = [EventType: [(EventSubscriber, DispatchQueue)]]()
+     
+     // Called by a subscriber who is interested in notifications of a certain type of event
+-    static func subscribe(eventType: EventType, subscriber: EventSubscriber) {
++    // The queue argument specifies which queue the event notification should be dispatched to (for the UI, this should be the main dispatch queue)
++    static func subscribe(eventType: EventType, subscriber: EventSubscriber, dispatchQueue: DispatchQueue) {
+         
+         let subscribers = subscriberRegistry[eventType]
+         if (subscribers == nil) {
+-            subscriberRegistry[eventType] = [EventSubscriber]()
++            subscriberRegistry[eventType] = [(EventSubscriber, DispatchQueue)]()
+         }
+         
+-        subscriberRegistry[eventType]?.append(subscriber)
+-    }
+-    
+-    // Called by a publisher who provides notifications of a certain type of event
+-    static func registerPublisher(eventType: EventType, publisher: EventPublisher) {
+-        
+-        let publishers = publisherRegistry[eventType]
+-        if (publishers == nil) {
+-            publisherRegistry[eventType] = [EventPublisher]()
+-        }
+-        
+-        publisherRegistry[eventType]?.append(publisher)
++        subscriberRegistry[eventType]?.append(subscriber, dispatchQueue)
+     }
+     
+     // Called by a publisher to publish an event
+@@ -38,8 +27,13 @@ class EventRegistry {
+         let subscribers = subscriberRegistry[eventType]
+         
+         if (subscribers != nil) {
+-            for subscriber in subscribers! {
+-                subscriber.consumeEvent(event)
++            for (subscriber, queue) in subscribers! {
++                
++                AsyncExecutor.execute({
++                    
++                    subscriber.consumeEvent(event)
++                    
++                    }, dispatchQueue: queue)
+             }
+         }
+     }
+diff --git a/Aural/EventTypes.swift b/Aural/EventTypes.swift
+index ac49234..285bdb0 100644
+--- a/Aural/EventTypes.swift
++++ b/Aural/EventTypes.swift
+@@ -31,10 +31,14 @@ class TrackChangedEvent: Event {
+ // Event indicating that playback of the currently playing track has completed
+ class PlaybackCompletedEvent: Event {
+     
+-    // The track that completed playing
+-    var track: Track
++//    // The track that completed playing
++//    var track: Track
++//    
++//    init(track: Track) {
++//        self.track = track
++//    }
+     
+-    init(track: Track) {
+-        self.track = track
+-    }
++    private init() {}
++    
++    static let instance = PlaybackCompletedEvent()
+ }
+\ No newline at end of file
+diff --git a/Aural/KeyPressHandler.swift b/Aural/KeyPressHandler.swift
+index 5a407e3..6ed629c 100644
+--- a/Aural/KeyPressHandler.swift
++++ b/Aural/KeyPressHandler.swift
+@@ -17,6 +17,7 @@ class KeyPressHandler {
+     static let LETTER_S: UInt16 = 1
+     static let SPACE: UInt16 = 49
+     static let BACKSPACE: UInt16 = 51
++    static let ENTER: UInt16 = 36
+     
+     // Callback reference to AppDelegate so that its UI controls can be manipulated and its functions called
+     static var app: AppDelegate?
+@@ -146,6 +147,11 @@ class KeyPressHandler {
+             app.removeSingleTrackAction(event)            
+         }
+         
++        // (Enter) Play selected track (same as mouse double click)
++        if (!isCommand && !isShift && event.keyCode == ENTER) {
++            app.playSelectedTrack()
++        }
++        
+         // Part of the hack mentioned above ... restore the responder for the playlist view so that it may continue receiving key press events
+         app.playlistView.window?.makeFirstResponder(resp)
+     }
+diff --git a/Aural/Player.swift b/Aural/Player.swift
+index 34f09d6..4e18c75 100644
+--- a/Aural/Player.swift
++++ b/Aural/Player.swift
+@@ -5,7 +5,7 @@ Wrapper around AVAudioEngine. Handles all audio-related operations ... playback,
+ import Cocoa
+ import AVFoundation
+ 
+-class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
++class Player: AuralPlayer, AuralSoundTuner {
+     
+     private static let singleton: Player = Player()
+     
+@@ -74,9 +74,6 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
+         bufferManager = BufferManager(playerNode: playerNode)
+         
+         loadPlayerState(SavedPlayerState.defaults)
+-        
+-        // Register self as a publisher of playback completion events
+-        EventRegistry.registerPublisher(.PlaybackCompleted, publisher: self)
+     }
+     
+     func loadPlayerState(state: SavedPlayerState) {
+@@ -128,10 +125,6 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
+     
+     func play(track: Track) {
+         
+-        // Stop if currently playing
+-        stop()
+-        
+-        playingTrack = nil
+         playingTrack = track
+         
+         startFrame = BufferManager.FRAME_ZERO
+@@ -161,11 +154,6 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
+                 let lastFrame = (playerTime?.sampleTime)!
+                 let seconds: Double = Double(startFrame! + lastFrame) / (playerTime?.sampleRate)!
+                 
+-                if (seconds >= playingTrack!.duration) {
+-                    playbackCompleted()
+-                    return 0
+-                }
+-                
+                 return seconds
+             }
+         }
+@@ -298,30 +286,25 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
+         
+         bufferManager.stop()
+         playerNode.reset()
+-        audioEngine.reset()
++
++        // Clear sound tails from reverb and delay nodes, if they're active
+         
+-        playingTrack = nil
+-        startFrame = nil
+-    }
+-    
+-    // Called when playback of the current track completes
+-    private func playbackCompleted() {
++        if (!delayNode.bypass) {
++            delayNode.reset()
++        }
+         
+-        // Capture the completed track before stopping the player (it will get reset to nil by stop())
+-        let track = playingTrack!
+-        stop()
++        if (!reverbNode.bypass) {
++            reverbNode.reset()
++        }
+         
+-        // Publish a notification that playback has completed
+-        EventRegistry.publishEvent(.PlaybackCompleted, event: PlaybackCompletedEvent(track: track))
++        playingTrack = nil
++        startFrame = nil
+     }
+     
+     func seekToTime(seconds: Double) {
+         
+         let seekResult = bufferManager.seekToTime(seconds)
+-        
+-        if (seekResult.playbackCompleted) {
+-            playbackCompleted()
+-        } else {
++        if (!seekResult.playbackCompleted) {
+             startFrame = seekResult.startFrame!
+         }
+     }
+diff --git a/Aural/PlayerDelegate.swift b/Aural/PlayerDelegate.swift
+index ad7e7c5..85456f4 100644
+--- a/Aural/PlayerDelegate.swift
++++ b/Aural/PlayerDelegate.swift
+@@ -45,8 +45,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
+         player = Player.instance()
+         loadPlayerState()
+         
+-        // Register self as a subscriber to PlaybackCompleted events (published by Player)
+-        EventRegistry.subscribe(.PlaybackCompleted, subscriber: self)
++        EventRegistry.subscribe(EventType.PlaybackCompleted, subscriber: self, dispatchQueue: DispatchQueue(queueType: QueueType.MAIN))
+     }
+     
+     
+@@ -210,8 +209,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
+         switch playbackState {
+             
+         case .NO_FILE: continuePlaying()
+-        if (playingTrack != nil) {
+-            trackChanged = true
++            if (playingTrack != nil) {
++                trackChanged = true
+             }
+             
+         case .PAUSED: resume()
+@@ -243,6 +242,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
+         playingTrack = track
+         if (track != nil) {
+             TrackIO.prepareForPlayback(track!)
++            
++            // Stop if currently playing
++            if (playbackState == .PLAYING || playbackState == .PAUSED) {
++                player.stop()
++            }
++            
+             player.play(track!)
+             playbackState = .PLAYING
+         }
+@@ -464,24 +469,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
+         player.setFilterLowPassCutoff(cutoff)
+     }
+     
+-    // Playback completed
+-    func consumeEvent(event: Event) {
+-        
+-        let newTrackInfo = continuePlaying()
+-        playingTrack = newTrackInfo.playingTrack
+-        
+-        let trackChangedEvent = TrackChangedEvent(newTrack: playingTrack, newTrackIndex: newTrackInfo.playingTrackIndex)
+-        
+-        if (playingTrack != nil) {
+-            playbackState = .PLAYING
+-        } else {
+-            playbackState = .NO_FILE
+-        }
+-        
+-        // Notify the UI about this track change event
+-        EventRegistry.publishEvent(.TrackChanged, event: trackChangedEvent)
+-    }
+-    
+     func toggleRepeatMode() -> RepeatMode {
+         
+         switch repeatMode {
+@@ -532,4 +519,24 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
+         
+         PlayerStateIO.save(state)
+     }
++    
++    // Called when playback of the current track completes
++    func consumeEvent(event: Event) {
++        
++        player.stop()
++        
++        let newTrackInfo = continuePlaying()
++        playingTrack = newTrackInfo.playingTrack
++        
++        let trackChangedEvent = TrackChangedEvent(newTrack: playingTrack, newTrackIndex: newTrackInfo.playingTrackIndex)
++        
++        if (playingTrack != nil) {
++            playbackState = .PLAYING
++        } else {
++            playbackState = .NO_FILE
++        }
++        
++        // Notify the UI about this track change event
++        EventRegistry.publishEvent(.TrackChanged, event: trackChangedEvent)
++    }
+ }
+\ No newline at end of file
+diff --git a/Aural/ScheduledTaskExecutor.swift b/Aural/ScheduledTaskExecutor.swift
+index 5901267..f431297 100644
+--- a/Aural/ScheduledTaskExecutor.swift
++++ b/Aural/ScheduledTaskExecutor.swift
+@@ -22,6 +22,7 @@ class ScheduledTaskExecutor {
+     
+     // Flags indicating whether this timer is currently running
+     private var running: Bool = false
++    private var stopped: Bool = false
+     
+     init(intervalMillis: UInt32, task: () -> Void, queue: DispatchQueue) {
+         
+@@ -44,6 +45,10 @@ class ScheduledTaskExecutor {
+     // Start/resume task execution
+     func startOrResume() {
+         
++        if (stopped) {
++            return
++        }
++        
+         if (!running && timer != nil) {
+             dispatch_resume(timer!)
+             running = true
+@@ -53,6 +58,10 @@ class ScheduledTaskExecutor {
+     // Pause task execution
+     func pause() {
+         
++        if (stopped) {
++            return
++        }
++        
+         if (!running && timer != nil) {
+             dispatch_suspend(timer!)
+             running = false
+@@ -69,6 +78,13 @@ class ScheduledTaskExecutor {
+     
+     func stop() {
+         
++        if (stopped) {
++            return
++        }
++        
++        running = false
++        stopped = true
++        
+         if (timer != nil) {
+             dispatch_source_cancel(timer!)
+         }
+@@ -76,9 +92,11 @@ class ScheduledTaskExecutor {
+     
+     deinit {
+         
+-        // Cancel the timer
+-        if (timer != nil) {
+-            dispatch_source_cancel(timer!)
++        if (!stopped) {
++            // Cancel the timer
++            if (timer != nil) {
++                dispatch_source_cancel(timer!)
++            }
+         }
+     }
+ }
+\ No newline at end of file
 diff --git a/Documentation/Aural.png b/Documentation/Aural.png
-index 3afe73c..a76a761 100644
-Binary files a/Documentation/Aural.png and b/Documentation/Aural.png differ
-diff --git a/Documentation/User Guide with pictures.rtfd/Aural.png b/Documentation/User Guide with pictures.rtfd/Aural.png
-index 3afe73c..a76a761 100644
-Binary files a/Documentation/User Guide with pictures.rtfd/Aural.png and b/Documentation/User Guide with pictures.rtfd/Aural.png differ
-diff --git a/Documentation/User Guide with pictures.rtfd/TXT.rtf b/Documentation/User Guide with pictures.rtfd/TXT.rtf
-index 09143b0..e8b647e 100644
---- a/Documentation/User Guide with pictures.rtfd/TXT.rtf	
-+++ b/Documentation/User Guide with pictures.rtfd/TXT.rtf	
-@@ -1,14 +1,14 @@
- {\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
- {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
- {\colortbl;\red255\green255\blue255;}
--\margl1440\margr1440\vieww9680\viewh6620\viewkind0
-+\margl1440\margr1440\vieww24580\viewh14580\viewkind0
- \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
- 
- \f0\fs32 \cf0 \ul \ulc0 User Guide\
- \
- \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
- 
--\fs24 \cf0 \ulnone {{\NeXTGraphic Aural.png \width17760 \height12540
-+\fs24 \cf0 \ulnone {{\NeXTGraphic Aural.png \width17780 \height12520
- }¬}\
- \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
- 
-@@ -16,24 +16,33 @@
- \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
- 
- \fs24 \cf0 {{\NeXTGraphic Pitch.png \width7660 \height3460
--}¬}\
-+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
-+\cf0 \
- \
--{{\NeXTGraphic Time.png \width7660 \height3460
--}¬}\
-+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
-+\cf0 {{\NeXTGraphic Time.png \width7660 \height3460
-+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
-+\cf0 \
- \
--{{\NeXTGraphic Reverb.png \width7660 \height3460
--}¬}\
-+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
-+\cf0 {{\NeXTGraphic Reverb.png \width7660 \height3460
-+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
-+\cf0 \
- \
--{{\NeXTGraphic Delay.png \width7660 \height3460
--}¬}\
-+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
-+\cf0 {{\NeXTGraphic Delay.png \width7660 \height3460
-+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
-+\cf0 \
- \
--{{\NeXTGraphic Filter.png \width7660 \height3460
-+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
-+\cf0 {{\NeXTGraphic Filter.png \width7660 \height3460
- }¬}
- \fs32 \
- \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
- \cf0 \
-+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
- 
--\fs30 Overview:
-+\fs30 \cf0 Overview:
- \fs32  \
- 
- \fs28 Aural Player is a free and open source audio player application for the MacOS (formerly OSX) platform. It is free for anyone to use/modify/repackage/redistribute, etc. It was written by an audio enthusiast learning to program on OS X, coming to Swift programming from many years of Java programming.\
-diff --git a/diff.txt b/diff.txt
+deleted file mode 100644
+index a76a761..0000000
+Binary files a/Documentation/Aural.png and /dev/null differ
+diff --git a/Documentation/Delay.png b/Documentation/Delay.png
+deleted file mode 100644
+index 7c2ef91..0000000
+Binary files a/Documentation/Delay.png and /dev/null differ
+diff --git a/Documentation/Filter.png b/Documentation/Filter.png
+deleted file mode 100644
+index 0ed496b..0000000
+Binary files a/Documentation/Filter.png and /dev/null differ
+diff --git a/Documentation/Pitch.png b/Documentation/Pitch.png
+deleted file mode 100644
+index 600acf2..0000000
+Binary files a/Documentation/Pitch.png and /dev/null differ
+diff --git a/Documentation/Reverb.png b/Documentation/Reverb.png
+deleted file mode 100644
+index 3683057..0000000
+Binary files a/Documentation/Reverb.png and /dev/null differ
+diff --git a/Documentation/Screenshots/Aural.png b/Documentation/Screenshots/Aural.png
 new file mode 100644
-index 0000000..e69de29
+index 0000000..a76a761
+Binary files /dev/null and b/Documentation/Screenshots/Aural.png differ
+diff --git a/Documentation/Screenshots/Delay.png b/Documentation/Screenshots/Delay.png
+new file mode 100644
+index 0000000..7c2ef91
+Binary files /dev/null and b/Documentation/Screenshots/Delay.png differ
+diff --git a/Documentation/Screenshots/Filter.png b/Documentation/Screenshots/Filter.png
+new file mode 100644
+index 0000000..0ed496b
+Binary files /dev/null and b/Documentation/Screenshots/Filter.png differ
+diff --git a/Documentation/Screenshots/Pitch.png b/Documentation/Screenshots/Pitch.png
+new file mode 100644
+index 0000000..600acf2
+Binary files /dev/null and b/Documentation/Screenshots/Pitch.png differ
+diff --git a/Documentation/Screenshots/Reverb.png b/Documentation/Screenshots/Reverb.png
+new file mode 100644
+index 0000000..3683057
+Binary files /dev/null and b/Documentation/Screenshots/Reverb.png differ
+diff --git a/Documentation/Screenshots/Time.png b/Documentation/Screenshots/Time.png
+new file mode 100644
+index 0000000..991a370
+Binary files /dev/null and b/Documentation/Screenshots/Time.png differ
+diff --git a/Documentation/Time.png b/Documentation/Time.png
+deleted file mode 100644
+index 991a370..0000000
+Binary files a/Documentation/Time.png and /dev/null differ
+diff --git a/diff.txt b/diff.txt
+index 9a7873e..64ec6a7 100644
+--- a/diff.txt
++++ b/diff.txt
+@@ -1,2480 +0,0 @@
+-diff --git a/Aural.app.zip b/Aural.app.zip
+-index 4fd6435..68592b0 100644
+-Binary files a/Aural.app.zip and b/Aural.app.zip differ
+-diff --git a/Aural.xcodeproj/project.xcworkspace/xcuserdata/kven.xcuserdatad/UserInterfaceState.xcuserstate b/Aural.xcodeproj/project.xcworkspace/xcuserdata/kven.xcuserdatad/UserInterfaceState.xcuserstate
+-index c873a2b..b05b41a 100644
+-Binary files a/Aural.xcodeproj/project.xcworkspace/xcuserdata/kven.xcuserdatad/UserInterfaceState.xcuserstate and b/Aural.xcodeproj/project.xcworkspace/xcuserdata/kven.xcuserdatad/UserInterfaceState.xcuserstate differ
+-diff --git a/Aural/Assets.xcassets/Close.imageset/Contents.json b/Aural/Assets.xcassets/Close.imageset/Contents.json
+-deleted file mode 100644
+-index 818c8a8..0000000
+---- a/Aural/Assets.xcassets/Close.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "close6.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/Close.imageset/close6.png b/Aural/Assets.xcassets/Close.imageset/close6.png
+-deleted file mode 100644
+-index 6ccbe39..0000000
+-Binary files a/Aural/Assets.xcassets/Close.imageset/close6.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/EffectsControls/Contents.json b/Aural/Assets.xcassets/EffectsControls/Contents.json
+-new file mode 100644
+-index 0000000..da4a164
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/EffectsControls/Contents.json
+-@@ -0,0 +1,6 @@
+-+{
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/EffectsControls/SwitchOff.imageset/Contents.json b/Aural/Assets.xcassets/EffectsControls/SwitchOff.imageset/Contents.json
+-new file mode 100644
+-index 0000000..4421890
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/EffectsControls/SwitchOff.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "off.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/EffectsControls/SwitchOff.imageset/off.png b/Aural/Assets.xcassets/EffectsControls/SwitchOff.imageset/off.png
+-new file mode 100644
+-index 0000000..96cb749
+-Binary files /dev/null and b/Aural/Assets.xcassets/EffectsControls/SwitchOff.imageset/off.png differ
+-diff --git a/Aural/Assets.xcassets/EffectsControls/SwitchOn.imageset/Contents.json b/Aural/Assets.xcassets/EffectsControls/SwitchOn.imageset/Contents.json
+-new file mode 100644
+-index 0000000..2967f9d
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/EffectsControls/SwitchOn.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "on.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/EffectsControls/SwitchOn.imageset/on.png b/Aural/Assets.xcassets/EffectsControls/SwitchOn.imageset/on.png
+-new file mode 100644
+-index 0000000..030fa0b
+-Binary files /dev/null and b/Aural/Assets.xcassets/EffectsControls/SwitchOn.imageset/on.png differ
+-diff --git a/Aural/Assets.xcassets/Hide.imageset/Contents.json b/Aural/Assets.xcassets/Hide.imageset/Contents.json
+-deleted file mode 100644
+-index 5dfa922..0000000
+---- a/Aural/Assets.xcassets/Hide.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "hide5.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/Hide.imageset/hide5.png b/Aural/Assets.xcassets/Hide.imageset/hide5.png
+-deleted file mode 100644
+-index c7e5b28..0000000
+-Binary files a/Aural/Assets.xcassets/Hide.imageset/hide5.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/MoreInfo.imageset/Contents.json b/Aural/Assets.xcassets/MoreInfo.imageset/Contents.json
+-deleted file mode 100644
+-index 2677e7d..0000000
+---- a/Aural/Assets.xcassets/MoreInfo.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "info.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/MoreInfo.imageset/info.png b/Aural/Assets.xcassets/MoreInfo.imageset/info.png
+-deleted file mode 100644
+-index cbdee65..0000000
+-Binary files a/Aural/Assets.xcassets/MoreInfo.imageset/info.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/MusicArt.imageset/Contents.json b/Aural/Assets.xcassets/MusicArt.imageset/Contents.json
+-deleted file mode 100644
+-index 9d0e863..0000000
+---- a/Aural/Assets.xcassets/MusicArt.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "music.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/MusicArt.imageset/music.png b/Aural/Assets.xcassets/MusicArt.imageset/music.png
+-deleted file mode 100644
+-index 0838606..0000000
+-Binary files a/Aural/Assets.xcassets/MusicArt.imageset/music.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/Contents.json b/Aural/Assets.xcassets/NewSet/Contents.json
+-deleted file mode 100644
+-index da4a164..0000000
+---- a/Aural/Assets.xcassets/NewSet/Contents.json
+-+++ /dev/null
+-@@ -1,6 +0,0 @@
+--{
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/Mute.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/Mute.imageset/Contents.json
+-deleted file mode 100644
+-index 355a15c..0000000
+---- a/Aural/Assets.xcassets/NewSet/Mute.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "volumeOff.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/Mute.imageset/volumeOff.png b/Aural/Assets.xcassets/NewSet/Mute.imageset/volumeOff.png
+-deleted file mode 100644
+-index e59b402..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/Mute.imageset/volumeOff.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/NextTrack.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/NextTrack.imageset/Contents.json
+-deleted file mode 100644
+-index 602e2c2..0000000
+---- a/Aural/Assets.xcassets/NewSet/NextTrack.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "nextTrack.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/NextTrack.imageset/nextTrack.png b/Aural/Assets.xcassets/NewSet/NextTrack.imageset/nextTrack.png
+-deleted file mode 100644
+-index 7206c30..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/NextTrack.imageset/nextTrack.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/Pause.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/Pause.imageset/Contents.json
+-deleted file mode 100644
+-index 6aa82cf..0000000
+---- a/Aural/Assets.xcassets/NewSet/Pause.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "pause.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/Pause.imageset/pause.png b/Aural/Assets.xcassets/NewSet/Pause.imageset/pause.png
+-deleted file mode 100644
+-index 0a92323..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/Pause.imageset/pause.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/Play.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/Play.imageset/Contents.json
+-deleted file mode 100644
+-index 5f85e05..0000000
+---- a/Aural/Assets.xcassets/NewSet/Play.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "play.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/Play.imageset/play.png b/Aural/Assets.xcassets/NewSet/Play.imageset/play.png
+-deleted file mode 100644
+-index eb07a86..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/Play.imageset/play.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/PreviousTrack.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/PreviousTrack.imageset/Contents.json
+-deleted file mode 100644
+-index 79eb93d..0000000
+---- a/Aural/Assets.xcassets/NewSet/PreviousTrack.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "previousTrack.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/PreviousTrack.imageset/previousTrack.png b/Aural/Assets.xcassets/NewSet/PreviousTrack.imageset/previousTrack.png
+-deleted file mode 100644
+-index bf68d70..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/PreviousTrack.imageset/previousTrack.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/RepeatAll.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/RepeatAll.imageset/Contents.json
+-deleted file mode 100644
+-index 0a76214..0000000
+---- a/Aural/Assets.xcassets/NewSet/RepeatAll.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "repeatAll.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/RepeatAll.imageset/repeatAll.png b/Aural/Assets.xcassets/NewSet/RepeatAll.imageset/repeatAll.png
+-deleted file mode 100644
+-index 146d816..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/RepeatAll.imageset/repeatAll.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/RepeatOff.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/RepeatOff.imageset/Contents.json
+-deleted file mode 100644
+-index ba11c83..0000000
+---- a/Aural/Assets.xcassets/NewSet/RepeatOff.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "repeatOff.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/RepeatOff.imageset/repeatOff.png b/Aural/Assets.xcassets/NewSet/RepeatOff.imageset/repeatOff.png
+-deleted file mode 100644
+-index 5c1ea85..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/RepeatOff.imageset/repeatOff.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/RepeatOne.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/RepeatOne.imageset/Contents.json
+-deleted file mode 100644
+-index b6219f0..0000000
+---- a/Aural/Assets.xcassets/NewSet/RepeatOne.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "repeatOne.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/RepeatOne.imageset/repeatOne.png b/Aural/Assets.xcassets/NewSet/RepeatOne.imageset/repeatOne.png
+-deleted file mode 100644
+-index 94d1347..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/RepeatOne.imageset/repeatOne.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/SeekBackward.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/SeekBackward.imageset/Contents.json
+-deleted file mode 100644
+-index 79eb93d..0000000
+---- a/Aural/Assets.xcassets/NewSet/SeekBackward.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "previousTrack.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/SeekBackward.imageset/previousTrack.png b/Aural/Assets.xcassets/NewSet/SeekBackward.imageset/previousTrack.png
+-deleted file mode 100644
+-index 68745a1..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/SeekBackward.imageset/previousTrack.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/SeekForward.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/SeekForward.imageset/Contents.json
+-deleted file mode 100644
+-index 602e2c2..0000000
+---- a/Aural/Assets.xcassets/NewSet/SeekForward.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "nextTrack.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/SeekForward.imageset/nextTrack.png b/Aural/Assets.xcassets/NewSet/SeekForward.imageset/nextTrack.png
+-deleted file mode 100644
+-index cfd3a97..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/SeekForward.imageset/nextTrack.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/ShuffleOff.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/ShuffleOff.imageset/Contents.json
+-deleted file mode 100644
+-index 1f50f06..0000000
+---- a/Aural/Assets.xcassets/NewSet/ShuffleOff.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "shuffleOff.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/ShuffleOff.imageset/shuffleOff.png b/Aural/Assets.xcassets/NewSet/ShuffleOff.imageset/shuffleOff.png
+-deleted file mode 100644
+-index bb7ac07..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/ShuffleOff.imageset/shuffleOff.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/ShuffleOn.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/ShuffleOn.imageset/Contents.json
+-deleted file mode 100644
+-index 86fc491..0000000
+---- a/Aural/Assets.xcassets/NewSet/ShuffleOn.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "shuffleOn.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/ShuffleOn.imageset/shuffleOn.png b/Aural/Assets.xcassets/NewSet/ShuffleOn.imageset/shuffleOn.png
+-deleted file mode 100644
+-index 5e6aa4d..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/ShuffleOn.imageset/shuffleOn.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/SwitchOff.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/SwitchOff.imageset/Contents.json
+-deleted file mode 100644
+-index 7564ee1..0000000
+---- a/Aural/Assets.xcassets/NewSet/SwitchOff.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "off5.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/SwitchOff.imageset/off5.png b/Aural/Assets.xcassets/NewSet/SwitchOff.imageset/off5.png
+-deleted file mode 100644
+-index 96cb749..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/SwitchOff.imageset/off5.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/SwitchOn.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/SwitchOn.imageset/Contents.json
+-deleted file mode 100644
+-index b030ee2..0000000
+---- a/Aural/Assets.xcassets/NewSet/SwitchOn.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "on5.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/SwitchOn.imageset/on5.png b/Aural/Assets.xcassets/NewSet/SwitchOn.imageset/on5.png
+-deleted file mode 100644
+-index 030fa0b..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/SwitchOn.imageset/on5.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/VolumeHigh.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/VolumeHigh.imageset/Contents.json
+-deleted file mode 100644
+-index f79091b..0000000
+---- a/Aural/Assets.xcassets/NewSet/VolumeHigh.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "volumeHigh.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/VolumeHigh.imageset/volumeHigh.png b/Aural/Assets.xcassets/NewSet/VolumeHigh.imageset/volumeHigh.png
+-deleted file mode 100644
+-index f384d6e..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/VolumeHigh.imageset/volumeHigh.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/VolumeLow.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/VolumeLow.imageset/Contents.json
+-deleted file mode 100644
+-index c058925..0000000
+---- a/Aural/Assets.xcassets/NewSet/VolumeLow.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "volumeLow.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/VolumeLow.imageset/volumeLow.png b/Aural/Assets.xcassets/NewSet/VolumeLow.imageset/volumeLow.png
+-deleted file mode 100644
+-index 9ebb059..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/VolumeLow.imageset/volumeLow.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/VolumeMedium.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/VolumeMedium.imageset/Contents.json
+-deleted file mode 100644
+-index d9bd0ca..0000000
+---- a/Aural/Assets.xcassets/NewSet/VolumeMedium.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "volumeMedium.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/VolumeMedium.imageset/volumeMedium.png b/Aural/Assets.xcassets/NewSet/VolumeMedium.imageset/volumeMedium.png
+-deleted file mode 100644
+-index 8b86943..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/VolumeMedium.imageset/volumeMedium.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NewSet/VolumeZero.imageset/Contents.json b/Aural/Assets.xcassets/NewSet/VolumeZero.imageset/Contents.json
+-deleted file mode 100644
+-index c089998..0000000
+---- a/Aural/Assets.xcassets/NewSet/VolumeZero.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "volumeZero.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NewSet/VolumeZero.imageset/volumeZero.png b/Aural/Assets.xcassets/NewSet/VolumeZero.imageset/volumeZero.png
+-deleted file mode 100644
+-index dd750da..0000000
+-Binary files a/Aural/Assets.xcassets/NewSet/VolumeZero.imageset/volumeZero.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/NowPlayingBox/Contents.json b/Aural/Assets.xcassets/NowPlayingBox/Contents.json
+-new file mode 100644
+-index 0000000..da4a164
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/NowPlayingBox/Contents.json
+-@@ -0,0 +1,6 @@
+-+{
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NowPlayingBox/MoreInfo.imageset/Contents.json b/Aural/Assets.xcassets/NowPlayingBox/MoreInfo.imageset/Contents.json
+-new file mode 100644
+-index 0000000..789df33
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/NowPlayingBox/MoreInfo.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "moreInfo.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NowPlayingBox/MoreInfo.imageset/moreInfo.png b/Aural/Assets.xcassets/NowPlayingBox/MoreInfo.imageset/moreInfo.png
+-new file mode 100644
+-index 0000000..cbdee65
+-Binary files /dev/null and b/Aural/Assets.xcassets/NowPlayingBox/MoreInfo.imageset/moreInfo.png differ
+-diff --git a/Aural/Assets.xcassets/NowPlayingBox/MusicArt.imageset/Contents.json b/Aural/Assets.xcassets/NowPlayingBox/MusicArt.imageset/Contents.json
+-new file mode 100644
+-index 0000000..8a0ea26
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/NowPlayingBox/MusicArt.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "musicArt.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/NowPlayingBox/MusicArt.imageset/musicArt.png b/Aural/Assets.xcassets/NowPlayingBox/MusicArt.imageset/musicArt.png
+-new file mode 100644
+-index 0000000..55c1f3c
+-Binary files /dev/null and b/Aural/Assets.xcassets/NowPlayingBox/MusicArt.imageset/musicArt.png differ
+-diff --git a/Aural/Assets.xcassets/PlayerControls/Contents.json b/Aural/Assets.xcassets/PlayerControls/Contents.json
+-new file mode 100644
+-index 0000000..da4a164
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/Contents.json
+-@@ -0,0 +1,6 @@
+-+{
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/Mute.imageset/Contents.json b/Aural/Assets.xcassets/PlayerControls/Mute.imageset/Contents.json
+-new file mode 100644
+-index 0000000..355a15c
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/Mute.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "volumeOff.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/Mute.imageset/volumeOff.png b/Aural/Assets.xcassets/PlayerControls/Mute.imageset/volumeOff.png
+-new file mode 100644
+-index 0000000..f167477
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlayerControls/Mute.imageset/volumeOff.png differ
+-diff --git a/Aural/Assets.xcassets/PlayerControls/NextTrack.imageset/Contents.json b/Aural/Assets.xcassets/PlayerControls/NextTrack.imageset/Contents.json
+-new file mode 100644
+-index 0000000..602e2c2
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/NextTrack.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "nextTrack.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/NextTrack.imageset/nextTrack.png b/Aural/Assets.xcassets/PlayerControls/NextTrack.imageset/nextTrack.png
+-new file mode 100644
+-index 0000000..59329d3
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlayerControls/NextTrack.imageset/nextTrack.png differ
+-diff --git a/Aural/Assets.xcassets/PlayerControls/Pause.imageset/Contents.json b/Aural/Assets.xcassets/PlayerControls/Pause.imageset/Contents.json
+-new file mode 100644
+-index 0000000..6aa82cf
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/Pause.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "pause.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/Pause.imageset/pause.png b/Aural/Assets.xcassets/PlayerControls/Pause.imageset/pause.png
+-new file mode 100644
+-index 0000000..5c38139
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlayerControls/Pause.imageset/pause.png differ
+-diff --git a/Aural/Assets.xcassets/PlayerControls/Play.imageset/Contents.json b/Aural/Assets.xcassets/PlayerControls/Play.imageset/Contents.json
+-new file mode 100644
+-index 0000000..5f85e05
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/Play.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "play.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/Play.imageset/play.png b/Aural/Assets.xcassets/PlayerControls/Play.imageset/play.png
+-new file mode 100644
+-index 0000000..5010bbc
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlayerControls/Play.imageset/play.png differ
+-diff --git a/Aural/Assets.xcassets/PlayerControls/PreviousTrack.imageset/Contents.json b/Aural/Assets.xcassets/PlayerControls/PreviousTrack.imageset/Contents.json
+-new file mode 100644
+-index 0000000..79eb93d
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/PreviousTrack.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "previousTrack.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/PreviousTrack.imageset/previousTrack.png b/Aural/Assets.xcassets/PlayerControls/PreviousTrack.imageset/previousTrack.png
+-new file mode 100644
+-index 0000000..dce9d22
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlayerControls/PreviousTrack.imageset/previousTrack.png differ
+-diff --git a/Aural/Assets.xcassets/PlayerControls/RepeatAll.imageset/Contents.json b/Aural/Assets.xcassets/PlayerControls/RepeatAll.imageset/Contents.json
+-new file mode 100644
+-index 0000000..0a76214
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/RepeatAll.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "repeatAll.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/RepeatAll.imageset/repeatAll.png b/Aural/Assets.xcassets/PlayerControls/RepeatAll.imageset/repeatAll.png
+-new file mode 100644
+-index 0000000..79a35a7
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlayerControls/RepeatAll.imageset/repeatAll.png differ
+-diff --git a/Aural/Assets.xcassets/PlayerControls/RepeatOff.imageset/Contents.json b/Aural/Assets.xcassets/PlayerControls/RepeatOff.imageset/Contents.json
+-new file mode 100644
+-index 0000000..ba11c83
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/RepeatOff.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "repeatOff.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/RepeatOff.imageset/repeatOff.png b/Aural/Assets.xcassets/PlayerControls/RepeatOff.imageset/repeatOff.png
+-new file mode 100644
+-index 0000000..2f62f14
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlayerControls/RepeatOff.imageset/repeatOff.png differ
+-diff --git a/Aural/Assets.xcassets/PlayerControls/RepeatOne.imageset/Contents.json b/Aural/Assets.xcassets/PlayerControls/RepeatOne.imageset/Contents.json
+-new file mode 100644
+-index 0000000..b6219f0
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/RepeatOne.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "repeatOne.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/RepeatOne.imageset/repeatOne.png b/Aural/Assets.xcassets/PlayerControls/RepeatOne.imageset/repeatOne.png
+-new file mode 100644
+-index 0000000..0ea1b27
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlayerControls/RepeatOne.imageset/repeatOne.png differ
+-diff --git a/Aural/Assets.xcassets/PlayerControls/SeekBackward.imageset/Contents.json b/Aural/Assets.xcassets/PlayerControls/SeekBackward.imageset/Contents.json
+-new file mode 100644
+-index 0000000..99033dd
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/SeekBackward.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "seekBackward.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/SeekBackward.imageset/seekBackward.png b/Aural/Assets.xcassets/PlayerControls/SeekBackward.imageset/seekBackward.png
+-new file mode 100644
+-index 0000000..602e2c3
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlayerControls/SeekBackward.imageset/seekBackward.png differ
+-diff --git a/Aural/Assets.xcassets/PlayerControls/SeekForward.imageset/Contents.json b/Aural/Assets.xcassets/PlayerControls/SeekForward.imageset/Contents.json
+-new file mode 100644
+-index 0000000..d2eeded
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/SeekForward.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "seekForward.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/SeekForward.imageset/seekForward.png b/Aural/Assets.xcassets/PlayerControls/SeekForward.imageset/seekForward.png
+-new file mode 100644
+-index 0000000..e6f354a
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlayerControls/SeekForward.imageset/seekForward.png differ
+-diff --git a/Aural/Assets.xcassets/PlayerControls/ShuffleOff.imageset/Contents.json b/Aural/Assets.xcassets/PlayerControls/ShuffleOff.imageset/Contents.json
+-new file mode 100644
+-index 0000000..1f50f06
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/ShuffleOff.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "shuffleOff.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/ShuffleOff.imageset/shuffleOff.png b/Aural/Assets.xcassets/PlayerControls/ShuffleOff.imageset/shuffleOff.png
+-new file mode 100644
+-index 0000000..bb7ac07
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlayerControls/ShuffleOff.imageset/shuffleOff.png differ
+-diff --git a/Aural/Assets.xcassets/PlayerControls/ShuffleOn.imageset/Contents.json b/Aural/Assets.xcassets/PlayerControls/ShuffleOn.imageset/Contents.json
+-new file mode 100644
+-index 0000000..86fc491
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/ShuffleOn.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "shuffleOn.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/ShuffleOn.imageset/shuffleOn.png b/Aural/Assets.xcassets/PlayerControls/ShuffleOn.imageset/shuffleOn.png
+-new file mode 100644
+-index 0000000..5e6aa4d
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlayerControls/ShuffleOn.imageset/shuffleOn.png differ
+-diff --git a/Aural/Assets.xcassets/PlayerControls/VolumeHigh.imageset/Contents.json b/Aural/Assets.xcassets/PlayerControls/VolumeHigh.imageset/Contents.json
+-new file mode 100644
+-index 0000000..f79091b
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/VolumeHigh.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "volumeHigh.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/VolumeHigh.imageset/volumeHigh.png b/Aural/Assets.xcassets/PlayerControls/VolumeHigh.imageset/volumeHigh.png
+-new file mode 100644
+-index 0000000..a9ce356
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlayerControls/VolumeHigh.imageset/volumeHigh.png differ
+-diff --git a/Aural/Assets.xcassets/PlayerControls/VolumeLow.imageset/Contents.json b/Aural/Assets.xcassets/PlayerControls/VolumeLow.imageset/Contents.json
+-new file mode 100644
+-index 0000000..c058925
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/VolumeLow.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "volumeLow.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/VolumeLow.imageset/volumeLow.png b/Aural/Assets.xcassets/PlayerControls/VolumeLow.imageset/volumeLow.png
+-new file mode 100644
+-index 0000000..43c0b21
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlayerControls/VolumeLow.imageset/volumeLow.png differ
+-diff --git a/Aural/Assets.xcassets/PlayerControls/VolumeMedium.imageset/Contents.json b/Aural/Assets.xcassets/PlayerControls/VolumeMedium.imageset/Contents.json
+-new file mode 100644
+-index 0000000..d9bd0ca
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/VolumeMedium.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "volumeMedium.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/VolumeMedium.imageset/volumeMedium.png b/Aural/Assets.xcassets/PlayerControls/VolumeMedium.imageset/volumeMedium.png
+-new file mode 100644
+-index 0000000..b2f535c
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlayerControls/VolumeMedium.imageset/volumeMedium.png differ
+-diff --git a/Aural/Assets.xcassets/PlayerControls/VolumeZero.imageset/Contents.json b/Aural/Assets.xcassets/PlayerControls/VolumeZero.imageset/Contents.json
+-new file mode 100644
+-index 0000000..c089998
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlayerControls/VolumeZero.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "volumeZero.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlayerControls/VolumeZero.imageset/volumeZero.png b/Aural/Assets.xcassets/PlayerControls/VolumeZero.imageset/volumeZero.png
+-new file mode 100644
+-index 0000000..dd750da
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlayerControls/VolumeZero.imageset/volumeZero.png differ
+-diff --git a/Aural/Assets.xcassets/Playlist/Add.imageset/Contents.json b/Aural/Assets.xcassets/Playlist/Add.imageset/Contents.json
+-deleted file mode 100644
+-index a625689..0000000
+---- a/Aural/Assets.xcassets/Playlist/Add.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "add.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/Playlist/Add.imageset/add.png b/Aural/Assets.xcassets/Playlist/Add.imageset/add.png
+-deleted file mode 100644
+-index c53d2a5..0000000
+-Binary files a/Aural/Assets.xcassets/Playlist/Add.imageset/add.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/Playlist/Clear.imageset/Contents.json b/Aural/Assets.xcassets/Playlist/Clear.imageset/Contents.json
+-deleted file mode 100644
+-index c6cff8d..0000000
+---- a/Aural/Assets.xcassets/Playlist/Clear.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "trash.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/Playlist/Clear.imageset/trash.png b/Aural/Assets.xcassets/Playlist/Clear.imageset/trash.png
+-deleted file mode 100644
+-index f9519f1..0000000
+-Binary files a/Aural/Assets.xcassets/Playlist/Clear.imageset/trash.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/Playlist/Contents.json b/Aural/Assets.xcassets/Playlist/Contents.json
+-deleted file mode 100644
+-index da4a164..0000000
+---- a/Aural/Assets.xcassets/Playlist/Contents.json
+-+++ /dev/null
+-@@ -1,6 +0,0 @@
+--{
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/Playlist/Down.imageset/Contents.json b/Aural/Assets.xcassets/Playlist/Down.imageset/Contents.json
+-deleted file mode 100644
+-index 9d04617..0000000
+---- a/Aural/Assets.xcassets/Playlist/Down.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "moveDown.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/Playlist/Down.imageset/moveDown.png b/Aural/Assets.xcassets/Playlist/Down.imageset/moveDown.png
+-deleted file mode 100644
+-index abe66b1..0000000
+-Binary files a/Aural/Assets.xcassets/Playlist/Down.imageset/moveDown.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/Playlist/Remove.imageset/Contents.json b/Aural/Assets.xcassets/Playlist/Remove.imageset/Contents.json
+-deleted file mode 100644
+-index d7238fe..0000000
+---- a/Aural/Assets.xcassets/Playlist/Remove.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "remove.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/Playlist/Remove.imageset/remove.png b/Aural/Assets.xcassets/Playlist/Remove.imageset/remove.png
+-deleted file mode 100644
+-index 5492de6..0000000
+-Binary files a/Aural/Assets.xcassets/Playlist/Remove.imageset/remove.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/Playlist/Save.imageset/Contents.json b/Aural/Assets.xcassets/Playlist/Save.imageset/Contents.json
+-deleted file mode 100644
+-index 00c16b3..0000000
+---- a/Aural/Assets.xcassets/Playlist/Save.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "save.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/Playlist/Save.imageset/save.png b/Aural/Assets.xcassets/Playlist/Save.imageset/save.png
+-deleted file mode 100644
+-index a38e1a9..0000000
+-Binary files a/Aural/Assets.xcassets/Playlist/Save.imageset/save.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/Playlist/Up.imageset/Contents.json b/Aural/Assets.xcassets/Playlist/Up.imageset/Contents.json
+-deleted file mode 100644
+-index d1a983c..0000000
+---- a/Aural/Assets.xcassets/Playlist/Up.imageset/Contents.json
+-+++ /dev/null
+-@@ -1,21 +0,0 @@
+--{
+--  "images" : [
+--    {
+--      "idiom" : "universal",
+--      "filename" : "moveUp.png",
+--      "scale" : "1x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "2x"
+--    },
+--    {
+--      "idiom" : "universal",
+--      "scale" : "3x"
+--    }
+--  ],
+--  "info" : {
+--    "version" : 1,
+--    "author" : "xcode"
+--  }
+--}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/Playlist/Up.imageset/moveUp.png b/Aural/Assets.xcassets/Playlist/Up.imageset/moveUp.png
+-deleted file mode 100644
+-index 3f8bf76..0000000
+-Binary files a/Aural/Assets.xcassets/Playlist/Up.imageset/moveUp.png and /dev/null differ
+-diff --git a/Aural/Assets.xcassets/PlaylistControls/Add.imageset/Contents.json b/Aural/Assets.xcassets/PlaylistControls/Add.imageset/Contents.json
+-new file mode 100644
+-index 0000000..a625689
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlaylistControls/Add.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "add.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlaylistControls/Add.imageset/add.png b/Aural/Assets.xcassets/PlaylistControls/Add.imageset/add.png
+-new file mode 100644
+-index 0000000..c53d2a5
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlaylistControls/Add.imageset/add.png differ
+-diff --git a/Aural/Assets.xcassets/PlaylistControls/Clear.imageset/Contents.json b/Aural/Assets.xcassets/PlaylistControls/Clear.imageset/Contents.json
+-new file mode 100644
+-index 0000000..5c4a8aa
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlaylistControls/Clear.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "clear.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlaylistControls/Clear.imageset/clear.png b/Aural/Assets.xcassets/PlaylistControls/Clear.imageset/clear.png
+-new file mode 100644
+-index 0000000..f9519f1
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlaylistControls/Clear.imageset/clear.png differ
+-diff --git a/Aural/Assets.xcassets/PlaylistControls/Contents.json b/Aural/Assets.xcassets/PlaylistControls/Contents.json
+-new file mode 100644
+-index 0000000..da4a164
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlaylistControls/Contents.json
+-@@ -0,0 +1,6 @@
+-+{
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlaylistControls/Down.imageset/Contents.json b/Aural/Assets.xcassets/PlaylistControls/Down.imageset/Contents.json
+-new file mode 100644
+-index 0000000..9d04617
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlaylistControls/Down.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "moveDown.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlaylistControls/Down.imageset/moveDown.png b/Aural/Assets.xcassets/PlaylistControls/Down.imageset/moveDown.png
+-new file mode 100644
+-index 0000000..abe66b1
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlaylistControls/Down.imageset/moveDown.png differ
+-diff --git a/Aural/Assets.xcassets/PlaylistControls/Remove.imageset/Contents.json b/Aural/Assets.xcassets/PlaylistControls/Remove.imageset/Contents.json
+-new file mode 100644
+-index 0000000..d7238fe
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlaylistControls/Remove.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "remove.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlaylistControls/Remove.imageset/remove.png b/Aural/Assets.xcassets/PlaylistControls/Remove.imageset/remove.png
+-new file mode 100644
+-index 0000000..5492de6
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlaylistControls/Remove.imageset/remove.png differ
+-diff --git a/Aural/Assets.xcassets/PlaylistControls/Save.imageset/Contents.json b/Aural/Assets.xcassets/PlaylistControls/Save.imageset/Contents.json
+-new file mode 100644
+-index 0000000..00c16b3
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlaylistControls/Save.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "save.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlaylistControls/Save.imageset/save.png b/Aural/Assets.xcassets/PlaylistControls/Save.imageset/save.png
+-new file mode 100644
+-index 0000000..a38e1a9
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlaylistControls/Save.imageset/save.png differ
+-diff --git a/Aural/Assets.xcassets/PlaylistControls/Up.imageset/Contents.json b/Aural/Assets.xcassets/PlaylistControls/Up.imageset/Contents.json
+-new file mode 100644
+-index 0000000..d1a983c
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/PlaylistControls/Up.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "moveUp.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/PlaylistControls/Up.imageset/moveUp.png b/Aural/Assets.xcassets/PlaylistControls/Up.imageset/moveUp.png
+-new file mode 100644
+-index 0000000..3f8bf76
+-Binary files /dev/null and b/Aural/Assets.xcassets/PlaylistControls/Up.imageset/moveUp.png differ
+-diff --git a/Aural/Assets.xcassets/WindowControls/Close.imageset/Contents.json b/Aural/Assets.xcassets/WindowControls/Close.imageset/Contents.json
+-new file mode 100644
+-index 0000000..0b53002
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/WindowControls/Close.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "close.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/WindowControls/Close.imageset/close.png b/Aural/Assets.xcassets/WindowControls/Close.imageset/close.png
+-new file mode 100644
+-index 0000000..6ccbe39
+-Binary files /dev/null and b/Aural/Assets.xcassets/WindowControls/Close.imageset/close.png differ
+-diff --git a/Aural/Assets.xcassets/WindowControls/Contents.json b/Aural/Assets.xcassets/WindowControls/Contents.json
+-new file mode 100644
+-index 0000000..da4a164
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/WindowControls/Contents.json
+-@@ -0,0 +1,6 @@
+-+{
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/WindowControls/Hide.imageset/Contents.json b/Aural/Assets.xcassets/WindowControls/Hide.imageset/Contents.json
+-new file mode 100644
+-index 0000000..f2bfbc4
+---- /dev/null
+-+++ b/Aural/Assets.xcassets/WindowControls/Hide.imageset/Contents.json
+-@@ -0,0 +1,21 @@
+-+{
+-+  "images" : [
+-+    {
+-+      "idiom" : "universal",
+-+      "filename" : "hide.png",
+-+      "scale" : "1x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "2x"
+-+    },
+-+    {
+-+      "idiom" : "universal",
+-+      "scale" : "3x"
+-+    }
+-+  ],
+-+  "info" : {
+-+    "version" : 1,
+-+    "author" : "xcode"
+-+  }
+-+}
+-\ No newline at end of file
+-diff --git a/Aural/Assets.xcassets/WindowControls/Hide.imageset/hide.png b/Aural/Assets.xcassets/WindowControls/Hide.imageset/hide.png
+-new file mode 100644
+-index 0000000..c7e5b28
+-Binary files /dev/null and b/Aural/Assets.xcassets/WindowControls/Hide.imageset/hide.png differ
+-diff --git "a/Aural/Base.lproj/\033MainMenu.xib" "b/Aural/Base.lproj/\033MainMenu.xib"
+-index 2b2927b..ff1e7f5 100644
+---- "a/Aural/Base.lproj/\033MainMenu.xib"
+-+++ "b/Aural/Base.lproj/\033MainMenu.xib"
+-@@ -99,11 +99,11 @@
+-                         <tabViewItems>
+-                             <tabViewItem label="EQ" identifier="1" id="McD-gg-qp9" userLabel="EQ">
+-                                 <view key="view" id="vC5-27-GiC">
+--                                    <rect key="frame" x="10" y="33" width="376" height="140"/>
+-+                                    <rect key="frame" x="10" y="33" width="304" height="0.0"/>
+-                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+-                                     <subviews>
+-                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Zm-Bg-NEY">
+--                                            <rect key="frame" x="38" y="66" width="15" height="14"/>
+-+                                            <rect key="frame" x="38" y="-74" width="15" height="14"/>
+-                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0" id="Je7-rK-ohz">
+-                                                 <font key="font" size="10" name="CenturyGothic-Bold"/>
+-                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+-@@ -111,7 +111,7 @@
+-                                             </textFieldCell>
+-                                         </textField>
+-                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dtf-Xs-OQp">
+--                                            <rect key="frame" x="31" y="14" width="23" height="21"/>
+-+                                            <rect key="frame" x="31" y="-126" width="23" height="21"/>
+-                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-20" id="9U6-wA-5ze">
+-                                                 <font key="font" size="10" name="CenturyGothic-Bold"/>
+-                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+-@@ -119,25 +119,25 @@
+-                                             </textFieldCell>
+-                                         </textField>
+-                                         <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="asJ-7c-oOz" userLabel="EQ 0db">
+--                                            <rect key="frame" x="74" y="68" width="252" height="5"/>
+-+                                            <rect key="frame" x="74" y="-72" width="252" height="5"/>
+-                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+-                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+-                                             <font key="titleFont" metaFont="system"/>
+-                                         </box>
+-                                         <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Wwi-eU-yUf" userLabel="EQ 0db">
+--                                            <rect key="frame" x="73" y="69" width="252" height="5"/>
+-+                                            <rect key="frame" x="73" y="-71" width="252" height="5"/>
+-                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+-                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+-                                             <font key="titleFont" metaFont="system"/>
+-                                         </box>
+-                                         <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="D8U-TF-UeU" userLabel="EQ 0db">
+--                                            <rect key="frame" x="74" y="70" width="252" height="5"/>
+-+                                            <rect key="frame" x="74" y="-70" width="252" height="5"/>
+-                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+-                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+-                                             <font key="titleFont" metaFont="system"/>
+-                                         </box>
+-                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vsR-0Q-cXe">
+--                                            <rect key="frame" x="263" y="-3" width="84" height="23"/>
+-+                                            <rect key="frame" x="263" y="-143" width="84" height="23"/>
+-                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Presets" id="ems-fH-sOb">
+-                                                 <font key="font" size="12" name="CenturyGothic-Bold"/>
+-                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+-@@ -145,7 +145,7 @@
+-                                             </textFieldCell>
+-                                         </textField>
+-                                         <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hG3-Ir-qkY" userLabel="EQ Presets Menu">
+--                                            <rect key="frame" x="268" y="-2" width="106" height="22"/>
+-+                                            <rect key="frame" x="268" y="-142" width="106" height="22"/>
+-                                             <popUpButtonCell key="cell" type="disclosure" title="Vocal" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" altersStateOfSelectedItem="NO" selectedItem="z8X-aR-fwU" id="fct-Jo-Wiy" customClass="EQPopupMenuCell" customModule="Aural" customModuleProvider="target">
+-                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+-                                                 <font key="font" size="10" name="CenturyGothic"/>
+-@@ -174,7 +174,7 @@
+-                                             </connections>
+-                                         </popUpButton>
+-                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lg0-FS-2I5">
+--                                            <rect key="frame" x="66" y="22" width="17" height="101"/>
+-+                                            <rect key="frame" x="66" y="-118" width="17" height="101"/>
+-                                             <shadow key="shadow" blurRadius="1">
+-                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+-                                             </shadow>
+-@@ -184,7 +184,7 @@
+-                                             </connections>
+-                                         </slider>
+-                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mTb-nz-ndF">
+--                                            <rect key="frame" x="94" y="22" width="17" height="101"/>
+-+                                            <rect key="frame" x="94" y="-118" width="17" height="101"/>
+-                                             <shadow key="shadow" blurRadius="1">
+-                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+-                                             </shadow>
+-@@ -194,7 +194,7 @@
+-                                             </connections>
+-                                         </slider>
+-                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iEd-37-pLD">
+--                                            <rect key="frame" x="122" y="22" width="17" height="101"/>
+-+                                            <rect key="frame" x="122" y="-118" width="17" height="101"/>
+-                                             <shadow key="shadow" blurRadius="1">
+-                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+-                                             </shadow>
+-@@ -204,7 +204,7 @@
+-                                             </connections>
+-                                         </slider>
+-                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuJ-l0-5ih">
+--                                            <rect key="frame" x="150" y="22" width="17" height="101"/>
+-+                                            <rect key="frame" x="150" y="-118" width="17" height="101"/>
+-                                             <shadow key="shadow" blurRadius="1">
+-                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+-                                             </shadow>
+-@@ -214,7 +214,7 @@
+-                                             </connections>
+-                                         </slider>
+-                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lgr-1t-FRb">
+--                                            <rect key="frame" x="178" y="22" width="17" height="101"/>
+-+                                            <rect key="frame" x="178" y="-118" width="17" height="101"/>
+-                                             <shadow key="shadow" blurRadius="1">
+-                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+-                                             </shadow>
+-@@ -224,7 +224,7 @@
+-                                             </connections>
+-                                         </slider>
+-                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JGZ-0h-WTH" userLabel="Eq Slider1k">
+--                                            <rect key="frame" x="206" y="22" width="17" height="101"/>
+-+                                            <rect key="frame" x="206" y="-118" width="17" height="101"/>
+-                                             <shadow key="shadow" blurRadius="1">
+-                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+-                                             </shadow>
+-@@ -234,7 +234,7 @@
+-                                             </connections>
+-                                         </slider>
+-                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DDL-Kj-I4h" userLabel="Eq Slider2k">
+--                                            <rect key="frame" x="234" y="22" width="17" height="101"/>
+-+                                            <rect key="frame" x="234" y="-118" width="17" height="101"/>
+-                                             <shadow key="shadow" blurRadius="1">
+-                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+-                                             </shadow>
+-@@ -244,7 +244,7 @@
+-                                             </connections>
+-                                         </slider>
+-                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VSQ-5C-2KO" userLabel="Eq Slider4k">
+--                                            <rect key="frame" x="262" y="22" width="17" height="101"/>
+-+                                            <rect key="frame" x="262" y="-118" width="17" height="101"/>
+-                                             <shadow key="shadow" blurRadius="1">
+-                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+-                                             </shadow>
+-@@ -254,7 +254,7 @@
+-                                             </connections>
+-                                         </slider>
+-                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qHV-Kz-sUG" userLabel="Eq Slider8k">
+--                                            <rect key="frame" x="290" y="22" width="17" height="101"/>
+-+                                            <rect key="frame" x="290" y="-118" width="17" height="101"/>
+-                                             <shadow key="shadow" blurRadius="1">
+-                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+-                                             </shadow>
+-@@ -264,7 +264,7 @@
+-                                             </connections>
+-                                         </slider>
+-                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z4B-Hr-jie" userLabel="Eq Slider16k">
+--                                            <rect key="frame" x="318" y="22" width="17" height="101"/>
+-+                                            <rect key="frame" x="318" y="-118" width="17" height="101"/>
+-                                             <shadow key="shadow" blurRadius="1">
+-                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+-                                             </shadow>
+-@@ -274,7 +274,7 @@
+-                                             </connections>
+-                                         </slider>
+-                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EOh-fy-QB5" userLabel="Frequencies">
+--                                            <rect key="frame" x="66" y="113" width="274" height="26"/>
+-+                                            <rect key="frame" x="66" y="-27" width="274" height="26"/>
+-                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="32      64     128    256    512     1k      2k      4k      8k     16k" id="KZ1-aN-0Yl">
+-                                                 <font key="font" size="10" name="CenturyGothic-Bold"/>
+-                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+-@@ -282,7 +282,7 @@
+-                                             </textFieldCell>
+-                                         </textField>
+-                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XKK-aS-eMn" userLabel="EQGlobalGain">
+--                                            <rect key="frame" x="19" y="22" width="17" height="101"/>
+-+                                            <rect key="frame" x="19" y="-118" width="17" height="101"/>
+-                                             <shadow key="shadow" blurRadius="1">
+-                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+-                                             </shadow>
+-@@ -292,7 +292,7 @@
+-                                             </connections>
+-                                         </slider>
+-                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a3V-ab-jaC">
+--                                            <rect key="frame" x="31" y="105" width="23" height="21"/>
+-+                                            <rect key="frame" x="31" y="-35" width="23" height="21"/>
+-                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+20" id="E9O-1s-8rC">
+-                                                 <font key="font" size="10" name="CenturyGothic-Bold"/>
+-                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+-@@ -421,7 +421,7 @@
+-                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+-                                                 <subviews>
+-                                                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFD-kd-aEZ">
+--                                                        <rect key="frame" x="22" y="24" width="260" height="26"/>
+-+                                                        <rect key="frame" x="22" y="24" width="260" height="27"/>
+-                                                         <shadow key="shadow" blurRadius="1">
+-                                                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+-                                                         </shadow>
+-@@ -1315,18 +1315,18 @@ G1BhbiBTbGlkZXI
+-         <image name="Down" width="25.600000381469727" height="25.600000381469727"/>
+-         <image name="Hide" width="128" height="128"/>
+-         <image name="MoreInfo" width="256" height="256"/>
+--        <image name="MusicArt" width="512" height="512"/>
+--        <image name="NextTrack" width="239.37661743164062" height="239.37661743164062"/>
+--        <image name="Play" width="239.37661743164062" height="239.37661743164062"/>
+--        <image name="PreviousTrack" width="239.37661743164062" height="239.37661743164062"/>
+-+        <image name="MusicArt" width="256" height="256"/>
+-+        <image name="NextTrack" width="256" height="256"/>
+-+        <image name="Play" width="256" height="256"/>
+-+        <image name="PreviousTrack" width="256" height="256"/>
+-         <image name="Remove" width="127" height="127"/>
+--        <image name="RepeatOff" width="512" height="512"/>
+-+        <image name="RepeatOff" width="256" height="256"/>
+-         <image name="Save" width="128" height="128"/>
+--        <image name="SeekBackward" width="239.37661743164062" height="239.37661743164062"/>
+--        <image name="SeekForward" width="239.37661743164062" height="239.37661743164062"/>
+-+        <image name="SeekBackward" width="256" height="256"/>
+-+        <image name="SeekForward" width="256" height="256"/>
+-         <image name="ShuffleOff" width="256" height="256"/>
+-         <image name="SwitchOff" width="185" height="512"/>
+-         <image name="Up" width="25.600000381469727" height="25.600000381469727"/>
+--        <image name="VolumeMedium" width="768" height="768"/>
+-+        <image name="VolumeMedium" width="256" height="256"/>
+-     </resources>
+- </document>
+-diff --git a/Aural/BufferManager.swift b/Aural/BufferManager.swift
+-index 5ab82a5..1d1e357 100644
+---- a/Aural/BufferManager.swift
+-+++ b/Aural/BufferManager.swift
+-@@ -161,6 +161,7 @@ class BufferManager {
+-         sessionTimestamp = INVALID_TIMESTAMP
+-         
+-         // Stop playback without clearing the player queue (and triggering the completion handlers)
+-+        // WARNING - This might be causing problems
+-         playerNode.pause()
+-         
+-         // Let the operation queue finish all tasks ... this may result in a stray buffer (if a task is currently executing) getting put on the player's schedule, but will be cleared by the following stop() call on playerNode
+-diff --git a/Aural/PlayerDelegate.swift b/Aural/PlayerDelegate.swift
+-index 4a2b658..ad7e7c5 100644
+---- a/Aural/PlayerDelegate.swift
+-+++ b/Aural/PlayerDelegate.swift
+-@@ -40,7 +40,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
+-     private init() {
+-         
+-         // TODO: This is a horribly ugly hack, should be in AppDelegate
+--//        PlayerDelegate.configureLogging()
+-+        PlayerDelegate.configureLogging()
+-         
+-         player = Player.instance()
+-         loadPlayerState()
+-diff --git a/Aural/SavedPlayerState.swift b/Aural/SavedPlayerState.swift
+-index b50ea1e..c10dc7c 100644
+---- a/Aural/SavedPlayerState.swift
+-+++ b/Aural/SavedPlayerState.swift
+-@@ -1,5 +1,5 @@
+- /*
+--    Encapsulates all AuralPlayer settings/state. Is persisted to disk upon exit and loaded into the application upon startup.
+-+Encapsulates all AuralPlayer settings/state. Is persisted to disk upon exit and loaded into the application upon startup.
+- */
+- 
+- import Cocoa
+-@@ -35,7 +35,7 @@ class SavedPlayerState {
+-     var delayTime: Double = PlayerDefaults.delayTime
+-     var delayFeedback: Float = PlayerDefaults.delayFeedback
+-     var delayLowPassCutoff: Float = PlayerDefaults.delayLowPassCutoff
+--
+-+    
+-     var filterBypass: Bool = PlayerDefaults.filterBypass
+-     var filterLowPassCutoff: Float = PlayerDefaults.filterLowPassCutoff
+-     var filterHighPassCutoff: Float = PlayerDefaults.filterHighPassCutoff
+-@@ -112,10 +112,17 @@ class SavedPlayerState {
+-     // Produces a SavedPlayerState object from deserialized JSON
+-     static func fromJSON(jsonObject: NSDictionary) -> SavedPlayerState  {
+-         
+-+        // TODO: Make this more resilient to missing/invalid fields
+-+        
+-         let state = SavedPlayerState()
+-         
+--        state.repeatMode = RepeatMode.fromString(jsonObject["repeatMode"] as! String)
+--        state.shuffleMode = ShuffleMode.fromString(jsonObject["shuffleMode"] as! String)
+-+        if let repeatMode = jsonObject["repeatMode"] as? String {
+-+            state.repeatMode = RepeatMode.fromString(repeatMode)
+-+        }
+-+        
+-+        if let shuffleMode = jsonObject["shuffleMode"] as? String {
+-+            state.shuffleMode = ShuffleMode.fromString(shuffleMode)
+-+        }
+-         
+-         state.volume = (jsonObject["volume"] as! NSNumber).floatValue
+-         state.muted = (jsonObject["muted"] as! NSString).boolValue
+-@@ -129,33 +136,40 @@ class SavedPlayerState {
+-             state.eqBands[freqInt!] = (gain as! NSNumber).floatValue
+-         }
+-         
+--        let pitchDict = (jsonObject["pitch"] as! NSDictionary)
+--        state.pitchBypass = (pitchDict["bypass"] as! NSString).boolValue
+--        state.pitch = (pitchDict["pitch"] as! NSNumber).floatValue
+--        state.pitchOverlap = (pitchDict["overlap"] as! NSNumber).floatValue
+-+        if let pitchDict = (jsonObject["pitch"] as? NSDictionary) {
+-+            state.pitchBypass = (pitchDict["bypass"] as! NSString).boolValue
+-+            state.pitch = (pitchDict["pitch"] as! NSNumber).floatValue
+-+            state.pitchOverlap = (pitchDict["overlap"] as! NSNumber).floatValue
+-+        }
+-         
+--        let timeDict = (jsonObject["time"] as! NSDictionary)
+--        state.timeBypass = (timeDict["bypass"] as! NSString).boolValue
+--        state.timeStretchRate = (timeDict["rate"] as! NSNumber).floatValue
+--
+--        let reverbDict = (jsonObject["reverb"] as! NSDictionary)
+--        state.reverbBypass = (reverbDict["bypass"] as! NSString).boolValue
+--        state.reverbPreset = ReverbPresets.fromString(reverbDict["preset"] as! String)
+--        state.reverbAmount = (reverbDict["amount"] as! NSNumber).floatValue
+--        
+--        let delayDict = (jsonObject["delay"] as! NSDictionary)
+--        state.delayBypass = (delayDict["bypass"] as! NSString).boolValue
+--        state.delayAmount = (delayDict["amount"] as! NSNumber).floatValue
+--        state.delayTime = (delayDict["time"] as! NSNumber).doubleValue
+--        state.delayFeedback = (delayDict["feedback"] as! NSNumber).floatValue
+--        state.delayLowPassCutoff = (delayDict["lowPassCutoff"] as! NSNumber).floatValue
+--        
+--        let filterDict = (jsonObject["filter"] as! NSDictionary)
+--        state.filterBypass = (filterDict["bypass"] as! NSString).boolValue
+--        state.filterHighPassCutoff = (filterDict["highPassCutoff"] as! NSNumber).floatValue
+--        state.filterLowPassCutoff = (filterDict["lowPassCutoff"] as! NSNumber).floatValue
+--        
+--        state.playlist = jsonObject["playlist"] as! [String]
+-+        if let timeDict = (jsonObject["time"] as? NSDictionary) {
+-+            state.timeBypass = (timeDict["bypass"] as! NSString).boolValue
+-+            state.timeStretchRate = (timeDict["rate"] as! NSNumber).floatValue
+-+        }
+-+        
+-+        if let reverbDict = (jsonObject["reverb"] as? NSDictionary) {
+-+            state.reverbBypass = (reverbDict["bypass"] as! NSString).boolValue
+-+            state.reverbPreset = ReverbPresets.fromString(reverbDict["preset"] as! String)
+-+            state.reverbAmount = (reverbDict["amount"] as! NSNumber).floatValue
+-+        }
+-+        
+-+        if let delayDict = (jsonObject["delay"] as? NSDictionary) {
+-+            state.delayBypass = (delayDict["bypass"] as! NSString).boolValue
+-+            state.delayAmount = (delayDict["amount"] as! NSNumber).floatValue
+-+            state.delayTime = (delayDict["time"] as! NSNumber).doubleValue
+-+            state.delayFeedback = (delayDict["feedback"] as! NSNumber).floatValue
+-+            state.delayLowPassCutoff = (delayDict["lowPassCutoff"] as! NSNumber).floatValue
+-+        }
+-+        
+-+        if let filterDict = (jsonObject["filter"] as? NSDictionary) {
+-+            state.filterBypass = (filterDict["bypass"] as! NSString).boolValue
+-+            state.filterHighPassCutoff = (filterDict["highPassCutoff"] as! NSNumber).floatValue
+-+            state.filterLowPassCutoff = (filterDict["lowPassCutoff"] as! NSNumber).floatValue
+-+        }
+-+        
+-+        if let playlist = jsonObject["playlist"] as? [String] {
+-+            state.playlist = playlist
+-+        }
+-         
+-         return state
+-     }
+-diff --git a/Icons/EffectsControls/off-h.png b/Icons/EffectsControls/off-h.png
+-new file mode 100644
+-index 0000000..f48f443
+-Binary files /dev/null and b/Icons/EffectsControls/off-h.png differ
+-diff --git a/Icons/EffectsControls/off.png b/Icons/EffectsControls/off.png
+-new file mode 100644
+-index 0000000..96cb749
+-Binary files /dev/null and b/Icons/EffectsControls/off.png differ
+-diff --git a/Icons/EffectsControls/on-h.png b/Icons/EffectsControls/on-h.png
+-new file mode 100644
+-index 0000000..c4ecea2
+-Binary files /dev/null and b/Icons/EffectsControls/on-h.png differ
+-diff --git a/Icons/EffectsControls/on.png b/Icons/EffectsControls/on.png
+-new file mode 100644
+-index 0000000..030fa0b
+-Binary files /dev/null and b/Icons/EffectsControls/on.png differ
+-diff --git a/Icons/NowPlayingBox/moreInfo.png b/Icons/NowPlayingBox/moreInfo.png
+-new file mode 100644
+-index 0000000..cbdee65
+-Binary files /dev/null and b/Icons/NowPlayingBox/moreInfo.png differ
+-diff --git a/Icons/NowPlayingBox/musicArt.png b/Icons/NowPlayingBox/musicArt.png
+-new file mode 100644
+-index 0000000..55c1f3c
+-Binary files /dev/null and b/Icons/NowPlayingBox/musicArt.png differ
+-diff --git a/Icons/PlayerControls/nextTrack.png b/Icons/PlayerControls/nextTrack.png
+-new file mode 100644
+-index 0000000..59329d3
+-Binary files /dev/null and b/Icons/PlayerControls/nextTrack.png differ
+-diff --git a/Icons/PlayerControls/pause.png b/Icons/PlayerControls/pause.png
+-new file mode 100644
+-index 0000000..5c38139
+-Binary files /dev/null and b/Icons/PlayerControls/pause.png differ
+-diff --git a/Icons/PlayerControls/play.png b/Icons/PlayerControls/play.png
+-new file mode 100644
+-index 0000000..5010bbc
+-Binary files /dev/null and b/Icons/PlayerControls/play.png differ
+-diff --git a/Icons/PlayerControls/previousTrack.png b/Icons/PlayerControls/previousTrack.png
+-new file mode 100644
+-index 0000000..dce9d22
+-Binary files /dev/null and b/Icons/PlayerControls/previousTrack.png differ
+-diff --git a/Icons/PlayerControls/repeatAll.png b/Icons/PlayerControls/repeatAll.png
+-new file mode 100644
+-index 0000000..79a35a7
+-Binary files /dev/null and b/Icons/PlayerControls/repeatAll.png differ
+-diff --git a/Icons/PlayerControls/repeatOff.png b/Icons/PlayerControls/repeatOff.png
+-new file mode 100644
+-index 0000000..2f62f14
+-Binary files /dev/null and b/Icons/PlayerControls/repeatOff.png differ
+-diff --git a/Icons/PlayerControls/repeatOne.png b/Icons/PlayerControls/repeatOne.png
+-new file mode 100644
+-index 0000000..0ea1b27
+-Binary files /dev/null and b/Icons/PlayerControls/repeatOne.png differ
+-diff --git a/Icons/PlayerControls/seekBackward.png b/Icons/PlayerControls/seekBackward.png
+-new file mode 100644
+-index 0000000..602e2c3
+-Binary files /dev/null and b/Icons/PlayerControls/seekBackward.png differ
+-diff --git a/Icons/PlayerControls/seekForward.png b/Icons/PlayerControls/seekForward.png
+-new file mode 100644
+-index 0000000..e6f354a
+-Binary files /dev/null and b/Icons/PlayerControls/seekForward.png differ
+-diff --git a/Icons/PlayerControls/shuffleOff.png b/Icons/PlayerControls/shuffleOff.png
+-new file mode 100644
+-index 0000000..bb7ac07
+-Binary files /dev/null and b/Icons/PlayerControls/shuffleOff.png differ
+-diff --git a/Icons/PlayerControls/shuffleOn.png b/Icons/PlayerControls/shuffleOn.png
+-new file mode 100644
+-index 0000000..5e6aa4d
+-Binary files /dev/null and b/Icons/PlayerControls/shuffleOn.png differ
+-diff --git a/Icons/PlayerControls/volumeHigh.png b/Icons/PlayerControls/volumeHigh.png
+-new file mode 100644
+-index 0000000..a9ce356
+-Binary files /dev/null and b/Icons/PlayerControls/volumeHigh.png differ
+-diff --git a/Icons/PlayerControls/volumeLow.png b/Icons/PlayerControls/volumeLow.png
+-new file mode 100644
+-index 0000000..43c0b21
+-Binary files /dev/null and b/Icons/PlayerControls/volumeLow.png differ
+-diff --git a/Icons/PlayerControls/volumeMedium.png b/Icons/PlayerControls/volumeMedium.png
+-new file mode 100644
+-index 0000000..b2f535c
+-Binary files /dev/null and b/Icons/PlayerControls/volumeMedium.png differ
+-diff --git a/Icons/PlayerControls/volumeOff.png b/Icons/PlayerControls/volumeOff.png
+-new file mode 100644
+-index 0000000..f167477
+-Binary files /dev/null and b/Icons/PlayerControls/volumeOff.png differ
+-diff --git a/Icons/PlayerControls/volumeZero.png b/Icons/PlayerControls/volumeZero.png
+-new file mode 100644
+-index 0000000..dd750da
+-Binary files /dev/null and b/Icons/PlayerControls/volumeZero.png differ
+-diff --git a/Icons/PlaylistControls/add.png b/Icons/PlaylistControls/add.png
+-new file mode 100644
+-index 0000000..c53d2a5
+-Binary files /dev/null and b/Icons/PlaylistControls/add.png differ
+-diff --git a/Icons/PlaylistControls/clear.png b/Icons/PlaylistControls/clear.png
+-new file mode 100644
+-index 0000000..f9519f1
+-Binary files /dev/null and b/Icons/PlaylistControls/clear.png differ
+-diff --git a/Icons/PlaylistControls/moveDown.png b/Icons/PlaylistControls/moveDown.png
+-new file mode 100644
+-index 0000000..abe66b1
+-Binary files /dev/null and b/Icons/PlaylistControls/moveDown.png differ
+-diff --git a/Icons/PlaylistControls/moveUp.png b/Icons/PlaylistControls/moveUp.png
+-new file mode 100644
+-index 0000000..3f8bf76
+-Binary files /dev/null and b/Icons/PlaylistControls/moveUp.png differ
+-diff --git a/Icons/PlaylistControls/remove.png b/Icons/PlaylistControls/remove.png
+-new file mode 100644
+-index 0000000..5492de6
+-Binary files /dev/null and b/Icons/PlaylistControls/remove.png differ
+-diff --git a/Icons/PlaylistControls/save.png b/Icons/PlaylistControls/save.png
+-new file mode 100644
+-index 0000000..a38e1a9
+-Binary files /dev/null and b/Icons/PlaylistControls/save.png differ
+-diff --git a/Icons/WindowControls/close.png b/Icons/WindowControls/close.png
+-new file mode 100644
+-index 0000000..6ccbe39
+-Binary files /dev/null and b/Icons/WindowControls/close.png differ
+-diff --git a/Icons/WindowControls/hide.png b/Icons/WindowControls/hide.png
+-new file mode 100644
+-index 0000000..c7e5b28
+-Binary files /dev/null and b/Icons/WindowControls/hide.png differ
+-diff --git a/Icons/add.png b/Icons/add.png
+-deleted file mode 100644
+-index c53d2a5..0000000
+-Binary files a/Icons/add.png and /dev/null differ
+-diff --git a/Icons/close6.png b/Icons/close6.png
+-deleted file mode 100644
+-index 6ccbe39..0000000
+-Binary files a/Icons/close6.png and /dev/null differ
+-diff --git a/Icons/hide5.png b/Icons/hide5.png
+-deleted file mode 100644
+-index c7e5b28..0000000
+-Binary files a/Icons/hide5.png and /dev/null differ
+-diff --git a/Icons/info.png b/Icons/info.png
+-deleted file mode 100644
+-index cbdee65..0000000
+-Binary files a/Icons/info.png and /dev/null differ
+-diff --git a/Icons/moveDown.png b/Icons/moveDown.png
+-deleted file mode 100644
+-index abe66b1..0000000
+-Binary files a/Icons/moveDown.png and /dev/null differ
+-diff --git a/Icons/moveUp.png b/Icons/moveUp.png
+-deleted file mode 100644
+-index 3f8bf76..0000000
+-Binary files a/Icons/moveUp.png and /dev/null differ
+-diff --git a/Icons/music.png b/Icons/music.png
+-deleted file mode 100644
+-index 55c1f3c..0000000
+-Binary files a/Icons/music.png and /dev/null differ
+-diff --git a/Icons/nextTrack.png b/Icons/nextTrack.png
+-deleted file mode 100644
+-index 88517a0..0000000
+-Binary files a/Icons/nextTrack.png and /dev/null differ
+-diff --git a/Icons/off5-h.png b/Icons/off5-h.png
+-deleted file mode 100644
+-index f48f443..0000000
+-Binary files a/Icons/off5-h.png and /dev/null differ
+-diff --git a/Icons/off5.png b/Icons/off5.png
+-deleted file mode 100644
+-index 96cb749..0000000
+-Binary files a/Icons/off5.png and /dev/null differ
+-diff --git a/Icons/on5-h.png b/Icons/on5-h.png
+-deleted file mode 100644
+-index c4ecea2..0000000
+-Binary files a/Icons/on5-h.png and /dev/null differ
+-diff --git a/Icons/on5.png b/Icons/on5.png
+-deleted file mode 100644
+-index 030fa0b..0000000
+-Binary files a/Icons/on5.png and /dev/null differ
+-diff --git a/Icons/pause.png b/Icons/pause.png
+-deleted file mode 100644
+-index 7285a5f..0000000
+-Binary files a/Icons/pause.png and /dev/null differ
+-diff --git a/Icons/play.png b/Icons/play.png
+-deleted file mode 100644
+-index c260324..0000000
+-Binary files a/Icons/play.png and /dev/null differ
+-diff --git a/Icons/previousTrack.png b/Icons/previousTrack.png
+-deleted file mode 100644
+-index c2844c7..0000000
+-Binary files a/Icons/previousTrack.png and /dev/null differ
+-diff --git a/Icons/remove.png b/Icons/remove.png
+-deleted file mode 100644
+-index 5492de6..0000000
+-Binary files a/Icons/remove.png and /dev/null differ
+-diff --git a/Icons/repeatAll.png b/Icons/repeatAll.png
+-deleted file mode 100644
+-index 79a35a7..0000000
+-Binary files a/Icons/repeatAll.png and /dev/null differ
+-diff --git a/Icons/repeatOff.png b/Icons/repeatOff.png
+-deleted file mode 100644
+-index 2f62f14..0000000
+-Binary files a/Icons/repeatOff.png and /dev/null differ
+-diff --git a/Icons/repeatOne.png b/Icons/repeatOne.png
+-deleted file mode 100644
+-index 0ea1b27..0000000
+-Binary files a/Icons/repeatOne.png and /dev/null differ
+-diff --git a/Icons/save.png b/Icons/save.png
+-deleted file mode 100644
+-index a38e1a9..0000000
+-Binary files a/Icons/save.png and /dev/null differ
+-diff --git a/Icons/seekBackward.png b/Icons/seekBackward.png
+-deleted file mode 100644
+-index e0f1992..0000000
+-Binary files a/Icons/seekBackward.png and /dev/null differ
+-diff --git a/Icons/seekForward.png b/Icons/seekForward.png
+-deleted file mode 100644
+-index 370318d..0000000
+-Binary files a/Icons/seekForward.png and /dev/null differ
+-diff --git a/Icons/shuffleOff.png b/Icons/shuffleOff.png
+-deleted file mode 100644
+-index bb7ac07..0000000
+-Binary files a/Icons/shuffleOff.png and /dev/null differ
+-diff --git a/Icons/shuffleOn.png b/Icons/shuffleOn.png
+-deleted file mode 100644
+-index 5e6aa4d..0000000
+-Binary files a/Icons/shuffleOn.png and /dev/null differ
+-diff --git a/Icons/trash.png b/Icons/trash.png
+-deleted file mode 100644
+-index f9519f1..0000000
+-Binary files a/Icons/trash.png and /dev/null differ
+-diff --git a/Icons/volumeHigh.png b/Icons/volumeHigh.png
+-deleted file mode 100644
+-index a9ce356..0000000
+-Binary files a/Icons/volumeHigh.png and /dev/null differ
+-diff --git a/Icons/volumeLow.png b/Icons/volumeLow.png
+-deleted file mode 100644
+-index 43c0b21..0000000
+-Binary files a/Icons/volumeLow.png and /dev/null differ
+-diff --git a/Icons/volumeMedium.png b/Icons/volumeMedium.png
+-deleted file mode 100644
+-index b2f535c..0000000
+-Binary files a/Icons/volumeMedium.png and /dev/null differ
+-diff --git a/Icons/volumeOff.png b/Icons/volumeOff.png
+-deleted file mode 100644
+-index f167477..0000000
+-Binary files a/Icons/volumeOff.png and /dev/null differ
+-diff --git a/Icons/volumeZero.png b/Icons/volumeZero.png
+-deleted file mode 100644
+-index dd750da..0000000
+-Binary files a/Icons/volumeZero.png and /dev/null differ
