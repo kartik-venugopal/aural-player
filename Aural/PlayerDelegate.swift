@@ -45,8 +45,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         player = Player.instance()
         loadPlayerState()
         
-        // Register self as a subscriber to PlaybackCompleted events (published by Player)
-        EventRegistry.subscribe(.PlaybackCompleted, subscriber: self)
+        EventRegistry.subscribe(EventType.PlaybackCompleted, subscriber: self, dispatchQueue: DispatchQueue(queueType: QueueType.MAIN))
     }
     
     
@@ -210,8 +209,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         switch playbackState {
             
         case .NO_FILE: continuePlaying()
-        if (playingTrack != nil) {
-            trackChanged = true
+            if (playingTrack != nil) {
+                trackChanged = true
             }
             
         case .PAUSED: resume()
@@ -243,6 +242,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         playingTrack = track
         if (track != nil) {
             TrackIO.prepareForPlayback(track!)
+            
+            // Stop if currently playing
+            if (playbackState == .PLAYING || playbackState == .PAUSED) {
+                player.stop()
+            }
+            
             player.play(track!)
             playbackState = .PLAYING
         }
@@ -464,24 +469,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         player.setFilterLowPassCutoff(cutoff)
     }
     
-    // Playback completed
-    func consumeEvent(event: Event) {
-        
-        let newTrackInfo = continuePlaying()
-        playingTrack = newTrackInfo.playingTrack
-        
-        let trackChangedEvent = TrackChangedEvent(newTrack: playingTrack, newTrackIndex: newTrackInfo.playingTrackIndex)
-        
-        if (playingTrack != nil) {
-            playbackState = .PLAYING
-        } else {
-            playbackState = .NO_FILE
-        }
-        
-        // Notify the UI about this track change event
-        EventRegistry.publishEvent(.TrackChanged, event: trackChangedEvent)
-    }
-    
     func toggleRepeatMode() -> RepeatMode {
         
         switch repeatMode {
@@ -531,5 +518,27 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         }
         
         PlayerStateIO.save(state)
+    }
+    
+    // Called when playback of the current track completes
+    func consumeEvent(event: Event) {
+        
+        print("\nGot event !")
+        
+        player.stop()
+        
+        let newTrackInfo = continuePlaying()
+        playingTrack = newTrackInfo.playingTrack
+        
+        let trackChangedEvent = TrackChangedEvent(newTrack: playingTrack, newTrackIndex: newTrackInfo.playingTrackIndex)
+        
+        if (playingTrack != nil) {
+            playbackState = .PLAYING
+        } else {
+            playbackState = .NO_FILE
+        }
+        
+        // Notify the UI about this track change event
+        EventRegistry.publishEvent(.TrackChanged, event: trackChangedEvent)
     }
 }

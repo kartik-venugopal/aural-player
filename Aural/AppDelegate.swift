@@ -125,7 +125,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         }
         
         // Register self as a subscriber to TrackChangedEvent notifications (published when the player is done playing a track)
-        EventRegistry.subscribe(.TrackChanged, subscriber: self)
+        EventRegistry.subscribe(.TrackChanged, subscriber: self, dispatchQueue: DispatchQueue(queueType: QueueType.MAIN))
         
         window.movableByWindowBackground  = true
         window.makeKeyAndOrderFront(self)
@@ -292,6 +292,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
                 lblTrackArtist.stringValue = "Artist: " + track.longDisplayName!.artist!
                 lblTrackTitle.stringValue = "Title: " + track.longDisplayName!.title!
                 
+//                print("\nSet title to: ", track.longDisplayName!.title!)
+                
                 bigLblTrack.hidden = true
                 lblTrackArtist.hidden = false
                 lblTrackTitle.hidden = false
@@ -369,6 +371,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     }
     
     func playlistDoubleClickAction(sender: AnyObject) {
+        playSelectedTrack()
+    }
+    
+    func playSelectedTrack() {
         let track = player.play(playlistView.selectedRow)
         trackChange(track, newTrackIndex: playlistView.selectedRow)
     }
@@ -769,6 +775,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         
         let _event = event as! TrackChangedEvent
         trackChange(_event.newTrack, newTrackIndex: _event.newTrackIndex)
+        
+                print("\nConsumed ... ", _event.newTrack?.shortDisplayName)
     }
     
     // Adds a set of files (or directories, i.e. files within them) to the current playlist, if supported

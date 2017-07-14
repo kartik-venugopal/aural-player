@@ -31,10 +31,14 @@ class TrackChangedEvent: Event {
 // Event indicating that playback of the currently playing track has completed
 class PlaybackCompletedEvent: Event {
     
-    // The track that completed playing
-    var track: Track
+//    // The track that completed playing
+//    var track: Track
+//    
+//    init(track: Track) {
+//        self.track = track
+//    }
     
-    init(track: Track) {
-        self.track = track
-    }
+    private init() {}
+    
+    static let instance = PlaybackCompletedEvent()
 }

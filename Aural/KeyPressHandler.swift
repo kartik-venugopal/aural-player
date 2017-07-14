@@ -17,6 +17,7 @@ class KeyPressHandler {
     static let LETTER_S: UInt16 = 1
     static let SPACE: UInt16 = 49
     static let BACKSPACE: UInt16 = 51
+    static let ENTER: UInt16 = 36
     
     // Callback reference to AppDelegate so that its UI controls can be manipulated and its functions called
     static var app: AppDelegate?
@@ -144,6 +145,11 @@ class KeyPressHandler {
         // (Backspace) Delete a single (selected) file from playlist
         if (!isCommand && !isShift && event.keyCode == BACKSPACE) {
             app.removeSingleTrackAction(event)            
+        }
+        
+        // (Enter) Play selected track (same as mouse double click)
+        if (!isCommand && !isShift && event.keyCode == ENTER) {
+            app.playSelectedTrack()
         }
         
         // Part of the hack mentioned above ... restore the responder for the playlist view so that it may continue receiving key press events

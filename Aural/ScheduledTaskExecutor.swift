@@ -22,6 +22,7 @@ class ScheduledTaskExecutor {
     
     // Flags indicating whether this timer is currently running
     private var running: Bool = false
+    private var stopped: Bool = false
     
     init(intervalMillis: UInt32, task: () -> Void, queue: DispatchQueue) {
         
@@ -44,6 +45,10 @@ class ScheduledTaskExecutor {
     // Start/resume task execution
     func startOrResume() {
         
+        if (stopped) {
+            return
+        }
+        
         if (!running && timer != nil) {
             dispatch_resume(timer!)
             running = true
@@ -52,6 +57,10 @@ class ScheduledTaskExecutor {
     
     // Pause task execution
     func pause() {
+        
+        if (stopped) {
+            return
+        }
         
         if (!running && timer != nil) {
             dispatch_suspend(timer!)
@@ -69,6 +78,13 @@ class ScheduledTaskExecutor {
     
     func stop() {
         
+        if (stopped) {
+            return
+        }
+        
+        running = false
+        stopped = true
+        
         if (timer != nil) {
             dispatch_source_cancel(timer!)
         }
@@ -76,9 +92,11 @@ class ScheduledTaskExecutor {
     
     deinit {
         
-        // Cancel the timer
-        if (timer != nil) {
-            dispatch_source_cancel(timer!)
+        if (!stopped) {
+            // Cancel the timer
+            if (timer != nil) {
+                dispatch_source_cancel(timer!)
+            }
         }
     }
 }

@@ -29,10 +29,7 @@ class BufferManager {
     
     // The currently playing audio file
     private var playingFile: AVAudioFile?
-    
-    // Flag marking if EOF has been reached when reading the current audio file
-    private var reachedEOF: Bool = false
-    
+
     // This timestamp is used to mark which playback session a buffer scheduling task belongs to, i.e., it is a unique identifier for a playback session
     private var sessionTimestamp: NSDate = NSDate()
     
@@ -69,36 +66,44 @@ class BufferManager {
         // Set the position in the audio file from which reading is to begin
         playingFile!.framePosition = frame
         
-        // Reset the EOF flag
-        reachedEOF = false
-        
         // Mark the current playback session's timestamp
         sessionTimestamp = NSDate()
         
         // Schedule one buffer for immediate playback
-        scheduleNextBuffer(sessionTimestamp)
+        let reachedEOF = scheduleNextBuffer(sessionTimestamp)
         
         // Start playing the file
         playerNode.play()
         
         // Schedule one more ("look ahead") buffer
-        scheduleNextBufferIfNecessary(sessionTimestamp)
+        if (!reachedEOF) {
+            queue.addOperationWithBlock({self.scheduleNextBuffer(sessionTimestamp)})
+        }
     }
     
-    // Checks if more buffers are needed for the playback session indicated by the given timestamp, and if so, schedules one for playback. The timestamp argument indicates which playback session this task was initiated for. If the given timestamp does not match the current playback session timestamp, or the end of file has been reached, no scheduling will occur.
-    private func scheduleNextBufferIfNecessary(timestamp: NSDate) {
+    // Upon the completion of playback of a buffer, checks if more buffers are needed for the playback session indicated by the given timestamp, and if so, schedules one for playback. The timestamp argument indicates which playback session this task was initiated for.
+    private func bufferCompletionHandler(timestamp: NSDate, reachedEOF: Bool) {
         
-        // This flag indicates whether this scheduling task belongs to the current playback session
+        // If this timestamp doesn't match the current playback session timestamp, it is not current
         let timestampCurrent = timestamp.compare(sessionTimestamp) == NSComparisonResult.OrderedSame
         
-        if (timestampCurrent && !reachedEOF) {
-            queue.addOperationWithBlock({self.scheduleNextBuffer(timestamp)})
+        if (timestampCurrent) {
+            
+            if (reachedEOF) {
+                
+                // Notify observers about playback completion
+                EventRegistry.publishEvent(EventType.PlaybackCompleted, event: PlaybackCompletedEvent.instance)
+            } else {
+                
+                // Continue scheduling more buffers
+                queue.addOperationWithBlock({self.scheduleNextBuffer(timestamp)})
+            }
         }
     }
     
     // Schedules a single audio buffer for playback
     // The timestamp argument indicates which playback session this task was initiated for
-    private func scheduleNextBuffer(timestamp: NSDate) {
+    private func scheduleNextBuffer(timestamp: NSDate) -> Bool {
         
         let sampleRate = playingFile!.processingFormat.sampleRate
         let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(PCMFormat: playingFile!.processingFormat, frameCapacity: AVAudioFrameCount(Double(BufferManager.BUFFER_SIZE) * sampleRate))
@@ -113,17 +118,19 @@ class BufferManager {
         let bufferNotFull = buffer.frameLength < buffer.frameCapacity
         
         // If all frames have been read, OR the buffer is not full, consider track done playing (EOF)
-        reachedEOF = readAllFrames || bufferNotFull
+        let reachedEOF = readAllFrames || bufferNotFull
         
         // Redundant timestamp check, in case the first one in scheduleNextBufferIfNecessary() was performed too soon (stop() called between scheduleNextBufferIfNecessary() and now). This will come in handy when disk seeking suddenly slows down abnormally and the task takes much longer to complete.
         let timestampCurrent = timestamp.compare(sessionTimestamp) == NSComparisonResult.OrderedSame
         
-        if (timestampCurrent && Int64(buffer.frameLength) >= BufferManager.MIN_PLAYBACK_FRAMES) {
+        if (timestampCurrent) {
         
             playerNode.scheduleBuffer(buffer, atTime: nil, options: AVAudioPlayerNodeBufferOptions(), completionHandler: {
-                    self.scheduleNextBufferIfNecessary(timestamp)
+                    self.bufferCompletionHandler(timestamp, reachedEOF: reachedEOF)
             })
         }
+        
+        return reachedEOF
     }
     
     // Seeks to a certain position (seconds) in the audio file being played back. Returns the calculated start frame and whether or not playback has completed after this seek (i.e. end of file)
@@ -135,21 +142,25 @@ class BufferManager {
         
         //  Multiply your sample rate by the new time in seconds. This will give you the exact frame of the song at which you want to start the player
         let firstFrame = Int64(seconds * sampleRate)
-        
+
         let framesToPlay = playingFile!.length - firstFrame
         
         // If not enough frames left to play, consider playback finished
-        if framesToPlay > BufferManager.MIN_PLAYBACK_FRAMES {
+        if framesToPlay > 0 {
             
             // Start playback
             startPlaybackFromFrame(firstFrame)
             
-            // Return the start frame to later determine seek position and end of file
+            // Return the start frame to later determine seek position
             return (false, firstFrame)
             
         } else {
             
-            // Reached end of track. Stop playback
+            // Nothing to play means playback has completed
+            
+            // Notify observers about playback completion
+            EventRegistry.publishEvent(EventType.PlaybackCompleted, event: PlaybackCompletedEvent.instance)
+            
             return (true, nil)
         }
     }

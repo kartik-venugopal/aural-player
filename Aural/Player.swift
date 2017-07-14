@@ -5,7 +5,7 @@ Wrapper around AVAudioEngine. Handles all audio-related operations ... playback,
 import Cocoa
 import AVFoundation
 
-class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
+class Player: AuralPlayer, AuralSoundTuner {
     
     private static let singleton: Player = Player()
     
@@ -74,9 +74,6 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
         bufferManager = BufferManager(playerNode: playerNode)
         
         loadPlayerState(SavedPlayerState.defaults)
-        
-        // Register self as a publisher of playback completion events
-        EventRegistry.registerPublisher(.PlaybackCompleted, publisher: self)
     }
     
     func loadPlayerState(state: SavedPlayerState) {
@@ -128,10 +125,6 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
     
     func play(track: Track) {
         
-        // Stop if currently playing
-        stop()
-        
-        playingTrack = nil
         playingTrack = track
         
         startFrame = BufferManager.FRAME_ZERO
@@ -160,11 +153,6 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
                 
                 let lastFrame = (playerTime?.sampleTime)!
                 let seconds: Double = Double(startFrame! + lastFrame) / (playerTime?.sampleRate)!
-                
-                if (seconds >= playingTrack!.duration) {
-                    playbackCompleted()
-                    return 0
-                }
                 
                 return seconds
             }
@@ -298,30 +286,25 @@ class Player: AuralPlayer, AuralSoundTuner, EventPublisher {
         
         bufferManager.stop()
         playerNode.reset()
-        audioEngine.reset()
+
+        // Clear sound tails from reverb and delay nodes, if they're active
+        
+        if (!delayNode.bypass) {
+            delayNode.reset()
+        }
+        
+        if (!reverbNode.bypass) {
+            reverbNode.reset()
+        }
         
         playingTrack = nil
         startFrame = nil
     }
     
-    // Called when playback of the current track completes
-    private func playbackCompleted() {
-        
-        // Capture the completed track before stopping the player (it will get reset to nil by stop())
-        let track = playingTrack!
-        stop()
-        
-        // Publish a notification that playback has completed
-        EventRegistry.publishEvent(.PlaybackCompleted, event: PlaybackCompletedEvent(track: track))
-    }
-    
     func seekToTime(seconds: Double) {
         
         let seekResult = bufferManager.seekToTime(seconds)
-        
-        if (seekResult.playbackCompleted) {
-            playbackCompleted()
-        } else {
+        if (!seekResult.playbackCompleted) {
             startFrame = seekResult.startFrame!
         }
     }
