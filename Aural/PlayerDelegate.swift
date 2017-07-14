@@ -526,7 +526,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         player.stop()
         
         let newTrackInfo = continuePlaying()
-        playingTrack = newTrackInfo.playingTrack
         
         let trackChangedEvent = TrackChangedEvent(newTrack: playingTrack, newTrackIndex: newTrackInfo.playingTrackIndex)
         

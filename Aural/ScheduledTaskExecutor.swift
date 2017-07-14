@@ -62,7 +62,7 @@ class ScheduledTaskExecutor {
             return
         }
         
-        if (!running && timer != nil) {
+        if (running && timer != nil) {
             dispatch_suspend(timer!)
             running = false
         }
@@ -91,12 +91,6 @@ class ScheduledTaskExecutor {
     }
     
     deinit {
-        
-        if (!stopped) {
-            // Cancel the timer
-            if (timer != nil) {
-                dispatch_source_cancel(timer!)
-            }
-        }
+        stop()
     }
 }
