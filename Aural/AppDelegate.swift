@@ -331,6 +331,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         seekSlider.floatValue = 0
         musicArtView.image = UIConstants.imgMusicArt
         btnMoreInfo.hidden = true
+        setPlayPauseImage(UIConstants.imgPlay)
         hidePopover()
     }
     
@@ -373,8 +374,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     }
     
     func playSelectedTrack() {
-        let track = player.play(playlistView.selectedRow)
-        trackChange(track, newTrackIndex: playlistView.selectedRow)
+        if (playlistView.selectedRow >= 0) {
+            let track = player.play(playlistView.selectedRow)
+            trackChange(track, newTrackIndex: playlistView.selectedRow)
+        }
     }
     
     @IBAction func nextTrackAction(sender: AnyObject) {
@@ -408,7 +411,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         } else {
             
             setSeekTimerState(false)
-            setPlayPauseImage(UIConstants.imgPlay)
             clearNowPlayingInfo()
         }
         
