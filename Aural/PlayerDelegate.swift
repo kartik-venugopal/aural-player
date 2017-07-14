@@ -175,6 +175,10 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         PlaylistIO.savePlaylist(file)
     }
     
+    func getPlaylistSummary() -> (numTracks: Int, totalDuration: Double) {
+        return (playlist.size(), playlist.totalDuration())
+    }
+    
     func getPlayingTrack() -> Track? {
         return playingTrack
     }

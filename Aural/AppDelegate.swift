@@ -12,21 +12,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     
     @IBOutlet weak var fxTabView: NSTabView!
     
-    @IBOutlet weak var lblAppName: NSTextField!
-    @IBOutlet weak var lblReverb: NSTextField!
-    @IBOutlet weak var lblOctaves: NSTextField!
-    @IBOutlet weak var lblPitchShift: NSTextField!
-    @IBOutlet weak var lblPanR: NSTextField!
-    @IBOutlet weak var lblPanL: NSTextField!
+    // Playlist summary labels
+    @IBOutlet weak var lblTracksSummary: NSTextField!
+    @IBOutlet weak var lblDurationSummary: NSTextField!
     
     // Displays the playlist
     @IBOutlet weak var playlistView: NSTableView!
-    
-    // Static labels (their colors are initialized at startup)
-    @IBOutlet weak var playlistBox: NSBox!
-    @IBOutlet weak var effectsBox: NSBox!
-    @IBOutlet weak var controlsBox: NSBox!
-    @IBOutlet weak var nowPlayingBox: NSBox!
     
     // Toggle buttons (their images change)
     @IBOutlet weak var btnShuffle: NSButton!
@@ -203,6 +194,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         fxTabView.selectFirstTabViewItem(self)
         
         playlistView.reloadData()
+        updatePlaylistSummary()
+    }
+    
+    func updatePlaylistSummary() {
+        let summary = player.getPlaylistSummary()
+        let numTracks = summary.numTracks
+        lblTracksSummary.stringValue = String(numTracks) + (numTracks == 1 ? " track" : " tracks")
+        lblDurationSummary.stringValue = Utils.formatDuration(summary.totalDuration)
     }
     
     private func updateEQSliders(eqBands: [Int: Float]) {
@@ -246,6 +245,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
             
             let newTrackIndex = player.removeTrack(selRow)
             playlistView.reloadData()
+            updatePlaylistSummary()
             selectTrack(newTrackIndex)
             if (newTrackIndex == nil) {
                 clearNowPlayingInfo()
@@ -509,6 +509,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         
         player.clearPlaylist()
         playlistView.reloadData()
+        updatePlaylistSummary()
         
         trackChange(nil, newTrackIndex: nil)
     }
@@ -784,5 +785,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         
         // Refresh the playlist view with the new files
         playlistView.reloadData()
+        updatePlaylistSummary()
     }
 }

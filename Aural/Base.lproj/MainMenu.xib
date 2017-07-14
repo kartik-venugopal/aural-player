@@ -47,6 +47,7 @@
                 <outlet property="filterLowPassSlider" destination="Snr-AS-UIT" id="ndn-Il-RTy"/>
                 <outlet property="fxTabView" destination="ajb-w5-ueo" id="nb7-Ak-DyM"/>
                 <outlet property="lblAppName" destination="saz-qI-SEO" id="j3q-6x-5AB"/>
+                <outlet property="lblDurationSummary" destination="uK4-ud-Rzz" id="KG9-ya-NTn"/>
                 <outlet property="lblOctaves" destination="uOU-Zl-fv2" id="AXp-gI-H71"/>
                 <outlet property="lblPanL" destination="rMC-T8-qxI" id="mek-zr-T7z"/>
                 <outlet property="lblPanR" destination="ZXX-yl-h3G" id="gwq-l8-04y"/>
@@ -55,6 +56,7 @@
                 <outlet property="lblReverb" destination="si3-ai-Wgb" id="4MI-5P-fq4"/>
                 <outlet property="lblTrackArtist" destination="bDo-O3-0JI" id="R2s-4c-465"/>
                 <outlet property="lblTrackTitle" destination="LM5-xW-O9f" id="Dg8-JS-PyS"/>
+                <outlet property="lblTracksSummary" destination="PC9-RH-ZoK" id="DIy-BE-lmy"/>
                 <outlet property="musicArtView" destination="YrG-JU-zDl" id="pn0-XL-ktK"/>
                 <outlet property="nowPlayingBox" destination="r0W-tQ-AZF" id="Ogu-ve-Zd6"/>
                 <outlet property="panSlider" destination="wom-j6-eli" id="3Bl-ac-3Pj"/>
@@ -73,16 +75,16 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <window title="Aural" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="420" height="627"/>
+            <rect key="contentRect" x="335" y="390" width="414" height="624"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <value key="minSize" type="size" width="415" height="627"/>
             <value key="maxSize" type="size" width="415" height="627"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="420" height="627"/>
+                <rect key="frame" x="0.0" y="0.0" width="414" height="624"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <box fixedFrame="YES" cornerRadius="5" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="DYI-NL-cxu" userLabel="Effects Box">
-                        <rect key="frame" x="15" y="232" width="385" height="175"/>
+                        <rect key="frame" x="15" y="229" width="385" height="175"/>
                         <view key="contentView" ambiguous="YES" id="qKu-X5-tmY">
                             <rect key="frame" x="1" y="1" width="383" height="173"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -94,11 +96,11 @@
                         <color key="fillColor" red="0.82352941176470584" green="0.82352941176470584" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <tabView fixedFrame="YES" initialItem="McD-gg-qp9" translatesAutoresizingMaskIntoConstraints="NO" id="ajb-w5-ueo" userLabel="FX Tabbed group">
-                        <rect key="frame" x="10" y="224" width="396" height="186"/>
+                        <rect key="frame" x="10" y="221" width="396" height="186"/>
                         <font key="font" size="11" name="CenturyGothic-Bold"/>
                         <tabViewItems>
                             <tabViewItem label="EQ" identifier="1" id="McD-gg-qp9" userLabel="EQ">
-                                <view key="view" id="vC5-27-GiC">
+                                <view key="view" ambiguous="YES" id="vC5-27-GiC">
                                     <rect key="frame" x="10" y="33" width="304" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -392,7 +394,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Time" identifier="" id="ifs-vg-o0B" userLabel="Time">
-                                <view key="view" ambiguous="YES" id="jLB-l1-UdU">
+                                <view key="view" id="jLB-l1-UdU">
                                     <rect key="frame" x="10" y="33" width="376" height="140"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -847,19 +849,19 @@
                         </tabViewItems>
                     </tabView>
                     <box fixedFrame="YES" cornerRadius="5" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="RMJ-vL-K67" userLabel="Playlist Box">
-                        <rect key="frame" x="15" y="40" width="385" height="180"/>
+                        <rect key="frame" x="15" y="37" width="385" height="180"/>
                         <view key="contentView" ambiguous="YES" id="z6D-Sq-tgw">
                             <rect key="frame" x="1" y="1" width="383" height="178"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14X-70-hkU" userLabel="Playlist">
-                                    <rect key="frame" x="0.0" y="2" width="382" height="175"/>
+                                    <rect key="frame" x="0.0" y="2" width="384" height="176"/>
                                     <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="Ogw-pT-2D2">
-                                        <rect key="frame" x="0.0" y="0.0" width="382" height="175"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="384" height="176"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView autoresizesSubviews="NO" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" id="4Fk-6v-HSf">
-                                                <rect key="frame" x="0.0" y="0.0" width="382" height="175"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="384" height="176"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <size key="intercellSpacing" width="3" height="4"/>
                                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -897,7 +899,7 @@
                                                             </tableCellView>
                                                         </prototypeCellViews>
                                                     </tableColumn>
-                                                    <tableColumn identifier="cv_duration" width="71" minWidth="65" maxWidth="1000" id="6v7-iN-YkL">
+                                                    <tableColumn identifier="cv_duration" width="73" minWidth="65" maxWidth="1000" id="6v7-iN-YkL">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -911,7 +913,7 @@
                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         <prototypeCellViews>
                                                             <tableCellView identifier="cv_duration" id="ZwB-WI-OvH" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
-                                                                <rect key="frame" x="309" y="2" width="71" height="22"/>
+                                                                <rect key="frame" x="309" y="2" width="73" height="22"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uvb-rs-y4j">
@@ -956,7 +958,7 @@
                         <color key="fillColor" red="0.82352941176470584" green="0.82352941176470584" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <box fixedFrame="YES" cornerRadius="5" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="X7y-oM-7MJ" userLabel="Controls Box">
-                        <rect key="frame" x="15" y="419" width="385" height="61"/>
+                        <rect key="frame" x="15" y="416" width="385" height="61"/>
                         <view key="contentView" ambiguous="YES" id="VBo-wa-Nak">
                             <rect key="frame" x="1" y="1" width="383" height="59"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1018,7 +1020,7 @@
                         <color key="fillColor" red="0.82352941176470584" green="0.82352941176470584" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <box fixedFrame="YES" cornerRadius="5" title="Box" boxType="custom" borderType="bezel" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="r0W-tQ-AZF" userLabel="Now Playing Box">
-                        <rect key="frame" x="16" y="493" width="385" height="88"/>
+                        <rect key="frame" x="16" y="490" width="385" height="88"/>
                         <view key="contentView" ambiguous="YES" id="RSY-vY-bFZ">
                             <rect key="frame" x="1" y="1" width="383" height="86"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1094,7 +1096,7 @@
                         <color key="fillColor" red="0.82352941176470584" green="0.82352941176470584" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <button toolTip="Play / Pause" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="52R-Hv-S0B">
-                        <rect key="frame" x="174" y="428" width="40" height="40"/>
+                        <rect key="frame" x="174" y="425" width="40" height="40"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Play" imagePosition="overlaps" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="Fs8-y1-Z2g">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -1104,7 +1106,7 @@
                         </connections>
                     </button>
                     <button toolTip="Next track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WPR-XR-JlH" userLabel="NextTrack Button">
-                        <rect key="frame" x="219" y="431" width="35" height="35"/>
+                        <rect key="frame" x="219" y="428" width="35" height="35"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NextTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="tbB-z7-Flk">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1114,7 +1116,7 @@
                         </connections>
                     </button>
                     <button toolTip="Repeat" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fpa-Ii-3YA" userLabel="Repeat Button">
-                        <rect key="frame" x="24" y="438" width="23" height="23"/>
+                        <rect key="frame" x="24" y="435" width="23" height="23"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RepeatOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ob3-hG-IUK">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1124,7 +1126,7 @@
                         </connections>
                     </button>
                     <button toolTip="Shuffle" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kQL-4a-kyh" userLabel="Shuffle Button">
-                        <rect key="frame" x="53" y="433" width="33" height="33"/>
+                        <rect key="frame" x="53" y="430" width="33" height="33"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShuffleOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4mr-kA-ORl">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1134,7 +1136,7 @@
                         </connections>
                     </button>
                     <slider toolTip="Volume" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7fw-31-38g" userLabel="Volume Slider">
-                        <rect key="frame" x="331" y="453" width="57" height="15"/>
+                        <rect key="frame" x="331" y="450" width="57" height="15"/>
                         <shadow key="shadow" blurRadius="1">
                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </shadow>
@@ -1144,7 +1146,7 @@
                         </connections>
                     </slider>
                     <button toolTip="Mute / Unmute" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y0j-zk-a3t" userLabel="Volume Button">
-                        <rect key="frame" x="310" y="452" width="20" height="20"/>
+                        <rect key="frame" x="310" y="449" width="20" height="20"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="VolumeMedium" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="R0z-S2-u9j">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1154,7 +1156,7 @@
                         </connections>
                     </button>
                     <slider toolTip="Pan / Balance" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wom-j6-eli">
-                        <rect key="frame" x="309" y="434" width="79" height="15"/>
+                        <rect key="frame" x="309" y="431" width="79" height="15"/>
                         <shadow key="shadow" blurRadius="1">
                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </shadow>
@@ -1167,7 +1169,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </slider>
                     <button toolTip="Previous track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5rt-y8-5rH" userLabel="PrevTrack Button">
-                        <rect key="frame" x="134" y="431" width="35" height="35"/>
+                        <rect key="frame" x="134" y="428" width="35" height="35"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PreviousTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="iIh-1Y-xvp">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1177,7 +1179,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="saz-qI-SEO">
-                        <rect key="frame" x="182" y="599" width="68" height="25"/>
+                        <rect key="frame" x="182" y="596" width="68" height="25"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="AURAL" id="q5q-o6-pMi">
                             <font key="font" size="16" name="CenturyGothic-BoldItalic"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1185,7 +1187,7 @@ G1BhbiBTbGlkZXI
                         </textFieldCell>
                     </textField>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6pS-Kh-BZP" userLabel="Close Button">
-                        <rect key="frame" x="6" y="598" width="20" height="20"/>
+                        <rect key="frame" x="6" y="595" width="20" height="20"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="zDW-yl-Adn">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1194,8 +1196,8 @@ G1BhbiBTbGlkZXI
                             <action selector="closeAction:" target="Voe-Tx-rLC" id="TVm-QP-DyS"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZLC-hp-2OD" userLabel="Close Button">
-                        <rect key="frame" x="27" y="598" width="20" height="20"/>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZLC-hp-2OD" userLabel="Hide Button">
+                        <rect key="frame" x="27" y="595" width="20" height="20"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Hide" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="jQl-La-S6p">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1205,11 +1207,11 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BNg-uu-doV" userLabel="AppIcon Image">
-                        <rect key="frame" x="166" y="596" width="25" height="25"/>
+                        <rect key="frame" x="166" y="593" width="25" height="25"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppIconSmall" id="odg-0G-Ip6"/>
                     </imageView>
                     <button toolTip="Add files to playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vmP-3Z-75C" userLabel="Add">
-                        <rect key="frame" x="230" y="11" width="20" height="20"/>
+                        <rect key="frame" x="21" y="12" width="16" height="16"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="e0H-pg-jGM">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1219,7 +1221,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Remove selected file from playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ws5-MD-bgB" userLabel="Remove">
-                        <rect key="frame" x="255" y="11" width="20" height="20"/>
+                        <rect key="frame" x="38" y="12" width="16" height="16"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="RW1-Gq-U5Q">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1228,8 +1230,8 @@ G1BhbiBTbGlkZXI
                             <action selector="removeSingleTrackAction:" target="Voe-Tx-rLC" id="XMD-nS-FYC"/>
                         </connections>
                     </button>
-                    <button toolTip="Save current playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ykd-pV-DhL" userLabel="Remove">
-                        <rect key="frame" x="293" y="11" width="20" height="20"/>
+                    <button toolTip="Save current playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ykd-pV-DhL" userLabel="Save">
+                        <rect key="frame" x="61" y="12" width="16" height="16"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Save" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="r5P-6g-1T5">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1239,7 +1241,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Clear the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2x-W9-0uj" userLabel="Clear">
-                        <rect key="frame" x="313" y="9" width="27" height="27"/>
+                        <rect key="frame" x="78" y="12" width="15" height="18"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Clear" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="3UW-IS-bhe">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1249,7 +1251,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Move selected track up" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v8g-5Z-Q77" userLabel="Up">
-                        <rect key="frame" x="351" y="11" width="22" height="22"/>
+                        <rect key="frame" x="100" y="12" width="17" height="17"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Up" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="2ee-yj-1Uz">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1259,7 +1261,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Move selected track down" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lQn-Xx-utz" userLabel="Down">
-                        <rect key="frame" x="377" y="11" width="22" height="22"/>
+                        <rect key="frame" x="118" y="12" width="17" height="17"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Down" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="bwT-CP-DIg">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1268,13 +1270,22 @@ G1BhbiBTbGlkZXI
                             <action selector="moveTrackDownAction:" target="Voe-Tx-rLC" id="cZJ-AR-tnk"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S0y-Y6-ftc">
-                        <rect key="frame" x="238" y="289" width="48" height="48"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8Zm-Pt-ZIY">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                    </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PC9-RH-ZoK" userLabel="Tracks summary">
+                        <rect key="frame" x="217" y="5" width="104" height="25"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0 tracks" id="AP4-Kh-xaT">
+                            <font key="font" size="14" name="CenturyGothic-Bold"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uK4-ud-Rzz" userLabel="Duration summary">
+                        <rect key="frame" x="321" y="5" width="70" height="25"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0:00" id="X7W-tv-kd3">
+                            <font key="font" size="14" name="CenturyGothic-Bold"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <userDefinedRuntimeAttributes>
@@ -1282,7 +1293,7 @@ G1BhbiBTbGlkZXI
                     <color key="value" red="0.6470588235294118" green="0.6470588235294118" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="294" y="-5.5"/>
+            <point key="canvasLocation" x="291" y="-7"/>
         </window>
         <viewController id="THs-LC-lDb" customClass="PlaylistViewController" customModule="Aural" customModuleProvider="target"/>
         <menu title="Main Menu" systemMenu="main" id="Cnt-hZ-QmI">
@@ -1310,7 +1321,7 @@ G1BhbiBTbGlkZXI
     <resources>
         <image name="Add" width="129" height="129"/>
         <image name="AppIconSmall" width="32" height="32"/>
-        <image name="Clear" width="51.200000762939453" height="51.200000762939453"/>
+        <image name="Clear" width="34.599998474121094" height="40"/>
         <image name="Close" width="128" height="128"/>
         <image name="Down" width="25.600000381469727" height="25.600000381469727"/>
         <image name="Hide" width="128" height="128"/>

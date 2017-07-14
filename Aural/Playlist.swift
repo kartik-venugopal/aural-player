@@ -36,6 +36,17 @@ class Playlist {
         return tracks.count
     }
     
+    func totalDuration() -> Double {
+        
+        var totalDuration: Double = 0
+        
+        for track in tracks {
+            totalDuration += track.duration!
+        }
+        
+        return totalDuration
+    }
+    
     func getTrackAt(index: Int) -> Track? {
         return tracks[index]
     }

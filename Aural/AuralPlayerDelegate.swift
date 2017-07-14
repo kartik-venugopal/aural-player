@@ -24,6 +24,9 @@ protocol AuralPlayerDelegate {
     // Saves the current player playlist to a file
     func savePlaylist(file: NSURL)
     
+    // Retrieves a summary of the current playlist - the total number of tracks and their total duration
+    func getPlaylistSummary() -> (numTracks: Int, totalDuration: Double)
+    
     // Toggles between the play and pause states, as long as a file is available to play. Returns playback state information the UI can use to update itself following the operation.
     func togglePlayPause() -> (playbackState: PlaybackState, playingTrack: Track?, playingTrackIndex: Int?, trackChanged: Bool)
     
