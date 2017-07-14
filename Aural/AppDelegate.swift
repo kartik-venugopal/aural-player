@@ -597,16 +597,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     
     @IBAction func savePlaylistAction(sender: AnyObject) {
         
-        let dialog = UIElements.saveDialog
+        // Make sure there is at least one track to save
+        if (player.getPlaylistSummary().numTracks > 0) {
         
-        modalDialogOpen = true
-        let modalResponse = dialog.runModal()
-        modalDialogOpen = false
-        
-        if (modalResponse == NSModalResponseOK) {
+            let dialog = UIElements.saveDialog
             
-            let file = dialog.URL // Path of the file
-            player.savePlaylist(file!)
+            modalDialogOpen = true
+            let modalResponse = dialog.runModal()
+            modalDialogOpen = false
+            
+            if (modalResponse == NSModalResponseOK) {
+                
+                let file = dialog.URL // Path of the file
+                player.savePlaylist(file!)
+            }
         }
     }
     
