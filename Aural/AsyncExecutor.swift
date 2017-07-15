@@ -7,9 +7,9 @@ import Cocoa
 class AsyncExecutor {
     
     // Execute a block of code asynchronously
-    static func execute(block: () -> Void, dispatchQueue: DispatchQueue) {
+    static func execute(_ block: @escaping () -> Void, dispatchQueue: DispatchQueue) {
         
-        dispatch_async(dispatchQueue.underlyingQueue, { () -> Void in
+        dispatchQueue.underlyingQueue.async(execute: { () -> Void in
             block()
         })
     }
