@@ -6,7 +6,7 @@ import Cocoa
 
 class TickedSliderCell: NSSliderCell {
     
-    override internal func drawKnob(knobRect: NSRect) {
+    override internal func drawKnob(_ knobRect: NSRect) {
         
         let rectWidth = knobRect.maxX - knobRect.minX, rectHeight = knobRect.maxY - knobRect.minY
         
