@@ -7,10 +7,10 @@ import Cocoa
 protocol AuralPlayer {
     
     // Initializes the player with state remembered from the last app execution
-    func loadPlayerState(state: SavedPlayerState)
+    func loadPlayerState(_ state: SavedPlayerState)
     
     // Plays a track
-    func play(track: Track)
+    func play(_ track: Track)
     
     // Pauses the currently playing track
     func pause()
@@ -22,7 +22,7 @@ protocol AuralPlayer {
     func stop()
     
     // Seeks to a certain time in the currently playing track. Returns a flag indicating whether or not playback of the current track has completed as a result of this seek.
-    func seekToTime(seconds: Double)
+    func seekToTime(_ seconds: Double)
     
     // Gets the playback position (in seconds) of the currently playing track
     func getSeekPosition() -> Double
