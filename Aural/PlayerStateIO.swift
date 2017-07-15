@@ -8,16 +8,16 @@ import AVFoundation
 class PlayerStateIO {
     
     // Saves app config to default user documents directory
-    static func save(state: SavedPlayerState) {
+    static func save(_ state: SavedPlayerState) {
         
-        if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+        if let dir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first {
             
-            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(AppConstants.stateFileName)
+            let path = URL(fileURLWithPath: dir).appendingPathComponent(AppConstants.stateFileName)
             
-            let outputStream = NSOutputStream(URL: path, append: false)
+            let outputStream = OutputStream(url: path, append: false)
             outputStream?.open()
             
-            NSJSONSerialization.writeJSONObject(state.forWritingAsJSON(), toStream: outputStream!, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
+            JSONSerialization.writeJSONObject(state.forWritingAsJSON(), to: outputStream!, options: JSONSerialization.WritingOptions.prettyPrinted, error: nil)
             
             outputStream?.close()
         }
@@ -26,15 +26,15 @@ class PlayerStateIO {
     // Loads app config from default user documents directory
     static func load() -> SavedPlayerState? {
         
-        if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+        if let dir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first {
             
-            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(AppConstants.stateFileName)
+            let path = URL(fileURLWithPath: dir).appendingPathComponent(AppConstants.stateFileName)
             
-            let inputStream = NSInputStream(URL: path)
+            let inputStream = InputStream(url: path)
             inputStream?.open()
             
             do {
-                let data = try NSJSONSerialization.JSONObjectWithStream(inputStream!, options: NSJSONReadingOptions())
+                let data = try JSONSerialization.jsonObject(with: inputStream!, options: JSONSerialization.ReadingOptions())
                 
                 inputStream?.close()
                 
