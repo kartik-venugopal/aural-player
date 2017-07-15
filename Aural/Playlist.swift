@@ -4,20 +4,33 @@ Encapsulates all track information of a playlist. Contains logic to determine pl
 
 import Foundation
 import AVFoundation
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 class Playlist {
     
-    private var tracks: [Track] = [Track]()
-    private var tracksByFilename: [String: Track] = [String: Track]()
+    fileprivate var tracks: [Track] = [Track]()
+    fileprivate var tracksByFilename: [String: Track] = [String: Track]()
     
     // Indexes of tracks that have already been shuffled (played) ... don't repeat these
     // Used with RepeatMode.OFF
-    private var shuffleTracks: [Int] = [Int]()
+    fileprivate var shuffleTracks: [Int] = [Int]()
     
     // Singleton instance
-    private static var singleton: Playlist = Playlist()
+    fileprivate static var singleton: Playlist = Playlist()
     
-    private init() {}
+    fileprivate init() {}
     
     static func instance() -> Playlist {
         return singleton
@@ -47,62 +60,62 @@ class Playlist {
         return totalDuration
     }
     
-    func getTrackAt(index: Int) -> Track? {
+    func getTrackAt(_ index: Int) -> Track? {
         return tracks[index]
     }
     
     // Add a track to this playlist
-    func addTrack(file: NSURL) {
+    func addTrack(_ file: URL) {
         
         let track: Track? = TrackIO.loadTrack(file)
         
         if (track != nil) {
             tracks.append(track!)
-            tracksByFilename[file.path!] = track
+            tracksByFilename[file.path] = track
             clearShuffleSequence()
         }
     }
     
-    func trackExists(filename: String) -> Bool {
+    func trackExists(_ filename: String) -> Bool {
         return tracksByFilename[filename] != nil
     }
     
     // Add a saved playlist (all its tracks) to this current playlist
-    func addPlaylist(savedPlaylist: SavedPlaylist) {
+    func addPlaylist(_ savedPlaylist: SavedPlaylist) {
         
         for track in savedPlaylist.tracks {
-            if (!trackExists(track.file!.path!)) {
+            if (!trackExists(track.file!.path)) {
                 tracks.append(track)
-                tracksByFilename[track.file!.path!] = track
+                tracksByFilename[track.file!.path] = track
             }
         }
         
         clearShuffleSequence()
     }
     
-    func removeTrack(index: Int) {
+    func removeTrack(_ index: Int) {
         let track: Track? = tracks[index]
         
         if (track != nil) {
-            tracksByFilename.removeValueForKey(track!.file!.path!)
-            tracks.removeAtIndex(index)
+            tracksByFilename.removeValue(forKey: track!.file!.path)
+            tracks.remove(at: index)
             
             clearShuffleSequence()
         }
     }
     
     // Determines the next track to play when playback of a (previous) track has completed and no user input has been provided to select the next track to play
-    func continuePlaying(playingTrack: Track?, repeatMode: RepeatMode, shuffleMode: ShuffleMode) -> Track? {
+    func continuePlaying(_ playingTrack: Track?, repeatMode: RepeatMode, shuffleMode: ShuffleMode) -> Track? {
         
         if (tracks.isEmpty) {
             return nil
         }
         
-        let index = tracks.indexOf({$0 == playingTrack})
+        let index = tracks.index(where: {$0 == playingTrack})
         
-        if (repeatMode == .OFF) {
+        if (repeatMode == .off) {
             
-            if (shuffleMode == .OFF) {
+            if (shuffleMode == .off) {
                 
                 // Next track sequentially
                 if (index != nil && index < (tracks.count - 1)) {
@@ -140,7 +153,7 @@ class Playlist {
                 return tracks[random]
             }
             
-        } else if (repeatMode == .ONE) {
+        } else if (repeatMode == .one) {
             
             // Easy, just play the same thing, regardless of shuffleMode
             
@@ -150,14 +163,14 @@ class Playlist {
                 return playingTrack
             }
             
-        } else if (repeatMode == RepeatMode.ALL) {
+        } else if (repeatMode == RepeatMode.all) {
             
             // If only one track exists, repeat it
             if (tracks.count == 1) {
                 return tracks.first
             }
             
-            if (shuffleMode == .OFF) {
+            if (shuffleMode == .off) {
                 // Similar to repeat OFF, just don't stop at the end
                 
                 // Next track sequentially
@@ -182,7 +195,7 @@ class Playlist {
                 var random = Int(arc4random_uniform(UInt32(tracks.count)))
                 
                 if (playingTrack != nil) {
-                    while (random == tracks.indexOf(playingTrack!)) {
+                    while (random == tracks.index(of: playingTrack!)) {
                         random = Int(arc4random_uniform(UInt32(tracks.count)))
                     }
                 }
@@ -196,17 +209,17 @@ class Playlist {
     }
     
     // Determines the next track to play when the user has requested the next track
-    func next(playingTrack: Track?, repeatMode: RepeatMode, shuffleMode: ShuffleMode) -> Track? {
+    func next(_ playingTrack: Track?, repeatMode: RepeatMode, shuffleMode: ShuffleMode) -> Track? {
         
         if (tracks.isEmpty || playingTrack == nil) {
             return nil
         }
         
-        let index = tracks.indexOf({$0 == playingTrack})
+        let index = tracks.index(where: {$0 == playingTrack})
         
-        if (repeatMode == RepeatMode.OFF) {
+        if (repeatMode == RepeatMode.off) {
             
-            if (shuffleMode == .OFF) {
+            if (shuffleMode == .off) {
                 
                 // Next track sequentially
                 if (index != nil && index < (tracks.count - 1)) {
@@ -238,9 +251,9 @@ class Playlist {
                 return tracks[random]
             }
             
-        } else if (repeatMode == RepeatMode.ONE) {
+        } else if (repeatMode == RepeatMode.one) {
             
-            if (shuffleMode == .OFF) {
+            if (shuffleMode == .off) {
                 
                 // Next track sequentially
                 if (index != nil && index < (tracks.count - 1)) {
@@ -264,7 +277,7 @@ class Playlist {
                 var random = Int(arc4random_uniform(UInt32(tracks.count)))
                 
                 if (playingTrack != nil) {
-                    while (random == tracks.indexOf(playingTrack!)) {
+                    while (random == tracks.index(of: playingTrack!)) {
                         random = Int(arc4random_uniform(UInt32(tracks.count)))
                     }
                 }
@@ -273,10 +286,10 @@ class Playlist {
                 return tracks[random]
             }
             
-        } else if (repeatMode == RepeatMode.ALL) {
+        } else if (repeatMode == RepeatMode.all) {
             
             
-            if (shuffleMode == .OFF) {
+            if (shuffleMode == .off) {
                 // Similar to repeat OFF, just don't stop at the end
                 
                 // Next track sequentially
@@ -301,7 +314,7 @@ class Playlist {
                 var random = Int(arc4random_uniform(UInt32(tracks.count)))
                 
                 if (playingTrack != nil) {
-                    while (random == tracks.indexOf(playingTrack!)) {
+                    while (random == tracks.index(of: playingTrack!)) {
                         random = Int(arc4random_uniform(UInt32(tracks.count)))
                     }
                 }
@@ -315,15 +328,15 @@ class Playlist {
     }
     
     // Determines the next track to play when the user has requested the previous track
-    func previous(playingTrack: Track?, repeatMode: RepeatMode, shuffleMode: ShuffleMode) -> Track? {
+    func previous(_ playingTrack: Track?, repeatMode: RepeatMode, shuffleMode: ShuffleMode) -> Track? {
         
-        if (tracks.isEmpty || playingTrack == nil || shuffleMode == ShuffleMode.ON) {
+        if (tracks.isEmpty || playingTrack == nil || shuffleMode == ShuffleMode.on) {
             return nil
         }
         
-        let index = tracks.indexOf({$0 == playingTrack})
+        let index = tracks.index(where: {$0 == playingTrack})
         
-        if (repeatMode == RepeatMode.OFF) {
+        if (repeatMode == RepeatMode.off) {
             
             // Previous track sequentially
             if (index != nil && index! > 0) {
@@ -337,7 +350,7 @@ class Playlist {
                 return nil
             }
             
-        } else if (repeatMode == RepeatMode.ONE) {
+        } else if (repeatMode == RepeatMode.one) {
             
             // Previous track sequentially
             if (index != nil && index! > 0) {
@@ -351,7 +364,7 @@ class Playlist {
                 return playingTrack
             }
             
-        } else if (repeatMode == RepeatMode.ALL) {
+        } else if (repeatMode == RepeatMode.all) {
             
             // Similar to repeat OFF, just don't stop at the end
             
@@ -371,8 +384,8 @@ class Playlist {
         return nil
     }
     
-    func indexOf(track: Track) -> Int?  {
-        return tracks.indexOf({$0 == track})
+    func indexOf(_ track: Track) -> Int?  {
+        return tracks.index(where: {$0 == track})
     }
     
     func clear() {
@@ -386,9 +399,9 @@ class Playlist {
     }
     
     // Shifts a single track up in the playlist order
-    func shiftTrackUp(track: Track) {
+    func shiftTrackUp(_ track: Track) {
         
-        let index: Int = tracks.indexOf(track)!
+        let index: Int = tracks.index(of: track)!
         
         if (index > 0) {
             let upIndex = index - 1
@@ -398,9 +411,9 @@ class Playlist {
     }
     
     // Shifts a single track down in the playlist order
-    func shiftTrackDown(track: Track) {
+    func shiftTrackDown(_ track: Track) {
         
-        let index: Int = tracks.indexOf(track)!
+        let index: Int = tracks.index(of: track)!
         
         if (index < (tracks.count - 1)) {
             let downIndex = index + 1
@@ -410,7 +423,7 @@ class Playlist {
     }
     
     // Swaps two tracks in the array of tracks
-    private func swapTracks(trackIndex1: Int, trackIndex2: Int) {
+    fileprivate func swapTracks(_ trackIndex1: Int, trackIndex2: Int) {
         swap(&tracks[trackIndex1], &tracks[trackIndex2])
     }
 }
