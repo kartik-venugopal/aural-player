@@ -19,7 +19,7 @@ class PopoverController: NSViewController {
         // Store references to the table view for later use
         _trackInfoView = trackInfoView
         
-        _trackInfoView.backgroundColor = NSColor.clearColor()
+        _trackInfoView.backgroundColor = NSColor.clear
         _trackInfoView.reloadData()
         _trackInfoView.scrollRowToVisible(0)
     }
