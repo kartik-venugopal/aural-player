@@ -12,7 +12,7 @@ class UIElements {
     // Used to save current playlist to a file
     static let saveDialog: NSSavePanel = UIElements.createSavePanel()
     
-    private static func createOpenPanel() -> NSOpenPanel {
+    fileprivate static func createOpenPanel() -> NSOpenPanel {
         
         let dialog = NSOpenPanel()
         
@@ -26,12 +26,12 @@ class UIElements {
         dialog.allowsMultipleSelection = true;
         dialog.allowedFileTypes        = AppConstants.supportedFileTypes_open
         
-        dialog.directoryURL = UIConstants.musicDirURL
+        dialog.directoryURL = UIConstants.musicDirURL as URL
         
         return dialog
     }
     
-    private static func createSavePanel() -> NSSavePanel {
+    fileprivate static func createSavePanel() -> NSSavePanel {
         
         let dialog = NSSavePanel()
         
@@ -42,7 +42,7 @@ class UIElements {
         dialog.canCreateDirectories    = true
         dialog.allowedFileTypes        = AppConstants.supportedFileTypes_save
         
-        dialog.directoryURL = UIConstants.musicDirURL
+        dialog.directoryURL = UIConstants.musicDirURL as URL
         
         return dialog
     }
