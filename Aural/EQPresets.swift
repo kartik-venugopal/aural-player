@@ -3,35 +3,35 @@ import Foundation
 
 enum EQPresets {
     
-    case Flat // default
-    case HighBassAndTreble
-    case Karaoke
-    case Vocal
-    case Soft
+    case flat // default
+    case highBassAndTreble
+    case karaoke
+    case vocal
+    case soft
     
     var description: String {
         
         switch self {
             
-        case Flat: return "Flat"
-        case HighBassAndTreble: return "High bass and treble"
-        case Soft: return "Soft"
-        case Karaoke: return "Karaoke"
-        case Vocal: return "Vocal"
+        case .flat: return "Flat"
+        case .highBassAndTreble: return "High bass and treble"
+        case .soft: return "Soft"
+        case .karaoke: return "Karaoke"
+        case .vocal: return "Vocal"
         }
     }
     
-    static func fromDescription(description: String) -> EQPresets {
+    static func fromDescription(_ description: String) -> EQPresets {
         
         switch description {
             
-        case Flat.description: return .Flat
-        case HighBassAndTreble.description: return .HighBassAndTreble
-        case Soft.description: return .Soft
-        case Karaoke.description: return .Karaoke
-        case Vocal.description: return .Vocal
+        case flat.description: return .flat
+        case highBassAndTreble.description: return .highBassAndTreble
+        case soft.description: return .soft
+        case karaoke.description: return .karaoke
+        case vocal.description: return .vocal
             
-        default: return .Flat
+        default: return .flat
         }
     }
     
@@ -39,15 +39,15 @@ enum EQPresets {
         
         switch self {
             
-        case Flat: return flatBands
-        case HighBassAndTreble: return highBassAndTrebleBands
-        case Soft: return softBands
-        case Vocal: return vocalBands
-        case Karaoke: return karaokeBands
+        case .flat: return flatBands
+        case .highBassAndTreble: return highBassAndTrebleBands
+        case .soft: return softBands
+        case .vocal: return vocalBands
+        case .karaoke: return karaokeBands
         }
     }
     
-    private var flatBands: [Int: Float] {
+    fileprivate var flatBands: [Int: Float] {
         
         var bands = [Int: Float]()
         
@@ -59,7 +59,7 @@ enum EQPresets {
         return bands
     }
     
-    private var highBassAndTrebleBands: [Int: Float] {
+    fileprivate var highBassAndTrebleBands: [Int: Float] {
         
         var bands = [Int: Float]()
         
@@ -82,7 +82,7 @@ enum EQPresets {
         return bands
     }
     
-    private var softBands: [Int: Float] {
+    fileprivate var softBands: [Int: Float] {
         
         var bands = [Int: Float]()
         
@@ -105,7 +105,7 @@ enum EQPresets {
         return bands
     }
     
-    private var karaokeBands: [Int: Float] {
+    fileprivate var karaokeBands: [Int: Float] {
         
         var bands = [Int: Float]()
         
@@ -128,7 +128,7 @@ enum EQPresets {
         return bands
     }
     
-    private var vocalBands: [Int: Float] {
+    fileprivate var vocalBands: [Int: Float] {
         
         var bands = [Int: Float]()
         
