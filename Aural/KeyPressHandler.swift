@@ -23,12 +23,12 @@ class KeyPressHandler {
     static var app: AppDelegate?
     
     // Sets the callback reference to AppDelegate (called only once)
-    static func initialize(app : AppDelegate) {
+    static func initialize(_ app : AppDelegate) {
         self.app = app
     }
     
     // Handles a single key press event
-    static func handle(event: NSEvent) {
+    static func handle(_ event: NSEvent) {
         
         let app = self.app!
         
@@ -43,8 +43,8 @@ class KeyPressHandler {
         app.playlistView.window?.makeFirstResponder(nil)
         
         // Indicate whether or not Shift/Command were pressed
-        let isShift: Bool = event.modifierFlags.contains(NSEventModifierFlags.ShiftKeyMask)
-        let isCommand: Bool = event.modifierFlags.contains(NSEventModifierFlags.CommandKeyMask)
+        let isShift: Bool = event.modifierFlags.contains(NSEventModifierFlags.shift)
+        let isCommand: Bool = event.modifierFlags.contains(NSEventModifierFlags.command)
         
         // ---------------------- Handlers --------------------------
         
@@ -64,7 +64,7 @@ class KeyPressHandler {
             let selRow = app.playlistView.selectedRow
             
             if (selRow > 0) {
-                app.playlistView.selectRowIndexes(NSIndexSet(index: selRow - 1), byExtendingSelection: false)
+                app.playlistView.selectRowIndexes(IndexSet(integer: selRow - 1), byExtendingSelection: false)
             }
             
             app.showPlaylistSelectedRow()
@@ -76,7 +76,7 @@ class KeyPressHandler {
             let selRow = app.playlistView.selectedRow
             
             if (selRow < (app.playlistView.numberOfRows - 1)) {
-                app.playlistView.selectRowIndexes(NSIndexSet(index: selRow + 1), byExtendingSelection: false)
+                app.playlistView.selectRowIndexes(IndexSet(integer: selRow + 1), byExtendingSelection: false)
             }
             
             app.showPlaylistSelectedRow()
