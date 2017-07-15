@@ -6,11 +6,11 @@ import Cocoa
 
 class MemoryMonitor: NSObject {
     
-    private static var daemonThread: NSThread?
-    private static var taskExecutor: ScheduledTaskExecutor?
+    fileprivate static var daemonThread: Thread?
+    fileprivate static var taskExecutor: ScheduledTaskExecutor?
     
-    private static let MAX_MEMORY_USAGE: Size = Size(size: 500, sizeUnit: SizeUnit.MB)
-    private static let MONITOR_FREQUENCY_MILLIS: Int = 5000   // Poll interval
+    fileprivate static let MAX_MEMORY_USAGE: Size = Size(size: 500, sizeUnit: SizeUnit.mb)
+    fileprivate static let MONITOR_FREQUENCY_MILLIS: Int = 5000   // Poll interval
     
     // Start the memory monitor
     static func start() {
@@ -37,12 +37,12 @@ class MemoryMonitor: NSObject {
     }
     
     // Returns the amount of memory currently being used by this app
-    private static func getMemoryUsage() -> Size? {
+    fileprivate static func getMemoryUsage() -> Size? {
         
         var info = task_basic_info()
-        var count = mach_msg_type_number_t(sizeofValue(info))/4
+        var count = mach_msg_type_number_t(MemoryLayout.size(ofValue: info))/4
         
-        let kerr: kern_return_t = withUnsafeMutablePointer(&info) {
+        let kerr: kern_return_t = withUnsafeMutablePointer(to: &info) {
             
             task_info(mach_task_self_,
                 task_flavor_t(TASK_BASIC_INFO),
@@ -56,7 +56,7 @@ class MemoryMonitor: NSObject {
             
         } else {
             NSLog("Error obtaining memory usage: %@",
-                (String.fromCString(mach_error_string(kerr)) ?? "unknown error"))
+                (String(cString: mach_error_string(kerr)) ))
             return nil
         }
     }
