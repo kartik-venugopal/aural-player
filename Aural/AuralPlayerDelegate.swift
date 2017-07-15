@@ -7,22 +7,22 @@ import Cocoa
 protocol AuralPlayerDelegate {
     
     // Add tracks (or saved playlists) to the current player playlist
-    func addTracks(files: [NSURL])
+    func addTracks(_ files: [URL])
     
     // Removes a single track at the specified index in the playlist. Returns the playing track index after removal (nil if playing track is the one removed)
-    func removeTrack(index: Int) -> Int?
+    func removeTrack(_ index: Int) -> Int?
     
     // Moves the track at the specified index, up one index, in the playlist, if it is not already at the top. Returns the new index of the track (same if it didn't move)
-    func moveTrackUp(index: Int) -> Int
+    func moveTrackUp(_ index: Int) -> Int
     
     // Moves the track at the specified index, down one index, in the playlist, if it is not already at the bottom. Returns the new index of the track (same if it didn't move)
-    func moveTrackDown(index: Int) -> Int
+    func moveTrackDown(_ index: Int) -> Int
     
     // Clears the entire player playlist of all tracks
     func clearPlaylist()
     
     // Saves the current player playlist to a file
-    func savePlaylist(file: NSURL)
+    func savePlaylist(_ file: URL)
     
     // Retrieves a summary of the current playlist - the total number of tracks and their total duration
     func getPlaylistSummary() -> (numTracks: Int, totalDuration: Double)
@@ -31,7 +31,7 @@ protocol AuralPlayerDelegate {
     func togglePlayPause() -> (playbackState: PlaybackState, playingTrack: Track?, playingTrackIndex: Int?, trackChanged: Bool)
     
     // Plays the track at a given index in the player playlist. Returns complete track information for the track.
-    func play(index: Int) -> Track
+    func play(_ index: Int) -> Track
     
     // Continues playback within the player playlist, according to repeat/shuffle modes. Called either before any tracks are played or after playback of a track has completed. Returns the new track, if any, that is selected for playback
     func continuePlaying() -> (playingTrack: Track?, playingTrackIndex: Int?)
@@ -61,7 +61,7 @@ protocol AuralPlayerDelegate {
     func seekBackward()
     
     // Seeks to a specific percentage of the track duration, within the current track
-    func seekToPercentage(percentage: Double)
+    func seekToPercentage(_ percentage: Double)
     
     // Plays (and returns) the next track, if there is one
     func nextTrack() -> (playingTrack: Track?, playingTrackIndex: Int?)
