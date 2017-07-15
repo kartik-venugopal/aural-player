@@ -7,47 +7,47 @@ import AVFoundation
 
 class Player: AuralPlayer, AuralSoundTuner {
     
-    private static let singleton: Player = Player()
+    fileprivate static let singleton: Player = Player()
     
     static func instance() -> Player {
         return singleton
     }
     
-    private let playerNode: AVAudioPlayerNode
-    private let audioEngine: AVAudioEngine
-    private let mainMixer: AVAudioMixerNode
+    fileprivate let playerNode: AVAudioPlayerNode
+    fileprivate let audioEngine: AVAudioEngine
+    fileprivate let mainMixer: AVAudioMixerNode
     
     // Used for conversions of sample rates / channel counts
-    private let auxMixer: AVAudioMixerNode
+    fileprivate let auxMixer: AVAudioMixerNode
     
-    private let eqNode: ParametricEQNode
-    private let pitchNode: AVAudioUnitTimePitch
-    private let reverbNode: AVAudioUnitReverb
-    private let filterNode: FilterNode
-    private let delayNode: AVAudioUnitDelay
-    private let timeNode: AVAudioUnitTimePitch
+    fileprivate let eqNode: ParametricEQNode
+    fileprivate let pitchNode: AVAudioUnitTimePitch
+    fileprivate let reverbNode: AVAudioUnitReverb
+    fileprivate let filterNode: FilterNode
+    fileprivate let delayNode: AVAudioUnitDelay
+    fileprivate let timeNode: AVAudioUnitTimePitch
     
     // TODO
 //    private let distortionNode: AVAudioUnitDistortion
     
     // Helper
-    private let audioEngineHelper: AudioEngineHelper
+    fileprivate let audioEngineHelper: AudioEngineHelper
     
     // Sound setting value holders
-    private var playerVolume: Float
-    private var muted: Bool
-    private var reverbPreset: AVAudioUnitReverbPreset
+    fileprivate var playerVolume: Float
+    fileprivate var muted: Bool
+    fileprivate var reverbPreset: AVAudioUnitReverbPreset
     
-    private var bufferManager: BufferManager
+    fileprivate var bufferManager: BufferManager
     
     // Currently playing track
-    private var playingTrack: Track?
+    fileprivate var playingTrack: Track?
     
     // Current playback position (frame)
-    private var startFrame: AVAudioFramePosition?
+    fileprivate var startFrame: AVAudioFramePosition?
     
     // Sets up the audio engine
-    private init() {
+    fileprivate init() {
         
         playerNode = AVAudioPlayerNode()
 
@@ -76,7 +76,7 @@ class Player: AuralPlayer, AuralSoundTuner {
         loadPlayerState(SavedPlayerState.defaults)
     }
     
-    func loadPlayerState(state: SavedPlayerState) {
+    func loadPlayerState(_ state: SavedPlayerState) {
         
         playerVolume = state.volume
         muted = state.muted
@@ -115,7 +115,7 @@ class Player: AuralPlayer, AuralSoundTuner {
     }
     
     // Prepares the player to play a given track
-    private func initPlayer(track: Track) {
+    fileprivate func initPlayer(_ track: Track) {
         
         let format = track.avFile!.processingFormat
         
@@ -123,7 +123,7 @@ class Player: AuralPlayer, AuralSoundTuner {
         audioEngineHelper.reconnectNodes(playerNode, outputNode: auxMixer, format: format)
     }
     
-    func play(track: Track) {
+    func play(_ track: Track) {
         
         playingTrack = track
         
@@ -147,7 +147,7 @@ class Player: AuralPlayer, AuralSoundTuner {
         
         if (nodeTime != nil) {
             
-            let playerTime: AVAudioTime? = playerNode.playerTimeForNodeTime(nodeTime!)
+            let playerTime: AVAudioTime? = playerNode.playerTime(forNodeTime: nodeTime!)
             
             if (playerTime != nil) {
                 
@@ -166,7 +166,7 @@ class Player: AuralPlayer, AuralSoundTuner {
         return playerVolume
     }
     
-    func setVolume(volume: Float) {
+    func setVolume(_ volume: Float) {
         playerNode.volume = volume
         playerVolume = volume
     }
@@ -189,19 +189,19 @@ class Player: AuralPlayer, AuralSoundTuner {
         return playerNode.pan
     }
     
-    func setBalance(balance: Float) {
+    func setBalance(_ balance: Float) {
         playerNode.pan = balance
     }
     
-    func setEQGlobalGain(gain: Float) {
+    func setEQGlobalGain(_ gain: Float) {
         eqNode.globalGain = gain
     }
     
-    func setEQBand(freq: Int , gain: Float) {
+    func setEQBand(_ freq: Int , gain: Float) {
         eqNode.setBand(Float(freq), gain: gain)
     }
     
-    func setEQBands(bands: [Int: Float]) {
+    func setEQBands(_ bands: [Int: Float]) {
         eqNode.setBands(bands)
     }
     
@@ -211,11 +211,11 @@ class Player: AuralPlayer, AuralSoundTuner {
         return newState
     }
     
-    func setPitch(pitch: Float) {
+    func setPitch(_ pitch: Float) {
         pitchNode.pitch = pitch
     }
     
-    func setPitchOverlap(overlap: Float) {
+    func setPitchOverlap(_ overlap: Float) {
         pitchNode.overlap = overlap
     }
     
@@ -225,7 +225,7 @@ class Player: AuralPlayer, AuralSoundTuner {
         return newState
     }
     
-    func setTimeStretchRate(rate: Float) {
+    func setTimeStretchRate(_ rate: Float) {
         timeNode.rate = rate
     }
     
@@ -235,14 +235,14 @@ class Player: AuralPlayer, AuralSoundTuner {
         return newState
     }
     
-    func setReverb(preset: ReverbPresets) {
+    func setReverb(_ preset: ReverbPresets) {
         
         let avPreset: AVAudioUnitReverbPreset = preset.avPreset
         reverbPreset = avPreset
         reverbNode.loadFactoryPreset(reverbPreset)
     }
     
-    func setReverbAmount(amount: Float) {
+    func setReverbAmount(_ amount: Float) {
         reverbNode.wetDryMix = amount
     }
     
@@ -252,19 +252,19 @@ class Player: AuralPlayer, AuralSoundTuner {
         return newState
     }
     
-    func setDelayAmount(amount: Float) {
+    func setDelayAmount(_ amount: Float) {
         delayNode.wetDryMix = amount
     }
     
-    func setDelayTime(time: Double) {
+    func setDelayTime(_ time: Double) {
         delayNode.delayTime = time
     }
     
-    func setDelayFeedback(percent: Float) {
+    func setDelayFeedback(_ percent: Float) {
         delayNode.feedback = percent
     }
     
-    func setDelayLowPassCutoff(cutoff: Float) {
+    func setDelayLowPassCutoff(_ cutoff: Float) {
         delayNode.lowPassCutoff = cutoff
     }
     
@@ -274,11 +274,11 @@ class Player: AuralPlayer, AuralSoundTuner {
         return newState
     }
     
-    func setFilterHighPassCutoff(cutoff: Float) {
+    func setFilterHighPassCutoff(_ cutoff: Float) {
         filterNode.highPassBand.frequency = cutoff
     }
     
-    func setFilterLowPassCutoff(cutoff: Float) {
+    func setFilterLowPassCutoff(_ cutoff: Float) {
         filterNode.lowPassBand.frequency = cutoff
     }
     
@@ -301,7 +301,7 @@ class Player: AuralPlayer, AuralSoundTuner {
         startFrame = nil
     }
     
-    func seekToTime(seconds: Double) {
+    func seekToTime(_ seconds: Double) {
         
         let seekResult = bufferManager.seekToTime(seconds)
         if (!seekResult.playbackCompleted) {
