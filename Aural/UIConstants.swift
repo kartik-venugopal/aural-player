@@ -38,7 +38,7 @@ class UIConstants {
     static let reverbMenuFont: NSFont = NSFont(name: "Century Gothic Bold", size: 10)!
     
     // Overall UI color scheme
-    static let colorScheme: ColorSchemes = ColorSchemes.Gray
+    static let colorScheme: ColorSchemes = ColorSchemes.gray
     
     // For the label that shows a track's playback position
     static let zeroDurationString: String = "0:00"
@@ -52,5 +52,5 @@ class UIConstants {
     static let seekTimerIntervalMillis: UInt32 = 500
     
     // Default user's music directory (default place to look in, when opening/saving files)
-    static let musicDirURL: NSURL = NSURL.fileURLWithPath(NSHomeDirectory() + "/Music")
+    static let musicDirURL: URL = URL(fileURLWithPath: NSHomeDirectory() + "/Music")
 }
