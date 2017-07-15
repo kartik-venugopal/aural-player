@@ -6,26 +6,26 @@ import Cocoa
 
 enum ColorSchemes {
     
-    case DarkOutLightIn
+    case darkOutLightIn
     
-    case LightOutDarkIn
+    case lightOutDarkIn
     
-    case Brown
+    case brown
     
-    case Gray
+    case gray
     
     // Background color of the main window
     var windowColor: NSColor {
         
         switch self {
             
-        case .DarkOutLightIn: return NSColor(deviceRed: CGFloat(0.5), green: CGFloat(0.5), blue: CGFloat(0.5), alpha: CGFloat(1))
+        case .darkOutLightIn: return NSColor(deviceRed: CGFloat(0.5), green: CGFloat(0.5), blue: CGFloat(0.5), alpha: CGFloat(1))
             
-        case .LightOutDarkIn: return NSColor(deviceRed: CGFloat(0.8), green: CGFloat(0.8), blue: CGFloat(0.8), alpha: CGFloat(1))
+        case .lightOutDarkIn: return NSColor(deviceRed: CGFloat(0.8), green: CGFloat(0.8), blue: CGFloat(0.8), alpha: CGFloat(1))
             
-        case Brown: return NSColor(deviceRed: CGFloat(0.3), green: CGFloat(0.2), blue: CGFloat(0.1), alpha: CGFloat(1))
+        case .brown: return NSColor(deviceRed: CGFloat(0.3), green: CGFloat(0.2), blue: CGFloat(0.1), alpha: CGFloat(1))
             
-        case Gray: return NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.7), blue: CGFloat(0.7), alpha: CGFloat(1))
+        case .gray: return NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.7), blue: CGFloat(0.7), alpha: CGFloat(1))
         }
     }
     
@@ -34,13 +34,13 @@ enum ColorSchemes {
         
         switch self {
             
-        case .DarkOutLightIn: return NSColor(deviceRed: CGFloat(0.8), green: CGFloat(0.8), blue: CGFloat(0.8), alpha: CGFloat(1))
+        case .darkOutLightIn: return NSColor(deviceRed: CGFloat(0.8), green: CGFloat(0.8), blue: CGFloat(0.8), alpha: CGFloat(1))
             
-        case .LightOutDarkIn: return NSColor.blackColor()
+        case .lightOutDarkIn: return NSColor.black
             
-        case Brown: return NSColor(deviceRed: CGFloat(0.9), green: CGFloat(0.6), blue: CGFloat(0.3), alpha: CGFloat(1))
+        case .brown: return NSColor(deviceRed: CGFloat(0.9), green: CGFloat(0.6), blue: CGFloat(0.3), alpha: CGFloat(1))
             
-        case Gray: return NSColor(deviceRed: CGFloat(0.85), green: CGFloat(0.85), blue: CGFloat(0.85), alpha: CGFloat(1))
+        case .gray: return NSColor(deviceRed: CGFloat(0.85), green: CGFloat(0.85), blue: CGFloat(0.85), alpha: CGFloat(1))
         }
     }
     
@@ -49,13 +49,13 @@ enum ColorSchemes {
         
         switch self {
             
-        case .DarkOutLightIn: return NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.7), blue: CGFloat(0.7), alpha: CGFloat(1))
+        case .darkOutLightIn: return NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.7), blue: CGFloat(0.7), alpha: CGFloat(1))
             
-        case .LightOutDarkIn: return NSColor.blackColor()
+        case .lightOutDarkIn: return NSColor.black
             
-        case Brown: return NSColor(deviceRed: CGFloat(0.9), green: CGFloat(0.6), blue: CGFloat(0.3), alpha: CGFloat(1))
+        case .brown: return NSColor(deviceRed: CGFloat(0.9), green: CGFloat(0.6), blue: CGFloat(0.3), alpha: CGFloat(1))
             
-        case Gray: return NSColor.blackColor()
+        case .gray: return NSColor.black
         }
     }
     
@@ -64,13 +64,13 @@ enum ColorSchemes {
         
         switch self {
             
-        case .DarkOutLightIn: return NSColor(deviceRed: CGFloat(0.2), green: CGFloat(0.2), blue: CGFloat(0.2), alpha: CGFloat(1))
+        case .darkOutLightIn: return NSColor(deviceRed: CGFloat(0.2), green: CGFloat(0.2), blue: CGFloat(0.2), alpha: CGFloat(1))
             
-        case .LightOutDarkIn: return NSColor(deviceRed: CGFloat(0.9), green: CGFloat(0.9), blue: CGFloat(0.9), alpha: CGFloat(1))
+        case .lightOutDarkIn: return NSColor(deviceRed: CGFloat(0.9), green: CGFloat(0.9), blue: CGFloat(0.9), alpha: CGFloat(1))
             
-        case Brown: return windowColor
+        case .brown: return windowColor
             
-        case Gray: return NSColor.blackColor()
+        case .gray: return NSColor.black
         }
     }
     
@@ -79,13 +79,13 @@ enum ColorSchemes {
         
         switch self {
             
-        case .DarkOutLightIn: return NSColor.blackColor()
+        case .darkOutLightIn: return NSColor.black
             
-        case .LightOutDarkIn: return NSColor.lightGrayColor()
+        case .lightOutDarkIn: return NSColor.lightGray
             
-        case Brown: return windowColor
+        case .brown: return windowColor
             
-        case Gray: return boxTextColor
+        case .gray: return boxTextColor
         }
     }
     
@@ -94,13 +94,13 @@ enum ColorSchemes {
         
         switch self {
             
-        case .DarkOutLightIn: return NSColor.grayColor()
+        case .darkOutLightIn: return NSColor.gray
             
-        case .LightOutDarkIn: return NSColor.lightGrayColor()
+        case .lightOutDarkIn: return NSColor.lightGray
             
-        case Brown: return NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.1), blue: CGFloat(0.1), alpha: CGFloat(1))
+        case .brown: return NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.1), blue: CGFloat(0.1), alpha: CGFloat(1))
             
-        case Gray: return NSColor(deviceRed: CGFloat(0.3), green: CGFloat(0.3), blue: CGFloat(0.3), alpha: CGFloat(1))
+        case .gray: return NSColor(deviceRed: CGFloat(0.3), green: CGFloat(0.3), blue: CGFloat(0.3), alpha: CGFloat(1))
         }
     }
     
@@ -129,18 +129,18 @@ enum ColorSchemes {
         
         switch self {
             
-        case .DarkOutLightIn: return NSColor.lightGrayColor()
+        case .darkOutLightIn: return NSColor.lightGray
             
-        case .LightOutDarkIn: return NSColor.blackColor()
+        case .lightOutDarkIn: return NSColor.black
             
-        case Brown: return NSColor.brownColor()
+        case .brown: return NSColor.brown
             
-        case Gray: return NSColor(deviceRed: CGFloat(0.85), green: CGFloat(0.85), blue: CGFloat(0.85), alpha: CGFloat(1))
+        case .gray: return NSColor(deviceRed: CGFloat(0.85), green: CGFloat(0.85), blue: CGFloat(0.85), alpha: CGFloat(1))
         }
     }
     
     // Takes a color as input and darkens it by scaling up its RGB components by a certain factor
-    private func lighten(color: NSColor, factor: CGFloat) -> NSColor {
+    fileprivate func lighten(_ color: NSColor, factor: CGFloat) -> NSColor {
         let r = color.redComponent
         let g = color.greenComponent
         let b = color.blueComponent
@@ -149,7 +149,7 @@ enum ColorSchemes {
     }
 
     // Takes a color as input and darkens it by scaling down its RGB components by a certain factor
-    private func darken(color: NSColor, factor: CGFloat) -> NSColor {
+    fileprivate func darken(_ color: NSColor, factor: CGFloat) -> NSColor {
         let r = color.redComponent
         let g = color.greenComponent
         let b = color.blueComponent
