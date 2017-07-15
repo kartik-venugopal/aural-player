@@ -9,35 +9,35 @@ import Cocoa
 class ScheduledTaskExecutor {
     
     // GCD dispatch source timer
-    private var timer: dispatch_source_t?
+    fileprivate var timer: DispatchSource?
     
     // The task will pause for this duration between consecutive executions
-    private var intervalMillis: UInt32
+    fileprivate var intervalMillis: UInt32
     
     // The code block to be executed
-    private var task: () -> Void
+    fileprivate var task: () -> Void
     
     // The queue on which the task will be put
-    private var queue: DispatchQueue
+    fileprivate var queue: DispatchQueue
     
     // Flags indicating whether this timer is currently running
-    private var running: Bool = false
-    private var stopped: Bool = false
+    fileprivate var running: Bool = false
+    fileprivate var stopped: Bool = false
     
-    init(intervalMillis: UInt32, task: () -> Void, queue: DispatchQueue) {
+    init(intervalMillis: UInt32, task: @escaping () -> Void, queue: DispatchQueue) {
         
         self.intervalMillis = intervalMillis
         self.task = task
         self.queue = queue
         
-        timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue.underlyingQueue)
+        timer = (DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: 0), queue: queue.underlyingQueue) /*Migrator FIXME: Use DispatchSourceTimer to avoid the cast*/ as! DispatchSource)
         
         let intervalNanos = UInt64(intervalMillis) * NSEC_PER_MSEC
         
         // Allow a 10% time leeway
-        dispatch_source_set_timer(timer!, DISPATCH_TIME_NOW, intervalNanos , intervalNanos / 10)
+        timer!.setTimer(start: DispatchTime.now(), interval: intervalNanos , leeway: intervalNanos / 10)
         
-        dispatch_source_set_event_handler(timer!) { [weak self] in
+        timer!.setEventHandler { [weak self] in
             self!.task()
         }
     }
@@ -50,7 +50,7 @@ class ScheduledTaskExecutor {
         }
         
         if (!running && timer != nil) {
-            dispatch_resume(timer!)
+            timer!.resume()
             running = true
         }
     }
@@ -63,7 +63,7 @@ class ScheduledTaskExecutor {
         }
         
         if (running && timer != nil) {
-            dispatch_suspend(timer!)
+            timer!.suspend()
             running = false
         }
     }
@@ -86,7 +86,7 @@ class ScheduledTaskExecutor {
         stopped = true
         
         if (timer != nil) {
-            dispatch_source_cancel(timer!)
+            timer!.cancel()
         }
     }
     
