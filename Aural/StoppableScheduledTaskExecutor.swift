@@ -9,51 +9,51 @@ import Cocoa
 class StoppableScheduledTaskExecutor: NSObject {
     
     // GCD dispatch source timer
-    private var timer: dispatch_source_t?
+    fileprivate var timer: DispatchSource?
     
     // The task will pause for this duration between consecutive executions
-    private var intervalMillis: UInt32
+    fileprivate var intervalMillis: UInt32
     
     // The code block to be executed
-    private var task: () -> Void
+    fileprivate var task: () -> Void
     
     // The queue on which the task will be put
-    private var queue: String
+    fileprivate var queue: String
     
     // Flags indicating whether this timer has been paused/stopped
-    private var paused: Bool = false
-    private var stopped: Bool = false
+    fileprivate var paused: Bool = false
+    fileprivate var stopped: Bool = false
     
     // The operation queue that facilitates a blocking stop operation
-    private var operationQueue: NSOperationQueue
+    fileprivate var operationQueue: OperationQueue
     
-    init(intervalMillis: UInt32, task: () -> Void, queue: String) {
+    init(intervalMillis: UInt32, task: @escaping () -> Void, queue: String) {
         
         self.intervalMillis = intervalMillis
         self.task = task
         self.queue = queue
         
-        let dispatchQueue = dispatch_queue_create(queue, nil)
+        let dispatchQueue = DispatchQueue(label: queue, attributes: [])
         
-        timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatchQueue)
+        timer = DispatchSource.makeTimerSource(flags: 0, queue: dispatchQueue) /*Migrator FIXME: Use DispatchSourceTimer to avoid the cast*/ as! DispatchSource
         
         let intervalNanos = UInt64(intervalMillis) * NSEC_PER_MSEC
         
         // Allow a 10% time leeway
-        dispatch_source_set_timer(timer!, DISPATCH_TIME_NOW, intervalNanos, intervalNanos / 10)
+        timer!.setTimer(start: DispatchTime.now(), interval: intervalNanos, leeway: intervalNanos / 10)
         
         // Serial operation queue
-        operationQueue = NSOperationQueue()
+        operationQueue = OperationQueue()
         operationQueue.underlyingQueue = dispatchQueue
         operationQueue.maxConcurrentOperationCount = 1
         
         super.init()
         
-        dispatch_source_set_event_handler(timer!) { [weak self] in
+        timer!.setEventHandler { [weak self] in
             
             // Push the task onto the operation queue
             if ((!self!.stopped) && (!self!.paused)) {
-                self!.operationQueue.addOperationWithBlock({self!.task()})
+                self!.operationQueue.addOperation({self!.task()})
             }
         }
     }
@@ -62,7 +62,7 @@ class StoppableScheduledTaskExecutor: NSObject {
     func start() {
         
         if (timer != nil) {
-            dispatch_resume(timer!)
+            timer!.resume()
         }
     }
     
@@ -77,11 +77,11 @@ class StoppableScheduledTaskExecutor: NSObject {
         
         // First, stop queueing more tasks
         if (timer != nil) {
-            dispatch_suspend(timer!)
+            timer!.suspend()
         }
         
         // Then, suspend operation of the tasks
-        operationQueue.suspended = true
+        operationQueue.isSuspended = true
     }
     
     // Resume task execution
@@ -92,9 +92,9 @@ class StoppableScheduledTaskExecutor: NSObject {
         }
         
         paused = false
-        operationQueue.suspended = false
+        operationQueue.isSuspended = false
         if (timer != nil) {
-            dispatch_resume(timer!)
+            timer!.resume()
         }
     }
     
@@ -107,7 +107,7 @@ class StoppableScheduledTaskExecutor: NSObject {
         
         stopped = true
         if (timer != nil) {
-            dispatch_source_cancel(timer!)
+            timer!.cancel()
         }
         
         operationQueue.cancelAllOperations()
