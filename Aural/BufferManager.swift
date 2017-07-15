@@ -13,61 +13,61 @@ class BufferManager {
     static let FRAME_ZERO = AVAudioFramePosition(0)
     
     // Don't schedule buffers with less than this number of frames
-    private static let MIN_PLAYBACK_FRAMES: Int64 = 1000
+    fileprivate static let MIN_PLAYBACK_FRAMES: Int64 = 1000
     
     // Seconds of playback
-    private static let BUFFER_SIZE: UInt32 = 5
+    fileprivate static let BUFFER_SIZE: UInt32 = 5
     
     // A constant to represent a timestamp in the past ... used to invalidate currently scheduled buffers and scheduling tasks. Used during the transition between two playback sessions (i.e. when stop() is called).
-    private let INVALID_TIMESTAMP: NSDate
+    fileprivate let INVALID_TIMESTAMP: Date
     
     // The (serial) dispatch queue on which all scheduling tasks will be enqueued
-    private var queue: NSOperationQueue
+    fileprivate var queue: OperationQueue
     
     // Player node used for actual playback
-    private var playerNode: AVAudioPlayerNode
+    fileprivate var playerNode: AVAudioPlayerNode
     
     // The currently playing audio file
-    private var playingFile: AVAudioFile?
+    fileprivate var playingFile: AVAudioFile?
 
     // This timestamp is used to mark which playback session a buffer scheduling task belongs to, i.e., it is a unique identifier for a playback session
-    private var sessionTimestamp: NSDate = NSDate()
+    fileprivate var sessionTimestamp: Date = Date()
     
     init(playerNode: AVAudioPlayerNode) {
         
         self.playerNode = playerNode
         
         // Serial operation queue
-        queue = NSOperationQueue()
+        queue = OperationQueue()
         queue.underlyingQueue = DispatchQueue(queueName: "Aural.queues.bufferManager").underlyingQueue
         queue.maxConcurrentOperationCount = 1
         
         // Set the INVALID_TIMESTAMP constant to some time in the past
-        let now = NSDate()
-        let unitFlags: NSCalendarUnit = [.Year]
-        let nowComponents = NSCalendar.currentCalendar().components(unitFlags, fromDate: now)
+        let now = Date()
+        let unitFlags: NSCalendar.Unit = [.year]
+        let nowComponents = (Calendar.current as NSCalendar).components(unitFlags, from: now)
         
-        let invalidTimestampComponents = NSDateComponents()
-        invalidTimestampComponents.year = nowComponents.year - 2
+        var invalidTimestampComponents = DateComponents()
+        invalidTimestampComponents.year = nowComponents.year! - 2
         
-        INVALID_TIMESTAMP = (NSCalendar(identifier: NSCalendarIdentifierGregorian)?.dateFromComponents(invalidTimestampComponents))!
+        INVALID_TIMESTAMP = (Calendar(identifier: Calendar.Identifier.gregorian).date(from: invalidTimestampComponents))!
     }
     
     // Start track playback from the beginning
-    func play(avFile: AVAudioFile) {
+    func play(_ avFile: AVAudioFile) {
         
         playingFile = avFile
         startPlaybackFromFrame(BufferManager.FRAME_ZERO)
     }
     
     // Starts track playback from a given frame position. Marks the beginning of a "playback session".
-    private func startPlaybackFromFrame(frame: AVAudioFramePosition) {
+    fileprivate func startPlaybackFromFrame(_ frame: AVAudioFramePosition) {
         
         // Set the position in the audio file from which reading is to begin
         playingFile!.framePosition = frame
         
         // Mark the current playback session's timestamp
-        sessionTimestamp = NSDate()
+        sessionTimestamp = Date()
         
         // Schedule one buffer for immediate playback
         let reachedEOF = scheduleNextBuffer(sessionTimestamp)
@@ -77,41 +77,41 @@ class BufferManager {
         
         // Schedule one more ("look ahead") buffer
         if (!reachedEOF) {
-            queue.addOperationWithBlock({self.scheduleNextBuffer(sessionTimestamp)})
+            queue.addOperation({self.scheduleNextBuffer(self.sessionTimestamp)})
         }
     }
     
     // Upon the completion of playback of a buffer, checks if more buffers are needed for the playback session indicated by the given timestamp, and if so, schedules one for playback. The timestamp argument indicates which playback session this task was initiated for.
-    private func bufferCompletionHandler(timestamp: NSDate, reachedEOF: Bool) {
+    fileprivate func bufferCompletionHandler(_ timestamp: Date, reachedEOF: Bool) {
         
         // If this timestamp doesn't match the current playback session timestamp, it is not current
-        let timestampCurrent = timestamp.compare(sessionTimestamp) == NSComparisonResult.OrderedSame
+        let timestampCurrent = timestamp.compare(sessionTimestamp) == ComparisonResult.orderedSame
         
         if (timestampCurrent) {
             
             if (reachedEOF) {
                 
                 // Notify observers about playback completion
-                EventRegistry.publishEvent(EventType.PlaybackCompleted, event: PlaybackCompletedEvent.instance)
+                EventRegistry.publishEvent(EventType.playbackCompleted, event: PlaybackCompletedEvent.instance)
             } else {
                 
                 // Continue scheduling more buffers
-                queue.addOperationWithBlock({self.scheduleNextBuffer(timestamp)})
+                queue.addOperation({self.scheduleNextBuffer(timestamp)})
             }
         }
     }
     
     // Schedules a single audio buffer for playback
     // The timestamp argument indicates which playback session this task was initiated for
-    private func scheduleNextBuffer(timestamp: NSDate) -> Bool {
+    fileprivate func scheduleNextBuffer(_ timestamp: Date) -> Bool {
         
         let sampleRate = playingFile!.processingFormat.sampleRate
-        let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(PCMFormat: playingFile!.processingFormat, frameCapacity: AVAudioFrameCount(Double(BufferManager.BUFFER_SIZE) * sampleRate))
+        let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: playingFile!.processingFormat, frameCapacity: AVAudioFrameCount(Double(BufferManager.BUFFER_SIZE) * sampleRate))
         
         do {
-            try playingFile!.readIntoBuffer(buffer)
+            try playingFile!.read(into: buffer)
         } catch let error as NSError {
-            NSLog("Error reading from audio file '%@': %@", playingFile!.url.lastPathComponent!, error.description)
+            NSLog("Error reading from audio file '%@': %@", playingFile!.url.lastPathComponent, error.description)
         }
         
         let readAllFrames = playingFile!.framePosition >= playingFile!.length
@@ -121,11 +121,11 @@ class BufferManager {
         let reachedEOF = readAllFrames || bufferNotFull
         
         // Redundant timestamp check, in case the first one in scheduleNextBufferIfNecessary() was performed too soon (stop() called between scheduleNextBufferIfNecessary() and now). This will come in handy when disk seeking suddenly slows down abnormally and the task takes much longer to complete.
-        let timestampCurrent = timestamp.compare(sessionTimestamp) == NSComparisonResult.OrderedSame
+        let timestampCurrent = timestamp.compare(sessionTimestamp) == ComparisonResult.orderedSame
         
         if (timestampCurrent) {
         
-            playerNode.scheduleBuffer(buffer, atTime: nil, options: AVAudioPlayerNodeBufferOptions(), completionHandler: {
+            playerNode.scheduleBuffer(buffer, at: nil, options: AVAudioPlayerNodeBufferOptions(), completionHandler: {
                     self.bufferCompletionHandler(timestamp, reachedEOF: reachedEOF)
             })
         }
@@ -134,7 +134,7 @@ class BufferManager {
     }
     
     // Seeks to a certain position (seconds) in the audio file being played back. Returns the calculated start frame and whether or not playback has completed after this seek (i.e. end of file)
-    func seekToTime(seconds: Double) -> (playbackCompleted: Bool, startFrame: AVAudioFramePosition?) {
+    func seekToTime(_ seconds: Double) -> (playbackCompleted: Bool, startFrame: AVAudioFramePosition?) {
         
         stop()
         
@@ -159,7 +159,7 @@ class BufferManager {
             // Nothing to play means playback has completed
             
             // Notify observers about playback completion
-            EventRegistry.publishEvent(EventType.PlaybackCompleted, event: PlaybackCompletedEvent.instance)
+            EventRegistry.publishEvent(EventType.playbackCompleted, event: PlaybackCompletedEvent.instance)
             
             return (true, nil)
         }
