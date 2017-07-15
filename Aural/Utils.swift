@@ -11,7 +11,7 @@ class Utils {
     static let oneHour = 60 * oneMin
     
     // Formats a duration (time interval) from seconds to a displayable string showing hours, minutes, and seconds. For example, 500 seconds becomes "8:20", and 3675 seconds becomes "1:01:15"
-    static func formatDuration(_duration: Double) -> String {
+    static func formatDuration(_ _duration: Double) -> String {
     
         var duration = Int(round(_duration))
     
@@ -53,22 +53,22 @@ class Utils {
     }
     
     // Splits a camel cased word into separate words, all capitalized. For ex, "albumName" -> "Album Name". This is useful for display within the UI.
-    static func splitCamelCaseWord(word: String) -> String {
+    static func splitCamelCaseWord(_ word: String) -> String {
         
         var newString: String = ""
         
         for eachCharacter in word.characters {
             if (eachCharacter >= "A" && eachCharacter <= "Z") == true {
-                newString.appendContentsOf(" ")
+                newString.append(" ")
             }
             newString.append(eachCharacter)
         }
         
-        return newString.capitalizedString
+        return newString.capitalized
     }
     
     // Provides a comma separated String representation of an integer, that is easy to read. For ex, 15700900 -> "15,700,900"
-    static func readableLongInteger(num: Int64) -> String {
+    static func readableLongInteger(_ num: Int64) -> String {
         
         let numString = String(num)
         var readableNumString: String = ""
@@ -80,16 +80,16 @@ class Utils {
         for eachCharacter in numString.characters {
             readableNumString.append(eachCharacter)
             if (c < numDigits && (numDigits - c) % 3 == 0) {
-                readableNumString.appendContentsOf(",")
+                readableNumString.append(",")
             }
-            c++
+            c += 1
         }
         
         return readableNumString
     }
     
     // Checks if the string 1 - is non-null, 2 - has characters, 3 - not all characters are whitespace
-    static func isStringEmpty(string: String?) -> Bool {
+    static func isStringEmpty(_ string: String?) -> Bool {
         
         if (string == nil) {
             return true
@@ -99,17 +99,17 @@ class Utils {
     }
     
     // Trims all whitespace from a string and returns the result
-    static func trimString(string: String) -> String {
+    static func trimString(_ string: String) -> String {
         
-        return string.stringByTrimmingCharactersInSet(
-            NSCharacterSet.whitespaceAndNewlineCharacterSet()
+        return string.trimmingCharacters(
+            in: CharacterSet.whitespacesAndNewlines
         )
     }
     
-    static func isDirectory(url: NSURL) -> Bool {
+    static func isDirectory(_ url: URL) -> Bool {
         
         var isDirectory: ObjCBool = ObjCBool(false)
-        NSFileManager.defaultManager().fileExistsAtPath(url.path!, isDirectory: &isDirectory)
+        FileManager.default.fileExists(atPath: url.path, isDirectory: &isDirectory)
         
         return isDirectory.boolValue
     }
