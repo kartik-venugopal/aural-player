@@ -6,7 +6,7 @@ import Cocoa
 
 class SeekSliderCell: NSSliderCell {
     
-    override internal func drawKnob(knobRect: NSRect) {
+    override internal func drawKnob(_ knobRect: NSRect) {
         
         let drawRect = knobRect.insetBy(dx: 1.0, dy: 2.25)
         
