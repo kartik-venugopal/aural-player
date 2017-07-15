@@ -15,12 +15,12 @@ class TrackInfoView: NSTableRowView {
     var key: String?
     var value: String?
     
-    override func viewAtColumn(column: Int) -> AnyObject? {
+    override func view(atColumn column: Int) -> Any? {
         
         if (column == 0) {
             // Key
             
-            if let cell = trackInfoView!.makeViewWithIdentifier("cv_trackInfoKey", owner: nil) as? NSTableCellView {
+            if let cell = trackInfoView!.make(withIdentifier: "cv_trackInfoKey", owner: nil) as? NSTableCellView {
                 
                 cell.textField?.stringValue = key! + ":"
                 return cell
@@ -29,7 +29,7 @@ class TrackInfoView: NSTableRowView {
         } else {
             // Value
             
-            if let cell = trackInfoView!.makeViewWithIdentifier("cv_trackInfoValue", owner: nil) as? NSTableCellView {
+            if let cell = trackInfoView!.make(withIdentifier: "cv_trackInfoValue", owner: nil) as? NSTableCellView {
                 
                 cell.textField?.stringValue = value!
                 return cell
