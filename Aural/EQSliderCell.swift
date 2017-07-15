@@ -6,7 +6,7 @@ import Cocoa
 
 class EQSliderCell: NSSliderCell {
     
-    override internal func drawKnob(knobRect: NSRect) {
+    override internal func drawKnob(_ knobRect: NSRect) {
         
         let drawRect = knobRect.insetBy(dx: 3.5, dy: 2)
         
@@ -17,7 +17,7 @@ class EQSliderCell: NSSliderCell {
         drawPath.fill()
     }
     
-    override internal func drawBarInside(aRect: NSRect, flipped: Bool) {
+    override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
         let drawRect = aRect.insetBy(dx: 1.5, dy: 1.5)
         
