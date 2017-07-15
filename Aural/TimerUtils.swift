@@ -4,12 +4,12 @@
 
 import Foundation
 
-public class TimerUtils {
+open class TimerUtils {
     
     // Map of method/operation name -> array of timers for that method/operation
-    private static var timers: [String: [Timer]] = [String: [Timer]]()
+    fileprivate static var timers: [String: [Timer]] = [String: [Timer]]()
     
-    static func start(tag: String) -> Timer {
+    static func start(_ tag: String) -> Timer {
         let timer: Timer = Timer()
         timer.start()
         
@@ -35,7 +35,7 @@ public class TimerUtils {
         }
     }
     
-    private static func avgForTimers(timers: [Timer]) -> Double {
+    fileprivate static func avgForTimers(_ timers: [Timer]) -> Double {
         var sum: Double = 0
         
         for timer in timers {
