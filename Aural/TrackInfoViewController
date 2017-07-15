@@ -10,7 +10,7 @@ class TrackInfoViewController: NSViewController, NSTableViewDataSource, NSTableV
     var info: [(key: String, value: String)] = [(key: String, value: String)]()
     @IBOutlet weak var trackInfoView: NSTableView!
     
-    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+    func numberOfRows(in tableView: NSTableView) -> Int {
         
         let _track = PlayerDelegate.instance().getPlayingTrack()
         if (_track == nil) {
@@ -21,7 +21,7 @@ class TrackInfoViewController: NSViewController, NSTableViewDataSource, NSTableV
         
         info.removeAll()
         
-        info.append((key: "Filename", value: track.file!.path!))
+        info.append((key: "Filename", value: track.file!.path))
         info.append((key: "Size", value: track.size!.toString()))
         info.append((key: "Format", value: track.format!))
         info.append((key: "Duration", value: Utils.formatDuration(track.duration!)))
@@ -39,7 +39,7 @@ class TrackInfoViewController: NSViewController, NSTableViewDataSource, NSTableV
         
         for (key, value) in track.extendedMetadata {
             // Some tracks have a "Format" metadata entry ... ignore it
-            if (key.lowercaseString != "format") {
+            if (key.lowercased() != "format") {
                 info.append((key: Utils.splitCamelCaseWord(key), value: value))
             }
         }
@@ -53,7 +53,7 @@ class TrackInfoViewController: NSViewController, NSTableViewDataSource, NSTableV
     }
     
     // Each track info view row contains one key-value pair
-    func tableView(tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
         
         let _track = PlayerDelegate.instance().getPlayingTrack()
         if (_track == nil) {
@@ -73,11 +73,11 @@ class TrackInfoViewController: NSViewController, NSTableViewDataSource, NSTableV
     }
     
     // Adjust row height based on if the text wraps over to the next line
-    func tableView(tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         
         // Check if the text for the current row will exceed column width (value column)
         let myString: NSString = info[row].value as NSString
-        let size: CGSize = myString.sizeWithAttributes([NSFontAttributeName: UIConstants.popoverValueFont as AnyObject])
+        let size: CGSize = myString.size(withAttributes: [NSFontAttributeName: UIConstants.popoverValueFont as AnyObject])
         
         if (size.width > UIConstants.trackInfoValueColumnWidth) {
             
@@ -92,7 +92,7 @@ class TrackInfoViewController: NSViewController, NSTableViewDataSource, NSTableV
     }
     
     // Completely disable row selection
-    func tableView(tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
         return false
     }
 }
