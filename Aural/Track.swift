@@ -8,7 +8,7 @@ import AVFoundation
 class Track: NSObject {
     
     // Track file on some filesystem
-    var file: NSURL?
+    var file: URL?
     
     // Used during playback (to avoid reading from disk multiple times)
     var avFile: AVAudioFile?
