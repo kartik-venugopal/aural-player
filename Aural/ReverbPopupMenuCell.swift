@@ -6,7 +6,7 @@ import Cocoa
 
 class ReverbPopupMenuCell: NSPopUpButtonCell {
 
-    override internal func drawBorderAndBackgroundWithFrame(cellFrame: NSRect, inView controlView: NSView) {
+    override internal func drawBorderAndBackground(withFrame cellFrame: NSRect, in controlView: NSView) {
         
         let drawRect = cellFrame.insetBy(dx: 0, dy: 2.5)
         
@@ -18,15 +18,15 @@ class ReverbPopupMenuCell: NSPopUpButtonCell {
         
         // Draw arrow
         let x = drawRect.maxX - 10, y = drawRect.maxY - 5
-        GraphicsUtils.drawArrow(NSColor.blackColor(), origin: NSMakePoint(x, y), dx: 3, dy: 4, lineWidth: 1)
+        GraphicsUtils.drawArrow(NSColor.black, origin: NSMakePoint(x, y), dx: 3, dy: 4, lineWidth: 1)
         
     }
     
-    override func drawTitle(title: NSAttributedString, withFrame: NSRect, inView: NSView) -> NSRect {
+    override func drawTitle(_ title: NSAttributedString, withFrame: NSRect, in inView: NSView) -> NSRect {
         
-        let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
+        let textStyle = NSMutableParagraphStyle.default().mutableCopy() as! NSMutableParagraphStyle
         
-        textStyle.alignment = NSTextAlignment.Center
+        textStyle.alignment = NSTextAlignment.center
         
         let textFontAttributes = [
             NSFontAttributeName: UIConstants.reverbMenuFont,
@@ -34,7 +34,7 @@ class ReverbPopupMenuCell: NSPopUpButtonCell {
             NSParagraphStyleAttributeName: textStyle
         ]
         
-        title.string.drawInRect(NSOffsetRect(withFrame, 0, -1), withAttributes: textFontAttributes)
+        title.string.draw(in: NSOffsetRect(withFrame, 0, -1), withAttributes: textFontAttributes)
         
         return withFrame
     }
