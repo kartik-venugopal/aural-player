@@ -10,7 +10,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     
     @IBOutlet weak var window: NSWindow!
     
+    // Buttons to toggle (collapsible) playlist/effects views
+    @IBOutlet weak var btnToggleEffects: NSButton!
+    @IBOutlet weak var btnTogglePlaylist: NSButton!
+    
+    // Views that are collapsible (hide/show)
+    @IBOutlet weak var playlistControlsBox: NSBox!
     @IBOutlet weak var fxTabView: NSTabView!
+    @IBOutlet weak var fxBox: NSBox!
+    @IBOutlet weak var playlistBox: NSBox!
     
     // Playlist summary labels
     @IBOutlet weak var lblTracksSummary: NSTextField!
@@ -94,6 +102,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     // Used in KeyPressHandler
     var modalDialogOpen: Bool = false
     
+    var playlistCollapsibleView: CollapsibleView?
+    var fxCollapsibleView: CollapsibleView?
+    var windowManager: WindowManager?
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         
         // Initialize UI with presentation settings (colors, sizes, etc)
@@ -118,7 +130,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         // Register self as a subscriber to TrackChangedEvent notifications (published when the player is done playing a track)
         EventRegistry.subscribe(.TrackChanged, subscriber: self, dispatchQueue: DispatchQueue(queueType: QueueType.MAIN))
         
-        window.movableByWindowBackground  = true
+        window.movableByWindowBackground = true
         window.makeKeyAndOrderFront(self)
     }
     
@@ -135,6 +147,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         playlistView.registerForDraggedTypes([String(kUTTypeFileURL)])
         
         seekTimer = ScheduledTaskExecutor(intervalMillis: UIConstants.seekTimerIntervalMillis, task: {self.updatePlayingTime()}, queue: DispatchQueue(queueType: QueueType.MAIN))
+        
+        playlistCollapsibleView = CollapsibleView(views: [playlistBox, playlistControlsBox])
+        fxCollapsibleView = CollapsibleView(views: [fxBox, fxTabView])
+        
+        let collapsibleViews = [playlistCollapsibleView!, fxCollapsibleView!]
+        windowManager = WindowManager(window: window, views: collapsibleViews)
     }
     
     func initStatefulUI(playerState: SavedPlayerState) {
@@ -790,5 +808,42 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         // Refresh the playlist view with the new files
         playlistView.reloadData()
         updatePlaylistSummary()
+    }
+
+    // View menu item action
+    @IBAction func toggleViewEffectsAction(sender: AnyObject) {
+        
+        windowManager?.toggleView(fxCollapsibleView!)
+        
+        if (fxCollapsibleView?.hidden == false) {
+            btnToggleEffects.state = 1
+        } else {
+            btnToggleEffects.state = 0
+        }
+    }
+    
+    // View menu item action
+    @IBAction func toggleViewPlaylistAction(sender: AnyObject) {
+        
+        // Set focus on playlist view if it's visible after the toggle
+        
+        windowManager?.toggleView(playlistCollapsibleView!)
+        
+        if (playlistCollapsibleView?.hidden == false) {
+            window.makeFirstResponder(playlistView)
+            btnTogglePlaylist.state = 1
+        } else {
+            btnTogglePlaylist.state = 0
+        }
+    }
+    
+    // Toggle button action
+    @IBAction func togglePlaylistAction(sender: AnyObject) {
+        toggleViewPlaylistAction(sender)
+    }
+    
+    // Toggle button action
+    @IBAction func toggleEffectsAction(sender: AnyObject) {
+        toggleViewEffectsAction(sender)
     }
 }
