@@ -12,11 +12,8 @@ class BufferManager {
     // Indicates the beginning of a file, used when starting file playback
     static let FRAME_ZERO = AVAudioFramePosition(0)
     
-    // Don't schedule buffers with less than this number of frames
-    private static let MIN_PLAYBACK_FRAMES: Int64 = 1000
-    
     // Seconds of playback
-    private static let BUFFER_SIZE: UInt32 = 5
+    private static let BUFFER_SIZE: UInt32 = 15
     
     // A constant to represent a timestamp in the past ... used to invalidate currently scheduled buffers and scheduling tasks. Used during the transition between two playback sessions (i.e. when stop() is called).
     private let INVALID_TIMESTAMP: NSDate
