@@ -147,9 +147,9 @@
                                     </connections>
                                 </slider>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4f4-mL-8YB">
-                                    <rect key="frame" x="201" y="-9" width="63" height="34"/>
+                                    <rect key="frame" x="201" y="-3" width="63" height="27"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="0:00" placeholderString="" id="Dmj-zO-zIU">
-                                        <font key="font" size="13" name="CenturyGothic-Bold"/>
+                                        <font key="font" size="14" name="CenturyGothic-Bold"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" white="0.63127055921052633" alpha="1" colorSpace="calibratedWhite"/>
                                     </textFieldCell>
@@ -165,7 +165,7 @@
                                     <font key="titleFont" metaFont="system"/>
                                 </box>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bDo-O3-0JI" userLabel="Artist">
-                                    <rect key="frame" x="94" y="58" width="269" height="23"/>
+                                    <rect key="frame" x="94" y="56" width="269" height="23"/>
                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="f6r-Bu-Uox">
                                         <font key="font" size="14" name="CenturyGothic-Bold"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -173,7 +173,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LM5-xW-O9f" userLabel="Title">
-                                    <rect key="frame" x="94" y="38" width="279" height="23"/>
+                                    <rect key="frame" x="94" y="38" width="269" height="23"/>
                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="dFa-X7-jcN">
                                         <font key="font" size="14" name="CenturyGothic-Bold"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -181,7 +181,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="siU-Sg-IBb" userLabel="Big Track Label">
-                                    <rect key="frame" x="94" y="30" width="280" height="40"/>
+                                    <rect key="frame" x="94" y="25" width="280" height="40"/>
                                     <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" id="Z1W-iy-lZi">
                                         <font key="font" size="14" name="CenturyGothic-Bold"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -312,7 +312,7 @@ G1BhbiBTbGlkZXI
                                     </textFieldCell>
                                 </textField>
                                 <box horizontalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="NhA-cA-QZh">
-                                    <rect key="frame" x="75" y="-3" width="4" height="60"/>
+                                    <rect key="frame" x="75" y="-3" width="5" height="60"/>
                                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <font key="titleFont" metaFont="system"/>
@@ -1348,7 +1348,7 @@ G1BhbiBTbGlkZXI
                     <color key="value" red="0.6470588235294118" green="0.6470588235294118" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="291" y="1.5"/>
+            <point key="canvasLocation" x="291" y="1"/>
         </window>
         <viewController id="THs-LC-lDb" customClass="PlaylistViewController" customModule="Aural" customModuleProvider="target"/>
         <menu title="Main Menu" systemMenu="main" id="Cnt-hZ-QmI">

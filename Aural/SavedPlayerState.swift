@@ -9,6 +9,9 @@ class SavedPlayerState {
     // Set defaults so that, if the config file cannot be found/loaded, UI can
     // use defaults
     
+    var showPlaylist: Bool = PlayerDefaults.showPlaylist
+    var showEffects: Bool = PlayerDefaults.showPlaylist
+    
     var repeatMode: RepeatMode = PlayerDefaults.repeatMode
     var shuffleMode: ShuffleMode = PlayerDefaults.shuffleMode
     
@@ -57,6 +60,9 @@ class SavedPlayerState {
     func forWritingAsJSON() -> NSDictionary {
         
         var dict = [NSString: AnyObject]()
+        
+        dict["showPlaylist"] = String(showPlaylist)
+        dict["showEffects"] = String(showEffects)
         
         dict["repeatMode"] = repeatMode.toString
         dict["shuffleMode"] = shuffleMode.toString
@@ -115,6 +121,14 @@ class SavedPlayerState {
         // TODO: Make this more resilient to missing/invalid fields
         
         let state = SavedPlayerState()
+        
+        if let showPlaylist = jsonObject["showPlaylist"] as? NSString {
+            state.showPlaylist = showPlaylist.boolValue
+        }
+        
+        if let showEffects = jsonObject["showEffects"] as? NSString {
+            state.showEffects = showEffects.boolValue
+        }
         
         if let repeatMode = jsonObject["repeatMode"] as? String {
             state.repeatMode = RepeatMode.fromString(repeatMode)

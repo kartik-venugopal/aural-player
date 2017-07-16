@@ -6,6 +6,9 @@ import AVFoundation
 */
 class PlayerDefaults {
     
+    static let showPlaylist: Bool = true
+    static let showEffects: Bool = true
+    
     static let repeatMode: RepeatMode = .OFF
     static let shuffleMode: ShuffleMode = .OFF
     

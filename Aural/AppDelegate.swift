@@ -157,6 +157,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     
     func initStatefulUI(playerState: SavedPlayerState) {
         
+        if (!playerState.showPlaylist) {
+            toggleViewPlaylistAction(self)
+        }
+        
+        if (!playerState.showEffects) {
+            toggleViewEffectsAction(self)
+        }
+        
         // Set sliders to reflect player state
         volumeSlider.floatValue = playerState.volume * 100
         setVolumeImage(playerState.muted)
@@ -845,5 +853,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     // Toggle button action
     @IBAction func toggleEffectsAction(sender: AnyObject) {
         toggleViewEffectsAction(sender)
+    }
+    
+    func isEffectsShown() -> Bool {
+        return fxCollapsibleView?.hidden == false
+    }
+    
+    func isPlaylistShown() -> Bool {
+        return playlistCollapsibleView?.hidden == false
     }
 }

@@ -521,6 +521,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
             state.playlist.append(track.file!.path!)
         }
         
+        let app = (NSApplication.sharedApplication().delegate as! AppDelegate)
+        
+        // Read UI state
+        state.showEffects = app.isEffectsShown()
+        state.showPlaylist = app.isPlaylistShown()
+        
         PlayerStateIO.save(state)
     }
     
