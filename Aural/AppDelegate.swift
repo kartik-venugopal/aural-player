@@ -6,7 +6,7 @@ import Cocoa
 import AVFoundation
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
+class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubscriber {
     
     @IBOutlet weak var window: NSWindow!
     
@@ -105,6 +105,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     var playlistCollapsibleView: CollapsibleView?
     var fxCollapsibleView: CollapsibleView?
     var windowManager: WindowManager?
+    
+    var initializfed: Bool = false
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         

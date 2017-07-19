@@ -9,6 +9,8 @@ class GraphicsUtils {
     // Draws a line between 2 points
     static func drawLine(color: NSColor, pt1: NSPoint, pt2: NSPoint, width: CGFloat) {
         
+        color.setStroke()
+        
         let line = NSBezierPath() // container for line(s)
         line.moveToPoint(pt1) // start point
         line.lineToPoint(pt2) // destination

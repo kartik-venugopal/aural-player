@@ -61,14 +61,14 @@ class SavedPlayerState {
         
         var dict = [NSString: AnyObject]()
         
-        dict["showPlaylist"] = String(showPlaylist)
-        dict["showEffects"] = String(showEffects)
+        dict["showPlaylist"] = showPlaylist
+        dict["showEffects"] = showEffects
         
         dict["repeatMode"] = repeatMode.toString
         dict["shuffleMode"] = shuffleMode.toString
         
         dict["volume"] = volume as NSNumber
-        dict["muted"] = String(muted)
+        dict["muted"] = muted
         dict["balance"] = balance as NSNumber
         
         dict["eqGlobalGain"] = eqGlobalGain as NSNumber
@@ -80,24 +80,24 @@ class SavedPlayerState {
         dict["eqBands"] = eqBandsDict
         
         var pitchDict = [NSString: AnyObject]()
-        pitchDict["bypass"] = String(pitchBypass)
+        pitchDict["bypass"] = pitchBypass
         pitchDict["pitch"] = pitch as NSNumber
         pitchDict["overlap"] = pitchOverlap as NSNumber
         dict["pitch"] = pitchDict
         
         var timeDict = [NSString: AnyObject]()
-        timeDict["bypass"] = String(timeBypass)
+        timeDict["bypass"] = timeBypass
         timeDict["rate"] = timeStretchRate as NSNumber
         dict["time"] = timeDict
         
         var reverbDict = [NSString: AnyObject]()
-        reverbDict["bypass"] = String(reverbBypass)
+        reverbDict["bypass"] = reverbBypass
         reverbDict["preset"] = reverbPreset.toString
         reverbDict["amount"] = reverbAmount as NSNumber
         dict["reverb"] = reverbDict
         
         var delayDict = [NSString: AnyObject]()
-        delayDict["bypass"] = String(delayBypass)
+        delayDict["bypass"] = delayBypass
         delayDict["amount"] = delayAmount as NSNumber
         delayDict["time"] = delayTime as NSNumber
         delayDict["feedback"] = delayFeedback as NSNumber
@@ -105,7 +105,7 @@ class SavedPlayerState {
         dict["delay"] = delayDict
         
         var filterDict = [NSString: AnyObject]()
-        filterDict["bypass"] = String(filterBypass)
+        filterDict["bypass"] = filterBypass
         filterDict["highPassCutoff"] = filterHighPassCutoff as NSNumber
         filterDict["lowPassCutoff"] = filterLowPassCutoff as NSNumber
         dict["filter"] = filterDict
@@ -122,12 +122,12 @@ class SavedPlayerState {
         
         let state = SavedPlayerState()
         
-        if let showPlaylist = jsonObject["showPlaylist"] as? NSString {
-            state.showPlaylist = showPlaylist.boolValue
+        if let showPlaylist = jsonObject["showPlaylist"] as? Bool {
+            state.showPlaylist = showPlaylist
         }
         
-        if let showEffects = jsonObject["showEffects"] as? NSString {
-            state.showEffects = showEffects.boolValue
+        if let showEffects = jsonObject["showEffects"] as? Bool {
+            state.showEffects = showEffects
         }
         
         if let repeatMode = jsonObject["repeatMode"] as? String {
@@ -139,7 +139,7 @@ class SavedPlayerState {
         }
         
         state.volume = (jsonObject["volume"] as! NSNumber).floatValue
-        state.muted = (jsonObject["muted"] as! NSString).boolValue
+        state.muted = (jsonObject["muted"] as! Bool)
         state.balance = (jsonObject["balance"] as! NSNumber).floatValue
         
         state.eqGlobalGain = (jsonObject["eqGlobalGain"] as! NSNumber).floatValue
@@ -151,24 +151,24 @@ class SavedPlayerState {
         }
         
         if let pitchDict = (jsonObject["pitch"] as? NSDictionary) {
-            state.pitchBypass = (pitchDict["bypass"] as! NSString).boolValue
+            state.pitchBypass = (pitchDict["bypass"] as! Bool)
             state.pitch = (pitchDict["pitch"] as! NSNumber).floatValue
             state.pitchOverlap = (pitchDict["overlap"] as! NSNumber).floatValue
         }
         
         if let timeDict = (jsonObject["time"] as? NSDictionary) {
-            state.timeBypass = (timeDict["bypass"] as! NSString).boolValue
+            state.timeBypass = (timeDict["bypass"] as! Bool)
             state.timeStretchRate = (timeDict["rate"] as! NSNumber).floatValue
         }
         
         if let reverbDict = (jsonObject["reverb"] as? NSDictionary) {
-            state.reverbBypass = (reverbDict["bypass"] as! NSString).boolValue
+            state.reverbBypass = (reverbDict["bypass"] as! Bool)
             state.reverbPreset = ReverbPresets.fromString(reverbDict["preset"] as! String)
             state.reverbAmount = (reverbDict["amount"] as! NSNumber).floatValue
         }
         
         if let delayDict = (jsonObject["delay"] as? NSDictionary) {
-            state.delayBypass = (delayDict["bypass"] as! NSString).boolValue
+            state.delayBypass = (delayDict["bypass"] as! Bool)
             state.delayAmount = (delayDict["amount"] as! NSNumber).floatValue
             state.delayTime = (delayDict["time"] as! NSNumber).doubleValue
             state.delayFeedback = (delayDict["feedback"] as! NSNumber).floatValue
@@ -176,7 +176,7 @@ class SavedPlayerState {
         }
         
         if let filterDict = (jsonObject["filter"] as? NSDictionary) {
-            state.filterBypass = (filterDict["bypass"] as! NSString).boolValue
+            state.filterBypass = (filterDict["bypass"] as! Bool)
             state.filterHighPassCutoff = (filterDict["highPassCutoff"] as! NSNumber).floatValue
             state.filterLowPassCutoff = (filterDict["lowPassCutoff"] as! NSNumber).floatValue
         }

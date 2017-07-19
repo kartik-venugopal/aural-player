@@ -27,9 +27,6 @@ class Player: AuralPlayer, AuralSoundTuner {
     private let delayNode: AVAudioUnitDelay
     private let timeNode: AVAudioUnitTimePitch
     
-    // TODO
-//    private let distortionNode: AVAudioUnitDistortion
-    
     // Helper
     private let audioEngineHelper: AudioEngineHelper
     

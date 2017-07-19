@@ -112,7 +112,7 @@
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="saz-qI-SEO">
                         <rect key="frame" x="182" y="590" width="68" height="25"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="AURAL" id="q5q-o6-pMi">
-                            <font key="font" size="16" name="CenturyGothic-BoldItalic"/>
+                            <font key="font" size="16" name="CenturyGothic-Bold"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -156,6 +156,9 @@
                                 </textField>
                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YrG-JU-zDl">
                                     <rect key="frame" x="7" y="7" width="71" height="71"/>
+                                    <shadow key="shadow" blurRadius="4">
+                                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </shadow>
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="photo" image="MusicArt" id="XZE-dj-fiU"/>
                                 </imageView>
                                 <box horizontalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="gKN-kJ-O6Q">
@@ -364,16 +367,16 @@ G1BhbiBTbGlkZXI
                         <color key="fillColor" red="0.82352941176470584" green="0.82352941176470584" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <tabView ambiguous="YES" misplaced="YES" initialItem="McD-gg-qp9" translatesAutoresizingMaskIntoConstraints="NO" id="ajb-w5-ueo" userLabel="FX Tabbed group">
-                        <rect key="frame" x="10" y="215" width="396" height="186"/>
-                        <font key="font" size="11" name="CenturyGothic-Bold"/>
+                        <rect key="frame" x="5" y="217" width="396" height="186"/>
+                        <font key="font" size="10" name="CenturyGothic-Bold"/>
                         <tabViewItems>
                             <tabViewItem label="EQ" identifier="1" id="McD-gg-qp9" userLabel="EQ">
                                 <view key="view" ambiguous="YES" id="vC5-27-GiC">
-                                    <rect key="frame" x="10" y="33" width="304" height="0.0"/>
+                                    <rect key="frame" x="10" y="33" width="376" height="140"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Zm-Bg-NEY">
-                                            <rect key="frame" x="38" y="-74" width="15" height="14"/>
+                                            <rect key="frame" x="43" y="64" width="15" height="14"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0" id="Je7-rK-ohz">
                                                 <font key="font" size="10" name="CenturyGothic-Bold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -381,7 +384,7 @@ G1BhbiBTbGlkZXI
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dtf-Xs-OQp">
-                                            <rect key="frame" x="31" y="-126" width="23" height="21"/>
+                                            <rect key="frame" x="36" y="12" width="23" height="21"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-20" id="9U6-wA-5ze">
                                                 <font key="font" size="10" name="CenturyGothic-Bold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -389,25 +392,25 @@ G1BhbiBTbGlkZXI
                                             </textFieldCell>
                                         </textField>
                                         <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="asJ-7c-oOz" userLabel="EQ 0db">
-                                            <rect key="frame" x="74" y="-72" width="252" height="5"/>
+                                            <rect key="frame" x="79" y="66" width="252" height="5"/>
                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <font key="titleFont" metaFont="system"/>
                                         </box>
                                         <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Wwi-eU-yUf" userLabel="EQ 0db">
-                                            <rect key="frame" x="73" y="-71" width="252" height="5"/>
+                                            <rect key="frame" x="78" y="67" width="252" height="5"/>
                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <font key="titleFont" metaFont="system"/>
                                         </box>
                                         <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="D8U-TF-UeU" userLabel="EQ 0db">
-                                            <rect key="frame" x="74" y="-70" width="252" height="5"/>
+                                            <rect key="frame" x="79" y="68" width="252" height="5"/>
                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <font key="titleFont" metaFont="system"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vsR-0Q-cXe">
-                                            <rect key="frame" x="263" y="-143" width="84" height="23"/>
+                                            <rect key="frame" x="268" y="-5" width="84" height="23"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Presets" id="ems-fH-sOb">
                                                 <font key="font" size="12" name="CenturyGothic-Bold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -415,7 +418,7 @@ G1BhbiBTbGlkZXI
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hG3-Ir-qkY" userLabel="EQ Presets Menu">
-                                            <rect key="frame" x="268" y="-142" width="106" height="22"/>
+                                            <rect key="frame" x="273" y="-4" width="106" height="22"/>
                                             <popUpButtonCell key="cell" type="disclosure" title="Vocal" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" altersStateOfSelectedItem="NO" selectedItem="z8X-aR-fwU" id="fct-Jo-Wiy" customClass="EQPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" size="10" name="CenturyGothic"/>
@@ -444,7 +447,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </popUpButton>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lg0-FS-2I5">
-                                            <rect key="frame" x="66" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="71" y="20" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -454,7 +457,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mTb-nz-ndF">
-                                            <rect key="frame" x="94" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="99" y="20" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -464,7 +467,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iEd-37-pLD">
-                                            <rect key="frame" x="122" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="127" y="20" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -474,7 +477,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuJ-l0-5ih">
-                                            <rect key="frame" x="150" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="155" y="20" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -484,7 +487,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lgr-1t-FRb">
-                                            <rect key="frame" x="178" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="183" y="20" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -494,7 +497,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JGZ-0h-WTH" userLabel="Eq Slider1k">
-                                            <rect key="frame" x="206" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="211" y="20" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -504,7 +507,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DDL-Kj-I4h" userLabel="Eq Slider2k">
-                                            <rect key="frame" x="234" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="239" y="20" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -514,7 +517,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VSQ-5C-2KO" userLabel="Eq Slider4k">
-                                            <rect key="frame" x="262" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="267" y="20" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -524,7 +527,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qHV-Kz-sUG" userLabel="Eq Slider8k">
-                                            <rect key="frame" x="290" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="295" y="20" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -534,7 +537,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z4B-Hr-jie" userLabel="Eq Slider16k">
-                                            <rect key="frame" x="318" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="323" y="20" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -544,7 +547,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EOh-fy-QB5" userLabel="Frequencies">
-                                            <rect key="frame" x="66" y="-27" width="274" height="26"/>
+                                            <rect key="frame" x="71" y="111" width="274" height="26"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="32      64     128    256    512     1k      2k      4k      8k     16k" id="KZ1-aN-0Yl">
                                                 <font key="font" size="10" name="CenturyGothic-Bold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -552,7 +555,7 @@ G1BhbiBTbGlkZXI
                                             </textFieldCell>
                                         </textField>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XKK-aS-eMn" userLabel="EQGlobalGain">
-                                            <rect key="frame" x="19" y="-118" width="17" height="101"/>
+                                            <rect key="frame" x="24" y="20" width="17" height="101"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </shadow>
@@ -562,7 +565,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a3V-ab-jaC">
-                                            <rect key="frame" x="31" y="-35" width="23" height="21"/>
+                                            <rect key="frame" x="36" y="103" width="23" height="21"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+20" id="E9O-1s-8rC">
                                                 <font key="font" size="10" name="CenturyGothic-Bold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -578,7 +581,7 @@ G1BhbiBTbGlkZXI
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h0F-Gd-eBB" userLabel="Pitch Shift Desc">
-                                            <rect key="frame" x="63" y="15" width="304" height="120"/>
+                                            <rect key="frame" x="68" y="13" width="304" height="120"/>
                                             <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Raises or lowers the pitch of the sound by a certain number (or fraction) of octaves" id="rMK-Ih-dm7">
                                                 <font key="font" size="13" name="CenturyGothic"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -586,7 +589,7 @@ G1BhbiBTbGlkZXI
                                             </textFieldCell>
                                         </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OGV-jG-nOV" userLabel="Bypass button">
-                                            <rect key="frame" x="12" y="72" width="22" height="60"/>
+                                            <rect key="frame" x="17" y="70" width="22" height="60"/>
                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="g78-ka-ylX">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -596,7 +599,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </button>
                                         <box fixedFrame="YES" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Yu8-uy-WrY" userLabel="Controls Box">
-                                            <rect key="frame" x="57" y="1" width="306" height="78"/>
+                                            <rect key="frame" x="62" y="-1" width="306" height="78"/>
                                             <view key="contentView" id="98N-CG-xwt">
                                                 <rect key="frame" x="1" y="1" width="304" height="62"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -667,7 +670,7 @@ G1BhbiBTbGlkZXI
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n8Y-va-1kY" userLabel="Time Desc">
-                                            <rect key="frame" x="63" y="15" width="304" height="120"/>
+                                            <rect key="frame" x="68" y="13" width="304" height="120"/>
                                             <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Changes the playback rate (aka time stretching)" id="eKf-ya-88i">
                                                 <font key="font" size="13" name="CenturyGothic"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -675,7 +678,7 @@ G1BhbiBTbGlkZXI
                                             </textFieldCell>
                                         </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KK7-yq-mkB" userLabel="Bypass button">
-                                            <rect key="frame" x="12" y="72" width="22" height="60"/>
+                                            <rect key="frame" x="17" y="70" width="22" height="60"/>
                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ksr-y2-eDd">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -685,7 +688,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </button>
                                         <box fixedFrame="YES" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="y0c-x9-eVo" userLabel="Controls Box">
-                                            <rect key="frame" x="57" y="1" width="306" height="76"/>
+                                            <rect key="frame" x="62" y="-1" width="306" height="76"/>
                                             <view key="contentView" ambiguous="YES" id="oDh-XH-33j">
                                                 <rect key="frame" x="1" y="1" width="304" height="74"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -730,7 +733,7 @@ G1BhbiBTbGlkZXI
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qUl-hb-KdY" userLabel="Reverb Desc">
-                                            <rect key="frame" x="63" y="15" width="304" height="120"/>
+                                            <rect key="frame" x="68" y="13" width="304" height="120"/>
                                             <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Simulates the acoustic characteristics of a particular space or environment" id="sJv-Pt-Gu6">
                                                 <font key="font" size="13" name="CenturyGothic"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -738,7 +741,7 @@ G1BhbiBTbGlkZXI
                                             </textFieldCell>
                                         </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R9b-lC-8tk" userLabel="Bypass button">
-                                            <rect key="frame" x="12" y="72" width="22" height="60"/>
+                                            <rect key="frame" x="17" y="70" width="22" height="60"/>
                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="YRR-YJ-I2g">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -748,7 +751,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </button>
                                         <box fixedFrame="YES" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="chO-yB-LP0" userLabel="Controls Box">
-                                            <rect key="frame" x="57" y="1" width="306" height="66"/>
+                                            <rect key="frame" x="62" y="-1" width="306" height="66"/>
                                             <view key="contentView" ambiguous="YES" id="I4b-K0-6Me">
                                                 <rect key="frame" x="1" y="1" width="304" height="64"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -850,7 +853,7 @@ G1BhbiBTbGlkZXI
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hFd-0O-hii" userLabel="Bypass button">
-                                            <rect key="frame" x="12" y="72" width="22" height="60"/>
+                                            <rect key="frame" x="17" y="70" width="22" height="60"/>
                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qup-b5-rY3">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -860,7 +863,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </button>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4YG-X5-3A9" userLabel="Delay Desc">
-                                            <rect key="frame" x="63" y="95" width="298" height="40"/>
+                                            <rect key="frame" x="68" y="93" width="298" height="40"/>
                                             <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Creates an echo effect" id="rMf-VW-VxL">
                                                 <font key="font" size="13" name="CenturyGothic"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -868,7 +871,7 @@ G1BhbiBTbGlkZXI
                                             </textFieldCell>
                                         </textField>
                                         <box fixedFrame="YES" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="v6p-Ex-kdh" userLabel="Controls Box">
-                                            <rect key="frame" x="57" y="1" width="306" height="106"/>
+                                            <rect key="frame" x="62" y="-1" width="306" height="106"/>
                                             <view key="contentView" ambiguous="YES" id="vGm-MT-zIN">
                                                 <rect key="frame" x="1" y="1" width="304" height="104"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1031,7 +1034,7 @@ G1BhbiBTbGlkZXI
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9sH-hV-CNS" userLabel="Bypass button">
-                                            <rect key="frame" x="12" y="72" width="22" height="60"/>
+                                            <rect key="frame" x="17" y="70" width="22" height="60"/>
                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="pWg-An-hIH">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -1041,7 +1044,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </button>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kQr-of-0kc" userLabel="Filter Desc">
-                                            <rect key="frame" x="63" y="85" width="298" height="50"/>
+                                            <rect key="frame" x="68" y="83" width="298" height="50"/>
                                             <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Completely eliminates unwanted frequencies" id="sQP-fn-Bcr">
                                                 <font key="font" size="13" name="CenturyGothic"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1049,7 +1052,7 @@ G1BhbiBTbGlkZXI
                                             </textFieldCell>
                                         </textField>
                                         <box fixedFrame="YES" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="u8a-sR-ENw" userLabel="Controls Box">
-                                            <rect key="frame" x="57" y="1" width="306" height="66"/>
+                                            <rect key="frame" x="62" y="-1" width="306" height="66"/>
                                             <view key="contentView" ambiguous="YES" id="Sew-df-aAW">
                                                 <rect key="frame" x="1" y="1" width="304" height="64"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1115,6 +1118,9 @@ G1BhbiBTbGlkZXI
                                 </view>
                             </tabViewItem>
                         </tabViewItems>
+                        <connections>
+                            <outlet property="delegate" destination="Voe-Tx-rLC" id="M33-Qj-MWC"/>
+                        </connections>
                     </tabView>
                     <box ambiguous="YES" misplaced="YES" cornerRadius="5" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="RMJ-vL-K67" userLabel="Playlist Box">
                         <rect key="frame" x="15" y="33" width="385" height="176"/>
@@ -1370,20 +1376,45 @@ G1BhbiBTbGlkZXI
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Playlist" id="nzT-Bj-81Y">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Playlist" id="OTj-Uh-IWl">
+                        <items>
+                            <menuItem title=" Open fies / playlists" image="Add-Small" keyEquivalent="o" id="Ysv-Pf-k88"/>
+                            <menuItem title=" Save playlist" image="Save-Small" keyEquivalent="s" id="Cvk-m8-oAg"/>
+                            <menuItem isSeparatorItem="YES" id="ZbT-B5-jLK"/>
+                            <menuItem title=" Move selected track up" image="Up-Small" keyEquivalent="" id="f3c-TG-M9r">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                            </menuItem>
+                            <menuItem title=" Move selected track down" image="Down-Small" keyEquivalent="" id="F5x-Nm-ust">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                            </menuItem>
+                            <menuItem title=" Remove selected track" image="Remove-Small" id="20j-6Y-sbB" userLabel="Remove selected track">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title=" Clear Playlist" image="Clear-Small" id="ec2-Jm-I4M">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="View" id="cu5-E6-xt6" userLabel="View">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" id="Fd0-9b-tm8">
                         <items>
-                            <menuItem title="Effects" keyEquivalent="e" id="fK8-7g-oqx" userLabel="Effects">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
-                                <connections>
-                                    <action selector="toggleViewEffectsAction:" target="Voe-Tx-rLC" id="Kiw-iQ-y6k"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Playlist" keyEquivalent="p" id="af4-4E-1QV" userLabel="Playlist">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                            <menuItem title=" Playlist" state="on" image="TogglePlaylistView-Small" keyEquivalent="1" id="af4-4E-1QV" userLabel="Playlist">
                                 <connections>
                                     <action selector="toggleViewPlaylistAction:" target="Voe-Tx-rLC" id="qy1-fM-T4F"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Effects" state="on" image="ToggleEffectsView-Small" keyEquivalent="2" id="fK8-7g-oqx" userLabel="Effects">
+                                <connections>
+                                    <action selector="toggleViewEffectsAction:" target="Voe-Tx-rLC" id="Kiw-iQ-y6k"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -1394,10 +1425,13 @@ G1BhbiBTbGlkZXI
     </objects>
     <resources>
         <image name="Add" width="129" height="129"/>
+        <image name="Add-Small" width="20" height="20"/>
         <image name="AppIconSmall" width="32" height="32"/>
         <image name="Clear" width="34.599998474121094" height="40"/>
+        <image name="Clear-Small" width="3.4000000953674316" height="4"/>
         <image name="Close" width="128" height="128"/>
         <image name="Down" width="25.600000381469727" height="25.600000381469727"/>
+        <image name="Down-Small" width="2" height="2"/>
         <image name="Hide" width="128" height="128"/>
         <image name="MoreInfo" width="256" height="256"/>
         <image name="MusicArt" width="256" height="256"/>
@@ -1405,15 +1439,20 @@ G1BhbiBTbGlkZXI
         <image name="Play" width="256" height="256"/>
         <image name="PreviousTrack" width="256" height="256"/>
         <image name="Remove" width="127" height="127"/>
+        <image name="Remove-Small" width="20" height="20"/>
         <image name="RepeatOff" width="256" height="256"/>
         <image name="Save" width="128" height="128"/>
+        <image name="Save-Small" width="20" height="20"/>
         <image name="SeekBackward" width="256" height="256"/>
         <image name="SeekForward" width="256" height="256"/>
         <image name="ShuffleOff" width="256" height="256"/>
         <image name="SwitchOff" width="185" height="512"/>
         <image name="ToggleEffectsView" width="419" height="422"/>
+        <image name="ToggleEffectsView-Small" width="20" height="20"/>
         <image name="TogglePlaylistView" width="185" height="161"/>
+        <image name="TogglePlaylistView-Small" width="20" height="17"/>
         <image name="Up" width="25.600000381469727" height="25.600000381469727"/>
+        <image name="Up-Small" width="2" height="2"/>
         <image name="VolumeMedium" width="256" height="256"/>
     </resources>
 </document>

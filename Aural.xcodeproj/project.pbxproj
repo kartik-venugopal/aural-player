@@ -28,6 +28,7 @@
 		3E426F7E1EFDD9CF002F5F18 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7D1EFDD9CF002F5F18 /* Player.swift */; };
 		3E426F801EFDDDEE002F5F18 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7F1EFDDDEE002F5F18 /* Utils.swift */; };
 		3E426F821EFDEEBE002F5F18 /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F811EFDEEBE002F5F18 /* PlaybackState.swift */; };
+		3E4379EF1F1C9C99005178CD /* FFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4379EE1F1C9C99005178CD /* FFT.swift */; settings = {ASSET_TAGS = (); }; };
 		3E4BBA5C1F030E5B0025F371 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4BBA5B1F030E5B0025F371 /* UIConstants.swift */; };
 		3E551B871F10801100354DE2 /* AudioEngineHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E551B861F10801100354DE2 /* AudioEngineHelper.swift */; };
 		3E58CC271F025B0D00C36DC1 /* ColorSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58CC261F025B0D00C36DC1 /* ColorSchemes.swift */; };
@@ -96,6 +97,7 @@
 		3E426F7D1EFDD9CF002F5F18 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3E426F7F1EFDDDEE002F5F18 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		3E426F811EFDEEBE002F5F18 /* PlaybackState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackState.swift; sourceTree = "<group>"; };
+		3E4379EE1F1C9C99005178CD /* FFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFT.swift; sourceTree = "<group>"; };
 		3E4BBA5B1F030E5B0025F371 /* UIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		3E551B861F10801100354DE2 /* AudioEngineHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioEngineHelper.swift; sourceTree = "<group>"; };
 		3E58CC261F025B0D00C36DC1 /* ColorSchemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSchemes.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 		3E5FA43F1EFFF039001669C5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3EACF1541F19B8F800E62D33 /* CollapsibleView.swift */,
 				3E722F7A1EFCF4EC00916BF2 /* PlaylistViewController.swift */,
 				3E2188A71F0771390085BAB3 /* PopoverController.swift */,
 				3E2188A31F0763F50085BAB3 /* TrackInfoViewController.swift */,
@@ -248,7 +251,6 @@
 				3EA262671F0EFD9600D9BCD9 /* UI */,
 				3E3C20A41F0A3CE100AF5A62 /* Player */,
 				3ED2AF201F00E8B7000F702C /* Domain */,
-				3E5FA43F1EFFF039001669C5 /* Views */,
 				3EA29AD61F0B473600DA239E /* Events */,
 				3EFFE6BC1F0373B7003728BD /* IO */,
 				3EB20B4F1EFF2C5F008138A4 /* Utils */,
@@ -263,12 +265,12 @@
 		3EA262671F0EFD9600D9BCD9 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3E5FA43F1EFFF039001669C5 /* Views */,
 				3E85F2591EFA78D6007BE830 /* AppDelegate.swift */,
 				3E6D75F71EFF79E0007F22A3 /* KeyPressHandler.swift */,
 				3E4BBA5B1F030E5B0025F371 /* UIConstants.swift */,
 				3E3C20A51F0A687400AF5A62 /* UIElements.swift */,
 				3EACF1521F19B80B00E62D33 /* WindowManager.swift */,
-				3EACF1541F19B8F800E62D33 /* CollapsibleView.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -293,6 +295,7 @@
 				3E426F7F1EFDDDEE002F5F18 /* Utils.swift */,
 				3EB20B4C1EFF2C13008138A4 /* StringBuilder.swift */,
 				3EDBF76E1F0339B60088574B /* Testing */,
+				3E4379EE1F1C9C99005178CD /* FFT.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				3E40A9851F0617BC00A66856 /* ScheduledTaskExecutor.swift in Sources */,
 				3E80E66D1F04F57F007480CC /* MemoryMonitor.swift in Sources */,
 				3E633C471F14C6530040ECBC /* FilterNode.swift in Sources */,
+				3E4379EF1F1C9C99005178CD /* FFT.swift in Sources */,
 				3EACF1551F19B8F800E62D33 /* CollapsibleView.swift in Sources */,
 				3EB2A7E61F043989001DF748 /* HorizontalSliderCell.swift in Sources */,
 				3E58CC271F025B0D00C36DC1 /* ColorSchemes.swift in Sources */,
