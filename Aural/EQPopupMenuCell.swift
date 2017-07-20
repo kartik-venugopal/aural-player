@@ -10,7 +10,7 @@ class EQPopupMenuCell: NSPopUpButtonCell {
         
         let frameWidth = cellFrame.width
         let rectWidth: CGFloat = 16
-        let drawRect = cellFrame.insetBy(dx: (frameWidth - rectWidth) / 2, dy: 4)
+        let drawRect = cellFrame.insetBy(dx: (frameWidth - rectWidth) / 2, dy: 6)
         
         UIConstants.colorScheme.popupMenuColor.setFill()
         
