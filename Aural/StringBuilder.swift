@@ -6,20 +6,20 @@ import Foundation
 
 class StringBuilder {
     
-    private var string: String = ""
+    fileprivate var string: String = ""
     
-    func append(string: String) {
+    func append(_ string: String) {
         self.string += string
     }
     
-    func appendKeyValue(key: String, value: String) {
+    func appendKeyValue(_ key: String, value: String) {
         self.string += key
         self.string += " = "
         self.string += value
         self.string += "\n"
     }
     
-    func appendLine(string: String) {
+    func appendLine(_ string: String) {
         append(string + "\n")
     }
     

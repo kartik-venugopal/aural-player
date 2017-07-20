@@ -7,8 +7,8 @@ import AVFoundation
 */
 class AudioEngineHelper {
     
-    private let audioEngine: AVAudioEngine
-    private var nodes: [AVAudioNode]
+    fileprivate let audioEngine: AVAudioEngine
+    fileprivate var nodes: [AVAudioNode]
     
     init(engine: AVAudioEngine) {
         self.audioEngine = engine
@@ -16,16 +16,16 @@ class AudioEngineHelper {
     }
     
     // Attach a single node to the engine
-    func addNode(node: AVAudioNode) {
+    func addNode(_ node: AVAudioNode) {
         nodes.append(node)
-        audioEngine.attachNode(node)
+        audioEngine.attach(node)
     }
     
     // Attach multiple nodes to the engine
-    func addNodes(nodes: [AVAudioNode]) {
-        self.nodes.appendContentsOf(nodes)
+    func addNodes(_ nodes: [AVAudioNode]) {
+        self.nodes.append(contentsOf: nodes)
         for node in nodes {
-            audioEngine.attachNode(node)
+            audioEngine.attach(node)
         }
     }
     
@@ -49,7 +49,7 @@ class AudioEngineHelper {
     }
     
     // Reconnects two nodes with the given audio format (required when a track change occurs)
-    func reconnectNodes(inputNode: AVAudioNode, outputNode: AVAudioNode, format: AVAudioFormat) {
+    func reconnectNodes(_ inputNode: AVAudioNode, outputNode: AVAudioNode, format: AVAudioFormat) {
         
         audioEngine.disconnectNodeOutput(inputNode)
         audioEngine.connect(inputNode, to: outputNode, format: format)

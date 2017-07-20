@@ -8,12 +8,12 @@ import AVFoundation
 class TrackIO {
     
     // Load track info from specified file
-    static func loadTrack(file: NSURL) -> Track? {
+    static func loadTrack(_ file: URL) -> Track? {
         
         let track: Track = Track()
         track.file = file
         
-        let sourceAsset = AVURLAsset(URL: file, options: nil)
+        let sourceAsset = AVURLAsset(url: file, options: nil)
         track.avAsset = sourceAsset
         track.duration = sourceAsset.duration.seconds
 
@@ -40,7 +40,7 @@ class TrackIO {
                         artist = item.stringValue!
                     }
                 } else if key == "artwork" {
-                    if let artwork = NSImage(data: value as! NSData) {
+                    if let artwork = NSImage(data: value as! Data) {
                         art = artwork
                     }
                 }
@@ -62,7 +62,7 @@ class TrackIO {
             shortDisplayName += title!
             
         } else {
-            shortDisplayName = (file.URLByDeletingPathExtension?.lastPathComponent)!
+            shortDisplayName = (file.deletingPathExtension().lastPathComponent)
             longDisplayName = nil
         }
         
@@ -74,14 +74,14 @@ class TrackIO {
     }
     
     // (Lazily) load all the information required to play this track
-    static func prepareForPlayback(track: Track) {
+    static func prepareForPlayback(_ track: Track) {
         
         if (!track.preparedForPlayback) {
             
             var avFile: AVAudioFile? = nil
             do {
                 
-                avFile = try AVAudioFile(forReading: track.file!)
+                avFile = try AVAudioFile(forReading: track.file! as URL)
                 track.avFile = avFile!
                 track.sampleRate = avFile!.processingFormat.sampleRate
                 
@@ -89,13 +89,13 @@ class TrackIO {
                 track.preparedForPlayback = true
                 
             } catch let error as NSError {
-                NSLog("Error reading track '%@': %@", track.file!.path!, error.description)
+                NSLog("Error reading track '%@': %@", track.file!.path, error.description)
             }
         }
     }
     
     // (Lazily) load detailed track info, when it is requested by the UI
-    static func loadDetailedTrackInfo(track: Track) {
+    static func loadDetailedTrackInfo(_ track: Track) {
         
         if (track.detailedInfoLoaded) {
             return
@@ -115,7 +115,7 @@ class TrackIO {
             
             // File size and bit rate
             let filePath = track.file!.path
-            let attr : NSDictionary? = try NSFileManager.defaultManager().attributesOfItemAtPath(filePath!)
+            let attr : NSDictionary? = try FileManager.default.attributesOfItem(atPath: filePath) as NSDictionary
             
             if let _attr = attr {
                 
@@ -128,17 +128,17 @@ class TrackIO {
             }
             
         } catch let error as NSError {
-            NSLog("Error reading track '%@': %@", track.file!.path!, error.description)
+            NSLog("Error reading track '%@': %@", track.file!.path, error.description)
         }
         
         let sourceAsset = track.avAsset!
         
         // Determine codec
-        let assetTrack = sourceAsset.tracksWithMediaType(AVMediaTypeAudio)[0]
+        let assetTrack = sourceAsset.tracks(withMediaType: AVMediaTypeAudio)[0]
         
         let desc = CMFormatDescriptionGetMediaSubType(assetTrack.formatDescriptions[0] as! CMFormatDescription)
         var format = codeToString(desc)
-        format = format.stringByTrimmingCharactersInSet(NSCharacterSet.init(charactersInString: "."))
+        format = format.trimmingCharacters(in: CharacterSet.init(charactersIn: "."))
         track.format = format
         
         codecDetermined = true
@@ -168,17 +168,17 @@ class TrackIO {
     }
     
     // Normalizes a bit rate by rounding it to the nearest multiple of 32. For ex, a bit rate of 251.5 kbps is rounded to 256 kbps.
-    private static func normalizeBitRate(rate: Double) -> Int {
+    fileprivate static func normalizeBitRate(_ rate: Double) -> Int {
         return Int(round(rate/32)) * 32
     }
     
     // Converts a four character media type code to a readable string
-    private static func codeToString(code: FourCharCode) -> String {
+    fileprivate static func codeToString(_ code: FourCharCode) -> String {
         let n = Int(code)
-        var s: String = String (UnicodeScalar((n >> 24) & 255))
-        s.append(UnicodeScalar((n >> 16) & 255))
-        s.append(UnicodeScalar((n >> 8) & 255))
-        s.append(UnicodeScalar(n & 255))
-        return s.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        var s: String = String (describing: UnicodeScalar((n >> 24) & 255)!)
+        s.append(String(describing: UnicodeScalar((n >> 16) & 255)!))
+        s.append(String(describing: UnicodeScalar((n >> 8) & 255)!))
+        s.append(String(describing: UnicodeScalar(n & 255)!))
+        return s.trimmingCharacters(in: CharacterSet.whitespaces)
     }
 }

@@ -61,62 +61,62 @@ class SavedPlayerState {
         
         var dict = [NSString: AnyObject]()
         
-        dict["showPlaylist"] = showPlaylist
-        dict["showEffects"] = showEffects
+        dict["showPlaylist"] = showPlaylist as AnyObject
+        dict["showEffects"] = showEffects as AnyObject
         
-        dict["repeatMode"] = repeatMode.toString
-        dict["shuffleMode"] = shuffleMode.toString
+        dict["repeatMode"] = repeatMode.toString as AnyObject
+        dict["shuffleMode"] = shuffleMode.toString as AnyObject
         
         dict["volume"] = volume as NSNumber
-        dict["muted"] = muted
+        dict["muted"] = muted as AnyObject
         dict["balance"] = balance as NSNumber
         
         dict["eqGlobalGain"] = eqGlobalGain as NSNumber
         
         var eqBandsDict = [NSString: NSNumber]()
         for (freq,gain) in eqBands {
-            eqBandsDict[String(freq)] = gain as NSNumber
+            eqBandsDict[String(freq) as NSString] = gain as NSNumber
         }
-        dict["eqBands"] = eqBandsDict
+        dict["eqBands"] = eqBandsDict as AnyObject
         
         var pitchDict = [NSString: AnyObject]()
-        pitchDict["bypass"] = pitchBypass
+        pitchDict["bypass"] = pitchBypass as AnyObject
         pitchDict["pitch"] = pitch as NSNumber
         pitchDict["overlap"] = pitchOverlap as NSNumber
-        dict["pitch"] = pitchDict
+        dict["pitch"] = pitchDict as AnyObject
         
         var timeDict = [NSString: AnyObject]()
-        timeDict["bypass"] = timeBypass
+        timeDict["bypass"] = timeBypass as AnyObject
         timeDict["rate"] = timeStretchRate as NSNumber
-        dict["time"] = timeDict
+        dict["time"] = timeDict as AnyObject
         
         var reverbDict = [NSString: AnyObject]()
-        reverbDict["bypass"] = reverbBypass
-        reverbDict["preset"] = reverbPreset.toString
+        reverbDict["bypass"] = reverbBypass as AnyObject
+        reverbDict["preset"] = reverbPreset.toString as AnyObject
         reverbDict["amount"] = reverbAmount as NSNumber
-        dict["reverb"] = reverbDict
+        dict["reverb"] = reverbDict as AnyObject
         
         var delayDict = [NSString: AnyObject]()
-        delayDict["bypass"] = delayBypass
+        delayDict["bypass"] = delayBypass as AnyObject
         delayDict["amount"] = delayAmount as NSNumber
         delayDict["time"] = delayTime as NSNumber
         delayDict["feedback"] = delayFeedback as NSNumber
         delayDict["lowPassCutoff"] = delayLowPassCutoff as NSNumber
-        dict["delay"] = delayDict
+        dict["delay"] = delayDict as AnyObject
         
         var filterDict = [NSString: AnyObject]()
-        filterDict["bypass"] = filterBypass
+        filterDict["bypass"] = filterBypass as AnyObject
         filterDict["highPassCutoff"] = filterHighPassCutoff as NSNumber
         filterDict["lowPassCutoff"] = filterLowPassCutoff as NSNumber
-        dict["filter"] = filterDict
+        dict["filter"] = filterDict as AnyObject
         
         dict["playlist"] = NSArray(array: playlist)
         
-        return dict
+        return dict as NSDictionary
     }
     
     // Produces a SavedPlayerState object from deserialized JSON
-    static func fromJSON(jsonObject: NSDictionary) -> SavedPlayerState  {
+    static func fromJSON(_ jsonObject: NSDictionary) -> SavedPlayerState  {
         
         // TODO: Make this more resilient to missing/invalid fields
         

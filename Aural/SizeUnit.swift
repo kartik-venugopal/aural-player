@@ -6,38 +6,38 @@ import Foundation
 
 enum SizeUnit {
     
-    case TB
-    case GB
-    case MB
-    case KB
-    case B
+    case tb
+    case gb
+    case mb
+    case kb
+    case b
     
     var toString: String {
         
         switch self {
             
-        case TB: return "TB"
-        case GB: return "GB"
-        case MB: return "MB"
-        case KB: return "KB"
-        case B: return "B"
+        case .tb: return "TB"
+        case .gb: return "GB"
+        case .mb: return "MB"
+        case .kb: return "KB"
+        case .b: return "B"
         }
     }
     
-    private var magnitude: Int {
+    fileprivate var magnitude: Int {
         
         switch self {
             
-        case TB: return 5
-        case GB: return 4
-        case MB: return 3
-        case KB: return 2
-        case B: return 1
+        case .tb: return 5
+        case .gb: return 4
+        case .mb: return 3
+        case .kb: return 2
+        case .b: return 1
         }
     }
     
     // Compares two size units for magnitude (For ex, MB > KB, TB > GB, etc)
-    func compareTo(otherSizeUnit: SizeUnit) -> Int {
+    func compareTo(_ otherSizeUnit: SizeUnit) -> Int {
         
         if (self.magnitude > otherSizeUnit.magnitude) {
             return 1

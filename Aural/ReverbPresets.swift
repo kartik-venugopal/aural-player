@@ -7,41 +7,41 @@ import AVFoundation
 
 enum ReverbPresets {
     
-    case SmallRoom
+    case smallRoom
     
-    case MediumRoom
+    case mediumRoom
     
-    case LargeRoom
+    case largeRoom
     
-    case MediumHall
+    case mediumHall
     
-    case LargeHall
+    case largeHall
     
-    case MediumChamber
+    case mediumChamber
     
-    case LargeChamber
+    case largeChamber
     
-    case Cathedral
+    case cathedral
     
-    case Plate
+    case plate
     
     // Maps a ReverbPresets to a AVAudioUnitReverbPreset
     var avPreset: AVAudioUnitReverbPreset {
         
         switch self {
             
-        case .SmallRoom: return AVAudioUnitReverbPreset.SmallRoom
-        case .MediumRoom: return AVAudioUnitReverbPreset.MediumRoom
-        case .LargeRoom: return AVAudioUnitReverbPreset.LargeRoom
+        case .smallRoom: return AVAudioUnitReverbPreset.smallRoom
+        case .mediumRoom: return AVAudioUnitReverbPreset.mediumRoom
+        case .largeRoom: return AVAudioUnitReverbPreset.largeRoom
             
-        case .MediumHall: return AVAudioUnitReverbPreset.MediumHall
-        case .LargeHall: return AVAudioUnitReverbPreset.LargeHall
+        case .mediumHall: return AVAudioUnitReverbPreset.mediumHall
+        case .largeHall: return AVAudioUnitReverbPreset.largeHall
             
-        case .MediumChamber: return AVAudioUnitReverbPreset.MediumChamber
-        case .LargeChamber: return AVAudioUnitReverbPreset.LargeChamber
+        case .mediumChamber: return AVAudioUnitReverbPreset.mediumChamber
+        case .largeChamber: return AVAudioUnitReverbPreset.largeChamber
             
-        case .Cathedral: return AVAudioUnitReverbPreset.Cathedral
-        case .Plate: return AVAudioUnitReverbPreset.Plate
+        case .cathedral: return AVAudioUnitReverbPreset.cathedral
+        case .plate: return AVAudioUnitReverbPreset.plate
             
         }
     }
@@ -51,18 +51,18 @@ enum ReverbPresets {
         
         switch self {
             
-        case .SmallRoom: return "Small room"
-        case .MediumRoom: return "Medium room"
-        case .LargeRoom: return "Large room"
+        case .smallRoom: return "Small room"
+        case .mediumRoom: return "Medium room"
+        case .largeRoom: return "Large room"
             
-        case .MediumHall: return "Medium hall"
-        case .LargeHall: return "Large hall"
+        case .mediumHall: return "Medium hall"
+        case .largeHall: return "Large hall"
             
-        case .MediumChamber: return "Medium chamber"
-        case .LargeChamber: return "Large chamber"
+        case .mediumChamber: return "Medium chamber"
+        case .largeChamber: return "Large chamber"
             
-        case .Cathedral: return "Cathedral"
-        case .Plate: return "Plate"
+        case .cathedral: return "Cathedral"
+        case .plate: return "Plate"
             
         }
     }
@@ -72,87 +72,87 @@ enum ReverbPresets {
         
         switch self {
             
-        case .SmallRoom: return "SmallRoom"
-        case .MediumRoom: return "MediumRoom"
-        case .LargeRoom: return "LargeRoom"
+        case .smallRoom: return "SmallRoom"
+        case .mediumRoom: return "MediumRoom"
+        case .largeRoom: return "LargeRoom"
             
-        case .MediumHall: return "MediumHall"
-        case .LargeHall: return "LargeHall"
+        case .mediumHall: return "MediumHall"
+        case .largeHall: return "LargeHall"
             
-        case .MediumChamber: return "MediumChamber"
-        case .LargeChamber: return "LargeChamber"
+        case .mediumChamber: return "MediumChamber"
+        case .largeChamber: return "LargeChamber"
             
-        case .Cathedral: return "Cathedral"
-        case .Plate: return "Plate"
+        case .cathedral: return "Cathedral"
+        case .plate: return "Plate"
             
         }
     }
     
-    static func mapFromAVPreset(preset: AVAudioUnitReverbPreset) -> ReverbPresets {
+    static func mapFromAVPreset(_ preset: AVAudioUnitReverbPreset) -> ReverbPresets {
         
         switch preset {
             
-        case AVAudioUnitReverbPreset.SmallRoom: return ReverbPresets.SmallRoom
-        case AVAudioUnitReverbPreset.MediumRoom: return ReverbPresets.MediumRoom
-        case AVAudioUnitReverbPreset.LargeRoom: return ReverbPresets.LargeRoom
+        case AVAudioUnitReverbPreset.smallRoom: return ReverbPresets.smallRoom
+        case AVAudioUnitReverbPreset.mediumRoom: return ReverbPresets.mediumRoom
+        case AVAudioUnitReverbPreset.largeRoom: return ReverbPresets.largeRoom
             
-        case AVAudioUnitReverbPreset.MediumHall: return ReverbPresets.MediumHall
-        case AVAudioUnitReverbPreset.LargeHall: return ReverbPresets.LargeHall
+        case AVAudioUnitReverbPreset.mediumHall: return ReverbPresets.mediumHall
+        case AVAudioUnitReverbPreset.largeHall: return ReverbPresets.largeHall
             
-        case AVAudioUnitReverbPreset.MediumChamber: return ReverbPresets.MediumChamber
-        case AVAudioUnitReverbPreset.LargeChamber: return ReverbPresets.LargeChamber
+        case AVAudioUnitReverbPreset.mediumChamber: return ReverbPresets.mediumChamber
+        case AVAudioUnitReverbPreset.largeChamber: return ReverbPresets.largeChamber
             
-        case AVAudioUnitReverbPreset.Cathedral: return ReverbPresets.Cathedral
-        case AVAudioUnitReverbPreset.Plate: return ReverbPresets.Plate
+        case AVAudioUnitReverbPreset.cathedral: return ReverbPresets.cathedral
+        case AVAudioUnitReverbPreset.plate: return ReverbPresets.plate
             
         // This should never happen
-        default: return ReverbPresets.SmallRoom
+        default: return ReverbPresets.smallRoom
         }
     }
     
-    static func fromString(string: String) -> ReverbPresets {
+    static func fromString(_ string: String) -> ReverbPresets {
         
         switch string {
             
-        case "SmallRoom": return .SmallRoom
-        case "MediumRoom": return .MediumRoom
-        case "LargeRoom": return .LargeRoom
+        case "SmallRoom": return .smallRoom
+        case "MediumRoom": return .mediumRoom
+        case "LargeRoom": return .largeRoom
             
-        case "MediumHall": return .MediumHall
-        case "LargeHall": return .LargeHall
+        case "MediumHall": return .mediumHall
+        case "LargeHall": return .largeHall
             
-        case "MediumChamber": return .MediumChamber
-        case "LargeChamber": return .LargeChamber
+        case "MediumChamber": return .mediumChamber
+        case "LargeChamber": return .largeChamber
             
-        case "Cathedral": return .Cathedral
-        case "Plate": return .Plate
+        case "Cathedral": return .cathedral
+        case "Plate": return .plate
      
         // This should never happen
-        default: return .SmallRoom
+        default: return .smallRoom
         }
     }
     
-    static func fromDescription(description: String) -> ReverbPresets {
+    static func fromDescription(_ description: String) -> ReverbPresets {
         
         var preset: ReverbPresets
         
         switch description {
             
-        case SmallRoom.description: preset = .SmallRoom
-        case MediumRoom.description: preset = .MediumRoom
-        case LargeRoom.description: preset = .LargeRoom
+        case smallRoom.description: preset = .smallRoom
+        case mediumRoom.description: preset = .mediumRoom
+        case largeRoom.description: preset = .largeRoom
             
-        case MediumChamber.description: preset = .MediumChamber
-        case LargeChamber.description: preset = .LargeChamber
+        case mediumChamber.description: preset = .mediumChamber
+        case largeChamber.description: preset = .largeChamber
             
-        case MediumHall.description: preset = .MediumHall
-        case LargeHall.description: preset = .LargeHall
+        case mediumHall.description: preset = .mediumHall
+        case largeHall.description: preset = .largeHall
             
-        case Cathedral.description: preset = .Cathedral
-        case Plate.description: preset = .Plate
+        case cathedral.description: preset = .cathedral
+        case plate.description: preset = .plate
             
             // This should never happen
-        default: preset = .SmallRoom
+        default: preset = .smallRoom
         }
         
         return preset

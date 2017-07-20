@@ -6,7 +6,7 @@ import Foundation
 
 class Size: NSObject {
     
-    var sizeUnit: SizeUnit = .B
+    var sizeUnit: SizeUnit = .b
     var size: Double = 0
     var sizeBytes: UInt = 0
     
@@ -29,7 +29,7 @@ class Size: NSObject {
         calculateSizeFromUnit()
     }
     
-    private func calculateSizeFromBytes() {
+    fileprivate func calculateSizeFromBytes() {
         
         var bytesTemp = sizeBytes
         
@@ -38,7 +38,7 @@ class Size: NSObject {
         
         if (tb > 0) {
             size = Double(sizeBytes) / Double(Size.TB)
-            sizeUnit = SizeUnit.TB
+            sizeUnit = SizeUnit.tb
             return
         }
         
@@ -47,7 +47,7 @@ class Size: NSObject {
         
         if (gb > 0) {
             size = Double(sizeBytes) / Double(Size.GB)
-            sizeUnit = SizeUnit.GB
+            sizeUnit = SizeUnit.gb
             return
         }
         
@@ -56,7 +56,7 @@ class Size: NSObject {
         
         if (mb > 0) {
             size = Double(sizeBytes) / Double(Size.MB)
-            sizeUnit = SizeUnit.MB
+            sizeUnit = SizeUnit.mb
             return
         }
         
@@ -65,21 +65,21 @@ class Size: NSObject {
         
         if (kb > 0) {
             size = Double(sizeBytes) / Double(Size.KB)
-            sizeUnit = SizeUnit.KB
+            sizeUnit = SizeUnit.kb
             return
         }
     }
     
-    private func calculateSizeFromUnit() {
+    fileprivate func calculateSizeFromUnit() {
         
         let su: SizeUnit = sizeUnit
         
         switch su {
-        case SizeUnit.TB: sizeBytes = UInt(round(Double(Size.TB) * size))
-        case SizeUnit.GB: sizeBytes = UInt(round(Double(Size.GB) * size))
-        case SizeUnit.MB: sizeBytes = UInt(round(Double(Size.MB) * size))
-        case SizeUnit.KB: sizeBytes = UInt(round(Double(Size.KB) * size))
-        case SizeUnit.B: sizeBytes = UInt(round(size))
+        case SizeUnit.tb: sizeBytes = UInt(round(Double(Size.TB) * size))
+        case SizeUnit.gb: sizeBytes = UInt(round(Double(Size.GB) * size))
+        case SizeUnit.mb: sizeBytes = UInt(round(Double(Size.MB) * size))
+        case SizeUnit.kb: sizeBytes = UInt(round(Double(Size.KB) * size))
+        case SizeUnit.b: sizeBytes = UInt(round(size))
         }
     }
     
@@ -87,7 +87,7 @@ class Size: NSObject {
         return String(format: "%.2lf %@", size, sizeUnit.toString)
     }
     
-    func greaterThan(otherSize: Size) -> Bool {
+    func greaterThan(_ otherSize: Size) -> Bool {
         
         let compare = sizeUnit.compareTo(otherSize.sizeUnit)
         

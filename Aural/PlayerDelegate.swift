@@ -8,36 +8,36 @@ import Cocoa
 class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscriber {
     
     // Time in seconds for seeking forward/backward
-    private static let SEEK_TIME: Double = 5
-    private static let VOLUME_DELTA: Float = 0.05
-    private static let BALANCE_DELTA: Float = 0.1
+    fileprivate static let SEEK_TIME: Double = 5
+    fileprivate static let VOLUME_DELTA: Float = 0.05
+    fileprivate static let BALANCE_DELTA: Float = 0.1
     
-    private var playerState: SavedPlayerState?
+    fileprivate var playerState: SavedPlayerState?
     
     // Currently playing track
-    private var playingTrack: Track?
+    fileprivate var playingTrack: Track?
     
     // See PlaybackState
-    private var playbackState: PlaybackState = .NO_FILE
+    fileprivate var playbackState: PlaybackState = .no_FILE
     
-    private var repeatMode: RepeatMode = RepeatMode.OFF
-    private var shuffleMode: ShuffleMode = ShuffleMode.OFF
+    fileprivate var repeatMode: RepeatMode = RepeatMode.off
+    fileprivate var shuffleMode: ShuffleMode = ShuffleMode.off
     
     // The current player playlist
-    private var playlist: Playlist {
+    fileprivate var playlist: Playlist {
         return Playlist.instance()
     }
     
-    private static let singleton: PlayerDelegate = PlayerDelegate()
+    fileprivate static let singleton: PlayerDelegate = PlayerDelegate()
     
     // The actual audio player
-    private var player: Player
+    fileprivate var player: Player
     
     static func instance() -> PlayerDelegate {
         return singleton
     }
     
-    private init() {
+    fileprivate init() {
         
         // TODO: This is a horribly ugly hack, should be in AppDelegate
         PlayerDelegate.configureLogging()
@@ -45,22 +45,22 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         player = Player.instance()
         loadPlayerState()
         
-        EventRegistry.subscribe(EventType.PlaybackCompleted, subscriber: self, dispatchQueue: DispatchQueue(queueType: QueueType.MAIN))
+        EventRegistry.subscribe(EventType.playbackCompleted, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
     }
     
     
     // Make sure all logging is done to the app's log file
-    private static func configureLogging() {
+    fileprivate static func configureLogging() {
         
-        let allPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let allPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = allPaths.first!
-        let pathForLog = documentsDirectory.stringByAppendingString("/" + AppConstants.logFileName)
+        let pathForLog = documentsDirectory + ("/" + AppConstants.logFileName)
         
-        freopen(pathForLog.cStringUsingEncoding(NSASCIIStringEncoding)!, "a+", stderr)
+        freopen(pathForLog.cString(using: String.Encoding.ascii)!, "a+", stderr)
     }
     
     // Loads saved player state from app config file, and initializes the player with that state
-    private func loadPlayerState() {
+    fileprivate func loadPlayerState() {
         
         playerState = PlayerStateIO.load()
         
@@ -72,12 +72,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
             shuffleMode = playerState!.shuffleMode
             
             for track in playerState!.playlist {
-                playlist.addTrack(NSURL(fileURLWithPath: track))
+                playlist.addTrack(URL(fileURLWithPath: track))
             }
         }
     }
     
-    func addTracks(files: [NSURL]) {
+    func addTracks(_ files: [URL]) {
         
         if (files.count > 0) {
             
@@ -92,9 +92,9 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         }
     }
     
-    private func addSingleTrack(file: NSURL) {
+    fileprivate func addSingleTrack(_ file: URL) {
         
-        let fileExtension = file.pathExtension!.lowercaseString
+        let fileExtension = file.pathExtension.lowercased()
         
         if (fileExtension == AppConstants.customPlaylistExtension) {
             // Playlist
@@ -102,33 +102,33 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
             
         } else if (AppConstants.supportedAudioFileTypes.contains(fileExtension)) {
             // Track
-            if (!playlist.trackExists(file.path!)) {
+            if (!playlist.trackExists(file.path)) {
                 playlist.addTrack(file)
             }
         } else {
             // Unsupported file type, ignore
-            NSLog("Ignoring unsupported file: %@", file.path!)
+            NSLog("Ignoring unsupported file: %@", file.path)
         }
     }
     
-    private func addTracksFromDir(dir: NSURL) {
+    fileprivate func addTracksFromDir(_ dir: URL) {
         
-        let fileManager: NSFileManager = NSFileManager.defaultManager()
+        let fileManager: FileManager = FileManager.default
         
         do {
             
         // Retrieve all files/subfolders within this folder
-        let files = try fileManager.contentsOfDirectoryAtURL(dir, includingPropertiesForKeys: [], options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
+        let files = try fileManager.contentsOfDirectory(at: dir, includingPropertiesForKeys: [], options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
             
             // Add them
             addTracks(files)
             
         } catch let error as NSError {
-            NSLog("Error retrieving contents of directory '%@': %@", dir.path!, error.description)
+            NSLog("Error retrieving contents of directory '%@': %@", dir.path, error.description)
         }
     }
     
-    func removeTrack(index: Int) -> Int? {
+    func removeTrack(_ index: Int) -> Int? {
         
         let selTrack = playlist.getTrackAt(index)
         playlist.removeTrack(index)
@@ -137,14 +137,14 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         if (selTrack?.file!.path == playingTrack?.file!.path) {
             player.stop()
             playingTrack = nil
-            playbackState = .NO_FILE
+            playbackState = .no_FILE
             return nil
         } else {
             return getPlayingTrackIndex()
         }
     }
     
-    func moveTrackDown(index: Int) -> Int {
+    func moveTrackDown(_ index: Int) -> Int {
         
         if (index < (playlist.size() - 1)) {
             playlist.shiftTrackDown(playlist.getTrackAt(index)!)
@@ -154,7 +154,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         return index
     }
     
-    func moveTrackUp(index: Int) -> Int {
+    func moveTrackUp(_ index: Int) -> Int {
         
         if (index > 0) {
             playlist.shiftTrackUp(playlist.getTrackAt(index)!)
@@ -167,11 +167,11 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
     func clearPlaylist() {
         playlist.clear()
         player.stop()
-        playbackState = .NO_FILE
+        playbackState = .no_FILE
         playingTrack = nil
     }
     
-    func savePlaylist(file: NSURL) {
+    func savePlaylist(_ file: URL) {
         PlaylistIO.savePlaylist(file)
     }
     
@@ -212,21 +212,21 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         // Determine current state of player, to then toggle it
         switch playbackState {
             
-        case .NO_FILE: continuePlaying()
+        case .no_FILE: continuePlaying()
             if (playingTrack != nil) {
                 trackChanged = true
             }
             
-        case .PAUSED: resume()
+        case .paused: resume()
             
-        case .PLAYING: pause()
+        case .playing: pause()
             
         }
         
         return (playbackState, playingTrack, getPlayingTrackIndex(), trackChanged)
     }
     
-    func play(index: Int) -> Track {
+    func play(_ index: Int) -> Track {
         
         // Playing a random track invalidates the current shuffle sequence
         playlist.clearShuffleSequence()
@@ -242,29 +242,29 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         return (playingTrack, getPlayingTrackIndex())
     }
     
-    private func play(track: Track?) {
+    fileprivate func play(_ track: Track?) {
         playingTrack = track
         if (track != nil) {
             TrackIO.prepareForPlayback(track!)
             
             // Stop if currently playing
-            if (playbackState == .PLAYING || playbackState == .PAUSED) {
+            if (playbackState == .playing || playbackState == .paused) {
                 player.stop()
             }
             
             player.play(track!)
-            playbackState = .PLAYING
+            playbackState = .playing
         }
     }
     
-    private func pause() {
+    fileprivate func pause() {
         player.pause()
-        playbackState = .PAUSED
+        playbackState = .paused
     }
     
-    private func resume() {
+    fileprivate func resume() {
         player.resume()
-        playbackState = .PLAYING
+        playbackState = .playing
     }
     
     func getSeekSecondsAndPercentage() -> (seconds: Double, percentage: Double) {
@@ -277,7 +277,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
     
     func seekForward() {
         
-        if (playbackState != .PLAYING) {
+        if (playbackState != .playing) {
             return
         }
         
@@ -289,7 +289,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
     
     func seekBackward() {
         
-        if (playbackState != .PLAYING) {
+        if (playbackState != .playing) {
             return
         }
         
@@ -299,9 +299,9 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         player.seekToTime(newPosn)
     }
     
-    func seekToPercentage(percentage: Double) {
+    func seekToPercentage(_ percentage: Double) {
         
-        if (playbackState != .PLAYING) {
+        if (playbackState != .playing) {
             return
         }
         
@@ -335,7 +335,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         return round(player.getVolume() * 100)
     }
     
-    func setVolume(volumePercentage: Float) {
+    func setVolume(_ volumePercentage: Float) {
         player.setVolume(volumePercentage / 100)
     }
     
@@ -373,7 +373,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         return player.getBalance()
     }
     
-    func setBalance(balance: Float) {
+    func setBalance(_ balance: Float) {
         player.setBalance(balance)
     }
     
@@ -396,15 +396,15 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
     }
     
     // Sets global gain (or preamp) for the equalizer
-    func setEQGlobalGain(gain: Float) {
+    func setEQGlobalGain(_ gain: Float) {
         player.setEQGlobalGain(gain)
     }
     
-    func setEQBand(frequency: Int, gain: Float) {
+    func setEQBand(_ frequency: Int, gain: Float) {
         player.setEQBand(frequency, gain: gain)
     }
     
-    func setEQBands(bands: [Int : Float]) {
+    func setEQBands(_ bands: [Int : Float]) {
         player.setEQBands(bands)
     }
     
@@ -412,12 +412,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         return player.togglePitchBypass()
     }
     
-    func setPitch(pitch: Float) {
+    func setPitch(_ pitch: Float) {
         // Convert from octaves (-2, 2) to cents (-2400, 2400)
         player.setPitch(pitch * 1200)
     }
     
-    func setPitchOverlap(overlap: Float) {
+    func setPitchOverlap(_ overlap: Float) {
         player.setPitchOverlap(overlap)
     }
     
@@ -425,7 +425,11 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         return player.toggleTimeBypass()
     }
     
-    func setTimeStretchRate(rate: Float) {
+    func isTimeBypass() -> Bool {
+        return player.isTimeBypass()
+    }
+    
+    func setTimeStretchRate(_ rate: Float) {
         player.setTimeStretchRate(rate)
     }
     
@@ -433,11 +437,11 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         return player.toggleReverbBypass()
     }
     
-    func setReverb(preset: ReverbPresets) {
+    func setReverb(_ preset: ReverbPresets) {
         player.setReverb(preset)
     }
     
-    func setReverbAmount(amount: Float) {
+    func setReverbAmount(_ amount: Float) {
         return player.setReverbAmount(amount)
     }
     
@@ -445,19 +449,19 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         return player.toggleDelayBypass()
     }
     
-    func setDelayAmount(amount: Float) {
+    func setDelayAmount(_ amount: Float) {
         player.setDelayAmount(amount)
     }
     
-    func setDelayTime(time: Double) {
+    func setDelayTime(_ time: Double) {
         player.setDelayTime(time)
     }
     
-    func setDelayFeedback(percent: Float) {
+    func setDelayFeedback(_ percent: Float) {
         player.setDelayFeedback(percent)
     }
     
-    func setDelayLowPassCutoff(cutoff: Float) {
+    func setDelayLowPassCutoff(_ cutoff: Float) {
         player.setDelayLowPassCutoff(cutoff)
     }
     
@@ -465,11 +469,11 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         return player.toggleFilterBypass()
     }
     
-    func setFilterHighPassCutoff(cutoff: Float) {
+    func setFilterHighPassCutoff(_ cutoff: Float) {
         player.setFilterHighPassCutoff(cutoff)
     }
     
-    func setFilterLowPassCutoff(cutoff: Float) {
+    func setFilterLowPassCutoff(_ cutoff: Float) {
         player.setFilterLowPassCutoff(cutoff)
     }
     
@@ -477,9 +481,9 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         
         switch repeatMode {
             
-        case .OFF: repeatMode = .ONE
-        case .ONE: repeatMode = .ALL
-        case .ALL: repeatMode = .OFF
+        case .off: repeatMode = .one
+        case .one: repeatMode = .all
+        case .all: repeatMode = .off
             
         }
         
@@ -492,8 +496,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         
         switch shuffleMode {
             
-        case .OFF: shuffleMode = .ON
-        case .ON: shuffleMode = .OFF
+        case .off: shuffleMode = .on
+        case .on: shuffleMode = .off
             
         }
         
@@ -518,10 +522,10 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         
         // Read playlist
         for track in playlist.getTracks() {
-            state.playlist.append(track.file!.path!)
+            state.playlist.append(track.file!.path)
         }
         
-        let app = (NSApplication.sharedApplication().delegate as! AppDelegate)
+        let app = (NSApplication.shared().delegate as! AppDelegate)
         
         // Read UI state
         state.showEffects = app.isEffectsShown()
@@ -531,7 +535,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
     }
     
     // Called when playback of the current track completes
-    func consumeEvent(event: Event) {
+    func consumeEvent(_ event: Event) {
         
         player.stop()
         
@@ -540,12 +544,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         let trackChangedEvent = TrackChangedEvent(newTrack: playingTrack, newTrackIndex: newTrackInfo.playingTrackIndex)
         
         if (playingTrack != nil) {
-            playbackState = .PLAYING
+            playbackState = .playing
         } else {
-            playbackState = .NO_FILE
+            playbackState = .no_FILE
         }
         
         // Notify the UI about this track change event
-        EventRegistry.publishEvent(.TrackChanged, event: trackChangedEvent)
+        EventRegistry.publishEvent(.trackChanged, event: trackChangedEvent)
     }
 }

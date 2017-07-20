@@ -9,35 +9,33 @@ import Cocoa
 class ScheduledTaskExecutor {
     
     // GCD dispatch source timer
-    private var timer: dispatch_source_t?
+    fileprivate var timer: DispatchSourceTimer
     
     // The task will pause for this duration between consecutive executions
-    private var intervalMillis: UInt32
+    fileprivate var intervalMillis: Int
     
     // The code block to be executed
-    private var task: () -> Void
+    fileprivate var task: () -> Void
     
     // The queue on which the task will be put
-    private var queue: DispatchQueue
+    fileprivate var queue: GCDDispatchQueue
     
     // Flags indicating whether this timer is currently running
-    private var running: Bool = false
-    private var stopped: Bool = false
+    fileprivate var running: Bool = false
+    fileprivate var stopped: Bool = false
     
-    init(intervalMillis: UInt32, task: () -> Void, queue: DispatchQueue) {
+    init(intervalMillis: Int, task: @escaping () -> Void, queue: GCDDispatchQueue) {
         
         self.intervalMillis = intervalMillis
         self.task = task
         self.queue = queue
         
-        timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue.underlyingQueue)
-        
-        let intervalNanos = UInt64(intervalMillis) * NSEC_PER_MSEC
+        timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: 0), queue: queue.underlyingQueue)
         
         // Allow a 10% time leeway
-        dispatch_source_set_timer(timer!, DISPATCH_TIME_NOW, intervalNanos , intervalNanos / 10)
+        timer.scheduleRepeating(deadline: DispatchTime.now(), interval: DispatchTimeInterval.milliseconds(intervalMillis), leeway: DispatchTimeInterval.milliseconds(intervalMillis / 10))
         
-        dispatch_source_set_event_handler(timer!) { [weak self] in
+        timer.setEventHandler { [weak self] in
             self!.task()
         }
     }
@@ -49,8 +47,8 @@ class ScheduledTaskExecutor {
             return
         }
         
-        if (!running && timer != nil) {
-            dispatch_resume(timer!)
+        if (!running) {
+            timer.resume()
             running = true
         }
     }
@@ -62,8 +60,8 @@ class ScheduledTaskExecutor {
             return
         }
         
-        if (running && timer != nil) {
-            dispatch_suspend(timer!)
+        if (running) {
+            timer.suspend()
             running = false
         }
     }
@@ -72,7 +70,7 @@ class ScheduledTaskExecutor {
         return running
     }
     
-    func getInterval() -> UInt32 {
+    func getInterval() -> Int {
         return intervalMillis
     }
     
@@ -85,9 +83,7 @@ class ScheduledTaskExecutor {
         running = false
         stopped = true
         
-        if (timer != nil) {
-            dispatch_source_cancel(timer!)
-        }
+        timer.cancel()
     }
     
     deinit {

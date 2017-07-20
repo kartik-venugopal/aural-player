@@ -6,9 +6,9 @@ import Cocoa
 */
 class CollapsibleView {
     
-    private let views: [NSView]
+    fileprivate let views: [NSView]
     var hidden: Bool {
-        return views[0].hidden
+        return views[0].isHidden
     }
     
     // Difference between minY and maxY of all views
@@ -21,8 +21,8 @@ class CollapsibleView {
     init(views: [NSView]) {
         self.views = views
         
-        var minY = CGFloat.max
-        var maxY = CGFloat.min
+        var minY = CGFloat.greatestFiniteMagnitude
+        var maxY = CGFloat.leastNormalMagnitude
         
         // Computer minY, maxY, and height
         for view in views {
@@ -44,26 +44,52 @@ class CollapsibleView {
     // Hide all constituent views
     func hide() {
         for view in views {
-            view.hidden = true
+            view.isHidden = true
         }
     }
     
     // Show all constituent views
     func show() {
         for view in views {
-            view.hidden = false
+            view.isHidden = false
         }
     }
     
     // Toggles the hidden state of the constituent views. Returns whether or not the views are visble after the toggle
     func toggle() -> Bool {
         
-        let hidden = views[0].hidden
+        let hidden = views[0].isHidden
         
         for view in views {
-            view.hidden = !hidden
+            view.isHidden = !hidden
         }
         
         return hidden
+    }
+    
+    func moveUp(distance: CGFloat) {
+        
+        for view in views {
+            
+            var vFrame = view.frame
+            let oldOrigin = vFrame.origin
+            
+            vFrame.origin = NSMakePoint(oldOrigin.x, oldOrigin.y + distance)
+//            view.setFrame(vFrame, display: true, animate: true)
+            view.frame = vFrame
+        }
+    }
+    
+    func moveDown(distance: CGFloat) {
+        
+        for view in views {
+            
+            var vFrame = view.frame
+            let oldOrigin = vFrame.origin
+            
+            vFrame.origin = NSMakePoint(oldOrigin.x, oldOrigin.y - distance)
+            //            view.setFrame(vFrame, display: true, animate: true)
+            view.frame = vFrame
+        }
     }
 }

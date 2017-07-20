@@ -4,14 +4,14 @@
 
 import Foundation
 
-public class Timer: NSObject {
+open class Timer: NSObject {
     
-    var startTime: NSDate?
-    var endTime: NSDate?
+    var startTime: Date?
+    var endTime: Date?
     
     var durationSecs: Double? {
         get {
-            return endTime!.timeIntervalSinceDate(startTime!)
+            return endTime!.timeIntervalSince(startTime!)
         }
     }
     
@@ -24,11 +24,11 @@ public class Timer: NSObject {
     override init() {
     }
     
-    public func start() {
-        startTime = NSDate()
+    open func start() {
+        startTime = Date()
     }
     
-    public func end() {
-        endTime = NSDate()
+    open func end() {
+        endTime = Date()
     }
 }

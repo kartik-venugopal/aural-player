@@ -6,7 +6,7 @@ import Cocoa
 
 class HorizontalSliderCell: NSSliderCell {
     
-    override internal func drawKnob(knobRect: NSRect) {
+    override internal func drawKnob(_ knobRect: NSRect) {
         
         let drawRect = knobRect.insetBy(dx: 1.5, dy: 3)
         
@@ -18,7 +18,7 @@ class HorizontalSliderCell: NSSliderCell {
         drawPath.stroke()
     }
     
-    override internal func drawBarInside(aRect: NSRect, flipped: Bool) {
+    override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
         let drawRect = aRect.insetBy(dx: 1, dy: 1)
         

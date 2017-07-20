@@ -12,12 +12,12 @@ class PlaylistSongView: NSTableRowView {
     // Used for creating new cells with makeViewWithIdentifier()
     var tableView: NSTableView?
     
-    override func viewAtColumn(column: Int) -> AnyObject? {
+    override func view(atColumn column: Int) -> Any? {
 
         if (column == 0) {
             // Track name
             
-            if let cell = tableView!.makeViewWithIdentifier("cv_trackName", owner: nil) as? PlaylistCellView {
+            if let cell = tableView!.make(withIdentifier: "cv_trackName", owner: nil) as? PlaylistCellView {
             
                 cell.textField?.stringValue = trackName!
                 return cell
@@ -26,7 +26,7 @@ class PlaylistSongView: NSTableRowView {
         } else {
             // Duration
             
-            if let cell = tableView!.makeViewWithIdentifier("cv_duration", owner: nil) as? PlaylistCellView {
+            if let cell = tableView!.make(withIdentifier: "cv_duration", owner: nil) as? PlaylistCellView {
                 
                 cell.textField?.stringValue = duration!
                 return cell
@@ -37,9 +37,9 @@ class PlaylistSongView: NSTableRowView {
     }
     
     // Draws a fancy rounded rectangle around the selected track in the playlist view
-    override func drawSelectionInRect(dirtyRect: NSRect) {
+    override func drawSelection(in dirtyRect: NSRect) {
         
-        if self.selectionHighlightStyle != NSTableViewSelectionHighlightStyle.None {
+        if self.selectionHighlightStyle != NSTableViewSelectionHighlightStyle.none {
             
             let selectionRect = NSInsetRect(self.bounds, 0, 0)
             

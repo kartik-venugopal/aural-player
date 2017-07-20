@@ -7,18 +7,18 @@ import Foundation
 enum ShuffleMode {
     
     // Play tracks in random order
-    case ON
+    case on
     
     // Don't shuffle
-    case OFF
+    case off
     
     // Converts a String representation to a RepeatMode enum
-    static func fromString(string: String) -> ShuffleMode {
+    static func fromString(_ string: String) -> ShuffleMode {
         
         switch string {
-        case "OFF": return .OFF
-        case "ON": return .ON
-        default: return OFF
+        case "OFF": return .off
+        case "ON": return .on
+        default: return off
         }
     }
     
@@ -27,8 +27,8 @@ enum ShuffleMode {
         
         switch self {
             
-        case .OFF: return "OFF"
-        case .ON: return "ON"
+        case .off: return "OFF"
+        case .on: return "ON"
             
         }
     }

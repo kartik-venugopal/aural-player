@@ -6,16 +6,16 @@ import Cocoa
 
 class MemoryMonitor: NSObject {
     
-    private static var daemonThread: NSThread?
-    private static var taskExecutor: ScheduledTaskExecutor?
+    fileprivate static var daemonThread: Thread?
+    fileprivate static var taskExecutor: ScheduledTaskExecutor?
     
-    private static let MAX_MEMORY_USAGE: Size = Size(size: 500, sizeUnit: SizeUnit.MB)
-    private static let MONITOR_FREQUENCY_MILLIS: Int = 5000   // Poll interval
+    fileprivate static let MAX_MEMORY_USAGE: Size = Size(size: 500, sizeUnit: SizeUnit.mb)
+    fileprivate static let MONITOR_FREQUENCY_MILLIS: Int = 5000   // Poll interval
     
     // Start the memory monitor
     static func start() {
         
-        taskExecutor = ScheduledTaskExecutor(intervalMillis: UInt32(MONITOR_FREQUENCY_MILLIS), task: {checkMemory()}, queue: DispatchQueue(queueName: "Aural.queues.monitoring"))
+        taskExecutor = ScheduledTaskExecutor(intervalMillis: MONITOR_FREQUENCY_MILLIS, task: {checkMemory()}, queue: GCDDispatchQueue(queueName: "Aural.queues.monitoring"))
         taskExecutor?.startOrResume()
     }
     
@@ -37,27 +37,30 @@ class MemoryMonitor: NSObject {
     }
     
     // Returns the amount of memory currently being used by this app
-    private static func getMemoryUsage() -> Size? {
+    fileprivate static func getMemoryUsage() -> Size? {
         
-        var info = task_basic_info()
-        var count = mach_msg_type_number_t(sizeofValue(info))/4
+        // TODO: Implement this !
         
-        let kerr: kern_return_t = withUnsafeMutablePointer(&info) {
-            
-            task_info(mach_task_self_,
-                task_flavor_t(TASK_BASIC_INFO),
-                task_info_t($0),
-                &count)
-            
-        }
+//        var info = task_basic_info()
+//        var count = mach_msg_type_number_t(MemoryLayout.size(ofValue: info))/4
         
-        if kerr == KERN_SUCCESS {
-            return Size(sizeBytes: info.resident_size)
+//        let kerr: kern_return_t = withUnsafeMutablePointer(to: &info) {
+        
+//            task_info(mach_task_self_,
+//                task_flavor_t(TASK_BASIC_INFO),
+//                task_info_t($0),
+//                &count)
             
-        } else {
-            NSLog("Error obtaining memory usage: %@",
-                (String.fromCString(mach_error_string(kerr)) ?? "unknown error"))
-            return nil
-        }
+//        }
+        
+//        if kerr == KERN_SUCCESS {
+//            return Size(sizeBytes: info.resident_size)
+//            
+//        } else {
+//            NSLog("Error obtaining memory usage: %@",
+//                (String(cString: mach_error_string(kerr)) ?? "unknown error"))
+//            return nil
+//        }
+        return nil
     }
 }

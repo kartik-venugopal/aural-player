@@ -19,20 +19,20 @@ class ParametricEQNode: AVAudioUnitEQ {
             
             // Constant
             band.bypass = false
-            band.filterType = AVAudioUnitEQFilterType.Parametric
+            band.filterType = AVAudioUnitEQFilterType.parametric
             band.bandwidth = 0.5
         }
     }
     
     // Helper function to set gain for a band
-    func setBand(freq: Float, gain: Float) {
+    func setBand(_ freq: Float, gain: Float) {
         
         let index = Int(log2f(freq) - 5)
         bands[index].gain = gain
     }
     
     // Helper function to set gain for all bands
-    func setBands(allBands: [Int: Float]) {
+    func setBands(_ allBands: [Int: Float]) {
         
         for (freq, gain) in allBands {
             

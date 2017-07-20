@@ -86,8 +86,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     // Popover view that displays detailed track info
     lazy var popover: NSPopover = {
         let popover = NSPopover()
-        popover.behavior = .Semitransient
-        let ctrlr = PopoverController(nibName: "PopoverController", bundle: NSBundle.mainBundle())
+        popover.behavior = .semitransient
+        let ctrlr = PopoverController(nibName: "PopoverController", bundle: Bundle.main)
         popover.contentViewController = ctrlr
         return popover
         }()
@@ -106,17 +106,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     var fxCollapsibleView: CollapsibleView?
     var windowManager: WindowManager?
     
-    var initializfed: Bool = false
-    
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         
         // Initialize UI with presentation settings (colors, sizes, etc)
         // No app state is needed here
         initStatelessUI()
-        
+
         // Set up key press handler
         KeyPressHandler.initialize(self)
-        NSEvent.addLocalMonitorForEventsMatchingMask(NSEventMask.KeyDownMask, handler: {(evt: NSEvent!) -> NSEvent in
+        NSEvent.addLocalMonitorForEvents(matching: NSEventMask.keyDown, handler: {(evt: NSEvent!) -> NSEvent in
             KeyPressHandler.handle(evt)
             return evt;
         });
@@ -130,25 +128,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         }
         
         // Register self as a subscriber to TrackChangedEvent notifications (published when the player is done playing a track)
-        EventRegistry.subscribe(.TrackChanged, subscriber: self, dispatchQueue: DispatchQueue(queueType: QueueType.MAIN))
+        EventRegistry.subscribe(.trackChanged, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
         
-        window.movableByWindowBackground = true
+        window.isMovableByWindowBackground = true
         window.makeKeyAndOrderFront(self)
     }
     
-    func applicationWillTerminate(aNotification: NSNotification) {
+    func applicationWillTerminate(_ aNotification: Notification) {
         tearDown()
     }
 
     func initStatelessUI() {
         
         // Set up a mouse listener (for double clicks -> play selected track)
-        playlistView.doubleAction = Selector("playlistDoubleClickAction:")
+        playlistView.doubleAction = #selector(AppDelegate.playlistDoubleClickAction(_:))
         
         // Enable drag n drop into the playlist view
-        playlistView.registerForDraggedTypes([String(kUTTypeFileURL)])
-        
-        seekTimer = ScheduledTaskExecutor(intervalMillis: UIConstants.seekTimerIntervalMillis, task: {self.updatePlayingTime()}, queue: DispatchQueue(queueType: QueueType.MAIN))
+        playlistView.register(forDraggedTypes: [String(kUTTypeFileURL)])
         
         playlistCollapsibleView = CollapsibleView(views: [playlistBox, playlistControlsBox])
         fxCollapsibleView = CollapsibleView(views: [fxBox, fxTabView])
@@ -157,7 +153,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         windowManager = WindowManager(window: window, views: collapsibleViews)
     }
     
-    func initStatefulUI(playerState: SavedPlayerState) {
+    func initStatefulUI(_ playerState: SavedPlayerState) {
         
         if (!playerState.showPlaylist) {
             toggleViewPlaylistAction(self)
@@ -174,16 +170,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         switch playerState.repeatMode {
             
-        case .OFF: btnRepeat.image = UIConstants.imgRepeatOff
-        case .ONE: btnRepeat.image = UIConstants.imgRepeatOne
-        case .ALL: btnRepeat.image = UIConstants.imgRepeatAll
+        case .off: btnRepeat.image = UIConstants.imgRepeatOff
+        case .one: btnRepeat.image = UIConstants.imgRepeatOne
+        case .all: btnRepeat.image = UIConstants.imgRepeatAll
             
         }
         
         switch playerState.shuffleMode {
             
-        case .OFF: btnShuffle.image = UIConstants.imgShuffleOff
-        case .ON: btnShuffle.image = UIConstants.imgShuffleOn
+        case .off: btnShuffle.image = UIConstants.imgShuffleOff
+        case .on: btnShuffle.image = UIConstants.imgShuffleOn
             
         }
         
@@ -202,7 +198,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         for item in reverbMenu.itemArray {
             
             if item.title == playerState.reverbPreset.description {
-                reverbMenu.selectItem(item)
+                reverbMenu.select(item)
             }
         }
         reverbSlider.floatValue = playerState.reverbAmount
@@ -217,12 +213,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         filterHighPassSlider.floatValue = playerState.filterHighPassCutoff
         filterLowPassSlider.floatValue = playerState.filterLowPassCutoff
         
-        eqPresets.selectItemAtIndex(-1)
+        eqPresets.selectItem(at: -1)
         
         fxTabView.selectFirstTabViewItem(self)
         
         playlistView.reloadData()
         updatePlaylistSummary()
+        
+        // Timer interval depends on whether time stretch unit is active
+        let interval = playerState.timeBypass ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * playerState.timeStretchRate))
+    
+        seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
     }
     
     func updatePlaylistSummary() {
@@ -232,7 +233,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         lblDurationSummary.stringValue = Utils.formatDuration(summary.totalDuration)
     }
     
-    private func updateEQSliders(eqBands: [Int: Float]) {
+    fileprivate func updateEQSliders(_ eqBands: [Int: Float]) {
         
         eqSlider32.floatValue = eqBands[32]!
         eqSlider64.floatValue = eqBands[64]!
@@ -250,7 +251,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         player.tearDown()
     }
     
-    @IBAction func addTracksAction(sender: AnyObject) {
+    @IBAction func addTracksAction(_ sender: AnyObject) {
         
         let dialog = UIElements.openDialog
         
@@ -261,11 +262,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         modalDialogOpen = false
         
         if (modalResponse == NSModalResponseOK) {
-            addTracks(dialog.URLs)
+            addTracks(dialog.urls)
         }
     }
     
-    @IBAction func removeSingleTrackAction(sender: AnyObject) {
+    @IBAction func removeSingleTrackAction(_ sender: AnyObject) {
         
         let selRow = playlistView.selectedRow
         
@@ -284,22 +285,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     func hidePopover() {
-        if (popover.shown) {
+        if (popover.isShown) {
             popover.performClose(nil)
         }
     }
     
     // Play / Pause / Resume
-    @IBAction func playPauseAction(sender: AnyObject) {
+    @IBAction func playPauseAction(_ sender: AnyObject) {
         
         let playbackInfo = player.togglePlayPause()
         
         switch playbackInfo.playbackState {
             
-        case .NO_FILE, .PAUSED: setSeekTimerState(false)
+        case .no_FILE, .paused: setSeekTimerState(false)
         setPlayPauseImage(UIConstants.imgPlay)
             
-        case .PLAYING:
+        case .playing:
             
             if (playbackInfo.trackChanged) {
                 trackChange(playbackInfo.playingTrack!, newTrackIndex: playbackInfo.playingTrackIndex!)
@@ -310,26 +311,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         }
     }
     
-    func showNowPlayingInfo(track: Track) {
+    func showNowPlayingInfo(_ track: Track) {
         
         if (track.longDisplayName != nil) {
             
             if (track.longDisplayName!.artist != nil) {
                 
                 // Both title and artist
-                lblTrackArtist.stringValue = "Artist: " + track.longDisplayName!.artist!
-                lblTrackTitle.stringValue = "Title: " + track.longDisplayName!.title!
+                lblTrackArtist.stringValue = "Artist:  " + track.longDisplayName!.artist!
+                lblTrackTitle.stringValue = "Title:  " + track.longDisplayName!.title!
                 
-                bigLblTrack.hidden = true
-                lblTrackArtist.hidden = false
-                lblTrackTitle.hidden = false
+                bigLblTrack.isHidden = true
+                lblTrackArtist.isHidden = false
+                lblTrackTitle.isHidden = false
                 
             } else {
                 
                 // Title only
-                bigLblTrack.hidden = false
-                lblTrackArtist.hidden = true
-                lblTrackTitle.hidden = true
+                bigLblTrack.isHidden = false
+                lblTrackArtist.isHidden = true
+                lblTrackTitle.isHidden = true
                 
                 bigLblTrack.stringValue = track.longDisplayName!.title!
             }
@@ -337,9 +338,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         } else {
             
             // Short display name
-            bigLblTrack.hidden = false
-            lblTrackArtist.hidden = true
-            lblTrackTitle.hidden = true
+            bigLblTrack.isHidden = false
+            lblTrackArtist.isHidden = true
+            lblTrackTitle.isHidden = true
             
             bigLblTrack.stringValue = track.shortDisplayName!
         }
@@ -358,16 +359,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         lblPlayingTime.stringValue = UIConstants.zeroDurationString
         seekSlider.floatValue = 0
         musicArtView.image = UIConstants.imgMusicArt
-        btnMoreInfo.hidden = true
+        btnMoreInfo.isHidden = true
         setPlayPauseImage(UIConstants.imgPlay)
         hidePopover()
     }
     
-    private func setPlayPauseImage(image: NSImage) {
+    fileprivate func setPlayPauseImage(_ image: NSImage) {
         btnPlayPause.image = image
     }
     
-    private func setSeekTimerState(timerOn: Bool) {
+    fileprivate func setSeekTimerState(_ timerOn: Bool) {
         
         if (timerOn) {
             seekTimer?.startOrResume()
@@ -378,7 +379,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     func updatePlayingTime() {
         
-        if (player.getPlaybackState() == .PLAYING) {
+        if (player.getPlaybackState() == .playing) {
             let seekPosn = player.getSeekSecondsAndPercentage()
             
             lblPlayingTime.stringValue = Utils.formatDuration(seekPosn.seconds)
@@ -393,11 +394,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     // Needed for timer selector
-    func updatePlayingTime(sender: AnyObject) {
+    func updatePlayingTime(_ sender: AnyObject) {
         updatePlayingTime()
     }
     
-    func playlistDoubleClickAction(sender: AnyObject) {
+    func playlistDoubleClickAction(_ sender: AnyObject) {
         playSelectedTrack()
     }
     
@@ -408,30 +409,30 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         }
     }
     
-    @IBAction func nextTrackAction(sender: AnyObject) {
+    @IBAction func nextTrackAction(_ sender: AnyObject) {
         let trackInfo = player.nextTrack()
         if (trackInfo.playingTrack != nil) {
             trackChange(trackInfo.playingTrack!, newTrackIndex: trackInfo.playingTrackIndex!)
         }
     }
     
-    @IBAction func prevTrackAction(sender: AnyObject) {
+    @IBAction func prevTrackAction(_ sender: AnyObject) {
         let trackInfo = player.previousTrack()
         if (trackInfo.playingTrack != nil) {
             trackChange(trackInfo.playingTrack!, newTrackIndex: trackInfo.playingTrackIndex!)
         }
     }
     
-    func trackChange(newTrack: Track?, newTrackIndex: Int?) {
+    func trackChange(_ newTrack: Track?, newTrackIndex: Int?) {
         
         if (newTrack != nil) {
             
             setSeekTimerState(true)
             setPlayPauseImage(UIConstants.imgPause)
             showNowPlayingInfo(newTrack!)
-            btnMoreInfo.hidden = false
+            btnMoreInfo.isHidden = false
             
-            if (popover.shown) {
+            if (popover.isShown) {
                 player.getMoreInfo()
                 (popover.contentViewController as! PopoverController).refresh()
             }
@@ -446,17 +447,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         selectTrack(newTrackIndex)
     }
     
-    func selectTrack(index: Int?) {
+    func selectTrack(_ index: Int?) {
         
         if index != nil {
             
-            playlistView.selectRowIndexes(NSIndexSet(index: index!), byExtendingSelection: false)
+            playlistView.selectRowIndexes(IndexSet(integer: index!), byExtendingSelection: false)
             showPlaylistSelectedRow()
             
         } else {
             // Select first track in list, if list not empty
             if (playlistView.numberOfRows > 0) {
-                playlistView.selectRowIndexes(NSIndexSet(index: 0), byExtendingSelection: false)
+                playlistView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
             }
         }
     }
@@ -467,27 +468,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         }
     }
     
-    @IBAction func seekBackwardAction(sender: AnyObject) {
+    @IBAction func seekBackwardAction(_ sender: AnyObject) {
         player.seekBackward()
         updatePlayingTime()
     }
     
-    @IBAction func seekForwardAction(sender: AnyObject) {
+    @IBAction func seekForwardAction(_ sender: AnyObject) {
         player.seekForward()
         updatePlayingTime()
     }
     
-    @IBAction func seekSliderAction(sender: AnyObject) {
+    @IBAction func seekSliderAction(_ sender: AnyObject) {
         player.seekToPercentage(seekSlider.doubleValue)
         updatePlayingTime()
     }
     
-    @IBAction func volumeAction(sender: AnyObject) {
+    @IBAction func volumeAction(_ sender: AnyObject) {
         player.setVolume(volumeSlider.floatValue)
         setVolumeImage(player.isMuted())
     }
     
-    @IBAction func volumeBtnAction(sender: AnyObject) {
+    @IBAction func volumeBtnAction(_ sender: AnyObject) {
         setVolumeImage(player.toggleMute())
     }
     
@@ -501,7 +502,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         setVolumeImage(player.isMuted())
     }
     
-    private func setVolumeImage(muted: Bool) {
+    fileprivate func setVolumeImage(_ muted: Bool) {
         
         if (muted) {
             btnVolume.image = UIConstants.imgMute
@@ -521,7 +522,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         }
     }
     
-    @IBAction func panAction(sender: AnyObject) {
+    @IBAction func panAction(_ sender: AnyObject) {
         player.setBalance(panSlider.floatValue)
     }
     
@@ -533,7 +534,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         panSlider.floatValue = player.panLeft()
     }
     
-    @IBAction func clearPlaylistAction(sender: AnyObject) {
+    @IBAction func clearPlaylistAction(_ sender: AnyObject) {
         
         player.clearPlaylist()
         playlistView.reloadData()
@@ -542,52 +543,52 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         trackChange(nil, newTrackIndex: nil)
     }
     
-    @IBAction func repeatAction(sender: AnyObject) {
+    @IBAction func repeatAction(_ sender: AnyObject) {
         
         let repeatMode = player.toggleRepeatMode()
         
         switch repeatMode {
             
-        case .OFF: btnRepeat.image = UIConstants.imgRepeatOff
-        case .ONE: btnRepeat.image = UIConstants.imgRepeatOne
-        case .ALL: btnRepeat.image = UIConstants.imgRepeatAll
+        case .off: btnRepeat.image = UIConstants.imgRepeatOff
+        case .one: btnRepeat.image = UIConstants.imgRepeatOne
+        case .all: btnRepeat.image = UIConstants.imgRepeatAll
             
         }
     }
     
-    @IBAction func shuffleAction(sender: AnyObject) {
+    @IBAction func shuffleAction(_ sender: AnyObject) {
         
         let shuffleMode = player.toggleShuffleMode()
         
         switch shuffleMode {
             
-        case .OFF: btnShuffle.image = UIConstants.imgShuffleOff
-        case .ON: btnShuffle.image = UIConstants.imgShuffleOn
+        case .off: btnShuffle.image = UIConstants.imgShuffleOff
+        case .on: btnShuffle.image = UIConstants.imgShuffleOn
             
         }
     }
     
-    @IBAction func moreInfoAction(sender: AnyObject) {
+    @IBAction func moreInfoAction(_ sender: AnyObject) {
         
         let playingTrack = player.getMoreInfo()
         if (playingTrack == nil) {
             return
         }
         
-        if (popover.shown) {
+        if (popover.isShown) {
             popover.performClose(nil)
             
         } else {
             
             let positioningRect = NSZeroRect
-            let preferredEdge = NSRectEdge.MaxX
+            let preferredEdge = NSRectEdge.maxX
             
             (popover.contentViewController as! PopoverController).refresh()
-            popover.showRelativeToRect(positioningRect, ofView: btnMoreInfo as NSView, preferredEdge: preferredEdge)
+            popover.show(relativeTo: positioningRect, of: btnMoreInfo as NSView, preferredEdge: preferredEdge)
         }
     }
     
-    @IBAction func eqPresetsAction(sender: AnyObject) {
+    @IBAction func eqPresetsAction(_ sender: AnyObject) {
         
         // TODO: Change this lookup to o(1) instead of o(n) ... HashMap !
         let preset = EQPresets.fromDescription((eqPresets.selectedItem?.title)!)
@@ -596,15 +597,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         player.setEQBands(eqBands)
         updateEQSliders(eqBands)
         
-        eqPresets.selectItemAtIndex(-1)
+        eqPresets.selectItem(at: -1)
     }
     
-    @IBAction func moveTrackDownAction(sender: AnyObject) {
+    @IBAction func moveTrackDownAction(_ sender: AnyObject) {
         shiftPlaylistTrackDown()
         showPlaylistSelectedRow()
     }
     
-    @IBAction func moveTrackUpAction(sender: AnyObject) {
+    @IBAction func moveTrackUpAction(_ sender: AnyObject) {
         shiftPlaylistTrackUp()
         showPlaylistSelectedRow()
     }
@@ -613,17 +614,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         let selRow = player.moveTrackUp(playlistView.selectedRow)
         playlistView.reloadData()
-        playlistView.selectRowIndexes(NSIndexSet(index: selRow), byExtendingSelection: false)
+        playlistView.selectRowIndexes(IndexSet(integer: selRow), byExtendingSelection: false)
     }
     
     func shiftPlaylistTrackDown() {
         
         let selRow = player.moveTrackDown(playlistView.selectedRow)
         playlistView.reloadData()
-        playlistView.selectRowIndexes(NSIndexSet(index: selRow), byExtendingSelection: false)
+        playlistView.selectRowIndexes(IndexSet(integer: selRow), byExtendingSelection: false)
     }
     
-    @IBAction func savePlaylistAction(sender: AnyObject) {
+    @IBAction func savePlaylistAction(_ sender: AnyObject) {
         
         // Make sure there is at least one track to save
         if (player.getPlaylistSummary().numTracks > 0) {
@@ -636,173 +637,177 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             
             if (modalResponse == NSModalResponseOK) {
                 
-                let file = dialog.URL // Path of the file
+                let file = dialog.url // Path of the file
                 player.savePlaylist(file!)
             }
         }
     }
     
-    @IBAction func closeAction(sender: AnyObject) {
+    @IBAction func closeAction(_ sender: AnyObject) {
         tearDown()
         exit(0)
     }
     
-    @IBAction func hideAction(sender: AnyObject) {
+    @IBAction func hideAction(_ sender: AnyObject) {
         window.miniaturize(self)
     }
     
-    @IBAction func pitchBypassAction(sender: AnyObject) {
+    @IBAction func pitchBypassAction(_ sender: AnyObject) {
         
         let newBypassState = player.togglePitchBypass()
         
         btnPitchBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
     }
     
-    @IBAction func pitchAction(sender: AnyObject) {
+    @IBAction func pitchAction(_ sender: AnyObject) {
         player.setPitch(pitchSlider.floatValue)
     }
     
-    @IBAction func pitchOverlapAction(sender: AnyObject) {
+    @IBAction func pitchOverlapAction(_ sender: AnyObject) {
         player.setPitchOverlap(pitchOverlapSlider.floatValue)
     }
     
-    @IBAction func timeBypassAction(sender: AnyObject) {
+    @IBAction func timeBypassAction(_ sender: AnyObject) {
         
         let newBypassState = player.toggleTimeBypass()
         
         btnTimeBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         
-        let interval = UInt32(newBypassState ? 500 : 1000 / (2 * timeSlider.floatValue))
+        let interval = newBypassState ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * timeSlider.floatValue))
         
         if (interval != seekTimer?.getInterval()) {
         
             seekTimer?.stop()
             
-            seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: DispatchQueue(queueType: QueueType.MAIN))
+            seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
             
-            if (player.getPlaybackState() == .PLAYING) {
+            if (player.getPlaybackState() == .playing) {
                 setSeekTimerState(true)
             }
         }
     }
     
-    @IBAction func timeStretchAction(sender: AnyObject) {
+    @IBAction func timeStretchAction(_ sender: AnyObject) {
         
         player.setTimeStretchRate(timeSlider.floatValue)
         
-        let interval = 1000 / (2 * timeSlider.floatValue)
-        
-        seekTimer?.stop()
-        
-        seekTimer = ScheduledTaskExecutor(intervalMillis: UInt32(interval), task: {self.updatePlayingTime()}, queue: DispatchQueue(queueType: QueueType.MAIN))
-        
-        if (player.getPlaybackState() == .PLAYING) {
-            setSeekTimerState(true)
+        let timeStretchActive = !player.isTimeBypass()
+        if (timeStretchActive) {
+            
+            let interval = Int(1000 / (2 * timeSlider.floatValue))
+            
+            seekTimer?.stop()
+            
+            seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
+            
+            if (player.getPlaybackState() == .playing) {
+                setSeekTimerState(true)
+            }
         }
     }
     
-    @IBAction func reverbBypassAction(sender: AnyObject) {
+    @IBAction func reverbBypassAction(_ sender: AnyObject) {
 
         let newBypassState = player.toggleReverbBypass()
         
         btnReverbBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
     }
     
-    @IBAction func reverbAction(sender: AnyObject) {
+    @IBAction func reverbAction(_ sender: AnyObject) {
         
         let preset: ReverbPresets = ReverbPresets.fromDescription((reverbMenu.selectedItem?.title)!)
         
         player.setReverb(preset)
     }
     
-    @IBAction func reverbAmountAction(sender: AnyObject) {
+    @IBAction func reverbAmountAction(_ sender: AnyObject) {
         player.setReverbAmount(reverbSlider.floatValue)
     }
     
-    @IBAction func delayBypassAction(sender: AnyObject) {
+    @IBAction func delayBypassAction(_ sender: AnyObject) {
         
         let newBypassState = player.toggleDelayBypass()
         
         btnDelayBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
     }
     
-    @IBAction func delayAmountAction(sender: AnyObject) {
+    @IBAction func delayAmountAction(_ sender: AnyObject) {
         player.setDelayAmount(delayAmountSlider.floatValue)
     }
     
-    @IBAction func delayTimeAction(sender: AnyObject) {
+    @IBAction func delayTimeAction(_ sender: AnyObject) {
         player.setDelayTime(delayTimeSlider.doubleValue)
     }
     
-    @IBAction func delayFeedbackAction(sender: AnyObject) {
+    @IBAction func delayFeedbackAction(_ sender: AnyObject) {
         player.setDelayFeedback(delayFeedbackSlider.floatValue)
     }
     
-    @IBAction func delayCutoffAction(sender: AnyObject) {
+    @IBAction func delayCutoffAction(_ sender: AnyObject) {
         player.setDelayLowPassCutoff(delayCutoffSlider.floatValue)
     }
     
-    @IBAction func filterBypassAction(sender: AnyObject) {
+    @IBAction func filterBypassAction(_ sender: AnyObject) {
         
         let newBypassState = player.toggleFilterBypass()
         
         btnFilterBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
     }
     
-    @IBAction func filterHighPassAction(sender: AnyObject) {
+    @IBAction func filterHighPassAction(_ sender: AnyObject) {
         player.setFilterHighPassCutoff(filterHighPassSlider.floatValue)
     }
     
-    @IBAction func filterLowPassAction(sender: AnyObject) {
+    @IBAction func filterLowPassAction(_ sender: AnyObject) {
         player.setFilterLowPassCutoff(filterLowPassSlider.floatValue)
     }
     
-    @IBAction func eqGlobalGainAction(sender: AnyObject) {
+    @IBAction func eqGlobalGainAction(_ sender: AnyObject) {
         player.setEQGlobalGain(eqGlobalGainSlider.floatValue)
     }
     
-    @IBAction func eqSlider32Action(sender: AnyObject) {
+    @IBAction func eqSlider32Action(_ sender: AnyObject) {
         player.setEQBand(32, gain: eqSlider32.floatValue)
     }
     
-    @IBAction func eqSlider64Action(sender: AnyObject) {
+    @IBAction func eqSlider64Action(_ sender: AnyObject) {
         player.setEQBand(64, gain: eqSlider64.floatValue)
     }
     
-    @IBAction func eqSlider128Action(sender: AnyObject) {
+    @IBAction func eqSlider128Action(_ sender: AnyObject) {
         player.setEQBand(128, gain: eqSlider128.floatValue)
     }
     
-    @IBAction func eqSlider256Action(sender: AnyObject) {
+    @IBAction func eqSlider256Action(_ sender: AnyObject) {
         player.setEQBand(256, gain: eqSlider256.floatValue)
     }
     
-    @IBAction func eqSlider512Action(sender: AnyObject) {
+    @IBAction func eqSlider512Action(_ sender: AnyObject) {
         player.setEQBand(512, gain: eqSlider512.floatValue)
     }
     
-    @IBAction func eqSlider1kAction(sender: AnyObject) {
+    @IBAction func eqSlider1kAction(_ sender: AnyObject) {
         player.setEQBand(1024, gain: eqSlider1k.floatValue)
     }
     
-    @IBAction func eqSlider2kAction(sender: AnyObject) {
+    @IBAction func eqSlider2kAction(_ sender: AnyObject) {
         player.setEQBand(2048, gain: eqSlider2k.floatValue)
     }
     
-    @IBAction func eqSlider4kAction(sender: AnyObject) {
+    @IBAction func eqSlider4kAction(_ sender: AnyObject) {
         player.setEQBand(4096, gain: eqSlider4k.floatValue)
     }
     
-    @IBAction func eqSlider8kAction(sender: AnyObject) {
+    @IBAction func eqSlider8kAction(_ sender: AnyObject) {
         player.setEQBand(8192, gain: eqSlider8k.floatValue)
     }
     
-    @IBAction func eqSlider16kAction(sender: AnyObject) {
+    @IBAction func eqSlider16kAction(_ sender: AnyObject) {
         player.setEQBand(16384, gain: eqSlider16k.floatValue)
     }
     
     // Track changed in player, need to reset the UI
-    func consumeEvent(event: Event) {
+    func consumeEvent(_ event: Event) {
         
         setSeekTimerState(false)
         
@@ -811,7 +816,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     // Adds a set of files (or directories, i.e. files within them) to the current playlist, if supported
-    func addTracks(files: [NSURL]) {
+    func addTracks(_ files: [URL]) {
         
         player.addTracks(files)
         
@@ -821,7 +826,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
 
     // View menu item action
-    @IBAction func toggleViewEffectsAction(sender: AnyObject) {
+    @IBAction func toggleViewEffectsAction(_ sender: AnyObject) {
         
         windowManager?.toggleView(fxCollapsibleView!)
         
@@ -833,7 +838,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     // View menu item action
-    @IBAction func toggleViewPlaylistAction(sender: AnyObject) {
+    @IBAction func toggleViewPlaylistAction(_ sender: AnyObject) {
         
         // Set focus on playlist view if it's visible after the toggle
         
@@ -848,12 +853,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     // Toggle button action
-    @IBAction func togglePlaylistAction(sender: AnyObject) {
+    @IBAction func togglePlaylistAction(_ sender: AnyObject) {
         toggleViewPlaylistAction(sender)
     }
     
     // Toggle button action
-    @IBAction func toggleEffectsAction(sender: AnyObject) {
+    @IBAction func toggleEffectsAction(_ sender: AnyObject) {
         toggleViewEffectsAction(sender)
     }
     

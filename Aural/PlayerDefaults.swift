@@ -9,8 +9,8 @@ class PlayerDefaults {
     static let showPlaylist: Bool = true
     static let showEffects: Bool = true
     
-    static let repeatMode: RepeatMode = .OFF
-    static let shuffleMode: ShuffleMode = .OFF
+    static let repeatMode: RepeatMode = .off
+    static let shuffleMode: ShuffleMode = .off
     
     static let volume: Float = 0.5
     static let balance: Float = 0
@@ -27,7 +27,7 @@ class PlayerDefaults {
     static let timeStretchRate: Float = 1
     
     static let reverbBypass: Bool = true
-    static let reverbPreset: ReverbPresets = .MediumHall
+    static let reverbPreset: ReverbPresets = .mediumHall
     static let reverbAmount: Float = 50
     
     static let delayBypass: Bool = true

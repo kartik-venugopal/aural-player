@@ -9,7 +9,7 @@ protocol AuralSoundTuningDelegate {
     func getVolume() -> Float
 
     // Sets the player volume, specified as a percentage (0 to 100)
-    func setVolume(volumePercentage: Float)
+    func setVolume(_ volumePercentage: Float)
     
     // Increases the player volume by a small increment. Returns the new player volume.
     func increaseVolume() -> Float
@@ -27,7 +27,7 @@ protocol AuralSoundTuningDelegate {
     func getBalance() -> Float
 
     // Sets the L/R balance (aka pan), specified as a value between -1 (L) and 1 (R)
-    func setBalance(balance: Float)
+    func setBalance(_ balance: Float)
     
     // Pans left by a small increment. Returns new balance value.
     func panLeft() -> Float
@@ -36,58 +36,61 @@ protocol AuralSoundTuningDelegate {
     func panRight() -> Float
     
     // Sets global gain (or preamp) for the equalizer
-    func setEQGlobalGain(gain: Float)
+    func setEQGlobalGain(_ gain: Float)
     
     // Sets the gain value of a single equalizer frequency band.
-    func setEQBand(frequency: Int, gain: Float)
+    func setEQBand(_ frequency: Int, gain: Float)
     
     // Sets the gain values of multiple equalizer frequency bands (when using an EQ preset)
-    func setEQBands(bands: [Int: Float])
+    func setEQBands(_ bands: [Int: Float])
     
     // Toggles the bypass state of the pitch shift audio effect unit, and returns its new bypass state
     func togglePitchBypass() -> Bool
     
     // Sets the pitch shift value, in octaves, specified as a value between -2 and 2
-    func setPitch(pitch: Float)
+    func setPitch(_ pitch: Float)
 
-    func setPitchOverlap(overlap: Float)
+    func setPitchOverlap(_ overlap: Float)
     
     // Toggles the bypass state of the time audio effect unit, and returns its new bypass state
     func toggleTimeBypass() -> Bool
     
+    // Returns the current bypass state of the time audio effect unit
+    func isTimeBypass() -> Bool
+    
     // Sets the playback rate, specified as a value between 1/32 and 32
-    func setTimeStretchRate(rate: Float)
+    func setTimeStretchRate(_ rate: Float)
     
     // Toggles the bypass state of the reverb audio effect unit, and returns its new bypass state
     func toggleReverbBypass() -> Bool
     
     // Sets the reverb preset. See ReverbPresets for more details.
-    func setReverb(preset: ReverbPresets)
+    func setReverb(_ preset: ReverbPresets)
     
     // Sets the reverb amount, specified as a value between 0 (dry) and 100 (wet)
-    func setReverbAmount(amount: Float)
+    func setReverbAmount(_ amount: Float)
     
     // Toggles the bypass state of the delay audio effect unit, and returns its new bypass state
     func toggleDelayBypass() -> Bool
     
     // Sets the delay (echo) amount, specified as a value between 0 (dry) and 100 (wet)
-    func setDelayAmount(amount: Float)
+    func setDelayAmount(_ amount: Float)
     
     // Sets the delay time, in seconds, specified as a value between 0 and 2
-    func setDelayTime(time: Double)
+    func setDelayTime(_ time: Double)
     
     // Sets the delay feedback, in percentage, specified as a value between -100 and 100
-    func setDelayFeedback(percent: Float)
+    func setDelayFeedback(_ percent: Float)
     
     // Sets the delay low pass cutoff frequency, in Hz, specified as a value between 10 and 20k
-    func setDelayLowPassCutoff(cutoff: Float)
+    func setDelayLowPassCutoff(_ cutoff: Float)
     
     // Toggles the bypass state of the filter audio effect unit, and returns its new bypass state
     func toggleFilterBypass() -> Bool
     
     // Sets the filter low pass cutoff frequency, in Hz, specified as a value between 10 and 20k
-    func setFilterLowPassCutoff(cutoff: Float)
+    func setFilterLowPassCutoff(_ cutoff: Float)
     
     // Sets the filter high pass cutoff frequency, in Hz, specified as a value between 10 and 20k
-    func setFilterHighPassCutoff(cutoff: Float)
+    func setFilterHighPassCutoff(_ cutoff: Float)
 }

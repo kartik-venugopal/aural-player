@@ -20,11 +20,11 @@ class FilterNode: AVAudioUnitEQ {
         super.init(numberOfBands: 2)
         
         lowPassBand.bypass = false
-        lowPassBand.filterType = AVAudioUnitEQFilterType.ResonantLowPass
+        lowPassBand.filterType = AVAudioUnitEQFilterType.resonantLowPass
         lowPassBand.bandwidth = 0.5
         
         highPassBand.bypass = false
-        highPassBand.filterType = AVAudioUnitEQFilterType.ResonantHighPass
+        highPassBand.filterType = AVAudioUnitEQFilterType.resonantHighPass
         highPassBand.bandwidth = 0.5
     }
 }

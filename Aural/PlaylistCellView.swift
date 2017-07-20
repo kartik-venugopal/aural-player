@@ -15,7 +15,7 @@ class PlaylistCellView: NSTableCellView {
             
             if (field != nil) {
                 
-                if (backgroundStyle == NSBackgroundStyle.Dark) {
+                if (backgroundStyle == NSBackgroundStyle.dark) {
                     // Selected
                     field!.font = UIConstants.boldFont
                     field!.textColor = UIConstants.colorScheme.playlistSelectedTextColor

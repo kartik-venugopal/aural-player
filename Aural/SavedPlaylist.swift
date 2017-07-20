@@ -7,12 +7,12 @@ import Foundation
 class SavedPlaylist {
     
     // The filesystem location of the playlist
-    var file: NSURL
+    var file: URL
     
     var tracks: [Track] = [Track]()
     
     // Use for writing: Initializes an empty playlist with a reference to an (output) file
-    init(outputFile: NSURL, sourcePlaylist: Playlist) {
+    init(outputFile: URL, sourcePlaylist: Playlist) {
         self.file = outputFile
         
         for track in sourcePlaylist.getTracks() {
@@ -21,14 +21,14 @@ class SavedPlaylist {
     }
     
     // Use for reading: Initializes a playlist from JSON deserialized from an input file
-    init(inputFile: NSURL, jsonObject: NSArray) {
+    init(inputFile: URL, jsonObject: NSArray) {
         self.file = inputFile
         
         for path in jsonObject {
             
             let _path = path as! String
             
-            let track = TrackIO.loadTrack(NSURL(fileURLWithPath: _path))
+            let track = TrackIO.loadTrack(URL(fileURLWithPath: _path))
             if (track != nil) {
                 self.tracks.append(track!)
             }
@@ -41,7 +41,7 @@ class SavedPlaylist {
         var array: [String] = [String]()
         
         for track in tracks {
-            array.append(track.file!.path!)
+            array.append(track.file!.path)
         }
         
         return NSArray(array: array)

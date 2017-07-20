@@ -5,7 +5,7 @@ import Cocoa
 
 enum PlaybackState {
     
-    case PLAYING
-    case PAUSED
-    case NO_FILE
+    case playing
+    case paused
+    case no_FILE
 }

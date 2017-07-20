@@ -7,22 +7,22 @@ import Foundation
 enum RepeatMode {
     
     // Play all tracks once, in playlist order
-    case OFF
+    case off
     
     // Repeat one track forever
-    case ONE
+    case one
     
     // Repeat all tracks forever, in playlist order
-    case ALL
+    case all
     
     // Converts a String representation to a RepeatMode enum
-    static func fromString(string: String) -> RepeatMode {
+    static func fromString(_ string: String) -> RepeatMode {
         
         switch string {
-        case "OFF": return .OFF
-        case "ONE": return .ONE
-        case "ALL": return .ALL
-        default: return OFF
+        case "OFF": return .off
+        case "ONE": return .one
+        case "ALL": return .all
+        default: return off
         }
     }
 
@@ -31,9 +31,9 @@ enum RepeatMode {
         
         switch self {
             
-        case .OFF: return "OFF"
-        case .ONE: return "ONE"
-        case .ALL: return "ALL"
+        case .off: return "OFF"
+        case .one: return "ONE"
+        case .all: return "ALL"
             
         }
     }

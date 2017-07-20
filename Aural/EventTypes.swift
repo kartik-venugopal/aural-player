@@ -7,10 +7,10 @@ import Cocoa
 enum EventType {
     
     // Indicates that playback of a track has completed. Published by the player and consumed by the middleman between the player and the UI.
-    case PlaybackCompleted
+    case playbackCompleted
     
     // Indicates that the currently playing track has changed. Published by the middleman and consumed by the UI
-    case TrackChanged
+    case trackChanged
 }
 
 // Event indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
@@ -31,7 +31,7 @@ class TrackChangedEvent: Event {
 // Event indicating that playback of the currently playing track has completed
 class PlaybackCompletedEvent: Event {
     
-    private init() {}
+    fileprivate init() {}
     
     static let instance = PlaybackCompletedEvent()
 }
