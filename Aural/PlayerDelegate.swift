@@ -311,7 +311,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, AuralRecord
     
     func nextTrack() -> (playingTrack: Track?, playingTrackIndex: Int?) {
         
-        let nextTrack = playlist.next(playingTrack!, repeatMode: repeatMode, shuffleMode: shuffleMode)
+        let nextTrack = playlist.next(playingTrack, repeatMode: repeatMode, shuffleMode: shuffleMode)
         
         if (nextTrack != nil) {
             play(nextTrack!)
@@ -322,7 +322,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, AuralRecord
     
     func previousTrack() -> (playingTrack: Track?, playingTrackIndex: Int?) {
         
-        let prevTrack = playlist.previous(playingTrack!, repeatMode: repeatMode, shuffleMode: shuffleMode)
+        let prevTrack = playlist.previous(playingTrack, repeatMode: repeatMode, shuffleMode: shuffleMode)
         
         if (prevTrack != nil) {
             play(prevTrack!)

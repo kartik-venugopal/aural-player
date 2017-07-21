@@ -66,6 +66,8 @@
                 <outlet property="reverbSlider" destination="SVL-7D-xpL" id="qkM-tE-q03"/>
                 <outlet property="seekSlider" destination="0m5-4l-3Wg" id="m8W-Pi-SGb"/>
                 <outlet property="timeSlider" destination="tFD-kd-aEZ" id="1j6-vB-MfK"/>
+                <outlet property="viewEffectsMenuItem" destination="fK8-7g-oqx" id="EQv-4S-gcr"/>
+                <outlet property="viewPlaylistMenuItem" destination="af4-4E-1QV" id="Dhx-XG-mI6"/>
                 <outlet property="volumeSlider" destination="7fw-31-38g" id="YIc-Xx-p98"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
@@ -145,10 +147,10 @@
                             <action selector="toggleEffectsAction:" target="Voe-Tx-rLC" id="H6S-tW-STK"/>
                         </connections>
                     </button>
-                    <box fixedFrame="YES" boxType="custom" borderType="bezel" cornerRadius="5" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="r0W-tQ-AZF" userLabel="Now Playing Box">
+                    <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="bezel" cornerRadius="5" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="r0W-tQ-AZF" userLabel="Now Playing Box">
                         <rect key="frame" x="15" y="485" width="385" height="88"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView" ambiguous="YES" id="RSY-vY-bFZ">
+                        <view key="contentView" autoresizesSubviews="NO" id="RSY-vY-bFZ">
                             <rect key="frame" x="1" y="1" width="383" height="86"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -218,6 +220,10 @@
                                         <action selector="moreInfoAction:" target="Voe-Tx-rLC" id="jzL-8a-O0k"/>
                                     </connections>
                                 </button>
+                                <box horizontalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="4h0-6T-nmd">
+                                    <rect key="frame" x="83" y="-5" width="5" height="96"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                </box>
                             </subviews>
                         </view>
                         <shadow key="shadow" blurRadius="5">
@@ -226,10 +232,10 @@
                         <color key="borderColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="fillColor" red="0.82352941176470584" green="0.82352941176470584" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="X7y-oM-7MJ" userLabel="Controls Box">
+                    <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="X7y-oM-7MJ" userLabel="Controls Box">
                         <rect key="frame" x="15" y="410" width="385" height="61"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView" ambiguous="YES" id="VBo-wa-Nak">
+                        <view key="contentView" autoresizesSubviews="NO" id="VBo-wa-Nak">
                             <rect key="frame" x="1" y="1" width="383" height="59"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -364,6 +370,14 @@ G1BhbiBTbGlkZXI
                                         <action selector="seekForwardAction:" target="Voe-Tx-rLC" id="Ehm-tT-1W9"/>
                                     </connections>
                                 </button>
+                                <box horizontalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="fet-cI-pJQ">
+                                    <rect key="frame" x="74" y="-3" width="5" height="65"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                </box>
+                                <box horizontalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="icE-aM-pDS">
+                                    <rect key="frame" x="279" y="-3" width="5" height="65"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                </box>
                             </subviews>
                         </view>
                         <shadow key="shadow" blurRadius="5">
@@ -391,12 +405,12 @@ G1BhbiBTbGlkZXI
                         <font key="font" size="11" name="GillSans"/>
                         <tabViewItems>
                             <tabViewItem label="EQ" identifier="1" id="McD-gg-qp9" userLabel="EQ">
-                                <view key="view" id="vC5-27-GiC">
-                                    <rect key="frame" x="10" y="33" width="335" height="0.0"/>
+                                <view key="view" ambiguous="YES" id="vC5-27-GiC">
+                                    <rect key="frame" x="10" y="33" width="376" height="142"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zm-Bg-NEY">
-                                            <rect key="frame" x="42" y="-76" width="12" height="14"/>
+                                            <rect key="frame" x="42" y="66" width="12" height="14"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0" id="Je7-rK-ohz">
                                                 <font key="font" size="10" name="GillSans"/>
@@ -405,7 +419,7 @@ G1BhbiBTbGlkZXI
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtf-Xs-OQp">
-                                            <rect key="frame" x="35" y="-131" width="20" height="21"/>
+                                            <rect key="frame" x="35" y="11" width="20" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-20" id="9U6-wA-5ze">
                                                 <font key="font" size="10" name="GillSans"/>
@@ -414,7 +428,7 @@ G1BhbiBTbGlkZXI
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3V-ab-jaC">
-                                            <rect key="frame" x="35" y="-37" width="20" height="21"/>
+                                            <rect key="frame" x="35" y="105" width="20" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+20" id="E9O-1s-8rC">
                                                 <font key="font" size="10" name="GillSans"/>
@@ -423,7 +437,7 @@ G1BhbiBTbGlkZXI
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vsR-0Q-cXe">
-                                            <rect key="frame" x="270" y="-141" width="84" height="18"/>
+                                            <rect key="frame" x="270" y="1" width="84" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Presets" id="ems-fH-sOb">
                                                 <font key="font" size="12" name="GillSans"/>
@@ -432,7 +446,7 @@ G1BhbiBTbGlkZXI
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hG3-Ir-qkY" userLabel="EQ Presets Menu">
-                                            <rect key="frame" x="270" y="-146" width="106" height="26"/>
+                                            <rect key="frame" x="270" y="-4" width="106" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="disclosure" title="Vocal" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" altersStateOfSelectedItem="NO" selectedItem="z8X-aR-fwU" id="fct-Jo-Wiy" customClass="EQPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -462,7 +476,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </popUpButton>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lg0-FS-2I5">
-                                            <rect key="frame" x="68" y="-120" width="15" height="101"/>
+                                            <rect key="frame" x="68" y="22" width="15" height="101"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -473,7 +487,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mTb-nz-ndF">
-                                            <rect key="frame" x="96" y="-120" width="15" height="101"/>
+                                            <rect key="frame" x="96" y="22" width="15" height="101"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -484,7 +498,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iEd-37-pLD">
-                                            <rect key="frame" x="124" y="-120" width="15" height="101"/>
+                                            <rect key="frame" x="124" y="22" width="15" height="101"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -495,7 +509,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuJ-l0-5ih">
-                                            <rect key="frame" x="152" y="-120" width="15" height="101"/>
+                                            <rect key="frame" x="152" y="22" width="15" height="101"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -506,7 +520,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lgr-1t-FRb">
-                                            <rect key="frame" x="180" y="-120" width="15" height="101"/>
+                                            <rect key="frame" x="180" y="22" width="15" height="101"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -517,7 +531,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JGZ-0h-WTH" userLabel="Eq Slider1k">
-                                            <rect key="frame" x="208" y="-120" width="15" height="101"/>
+                                            <rect key="frame" x="208" y="22" width="15" height="101"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -528,7 +542,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DDL-Kj-I4h" userLabel="Eq Slider2k">
-                                            <rect key="frame" x="236" y="-120" width="15" height="101"/>
+                                            <rect key="frame" x="236" y="22" width="15" height="101"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -539,7 +553,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VSQ-5C-2KO" userLabel="Eq Slider4k">
-                                            <rect key="frame" x="264" y="-120" width="15" height="101"/>
+                                            <rect key="frame" x="264" y="22" width="15" height="101"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -550,7 +564,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qHV-Kz-sUG" userLabel="Eq Slider8k">
-                                            <rect key="frame" x="292" y="-120" width="15" height="101"/>
+                                            <rect key="frame" x="292" y="22" width="15" height="101"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -561,7 +575,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z4B-Hr-jie" userLabel="Eq Slider16k">
-                                            <rect key="frame" x="320" y="-120" width="15" height="101"/>
+                                            <rect key="frame" x="320" y="22" width="15" height="101"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -572,7 +586,7 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </slider>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOh-fy-QB5" userLabel="Frequencies">
-                                            <rect key="frame" x="68" y="-29" width="274" height="26"/>
+                                            <rect key="frame" x="68" y="113" width="274" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="32      64      128     256     512     1k      2k       4k       8k     16k" id="KZ1-aN-0Yl">
                                                 <font key="font" size="10" name="GillSans"/>
@@ -581,7 +595,7 @@ G1BhbiBTbGlkZXI
                                             </textFieldCell>
                                         </textField>
                                         <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XKK-aS-eMn" userLabel="EQGlobalGain">
-                                            <rect key="frame" x="24" y="-120" width="15" height="101"/>
+                                            <rect key="frame" x="24" y="22" width="15" height="101"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <shadow key="shadow" blurRadius="1">
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -716,8 +730,8 @@ G1BhbiBTbGlkZXI
                                             </connections>
                                         </button>
                                         <box fixedFrame="YES" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="y0c-x9-eVo" userLabel="Controls Box">
-                                            <rect key="frame" x="62" y="-1" width="294" height="72"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <rect key="frame" x="62" y="1" width="294" height="72"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <view key="contentView" ambiguous="YES" id="oDh-XH-33j">
                                                 <rect key="frame" x="1" y="1" width="292" height="70"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -784,7 +798,7 @@ G1BhbiBTbGlkZXI
                                         </button>
                                         <box fixedFrame="YES" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="chO-yB-LP0" userLabel="Controls Box">
                                             <rect key="frame" x="62" y="1" width="294" height="66"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <view key="contentView" ambiguous="YES" id="I4b-K0-6Me">
                                                 <rect key="frame" x="1" y="1" width="292" height="64"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -911,7 +925,7 @@ G1BhbiBTbGlkZXI
                                         </textField>
                                         <box fixedFrame="YES" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="v6p-Ex-kdh" userLabel="Controls Box">
                                             <rect key="frame" x="62" y="1" width="294" height="107"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <view key="contentView" ambiguous="YES" id="vGm-MT-zIN">
                                                 <rect key="frame" x="1" y="1" width="292" height="105"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1110,7 +1124,7 @@ G1BhbiBTbGlkZXI
                                         </textField>
                                         <box fixedFrame="YES" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="u8a-sR-ENw" userLabel="Controls Box">
                                             <rect key="frame" x="62" y="1" width="294" height="66"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <view key="contentView" ambiguous="YES" id="Sew-df-aAW">
                                                 <rect key="frame" x="1" y="1" width="292" height="64"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1180,7 +1194,7 @@ G1BhbiBTbGlkZXI
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Recorder" identifier="" id="ZgM-Kw-eIJ">
-                                <view key="view" ambiguous="YES" id="LZW-JZ-Gv7">
+                                <view key="view" id="LZW-JZ-Gv7">
                                     <rect key="frame" x="10" y="33" width="376" height="142"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -1195,7 +1209,7 @@ G1BhbiBTbGlkZXI
                                         </textField>
                                         <box fixedFrame="YES" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="0Zb-sb-85g" userLabel="Controls Box">
                                             <rect key="frame" x="62" y="1" width="294" height="96"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <view key="contentView" ambiguous="YES" id="gfN-TK-gjf">
                                                 <rect key="frame" x="1" y="1" width="292" height="94"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1515,34 +1529,63 @@ G1BhbiBTbGlkZXI
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Playlist" hidden="YES" id="nzT-Bj-81Y">
+                <menuItem title="Playlist" id="nzT-Bj-81Y">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Playlist" id="OTj-Uh-IWl">
                         <items>
-                            <menuItem title=" Open fies / playlists" image="Add-Small" keyEquivalent="o" id="Ysv-Pf-k88"/>
-                            <menuItem title=" Save playlist" image="Save-Small" keyEquivalent="s" id="Cvk-m8-oAg"/>
+                            <menuItem title=" Open files / playlists" image="Add-Small" keyEquivalent="o" id="Ysv-Pf-k88">
+                                <connections>
+                                    <action selector="addFilesMenuItemAction:" target="Voe-Tx-rLC" id="Ce7-om-g0v"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Save playlist" image="Save-Small" keyEquivalent="s" id="Cvk-m8-oAg">
+                                <connections>
+                                    <action selector="savePlaylistMenuItemAction:" target="Voe-Tx-rLC" id="Tzl-ME-ViL"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Clear Playlist" image="Clear-Small" id="ec2-Jm-I4M">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                <connections>
+                                    <action selector="clearPlaylistMenuItemAction:" target="Voe-Tx-rLC" id="amw-cl-HS1"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="ZbT-B5-jLK"/>
+                            <menuItem title=" Play selected track" image="Play-Small" id="afl-Xm-nI9" userLabel="Play selected track">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="playSelectedTrackMenuItemAction:" target="Voe-Tx-rLC" id="X7I-Pg-Cid"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title=" Move selected track up" image="Up-Small" keyEquivalent="" id="f3c-TG-M9r">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                <connections>
+                                    <action selector="moveTrackUpMenuItemAction:" target="Voe-Tx-rLC" id="2le-aU-9ZZ"/>
+                                </connections>
                             </menuItem>
                             <menuItem title=" Move selected track down" image="Down-Small" keyEquivalent="" id="F5x-Nm-ust">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                <connections>
+                                    <action selector="moveTrackDownMenuItemAction:" target="Voe-Tx-rLC" id="qIB-GV-NX3"/>
+                                </connections>
                             </menuItem>
                             <menuItem title=" Remove selected track" image="Remove-Small" id="20j-6Y-sbB" userLabel="Remove selected track">
                                 <string key="keyEquivalent" base64-UTF8="YES">
 CA
 </string>
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title=" Clear Playlist" image="Clear-Small" id="ec2-Jm-I4M">
-                                <string key="keyEquivalent" base64-UTF8="YES">
-CA
-</string>
+                                <connections>
+                                    <action selector="removeTrackMenuItemAction:" target="Voe-Tx-rLC" id="h5R-VF-fqv"/>
+                                </connections>
                             </menuItem>
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="View" hidden="YES" id="cu5-E6-xt6" userLabel="View">
+                <menuItem title="View" id="cu5-E6-xt6">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" id="Fd0-9b-tm8">
                         <items>
@@ -1559,40 +1602,138 @@ CA
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Controls" id="voC-QS-eVy" userLabel="Controls">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Controls" id="4gC-cq-kT9">
+                        <items>
+                            <menuItem title=" Play/Pause" image="PlayPause-Small" keyEquivalent=" " id="T9r-Uq-EPf">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="togglePlayPauseMenuItemAction:" target="Voe-Tx-rLC" id="dA1-UD-t63"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Previous track" image="PreviousTrack-Small" keyEquivalent="" id="yq3-HU-6rh">
+                                <connections>
+                                    <action selector="previousTrackMenuItemAction:" target="Voe-Tx-rLC" id="85L-9O-UoG"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Next track" image="NextTrack-Small" keyEquivalent="" id="z7s-9y-10c">
+                                <connections>
+                                    <action selector="nextTrackMenuItemAction:" target="Voe-Tx-rLC" id="FMj-Cc-23S"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Seek backward" image="SeekBackward-Small" keyEquivalent="" id="h8T-Of-b8S">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="seekBackwardMenuItemAction:" target="Voe-Tx-rLC" id="9Vp-ua-Ufi"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Seek forward" image="SeekForward-Small" keyEquivalent="" id="dge-IA-2p7">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="seekForwardMenuItemAction:" target="Voe-Tx-rLC" id="tgJ-SA-zZE"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="gze-sl-67j"/>
+                            <menuItem title=" Mute/Unmute" image="Mute-Small" keyEquivalent="" id="TYd-HO-2Rv" userLabel="Mute/Unmute">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="muteUnmuteMenuItemAction:" target="Voe-Tx-rLC" id="BdR-yz-w5t"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Decrease volume" image="VolumeLow-Small" keyEquivalent="" id="jOS-4R-SUx">
+                                <connections>
+                                    <action selector="decreaseVolumeMenuItemAction:" target="Voe-Tx-rLC" id="A3l-Pl-Qgs"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Increase volume" image="VolumeHigh-Small" keyEquivalent="" id="py7-Wp-lx7">
+                                <connections>
+                                    <action selector="increaseVolumeMenuItemAction:" target="Voe-Tx-rLC" id="fCO-lJ-BdK"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Pan left" image="PanL-Small" keyEquivalent="" id="Cvz-HZ-RmP">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                <connections>
+                                    <action selector="panLeftMenuItemAction:" target="Voe-Tx-rLC" id="1O9-O2-AK7"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Pan right" image="PanR-Small" keyEquivalent="" id="qGf-Tr-MHz">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                <connections>
+                                    <action selector="panRightMenuItemAction:" target="Voe-Tx-rLC" id="TI6-U6-VlK"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="O1F-Wz-nQ9"/>
+                            <menuItem title=" Toggle repeat mode" image="RepeatMode-Small" keyEquivalent="R" id="CXV-Nr-pIe">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleRepeatModeMenuItemAction:" target="Voe-Tx-rLC" id="wvZ-kP-PFm"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Toggle shuffle mode" image="ShuffleOn-Small" keyEquivalent="S" id="vKU-kn-zJM">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleShuffleModeMenuItemAction:" target="Voe-Tx-rLC" id="eTX-iy-0or"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="dsi-6a-jdq"/>
+                            <menuItem title=" Detailed track info" image="MoreInfo-Small" keyEquivalent="i" id="GCy-Rj-Mv5">
+                                <connections>
+                                    <action selector="trackInfoMenuItemAction:" target="Voe-Tx-rLC" id="FDP-DL-ibS"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
             </items>
+            <point key="canvasLocation" x="-156" y="-246"/>
         </menu>
     </objects>
     <resources>
         <image name="Add" width="129" height="129"/>
-        <image name="Add-Small" width="20" height="20"/>
+        <image name="Add-Small" width="14" height="14"/>
         <image name="AppIconSmall" width="32" height="32"/>
         <image name="Clear" width="34.599998474121094" height="40"/>
-        <image name="Clear-Small" width="3.4000000953674316" height="4"/>
+        <image name="Clear-Small" width="2.5999999046325684" height="3"/>
         <image name="Close" width="128" height="128"/>
         <image name="Down" width="25.600000381469727" height="25.600000381469727"/>
-        <image name="Down-Small" width="2" height="2"/>
+        <image name="Down-Small" width="1.3999999761581421" height="1.3999999761581421"/>
         <image name="Hide" width="128" height="128"/>
         <image name="MoreInfo" width="256" height="256"/>
+        <image name="MoreInfo-Small" width="13" height="13"/>
         <image name="MusicArt" width="256" height="256"/>
+        <image name="Mute-Small" width="14" height="14"/>
         <image name="NextTrack" width="256" height="256"/>
+        <image name="NextTrack-Small" width="14" height="8"/>
+        <image name="PanL-Small" width="14" height="14"/>
+        <image name="PanR-Small" width="14" height="14"/>
         <image name="Play" width="256" height="256"/>
+        <image name="Play-Small" width="14" height="14"/>
+        <image name="PlayPause-Small" width="14" height="14"/>
         <image name="PreviousTrack" width="256" height="256"/>
+        <image name="PreviousTrack-Small" width="14" height="8"/>
         <image name="Record" width="256" height="256"/>
         <image name="Remove" width="127" height="127"/>
-        <image name="Remove-Small" width="20" height="20"/>
+        <image name="Remove-Small" width="14" height="14"/>
+        <image name="RepeatMode-Small" width="15" height="15"/>
         <image name="RepeatOff" width="256" height="256"/>
         <image name="Save" width="128" height="128"/>
-        <image name="Save-Small" width="20" height="20"/>
+        <image name="Save-Small" width="14" height="14"/>
         <image name="SeekBackward" width="256" height="256"/>
+        <image name="SeekBackward-Small" width="13" height="8"/>
         <image name="SeekForward" width="256" height="256"/>
+        <image name="SeekForward-Small" width="13" height="8"/>
         <image name="ShuffleOff" width="256" height="256"/>
+        <image name="ShuffleOn-Small" width="15" height="15"/>
         <image name="SwitchOff" width="185" height="512"/>
         <image name="ToggleEffectsView" width="419" height="422"/>
-        <image name="ToggleEffectsView-Small" width="20" height="20"/>
+        <image name="ToggleEffectsView-Small" width="14" height="14"/>
         <image name="TogglePlaylistView" width="185" height="161"/>
-        <image name="TogglePlaylistView-Small" width="20" height="17"/>
+        <image name="TogglePlaylistView-Small" width="14" height="12"/>
         <image name="Up" width="25.600000381469727" height="25.600000381469727"/>
-        <image name="Up-Small" width="2" height="2"/>
+        <image name="Up-Small" width="1.3999999761581421" height="1.3999999761581421"/>
+        <image name="VolumeHigh-Small" width="14" height="14"/>
+        <image name="VolumeLow-Small" width="14" height="14"/>
         <image name="VolumeMedium" width="256" height="256"/>
     </resources>
 </document>

@@ -49,16 +49,6 @@ class KeyPressHandler {
         
         // ---------------------- Handlers --------------------------
         
-        // (Shift + Up arrow) Shift selected track up in playlist
-        if (isShift && !isCommand && event.keyCode == UP_ARROW) {
-            app.moveTrackUpAction(event)
-        }
-        
-        // (Shift + Down arrow) Shift selected track down in playlist
-        if (isShift && !isCommand && event.keyCode == DOWN_ARROW) {
-            app.moveTrackDownAction(event)
-        }
-        
         // (Up arrow) Change selection (up) in playlist
         if (!isShift && !isCommand && event.keyCode == UP_ARROW) {
             
@@ -81,76 +71,6 @@ class KeyPressHandler {
             }
             
             app.showPlaylistSelectedRow()
-        }
-        
-        // (Command + O) Open modal dialog to allow user to add files to playlist
-        if (isCommand && !isShift && event.keyCode == LETTER_O) {
-            app.addTracksAction(event)
-        }
-        
-        // (Command + I) Get more detailed track information
-        if (isCommand && !isShift && event.keyCode == LETTER_I) {
-            app.moreInfoAction(event)
-        }
-        
-        // (Command + S) Open modal dialog to allow user to save current playlist to a file
-        if (isCommand && !isShift && event.keyCode == LETTER_S) {
-            app.savePlaylistAction(event)
-        }
-        
-        // (Command + Up arrow) Volume increase
-        if (isCommand && !isShift && event.keyCode == UP_ARROW) {
-            app.increaseVolume()
-        }
-        
-        // (Command + Down arrow) Volume decrease
-        if (isCommand && !isShift && event.keyCode == DOWN_ARROW) {
-            app.decreaseVolume()
-        }
-        
-        // (Backward/Left arrow - <) Seek track backward
-        if (!isCommand && !isShift && event.keyCode == BACKWARD_ARROW) {
-            app.seekBackwardAction(event)
-        }
-        
-        // (Command + Backward/Left arrow) Play previous track
-        if (isCommand && !isShift && event.keyCode == BACKWARD_ARROW) {
-            app.prevTrackAction(event)
-        }
-        
-        // (Shift + Backward/Left arrow) Pan left a little bit (L/R balance)
-        if (!isCommand && isShift && event.keyCode == BACKWARD_ARROW) {
-            app.panLeft()
-        }
-        
-        // (Forward/Right arrow - >) Seek track forward
-        if (!isCommand && !isShift && event.keyCode == FORWARD_ARROW) {
-            app.seekForwardAction(event)
-        }
-        
-        // (Command + Forward/Right arrow) Play next track
-        if (isCommand && !isShift && event.keyCode == FORWARD_ARROW) {
-            app.nextTrackAction(event)
-        }
-        
-        // (Shift + Forward/Right arrow) Pan right a little bit (L/R balance)
-        if (isShift && !isCommand && event.keyCode == FORWARD_ARROW) {
-            app.panRight()
-        }
-        
-        // (Space) Toggle play/pause
-        if (!isCommand && !isShift && event.keyCode == SPACE) {
-            app.playPauseAction(event)
-        }
-        
-        // (Backspace) Delete a single (selected) file from playlist
-        if (!isCommand && !isShift && event.keyCode == BACKSPACE) {
-            app.removeSingleTrackAction(event)            
-        }
-        
-        // (Enter) Play selected track (same as mouse double click)
-        if (!isCommand && !isShift && event.keyCode == ENTER) {
-            app.playSelectedTrack()
         }
         
         // (Command + R) Start/stop recording

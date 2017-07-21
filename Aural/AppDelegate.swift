@@ -14,6 +14,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var btnToggleEffects: NSButton!
     @IBOutlet weak var btnTogglePlaylist: NSButton!
     
+    @IBOutlet weak var viewPlaylistMenuItem: NSMenuItem!
+    @IBOutlet weak var viewEffectsMenuItem: NSMenuItem!
+    
     // Views that are collapsible (hide/show)
     @IBOutlet weak var playlistControlsBox: NSBox!
     @IBOutlet weak var fxTabView: NSTabView!
@@ -148,7 +151,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     func initStatelessUI() {
         
         // Set up a mouse listener (for double clicks -> play selected track)
-        playlistView.doubleAction = #selector(AppDelegate.playlistDoubleClickAction(_:))
+        playlistView.doubleAction = #selector(self.playlistDoubleClickAction(_:))
         
         // Enable drag n drop into the playlist view
         playlistView.register(forDraggedTypes: [String(kUTTypeFileURL)])
@@ -836,9 +839,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         if (fxCollapsibleView?.hidden == false) {
             btnToggleEffects.state = 1
+            viewEffectsMenuItem.state = 1
+            
         } else {
             btnToggleEffects.state = 0
+            viewEffectsMenuItem.state = 0
         }
+        
+        showPlaylistSelectedRow()
     }
     
     // View menu item action
@@ -851,9 +859,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         if (playlistCollapsibleView?.hidden == false) {
             window.makeFirstResponder(playlistView)
             btnTogglePlaylist.state = 1
+            viewPlaylistMenuItem.state = 1
         } else {
             btnTogglePlaylist.state = 0
+            viewPlaylistMenuItem.state = 0
         }
+        
+        showPlaylistSelectedRow()
     }
     
     // Toggle button action
@@ -915,5 +927,86 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         let recDuration = player.getRecordingDuration()
         lblRecorderDuration.stringValue = Utils.formatDuration(recDuration)
+    }
+    
+    
+    @IBAction func addFilesMenuItemAction(_ sender: Any) {
+        addTracksAction(sender as AnyObject)
+    }
+    
+    @IBAction func savePlaylistMenuItemAction(_ sender: Any) {
+        savePlaylistAction(sender as AnyObject)
+    }
+    
+    @IBAction func playSelectedTrackMenuItemAction(_ sender: Any) {
+        playSelectedTrack()
+    }
+    
+    @IBAction func moveTrackUpMenuItemAction(_ sender: Any) {
+        moveTrackUpAction(sender as AnyObject)
+    }
+    
+    @IBAction func moveTrackDownMenuItemAction(_ sender: Any) {
+        moveTrackDownAction(sender as AnyObject)
+    }
+    
+    @IBAction func removeTrackMenuItemAction(_ sender: Any) {
+        removeSingleTrackAction(sender as AnyObject)
+    }
+    
+    @IBAction func clearPlaylistMenuItemAction(_ sender: Any) {
+        clearPlaylistAction(sender as AnyObject)
+    }
+    
+    @IBAction func togglePlayPauseMenuItemAction(_ sender: Any) {
+        playPauseAction(sender as AnyObject)
+    }
+    
+    @IBAction func nextTrackMenuItemAction(_ sender: Any) {
+        nextTrackAction(sender as AnyObject)
+    }
+    
+    @IBAction func previousTrackMenuItemAction(_ sender: Any) {
+        prevTrackAction(sender as AnyObject)
+    }
+    
+    @IBAction func trackInfoMenuItemAction(_ sender: Any) {
+        moreInfoAction(sender as AnyObject)
+    }
+    
+    @IBAction func seekForwardMenuItemAction(_ sender: Any) {
+        seekForwardAction(sender as AnyObject)
+    }
+    
+    @IBAction func seekBackwardMenuItemAction(_ sender: Any) {
+        seekBackwardAction(sender as AnyObject)
+    }
+    
+    @IBAction func decreaseVolumeMenuItemAction(_ sender: Any) {
+        decreaseVolume()
+    }
+    
+    @IBAction func increaseVolumeMenuItemAction(_ sender: Any) {
+        increaseVolume()
+    }
+    
+    @IBAction func panLeftMenuItemAction(_ sender: Any) {
+        panLeft()
+    }
+    
+    @IBAction func panRightMenuItemAction(_ sender: Any) {
+        panRight()
+    }
+    
+    @IBAction func toggleRepeatModeMenuItemAction(_ sender: Any) {
+        repeatAction(sender as AnyObject)
+    }
+    
+    @IBAction func toggleShuffleModeMenuItemAction(_ sender: Any) {
+        shuffleAction(sender as AnyObject)
+    }
+    
+    @IBAction func muteUnmuteMenuItemAction(_ sender: Any) {
+        volumeBtnAction(sender as AnyObject)
     }
 }
