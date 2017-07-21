@@ -10,7 +10,10 @@ class UIElements {
     static let openDialog: NSOpenPanel = UIElements.createOpenPanel()
     
     // Used to save current playlist to a file
-    static let saveDialog: NSSavePanel = UIElements.createSavePanel()
+    static let savePlaylistDialog: NSSavePanel = UIElements.createSavePanel()
+    
+    // Used to save a recording to a file
+    static let saveRecordingDialog: NSSavePanel = UIElements.createSaveRecordingPanel()
     
     fileprivate static func createOpenPanel() -> NSOpenPanel {
         
@@ -26,7 +29,7 @@ class UIElements {
         dialog.allowsMultipleSelection = true;
         dialog.allowedFileTypes        = AppConstants.supportedFileTypes_open
         
-        dialog.directoryURL = UIConstants.musicDirURL as URL
+        dialog.directoryURL = AppConstants.musicDirURL
         
         return dialog
     }
@@ -42,7 +45,23 @@ class UIElements {
         dialog.canCreateDirectories    = true
         dialog.allowedFileTypes        = AppConstants.supportedFileTypes_save
         
-        dialog.directoryURL = UIConstants.musicDirURL as URL
+        dialog.directoryURL = AppConstants.musicDirURL
+        
+        return dialog
+    }
+    
+    fileprivate static func createSaveRecordingPanel() -> NSSavePanel {
+        
+        let dialog = NSSavePanel()
+        
+        dialog.title                   = "Save recording"
+        dialog.showsResizeIndicator    = true
+        dialog.showsHiddenFiles        = false
+        
+        dialog.canCreateDirectories    = true
+        dialog.allowedFileTypes        = [RecordingFormat.aac.fileExtension]
+        
+        dialog.directoryURL = AppConstants.musicDirURL
         
         return dialog
     }

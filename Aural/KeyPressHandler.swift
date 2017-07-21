@@ -14,6 +14,7 @@ class KeyPressHandler {
     static let BACKWARD_ARROW: UInt16 = 123
     static let LETTER_I: UInt16 = 34
     static let LETTER_O: UInt16 = 31
+    static let LETTER_R: UInt16 = 15
     static let LETTER_S: UInt16 = 1
     static let SPACE: UInt16 = 49
     static let BACKSPACE: UInt16 = 51
@@ -49,12 +50,12 @@ class KeyPressHandler {
         // ---------------------- Handlers --------------------------
         
         // (Shift + Up arrow) Shift selected track up in playlist
-        if (isShift && event.keyCode == UP_ARROW) {
+        if (isShift && !isCommand && event.keyCode == UP_ARROW) {
             app.moveTrackUpAction(event)
         }
         
         // (Shift + Down arrow) Shift selected track down in playlist
-        if (isShift && event.keyCode == DOWN_ARROW) {
+        if (isShift && !isCommand && event.keyCode == DOWN_ARROW) {
             app.moveTrackDownAction(event)
         }
         
@@ -83,27 +84,27 @@ class KeyPressHandler {
         }
         
         // (Command + O) Open modal dialog to allow user to add files to playlist
-        if (isCommand && event.keyCode == LETTER_O) {
+        if (isCommand && !isShift && event.keyCode == LETTER_O) {
             app.addTracksAction(event)
         }
         
         // (Command + I) Get more detailed track information
-        if (isCommand && event.keyCode == LETTER_I) {
+        if (isCommand && !isShift && event.keyCode == LETTER_I) {
             app.moreInfoAction(event)
         }
         
         // (Command + S) Open modal dialog to allow user to save current playlist to a file
-        if (isCommand && event.keyCode == LETTER_S) {
+        if (isCommand && !isShift && event.keyCode == LETTER_S) {
             app.savePlaylistAction(event)
         }
         
         // (Command + Up arrow) Volume increase
-        if (isCommand && event.keyCode == UP_ARROW) {
+        if (isCommand && !isShift && event.keyCode == UP_ARROW) {
             app.increaseVolume()
         }
         
         // (Command + Down arrow) Volume decrease
-        if (isCommand && event.keyCode == DOWN_ARROW) {
+        if (isCommand && !isShift && event.keyCode == DOWN_ARROW) {
             app.decreaseVolume()
         }
         
@@ -113,27 +114,27 @@ class KeyPressHandler {
         }
         
         // (Command + Backward/Left arrow) Play previous track
-        if (isCommand && event.keyCode == BACKWARD_ARROW) {
+        if (isCommand && !isShift && event.keyCode == BACKWARD_ARROW) {
             app.prevTrackAction(event)
         }
         
         // (Shift + Backward/Left arrow) Pan left a little bit (L/R balance)
-        if (isShift && event.keyCode == BACKWARD_ARROW) {
+        if (!isCommand && isShift && event.keyCode == BACKWARD_ARROW) {
             app.panLeft()
         }
         
-        // (Backward/Left arrow) Seek track forward
+        // (Forward/Right arrow - >) Seek track forward
         if (!isCommand && !isShift && event.keyCode == FORWARD_ARROW) {
             app.seekForwardAction(event)
         }
         
         // (Command + Forward/Right arrow) Play next track
-        if (isCommand && event.keyCode == FORWARD_ARROW) {
+        if (isCommand && !isShift && event.keyCode == FORWARD_ARROW) {
             app.nextTrackAction(event)
         }
         
         // (Shift + Forward/Right arrow) Pan right a little bit (L/R balance)
-        if (isShift && event.keyCode == FORWARD_ARROW) {
+        if (isShift && !isCommand && event.keyCode == FORWARD_ARROW) {
             app.panRight()
         }
         
@@ -150,6 +151,11 @@ class KeyPressHandler {
         // (Enter) Play selected track (same as mouse double click)
         if (!isCommand && !isShift && event.keyCode == ENTER) {
             app.playSelectedTrack()
+        }
+        
+        // (Command + R) Start/stop recording
+        if (isCommand && !isShift && event.keyCode == LETTER_R) {
+            app.recorderAction(event)
         }
         
         // Part of the hack mentioned above ... restore the responder for the playlist view so that it may continue receiving key press events

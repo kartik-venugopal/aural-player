@@ -5,7 +5,7 @@ import Cocoa
 
     See AuralPlayerDelegate, AuralSoundTuningDelegate, and EventSubscriber protocols to learn more about the public functions implemented here.
 */
-class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscriber {
+class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, AuralRecorderDelegate, EventSubscriber {
     
     // Time in seconds for seeking forward/backward
     fileprivate static let SEEK_TIME: Double = 5
@@ -504,6 +504,22 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, EventSubscr
         playlist.clearShuffleSequence()
         
         return shuffleMode
+    }
+    
+    func startRecording(_ format: RecordingFormat) {
+        player.startRecording(format)
+    }
+    
+    func stopRecording() {
+        player.stopRecording()
+    }
+    
+    func saveRecording(_ url: URL) {
+        player.saveRecording(url)
+    }
+    
+    func getRecordingDuration() -> Double {
+        return player.getRecordingDuration()
     }
     
     func getPlayerState() -> SavedPlayerState? {

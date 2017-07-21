@@ -7,8 +7,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PopoverController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="lblTrackInfo" destination="qb8-5A-XiD" id="SBU-1F-3Xa"/>
-                <outlet property="popoverView" destination="c22-O7-iKe" id="a4A-2a-OWu"/>
                 <outlet property="trackInfoView" destination="FNS-yf-Iy0" id="2DV-HS-UnX"/>
                 <outlet property="view" destination="c22-O7-iKe" id="yFm-1D-SYW"/>
             </connections>

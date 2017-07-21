@@ -9,6 +9,9 @@ class UIConstants {
     // Toggled images
     static let imgPlay: NSImage = NSImage(named: "Play")!
     static let imgPause: NSImage = NSImage(named: "Pause")!
+    
+    static let imgRecord: NSImage = NSImage(named: "Record")!
+    static let imgRecorderStop: NSImage = NSImage(named: "RecorderStop")!
 
     static let imgVolumeZero: NSImage = NSImage(named: "VolumeZero")!
     static let imgVolumeLow: NSImage = NSImage(named: "VolumeLow")!
@@ -34,8 +37,8 @@ class UIConstants {
     
     static let popoverValueFont: NSFont = NSFont(name: "Gill Sans Light", size: 13)!
     
-    // Fonts used by the reverb popup menu
-    static let reverbMenuFont: NSFont = NSFont(name: "Gill Sans", size: 11)!
+    // Fonts used by the popup menus
+    static let popupMenuFont: NSFont = NSFont(name: "Gill Sans", size: 11)!
     
     // Overall UI color scheme
     static let colorScheme: ColorSchemes = ColorSchemes.gray
@@ -43,6 +46,7 @@ class UIConstants {
     // For the label that shows a track's playback position
     static let zeroDurationString: String = "0:00"
     
+    // Values used to determine the row height of table rows in the detailed track info popover view
     static let trackInfoValueColumnWidth: CGFloat = 340
     static let trackInfoValueRowHeight: CGFloat = 26
     static let trackInfoLongValueRowHeight: CGFloat = 1.75 * trackInfoValueRowHeight
@@ -51,6 +55,6 @@ class UIConstants {
     // Seek timer interval (milliseconds)
     static let seekTimerIntervalMillis: Int = 500
     
-    // Default user's music directory (default place to look in, when opening/saving files)
-    static let musicDirURL: URL = URL(fileURLWithPath: NSHomeDirectory() + "/Music")
+    // Recorder timer interval (milliseconds)
+    static let recorderTimerIntervalMillis: Int = 500
 }

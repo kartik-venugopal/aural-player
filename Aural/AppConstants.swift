@@ -17,4 +17,10 @@ class AppConstants {
     
     static let stateFileName = "auralPlayer-state.json"
     static let logFileName = "auralPlayer.log"
+    
+    // Default user's music directory (default place to look in, when opening/saving files)
+    static let musicDirURL: URL = URL(fileURLWithPath: NSHomeDirectory() + "/Music")
+    
+    // Directory where recordings are temporarily stored, till the user defines the location
+    static let recordingDirURL: URL = musicDirURL
 }

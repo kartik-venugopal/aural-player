@@ -58,6 +58,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var filterLowPassSlider: NSSlider!
     @IBOutlet weak var filterHighPassSlider: NSSlider!
     
+    @IBOutlet weak var btnRecord: NSButton!
+    
+    @IBOutlet weak var lblRecorderDuration: NSTextField!
+    
     // Parametric equalizer controls
     @IBOutlet weak var eqGlobalGainSlider: NSSlider!
     @IBOutlet weak var eqSlider1k: NSSlider!
@@ -106,6 +110,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     var fxCollapsibleView: CollapsibleView?
     var windowManager: WindowManager?
     
+    // Timer that periodically updates the recording duration (only when recorder is active)
+    var recorderTimer: ScheduledTaskExecutor? = nil
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
         // Initialize UI with presentation settings (colors, sizes, etc)
@@ -151,6 +158,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         let collapsibleViews = [playlistCollapsibleView!, fxCollapsibleView!]
         windowManager = WindowManager(window: window, views: collapsibleViews)
+        
+        recorderTimer = ScheduledTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
     }
     
     func initStatefulUI(_ playerState: SavedPlayerState) {
@@ -393,11 +402,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         seekSlider.floatValue = 0
     }
     
-    // Needed for timer selector
-    func updatePlayingTime(_ sender: AnyObject) {
-        updatePlayingTime()
-    }
-    
     func playlistDoubleClickAction(_ sender: AnyObject) {
         playSelectedTrack()
     }
@@ -629,7 +633,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         // Make sure there is at least one track to save
         if (player.getPlaylistSummary().numTracks > 0) {
         
-            let dialog = UIElements.saveDialog
+            let dialog = UIElements.savePlaylistDialog
             
             modalDialogOpen = true
             let modalResponse = dialog.runModal()
@@ -868,5 +872,46 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     func isPlaylistShown() -> Bool {
         return playlistCollapsibleView?.hidden == false
+    }
+    
+    @IBAction func recorderAction(_ sender: Any) {
+        
+        let isRecording: Bool = btnRecord.image == UIConstants.imgRecorderStop
+        
+        if (isRecording) {
+            player.stopRecording()
+            btnRecord.image = UIConstants.imgRecord
+            lblRecorderDuration.stringValue = UIConstants.zeroDurationString
+            recorderTimer?.pause()
+            
+            // TODO: Make this wait until the (async) stopping is complete ... respond to an event notification
+            saveRecording()
+        } else {
+            
+            // Only AAC format works for now
+            player.startRecording(RecordingFormat.aac)
+            btnRecord.image = UIConstants.imgRecorderStop
+            recorderTimer?.startOrResume()
+        }
+    }
+    
+    func saveRecording() {
+        
+        let dialog = UIElements.saveRecordingDialog
+        dialog.allowedFileTypes = [RecordingFormat.aac.fileExtension]
+            
+        modalDialogOpen = true
+        let modalResponse = dialog.runModal()
+        modalDialogOpen = false
+        
+        if (modalResponse == NSModalResponseOK) {
+            player.saveRecording(dialog.url!)
+        }
+    }
+    
+    func updateRecordingTime() {
+        
+        let recDuration = player.getRecordingDuration()
+        lblRecorderDuration.stringValue = Utils.formatDuration(recDuration)
     }
 }

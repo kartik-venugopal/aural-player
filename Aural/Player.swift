@@ -5,7 +5,7 @@ Wrapper around AVAudioEngine. Handles all audio-related operations ... playback,
 import Cocoa
 import AVFoundation
 
-class Player: AuralPlayer, AuralSoundTuner {
+class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
     
     fileprivate static let singleton: Player = Player()
     
@@ -20,6 +20,7 @@ class Player: AuralPlayer, AuralSoundTuner {
     // Used for conversions of sample rates / channel counts
     fileprivate let auxMixer: AVAudioMixerNode
     
+    // Audio graph nodes
     fileprivate let eqNode: ParametricEQNode
     fileprivate let pitchNode: AVAudioUnitTimePitch
     fileprivate let reverbNode: AVAudioUnitReverb
@@ -35,7 +36,10 @@ class Player: AuralPlayer, AuralSoundTuner {
     fileprivate var muted: Bool
     fileprivate var reverbPreset: AVAudioUnitReverbPreset
     
+    // Buffer allocation
     fileprivate var bufferManager: BufferManager
+    
+    fileprivate var recorder: Recorder
     
     // Currently playing track
     fileprivate var playingTrack: Track?
@@ -69,6 +73,7 @@ class Player: AuralPlayer, AuralSoundTuner {
         audioEngineHelper.prepareAndStart()
         
         bufferManager = BufferManager(playerNode: playerNode)
+        recorder = Recorder(audioEngine)
         
         loadPlayerState(SavedPlayerState.defaults)
     }
@@ -310,6 +315,22 @@ class Player: AuralPlayer, AuralSoundTuner {
         if (!seekResult.playbackCompleted) {
             startFrame = seekResult.startFrame!
         }
+    }
+    
+    func startRecording(_ format: RecordingFormat) {
+        recorder.startRecording(format)
+    }
+    
+    func stopRecording() {
+        recorder.stopRecording()
+    }
+    
+    func saveRecording(_ url: URL) {
+        recorder.saveRecording(url)
+    }
+    
+    func getRecordingDuration() -> Double {
+        return recorder.getRecordingDuration()
     }
     
     func getPlayerState() -> SavedPlayerState {

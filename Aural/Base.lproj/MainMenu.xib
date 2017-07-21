@@ -21,6 +21,7 @@
                 <outlet property="btnMoreInfo" destination="0Mb-en-nxS" id="wGo-JQ-F9n"/>
                 <outlet property="btnPitchBypass" destination="OGV-jG-nOV" id="Ga3-rh-lAm"/>
                 <outlet property="btnPlayPause" destination="52R-Hv-S0B" id="mK4-VJ-VKN"/>
+                <outlet property="btnRecord" destination="caX-PX-mby" id="hiF-6n-jGG"/>
                 <outlet property="btnRepeat" destination="Fpa-Ii-3YA" id="en0-OB-Uwa"/>
                 <outlet property="btnReverbBypass" destination="R9b-lC-8tk" id="EIK-S0-qLa"/>
                 <outlet property="btnShuffle" destination="kQL-4a-kyh" id="eJE-qZ-92B"/>
@@ -28,12 +29,10 @@
                 <outlet property="btnToggleEffects" destination="jtn-oJ-Dzg" id="M25-hU-iCb"/>
                 <outlet property="btnTogglePlaylist" destination="TTw-rh-Ama" id="Phj-Il-bwq"/>
                 <outlet property="btnVolume" destination="Y0j-zk-a3t" id="JEt-SA-sLv"/>
-                <outlet property="controlsBox" destination="X7y-oM-7MJ" id="pWh-jP-HJH"/>
                 <outlet property="delayAmountSlider" destination="w57-Jo-8d2" id="fXJ-R0-OV8"/>
                 <outlet property="delayCutoffSlider" destination="Czy-vK-eST" id="ec0-iO-Xbc"/>
                 <outlet property="delayFeedbackSlider" destination="D1K-bn-CdT" id="SeQ-DA-NoR"/>
                 <outlet property="delayTimeSlider" destination="n58-zU-hzG" id="qwH-1a-rYH"/>
-                <outlet property="effectsBox" destination="DYI-NL-cxu" id="sRS-Qq-iYa"/>
                 <outlet property="eqGlobalGainSlider" destination="XKK-aS-eMn" id="iBk-45-gwb"/>
                 <outlet property="eqPresets" destination="hG3-Ir-qkY" id="aPR-W2-25b"/>
                 <outlet property="eqSlider128" destination="iEd-37-pLD" id="hxO-KV-1sG"/>
@@ -50,19 +49,13 @@
                 <outlet property="filterLowPassSlider" destination="Ji2-Aw-phh" id="ycP-0R-B7e"/>
                 <outlet property="fxBox" destination="DYI-NL-cxu" id="yU3-ij-nVZ"/>
                 <outlet property="fxTabView" destination="ajb-w5-ueo" id="nb7-Ak-DyM"/>
-                <outlet property="lblAppName" destination="saz-qI-SEO" id="j3q-6x-5AB"/>
                 <outlet property="lblDurationSummary" destination="uK4-ud-Rzz" id="KG9-ya-NTn"/>
-                <outlet property="lblOctaves" destination="uOU-Zl-fv2" id="AXp-gI-H71"/>
-                <outlet property="lblPanL" destination="rMC-T8-qxI" id="mek-zr-T7z"/>
-                <outlet property="lblPanR" destination="ZXX-yl-h3G" id="gwq-l8-04y"/>
-                <outlet property="lblPitchShift" destination="vmk-7Z-Qi0" id="DBz-Ha-84m"/>
                 <outlet property="lblPlayingTime" destination="4f4-mL-8YB" id="b70-tW-uxv"/>
-                <outlet property="lblReverb" destination="si3-ai-Wgb" id="4MI-5P-fq4"/>
+                <outlet property="lblRecorderDuration" destination="Uem-Yb-AdQ" id="1Ji-Z3-50m"/>
                 <outlet property="lblTrackArtist" destination="bDo-O3-0JI" id="R2s-4c-465"/>
                 <outlet property="lblTrackTitle" destination="LM5-xW-O9f" id="Dg8-JS-PyS"/>
                 <outlet property="lblTracksSummary" destination="PC9-RH-ZoK" id="DIy-BE-lmy"/>
                 <outlet property="musicArtView" destination="YrG-JU-zDl" id="pn0-XL-ktK"/>
-                <outlet property="nowPlayingBox" destination="r0W-tQ-AZF" id="Ogu-ve-Zd6"/>
                 <outlet property="panSlider" destination="wom-j6-eli" id="3Bl-ac-3Pj"/>
                 <outlet property="pitchOverlapSlider" destination="9E2-MV-Hi7" id="y3H-9s-ozV"/>
                 <outlet property="pitchSlider" destination="g6a-qD-rnZ" id="HBk-Ja-Ags"/>
@@ -225,13 +218,6 @@
                                         <action selector="moreInfoAction:" target="Voe-Tx-rLC" id="jzL-8a-O0k"/>
                                     </connections>
                                 </button>
-                                <box horizontalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="ogR-5b-6Jw">
-                                    <rect key="frame" x="83" y="0.0" width="5" height="90"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                    <shadow key="shadow" blurRadius="2">
-                                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </shadow>
-                                </box>
                             </subviews>
                         </view>
                         <shadow key="shadow" blurRadius="5">
@@ -378,20 +364,6 @@ G1BhbiBTbGlkZXI
                                         <action selector="seekForwardAction:" target="Voe-Tx-rLC" id="Ehm-tT-1W9"/>
                                     </connections>
                                 </button>
-                                <box horizontalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="mbl-1i-uXf">
-                                    <rect key="frame" x="76" y="0.0" width="5" height="65"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                    <shadow key="shadow" blurRadius="2">
-                                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </shadow>
-                                </box>
-                                <box horizontalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="ghj-JI-4uZ">
-                                    <rect key="frame" x="279" y="-3" width="5" height="65"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                    <shadow key="shadow" blurRadius="2">
-                                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </shadow>
-                                </box>
                             </subviews>
                         </view>
                         <shadow key="shadow" blurRadius="5">
@@ -420,7 +392,7 @@ G1BhbiBTbGlkZXI
                         <tabViewItems>
                             <tabViewItem label="EQ" identifier="1" id="McD-gg-qp9" userLabel="EQ">
                                 <view key="view" id="vC5-27-GiC">
-                                    <rect key="frame" x="10" y="33" width="283" height="0.0"/>
+                                    <rect key="frame" x="10" y="33" width="335" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zm-Bg-NEY">
@@ -829,7 +801,7 @@ G1BhbiBTbGlkZXI
                                                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6kC-nQ-BsO" userLabel="Reverb Menu">
                                                         <rect key="frame" x="14" y="11" width="116" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <popUpButtonCell key="cell" type="push" title="Plate" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="i6t-X9-aQc" id="yEa-5P-jND" customClass="ReverbPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                                                        <popUpButtonCell key="cell" type="push" title="Plate" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="i6t-X9-aQc" id="yEa-5P-jND" customClass="ItemDisplayingPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" size="10" name="GillSans"/>
                                                             <menu key="menu" id="jlg-5b-dHq">
@@ -1112,7 +1084,7 @@ G1BhbiBTbGlkZXI
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Filter" identifier="" id="wCL-UO-nMJ">
-                                <view key="view" ambiguous="YES" id="eRG-iQ-ZQv">
+                                <view key="view" id="eRG-iQ-ZQv">
                                     <rect key="frame" x="10" y="33" width="376" height="142"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -1197,6 +1169,101 @@ G1BhbiBTbGlkZXI
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="10Hz                             20KHz" id="ICR-nS-k0Q">
                                                             <font key="font" size="9" name="GillSans"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                            </view>
+                                        </box>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Recorder" identifier="" id="ZgM-Kw-eIJ">
+                                <view key="view" ambiguous="YES" id="LZW-JZ-Gv7">
+                                    <rect key="frame" x="10" y="33" width="376" height="142"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v68-BB-egX" userLabel="Recorder Desc">
+                                            <rect key="frame" x="63" y="103" width="240" height="35"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Records what's playing" id="re2-K9-FkW">
+                                                <font key="font" size="13" name="GillSans"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <box fixedFrame="YES" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="0Zb-sb-85g" userLabel="Controls Box">
+                                            <rect key="frame" x="62" y="1" width="294" height="96"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <view key="contentView" ambiguous="YES" id="gfN-TK-gjf">
+                                                <rect key="frame" x="1" y="1" width="292" height="94"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <button toolTip="Play / Pause" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="caX-PX-mby" userLabel="Record Button">
+                                                        <rect key="frame" x="221" y="36" width="25" height="25"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Record" imagePosition="overlaps" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="WId-T2-owg">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="recorderAction:" target="Voe-Tx-rLC" id="mlm-nr-edj"/>
+                                                        </connections>
+                                                    </button>
+                                                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Xv-Xz-5gy" userLabel="Format menu">
+                                                        <rect key="frame" x="13" y="37" width="171" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <popUpButtonCell key="cell" type="push" title="Advanced Audio Codec (AAC)" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="3u9-u8-zCe" id="NmX-Z5-9MU" customClass="ItemDisplayingPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" size="10" name="GillSans"/>
+                                                            <menu key="menu" id="fbq-g2-8Ce">
+                                                                <items>
+                                                                    <menuItem title="Advanced Audio Codec (AAC)" id="3u9-u8-zCe">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="MPEG Layer 3 (MP3)" id="cun-DJ-5ph">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                </items>
+                                                            </menu>
+                                                        </popUpButtonCell>
+                                                        <connections>
+                                                            <action selector="reverbAction:" target="Voe-Tx-rLC" id="N1P-Vn-FRC"/>
+                                                        </connections>
+                                                    </popUpButton>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pmj-Ut-e4j" userLabel="Start/Stop">
+                                                        <rect key="frame" x="201" y="66" width="73" height="17"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Start/Stop" id="pgH-yk-cA1">
+                                                            <font key="font" size="12" name="GillSans"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CAZ-a4-NnT" userLabel="Format">
+                                                        <rect key="frame" x="71" y="66" width="39" height="17"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Format" id="UrL-kZ-A4a">
+                                                            <font key="font" size="12" name="GillSans"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fvo-7Y-SRn">
+                                                        <rect key="frame" x="96" y="14" width="72" height="17"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Duration:" id="TQG-BV-MFb">
+                                                            <font key="font" size="12" name="GillSans"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uem-Yb-AdQ" userLabel="Duration value">
+                                                        <rect key="frame" x="162" y="13" width="68" height="17"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0:00" id="tld-95-SRR">
+                                                            <font key="font" size="12" name="GillSans"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -1510,6 +1577,7 @@ CA
         <image name="NextTrack" width="256" height="256"/>
         <image name="Play" width="256" height="256"/>
         <image name="PreviousTrack" width="256" height="256"/>
+        <image name="Record" width="256" height="256"/>
         <image name="Remove" width="127" height="127"/>
         <image name="Remove-Small" width="20" height="20"/>
         <image name="RepeatOff" width="256" height="256"/>

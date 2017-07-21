@@ -1,14 +1,14 @@
 /*
-    Customizes the look and feel of the popup menu for the reverb setting
+    Customizes the look and feel of the popup menus the display their selected item
 */
 
 import Cocoa
 
-class ReverbPopupMenuCell: NSPopUpButtonCell {
+class ItemDisplayingPopupMenuCell: NSPopUpButtonCell {
 
     override internal func drawBorderAndBackground(withFrame cellFrame: NSRect, in controlView: NSView) {
         
-        let drawRect = cellFrame.insetBy(dx: 0, dy: 2.5)
+        let drawRect = cellFrame.insetBy(dx: 0, dy: 1)
         
         UIConstants.colorScheme.popupMenuColor.setFill()
         
@@ -17,7 +17,7 @@ class ReverbPopupMenuCell: NSPopUpButtonCell {
         drawPath.fill()
         
         // Draw arrow
-        let x = drawRect.maxX - 10, y = drawRect.maxY - 5
+        let x = drawRect.maxX - 10, y = drawRect.maxY - 6
         GraphicsUtils.drawArrow(NSColor.black, origin: NSMakePoint(x, y), dx: 3, dy: 4, lineWidth: 1)
         
     }
@@ -29,7 +29,7 @@ class ReverbPopupMenuCell: NSPopUpButtonCell {
         textStyle.alignment = NSTextAlignment.center
         
         let textFontAttributes = [
-            NSFontAttributeName: UIConstants.reverbMenuFont,
+            NSFontAttributeName: UIConstants.popupMenuFont,
             NSForegroundColorAttributeName: NSColor.white,
             NSParagraphStyleAttributeName: textStyle
         ]
