@@ -29,8 +29,8 @@ class UIConstants {
     static let imgMusicArt: NSImage = NSImage(named: "MusicArt")!
     
     // Fonts used by the playlist view
-    static let boldFont: NSFont = NSFont(name: "Gill Sans", size: 13.5)!
-    static let regularFont: NSFont = NSFont(name: "Gill Sans Light", size: 13.5)!
+    static let playlistBoldFont: NSFont = NSFont(name: "Gill Sans", size: 13.5)!
+    static let playlistRegularFont: NSFont = NSFont(name: "Gill Sans Light", size: 13.5)!
     
     static let popoverValueFont: NSFont = NSFont(name: "Gill Sans Light", size: 13)!
     
