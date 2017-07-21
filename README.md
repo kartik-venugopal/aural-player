@@ -1,11 +1,22 @@
 # Aural Player
-Aural Player is a free and open source audio player application for the MacOS (formerly OS X) platform. It is free for anyone to use/modify/repackage/redistribute, etc. It was written by an audio enthusiast learning to program on OS X, coming to Swift programming from many years of Java programming. 
 
-(Please see User Guide and Developer-readme under /Documentation, for more details)
+## Overview
+
+Aural Player is a free and open source audio player application for the MacOS (formerly OS X) platform. It is free for anyone to use/modify/repackage/redistribute, etc. It was written by an audio enthusiast learning to program on OS X, coming to Swift programming from many years of Java programming.
+
+## Downloadable app bundle
 
 The latest app bundle can be found in the compressed archive file "Aural.app.zip".
 
-UPDATE (7/20/2017): Code in master branch ported to Swift v3. Swift 2 code is now in the "swift2" branch. Swift 2 development, from this point on, will be limited to none. Latest changes will go into master branch (with Swift 3 code).
+## Documentation
+
+Please see User Guide and Developer-readme under /Documentation, for more details.
+
+## Swift 3 update
+
+7/20/2017: Code in master branch ported to Swift v3. Swift 2 code is now in the "swift2" branch. Swift 2 development, from this point on, will be limited to none. Latest changes will go into master branch (with Swift 3 code).
+
+## Screenshots
 
 ![App screenshot](/Documentation/Screenshots/Aural.png?raw=true "App screenshot")
 
