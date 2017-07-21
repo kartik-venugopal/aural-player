@@ -6,8 +6,8 @@ A collection of app-level constants
 */
 class AppConstants {
  
-    static let supportedAudioFileTypes: [String] = ["mp3", "m4a"]
-    static let supportedFileTypes_open: [String] = ["mp3", "m4a", "apl"]
+    static let supportedAudioFileTypes: [String] = ["mp3", "m4a", "aac", "wav"]
+    static let supportedFileTypes_open: [String] = ["mp3", "m4a", "aac", "wav", customPlaylistExtension]
     
     static let customPlaylistExtension: String = "apl"
     static let supportedFileTypes_save: [String] = [customPlaylistExtension]
