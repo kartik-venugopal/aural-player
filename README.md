@@ -6,7 +6,7 @@ Aural Player is a free and open source audio player application for the MacOS (f
 
 ## Downloadable app bundle
 
-The latest app bundle can be found in the compressed archive file "Aural.app.zip".
+The latest app bundle can be found in the compressed archive file [Aural.app.zip](https://github.com/maculateConception/aural-player/raw/master/Aural.app.zip).
 
 ## Documentation
 
