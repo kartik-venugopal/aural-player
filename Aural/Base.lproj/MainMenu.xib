@@ -1585,23 +1585,6 @@ CA
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="View" id="cu5-E6-xt6">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="View" id="Fd0-9b-tm8">
-                        <items>
-                            <menuItem title=" Playlist" state="on" image="TogglePlaylistView-Small" keyEquivalent="1" id="af4-4E-1QV" userLabel="Playlist">
-                                <connections>
-                                    <action selector="toggleViewPlaylistAction:" target="Voe-Tx-rLC" id="qy1-fM-T4F"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title=" Effects" state="on" image="ToggleEffectsView-Small" keyEquivalent="2" id="fK8-7g-oqx" userLabel="Effects">
-                                <connections>
-                                    <action selector="toggleViewEffectsAction:" target="Voe-Tx-rLC" id="Kiw-iQ-y6k"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
-                </menuItem>
                 <menuItem title="Controls" id="voC-QS-eVy" userLabel="Controls">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Controls" id="4gC-cq-kT9">
@@ -1680,6 +1663,23 @@ CA
                             <menuItem title=" Detailed track info" image="MoreInfo-Small" keyEquivalent="i" id="GCy-Rj-Mv5">
                                 <connections>
                                     <action selector="trackInfoMenuItemAction:" target="Voe-Tx-rLC" id="FDP-DL-ibS"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="View" id="cu5-E6-xt6">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="View" id="Fd0-9b-tm8">
+                        <items>
+                            <menuItem title=" Playlist" state="on" image="TogglePlaylistView-Small" keyEquivalent="1" id="af4-4E-1QV" userLabel="Playlist">
+                                <connections>
+                                    <action selector="toggleViewPlaylistAction:" target="Voe-Tx-rLC" id="qy1-fM-T4F"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Effects" state="on" image="ToggleEffectsView-Small" keyEquivalent="2" id="fK8-7g-oqx" userLabel="Effects">
+                                <connections>
+                                    <action selector="toggleViewEffectsAction:" target="Voe-Tx-rLC" id="Kiw-iQ-y6k"/>
                                 </connections>
                             </menuItem>
                         </items>
