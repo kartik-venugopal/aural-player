@@ -518,6 +518,10 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, AuralRecord
         player.saveRecording(url)
     }
     
+    func deleteRecording() {
+        player.deleteRecording()
+    }
+    
     func getRecordingDuration() -> Double {
         return player.getRecordingDuration()
     }

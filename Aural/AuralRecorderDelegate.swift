@@ -17,4 +17,7 @@ protocol AuralRecorderDelegate {
     
     // Saves the new recording to the user-defined file URL
     func saveRecording(_ url: URL)
+    
+    // Deletes the new recording
+    func deleteRecording()
 }

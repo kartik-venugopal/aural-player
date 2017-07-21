@@ -329,6 +329,10 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         recorder.saveRecording(url)
     }
     
+    func deleteRecording() {
+        recorder.deleteRecording()
+    }
+    
     func getRecordingDuration() -> Double {
         return recorder.getRecordingDuration()
     }

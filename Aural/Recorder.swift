@@ -1,5 +1,5 @@
 /*
-    Provides all recording functionality (start/stop/save), and maintains all state for the current recording (start time, file path, etc)
+    Provides all recording functionality (start/stop/save/delete), and maintains all state for the current recording (start time, file path, etc)
  */
 
 import Cocoa
@@ -79,5 +79,13 @@ class Recorder {
         // Duration = now - startTime
         let now = Date()
         return now.timeIntervalSince(recordingStartTime!)
+    }
+    
+    func deleteRecording() {
+        do {
+            try FileManager.default.removeItem(atPath: tempRecordingFilePath!)
+        } catch let error as NSError {
+            NSLog("Error deleting temporary recording file: %@", error.description)
+        }
     }
 }

@@ -906,6 +906,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         if (modalResponse == NSModalResponseOK) {
             player.saveRecording(dialog.url!)
+        } else {
+            player.deleteRecording()
         }
     }
     
