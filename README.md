@@ -26,3 +26,9 @@ UPDATE (7/20/2017): Code in master branch ported to Swift v3. Swift 2 code is no
 ![Filter](/Documentation/Screenshots/Filter.png?raw=true "Filter")
 
 ![Recorder](/Documentation/Screenshots/Recorder.png?raw=true "Recorder")
+
+![Playlist Menu](/Documentation/Screenshots/PlaylistMenu.png?raw=true "Playlist Menu")
+
+![Controls Menu](/Documentation/Screenshots/ControlsMenu.png?raw=true "Controls Menu")
+
+![View Menu](/Documentation/Screenshots/ViewMenu.png?raw=true "View Menu")
