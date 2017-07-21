@@ -22,3 +22,5 @@ UPDATE (7/20/2017): Code in master branch ported to Swift v3. Swift 2 code is no
 ![Delay](/Documentation/Screenshots/Delay.png?raw=true "Delay")
 
 ![Filter](/Documentation/Screenshots/Filter.png?raw=true "Filter")
+
+![Recorder](/Documentation/Screenshots/Recorder.png?raw=true "Recorder")
