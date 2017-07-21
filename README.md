@@ -4,7 +4,7 @@
 
 Aural Player is a free and open source audio player application for the MacOS (formerly OS X) platform. It is free for anyone to use/modify/repackage/redistribute, etc. It was written by an audio enthusiast learning to program on OS X, coming to Swift programming from many years of Java programming.
 
-#### Compatibility
+### Compatibility
 
 **User**: Running Aural Player requires OS X 10.10 (Yosemite) or later MacOS versions.
 
