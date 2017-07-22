@@ -23,9 +23,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var fxBox: NSBox!
     @IBOutlet weak var playlistBox: NSBox!
     
-    // Playlist summary labels
-    @IBOutlet weak var lblTracksSummary: NSTextField!
-    @IBOutlet weak var lblDurationSummary: NSTextField!
+    // Playlist summary label
+    @IBOutlet weak var lblPlaylistSummary: NSTextField!
     
     // Displays the playlist
     @IBOutlet weak var playlistView: NSTableView!
@@ -239,10 +238,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     func updatePlaylistSummary() {
+        
         let summary = player.getPlaylistSummary()
         let numTracks = summary.numTracks
-        lblTracksSummary.stringValue = String(numTracks) + (numTracks == 1 ? " track" : " tracks")
-        lblDurationSummary.stringValue = Utils.formatDuration(summary.totalDuration)
+        
+        let numTracksStr = String(numTracks) + (numTracks == 1 ? " track   " : " tracks   ")
+        let durationStr = Utils.formatDuration(summary.totalDuration)
+        
+        lblPlaylistSummary.stringValue = numTracksStr + durationStr
     }
     
     fileprivate func updateEQSliders(_ eqBands: [Int: Float]) {

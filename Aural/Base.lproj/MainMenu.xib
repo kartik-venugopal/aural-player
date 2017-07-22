@@ -49,12 +49,11 @@
                 <outlet property="filterLowPassSlider" destination="Ji2-Aw-phh" id="ycP-0R-B7e"/>
                 <outlet property="fxBox" destination="DYI-NL-cxu" id="yU3-ij-nVZ"/>
                 <outlet property="fxTabView" destination="ajb-w5-ueo" id="nb7-Ak-DyM"/>
-                <outlet property="lblDurationSummary" destination="uK4-ud-Rzz" id="KG9-ya-NTn"/>
                 <outlet property="lblPlayingTime" destination="4f4-mL-8YB" id="b70-tW-uxv"/>
+                <outlet property="lblPlaylistSummary" destination="PC9-RH-ZoK" id="etP-46-7Hc"/>
                 <outlet property="lblRecorderDuration" destination="Uem-Yb-AdQ" id="1Ji-Z3-50m"/>
                 <outlet property="lblTrackArtist" destination="bDo-O3-0JI" id="R2s-4c-465"/>
                 <outlet property="lblTrackTitle" destination="LM5-xW-O9f" id="Dg8-JS-PyS"/>
-                <outlet property="lblTracksSummary" destination="PC9-RH-ZoK" id="DIy-BE-lmy"/>
                 <outlet property="musicArtView" destination="YrG-JU-zDl" id="pn0-XL-ktK"/>
                 <outlet property="panSlider" destination="wom-j6-eli" id="3Bl-ac-3Pj"/>
                 <outlet property="pitchOverlapSlider" destination="9E2-MV-Hi7" id="y3H-9s-ozV"/>
@@ -1467,19 +1466,10 @@ G1BhbiBTbGlkZXI
                                         <action selector="moveTrackDownAction:" target="Voe-Tx-rLC" id="cZJ-AR-tnk"/>
                                     </connections>
                                 </button>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PC9-RH-ZoK" userLabel="Tracks summary">
-                                    <rect key="frame" x="201" y="1" width="104" height="25"/>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PC9-RH-ZoK" userLabel="Playlist summary">
+                                    <rect key="frame" x="184" y="1" width="195" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0 tracks" id="AP4-Kh-xaT">
-                                        <font key="font" size="14" name="GillSans"/>
-                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uK4-ud-Rzz" userLabel="Duration summary">
-                                    <rect key="frame" x="309" y="1" width="70" height="25"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0:00" id="X7W-tv-kd3">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0 tracks 0:00" id="AP4-Kh-xaT">
                                         <font key="font" size="14" name="GillSans"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
