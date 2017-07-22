@@ -34,7 +34,7 @@ class ItemDisplayingPopupMenuCell: NSPopUpButtonCell {
             NSParagraphStyleAttributeName: textStyle
         ]
         
-        title.string.draw(in: NSOffsetRect(withFrame, 0, -2), withAttributes: textFontAttributes)
+        title.string.draw(in: NSOffsetRect(withFrame, 0, 0), withAttributes: textFontAttributes)
         
         return withFrame
     }

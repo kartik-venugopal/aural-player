@@ -38,7 +38,7 @@ class UIConstants {
     static let popoverValueFont: NSFont = NSFont(name: "Gill Sans Light", size: 13)!
     
     // Fonts used by the popup menus
-    static let popupMenuFont: NSFont = NSFont(name: "Gill Sans", size: 11)!
+    static let popupMenuFont: NSFont = NSFont(name: "Gill Sans", size: 10)!
     
     // Overall UI color scheme
     static let colorScheme: ColorSchemes = ColorSchemes.gray
