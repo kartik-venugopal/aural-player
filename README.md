@@ -2,7 +2,11 @@
 
 ## Overview
 
-Aural Player is a free and open source audio player application for the MacOS (formerly OS X) platform. It is free for anyone to use/modify/repackage/redistribute, etc. It was written by an audio enthusiast learning to program on OS X, coming to Swift programming from many years of Java programming.
+Aural Player is a free and open source audio player application for the MacOS (formerly OS X) platform. It is free for anyone to use/modify/repackage/redistribute, etc. It is designed to be to-the-point and easy to use, with plenty of keyboard shortcuts for convenience and efficiency, much like the classic Winamp player on Windows, plus some additional sound tuning capabilities for audio enthusiasts who like to tweak sound.
+
+### Background
+
+Aural Player was written by an audio enthusiast learning to program on OS X, coming to Swift programming from many years of Java programming. This project was inspired by the developer’s desire to create a Winamp-like substitute for the MacOS platform. No feature bloat or unnecessary annoyances like iTunes.
 
 ### Compatibility
 
