@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3E047B0E1F01436700ADE0F1 /* ReverbPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E047B0D1F01436700ADE0F1 /* ReverbPresets.swift */; };
-		3E0A29471F1763E7007E81D6 /* VolumeSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A29461F1763E7007E81D6 /* VolumeSliderCell.swift */; };
 		3E2188A41F0763F50085BAB3 /* TrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2188A31F0763F50085BAB3 /* TrackInfoViewController.swift */; };
 		3E2188A61F0767290085BAB3 /* TrackInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2188A51F0767290085BAB3 /* TrackInfoView.swift */; };
 		3E2188A81F0771390085BAB3 /* PopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2188A71F0771390085BAB3 /* PopoverController.swift */; };
@@ -76,7 +75,6 @@
 
 /* Begin PBXFileReference section */
 		3E047B0D1F01436700ADE0F1 /* ReverbPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverbPresets.swift; sourceTree = "<group>"; };
-		3E0A29461F1763E7007E81D6 /* VolumeSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeSliderCell.swift; sourceTree = "<group>"; };
 		3E2188A31F0763F50085BAB3 /* TrackInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "\U001bTrackInfoViewController.swift"; sourceTree = "<group>"; };
 		3E2188A51F0767290085BAB3 /* TrackInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackInfoView.swift; sourceTree = "<group>"; };
 		3E2188A71F0771390085BAB3 /* PopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverController.swift; sourceTree = "<group>"; };
@@ -339,7 +337,6 @@
 				3EB2A7E11F043256001DF748 /* SeekSliderCell.swift */,
 				3EB2A7E31F0436D5001DF748 /* EQSliderCell.swift */,
 				3EB2A7E51F043989001DF748 /* HorizontalSliderCell.swift */,
-				3E0A29461F1763E7007E81D6 /* VolumeSliderCell.swift */,
 				3EB2A7E71F043BBE001DF748 /* TickedSliderCell.swift */,
 			);
 			name = SliderCells;
@@ -446,7 +443,6 @@
 				3EFFE6B71F036D82003728BD /* SavedPlaylist.swift in Sources */,
 				3E80E66F1F04FA60007480CC /* Size.swift in Sources */,
 				3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */,
-				3E0A29471F1763E7007E81D6 /* VolumeSliderCell.swift in Sources */,
 				3E426F801EFDDDEE002F5F18 /* Utils.swift in Sources */,
 				3E79D0B91F219C120017A38F /* TrackInfoTextFieldCell.swift in Sources */,
 				3EA29ADA1F0B47FC00DA239E /* EventProtocols.swift in Sources */,

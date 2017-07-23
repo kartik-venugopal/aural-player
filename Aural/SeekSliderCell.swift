@@ -8,13 +8,12 @@ class SeekSliderCell: NSSliderCell {
     
     override internal func drawKnob(_ knobRect: NSRect) {
         
-        let drawRect = knobRect.insetBy(dx: 1.0, dy: 2.25)
+        let drawRect = knobRect.insetBy(dx: 1.0, dy: 2.75)
         
         UIConstants.colorScheme.sliderKnobColor.setFill()
         
-        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 2, yRadius: 2)
+        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 1, yRadius: 1)
         
         drawPath.fill()
-        drawPath.stroke()
     }
 }

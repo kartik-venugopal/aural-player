@@ -24,9 +24,20 @@ class TickedSliderCell: NSSliderCell {
         
         let drawRect = aRect.insetBy(dx: 1.5, dy: 1.5)
         
-        UIConstants.colorScheme.eqSliderBarColor.setFill()
+        let knobPosition = knobRect(flipped: false)
         
-        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 2, yRadius: 2)
+        let leftRect = NSRect(x: drawRect.origin.x, y: drawRect.origin.y, width: knobPosition.minX - drawRect.minX + 6, height: drawRect.height)
+        
+        // Draw the dark portion of the bar (left of the knob)
+        UIConstants.colorScheme.sliderBarDarkColor.setFill()
+        var drawPath = NSBezierPath.init(roundedRect: leftRect, xRadius: 2, yRadius: 2)
+        drawPath.fill()
+        
+        let rightRect = NSRect(x: knobPosition.maxX - 6, y: drawRect.origin.y, width: drawRect.maxX - knobPosition.maxX + 6, height: drawRect.height)
+        
+        // Draw the light portion of the bar (right of the knob)
+        UIConstants.colorScheme.sliderBarLightColor.setFill()
+        drawPath = NSBezierPath.init(roundedRect: rightRect, xRadius: 2, yRadius: 2)
         drawPath.fill()
         
         // Calculate width of drawing rect for ticks

@@ -286,7 +286,7 @@
                                     <shadow key="shadow" blurRadius="1">
                                         <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </shadow>
-                                    <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="9dI-lu-F5h" customClass="VolumeSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                    <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="9dI-lu-F5h" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
                                     <connections>
                                         <action selector="volumeAction:" target="Voe-Tx-rLC" id="BN5-Uz-7hN"/>
                                     </connections>
@@ -592,7 +592,7 @@ G1BhbiBTbGlkZXI
                                             </view>
                                         </tabViewItem>
                                         <tabViewItem label="Pitch" identifier="2" id="but-RP-Sa9" userLabel="Pitch">
-                                            <view key="view" id="N8R-hT-UU9">
+                                            <view key="view" ambiguous="YES" id="N8R-hT-UU9">
                                                 <rect key="frame" x="10" y="33" width="376" height="144"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -755,7 +755,7 @@ G1BhbiBTbGlkZXI
                                             </view>
                                         </tabViewItem>
                                         <tabViewItem label="Reverb" identifier="" id="ajR-DI-j6m" userLabel="Reverb">
-                                            <view key="view" ambiguous="YES" id="H0C-lD-WIH">
+                                            <view key="view" id="H0C-lD-WIH">
                                                 <rect key="frame" x="10" y="33" width="376" height="144"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>

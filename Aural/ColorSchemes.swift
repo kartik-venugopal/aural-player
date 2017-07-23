@@ -114,12 +114,17 @@ enum ColorSchemes {
         return NSColor(deviceRed: CGFloat(0.2), green: CGFloat(0.2), blue: CGFloat(0.2), alpha: CGFloat(1))
     }
     
-    // Slider bar for equalizer and time stretch
-    var eqSliderBarColor: NSColor {
-        return NSColor(deviceRed: CGFloat(0.4), green: CGFloat(0.4), blue: CGFloat(0.4), alpha: CGFloat(1))
+    // Color of the part of the slider bar that is to the left of (or below) the knob (darker)
+    var sliderBarDarkColor: NSColor {
+        return NSColor(deviceRed: CGFloat(0.25), green: CGFloat(0.25), blue: CGFloat(0.25), alpha: CGFloat(1))
     }
     
-    // Pop up menu (reverb/EQ) color
+    // Color of the part of the slider bar that is to the right of (or above) the knob (lighter)
+    var sliderBarLightColor: NSColor {
+        return NSColor(deviceRed: CGFloat(0.5), green: CGFloat(0.5), blue: CGFloat(0.5), alpha: CGFloat(1))
+    }
+    
+    // Pop up menu (reverb/EQ/recorder) color
     var popupMenuColor: NSColor {
         return NSColor(deviceRed: CGFloat(0.6), green: CGFloat(0.6), blue: CGFloat(0.6), alpha: CGFloat(1))
     }
