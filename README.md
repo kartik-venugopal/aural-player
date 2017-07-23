@@ -28,28 +28,28 @@ Please see [User Guide](https://github.com/maculateConception/aural-player/blob/
 
 ## Screenshots
 
-![App screenshot](/Documentation/Screenshots/Aural.png?raw=true "App screenshot")
+![App screenshot](/Documentation/UserGuideWithPictures.rtfd/Aural.png?raw=true "App screenshot")
 
-![App screenshot2](/Documentation/Screenshots/Aural-playlistOnly.png?raw=true "App screenshot2")
+![App screenshot2](/Documentation/UserGuideWithPictures.rtfd/Aural-playlistOnly.png?raw=true "App screenshot2")
 
-![App screenshot3](/Documentation/Screenshots/Aural-effectsOnly.png?raw=true "App screenshot3")
+![App screenshot3](/Documentation/UserGuideWithPictures.rtfd/Aural-effectsOnly.png?raw=true "App screenshot3")
 
-![App screenshot4](/Documentation/Screenshots/Aural-compact.png?raw=true "App screenshot4")
+![App screenshot4](/Documentation/UserGuideWithPictures.rtfd/Aural-compact.png?raw=true "App screenshot4")
 
-![Pitch](/Documentation/Screenshots/Pitch.png?raw=true "Pitch Shift")
+![Pitch](/Documentation/UserGuideWithPictures.rtfd/Pitch.png?raw=true "Pitch Shift")
 
-![Time](/Documentation/Screenshots/Time.png?raw=true "Time Stretch")
+![Time](/Documentation/UserGuideWithPictures.rtfd/Time.png?raw=true "Time Stretch")
 
-![Reverb](/Documentation/Screenshots/Reverb.png?raw=true "Reverb")
+![Reverb](/Documentation/UserGuideWithPictures.rtfd/Reverb.png?raw=true "Reverb")
 
-![Delay](/Documentation/Screenshots/Delay.png?raw=true "Delay")
+![Delay](/Documentation/UserGuideWithPictures.rtfd/Delay.png?raw=true "Delay")
 
-![Filter](/Documentation/Screenshots/Filter.png?raw=true "Filter")
+![Filter](/Documentation/UserGuideWithPictures.rtfd/Filter.png?raw=true "Filter")
 
-![Recorder](/Documentation/Screenshots/Recorder.png?raw=true "Recorder")
+![Recorder](/Documentation/UserGuideWithPictures.rtfd/Recorder.png?raw=true "Recorder")
 
-![Playlist Menu](/Documentation/Screenshots/PlaylistMenu.png?raw=true "Playlist Menu")
+![Playlist Menu](/Documentation/UserGuideWithPictures.rtfd/PlaylistMenu.png?raw=true "Playlist Menu")
 
-![View Menu](/Documentation/Screenshots/ViewMenu.png?raw=true "View Menu")
+![View Menu](/Documentation/UserGuideWithPictures.rtfd/ViewMenu.png?raw=true "View Menu")
 
-![Controls Menu](/Documentation/Screenshots/ControlsMenu.png?raw=true "Controls Menu")
+![Controls Menu](/Documentation/UserGuideWithPictures.rtfd/ControlsMenu.png?raw=true "Controls Menu")
