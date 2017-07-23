@@ -114,7 +114,7 @@ enum ColorSchemes {
         return NSColor(deviceRed: CGFloat(0.2), green: CGFloat(0.2), blue: CGFloat(0.2), alpha: CGFloat(1))
     }
     
-    // Slider bar for equalizer
+    // Slider bar for equalizer and time stretch
     var eqSliderBarColor: NSColor {
         return NSColor(deviceRed: CGFloat(0.4), green: CGFloat(0.4), blue: CGFloat(0.4), alpha: CGFloat(1))
     }

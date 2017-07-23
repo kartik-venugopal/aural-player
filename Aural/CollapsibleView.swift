@@ -12,11 +12,11 @@ class CollapsibleView {
     }
     
     // Difference between minY and maxY of all views
-    let height: CGFloat
+    var height: CGFloat
     
     // Minimum and maximum Y co-ordinate of all views
-    let minY: CGFloat
-    let maxY: CGFloat
+    var minY: CGFloat
+    var maxY: CGFloat
     
     init(views: [NSView]) {
         self.views = views
@@ -24,7 +24,7 @@ class CollapsibleView {
         var minY = CGFloat.greatestFiniteMagnitude
         var maxY = CGFloat.leastNormalMagnitude
         
-        // Computer minY, maxY, and height
+        // Compute minY, maxY, and height
         for view in views {
             
             if (view.frame.minY < minY) {
@@ -65,31 +65,5 @@ class CollapsibleView {
         }
         
         return hidden
-    }
-    
-    func moveUp(distance: CGFloat) {
-        
-        for view in views {
-            
-            var vFrame = view.frame
-            let oldOrigin = vFrame.origin
-            
-            vFrame.origin = NSMakePoint(oldOrigin.x, oldOrigin.y + distance)
-//            view.setFrame(vFrame, display: true, animate: true)
-            view.frame = vFrame
-        }
-    }
-    
-    func moveDown(distance: CGFloat) {
-        
-        for view in views {
-            
-            var vFrame = view.frame
-            let oldOrigin = vFrame.origin
-            
-            vFrame.origin = NSMakePoint(oldOrigin.x, oldOrigin.y - distance)
-            //            view.setFrame(vFrame, display: true, animate: true)
-            view.frame = vFrame
-        }
     }
 }

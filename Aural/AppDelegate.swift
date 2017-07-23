@@ -1,6 +1,6 @@
 /*
-Entry point for the Aural Player application. Performs all interaction with the UI and delegates music player operations to PlayerDelegate.
-*/
+ Entry point for the Aural Player application. Performs all interaction with the UI and delegates music player operations to PlayerDelegate.
+ */
 
 import Cocoa
 import AVFoundation
@@ -96,7 +96,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         let ctrlr = PopoverController(nibName: "PopoverController", bundle: Bundle.main)
         popover.contentViewController = ctrlr
         return popover
-        }()
+    }()
     
     // PlayerDelegate accepts all requests originating from the UI
     let player: PlayerDelegate = PlayerDelegate.instance()
@@ -110,7 +110,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     var playlistCollapsibleView: CollapsibleView?
     var fxCollapsibleView: CollapsibleView?
-    var windowManager: WindowManager?
     
     // Timer that periodically updates the recording duration (only when recorder is active)
     var recorderTimer: ScheduledTaskExecutor? = nil
@@ -120,7 +119,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         // Initialize UI with presentation settings (colors, sizes, etc)
         // No app state is needed here
         initStatelessUI()
-
+        
         // Set up key press handler
         KeyPressHandler.initialize(self)
         NSEvent.addLocalMonitorForEvents(matching: NSEventMask.keyDown, handler: {(evt: NSEvent!) -> NSEvent in
@@ -146,7 +145,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     func applicationWillTerminate(_ aNotification: Notification) {
         tearDown()
     }
-
+    
     func initStatelessUI() {
         
         // Set up a mouse listener (for double clicks -> play selected track)
@@ -156,10 +155,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         playlistView.register(forDraggedTypes: [String(kUTTypeFileURL)])
         
         playlistCollapsibleView = CollapsibleView(views: [playlistBox, playlistControlsBox])
-        fxCollapsibleView = CollapsibleView(views: [fxBox, fxTabView])
-        
-        let collapsibleViews = [playlistCollapsibleView!, fxCollapsibleView!]
-        windowManager = WindowManager(window: window, views: collapsibleViews)
+        fxCollapsibleView = CollapsibleView(views: [fxBox])
         
         recorderTimer = ScheduledTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
     }
@@ -226,14 +222,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         eqPresets.selectItem(at: -1)
         
-        fxTabView.selectFirstTabViewItem(self)
+        fxTabView.selectTabViewItem(at: 0)
         
         playlistView.reloadData()
         updatePlaylistSummary()
         
         // Timer interval depends on whether time stretch unit is active
         let interval = playerState.timeBypass ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * playerState.timeStretchRate))
-    
+        
         seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
     }
     
@@ -638,7 +634,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         // Make sure there is at least one track to save
         if (player.getPlaylistSummary().numTracks > 0) {
-        
+            
             let dialog = UIElements.savePlaylistDialog
             
             modalDialogOpen = true
@@ -686,7 +682,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         let interval = newBypassState ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * timeSlider.floatValue))
         
         if (interval != seekTimer?.getInterval()) {
-        
+            
             seekTimer?.stop()
             
             seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
@@ -717,7 +713,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     @IBAction func reverbBypassAction(_ sender: AnyObject) {
-
+        
         let newBypassState = player.toggleReverbBypass()
         
         btnReverbBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
@@ -834,17 +830,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         playlistView.reloadData()
         updatePlaylistSummary()
     }
-
+    
     // View menu item action
     @IBAction func toggleViewEffectsAction(_ sender: AnyObject) {
         
-        windowManager?.toggleView(fxCollapsibleView!)
-        
-        if (fxCollapsibleView?.hidden == false) {
+        if (fxCollapsibleView?.hidden)! {
+            resizeWindow(playlistShown: !(playlistCollapsibleView?.hidden)!, effectsShown: true)
+            fxCollapsibleView!.show()
             btnToggleEffects.state = 1
             viewEffectsMenuItem.state = 1
-            
         } else {
+            fxCollapsibleView!.hide()
+            resizeWindow(playlistShown: !(playlistCollapsibleView?.hidden)!, effectsShown: false)
             btnToggleEffects.state = 0
             viewEffectsMenuItem.state = 0
         }
@@ -857,18 +854,46 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         // Set focus on playlist view if it's visible after the toggle
         
-        windowManager?.toggleView(playlistCollapsibleView!)
-        
-        if (playlistCollapsibleView?.hidden == false) {
+        if (playlistCollapsibleView?.hidden)! {
+            resizeWindow(playlistShown: true, effectsShown: !(fxCollapsibleView?.hidden)!)
+            playlistCollapsibleView!.show()
             window.makeFirstResponder(playlistView)
             btnTogglePlaylist.state = 1
             viewPlaylistMenuItem.state = 1
         } else {
+            playlistCollapsibleView!.hide()
+            resizeWindow(playlistShown: false, effectsShown: !(fxCollapsibleView?.hidden)!)
             btnTogglePlaylist.state = 0
             viewPlaylistMenuItem.state = 0
         }
         
         showPlaylistSelectedRow()
+    }
+    
+    func resizeWindow(playlistShown: Bool, effectsShown: Bool) {
+        // Resize (shrink) window to cover up extra (empty) space left by the hidden view
+        var wFrame = window.frame
+        let oldOrigin = wFrame.origin
+        
+        var newHeight: CGFloat
+        
+        if (effectsShown && playlistShown) {
+            newHeight = UIConstants.windowHeight_playlistAndEffects
+        } else if (effectsShown) {
+            newHeight = UIConstants.windowHeight_effectsOnly
+        } else if (playlistShown) {
+            newHeight = UIConstants.windowHeight_playlistOnly
+        } else {
+            newHeight = UIConstants.windowHeight_compact
+        }
+        
+        let oldHeight = wFrame.height
+        let shrinking: Bool = newHeight < oldHeight
+        
+        wFrame.size = NSMakeSize(window.frame.width, newHeight)
+        wFrame.origin = NSMakePoint(oldOrigin.x, shrinking ? oldOrigin.y + (oldHeight - newHeight) : oldOrigin.y - (newHeight - oldHeight))
+        
+        window.setFrame(wFrame, display: true, animate: true)
     }
     
     // Toggle button action
@@ -914,7 +939,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         let dialog = UIElements.saveRecordingDialog
         dialog.allowedFileTypes = [RecordingFormat.aac.fileExtension]
-            
+        
         modalDialogOpen = true
         let modalResponse = dialog.runModal()
         modalDialogOpen = false

@@ -57,4 +57,13 @@ class UIConstants {
     
     // Recorder timer interval (milliseconds)
     static let recorderTimerIntervalMillis: Int = 500
+    
+    // Spacing between collapsible views
+    static let collapsibleViewSpacing: CGFloat = 12
+ 
+    // Window heights for different views
+    static let windowHeight_compact: CGFloat = 223
+    static let windowHeight_playlistAndEffects: CGFloat = 622
+    static let windowHeight_playlistOnly: CGFloat = 436
+    static let windowHeight_effectsOnly: CGFloat = 409
 }
