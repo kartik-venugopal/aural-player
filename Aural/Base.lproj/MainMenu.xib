@@ -755,12 +755,12 @@ G1BhbiBTbGlkZXI
                                             </view>
                                         </tabViewItem>
                                         <tabViewItem label="Reverb" identifier="" id="ajR-DI-j6m" userLabel="Reverb">
-                                            <view key="view" id="H0C-lD-WIH">
+                                            <view key="view" ambiguous="YES" id="H0C-lD-WIH">
                                                 <rect key="frame" x="10" y="33" width="376" height="144"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUl-hb-KdY" userLabel="Reverb Desc">
-                                                        <rect key="frame" x="62" y="88" width="281" height="52"/>
+                                                        <rect key="frame" x="62" y="87" width="281" height="52"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Simulates the acoustic characteristics of a particular space or environment" id="sJv-Pt-Gu6">
                                                             <font key="font" size="13" name="GillSans"/>
@@ -1081,7 +1081,7 @@ G1BhbiBTbGlkZXI
                                             </view>
                                         </tabViewItem>
                                         <tabViewItem label="Filter" identifier="" id="wCL-UO-nMJ">
-                                            <view key="view" ambiguous="YES" id="eRG-iQ-ZQv">
+                                            <view key="view" id="eRG-iQ-ZQv">
                                                 <rect key="frame" x="10" y="33" width="376" height="144"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -1097,7 +1097,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </button>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQr-of-0kc" userLabel="Filter Desc">
-                                                        <rect key="frame" x="62" y="90" width="240" height="50"/>
+                                                        <rect key="frame" x="62" y="89" width="240" height="50"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Completely eliminates unwanted frequencies" id="sQP-fn-Bcr">
                                                             <font key="font" size="13" name="GillSans"/>
@@ -1182,7 +1182,7 @@ G1BhbiBTbGlkZXI
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v68-BB-egX" userLabel="Recorder Desc">
-                                                        <rect key="frame" x="62" y="105" width="240" height="35"/>
+                                                        <rect key="frame" x="62" y="104" width="240" height="35"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Records what's playing" id="re2-K9-FkW">
                                                             <font key="font" size="13" name="GillSans"/>
