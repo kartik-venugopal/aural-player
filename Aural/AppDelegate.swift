@@ -61,7 +61,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var filterHighPassSlider: NSSlider!
     
     @IBOutlet weak var btnRecord: NSButton!
-    
     @IBOutlet weak var lblRecorderDuration: NSTextField!
     
     // Parametric equalizer controls
@@ -264,6 +263,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBAction func addTracksAction(_ sender: AnyObject) {
         
+        let selRow = playlistView.selectedRow
         let dialog = UIElements.openDialog
         
         // TODO: Clear previous selection of files
@@ -275,6 +275,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         if (modalResponse == NSModalResponseOK) {
             addTracks(dialog.urls)
         }
+        
+        selectTrack(selRow)
     }
     
     @IBAction func removeSingleTrackAction(_ sender: AnyObject) {
@@ -382,9 +384,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     fileprivate func setSeekTimerState(_ timerOn: Bool) {
         
         if (timerOn) {
+            seekSlider.isEnabled = true
             seekTimer?.startOrResume()
         } else {
             seekTimer?.pause()
+            seekSlider.isEnabled = false
         }
     }
     
@@ -455,7 +459,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     func selectTrack(_ index: Int?) {
         
-        if index != nil {
+        if index != nil && index! >= 0 {
             
             playlistView.selectRowIndexes(IndexSet(integer: index!), byExtendingSelection: false)
             showPlaylistSelectedRow()
@@ -463,6 +467,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         } else {
             // Select first track in list, if list not empty
             if (playlistView.numberOfRows > 0) {
+                
                 playlistView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
             }
         }

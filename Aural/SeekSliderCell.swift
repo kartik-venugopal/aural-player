@@ -13,7 +13,6 @@ class SeekSliderCell: NSSliderCell {
         UIConstants.colorScheme.sliderKnobColor.setFill()
         
         let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 1, yRadius: 1)
-        
         drawPath.fill()
     }
 }
