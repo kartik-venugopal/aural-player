@@ -52,6 +52,6 @@ Please see [User Guide](https://github.com/maculateConception/aural-player/blob/
 
 ![Playlist Menu](/Documentation/UserGuide.rtfd/PlaylistMenu.png?raw=true "Playlist Menu")
 
-![View Menu](/Documentation/UserGuide.rtfd/ViewMenu.png?raw=true "View Menu")
-
 ![Controls Menu](/Documentation/UserGuide.rtfd/ControlsMenu.png?raw=true "Controls Menu")
+
+![View Menu](/Documentation/UserGuide.rtfd/ViewMenu.png?raw=true "View Menu")
