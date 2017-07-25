@@ -38,6 +38,8 @@ Please see [User Guide](https://github.com/maculateConception/aural-player/blob/
 
 ![Search](/Documentation/UserGuide.rtfd/Aural-search.png?raw=true "Search")
 
+![Sort](/Documentation/UserGuide.rtfd/Aural-sort.png?raw=true "Sort")
+
 ![Pitch](/Documentation/UserGuide.rtfd/Pitch.png?raw=true "Pitch Shift")
 
 ![Time](/Documentation/UserGuide.rtfd/Time.png?raw=true "Time Stretch")
