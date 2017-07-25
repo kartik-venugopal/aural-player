@@ -28,28 +28,30 @@ Please see [User Guide](https://github.com/maculateConception/aural-player/blob/
 
 ## Screenshots
 
-![App screenshot](/Documentation/UserGuideWithPictures.rtfd/Aural.png?raw=true "App screenshot")
+![App screenshot](/Documentation/UserGuide.rtfd/Aural.png?raw=true "App screenshot")
 
-![App screenshot2](/Documentation/UserGuideWithPictures.rtfd/Aural-playlistOnly.png?raw=true "App screenshot2")
+![App screenshot2](/Documentation/UserGuide.rtfd/Aural-playlistOnly.png?raw=true "App screenshot2")
 
-![App screenshot3](/Documentation/UserGuideWithPictures.rtfd/Aural-effectsOnly.png?raw=true "App screenshot3")
+![App screenshot3](/Documentation/UserGuide.rtfd/Aural-effectsOnly.png?raw=true "App screenshot3")
 
-![App screenshot4](/Documentation/UserGuideWithPictures.rtfd/Aural-compact.png?raw=true "App screenshot4")
+![App screenshot4](/Documentation/UserGuide.rtfd/Aural-compact.png?raw=true "App screenshot4")
 
-![Pitch](/Documentation/UserGuideWithPictures.rtfd/Pitch.png?raw=true "Pitch Shift")
+![Search](/Documentation/UserGuide.rtfd/Aural-search.png?raw=true "Search")
 
-![Time](/Documentation/UserGuideWithPictures.rtfd/Time.png?raw=true "Time Stretch")
+![Pitch](/Documentation/UserGuide.rtfd/Pitch.png?raw=true "Pitch Shift")
 
-![Reverb](/Documentation/UserGuideWithPictures.rtfd/Reverb.png?raw=true "Reverb")
+![Time](/Documentation/UserGuide.rtfd/Time.png?raw=true "Time Stretch")
 
-![Delay](/Documentation/UserGuideWithPictures.rtfd/Delay.png?raw=true "Delay")
+![Reverb](/Documentation/UserGuide.rtfd/Reverb.png?raw=true "Reverb")
 
-![Filter](/Documentation/UserGuideWithPictures.rtfd/Filter.png?raw=true "Filter")
+![Delay](/Documentation/UserGuide.rtfd/Delay.png?raw=true "Delay")
 
-![Recorder](/Documentation/UserGuideWithPictures.rtfd/Recorder.png?raw=true "Recorder")
+![Filter](/Documentation/UserGuide.rtfd/Filter.png?raw=true "Filter")
 
-![Playlist Menu](/Documentation/UserGuideWithPictures.rtfd/PlaylistMenu.png?raw=true "Playlist Menu")
+![Recorder](/Documentation/UserGuide.rtfd/Recorder.png?raw=true "Recorder")
 
-![View Menu](/Documentation/UserGuideWithPictures.rtfd/ViewMenu.png?raw=true "View Menu")
+![Playlist Menu](/Documentation/UserGuide.rtfd/PlaylistMenu.png?raw=true "Playlist Menu")
 
-![Controls Menu](/Documentation/UserGuideWithPictures.rtfd/ControlsMenu.png?raw=true "Controls Menu")
+![View Menu](/Documentation/UserGuide.rtfd/ViewMenu.png?raw=true "View Menu")
+
+![Controls Menu](/Documentation/UserGuide.rtfd/ControlsMenu.png?raw=true "Controls Menu")
