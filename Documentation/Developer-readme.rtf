@@ -55,7 +55,7 @@ A word of caution:\
 - Race conditions may occur within BufferManager, because it uses a timer to constantly schedule audio buffers during playback. As seeking within a track occurs or a track is changed, these timers are deallocated, but already executing tasks may dereference dead pointers. StoppableScheduledTaskExecutor was written to solve this problem, but the possibility still exists.\
 \
 Icons:\
-- All necessary icons are provided in Assets.xcassets and also under /Icons\
+- All necessary icons are provided in /Aural/Assets.xcassets\
 \
 TODOs:\
 - A list of possible additional features to implement, is listed in Developer-TODOs.rtf\
