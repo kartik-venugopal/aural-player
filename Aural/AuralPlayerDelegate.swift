@@ -6,27 +6,6 @@ import Cocoa
 */
 protocol AuralPlayerDelegate {
     
-    // Add tracks (or saved playlists) to the current player playlist
-    func addTracks(_ files: [URL])
-    
-    // Removes a single track at the specified index in the playlist. Returns the playing track index after removal (nil if playing track is the one removed)
-    func removeTrack(_ index: Int) -> Int?
-    
-    // Moves the track at the specified index, up one index, in the playlist, if it is not already at the top. Returns the new index of the track (same if it didn't move)
-    func moveTrackUp(_ index: Int) -> Int
-    
-    // Moves the track at the specified index, down one index, in the playlist, if it is not already at the bottom. Returns the new index of the track (same if it didn't move)
-    func moveTrackDown(_ index: Int) -> Int
-    
-    // Clears the entire player playlist of all tracks
-    func clearPlaylist()
-    
-    // Saves the current player playlist to a file
-    func savePlaylist(_ file: URL)
-    
-    // Retrieves a summary of the current playlist - the total number of tracks and their total duration
-    func getPlaylistSummary() -> (numTracks: Int, totalDuration: Double)
-    
     // Toggles between the play and pause states, as long as a file is available to play. Returns playback state information the UI can use to update itself following the operation.
     func togglePlayPause() -> (playbackState: PlaybackState, playingTrack: Track?, playingTrackIndex: Int?, trackChanged: Bool)
     
@@ -35,15 +14,6 @@ protocol AuralPlayerDelegate {
     
     // Continues playback within the player playlist, according to repeat/shuffle modes. Called either before any tracks are played or after playback of a track has completed. Returns the new track, if any, that is selected for playback
     func continuePlaying() -> (playingTrack: Track?, playingTrackIndex: Int?)
-    
-    // Returns the currently playing track
-    func getPlayingTrack() -> Track?
-    
-    // Returns the index within the player playlist, of the currently playing track
-    func getPlayingTrackIndex() -> Int?
-    
-    // Returns the currently playing track, ensuring that detailed info is loaded in it. This is necessary due to lazy loading.
-    func getMoreInfo() -> Track?
     
     // Retrieves saved player state, that is "remembered" by the player between app shutdown and the subsequent startup (sound settings and playlist items)
     func getPlayerState() -> SavedPlayerState?
@@ -69,11 +39,14 @@ protocol AuralPlayerDelegate {
     // Plays (and returns) the previous track, if there is one
     func previousTrack() -> (playingTrack: Track?, playingTrackIndex: Int?)
     
-    // Toggles between repeat modes. See RepeatMode for more details.
-    func toggleRepeatMode() -> RepeatMode
-
-    // Toggles between shuffle modes. See ShuffleMode for more details.
-    func toggleShuffleMode() -> ShuffleMode
+    // Returns the currently playing track
+    func getPlayingTrack() -> Track?
+    
+    // Returns the index within the player playlist, of the currently playing track
+    func getPlayingTrackIndex() -> Int?
+    
+    // Returns the currently playing track, ensuring that detailed info is loaded in it. This is necessary due to lazy loading.
+    func getMoreInfo() -> Track?
     
     // Does any deallocation that is required before the app exits
     // This includes saving "remembered" player state and releasing player resources

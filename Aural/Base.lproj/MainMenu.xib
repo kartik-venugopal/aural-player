@@ -19,8 +19,10 @@
                 <outlet property="btnDelayBypass" destination="hFd-0O-hii" id="UXH-dM-P28"/>
                 <outlet property="btnFilterBypass" destination="9sH-hV-CNS" id="G4b-mn-oex"/>
                 <outlet property="btnMoreInfo" destination="0Mb-en-nxS" id="wGo-JQ-F9n"/>
+                <outlet property="btnNextSearch" destination="BlR-U8-j24" id="f5G-AR-iHr"/>
                 <outlet property="btnPitchBypass" destination="OGV-jG-nOV" id="Ga3-rh-lAm"/>
                 <outlet property="btnPlayPause" destination="52R-Hv-S0B" id="mK4-VJ-VKN"/>
+                <outlet property="btnPreviousSearch" destination="iYr-nA-dwT" id="RgB-X8-iBJ"/>
                 <outlet property="btnRecord" destination="caX-PX-mby" id="hiF-6n-jGG"/>
                 <outlet property="btnRepeat" destination="Fpa-Ii-3YA" id="en0-OB-Uwa"/>
                 <outlet property="btnReverbBypass" destination="R9b-lC-8tk" id="EIK-S0-qLa"/>
@@ -29,6 +31,10 @@
                 <outlet property="btnToggleEffects" destination="jtn-oJ-Dzg" id="M25-hU-iCb"/>
                 <outlet property="btnTogglePlaylist" destination="TTw-rh-Ama" id="Phj-Il-bwq"/>
                 <outlet property="btnVolume" destination="Y0j-zk-a3t" id="JEt-SA-sLv"/>
+                <outlet property="comparisonTypeBeginsWith" destination="Zim-kM-TMG" id="jbL-B5-f57"/>
+                <outlet property="comparisonTypeContains" destination="x2f-22-qf5" id="f7K-Gx-Lgk"/>
+                <outlet property="comparisonTypeEndsWith" destination="R1T-ao-6zp" id="u25-hX-eeF"/>
+                <outlet property="comparisonTypeEquals" destination="yPX-c1-L0X" id="KhE-S3-tsv"/>
                 <outlet property="delayAmountSlider" destination="w57-Jo-8d2" id="fXJ-R0-OV8"/>
                 <outlet property="delayCutoffSlider" destination="Czy-vK-eST" id="ec0-iO-Xbc"/>
                 <outlet property="delayFeedbackSlider" destination="D1K-bn-CdT" id="SeQ-DA-NoR"/>
@@ -56,6 +62,7 @@
                 <outlet property="lblTrackTitle" destination="LM5-xW-O9f" id="Dg8-JS-PyS"/>
                 <outlet property="mainView" destination="EiT-Mj-1SZ" id="jSX-4I-Wsa"/>
                 <outlet property="musicArtView" destination="YrG-JU-zDl" id="pn0-XL-ktK"/>
+                <outlet property="numSearchResultsLabel" destination="cAy-bq-MqT" id="Wan-nd-pgC"/>
                 <outlet property="panSlider" destination="wom-j6-eli" id="3Bl-ac-3Pj"/>
                 <outlet property="pitchOverlapSlider" destination="9E2-MV-Hi7" id="y3H-9s-ozV"/>
                 <outlet property="pitchSlider" destination="g6a-qD-rnZ" id="HBk-Ja-Ags"/>
@@ -64,6 +71,15 @@
                 <outlet property="playlistView" destination="4Fk-6v-HSf" id="QZT-Zn-WBd"/>
                 <outlet property="reverbMenu" destination="6kC-nQ-BsO" id="T7b-0N-Gyx"/>
                 <outlet property="reverbSlider" destination="SVL-7D-xpL" id="qkM-tE-q03"/>
+                <outlet property="searchByAlbum" destination="vJB-tQ-9gW" id="ZD2-lx-g8J"/>
+                <outlet property="searchByArtist" destination="alT-kE-ZJN" id="PHI-hr-kxF"/>
+                <outlet property="searchByName" destination="DT8-PC-txX" id="Nwc-5A-jOT"/>
+                <outlet property="searchByTitle" destination="9wf-Pu-L95" id="dfd-Bf-X1B"/>
+                <outlet property="searchCaseSensitive" destination="MSF-LB-dHT" id="0Cp-wV-9kO"/>
+                <outlet property="searchField" destination="klg-8O-MKd" id="acn-gn-yBk"/>
+                <outlet property="searchPanel" destination="jhP-AH-EDd" id="oyW-7j-in7"/>
+                <outlet property="searchResultMatchInfo" destination="tV8-Yi-o5k" id="6fD-Ku-mGV"/>
+                <outlet property="searchResultsSummaryLabel" destination="cAy-bq-MqT" id="818-c4-lAX"/>
                 <outlet property="seekSlider" destination="0m5-4l-3Wg" id="m8W-Pi-SGb"/>
                 <outlet property="timeSlider" destination="1pg-uy-Rlo" id="7eO-B3-o99"/>
                 <outlet property="viewEffectsMenuItem" destination="fK8-7g-oqx" id="EQv-4S-gcr"/>
@@ -1472,6 +1488,17 @@ G1BhbiBTbGlkZXI
                                         <action selector="moveTrackDownAction:" target="Voe-Tx-rLC" id="cZJ-AR-tnk"/>
                                     </connections>
                                 </button>
+                                <button toolTip="Search playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Izf-T5-uoB" userLabel="Search">
+                                    <rect key="frame" x="125" y="9" width="16" height="16"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Search" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8Mw-Zm-Tej">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="searchBtnAction:" target="Voe-Tx-rLC" id="Xwd-US-ow1"/>
+                                    </connections>
+                                </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PC9-RH-ZoK" userLabel="Playlist summary">
                                     <rect key="frame" x="184" y="8" width="195" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1498,9 +1525,12 @@ G1BhbiBTbGlkZXI
             </view>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                    <color key="value" red="0.6470588235294118" green="0.6470588235294118" blue="0.6470588235294118" alpha="0.74950484154929564" colorSpace="calibratedRGB"/>
+                    <color key="value" white="0.65000000000000002" alpha="0.74950484154929564" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="menu" destination="Cnt-hZ-QmI" id="YkB-Pl-SLT"/>
+            </connections>
             <point key="canvasLocation" x="293.5" y="29"/>
         </window>
         <viewController id="THs-LC-lDb" customClass="PlaylistViewController" customModule="Aural" customModuleProvider="target"/>
@@ -1537,7 +1567,7 @@ G1BhbiBTbGlkZXI
                                     <action selector="savePlaylistMenuItemAction:" target="Voe-Tx-rLC" id="Tzl-ME-ViL"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Clear Playlist" image="Clear-Small" id="ec2-Jm-I4M">
+                            <menuItem title=" Clear playlist" image="Clear-Small" id="ec2-Jm-I4M">
                                 <string key="keyEquivalent" base64-UTF8="YES">
 CA
 </string>
@@ -1574,6 +1604,12 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="removeTrackMenuItemAction:" target="Voe-Tx-rLC" id="h5R-VF-fqv"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="bMd-aB-U0o"/>
+                            <menuItem title="Search playlist" image="Search-Small" keyEquivalent="f" id="Pxd-7C-8tq">
+                                <connections>
+                                    <action selector="searchPlaylistMenuItemAction:" target="Voe-Tx-rLC" id="USw-Ot-4ok"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -1682,6 +1718,230 @@ CA
             </items>
             <point key="canvasLocation" x="-156" y="-246"/>
         </menu>
+        <window title="Search for tracks in playlist" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="jhP-AH-EDd" userLabel="Search Panel" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="383" height="248"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <view key="contentView" wantsLayer="YES" id="h2Z-Yr-cIo">
+                <rect key="frame" x="0.0" y="0.0" width="383" height="248"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <searchField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="klg-8O-MKd" customClass="SearchBar" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="20" y="215" width="352" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsSearchStringImmediately="YES" sendsWholeSearchString="YES" maximumRecents="5" recentsAutosaveName="Autosave_default" id="cEo-kE-Z8Q">
+                            <font key="font" size="13" name="GillSans"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </searchFieldCell>
+                    </searchField>
+                    <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Options:" translatesAutoresizingMaskIntoConstraints="NO" id="8n2-uW-nFp" userLabel="Search Options Box">
+                        <rect key="frame" x="20" y="100" width="352" height="103"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" ambiguous="YES" id="dDU-HV-JRN">
+                            <rect key="frame" x="1" y="1" width="350" height="101"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MSF-LB-dHT">
+                                    <rect key="frame" x="251" y="59" width="99" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Case sensitive" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="s6a-XW-Rhp">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" size="11" name="GillSans"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="yD2-eJ-LyO"/>
+                                    </connections>
+                                </button>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V4x-eA-PhP" userLabel="Options:">
+                                    <rect key="frame" x="251" y="78" width="62" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Options:" id="4te-Xh-ZQC">
+                                        <font key="font" size="11" name="GillSans-SemiBold"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKx-s1-phS" userLabel="Comparison type:">
+                                    <rect key="frame" x="139" y="76" width="94" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Comparison type:" id="XDs-Ru-cz5">
+                                        <font key="font" size="11" name="GillSans-SemiBold"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yPX-c1-L0X" userLabel="Equals">
+                                    <rect key="frame" x="137" y="42" width="79" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="radio" title="Equals" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" inset="2" id="GZG-Wp-9ff">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" size="11" name="GillSans"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="oPV-37-VbJ"/>
+                                    </connections>
+                                </button>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x2f-22-qf5" userLabel="Contains">
+                                    <rect key="frame" x="137" y="59" width="79" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="radio" title="Contains" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" state="on" inset="2" id="fYW-7d-ZxI">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" size="11" name="GillSans"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="foG-e2-Wgp"/>
+                                    </connections>
+                                </button>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zim-kM-TMG" userLabel="Begins with">
+                                    <rect key="frame" x="137" y="25" width="91" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="radio" title="Begins with" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" inset="2" id="BBM-vs-52Q">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" size="11" name="GillSans"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="zws-nv-zgs"/>
+                                    </connections>
+                                </button>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R1T-ao-6zp" userLabel="Ends with">
+                                    <rect key="frame" x="137" y="8" width="91" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="radio" title="Ends with" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" inset="2" id="MPk-Cr-ptK">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" size="11" name="GillSans"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="bnB-4U-YjR"/>
+                                    </connections>
+                                </button>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DT8-PC-txX" userLabel="Name field">
+                                    <rect key="frame" x="5" y="59" width="121" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Name / filename" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="4sx-V6-gbi">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" size="11" name="GillSans"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="dKM-IR-czW"/>
+                                    </connections>
+                                </button>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="alT-kE-ZJN" userLabel="Artist field">
+                                    <rect key="frame" x="5" y="42" width="121" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Artist (if available)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="4CY-yB-KWc">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" size="11" name="GillSans"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="dw2-8f-rfc"/>
+                                    </connections>
+                                </button>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9wf-Pu-L95" userLabel="Title field">
+                                    <rect key="frame" x="5" y="25" width="121" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Title (if available)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="evv-ZG-V2Z">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" size="11" name="GillSans"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="a9n-R2-XkD"/>
+                                    </connections>
+                                </button>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vJB-tQ-9gW" userLabel="Album field">
+                                    <rect key="frame" x="5" y="8" width="121" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Album (if available)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="tVi-CJ-eVr">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" size="11" name="GillSans"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="xJg-wX-CgW"/>
+                                    </connections>
+                                </button>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFi-Oz-wqi">
+                                    <rect key="frame" x="7" y="81" width="86" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Search by:" id="F7D-cM-DCD">
+                                        <font key="font" size="11" name="GillSans-SemiBold"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                        </view>
+                        <color key="fillColor" white="0.81976996527777779" alpha="1" colorSpace="calibratedWhite"/>
+                    </box>
+                    <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Results:" translatesAutoresizingMaskIntoConstraints="NO" id="AjL-DZ-9aJ" userLabel="Search Results Box">
+                        <rect key="frame" x="20" y="40" width="352" height="53"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" ambiguous="YES" id="jpg-2c-Cb3">
+                            <rect key="frame" x="1" y="1" width="350" height="51"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAy-bq-MqT" userLabel="Results summary label">
+                                    <rect key="frame" x="63" y="21" width="214" height="24"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="No results" id="toe-bQ-5sY">
+                                        <font key="font" size="12" name="GillSans-SemiBold"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tV8-Yi-o5k" userLabel="Match info label">
+                                    <rect key="frame" x="5" y="-1" width="341" height="24"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="Cja-e1-EN1">
+                                        <font key="font" size="12" name="GillSans-SemiBold"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iYr-nA-dwT">
+                                    <rect key="frame" x="38" y="26" width="28" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundRect" title="&lt;" bezelStyle="roundedRect" alignment="center" enabled="NO" borderStyle="border" inset="2" id="25z-qD-j6x">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="previousSearchAction:" target="Voe-Tx-rLC" id="dPb-6U-S6f"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BlR-U8-j24">
+                                    <rect key="frame" x="272" y="26" width="28" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundRect" title="&gt;" bezelStyle="roundedRect" alignment="center" enabled="NO" borderStyle="border" inset="2" id="toa-m1-bvU">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="nextSearchAction:" target="Voe-Tx-rLC" id="ksh-Kb-Wug"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </view>
+                        <color key="fillColor" white="0.81678602430555558" alpha="1" colorSpace="calibratedWhite"/>
+                    </box>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="67C-2f-Zxj" userLabel="Done button">
+                        <rect key="frame" x="151" y="8" width="80" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Done" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HTC-NF-De3">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="12" name="GillSans"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="searchDoneAction:" target="Voe-Tx-rLC" id="flT-qc-QqZ"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="293.5" y="-17.5"/>
+        </window>
     </objects>
     <resources>
         <image name="Add" width="129" height="129"/>
@@ -1713,6 +1973,8 @@ CA
         <image name="RepeatOff" width="256" height="256"/>
         <image name="Save" width="128" height="128"/>
         <image name="Save-Small" width="14" height="14"/>
+        <image name="Search" width="128" height="128"/>
+        <image name="Search-Small" width="14" height="14"/>
         <image name="SeekBackward" width="256" height="256"/>
         <image name="SeekBackward-Small" width="13" height="8"/>
         <image name="SeekForward" width="256" height="256"/>

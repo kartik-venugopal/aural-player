@@ -19,6 +19,7 @@ class KeyPressHandler {
     static let SPACE: UInt16 = 49
     static let BACKSPACE: UInt16 = 51
     static let ENTER: UInt16 = 36
+    static let ESC: UInt16 = 53
     
     // Callback reference to AppDelegate so that its UI controls can be manipulated and its functions called
     static var app: AppDelegate?
@@ -33,14 +34,13 @@ class KeyPressHandler {
         
         let app = self.app!
         
-        // Ignore key press events when an open/save dialog is open
-        // Otherwise, the handlers here will interfere with dialog interaction
-        if (app.modalDialogOpen) {
+        // Modal dialog open, don't do anything
+        if (app.modalDialogOpen()) {
             return
         }
         
         // NOTE This is kind of a hack to temporarily avoid up/down arrow key presses triggering unwanted changes in track selection when modifier keys are used with the up/down arrow
-        let resp = app.playlistView.window?.firstResponder
+        let responder = app.playlistView.window?.firstResponder
         app.playlistView.window?.makeFirstResponder(nil)
         
         // Indicate whether or not Shift/Command were pressed
@@ -73,12 +73,7 @@ class KeyPressHandler {
             app.showPlaylistSelectedRow()
         }
         
-        // (Command + R) Start/stop recording
-        if (isCommand && !isShift && event.keyCode == LETTER_R) {
-            app.recorderAction(event)
-        }
-        
         // Part of the hack mentioned above ... restore the responder for the playlist view so that it may continue receiving key press events
-        app.playlistView.window?.makeFirstResponder(resp)
+        app.playlistView.window?.makeFirstResponder(responder)
     }
 }

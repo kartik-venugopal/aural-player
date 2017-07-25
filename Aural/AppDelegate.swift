@@ -10,6 +10,28 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBOutlet weak var window: NSWindow!
     
+    // Playlist search modal dialog fields
+    @IBOutlet weak var searchPanel: NSPanel!
+    @IBOutlet weak var searchField: NSSearchField!
+    
+    @IBOutlet weak var searchResultsSummaryLabel: NSTextField!
+    @IBOutlet weak var searchResultMatchInfo: NSTextField!
+    
+    @IBOutlet weak var btnNextSearch: NSButton!
+    @IBOutlet weak var btnPreviousSearch: NSButton!
+    
+    @IBOutlet weak var searchByName: NSButton!
+    @IBOutlet weak var searchByArtist: NSButton!
+    @IBOutlet weak var searchByTitle: NSButton!
+    @IBOutlet weak var searchByAlbum: NSButton!
+    
+    @IBOutlet weak var comparisonTypeContains: NSButton!
+    @IBOutlet weak var comparisonTypeEquals: NSButton!
+    @IBOutlet weak var comparisonTypeBeginsWith: NSButton!
+    @IBOutlet weak var comparisonTypeEndsWith: NSButton!
+    
+    @IBOutlet weak var searchCaseSensitive: NSButton!
+    
     // Buttons to toggle (collapsible) playlist/effects views
     @IBOutlet weak var btnToggleEffects: NSButton!
     @IBOutlet weak var btnTogglePlaylist: NSButton!
@@ -28,6 +50,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     // Displays the playlist
     @IBOutlet weak var playlistView: NSTableView!
+    
+    @IBOutlet weak var playlistPopupMenu: NSMenu!
     
     // Toggle buttons (their images change)
     @IBOutlet weak var btnShuffle: NSButton!
@@ -105,13 +129,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     // Indicates whether the open/save dialog is currently open
     // Used in KeyPressHandler
-    var modalDialogOpen: Bool = false
+//    var modalDialogOpen: Bool = false
     
     var playlistCollapsibleView: CollapsibleView?
     var fxCollapsibleView: CollapsibleView?
     
     // Timer that periodically updates the recording duration (only when recorder is active)
-    var recorderTimer: ScheduledTaskExecutor? = nil
+    var recorderTimer: ScheduledTaskExecutor?
+    
+    // Current playlist search results
+    var searchResults: SearchResults?
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
@@ -157,6 +184,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         fxCollapsibleView = CollapsibleView(views: [fxBox])
         
         recorderTimer = ScheduledTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
+        
+        searchPanel.titlebarAppearsTransparent = true
     }
     
     func initStatefulUI(_ playerState: SavedPlayerState) {
@@ -200,6 +229,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         timeSlider.floatValue = playerState.timeStretchRate
         
         btnReverbBypass.image = playerState.reverbBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        
         // TODO: Change this lookup to o(1) instead of o(n) ... HashMap !
         for item in reverbMenu.itemArray {
             
@@ -268,9 +298,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         // TODO: Clear previous selection of files
         
-        modalDialogOpen = true
         let modalResponse = dialog.runModal()
-        modalDialogOpen = false
         
         if (modalResponse == NSModalResponseOK) {
             addTracks(dialog.urls)
@@ -520,7 +548,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         } else {
             let vol = player.getVolume()
             
-            // Low / Medium / High (different images)
+            // Zero / Low / Medium / High (different images)
             if (vol > 200/3) {
                 btnVolume.image = UIConstants.imgVolumeHigh
             } else if (vol > 100/3) {
@@ -642,9 +670,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             
             let dialog = UIElements.savePlaylistDialog
             
-            modalDialogOpen = true
             let modalResponse = dialog.runModal()
-            modalDialogOpen = false
             
             if (modalResponse == NSModalResponseOK) {
                 
@@ -875,8 +901,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         showPlaylistSelectedRow()
     }
     
+    // Called when toggling views
     func resizeWindow(playlistShown: Bool, effectsShown: Bool) {
-        // Resize (shrink) window to cover up extra (empty) space left by the hidden view
+        
         var wFrame = window.frame
         let oldOrigin = wFrame.origin
         
@@ -945,9 +972,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         let dialog = UIElements.saveRecordingDialog
         dialog.allowedFileTypes = [RecordingFormat.aac.fileExtension]
         
-        modalDialogOpen = true
         let modalResponse = dialog.runModal()
-        modalDialogOpen = false
         
         if (modalResponse == NSModalResponseOK) {
             player.saveRecording(dialog.url!)
@@ -1041,5 +1066,142 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBAction func muteUnmuteMenuItemAction(_ sender: Any) {
         volumeBtnAction(sender as AnyObject)
+    }
+    
+    @IBAction func searchBtnAction(_ sender: Any) {
+        
+        // Don't do anything if no tracks in playlist
+        if (playlistView.numberOfRows == 0) {
+            return
+        }
+        
+        // Position the search modal dialog and show it
+        let searchFrameOrigin = NSPoint(x: window.frame.origin.x + 16, y: window.frame.origin.y + 227)
+        
+        searchField.stringValue = ""
+        resetSearchInfo()
+        
+        searchPanel.setFrameOrigin(searchFrameOrigin)
+        searchPanel.setIsVisible(true)
+        
+        NSApp.runModal(for: searchPanel)
+        searchPanel.close()
+    }
+    
+    // Called when any of the search criteria have changed, performs a new search
+    func searchQueryChanged() {
+        
+        let searchText = searchField.stringValue
+        
+        if (searchText == "") {
+            resetSearchInfo()
+            return
+        }
+        
+        let searchFields = SearchFields()
+        searchFields.name = Bool(searchByName.state)
+        searchFields.artist = Bool(searchByArtist.state)
+        searchFields.title = Bool(searchByTitle.state)
+        searchFields.album = Bool(searchByAlbum.state)
+        
+        // No fields to compare, don't do the search
+        if (searchFields.noFieldsSelected()) {
+            resetSearchInfo()
+            return
+        }
+        
+        let searchOptions = SearchOptions()
+        searchOptions.caseSensitive = Bool(searchCaseSensitive.state)
+        
+        let query = SearchQuery(text: searchText)
+        query.fields = searchFields
+        query.options = searchOptions
+        
+        if (comparisonTypeEquals.state == 1) {
+            query.type = .equals
+        } else if (comparisonTypeContains.state == 1) {
+            query.type = .contains
+        } else if (comparisonTypeBeginsWith.state == 1) {
+            query.type = .beginsWith
+        } else {
+            query.type = .endsWith
+        }
+        
+        searchResults = player.searchTracks(searchQuery: query)
+        
+        if ((searchResults?.count)! > 0) {
+            
+            // Show the first result
+            nextSearchAction(self)
+            
+        } else {
+            resetSearchInfo()
+        }
+    }
+    
+    func resetSearchInfo() {
+        
+        if (searchField.stringValue == "") {
+            searchResultsSummaryLabel.stringValue = "No results"
+        } else {
+            searchResultsSummaryLabel.stringValue = "No results found"
+        }
+        searchResultMatchInfo.stringValue = ""
+        btnNextSearch.isEnabled = false
+        btnPreviousSearch.isEnabled = false
+    }
+    
+    // Iterates to the previous search result
+    @IBAction func previousSearchAction(_ sender: Any) {
+        updateSearchPanelWithResult(searchResult: (searchResults?.previous())!)
+    }
+    
+    // Iterates to the next search result
+    @IBAction func nextSearchAction(_ sender: Any) {
+        updateSearchPanelWithResult(searchResult: (searchResults?.next())!)
+    }
+    
+    // Updates displayed search results info with the current search result
+    func updateSearchPanelWithResult(searchResult: SearchResult) {
+        
+        // Select the track in the playlist view, to show the user where the track is
+        selectTrack(searchResult.index)
+        
+        let resultsText = (searchResults?.count)! == 1 ? "result found" : "results found"
+        searchResultsSummaryLabel.stringValue = String(format: "%d %@. Selected %d / %d", (searchResults?.count)!, resultsText, (searchResults?.cursor)! + 1, (searchResults?.count)!)
+        
+        searchResultMatchInfo.stringValue = String(format: "Matched %@: '%@'", searchResult.match.fieldKey.lowercased(), searchResult.match.fieldValue)
+        
+        btnNextSearch.isEnabled = searchResult.hasNext
+        btnPreviousSearch.isEnabled = searchResult.hasPrevious
+    }
+
+    @IBAction func searchDoneAction(_ sender: Any) {
+        dismissSearchDialog()
+    }
+    
+    func dismissSearchDialog() {
+        NSApp.stopModal()
+    }
+    
+    @IBAction func searchPlaylistMenuItemAction(_ sender: Any) {
+        searchBtnAction(sender)
+    }
+    
+    @IBAction func searchQueryChangedAction(_ sender: Any) {
+        searchQueryChanged()
+    }
+    
+    // Called by KeyPressHandler to determine if any modal dialog is open
+    func modalDialogOpen() -> Bool {
+        
+        return searchPanel.isVisible || UIElements.openDialog.isVisible || UIElements.savePlaylistDialog.isVisible || UIElements.saveRecordingDialog.isVisible
+    }
+}
+
+// Int to Bool conversion
+extension Bool {
+    init<T: Integer>(_ num: T) {
+        self.init(num != 0)
     }
 }

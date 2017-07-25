@@ -5,7 +5,7 @@ import Cocoa
 
     See AuralPlayerDelegate, AuralSoundTuningDelegate, and EventSubscriber protocols to learn more about the public functions implemented here.
 */
-class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, AuralRecorderDelegate, EventSubscriber {
+class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSoundTuningDelegate, AuralRecorderDelegate, EventSubscriber {
     
     // Time in seconds for seeking forward/backward
     fileprivate static let SEEK_TIME: Double = 5
@@ -571,5 +571,9 @@ class PlayerDelegate: AuralPlayerDelegate, AuralSoundTuningDelegate, AuralRecord
         
         // Notify the UI about this track change event
         EventRegistry.publishEvent(.trackChanged, event: trackChangedEvent)
+    }
+    
+    func searchTracks(searchQuery: SearchQuery) -> SearchResults {
+        return playlist.searchTracks(searchQuery: searchQuery)
     }
 }

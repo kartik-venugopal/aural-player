@@ -4,6 +4,7 @@ Encapsulates all track information of a playlist. Contains logic to determine pl
 
 import Foundation
 import AVFoundation
+
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
@@ -16,7 +17,6 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     return false
   }
 }
-
 
 class Playlist {
     
@@ -425,5 +425,102 @@ class Playlist {
     // Swaps two tracks in the array of tracks
     fileprivate func swapTracks(_ trackIndex1: Int, trackIndex2: Int) {
         swap(&tracks[trackIndex1], &tracks[trackIndex2])
+    }
+    
+    // Searches the playlist for all tracks matching the specified criteria, and returns a set of results
+    func searchTracks(searchQuery: SearchQuery) -> SearchResults {
+        
+        var results: [SearchResult] = [SearchResult]()
+        
+        for i in 0...tracks.count - 1 {
+            
+            let track = tracks[i]
+            let match = trackMatchesQuery(track: track, searchQuery: searchQuery)
+            
+            if (match.matched) {
+                results.append(SearchResult(index: i, match: (match.matchedField!, match.matchedFieldValue!)))
+            }
+        }
+        
+        return SearchResults(results: results)
+    }
+    
+    // Checks if a single track matches search criteria, returns information about the match, if there is one
+    fileprivate func trackMatchesQuery(track: Track, searchQuery: SearchQuery) -> (matched: Bool, matchedField: String?, matchedFieldValue: String?) {
+        
+        let caseSensitive: Bool = searchQuery.options.caseSensitive
+        
+        let queryText: String = caseSensitive ? searchQuery.text : searchQuery.text.lowercased()
+        
+        // Actual track fields to compare to query text
+        // FieldName -> (OriginalFieldValue, FieldValueForComparison)
+        // FieldValueForComparison is used for the comparison (and may have different case than OriginalFieldValue), while OriginalFieldValue is returned in the result if there is a match
+        var trackFields: [String: (original: String, compared: String)] = [String: (String, String)]()
+        
+        // Add name field if included in search
+        if (searchQuery.fields.name) {
+            
+            // Check both the filename and the display name
+            
+            let lastPathComponent = track.file!.deletingPathExtension().lastPathComponent
+            
+            trackFields["Filename"] = (lastPathComponent, caseSensitive ? lastPathComponent : lastPathComponent.lowercased())
+            
+            let displayName = track.shortDisplayName!
+            trackFields["Name"] = (displayName, caseSensitive ? displayName : displayName.lowercased())
+        }
+        
+        // Add artist field if included in search
+        if (searchQuery.fields.artist) {
+            
+            if let artist = track.metadata?.artist {
+                trackFields["Artist"] = (artist, caseSensitive ? artist : artist.lowercased())
+            }
+        }
+        
+        // Add title field if included in search
+        if (searchQuery.fields.title) {
+            
+            if let title = track.metadata?.title {
+                trackFields["Title"] = (title, caseSensitive ? title : title.lowercased())
+            }
+        }
+        
+        // Add album field if included in search
+        if (searchQuery.fields.album) {
+            
+            // Make sure album info has been loaded (it is loaded lazily)
+            TrackIO.loadDetailedTrackInfo(track)
+            
+            if let album = track.extendedMetadata["albumName"] {
+                trackFields["Album"] = (album, caseSensitive ? album : album.lowercased())
+            }
+        }
+        
+        // Check each field value against the search query text
+        for (key: field, value: (original: original, compared: compared)) in trackFields {
+            
+            switch searchQuery.type {
+                
+            case .beginsWith: if compared.hasPrefix(queryText) {
+                    return (true, field, original)
+                }
+                
+            case .endsWith: if compared.hasSuffix(queryText) {
+                return (true, field, original)
+                }
+                
+            case .equals: if compared == queryText {
+                return (true, field, original)
+                }
+                
+            case .contains: if compared.range(of: queryText) != nil {
+                return (true, field, original)
+                }
+            }
+        }
+        
+        // Didn't match
+        return (false, nil, nil)
     }
 }
