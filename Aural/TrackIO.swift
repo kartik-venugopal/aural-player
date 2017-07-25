@@ -167,6 +167,36 @@ class TrackIO {
         track.detailedInfoLoaded = fileAttrLoaded && codecDetermined && extendedMetadataLoaded
     }
     
+    // (Lazily) load extended metadata (e.g. album), for a search, when it is requested by the UI
+    static func loadExtendedMetadataForSearch(_ track: Track) {
+        
+        // Check if metadata has already been loaded
+        if (track.extendedMetadata["albumName"] != nil) {
+            return
+        }
+        
+        let sourceAsset = track.avAsset!
+        
+        // Retrieve extended metadata (ID3)
+        let metadataList = sourceAsset.commonMetadata
+        
+        for item in metadataList {
+            
+            if item.commonKey == nil || item.value == nil {
+                continue
+            }
+            
+            if let key = item.commonKey {
+                
+                if (key == "albumName") {
+                    if (!Utils.isStringEmpty(item.stringValue)) {
+                        track.extendedMetadata[String(key)] = item.stringValue!
+                    }
+                }
+            }
+        }
+    }
+    
     // Normalizes a bit rate by rounding it to the nearest multiple of 32. For ex, a bit rate of 251.5 kbps is rounded to 256 kbps.
     fileprivate static func normalizeBitRate(_ rate: Double) -> Int {
         return Int(round(rate/32)) * 32

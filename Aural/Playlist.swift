@@ -428,7 +428,7 @@ class Playlist {
     }
     
     // Searches the playlist for all tracks matching the specified criteria, and returns a set of results
-    func searchTracks(searchQuery: SearchQuery) -> SearchResults {
+    func searchPlaylist(searchQuery: SearchQuery) -> SearchResults {
         
         var results: [SearchResult] = [SearchResult]()
         
@@ -441,7 +441,7 @@ class Playlist {
                 results.append(SearchResult(index: i, match: (match.matchedField!, match.matchedFieldValue!)))
             }
         }
-        
+
         return SearchResults(results: results)
     }
     
@@ -490,7 +490,7 @@ class Playlist {
         if (searchQuery.fields.album) {
             
             // Make sure album info has been loaded (it is loaded lazily)
-            TrackIO.loadDetailedTrackInfo(track)
+            TrackIO.loadExtendedMetadataForSearch(track)
             
             if let album = track.extendedMetadata["albumName"] {
                 trackFields["Album"] = (album, caseSensitive ? album : album.lowercased())
@@ -522,5 +522,43 @@ class Playlist {
         
         // Didn't match
         return (false, nil, nil)
+    }
+    
+    func sortPlaylist(sort: Sort) {
+        
+        switch sort.field {
+
+        // Sort by name
+        case .name: if sort.order == SortOrder.ascending {
+                        tracks.sort(by: compareTracks_ascendingByName)
+                    } else {
+                        tracks.sort(by: compareTracks_descendingByName)
+                    }
+            
+        // Sort by duration
+        case .duration: if sort.order == SortOrder.ascending {
+                            tracks.sort(by: compareTracks_ascendingByDuration)
+                        } else {
+                            tracks.sort(by: compareTracks_descendingByDuration)
+                        }
+        }
+    }
+    
+    // Comparison functions for different sort criteria
+    
+    func compareTracks_ascendingByName(aTrack: Track, anotherTrack: Track) -> Bool {
+        return aTrack.shortDisplayName?.compare(anotherTrack.shortDisplayName!) == ComparisonResult.orderedAscending
+    }
+    
+    func compareTracks_descendingByName(aTrack: Track, anotherTrack: Track) -> Bool {
+        return aTrack.shortDisplayName?.compare(anotherTrack.shortDisplayName!) == ComparisonResult.orderedDescending
+    }
+    
+    func compareTracks_ascendingByDuration(aTrack: Track, anotherTrack: Track) -> Bool {
+        return aTrack.duration! < anotherTrack.duration!
+    }
+    
+    func compareTracks_descendingByDuration(aTrack: Track, anotherTrack: Track) -> Bool {
+        return aTrack.duration! > anotherTrack.duration!
     }
 }

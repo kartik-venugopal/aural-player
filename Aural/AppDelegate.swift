@@ -32,6 +32,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBOutlet weak var searchCaseSensitive: NSButton!
     
+    // Playlist sort modal dialog fields
+    @IBOutlet weak var sortPanel: NSPanel!
+    
+    @IBOutlet weak var sortByName: NSButton!
+    @IBOutlet weak var sortByDuration: NSButton!
+    
+    @IBOutlet weak var sortAscending: NSButton!
+    @IBOutlet weak var sortDescending: NSButton!
+    
     // Buttons to toggle (collapsible) playlist/effects views
     @IBOutlet weak var btnToggleEffects: NSButton!
     @IBOutlet weak var btnTogglePlaylist: NSButton!
@@ -186,6 +195,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         recorderTimer = ScheduledTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
         
         searchPanel.titlebarAppearsTransparent = true
+        sortPanel.titlebarAppearsTransparent = true
     }
     
     func initStatefulUI(_ playerState: SavedPlayerState) {
@@ -1068,7 +1078,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         volumeBtnAction(sender as AnyObject)
     }
     
-    @IBAction func searchBtnAction(_ sender: Any) {
+    @IBAction func searchPlaylistAction(_ sender: Any) {
         
         // Don't do anything if no tracks in playlist
         if (playlistView.numberOfRows == 0) {
@@ -1127,7 +1137,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             query.type = .endsWith
         }
         
-        searchResults = player.searchTracks(searchQuery: query)
+        searchResults = player.searchPlaylist(searchQuery: query)
         
         if ((searchResults?.count)! > 0) {
             
@@ -1185,7 +1195,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     @IBAction func searchPlaylistMenuItemAction(_ sender: Any) {
-        searchBtnAction(sender)
+        searchPlaylistAction(sender)
     }
     
     @IBAction func searchQueryChangedAction(_ sender: Any) {
@@ -1195,7 +1205,55 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     // Called by KeyPressHandler to determine if any modal dialog is open
     func modalDialogOpen() -> Bool {
         
-        return searchPanel.isVisible || UIElements.openDialog.isVisible || UIElements.savePlaylistDialog.isVisible || UIElements.saveRecordingDialog.isVisible
+        return searchPanel.isVisible || sortPanel.isVisible || UIElements.openDialog.isVisible || UIElements.savePlaylistDialog.isVisible || UIElements.saveRecordingDialog.isVisible
+    }
+    
+    @IBAction func sortPlaylistAction(_ sender: Any) {
+        
+        // Don't do anything if no tracks in playlist
+        if (playlistView.numberOfRows == 0) {
+            return
+        }
+        
+        // Position the sort modal dialog and show it
+        let sortFrameOrigin = NSPoint(x: window.frame.origin.x + 73, y: window.frame.origin.y + 227)
+        
+        sortPanel.setFrameOrigin(sortFrameOrigin)
+        sortPanel.setIsVisible(true)
+        
+        NSApp.runModal(for: sortPanel)
+        sortPanel.close()
+    }
+    
+    @IBAction func sortOptionsChangedAction(_ sender: Any) {
+        // Do nothing ... this action function is just to get the radio button groups to work
+    }
+    
+    @IBAction func sortBtnAction(_ sender: Any) {
+        
+        // Gather field values
+        let sortOptions = Sort()
+        sortOptions.field = sortByName.state == 1 ? SortField.name : SortField.duration
+        sortOptions.order = sortAscending.state == 1 ? SortOrder.ascending : SortOrder.descending
+        
+        player.sortPlaylist(sort: sortOptions)
+        dismissSortDialog()
+        
+        playlistView.reloadData()
+        selectTrack(player.getPlayingTrackIndex())
+        showPlaylistSelectedRow()
+    }
+    
+    @IBAction func sortCancelBtnAction(_ sender: Any) {
+        dismissSortDialog()
+    }
+    
+    func dismissSortDialog() {
+        NSApp.stopModal()
+    }
+    
+    @IBAction func sortPlaylistMenuItemAction(_ sender: Any) {
+        sortPlaylistAction(sender)
     }
 }
 

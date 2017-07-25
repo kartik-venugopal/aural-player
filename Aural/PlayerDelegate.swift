@@ -573,7 +573,11 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         EventRegistry.publishEvent(.trackChanged, event: trackChangedEvent)
     }
     
-    func searchTracks(searchQuery: SearchQuery) -> SearchResults {
-        return playlist.searchTracks(searchQuery: searchQuery)
+    func searchPlaylist(searchQuery: SearchQuery) -> SearchResults {
+        return playlist.searchPlaylist(searchQuery: searchQuery)
+    }
+    
+    func sortPlaylist(sort: Sort) {
+        playlist.sortPlaylist(sort: sort)
     }
 }

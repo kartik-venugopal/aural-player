@@ -81,6 +81,11 @@
                 <outlet property="searchResultMatchInfo" destination="tV8-Yi-o5k" id="6fD-Ku-mGV"/>
                 <outlet property="searchResultsSummaryLabel" destination="cAy-bq-MqT" id="818-c4-lAX"/>
                 <outlet property="seekSlider" destination="0m5-4l-3Wg" id="m8W-Pi-SGb"/>
+                <outlet property="sortAscending" destination="trl-at-P9S" id="E1I-uz-yBv"/>
+                <outlet property="sortByDuration" destination="Gd9-ah-OAB" id="l2o-N6-Xq1"/>
+                <outlet property="sortByName" destination="0Oe-zI-vsS" id="cDe-8R-GxK"/>
+                <outlet property="sortDescending" destination="7Ww-4w-TFU" id="InO-Qx-67b"/>
+                <outlet property="sortPanel" destination="Lw0-WI-3wy" id="Rl2-fd-34e"/>
                 <outlet property="timeSlider" destination="1pg-uy-Rlo" id="7eO-B3-o99"/>
                 <outlet property="viewEffectsMenuItem" destination="fK8-7g-oqx" id="EQv-4S-gcr"/>
                 <outlet property="viewPlaylistMenuItem" destination="af4-4E-1QV" id="Dhx-XG-mI6"/>
@@ -1496,7 +1501,7 @@ G1BhbiBTbGlkZXI
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="searchBtnAction:" target="Voe-Tx-rLC" id="Xwd-US-ow1"/>
+                                        <action selector="searchPlaylistAction:" target="Voe-Tx-rLC" id="Nzo-hY-yhH"/>
                                     </connections>
                                 </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PC9-RH-ZoK" userLabel="Playlist summary">
@@ -1508,6 +1513,17 @@ G1BhbiBTbGlkZXI
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
+                                <button toolTip="Sort playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7jt-oN-fFd" userLabel="Sort">
+                                    <rect key="frame" x="145" y="6" width="20" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Sort" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="82I-oA-s7J">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="sortPlaylistAction:" target="Voe-Tx-rLC" id="Rde-kC-7mt"/>
+                                    </connections>
+                                </button>
                             </subviews>
                         </view>
                         <constraints>
@@ -1607,9 +1623,15 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="bMd-aB-U0o"/>
-                            <menuItem title="Search playlist" image="Search-Small" keyEquivalent="f" id="Pxd-7C-8tq">
+                            <menuItem title=" Search playlist" image="Search-Small" keyEquivalent="f" id="Pxd-7C-8tq">
                                 <connections>
                                     <action selector="searchPlaylistMenuItemAction:" target="Voe-Tx-rLC" id="USw-Ot-4ok"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Sort playlist" image="Sort-Small" keyEquivalent="s" id="ttf-Ix-LHp" userLabel="Sort playlist">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="sortPlaylistMenuItemAction:" target="Voe-Tx-rLC" id="wIR-gs-wNE"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -1942,6 +1964,140 @@ Gw
             </view>
             <point key="canvasLocation" x="293.5" y="-17.5"/>
         </window>
+        <window title="Sort tracks in playlist" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="Lw0-WI-3wy" userLabel="Sort Panel" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="269" height="120"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <view key="contentView" wantsLayer="YES" id="raD-bb-lef">
+                <rect key="frame" x="0.0" y="0.0" width="269" height="120"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Options:" translatesAutoresizingMaskIntoConstraints="NO" id="mTM-jv-ju3" userLabel="Sort Options Box">
+                        <rect key="frame" x="20" y="36" width="229" height="69"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" ambiguous="YES" id="QGc-WA-oCX">
+                            <rect key="frame" x="1" y="1" width="227" height="67"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <box fixedFrame="YES" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qZ9-z5-MaD" userLabel="Sort fields box">
+                                    <rect key="frame" x="5" y="-4" width="89" height="65"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <view key="contentView" ambiguous="YES" id="wqh-dX-9Yd">
+                                        <rect key="frame" x="2" y="2" width="85" height="61"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJz-y9-CYH">
+                                                <rect key="frame" x="5" y="46" width="74" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sort by:" id="cgY-kf-NdI">
+                                                    <font key="font" size="11" name="GillSans-SemiBold"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Oe-zI-vsS" userLabel="Name field">
+                                                <rect key="frame" x="2" y="25" width="90" height="25"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="radio" title="Name" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="box-uc-jkO">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" size="11" name="GillSans"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="sortOptionsChangedAction:" target="Voe-Tx-rLC" id="G8c-V0-rHp"/>
+                                                </connections>
+                                            </button>
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gd9-ah-OAB" userLabel="Duration field">
+                                                <rect key="frame" x="2" y="8" width="90" height="25"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="radio" title="Duration" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="JfO-7C-ilX">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" size="11" name="GillSans"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="sortOptionsChangedAction:" target="Voe-Tx-rLC" id="reG-uO-ccb"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </view>
+                                </box>
+                                <box fixedFrame="YES" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aKZ-pg-Zb0" userLabel="Sort order box">
+                                    <rect key="frame" x="129" y="-4" width="89" height="65"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <view key="contentView" ambiguous="YES" id="x7M-jq-Hnz">
+                                        <rect key="frame" x="2" y="2" width="85" height="61"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eO2-Bt-vvT" userLabel="Sort Order:">
+                                                <rect key="frame" x="5" y="46" width="94" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Order:" id="q4z-4T-PCb">
+                                                    <font key="font" size="11" name="GillSans-SemiBold"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="trl-at-P9S">
+                                                <rect key="frame" x="5" y="25" width="77" height="25"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="radio" title="Ascending" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="pqL-MI-YAl">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" size="11" name="GillSans"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="sortOptionsChangedAction:" target="Voe-Tx-rLC" id="Spt-sv-w12"/>
+                                                </connections>
+                                            </button>
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Ww-4w-TFU">
+                                                <rect key="frame" x="5" y="8" width="77" height="25"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="radio" title="Descending" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="dmu-mZ-Pfz">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" size="11" name="GillSans"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="sortOptionsChangedAction:" target="Voe-Tx-rLC" id="WZY-4C-3WT"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </view>
+                                </box>
+                            </subviews>
+                        </view>
+                        <color key="fillColor" white="0.81976996530000001" alpha="1" colorSpace="calibratedWhite"/>
+                    </box>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qeJ-wY-9Pl" userLabel="Sort button">
+                        <rect key="frame" x="68" y="6" width="63" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Sort" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Rn8-Wp-TAT">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="12" name="GillSans"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="sortBtnAction:" target="Voe-Tx-rLC" id="o8v-pU-Trm"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ffh-vZ-RWY" userLabel="Cancel button">
+                        <rect key="frame" x="138" y="6" width="63" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pfm-48-zsq">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="12" name="GillSans"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="sortCancelBtnAction:" target="Voe-Tx-rLC" id="168-DV-8xJ"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="236.5" y="46"/>
+        </window>
     </objects>
     <resources>
         <image name="Add" width="129" height="129"/>
@@ -1981,6 +2137,8 @@ Gw
         <image name="SeekForward-Small" width="13" height="8"/>
         <image name="ShuffleOff" width="256" height="256"/>
         <image name="ShuffleOn-Small" width="15" height="15"/>
+        <image name="Sort" width="464" height="386"/>
+        <image name="Sort-Small" width="17" height="14"/>
         <image name="SwitchOff" width="185" height="512"/>
         <image name="ToggleEffectsView" width="419" height="422"/>
         <image name="ToggleEffectsView-Small" width="14" height="14"/>

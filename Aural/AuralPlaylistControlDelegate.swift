@@ -34,5 +34,8 @@ protocol AuralPlaylistControlDelegate {
     func toggleShuffleMode() -> ShuffleMode
     
     // For a given search query, returns all tracks that match the query
-    func searchTracks(searchQuery: SearchQuery) -> SearchResults
+    func searchPlaylist(searchQuery: SearchQuery) -> SearchResults
+    
+    // Sorts the playlist according to the specified sort parameters
+    func sortPlaylist(sort: Sort)
 }
