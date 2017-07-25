@@ -20,7 +20,7 @@ The latest app bundle can be found in the compressed archive file [Aural.app.zip
 
 ## Documentation
 
-Please see [User Guide](https://github.com/maculateConception/aural-player/blob/master/Documentation/UserGuide.rtf?raw=true) and [Developer-readme](https://github.com/maculateConception/aural-player/blob/master/Documentation/Developer-readme.rtf?raw=true) under [/Documentation](/Documentation), for more details.
+Please see [User Guide](https://github.com/maculateConception/aural-player/blob/master/Documentation/UserGuide.rtfd/TXT.rtf?raw=true) and [Developer-readme](https://github.com/maculateConception/aural-player/blob/master/Documentation/Developer-readme.rtf?raw=true) under [/Documentation](/Documentation), for more details.
 
 ## Swift 3 update
 
