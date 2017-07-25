@@ -15,6 +15,9 @@ class BufferManager {
     // Seconds of playback
     fileprivate static let BUFFER_SIZE: UInt32 = 15
     
+    // The very first buffer should be small, so as to facilitate efficient immediate playback
+    fileprivate static let BUFFER_SIZE_INITIAL: UInt32 = 5
+    
     // A constant to represent a timestamp in the past ... used to invalidate currently scheduled buffers and scheduling tasks. Used during the transition between two playback sessions (i.e. when stop() is called).
     fileprivate let INVALID_TIMESTAMP: Date
     
@@ -67,7 +70,7 @@ class BufferManager {
         sessionTimestamp = Date()
         
         // Schedule one buffer for immediate playback
-        let reachedEOF = scheduleNextBuffer(sessionTimestamp)
+        let reachedEOF = scheduleNextBuffer(sessionTimestamp, BufferManager.BUFFER_SIZE_INITIAL)
         
         // Start playing the file
         playerNode.play()
@@ -100,10 +103,10 @@ class BufferManager {
     
     // Schedules a single audio buffer for playback
     // The timestamp argument indicates which playback session this task was initiated for
-    fileprivate func scheduleNextBuffer(_ timestamp: Date) -> Bool {
+    fileprivate func scheduleNextBuffer(_ timestamp: Date, _ bufferSize: UInt32 = BufferManager.BUFFER_SIZE) -> Bool {
         
         let sampleRate = playingFile!.processingFormat.sampleRate
-        let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: playingFile!.processingFormat, frameCapacity: AVAudioFrameCount(Double(BufferManager.BUFFER_SIZE) * sampleRate))
+        let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: playingFile!.processingFormat, frameCapacity: AVAudioFrameCount(Double(bufferSize) * sampleRate))
         
         do {
             try playingFile!.read(into: buffer)
