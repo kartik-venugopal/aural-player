@@ -26,6 +26,10 @@ Please see [User Guide](https://github.com/maculateConception/aural-player/blob/
 
 7/20/2017: Code in master branch ported to Swift v3. Swift 2 code is now in the "swift2" branch. Swift 2 development, from this point on, will be limited to none. Latest changes will go into master branch (with Swift 3 code).
 
+## Third party code attribution
+
+Aural Player makes use of (a modified version of) a reusable UI control called [RangeSlider](https://github.com/matthewreagan/RangeSlider).
+
 ## Screenshots
 
 ![App screenshot](/Documentation/UserGuide.rtfd/Aural.png?raw=true "App screenshot")
