@@ -40,8 +40,12 @@ class SavedPlayerState {
     var delayLowPassCutoff: Float = PlayerDefaults.delayLowPassCutoff
     
     var filterBypass: Bool = PlayerDefaults.filterBypass
-    var filterLowPassCutoff: Float = PlayerDefaults.filterLowPassCutoff
-    var filterHighPassCutoff: Float = PlayerDefaults.filterHighPassCutoff
+    var filterBassMin: Float = PlayerDefaults.filterBassMin
+    var filterBassMax: Float = PlayerDefaults.filterBassMax
+    var filterMidMin: Float = PlayerDefaults.filterMidMin
+    var filterMidMax: Float = PlayerDefaults.filterMidMax
+    var filterTrebleMin: Float = PlayerDefaults.filterTrebleMin
+    var filterTrebleMax: Float = PlayerDefaults.filterTrebleMax
     
     // List of track file paths
     var playlist: [String] = [String]()
@@ -106,8 +110,12 @@ class SavedPlayerState {
         
         var filterDict = [NSString: AnyObject]()
         filterDict["bypass"] = filterBypass as AnyObject
-        filterDict["highPassCutoff"] = filterHighPassCutoff as NSNumber
-        filterDict["lowPassCutoff"] = filterLowPassCutoff as NSNumber
+        filterDict["bassMin"] = filterBassMin as NSNumber
+        filterDict["bassMax"] = filterBassMax as NSNumber
+        filterDict["midMin"] = filterMidMin as NSNumber
+        filterDict["midMax"] = filterMidMax as NSNumber
+        filterDict["trebleMin"] = filterTrebleMin as NSNumber
+        filterDict["trebleMax"] = filterTrebleMax as NSNumber
         dict["filter"] = filterDict as AnyObject
         
         dict["playlist"] = NSArray(array: playlist)
@@ -177,8 +185,30 @@ class SavedPlayerState {
         
         if let filterDict = (jsonObject["filter"] as? NSDictionary) {
             state.filterBypass = (filterDict["bypass"] as! Bool)
-            state.filterHighPassCutoff = (filterDict["highPassCutoff"] as! NSNumber).floatValue
-            state.filterLowPassCutoff = (filterDict["lowPassCutoff"] as! NSNumber).floatValue
+            
+            if let bassMin = (filterDict["bassMin"] as? NSNumber) {
+                state.filterBassMin = bassMin.floatValue
+            }
+            
+            if let bassMax = (filterDict["bassMax"] as? NSNumber) {
+                state.filterBassMax = bassMax.floatValue
+            }
+            
+            if let midMin = (filterDict["midMin"] as? NSNumber) {
+                state.filterMidMin = midMin.floatValue
+            }
+            
+            if let midMax = (filterDict["midMax"] as? NSNumber) {
+                state.filterMidMax = midMax.floatValue
+            }
+            
+            if let trebleMin = (filterDict["trebleMin"] as? NSNumber) {
+                state.filterTrebleMin = trebleMin.floatValue
+            }
+            
+            if let trebleMax = (filterDict["trebleMax"] as? NSNumber) {
+                state.filterTrebleMax = trebleMax.floatValue
+            }
         }
         
         if let playlist = jsonObject["playlist"] as? [String] {

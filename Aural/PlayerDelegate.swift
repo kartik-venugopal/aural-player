@@ -469,12 +469,16 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         return player.toggleFilterBypass()
     }
     
-    func setFilterHighPassCutoff(_ cutoff: Float) {
-        player.setFilterHighPassCutoff(cutoff)
+    func setFilterBassBand(_ min: Float, _ max: Float) {
+        player.setFilterBassBand(min, max)
     }
     
-    func setFilterLowPassCutoff(_ cutoff: Float) {
-        player.setFilterLowPassCutoff(cutoff)
+    func setFilterMidBand(_ min: Float, _ max: Float) {
+        player.setFilterMidBand(min, max)
+    }
+    
+    func setFilterTrebleBand(_ min: Float, _ max: Float) {
+        player.setFilterTrebleBand(min, max)
     }
     
     func toggleRepeatMode() -> RepeatMode {

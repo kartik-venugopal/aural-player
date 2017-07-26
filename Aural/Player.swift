@@ -24,7 +24,7 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
     fileprivate let eqNode: ParametricEQNode
     fileprivate let pitchNode: AVAudioUnitTimePitch
     fileprivate let reverbNode: AVAudioUnitReverb
-    fileprivate let filterNode: FilterNode
+    fileprivate let filterNode: MultiBandStopFilterNode
     fileprivate let delayNode: AVAudioUnitDelay
     fileprivate let timeNode: AVAudioUnitTimePitch
     
@@ -62,7 +62,7 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         pitchNode = AVAudioUnitTimePitch()
         reverbNode = AVAudioUnitReverb()
         delayNode = AVAudioUnitDelay()
-        filterNode = FilterNode()
+        filterNode = MultiBandStopFilterNode()
         timeNode = AVAudioUnitTimePitch()
         auxMixer = AVAudioMixerNode()
         
@@ -112,8 +112,9 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         
         // Filter
         filterNode.bypass = state.filterBypass
-        filterNode.highPassBand.frequency = state.filterHighPassCutoff
-        filterNode.lowPassBand.frequency = state.filterLowPassCutoff
+        filterNode.setFilterBassBand(state.filterBassMin, state.filterBassMax)
+        filterNode.setFilterMidBand(state.filterMidMin, state.filterMidMax)
+        filterNode.setFilterTrebleBand(state.filterTrebleMin, state.filterTrebleMax)
     }
     
     // Prepares the player to play a given track
@@ -282,12 +283,16 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         return newState
     }
     
-    func setFilterHighPassCutoff(_ cutoff: Float) {
-        filterNode.highPassBand.frequency = cutoff
+    func setFilterBassBand(_ min: Float, _ max: Float) {
+        filterNode.setFilterBassBand(min, max)
     }
     
-    func setFilterLowPassCutoff(_ cutoff: Float) {
-        filterNode.lowPassBand.frequency = cutoff
+    func setFilterMidBand(_ min: Float, _ max: Float) {
+        filterNode.setFilterMidBand(min, max)
+    }
+    
+    func setFilterTrebleBand(_ min: Float, _ max: Float) {
+        filterNode.setFilterTrebleBand(min, max)
     }
     
     func stop() {
@@ -375,8 +380,13 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         
         // Filter
         state.filterBypass = filterNode.bypass
-        state.filterLowPassCutoff = filterNode.lowPassBand.frequency
-        state.filterHighPassCutoff = filterNode.highPassBand.frequency
+        let filterBands = filterNode.getBands()
+        state.filterBassMin = filterBands.bass.min
+        state.filterBassMax = filterBands.bass.max
+        state.filterMidMin = filterBands.mid.min
+        state.filterMidMax = filterBands.mid.max
+        state.filterTrebleMin = filterBands.treble.min
+        state.filterTrebleMax = filterBands.treble.max
         
         return state
     }

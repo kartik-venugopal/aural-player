@@ -37,6 +37,10 @@ class PlayerDefaults {
     static let delayLowPassCutoff: Float = 15000
 
     static let filterBypass: Bool = true
-    static let filterLowPassCutoff: Float = AppConstants.audibleRangeMax
-    static let filterHighPassCutoff: Float = AppConstants.audibleRangeMin
+    static let filterBassMin: Float = 32
+    static let filterBassMax: Float = 128
+    static let filterMidMin: Float = 500
+    static let filterMidMax: Float = 1000
+    static let filterTrebleMin: Float = 4000
+    static let filterTrebleMax: Float = 8000
 }

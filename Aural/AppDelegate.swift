@@ -54,13 +54,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var fxBox: NSBox!
     @IBOutlet weak var playlistBox: NSBox!
     
-    // Playlist summary label
-    @IBOutlet weak var lblPlaylistSummary: NSTextField!
-    
-    // Displays the playlist
+    // Displays the playlist and summary
     @IBOutlet weak var playlistView: NSTableView!
-    
-    @IBOutlet weak var playlistPopupMenu: NSMenu!
+    @IBOutlet weak var lblPlaylistSummary: NSTextField!
     
     // Toggle buttons (their images change)
     @IBOutlet weak var btnShuffle: NSButton!
@@ -68,20 +64,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var btnVolume: NSButton!
     @IBOutlet weak var btnPlayPause: NSButton!
     
-    // Volume/pan/effects controls
+    // Volume/pan controls
     @IBOutlet weak var volumeSlider: NSSlider!
     @IBOutlet weak var panSlider: NSSlider!
     
+    // Pitch controls
     @IBOutlet weak var btnPitchBypass: NSButton!
     @IBOutlet weak var pitchSlider: NSSlider!
     @IBOutlet weak var pitchOverlapSlider: NSSlider!
     
+    // Time controls
     @IBOutlet weak var timeSlider: NSSlider!
     
+    // Reverb controls
     @IBOutlet weak var btnReverbBypass: NSButton!
     @IBOutlet weak var reverbMenu: NSPopUpButton!
     @IBOutlet weak var reverbSlider: NSSlider!
     
+    // Delay controls
     @IBOutlet weak var btnDelayBypass: NSButton!
     @IBOutlet weak var delayTimeSlider: NSSlider!
     @IBOutlet weak var delayAmountSlider: NSSlider!
@@ -89,10 +89,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var delayCutoffSlider: NSSlider!
     @IBOutlet weak var delayFeedbackSlider: NSSlider!
     
+    // Filter controls
     @IBOutlet weak var btnFilterBypass: NSButton!
-    @IBOutlet weak var filterLowPassSlider: NSSlider!
-    @IBOutlet weak var filterHighPassSlider: NSSlider!
-    
+    @IBOutlet weak var filterBassSlider: RangeSlider!
+    @IBOutlet weak var filterMidSlider: RangeSlider!
+    @IBOutlet weak var filterTrebleSlider: RangeSlider!
+
+    // Recorder controls
     @IBOutlet weak var btnRecord: NSButton!
     @IBOutlet weak var lblRecorderDuration: NSTextField!
     
@@ -135,10 +138,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     // Timer that periodically updates the seek bar
     var seekTimer: ScheduledTaskExecutor? = nil
-    
-    // Indicates whether the open/save dialog is currently open
-    // Used in KeyPressHandler
-//    var modalDialogOpen: Bool = false
     
     var playlistCollapsibleView: CollapsibleView?
     var fxCollapsibleView: CollapsibleView?
@@ -196,6 +195,33 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         searchPanel.titlebarAppearsTransparent = true
         sortPanel.titlebarAppearsTransparent = true
+        
+        // Set up the filter control sliders
+        // TODO: Move freq values to constants class
+        
+        filterBassSlider.minValue = 20
+        filterBassSlider.maxValue = 250
+        filterBassSlider.onControlChanged = {
+            (slider: RangeSlider) -> Void in
+            
+            self.filterBassChanged()
+        }
+        
+        filterMidSlider.minValue = 251
+        filterMidSlider.maxValue = 2000
+        filterMidSlider.onControlChanged = {
+            (slider: RangeSlider) -> Void in
+            
+            self.filterMidChanged()
+        }
+        
+        filterTrebleSlider.minValue = 2001
+        filterTrebleSlider.maxValue = 20000
+        filterTrebleSlider.onControlChanged = {
+            (slider: RangeSlider) -> Void in
+            
+            self.filterTrebleChanged()
+        }
     }
     
     func initStatefulUI(_ playerState: SavedPlayerState) {
@@ -256,8 +282,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         delayCutoffSlider.floatValue = playerState.delayLowPassCutoff
         
         btnFilterBypass.image = playerState.filterBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
-        filterHighPassSlider.floatValue = playerState.filterHighPassCutoff
-        filterLowPassSlider.floatValue = playerState.filterLowPassCutoff
+        filterBassSlider.start = Double(playerState.filterBassMin)
+        filterBassSlider.end = Double(playerState.filterBassMax)
+        filterMidSlider.start = Double(playerState.filterMidMin)
+        filterMidSlider.end = Double(playerState.filterMidMax)
+        filterTrebleSlider.start = Double(playerState.filterTrebleMin)
+        filterTrebleSlider.end = Double(playerState.filterTrebleMax)
         
         eqPresets.selectItem(at: -1)
         
@@ -801,13 +831,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         btnFilterBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
     }
     
-    @IBAction func filterHighPassAction(_ sender: AnyObject) {
-        player.setFilterHighPassCutoff(filterHighPassSlider.floatValue)
-    }
     
-    @IBAction func filterLowPassAction(_ sender: AnyObject) {
-        player.setFilterLowPassCutoff(filterLowPassSlider.floatValue)
-    }
     
     @IBAction func eqGlobalGainAction(_ sender: AnyObject) {
         player.setEQGlobalGain(eqGlobalGainSlider.floatValue)
@@ -1254,6 +1278,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBAction func sortPlaylistMenuItemAction(_ sender: Any) {
         sortPlaylistAction(sender)
+    }
+    
+    func filterBassChanged() {
+        player.setFilterBassBand(Float(filterBassSlider.start), Float(filterBassSlider.end))
+    }
+    
+    func filterMidChanged() {
+        player.setFilterMidBand(Float(filterMidSlider.start), Float(filterMidSlider.end))
+    }
+    
+    func filterTrebleChanged() {
+        player.setFilterTrebleBand(Float(filterTrebleSlider.start), Float(filterTrebleSlider.end))
     }
 }
 

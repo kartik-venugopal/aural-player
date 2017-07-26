@@ -88,9 +88,12 @@ protocol AuralSoundTuningDelegate {
     // Toggles the bypass state of the filter audio effect unit, and returns its new bypass state
     func toggleFilterBypass() -> Bool
     
-    // Sets the filter low pass cutoff frequency, in Hz, specified as a value between 10 and 20k
-    func setFilterLowPassCutoff(_ cutoff: Float)
+    // Sets the bass band of the filter to the specified frequency range
+    func setFilterBassBand(_ min: Float, _ max: Float)
     
-    // Sets the filter high pass cutoff frequency, in Hz, specified as a value between 10 and 20k
-    func setFilterHighPassCutoff(_ cutoff: Float)
+    // Sets the mid band of the filter to the specified frequency range
+    func setFilterMidBand(_ min: Float, _ max: Float)
+    
+    // Sets the treble band of the filter to the specified frequency range
+    func setFilterTrebleBand(_ min: Float, _ max: Float)
 }
