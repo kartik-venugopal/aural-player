@@ -53,7 +53,7 @@ class MultiBandStopFilterNode: AVAudioUnitEQ {
     private func setBand(_ band: AVAudioUnitEQFilterParameters, _ min: Float, _ max: Float) {
         
         // Should never happen, but for safety
-        if (min >= max) {
+        if (min > max) {
             return
         }
         
