@@ -1,5 +1,5 @@
 /*
-    A special (customized) extension of AVAudioUnitEQ to represent a 3-band band-stop filter, with bands for bass, mid, and treble frequency ranges
+    A special (customized) extension of AVAudioUnitEQ to represent a 3-band band-stop filter, with bands for bass, mid, and treble frequency ranges. This is implemented as a 3-band parametric EQ with very low gain (performs more attenuation than an equivalent band-stop filter).
 */
 
 import Cocoa
@@ -7,16 +7,8 @@ import AVFoundation
 
 class MultiBandStopFilterNode: AVAudioUnitEQ {
     
-    // Frequency ranges for each of the 3 bands
-    
-    static let bass_min: Float = 20
-    static let bass_max: Float = 250
-    
-    static let mid_min: Float = 251
-    static let mid_max: Float = 2000
-    
-    static let treble_min: Float = 2001
-    static let treble_max: Float = 20000
+    static let bandStopGain: Float = -24
+    static let minBandwidth: Float = 0.05
     
     var bassBand: AVAudioUnitEQFilterParameters {
         return bands[0]
@@ -34,20 +26,11 @@ class MultiBandStopFilterNode: AVAudioUnitEQ {
         
         super.init(numberOfBands: 3)
         
-        bassBand.bypass = true
-        bassBand.filterType = AVAudioUnitEQFilterType.parametric
-        bassBand.bandwidth = 0.05
-        bassBand.gain = -24
-        
-        midBand.bypass = true
-        midBand.filterType = AVAudioUnitEQFilterType.parametric
-        midBand.bandwidth = 0.05
-        midBand.gain = -24
-
-        trebleBand.bypass = true
-        trebleBand.filterType = AVAudioUnitEQFilterType.parametric
-        trebleBand.bandwidth = 0.05
-        trebleBand.gain = -24
+        for band in bands {
+            band.filterType = AVAudioUnitEQFilterType.parametric
+            band.bandwidth = MultiBandStopFilterNode.minBandwidth
+            band.gain = MultiBandStopFilterNode.bandStopGain
+        }
     }
     
     private func setBand(_ band: AVAudioUnitEQFilterParameters, _ min: Float, _ max: Float) {
@@ -64,8 +47,8 @@ class MultiBandStopFilterNode: AVAudioUnitEQ {
         // Ex: If min=200 and max=800, bandwidth = 2 octaves (200 to 400, and 400 to 800)
         let bandwidth = log2(max / min)
         
-        // If calculated bandwidth < 0.05, set bypass to true (bandwidth is negligible)
-        let bypassBand: Bool = bandwidth < 0.05
+        // If calculated bandwidth <= min, set bypass to true (bandwidth is negligible)
+        let bypassBand: Bool = bandwidth <= MultiBandStopFilterNode.minBandwidth
         
         band.frequency = centerFrequency
         band.bandwidth = bandwidth
@@ -94,6 +77,7 @@ class MultiBandStopFilterNode: AVAudioUnitEQ {
         return (bass, mid, treble)
     }
     
+    // Calculates the min and max of a frequency range, given the center and bandwidth (inverse of the calculation in setBand())
     private func calcMinMaxForCenterFrequency(freqC: Float, bandwidth: Float) -> (min: Float, max: Float) {
         
         let twoPowerBandwidth = pow(2, bandwidth)

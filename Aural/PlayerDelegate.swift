@@ -48,7 +48,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         EventRegistry.subscribe(EventType.playbackCompleted, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
     }
     
-    
     // Make sure all logging is done to the app's log file
     fileprivate static func configureLogging() {
         

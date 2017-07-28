@@ -41,7 +41,8 @@ class PlaylistSongView: NSTableRowView {
         
         if self.selectionHighlightStyle != NSTableViewSelectionHighlightStyle.none {
             
-            let selectionRect = NSInsetRect(self.bounds, 0, 0)
+//            let selectionRect = NSInsetRect(self.bounds, 0, 0)
+            let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
             
             NSColor(calibratedWhite: 0.65, alpha: 1).setStroke()
             

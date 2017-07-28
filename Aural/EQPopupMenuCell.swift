@@ -10,12 +10,11 @@ class EQPopupMenuCell: NSPopUpButtonCell {
         
         let frameWidth = cellFrame.width
         let rectWidth: CGFloat = 16
-        let drawRect = cellFrame.insetBy(dx: (frameWidth - rectWidth) / 2, dy: 6)
+        let drawRect = cellFrame.insetBy(dx: (frameWidth - rectWidth) / 2, dy: 7)
         
         UIConstants.colorScheme.popupMenuColor.setFill()
         
-        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 3, yRadius: 3)
-        
+        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 2, yRadius: 2)
         drawPath.fill()
         
         // Draw arrow

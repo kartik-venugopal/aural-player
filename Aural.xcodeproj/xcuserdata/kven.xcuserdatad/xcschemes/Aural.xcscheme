@@ -17,7 +17,7 @@
                BlueprintIdentifier = "3E85F2551EFA78D6007BE830"
                BuildableName = "Aural.app"
                BlueprintName = "Aural"
-               ReferencedContainer = "container:Aural.xcodeproj">
+               ReferencedContainer = "container:Aural-makeover.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "3E85F2551EFA78D6007BE830"
             BuildableName = "Aural.app"
             BlueprintName = "Aural"
-            ReferencedContainer = "container:Aural.xcodeproj">
+            ReferencedContainer = "container:Aural-makeover.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -58,7 +58,7 @@
             BlueprintIdentifier = "3E85F2551EFA78D6007BE830"
             BuildableName = "Aural.app"
             BlueprintName = "Aural"
-            ReferencedContainer = "container:Aural.xcodeproj">
+            ReferencedContainer = "container:Aural-makeover.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -67,7 +67,7 @@
    <ProfileAction
       buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
-      savedToolIdentifier = "/Applications/Xcode.app/Contents/Applications/Instruments.app/Contents/Resources/templates/Leaks.tracetemplate"
+      savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
       <BuildableProductRunnable
@@ -77,7 +77,7 @@
             BlueprintIdentifier = "3E85F2551EFA78D6007BE830"
             BuildableName = "Aural.app"
             BlueprintName = "Aural"
-            ReferencedContainer = "container:Aural.xcodeproj">
+            ReferencedContainer = "container:Aural-makeover.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

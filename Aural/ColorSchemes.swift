@@ -70,7 +70,7 @@ enum ColorSchemes {
             
         case .brown: return windowColor
             
-        case .gray: return NSColor.black
+        case .gray: return NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.7), blue: CGFloat(0.7), alpha: CGFloat(1))
         }
     }
     
@@ -100,33 +100,8 @@ enum ColorSchemes {
             
         case .brown: return NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.1), blue: CGFloat(0.1), alpha: CGFloat(1))
             
-        case .gray: return NSColor(deviceRed: CGFloat(0.3), green: CGFloat(0.3), blue: CGFloat(0.3), alpha: CGFloat(1))
+        case .gray: return NSColor(deviceRed: CGFloat(0.45), green: CGFloat(0.45), blue: CGFloat(0.45), alpha: CGFloat(1))
         }
-    }
-    
-    // Slider knob color
-    var sliderKnobColor: NSColor {
-        return playlistSelectionBoxColor
-    }
-    
-    // Only for EQ slider knobs
-    var eqSliderKnobColor: NSColor {
-        return NSColor(deviceRed: CGFloat(0.2), green: CGFloat(0.2), blue: CGFloat(0.2), alpha: CGFloat(1))
-    }
-    
-    // Color of the part of the slider bar that is to the left of (or below) the knob (darker)
-    var sliderBarDarkColor: NSColor {
-        return NSColor(deviceRed: CGFloat(0.25), green: CGFloat(0.25), blue: CGFloat(0.25), alpha: CGFloat(1))
-    }
-    
-    // Color of the part of the slider bar that is to the right of (or above) the knob (lighter)
-    var sliderBarLightColor: NSColor {
-        return NSColor(deviceRed: CGFloat(0.5), green: CGFloat(0.5), blue: CGFloat(0.5), alpha: CGFloat(1))
-    }
-    
-    // Pop up menu (reverb/EQ/recorder) color
-    var popupMenuColor: NSColor {
-        return NSColor(deviceRed: CGFloat(0.6), green: CGFloat(0.6), blue: CGFloat(0.6), alpha: CGFloat(1))
     }
     
     // Color of selected item text inside the playlist
@@ -140,8 +115,125 @@ enum ColorSchemes {
             
         case .brown: return NSColor.brown
             
-        case .gray: return NSColor(deviceRed: CGFloat(0.85), green: CGFloat(0.85), blue: CGFloat(0.85), alpha: CGFloat(1))
+        case .gray: return NSColor(deviceRed: CGFloat(0.9), green: CGFloat(0.9), blue: CGFloat(0.9), alpha: CGFloat(1))
         }
+    }
+    
+    // Slider knob color
+    var timeSliderKnobColor: NSColor {
+//        return NSColor(deviceRed: CGFloat(0.75), green: CGFloat(0.75), blue: CGFloat(0.75), alpha: CGFloat(1))
+        return sliderKnobColor
+    }
+    
+    var timeSliderKnobStrokeColor: NSColor {
+        return NSColor(deviceRed: CGFloat(0.65), green: CGFloat(0.65), blue: CGFloat(0.65), alpha: CGFloat(1))
+    }
+    
+    // Slider knob color
+    var sliderKnobColor: NSColor {
+        return NSColor(deviceRed: CGFloat(0.8), green: CGFloat(0.8), blue: CGFloat(0.8), alpha: CGFloat(1))
+    }
+    
+    var lightSliderKnobColor: NSColor {
+        return NSColor(deviceRed: CGFloat(0.8), green: CGFloat(0.8), blue: CGFloat(0.8), alpha: CGFloat(1))
+    }
+    
+    // Slider knob color
+    var sliderKnobOutlineColor: NSColor {
+        return NSColor.black
+    }
+    
+    var tabViewOutlineColor: NSColor {
+        return NSColor(deviceRed: CGFloat(0.65), green: CGFloat(0.65), blue: CGFloat(0.65), alpha: CGFloat(1))
+    }
+    
+    var tabViewTextColor: NSColor {
+        return NSColor(deviceRed: CGFloat(0.9), green: CGFloat(0.9), blue: CGFloat(0.9), alpha: CGFloat(1))
+    }
+    
+    // Only for EQ slider knobs
+    var eqSliderKnobColor: NSColor {
+        return sliderKnobColor
+    }
+    
+    // Color of the part of the slider bar that is to the left of (or below) the knob (darker)
+    var sliderBarDarkColor: NSColor {
+        return NSColor(deviceRed: CGFloat(0.45), green: CGFloat(0.45), blue: CGFloat(0.45), alpha: CGFloat(1))  
+    }
+    
+    // Color of the part of the slider bar that is to the right of (or above) the knob (lighter)
+    var sliderBarLightColor: NSColor {
+        return NSColor(deviceRed: CGFloat(0.6), green: CGFloat(0.6), blue: CGFloat(0.6), alpha: CGFloat(1))
+    }
+    
+    // Pop up menu (reverb/EQ/recorder) color
+    var popupMenuColor: NSColor {
+        return NSColor(deviceRed: CGFloat(0.6), green: CGFloat(0.6), blue: CGFloat(0.6), alpha: CGFloat(1))
+    }
+    
+    // Fill color of box drawn around selected tab view item
+    var tabViewSelectionBoxColor: NSColor {
+        
+        switch self {
+            
+        case .darkOutLightIn: return NSColor.gray
+            
+        case .lightOutDarkIn: return NSColor.lightGray
+            
+        case .brown: return NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.1), blue: CGFloat(0.1), alpha: CGFloat(1))
+            
+        case .gray: return NSColor(deviceRed: CGFloat(0.45), green: CGFloat(0.45), blue: CGFloat(0.45), alpha: CGFloat(1))
+        }
+    }
+    
+    // Fill color of modal dialog navigation buttons (search)
+    var modalDialogNavButtonColor: NSColor {
+        
+        switch self {
+            
+        case .darkOutLightIn: return NSColor.gray
+            
+        case .lightOutDarkIn: return NSColor.lightGray
+            
+        case .brown: return NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.1), blue: CGFloat(0.1), alpha: CGFloat(1))
+            
+        case .gray: return NSColor(deviceRed: CGFloat(0.45), green: CGFloat(0.45), blue: CGFloat(0.45), alpha: CGFloat(1))
+        }
+    }
+    
+    // Fill color of modal dialog navigation buttons (search)
+    var modalDialogNavButtonTextColor: NSColor {
+        
+        switch self {
+            
+        case .darkOutLightIn: return NSColor.lightGray
+            
+        case .lightOutDarkIn: return NSColor.black
+            
+        case .brown: return NSColor.brown
+            
+        case .gray: return NSColor(deviceRed: CGFloat(0.9), green: CGFloat(0.9), blue: CGFloat(0.9), alpha: CGFloat(1))
+        }
+    }
+    
+    // Color of cursor inside playlist search field
+    var searchFieldCursorColor: NSColor {
+        
+        switch self {
+            
+        case .darkOutLightIn: return NSColor(deviceRed: CGFloat(0.2), green: CGFloat(0.2), blue: CGFloat(0.2), alpha: CGFloat(1))
+            
+        case .lightOutDarkIn: return NSColor(deviceRed: CGFloat(0.9), green: CGFloat(0.9), blue: CGFloat(0.9), alpha: CGFloat(1))
+            
+        case .brown: return windowColor
+            
+        case .gray: return NSColor(deviceRed: CGFloat(0.5), green: CGFloat(0.5), blue: CGFloat(0.5), alpha: CGFloat(1))
+        }
+    }
+    
+    // Background color of the popover view
+    var popoverBackgroundColor: NSColor {
+        return NSColor(calibratedWhite: 0.3, alpha: 1)
     }
     
     // Takes a color as input and darkens it by scaling up its RGB components by a certain factor

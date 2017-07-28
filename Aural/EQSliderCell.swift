@@ -20,36 +20,24 @@ class EQSliderCell: NSSliderCell {
     }
     
     override internal func drawKnob(_ knobRect: NSRect) {
-        let drawRect = knobRect.insetBy(dx: 4, dy: 1)
         
-        UIConstants.colorScheme.eqSliderKnobColor.setFill()
-        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 2, yRadius: 2)
+        let drawRect = knobRect.insetBy(dx: 3.75, dy: 1)
         
+        UIConstants.colorScheme.lightSliderKnobColor.setFill()
+        let drawPath = NSBezierPath.init(rect: drawRect)
         drawPath.fill()
     }
     
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
-        let drawRect = aRect.insetBy(dx: 1.5, dy: 1.5)
-        let knobPosition = knobRect(flipped: false)
+        let drawRect = aRect.insetBy(dx: 0, dy: 0)
         
-        // Draw the light portion of the bar (above the knob)
-        let upperRect = NSRect(x: drawRect.origin.x, y: drawRect.origin.y, width: drawRect.width, height: knobPosition.minY - drawRect.minY + 5)
-        
-        UIConstants.colorScheme.sliderBarLightColor.setFill()
-        var drawPath = NSBezierPath.init(roundedRect: upperRect, xRadius: 2, yRadius: 2)
-        drawPath.fill()
-        
-        // Draw the dark portion of the bar (below the knob)
-        let lowerRect = NSRect(x: drawRect.origin.x, y: knobPosition.maxY - 5, width: drawRect.width, height: drawRect.maxY - knobPosition.maxY + 5)
-        
-        UIConstants.colorScheme.sliderBarDarkColor.setFill()
-        drawPath = NSBezierPath.init(roundedRect: lowerRect, xRadius: 2, yRadius: 2)
-        drawPath.fill()
+        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 1, yRadius: 1)
+        UIConstants.sliderBarGradient.draw(in: drawPath, angle: 180)
         
         let zeroDbLinePoints = getZeroDBLinePoints()
         
         // Draw 0db marker line across the middle of the bar
-        GraphicsUtils.drawLine(NSColor.black, pt1: zeroDbLinePoints.pt1, pt2: zeroDbLinePoints.pt2, width: 1)
+        GraphicsUtils.drawLine(NSColor.black, pt1: zeroDbLinePoints.pt1, pt2: zeroDbLinePoints.pt2, width: 3)
     }
 }

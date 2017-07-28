@@ -12,7 +12,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     // Playlist search modal dialog fields
     @IBOutlet weak var searchPanel: NSPanel!
-    @IBOutlet weak var searchField: NSSearchField!
+    @IBOutlet weak var searchField: ColoredCursorSearchField!
     
     @IBOutlet weak var searchResultsSummaryLabel: NSTextField!
     @IBOutlet weak var searchResultMatchInfo: NSTextField!
@@ -68,6 +68,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var volumeSlider: NSSlider!
     @IBOutlet weak var panSlider: NSSlider!
     
+    // Effects panel tab view buttons
+    @IBOutlet weak var eqTabViewButton: NSButton!
+    @IBOutlet weak var pitchTabViewButton: NSButton!
+    @IBOutlet weak var timeTabViewButton: NSButton!
+    @IBOutlet weak var reverbTabViewButton: NSButton!
+    @IBOutlet weak var delayTabViewButton: NSButton!
+    @IBOutlet weak var filterTabViewButton: NSButton!
+    @IBOutlet weak var recorderTabViewButton: NSButton!
+    
+    private var tabViewButtons: [NSButton]?
+    
     // Pitch controls
     @IBOutlet weak var btnPitchBypass: NSButton!
     @IBOutlet weak var pitchSlider: NSSlider!
@@ -94,7 +105,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var filterBassSlider: RangeSlider!
     @IBOutlet weak var filterMidSlider: RangeSlider!
     @IBOutlet weak var filterTrebleSlider: RangeSlider!
-
+    
     // Recorder controls
     @IBOutlet weak var btnRecord: NSButton!
     @IBOutlet weak var lblRecorderDuration: NSTextField!
@@ -197,31 +208,35 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         sortPanel.titlebarAppearsTransparent = true
         
         // Set up the filter control sliders
-        // TODO: Move freq values to constants class
         
-        filterBassSlider.minValue = 20
-        filterBassSlider.maxValue = 250
+        filterBassSlider.minValue = Double(AppConstants.bass_min)
+        filterBassSlider.maxValue = Double(AppConstants.bass_max)
         filterBassSlider.onControlChanged = {
             (slider: RangeSlider) -> Void in
             
             self.filterBassChanged()
         }
         
-        filterMidSlider.minValue = 251
-        filterMidSlider.maxValue = 2000
+        filterMidSlider.minValue = Double(AppConstants.mid_min)
+        filterMidSlider.maxValue = Double(AppConstants.mid_max)
         filterMidSlider.onControlChanged = {
             (slider: RangeSlider) -> Void in
             
             self.filterMidChanged()
         }
         
-        filterTrebleSlider.minValue = 2001
-        filterTrebleSlider.maxValue = 20000
+        filterTrebleSlider.minValue = Double(AppConstants.treble_min)
+        filterTrebleSlider.maxValue = Double(AppConstants.treble_max)
         filterTrebleSlider.onControlChanged = {
             (slider: RangeSlider) -> Void in
             
             self.filterTrebleChanged()
         }
+        
+        tabViewButtons = [eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton]
+        
+        // Select EQ by default
+        eqTabViewAction(self)
     }
     
     func initStatefulUI(_ playerState: SavedPlayerState) {
@@ -903,11 +918,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             resizeWindow(playlistShown: !(playlistCollapsibleView?.hidden)!, effectsShown: true)
             fxCollapsibleView!.show()
             btnToggleEffects.state = 1
+            btnToggleEffects.image = UIConstants.imgEffectsOn
             viewEffectsMenuItem.state = 1
         } else {
             fxCollapsibleView!.hide()
             resizeWindow(playlistShown: !(playlistCollapsibleView?.hidden)!, effectsShown: false)
             btnToggleEffects.state = 0
+            btnToggleEffects.image = UIConstants.imgEffectsOff
             viewEffectsMenuItem.state = 0
         }
         
@@ -924,11 +941,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             playlistCollapsibleView!.show()
             window.makeFirstResponder(playlistView)
             btnTogglePlaylist.state = 1
+            btnTogglePlaylist.image = UIConstants.imgPlaylistOn
             viewPlaylistMenuItem.state = 1
         } else {
             playlistCollapsibleView!.hide()
             resizeWindow(playlistShown: false, effectsShown: !(fxCollapsibleView?.hidden)!)
             btnTogglePlaylist.state = 0
+            btnTogglePlaylist.image = UIConstants.imgPlaylistOff
             viewPlaylistMenuItem.state = 0
         }
         
@@ -1118,6 +1137,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         searchPanel.setFrameOrigin(searchFrameOrigin)
         searchPanel.setIsVisible(true)
         
+        searchPanel.makeFirstResponder(searchField)
+        
         NSApp.runModal(for: searchPanel)
         searchPanel.close()
     }
@@ -1181,8 +1202,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             searchResultsSummaryLabel.stringValue = "No results found"
         }
         searchResultMatchInfo.stringValue = ""
-        btnNextSearch.isEnabled = false
-        btnPreviousSearch.isEnabled = false
+        btnNextSearch.isHidden = true
+        btnPreviousSearch.isHidden = true
     }
     
     // Iterates to the previous search result
@@ -1206,8 +1227,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         searchResultMatchInfo.stringValue = String(format: "Matched %@: '%@'", searchResult.match.fieldKey.lowercased(), searchResult.match.fieldValue)
         
-        btnNextSearch.isEnabled = searchResult.hasNext
-        btnPreviousSearch.isEnabled = searchResult.hasPrevious
+        btnNextSearch.isHidden = !searchResult.hasNext
+        btnPreviousSearch.isHidden = !searchResult.hasPrevious
     }
 
     @IBAction func searchDoneAction(_ sender: Any) {
@@ -1290,6 +1311,77 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     func filterTrebleChanged() {
         player.setFilterTrebleBand(Float(filterTrebleSlider.start), Float(filterTrebleSlider.end))
+    }
+    
+    @IBAction func eqTabViewAction(_ sender: Any) {
+        
+        for button in tabViewButtons! {
+            button.state = 0
+        }
+        
+        eqTabViewButton.state = 1
+        fxTabView.selectTabViewItem(at: 0)
+    }
+    
+    @IBAction func pitchTabViewAction(_ sender: Any) {
+        
+        for button in tabViewButtons! {
+            button.state = 0
+        }
+        
+        pitchTabViewButton.state = 1
+        fxTabView.selectTabViewItem(at: 1)
+    }
+    
+    
+    @IBAction func timeTabViewAction(_ sender: Any) {
+        
+        for button in tabViewButtons! {
+            button.state = 0
+        }
+        
+        timeTabViewButton.state = 1
+        fxTabView.selectTabViewItem(at: 2)
+    }
+    
+    @IBAction func reverbTabViewAction(_ sender: Any) {
+        
+        for button in tabViewButtons! {
+            button.state = 0
+        }
+        
+        reverbTabViewButton.state = 1
+        fxTabView.selectTabViewItem(at: 3)
+    }
+    
+    @IBAction func delayTabViewAction(_ sender: Any) {
+        
+        for button in tabViewButtons! {
+            button.state = 0
+        }
+        
+        delayTabViewButton.state = 1
+        fxTabView.selectTabViewItem(at: 4)
+    }
+    
+    @IBAction func filterTabViewAction(_ sender: Any) {
+        
+        for button in tabViewButtons! {
+            button.state = 0
+        }
+        
+        filterTabViewButton.state = 1
+        fxTabView.selectTabViewItem(at: 5)
+    }
+    
+    @IBAction func recorderTabViewAction(_ sender: Any) {
+        
+        for button in tabViewButtons! {
+            button.state = 0
+        }
+        
+        recorderTabViewButton.state = 1
+        fxTabView.selectTabViewItem(at: 6)
     }
 }
 

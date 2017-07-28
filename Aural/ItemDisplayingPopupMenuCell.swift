@@ -8,11 +8,11 @@ class ItemDisplayingPopupMenuCell: NSPopUpButtonCell {
 
     override internal func drawBorderAndBackground(withFrame cellFrame: NSRect, in controlView: NSView) {
         
-        let drawRect = cellFrame.insetBy(dx: 0, dy: 1)
+        let drawRect = cellFrame.insetBy(dx: 0, dy: 2)
         
         UIConstants.colorScheme.popupMenuColor.setFill()
         
-        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 5, yRadius: 5)
+        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 3, yRadius: 3)
         
         drawPath.fill()
         

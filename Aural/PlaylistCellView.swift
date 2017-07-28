@@ -21,7 +21,7 @@ class PlaylistCellView: NSTableCellView {
                     field!.textColor = UIConstants.colorScheme.playlistSelectedTextColor
                 } else {
                     // Not selected
-                    field!.font = UIConstants.playlistRegularFont
+                    field!.font = UIConstants.playlistBoldFont
                     field!.textColor = UIConstants.colorScheme.playlistTextColor
                 }
             }

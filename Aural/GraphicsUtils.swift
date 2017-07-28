@@ -26,7 +26,7 @@ class GraphicsUtils {
     }
     
     // Draws an arrow, from a given point (origin), and fills it
-    static func drawAndFillArrow(_ color: NSColor, origin: NSPoint, dx: CGFloat, dy: CGFloat) {
+    static func drawAndFillArrow(_ strokeColor: NSColor, _ fillColor: NSColor, origin: NSPoint, dx: CGFloat, dy: CGFloat) {
         
         let arrow = NSBezierPath()
         arrow.move(to: origin)
@@ -34,10 +34,11 @@ class GraphicsUtils {
         arrow.line(to: NSMakePoint(origin.x + dx, origin.y - dy))
         arrow.close()
         
-        color.setStroke()
-        color.setFill()
+        strokeColor.setStroke()
+        fillColor.setFill()
         
-        arrow.stroke()
+        arrow.lineWidth = 1.5
         arrow.fill()
+        arrow.stroke()
     }
 }

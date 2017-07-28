@@ -203,6 +203,8 @@ class RangeSlider: NSView {
     
     //MARK: - Appearance -
     
+    private lazy var barBackgroundGradient: NSGradient = UIConstants.sliderBarGradient
+    
     private lazy var sliderGradient: NSGradient = {
         let backgroundStart = NSColor(white: 0.92, alpha: 1.0)
         let backgroundEnd =  NSColor(white: 0.80, alpha: 1.0)
@@ -212,14 +214,14 @@ class RangeSlider: NSView {
         return barBackgroundGradient!
     }()
     
-    private lazy var barBackgroundGradient: NSGradient = {
-        let backgroundStart = NSColor(deviceRed: CGFloat(0.25), green: CGFloat(0.25), blue: CGFloat(0.25), alpha: CGFloat(1))
-        let backgroundEnd =  NSColor(deviceRed: CGFloat(0.25), green: CGFloat(0.25), blue: CGFloat(0.25), alpha: CGFloat(1))
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        assert(barBackgroundGradient != nil, "Couldn't generate gradient.")
-        
-        return barBackgroundGradient!
-    }()
+//    private lazy var barBackgroundGradient: NSGradient = {
+//        let backgroundStart = UIConstants.colorScheme.sliderBarDarkColor
+//        let backgroundEnd =  UIConstants.colorScheme.sliderBarDarkColor
+//        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+//        assert(barBackgroundGradient != nil, "Couldn't generate gradient.")
+//        
+//        return barBackgroundGradient!
+//    }()
     
     private var barFillGradient: NSGradient? = nil
     
@@ -234,7 +236,7 @@ class RangeSlider: NSView {
         if colorStyle == .yellow {
             
             fillStart = NSColor.red
-            fillEnd = NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.7), blue: CGFloat(0.7), alpha: CGFloat(1))
+            fillEnd = NSColor(deviceRed: CGFloat(0.5), green: CGFloat(0), blue: CGFloat(0), alpha: CGFloat(1))
             
         } else {
             fillStart = NSColor(red: 76/255.0, green: 187/255.0, blue: 251/255.0, alpha: 1.0)
@@ -301,7 +303,7 @@ class RangeSlider: NSView {
         get {
             if knobStyle == .square {
                 //                return 8.0
-                return 12
+                return 11.5
             } else {
                 return NSHeight(bounds) - verticalShadowPadding
             }
@@ -311,7 +313,7 @@ class RangeSlider: NSView {
     private var sliderHeight: CGFloat {
         get {
             //            return NSHeight(bounds) - verticalShadowPadding
-            return 8
+            return 7
         }
     }
     
@@ -331,6 +333,7 @@ class RangeSlider: NSView {
     
     override func mouseDown(with event: NSEvent) {
         if (enabled) {
+            
             let point = convert(event.locationInWindow, from: nil)
             let startSlider = frameForStartSlider()
             let endSlider = frameForEndSlider()
@@ -340,6 +343,7 @@ class RangeSlider: NSView {
             } else if NSPointInRect(point, endSlider) {
                 currentSliderDragging = .end
             } else {
+                
                 if allowClicksOnBarToMoveSliders {
                     let startDist = abs(NSMidX(startSlider) - point.x)
                     let endDist = abs(NSMidX(endSlider) - point.x)
@@ -360,13 +364,18 @@ class RangeSlider: NSView {
     
     override func mouseDragged(with event: NSEvent) {
         if (enabled) {
+            
             let point = convert(event.locationInWindow, from: nil)
             updateForClick(atPoint: point)
         }
     }
     
     private func updateForClick(atPoint point: NSPoint) {
+        
         if currentSliderDragging != nil {
+            
+            
+            
             var x = Double(point.x / NSWidth(bounds))
             x = max(min(1.0, x), 0.0)
             
@@ -434,7 +443,7 @@ class RangeSlider: NSView {
         let width = NSWidth(bounds) - barTrailingMargin
         let height = NSHeight(bounds)
         
-        let barHeight: CGFloat = 3
+        let barHeight: CGFloat = 7
         let barY = floor((height - barHeight) / 2.0)
         
         let startSliderFrame = frameForStartSlider()
@@ -450,8 +459,8 @@ class RangeSlider: NSView {
         let framePath = NSBezierPath(roundedRect: barRect, xRadius: radius, yRadius: radius)
         let selectedPath = NSBezierPath(roundedRect: selectedRect, xRadius: radius, yRadius: radius)
         
-        let startSliderPath = isSquareSlider ? NSBezierPath(roundedRect: startSliderFrame, xRadius: 2.0, yRadius: 2.0) : NSBezierPath(ovalIn: startSliderFrame)
-        let endSliderPath = isSquareSlider ? NSBezierPath(roundedRect: endSliderFrame, xRadius: 2.0, yRadius: 2.0) : NSBezierPath(ovalIn: endSliderFrame)
+        let startSliderPath = isSquareSlider ? NSBezierPath(rect: startSliderFrame) : NSBezierPath(ovalIn: startSliderFrame)
+        let endSliderPath = isSquareSlider ? NSBezierPath(rect: endSliderFrame) : NSBezierPath(ovalIn: endSliderFrame)
         
         /*  Draw bar background */
         barBackgroundGradient.draw(in: framePath, angle: -verticalGradientDegrees)
@@ -490,7 +499,8 @@ class RangeSlider: NSView {
         sliderGradient.draw(in: startSliderPath, angle: verticalGradientDegrees)
         startSliderPath.stroke()
         
-        let knobColor = NSColor(deviceRed: CGFloat(0.3), green: CGFloat(0.3), blue: CGFloat(0.3), alpha: CGFloat(1))
+        let knobColor = UIConstants.colorScheme.sliderKnobColor
+//        let knobColor = NSColor.black
         knobColor.setFill()
         
         startSliderPath.fill()

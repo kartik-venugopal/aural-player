@@ -31,9 +31,26 @@ class UIConstants {
     
     static let imgMusicArt: NSImage = NSImage(named: "MusicArt")!
     
+    static let imgPlaylistOn: NSImage = NSImage(named: "PlaylistView-On")!
+    static let imgPlaylistOff: NSImage = NSImage(named: "PlaylistView-Off")!
+    static let imgEffectsOn: NSImage = NSImage(named: "EffectsView-On")!
+    static let imgEffectsOff: NSImage = NSImage(named: "EffectsView-Off")!
+    
     // Fonts used by the playlist view
     static let playlistBoldFont: NSFont = NSFont(name: "Gill Sans", size: 13.5)!
     static let playlistRegularFont: NSFont = NSFont(name: "Gill Sans Light", size: 13.5)!
+    
+    // Fonts used by the effects tab view buttons
+    static let tabViewButtonFont: NSFont = NSFont(name: "Gill Sans", size: 12)!
+    
+    // Fonts used by the search/sort modal dialog done/cancel buttons
+    static let modalDialogButtonFont: NSFont = NSFont(name: "Gill Sans", size: 12)!
+    
+    // Fonts used by the search/sort modal dialog navigation buttons
+    static let modalDialogNavButtonFont: NSFont = NSFont(name: "Gill Sans Bold", size: 12)!
+    
+    // Fonts used by the search/sort modal dialog check and radio buttons
+    static let checkRadioButtonFont: NSFont = NSFont(name: "Gill Sans", size: 11)!
     
     static let popoverValueFont: NSFont = NSFont(name: "Gill Sans Light", size: 13)!
     
@@ -63,7 +80,37 @@ class UIConstants {
  
     // Window heights for different views
     static let windowHeight_compact: CGFloat = 223
-    static let windowHeight_playlistAndEffects: CGFloat = 622
-    static let windowHeight_playlistOnly: CGFloat = 436
+    static let windowHeight_playlistAndEffects: CGFloat = 629
+    static let windowHeight_playlistOnly: CGFloat = 443
     static let windowHeight_effectsOnly: CGFloat = 411
+    
+    static let sliderBarGradient: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.6, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.4, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        assert(barBackgroundGradient != nil, "Couldn't generate gradient.")
+        
+        return barBackgroundGradient!
+    }()
+    
+    static let sliderKnobGradient: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 1, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.5, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        assert(barBackgroundGradient != nil, "Couldn't generate gradient.")
+        
+        return barBackgroundGradient!
+    }()
+    
+    static let sliderKnobGradient_reverse: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.5, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 1, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        assert(barBackgroundGradient != nil, "Couldn't generate gradient.")
+        
+        return barBackgroundGradient!
+    }()
 }
