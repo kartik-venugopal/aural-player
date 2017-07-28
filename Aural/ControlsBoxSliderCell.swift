@@ -22,7 +22,7 @@ class ControlsBoxSliderCell: NSSliderCell {
         
         let drawRect = aRect.insetBy(dx: 0, dy: 0)
         
-        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 2, yRadius: 2)
+        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 1, yRadius: 1)
         UIConstants.sliderBarGradient.draw(in: drawPath, angle: -verticalGradientDegrees)
     }
 }

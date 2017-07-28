@@ -20,7 +20,7 @@ class SeekSliderCell: NSSliderCell {
         
         let drawRect = aRect.insetBy(dx: 0, dy: -0.75)
         
-        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 1, yRadius: 1)
+        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 2, yRadius: 2)
         UIConstants.sliderBarGradient.draw(in: drawPath, angle: -90)
     }
 }

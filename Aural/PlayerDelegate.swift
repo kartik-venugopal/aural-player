@@ -379,7 +379,13 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     func panLeft() -> Float {
         
         let curBalance = player.getBalance()
-        let newBalance = max(-1, curBalance - Float(PlayerDelegate.BALANCE_DELTA))
+        var newBalance = max(-1, curBalance - Float(PlayerDelegate.BALANCE_DELTA))
+        
+        // Snap to center
+        if (curBalance > 0 && newBalance < 0) {
+            newBalance = 0
+        }
+        
         player.setBalance(newBalance)
         
         return newBalance
@@ -388,7 +394,13 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     func panRight() -> Float {
         
         let curBalance = player.getBalance()
-        let newBalance = min(1, curBalance + Float(PlayerDelegate.BALANCE_DELTA))
+        var newBalance = min(1, curBalance + Float(PlayerDelegate.BALANCE_DELTA))
+        
+        // Snap to center
+        if (curBalance < 0 && newBalance > 0) {
+            newBalance = 0
+        }
+        
         player.setBalance(newBalance)
         
         return newBalance
