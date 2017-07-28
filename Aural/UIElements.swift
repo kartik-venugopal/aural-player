@@ -21,7 +21,7 @@ class UIElements {
         
         dialog.title                   = "Choose media (.mp3/.m4a) or playlist (.apl) files";
         dialog.showsResizeIndicator    = true;
-        dialog.showsHiddenFiles        = false;
+        dialog.showsHiddenFiles        = true;
         
         dialog.canChooseDirectories    = true;
         
@@ -40,7 +40,7 @@ class UIElements {
         
         dialog.title                   = "Save current playlist as a (.apl) file"
         dialog.showsResizeIndicator    = true
-        dialog.showsHiddenFiles        = false
+        dialog.showsHiddenFiles        = true
         
         dialog.canCreateDirectories    = true
         dialog.allowedFileTypes        = AppConstants.supportedFileTypes_save
