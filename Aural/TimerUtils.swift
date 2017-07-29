@@ -6,28 +6,30 @@ import Foundation
 
 open class TimerUtils {
     
+    static var instance: TimerUtils = TimerUtils()
+    
     // Map of method/operation name -> array of timers for that method/operation
-    fileprivate static var timers: [String: [Timer]] = [String: [Timer]]()
+    fileprivate var timers: [String: [Timer]] = [String: [Timer]]()
     
     static func start(_ tag: String) -> Timer {
         let timer: Timer = Timer()
         timer.start()
         
-        var timersForTag: [Timer]? = timers[tag]
+        var timersForTag: [Timer]? = instance.timers[tag]
         
         if timersForTag == nil  {
             timersForTag = [Timer]()
-            timers[tag] = timersForTag
+            instance.timers[tag] = timersForTag
         }
         
-        timers[tag]!.append(timer)
+        instance.timers[tag]!.append(timer)
         
         return timer
     }
     
     static func printStats() {
         
-        for (tag, timersForTag) in timers {
+        for (tag, timersForTag) in instance.timers {
             
             print("\nFor tag '" + tag + "' ...")
             let avg = avgForTimers(timersForTag)

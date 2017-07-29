@@ -92,7 +92,7 @@ class BufferManager {
             if (reachedEOF) {
                 
                 // Notify observers about playback completion
-                EventRegistry.publishEvent(EventType.playbackCompleted, event: PlaybackCompletedEvent.instance)
+                EventRegistry.publishEvent(EventType.playbackCompleted, PlaybackCompletedEvent.instance)
             } else {
                 
                 // Continue scheduling more buffers
@@ -159,7 +159,7 @@ class BufferManager {
             // Nothing to play means playback has completed
             
             // Notify observers about playback completion
-            EventRegistry.publishEvent(EventType.playbackCompleted, event: PlaybackCompletedEvent.instance)
+            EventRegistry.publishEvent(EventType.playbackCompleted, PlaybackCompletedEvent.instance)
             
             return (true, nil)
         }

@@ -70,22 +70,41 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             repeatMode = playerState!.repeatMode
             shuffleMode = playerState!.shuffleMode
             
-            for track in playerState!.playlist {
-                playlist.addTrack(URL(fileURLWithPath: track))
+            // Add tracks async, updating the UI one at a time
+            DispatchQueue.global(qos: .userInitiated).async {
+                
+                for track in self.playerState!.playlist {
+                    
+                    let index = self.playlist.addTrack(URL(fileURLWithPath: track))
+                    if (index >= 0) {
+                        self.notifyTrackAdded(index)
+                    }
+                }
             }
         }
     }
     
+    // This method should only be called from outside this class. For adding tracks within this class, always call the private method addTracks_sync().
     func addTracks(_ files: [URL]) {
+        
+        // Move to a background thread to unblock the main thread
+        // TODO: Give this a queue name
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.addTracks_sync(files)
+        }
+    }
+    
+    // Adds a bunch of tracks synchronously
+    private func addTracks_sync(_ files: [URL]) {
         
         if (files.count > 0) {
             
             for file in files {
                 
                 if (Utils.isDirectory(file)) {
-                    addTracksFromDir(file)
+                    self.addTracksFromDir(file)
                 } else {
-                    addSingleTrack(file)
+                    self.addSingleTrack(file)
                 }
             }
         }
@@ -96,18 +115,30 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         let fileExtension = file.pathExtension.lowercased()
         
         if (fileExtension == AppConstants.customPlaylistExtension) {
+            
             // Playlist
-            PlaylistIO.loadPlaylist(file)
+            let loadedPlaylist = PlaylistIO.loadPlaylist(file)
+            if (loadedPlaylist != nil) {
+                playlist.addPlaylist(loadedPlaylist!, notifyTrackAdded)
+            }
             
         } else if (AppConstants.supportedAudioFileTypes.contains(fileExtension)) {
             // Track
-            if (!playlist.trackExists(file.path)) {
-                playlist.addTrack(file)
+            let newTrackIndex = playlist.addTrack(file)
+            if (newTrackIndex >= 0) {
+                notifyTrackAdded(newTrackIndex)
             }
         } else {
             // Unsupported file type, ignore
             NSLog("Ignoring unsupported file: %@", file.path)
         }
+    }
+    
+    // Publishes a notification that a new track has been added to the playlist
+    func notifyTrackAdded(_ trackIndex: Int) {
+        
+        let trackAddedEvent = TrackAddedEvent(trackIndex: trackIndex)
+        EventRegistry.publishEvent(.trackAdded, trackAddedEvent)
     }
     
     fileprivate func addTracksFromDir(_ dir: URL) {
@@ -120,7 +151,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         let files = try fileManager.contentsOfDirectory(at: dir, includingPropertiesForKeys: [], options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
             
             // Add them
-            addTracks(files)
+            addTracks_sync(files)
             
         } catch let error as NSError {
             NSLog("Error retrieving contents of directory '%@': %@", dir.path, error.description)
@@ -585,7 +616,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         }
         
         // Notify the UI about this track change event
-        EventRegistry.publishEvent(.trackChanged, event: trackChangedEvent)
+        EventRegistry.publishEvent(.trackChanged, trackChangedEvent)
     }
     
     func searchPlaylist(searchQuery: SearchQuery) -> SearchResults {

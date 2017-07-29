@@ -14,6 +14,7 @@ class TrackIO {
         track.file = file
         
         let sourceAsset = AVURLAsset(url: file, options: nil)
+        
         track.avAsset = sourceAsset
         track.duration = sourceAsset.duration.seconds
 

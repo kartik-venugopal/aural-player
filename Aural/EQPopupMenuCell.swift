@@ -18,7 +18,7 @@ class EQPopupMenuCell: NSPopUpButtonCell {
         drawPath.fill()
         
         // Draw arrow
-        let x = drawRect.maxX - (rectWidth / 2), y = drawRect.maxY - 5
+        let x = drawRect.maxX - (rectWidth / 2), y = drawRect.maxY - 6
         GraphicsUtils.drawArrow(NSColor.black, origin: NSMakePoint(x, y), dx: 3, dy: 3, lineWidth: 1)
     }
     

@@ -64,16 +64,20 @@ class Playlist {
         return tracks[index]
     }
     
-    // Add a track to this playlist
-    func addTrack(_ file: URL) {
+    // Add a track to this playlist and return its index
+    func addTrack(_ file: URL) -> Int {
         
         let track: Track? = TrackIO.loadTrack(file)
         
-        if (track != nil) {
+        if (track != nil && !trackExists(file.path)) {
             tracks.append(track!)
             tracksByFilename[file.path] = track
             clearShuffleSequence()
+            return tracks.count - 1
         }
+        
+        // This means nothing was added
+        return -1
     }
     
     func trackExists(_ filename: String) -> Bool {
@@ -81,12 +85,15 @@ class Playlist {
     }
     
     // Add a saved playlist (all its tracks) to this current playlist
-    func addPlaylist(_ savedPlaylist: SavedPlaylist) {
+    // Calls into a callback function upon adding each new track in the saved playlist, so that observers may perform necessary updates
+    func addPlaylist(_ savedPlaylist: SavedPlaylist, _ trackAddedCallback: (_ trackIndex: Int) -> Void) {
         
-        for track in savedPlaylist.tracks {
-            if (!trackExists(track.file!.path)) {
-                tracks.append(track)
-                tracksByFilename[track.file!.path] = track
+        for trackFile in savedPlaylist.trackFiles {
+            if (!trackExists(trackFile.path)) {
+                let trackIndex = addTrack(trackFile)
+                if (trackIndex >= 0) {
+                    trackAddedCallback(trackIndex)
+                }
             }
         }
         

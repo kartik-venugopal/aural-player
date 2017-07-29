@@ -22,7 +22,7 @@ class EventRegistry {
     }
     
     // Called by a publisher to publish an event
-    static func publishEvent(_ eventType: EventType, event: Event) {
+    static func publishEvent(_ eventType: EventType, _ event: Event) {
         
         let subscribers = subscriberRegistry[eventType]
         

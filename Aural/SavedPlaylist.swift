@@ -9,14 +9,15 @@ class SavedPlaylist {
     // The filesystem location of the playlist
     var file: URL
     
-    var tracks: [Track] = [Track]()
+    // URLs of tracks in this playlist
+    var trackFiles: [URL] = [URL]()
     
-    // Use for writing: Initializes an empty playlist with a reference to an (output) file
+    // Use for writing: Initializes a playlist with a reference to an (output) file and the URLs of files for the tracks in the source playlist
     init(outputFile: URL, sourcePlaylist: Playlist) {
         self.file = outputFile
         
         for track in sourcePlaylist.getTracks() {
-            self.tracks.append(track)
+            self.trackFiles.append(track.file!)
         }
     }
     
@@ -27,11 +28,7 @@ class SavedPlaylist {
         for path in jsonObject {
             
             let _path = path as! String
-            
-            let track = TrackIO.loadTrack(URL(fileURLWithPath: _path))
-            if (track != nil) {
-                self.tracks.append(track!)
-            }
+            self.trackFiles.append(URL(fileURLWithPath: _path))
         }
     }
 
@@ -40,8 +37,8 @@ class SavedPlaylist {
         
         var array: [String] = [String]()
         
-        for track in tracks {
-            array.append(track.file!.path)
+        for trackFile in trackFiles {
+            array.append(trackFile.path)
         }
         
         return NSArray(array: array)

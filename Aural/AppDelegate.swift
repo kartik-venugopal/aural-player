@@ -183,6 +183,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         // Register self as a subscriber to TrackChangedEvent notifications (published when the player is done playing a track)
         EventRegistry.subscribe(.trackChanged, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
         
+        EventRegistry.subscribe(.trackAdded, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
+        
         window.isMovableByWindowBackground = true
         window.makeKeyAndOrderFront(self)
     }
@@ -892,13 +894,25 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         player.setEQBand(16384, gain: eqSlider16k.floatValue)
     }
     
-    // Track changed in player, need to reset the UI
+    // Playlist info changed, need to reset the UI
     func consumeEvent(_ event: Event) {
         
-        setSeekTimerState(false)
+        if event is TrackChangedEvent {
+            setSeekTimerState(false)
+            let _event = event as! TrackChangedEvent
+            trackChange(_event.newTrack, newTrackIndex: _event.newTrackIndex)
+        }
         
-        let _event = event as! TrackChangedEvent
-        trackChange(_event.newTrack, newTrackIndex: _event.newTrackIndex)
+        if event is TrackAddedEvent {
+            playlistView.noteNumberOfRowsChanged()
+            updatePlaylistSummary()
+        }
+        
+        // Not being used yet (to be used when duration is updated)
+        if event is TrackInfoUpdatedEvent {
+            let _event = event as! TrackInfoUpdatedEvent
+            playlistView.reloadData(forRowIndexes: IndexSet([_event.trackIndex]), columnIndexes: IndexSet([0,1]))
+        }
     }
     
     // Adds a set of files (or directories, i.e. files within them) to the current playlist, if supported

@@ -21,7 +21,7 @@ class PlaylistIO {
     }
     
     // Load playlist from file into current playlist
-    static func loadPlaylist(_ file: URL) {
+    static func loadPlaylist(_ file: URL) -> SavedPlaylist? {
         
         let inputStream = InputStream(url: file)
         inputStream?.open()
@@ -32,12 +32,11 @@ class PlaylistIO {
             inputStream?.close()
             
             let playlist: SavedPlaylist = SavedPlaylist(inputFile: file, jsonObject: data as! NSArray)
-            
-            let currentPlaylist: Playlist = Playlist.instance()
-            currentPlaylist.addPlaylist(playlist)
+            return playlist
             
         } catch let error as NSError {
             NSLog("Error reading playlist file '%@': %@", file.path, error.description)
+            return nil
         }
     }
 }
