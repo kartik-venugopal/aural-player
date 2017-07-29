@@ -48,7 +48,7 @@ Aural Player makes use of (a modified version of) a reusable UI control called [
 
 ![App screenshot3](/Documentation/UserGuide.rtfd/Aural-effectsOnly.png?raw=true "App screenshot3")
 
-### Compact app view
+### Compact view
 
 ![App screenshot4](/Documentation/UserGuide.rtfd/Aural-compact.png?raw=true "App screenshot4")
 
