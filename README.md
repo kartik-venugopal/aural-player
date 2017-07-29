@@ -32,34 +32,66 @@ Aural Player makes use of (a modified version of) a reusable UI control called [
 
 ## Screenshots
 
+### Default app view
+
 ![App screenshot](/Documentation/UserGuide.rtfd/Aural.png?raw=true "App screenshot")
+
+### Default app view w/ detailed track info view
 
 ![App screenshot w/ more info view](/Documentation/UserGuide.rtfd/MoreInfo.png?raw=true "More Info")
 
+### Playlist-only view
+
 ![App screenshot2](/Documentation/UserGuide.rtfd/Aural-playlistOnly.png?raw=true "App screenshot2")
+
+### Effects-only view
 
 ![App screenshot3](/Documentation/UserGuide.rtfd/Aural-effectsOnly.png?raw=true "App screenshot3")
 
+### Compact app view
+
 ![App screenshot4](/Documentation/UserGuide.rtfd/Aural-compact.png?raw=true "App screenshot4")
+
+### Search playlist
 
 ![Search](/Documentation/UserGuide.rtfd/Aural-search.png?raw=true "Search")
 
+### Sort playlist
+
 ![Sort](/Documentation/UserGuide.rtfd/Aural-sort.png?raw=true "Sort")
+
+### Pitch shift effects unit
 
 ![Pitch](/Documentation/UserGuide.rtfd/Pitch.png?raw=true "Pitch Shift")
 
+### Time stretch effects unit
+
 ![Time](/Documentation/UserGuide.rtfd/Time.png?raw=true "Time Stretch")
+
+### Reverb effects unit
 
 ![Reverb](/Documentation/UserGuide.rtfd/Reverb.png?raw=true "Reverb")
 
+### Delay effects unit
+
 ![Delay](/Documentation/UserGuide.rtfd/Delay.png?raw=true "Delay")
+
+### Filter effects unit
 
 ![Filter](/Documentation/UserGuide.rtfd/Filter.png?raw=true "Filter")
 
+### Recorder unit
+
 ![Recorder](/Documentation/UserGuide.rtfd/Recorder.png?raw=true "Recorder")
+
+### Playlist menu
 
 ![Playlist Menu](/Documentation/UserGuide.rtfd/PlaylistMenu.png?raw=true "Playlist Menu")
 
+### Controls menu
+
 ![Controls Menu](/Documentation/UserGuide.rtfd/ControlsMenu.png?raw=true "Controls Menu")
+
+### View menu
 
 ![View Menu](/Documentation/UserGuide.rtfd/ViewMenu.png?raw=true "View Menu")
