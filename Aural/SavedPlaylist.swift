@@ -6,7 +6,7 @@ import Foundation
 
 class SavedPlaylist {
     
-    // The filesystem location of the playlist
+    // The filesystem location of the playlist file referenced by this object
     var file: URL
     
     // URLs of tracks in this playlist

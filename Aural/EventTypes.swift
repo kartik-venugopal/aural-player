@@ -6,10 +6,8 @@ import Cocoa
 */
 enum EventType {
     
-    // Indicates that playback of a track has completed. Published by the player and consumed by the middleman between the player and the UI.
     case playbackCompleted
-    
-    // Indicates that the currently playing track has changed. Published by the middleman and consumed by the UI
+
     case trackChanged
     
     case trackInfoUpdated

@@ -270,7 +270,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Repeat" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fpa-Ii-3YA" userLabel="Repeat Button">
-                                    <rect key="frame" x="10" y="20" width="21" height="21"/>
+                                    <rect key="frame" x="10" y="20" width="19" height="19"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RepeatOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ob3-hG-IUK">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -281,7 +281,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Shuffle" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kQL-4a-kyh" userLabel="Shuffle Button">
-                                    <rect key="frame" x="37" y="16" width="29" height="29"/>
+                                    <rect key="frame" x="33" y="16" width="26" height="26"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShuffleOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4mr-kA-ORl">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

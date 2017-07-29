@@ -183,6 +183,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         // Register self as a subscriber to TrackChangedEvent notifications (published when the player is done playing a track)
         EventRegistry.subscribe(.trackChanged, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
         
+        // Register self as a subscriber to TrackAddedEvent notifications (published when new tracks are added to the playlist)
         EventRegistry.subscribe(.trackAdded, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
         
         window.isMovableByWindowBackground = true

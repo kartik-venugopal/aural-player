@@ -88,7 +88,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     func addTracks(_ files: [URL]) {
         
         // Move to a background thread to unblock the main thread
-        // TODO: Give this a queue name
         DispatchQueue.global(qos: .userInitiated).async {
             self.addTracks_sync(files)
         }
