@@ -57,9 +57,6 @@ class UIConstants {
     // Fonts used by the popup menus
     static let popupMenuFont: NSFont = NSFont(name: "Gill Sans", size: 10)!
     
-    // Overall UI color scheme
-    static let colorScheme: ColorSchemes = ColorSchemes.gray
-    
     // For the label that shows a track's playback position
     static let zeroDurationString: String = "0:00"
     
@@ -83,34 +80,4 @@ class UIConstants {
     static let windowHeight_playlistAndEffects: CGFloat = 629
     static let windowHeight_playlistOnly: CGFloat = 443
     static let windowHeight_effectsOnly: CGFloat = 411
-    
-    static let sliderBarGradient: NSGradient = {
-        
-        let backgroundStart = NSColor(white: 0.6, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0.4, alpha: 1.0)
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        assert(barBackgroundGradient != nil, "Couldn't generate gradient.")
-        
-        return barBackgroundGradient!
-    }()
-    
-    static let sliderKnobGradient: NSGradient = {
-        
-        let backgroundStart = NSColor(white: 1, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0.5, alpha: 1.0)
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        assert(barBackgroundGradient != nil, "Couldn't generate gradient.")
-        
-        return barBackgroundGradient!
-    }()
-    
-    static let sliderKnobGradient_reverse: NSGradient = {
-        
-        let backgroundStart = NSColor(white: 0.5, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 1, alpha: 1.0)
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        assert(barBackgroundGradient != nil, "Couldn't generate gradient.")
-        
-        return barBackgroundGradient!
-    }()
 }

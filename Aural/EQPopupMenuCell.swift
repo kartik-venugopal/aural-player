@@ -10,16 +10,17 @@ class EQPopupMenuCell: NSPopUpButtonCell {
         
         let frameWidth = cellFrame.width
         let rectWidth: CGFloat = 16
-        let drawRect = cellFrame.insetBy(dx: (frameWidth - rectWidth) / 2, dy: 7)
+        let drawRect = cellFrame.insetBy(dx: (frameWidth - rectWidth) / 2, dy: 3)
         
-        UIConstants.colorScheme.popupMenuColor.setFill()
+        Colors.popupMenuColor.setFill()
         
         let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 2, yRadius: 2)
         drawPath.fill()
         
         // Draw arrow
-        let x = drawRect.maxX - (rectWidth / 2), y = drawRect.maxY - 4
-        GraphicsUtils.drawArrow(NSColor.black, origin: NSMakePoint(x, y), dx: 3, dy: 3, lineWidth: 1)
+        let arrowWidth: CGFloat = 3, arrowHeight: CGFloat = 3
+        let x = drawRect.maxX - (rectWidth / 2), y = drawRect.origin.y + (drawRect.maxY / 2) + (arrowHeight / 2) - 1
+        GraphicsUtils.drawArrow(NSColor.black, origin: NSMakePoint(x, y), dx: arrowWidth, dy: arrowHeight, lineWidth: 1)
     }
     
     override

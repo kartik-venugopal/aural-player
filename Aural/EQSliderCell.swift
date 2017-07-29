@@ -23,8 +23,8 @@ class EQSliderCell: NSSliderCell {
         
         let drawRect = knobRect.insetBy(dx: 3.75, dy: 1)
         
-        UIConstants.colorScheme.lightSliderKnobColor.setFill()
-        let drawPath = NSBezierPath.init(rect: drawRect)
+        Colors.eqSliderKnobColor.setFill()
+        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 1.5, yRadius: 1.5)
         drawPath.fill()
     }
     
@@ -33,11 +33,11 @@ class EQSliderCell: NSSliderCell {
         let drawRect = aRect.insetBy(dx: 0, dy: 0)
         
         let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 1, yRadius: 1)
-        UIConstants.sliderBarGradient.draw(in: drawPath, angle: 180)
+        Colors.sliderBarGradient.draw(in: drawPath, angle: 180)
         
         let zeroDbLinePoints = getZeroDBLinePoints()
         
         // Draw 0db marker line across the middle of the bar
-        GraphicsUtils.drawLine(NSColor.black, pt1: zeroDbLinePoints.pt1, pt2: zeroDbLinePoints.pt2, width: 3)
+        GraphicsUtils.drawLine(NSColor.black, pt1: zeroDbLinePoints.pt1, pt2: zeroDbLinePoints.pt2, width: 2)
     }
 }

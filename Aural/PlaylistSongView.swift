@@ -46,7 +46,7 @@ class PlaylistSongView: NSTableRowView {
             
             NSColor(calibratedWhite: 0.65, alpha: 1).setStroke()
             
-            UIConstants.colorScheme.playlistSelectionBoxColor.setFill()
+            Colors.playlistSelectionBoxColor.setFill()
             
             let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 3, yRadius: 3)
             selectionPath.fill()

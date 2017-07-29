@@ -275,14 +275,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         eqGlobalGainSlider.floatValue = playerState.eqGlobalGain
         updateEQSliders(playerState.eqBands)
         
+        (eqTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
+        
         btnPitchBypass.image = playerState.pitchBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        (pitchTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !playerState.pitchBypass
         pitchSlider.floatValue = playerState.pitch / 1200
         pitchOverlapSlider.floatValue = playerState.pitchOverlap
         
         btnTimeBypass.image = playerState.timeBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        (timeTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !playerState.timeBypass
         timeSlider.floatValue = playerState.timeStretchRate
         
         btnReverbBypass.image = playerState.reverbBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        (reverbTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !playerState.reverbBypass
         
         // TODO: Change this lookup to o(1) instead of o(n) ... HashMap !
         for item in reverbMenu.itemArray {
@@ -294,18 +299,25 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         reverbSlider.floatValue = playerState.reverbAmount
         
         btnDelayBypass.image = playerState.delayBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        (delayTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !playerState.delayBypass
         delayAmountSlider.floatValue = playerState.delayAmount
         delayTimeSlider.doubleValue = playerState.delayTime
         delayFeedbackSlider.floatValue = playerState.delayFeedback
         delayCutoffSlider.floatValue = playerState.delayLowPassCutoff
         
         btnFilterBypass.image = playerState.filterBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        (filterTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !playerState.filterBypass
         filterBassSlider.start = Double(playerState.filterBassMin)
         filterBassSlider.end = Double(playerState.filterBassMax)
         filterMidSlider.start = Double(playerState.filterMidMin)
         filterMidSlider.end = Double(playerState.filterMidMax)
         filterTrebleSlider.start = Double(playerState.filterTrebleMin)
         filterTrebleSlider.end = Double(playerState.filterTrebleMax)
+        
+        for btn in tabViewButtons! {
+            (btn.cell as! EffectsUnitButtonCell).highlightColor = btn === recorderTabViewButton ? Colors.tabViewRecorderButtonHighlightColor : Colors.tabViewEffectsButtonHighlightColor
+            btn.needsDisplay = true
+        }
         
         eqPresets.selectItem(at: -1)
         
@@ -763,6 +775,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         let newBypassState = player.togglePitchBypass()
         
+        (pitchTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !newBypassState
+        pitchTabViewButton.needsDisplay = true
+        
         btnPitchBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
     }
     
@@ -777,6 +792,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBAction func timeBypassAction(_ sender: AnyObject) {
         
         let newBypassState = player.toggleTimeBypass()
+        
+        (timeTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !newBypassState
+        timeTabViewButton.needsDisplay = true
         
         btnTimeBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         
@@ -817,6 +835,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         let newBypassState = player.toggleReverbBypass()
         
+        (reverbTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !newBypassState
+        reverbTabViewButton.needsDisplay = true
+        
         btnReverbBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
     }
     
@@ -834,6 +855,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBAction func delayBypassAction(_ sender: AnyObject) {
         
         let newBypassState = player.toggleDelayBypass()
+        
+        (delayTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !newBypassState
+        delayTabViewButton.needsDisplay = true
         
         btnDelayBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
     }
@@ -857,6 +881,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBAction func filterBypassAction(_ sender: AnyObject) {
         
         let newBypassState = player.toggleFilterBypass()
+        
+        (filterTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !newBypassState
+        filterTabViewButton.needsDisplay = true
         
         btnFilterBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
     }
@@ -1036,6 +1063,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             lblRecorderDuration.stringValue = UIConstants.zeroDurationString
             recorderTimer?.pause()
             
+            (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = false
+            recorderTabViewButton.needsDisplay = true
+            
             // TODO: Make this wait until the (async) stopping is complete ... respond to an event notification
             saveRecording()
         } else {
@@ -1044,6 +1074,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             player.startRecording(RecordingFormat.aac)
             btnRecord.image = UIConstants.imgRecorderStop
             recorderTimer?.startOrResume()
+            
+            (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
+            recorderTabViewButton.needsDisplay = true
         }
     }
     

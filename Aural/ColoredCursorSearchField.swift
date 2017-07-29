@@ -6,7 +6,7 @@ class ColoredCursorSearchField: NSTextField {
     {
         // Change the cursor color
         let fieldEditor = self.window?.fieldEditor(true, for: self) as! NSTextView
-        fieldEditor.insertionPointColor = UIConstants.colorScheme.searchFieldCursorColor
+        fieldEditor.insertionPointColor = Colors.searchFieldCursorColor
     }
     
     override func textDidChange(_ notification: Notification) {

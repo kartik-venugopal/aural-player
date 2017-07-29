@@ -10,7 +10,7 @@ class ItemDisplayingPopupMenuCell: NSPopUpButtonCell {
         
         let drawRect = cellFrame.insetBy(dx: 0, dy: 2)
         
-        UIConstants.colorScheme.popupMenuColor.setFill()
+        Colors.popupMenuColor.setFill()
         
         let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 3, yRadius: 3)
         

@@ -18,11 +18,11 @@ class PlaylistCellView: NSTableCellView {
                 if (backgroundStyle == NSBackgroundStyle.dark) {
                     // Selected
                     field!.font = UIConstants.playlistBoldFont
-                    field!.textColor = UIConstants.colorScheme.playlistSelectedTextColor
+                    field!.textColor = Colors.playlistSelectedTextColor
                 } else {
                     // Not selected
                     field!.font = UIConstants.playlistBoldFont
-                    field!.textColor = UIConstants.colorScheme.playlistTextColor
+                    field!.textColor = Colors.playlistTextColor
                 }
             }
         }

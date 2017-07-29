@@ -12,11 +12,11 @@ class ModalDialogResponseButtonCell: NSButtonCell {
         backgroundPath.fill()
         
         let borderPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 3, yRadius: 3)
-        UIConstants.colorScheme.sliderKnobColor.setStroke()
+        Colors.modalDialogResponseButtonOutlineColor.setStroke()
         borderPath.lineWidth = 1.5
         borderPath.stroke()
         
-        let textColor = UIConstants.colorScheme.boxTextColor
+        let textColor = Colors.boxTextColor
         let attrs: [String: AnyObject] = [
             NSFontAttributeName: UIConstants.modalDialogButtonFont,
             NSForegroundColorAttributeName: textColor]

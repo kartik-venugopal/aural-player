@@ -7,16 +7,16 @@ class ColoredNavigationButtonCell: NSButtonCell {
         let drawRect = cellFrame.insetBy(dx: 1, dy: 1)
         
         // Background
-        UIConstants.colorScheme.modalDialogNavButtonColor.setFill()
+        Colors.modalDialogNavButtonColor.setFill()
         let backgroundPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 3, yRadius: 3)
         backgroundPath.fill()
         
         let borderPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 3, yRadius: 3)
-        UIConstants.colorScheme.sliderKnobColor.setStroke()
+        Colors.modalDialogNavButtonOutlineColor.setStroke()
         borderPath.lineWidth = 1.5
         borderPath.stroke()
         
-        let textColor = UIConstants.colorScheme.modalDialogNavButtonTextColor
+        let textColor = Colors.modalDialogNavButtonTextColor
         let attrs: [String: AnyObject] = [
             NSFontAttributeName: UIConstants.modalDialogNavButtonFont,
             NSForegroundColorAttributeName: textColor]

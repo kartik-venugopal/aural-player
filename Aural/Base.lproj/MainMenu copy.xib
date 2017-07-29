@@ -418,7 +418,7 @@ G1BhbiBTbGlkZXI
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="as6-oD-NUN" userLabel="EQ button">
                                     <rect key="frame" x="23" y="148" width="37" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="EQ" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="t8d-1M-SGx" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="square" title="EQ" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="t8d-1M-SGx" customClass="ColoredToggleButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -434,7 +434,7 @@ G1BhbiBTbGlkZXI
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ske-qV-fRn" userLabel="Pitch button">
                                     <rect key="frame" x="62" y="148" width="45" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Pitch" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Dnk-Ab-YeF" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="square" title="Pitch" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Dnk-Ab-YeF" customClass="ColoredToggleButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -450,7 +450,7 @@ G1BhbiBTbGlkZXI
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H6U-2l-Q6T" userLabel="Time button">
                                     <rect key="frame" x="109" y="148" width="40" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Time" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="B1L-5Q-Sxe" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="square" title="Time" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="B1L-5Q-Sxe" customClass="ColoredToggleButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -466,7 +466,7 @@ G1BhbiBTbGlkZXI
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fJP-YC-RHa" userLabel="Reverb button">
                                     <rect key="frame" x="151" y="148" width="53" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Reverb" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zNR-6E-ifb" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="square" title="Reverb" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zNR-6E-ifb" customClass="ColoredToggleButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -482,7 +482,7 @@ G1BhbiBTbGlkZXI
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="frp-nG-aSH" userLabel="Delay button">
                                     <rect key="frame" x="206" y="148" width="44" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Delay" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VqY-o1-acu" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="square" title="Delay" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VqY-o1-acu" customClass="ColoredToggleButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -498,7 +498,7 @@ G1BhbiBTbGlkZXI
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jdg-7o-3QC" userLabel="Filter button">
                                     <rect key="frame" x="252" y="148" width="41" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Filter" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DWe-Tf-APW" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="square" title="Filter" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DWe-Tf-APW" customClass="ColoredToggleButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -514,7 +514,7 @@ G1BhbiBTbGlkZXI
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oIR-f6-2g1" userLabel="Recorder button">
                                     <rect key="frame" x="295" y="148" width="66" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Recorder" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ftf-0d-Cg5" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="square" title="Recorder" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ftf-0d-Cg5" customClass="ColoredToggleButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -534,11 +534,11 @@ G1BhbiBTbGlkZXI
                                     <tabViewItems>
                                         <tabViewItem label="EQ" identifier="1" id="McD-gg-qp9" userLabel="EQ">
                                             <view key="view" id="vC5-27-GiC">
-                                                <rect key="frame" x="10" y="7" width="0.0" height="335"/>
+                                                <rect key="frame" x="10" y="7" width="409" height="140"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zm-Bg-NEY">
-                                                        <rect key="frame" x="48" y="259" width="9" height="16"/>
+                                                        <rect key="frame" x="48" y="64" width="9" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0" id="Je7-rK-ohz">
                                                             <font key="font" size="10" name="GillSans"/>
@@ -547,7 +547,7 @@ G1BhbiBTbGlkZXI
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtf-Xs-OQp">
-                                                        <rect key="frame" x="42" y="208" width="20" height="21"/>
+                                                        <rect key="frame" x="42" y="13" width="20" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-20" id="9U6-wA-5ze">
                                                             <font key="font" size="10" name="GillSans"/>
@@ -556,7 +556,7 @@ G1BhbiBTbGlkZXI
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3V-ab-jaC">
-                                                        <rect key="frame" x="42" y="298" width="20" height="21"/>
+                                                        <rect key="frame" x="42" y="103" width="20" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+20" id="E9O-1s-8rC">
                                                             <font key="font" size="10" name="GillSans"/>
@@ -565,7 +565,7 @@ G1BhbiBTbGlkZXI
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vsR-0Q-cXe">
-                                                        <rect key="frame" x="277" y="196" width="64" height="18"/>
+                                                        <rect key="frame" x="277" y="1" width="64" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Presets" id="ems-fH-sOb">
                                                             <font key="font" size="12" name="GillSans"/>
@@ -574,7 +574,7 @@ G1BhbiBTbGlkZXI
                                                         </textFieldCell>
                                                     </textField>
                                                     <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hG3-Ir-qkY" userLabel="EQ Presets Menu">
-                                                        <rect key="frame" x="310" y="194" width="34" height="18"/>
+                                                        <rect key="frame" x="310" y="-1" width="34" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="disclosure" title="Vocal" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" altersStateOfSelectedItem="NO" selectedItem="z8X-aR-fwU" id="fct-Jo-Wiy" customClass="EQPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -604,7 +604,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </popUpButton>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lg0-FS-2I5">
-                                                        <rect key="frame" x="73" y="215" width="15" height="103"/>
+                                                        <rect key="frame" x="73" y="20" width="15" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <shadow key="shadow" blurRadius="1">
                                                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -615,7 +615,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mTb-nz-ndF">
-                                                        <rect key="frame" x="101" y="215" width="15" height="103"/>
+                                                        <rect key="frame" x="101" y="20" width="15" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <shadow key="shadow" blurRadius="1">
                                                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -626,7 +626,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iEd-37-pLD">
-                                                        <rect key="frame" x="129" y="215" width="15" height="103"/>
+                                                        <rect key="frame" x="129" y="20" width="15" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <shadow key="shadow" blurRadius="1">
                                                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -637,7 +637,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuJ-l0-5ih">
-                                                        <rect key="frame" x="157" y="215" width="15" height="103"/>
+                                                        <rect key="frame" x="157" y="20" width="15" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <shadow key="shadow" blurRadius="1">
                                                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -648,7 +648,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lgr-1t-FRb">
-                                                        <rect key="frame" x="185" y="215" width="15" height="103"/>
+                                                        <rect key="frame" x="185" y="20" width="15" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <shadow key="shadow" blurRadius="1">
                                                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -659,7 +659,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JGZ-0h-WTH" userLabel="Eq Slider1k">
-                                                        <rect key="frame" x="213" y="215" width="15" height="103"/>
+                                                        <rect key="frame" x="213" y="20" width="15" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <shadow key="shadow" blurRadius="1">
                                                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -670,7 +670,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DDL-Kj-I4h" userLabel="Eq Slider2k">
-                                                        <rect key="frame" x="241" y="215" width="15" height="103"/>
+                                                        <rect key="frame" x="241" y="20" width="15" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <shadow key="shadow" blurRadius="1">
                                                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -681,7 +681,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VSQ-5C-2KO" userLabel="Eq Slider4k">
-                                                        <rect key="frame" x="269" y="215" width="15" height="103"/>
+                                                        <rect key="frame" x="269" y="20" width="15" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <shadow key="shadow" blurRadius="1">
                                                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -692,7 +692,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qHV-Kz-sUG" userLabel="Eq Slider8k">
-                                                        <rect key="frame" x="297" y="215" width="15" height="103"/>
+                                                        <rect key="frame" x="297" y="20" width="15" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <shadow key="shadow" blurRadius="1">
                                                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -703,7 +703,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z4B-Hr-jie" userLabel="Eq Slider16k">
-                                                        <rect key="frame" x="325" y="215" width="15" height="103"/>
+                                                        <rect key="frame" x="325" y="20" width="15" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <shadow key="shadow" blurRadius="1">
                                                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -714,7 +714,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOh-fy-QB5" userLabel="Frequencies">
-                                                        <rect key="frame" x="73" y="306" width="271" height="28"/>
+                                                        <rect key="frame" x="73" y="111" width="271" height="28"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="32      64      128     256     512     1k       2k      4k       8k     16k" id="KZ1-aN-0Yl">
                                                             <font key="font" size="10" name="GillSans"/>
@@ -723,7 +723,7 @@ G1BhbiBTbGlkZXI
                                                         </textFieldCell>
                                                     </textField>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XKK-aS-eMn" userLabel="EQGlobalGain">
-                                                        <rect key="frame" x="32" y="215" width="15" height="103"/>
+                                                        <rect key="frame" x="32" y="20" width="15" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <shadow key="shadow" blurRadius="1">
                                                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -783,7 +783,7 @@ G1BhbiBTbGlkZXI
                                                                     <shadow key="shadow" blurRadius="1">
                                                                         <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </shadow>
-                                                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-2" maxValue="2" tickMarkPosition="below" sliderType="linear" id="z27-ON-8be" customClass="EffectsSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-2" maxValue="2" tickMarkPosition="below" sliderType="linear" id="z27-ON-8be" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
                                                                         <action selector="pitchAction:" target="Voe-Tx-rLC" id="QaL-0n-KjT"/>
                                                                     </connections>
@@ -812,7 +812,7 @@ G1BhbiBTbGlkZXI
                                                                     <shadow key="shadow" blurRadius="1">
                                                                         <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </shadow>
-                                                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="3" maxValue="32" doubleValue="8" tickMarkPosition="below" sliderType="linear" id="dxd-fC-XwN" customClass="EffectsSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="3" maxValue="32" doubleValue="8" tickMarkPosition="below" sliderType="linear" id="dxd-fC-XwN" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
                                                                         <action selector="pitchOverlapAction:" target="Voe-Tx-rLC" id="gmc-Ks-U7t"/>
                                                                     </connections>
@@ -995,7 +995,7 @@ G1BhbiBTbGlkZXI
                                                                     <shadow key="shadow" blurRadius="1">
                                                                         <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </shadow>
-                                                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" sliderType="linear" id="X3x-xr-Pvi" customClass="EffectsSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" sliderType="linear" id="X3x-xr-Pvi" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
                                                                         <action selector="reverbAmountAction:" target="Voe-Tx-rLC" id="k9q-nA-gpi"/>
                                                                     </connections>
@@ -1082,7 +1082,7 @@ G1BhbiBTbGlkZXI
                                                                     <shadow key="shadow" blurRadius="1">
                                                                         <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </shadow>
-                                                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="2" doubleValue="1" tickMarkPosition="below" sliderType="linear" id="7vI-uT-xr0" customClass="EffectsSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="2" doubleValue="1" tickMarkPosition="below" sliderType="linear" id="7vI-uT-xr0" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
                                                                         <action selector="delayTimeAction:" target="Voe-Tx-rLC" id="UAJ-iK-FRc"/>
                                                                     </connections>
@@ -1120,7 +1120,7 @@ G1BhbiBTbGlkZXI
                                                                     <shadow key="shadow" blurRadius="1">
                                                                         <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </shadow>
-                                                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" tickMarkPosition="below" sliderType="linear" id="xXd-GB-Kij" customClass="EffectsSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" tickMarkPosition="below" sliderType="linear" id="xXd-GB-Kij" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
                                                                         <action selector="delayAmountAction:" target="Voe-Tx-rLC" id="GAK-H4-U6d"/>
                                                                     </connections>
@@ -1158,7 +1158,7 @@ G1BhbiBTbGlkZXI
                                                                     <shadow key="shadow" blurRadius="1">
                                                                         <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </shadow>
-                                                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-100" maxValue="100" doubleValue="50" tickMarkPosition="below" sliderType="linear" id="Sfn-GO-Dbz" customClass="EffectsSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-100" maxValue="100" doubleValue="50" tickMarkPosition="below" sliderType="linear" id="Sfn-GO-Dbz" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
                                                                         <action selector="delayFeedbackAction:" target="Voe-Tx-rLC" id="Q7h-Md-IXH"/>
                                                                     </connections>
@@ -1196,7 +1196,7 @@ G1BhbiBTbGlkZXI
                                                                     <shadow key="shadow" blurRadius="1">
                                                                         <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </shadow>
-                                                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="10" maxValue="20000" doubleValue="15000" tickMarkPosition="below" sliderType="linear" id="mNy-W3-GyQ" customClass="EffectsSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="10" maxValue="20000" doubleValue="15000" tickMarkPosition="below" sliderType="linear" id="mNy-W3-GyQ" customClass="HorizontalSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
                                                                         <action selector="delayCutoffAction:" target="Voe-Tx-rLC" id="JkP-39-VrT"/>
                                                                     </connections>

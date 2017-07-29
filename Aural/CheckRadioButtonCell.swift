@@ -4,7 +4,7 @@ class CheckRadioButtonCell: NSButtonCell {
     
     override func drawTitle(_ title: NSAttributedString, withFrame frame: NSRect, in controlView: NSView) -> NSRect {
         
-        let textColor = state == 0 ? UIConstants.colorScheme.boxTextColor : UIConstants.colorScheme.playlistSelectedTextColor
+        let textColor = state == 0 ? Colors.boxTextColor : Colors.playlistSelectedTextColor
         let attrs: [String: AnyObject] = [
             NSFontAttributeName: UIConstants.checkRadioButtonFont,
             NSForegroundColorAttributeName: textColor]
