@@ -32,11 +32,11 @@ Aural Player makes use of (a modified version of) a reusable UI control called [
 
 ## Screenshots
 
-### Default app view
+### Default view
 
 ![App screenshot](/Documentation/UserGuide.rtfd/Aural.png?raw=true "App screenshot")
 
-### Default app view w/ detailed track info view
+### Default view w/ detailed track info popover view
 
 ![App screenshot w/ more info view](/Documentation/UserGuide.rtfd/MoreInfo.png?raw=true "More Info")
 
