@@ -201,7 +201,9 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     }
     
     func savePlaylist(_ file: URL) {
-        PlaylistIO.savePlaylist(file)
+        DispatchQueue.global(qos: .userInitiated).async {
+            PlaylistIO.savePlaylist(file)
+        }
     }
     
     func getPlaylistSummary() -> (numTracks: Int, totalDuration: Double) {
@@ -560,11 +562,15 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     }
     
     func saveRecording(_ url: URL) {
-        player.saveRecording(url)
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.player.saveRecording(url)
+        }
     }
     
     func deleteRecording() {
-        player.deleteRecording()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.player.deleteRecording()
+        }
     }
     
     func getRecordingDuration() -> Double {

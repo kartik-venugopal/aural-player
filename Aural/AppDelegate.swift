@@ -709,14 +709,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     func shiftPlaylistTrackUp() {
         
-        let selRow = player.moveTrackUp(playlistView.selectedRow)
+        let oldSelRow = playlistView.selectedRow
+        let selRow = player.moveTrackUp(oldSelRow)
+        
+        // TODO: Get this to work
+        //        let iset = IndexSet(oldSelRow...selRow)
+        //        playlistView.reloadData(forRowIndexes: iset, columnIndexes: IndexSet([0,1]))
+        
         playlistView.reloadData()
         playlistView.selectRowIndexes(IndexSet(integer: selRow), byExtendingSelection: false)
     }
     
     func shiftPlaylistTrackDown() {
         
-        let selRow = player.moveTrackDown(playlistView.selectedRow)
+        let oldSelRow = playlistView.selectedRow
+        let selRow = player.moveTrackDown(oldSelRow)
+        
+        // TODO: Get this to work
+//        let iset = IndexSet(selRow...oldSelRow)
+//        playlistView.reloadData(forRowIndexes: iset, columnIndexes: IndexSet([0,1]))
+        
         playlistView.reloadData()
         playlistView.selectRowIndexes(IndexSet(integer: selRow), byExtendingSelection: false)
     }
