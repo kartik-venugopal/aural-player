@@ -45,6 +45,8 @@ class Playlist {
     // Resets the sequence of shuffle tracks (when some setting is changed, thus invalidating the shuffle sequence, e.g. when the shuffle mode is turned OFF and ON again)
     func clearShuffleSequence() {
         shuffleTracks.removeAll()
+        nextTrackIndex = nil
+        continuePlayingTrackIndex = nil
     }
     
     func isEmpty() -> Bool {

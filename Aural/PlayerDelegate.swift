@@ -191,8 +191,10 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             player.stop()
             playingTrack = nil
             playbackState = .no_FILE
+            prepForNextTrack()
             return nil
         } else {
+            prepForNextTrack()
             return getPlayingTrackIndex()
         }
     }
@@ -201,6 +203,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         if (index < (playlist.size() - 1)) {
             playlist.shiftTrackDown(playlist.getTrackAt(index)!)
+            prepForNextTrack()
             return index + 1
         }
         
@@ -211,6 +214,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         if (index > 0) {
             playlist.shiftTrackUp(playlist.getTrackAt(index)!)
+            prepForNextTrack()
             return index - 1
         }
         
