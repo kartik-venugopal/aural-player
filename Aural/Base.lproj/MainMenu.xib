@@ -737,7 +737,7 @@ G1BhbiBTbGlkZXI
                                             </view>
                                         </tabViewItem>
                                         <tabViewItem label="Pitch" identifier="2" id="but-RP-Sa9" userLabel="Pitch">
-                                            <view key="view" ambiguous="YES" id="N8R-hT-UU9">
+                                            <view key="view" id="N8R-hT-UU9">
                                                 <rect key="frame" x="10" y="7" width="409" height="140"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -1343,7 +1343,7 @@ G1BhbiBTbGlkZXI
                                             </view>
                                         </tabViewItem>
                                         <tabViewItem label="Recorder" identifier="" id="ZgM-Kw-eIJ">
-                                            <view key="view" id="LZW-JZ-Gv7">
+                                            <view key="view" ambiguous="YES" id="LZW-JZ-Gv7">
                                                 <rect key="frame" x="10" y="7" width="409" height="140"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -1363,7 +1363,7 @@ G1BhbiBTbGlkZXI
                                                             <rect key="frame" x="1" y="1" width="286" height="88"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <button toolTip="Play / Pause" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="caX-PX-mby" userLabel="Record Button">
+                                                                <button toolTip="Start / Stop recording" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="caX-PX-mby" userLabel="Record Button">
                                                                     <rect key="frame" x="221" y="35" width="25" height="25"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Record" imagePosition="overlaps" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="WId-T2-owg">
