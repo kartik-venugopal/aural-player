@@ -1,6 +1,6 @@
 /*
-Encapsulates all track information of a playlist. Contains logic to determine playback order for different modes (repeat, shuffle, etc).
-*/
+ Encapsulates all track information of a playlist. Contains logic to determine playback order for different modes (repeat, shuffle, etc).
+ */
 
 import Foundation
 import AVFoundation
@@ -8,14 +8,14 @@ import AVFoundation
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l < r
+    case (nil, _?):
+        return true
+    default:
+        return false
+    }
 }
 
 class Playlist {
@@ -26,6 +26,12 @@ class Playlist {
     // Indexes of tracks that have already been shuffled (played) ... don't repeat these
     // Used with RepeatMode.OFF
     fileprivate var shuffleTracks: [Int] = [Int]()
+    
+    // The next track in the sequence if continuePlaying() is called
+    fileprivate var continuePlayingTrackIndex: Int?
+    
+    // The next track in the sequence if next() is called
+    fileprivate var nextTrackIndex: Int?
     
     // Singleton instance
     fileprivate static var singleton: Playlist = Playlist()
@@ -112,12 +118,30 @@ class Playlist {
     }
     
     // Determines the next track to play when playback of a (previous) track has completed and no user input has been provided to select the next track to play
-    func continuePlaying(_ playingTrack: Track?, repeatMode: RepeatMode, shuffleMode: ShuffleMode) -> Track? {
+    func continuePlaying(_ playingTrack: Track?, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) -> Track? {
         
         if (tracks.isEmpty) {
             return nil
         }
         
+        // The next track in the sequence should already have been determined and stored in continuePlayingTrackIndex. If it has, just use that index to return the next track to play. Otherwise, compute the next track.
+        if (continuePlayingTrackIndex != nil) {
+            
+            if (repeatMode == .off && shuffleMode == .on) {
+                
+                // Need to modify the shuffle sequence state
+                
+                // If the sequence is complete (all tracks played), reset it
+                if (shuffleTracks.count == tracks.count) {
+                    clearShuffleSequence()
+                } else {
+                    shuffleTracks.append(continuePlayingTrackIndex!)
+                }
+            }
+            return tracks[continuePlayingTrackIndex!]
+        }
+        
+        // Compute the next track
         let index = tracks.index(where: {$0 == playingTrack})
         
         if (repeatMode == .off) {
@@ -218,13 +242,33 @@ class Playlist {
     // Determines the next track to play when the user has requested the next track
     func next(_ playingTrack: Track?, repeatMode: RepeatMode, shuffleMode: ShuffleMode) -> Track? {
         
+        // There is no next track if no track is currently playing
         if (tracks.isEmpty || playingTrack == nil) {
             return nil
         }
         
+        // The next track in the sequence should already have been determined and stored in nextTrackIndex. If it has, just use that index to return the next track to play. Otherwise, compute the next track.
+        if (nextTrackIndex != nil) {
+            
+            if (repeatMode == .off && shuffleMode == .on) {
+                
+                // Need to modify the shuffle sequence state
+                
+                // If the sequence is complete (all tracks played), reset it
+                if (shuffleTracks.count == tracks.count) {
+                    clearShuffleSequence()
+                } else {
+                    shuffleTracks.append(nextTrackIndex!)
+                }
+            }
+            
+            return tracks[nextTrackIndex!]
+        }
+        
+        // Compute the next track
         let index = tracks.index(where: {$0 == playingTrack})
         
-        if (repeatMode == RepeatMode.off) {
+        if (repeatMode == .off) {
             
             if (shuffleMode == .off) {
                 
@@ -234,6 +278,11 @@ class Playlist {
                     // Has more tracks, pick the next one
                     return tracks[index! + 1]
                     
+                } else if (playingTrack == nil) {
+                    
+                    // Nothing playing, return the first one
+                    return tracks.first
+                    
                 } else {
                     
                     // Last track reached, nothing further to play
@@ -242,8 +291,9 @@ class Playlist {
                 
             } else {
                 
-                // If the sequence is complete (all tracks played), end it
+                // If the sequence is complete (all tracks played), reset it
                 if (shuffleTracks.count == tracks.count) {
+                    clearShuffleSequence()
                     return nil
                 }
                 
@@ -258,43 +308,27 @@ class Playlist {
                 return tracks[random]
             }
             
-        } else if (repeatMode == RepeatMode.one) {
+        } else if (repeatMode == .one) {
             
-            if (shuffleMode == .off) {
+            // NOTE - Here, we can assume that shuffleMode = OFF
+            
+            // Next track sequentially
+            if (index != nil && index < (tracks.count - 1)) {
                 
-                // Next track sequentially
-                if (index != nil && index < (tracks.count - 1)) {
-                    
-                    // Has more tracks, pick the next one
-                    return tracks[index! + 1]
-                    
-                } else {
-                    
-                    // Last track reached, keep playing the same thing
-                    return playingTrack
-                }
+                // Has more tracks, pick the next one
+                return tracks[index! + 1]
+                
             } else {
-                
-                // If only one track exists, repeat it
-                if (tracks.count == 1) {
-                    return tracks.first
-                }
-                
-                // Pick any track (just not the one currently playing)
-                var random = Int(arc4random_uniform(UInt32(tracks.count)))
-                
-                if (playingTrack != nil) {
-                    while (random == tracks.index(of: playingTrack!)) {
-                        random = Int(arc4random_uniform(UInt32(tracks.count)))
-                    }
-                }
-                
-                // Found a new random track, play it
-                return tracks[random]
+                // Last track reached, repeat same track
+                return nil
             }
             
         } else if (repeatMode == RepeatMode.all) {
             
+            // If only one track exists, repeat it
+            if (tracks.count == 1) {
+                return tracks.first
+            }
             
             if (shuffleMode == .off) {
                 // Similar to repeat OFF, just don't stop at the end
@@ -305,17 +339,17 @@ class Playlist {
                     // Has more tracks, pick the next one
                     return tracks[index! + 1]
                     
+                } else if (playingTrack == nil) {
+                    
+                    // Nothing playing, return the first one
+                    return tracks.first
+                    
                 } else {
                     
-                    // Last track reached, cycle back to the first track
+                    // Last track reached, restart with the first track
                     return tracks.first
                 }
             } else {
-                
-                // If only one track exists, repeat it
-                if (tracks.count == 1) {
-                    return tracks.first
-                }
                 
                 // Pick any track (just not the one currently playing)
                 var random = Int(arc4random_uniform(UInt32(tracks.count)))
@@ -367,8 +401,8 @@ class Playlist {
                 
             } else {
                 
-                // Last track reached, keep playing the same thing
-                return playingTrack
+                // First track reached, keep playing the same thing
+                return nil
             }
             
         } else if (repeatMode == RepeatMode.all) {
@@ -448,7 +482,7 @@ class Playlist {
                 results.append(SearchResult(index: i, match: (match.matchedField!, match.matchedFieldValue!)))
             }
         }
-
+        
         return SearchResults(results: results)
     }
     
@@ -510,7 +544,7 @@ class Playlist {
             switch searchQuery.type {
                 
             case .beginsWith: if compared.hasPrefix(queryText) {
-                    return (true, field, original)
+                return (true, field, original)
                 }
                 
             case .endsWith: if compared.hasSuffix(queryText) {
@@ -534,20 +568,20 @@ class Playlist {
     func sortPlaylist(sort: Sort) {
         
         switch sort.field {
-
+            
         // Sort by name
         case .name: if sort.order == SortOrder.ascending {
-                        tracks.sort(by: compareTracks_ascendingByName)
-                    } else {
-                        tracks.sort(by: compareTracks_descendingByName)
-                    }
+            tracks.sort(by: compareTracks_ascendingByName)
+        } else {
+            tracks.sort(by: compareTracks_descendingByName)
+            }
             
         // Sort by duration
         case .duration: if sort.order == SortOrder.ascending {
-                            tracks.sort(by: compareTracks_ascendingByDuration)
-                        } else {
-                            tracks.sort(by: compareTracks_descendingByDuration)
-                        }
+            tracks.sort(by: compareTracks_ascendingByDuration)
+        } else {
+            tracks.sort(by: compareTracks_descendingByDuration)
+            }
         }
     }
     
@@ -567,5 +601,144 @@ class Playlist {
     
     func compareTracks_descendingByDuration(aTrack: Track, anotherTrack: Track) -> Bool {
         return aTrack.duration! > anotherTrack.duration!
+    }
+    
+    // Determines all possible tracks which might play next, based on the repeat/shuffle modes
+    func determineNextTrack(_ playingTrack: Track?, repeatMode: RepeatMode, shuffleMode: ShuffleMode) -> [Track] {
+        
+        var nextTracks: [Track] = [Track]()
+        
+        if (tracks.isEmpty) {
+            nextTrackIndex = nil
+            continuePlayingTrackIndex = nil
+            return nextTracks
+        }
+        
+        // TODO: Make this more efficient
+        let playingTrackIndex = tracks.index(where: {$0 == playingTrack})
+        
+        if (repeatMode == RepeatMode.off) {
+            
+            if (shuffleMode == .off) {
+                
+                // Next track sequentially
+                if (playingTrackIndex != nil && playingTrackIndex < (tracks.count - 1)) {
+                    
+                    // Has more tracks, pick the next one
+                    nextTrackIndex = playingTrackIndex! + 1
+                    continuePlayingTrackIndex = nextTrackIndex
+                } else {
+                    
+                    // Last track reached, nothing further to play
+                    nextTrackIndex = nil
+                    continuePlayingTrackIndex = nextTrackIndex
+                }
+            } else {
+                
+                // If the sequence is complete (all tracks played), end it
+                if (shuffleTracks.count == tracks.count) {
+                    nextTrackIndex = nil
+                    continuePlayingTrackIndex = nextTrackIndex
+                } else {
+                    
+                    // Pick a track that's not already been played (every track once)
+                    var random = Int(arc4random_uniform(UInt32(tracks.count)))
+                    while (shuffleTracks.contains(random)) {
+                        random = Int(arc4random_uniform(UInt32(tracks.count)))
+                    }
+                    
+                    // Found a new random track, choose it
+                    nextTrackIndex = random
+                    continuePlayingTrackIndex = nextTrackIndex
+                }
+            }
+            
+        } else if (repeatMode == RepeatMode.one) {
+            
+            if (playingTrack == nil) {
+                
+                continuePlayingTrackIndex = 0
+                nextTrackIndex = nil
+                
+            } else {
+                
+                // Continue with same track
+                continuePlayingTrackIndex = playingTrackIndex!
+                
+                // Next track sequentially
+                if (playingTrackIndex != nil && playingTrackIndex < (tracks.count - 1)) {
+                    
+                    // Has more tracks, pick the next one
+                    nextTrackIndex = playingTrackIndex! + 1
+                    
+                } else {
+                    
+                    // Last track reached, repeat same track
+                    nextTrackIndex = nil
+                }
+            }
+            
+        } else if (repeatMode == RepeatMode.all) {
+            
+            if (shuffleMode == .off) {
+                // Similar to repeat OFF, just don't stop at the end
+                
+                // Next track sequentially
+                if (playingTrackIndex != nil && playingTrackIndex < (tracks.count - 1)) {
+                    
+                    // Has more tracks, pick the next one
+                    nextTrackIndex = playingTrackIndex! + 1
+                    continuePlayingTrackIndex = nextTrackIndex
+                    
+                } else {
+                    
+                    // Last track reached, cycle back to the first track
+                    nextTrackIndex = 0
+                    continuePlayingTrackIndex = nextTrackIndex
+                }
+            } else {
+                
+                // If only one track exists, repeat it
+                if (tracks.count == 1) {
+                    nextTrackIndex = 0
+                    continuePlayingTrackIndex = nextTrackIndex
+                } else {
+                    
+                    // Pick any track (just not the one currently playing)
+                    var random = Int(arc4random_uniform(UInt32(tracks.count)))
+                    
+                    if (playingTrack != nil) {
+                        while (random == playingTrackIndex!) {
+                            random = Int(arc4random_uniform(UInt32(tracks.count)))
+                        }
+                    }
+                    
+                    // Found a new random track, choose it
+                    nextTrackIndex = random
+                    continuePlayingTrackIndex = nextTrackIndex
+                }
+            }
+        }
+        
+        if (nextTrackIndex != nil) {
+            nextTracks.append(tracks[nextTrackIndex!])
+        }
+        
+        // Add continuePlayingTrackIndex only if it differs from nextTrackIndex
+        if (continuePlayingTrackIndex != nil && !nilSafeIntEquals(int1: nextTrackIndex, int2: continuePlayingTrackIndex)) {
+            nextTracks.append(tracks[continuePlayingTrackIndex!])
+        }
+        
+        return nextTracks
+    }
+    
+    private func nilSafeIntEquals(int1: Int?, int2: Int?) -> Bool {
+        
+        // Return true only if both are non-nil and equal in value
+        if (int1 != nil && int2 != nil) {
+            return int1! == int2!
+        }
+        
+        return false
     }
 }

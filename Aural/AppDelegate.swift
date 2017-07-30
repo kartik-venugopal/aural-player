@@ -518,6 +518,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     @IBAction func nextTrackAction(_ sender: AnyObject) {
+        
         let trackInfo = player.nextTrack()
         if (trackInfo.playingTrack != nil) {
             trackChange(trackInfo.playingTrack!, newTrackIndex: trackInfo.playingTrackIndex!)
@@ -654,25 +655,40 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBAction func repeatAction(_ sender: AnyObject) {
         
-        let repeatMode = player.toggleRepeatMode()
+        let modes = player.toggleRepeatMode()
         
-        switch repeatMode {
+        switch modes.repeatMode {
             
         case .off: btnRepeat.image = UIConstants.imgRepeatOff
         case .one: btnRepeat.image = UIConstants.imgRepeatOne
         case .all: btnRepeat.image = UIConstants.imgRepeatAll
             
         }
+        
+        switch modes.shuffleMode {
+            
+        case .off: btnShuffle.image = UIConstants.imgShuffleOff
+        case .on: btnShuffle.image = UIConstants.imgShuffleOn
+            
+        }
     }
     
     @IBAction func shuffleAction(_ sender: AnyObject) {
         
-        let shuffleMode = player.toggleShuffleMode()
+        let modes = player.toggleShuffleMode()
         
-        switch shuffleMode {
+        switch modes.shuffleMode {
             
         case .off: btnShuffle.image = UIConstants.imgShuffleOff
         case .on: btnShuffle.image = UIConstants.imgShuffleOn
+            
+        }
+        
+        switch modes.repeatMode {
+            
+        case .off: btnRepeat.image = UIConstants.imgRepeatOff
+        case .one: btnRepeat.image = UIConstants.imgRepeatOne
+        case .all: btnRepeat.image = UIConstants.imgRepeatAll
             
         }
     }

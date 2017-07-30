@@ -80,6 +80,25 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
                         self.notifyTrackAdded(index)
                     }
                 }
+                
+                // After tracks have been loaded, prep one for playback
+                self.prepForNextTrack()
+            }
+        }
+    }
+    
+    // Prepares one track for playback, by loading metadata, so as to minimize the time taken to start playback when the track is actually played.
+    private func prepForNextTrack() {
+        
+        if (playlist.size() > 0) {
+        
+            DispatchQueue.global(qos: .background).async {
+                
+                let nextTracks: [Track] = self.playlist.determineNextTrack(self.playingTrack, repeatMode: self.repeatMode, shuffleMode: self.shuffleMode)
+                
+                for track in nextTracks {
+                    TrackIO.prepareForPlayback(track)
+                }
             }
         }
     }
@@ -89,7 +108,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         // Move to a background thread to unblock the main thread
         DispatchQueue.global(qos: .userInitiated).async {
+            
             self.addTracks_sync(files)
+            
+            if (self.playingTrack == nil) {
+                self.prepForNextTrack()
+            }
         }
     }
     
@@ -269,11 +293,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     }
     
     func continuePlaying() -> (playingTrack: Track?, playingTrackIndex: Int?) {
-        play(playlist.continuePlaying(playingTrack, repeatMode: repeatMode, shuffleMode: shuffleMode))
+        play(playlist.continuePlaying(playingTrack, repeatMode, shuffleMode))
         return (playingTrack, getPlayingTrackIndex())
     }
     
     fileprivate func play(_ track: Track?) {
+        
         playingTrack = track
         if (track != nil) {
             TrackIO.prepareForPlayback(track!)
@@ -285,6 +310,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             
             player.play(track!)
             playbackState = .playing
+            prepForNextTrack()
         }
     }
     
@@ -524,33 +550,48 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         player.setFilterTrebleBand(min, max)
     }
     
-    func toggleRepeatMode() -> RepeatMode {
+    func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         
         switch repeatMode {
             
         case .off: repeatMode = .one
+        
+        // If repeating one track, cannot also shuffle
+        if (shuffleMode == .on) {
+            shuffleMode = .off
+        }
         case .one: repeatMode = .all
         case .all: repeatMode = .off
             
         }
         
+        // Invalidate the shuffle sequence (if there is one), and prepare the next track for playback
         playlist.clearShuffleSequence()
+        prepForNextTrack()
         
-        return repeatMode
+        return (repeatMode, shuffleMode)
     }
     
-    func toggleShuffleMode() -> ShuffleMode {
+    func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         
         switch shuffleMode {
             
         case .off: shuffleMode = .on
+        
+        // Can't shuffle and repeat one track
+        if (repeatMode == .one) {
+            repeatMode = .off
+        }
+            
         case .on: shuffleMode = .off
             
         }
         
+        // Invalidate the shuffle sequence (if there is one), and prepare the next track for playback
         playlist.clearShuffleSequence()
+        prepForNextTrack()
         
-        return shuffleMode
+        return (repeatMode, shuffleMode)
     }
     
     func startRecording(_ format: RecordingFormat) {

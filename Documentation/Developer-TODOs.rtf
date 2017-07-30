@@ -8,10 +8,9 @@
 \f0\fs28 \cf0 TODOS:\
 \
 Performance/Efficiency>\
-- When adding tracks/folders/playlists, run the operation async, and update the UI with callbacks.\
+- Slow playback start ... fix it !\
 - When a track starts playing, eagerly (and async) fetch playback info for next track in sequence (requires previewing next track in playlist), to reduce playback start time\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 - Should the player run in its own thread ? Currently runs in main thread. Figure this out (need to read AVAudioEngine docs)\
+- Should the player run in its own thread ? Currently runs in main thread. Figure this out (need to read AVAudioEngine docs)\
 \
 Playing broken files\
 - When the end of a track is reached, if there might be more data, keep reading (for files with incorrect duration metadata), and update duration with callbacks\
@@ -22,8 +21,7 @@ M3U Playlist support\
 Support other audio file formats (aiff, wma)\
 More EQ presets\
 Preferences\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 \
+\
 Bonus features >\
 BONUS: play/repeat a clip of a file\
 BONUS: Visualization\

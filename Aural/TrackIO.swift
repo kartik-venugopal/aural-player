@@ -81,7 +81,6 @@ class TrackIO {
             
             var avFile: AVAudioFile? = nil
             do {
-                
                 avFile = try AVAudioFile(forReading: track.file! as URL)
                 track.avFile = avFile!
                 track.sampleRate = avFile!.processingFormat.sampleRate

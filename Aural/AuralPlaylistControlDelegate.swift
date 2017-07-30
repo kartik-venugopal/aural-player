@@ -27,11 +27,11 @@ protocol AuralPlaylistControlDelegate {
     // Retrieves a summary of the current playlist - the total number of tracks and their total duration
     func getPlaylistSummary() -> (numTracks: Int, totalDuration: Double)
     
-    // Toggles between repeat modes. See RepeatMode for more details.
-    func toggleRepeatMode() -> RepeatMode
+    // Toggles between repeat modes. See RepeatMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
+    func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
     
-    // Toggles between shuffle modes. See ShuffleMode for more details.
-    func toggleShuffleMode() -> ShuffleMode
+    // Toggles between shuffle modes. See ShuffleMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
+    func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
     
     // For a given search query, returns all tracks that match the query
     func searchPlaylist(searchQuery: SearchQuery) -> SearchResults
