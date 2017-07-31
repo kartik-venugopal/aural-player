@@ -82,26 +82,26 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
                 }
                 
                 // After tracks have been loaded, prep one for playback
-                self.prepForNextTrack()
+//                self.prepForNextTrack()
             }
         }
     }
     
     // Prepares one track for playback, by loading metadata, so as to minimize the time taken to start playback when the track is actually played.
-    private func prepForNextTrack() {
-        
-        if (playlist.size() > 0) {
-        
-            DispatchQueue.global(qos: .background).async {
-                
-                let nextTracks: [Track] = self.playlist.determineNextTrack(self.playingTrack, repeatMode: self.repeatMode, shuffleMode: self.shuffleMode)
-                
-                for track in nextTracks {
-                    TrackIO.prepareForPlayback(track)
-                }
-            }
-        }
-    }
+//    private func prepForNextTrack() {
+    
+//        if (playlist.size() > 0) {
+//        
+//            DispatchQueue.global(qos: .background).async {
+//                
+//                let nextTracks: [Track] = self.playlist.determineNextTrack(self.playingTrack, repeatMode: self.repeatMode, shuffleMode: self.shuffleMode)
+//                
+//                for track in nextTracks {
+//                    TrackIO.prepareForPlayback(track)
+//                }
+//            }
+//        }
+//    }
     
     // This method should only be called from outside this class. For adding tracks within this class, always call the private method addTracks_sync().
     func addTracks(_ files: [URL]) {
@@ -111,9 +111,9 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             
             self.addTracks_sync(files)
             
-            if (self.playingTrack == nil) {
-                self.prepForNextTrack()
-            }
+//            if (self.playingTrack == nil) {
+//                self.prepForNextTrack()
+//            }
         }
     }
     
@@ -191,10 +191,10 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             player.stop()
             playingTrack = nil
             playbackState = .no_FILE
-            prepForNextTrack()
+//            prepForNextTrack()
             return nil
         } else {
-            prepForNextTrack()
+//            prepForNextTrack()
             return getPlayingTrackIndex()
         }
     }
@@ -203,7 +203,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         if (index < (playlist.size() - 1)) {
             playlist.shiftTrackDown(playlist.getTrackAt(index)!)
-            prepForNextTrack()
+//            prepForNextTrack()
             return index + 1
         }
         
@@ -214,7 +214,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         if (index > 0) {
             playlist.shiftTrackUp(playlist.getTrackAt(index)!)
-            prepForNextTrack()
+//            prepForNextTrack()
             return index - 1
         }
         
@@ -297,15 +297,20 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     }
     
     func continuePlaying() -> (playingTrack: Track?, playingTrackIndex: Int?) {
+//        let timestamp = NSDate()
         play(playlist.continuePlaying(playingTrack, repeatMode, shuffleMode))
         return (playingTrack, getPlayingTrackIndex())
     }
     
     fileprivate func play(_ track: Track?) {
         
+//        print("\nplay()", track?.shortDisplayName!, timestamp, Thread.current.description)
+        
         playingTrack = track
         if (track != nil) {
             TrackIO.prepareForPlayback(track!)
+            
+//            print("\tprepared()", track?.shortDisplayName!, timestamp, Thread.current.description)
             
             // Stop if currently playing
             if (playbackState == .playing || playbackState == .paused) {
@@ -314,7 +319,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             
             player.play(track!)
             playbackState = .playing
-            prepForNextTrack()
+//            prepForNextTrack()
         }
     }
     
@@ -571,7 +576,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         // Invalidate the shuffle sequence (if there is one), and prepare the next track for playback
         playlist.clearShuffleSequence()
-        prepForNextTrack()
+//        prepForNextTrack()
         
         return (repeatMode, shuffleMode)
     }
@@ -593,7 +598,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         // Invalidate the shuffle sequence (if there is one), and prepare the next track for playback
         playlist.clearShuffleSequence()
-        prepForNextTrack()
+//        prepForNextTrack()
         
         return (repeatMode, shuffleMode)
     }

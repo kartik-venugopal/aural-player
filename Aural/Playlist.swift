@@ -28,10 +28,10 @@ class Playlist {
     fileprivate var shuffleTracks: [Int] = [Int]()
     
     // The next track in the sequence if continuePlaying() is called
-    fileprivate var continuePlayingTrackIndex: Int?
-    
-    // The next track in the sequence if next() is called
-    fileprivate var nextTrackIndex: Int?
+//    fileprivate var continuePlayingTrackIndex: Int?
+//    
+//    // The next track in the sequence if next() is called
+//    fileprivate var nextTrackIndex: Int?
     
     // Singleton instance
     fileprivate static var singleton: Playlist = Playlist()
@@ -45,8 +45,8 @@ class Playlist {
     // Resets the sequence of shuffle tracks (when some setting is changed, thus invalidating the shuffle sequence, e.g. when the shuffle mode is turned OFF and ON again)
     func clearShuffleSequence() {
         shuffleTracks.removeAll()
-        nextTrackIndex = nil
-        continuePlayingTrackIndex = nil
+//        nextTrackIndex = nil
+//        continuePlayingTrackIndex = nil
     }
     
     func isEmpty() -> Bool {
@@ -127,21 +127,21 @@ class Playlist {
         }
         
         // The next track in the sequence should already have been determined and stored in continuePlayingTrackIndex. If it has, just use that index to return the next track to play. Otherwise, compute the next track.
-        if (continuePlayingTrackIndex != nil) {
-            
-            if (repeatMode == .off && shuffleMode == .on) {
-                
-                // Need to modify the shuffle sequence state
-                
-                // If the sequence is complete (all tracks played), reset it
-                if (shuffleTracks.count == tracks.count) {
-                    clearShuffleSequence()
-                } else {
-                    shuffleTracks.append(continuePlayingTrackIndex!)
-                }
-            }
-            return tracks[continuePlayingTrackIndex!]
-        }
+//        if (continuePlayingTrackIndex != nil) {
+//            
+//            if (repeatMode == .off && shuffleMode == .on) {
+//                
+//                // Need to modify the shuffle sequence state
+//                
+//                // If the sequence is complete (all tracks played), reset it
+//                if (shuffleTracks.count == tracks.count) {
+//                    clearShuffleSequence()
+//                } else {
+//                    shuffleTracks.append(continuePlayingTrackIndex!)
+//                }
+//            }
+//            return tracks[continuePlayingTrackIndex!]
+//        }
         
         // Compute the next track
         let index = tracks.index(where: {$0 == playingTrack})
@@ -250,22 +250,22 @@ class Playlist {
         }
         
         // The next track in the sequence should already have been determined and stored in nextTrackIndex. If it has, just use that index to return the next track to play. Otherwise, compute the next track.
-        if (nextTrackIndex != nil) {
-            
-            if (repeatMode == .off && shuffleMode == .on) {
-                
-                // Need to modify the shuffle sequence state
-                
-                // If the sequence is complete (all tracks played), reset it
-                if (shuffleTracks.count == tracks.count) {
-                    clearShuffleSequence()
-                } else {
-                    shuffleTracks.append(nextTrackIndex!)
-                }
-            }
-            
-            return tracks[nextTrackIndex!]
-        }
+//        if (nextTrackIndex != nil) {
+//            
+//            if (repeatMode == .off && shuffleMode == .on) {
+//                
+//                // Need to modify the shuffle sequence state
+//                
+//                // If the sequence is complete (all tracks played), reset it
+//                if (shuffleTracks.count == tracks.count) {
+//                    clearShuffleSequence()
+//                } else {
+//                    shuffleTracks.append(nextTrackIndex!)
+//                }
+//            }
+//            
+//            return tracks[nextTrackIndex!]
+//        }
         
         // Compute the next track
         let index = tracks.index(where: {$0 == playingTrack})
@@ -606,7 +606,7 @@ class Playlist {
     }
     
     // Determines all possible tracks which might play next, based on the repeat/shuffle modes
-    func determineNextTrack(_ playingTrack: Track?, repeatMode: RepeatMode, shuffleMode: ShuffleMode) -> [Track] {
+   /* func determineNextTrack(_ playingTrack: Track?, repeatMode: RepeatMode, shuffleMode: ShuffleMode) -> [Track] {
         
         var nextTracks: [Track] = [Track]()
         
@@ -742,5 +742,5 @@ class Playlist {
         }
         
         return false
-    }
+    }*/
 }
