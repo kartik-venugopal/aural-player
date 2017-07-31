@@ -18,9 +18,6 @@ class BufferManager {
     // The very first buffer should be small, so as to facilitate efficient immediate playback
     fileprivate static let BUFFER_SIZE_INITIAL: UInt32 = 5
     
-    // A constant to represent a timestamp in the past ... used to invalidate currently scheduled buffers and scheduling tasks. Used during the transition between two playback sessions (i.e. when stop() is called).
-    fileprivate let INVALID_TIMESTAMP: Date
-    
     // The (serial) dispatch queue on which all scheduling tasks will be enqueued
     fileprivate var queue: OperationQueue
     
@@ -29,9 +26,6 @@ class BufferManager {
     
     // The currently playing audio file
     fileprivate var playingFile: AVAudioFile?
-
-    // This timestamp is used to mark which playback session a buffer scheduling task belongs to, i.e., it is a unique identifier for a playback session
-    fileprivate var sessionTimestamp: Date = Date()
     
     init(playerNode: AVAudioPlayerNode) {
         
@@ -41,16 +35,6 @@ class BufferManager {
         queue = OperationQueue()
         queue.underlyingQueue = GCDDispatchQueue(queueName: "Aural.queues.bufferManager").underlyingQueue
         queue.maxConcurrentOperationCount = 1
-        
-        // Set the INVALID_TIMESTAMP constant to some time in the past
-        let now = Date()
-        let unitFlags: NSCalendar.Unit = [.year]
-        let nowComponents = (Calendar.current as NSCalendar).components(unitFlags, from: now)
-        
-        var invalidTimestampComponents = DateComponents()
-        invalidTimestampComponents.year = nowComponents.year! - 2
-        
-        INVALID_TIMESTAMP = (Calendar(identifier: Calendar.Identifier.gregorian).date(from: invalidTimestampComponents))!
     }
     
     // Start track playback from the beginning
@@ -65,45 +49,47 @@ class BufferManager {
         
         // Set the position in the audio file from which reading is to begin
         playingFile!.framePosition = frame
-        
-        // Mark the current playback session's timestamp
-        sessionTimestamp = Date()
+
+        // Mark the current playback session and use it when scheduling buffers
+        let thisSession = PlaybackSession.currentSession!
         
         // Schedule one buffer for immediate playback
-        let reachedEOF = scheduleNextBuffer(sessionTimestamp, BufferManager.BUFFER_SIZE_INITIAL)
+        let reachedEOF = scheduleNextBuffer(thisSession, BufferManager.BUFFER_SIZE_INITIAL)
         
         // Start playing the file
         playerNode.play()
         
         // Schedule one more ("look ahead") buffer
         if (!reachedEOF) {
-            queue.addOperation({self.scheduleNextBuffer(self.sessionTimestamp)})
+            queue.addOperation({self.scheduleNextBuffer(thisSession)})
         }
     }
     
     // Upon the completion of playback of a buffer, checks if more buffers are needed for the playback session indicated by the given timestamp, and if so, schedules one for playback. The timestamp argument indicates which playback session this task was initiated for.
-    fileprivate func bufferCompletionHandler(_ timestamp: Date, reachedEOF: Bool) {
+    fileprivate func bufferCompletionHandler(_ buffer: String, _ session: PlaybackSession, reachedEOF: Bool) {
         
-        // If this timestamp doesn't match the current playback session timestamp, it is not current
-        let timestampCurrent = timestamp.compare(sessionTimestamp) == ComparisonResult.orderedSame
-        
-        if (timestampCurrent) {
+        if (PlaybackSession.isCurrentAndActive(session)) {
             
             if (reachedEOF) {
                 
-                // Notify observers about playback completion
-                EventRegistry.publishEvent(EventType.playbackCompleted, PlaybackCompletedEvent.instance)
+                // End this playback session and notify observers about playback completion
+                PlaybackSession.end(session)
+                EventRegistry.publishEvent(EventType.playbackCompleted, PlaybackCompletedEvent(session))
+                
+                // Stop playback
+                stop()
+                
             } else {
                 
                 // Continue scheduling more buffers
-                queue.addOperation({self.scheduleNextBuffer(timestamp)})
+                queue.addOperation({self.scheduleNextBuffer(session)})
             }
         }
     }
     
     // Schedules a single audio buffer for playback
     // The timestamp argument indicates which playback session this task was initiated for
-    fileprivate func scheduleNextBuffer(_ timestamp: Date, _ bufferSize: UInt32 = BufferManager.BUFFER_SIZE) -> Bool {
+    fileprivate func scheduleNextBuffer(_ session: PlaybackSession, _ bufferSize: UInt32 = BufferManager.BUFFER_SIZE) -> Bool {
         
         let sampleRate = playingFile!.processingFormat.sampleRate
         let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: playingFile!.processingFormat, frameCapacity: AVAudioFrameCount(Double(bufferSize) * sampleRate))
@@ -121,12 +107,11 @@ class BufferManager {
         let reachedEOF = readAllFrames || bufferNotFull
         
         // Redundant timestamp check, in case the first one in scheduleNextBufferIfNecessary() was performed too soon (stop() called between scheduleNextBufferIfNecessary() and now). This will come in handy when disk seeking suddenly slows down abnormally and the task takes much longer to complete.
-        let timestampCurrent = timestamp.compare(sessionTimestamp) == ComparisonResult.orderedSame
         
-        if (timestampCurrent) {
+        if (PlaybackSession.isCurrentAndActive(session)) {
         
             playerNode.scheduleBuffer(buffer, at: nil, options: AVAudioPlayerNodeBufferOptions(), completionHandler: {
-                    self.bufferCompletionHandler(timestamp, reachedEOF: reachedEOF)
+                    self.bufferCompletionHandler(String(buffer.hash), session, reachedEOF: reachedEOF)
             })
         }
         
@@ -159,7 +144,9 @@ class BufferManager {
             // Nothing to play means playback has completed
             
             // Notify observers about playback completion
-            EventRegistry.publishEvent(EventType.playbackCompleted, PlaybackCompletedEvent.instance)
+            let thisSession = PlaybackSession.currentSession!
+            PlaybackSession.end(thisSession)
+            EventRegistry.publishEvent(EventType.playbackCompleted, PlaybackCompletedEvent(thisSession))
             
             return (true, nil)
         }
@@ -167,9 +154,6 @@ class BufferManager {
     
     // Stops the scheduling of audio buffers, in response to a request to stop playback (or when seeking to a new position). Waits till all previously scheduled buffers are cleared. After execution of this method, code can assume no scheduled buffers. Marks the end of a "playback session".
     func stop() {
-        
-        // Immediately invalidate all existing buffer scheduling tasks
-        sessionTimestamp = INVALID_TIMESTAMP
         
         // Stop playback without clearing the player queue (and triggering the completion handlers)
         // WARNING - This might be causing problems

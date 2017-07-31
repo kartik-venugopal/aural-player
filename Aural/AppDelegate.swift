@@ -408,7 +408,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         switch playbackInfo.playbackState {
             
-        case .no_FILE, .paused: setSeekTimerState(false)
+        case .noFile, .paused: setSeekTimerState(false)
         setPlayPauseImage(UIConstants.imgPlay)
             
         case .playing:

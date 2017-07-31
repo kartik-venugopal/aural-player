@@ -18,7 +18,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     fileprivate var playingTrack: Track?
     
     // See PlaybackState
-    fileprivate var playbackState: PlaybackState = .no_FILE
+    fileprivate var playbackState: PlaybackState = .noFile
     
     fileprivate var repeatMode: RepeatMode = RepeatMode.off
     fileprivate var shuffleMode: ShuffleMode = ShuffleMode.off
@@ -190,7 +190,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         if (selTrack?.file!.path == playingTrack?.file!.path) {
             player.stop()
             playingTrack = nil
-            playbackState = .no_FILE
+            playbackState = .noFile
 //            prepForNextTrack()
             return nil
         } else {
@@ -224,7 +224,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     func clearPlaylist() {
         playlist.clear()
         player.stop()
-        playbackState = .no_FILE
+        playbackState = .noFile
         playingTrack = nil
     }
     
@@ -271,7 +271,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         // Determine current state of player, to then toggle it
         switch playbackState {
             
-        case .no_FILE: continuePlaying()
+        case .noFile: continuePlaying()
             if (playingTrack != nil) {
                 trackChanged = true
             }
@@ -297,27 +297,25 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     }
     
     func continuePlaying() -> (playingTrack: Track?, playingTrackIndex: Int?) {
-//        let timestamp = NSDate()
         play(playlist.continuePlaying(playingTrack, repeatMode, shuffleMode))
         return (playingTrack, getPlayingTrackIndex())
     }
     
     fileprivate func play(_ track: Track?) {
         
-//        print("\nplay()", track?.shortDisplayName!, timestamp, Thread.current.description)
-        
         playingTrack = track
         if (track != nil) {
-            TrackIO.prepareForPlayback(track!)
             
-//            print("\tprepared()", track?.shortDisplayName!, timestamp, Thread.current.description)
+            PlaybackSession.start(track!)
+            TrackIO.prepareForPlayback(track!)
             
             // Stop if currently playing
             if (playbackState == .playing || playbackState == .paused) {
                 player.stop()
             }
-            
+
             player.play(track!)
+            
             playbackState = .playing
 //            prepForNextTrack()
         }
@@ -335,7 +333,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     
     func getSeekSecondsAndPercentage() -> (seconds: Double, percentage: Double) {
         
-        let seconds = player.getSeekPosition()
+        let seconds = playingTrack != nil ? player.getSeekPosition() : 0
         let percentage = playingTrack != nil ? seconds * 100 / playingTrack!.duration! : 0
         
         return (seconds, percentage)
@@ -347,9 +345,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             return
         }
         
+        PlaybackSession.start(playingTrack!)
+        
         let curPosn = player.getSeekPosition()
         let newPosn = min(playingTrack!.duration!, curPosn + PlayerDelegate.SEEK_TIME)
         
+        // TODO: If reached end of duration, end it here instead of passing on the request
         player.seekToTime(newPosn)
     }
     
@@ -358,6 +359,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         if (playbackState != .playing) {
             return
         }
+        
+        PlaybackSession.start(playingTrack!)
         
         let curPosn = player.getSeekPosition()
         let newPosn = max(0, curPosn - PlayerDelegate.SEEK_TIME)
@@ -371,7 +374,11 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             return
         }
         
+        PlaybackSession.start(playingTrack!)
+        
+        // TODO: If reached end of duration, end it here instead of passing on the request
         let newPosn = percentage * playingTrack!.duration! / 100
+        
         player.seekToTime(newPosn)
     }
     
@@ -658,20 +665,29 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     // Called when playback of the current track completes
     func consumeEvent(_ event: Event) {
         
-        player.stop()
+        let _evt = event as! PlaybackCompletedEvent
         
-        let newTrackInfo = continuePlaying()
+        // Do not accept duplicate/old events
+        if (PlaybackSession.isCurrent(_evt.session)) {
+            
+            PlaybackSession.invalidate()
         
-        let trackChangedEvent = TrackChangedEvent(newTrack: playingTrack, newTrackIndex: newTrackInfo.playingTrackIndex)
-        
-        if (playingTrack != nil) {
-            playbackState = .playing
-        } else {
-            playbackState = .no_FILE
+            player.stop()
+            
+            // Continue the playback sequence
+            let newTrackInfo = continuePlaying()
+            
+            let trackChangedEvent = TrackChangedEvent(newTrack: playingTrack, newTrackIndex: newTrackInfo.playingTrackIndex)
+            
+            if (playingTrack != nil) {
+                playbackState = .playing
+            } else {
+                playbackState = .noFile
+            }
+            
+            // Notify the UI about this track change event
+            EventRegistry.publishEvent(.trackChanged, trackChangedEvent)
         }
-        
-        // Notify the UI about this track change event
-        EventRegistry.publishEvent(.trackChanged, trackChangedEvent)
     }
     
     func searchPlaylist(searchQuery: SearchQuery) -> SearchResults {

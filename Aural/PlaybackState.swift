@@ -7,5 +7,5 @@ enum PlaybackState {
     
     case playing
     case paused
-    case no_FILE
+    case noFile
 }
