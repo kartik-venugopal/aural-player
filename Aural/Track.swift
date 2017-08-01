@@ -41,3 +41,15 @@ class Track: NSObject {
     var detailedInfoLoaded: Bool = false
     
 }
+
+// Wrapper around Track that includes its index in the playlist
+class IndexedTrack {
+    
+    var track: Track?
+    var index: Int?
+    
+    init(_ track: Track?, _ index: Int?) {
+        self.track = track
+        self.index = index
+    }
+}

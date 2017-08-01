@@ -172,19 +172,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             return evt;
         });
         
+        // Register self as a subscriber to TrackChangedEvent notifications (published when the player is done playing a track)
+        EventRegistry.subscribe(.trackChanged, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
+        
+        // Register self as a subscriber to TrackAddedEvent notifications (published when new tracks are added to the playlist)
+        EventRegistry.subscribe(.trackAdded, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
+        
         // Load saved state (sound settings + playlist) from app config file and adjust UI elements according to that state
+        
+        player.loadPlaylistFromSavedState()
+        
         let playerState = player.getPlayerState()
         if (playerState != nil) {
             initStatefulUI(playerState!)
         } else {
             initStatefulUI(SavedPlayerState.defaults)
         }
-        
-        // Register self as a subscriber to TrackChangedEvent notifications (published when the player is done playing a track)
-        EventRegistry.subscribe(.trackChanged, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
-        
-        // Register self as a subscriber to TrackAddedEvent notifications (published when new tracks are added to the playlist)
-        EventRegistry.subscribe(.trackAdded, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
         
         window.isMovableByWindowBackground = true
         window.makeKeyAndOrderFront(self)
@@ -408,14 +411,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         switch playbackInfo.playbackState {
             
-        case .noFile, .paused: setSeekTimerState(false)
+        case .noTrack, .paused: setSeekTimerState(false)
         setPlayPauseImage(UIConstants.imgPlay)
             
         case .playing:
             
             if (playbackInfo.trackChanged) {
-                trackChange(playbackInfo.playingTrack!, newTrackIndex: playbackInfo.playingTrackIndex!)
+                trackChange(playbackInfo.playingTrack)
             } else {
+                // Resumed the same track
                 setSeekTimerState(true)
                 setPlayPauseImage(UIConstants.imgPause)
             }
@@ -513,32 +517,32 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     func playSelectedTrack() {
         if (playlistView.selectedRow >= 0) {
             let track = player.play(playlistView.selectedRow)
-            trackChange(track, newTrackIndex: playlistView.selectedRow)
+            trackChange(track)
         }
     }
     
     @IBAction func nextTrackAction(_ sender: AnyObject) {
         
         let trackInfo = player.nextTrack()
-        if (trackInfo.playingTrack != nil) {
-            trackChange(trackInfo.playingTrack!, newTrackIndex: trackInfo.playingTrackIndex!)
+        if (trackInfo?.track != nil) {
+            trackChange(trackInfo)
         }
     }
     
     @IBAction func prevTrackAction(_ sender: AnyObject) {
         let trackInfo = player.previousTrack()
-        if (trackInfo.playingTrack != nil) {
-            trackChange(trackInfo.playingTrack!, newTrackIndex: trackInfo.playingTrackIndex!)
+        if (trackInfo?.track != nil) {
+            trackChange(trackInfo)
         }
     }
     
-    func trackChange(_ newTrack: Track?, newTrackIndex: Int?) {
+    func trackChange(_ newTrack: IndexedTrack?) {
         
         if (newTrack != nil) {
             
             setSeekTimerState(true)
             setPlayPauseImage(UIConstants.imgPause)
-            showNowPlayingInfo(newTrack!)
+            showNowPlayingInfo(newTrack!.track!)
             btnMoreInfo.isHidden = false
             
             if (popover.isShown) {
@@ -553,7 +557,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         }
         
         resetPlayingTime()
-        selectTrack(newTrackIndex)
+        selectTrack(newTrack == nil ? nil : newTrack!.index)
     }
     
     func selectTrack(_ index: Int?) {
@@ -650,7 +654,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         playlistView.reloadData()
         updatePlaylistSummary()
         
-        trackChange(nil, newTrackIndex: nil)
+        trackChange(nil)
     }
     
     @IBAction func repeatAction(_ sender: AnyObject) {
@@ -956,7 +960,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         if event is TrackChangedEvent {
             setSeekTimerState(false)
             let _event = event as! TrackChangedEvent
-            trackChange(_event.newTrack, newTrackIndex: _event.newTrackIndex)
+            trackChange(_event.newTrack)
         }
         
         if event is TrackAddedEvent {
@@ -1361,7 +1365,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         dismissSortDialog()
         
         playlistView.reloadData()
-        selectTrack(player.getPlayingTrackIndex())
+        selectTrack(player.getPlayingTrack()?.index)
         showPlaylistSelectedRow()
     }
     

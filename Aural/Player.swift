@@ -48,7 +48,7 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
     fileprivate var startFrame: AVAudioFramePosition?
     
     // Sets up the audio engine
-    fileprivate init() {
+    init() {
         
         playerNode = AVAudioPlayerNode()
 

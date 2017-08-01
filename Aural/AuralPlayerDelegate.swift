@@ -7,13 +7,19 @@ import Cocoa
 protocol AuralPlayerDelegate {
     
     // Toggles between the play and pause states, as long as a file is available to play. Returns playback state information the UI can use to update itself following the operation.
-    func togglePlayPause() -> (playbackState: PlaybackState, playingTrack: Track?, playingTrackIndex: Int?, trackChanged: Bool)
+    func togglePlayPause() -> (playbackState: PlaybackState, playingTrack: IndexedTrack?, trackChanged: Bool)
     
     // Plays the track at a given index in the player playlist. Returns complete track information for the track.
-    func play(_ index: Int) -> Track
+    func play(_ index: Int) -> IndexedTrack
     
     // Continues playback within the player playlist, according to repeat/shuffle modes. Called either before any tracks are played or after playback of a track has completed. Returns the new track, if any, that is selected for playback
-    func continuePlaying() -> (playingTrack: Track?, playingTrackIndex: Int?)
+    func continuePlaying() -> IndexedTrack?
+    
+    // Plays (and returns) the next track, if there is one
+    func nextTrack() -> IndexedTrack?
+    
+    // Plays (and returns) the previous track, if there is one
+    func previousTrack() -> IndexedTrack?
     
     // Retrieves saved player state, that is "remembered" by the player between app shutdown and the subsequent startup (sound settings and playlist items)
     func getPlayerState() -> SavedPlayerState?
@@ -33,20 +39,11 @@ protocol AuralPlayerDelegate {
     // Seeks to a specific percentage of the track duration, within the current track
     func seekToPercentage(_ percentage: Double)
     
-    // Plays (and returns) the next track, if there is one
-    func nextTrack() -> (playingTrack: Track?, playingTrackIndex: Int?)
-    
-    // Plays (and returns) the previous track, if there is one
-    func previousTrack() -> (playingTrack: Track?, playingTrackIndex: Int?)
-    
-    // Returns the currently playing track
-    func getPlayingTrack() -> Track?
-    
-    // Returns the index within the player playlist, of the currently playing track
-    func getPlayingTrackIndex() -> Int?
+    // Returns the currently playing track (with its index)
+    func getPlayingTrack() -> IndexedTrack?
     
     // Returns the currently playing track, ensuring that detailed info is loaded in it. This is necessary due to lazy loading.
-    func getMoreInfo() -> Track?
+    func getMoreInfo() -> IndexedTrack?
     
     // Does any deallocation that is required before the app exits
     // This includes saving "remembered" player state and releasing player resources

@@ -1,119 +1,72 @@
 import Cocoa
 
 /*
-    Concrete implementation of a middleman/facade between AppDelegate (UI) and Player. Accepts all requests originating from AppDelegate, converts/marshals them into lower-level requests suitable for Player, and forwards them to Player. Also, notifies AppDelegate when important events (such as playback completion) have occurred in Player.
-
-    See AuralPlayerDelegate, AuralSoundTuningDelegate, and EventSubscriber protocols to learn more about the public functions implemented here.
-*/
-class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSoundTuningDelegate, AuralRecorderDelegate, EventSubscriber {
+ Concrete implementation of a middleman/facade between AppDelegate (UI) and Player. Accepts all requests originating from AppDelegate, converts/marshals them into lower-level requests suitable for Player, and forwards them to Player. Also, notifies AppDelegate when important events (such as playback completion) have occurred in Player.
+ 
+ See AuralPlayerDelegate, AuralSoundTuningDelegate, and EventSubscriber protocols to learn more about the public functions implemented here.
+ */
+class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, EventSubscriber {
     
     // Time in seconds for seeking forward/backward
-    fileprivate static let SEEK_TIME: Double = 5
-    fileprivate static let VOLUME_DELTA: Float = 0.05
-    fileprivate static let BALANCE_DELTA: Float = 0.1
+    private static let SEEK_TIME: Double = 5
+    private static let VOLUME_DELTA: Float = 0.05
+    private static let BALANCE_DELTA: Float = 0.1
     
-    fileprivate var playerState: SavedPlayerState?
-    
-    // Currently playing track
-    fileprivate var playingTrack: Track?
-    
-    // See PlaybackState
-    fileprivate var playbackState: PlaybackState = .noFile
-    
-    fileprivate var repeatMode: RepeatMode = RepeatMode.off
-    fileprivate var shuffleMode: ShuffleMode = ShuffleMode.off
+    private var playerState: SavedPlayerState?
     
     // The current player playlist
-    fileprivate var playlist: Playlist {
-        return Playlist.instance()
-    }
-    
-    fileprivate static let singleton: PlayerDelegate = PlayerDelegate()
+    private var playlist: Playlist
     
     // The actual audio player
-    fileprivate var player: Player
+    private var player: Player
+    
+    // Currently playing track
+    fileprivate var playingTrack: IndexedTrack?
+    
+    // See PlaybackState
+    fileprivate var playbackState: PlaybackState = .noTrack
+    
+    private static let singleton: PlayerDelegate = AppInitializer.getPlayerDelegate()
     
     static func instance() -> PlayerDelegate {
         return singleton
     }
     
-    fileprivate init() {
+    init(_ player: Player, _ playerState: SavedPlayerState, _ playlist: Playlist) {
         
-        // TODO: This is a horribly ugly hack, should be in AppDelegate
-        PlayerDelegate.configureLogging()
-        
-        player = Player.instance()
-        loadPlayerState()
+        self.player = player
+        self.playlist = playlist
+        self.playerState = playerState
         
         EventRegistry.subscribe(EventType.playbackCompleted, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
     }
     
-    // Make sure all logging is done to the app's log file
-    fileprivate static func configureLogging() {
+    // This is called when the app loads initially. Loads the playlist from the app state file on disk. Only meant to be called once.
+    func loadPlaylistFromSavedState() {
         
-        let allPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let documentsDirectory = allPaths.first!
-        let pathForLog = documentsDirectory + ("/" + AppConstants.logFileName)
-        
-        freopen(pathForLog.cString(using: String.Encoding.ascii)!, "a+", stderr)
-    }
-    
-    // Loads saved player state from app config file, and initializes the player with that state
-    fileprivate func loadPlayerState() {
-        
-        playerState = PlayerStateIO.load()
-        
-        if (playerState != nil) {
+        // Add tracks async, notifying the UI one at a time
+        DispatchQueue.global(qos: .userInitiated).async {
             
-            player.loadPlayerState(playerState!)
-            
-            repeatMode = playerState!.repeatMode
-            shuffleMode = playerState!.shuffleMode
-            
-            // Add tracks async, updating the UI one at a time
-            DispatchQueue.global(qos: .userInitiated).async {
+            for track in self.playerState!.playlist {
                 
-                for track in self.playerState!.playlist {
-                    
-                    let index = self.playlist.addTrack(URL(fileURLWithPath: track))
-                    if (index >= 0) {
-                        self.notifyTrackAdded(index)
-                    }
+                let index = self.playlist.addTrack(URL(fileURLWithPath: track))
+                if (index >= 0) {
+                    self.notifyTrackAdded(index)
                 }
-                
-                // After tracks have been loaded, prep one for playback
-//                self.prepForNextTrack()
             }
         }
     }
     
-    // Prepares one track for playback, by loading metadata, so as to minimize the time taken to start playback when the track is actually played.
-//    private func prepForNextTrack() {
-    
-//        if (playlist.size() > 0) {
-//        
-//            DispatchQueue.global(qos: .background).async {
-//                
-//                let nextTracks: [Track] = self.playlist.determineNextTrack(self.playingTrack, repeatMode: self.repeatMode, shuffleMode: self.shuffleMode)
-//                
-//                for track in nextTracks {
-//                    TrackIO.prepareForPlayback(track)
-//                }
-//            }
-//        }
-//    }
+    func getPlayerState() -> SavedPlayerState? {
+        return playerState
+    }
     
     // This method should only be called from outside this class. For adding tracks within this class, always call the private method addTracks_sync().
     func addTracks(_ files: [URL]) {
         
         // Move to a background thread to unblock the main thread
         DispatchQueue.global(qos: .userInitiated).async {
-            
             self.addTracks_sync(files)
-            
-//            if (self.playingTrack == nil) {
-//                self.prepForNextTrack()
-//            }
         }
     }
     
@@ -133,7 +86,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         }
     }
     
-    fileprivate func addSingleTrack(_ file: URL) {
+    private func addSingleTrack(_ file: URL) {
         
         let fileExtension = file.pathExtension.lowercased()
         
@@ -147,10 +100,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             
         } else if (AppConstants.supportedAudioFileTypes.contains(fileExtension)) {
             // Track
+
             let newTrackIndex = playlist.addTrack(file)
             if (newTrackIndex >= 0) {
                 notifyTrackAdded(newTrackIndex)
             }
+
         } else {
             // Unsupported file type, ignore
             NSLog("Ignoring unsupported file: %@", file.path)
@@ -164,14 +119,13 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         EventRegistry.publishEvent(.trackAdded, trackAddedEvent)
     }
     
-    fileprivate func addTracksFromDir(_ dir: URL) {
+    private func addTracksFromDir(_ dir: URL) {
         
         let fileManager: FileManager = FileManager.default
         
         do {
-            
-        // Retrieve all files/subfolders within this folder
-        let files = try fileManager.contentsOfDirectory(at: dir, includingPropertiesForKeys: [], options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
+            // Retrieve all files/subfolders within this folder
+            let files = try fileManager.contentsOfDirectory(at: dir, includingPropertiesForKeys: [], options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
             
             // Add them
             addTracks_sync(files)
@@ -183,27 +137,28 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     
     func removeTrack(_ index: Int) -> Int? {
         
-        let selTrack = playlist.getTrackAt(index)
+        let removingPlayingTrack: Bool = (index == playlist.cursor())
         playlist.removeTrack(index)
         
         // If the removed track is not the playing track, continue playing !
-        if (selTrack?.file!.path == playingTrack?.file!.path) {
-            player.stop()
-            playingTrack = nil
-            playbackState = .noFile
-//            prepForNextTrack()
-            return nil
-        } else {
-//            prepForNextTrack()
-            return getPlayingTrackIndex()
+        if (removingPlayingTrack) {
+            stopPlayback()
         }
+        
+        // Update playing track index (which may have changed)
+        playingTrack?.index = playlist.cursor()
+        
+        return playlist.cursor()
     }
     
     func moveTrackDown(_ index: Int) -> Int {
         
         if (index < (playlist.size() - 1)) {
-            playlist.shiftTrackDown(playlist.getTrackAt(index)!)
-//            prepForNextTrack()
+            playlist.shiftTrackDown(index)
+            
+            // Update playing track index (which may have changed)
+            playingTrack?.index = playlist.cursor()
+            
             return index + 1
         }
         
@@ -213,8 +168,11 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     func moveTrackUp(_ index: Int) -> Int {
         
         if (index > 0) {
-            playlist.shiftTrackUp(playlist.getTrackAt(index)!)
-//            prepForNextTrack()
+            playlist.shiftTrackUp(index)
+            
+            // Update playing track index (which may have changed)
+            playingTrack?.index = playlist.cursor()
+            
             return index - 1
         }
         
@@ -223,8 +181,13 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     
     func clearPlaylist() {
         playlist.clear()
+        stopPlayback()
+    }
+    
+    private func stopPlayback() {
+        PlaybackSession.invalidate()
         player.stop()
-        playbackState = .noFile
+        playbackState = .noTrack
         playingTrack = nil
     }
     
@@ -234,107 +197,115 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         }
     }
     
+    func getPlayingTrack() -> IndexedTrack? {
+        return playingTrack
+    }
+    
     func getPlaylistSummary() -> (numTracks: Int, totalDuration: Double) {
         return (playlist.size(), playlist.totalDuration())
     }
     
-    func getPlayingTrack() -> Track? {
-        return playingTrack
-    }
-    
-    func getPlayingTrackIndex() -> Int? {
-        if (playingTrack == nil) {
-            return nil
-        }
-        
-        return playlist.indexOf(playingTrack!)
-    }
-    
-    func getMoreInfo() -> Track? {
+    func getMoreInfo() -> IndexedTrack? {
         
         if (playingTrack == nil) {
             return nil
         }
         
-        TrackIO.loadDetailedTrackInfo(playingTrack!)
+        TrackIO.loadDetailedTrackInfo(playingTrack!.track!)
         return playingTrack
     }
     
-    func getPlaybackState() -> PlaybackState {
-        return playbackState
-    }
-    
-    func togglePlayPause() -> (playbackState: PlaybackState, playingTrack: Track?, playingTrackIndex: Int?, trackChanged: Bool) {
+    func togglePlayPause() -> (playbackState: PlaybackState, playingTrack: IndexedTrack?, trackChanged: Bool) {
         
         var trackChanged = false
         
         // Determine current state of player, to then toggle it
         switch playbackState {
             
-        case .noFile: continuePlaying()
-            if (playingTrack != nil) {
-                trackChanged = true
-            }
+        case .noTrack: continuePlaying()
+        if (playingTrack != nil) {
+            trackChanged = true
+        }
             
         case .paused: resume()
             
         case .playing: pause()
-            
+    
         }
         
-        return (playbackState, playingTrack, getPlayingTrackIndex(), trackChanged)
+        return (playbackState, playingTrack, trackChanged)
     }
-    
-    func play(_ index: Int) -> Track {
+
+    func play(_ index: Int) -> IndexedTrack {
         
-        // Playing a random track invalidates the current shuffle sequence
-        playlist.clearShuffleSequence()
-        
-        let track = playlist.getTrackAt(index)!
+        let track = playlist.selectTrackAt(index)!
         play(track)
         
-        return track
+        return playingTrack!
     }
     
-    func continuePlaying() -> (playingTrack: Track?, playingTrackIndex: Int?) {
-        play(playlist.continuePlaying(playingTrack, repeatMode, shuffleMode))
-        return (playingTrack, getPlayingTrackIndex())
+    func continuePlaying() -> IndexedTrack? {
+        play(playlist.continuePlaying())
+        return playingTrack
+    }
+
+    func nextTrack() -> IndexedTrack? {
+    
+        let nextTrack = playlist.next()
+        if (nextTrack != nil) {
+            play(nextTrack)
+        }
+        
+        return nextTrack
     }
     
-    fileprivate func play(_ track: Track?) {
+    func previousTrack() -> IndexedTrack? {
+        
+        let prevTrack = playlist.previous()
+        if (prevTrack != nil) {
+            play(prevTrack)
+        }
+        
+        return prevTrack
+    }
+    
+    private func play(_ track: IndexedTrack?) {
         
         playingTrack = track
         if (track != nil) {
             
             PlaybackSession.start(track!)
-            TrackIO.prepareForPlayback(track!)
+            TrackIO.prepareForPlayback(track!.track!)
             
             // Stop if currently playing
-            if (playbackState == .playing || playbackState == .paused) {
+            
+            if (playbackState == .paused || playbackState == .playing) {
                 player.stop()
             }
-
-            player.play(track!)
             
+            player.play(track!.track!)
             playbackState = .playing
-//            prepForNextTrack()
         }
     }
     
-    fileprivate func pause() {
+    private func pause() {
         player.pause()
         playbackState = .paused
     }
     
-    fileprivate func resume() {
+    private func resume() {
         player.resume()
         playbackState = .playing
+    }
+    
+    func getPlaybackState() -> PlaybackState {
+        return playbackState
     }
     
     func getSeekSecondsAndPercentage() -> (seconds: Double, percentage: Double) {
         
         let seconds = playingTrack != nil ? player.getSeekPosition() : 0
-        let percentage = playingTrack != nil ? seconds * 100 / playingTrack!.duration! : 0
+        let percentage = playingTrack != nil ? seconds * 100 / playingTrack!.track!.duration! : 0
         
         return (seconds, percentage)
     }
@@ -348,7 +319,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         PlaybackSession.start(playingTrack!)
         
         let curPosn = player.getSeekPosition()
-        let newPosn = min(playingTrack!.duration!, curPosn + PlayerDelegate.SEEK_TIME)
+        let newPosn = min(playingTrack!.track!.duration!, curPosn + PlayerDelegate.SEEK_TIME)
         
         // TODO: If reached end of duration, end it here instead of passing on the request
         player.seekToTime(newPosn)
@@ -377,31 +348,9 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         PlaybackSession.start(playingTrack!)
         
         // TODO: If reached end of duration, end it here instead of passing on the request
-        let newPosn = percentage * playingTrack!.duration! / 100
+        let newPosn = percentage * playingTrack!.track!.duration! / 100
         
         player.seekToTime(newPosn)
-    }
-    
-    func nextTrack() -> (playingTrack: Track?, playingTrackIndex: Int?) {
-        
-        let nextTrack = playlist.next(playingTrack, repeatMode: repeatMode, shuffleMode: shuffleMode)
-        
-        if (nextTrack != nil) {
-            play(nextTrack!)
-        }
-        
-        return (nextTrack, getPlayingTrackIndex())
-    }
-    
-    func previousTrack() -> (playingTrack: Track?, playingTrackIndex: Int?) {
-        
-        let prevTrack = playlist.previous(playingTrack, repeatMode: repeatMode, shuffleMode: shuffleMode)
-        
-        if (prevTrack != nil) {
-            play(prevTrack!)
-        }
-        
-        return (prevTrack, getPlayingTrackIndex())
     }
     
     func getVolume() -> Float {
@@ -567,47 +516,11 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     }
     
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        
-        switch repeatMode {
-            
-        case .off: repeatMode = .one
-        
-        // If repeating one track, cannot also shuffle
-        if (shuffleMode == .on) {
-            shuffleMode = .off
-        }
-        case .one: repeatMode = .all
-        case .all: repeatMode = .off
-            
-        }
-        
-        // Invalidate the shuffle sequence (if there is one), and prepare the next track for playback
-        playlist.clearShuffleSequence()
-//        prepForNextTrack()
-        
-        return (repeatMode, shuffleMode)
+        return playlist.toggleRepeatMode()
     }
     
     func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        
-        switch shuffleMode {
-            
-        case .off: shuffleMode = .on
-        
-        // Can't shuffle and repeat one track
-        if (repeatMode == .one) {
-            repeatMode = .off
-        }
-            
-        case .on: shuffleMode = .off
-            
-        }
-        
-        // Invalidate the shuffle sequence (if there is one), and prepare the next track for playback
-        playlist.clearShuffleSequence()
-//        prepForNextTrack()
-        
-        return (repeatMode, shuffleMode)
+        return playlist.toggleShuffleMode()
     }
     
     func startRecording(_ format: RecordingFormat) {
@@ -634,10 +547,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         return player.getRecordingDuration()
     }
     
-    func getPlayerState() -> SavedPlayerState? {
-        return playerState
-    }
-    
     func tearDown() {
         
         player.tearDown()
@@ -645,8 +554,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         // Save player state
         let state = player.getPlayerState()
         
-        state.repeatMode = repeatMode
-        state.shuffleMode = shuffleMode
+        state.repeatMode = playlist.getRepeatMode()
+        state.shuffleMode = playlist.getShuffleMode()
         
         // Read playlist
         for track in playlist.getTracks() {
@@ -670,19 +579,18 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         // Do not accept duplicate/old events
         if (PlaybackSession.isCurrent(_evt.session)) {
             
-            PlaybackSession.invalidate()
-        
-            player.stop()
+            // Stop playback of the old track
+            stopPlayback()
             
             // Continue the playback sequence
-            let newTrackInfo = continuePlaying()
+            continuePlaying()
             
-            let trackChangedEvent = TrackChangedEvent(newTrack: playingTrack, newTrackIndex: newTrackInfo.playingTrackIndex)
+            let trackChangedEvent = TrackChangedEvent(playingTrack)
             
             if (playingTrack != nil) {
                 playbackState = .playing
             } else {
-                playbackState = .noFile
+                playbackState = .noTrack
             }
             
             // Notify the UI about this track change event
@@ -696,5 +604,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     
     func sortPlaylist(sort: Sort) {
         playlist.sortPlaylist(sort: sort)
+        
+        // Update playing track index (which may have changed)
+        playingTrack?.index = playlist.cursor()
     }
 }

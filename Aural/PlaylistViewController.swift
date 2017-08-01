@@ -16,8 +16,9 @@ class PlaylistViewController: NSViewController, NSTableViewDataSource, NSTableVi
     // Each playlist view row contains one track, with name and duration
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
         
-        let trackName = playlist.getTrackAt(row)?.shortDisplayName
-        let duration = Utils.formatDuration((playlist.getTrackAt(row)?.duration)!)
+        let track = (playlist.getTrackAt(row)?.track)!
+        let trackName = track.shortDisplayName
+        let duration = Utils.formatDuration((track.duration)!)
         
         let view = PlaylistSongView()
         view.trackName = trackName
