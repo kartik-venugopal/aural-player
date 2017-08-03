@@ -83,14 +83,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var btnPitchBypass: NSButton!
     @IBOutlet weak var pitchSlider: NSSlider!
     @IBOutlet weak var pitchOverlapSlider: NSSlider!
+    @IBOutlet weak var lblPitchValue: NSTextField!
+    @IBOutlet weak var lblPitchOverlapValue: NSTextField!
     
     // Time controls
     @IBOutlet weak var timeSlider: NSSlider!
+    @IBOutlet weak var timeOverlapSlider:
+    NSSlider!
+    @IBOutlet weak var lblTimeStretchRateValue: NSTextField!
+    @IBOutlet weak var lblTimeOverlapValue: NSTextField!
     
     // Reverb controls
     @IBOutlet weak var btnReverbBypass: NSButton!
     @IBOutlet weak var reverbMenu: NSPopUpButton!
     @IBOutlet weak var reverbSlider: NSSlider!
+    @IBOutlet weak var lblReverbAmountValue: NSTextField!
     
     // Delay controls
     @IBOutlet weak var btnDelayBypass: NSButton!
@@ -100,15 +107,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var delayCutoffSlider: NSSlider!
     @IBOutlet weak var delayFeedbackSlider: NSSlider!
     
+    @IBOutlet weak var lblDelayTimeValue: NSTextField!
+    @IBOutlet weak var lblDelayAmountValue: NSTextField!
+    @IBOutlet weak var lblDelayFeedbackValue: NSTextField!
+    @IBOutlet weak var lblDelayLowPassCutoffValue: NSTextField!
+    
     // Filter controls
     @IBOutlet weak var btnFilterBypass: NSButton!
     @IBOutlet weak var filterBassSlider: RangeSlider!
     @IBOutlet weak var filterMidSlider: RangeSlider!
     @IBOutlet weak var filterTrebleSlider: RangeSlider!
     
+    @IBOutlet weak var lblFilterBassRange: NSTextField!
+    @IBOutlet weak var lblFilterMidRange: NSTextField!
+    @IBOutlet weak var lblFilterTrebleRange: NSTextField!
+    
     // Recorder controls
     @IBOutlet weak var btnRecord: NSButton!
     @IBOutlet weak var lblRecorderDuration: NSTextField!
+    @IBOutlet weak var lblRecorderFileSize: NSTextField!
+    @IBOutlet weak var recordingInfoBox: NSBox!
     
     // Parametric equalizer controls
     @IBOutlet weak var eqGlobalGainSlider: NSSlider!
@@ -208,7 +226,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         playlistCollapsibleView = CollapsibleView(views: [playlistBox, playlistControlsBox])
         fxCollapsibleView = CollapsibleView(views: [fxBox])
         
-        recorderTimer = ScheduledTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
+        recorderTimer = ScheduledTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingInfo()}, queue: GCDDispatchQueue(queueType: QueueType.main))
         
         searchPanel.titlebarAppearsTransparent = true
         sortPanel.titlebarAppearsTransparent = true
@@ -240,9 +258,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         }
         
         tabViewButtons = [eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton]
-        
-        // Select EQ by default
-        eqTabViewAction(self)
     }
     
     func initStatefulUI(_ playerState: SavedPlayerState) {
@@ -256,7 +271,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         }
         
         // Set sliders to reflect player state
-        volumeSlider.floatValue = playerState.volume * 100
+        volumeSlider.floatValue = playerState.volume * AppConstants.volumeConversion_playerToUI
         setVolumeImage(playerState.muted)
         panSlider.floatValue = playerState.balance
         
@@ -282,12 +297,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         btnPitchBypass.image = playerState.pitchBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         (pitchTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !playerState.pitchBypass
-        pitchSlider.floatValue = playerState.pitch / 1200
+        
+        let octaves = playerState.pitch * AppConstants.pitchConversion_playerToUI
+        pitchSlider.floatValue = octaves
+        lblPitchValue.stringValue = ValueFormatter.formatPitch(octaves)
+        
         pitchOverlapSlider.floatValue = playerState.pitchOverlap
+        lblPitchOverlapValue.stringValue = ValueFormatter.formatOverlap(playerState.pitchOverlap)
         
         btnTimeBypass.image = playerState.timeBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         (timeTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !playerState.timeBypass
+        
         timeSlider.floatValue = playerState.timeStretchRate
+        lblTimeStretchRateValue.stringValue = ValueFormatter.formatTimeStretchRate(playerState.timeStretchRate)
+        
+        timeOverlapSlider.floatValue = playerState.timeOverlap
+        lblTimeOverlapValue.stringValue = ValueFormatter.formatOverlap(playerState.timeOverlap)
         
         btnReverbBypass.image = playerState.reverbBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         (reverbTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !playerState.reverbBypass
@@ -300,31 +325,48 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             }
         }
         reverbSlider.floatValue = playerState.reverbAmount
+        lblReverbAmountValue.stringValue = ValueFormatter.formatReverbAmount(playerState.reverbAmount)
         
         btnDelayBypass.image = playerState.delayBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         (delayTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !playerState.delayBypass
+        
         delayAmountSlider.floatValue = playerState.delayAmount
+        lblDelayAmountValue.stringValue = ValueFormatter.formatDelayAmount(playerState.delayAmount)
+        
         delayTimeSlider.doubleValue = playerState.delayTime
+        lblDelayTimeValue.stringValue = ValueFormatter.formatDelayTime(playerState.delayTime)
+        
         delayFeedbackSlider.floatValue = playerState.delayFeedback
+        lblDelayFeedbackValue.stringValue = ValueFormatter.formatDelayFeedback(playerState.delayFeedback)
+        
         delayCutoffSlider.floatValue = playerState.delayLowPassCutoff
+        lblDelayLowPassCutoffValue.stringValue = ValueFormatter.formatDelayLowPassCutoff(playerState.delayLowPassCutoff)
         
         btnFilterBypass.image = playerState.filterBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         (filterTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !playerState.filterBypass
+        
         filterBassSlider.start = Double(playerState.filterBassMin)
         filterBassSlider.end = Double(playerState.filterBassMax)
+        lblFilterBassRange.stringValue = ValueFormatter.formatFilterFrequencyRange(playerState.filterBassMin, playerState.filterBassMax)
+        
         filterMidSlider.start = Double(playerState.filterMidMin)
         filterMidSlider.end = Double(playerState.filterMidMax)
+        lblFilterMidRange.stringValue = ValueFormatter.formatFilterFrequencyRange(playerState.filterMidMin, playerState.filterMidMax)
+        
         filterTrebleSlider.start = Double(playerState.filterTrebleMin)
         filterTrebleSlider.end = Double(playerState.filterTrebleMax)
+        lblFilterTrebleRange.stringValue = ValueFormatter.formatFilterFrequencyRange(playerState.filterTrebleMin, playerState.filterTrebleMax)
         
         for btn in tabViewButtons! {
             (btn.cell as! EffectsUnitButtonCell).highlightColor = btn === recorderTabViewButton ? Colors.tabViewRecorderButtonHighlightColor : Colors.tabViewEffectsButtonHighlightColor
             btn.needsDisplay = true
         }
+
+        // Select EQ by default
+        eqTabViewAction(self)
         
+        // Don't select any items from the EQ presets menu
         eqPresets.selectItem(at: -1)
-        
-        fxTabView.selectTabViewItem(at: 0)
         
         playlistView.reloadData()
         updatePlaylistSummary()
@@ -767,6 +809,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBAction func savePlaylistAction(_ sender: AnyObject) {
         
+        TimerUtils.printStats()
+        
         // Make sure there is at least one track to save
         if (player.getPlaylistSummary().numTracks > 0) {
             
@@ -802,11 +846,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     @IBAction func pitchAction(_ sender: AnyObject) {
-        player.setPitch(pitchSlider.floatValue)
+        
+        let pitchValueStr = player.setPitch(pitchSlider.floatValue)
+        lblPitchValue.stringValue = pitchValueStr
     }
     
     @IBAction func pitchOverlapAction(_ sender: AnyObject) {
-        player.setPitchOverlap(pitchOverlapSlider.floatValue)
+        let pitchOverlapValueStr = player.setPitchOverlap(pitchOverlapSlider.floatValue)
+        lblPitchOverlapValue.stringValue = pitchOverlapValueStr
     }
     
     @IBAction func timeBypassAction(_ sender: AnyObject) {
@@ -834,7 +881,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBAction func timeStretchAction(_ sender: AnyObject) {
         
-        player.setTimeStretchRate(timeSlider.floatValue)
+        let rateValueStr = player.setTimeStretchRate(timeSlider.floatValue)
+        lblTimeStretchRateValue.stringValue = rateValueStr
         
         let timeStretchActive = !player.isTimeBypass()
         if (timeStretchActive) {
@@ -849,6 +897,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
                 setSeekTimerState(true)
             }
         }
+    }
+    
+    @IBAction func timeOverlapAction(_ sender: Any) {
+        
+        let timeOverlapValueStr = player.setTimeOverlap(timeOverlapSlider.floatValue)
+        lblTimeOverlapValue.stringValue = timeOverlapValueStr
     }
     
     @IBAction func reverbBypassAction(_ sender: AnyObject) {
@@ -869,7 +923,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     @IBAction func reverbAmountAction(_ sender: AnyObject) {
-        player.setReverbAmount(reverbSlider.floatValue)
+        let reverbAmountValueStr = player.setReverbAmount(reverbSlider.floatValue)
+        lblReverbAmountValue.stringValue = reverbAmountValueStr
     }
     
     @IBAction func delayBypassAction(_ sender: AnyObject) {
@@ -883,19 +938,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     @IBAction func delayAmountAction(_ sender: AnyObject) {
-        player.setDelayAmount(delayAmountSlider.floatValue)
+        let delayAmountValueStr = player.setDelayAmount(delayAmountSlider.floatValue)
+        lblDelayAmountValue.stringValue = delayAmountValueStr
     }
     
     @IBAction func delayTimeAction(_ sender: AnyObject) {
-        player.setDelayTime(delayTimeSlider.doubleValue)
+        let delayTimeValueStr = player.setDelayTime(delayTimeSlider.doubleValue)
+        lblDelayTimeValue.stringValue = delayTimeValueStr
     }
     
     @IBAction func delayFeedbackAction(_ sender: AnyObject) {
-        player.setDelayFeedback(delayFeedbackSlider.floatValue)
+        let delayFeedbackValueStr = player.setDelayFeedback(delayFeedbackSlider.floatValue)
+        lblDelayFeedbackValue.stringValue = delayFeedbackValueStr
     }
     
     @IBAction func delayCutoffAction(_ sender: AnyObject) {
-        player.setDelayLowPassCutoff(delayCutoffSlider.floatValue)
+        let delayCutoffValueStr = player.setDelayLowPassCutoff(delayCutoffSlider.floatValue)
+        lblDelayLowPassCutoffValue.stringValue = delayCutoffValueStr
     }
     
     @IBAction func filterBypassAction(_ sender: AnyObject) {
@@ -1078,9 +1137,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         let isRecording: Bool = btnRecord.image == UIConstants.imgRecorderStop
         
         if (isRecording) {
+            
             player.stopRecording()
             btnRecord.image = UIConstants.imgRecord
-            lblRecorderDuration.stringValue = UIConstants.zeroDurationString
             recorderTimer?.pause()
             
             (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = false
@@ -1088,12 +1147,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             
             // TODO: Make this wait until the (async) stopping is complete ... respond to an event notification
             saveRecording()
+            recordingInfoBox.isHidden = true
+            
         } else {
             
             // Only AAC format works for now
             player.startRecording(RecordingFormat.aac)
             btnRecord.image = UIConstants.imgRecorderStop
             recorderTimer?.startOrResume()
+            lblRecorderDuration.stringValue = UIConstants.zeroDurationString
+            lblRecorderFileSize.stringValue = Size.ZERO.toString()
+            recordingInfoBox.isHidden = false
             
             (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
             recorderTabViewButton.needsDisplay = true
@@ -1114,10 +1178,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         }
     }
     
-    func updateRecordingTime() {
+    func updateRecordingInfo() {
         
-        let recDuration = player.getRecordingDuration()
-        lblRecorderDuration.stringValue = Utils.formatDuration(recDuration)
+        let recInfo = player.getRecordingInfo()
+        lblRecorderDuration.stringValue = Utils.formatDuration(recInfo.duration)
+        lblRecorderFileSize.stringValue = recInfo.fileSize.toString()
     }
     
     
@@ -1382,15 +1447,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     func filterBassChanged() {
-        player.setFilterBassBand(Float(filterBassSlider.start), Float(filterBassSlider.end))
+        let filterBassRangeStr = player.setFilterBassBand(Float(filterBassSlider.start), Float(filterBassSlider.end))
+        lblFilterBassRange.stringValue = filterBassRangeStr
     }
     
     func filterMidChanged() {
-        player.setFilterMidBand(Float(filterMidSlider.start), Float(filterMidSlider.end))
+        let filterMidRangeStr = player.setFilterMidBand(Float(filterMidSlider.start), Float(filterMidSlider.end))
+        lblFilterMidRange.stringValue = filterMidRangeStr
     }
     
     func filterTrebleChanged() {
-        player.setFilterTrebleBand(Float(filterTrebleSlider.start), Float(filterTrebleSlider.end))
+        let filterTrebleRangeStr = player.setFilterTrebleBand(Float(filterTrebleSlider.start), Float(filterTrebleSlider.end))
+        lblFilterTrebleRange.stringValue = filterTrebleRangeStr
     }
     
     @IBAction func eqTabViewAction(_ sender: Any) {

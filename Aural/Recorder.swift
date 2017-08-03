@@ -7,9 +7,6 @@ import AVFoundation
 
 class Recorder {
    
-    // The file format of the recording
-    fileprivate var format: RecordingFormat = .aac
-    
     // The audio engine that is to be tapped for recording data
     fileprivate var audioEngine: AVAudioEngine
     
@@ -74,13 +71,17 @@ class Recorder {
         }
     }
     
-    func getRecordingDuration() -> Double {
+    func getRecordingInfo() -> RecordingInfo {
         
         // Duration = now - startTime
         let now = Date()
-        return now.timeIntervalSince(recordingStartTime!)
+        let duration = now.timeIntervalSince(recordingStartTime!)
+        let size = Utils.sizeOfFile(path: tempRecordingFilePath!)
+        
+        return RecordingInfo(duration, size)
     }
     
+    // Deletes the temporary recording file if the user discards the recording when prompted to save it
     func deleteRecording() {
         do {
             try FileManager.default.removeItem(atPath: tempRecordingFilePath!)

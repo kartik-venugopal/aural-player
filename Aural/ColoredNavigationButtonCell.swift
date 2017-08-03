@@ -1,3 +1,7 @@
+/*
+ Customizes the look n feel of navigation buttons (previous/next result) on the search modal dialog
+ */
+
 import Cocoa
 
 class ColoredNavigationButtonCell: NSButtonCell {

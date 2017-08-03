@@ -1,3 +1,8 @@
+/*
+ Customizes the look n feel of check and radio buttons on all modal dialogs
+ */
+
+
 import Cocoa
 
 class CheckRadioButtonCell: NSButtonCell {

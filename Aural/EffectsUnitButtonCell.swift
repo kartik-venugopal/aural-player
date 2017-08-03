@@ -1,10 +1,14 @@
+/*
+    Customizes the look and feel of buttons that control the effects tab view
+ */
+
 import Cocoa
 
 class EffectsUnitButtonCell: NSButtonCell {
     
     // Highlighting colors the button text to indicate that the effects unit represented by this button is currently active
     var shouldHighlight: Bool = false
-    var highlightColor: NSColor = Colors.tabViewTextColor
+    var highlightColor: NSColor = Colors.tabViewButtonTextColor
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
 
@@ -16,7 +20,7 @@ class EffectsUnitButtonCell: NSButtonCell {
         // Draw border
         let drawRect = cellFrame.insetBy(dx: 1, dy: 1)
         let roundedPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 2, yRadius: 2)
-        Colors.tabViewOutlineColor.setStroke()
+        Colors.tabViewButtonOutlineColor.setStroke()
         roundedPath.lineWidth = 1.5
         roundedPath.stroke()
         
@@ -28,7 +32,7 @@ class EffectsUnitButtonCell: NSButtonCell {
         }
 
         // Draw the title
-        let textColor = shouldHighlight ? highlightColor : (state == 0 ? Colors.tabViewTextColor : Colors.playlistSelectedTextColor)
+        let textColor = shouldHighlight ? highlightColor : (state == 0 ? Colors.tabViewButtonTextColor : Colors.playlistSelectedTextColor)
         let attrs: [String: AnyObject] = [
             NSFontAttributeName: UIConstants.tabViewButtonFont,
             NSForegroundColorAttributeName: textColor]

@@ -6,38 +6,37 @@ import Cocoa
 
 class EQSliderCell: NSSliderCell {
     
-    // Computes where to draw the 0db line across the middle of the bar
-    fileprivate func getZeroDBLinePoints() -> (pt1: NSPoint, pt2: NSPoint) {
-        
-        let bar = barRect(flipped: false).insetBy(dx: 1.5, dy: 1.5)
-        
-        let x1 = bar.origin.x - 2.5
-        let x2 = bar.origin.x + bar.width + 2.5
-        let y = bar.origin.y + (bar.height / 2)
-        
-        let pt1 = NSPoint(x: x1, y: y), pt2 = NSPoint(x: x2, y: y)
-        return (pt1, pt2)
-    }
-    
     override internal func drawKnob(_ knobRect: NSRect) {
         
-        let drawRect = knobRect.insetBy(dx: 3.75, dy: 1)
+        let rectHeight = knobRect.height
+        let bar = barRect(flipped: true)
+        let yCenter = knobRect.minY + (rectHeight / 2)
         
-        Colors.eqSliderKnobColor.setFill()
-        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 1.5, yRadius: 1.5)
-        drawPath.fill()
+        let knobHeight: CGFloat = 13, knobWidth: CGFloat = bar.width + 2
+        let knobMinY = yCenter - (knobHeight / 2)
+        let rect = NSRect(x: bar.minX - ((knobWidth - bar.width) / 2), y: knobMinY, width: knobWidth, height: knobHeight)
+        
+        let knobPath = NSBezierPath(roundedRect: rect, xRadius: 0.5, yRadius: 0.5)
+        Colors.sliderKnobColor.setFill()
+        knobPath.fill()
     }
     
-    override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
-        
-        let drawRect = aRect.insetBy(dx: 0, dy: 0)
+    override internal func drawBar(inside drawRect: NSRect, flipped: Bool) {
         
         let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 1, yRadius: 1)
         Colors.sliderBarGradient.draw(in: drawPath, angle: 180)
         
-        let zeroDbLinePoints = getZeroDBLinePoints()
+        // Draw one tick across the center of the bar (marking 0dB)
+        let tickMinX = drawRect.minX + 1
+        let tickMaxX = drawRect.maxX - 1
         
-        // Draw 0db marker line across the middle of the bar
-        GraphicsUtils.drawLine(NSColor.black, pt1: zeroDbLinePoints.pt1, pt2: zeroDbLinePoints.pt2, width: 2)
+        let tickRect = rectOfTickMark(at: 0)
+        let y = (tickRect.minY + tickRect.maxY) / 2
+        
+        GraphicsUtils.drawLine(Colors.effectsSliderNotchColor, pt1: NSMakePoint(tickMinX, y), pt2: NSMakePoint(tickMaxX, y), width: 2)
+    }
+    
+    override func drawTickMarks() {
+        // Do nothing (ticks are drawn in drawBar)
     }
 }

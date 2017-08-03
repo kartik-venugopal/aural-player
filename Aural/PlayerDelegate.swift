@@ -5,7 +5,7 @@ import Cocoa
  
  See AuralPlayerDelegate, AuralSoundTuningDelegate, and EventSubscriber protocols to learn more about the public functions implemented here.
  */
-class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, EventSubscriber {
+class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSoundTuningDelegate, AuralRecorderDelegate, EventSubscriber {
     
     // Time in seconds for seeking forward/backward
     private static let SEEK_TIME: Double = 5
@@ -354,25 +354,25 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, EventSu
     }
     
     func getVolume() -> Float {
-        return round(player.getVolume() * 100)
+        return round(player.getVolume() * AppConstants.volumeConversion_playerToUI)
     }
     
     func setVolume(_ volumePercentage: Float) {
-        player.setVolume(volumePercentage / 100)
+        player.setVolume(volumePercentage * AppConstants.volumeConversion_UIToPlayer)
     }
     
     func increaseVolume() -> Float {
         let curVolume = player.getVolume()
         let newVolume = min(1, curVolume + PlayerDelegate.VOLUME_DELTA)
         player.setVolume(newVolume)
-        return round(newVolume * 100)
+        return round(newVolume * AppConstants.volumeConversion_playerToUI)
     }
     
     func decreaseVolume() -> Float {
         let curVolume = player.getVolume()
         let newVolume = max(0, curVolume - PlayerDelegate.VOLUME_DELTA)
         player.setVolume(newVolume)
-        return round(newVolume * 100)
+        return round(newVolume * AppConstants.volumeConversion_playerToUI)
     }
     
     func toggleMute() -> Bool {
@@ -446,13 +446,15 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, EventSu
         return player.togglePitchBypass()
     }
     
-    func setPitch(_ pitch: Float) {
+    func setPitch(_ pitch: Float) -> String {
         // Convert from octaves (-2, 2) to cents (-2400, 2400)
-        player.setPitch(pitch * 1200)
+        player.setPitch(pitch * AppConstants.pitchConversion_UIToPlayer)
+        return ValueFormatter.formatPitch(pitch)
     }
     
-    func setPitchOverlap(_ overlap: Float) {
+    func setPitchOverlap(_ overlap: Float) -> String {
         player.setPitchOverlap(overlap)
+        return ValueFormatter.formatOverlap(overlap)
     }
     
     func toggleTimeBypass() -> Bool {
@@ -463,8 +465,14 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, EventSu
         return player.isTimeBypass()
     }
     
-    func setTimeStretchRate(_ rate: Float) {
+    func setTimeStretchRate(_ rate: Float) -> String {
         player.setTimeStretchRate(rate)
+        return ValueFormatter.formatTimeStretchRate(rate)
+    }
+    
+    func setTimeOverlap(_ overlap: Float) -> String {
+        player.setTimeOverlap(overlap)
+        return ValueFormatter.formatOverlap(overlap)
     }
     
     func toggleReverbBypass() -> Bool {
@@ -475,44 +483,52 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, EventSu
         player.setReverb(preset)
     }
     
-    func setReverbAmount(_ amount: Float) {
-        return player.setReverbAmount(amount)
+    func setReverbAmount(_ amount: Float) -> String {
+        player.setReverbAmount(amount)
+        return ValueFormatter.formatReverbAmount(amount)
     }
     
     func toggleDelayBypass() -> Bool {
         return player.toggleDelayBypass()
     }
     
-    func setDelayAmount(_ amount: Float) {
+    func setDelayAmount(_ amount: Float) -> String {
         player.setDelayAmount(amount)
+        return ValueFormatter.formatDelayAmount(amount)
     }
     
-    func setDelayTime(_ time: Double) {
+    func setDelayTime(_ time: Double) -> String {
         player.setDelayTime(time)
+        return ValueFormatter.formatDelayTime(time)
     }
     
-    func setDelayFeedback(_ percent: Float) {
+    func setDelayFeedback(_ percent: Float) -> String {
         player.setDelayFeedback(percent)
+        return ValueFormatter.formatDelayFeedback(percent)
     }
     
-    func setDelayLowPassCutoff(_ cutoff: Float) {
+    func setDelayLowPassCutoff(_ cutoff: Float) -> String {
         player.setDelayLowPassCutoff(cutoff)
+        return ValueFormatter.formatDelayLowPassCutoff(cutoff)
     }
     
     func toggleFilterBypass() -> Bool {
         return player.toggleFilterBypass()
     }
     
-    func setFilterBassBand(_ min: Float, _ max: Float) {
+    func setFilterBassBand(_ min: Float, _ max: Float) -> String {
         player.setFilterBassBand(min, max)
+        return ValueFormatter.formatFilterFrequencyRange(min, max)
     }
     
-    func setFilterMidBand(_ min: Float, _ max: Float) {
+    func setFilterMidBand(_ min: Float, _ max: Float) -> String {
         player.setFilterMidBand(min, max)
+        return ValueFormatter.formatFilterFrequencyRange(min, max)
     }
     
-    func setFilterTrebleBand(_ min: Float, _ max: Float) {
+    func setFilterTrebleBand(_ min: Float, _ max: Float) -> String {
         player.setFilterTrebleBand(min, max)
+        return ValueFormatter.formatFilterFrequencyRange(min, max)
     }
     
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
@@ -543,8 +559,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, EventSu
         }
     }
     
-    func getRecordingDuration() -> Double {
-        return player.getRecordingDuration()
+    func getRecordingInfo() -> RecordingInfo {
+        return player.getRecordingInfo()
     }
     
     func tearDown() {

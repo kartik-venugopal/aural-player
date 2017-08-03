@@ -68,6 +68,9 @@ class Size: NSObject {
             sizeUnit = SizeUnit.kb
             return
         }
+        
+        size = Double(sizeBytes)
+        sizeUnit = SizeUnit.b
     }
     
     fileprivate func calculateSizeFromUnit() {
@@ -84,7 +87,11 @@ class Size: NSObject {
     }
     
     func toString() -> String {
-        return String(format: "%.2lf %@", size, sizeUnit.toString)
+        if (sizeUnit == .b) {
+            return String(format: "%d %@", UInt(size), sizeUnit.toString)
+        } else {
+            return String(format: "%.2lf %@", size, sizeUnit.toString)
+        }
     }
     
     func greaterThan(_ otherSize: Size) -> Bool {

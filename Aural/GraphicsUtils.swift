@@ -37,8 +37,22 @@ class GraphicsUtils {
         strokeColor.setStroke()
         fillColor.setFill()
         
-        arrow.lineWidth = 1.5
+        arrow.lineWidth = 1
         arrow.fill()
         arrow.stroke()
+    }
+    
+    static func drawText(_ text: String, _ origin: NSPoint, _ textColor: NSColor, _ font: NSFont) {
+        
+        let attrs: [String: AnyObject] = [
+            NSFontAttributeName: font,
+            NSForegroundColorAttributeName: textColor]
+        
+        let size: CGSize = text.size(withAttributes: attrs)
+        let sx = origin.x
+        let sy = origin.y
+        
+        let textRect = NSRect(x: sx, y: sy, width: size.width, height: size.height)
+        text.draw(in: textRect, withAttributes: attrs)
     }
 }

@@ -1,83 +1,107 @@
 /*
-    Customizes the look and feel of the Time stretch and Pan sliders
-*/
+ Customizes the look and feel of all ticked horizonatl sliders
+ */
 
 import Cocoa
 
-class TimeSliderCell: NSSliderCell {
+class PanSliderCell: NSSliderCell {
     
-    // Top and bottom of tick
-    private static let tickMinY: CGFloat = 20
-    private static let tickMaxY: CGFloat = 25
+    override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
+        
+        let drawPath = NSBezierPath.init(roundedRect: aRect, xRadius: 1, yRadius: 1)
+        Colors.sliderBarGradient.draw(in: drawPath, angle: -verticalGradientDegrees)
+        
+        let ticksCount = self.numberOfTickMarks
+        let tickMinY = aRect.minY + 1
+        let tickMaxY = aRect.maxY - 1
+        
+        for i in 1...ticksCount - 2 {
+            
+            let tickRect = rectOfTickMark(at: i)
+            let x = (tickRect.minX + tickRect.maxX) / 2
+            
+            GraphicsUtils.drawLine(Colors.effectsSliderNotchColor, pt1: NSMakePoint(x, tickMinY), pt2: NSMakePoint(x, tickMaxY), width: 2)
+        }
+    }
+    
+    override func drawTickMarks() {
+        // Do nothing (ticks are drawn in drawBar)
+    }
     
     override internal func drawKnob(_ knobRect: NSRect) {
         
-        let rectWidth = knobRect.maxX - knobRect.minX, rectHeight = knobRect.maxY - knobRect.minY
+        let rectWidth = knobRect.width
+        let bar = barRect(flipped: true)
+        let xCenter = knobRect.minX + (rectWidth / 2)
         
-        let bar = barRect(flipped: false).insetBy(dx: 1.5, dy: 0)
-        let yDiff = knobRect.maxY - bar.maxY
+        let knobWidth: CGFloat = 7, knobHeight: CGFloat = bar.height + 1
+        let knobMinX = xCenter - (knobWidth / 2)
+        let rect = NSRect(x: knobMinX, y: bar.minY - ((knobHeight - bar.height) / 2), width: knobWidth, height: knobHeight)
         
-        let knobHeight = (rectHeight - yDiff) * 0.7
-        let x = knobRect.minX + (rectWidth / 2), y: CGFloat = rectHeight * 0.7 + 2.5
-        
-        GraphicsUtils.drawAndFillArrow(Colors.timeSliderKnobStrokeColor, Colors.timeSliderKnobColor, origin: NSMakePoint(x, y), dx: rectWidth / 4, dy: knobHeight)
-    }
-    
-    // Draws slider bar and ticks
-    override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
-        
-        let drawRect = aRect.insetBy(dx: 1.5, dy: 0)
-        
-        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 1.5, yRadius: 1.5)
-        Colors.sliderBarGradient.draw(in: drawPath, angle: -verticalGradientDegrees)
-        
-        // Calculate width of drawing rect for ticks
-        let rectMinX = drawRect.origin.x + 6
-        let rectMaxX = drawRect.origin.x + drawRect.width - 6
-        let width = rectMaxX - rectMinX
-        
-        // Draw 16 ticks
-        for i in 0...15 {
-            
-            let x = rectMinX + (CGFloat(i) * width / 15)
-            
-            GraphicsUtils.drawLine(Colors.boxTextColor, pt1: NSMakePoint(x, TimeSliderCell.tickMinY), pt2: NSMakePoint(x, TimeSliderCell.tickMaxY), width: 1)
-        }
+        let knobPath = NSBezierPath(roundedRect: rect, xRadius: 0.5, yRadius: 0.5)
+        Colors.sliderKnobColor.setFill()
+        knobPath.fill()
     }
 }
 
-class PanSliderCell: NSSliderCell {
+class EffectsTickedSliderCell: EffectsSliderCell {
+    
+    override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
+        
+        super.drawBar(inside: aRect, flipped: flipped)
+        
+        let ticksCount = self.numberOfTickMarks
+        let tickMinY = aRect.minY + 1.5
+        let tickMaxY = aRect.maxY - 1.5
+        
+        if (ticksCount > 2) {
+            
+            for i in 1...ticksCount - 2 {
+                
+                let tickRect = rectOfTickMark(at: i)
+                let x = (tickRect.minX + tickRect.maxX) / 2
+                
+                GraphicsUtils.drawLine(Colors.effectsSliderNotchColor, pt1: NSMakePoint(x, tickMinY), pt2: NSMakePoint(x, tickMaxY), width: 1.5)
+            }
+        } else if (ticksCount == 1) {
+            
+            let tickRect = rectOfTickMark(at: 0)
+            let x = (tickRect.minX + tickRect.maxX) / 2
+            
+            GraphicsUtils.drawLine(Colors.effectsSliderNotchColor, pt1: NSMakePoint(x, tickMinY), pt2: NSMakePoint(x, tickMaxY), width: 2)
+        }
+    }
+    
+    override func drawTickMarks() {
+        // Do nothing (ticks are drawn in drawBar)
+    }
+}
+
+class EffectsSliderCell: NSSliderCell {
     
     override internal func drawKnob(_ knobRect: NSRect) {
         
-        let rectWidth = knobRect.maxX - knobRect.minX, rectHeight = knobRect.maxY - knobRect.minY
+        let rectWidth = knobRect.width
+        let bar = barRect(flipped: true)
+        let xCenter = knobRect.minX + (rectWidth / 2)
         
-        let bar = barRect(flipped: false).insetBy(dx: 1.5, dy: 0)
-        let yDiff = knobRect.maxY - bar.maxY
+        let knobWidth: CGFloat = 10, knobHeight: CGFloat = bar.height + 1
         
-        let x = knobRect.minX + (rectWidth / 2), y: CGFloat = rectHeight - 1
+        let knobMinX = xCenter - (knobWidth / 2)
+        let rect = NSRect(x: knobMinX, y: bar.minY - ((knobHeight - bar.height) / 2), width: knobWidth, height: knobHeight)
         
-        GraphicsUtils.drawAndFillArrow(Colors.timeSliderKnobStrokeColor, Colors.timeSliderKnobColor, origin: NSMakePoint(x, y), dx: rectWidth / 3, dy: rectHeight - yDiff - 2)
+        let knobPath = NSBezierPath(roundedRect: rect, xRadius: 1, yRadius: 1)
+        Colors.sliderKnobColor.setFill()
+        knobPath.fill()
     }
     
-    // Draws slider bar and ticks
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
-        let drawRect = aRect.insetBy(dx: 0, dy: 0)
-        
-        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 1, yRadius: 1)
+        let drawPath = NSBezierPath.init(roundedRect: aRect, xRadius: 1.5, yRadius: 1.5)
         Colors.sliderBarGradient.draw(in: drawPath, angle: -verticalGradientDegrees)
-        
-        // Calculate width of drawing rect for ticks
-        let rectMinX = drawRect.origin.x
-        let rectMaxX = drawRect.origin.x + drawRect.width
-        let width = rectMaxX - rectMinX
-        
-        // Draw center tick
-        let x = rectMinX + (width / 2)
-        
-        let tickMinY: CGFloat = 11, tickMaxY: CGFloat = 15
-            
-        GraphicsUtils.drawLine(Colors.boxTextColor, pt1: NSMakePoint(x, tickMinY), pt2: NSMakePoint(x, tickMaxY), width: 1)
+    }
+    
+    override func barRect(flipped: Bool) -> NSRect {
+        return super.barRect(flipped: flipped).insetBy(dx: 0, dy: -1)
     }
 }

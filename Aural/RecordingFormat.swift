@@ -1,5 +1,7 @@
 /*
     An enumeration of all allowed recording file formats
+ 
+    NOTE - Currently, only AAC is supported. MP3 support is planned.
  */
 
 import Cocoa
@@ -7,6 +9,7 @@ import AVFoundation
 
 enum RecordingFormat {
     
+    // TODO: Add mp3 recording support
     case mp3
     case aac
     

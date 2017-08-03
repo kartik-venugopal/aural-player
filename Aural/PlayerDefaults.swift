@@ -25,6 +25,7 @@ class PlayerDefaults {
     
     static let timeBypass: Bool = true
     static let timeStretchRate: Float = 1
+    static let timeOverlap: Float = 8
     
     static let reverbBypass: Bool = true
     static let reverbPreset: ReverbPresets = .mediumHall

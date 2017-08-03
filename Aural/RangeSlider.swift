@@ -294,7 +294,7 @@ class RangeSlider: NSView {
         get {
             if knobStyle == .square {
                 //                return 8.0
-                return 12.5
+                return 10
             } else {
                 return NSHeight(bounds) - verticalShadowPadding
             }
@@ -490,7 +490,6 @@ class RangeSlider: NSView {
         startSliderPath.stroke()
         
         let knobColor = Colors.sliderKnobColor
-//        let knobColor = NSColor.black
         knobColor.setFill()
         
         startSliderPath.fill()

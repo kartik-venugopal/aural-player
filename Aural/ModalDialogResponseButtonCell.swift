@@ -1,3 +1,7 @@
+/*
+    Customizes the look n feel of response buttons (Done, Cancel, etc) on all modal dialogs
+ */
+
 import Cocoa
 
 class ModalDialogResponseButtonCell: NSButtonCell {

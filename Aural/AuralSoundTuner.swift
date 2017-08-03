@@ -42,7 +42,7 @@ protocol AuralSoundTuner {
     // Sets the pitch shift value, in cents, specified as a value between -2400 and 2400
     func setPitch(_ pitch: Float)
     
-    // Sets the amount of overlap between segments of the input audio signal, specified as a value between 3 and 32
+    // Sets the amount of overlap between segments of the input audio signal into the pitch effects unit, specified as a value between 3 and 32
     func setPitchOverlap(_ overlap: Float)
     
     // Toggles the bypass state of the time audio effect unit, and returns its new bypass state
@@ -53,6 +53,9 @@ protocol AuralSoundTuner {
     
     // Sets the playback rate, specified as a value between 1/32 and 32
     func setTimeStretchRate(_ rate: Float)
+    
+    // Sets the amount of overlap between segments of the input audio signal into the time effects unit, specified as a value between 3 and 32
+    func setTimeOverlap(_ overlap: Float)
     
     // Toggles the bypass state of the reverb audio effect unit, and returns its new bypass state
     func toggleReverbBypass() -> Bool

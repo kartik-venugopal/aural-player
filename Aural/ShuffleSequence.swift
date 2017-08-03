@@ -9,7 +9,7 @@ class ShuffleSequence {
     // Array of playlist track indexes that constitute the shuffle sequence. This array must always be of the same size as the playlist
     var sequence: [Int]
     
-    // The currently playing track index
+    // The index, within this sequence, of the currently playing track index. This is NOT a playlist index.
     var cursor: Int
     
     // capacity = number of tracks in playlist

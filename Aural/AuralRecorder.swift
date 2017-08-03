@@ -9,8 +9,8 @@ protocol AuralRecorder {
     // Starts a recording with the specified format
     func startRecording(_ format: RecordingFormat)
     
-    // Returns the current duration of the active recording, in seconds
-    func getRecordingDuration() -> Double
+    // Returns info for the active recording (if there is one)
+    func getRecordingInfo() -> RecordingInfo
     
     // Stops the current recording
     func stopRecording()

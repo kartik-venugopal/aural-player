@@ -97,6 +97,7 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         // Time
         timeNode.bypass = state.timeBypass
         timeNode.rate = state.timeStretchRate
+        timeNode.overlap = state.timeOverlap
         
         // Reverb
         reverbNode.bypass = state.reverbBypass
@@ -238,6 +239,10 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         timeNode.rate = rate
     }
     
+    func setTimeOverlap(_ overlap: Float) {
+        timeNode.overlap = overlap
+    }
+    
     func toggleReverbBypass() -> Bool {
         let newState = !reverbNode.bypass
         reverbNode.bypass = newState
@@ -338,8 +343,8 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         recorder.deleteRecording()
     }
     
-    func getRecordingDuration() -> Double {
-        return recorder.getRecordingDuration()
+    func getRecordingInfo() -> RecordingInfo {
+        return recorder.getRecordingInfo()
     }
     
     func getPlayerState() -> SavedPlayerState {
@@ -365,6 +370,7 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         // Time
         state.timeBypass = timeNode.bypass
         state.timeStretchRate = timeNode.rate
+        state.timeOverlap = timeNode.overlap
         
         // Reverb
         state.reverbBypass = reverbNode.bypass

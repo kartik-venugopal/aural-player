@@ -1,3 +1,6 @@
+/*
+    Customizes the color of the cursor of a text field
+ */
 import Cocoa
 
 class ColoredCursorSearchField: NSTextField {

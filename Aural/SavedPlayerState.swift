@@ -28,6 +28,7 @@ class SavedPlayerState {
     
     var timeBypass: Bool = PlayerDefaults.timeBypass
     var timeStretchRate: Float = PlayerDefaults.timeStretchRate
+    var timeOverlap: Float = PlayerDefaults.timeOverlap
     
     var reverbBypass: Bool = PlayerDefaults.reverbBypass
     var reverbPreset: ReverbPresets = PlayerDefaults.reverbPreset
@@ -92,6 +93,7 @@ class SavedPlayerState {
         var timeDict = [NSString: AnyObject]()
         timeDict["bypass"] = timeBypass as AnyObject
         timeDict["rate"] = timeStretchRate as NSNumber
+        timeDict["overlap"] = timeOverlap as NSNumber
         dict["time"] = timeDict as AnyObject
         
         var reverbDict = [NSString: AnyObject]()
@@ -167,6 +169,9 @@ class SavedPlayerState {
         if let timeDict = (jsonObject["time"] as? NSDictionary) {
             state.timeBypass = (timeDict["bypass"] as! Bool)
             state.timeStretchRate = (timeDict["rate"] as! NSNumber).floatValue
+            if let timeOverlap = timeDict["overlap"] as? NSNumber {
+                state.timeOverlap = timeOverlap.floatValue
+            }
         }
         
         if let reverbDict = (jsonObject["reverb"] as? NSDictionary) {

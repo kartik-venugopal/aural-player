@@ -18,59 +18,43 @@ class Colors {
     // Color of selected item text inside the playlist
     static let playlistSelectedTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
     
-    static let timeSliderKnobColor: NSColor = sliderKnobColor
-    
-    static let timeSliderKnobStrokeColor: NSColor = NSColor(calibratedWhite: 0.65, alpha: 1)
-    
+    // Fill color of all slider knobs
     static let sliderKnobColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
     
-    static let lightSliderKnobColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
-    
-    static let sliderKnobOutlineColor: NSColor = NSColor.black
-    
+    // Outline color of navigation buttons on modal dialogs
     static let modalDialogNavButtonOutlineColor: NSColor = NSColor(calibratedWhite: 0.65, alpha: 1)
     
+    // Outline color of response (Done/Cancel) buttons on modal dialogs
     static let modalDialogResponseButtonOutlineColor: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
     
-    static let tabViewOutlineColor: NSColor = NSColor(calibratedWhite: 0.65, alpha: 1)
+    // Color used to outline tab view buttons
+    static let tabViewButtonOutlineColor: NSColor = NSColor(calibratedWhite: 0.65, alpha: 1)
     
-    static let tabViewTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
+    // Color used for text in tab view buttons
+    static let tabViewButtonTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
     
-    // Only for EQ slider knobs
-    static let eqSliderKnobColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
+    // Color of the arrow drawn on popup menus
+    static let popupMenuArrowColor: NSColor = NSColor(calibratedWhite: 0.2, alpha: 1)
     
+    // Color of the displayed text in popup menus
+    static let popupMenuTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
+    
+    // Colors used to highlight text in tab view buttons for active effect units
     static let tabViewEffectsButtonHighlightColor: NSColor = NSColor.green
     static let tabViewRecorderButtonHighlightColor: NSColor = NSColor.red
     
+    // Gradient used to fill slider bars
     static let sliderBarGradient: NSGradient = {
         
         let backgroundStart = NSColor(white: 0.6, alpha: 1.0)
         let backgroundEnd =  NSColor(white: 0.4, alpha: 1.0)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        assert(barBackgroundGradient != nil, "Couldn't generate gradient.")
         
         return barBackgroundGradient!
     }()
     
-    static let sliderKnobGradient: NSGradient = {
-        
-        let backgroundStart = NSColor(white: 1, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0.5, alpha: 1.0)
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        assert(barBackgroundGradient != nil, "Couldn't generate gradient.")
-        
-        return barBackgroundGradient!
-    }()
-    
-    static let sliderKnobGradient_reverse: NSGradient = {
-        
-        let backgroundStart = NSColor(white: 0.5, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 1, alpha: 1.0)
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        assert(barBackgroundGradient != nil, "Couldn't generate gradient.")
-        
-        return barBackgroundGradient!
-    }()
+    // Color of the ticks/notches on effects unit sliders
+    static let effectsSliderNotchColor: NSColor = NSColor(calibratedWhite: 0.2, alpha: 1)
     
     // Pop up menu (reverb/EQ/recorder) color
     static let popupMenuColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
