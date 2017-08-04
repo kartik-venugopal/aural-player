@@ -41,6 +41,7 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
     
     fileprivate var recorder: Recorder
     
+    // TODO - This not needed here. Remove it.
     // Currently playing track
     fileprivate var playingTrack: Track?
     
@@ -133,7 +134,7 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         
         startFrame = BufferManager.FRAME_ZERO
         initPlayer(track)
-        bufferManager.play(track.avFile!)
+        bufferManager.play(track)
     }
     
     func pause() {
@@ -319,9 +320,9 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         startFrame = nil
     }
     
-    func seekToTime(_ seconds: Double) {
+    func seekToTime(_ track: Track, _ seconds: Double) {
         
-        let seekResult = bufferManager.seekToTime(seconds)
+        let seekResult = bufferManager.seekToTime(track, seconds)
         if (!seekResult.playbackCompleted) {
             startFrame = seekResult.startFrame!
         }

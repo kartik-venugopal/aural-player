@@ -23,6 +23,9 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     // Currently playing track
     fileprivate var playingTrack: IndexedTrack?
     
+    // Holds a unique set of all tracks that have been prepped for playback. This is needed in order to avoid prepping the same track over and over again. 
+    private var trackPrepRegistry: NSMutableSet
+    
     // See PlaybackState
     fileprivate var playbackState: PlaybackState = .noTrack
     
@@ -37,6 +40,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         self.player = player
         self.playlist = playlist
         self.playerState = playerState
+        self.trackPrepRegistry = NSMutableSet()
         
         EventRegistry.subscribe(EventType.playbackCompleted, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
     }
@@ -52,6 +56,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
                 let index = self.playlist.addTrack(URL(fileURLWithPath: track))
                 if (index >= 0) {
                     self.notifyTrackAdded(index)
+                    self.prepareNextTracksForPlayback()
                 }
             }
         }
@@ -95,7 +100,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             // Playlist
             let loadedPlaylist = PlaylistIO.loadPlaylist(file)
             if (loadedPlaylist != nil) {
-                playlist.addPlaylist(loadedPlaylist!, notifyTrackAdded)
+                playlist.addPlaylist(loadedPlaylist!, {index in self.notifyTrackAdded(index); self.prepareNextTracksForPlayback()})
             }
             
         } else if (AppConstants.supportedAudioFileTypes.contains(fileExtension)) {
@@ -104,6 +109,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             let newTrackIndex = playlist.addTrack(file)
             if (newTrackIndex >= 0) {
                 notifyTrackAdded(newTrackIndex)
+                prepareNextTracksForPlayback()
             }
 
         } else {
@@ -137,6 +143,9 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     
     func removeTrack(_ index: Int) -> Int? {
         
+        let trackAtIndex = playlist.getTrackAt(index)!.track!
+        trackPrepRegistry.remove(trackAtIndex)
+        
         let removingPlayingTrack: Bool = (index == playlist.cursor())
         playlist.removeTrack(index)
         
@@ -148,10 +157,16 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         // Update playing track index (which may have changed)
         playingTrack?.index = playlist.cursor()
         
+        if (playlist.size() > 0) {
+            prepareNextTracksForPlayback()
+        }
+        
         return playlist.cursor()
     }
     
     func moveTrackDown(_ index: Int) -> Int {
+        
+        var newIndex = index
         
         if (index < (playlist.size() - 1)) {
             playlist.shiftTrackDown(index)
@@ -159,13 +174,16 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             // Update playing track index (which may have changed)
             playingTrack?.index = playlist.cursor()
             
-            return index + 1
+            newIndex = index + 1
         }
         
-        return index
+        prepareNextTracksForPlayback()
+        return newIndex
     }
     
     func moveTrackUp(_ index: Int) -> Int {
+        
+        var newIndex = index
         
         if (index > 0) {
             playlist.shiftTrackUp(index)
@@ -173,15 +191,17 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             // Update playing track index (which may have changed)
             playingTrack?.index = playlist.cursor()
             
-            return index - 1
+            newIndex = index - 1
         }
         
-        return index
+        prepareNextTracksForPlayback()
+        return newIndex
     }
     
     func clearPlaylist() {
-        playlist.clear()
         stopPlayback()
+        playlist.clear()
+        trackPrepRegistry.removeAllObjects()
     }
     
     private func stopPlayback() {
@@ -275,6 +295,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         if (track != nil) {
             
             PlaybackSession.start(track!)
+            
+            // TODO: What if this call fails ? Check "prepared" flag ... retry if failed ?
             TrackIO.prepareForPlayback(track!.track!)
             
             // Stop if currently playing
@@ -285,6 +307,54 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             
             player.play(track!.track!)
             playbackState = .playing
+            
+            // Prepare next possible tracks for playback
+            prepareNextTracksForPlayback()
+        }
+    }
+    
+    // Computes which tracks are likely to play next (based on the playback sequence and user actions), and eagerly loads metadata for those tracks in preparation for their future playback. This significantly speeds up playback start time when the track is actually played back.
+    private func prepareNextTracksForPlayback() {
+        
+        // Set of all tracks that need to be prepped
+        let nextTracksSet = NSMutableSet()
+        
+        // The three possible tracks that could play next
+        let peekContinue = self.playlist.peekContinuePlaying()?.track
+        let peekNext = self.playlist.peekNext()?.track
+        let peekPrevious = self.playlist.peekPrevious()?.track
+        
+        // Check if these three tracks have already been prepped. If not, add them to the set to be prepped. Also add them to the registry so that we can "remember" that they've been prepped already.
+        // NOTE - Checking track.preparedForPlayback is not sufficient here, because multiple threads may start prepping the track concurrently, causing contention (and problems).
+        
+        if (peekContinue != nil && !(trackPrepRegistry.contains(peekContinue!))) {
+            nextTracksSet.add(peekContinue!)
+            trackPrepRegistry.add(peekContinue!)
+        }
+        
+        if (peekNext != nil && !(trackPrepRegistry.contains(peekNext!))) {
+            nextTracksSet.add(peekNext!)
+            trackPrepRegistry.add(peekNext!)
+        }
+        
+        if (peekPrevious != nil && !(trackPrepRegistry.contains(peekPrevious!))) {
+            nextTracksSet.add(peekPrevious!)
+            trackPrepRegistry.add(peekPrevious!)
+        }
+        
+        if (nextTracksSet.count > 0) {
+        
+            // Push a task to the global queue for async execution, because reading from disk could be expensive and this info is not needed immediately.
+            DispatchQueue.global(qos: .background).async {
+                
+                for _track in nextTracksSet {
+                    
+                    let track = _track as! Track
+                    TrackIO.prepareForPlayback(track)
+                    
+                    // TODO - Read one small buffer for playback, and cache it
+                }
+            }
         }
     }
     
@@ -322,7 +392,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         let newPosn = min(playingTrack!.track!.duration!, curPosn + PlayerDelegate.SEEK_TIME)
         
         // TODO: If reached end of duration, end it here instead of passing on the request
-        player.seekToTime(newPosn)
+        player.seekToTime(playingTrack!.track!, newPosn)
     }
     
     func seekBackward() {
@@ -336,7 +406,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         let curPosn = player.getSeekPosition()
         let newPosn = max(0, curPosn - PlayerDelegate.SEEK_TIME)
         
-        player.seekToTime(newPosn)
+        player.seekToTime(playingTrack!.track!, newPosn)
     }
     
     func seekToPercentage(_ percentage: Double) {
@@ -350,7 +420,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         // TODO: If reached end of duration, end it here instead of passing on the request
         let newPosn = percentage * playingTrack!.track!.duration! / 100
         
-        player.seekToTime(newPosn)
+        player.seekToTime(playingTrack!.track!, newPosn)
     }
     
     func getVolume() -> Float {
@@ -623,5 +693,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         // Update playing track index (which may have changed)
         playingTrack?.index = playlist.cursor()
+        
+        prepareNextTracksForPlayback()
     }
 }

@@ -10,16 +10,7 @@ class KeyPressHandler {
     // Key code constants
     static let UP_ARROW: UInt16 = 126
     static let DOWN_ARROW: UInt16 = 125
-    static let FORWARD_ARROW: UInt16 = 124
-    static let BACKWARD_ARROW: UInt16 = 123
-    static let LETTER_I: UInt16 = 34
-    static let LETTER_O: UInt16 = 31
-    static let LETTER_R: UInt16 = 15
     static let LETTER_S: UInt16 = 1
-    static let SPACE: UInt16 = 49
-    static let BACKSPACE: UInt16 = 51
-    static let ENTER: UInt16 = 36
-    static let ESC: UInt16 = 53
     
     // Callback reference to AppDelegate so that its UI controls can be manipulated and its functions called
     static var app: AppDelegate?
@@ -38,10 +29,6 @@ class KeyPressHandler {
         if (app.modalDialogOpen()) {
             return
         }
-        
-        // NOTE This is kind of a hack to temporarily avoid up/down arrow key presses triggering unwanted changes in track selection when modifier keys are used with the up/down arrow
-        let responder = app.playlistView.window?.firstResponder
-        app.playlistView.window?.makeFirstResponder(nil)
         
         // Indicate whether or not Shift/Command were pressed
         let isShift: Bool = event.modifierFlags.contains(NSEventModifierFlags.shift)
@@ -73,7 +60,10 @@ class KeyPressHandler {
             app.showPlaylistSelectedRow()
         }
         
-        // Part of the hack mentioned above ... restore the responder for the playlist view so that it may continue receiving key press events
-        app.playlistView.window?.makeFirstResponder(responder)
+        // NOTE - This keyboard shortcut is for debugging purposes only, not inteded for the end user
+        // (Shift + Command + S) Print Timer stats
+        if (isShift && isCommand && event.keyCode == LETTER_S) {
+            TimerUtils.printStats()
+        }
     }
 }

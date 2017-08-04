@@ -77,20 +77,22 @@ class TrackIO {
     // (Lazily) load all the information required to play this track
     static func prepareForPlayback(_ track: Track) {
         
-        if (!track.preparedForPlayback) {
+        if (track.preparedForPlayback) {
+            return
+        }
+        
+        var avFile: AVAudioFile? = nil
+        do {
+            avFile = try AVAudioFile(forReading: track.file! as URL)
             
-            var avFile: AVAudioFile? = nil
-            do {
-                avFile = try AVAudioFile(forReading: track.file! as URL)
-                track.avFile = avFile!
-                track.sampleRate = avFile!.processingFormat.sampleRate
-                
-                track.frames = avFile!.length
-                track.preparedForPlayback = true
-                
-            } catch let error as NSError {
-                NSLog("Error reading track '%@': %@", track.file!.path, error.description)
-            }
+            track.avFile = avFile!
+            track.sampleRate = avFile!.processingFormat.sampleRate
+            track.frames = Int64(track.sampleRate! * track.duration!)
+            
+            track.preparedForPlayback = true
+            
+        } catch let error as NSError {
+            NSLog("Error reading track '%@': %@", track.file!.path, error.description)
         }
     }
     
@@ -144,7 +146,7 @@ class TrackIO {
         codecDetermined = true
         
         // Retrieve extended metadata (ID3)
-        let metadataList = sourceAsset.commonMetadata
+        let metadataList = sourceAsset.metadata
         
         for item in metadataList {
             

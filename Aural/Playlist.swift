@@ -149,13 +149,31 @@ class Playlist {
         return continueIndex == nil ? nil : IndexedTrack(tracks[continueIndex!], continueIndex)
     }
     
+    // Determines which track will play next if continuePlaying() is invoked, if any. This is used to eagerly prep tracks for future playback. Nil return value indicates no track.
+    func peekContinuePlaying() -> IndexedTrack? {
+        let continueIndex = playbackSequence.peekContinuePlaying()
+        return continueIndex == nil ? nil : IndexedTrack(tracks[continueIndex!], continueIndex)
+    }
+    
     func next() -> IndexedTrack? {
         let nextIndex = playbackSequence.next()
         return nextIndex == nil ? nil : IndexedTrack(tracks[nextIndex!], nextIndex)
     }
     
+    // Determines which track will play next if next() is invoked, if any. This is used to eagerly prep tracks for future playback. Nil return value indicates no track.
+    func peekNext() -> IndexedTrack? {
+        let nextIndex = playbackSequence.peekNext()
+        return nextIndex == nil ? nil : IndexedTrack(tracks[nextIndex!], nextIndex)
+    }
+    
     func previous() -> IndexedTrack? {
         let prevIndex = playbackSequence.previous()
+        return prevIndex == nil ? nil : IndexedTrack(tracks[prevIndex!], prevIndex)
+    }
+    
+    // Determines which track will play next if previous() is invoked, if any. This is used to eagerly prep tracks for future playback. Nil return value indicates no track.
+    func peekPrevious() -> IndexedTrack? {
+        let prevIndex = playbackSequence.peekPrevious()
         return prevIndex == nil ? nil : IndexedTrack(tracks[prevIndex!], prevIndex)
     }
     

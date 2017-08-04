@@ -12,8 +12,6 @@ open class TimerUtils {
     fileprivate var timers: [String: [Timer]] = [String: [Timer]]()
     
     static func start(_ tag: String) -> Timer {
-        let timer: Timer = Timer()
-        timer.start()
         
         var timersForTag: [Timer]? = instance.timers[tag]
         
@@ -22,6 +20,8 @@ open class TimerUtils {
             instance.timers[tag] = timersForTag
         }
         
+        let timer: Timer = Timer()
+        timer.start()
         instance.timers[tag]!.append(timer)
         
         return timer
@@ -34,6 +34,21 @@ open class TimerUtils {
             print("\nFor tag '" + tag + "' ...")
             let avg = avgForTimers(timersForTag)
             print("    Count / AvgTime", timersForTag.count, String(format: "%.2lf", avg) + " msec")
+        }
+    }
+    
+    static func printStats(_ forTag: String) {
+        
+        for (tag, timersForTag) in instance.timers {
+            
+            if (tag == forTag) {
+            
+                print("\nFor tag '" + tag + "' ...")
+                let avg = avgForTimers(timersForTag)
+                print("    Count / AvgTime", timersForTag.count, String(format: "%.2lf", avg) + " msec")
+                
+                return
+            }
         }
     }
     

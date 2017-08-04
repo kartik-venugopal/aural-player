@@ -39,7 +39,6 @@ class Track: NSObject {
     // Used for lazy loading
     var preparedForPlayback: Bool = false
     var detailedInfoLoaded: Bool = false
-    
 }
 
 // Wrapper around Track that includes its index in the playlist

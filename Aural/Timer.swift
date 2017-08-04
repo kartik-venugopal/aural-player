@@ -11,7 +11,11 @@ open class Timer: NSObject {
     
     var durationSecs: Double? {
         get {
-            return endTime!.timeIntervalSince(startTime!)
+            if (endTime != nil) {
+                return endTime!.timeIntervalSince(startTime!)
+            } else {
+                return 0
+            }
         }
     }
     

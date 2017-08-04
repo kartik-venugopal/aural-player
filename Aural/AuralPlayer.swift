@@ -21,8 +21,8 @@ protocol AuralPlayer {
     // Stops playback of the currently playing track, in preparation for playback of a new track. Releases all resources associated with the currently playing track.
     func stop()
     
-    // Seeks to a certain time in the currently playing track. Returns a flag indicating whether or not playback of the current track has completed as a result of this seek.
-    func seekToTime(_ seconds: Double)
+    // Seeks to a certain time in the specified track
+    func seekToTime(_ track: Track, _ seconds: Double)
     
     // Gets the playback position (in seconds) of the currently playing track
     func getSeekPosition() -> Double
