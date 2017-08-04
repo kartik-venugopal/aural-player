@@ -386,13 +386,18 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             return
         }
         
-        PlaybackSession.start(playingTrack!)
-        
+        // Calculate the new start position
         let curPosn = player.getSeekPosition()
-        let newPosn = min(playingTrack!.track!.duration!, curPosn + PlayerDelegate.SEEK_TIME)
+        let trackDuration = playingTrack!.track!.duration!
+        let newPosn = min(trackDuration, curPosn + PlayerDelegate.SEEK_TIME)
         
-        // TODO: If reached end of duration, end it here instead of passing on the request
-        player.seekToTime(playingTrack!.track!, newPosn)
+        // If this seek takes the track to its end, stop playback and proceed to the next track
+        if (newPosn < trackDuration) {
+            PlaybackSession.start(playingTrack!)
+            player.seekToTime(playingTrack!.track!, newPosn)
+        } else {
+            trackPlaybackCompleted()
+        }
     }
     
     func seekBackward() {
@@ -401,11 +406,11 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             return
         }
         
-        PlaybackSession.start(playingTrack!)
-        
+        // Calculate the new start position
         let curPosn = player.getSeekPosition()
         let newPosn = max(0, curPosn - PlayerDelegate.SEEK_TIME)
         
+        PlaybackSession.start(playingTrack!)
         player.seekToTime(playingTrack!.track!, newPosn)
     }
     
@@ -415,12 +420,17 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             return
         }
         
-        PlaybackSession.start(playingTrack!)
-        
-        // TODO: If reached end of duration, end it here instead of passing on the request
+        // Calculate the new start position
         let newPosn = percentage * playingTrack!.track!.duration! / 100
+        let trackDuration = playingTrack!.track!.duration!
         
-        player.seekToTime(playingTrack!.track!, newPosn)
+        // If this seek takes the track to its end, stop playback and proceed to the next track
+        if (newPosn < trackDuration) {
+            PlaybackSession.start(playingTrack!)
+            player.seekToTime(playingTrack!.track!, newPosn)
+        } else {
+            trackPlaybackCompleted()
+        }
     }
     
     func getVolume() -> Float {
@@ -664,24 +674,22 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         // Do not accept duplicate/old events
         if (PlaybackSession.isCurrent(_evt.session)) {
-            
-            // Stop playback of the old track
-            stopPlayback()
-            
-            // Continue the playback sequence
-            continuePlaying()
-            
-            let trackChangedEvent = TrackChangedEvent(playingTrack)
-            
-            if (playingTrack != nil) {
-                playbackState = .playing
-            } else {
-                playbackState = .noTrack
-            }
-            
-            // Notify the UI about this track change event
-            EventRegistry.publishEvent(.trackChanged, trackChangedEvent)
+            trackPlaybackCompleted()
         }
+    }
+    
+    private func trackPlaybackCompleted() {
+        
+        // Stop playback of the old track
+        stopPlayback()
+        
+        // Continue the playback sequence
+        continuePlaying()
+        
+        playbackState = playingTrack != nil ? .playing : .noTrack
+        
+        // Notify the UI about this track change event
+        EventRegistry.publishEvent(.trackChanged, TrackChangedEvent(playingTrack))
     }
     
     func searchPlaylist(searchQuery: SearchQuery) -> SearchResults {

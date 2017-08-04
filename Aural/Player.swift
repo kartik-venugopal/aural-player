@@ -41,10 +41,6 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
     
     fileprivate var recorder: Recorder
     
-    // TODO - This not needed here. Remove it.
-    // Currently playing track
-    fileprivate var playingTrack: Track?
-    
     // Current playback position (frame)
     fileprivate var startFrame: AVAudioFramePosition?
     
@@ -129,8 +125,6 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
     }
     
     func play(_ track: Track) {
-        
-        playingTrack = track
         
         startFrame = BufferManager.FRAME_ZERO
         initPlayer(track)
@@ -316,7 +310,6 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
             reverbNode.reset()
         }
         
-        playingTrack = nil
         startFrame = nil
     }
     
