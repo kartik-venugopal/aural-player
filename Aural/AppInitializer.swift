@@ -28,7 +28,7 @@ class AppInitializer {
     
     static func initialize() {
         
-//        configureLogging()
+        configureLogging()
         
         // Load saved player state from app config file, and initialize the player with that state
         playerState = PlayerStateIO.load()

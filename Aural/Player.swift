@@ -13,7 +13,7 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         return singleton
     }
     
-    let playerNode: AVAudioPlayerNode
+    fileprivate let playerNode: AVAudioPlayerNode
     fileprivate let audioEngine: AVAudioEngine
     fileprivate let mainMixer: AVAudioMixerNode
     
@@ -297,8 +297,6 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
     
     func stop() {
         
-        let tim = TimerUtils.start("player-stop")
-        
         bufferManager.stop()
         playerNode.reset()
 
@@ -313,8 +311,6 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         }
         
         startFrame = nil
-        
-        tim.end()
     }
     
     func seekToTime(_ track: Track, _ seconds: Double) {

@@ -60,7 +60,7 @@ class KeyPressHandler {
             app.showPlaylistSelectedRow()
         }
         
-        // NOTE - This keyboard shortcut is for debugging purposes only, not intended for the end user
+        // NOTE - This keyboard shortcut is for debugging purposes only, not inteded for the end user
         // (Shift + Command + S) Print Timer stats
         if (isShift && isCommand && event.keyCode == LETTER_S) {
             TimerUtils.printStats()

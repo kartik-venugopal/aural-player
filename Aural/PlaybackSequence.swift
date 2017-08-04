@@ -476,8 +476,6 @@ class PlaybackSequence: PlaylistChangeListener {
             if (cursor == nil) {
                 return 0
             }
-            
-            return cursor
         }
         
         if (repeatMode == RepeatMode.all && shuffleMode == .off) {

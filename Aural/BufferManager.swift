@@ -12,6 +12,12 @@ class BufferManager {
     // Indicates the beginning of a file, used when starting file playback
     static let FRAME_ZERO = AVAudioFramePosition(0)
     
+    // Seconds of playback
+    fileprivate static let BUFFER_SIZE: UInt32 = 15
+    
+    // The very first buffer should be small, so as to facilitate efficient immediate playback
+    fileprivate static let BUFFER_SIZE_INITIAL: UInt32 = 5
+    
     // The (serial) dispatch queue on which all scheduling tasks will be enqueued
     fileprivate var queue: OperationQueue
     
@@ -31,86 +37,32 @@ class BufferManager {
     // Start track playback from the beginning
     // TODO - Maybe, instead of passing in Track, pass in TrackPlaybackData ?
     func play(_ track: Track) {
-        startPlaybackFromFrame(track, BufferManager.FRAME_ZERO, true)
+        startPlaybackFromFrame(track, BufferManager.FRAME_ZERO)
     }
     
-    // Starts track playback from a given frame position. Marks the beginning of a "playback session". The checkCache argument specifies whether or not to look for a cached audio buffer for this track (and if found, to use it as the initial playback buffer). Typically, checkCache will be true when starting track playback, and false otherwise.
-    fileprivate func startPlaybackFromFrame(_ track: Track, _ frame: AVAudioFramePosition, _ checkCache: Bool = false) {
+    // Starts track playback from a given frame position. Marks the beginning of a "playback session".
+    fileprivate func startPlaybackFromFrame(_ track: Track, _ frame: AVAudioFramePosition) {
         
+        // Can assume that track.avFile is non-nil, because track has been prepared for playback
+        let playingFile: AVAudioFile = track.avFile!
+        
+        // Set the position in the audio file from which reading is to begin
+        playingFile.framePosition = frame
+
         // Mark the current playback session and use it when scheduling buffers
         // NOTE - Assume that the playback session has not changed since this request was initiated
         let thisSession = PlaybackSession.currentSession!
         
-        var useCachedBuffer: Bool = false
-        var cachedInitialBuffer: (buffer: AVAudioPCMBuffer, reachedEOF: Bool)? = nil
-        
-        // If cache needs to be checked, ensure that it has a buffer for this track
-        if (checkCache) {
-            cachedInitialBuffer = AudioBufferCache.getForTrack(track)
-            useCachedBuffer = cachedInitialBuffer != nil
-        }
-        
-        print("\nuseCachedBuffer", useCachedBuffer, track.shortDisplayName!)
-        
-        // This flag will determine whether or not to schedule a second "look ahead" buffer
-        var reachedEOF: Bool
-        
-        // This condition will be true if and only if checkCache is true AND there is a cached buffer for this track
-        if (useCachedBuffer) {
-        // TODO: Temporarily disabling useCachedBuffer
-//        if (false) {
-        
-            reachedEOF = cachedInitialBuffer!.reachedEOF
-            scheduleCachedBuffer(thisSession, track, cachedInitialBuffer!.buffer, reachedEOF)
-            
-            // Invalidate this buffer
-//            AudioBufferCache.removeForTrack(track)
-//            NSLog("Removed for %@", track.shortDisplayName!)
-            
-        } else {
-            
-            // Can assume that track.avFile is non-nil, because track has been prepared for playback
-            let playingFile: AVAudioFile = track.avFile!
-            
-            // Set the position in the audio file from which reading is to begin
-            playingFile.framePosition = frame
-            
-            // Schedule one buffer for immediate playback
-            reachedEOF = readAndScheduleBuffer(thisSession, track, AppConstants.audioBufferSize_initial)
-        }
+        // Schedule one buffer for immediate playback
+        let reachedEOF = scheduleNextBuffer(thisSession, track, BufferManager.BUFFER_SIZE_INITIAL)
         
         // Start playing the file
         playerNode.play()
-//        NSLog("Started playing the fucking file! %@", track.shortDisplayName!)
         
         // Schedule one more ("look ahead") buffer
         if (!reachedEOF) {
-            queue.addOperation({self.readAndScheduleBuffer(thisSession, track)})
+            queue.addOperation({self.scheduleNextBuffer(thisSession, track)})
         }
-    }
-    
-    // Schedules a single audio buffer for playback of the specified track
-    // The timestamp argument indicates which playback session this task was initiated for
-    fileprivate func scheduleCachedBuffer(_ session: PlaybackSession, _ track: Track, _ buffer: AVAudioPCMBuffer, _ reachedEOF: Bool) {
-        
-        print("\nBefore useCache:", track.avFile!.framePosition, track.avFile?.hashValue)
-        
-        // Redundant timestamp check, in case the first one in scheduleNextBufferIfNecessary() was performed too soon (stop() called between scheduleNextBufferIfNecessary() and now). This will come in handy when disk seeking suddenly slows down abnormally and the task takes much longer to complete.
-        
-        if (PlaybackSession.isCurrentAndActive(session)) {
-            
-//            playerNode.scheduleBuffer(buffer, at: nil, options: AVAudioPlayerNodeBufferOptions(), completionHandler: nil)
-            
-            playerNode.scheduleBuffer(buffer, at: nil, options: AVAudioPlayerNodeBufferOptions(), completionHandler: {
-                self.bufferCompletionHandler(session, track, reachedEOF)
-            })
-        }
-        
-        // Advance the frame position of the AVAudioFile so that subsequent reading will resume at the appropriate position
-        let playingFile: AVAudioFile = track.avFile!
-        playingFile.framePosition = AVAudioFramePosition(buffer.frameLength)
-        
-        print("After useCache:", track.avFile!.framePosition, track.avFile?.hashValue)
     }
     
     // Upon the completion of playback of a buffer, checks if more buffers are needed for the playback session, and if so, schedules one for playback. The session argument indicates which playback session this task was initiated for.
@@ -124,19 +76,20 @@ class BufferManager {
                 PlaybackSession.end(session)
                 EventRegistry.publishEvent(EventType.playbackCompleted, PlaybackCompletedEvent(session))
                 
+                // Stop playback
+                stop()
+                
             } else {
                 
                 // Continue scheduling more buffers
-                queue.addOperation({self.readAndScheduleBuffer(session, track)})
+                queue.addOperation({self.scheduleNextBuffer(session, track)})
             }
         }
     }
     
     // Schedules a single audio buffer for playback of the specified track
     // The timestamp argument indicates which playback session this task was initiated for
-    fileprivate func readAndScheduleBuffer(_ session: PlaybackSession, _ track: Track, _ bufferSize: UInt32 = AppConstants.audioBufferSize) -> Bool {
-        
-        print("\nBefore read:", track.avFile!.framePosition, track.avFile?.hashValue)
+    fileprivate func scheduleNextBuffer(_ session: PlaybackSession, _ track: Track, _ bufferSize: UInt32 = BufferManager.BUFFER_SIZE) -> Bool {
         
         // Can assume that track.avFile is non-nil, because track has been prepared for playback
         let playingFile: AVAudioFile = track.avFile!
@@ -146,9 +99,6 @@ class BufferManager {
         
         do {
             try playingFile.read(into: buffer)
-            
-            print("After read:", track.avFile!.framePosition, track.avFile?.hashValue)
-            
         } catch let error as NSError {
             NSLog("Error reading from audio file '%@': %@", playingFile.url.lastPathComponent, error.description)
         }
