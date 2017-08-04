@@ -53,4 +53,10 @@ class AppConstants {
     
     // Directory where recordings are temporarily stored, till the user defines the location
     static let recordingDirURL: URL = musicDirURL
+    
+    // The size, in seconds of playback, to use when creating audio buffers for playback
+    static let audioBufferSize: UInt32 = 15
+    
+    // The size, in seconds of playback, to use when creating the very first audio buffer for playback of a given track. The very first buffer should be small, so as to facilitate efficient and immediate playback
+    static let audioBufferSize_initial: UInt32 = 5
 }

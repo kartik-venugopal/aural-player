@@ -291,21 +291,24 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     
     private func play(_ track: IndexedTrack?) {
         
+        stopPlayback()
+//        NSLog("Stopped")
+        
         playingTrack = track
         if (track != nil) {
             
             PlaybackSession.start(track!)
             
+//            NSLog("Starting %@", track!.track!.shortDisplayName!)
+            
             // TODO: What if this call fails ? Check "prepared" flag ... retry if failed ?
             TrackIO.prepareForPlayback(track!.track!)
             
-            // Stop if currently playing
-            
-            if (playbackState == .paused || playbackState == .playing) {
-                player.stop()
-            }
+//            NSLog("Prepared %@", track!.track!.shortDisplayName!)
             
             player.play(track!.track!)
+            
+//            NSLog("Playing %@ %@", String(player.playerNode.isPlaying), track!.track!.avFile!.description)
             playbackState = .playing
             
             // Prepare next possible tracks for playback
@@ -318,6 +321,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         // Set of all tracks that need to be prepped
         let nextTracksSet = NSMutableSet()
+        let cacheSet = NSMutableSet()
         
         // The three possible tracks that could play next
         let peekContinue = self.playlist.peekContinuePlaying()?.track
@@ -327,22 +331,45 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         // Check if these three tracks have already been prepped. If not, add them to the set to be prepped. Also add them to the registry so that we can "remember" that they've been prepped already.
         // NOTE - Checking track.preparedForPlayback is not sufficient here, because multiple threads may start prepping the track concurrently, causing contention (and problems).
         
-        if (peekContinue != nil && !(trackPrepRegistry.contains(peekContinue!))) {
-            nextTracksSet.add(peekContinue!)
-            trackPrepRegistry.add(peekContinue!)
+        // TODO: Don't prep the playingTrack !!! BAD_ACCESS (playingFile)
+        
+        if (peekContinue != nil) {
+
+            if (!(trackPrepRegistry.contains(peekContinue!))) {
+                nextTracksSet.add(peekContinue!)
+                trackPrepRegistry.add(peekContinue!)
+            }
+            
+            if (!AudioBufferCache.containsForTrack(peekContinue!)) {
+                cacheSet.add(peekContinue!)
+            }
         }
         
-        if (peekNext != nil && !(trackPrepRegistry.contains(peekNext!))) {
-            nextTracksSet.add(peekNext!)
-            trackPrepRegistry.add(peekNext!)
+        if (peekNext != nil) {
+            
+            if (!(trackPrepRegistry.contains(peekNext!))) {
+                nextTracksSet.add(peekNext!)
+                trackPrepRegistry.add(peekNext!)
+            }
+            
+            if (!AudioBufferCache.containsForTrack(peekNext!)) {
+                cacheSet.add(peekNext!)
+            }
         }
         
-        if (peekPrevious != nil && !(trackPrepRegistry.contains(peekPrevious!))) {
-            nextTracksSet.add(peekPrevious!)
-            trackPrepRegistry.add(peekPrevious!)
+        if (peekPrevious != nil) {
+            
+            if (!(trackPrepRegistry.contains(peekPrevious!))) {
+                nextTracksSet.add(peekPrevious!)
+                trackPrepRegistry.add(peekPrevious!)
+            }
+            
+            if (!AudioBufferCache.containsForTrack(peekPrevious!)) {
+                cacheSet.add(peekPrevious!)
+            }
         }
         
-        if (nextTracksSet.count > 0) {
+        if (nextTracksSet.count > 0 || cacheSet.count > 0) {
         
             // Push a task to the global queue for async execution, because reading from disk could be expensive and this info is not needed immediately.
             DispatchQueue.global(qos: .background).async {
@@ -351,8 +378,13 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
                     
                     let track = _track as! Track
                     TrackIO.prepareForPlayback(track)
+                }
+                
+                for _track in cacheSet {
                     
-                    // TODO - Read one small buffer for playback, and cache it
+                    let track = _track as! Track
+                    AudioBufferCache.loadForTrack(track)
+//                    NSLog("Loaded for %@", track.shortDisplayName!)
                 }
             }
         }
@@ -612,11 +644,17 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     }
     
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        return playlist.toggleRepeatMode()
+        
+        let modes = playlist.toggleRepeatMode()
+        prepareNextTracksForPlayback()
+        return modes
     }
     
     func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        return playlist.toggleShuffleMode()
+        
+        let modes = playlist.toggleShuffleMode()
+        prepareNextTracksForPlayback()
+        return modes
     }
     
     func startRecording(_ format: RecordingFormat) {
@@ -679,9 +717,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     }
     
     private func trackPlaybackCompleted() {
-        
-        // Stop playback of the old track
-        stopPlayback()
         
         // Continue the playback sequence
         continuePlaying()
