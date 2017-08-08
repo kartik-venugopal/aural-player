@@ -12,44 +12,14 @@ class Utils {
     
     // Formats a duration (time interval) from seconds to a displayable string showing hours, minutes, and seconds. For example, 500 seconds becomes "8:20", and 3675 seconds becomes "1:01:15"
     static func formatDuration(_ _duration: Double) -> String {
-    
-        var duration = Int(round(_duration))
-    
-        let hrs = duration / oneHour
-        duration -= hrs * oneHour
         
-        let mins = duration / oneMin
-        duration -= mins * oneMin
+        let duration = Int(round(_duration))
         
-        let secs = duration
+        let secs = duration % oneMin
+        let mins = (duration / oneMin) % oneMin
+        let hrs = (duration / oneHour)
         
-        var durStr = ""
-        
-        if (hrs > 0) {
-            durStr += String(hrs) + ":"
-        }
-        
-        if (mins > 0) {
-            
-            if (hrs > 0) {
-                durStr += String(format: "%02d:", mins)
-            } else {
-                durStr += String(mins) + ":"
-            }
-            
-        } else {
-            // 0 minutes
-            
-            if (hrs == 0) {
-                durStr += "0:"
-            } else {
-                durStr += "00:"
-            }
-        }
-        
-        durStr += String(format: "%02d", secs)
-        
-        return durStr
+        return hrs > 0 ? String(format: "%d:%02d:%02d", hrs, mins, secs) : String(format: "%d:%02d", mins, secs)
     }
     
     // Splits a camel cased word into separate words, all capitalized. For ex, "albumName" -> "Album Name". This is useful for display within the UI.

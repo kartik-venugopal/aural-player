@@ -382,10 +382,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         let summary = player.getPlaylistSummary()
         let numTracks = summary.numTracks
         
-        let numTracksStr = String(numTracks) + (numTracks == 1 ? " track   " : " tracks   ")
-        let durationStr = Utils.formatDuration(summary.totalDuration)
-        
-        lblPlaylistSummary.stringValue = numTracksStr + durationStr
+        lblPlaylistSummary.stringValue = String(format: "%d %@   %@", numTracks, numTracks == 1 ? "track" : "tracks", Utils.formatDuration(summary.totalDuration))
     }
     
     fileprivate func updateEQSliders(_ eqBands: [Int: Float]) {
@@ -539,6 +536,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     func updatePlayingTime() {
         
         if (player.getPlaybackState() == .playing) {
+            
             let seekPosn = player.getSeekSecondsAndPercentage()
             
             lblPlayingTime.stringValue = Utils.formatDuration(seekPosn.seconds)
@@ -572,6 +570,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     @IBAction func prevTrackAction(_ sender: AnyObject) {
+        
         let trackInfo = player.previousTrack()
         if (trackInfo?.track != nil) {
             trackChange(trackInfo)
@@ -1341,7 +1340,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     func resetSearchInfo() {
         
-        if (searchField.stringValue == "") {
+        if (searchField.stringValue.isEmpty) {
             searchResultsSummaryLabel.stringValue = "No results"
         } else {
             searchResultsSummaryLabel.stringValue = "No results found"

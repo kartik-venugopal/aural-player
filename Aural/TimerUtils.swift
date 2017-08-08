@@ -33,7 +33,7 @@ open class TimerUtils {
             
             print("\nFor tag '" + tag + "' ...")
             let avg = avgForTimers(timersForTag)
-            print("    Count / AvgTime", timersForTag.count, String(format: "%.2lf", avg) + " msec")
+            print("    Count / AvgTime", timersForTag.count, String(format: "%.3lf", avg) + " msec")
         }
     }
     
@@ -45,7 +45,7 @@ open class TimerUtils {
             
                 print("\nFor tag '" + tag + "' ...")
                 let avg = avgForTimers(timersForTag)
-                print("    Count / AvgTime", timersForTag.count, String(format: "%.2lf", avg) + " msec")
+                print("    Count / AvgTime", timersForTag.count, String(format: "%.3lf", avg) + " msec")
                 
                 return
             }
