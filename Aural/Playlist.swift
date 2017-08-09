@@ -63,8 +63,10 @@ class Playlist {
     
     // Retrieves the track at the given index, and selects it for playback, i.e., moves the cursor to the given index
     func selectTrackAt(_ index: Int?) -> IndexedTrack? {
+        
+        // Assume index is valid
         let track = getTrackAt(index)
-        playbackSequence.playingTrackChanged(index)
+        playbackSequence.randomTrackSelected(index!)
         return track
     }
     

@@ -9,8 +9,8 @@ protocol PlaylistChangeListener {
     // Signals a reordering of the playlist (e.g. sorting)
     func playlistReordered(_ newTrackIndex: Int?)
     
-    // The playing track has changed
-    func playingTrackChanged(_ newTrackIndex: Int?)
+    // A random track has been selected for playback
+    func randomTrackSelected(_ trackIndex: Int)
     
     // A single new track has been added
     func trackAdded()

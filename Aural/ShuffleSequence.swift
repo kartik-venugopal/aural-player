@@ -16,7 +16,7 @@ class ShuffleSequence {
     init(_ capacity: Int) {
         sequence = [Int]()
         cursor = -1
-        reset(capacity)
+        reset(capacity: capacity)
     }
     
     // Shuffle the playlist elements
@@ -31,7 +31,7 @@ class ShuffleSequence {
     }
     
     // Recompute the sequence, with a given tracks count
-    func reset(_ capacity: Int) {
+    func reset(capacity: Int) {
         
         clear()
         
@@ -42,6 +42,35 @@ class ShuffleSequence {
             }
             
             shuffle()
+        }
+    }
+    
+    // Recompute the sequence, with the specified track index being the first element in the new sequence
+    func reset(capacity: Int, firstTrackIndex: Int) {
+        
+        clear()
+        
+        if (capacity > 0) {
+            
+            if (firstTrackIndex > 0) {
+                for i in 0 ... (firstTrackIndex - 1) {
+                    sequence.append(i)
+                }
+            }
+            
+            if (firstTrackIndex < capacity - 1) {
+                for i in (firstTrackIndex + 1) ... (capacity - 1) {
+                    sequence.append(i)
+                }
+            }
+            
+            shuffle()
+            
+            // Insert the specified first track index at index 0, making it the first element in the new sequence
+            sequence.insert(firstTrackIndex, at: 0)
+            
+            // Advance the cursor once, because the first track in the sequence has already been played back
+            next()
         }
     }
     

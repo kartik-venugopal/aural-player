@@ -21,12 +21,22 @@ class PlaybackSequence: PlaylistChangeListener {
         
         self.repeatMode = repeatMode
         self.shuffleMode = shuffleMode
-        reset(tracksCount)
+        reset(tracksCount: tracksCount)
     }
     
-    private func reset(_ tracksCount: Int) {
+    private func reset(tracksCount: Int) {
         self.tracksCount = tracksCount
         reset()
+    }
+    
+    private func reset(firstTrackIndex: Int?) {
+        if (shuffleMode == .on) {
+            if (firstTrackIndex != nil) {
+                shuffleSequence.reset(capacity: tracksCount, firstTrackIndex: firstTrackIndex!)
+            } else {
+                shuffleSequence.reset(capacity: tracksCount)
+            }
+        }
     }
     
     // Recomputes the shuffle sequence, if necessary
@@ -37,7 +47,7 @@ class PlaybackSequence: PlaylistChangeListener {
             let lastSequenceLastElement = shuffleSequence.sequence.last
             let lastSequenceCount = shuffleSequence.sequence.count
             
-            shuffleSequence.reset(tracksCount)
+            shuffleSequence.reset(capacity: tracksCount)
             
             // Ensure that the first element of the new sequence is different from the last element of the previous sequence, so that no track is played twice in a row
             if (lastSequenceCount > 1 && lastSequenceLastElement != nil && tracksCount > 1) {
@@ -45,13 +55,11 @@ class PlaybackSequence: PlaylistChangeListener {
                     swapFirstTwoSequenceElements()
                 }
             }
-//            
-            // TODO: When a random track is selected
-//            // Ensure that the same track doesn't play twice in a row
-//            if (tracksCount > 1 && cursor != nil && shuffleSequence.peekNext() == cursor!) {
-//                NSLog("Swapped first two !")
-//                swapFirstTwoSequenceElements()
-//            }
+            
+            // Make sure that the first track does not match the currently playing track
+            if (tracksCount > 1 && shuffleSequence.peekNext() == cursor) {
+                swapFirstTwoSequenceElements()
+            }
         }
     }
     
@@ -73,15 +81,13 @@ class PlaybackSequence: PlaylistChangeListener {
     }
     
     func playlistReordered(_ newPlayingTrackIndex: Int?) {
-        reset()
         cursor = newPlayingTrackIndex
+        reset(firstTrackIndex: cursor)
     }
     
-    func playingTrackChanged(_ newTrackIndex: Int?) {
-        cursor = newTrackIndex
-        
-        // TODO: When a random track is selected, reset the shuffle sequence, ensuring that the selected track is first in the seqeunce. Rename this method to randomTrackSelected()
-//        reset()
+    func randomTrackSelected(_ trackIndex: Int){
+        cursor = trackIndex
+        reset(firstTrackIndex: trackIndex)
     }
     
     func getCursor() -> Int? {
@@ -101,7 +107,7 @@ class PlaybackSequence: PlaylistChangeListener {
         }
         
         tracksCount -= 1
-        reset()
+        reset(firstTrackIndex: cursor)
     }
     
     func trackReordered(_ oldIndex: Int, _ newIndex: Int) {
@@ -115,7 +121,8 @@ class PlaybackSequence: PlaylistChangeListener {
             cursor = oldIndex
         }
         
-        reset()
+        // TODO: Can this be more efficient ? Swap ?
+        reset(firstTrackIndex: cursor)
     }
     
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
@@ -148,7 +155,7 @@ class PlaybackSequence: PlaylistChangeListener {
             repeatMode = .off
         }
             
-            reset()
+            reset(firstTrackIndex: cursor)
             
         case .on: shuffleMode = .off
             shuffleSequence.clear()
