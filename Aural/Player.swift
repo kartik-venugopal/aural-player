@@ -124,11 +124,11 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         audioEngineHelper.reconnectNodes(playerNode, outputNode: auxMixer, format: format)
     }
     
-    func play(_ track: Track) {
+    func play(_ playbackSession: PlaybackSession) {
         
         startFrame = BufferManager.FRAME_ZERO
-        initPlayer(track)
-        bufferManager.play(track)
+        initPlayer(playbackSession.track.track!)
+        bufferManager.play(playbackSession)
     }
     
     func pause() {
@@ -313,9 +313,9 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         startFrame = nil
     }
     
-    func seekToTime(_ track: Track, _ seconds: Double) {
+    func seekToTime(_ playbackSession: PlaybackSession, _ seconds: Double) {
         
-        let seekResult = bufferManager.seekToTime(track, seconds)
+        let seekResult = bufferManager.seekToTime(playbackSession, seconds)
         if (!seekResult.playbackCompleted) {
             startFrame = seekResult.startFrame!
         }

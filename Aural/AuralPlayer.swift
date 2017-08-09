@@ -9,8 +9,8 @@ protocol AuralPlayer {
     // Initializes the player with state remembered from the last app execution
     func loadPlayerState(_ state: SavedPlayerState)
     
-    // Plays a track
-    func play(_ track: Track)
+    // Plays a track associated with a new playback session
+    func play(_ playbackSession: PlaybackSession)
     
     // Pauses the currently playing track
     func pause()
@@ -21,8 +21,8 @@ protocol AuralPlayer {
     // Stops playback of the currently playing track, in preparation for playback of a new track. Releases all resources associated with the currently playing track.
     func stop()
     
-    // Seeks to a certain time in the specified track
-    func seekToTime(_ track: Track, _ seconds: Double)
+    // Seeks to a certain time in the track for the given playback session
+    func seekToTime(_ playbackSession: PlaybackSession, _ seconds: Double)
     
     // Gets the playback position (in seconds) of the currently playing track
     func getSeekPosition() -> Double

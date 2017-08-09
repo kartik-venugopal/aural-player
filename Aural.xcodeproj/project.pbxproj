@@ -45,6 +45,7 @@
 		3E5FA43E1EFFE55F001669C5 /* PlaylistCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5FA43D1EFFE55F001669C5 /* PlaylistCellView.swift */; };
 		3E633C471F14C6530040ECBC /* MultiBandStopFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */; };
 		3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C481F14C9110040ECBC /* ParametricEQNode.swift */; };
+		3E6B56C81F3A8C1E00B03E5C /* SchedulingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6B56C71F3A8C1E00B03E5C /* SchedulingSession.swift */; };
 		3E6D75F81EFF79E0007F22A3 /* KeyPressHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D75F71EFF79E0007F22A3 /* KeyPressHandler.swift */; };
 		3E722F791EFCE59F00916BF2 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E722F781EFCE59F00916BF2 /* Playlist.swift */; };
 		3E722F7B1EFCF4EC00916BF2 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E722F7A1EFCF4EC00916BF2 /* PlaylistViewController.swift */; };
@@ -132,6 +133,7 @@
 		3E5FA43D1EFFE55F001669C5 /* PlaylistCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCellView.swift; sourceTree = "<group>"; };
 		3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiBandStopFilterNode.swift; sourceTree = "<group>"; };
 		3E633C481F14C9110040ECBC /* ParametricEQNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametricEQNode.swift; sourceTree = "<group>"; };
+		3E6B56C71F3A8C1E00B03E5C /* SchedulingSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulingSession.swift; sourceTree = "<group>"; };
 		3E6D75F71EFF79E0007F22A3 /* KeyPressHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyPressHandler.swift; sourceTree = "<group>"; };
 		3E722F781EFCE59F00916BF2 /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		3E722F7A1EFCF4EC00916BF2 /* PlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
@@ -212,12 +214,13 @@
 			children = (
 				3E3C20A01F0A39D500AF5A62 /* PlayerDelegate.swift */,
 				3E426F7D1EFDD9CF002F5F18 /* Player.swift */,
+				3E2BDC4C1F0DE1C00099FDB7 /* BufferManager.swift */,
 				3E9A575D1F21F778007546A2 /* Recorder.swift */,
 				3E551B861F10801100354DE2 /* AudioEngineHelper.swift */,
 				3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */,
 				3E633C481F14C9110040ECBC /* ParametricEQNode.swift */,
-				3E2BDC4C1F0DE1C00099FDB7 /* BufferManager.swift */,
 				3E09C6B41F2EE70C007BB489 /* PlaybackSession.swift */,
+				3E6B56C71F3A8C1E00B03E5C /* SchedulingSession.swift */,
 				3E76D9BB1F0F4228007FF3F8 /* PlayerDefaults.swift */,
 				3E822B371F21DCF20006CDBC /* RecordingFormat.swift */,
 				3E3C209D1F0A385300AF5A62 /* Protocols */,
@@ -521,6 +524,7 @@
 				3E85F25A1EFA78D6007BE830 /* AppDelegate.swift in Sources */,
 				3EB20B4B1EFF25EC008138A4 /* SavedPlayerState.swift in Sources */,
 				3EFFE6BE1F0381FA003728BD /* EQPresets.swift in Sources */,
+				3E6B56C81F3A8C1E00B03E5C /* SchedulingSession.swift in Sources */,
 				3E3C20A31F0A3A9700AF5A62 /* AuralPlayer.swift in Sources */,
 				3E822B381F21DCF20006CDBC /* RecordingFormat.swift in Sources */,
 				3E95877B1F15F17700007E57 /* GCDDispatchQueue.swift in Sources */,

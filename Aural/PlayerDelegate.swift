@@ -205,7 +205,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     }
     
     private func stopPlayback() {
-        PlaybackSession.invalidate()
+        PlaybackSession.endCurrent()
         player.stop()
         playbackState = .noTrack
         playingTrack = nil
@@ -291,21 +291,20 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     
     private func play(_ track: IndexedTrack?) {
         
+        // Stop if currently playing
+        if (playbackState == .paused || playbackState == .playing) {
+            stopPlayback()
+        }
+        
         playingTrack = track
         if (track != nil) {
             
-            PlaybackSession.start(track!)
+            let session = PlaybackSession.start(track!)
             
             // TODO: What if this call fails ? Check "prepared" flag ... retry if failed ?
             TrackIO.prepareForPlayback(track!.track!)
             
-            // Stop if currently playing
-            
-            if (playbackState == .paused || playbackState == .playing) {
-                player.stop()
-            }
-            
-            player.play(track!.track!)
+            player.play(session)
             playbackState = .playing
             
             // Prepare next possible tracks for playback
@@ -393,8 +392,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         // If this seek takes the track to its end, stop playback and proceed to the next track
         if (newPosn < trackDuration) {
-            PlaybackSession.start(playingTrack!)
-            player.seekToTime(playingTrack!.track!, newPosn)
+            let session = PlaybackSession.start(playingTrack!)
+            player.seekToTime(session, newPosn)
         } else {
             trackPlaybackCompleted()
         }
@@ -410,8 +409,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         let curPosn = player.getSeekPosition()
         let newPosn = max(0, curPosn - PlayerDelegate.SEEK_TIME)
         
-        PlaybackSession.start(playingTrack!)
-        player.seekToTime(playingTrack!.track!, newPosn)
+        let session = PlaybackSession.start(playingTrack!)
+        player.seekToTime(session, newPosn)
     }
     
     func seekToPercentage(_ percentage: Double) {
@@ -426,8 +425,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         // If this seek takes the track to its end, stop playback and proceed to the next track
         if (newPosn < trackDuration) {
-            PlaybackSession.start(playingTrack!)
-            player.seekToTime(playingTrack!.track!, newPosn)
+            let session = PlaybackSession.start(playingTrack!)
+            player.seekToTime(session, newPosn)
         } else {
             trackPlaybackCompleted()
         }

@@ -28,39 +28,24 @@ class PlaybackSession {
     // The track associated with this session
     let track: IndexedTrack
     
-    // Indicates whether the track is still playing (i.e. playback has not completed). When the track is finished playing, it is still current but no longer active. Once any final processing/cleanup has been done, it is invalidated and is no longer either active or current
-    var active: Bool
-    
     private init(_ track: IndexedTrack) {
         timestamp = Date()
         self.track = track
-        
-        // When a session is started, it is implicitly active
-        self.active = true
     }
     
-    // Start a new session, implicitly invalidating the old one (if there was one)
-    static func start(_ track: IndexedTrack) {
+    // Start a new session, implicitly invalidating the old one (if there was one), and returns it
+    static func start(_ track: IndexedTrack) -> PlaybackSession {
         currentSession = PlaybackSession(track)
+        return currentSession!
     }
     
-    // End the given session
-    static func end(_ session: PlaybackSession) {
-        session.active = false
-    }
-    
-    // Invalidate the current session
-    static func invalidate() {
+    // End the current session
+    static func endCurrent() {
         currentSession = nil
     }
     
     // Compares the current session to a given session for equality
     static func isCurrent(_ session: PlaybackSession) -> Bool {
         return currentSession != nil && (session === currentSession)
-    }
-    
-    // Compares the current session to a given session for equality and checks if that session is also active
-    static func isCurrentAndActive(_ session: PlaybackSession) -> Bool {
-        return isCurrent(session) && session.active
     }
 }
