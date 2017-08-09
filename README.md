@@ -32,6 +32,12 @@ Please see [User Guide](https://github.com/maculateConception/aural-player/blob/
 
 Aural Player makes use of (a modified version of) a reusable UI control called [RangeSlider](https://github.com/matthewreagan/RangeSlider).
 
+## Demo
+
+Plenty more demo videos available under [/Documentation/Demos](/Documentation/Demos).
+
+![App demo](/Documentation/Demos/GeneralDemo.gif?raw=true "App demo")
+
 ## Screenshots
 
 ### Default view
