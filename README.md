@@ -2,8 +2,6 @@
 
 ![App demo](/Documentation/Demos/GeneralDemo.gif?raw=true "App demo")
 
-(Plenty more demo videos available under [/Documentation/Demos](/Documentation/Demos))
-
 ## Overview
 
 Aural Player is a free and open source audio player application for the MacOS (formerly OS X) platform. It is free for anyone to use/modify/repackage/redistribute, etc. It is designed to be to-the-point and easy to use, with plenty of keyboard shortcuts for convenience and efficiency, much like the classic Winamp player on Windows, plus some additional sound tuning capabilities for audio enthusiasts who like to tweak sound.
@@ -24,7 +22,11 @@ The latest app bundle can be found in the compressed archive file [Aural.app.zip
 
 ## Documentation
 
-Please see [User Guide](https://github.com/maculateConception/aural-player/blob/master/Documentation/UserGuide.rtfd/TXT.rtf?raw=true) and [Developer-readme](https://github.com/maculateConception/aural-player/blob/master/Documentation/Developer-readme.rtf?raw=true) under [/Documentation](/Documentation), for more details.
+[User Guide](http://htmlpreview.github.com/?https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/UserGuide.html)
+
+[Developer readme](https://github.com/maculateConception/aural-player/blob/master/Documentation/Developer-readme.rtf?raw=true) 
+
+[Demo videos](/Documentation/Demos)
 
 ## Swift 3 update
 
@@ -38,64 +40,64 @@ Aural Player makes use of (a modified version of) a reusable UI control called [
 
 ### Default view
 
-![App screenshot](/Documentation/UserGuide.rtfd/Aural.png?raw=true "App screenshot")
+![App screenshot](/Documentation/Screenshots/Aural.png?raw=true "App screenshot")
 
 ### Default view w/ detailed track info popover view
 
-![App screenshot w/ more info view](/Documentation/UserGuide.rtfd/MoreInfo.png?raw=true "More Info")
+![App screenshot w/ more info view](/Documentation/Screenshots/MoreInfo.png?raw=true "More Info")
 
 ### Playlist-only view
 
-![App screenshot2](/Documentation/UserGuide.rtfd/Aural-playlistOnly.png?raw=true "App screenshot2")
+![App screenshot2](/Documentation/Screenshots/Aural-playlistOnly.png?raw=true "App screenshot2")
 
 ### Effects-only view
 
-![App screenshot3](/Documentation/UserGuide.rtfd/Aural-effectsOnly.png?raw=true "App screenshot3")
+![App screenshot3](/Documentation/Screenshots/Aural-effectsOnly.png?raw=true "App screenshot3")
 
 ### Compact view
 
-![App screenshot4](/Documentation/UserGuide.rtfd/Aural-compact.png?raw=true "App screenshot4")
+![App screenshot4](/Documentation/Screenshots/Aural-compact.png?raw=true "App screenshot4")
 
 ### Search playlist
 
-![Search](/Documentation/UserGuide.rtfd/Aural-search.png?raw=true "Search")
+![Search](/Documentation/Screenshots/Aural-search.png?raw=true "Search")
 
 ### Sort playlist
 
-![Sort](/Documentation/UserGuide.rtfd/Aural-sort.png?raw=true "Sort")
+![Sort](/Documentation/Screenshots/Aural-sort.png?raw=true "Sort")
 
 ### Pitch shift effects unit
 
-![Pitch](/Documentation/UserGuide.rtfd/Pitch.png?raw=true "Pitch Shift")
+![Pitch](/Documentation/Screenshots/Pitch.png?raw=true "Pitch Shift")
 
 ### Time stretch effects unit
 
-![Time](/Documentation/UserGuide.rtfd/Time.png?raw=true "Time Stretch")
+![Time](/Documentation/Screenshots/Time.png?raw=true "Time Stretch")
 
 ### Reverb effects unit
 
-![Reverb](/Documentation/UserGuide.rtfd/Reverb.png?raw=true "Reverb")
+![Reverb](/Documentation/Screenshots/Reverb.png?raw=true "Reverb")
 
 ### Delay effects unit
 
-![Delay](/Documentation/UserGuide.rtfd/Delay.png?raw=true "Delay")
+![Delay](/Documentation/Screenshots/Delay.png?raw=true "Delay")
 
 ### Filter effects unit
 
-![Filter](/Documentation/UserGuide.rtfd/Filter.png?raw=true "Filter")
+![Filter](/Documentation/Screenshots/Filter.png?raw=true "Filter")
 
 ### Recorder unit
 
-![Recorder](/Documentation/UserGuide.rtfd/Recorder.png?raw=true "Recorder")
+![Recorder](/Documentation/Screenshots/Recorder.png?raw=true "Recorder")
 
 ### Playlist menu
 
-![Playlist Menu](/Documentation/UserGuide.rtfd/PlaylistMenu.png?raw=true "Playlist Menu")
+![Playlist Menu](/Documentation/Screenshots/PlaylistMenu.png?raw=true "Playlist Menu")
 
 ### Controls menu
 
-![Controls Menu](/Documentation/UserGuide.rtfd/ControlsMenu.png?raw=true "Controls Menu")
+![Controls Menu](/Documentation/Screenshots/ControlsMenu.png?raw=true "Controls Menu")
 
 ### View menu
 
-![View Menu](/Documentation/UserGuide.rtfd/ViewMenu.png?raw=true "View Menu")
+![View Menu](/Documentation/Screenshots/ViewMenu.png?raw=true "View Menu")
