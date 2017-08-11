@@ -394,7 +394,7 @@ G1BhbiBTbGlkZXI
                                     </textFieldCell>
                                 </textField>
                                 <button toolTip="Seek bacward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kDf-NX-V6n" userLabel="Seek Bwd Button">
-                                    <rect key="frame" x="84" y="15" width="30" height="30"/>
+                                    <rect key="frame" x="89" y="20" width="20" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekBackward" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="In9-bs-DEF">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -405,7 +405,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Seek forward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ydO-EN-rV3" userLabel="Seek Fwd Button">
-                                    <rect key="frame" x="243" y="15" width="30" height="30"/>
+                                    <rect key="frame" x="248" y="20" width="20" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekForward" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="zEB-5B-Tc5">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -548,7 +548,7 @@ G1BhbiBTbGlkZXI
                                     <font key="font" size="11" name="GillSans"/>
                                     <tabViewItems>
                                         <tabViewItem label="EQ" identifier="1" id="McD-gg-qp9" userLabel="EQ">
-                                            <view key="view" id="vC5-27-GiC">
+                                            <view key="view" ambiguous="YES" id="vC5-27-GiC">
                                                 <rect key="frame" x="10" y="7" width="409" height="140"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -1438,7 +1438,7 @@ G1BhbiBTbGlkZXI
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXj-6I-dNX" userLabel="Treble 20K">
                                                                     <rect key="frame" x="268" y="13" width="25" height="15"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="2K" id="jeR-DN-5ho">
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="20K" id="jeR-DN-5ho">
                                                                         <font key="font" size="10" name="GillSans"/>
                                                                         <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1541,7 +1541,7 @@ G1BhbiBTbGlkZXI
                                             </view>
                                         </tabViewItem>
                                         <tabViewItem label="Recorder" identifier="" id="ZgM-Kw-eIJ">
-                                            <view key="view" ambiguous="YES" id="LZW-JZ-Gv7">
+                                            <view key="view" id="LZW-JZ-Gv7">
                                                 <rect key="frame" x="10" y="7" width="409" height="140"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -2542,9 +2542,9 @@ Gw
         <image name="Save-Small" width="14" height="14"/>
         <image name="Search" width="128" height="128"/>
         <image name="Search-Small" width="14" height="14"/>
-        <image name="SeekBackward" width="256" height="256"/>
+        <image name="SeekBackward" width="159" height="98"/>
         <image name="SeekBackward-Small" width="13" height="8"/>
-        <image name="SeekForward" width="256" height="256"/>
+        <image name="SeekForward" width="159" height="98"/>
         <image name="SeekForward-Small" width="13" height="8"/>
         <image name="ShuffleOff" width="256" height="256"/>
         <image name="ShuffleOn-Small" width="15" height="15"/>
