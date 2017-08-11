@@ -1530,6 +1530,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         recorderTabViewButton.state = 1
         fxTabView.selectTabViewItem(at: 6)
     }
+    
+    @IBAction func userGuideAction(_ sender: Any) {
+        NSWorkspace.shared().open(AppConstants.userGuideURL)
+    }
 }
 
 // Int to Bool conversion

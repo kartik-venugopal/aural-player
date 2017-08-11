@@ -53,4 +53,7 @@ class AppConstants {
     
     // Directory where recordings are temporarily stored, till the user defines the location
     static let recordingDirURL: URL = musicDirURL
+    
+    // Link to online user guide
+    static let userGuideURL: URL = URL(string: "http://htmlpreview.github.com/?https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/UserGuide.html")!
 }

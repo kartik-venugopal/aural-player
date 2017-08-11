@@ -2022,7 +2022,7 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Controls" id="4gC-cq-kT9">
                         <items>
-                            <menuItem title=" Play/Pause" image="PlayPause-Small" keyEquivalent=" " id="T9r-Uq-EPf">
+                            <menuItem title=" Play / Pause" image="PlayPause-Small" keyEquivalent=" " id="T9r-Uq-EPf">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="togglePlayPauseMenuItemAction:" target="Voe-Tx-rLC" id="dA1-UD-t63"/>
@@ -2051,7 +2051,7 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="gze-sl-67j"/>
-                            <menuItem title=" Mute/Unmute" image="Mute-Small" keyEquivalent="" id="TYd-HO-2Rv" userLabel="Mute/Unmute">
+                            <menuItem title=" Mute / Unmute" image="Mute-Small" keyEquivalent="" id="TYd-HO-2Rv" userLabel="Mute/Unmute">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="muteUnmuteMenuItemAction:" target="Voe-Tx-rLC" id="BdR-yz-w5t"/>
@@ -2113,6 +2113,19 @@ CA
                             <menuItem title=" Effects" state="on" image="ToggleEffectsView-Small" keyEquivalent="2" id="fK8-7g-oqx" userLabel="Effects">
                                 <connections>
                                     <action selector="toggleViewEffectsAction:" target="Voe-Tx-rLC" id="Kiw-iQ-y6k"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Help" id="UdL-af-j9j">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Help" id="Mcl-VM-OnW">
+                        <items>
+                            <menuItem title="User Guide" id="QqV-12-NGD">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="userGuideAction:" target="Voe-Tx-rLC" id="jep-9b-v0p"/>
                                 </connections>
                             </menuItem>
                         </items>
