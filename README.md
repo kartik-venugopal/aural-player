@@ -2,8 +2,6 @@
 
 ![App demo](/Documentation/Demos/GeneralDemo.gif?raw=true "App demo")
 
-(Plenty more demo videos available under [/Documentation/Demos](/Documentation/Demos))
-
 ## Overview
 
 Aural Player is a free and open source audio player application for the MacOS (formerly OS X) platform. It is free for anyone to use/modify/repackage/redistribute, etc. It is designed to be to-the-point and easy to use, with plenty of keyboard shortcuts for convenience and efficiency, much like the classic Winamp player on Windows, plus some additional sound tuning capabilities for audio enthusiasts who like to tweak sound.
@@ -24,7 +22,11 @@ The latest app bundle can be found in the compressed archive file [Aural.app.zip
 
 ## Documentation
 
-Please see [User Guide](http://htmlpreview.github.com/?https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/UserGuide.html) and [Developer-readme](https://github.com/maculateConception/aural-player/blob/master/Documentation/Developer-readme.rtf?raw=true) under [/Documentation](/Documentation), for more details.
+[User Guide](http://htmlpreview.github.com/?https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/UserGuide.html)
+
+[Developer readme](https://github.com/maculateConception/aural-player/blob/master/Documentation/Developer-readme.rtf?raw=true) 
+
+[Demo videos](/Documentation/Demos).
 
 ## Swift 3 update
 
