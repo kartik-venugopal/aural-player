@@ -1,6 +1,8 @@
 # Aural Player
 
-![App screenshot](/Documentation/UserGuide.rtfd/Aural.png?raw=true "App screenshot")
+![App demo](/Documentation/Demos/GeneralDemo.gif?raw=true "App demo")
+
+(Plenty more demo videos available under [/Documentation/Demos](/Documentation/Demos))
 
 ## Overview
 
