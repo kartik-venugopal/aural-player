@@ -30,9 +30,9 @@ The latest app bundle can be found in the compressed archive file [Aural.app.zip
 
 ## Recent updates
 
-8/11/2017: **M3U support** - Added support for M3U/M3U8 playlists. Also, app now allows and properly resolves file aliases and symbolic links.
+8/11/2017: **M3U playlist support** - Added support for M3U/M3U8 playlists. Also, app now allows and properly resolves file aliases and symbolic links.
 
-8/10/2017: **HTML User Guide** Completely rewrote the User Guide. It is now in HTML format and explains all features in detail, with lots of screenshots. Did away with the old RTFD format User Guide.
+8/10/2017: **New HTML User Guide** Completely rewrote the User Guide. It is now in HTML format and explains all features in detail, with lots of screenshots. Did away with the old RTFD format User Guide.
 
 8/8/2017: **Demo videos** Added lots of .mp4 demo videos that illustrate different features.
 
