@@ -6,7 +6,7 @@
 
 Aural Player is a free and open source audio player application for the MacOS (formerly OS X) platform. It is free for anyone to use/modify/repackage/redistribute, etc. It is designed to be to-the-point and easy to use, with plenty of keyboard shortcuts for convenience and efficiency, much like the classic Winamp player on Windows, plus some additional sound tuning capabilities for audio enthusiasts who like to tweak sound.
 
-## Summary of features
+### Summary of features
 
 - Playback of MP3, M4A, AAC, WAV audio files
 - Supports M3U/M3U8 playlists
