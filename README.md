@@ -15,15 +15,15 @@ Aural Player is a free and open source audio player application for the MacOS (f
 - Displays ID3 metadata including artwork
 - Searching and sorting of playlist
 
-### Background
-
-Aural Player was written by an audio enthusiast learning to program on OS X, coming to Swift programming from many years of Java programming. This project was inspired by the developer’s desire to create a Winamp-like substitute for the MacOS platform. No feature bloat or unnecessary annoyances like iTunes.
-
 ### Compatibility
 
 **User**: Running Aural Player requires OS X 10.10 (Yosemite) or later MacOS versions.
 
 **Developer**: To develop Aural Player with Swift 3 (master branch) requires MacOS 10.12 (Sierra) and XCode 8.x. To develop Aural Player with Swift 2 ("swift2" branch) requires OS X 10.10 (Yosemite) or later and XCode 7.x.
+
+### Background
+
+Aural Player was written by an audio enthusiast learning to program on OS X, coming to Swift programming from many years of Java programming. This project was inspired by the developer’s desire to create a Winamp-like substitute for the MacOS platform. No feature bloat or unnecessary annoyances like iTunes.
 
 ## Downloadable app bundle
 
