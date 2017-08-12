@@ -19,7 +19,7 @@ class UIElements {
         
         let dialog = NSOpenPanel()
         
-        dialog.title                   = "Choose media (.mp3/.m4a/.aac/.wav), playlists (.m3u/.m3u8), or directories";
+        dialog.title                   = "Choose media (.mp3/.m4a/.aac/.aif/.wav), playlists (.m3u/.m3u8), or directories";
         
         dialog.showsResizeIndicator    = true;
         dialog.showsHiddenFiles        = true;
