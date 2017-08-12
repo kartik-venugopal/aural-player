@@ -51,9 +51,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         // Add tracks async, notifying the UI one at a time
         DispatchQueue.global(qos: .userInitiated).async {
             
-            for track in self.playerState!.playlist {
+            // NOTE - Assume that all entries are valid tracks (supported audio files), not playlists and not directories. i.e. assume that saved state file has not been corrupted.
+            for trackPath in self.playerState!.playlist {
                 
-                let index = self.playlist.addTrack(URL(fileURLWithPath: track))
+                let resolvedFileInfo = FileSystemUtils.resolveTruePath(URL(fileURLWithPath: trackPath))
+                
+                let index = self.playlist.addTrack(resolvedFileInfo.resolvedURL)
                 if (index >= 0) {
                     self.notifyTrackAdded(index)
                     self.prepareNextTracksForPlayback()
@@ -67,54 +70,84 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     }
     
     // This method should only be called from outside this class. For adding tracks within this class, always call the private method addTracks_sync().
-    func addTracks(_ files: [URL]) {
+    func addFiles(_ files: [URL]) {
         
         // Move to a background thread to unblock the main thread
         DispatchQueue.global(qos: .userInitiated).async {
-            self.addTracks_sync(files)
+            self.addFiles_sync(files)
         }
     }
     
-    // Adds a bunch of tracks synchronously
-    private func addTracks_sync(_ files: [URL]) {
+    // Adds a bunch of files synchronously
+    private func addFiles_sync(_ files: [URL]) {
         
         if (files.count > 0) {
             
-            for file in files {
+            for _file in files {
                 
-                if (Utils.isDirectory(file)) {
-                    self.addTracksFromDir(file)
+                if (!FileSystemUtils.fileExists(_file)) {
+                    print(_file.path, "doesnt exist. SKipping")
+                    continue
+                }
+                
+                // Always resolve sym links and aliases before reading the file
+                let resolvedFileInfo = FileSystemUtils.resolveTruePath(_file)
+                let file = resolvedFileInfo.resolvedURL
+                
+                if (resolvedFileInfo.isDirectory) {
+                    
+                    // Directory
+                    self.addDirectory(file)
+                    
                 } else {
-                    self.addSingleTrack(file)
+                    
+                    // Single file - playlist or track
+                    let fileExtension = file.pathExtension.lowercased()
+                    
+                    if (AppConstants.supportedPlaylistFileTypes.contains(fileExtension)) {
+                        
+                        // Playlist
+                        addPlaylist(file)
+                        
+                    } else if (AppConstants.supportedAudioFileTypes.contains(fileExtension)) {
+                        
+                        // Track
+                        addTrack(file)
+                        
+                    } else {
+                        
+                        // Unsupported file type, ignore
+                        NSLog("Ignoring unsupported file: %@", file.path)
+                    }
                 }
             }
         }
     }
     
-    private func addSingleTrack(_ file: URL) {
+    private func addTrack(_ file: URL) {
         
-        let fileExtension = file.pathExtension.lowercased()
+        let newTrackIndex = playlist.addTrack(file)
+        if (newTrackIndex >= 0) {
+            notifyTrackAdded(newTrackIndex)
+            prepareNextTracksForPlayback()
+        }
+    }
+    
+    private func addPlaylist(_ playlistFile: URL) {
+       
+        // Playlist
+        let loadedPlaylist = PlaylistIO.loadPlaylist(playlistFile)
+        if (loadedPlaylist != nil) {
+            addFiles_sync(loadedPlaylist!.tracks)
+        }
+    }
+    
+    private func addDirectory(_ dir: URL) {
         
-        if (fileExtension == AppConstants.customPlaylistExtension) {
-            
-            // Playlist
-            let loadedPlaylist = PlaylistIO.loadPlaylist(file)
-            if (loadedPlaylist != nil) {
-                playlist.addPlaylist(loadedPlaylist!, {index in self.notifyTrackAdded(index); self.prepareNextTracksForPlayback()})
-            }
-            
-        } else if (AppConstants.supportedAudioFileTypes.contains(fileExtension)) {
-            // Track
-
-            let newTrackIndex = playlist.addTrack(file)
-            if (newTrackIndex >= 0) {
-                notifyTrackAdded(newTrackIndex)
-                prepareNextTracksForPlayback()
-            }
-
-        } else {
-            // Unsupported file type, ignore
-            NSLog("Ignoring unsupported file: %@", file.path)
+        let dirContents = FileSystemUtils.getContentsOfDirectory(dir)
+        if (dirContents != nil) {
+            // Add them
+            addFiles_sync(dirContents!)
         }
     }
     
@@ -123,22 +156,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         let trackAddedEvent = TrackAddedEvent(trackIndex: trackIndex)
         EventRegistry.publishEvent(.trackAdded, trackAddedEvent)
-    }
-    
-    private func addTracksFromDir(_ dir: URL) {
-        
-        let fileManager: FileManager = FileManager.default
-        
-        do {
-            // Retrieve all files/subfolders within this folder
-            let files = try fileManager.contentsOfDirectory(at: dir, includingPropertiesForKeys: [], options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
-            
-            // Add them
-            addTracks_sync(files)
-            
-        } catch let error as NSError {
-            NSLog("Error retrieving contents of directory '%@': %@", dir.path, error.description)
-        }
     }
     
     func removeTrack(_ index: Int) -> Int? {

@@ -19,7 +19,8 @@ class UIElements {
         
         let dialog = NSOpenPanel()
         
-        dialog.title                   = "Choose media (.mp3/.m4a) or playlist (.apl) files";
+        dialog.title                   = "Choose media (.mp3/.m4a/.aac/.wav), playlists (.m3u/.m3u8), or directories";
+        
         dialog.showsResizeIndicator    = true;
         dialog.showsHiddenFiles        = true;
         
@@ -28,6 +29,8 @@ class UIElements {
         dialog.canCreateDirectories    = true;
         dialog.allowsMultipleSelection = true;
         dialog.allowedFileTypes        = AppConstants.supportedFileTypes_open
+        
+        dialog.resolvesAliases = true;
         
         dialog.directoryURL = AppConstants.musicDirURL
         
@@ -38,7 +41,7 @@ class UIElements {
         
         let dialog = NSSavePanel()
         
-        dialog.title                   = "Save current playlist as a (.apl) file"
+        dialog.title                   = "Save current playlist as a (.m3u) file"
         dialog.showsResizeIndicator    = true
         dialog.showsHiddenFiles        = true
         
@@ -54,7 +57,7 @@ class UIElements {
         
         let dialog = NSSavePanel()
         
-        dialog.title                   = "Save recording"
+        dialog.title                   = "Save recording as a (.aac) file"
         dialog.showsResizeIndicator    = true
         dialog.showsHiddenFiles        = false
         

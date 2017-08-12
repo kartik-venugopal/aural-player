@@ -41,7 +41,7 @@ class PlaylistViewController: NSViewController, NSTableViewDataSource, NSTableVi
         let objects = info.draggingPasteboard().readObjects(forClasses: [NSURL.self], options: nil)
         
         let appDelegate = NSApplication.shared().delegate as! AppDelegate
-        appDelegate.addTracks(objects! as! [URL])
+        appDelegate.addFiles(objects! as! [URL])
         
         return true
     }

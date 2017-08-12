@@ -8,7 +8,8 @@ import AVFoundation
 class TrackIO {
     
     // Load track info from specified file
-    static func loadTrack(_ file: URL) -> Track? {
+    // Assume valid existing and supported file
+    static func loadTrack(_ file: URL) -> Track {
         
         let track: Track = Track()
         track.file = file

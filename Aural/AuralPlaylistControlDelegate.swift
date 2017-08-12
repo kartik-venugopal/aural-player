@@ -6,8 +6,8 @@ import Cocoa
 
 protocol AuralPlaylistControlDelegate {
  
-    // Add tracks (or saved playlists) to the current playlist
-    func addTracks(_ files: [URL])
+    // Add files (i.e. audio files, directories, or saved playlists) to the current playlist. Only supported audio files will be added.
+    func addFiles(_ files: [URL])
     
     // Removes a single track at the specified index in the playlist. Returns the playing track index after removal (nil if playing track is the one removed)
     func removeTrack(_ index: Int) -> Int?

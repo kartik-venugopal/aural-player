@@ -16,6 +16,9 @@ class Recorder {
     // Used to determine the current recording duration
     fileprivate var recordingStartTime: Date?
     
+    // Half a second, expressed in microseconds
+    private static let halfSecondMicros: UInt32 = 500000
+    
     init(_ audioEngine: AVAudioEngine) {
         self.audioEngine = audioEngine
     }
@@ -53,7 +56,7 @@ class Recorder {
         AsyncExecutor.execute({
             
             // This sleep is to make up for the lag in the tap. In other words, continue to collect tapped data for half a second after the stop is requested.
-            usleep(500000)
+            usleep(Recorder.halfSecondMicros)
             
             self.audioEngine.mainMixerNode.removeTap(onBus: 0)
         
@@ -63,12 +66,8 @@ class Recorder {
     func saveRecording(_ url: URL) {
         
         // Rename the file from the temp URL -> user-defined URL
-        do {
-            let originURL = URL(fileURLWithPath: tempRecordingFilePath!)
-            try FileManager.default.moveItem(at: originURL, to: url)
-        } catch let error as NSError {
-            NSLog("Error renaming recording file to '%@': %@", url.path, error.description)
-        }
+        let srcURL = URL(fileURLWithPath: tempRecordingFilePath!)
+        FileSystemUtils.renameFile(srcURL, url)
     }
     
     func getRecordingInfo() -> RecordingInfo {
@@ -76,17 +75,13 @@ class Recorder {
         // Duration = now - startTime
         let now = Date()
         let duration = now.timeIntervalSince(recordingStartTime!)
-        let size = Utils.sizeOfFile(path: tempRecordingFilePath!)
+        let size = FileSystemUtils.sizeOfFile(path: tempRecordingFilePath!)
         
         return RecordingInfo(duration, size)
     }
     
     // Deletes the temporary recording file if the user discards the recording when prompted to save it
     func deleteRecording() {
-        do {
-            try FileManager.default.removeItem(atPath: tempRecordingFilePath!)
-        } catch let error as NSError {
-            NSLog("Error deleting temporary recording file: %@", error.description)
-        }
+        FileSystemUtils.deleteFile(tempRecordingFilePath!)
     }
 }

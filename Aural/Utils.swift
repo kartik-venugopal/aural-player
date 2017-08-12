@@ -75,29 +75,4 @@ class Utils {
             in: CharacterSet.whitespacesAndNewlines
         )
     }
-    
-    static func isDirectory(_ url: URL) -> Bool {
-        
-        var isDirectory: ObjCBool = ObjCBool(false)
-        FileManager.default.fileExists(atPath: url.path, isDirectory: &isDirectory)
-        
-        return isDirectory.boolValue
-    }
-    
-    static func sizeOfFile(path: String) -> Size {
-        
-        var fileSize : UInt64
-        
-        do {
-            //return [FileAttributeKey : Any]
-            let attr = try FileManager.default.attributesOfItem(atPath: path)
-            fileSize = attr[FileAttributeKey.size] as! UInt64
-            return Size(sizeBytes: UInt(fileSize))
-            
-        } catch let error as NSError {
-            NSLog("Error getting size of file '%@': %@", path, error.description)
-        }
-        
-        return Size.ZERO
-    }
 }

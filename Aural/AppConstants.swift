@@ -5,12 +5,16 @@ import Cocoa
 A collection of app-level constants
 */
 class AppConstants {
- 
-    static let supportedAudioFileTypes: [String] = ["mp3", "m4a", "aac", "wav"]
-    static let supportedFileTypes_open: [String] = ["mp3", "m4a", "aac", "wav", customPlaylistExtension]
     
-    static let customPlaylistExtension: String = "apl"
-    static let supportedFileTypes_save: [String] = [customPlaylistExtension]
+    // Supported playlist formats
+    static let m3u: String = "m3u"
+    static let m3u8: String = "m3u8"
+ 
+    static let supportedPlaylistFileTypes: [String] = [m3u, m3u8]
+    static let supportedAudioFileTypes: [String] = ["mp3", "m4a", "aac", "wav"]
+    
+    static let supportedFileTypes_open: [String] = ["mp3", "m4a", "aac", "wav", m3u, m3u8]
+    static let supportedFileTypes_save: [String] = [m3u]
     
     static let audibleRangeMin: Float = 20      // 20 Hz
     static let audibleRangeMax: Float = 20480   // 20 KHz
@@ -49,7 +53,7 @@ class AppConstants {
     static let logFileName = "auralPlayer.log"
     
     // Default user's music directory (default place to look in, when opening/saving files)
-    static let musicDirURL: URL = URL(fileURLWithPath: NSHomeDirectory() + "/Music")
+    static let musicDirURL: URL = FileSystemUtils.resolveTruePath(URL(fileURLWithPath: NSHomeDirectory() + "/Music")).resolvedURL
     
     // Directory where recordings are temporarily stored, till the user defines the location
     static let recordingDirURL: URL = musicDirURL

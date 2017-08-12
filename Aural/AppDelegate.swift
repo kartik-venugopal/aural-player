@@ -413,7 +413,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         let modalResponse = dialog.runModal()
         
         if (modalResponse == NSModalResponseOK) {
-            addTracks(dialog.urls)
+            addFiles(dialog.urls)
         }
         
         selectTrack(selRow)
@@ -1034,9 +1034,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     // Adds a set of files (or directories, i.e. files within them) to the current playlist, if supported
-    func addTracks(_ files: [URL]) {
+    func addFiles(_ files: [URL]) {
         
-        player.addTracks(files)
+        player.addFiles(files)
         
         // Refresh the playlist view with the new files
         playlistView.reloadData()
