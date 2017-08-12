@@ -41,13 +41,13 @@ The latest app bundle can be found in the compressed archive file [Aural.app.zip
 
 8/11/2017: **M3U playlist support** - Added support for M3U/M3U8 playlists. Also, app now allows and properly resolves file aliases and symbolic links.
 
-8/10/2017: **New HTML User Guide** Completely rewrote the User Guide. It is now in HTML format and explains all features in detail, with lots of screenshots. Did away with the old RTFD format User Guide.
+8/10/2017: **New HTML User Guide** - Completely rewrote the User Guide. It is now in HTML format and explains all features in detail, with lots of screenshots. Did away with the old RTFD format User Guide.
 
-8/8/2017: **Demo videos** Added lots of .mp4 demo videos that illustrate different features.
+8/8/2017: **Demo videos** - Added lots of .mp4 demo videos that illustrate different features.
 
-7/28/2017: **UI overhaul** Major overhaul of the UI. New color scheme (dark background, light text), new slider control look and feel. Each slider control has an accompanying label showing its value, for instant feedback when making adjustments.
+7/28/2017: **UI overhaul** - Major overhaul of the UI. New color scheme (dark background, light text), new slider control look and feel. Each slider control has an accompanying label showing its value, for instant feedback when making adjustments.
 
-7/20/2017: **Swift v3 migration** Code in master branch ported to Swift v3. Swift 2 code is now in the "swift2" branch. Swift 2 development, from this point on, will be limited to none. Latest changes will go into master branch (with Swift 3 code).
+7/20/2017: **Swift v3 migration** - Code in master branch ported to Swift v3. Swift 2 code is now in the "swift2" branch. Swift 2 development, from this point on, will be limited to none. Latest changes will go into master branch (with Swift 3 code).
 
 ## Third party code attribution
 
