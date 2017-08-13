@@ -233,7 +233,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         // Load saved state (sound settings + playlist) from app config file and adjust UI elements according to that state
         
-        player.loadPlaylistFromSavedState()
+        if (preferences.playlistOnStartup == .rememberFromLastAppLaunch) {
+            player.loadPlaylistFromSavedState()
+        }
         
         let playerState = player.getPlayerState()
         if (playerState != nil) {
@@ -299,12 +301,29 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     func initStatefulUI(_ playerState: SavedPlayerState) {
         
-        if (!playerState.showPlaylist) {
-            toggleViewPlaylistAction(self)
-        }
+        if (preferences.viewOnStartup.option == .rememberFromLastAppLaunch) {
         
-        if (!playerState.showEffects) {
-            toggleViewEffectsAction(self)
+            if (!playerState.showPlaylist) {
+                toggleViewPlaylistAction(self)
+            }
+            
+            if (!playerState.showEffects) {
+                toggleViewEffectsAction(self)
+            }
+            
+        } else {
+            
+            let viewType = preferences.viewOnStartup.viewType
+            let hidePlaylist = viewType == .effectsOnly || viewType == .compact
+            let hideEffects = viewType == .playlistOnly || viewType == .compact
+            
+            if (hidePlaylist) {
+                toggleViewPlaylistAction(self)
+            }
+            
+            if (hideEffects) {
+                toggleViewEffectsAction(self)
+            }
         }
         
         // Set sliders to reflect player state
