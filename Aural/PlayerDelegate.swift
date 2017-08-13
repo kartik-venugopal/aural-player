@@ -7,10 +7,7 @@ import Cocoa
  */
 class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSoundTuningDelegate, AuralRecorderDelegate, EventSubscriber {
     
-    // Time in seconds for seeking forward/backward
-    private static let SEEK_TIME: Double = 5
-    private static let VOLUME_DELTA: Float = 0.05
-    private static let BALANCE_DELTA: Float = 0.1
+    var preferences: Preferences = Preferences.instance()
     
     private var playerState: SavedPlayerState?
     
@@ -85,8 +82,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             
             for _file in files {
                 
+                // Playlists might contain broken file references
                 if (!FileSystemUtils.fileExists(_file)) {
-                    print(_file.path, "doesnt exist. SKipping")
                     continue
                 }
                 
@@ -405,7 +402,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         // Calculate the new start position
         let curPosn = player.getSeekPosition()
         let trackDuration = playingTrack!.track!.duration!
-        let newPosn = min(trackDuration, curPosn + PlayerDelegate.SEEK_TIME)
+        let newPosn = min(trackDuration, curPosn + Double(preferences.seekLength))
         
         // If this seek takes the track to its end, stop playback and proceed to the next track
         if (newPosn < trackDuration) {
@@ -424,7 +421,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         // Calculate the new start position
         let curPosn = player.getSeekPosition()
-        let newPosn = max(0, curPosn - PlayerDelegate.SEEK_TIME)
+        let newPosn = max(0, curPosn - Double(preferences.seekLength))
         
         let session = PlaybackSession.start(playingTrack!)
         player.seekToTime(session, newPosn)
@@ -459,14 +456,14 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     
     func increaseVolume() -> Float {
         let curVolume = player.getVolume()
-        let newVolume = min(1, curVolume + PlayerDelegate.VOLUME_DELTA)
+        let newVolume = min(1, curVolume + preferences.volumeDelta)
         player.setVolume(newVolume)
         return round(newVolume * AppConstants.volumeConversion_playerToUI)
     }
     
     func decreaseVolume() -> Float {
         let curVolume = player.getVolume()
-        let newVolume = max(0, curVolume - PlayerDelegate.VOLUME_DELTA)
+        let newVolume = max(0, curVolume - preferences.volumeDelta)
         player.setVolume(newVolume)
         return round(newVolume * AppConstants.volumeConversion_playerToUI)
     }
@@ -488,17 +485,17 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     }
     
     func getBalance() -> Float {
-        return player.getBalance()
+        return round(player.getBalance() * AppConstants.panConversion_playerToUI)
     }
     
     func setBalance(_ balance: Float) {
-        player.setBalance(balance)
+        player.setBalance(balance * AppConstants.panConversion_UIToPlayer)
     }
     
     func panLeft() -> Float {
         
         let curBalance = player.getBalance()
-        var newBalance = max(-1, curBalance - Float(PlayerDelegate.BALANCE_DELTA))
+        var newBalance = max(-1, curBalance - preferences.panDelta)
         
         // Snap to center
         if (curBalance > 0 && newBalance < 0) {
@@ -507,13 +504,13 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         player.setBalance(newBalance)
         
-        return newBalance
+        return round(newBalance * AppConstants.panConversion_playerToUI)
     }
     
     func panRight() -> Float {
         
         let curBalance = player.getBalance()
-        var newBalance = min(1, curBalance + Float(PlayerDelegate.BALANCE_DELTA))
+        var newBalance = min(1, curBalance + preferences.panDelta)
         
         // Snap to center
         if (curBalance < 0 && newBalance > 0) {
@@ -522,7 +519,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         player.setBalance(newBalance)
         
-        return newBalance
+        return round(newBalance * AppConstants.panConversion_playerToUI)
     }
     
     // Sets global gain (or preamp) for the equalizer
@@ -681,6 +678,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         state.showPlaylist = app.isPlaylistShown()
         
         PlayerStateIO.save(state)
+        Preferences.persist()
     }
     
     // Called when playback of the current track completes

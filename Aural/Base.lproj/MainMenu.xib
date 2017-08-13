@@ -78,6 +78,8 @@
                 <outlet property="lblTrackArtist" destination="bDo-O3-0JI" id="R2s-4c-465"/>
                 <outlet property="lblTrackTitle" destination="LM5-xW-O9f" id="Dg8-JS-PyS"/>
                 <outlet property="musicArtView" destination="YrG-JU-zDl" id="pn0-XL-ktK"/>
+                <outlet property="panDeltaField" destination="No1-X0-ONc" id="tKk-Fo-zqy"/>
+                <outlet property="panDeltaStepper" destination="Xdc-nv-mZS" id="T09-L8-PJp"/>
                 <outlet property="panSlider" destination="wom-j6-eli" id="3Bl-ac-3Pj"/>
                 <outlet property="pitchOverlapSlider" destination="9E2-MV-Hi7" id="y3H-9s-ozV"/>
                 <outlet property="pitchSlider" destination="g6a-qD-rnZ" id="HBk-Ja-Ags"/>
@@ -85,6 +87,7 @@
                 <outlet property="playlistBox" destination="RMJ-vL-K67" id="n9m-9V-L46"/>
                 <outlet property="playlistControlsBox" destination="ft1-56-lTI" id="2Y4-JK-td4"/>
                 <outlet property="playlistView" destination="4Fk-6v-HSf" id="QZT-Zn-WBd"/>
+                <outlet property="prefsPanel" destination="miy-XV-uzY" id="6pE-fU-45x"/>
                 <outlet property="recorderTabViewButton" destination="oIR-f6-2g1" id="tor-ak-Efj"/>
                 <outlet property="recordingInfoBox" destination="XTn-sI-WaY" id="VLn-JF-Hyw"/>
                 <outlet property="reverbMenu" destination="6kC-nQ-BsO" id="T7b-0N-Gyx"/>
@@ -99,6 +102,8 @@
                 <outlet property="searchPanel" destination="jhP-AH-EDd" id="oyW-7j-in7"/>
                 <outlet property="searchResultMatchInfo" destination="tV8-Yi-o5k" id="6fD-Ku-mGV"/>
                 <outlet property="searchResultsSummaryLabel" destination="cAy-bq-MqT" id="818-c4-lAX"/>
+                <outlet property="seekLengthField" destination="dBN-Nf-UUu" id="Oih-O4-bnl"/>
+                <outlet property="seekLengthSlider" destination="z2P-US-UeC" id="zjN-Ru-HNd"/>
                 <outlet property="seekSlider" destination="0m5-4l-3Wg" id="m8W-Pi-SGb"/>
                 <outlet property="sortAscending" destination="trl-at-P9S" id="E1I-uz-yBv"/>
                 <outlet property="sortByDuration" destination="Gd9-ah-OAB" id="l2o-N6-Xq1"/>
@@ -110,6 +115,8 @@
                 <outlet property="timeTabViewButton" destination="H6U-2l-Q6T" id="h7R-yz-1Rh"/>
                 <outlet property="viewEffectsMenuItem" destination="fK8-7g-oqx" id="EQv-4S-gcr"/>
                 <outlet property="viewPlaylistMenuItem" destination="af4-4E-1QV" id="Dhx-XG-mI6"/>
+                <outlet property="volumeDeltaField" destination="2Tz-kD-WEf" id="Hhx-Me-ylP"/>
+                <outlet property="volumeDeltaStepper" destination="A38-ZO-IeG" id="xHt-gk-mUc"/>
                 <outlet property="volumeSlider" destination="7fw-31-38g" id="YIc-Xx-p98"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
@@ -356,7 +363,7 @@
                                     <shadow key="shadow" blurRadius="1">
                                         <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </shadow>
-                                    <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" minValue="-1" maxValue="1" tickMarkPosition="below" numberOfTickMarks="3" sliderType="linear" id="44O-U1-j5I" customClass="PanSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                    <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" minValue="-100" maxValue="100" tickMarkPosition="below" numberOfTickMarks="3" sliderType="linear" id="44O-U1-j5I" customClass="PanSliderCell" customModule="Aural" customModuleProvider="target"/>
                                     <string key="userLabel" base64-UTF8="YES">
 G1BhbiBTbGlkZXI
 </string>
@@ -1937,6 +1944,12 @@ G1BhbiBTbGlkZXI
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Aural" systemMenu="apple" id="hQO-jN-9ss">
                         <items>
+                            <menuItem title="Preferences" keyEquivalent="," id="S2h-Uk-bNq">
+                                <connections>
+                                    <action selector="preferencesAction:" target="Voe-Tx-rLC" id="gIo-zj-zht"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="KCy-Jo-pWQ"/>
                             <menuItem title="Hide Aural" keyEquivalent="h" id="Q8U-5t-wnF" userLabel="Hide Aural">
                                 <connections>
                                     <action selector="hide:" target="-1" id="Fub-xu-H2S"/>
@@ -2520,6 +2533,186 @@ Gw
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="-671" y="178"/>
         </window>
+        <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="miy-XV-uzY" userLabel="Preferences Panel" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="120" y="65" width="386" height="288"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <view key="contentView" id="kXa-Xa-w7W">
+                <rect key="frame" x="0.0" y="0.0" width="386" height="288"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWd-Fg-eFc" userLabel="Seek Length Label">
+                        <rect key="frame" x="17" y="209" width="82" height="24"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Seek length:" id="WCm-za-Inb">
+                            <font key="font" size="13" name="GillSans"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBN-Nf-UUu">
+                        <rect key="frame" x="299" y="210" width="74" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="5 sec" id="MOP-Kg-eKh">
+                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="IDA-wd-8Dq">
+                                <real key="minimum" value="3"/>
+                                <real key="maximum" value="300"/>
+                            </numberFormatter>
+                            <font key="font" size="11" name="GillSans"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z2P-US-UeC" userLabel="Seek Length Slider">
+                        <rect key="frame" x="109" y="214" width="155" height="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="3" maxValue="300" doubleValue="50" tickMarkPosition="below" sliderType="linear" id="VGi-B0-wqx" customClass="SeekLengthSliderCell" customModule="Aural" customModuleProvider="target"/>
+                        <connections>
+                            <action selector="seekLengthAction:" target="Voe-Tx-rLC" id="5WF-W0-LVH"/>
+                        </connections>
+                    </slider>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oRt-Kg-Osn" userLabel="Save button">
+                        <rect key="frame" x="220" y="14" width="73" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Save" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jeZ-Un-FFA">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="12" name="GillSans"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="savePreferencesAction:" target="Voe-Tx-rLC" id="afu-vs-dgm"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BiP-3r-keA" userLabel="Cancel button">
+                        <rect key="frame" x="298" y="14" width="73" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4q5-11-emD">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="12" name="GillSans"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="cancelPreferencesAction:" target="Voe-Tx-rLC" id="yVD-Oi-r2i"/>
+                        </connections>
+                    </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Odv-ow-YMl" userLabel="Volume Increment Label">
+                        <rect key="frame" x="17" y="148" width="125" height="24"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Volume increment:" id="X6O-m8-VA1">
+                            <font key="font" size="13" name="GillSans"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Tz-kD-WEf" userLabel="Volume Delta Field">
+                        <rect key="frame" x="317" y="147" width="40" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="5%" id="4m1-UC-XKP">
+                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="TDK-Gt-XhG">
+                                <real key="minimum" value="1"/>
+                                <real key="maximum" value="25"/>
+                            </numberFormatter>
+                            <font key="font" size="11" name="GillSans"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A38-ZO-IeG" userLabel="Volume Delta Stepper">
+                        <rect key="frame" x="358" y="148" width="15" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="5" id="UQQ-Lh-1wc"/>
+                        <connections>
+                            <action selector="volumeDeltaAction:" target="Voe-Tx-rLC" id="A5u-gJ-1WU"/>
+                        </connections>
+                    </stepper>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kuz-EH-wmV" userLabel="Seek Length Label">
+                        <rect key="frame" x="17" y="90" width="148" height="24"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Balance increment:" id="kRA-YO-iBg">
+                            <font key="font" size="13" name="GillSans"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="No1-X0-ONc" userLabel="Pan Delta Field">
+                        <rect key="frame" x="317" y="89" width="40" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="10%" id="9Bb-bA-cat">
+                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="zO6-pH-4pN">
+                                <real key="minimum" value="3"/>
+                                <real key="maximum" value="30"/>
+                            </numberFormatter>
+                            <font key="font" size="11" name="GillSans"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xdc-nv-mZS" userLabel="Pan Delta Stepper">
+                        <rect key="frame" x="358" y="90" width="15" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="10" id="fR7-Ff-J78"/>
+                        <connections>
+                            <action selector="panDeltaAction:" target="Voe-Tx-rLC" id="v6p-eQ-4NV"/>
+                        </connections>
+                    </stepper>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBE-5S-EBx">
+                        <rect key="frame" x="18" y="186" width="311" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Length of the jump when seeking within a track [3 sec  - 5 min]" id="O4o-go-BpK">
+                            <font key="font" size="10" name="GillSans"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xh0-Mb-es6">
+                        <rect key="frame" x="18" y="129" width="295" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Amount by which volume is incremented / decremented [1% - 25%]" id="Ouj-4x-3MO">
+                            <font key="font" size="10" name="GillSans"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Of4-M9-0x6">
+                        <rect key="frame" x="18" y="71" width="253" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Amount by which stereo balance / pan is shifted [1% - 25%]" id="w1z-qn-FTL">
+                            <font key="font" size="10" name="GillSans"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a7u-Oh-WUs" userLabel="Seek Length Plus">
+                        <rect key="frame" x="266" y="216" width="10" height="10"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Plus" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="SP2-TN-ZMa">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="seekLengthIncrementAction:" target="Voe-Tx-rLC" id="Mk5-Gq-49F"/>
+                        </connections>
+                    </button>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SoX-ML-8tq" userLabel="Seek Length Minus">
+                        <rect key="frame" x="97" y="216" width="10" height="10"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Minus" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="bCR-Ea-Wlc">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="seekLengthDecrementAction:" target="Voe-Tx-rLC" id="cUj-2n-pdr"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="-238" y="510"/>
+        </window>
     </objects>
     <resources>
         <image name="Add" width="128" height="128"/>
@@ -2532,6 +2725,7 @@ Gw
         <image name="Down-Small" width="1.3999999761581421" height="1.3999999761581421"/>
         <image name="EffectsView-On" width="419" height="422"/>
         <image name="Hide" width="94" height="94"/>
+        <image name="Minus" width="346" height="346"/>
         <image name="MoreInfo" width="256" height="256"/>
         <image name="MoreInfo-Small" width="13" height="13"/>
         <image name="MusicArt" width="183" height="183"/>
@@ -2544,6 +2738,7 @@ Gw
         <image name="Play-Small" width="14" height="14"/>
         <image name="PlayPause-Small" width="14" height="14"/>
         <image name="PlaylistView-On" width="185" height="161"/>
+        <image name="Plus" width="174" height="174"/>
         <image name="PreviousTrack" width="256" height="256"/>
         <image name="PreviousTrack-Small" width="14" height="8"/>
         <image name="Record" width="256" height="256"/>

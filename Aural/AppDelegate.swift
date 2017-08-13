@@ -10,6 +10,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBOutlet weak var window: NSWindow!
     
+    @IBOutlet weak var prefsPanel: NSPanel!
+    
+    @IBOutlet weak var seekLengthField: NSTextField!
+    @IBOutlet weak var seekLengthSlider: NSSlider!
+    
+    @IBOutlet weak var volumeDeltaField: NSTextField!
+    @IBOutlet weak var volumeDeltaStepper: NSStepper!
+    
+    @IBOutlet weak var panDeltaField: NSTextField!
+    @IBOutlet weak var panDeltaStepper: NSStepper!
+    
+    
     // Playlist search modal dialog fields
     @IBOutlet weak var searchPanel: NSPanel!
     @IBOutlet weak var searchField: ColoredCursorSearchField!
@@ -177,6 +189,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     // Current playlist search results
     var searchResults: SearchResults?
     
+    var preferences: Preferences = Preferences.instance()
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
         // Initialize UI with presentation settings (colors, sizes, etc)
@@ -271,12 +285,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         }
         
         // Set sliders to reflect player state
-        volumeSlider.floatValue = playerState.volume * AppConstants.volumeConversion_playerToUI
+        volumeSlider.floatValue = round(playerState.volume * AppConstants.volumeConversion_playerToUI)
         setVolumeImage(playerState.muted)
-        panSlider.floatValue = playerState.balance
+        
+        panSlider.floatValue = round(playerState.balance * AppConstants.panConversion_playerToUI)
         
         switch playerState.repeatMode {
-            
+        
         case .off: btnRepeat.image = UIConstants.imgRepeatOff
         case .one: btnRepeat.image = UIConstants.imgRepeatOne
         case .all: btnRepeat.image = UIConstants.imgRepeatAll
@@ -375,6 +390,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         let interval = playerState.timeBypass ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * playerState.timeStretchRate))
         
         seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
+        
+        // User preferences fields
+        let seekLength = preferences.seekLength
+        seekLengthSlider.integerValue = seekLength
+        seekLengthField.stringValue = Utils.formatDuration_minSec(seekLength)
+        
+        let volumeDelta = Int(round(preferences.volumeDelta * AppConstants.volumeConversion_playerToUI))
+        volumeDeltaStepper.integerValue = volumeDelta
+        volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
+        
+        let panDelta = Int(round(preferences.panDelta * AppConstants.panConversion_playerToUI))
+        panDeltaStepper.integerValue = panDelta
+        panDeltaField.stringValue = String(format: "%d%%", panDelta)
     }
     
     func updatePlaylistSummary() {
@@ -966,8 +994,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         btnFilterBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
     }
     
-    
-    
     @IBAction func eqGlobalGainAction(_ sender: AnyObject) {
         player.setEQGlobalGain(eqGlobalGainSlider.floatValue)
     }
@@ -1376,13 +1402,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
 
     @IBAction func searchDoneAction(_ sender: Any) {
-        dismissSearchDialog()
+        dismissModalDialog()
     }
-    
-    func dismissSearchDialog() {
-        NSApp.stopModal()
-    }
-    
+
     @IBAction func searchPlaylistMenuItemAction(_ sender: Any) {
         searchPlaylistAction(sender)
     }
@@ -1426,7 +1448,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         sortOptions.order = sortAscending.state == 1 ? SortOrder.ascending : SortOrder.descending
         
         player.sortPlaylist(sort: sortOptions)
-        dismissSortDialog()
+        dismissModalDialog()
         
         playlistView.reloadData()
         selectTrack(player.getPlayingTrack()?.index)
@@ -1434,10 +1456,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     @IBAction func sortCancelBtnAction(_ sender: Any) {
-        dismissSortDialog()
+        dismissModalDialog()
     }
     
-    func dismissSortDialog() {
+    func dismissModalDialog() {
         NSApp.stopModal()
     }
     
@@ -1479,7 +1501,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         pitchTabViewButton.state = 1
         fxTabView.selectTabViewItem(at: 1)
     }
-    
     
     @IBAction func timeTabViewAction(_ sender: Any) {
         
@@ -1533,6 +1554,65 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBAction func userGuideAction(_ sender: Any) {
         NSWorkspace.shared().open(AppConstants.userGuideURL)
+    }
+    
+    @IBAction func volumeDeltaAction(_ sender: Any) {
+        
+        let value = volumeDeltaStepper.integerValue
+        volumeDeltaField.stringValue = String(format: "%d%%", value)
+    }
+    
+    @IBAction func panDeltaAction(_ sender: Any) {
+        
+        let value = panDeltaStepper.integerValue
+        panDeltaField.stringValue = String(format: "%d%%", value)
+    }
+    
+    @IBAction func preferencesAction(_ sender: Any) {
+        
+        // Position the search modal dialog and show it
+        let prefsFrameOrigin = NSPoint(x: window.frame.origin.x + 14, y: window.frame.origin.y + 227)
+        
+        prefsPanel.setFrameOrigin(prefsFrameOrigin)
+        prefsPanel.setIsVisible(true)
+        
+        NSApp.runModal(for: prefsPanel)
+        prefsPanel.close()
+    }
+    
+    @IBAction func savePreferencesAction(_ sender: Any) {
+        
+        preferences.seekLength = seekLengthSlider.integerValue
+        preferences.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.volumeConversion_UIToPlayer
+        preferences.panDelta = panDeltaStepper.floatValue * AppConstants.panConversion_UIToPlayer
+        
+        dismissModalDialog()
+    }
+    
+    @IBAction func cancelPreferencesAction(_ sender: Any) {
+        dismissModalDialog()
+    }
+    
+    @IBAction func seekLengthAction(_ sender: Any) {
+        
+        let value = seekLengthSlider.integerValue
+        seekLengthField.stringValue = Utils.formatDuration_minSec(value)
+    }
+    
+    @IBAction func seekLengthIncrementAction(_ sender: Any) {
+        
+        if (Double(seekLengthSlider.integerValue) < seekLengthSlider.maxValue) {
+            seekLengthSlider.integerValue += 1
+            seekLengthField.stringValue = Utils.formatDuration_minSec(seekLengthSlider.integerValue)
+        }
+    }
+    
+    @IBAction func seekLengthDecrementAction(_ sender: Any) {
+        
+        if (Double(seekLengthSlider.integerValue) > seekLengthSlider.minValue) {
+            seekLengthSlider.integerValue -= 1
+            seekLengthField.stringValue = Utils.formatDuration_minSec(seekLengthSlider.integerValue)
+        }
     }
 }
 

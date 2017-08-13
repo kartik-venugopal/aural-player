@@ -28,8 +28,8 @@ protocol AuralSoundTuningDelegate {
     // Retrieves the current L/R balance (aka pan)
     func getBalance() -> Float
 
-    // Sets the L/R balance (aka pan), specified as a value between -1 (L) and 1 (R)
-    func setBalance(_ balance: Float)
+    // Sets the L/R balance (aka pan), specified as a percentage value between -100 (L) and 100 (R)
+    func setBalance(_ balancePercentage: Float)
     
     // Pans left by a small increment. Returns new balance value.
     func panLeft() -> Float

@@ -17,9 +17,18 @@ class Utils {
         
         let secs = duration % oneMin
         let mins = (duration / oneMin) % oneMin
-        let hrs = (duration / oneHour)
+        let hrs = duration / oneHour
         
         return hrs > 0 ? String(format: "%d:%02d:%02d", hrs, mins, secs) : String(format: "%d:%02d", mins, secs)
+    }
+    
+    // Formats a duration (time interval) from seconds to a displayable string showing minutes, and seconds. For example, 500 seconds becomes "8 min 20 sec", 120 seconds becomes "2 min", and 36 seconds becomes "36 sec"
+    static func formatDuration_minSec(_ duration: Int) -> String {
+        
+        let secs = duration % oneMin
+        let mins = duration / oneMin
+        
+        return mins > 0 ? (secs > 0 ? String(format: "%d min %d sec", mins, secs) : String(format: "%d min", mins)) : String(format: "%d sec", secs)
     }
     
     // Splits a camel cased word into separate words, all capitalized. For ex, "albumName" -> "Album Name". This is useful for display within the UI.

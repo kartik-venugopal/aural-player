@@ -44,8 +44,12 @@ class AppConstants {
     static let frequencyKHzUnit: String = "KHz"
     
     // Value conversion constants used when passing values across layers of the app (e.g. the UI uses a range of 0-100 for volume, while the player uses a volume range of 0-1)
+    
     static let volumeConversion_UIToPlayer: Float = (1/100) // Divide by 100
     static let volumeConversion_playerToUI: Float = 100     // Multiply by 100
+    
+    static let panConversion_UIToPlayer: Float = (1/100) // Divide by 100
+    static let panConversion_playerToUI: Float = 100     // Multiply by 100
     
     static let pitchConversion_UIToPlayer: Float = 1200     // Multiply by 1200
     static let pitchConversion_playerToUI: Float = (1/1200) // Divide by 1200
