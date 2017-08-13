@@ -11,6 +11,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var window: NSWindow!
     
     @IBOutlet weak var prefsPanel: NSPanel!
+    @IBOutlet weak var prefsTabView: NSTabView!
+    
+    private var prefsTabViewButtons: [NSButton]?
+    
+    // Player prefs
+    @IBOutlet weak var btnPlayerPrefs: NSButton!
     
     @IBOutlet weak var seekLengthField: NSTextField!
     @IBOutlet weak var seekLengthSlider: NSSlider!
@@ -20,6 +26,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBOutlet weak var panDeltaField: NSTextField!
     @IBOutlet weak var panDeltaStepper: NSStepper!
+    
+    @IBOutlet weak var btnAutoplayOnStartup: NSButton!
+    @IBOutlet weak var btnAutoplayAfterAddingTracks: NSButton!
+    
+    // Playlist prefs
+    @IBOutlet weak var btnPlaylistPrefs: NSButton!
+    
+    @IBOutlet weak var btnEmptyPlaylist: NSButton!
+    @IBOutlet weak var btnRememberPlaylist: NSButton!
+    
+    // View prefs
+    @IBOutlet weak var btnViewPrefs: NSButton!
+    
+    @IBOutlet weak var btnStartWithView: NSButton!
+    @IBOutlet weak var startWithViewMenu: NSPopUpButton!
+    @IBOutlet weak var btnRememberView: NSButton!
     
     // Playlist search modal dialog fields
     @IBOutlet weak var searchPanel: NSPanel!
@@ -88,7 +110,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var filterTabViewButton: NSButton!
     @IBOutlet weak var recorderTabViewButton: NSButton!
     
-    private var tabViewButtons: [NSButton]?
+    private var fxTabViewButtons: [NSButton]?
     
     // Pitch controls
     @IBOutlet weak var btnPitchBypass: NSButton!
@@ -270,7 +292,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             self.filterTrebleChanged()
         }
         
-        tabViewButtons = [eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton]
+        fxTabViewButtons = [eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton]
+        
+        prefsTabViewButtons = [btnPlayerPrefs, btnPlaylistPrefs, btnViewPrefs]
     }
     
     func initStatefulUI(_ playerState: SavedPlayerState) {
@@ -336,6 +360,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             
             if item.title == playerState.reverbPreset.description {
                 reverbMenu.select(item)
+                break;
             }
         }
         reverbSlider.floatValue = playerState.reverbAmount
@@ -371,7 +396,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         filterTrebleSlider.end = Double(playerState.filterTrebleMax)
         lblFilterTrebleRange.stringValue = ValueFormatter.formatFilterFrequencyRange(playerState.filterTrebleMin, playerState.filterTrebleMax)
         
-        for btn in tabViewButtons! {
+        for btn in fxTabViewButtons! {
             (btn.cell as! EffectsUnitButtonCell).highlightColor = btn === recorderTabViewButton ? Colors.tabViewRecorderButtonHighlightColor : Colors.tabViewEffectsButtonHighlightColor
             btn.needsDisplay = true
         }
@@ -390,18 +415,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
         
-        // User preferences fields
-        let seekLength = preferences.seekLength
-        seekLengthSlider.integerValue = seekLength
-        seekLengthField.stringValue = Utils.formatDuration_minSec(seekLength)
-        
-        let volumeDelta = Int(round(preferences.volumeDelta * AppConstants.volumeConversion_playerToUI))
-        volumeDeltaStepper.integerValue = volumeDelta
-        volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
-        
-        let panDelta = Int(round(preferences.panDelta * AppConstants.panConversion_playerToUI))
-        panDeltaStepper.integerValue = panDelta
-        panDeltaField.stringValue = String(format: "%d%%", panDelta)
+        resetPreferencesFields()
     }
     
     func updatePlaylistSummary() {
@@ -1301,7 +1315,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         let searchFrameOrigin = NSPoint(x: window.frame.origin.x + 16, y: window.frame.origin.y + 227)
         
         searchField.stringValue = ""
-        resetSearchInfo()
+        resetSearchFields()
         
         searchPanel.setFrameOrigin(searchFrameOrigin)
         searchPanel.setIsVisible(true)
@@ -1318,7 +1332,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         let searchText = searchField.stringValue
         
         if (searchText == "") {
-            resetSearchInfo()
+            resetSearchFields()
             return
         }
         
@@ -1330,7 +1344,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         // No fields to compare, don't do the search
         if (searchFields.noFieldsSelected()) {
-            resetSearchInfo()
+            resetSearchFields()
             return
         }
         
@@ -1359,11 +1373,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             nextSearchAction(self)
             
         } else {
-            resetSearchInfo()
+            resetSearchFields()
         }
     }
     
-    func resetSearchInfo() {
+    func resetSearchFields() {
         
         if (searchField.stringValue.isEmpty) {
             searchResultsSummaryLabel.stringValue = "No results"
@@ -1483,7 +1497,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBAction func eqTabViewAction(_ sender: Any) {
         
-        for button in tabViewButtons! {
+        for button in fxTabViewButtons! {
             button.state = 0
         }
         
@@ -1493,7 +1507,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBAction func pitchTabViewAction(_ sender: Any) {
         
-        for button in tabViewButtons! {
+        for button in fxTabViewButtons! {
             button.state = 0
         }
         
@@ -1503,7 +1517,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBAction func timeTabViewAction(_ sender: Any) {
         
-        for button in tabViewButtons! {
+        for button in fxTabViewButtons! {
             button.state = 0
         }
         
@@ -1513,7 +1527,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBAction func reverbTabViewAction(_ sender: Any) {
         
-        for button in tabViewButtons! {
+        for button in fxTabViewButtons! {
             button.state = 0
         }
         
@@ -1523,7 +1537,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBAction func delayTabViewAction(_ sender: Any) {
         
-        for button in tabViewButtons! {
+        for button in fxTabViewButtons! {
             button.state = 0
         }
         
@@ -1533,7 +1547,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBAction func filterTabViewAction(_ sender: Any) {
         
-        for button in tabViewButtons! {
+        for button in fxTabViewButtons! {
             button.state = 0
         }
         
@@ -1543,7 +1557,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBAction func recorderTabViewAction(_ sender: Any) {
         
-        for button in tabViewButtons! {
+        for button in fxTabViewButtons! {
             button.state = 0
         }
         
@@ -1569,18 +1583,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBAction func preferencesAction(_ sender: Any) {
         
-        // Update the controls with actual preferences values
-        let seekLength = preferences.seekLength
-        seekLengthSlider.integerValue = seekLength
-        seekLengthField.stringValue = Utils.formatDuration_minSec(seekLength)
-        
-        let volumeDelta = Int(round(preferences.volumeDelta * AppConstants.volumeConversion_playerToUI))
-        volumeDeltaStepper.integerValue = volumeDelta
-        volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
-        
-        let panDelta = Int(round(preferences.panDelta * AppConstants.panConversion_playerToUI))
-        panDeltaStepper.integerValue = panDelta
-        panDeltaField.stringValue = String(format: "%d%%", panDelta)
+        resetPreferencesFields()
         
         // Position the search modal dialog and show it
         let prefsFrameOrigin = NSPoint(x: window.frame.origin.x + 14, y: window.frame.origin.y + 227)
@@ -1597,6 +1600,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         preferences.seekLength = seekLengthSlider.integerValue
         preferences.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.volumeConversion_UIToPlayer
         preferences.panDelta = panDeltaStepper.floatValue * AppConstants.panConversion_UIToPlayer
+        preferences.autoplayOnStartup = btnAutoplayOnStartup.state == 1
+        preferences.autoplayAfterAddingTracks = btnAutoplayAfterAddingTracks.state == 1
+        
+        preferences.playlistOnStartup = btnEmptyPlaylist.state == 1 ? .empty : .rememberFromLastAppLaunch
+        
+        preferences.viewOnStartup.option = btnStartWithView.state == 1 ? .specific : .rememberFromLastAppLaunch
+        
+        for viewType in ViewTypes.allValues {
+            
+            if startWithViewMenu.selectedItem!.title == viewType.description {
+                preferences.viewOnStartup.viewType = viewType
+                break;
+            }
+        }
         
         dismissModalDialog()
     }
@@ -1625,6 +1642,90 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             seekLengthSlider.integerValue -= 1
             seekLengthField.stringValue = Utils.formatDuration_minSec(seekLengthSlider.integerValue)
         }
+    }
+    
+    @IBAction func playerPrefsTabViewAction(_ sender: Any) {
+        
+        for button in prefsTabViewButtons! {
+            button.state = 0
+        }
+        
+        btnPlayerPrefs.state = 1
+        prefsTabView.selectTabViewItem(at: 0)
+    }
+    
+    @IBAction func playlistPrefsTabViewAction(_ sender: Any) {
+        
+        for button in prefsTabViewButtons! {
+            button.state = 0
+        }
+        
+        btnPlaylistPrefs.state = 1
+        prefsTabView.selectTabViewItem(at: 1)
+    }
+    
+    @IBAction func viewPrefsTabViewAction(_ sender: Any) {
+        
+        for button in prefsTabViewButtons! {
+            button.state = 0
+        }
+        
+        btnViewPrefs.state = 1
+        prefsTabView.selectTabViewItem(at: 2)
+    }
+    
+    @IBAction func startupPlaylistPrefAction(_ sender: Any) {
+        // Needed for radio button groups to work
+    }
+    
+    @IBAction func startupViewPrefAction(_ sender: Any) {
+        startWithViewMenu.isEnabled = btnStartWithView.state == 1
+    }
+    
+    func resetPreferencesFields() {
+        
+        // Player preferences
+        let seekLength = preferences.seekLength
+        seekLengthSlider.integerValue = seekLength
+        seekLengthField.stringValue = Utils.formatDuration_minSec(seekLength)
+        
+        let volumeDelta = Int(round(preferences.volumeDelta * AppConstants.volumeConversion_playerToUI))
+        volumeDeltaStepper.integerValue = volumeDelta
+        volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
+        
+        let panDelta = Int(round(preferences.panDelta * AppConstants.panConversion_playerToUI))
+        panDeltaStepper.integerValue = panDelta
+        panDeltaField.stringValue = String(format: "%d%%", panDelta)
+        
+        btnAutoplayOnStartup.state = preferences.autoplayOnStartup ? 1 : 0
+        btnAutoplayAfterAddingTracks.state = preferences.autoplayAfterAddingTracks ? 1 : 0
+        
+        // Playlist preferences
+        if (preferences.playlistOnStartup == .empty) {
+            btnEmptyPlaylist.state = 1
+        } else {
+            btnRememberPlaylist.state = 1
+        }
+        
+        // View preferences
+        if (preferences.viewOnStartup.option == .specific) {
+            btnStartWithView.state = 1
+        } else {
+            btnRememberView.state = 1
+        }
+        
+        for item in startWithViewMenu.itemArray {
+            
+            if item.title == preferences.viewOnStartup.viewType.description {
+                startWithViewMenu.select(item)
+                break;
+            }
+        }
+        
+        startWithViewMenu.isEnabled = btnStartWithView.state == 1
+        
+        // Select the player prefs tab
+        playerPrefsTabViewAction(self)
     }
 }
 
