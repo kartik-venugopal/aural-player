@@ -28,6 +28,9 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     
     private static let singleton: PlayerDelegate = AppInitializer.getPlayerDelegate()
     
+    // Flag used to keep track of whether or not an autoplay has already been executed when adding tracks
+    private var autoplayed: Bool = false
+    
     static func instance() -> PlayerDelegate {
         return singleton
     }
@@ -49,16 +52,42 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         DispatchQueue.global(qos: .userInitiated).async {
             
             // NOTE - Assume that all entries are valid tracks (supported audio files), not playlists and not directories. i.e. assume that saved state file has not been corrupted.
+            
+            // TODO: Can we do this with 2 separate threads instead of just one ? Push to a queue with 2 concurrent ops ?
+            
+            let autoplay: Bool = self.preferences.autoplayOnStartup
+            var autoplayed: Bool = false
             for trackPath in self.playerState!.playlist {
                 
                 let resolvedFileInfo = FileSystemUtils.resolveTruePath(URL(fileURLWithPath: trackPath))
                 
-                let index = self.playlist.addTrack(resolvedFileInfo.resolvedURL)
-                if (index >= 0) {
-                    self.notifyTrackAdded(index)
-                    self.prepareNextTracksForPlayback()
+                self.addTrack(resolvedFileInfo.resolvedURL)
+                
+                if (autoplay && !autoplayed) {
+                    self.autoplay()
+                    autoplayed = true
                 }
             }
+        }
+    }
+    
+    func autoplay() {
+        
+        DispatchQueue.main.async {
+            self.continuePlaying()
+            
+            // Notify the UI that a track has started playing
+            EventRegistry.publishEvent(.trackChanged, TrackChangedEvent(self.playingTrack))
+        }
+    }
+    
+    func autoplay(_ trackIndex: Int) {
+        
+        DispatchQueue.main.async {
+            self.play(trackIndex)
+            
+            // Notify the UI that a track has started playing
+            EventRegistry.publishEvent(.trackChanged, TrackChangedEvent(self.playingTrack))
         }
     }
     
@@ -77,6 +106,9 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     
     // Adds a bunch of files synchronously
     private func addFiles_sync(_ files: [URL]) {
+        
+        let autoplay: Bool = self.preferences.autoplayAfterAddingTracks && playingTrack == nil
+        autoplayed = false
         
         if (files.count > 0) {
             
@@ -109,7 +141,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
                     } else if (AppConstants.supportedAudioFileTypes.contains(fileExtension)) {
                         
                         // Track
-                        addTrack(file)
+                        let index = addTrack(file)
+                        
+                        if (autoplay && !autoplayed) {
+                            self.autoplay(index)
+                            autoplayed = true
+                        }
                         
                     } else {
                         
@@ -121,13 +158,15 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         }
     }
     
-    private func addTrack(_ file: URL) {
+    // Returns index of newly added track
+    private func addTrack(_ file: URL) -> Int {
         
         let newTrackIndex = playlist.addTrack(file)
         if (newTrackIndex >= 0) {
             notifyTrackAdded(newTrackIndex)
             prepareNextTracksForPlayback()
         }
+        return newTrackIndex
     }
     
     private func addPlaylist(_ playlistFile: URL) {

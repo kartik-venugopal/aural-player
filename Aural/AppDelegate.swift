@@ -1093,12 +1093,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     // Adds a set of files (or directories, i.e. files within them) to the current playlist, if supported
     func addFiles(_ files: [URL]) {
-        
         player.addFiles(files)
-        
-        // Refresh the playlist view with the new files
-        playlistView.reloadData()
-        updatePlaylistSummary()
     }
     
     // View menu item action
