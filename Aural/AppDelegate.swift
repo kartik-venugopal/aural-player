@@ -868,8 +868,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBAction func savePlaylistAction(_ sender: AnyObject) {
         
-        TimerUtils.printStats()
-        
         // Make sure there is at least one track to save
         if (player.getPlaylistSummary().numTracks > 0) {
             
