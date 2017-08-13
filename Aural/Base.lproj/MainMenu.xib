@@ -2156,7 +2156,7 @@ CA
                 <rect key="frame" x="0.0" y="0.0" width="383" height="248"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box fixedFrame="YES" boxType="custom" cornerRadius="4" translatesAutoresizingMaskIntoConstraints="NO" id="j8D-vh-IF3" userLabel="Search Box">
+                    <box fixedFrame="YES" boxType="custom" cornerRadius="3" translatesAutoresizingMaskIntoConstraints="NO" id="j8D-vh-IF3" userLabel="Search Box">
                         <rect key="frame" x="20" y="210" width="352" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" ambiguous="YES" id="jMx-zQ-0bS">
@@ -2687,26 +2687,26 @@ Gw
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a7u-Oh-WUs" userLabel="Seek Length Plus">
-                        <rect key="frame" x="266" y="216" width="10" height="10"/>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="612-km-10n">
+                        <rect key="frame" x="266" y="213" width="17" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Plus" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="SP2-TN-ZMa">
+                        <buttonCell key="cell" type="roundTextured" title="+" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YCo-PB-Os5">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="systemBold" size="10"/>
                         </buttonCell>
                         <connections>
-                            <action selector="seekLengthIncrementAction:" target="Voe-Tx-rLC" id="Mk5-Gq-49F"/>
+                            <action selector="seekLengthIncrementAction:" target="Voe-Tx-rLC" id="y0G-ep-sA8"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SoX-ML-8tq" userLabel="Seek Length Minus">
-                        <rect key="frame" x="97" y="216" width="10" height="10"/>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Buf-vH-e4V">
+                        <rect key="frame" x="90" y="213" width="17" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Minus" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="bCR-Ea-Wlc">
+                        <buttonCell key="cell" type="roundTextured" title="-" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="41r-5H-7DS">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="systemBold" size="10"/>
                         </buttonCell>
                         <connections>
-                            <action selector="seekLengthDecrementAction:" target="Voe-Tx-rLC" id="cUj-2n-pdr"/>
+                            <action selector="seekLengthDecrementAction:" target="Voe-Tx-rLC" id="iPh-Xz-U4a"/>
                         </connections>
                     </button>
                 </subviews>
@@ -2725,7 +2725,6 @@ Gw
         <image name="Down-Small" width="1.3999999761581421" height="1.3999999761581421"/>
         <image name="EffectsView-On" width="419" height="422"/>
         <image name="Hide" width="94" height="94"/>
-        <image name="Minus" width="346" height="346"/>
         <image name="MoreInfo" width="256" height="256"/>
         <image name="MoreInfo-Small" width="13" height="13"/>
         <image name="MusicArt" width="183" height="183"/>
@@ -2738,7 +2737,6 @@ Gw
         <image name="Play-Small" width="14" height="14"/>
         <image name="PlayPause-Small" width="14" height="14"/>
         <image name="PlaylistView-On" width="185" height="161"/>
-        <image name="Plus" width="174" height="174"/>
         <image name="PreviousTrack" width="256" height="256"/>
         <image name="PreviousTrack-Small" width="14" height="8"/>
         <image name="Record" width="256" height="256"/>

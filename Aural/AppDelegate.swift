@@ -1,5 +1,5 @@
 /*
- Entry point for the Aural Player application. Performs all interaction with the UI and delegates music player operations to PlayerDelegate.
+    Entry point for the Aural Player application. Performs all interaction with the UI and delegates music player operations to PlayerDelegate.
  */
 
 import Cocoa
@@ -20,7 +20,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     @IBOutlet weak var panDeltaField: NSTextField!
     @IBOutlet weak var panDeltaStepper: NSStepper!
-    
     
     // Playlist search modal dialog fields
     @IBOutlet weak var searchPanel: NSPanel!
@@ -1569,6 +1568,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     @IBAction func preferencesAction(_ sender: Any) {
+        
+        // Update the controls with actual preferences values
+        let seekLength = preferences.seekLength
+        seekLengthSlider.integerValue = seekLength
+        seekLengthField.stringValue = Utils.formatDuration_minSec(seekLength)
+        
+        let volumeDelta = Int(round(preferences.volumeDelta * AppConstants.volumeConversion_playerToUI))
+        volumeDeltaStepper.integerValue = volumeDelta
+        volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
+        
+        let panDelta = Int(round(preferences.panDelta * AppConstants.panConversion_playerToUI))
+        panDeltaStepper.integerValue = panDelta
+        panDeltaField.stringValue = String(format: "%d%%", panDelta)
         
         // Position the search modal dialog and show it
         let prefsFrameOrigin = NSPoint(x: window.frame.origin.x + 14, y: window.frame.origin.y + 227)
