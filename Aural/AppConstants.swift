@@ -1,5 +1,6 @@
 
 import Cocoa
+import AVFoundation
 
 /*
 A collection of app-level constants
@@ -11,9 +12,10 @@ class AppConstants {
     static let m3u8: String = "m3u8"
  
     static let supportedPlaylistFileTypes: [String] = [m3u, m3u8]
-    static let supportedAudioFileTypes: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "wav"]
+    static let supportedAudioFileTypes: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav"]
     
-    static let supportedFileTypes_open: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "wav", m3u, m3u8]
+    static let supportedFileTypes_open: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", m3u, m3u8, AVFileTypeMPEGLayer3, AVFileTypeAppleM4A, AVFileTypeAIFF, AVFileTypeAIFC, AVFileTypeCoreAudioFormat, AVFileTypeWAVE]
+    
     static let supportedFileTypes_save: [String] = [m3u]
     
     static let audibleRangeMin: Float = 20      // 20 Hz
