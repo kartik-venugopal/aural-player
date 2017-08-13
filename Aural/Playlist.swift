@@ -58,7 +58,7 @@ class Playlist {
     
     // Retrieves the track at the given index
     func getTrackAt(_ index: Int?) -> IndexedTrack? {
-        return index == nil ? nil : IndexedTrack(tracks[index!], index)
+        return index == nil || index == -1 ? nil : IndexedTrack(tracks[index!], index)
     }
     
     // Retrieves the track at the given index, and selects it for playback, i.e., moves the cursor to the given index

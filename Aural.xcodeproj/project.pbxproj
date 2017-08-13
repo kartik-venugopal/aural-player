@@ -65,6 +65,7 @@
 		3E85F25A1EFA78D6007BE830 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E85F2591EFA78D6007BE830 /* AppDelegate.swift */; };
 		3E85F25C1EFA78D6007BE830 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E85F25B1EFA78D6007BE830 /* Assets.xcassets */; };
 		3E85F25F1EFA78D6007BE830 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E85F25D1EFA78D6007BE830 /* MainMenu.xib */; };
+		3E85FF9F1F40DE3F00A21B0D /* AutoplayPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E85FF9E1F40DE3F00A21B0D /* AutoplayPreferences.swift */; };
 		3E864ADB1F25C81B006A7626 /* AuralPlaylistControlDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E864ADA1F25C81B006A7626 /* AuralPlaylistControlDelegate.swift */; };
 		3E864ADD1F25E289006A7626 /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E864ADC1F25E289006A7626 /* SearchResults.swift */; };
 		3E9463971F29960F00A9019C /* EffectsUnitButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9463961F29960F00A9019C /* EffectsUnitButtonCell.swift */; };
@@ -158,6 +159,7 @@
 		3E85F25B1EFA78D6007BE830 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E85F25E1EFA78D6007BE830 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/\U001bMainMenu.xib"; sourceTree = "<group>"; };
 		3E85F2601EFA78D6007BE830 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E85FF9E1F40DE3F00A21B0D /* AutoplayPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoplayPreferences.swift; sourceTree = "<group>"; };
 		3E864ADA1F25C81B006A7626 /* AuralPlaylistControlDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuralPlaylistControlDelegate.swift; sourceTree = "<group>"; };
 		3E864ADC1F25E289006A7626 /* SearchResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
 		3E9463961F29960F00A9019C /* EffectsUnitButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsUnitButtonCell.swift; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				3E3BAF231F274771008F090E /* Sort.swift */,
 				3E33B4A31F3F08B8005EF359 /* Preferences.swift */,
 				3EF5A54F1F403D2500C5A2D2 /* StartupPreferences.swift */,
+				3E85FF9E1F40DE3F00A21B0D /* AutoplayPreferences.swift */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				3E2188A41F0763F50085BAB3 /* TrackInfoViewController.swift in Sources */,
 				3E3BAF241F274771008F090E /* Sort.swift in Sources */,
 				3EC593981F28A0C600153D34 /* RangeSlider.swift in Sources */,
+				3E85FF9F1F40DE3F00A21B0D /* AutoplayPreferences.swift in Sources */,
 				3EA29AD51F0B470600DA239E /* EventRegistry.swift in Sources */,
 				3EB20B491EFF230C008138A4 /* PlayerStateIO.swift in Sources */,
 				3E3C209F1F0A388600AF5A62 /* AuralPlayerDelegate.swift in Sources */,

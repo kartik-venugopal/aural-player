@@ -28,9 +28,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     
     private static let singleton: PlayerDelegate = AppInitializer.getPlayerDelegate()
     
-    // Flag used to keep track of whether or not an autoplay has already been executed when adding tracks
-    private var autoplayed: Bool = false
-    
     static func instance() -> PlayerDelegate {
         return singleton
     }
@@ -100,15 +97,24 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         // Move to a background thread to unblock the main thread
         DispatchQueue.global(qos: .userInitiated).async {
-            self.addFiles_sync(files)
+
+            let autoplayPref: Bool = self.preferences.autoplayAfterAddingTracks
+            let alwaysAutoplay: Bool = self.preferences.autoplayAfterAddingOption == .always
+            let noPlayingTrack: Bool = self.playingTrack == nil
+            
+            // Autoplay if the preference is selected AND either the "always" option is selected or no track is currently playing
+            let autoplay: Bool = autoplayPref && (alwaysAutoplay || noPlayingTrack)
+            
+            // Pass this by reference so that recursive calls will all see the same value
+            var autoplayed = false
+            self.addFiles_sync(files, autoplay, &autoplayed)
         }
     }
     
     // Adds a bunch of files synchronously
-    private func addFiles_sync(_ files: [URL]) {
-        
-        let autoplay: Bool = self.preferences.autoplayAfterAddingTracks && playingTrack == nil
-        autoplayed = false
+    // The autoplay argument indicates whether or not autoplay is enabled. Make sure to pass it into functions that call back here recursively (addPlaylist() or addDirectory()).
+    // The autoplayed argument indicates whether or not autoplay, if enabled, has already been executed. This value is passed by reference so that recursive calls back here will all see the same value.
+    private func addFiles_sync(_ files: [URL], _ autoplay: Bool, _ autoplayed: inout Bool) {
         
         if (files.count > 0) {
             
@@ -126,7 +132,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
                 if (resolvedFileInfo.isDirectory) {
                     
                     // Directory
-                    self.addDirectory(file)
+                    addDirectory(file, autoplay, &autoplayed)
                     
                 } else {
                     
@@ -136,14 +142,15 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
                     if (AppConstants.supportedPlaylistFileTypes.contains(fileExtension)) {
                         
                         // Playlist
-                        addPlaylist(file)
+                        addPlaylist(file, autoplay, &autoplayed)
                         
                     } else if (AppConstants.supportedAudioFileTypes.contains(fileExtension)) {
                         
                         // Track
                         let index = addTrack(file)
                         
-                        if (autoplay && !autoplayed) {
+                        if (autoplay && !autoplayed && index >= 0) {
+                            
                             self.autoplay(index)
                             autoplayed = true
                         }
@@ -169,21 +176,20 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         return newTrackIndex
     }
     
-    private func addPlaylist(_ playlistFile: URL) {
+    private func addPlaylist(_ playlistFile: URL, _ autoplay: Bool, _ autoplayed: inout Bool) {
        
-        // Playlist
         let loadedPlaylist = PlaylistIO.loadPlaylist(playlistFile)
         if (loadedPlaylist != nil) {
-            addFiles_sync(loadedPlaylist!.tracks)
+            addFiles_sync(loadedPlaylist!.tracks, autoplay, &autoplayed)
         }
     }
     
-    private func addDirectory(_ dir: URL) {
+    private func addDirectory(_ dir: URL, _ autoplay: Bool, _ autoplayed: inout Bool) {
         
         let dirContents = FileSystemUtils.getContentsOfDirectory(dir)
         if (dirContents != nil) {
             // Add them
-            addFiles_sync(dirContents!)
+            addFiles_sync(dirContents!, autoplay, &autoplayed)
         }
     }
     
@@ -309,6 +315,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         return (playbackState, playingTrack, trackChanged)
     }
 
+    // Assume valid index
     func play(_ index: Int) -> IndexedTrack {
         
         let track = playlist.selectTrackAt(index)!
@@ -717,7 +724,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         state.showPlaylist = app.isPlaylistShown()
         
         PlayerStateIO.save(state)
-        Preferences.persist()
     }
     
     // Called when playback of the current track completes

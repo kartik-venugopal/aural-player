@@ -28,7 +28,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var panDeltaStepper: NSStepper!
     
     @IBOutlet weak var btnAutoplayOnStartup: NSButton!
+    
     @IBOutlet weak var btnAutoplayAfterAddingTracks: NSButton!
+    @IBOutlet weak var btnAutoplayIfNotPlaying: NSButton!
+    @IBOutlet weak var btnAutoplayAlways: NSButton!
     
     // Playlist prefs
     @IBOutlet weak var btnPlaylistPrefs: NSButton!
@@ -425,9 +428,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         // Don't select any items from the EQ presets menu
         eqPresets.selectItem(at: -1)
-        
-        playlistView.reloadData()
-        updatePlaylistSummary()
         
         // Timer interval depends on whether time stretch unit is active
         let interval = playerState.timeBypass ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * playerState.timeStretchRate))
@@ -1614,8 +1614,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         preferences.seekLength = seekLengthSlider.integerValue
         preferences.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.volumeConversion_UIToPlayer
         preferences.panDelta = panDeltaStepper.floatValue * AppConstants.panConversion_UIToPlayer
-        preferences.autoplayOnStartup = btnAutoplayOnStartup.state == 1
-        preferences.autoplayAfterAddingTracks = btnAutoplayAfterAddingTracks.state == 1
+        preferences.autoplayOnStartup = Bool(btnAutoplayOnStartup.state)
+        preferences.autoplayAfterAddingTracks = Bool(btnAutoplayAfterAddingTracks.state)
+        preferences.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.state == 1 ? .ifNotPlaying : .always
         
         preferences.playlistOnStartup = btnEmptyPlaylist.state == 1 ? .empty : .rememberFromLastAppLaunch
         
@@ -1630,6 +1631,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         }
         
         dismissModalDialog()
+        Preferences.persistAsync()
     }
     
     @IBAction func cancelPreferencesAction(_ sender: Any) {
@@ -1689,11 +1691,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     @IBAction func startupPlaylistPrefAction(_ sender: Any) {
-        // Needed for radio button groups to work
+        // Needed for radio button group
     }
     
     @IBAction func startupViewPrefAction(_ sender: Any) {
-        startWithViewMenu.isEnabled = btnStartWithView.state == 1
+        startWithViewMenu.isEnabled = Bool(btnStartWithView.state)
+    }
+    
+    // When the check box for "autoplay after adding tracks" is checked/unchecked, update the enabled state of the 2 option radio buttons
+    @IBAction func autoplayAfterAddingAction(_ sender: Any) {
+        
+        btnAutoplayIfNotPlaying.isEnabled = Bool(btnAutoplayAfterAddingTracks.state)
+        btnAutoplayAlways.isEnabled = Bool(btnAutoplayAfterAddingTracks.state)
+    }
+    
+    @IBAction func autoplayAfterAddingRadioButtonAction(_ sender: Any) {
+        // Needed for radio button group
     }
     
     func resetPreferencesFields() {
@@ -1712,7 +1725,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         panDeltaField.stringValue = String(format: "%d%%", panDelta)
         
         btnAutoplayOnStartup.state = preferences.autoplayOnStartup ? 1 : 0
+        
         btnAutoplayAfterAddingTracks.state = preferences.autoplayAfterAddingTracks ? 1 : 0
+        btnAutoplayIfNotPlaying.isEnabled = preferences.autoplayAfterAddingTracks
+        btnAutoplayIfNotPlaying.state = preferences.autoplayAfterAddingOption == .ifNotPlaying ? 1 : 0
+        btnAutoplayAlways.isEnabled = preferences.autoplayAfterAddingTracks
+        btnAutoplayAlways.state = preferences.autoplayAfterAddingOption == .always ? 1 : 0
         
         // Playlist preferences
         if (preferences.playlistOnStartup == .empty) {

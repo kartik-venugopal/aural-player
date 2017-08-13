@@ -19,6 +19,7 @@ class Preferences {
     private static let defaultPanDelta: Float = 0.1
     private static let defaultAutoplayOnStartup: Bool = false
     private static let defaultAutoplayAfterAddingTracks: Bool = false
+    private static let defaultAutoplayAfterAddingOption: AutoplayAfterAddingOptions = .ifNotPlaying
     
     // Playlist prefs
     private static let defaultPlaylistOnStartup: PlaylistStartupOptions = .rememberFromLastAppLaunch
@@ -32,6 +33,7 @@ class Preferences {
     var panDelta: Float
     var autoplayOnStartup: Bool
     var autoplayAfterAddingTracks: Bool
+    var autoplayAfterAddingOption: AutoplayAfterAddingOptions
     
     var playlistOnStartup: PlaylistStartupOptions
     
@@ -46,6 +48,12 @@ class Preferences {
         panDelta = prefs["panDelta"] as? Float ?? Preferences.defaultPanDelta
         autoplayOnStartup = prefs["autoplayOnStartup"] as? Bool ?? Preferences.defaultAutoplayOnStartup
         autoplayAfterAddingTracks = prefs["autoplayAfterAddingTracks"] as? Bool ?? Preferences.defaultAutoplayAfterAddingTracks
+        
+        if let autoplayAfterAddingOptionStr = prefs["autoplayAfterAddingTracks.option"] as? String {
+            autoplayAfterAddingOption = AutoplayAfterAddingOptions(rawValue: autoplayAfterAddingOptionStr)!
+        } else {
+            autoplayAfterAddingOption = Preferences.defaultAutoplayAfterAddingOption
+        }
         
         if let playlistOnStartupStr = prefs["playlistOnStartup"] as? String {
             playlistOnStartup = PlaylistStartupOptions(rawValue: playlistOnStartupStr)!
@@ -76,10 +84,19 @@ class Preferences {
         defaults.set(singleton.panDelta, forKey: "panDelta")
         defaults.set(singleton.autoplayOnStartup, forKey: "autoplayOnStartup")
         defaults.set(singleton.autoplayAfterAddingTracks, forKey: "autoplayAfterAddingTracks")
+        defaults.set(singleton.autoplayAfterAddingOption.rawValue, forKey: "autoplayAfterAddingTracks.option")
         
         defaults.set(singleton.playlistOnStartup.rawValue, forKey: "playlistOnStartup")
         
         defaults.set(singleton.viewOnStartup.option.rawValue, forKey: "viewOnStartup.option")
         defaults.set(singleton.viewOnStartup.viewType.rawValue, forKey: "viewOnStartup.viewType")
+    }
+    
+    // Persists without blocking the calling thread
+    static func persistAsync() {
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            persist()
+        }
     }
 }
