@@ -77,14 +77,6 @@ Aural Player makes use of (a modified version of) a reusable UI control called [
 
 ![App screenshot4](/Documentation/Screenshots/Aural-compact.png?raw=true "App screenshot4")
 
-### Search playlist
-
-![Search](/Documentation/Screenshots/Aural-search.png?raw=true "Search")
-
-### Sort playlist
-
-![Sort](/Documentation/Screenshots/Aural-sort.png?raw=true "Sort")
-
 ### Pitch shift effects unit
 
 ![Pitch](/Documentation/Screenshots/Pitch.png?raw=true "Pitch Shift")
@@ -93,14 +85,6 @@ Aural Player makes use of (a modified version of) a reusable UI control called [
 
 ![Time](/Documentation/Screenshots/Time.png?raw=true "Time Stretch")
 
-### Reverb effects unit
-
-![Reverb](/Documentation/Screenshots/Reverb.png?raw=true "Reverb")
-
-### Delay effects unit
-
-![Delay](/Documentation/Screenshots/Delay.png?raw=true "Delay")
-
 ### Filter effects unit
 
 ![Filter](/Documentation/Screenshots/Filter.png?raw=true "Filter")
@@ -108,15 +92,3 @@ Aural Player makes use of (a modified version of) a reusable UI control called [
 ### Recorder unit
 
 ![Recorder](/Documentation/Screenshots/Recorder.png?raw=true "Recorder")
-
-### Playlist menu
-
-![Playlist Menu](/Documentation/Screenshots/PlaylistMenu.png?raw=true "Playlist Menu")
-
-### Controls menu
-
-![Controls Menu](/Documentation/Screenshots/ControlsMenu.png?raw=true "Controls Menu")
-
-### View menu
-
-![View Menu](/Documentation/Screenshots/ViewMenu.png?raw=true "View Menu")
