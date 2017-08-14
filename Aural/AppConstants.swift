@@ -65,5 +65,5 @@ class AppConstants {
     static let recordingDirURL: URL = musicDirURL
     
     // Link to online user guide
-    static let userGuideURL: URL = URL(string: "http://htmlpreview.github.com/?https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/UserGuide.html")!
+    static let userGuideURL: URL = URL(string: "https://rawgit.com/maculateConception/aural-player/master/Documentation/UserGuide.html")!
 }
