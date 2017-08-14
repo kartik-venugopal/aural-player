@@ -31,7 +31,7 @@ The latest app bundle can be found in the compressed archive file [Aural.app.zip
 
 ## Documentation
 
-[User Guide](http://htmlpreview.github.com/?https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/UserGuide.html)
+[User Guide](https://rawgit.com/maculateConception/aural-player/master/Documentation/UserGuide.html)
 
 [Developer readme](https://github.com/maculateConception/aural-player/blob/master/Documentation/Developer-readme.rtf?raw=true) 
 
