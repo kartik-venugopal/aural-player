@@ -1360,7 +1360,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         }
         
         // Position the search modal dialog and show it
-        let searchFrameOrigin = NSPoint(x: window.frame.origin.x + 16, y: window.frame.origin.y + 227)
+        let searchFrameOrigin = NSPoint(x: window.frame.origin.x + 16, y: min(window.frame.origin.y + 227, window.frame.origin.y + window.frame.height - searchPanel.frame.height))
         
         searchField.stringValue = ""
         resetSearchFields()
@@ -1488,7 +1488,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         }
         
         // Position the sort modal dialog and show it
-        let sortFrameOrigin = NSPoint(x: window.frame.origin.x + 73, y: window.frame.origin.y + 227)
+        let sortFrameOrigin = NSPoint(x: window.frame.origin.x + 73, y: min(window.frame.origin.y + 227, window.frame.origin.y + window.frame.height - sortPanel.frame.height))
         
         sortPanel.setFrameOrigin(sortFrameOrigin)
         sortPanel.setIsVisible(true)
@@ -1634,7 +1634,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         resetPreferencesFields()
         
         // Position the search modal dialog and show it
-        let prefsFrameOrigin = NSPoint(x: window.frame.origin.x + 14, y: window.frame.origin.y + 227)
+        let prefsFrameOrigin = NSPoint(x: window.frame.origin.x - 2, y: min(window.frame.origin.y + 227, window.frame.origin.y + window.frame.height - prefsPanel.frame.height))
         
         prefsPanel.setFrameOrigin(prefsFrameOrigin)
         prefsPanel.setIsVisible(true)
