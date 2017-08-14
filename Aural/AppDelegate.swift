@@ -276,6 +276,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         searchPanel.titlebarAppearsTransparent = true
         sortPanel.titlebarAppearsTransparent = true
+        prefsPanel.titlebarAppearsTransparent = true
         
         // Set up the filter control sliders
         

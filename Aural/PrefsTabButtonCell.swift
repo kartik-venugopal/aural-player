@@ -1,5 +1,5 @@
 /*
- Customizes the look and feel of buttons that control the effects tab view
+ Customizes the look and feel of buttons that control the preferences panel's tab view
  */
 
 import Cocoa
@@ -12,11 +12,6 @@ class PrefsTabButtonCell: NSButtonCell {
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         
-        // Black background
-//        NSColor.black.setFill()
-//        let backgroundPath = NSBezierPath.init(rect: cellFrame)
-//        backgroundPath.fill()
-        
         // Draw border
         let drawRect = cellFrame.insetBy(dx: 1, dy: 1)
         let roundedPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 4, yRadius: 4)
@@ -26,15 +21,16 @@ class PrefsTabButtonCell: NSButtonCell {
         
         // If selected, fill in the rect
         if (self.state == 1) {
-            let roundedPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 4, yRadius: 4)
-            Colors.lightTabViewSelectionBoxColor.setFill()
+            NSColor.black.setFill()
             roundedPath.fill()
         }
         
         // Draw the title
+        let textColor = state == 0 ? Colors.tabViewButtonTextColor : NSColor.white
+        
         let attrs: [String: AnyObject] = [
             NSFontAttributeName: UIConstants.tabViewButtonFont,
-            NSForegroundColorAttributeName: NSColor.black]
+            NSForegroundColorAttributeName: textColor]
         
         let size: CGSize = title!.size(withAttributes: attrs)
         let sx = (cellFrame.width - size.width) / 2

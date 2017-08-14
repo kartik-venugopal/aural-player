@@ -56,15 +56,8 @@ class SeekSliderCell: NSSliderCell {
     }
 }
 
-// For the seek length slider on the Preferences panel
-class SeekLengthSliderCell: NSSliderCell {
-    
-    override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
-        
-        let drawPath = NSBezierPath.init(roundedRect: aRect, xRadius: 0.5, yRadius: 0.5)
-        NSColor.gray.setFill()
-        drawPath.fill()
-    }
+// For sliders on the Preferences panel
+class PreferencesSliderCell: NSSliderCell {
     
     override internal func drawKnob(_ knobRect: NSRect) {
         
@@ -73,15 +66,22 @@ class SeekLengthSliderCell: NSSliderCell {
         let xCenter = knobRect.minX + (rectWidth / 2)
         
         let knobWidth: CGFloat = 10, knobHeight: CGFloat = bar.height + 2
+        
         let knobMinX = xCenter - (knobWidth / 2)
         let rect = NSRect(x: knobMinX, y: bar.minY - ((knobHeight - bar.height) / 2), width: knobWidth, height: knobHeight)
         
-        let knobPath = NSBezierPath(roundedRect: rect, xRadius: 0.5, yRadius: 0.5)
-        NSColor.black.setFill()
+        let knobPath = NSBezierPath(roundedRect: rect, xRadius: 1, yRadius: 1)
+        Colors.sliderKnobColor.setFill()
         knobPath.fill()
     }
     
+    override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
+        
+        let drawPath = NSBezierPath.init(roundedRect: aRect, xRadius: 1.5, yRadius: 1.5)
+        Colors.sliderBarGradient.draw(in: drawPath, angle: -verticalGradientDegrees)
+    }
+    
     override func barRect(flipped: Bool) -> NSRect {
-        return super.barRect(flipped: flipped).insetBy(dx: 0, dy: 0)
+        return super.barRect(flipped: flipped).insetBy(dx: 0, dy: -1)
     }
 }

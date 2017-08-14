@@ -12,13 +12,12 @@ class ModalDialogResponseButtonCell: NSButtonCell {
         
         // Black background
         NSColor.black.setFill()
-        let backgroundPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 3, yRadius: 3)
-        backgroundPath.fill()
-        
-        let borderPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 3, yRadius: 3)
+        let rectPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 2, yRadius: 2)
+        rectPath.fill()
+
         Colors.modalDialogResponseButtonOutlineColor.setStroke()
-        borderPath.lineWidth = 1.5
-        borderPath.stroke()
+        rectPath.lineWidth = 0.5
+        rectPath.stroke()
         
         let textColor = Colors.boxTextColor
         let attrs: [String: AnyObject] = [

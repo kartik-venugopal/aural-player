@@ -66,7 +66,10 @@ class Colors {
     static let tabViewSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.45, alpha: 1)
     
     // Lighter version of tabViewSelectionBoxColor
-    static let lightTabViewSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.75, alpha: 1)
+    static let lightTabViewSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.52, alpha: 1)
+    
+    // Darker version of tabViewSelectionBoxColor
+    static let darkTabViewSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.2, alpha: 1)
     
     // Fill color of modal dialog navigation buttons (search)
     static let modalDialogNavButtonColor: NSColor = NSColor(calibratedWhite: 0.45, alpha: 1)
