@@ -4,19 +4,18 @@
 
 import Cocoa
 
-class StartViewPopupMenuCell: NSPopUpButtonCell {
+class PreferencesPopupMenuCell: NSPopUpButtonCell {
     
     override internal func drawBorderAndBackground(withFrame cellFrame: NSRect, in controlView: NSView) {
         
         let drawRect = cellFrame.insetBy(dx: 0, dy: 5)
-        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 3, yRadius: 3)
+        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 2, yRadius: 2)
         
         Colors.sliderBarGradient.draw(in: drawPath, angle: -verticalGradientDegrees)
         
         // Draw arrow
         let x = drawRect.maxX - 10, y = drawRect.maxY - 6
         GraphicsUtils.drawArrow(Colors.lightPopupMenuArrowColor, origin: NSMakePoint(x, y), dx: 3, dy: 4, lineWidth: 2)
-        
     }
     
     override func drawTitle(_ title: NSAttributedString, withFrame: NSRect, in inView: NSView) -> NSRect {

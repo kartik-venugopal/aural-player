@@ -1,12 +1,11 @@
 /*
     Entry point for the Aural Player application. Performs all interaction with the UI and delegates music player operations to PlayerDelegate.
  */
-
 import Cocoa
 import AVFoundation
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubscriber {
+class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubscriber {
     
     @IBOutlet weak var window: NSWindow!
     
@@ -33,17 +32,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var panDeltaField: NSTextField!
     @IBOutlet weak var panDeltaStepper: NSStepper!
     
-    @IBOutlet weak var btnAutoplayOnStartup: NSButton!
-    
-    @IBOutlet weak var btnAutoplayAfterAddingTracks: NSButton!
-    @IBOutlet weak var btnAutoplayIfNotPlaying: NSButton!
-    @IBOutlet weak var btnAutoplayAlways: NSButton!
-    
     // Playlist prefs
     @IBOutlet weak var btnPlaylistPrefs: NSButton!
     
     @IBOutlet weak var btnEmptyPlaylist: NSButton!
     @IBOutlet weak var btnRememberPlaylist: NSButton!
+    
+    @IBOutlet weak var btnAutoplayOnStartup: NSButton!
+    
+    @IBOutlet weak var btnAutoplayAfterAddingTracks: NSButton!
+    @IBOutlet weak var btnAutoplayIfNotPlaying: NSButton!
+    @IBOutlet weak var btnAutoplayAlways: NSButton!
     
     // View prefs
     @IBOutlet weak var btnViewPrefs: NSButton!
@@ -51,6 +50,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var btnStartWithView: NSButton!
     @IBOutlet weak var startWithViewMenu: NSPopUpButton!
     @IBOutlet weak var btnRememberView: NSButton!
+    
+    @IBOutlet weak var btnRememberWindowLocation: NSButton!
+    @IBOutlet weak var btnStartAtWindowLocation: NSButton!
+    @IBOutlet weak var startWindowLocationMenu: NSPopUpButton!
     
     // Playlist search modal dialog fields
     @IBOutlet weak var searchPanel: NSPanel!
@@ -223,6 +226,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
+        window.setIsVisible(false)
+        
         // Initialize UI with presentation settings (colors, sizes, etc)
         // No app state is needed here
         initStatelessUI()
@@ -255,6 +260,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         window.isMovableByWindowBackground = true
         window.makeKeyAndOrderFront(self)
+        
+        positionWindow()
+    }
+    
+    func positionWindow() {
+        
+        if (preferences.windowLocationOnStartup.option == .rememberFromLastAppLaunch) {
+            
+            let windowLocation = NSPoint(x: CGFloat(preferences.lastWindowLocationX ?? 0), y: CGFloat(preferences.lastWindowLocationY ?? 0))
+            window.setFrameOrigin(windowLocation)
+            
+        } else {
+            
+            UIUtils.positionWindowRelativeToScreen(window, preferences.windowLocationOnStartup.windowLocation)
+        }
+        
+        window.setIsVisible(true)
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -448,6 +470,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
         
         resetPreferencesFields()
+        
+//        positionWindow()
     }
     
     func updatePlaylistSummary() {
@@ -474,6 +498,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     func tearDown() {
         player.tearDown()
+        Preferences.persistWindowLocation(Float(window.frame.origin.x), Float(window.frame.origin.y))
     }
     
     @IBAction func addTracksAction(_ sender: AnyObject) {
@@ -1111,14 +1136,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBAction func toggleViewEffectsAction(_ sender: AnyObject) {
         
         if (fxCollapsibleView?.hidden)! {
-            resizeWindow(playlistShown: !(playlistCollapsibleView?.hidden)!, effectsShown: true)
+            resizeWindow(playlistShown: !(playlistCollapsibleView?.hidden)!, effectsShown: true, sender !== self)
             fxCollapsibleView!.show()
             btnToggleEffects.state = 1
             btnToggleEffects.image = UIConstants.imgEffectsOn
             viewEffectsMenuItem.state = 1
         } else {
             fxCollapsibleView!.hide()
-            resizeWindow(playlistShown: !(playlistCollapsibleView?.hidden)!, effectsShown: false)
+            resizeWindow(playlistShown: !(playlistCollapsibleView?.hidden)!, effectsShown: false, sender !== self)
             btnToggleEffects.state = 0
             btnToggleEffects.image = UIConstants.imgEffectsOff
             viewEffectsMenuItem.state = 0
@@ -1133,7 +1158,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         // Set focus on playlist view if it's visible after the toggle
         
         if (playlistCollapsibleView?.hidden)! {
-            resizeWindow(playlistShown: true, effectsShown: !(fxCollapsibleView?.hidden)!)
+            resizeWindow(playlistShown: true, effectsShown: !(fxCollapsibleView?.hidden)!, sender !== self)
             playlistCollapsibleView!.show()
             window.makeFirstResponder(playlistView)
             btnTogglePlaylist.state = 1
@@ -1141,7 +1166,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             viewPlaylistMenuItem.state = 1
         } else {
             playlistCollapsibleView!.hide()
-            resizeWindow(playlistShown: false, effectsShown: !(fxCollapsibleView?.hidden)!)
+            resizeWindow(playlistShown: false, effectsShown: !(fxCollapsibleView?.hidden)!, sender !== self)
             btnTogglePlaylist.state = 0
             btnTogglePlaylist.image = UIConstants.imgPlaylistOff
             viewPlaylistMenuItem.state = 0
@@ -1151,7 +1176,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     }
     
     // Called when toggling views
-    func resizeWindow(playlistShown: Bool, effectsShown: Bool) {
+    func resizeWindow(playlistShown: Bool, effectsShown: Bool, _ animate: Bool) {
         
         var wFrame = window.frame
         let oldOrigin = wFrame.origin
@@ -1174,7 +1199,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         wFrame.size = NSMakeSize(window.frame.width, newHeight)
         wFrame.origin = NSMakePoint(oldOrigin.x, shrinking ? oldOrigin.y + (oldHeight - newHeight) : oldOrigin.y - (newHeight - oldHeight))
         
-        window.setFrame(wFrame, display: true, animate: true)
+        window.setFrame(wFrame, display: true, animate: animate)
     }
     
     // Toggle button action
@@ -1645,6 +1670,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             }
         }
         
+        preferences.windowLocationOnStartup.option = btnRememberWindowLocation.state == 1 ? .rememberFromLastAppLaunch : .specific
+        
+        for location in WindowLocations.allValues {
+            
+            if startWindowLocationMenu.selectedItem!.title == location.description {
+                preferences.windowLocationOnStartup.windowLocation = location
+                break;
+            }
+        }
+        
         dismissModalDialog()
         Preferences.persistAsync()
     }
@@ -1776,10 +1811,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
             }
         }
         
-        startWithViewMenu.isEnabled = btnStartWithView.state == 1
+        startWithViewMenu.isEnabled = Bool(btnStartWithView.state)
+        
+        btnRememberWindowLocation.state = preferences.windowLocationOnStartup.option == .rememberFromLastAppLaunch ? 1 : 0
+        
+        btnStartAtWindowLocation.state = preferences.windowLocationOnStartup.option == .specific ? 1 : 0
+        
+        startWindowLocationMenu.isEnabled = Bool(btnStartAtWindowLocation.state)
+        
+        for item in startWindowLocationMenu.itemArray {
+            
+            if item.title == preferences.windowLocationOnStartup.windowLocation.description {
+                startWindowLocationMenu.select(item)
+            }
+        }
         
         // Select the player prefs tab
-        playerPrefsTabViewAction(self)
+//        playerPrefsTabViewAction(self)
+        viewPrefsTabViewAction(self)
     }
     
     @IBAction func startupVolumeButtonAction(_ sender: Any) {
@@ -1790,6 +1839,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBAction func startupVolumeSliderAction(_ sender: Any) {
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
     }
+    
+    @IBAction func windowLocationOnStartupAction(_ sender: Any) {
+        
+        startWindowLocationMenu.isEnabled = Bool(btnStartAtWindowLocation.state)
+    }
+    
 }
 
 // Int to Bool conversion

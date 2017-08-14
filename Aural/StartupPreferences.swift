@@ -53,3 +53,53 @@ class ViewOnStartup {
     // TODO: This is mutable. Potentially unsafe
     static let defaultInstance: ViewOnStartup = ViewOnStartup()
 }
+
+// Window location on startup preference
+class WindowLocationOnStartup {
+    
+    var option: WindowLocationOptions = .rememberFromLastAppLaunch
+    
+    // This is used only if option == .specific
+    var windowLocation: WindowLocations = .center
+    
+    // TODO: This is mutable. Potentially unsafe
+    static let defaultInstance: WindowLocationOnStartup = WindowLocationOnStartup()
+}
+
+// All options for the window location at startup
+enum WindowLocationOptions: String {
+    
+    case rememberFromLastAppLaunch
+    case specific
+}
+
+// Enumeration of possible startup window locations
+enum WindowLocations: String {
+    
+    case center
+    case topLeft
+    case topCenter
+    case topRight
+    case leftCenter
+    case rightCenter
+    case bottomLeft
+    case bottomCenter
+    case bottomRight
+    
+    static let allValues: [WindowLocations] = [center, topLeft, topCenter, topRight, leftCenter, rightCenter, bottomLeft, bottomCenter, bottomRight]
+    
+    var description: String {
+        
+        switch self {
+        case .center: return "Center"
+        case .topLeft: return "Top left"
+        case .topCenter: return "Top center"
+        case .topRight: return "Top right"
+        case .leftCenter: return "Left center"
+        case .rightCenter: return "Right center"
+        case .bottomLeft: return "Bottom left"
+        case .bottomCenter: return "Bottom center"
+        case .bottomRight: return "Bottom right"
+        }
+    }
+}

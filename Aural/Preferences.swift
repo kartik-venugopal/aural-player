@@ -28,6 +28,7 @@ class Preferences {
     
     // View prefs
     private static let defaultViewOnStartup: ViewOnStartup = ViewOnStartup.defaultInstance
+    private static let defaultWindowLocationOnStartup: WindowLocationOnStartup = WindowLocationOnStartup.defaultInstance
     
     // The (cached) user preferences. Values are held in these variables during app execution, and persisted upon exiting.
     var seekLength: Int
@@ -42,6 +43,10 @@ class Preferences {
     var playlistOnStartup: PlaylistStartupOptions
     
     var viewOnStartup: ViewOnStartup
+    var windowLocationOnStartup: WindowLocationOnStartup
+    
+    var lastWindowLocationX: Float?
+    var lastWindowLocationY: Float?
     
     private init() {
         
@@ -80,9 +85,22 @@ class Preferences {
             viewOnStartup.option = ViewStartupOptions(rawValue: viewOnStartupOptionStr)!
         }
         
-        if let viewOnStartupViewTypeStr = prefs["viewOnStartup.viewType"] as? String {
-            viewOnStartup.viewType = ViewTypes(rawValue: viewOnStartupViewTypeStr)!
+        if let viewTypeStr = prefs["viewOnStartup.viewType"] as? String {
+            viewOnStartup.viewType = ViewTypes(rawValue: viewTypeStr)!
         }
+        
+        windowLocationOnStartup = Preferences.defaultWindowLocationOnStartup
+        
+        if let windowLocationOnStartupOptionStr = prefs["windowLocationOnStartup.option"] as? String {
+            windowLocationOnStartup.option = WindowLocationOptions(rawValue: windowLocationOnStartupOptionStr)!
+        }
+        
+        if let windowLocationStr = prefs["windowLocationOnStartup.location"] as? String {
+            windowLocationOnStartup.windowLocation = WindowLocations(rawValue: windowLocationStr)!
+        }
+        
+        lastWindowLocationX = prefs["lastWindowLocationX"] as? Float
+        lastWindowLocationY = prefs["lastWindowLocationY"] as? Float
     }
     
     static func instance() -> Preferences {
@@ -106,6 +124,14 @@ class Preferences {
         
         defaults.set(singleton.viewOnStartup.option.rawValue, forKey: "viewOnStartup.option")
         defaults.set(singleton.viewOnStartup.viewType.rawValue, forKey: "viewOnStartup.viewType")
+        
+        defaults.set(singleton.windowLocationOnStartup.option.rawValue, forKey: "windowLocationOnStartup.option")
+        defaults.set(singleton.windowLocationOnStartup.windowLocation.rawValue, forKey: "windowLocationOnStartup.location")
+    }
+    
+    static func persistWindowLocation(_ x: Float, _ y: Float) {
+        defaults.set(x, forKey: "lastWindowLocationX")
+        defaults.set(y, forKey: "lastWindowLocationY")
     }
     
     // Persists without blocking the calling thread
