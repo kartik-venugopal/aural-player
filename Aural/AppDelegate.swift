@@ -24,6 +24,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     @IBOutlet weak var volumeDeltaField: NSTextField!
     @IBOutlet weak var volumeDeltaStepper: NSStepper!
     
+    @IBOutlet weak var btnRememberVolume: NSButton!
+    @IBOutlet weak var btnSpecifyVolume: NSButton!
+    
+    @IBOutlet weak var startupVolumeSlider: NSSlider!
+    @IBOutlet weak var lblStartupVolume: NSTextField!
+    
     @IBOutlet weak var panDeltaField: NSTextField!
     @IBOutlet weak var panDeltaStepper: NSStepper!
     
@@ -304,33 +310,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
     
     func initStatefulUI(_ playerState: SavedPlayerState) {
         
-        if (preferences.viewOnStartup.option == .rememberFromLastAppLaunch) {
-        
-            if (!playerState.showPlaylist) {
-                toggleViewPlaylistAction(self)
-            }
-            
-            if (!playerState.showEffects) {
-                toggleViewEffectsAction(self)
-            }
-            
-        } else {
-            
-            let viewType = preferences.viewOnStartup.viewType
-            let hidePlaylist = viewType == .effectsOnly || viewType == .compact
-            let hideEffects = viewType == .playlistOnly || viewType == .compact
-            
-            if (hidePlaylist) {
-                toggleViewPlaylistAction(self)
-            }
-            
-            if (hideEffects) {
-                toggleViewEffectsAction(self)
-            }
-        }
-        
         // Set sliders to reflect player state
-        volumeSlider.floatValue = round(playerState.volume * AppConstants.volumeConversion_playerToUI)
+        
+        if (preferences.volumeOnStartup == .rememberFromLastAppLaunch) {
+            volumeSlider.floatValue = round(playerState.volume * AppConstants.volumeConversion_playerToUI)
+        } else {
+            volumeSlider.floatValue = round(preferences.startupVolumeValue * AppConstants.volumeConversion_playerToUI)
+            player.setVolume(volumeSlider.floatValue)
+        }
         setVolumeImage(playerState.muted)
         
         panSlider.floatValue = round(playerState.balance * AppConstants.panConversion_playerToUI)
@@ -428,6 +415,31 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         // Don't select any items from the EQ presets menu
         eqPresets.selectItem(at: -1)
+        
+        if (preferences.viewOnStartup.option == .rememberFromLastAppLaunch) {
+            
+            if (!playerState.showPlaylist) {
+                toggleViewPlaylistAction(self)
+            }
+            
+            if (!playerState.showEffects) {
+                toggleViewEffectsAction(self)
+            }
+            
+        } else {
+            
+            let viewType = preferences.viewOnStartup.viewType
+            let hidePlaylist = viewType == .effectsOnly || viewType == .compact
+            let hideEffects = viewType == .playlistOnly || viewType == .compact
+            
+            if (hidePlaylist) {
+                toggleViewPlaylistAction(self)
+            }
+            
+            if (hideEffects) {
+                toggleViewEffectsAction(self)
+            }
+        }
         
         // Timer interval depends on whether time stretch unit is active
         let interval = playerState.timeBypass ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * playerState.timeStretchRate))
@@ -1611,6 +1623,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         preferences.seekLength = seekLengthSlider.integerValue
         preferences.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.volumeConversion_UIToPlayer
+        
+        preferences.volumeOnStartup = btnRememberVolume.state == 1 ? .rememberFromLastAppLaunch : .specific
+        preferences.startupVolumeValue = Float(startupVolumeSlider.integerValue) * AppConstants.volumeConversion_UIToPlayer
+        
         preferences.panDelta = panDeltaStepper.floatValue * AppConstants.panConversion_UIToPlayer
         preferences.autoplayOnStartup = Bool(btnAutoplayOnStartup.state)
         preferences.autoplayAfterAddingTracks = Bool(btnAutoplayAfterAddingTracks.state)
@@ -1718,6 +1734,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         volumeDeltaStepper.integerValue = volumeDelta
         volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
         
+        btnRememberVolume.state = preferences.volumeOnStartup == .rememberFromLastAppLaunch ? 1 : 0
+        btnSpecifyVolume.state = preferences.volumeOnStartup == .rememberFromLastAppLaunch ? 0 : 1
+        startupVolumeSlider.isEnabled = btnSpecifyVolume.state == 1
+        startupVolumeSlider.integerValue = Int(round(preferences.startupVolumeValue * AppConstants.volumeConversion_playerToUI))
+        lblStartupVolume.isEnabled = btnSpecifyVolume.state == 1
+        lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
+        
         let panDelta = Int(round(preferences.panDelta * AppConstants.panConversion_playerToUI))
         panDeltaStepper.integerValue = panDelta
         panDeltaField.stringValue = String(format: "%d%%", panDelta)
@@ -1756,6 +1779,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate, EventSubs
         
         // Select the player prefs tab
         playerPrefsTabViewAction(self)
+    }
+    
+    @IBAction func startupVolumeButtonAction(_ sender: Any) {
+        startupVolumeSlider.isEnabled = btnSpecifyVolume.state == 1
+        lblStartupVolume.isEnabled = btnSpecifyVolume.state == 1
+    }
+    
+    @IBAction func startupVolumeSliderAction(_ sender: Any) {
+        lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
     }
 }
 

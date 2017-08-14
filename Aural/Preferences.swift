@@ -16,6 +16,8 @@ class Preferences {
     // Player prefs
     private static let defaultSeekLength: Int = 5
     private static let defaultVolumeDelta: Float = 0.05
+    private static let defaultVolumeOnStartup: VolumeStartupOptions = .rememberFromLastAppLaunch
+    private static let defaultStartupVolumeValue: Float = 0.5
     private static let defaultPanDelta: Float = 0.1
     private static let defaultAutoplayOnStartup: Bool = false
     private static let defaultAutoplayAfterAddingTracks: Bool = false
@@ -30,6 +32,8 @@ class Preferences {
     // The (cached) user preferences. Values are held in these variables during app execution, and persisted upon exiting.
     var seekLength: Int
     var volumeDelta: Float
+    var volumeOnStartup: VolumeStartupOptions
+    var startupVolumeValue: Float
     var panDelta: Float
     var autoplayOnStartup: Bool
     var autoplayAfterAddingTracks: Bool
@@ -45,6 +49,15 @@ class Preferences {
         
         seekLength = prefs["seekLength"] as? Int ?? Preferences.defaultSeekLength
         volumeDelta = prefs["volumeDelta"] as? Float ?? Preferences.defaultVolumeDelta
+        
+        if let volumeOnStartupStr = prefs["volumeOnStartup"] as? String {
+            volumeOnStartup = VolumeStartupOptions(rawValue: volumeOnStartupStr)!
+        } else {
+            volumeOnStartup = Preferences.defaultVolumeOnStartup
+        }
+        
+        startupVolumeValue = prefs["startupVolumeValue"] as? Float ?? Preferences.defaultStartupVolumeValue
+        
         panDelta = prefs["panDelta"] as? Float ?? Preferences.defaultPanDelta
         autoplayOnStartup = prefs["autoplayOnStartup"] as? Bool ?? Preferences.defaultAutoplayOnStartup
         autoplayAfterAddingTracks = prefs["autoplayAfterAddingTracks"] as? Bool ?? Preferences.defaultAutoplayAfterAddingTracks
@@ -81,6 +94,9 @@ class Preferences {
         
         defaults.set(singleton.seekLength, forKey: "seekLength")
         defaults.set(singleton.volumeDelta, forKey: "volumeDelta")
+        defaults.set(singleton.volumeOnStartup.rawValue, forKey: "volumeOnStartup")
+        defaults.set(singleton.startupVolumeValue, forKey: "startupVolumeValue")
+        
         defaults.set(singleton.panDelta, forKey: "panDelta")
         defaults.set(singleton.autoplayOnStartup, forKey: "autoplayOnStartup")
         defaults.set(singleton.autoplayAfterAddingTracks, forKey: "autoplayAfterAddingTracks")

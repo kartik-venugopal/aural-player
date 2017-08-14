@@ -1,5 +1,12 @@
 import Foundation
 
+// All options for the volume at startup
+enum VolumeStartupOptions: String {
+    
+    case rememberFromLastAppLaunch
+    case specific
+}
+
 // All options for the playlist at startup
 enum PlaylistStartupOptions: String {
     
