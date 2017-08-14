@@ -470,8 +470,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
         
         resetPreferencesFields()
-        
-//        positionWindow()
     }
     
     func updatePlaylistSummary() {
@@ -1827,8 +1825,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         }
         
         // Select the player prefs tab
-//        playerPrefsTabViewAction(self)
-        viewPrefsTabViewAction(self)
+        playerPrefsTabViewAction(self)
     }
     
     @IBAction func startupVolumeButtonAction(_ sender: Any) {
