@@ -5,7 +5,7 @@ Enumeration of all possible reverb effect presets
 import Foundation
 import AVFoundation
 
-enum ReverbPresets {
+enum ReverbPresets: String {
     
     case smallRoom
     
@@ -46,48 +46,6 @@ enum ReverbPresets {
         }
     }
     
-    // User-friendly, UI-friendly description String
-    var description: String {
-        
-        switch self {
-            
-        case .smallRoom: return "Small room"
-        case .mediumRoom: return "Medium room"
-        case .largeRoom: return "Large room"
-            
-        case .mediumHall: return "Medium hall"
-        case .largeHall: return "Large hall"
-            
-        case .mediumChamber: return "Medium chamber"
-        case .largeChamber: return "Large chamber"
-            
-        case .cathedral: return "Cathedral"
-        case .plate: return "Plate"
-            
-        }
-    }
-    
-    // Converts this ReverbPresets enum to a String representation
-    var toString: String {
-        
-        switch self {
-            
-        case .smallRoom: return "SmallRoom"
-        case .mediumRoom: return "MediumRoom"
-        case .largeRoom: return "LargeRoom"
-            
-        case .mediumHall: return "MediumHall"
-        case .largeHall: return "LargeHall"
-            
-        case .mediumChamber: return "MediumChamber"
-        case .largeChamber: return "LargeChamber"
-            
-        case .cathedral: return "Cathedral"
-        case .plate: return "Plate"
-            
-        }
-    }
-    
     static func mapFromAVPreset(_ preset: AVAudioUnitReverbPreset) -> ReverbPresets {
         
         switch preset {
@@ -110,51 +68,13 @@ enum ReverbPresets {
         }
     }
     
-    static func fromString(_ string: String) -> ReverbPresets {
-        
-        switch string {
-            
-        case "SmallRoom": return .smallRoom
-        case "MediumRoom": return .mediumRoom
-        case "LargeRoom": return .largeRoom
-            
-        case "MediumHall": return .mediumHall
-        case "LargeHall": return .largeHall
-            
-        case "MediumChamber": return .mediumChamber
-        case "LargeChamber": return .largeChamber
-            
-        case "Cathedral": return .cathedral
-        case "Plate": return .plate
-     
-        // This should never happen
-        default: return .smallRoom
-        }
+    // User-friendly, UI-friendly description String
+    var description: String {
+        return Utils.splitCamelCaseWord(rawValue, false)
     }
-    
+ 
+    // Constructs a ReverPresets object from a description String
     static func fromDescription(_ description: String) -> ReverbPresets {
-        
-        var preset: ReverbPresets
-        
-        switch description {
-            
-        case smallRoom.description: preset = .smallRoom
-        case mediumRoom.description: preset = .mediumRoom
-        case largeRoom.description: preset = .largeRoom
-            
-        case mediumChamber.description: preset = .mediumChamber
-        case largeChamber.description: preset = .largeChamber
-            
-        case mediumHall.description: preset = .mediumHall
-        case largeHall.description: preset = .largeHall
-            
-        case cathedral.description: preset = .cathedral
-        case plate.description: preset = .plate
-            
-            // This should never happen
-        default: preset = .smallRoom
-        }
-        
-        return preset
+        return ReverbPresets(rawValue: Utils.camelCase(description)) ?? PlayerDefaults.reverbPreset
     }
 }

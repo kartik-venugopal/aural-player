@@ -1,7 +1,7 @@
 
 import Foundation
 
-enum EQPresets {
+enum EQPresets: String {
     
     case flat // default
     case highBassAndTreble
@@ -10,29 +10,11 @@ enum EQPresets {
     case soft
     
     var description: String {
-        
-        switch self {
-            
-        case .flat: return "Flat"
-        case .highBassAndTreble: return "High bass and treble"
-        case .soft: return "Soft"
-        case .karaoke: return "Karaoke"
-        case .vocal: return "Vocal"
-        }
+        return Utils.splitCamelCaseWord(rawValue, false)
     }
     
     static func fromDescription(_ description: String) -> EQPresets {
-        
-        switch description {
-            
-        case flat.description: return .flat
-        case highBassAndTreble.description: return .highBassAndTreble
-        case soft.description: return .soft
-        case karaoke.description: return .karaoke
-        case vocal.description: return .vocal
-            
-        default: return .flat
-        }
+        return EQPresets(rawValue: Utils.camelCase(description)) ?? .flat
     }
     
     var bands: [Int: Float] {

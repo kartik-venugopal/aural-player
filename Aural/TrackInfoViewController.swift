@@ -40,7 +40,8 @@ class TrackInfoViewController: NSViewController, NSTableViewDataSource, NSTableV
         for (key, value) in track.extendedMetadata {
             // Some tracks have a "Format" metadata entry ... ignore it
             if (key.lowercased() != "format") {
-                info.append((key: Utils.splitCamelCaseWord(key), value: value))
+                // TODO: Move the camel case logic to TrackIO
+                info.append((key: Utils.splitCamelCaseWord(key, true), value: value))
             }
         }
         

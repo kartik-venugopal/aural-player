@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum SizeUnit {
+enum SizeUnit: String {
     
     case tb
     case gb
@@ -13,15 +13,7 @@ enum SizeUnit {
     case b
     
     var toString: String {
-        
-        switch self {
-            
-        case .tb: return "TB"
-        case .gb: return "GB"
-        case .mb: return "MB"
-        case .kb: return "KB"
-        case .b: return "B"
-        }
+        return rawValue.uppercased()
     }
     
     fileprivate var magnitude: Int {

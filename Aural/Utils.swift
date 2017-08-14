@@ -32,18 +32,73 @@ class Utils {
     }
     
     // Splits a camel cased word into separate words, all capitalized. For ex, "albumName" -> "Album Name". This is useful for display within the UI.
-    static func splitCamelCaseWord(_ word: String) -> String {
+    static func splitCamelCaseWord(_ word: String, _ capitalizeEachWord: Bool) -> String {
         
         var newString: String = ""
         
+        var firstLetter: Bool = true
         for eachCharacter in word.characters {
+            
             if (eachCharacter >= "A" && eachCharacter <= "Z") == true {
+                
+                // Upper case character
+                
+                // Add a space to delimit the words
                 newString.append(" ")
+                
+                if (capitalizeEachWord) {
+                    newString.append(eachCharacter)
+                } else {
+                    newString.append(String(eachCharacter).lowercased())
+                }
+                
+            } else if (firstLetter) {
+                
+                // Always capitalize the first word
+                newString.append(String(eachCharacter).capitalized)
+                firstLetter = false
+                
+            } else {
+                
+                newString.append(eachCharacter)
             }
-            newString.append(eachCharacter)
         }
         
-        return newString.capitalized
+        return newString
+    }
+    
+    // Joins multiple words into one camel-cased word. For example, "Medium hall" -> "mediumHall"
+    static func camelCase(_ words: String) -> String {
+        
+        var newString: String = ""
+        
+        var wordStart: Bool = false
+        for eachCharacter in words.characters {
+            
+            // Ignore spaces
+            if (eachCharacter == " ") {
+                wordStart = true
+                continue
+            }
+            
+            if (eachCharacter >= "A" && eachCharacter <= "Z") == true {
+                
+                // The very first character needs to be lowercased
+                newString.append(String(eachCharacter).lowercased())
+                
+            } else if (wordStart) {
+                
+                // The first character of subsequent words needs to be capitalized
+                newString.append(String(eachCharacter).capitalized)
+                wordStart = false
+                
+            } else {
+                
+                newString.append(eachCharacter)
+            }
+        }
+        
+        return newString
     }
     
     // Provides a comma separated String representation of an integer, that is easy to read. For ex, 15700900 -> "15,700,900"

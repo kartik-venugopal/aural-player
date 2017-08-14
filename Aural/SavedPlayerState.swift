@@ -69,8 +69,8 @@ class SavedPlayerState {
         dict["showPlaylist"] = showPlaylist as AnyObject
         dict["showEffects"] = showEffects as AnyObject
         
-        dict["repeatMode"] = repeatMode.toString as AnyObject
-        dict["shuffleMode"] = shuffleMode.toString as AnyObject
+        dict["repeatMode"] = repeatMode.rawValue as AnyObject
+        dict["shuffleMode"] = shuffleMode.rawValue as AnyObject
         
         dict["volume"] = volume as NSNumber
         dict["muted"] = muted as AnyObject
@@ -98,7 +98,7 @@ class SavedPlayerState {
         
         var reverbDict = [NSString: AnyObject]()
         reverbDict["bypass"] = reverbBypass as AnyObject
-        reverbDict["preset"] = reverbPreset.toString as AnyObject
+        reverbDict["preset"] = reverbPreset.rawValue as AnyObject
         reverbDict["amount"] = reverbAmount as NSNumber
         dict["reverb"] = reverbDict as AnyObject
         
@@ -128,8 +128,6 @@ class SavedPlayerState {
     // Produces a SavedPlayerState object from deserialized JSON
     static func fromJSON(_ jsonObject: NSDictionary) -> SavedPlayerState  {
         
-        // TODO: Make this more resilient to missing/invalid fields
-        
         let state = SavedPlayerState()
         
         if let showPlaylist = jsonObject["showPlaylist"] as? Bool {
@@ -140,12 +138,16 @@ class SavedPlayerState {
             state.showEffects = showEffects
         }
         
-        if let repeatMode = jsonObject["repeatMode"] as? String {
-            state.repeatMode = RepeatMode.fromString(repeatMode)
+        if let repeatModeStr = jsonObject["repeatMode"] as? String {
+            if let repeatMode = RepeatMode(rawValue: repeatModeStr) {
+                state.repeatMode = repeatMode
+            }
         }
         
-        if let shuffleMode = jsonObject["shuffleMode"] as? String {
-            state.shuffleMode = ShuffleMode.fromString(shuffleMode)
+        if let shuffleModeStr = jsonObject["shuffleMode"] as? String {
+            if let shuffleMode = ShuffleMode(rawValue: shuffleModeStr) {
+                state.shuffleMode = shuffleMode
+            }
         }
         
         if let volume = jsonObject["volume"] as? NSNumber {
@@ -213,7 +215,9 @@ class SavedPlayerState {
             }
             
             if let preset = reverbDict["preset"] as? String {
-                state.reverbPreset = ReverbPresets.fromString(preset)
+                if let reverbPreset = ReverbPresets(rawValue: preset) {
+                    state.reverbPreset = reverbPreset
+                }
             }
             
             if let amount = reverbDict["amount"] as? NSNumber {

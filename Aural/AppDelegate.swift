@@ -333,6 +333,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     
     func initStatefulUI(_ playerState: SavedPlayerState) {
         
+        // TODO: Do all conversions in PlayerDelegate. Pass UIState here, instead of PlayerState
+        
         // Set sliders to reflect player state
         
         if (preferences.volumeOnStartup == .rememberFromLastAppLaunch) {
@@ -387,14 +389,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         btnReverbBypass.image = playerState.reverbBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         (reverbTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !playerState.reverbBypass
         
-        // TODO: Change this lookup to o(1) instead of o(n) ... HashMap !
-        for item in reverbMenu.itemArray {
-            
-            if item.title == playerState.reverbPreset.description {
-                reverbMenu.select(item)
-                break;
-            }
-        }
+        reverbMenu.select(reverbMenu.item(withTitle: playerState.reverbPreset.description))
+        
         reverbSlider.floatValue = playerState.reverbAmount
         lblReverbAmountValue.stringValue = ValueFormatter.formatReverbAmount(playerState.reverbAmount)
         
@@ -856,7 +852,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     
     @IBAction func eqPresetsAction(_ sender: AnyObject) {
         
-        // TODO: Change this lookup to o(1) instead of o(n) ... HashMap !
         let preset = EQPresets.fromDescription((eqPresets.selectedItem?.title)!)
         
         let eqBands: [Int: Float] = preset.bands
@@ -1011,7 +1006,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     @IBAction func reverbAction(_ sender: AnyObject) {
         
         let preset: ReverbPresets = ReverbPresets.fromDescription((reverbMenu.selectedItem?.title)!)
-        
         player.setReverb(preset)
     }
     
