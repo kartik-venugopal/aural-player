@@ -6,15 +6,12 @@ import Cocoa
 
 class UIUtils {
     
-    // Positions a window relative to the desired location on screen, e.g Top left or Bottom center, etc.
-    static func positionWindowRelativeToScreen(_ window: NSWindow, _ locationOnScreen: WindowLocations) {
+    // Computes a window position relative to the desired location on screen, e.g Top left or Bottom center, etc.
+    static func windowPositionRelativeToScreen(_ windowWidth: CGFloat, _ windowHeight: CGFloat, _ locationOnScreen: WindowLocations) -> NSPoint {
         
         let screen = NSScreen.main()!
         let screenWidth = screen.frame.width
         let screenHeight = screen.frame.height
-        
-        let windowWidth = window.frame.width
-        let windowHeight = window.frame.height
         
         var x: CGFloat, y: CGFloat
         
@@ -48,6 +45,6 @@ class UIUtils {
         y = 0
         }
         
-        window.setFrameOrigin(NSPoint(x: x, y: y))
+        return NSPoint(x: x, y: y)
     }
 }

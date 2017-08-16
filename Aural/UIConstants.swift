@@ -74,6 +74,9 @@ class UIConstants {
     
     // Spacing between collapsible views
     static let collapsibleViewSpacing: CGFloat = 12
+    
+    // Window width never changes
+    static let windowWidth: CGFloat = 415
  
     // Window heights for different views
     static let windowHeight_compact: CGFloat = 223

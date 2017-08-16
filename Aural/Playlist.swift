@@ -45,6 +45,19 @@ class Playlist {
         return tracks.count
     }
     
+    func getState() -> PlaylistState {
+        
+        let state = PlaylistState()
+        state.repeatMode = self.playbackSequence.repeatMode
+        state.shuffleMode = self.playbackSequence.shuffleMode
+        
+        for track in tracks {
+            state.playlist.append(track.file!.path)
+        }
+        
+        return state
+    }
+    
     func totalDuration() -> Double {
         
         var totalDuration: Double = 0

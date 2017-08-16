@@ -7,7 +7,7 @@ import Cocoa
 protocol AuralPlayer {
     
     // Initializes the player with state remembered from the last app execution
-    func loadPlayerState(_ state: SavedPlayerState)
+    func loadState(_ state: PlayerState)
     
     // Plays a track associated with a new playback session
     func play(_ playbackSession: PlaybackSession)
@@ -28,7 +28,7 @@ protocol AuralPlayer {
     func getSeekPosition() -> Double
     
     // Encapsulates all current player state in an object and returns it. This is useful when persisting "remembered" player state prior to app shutdown
-    func getPlayerState() -> SavedPlayerState
+    func getState() -> PlayerState
     
     // Does anything that needs to be done before the app exits - releasing resources
     func tearDown()

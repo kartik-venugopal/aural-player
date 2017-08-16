@@ -49,9 +49,9 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         
         playerNode = AVAudioPlayerNode()
 
-        playerVolume = PlayerDefaults.volume
-        muted = PlayerDefaults.muted
-        reverbPreset = PlayerDefaults.reverbPreset.avPreset
+        playerVolume = AppDefaults.volume
+        muted = AppDefaults.muted
+        reverbPreset = AppDefaults.reverbPreset.avPreset
         
         audioEngine = AVAudioEngine()
         mainMixer = audioEngine.mainMixerNode
@@ -72,10 +72,10 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         bufferManager = BufferManager(playerNode: playerNode)
         recorder = Recorder(audioEngine)
         
-        loadPlayerState(SavedPlayerState.defaults)
+        loadState(AppState.defaults.playerState)
     }
     
-    func loadPlayerState(_ state: SavedPlayerState) {
+    func loadState(_ state: PlayerState) {
         
         playerVolume = state.volume
         muted = state.muted
@@ -314,11 +314,7 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
     }
     
     func seekToTime(_ playbackSession: PlaybackSession, _ seconds: Double) {
-        
-        let seekResult = bufferManager.seekToTime(playbackSession, seconds)
-        if (!seekResult.playbackCompleted) {
-            startFrame = seekResult.startFrame!
-        }
+        startFrame = bufferManager.seekToTime(playbackSession, seconds)
     }
     
     func startRecording(_ format: RecordingFormat) {
@@ -341,9 +337,9 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         return recorder.getRecordingInfo()
     }
     
-    func getPlayerState() -> SavedPlayerState {
+    func getState() -> PlayerState {
         
-        let state: SavedPlayerState = SavedPlayerState()
+        let state: PlayerState = PlayerState()
         
         // Volume and pan (balance)
         state.volume = playerVolume

@@ -247,33 +247,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         EventRegistry.subscribe(.trackAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Load saved state (sound settings + playlist) from app config file and adjust UI elements according to that state
-        
-        if (preferences.playlistOnStartup == .rememberFromLastAppLaunch) {
-            player.appLoaded()
-        }
-        
-        let playerState = player.getPlayerState()
-        initStatefulUI(playerState)
+        let appState = player.appLoaded()
+        initStatefulUI(appState)
         
         window.isMovableByWindowBackground = true
         window.makeKeyAndOrderFront(self)
         
         // TODO: Where/when should this be done ?
-        positionWindow(playerState)
+        positionWindow(appState.windowLocation)
         window.setIsVisible(true)
     }
     
-    func positionWindow(_ playerState: SavedPlayerState) {
-        
-        if (preferences.windowLocationOnStartup.option == .rememberFromLastAppLaunch) {
-            
-            let windowLocation = NSPoint(x: CGFloat(playerState.windowLocationX), y: CGFloat(playerState.windowLocationY))
-            window.setFrameOrigin(windowLocation)
-            
-        } else {
-            
-            UIUtils.positionWindowRelativeToScreen(window, preferences.windowLocationOnStartup.windowLocation)
-        }
+    func positionWindow(_ location: NSPoint) {
+        window.setFrameOrigin(location)
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -299,24 +285,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         
         // Set up the filter control sliders
         
-        filterBassSlider.minValue = Double(AppConstants.bass_min)
-        filterBassSlider.maxValue = Double(AppConstants.bass_max)
+        filterBassSlider.minValue = AppConstants.bass_min
+        filterBassSlider.maxValue = AppConstants.bass_max
         filterBassSlider.onControlChanged = {
             (slider: RangeSlider) -> Void in
             
             self.filterBassChanged()
         }
         
-        filterMidSlider.minValue = Double(AppConstants.mid_min)
-        filterMidSlider.maxValue = Double(AppConstants.mid_max)
+        filterMidSlider.minValue = AppConstants.mid_min
+        filterMidSlider.maxValue = AppConstants.mid_max
         filterMidSlider.onControlChanged = {
             (slider: RangeSlider) -> Void in
             
             self.filterMidChanged()
         }
         
-        filterTrebleSlider.minValue = Double(AppConstants.treble_min)
-        filterTrebleSlider.maxValue = Double(AppConstants.treble_max)
+        filterTrebleSlider.minValue = AppConstants.treble_min
+        filterTrebleSlider.maxValue = AppConstants.treble_max
         filterTrebleSlider.onControlChanged = {
             (slider: RangeSlider) -> Void in
             
@@ -328,23 +314,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         prefsTabViewButtons = [btnPlayerPrefs, btnPlaylistPrefs, btnViewPrefs]
     }
     
-    func initStatefulUI(_ playerState: SavedPlayerState) {
+    func initStatefulUI(_ appState: UIAppState) {
         
-        // TODO: Do all conversions in PlayerDelegate. Pass UIState here, instead of PlayerState
+        // Set controls to reflect player state
         
-        // Set sliders to reflect player state
+        volumeSlider.floatValue = appState.volume
+        setVolumeImage(appState.muted)
+        panSlider.floatValue = appState.balance
         
-        if (preferences.volumeOnStartup == .rememberFromLastAppLaunch) {
-            volumeSlider.floatValue = round(playerState.volume * AppConstants.volumeConversion_playerToUI)
-        } else {
-            volumeSlider.floatValue = round(preferences.startupVolumeValue * AppConstants.volumeConversion_playerToUI)
-            player.setVolume(volumeSlider.floatValue)
-        }
-        setVolumeImage(playerState.muted)
-        
-        panSlider.floatValue = round(playerState.balance * AppConstants.panConversion_playerToUI)
-        
-        switch playerState.repeatMode {
+        switch appState.repeatMode {
         
         case .off: btnRepeat.image = UIConstants.imgRepeatOff
         case .one: btnRepeat.image = UIConstants.imgRepeatOne
@@ -352,74 +330,73 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
             
         }
         
-        switch playerState.shuffleMode {
+        switch appState.shuffleMode {
             
         case .off: btnShuffle.image = UIConstants.imgShuffleOff
         case .on: btnShuffle.image = UIConstants.imgShuffleOn
             
         }
         
-        eqGlobalGainSlider.floatValue = playerState.eqGlobalGain
-        updateEQSliders(playerState.eqBands)
+        eqGlobalGainSlider.floatValue = appState.eqGlobalGain
+        updateEQSliders(appState.eqBands)
         
         (eqTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
         
-        btnPitchBypass.image = playerState.pitchBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
-        (pitchTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !playerState.pitchBypass
+        btnPitchBypass.image = appState.pitchBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        (pitchTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.pitchBypass
         
-        let octaves = playerState.pitch * AppConstants.pitchConversion_playerToUI
-        pitchSlider.floatValue = octaves
-        lblPitchValue.stringValue = ValueFormatter.formatPitch(octaves)
+        pitchSlider.floatValue = appState.pitch
+        lblPitchValue.stringValue = appState.formattedPitch
         
-        pitchOverlapSlider.floatValue = playerState.pitchOverlap
-        lblPitchOverlapValue.stringValue = ValueFormatter.formatOverlap(playerState.pitchOverlap)
+        pitchOverlapSlider.floatValue = appState.pitchOverlap
+        lblPitchOverlapValue.stringValue = appState.formattedPitchOverlap
         
-        btnTimeBypass.image = playerState.timeBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
-        (timeTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !playerState.timeBypass
+        btnTimeBypass.image = appState.timeBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        (timeTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.timeBypass
         
-        timeSlider.floatValue = playerState.timeStretchRate
-        lblTimeStretchRateValue.stringValue = ValueFormatter.formatTimeStretchRate(playerState.timeStretchRate)
+        timeSlider.floatValue = appState.timeStretchRate
+        lblTimeStretchRateValue.stringValue = appState.formattedTimeStretchRate
         
-        timeOverlapSlider.floatValue = playerState.timeOverlap
-        lblTimeOverlapValue.stringValue = ValueFormatter.formatOverlap(playerState.timeOverlap)
+        timeOverlapSlider.floatValue = appState.timeOverlap
+        lblTimeOverlapValue.stringValue = appState.formattedTimeOverlap
         
-        btnReverbBypass.image = playerState.reverbBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
-        (reverbTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !playerState.reverbBypass
+        btnReverbBypass.image = appState.reverbBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        (reverbTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.reverbBypass
         
-        reverbMenu.select(reverbMenu.item(withTitle: playerState.reverbPreset.description))
+        reverbMenu.select(reverbMenu.item(withTitle: appState.reverbPreset))
         
-        reverbSlider.floatValue = playerState.reverbAmount
-        lblReverbAmountValue.stringValue = ValueFormatter.formatReverbAmount(playerState.reverbAmount)
+        reverbSlider.floatValue = appState.reverbAmount
+        lblReverbAmountValue.stringValue = appState.formattedReverbAmount
         
-        btnDelayBypass.image = playerState.delayBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
-        (delayTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !playerState.delayBypass
+        btnDelayBypass.image = appState.delayBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        (delayTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.delayBypass
         
-        delayAmountSlider.floatValue = playerState.delayAmount
-        lblDelayAmountValue.stringValue = ValueFormatter.formatDelayAmount(playerState.delayAmount)
+        delayAmountSlider.floatValue = appState.delayAmount
+        lblDelayAmountValue.stringValue = appState.formattedDelayAmount
         
-        delayTimeSlider.doubleValue = playerState.delayTime
-        lblDelayTimeValue.stringValue = ValueFormatter.formatDelayTime(playerState.delayTime)
+        delayTimeSlider.doubleValue = appState.delayTime
+        lblDelayTimeValue.stringValue = appState.formattedDelayTime
         
-        delayFeedbackSlider.floatValue = playerState.delayFeedback
-        lblDelayFeedbackValue.stringValue = ValueFormatter.formatDelayFeedback(playerState.delayFeedback)
+        delayFeedbackSlider.floatValue = appState.delayFeedback
+        lblDelayFeedbackValue.stringValue = appState.formattedDelayFeedback
         
-        delayCutoffSlider.floatValue = playerState.delayLowPassCutoff
-        lblDelayLowPassCutoffValue.stringValue = ValueFormatter.formatDelayLowPassCutoff(playerState.delayLowPassCutoff)
+        delayCutoffSlider.floatValue = appState.delayLowPassCutoff
+        lblDelayLowPassCutoffValue.stringValue = appState.formattedDelayLowPassCutoff
         
-        btnFilterBypass.image = playerState.filterBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
-        (filterTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !playerState.filterBypass
+        btnFilterBypass.image = appState.filterBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        (filterTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.filterBypass
         
-        filterBassSlider.start = Double(playerState.filterBassMin)
-        filterBassSlider.end = Double(playerState.filterBassMax)
-        lblFilterBassRange.stringValue = ValueFormatter.formatFilterFrequencyRange(playerState.filterBassMin, playerState.filterBassMax)
+        filterBassSlider.start = appState.filterBassMin
+        filterBassSlider.end = appState.filterBassMax
+        lblFilterBassRange.stringValue = appState.formattedFilterBassRange
         
-        filterMidSlider.start = Double(playerState.filterMidMin)
-        filterMidSlider.end = Double(playerState.filterMidMax)
-        lblFilterMidRange.stringValue = ValueFormatter.formatFilterFrequencyRange(playerState.filterMidMin, playerState.filterMidMax)
+        filterMidSlider.start = appState.filterMidMin
+        filterMidSlider.end = appState.filterMidMax
+        lblFilterMidRange.stringValue = appState.formattedFilterMidRange
         
-        filterTrebleSlider.start = Double(playerState.filterTrebleMin)
-        filterTrebleSlider.end = Double(playerState.filterTrebleMax)
-        lblFilterTrebleRange.stringValue = ValueFormatter.formatFilterFrequencyRange(playerState.filterTrebleMin, playerState.filterTrebleMax)
+        filterTrebleSlider.start = appState.filterTrebleMin
+        filterTrebleSlider.end = appState.filterTrebleMax
+        lblFilterTrebleRange.stringValue = appState.formattedFilterTrebleRange
         
         for btn in fxTabViewButtons! {
             (btn.cell as! EffectsUnitButtonCell).highlightColor = btn === recorderTabViewButton ? Colors.tabViewRecorderButtonHighlightColor : Colors.tabViewEffectsButtonHighlightColor
@@ -432,35 +409,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         // Don't select any items from the EQ presets menu
         eqPresets.selectItem(at: -1)
         
-        if (preferences.viewOnStartup.option == .rememberFromLastAppLaunch) {
-            
-            if (!playerState.showPlaylist) {
-                toggleViewPlaylistAction(self)
-            }
-            
-            if (!playerState.showEffects) {
-                toggleViewEffectsAction(self)
-            }
-            
-        } else {
-            
-            let viewType = preferences.viewOnStartup.viewType
-            let hidePlaylist = viewType == .effectsOnly || viewType == .compact
-            let hideEffects = viewType == .playlistOnly || viewType == .compact
-            
-            if (hidePlaylist) {
-                toggleViewPlaylistAction(self)
-            }
-            
-            if (hideEffects) {
-                toggleViewEffectsAction(self)
-            }
+        if (appState.hidePlaylist) {
+            toggleViewPlaylistAction(self)
+        }
+        
+        if (appState.hideEffects) {
+            toggleViewEffectsAction(self)
         }
         
         // Timer interval depends on whether time stretch unit is active
-        let interval = playerState.timeBypass ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * playerState.timeStretchRate))
-        
-        seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: DispatchQueue.main)
+        seekTimer = ScheduledTaskExecutor(intervalMillis: appState.seekTimerInterval, task: {self.updatePlayingTime()}, queue: DispatchQueue.main)
         
         resetPreferencesFields()
     }
@@ -490,10 +448,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     func tearDown() {
         
         let uiState = UIState()
-        uiState.windowLocationX = window.frame.origin.x
-        uiState.windowLocationY = window.frame.origin.y
-        uiState.playlistShown = isPlaylistShown()
-        uiState.effectsShown = isEffectsShown()
+        uiState.windowLocationX = Float(window.frame.origin.x)
+        uiState.windowLocationY = Float(window.frame.origin.y)
+        uiState.showPlaylist = isPlaylistShown()
+        uiState.showEffects = isEffectsShown()
         
         player.appExiting(uiState)
     }
@@ -502,8 +460,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         
         let selRow = playlistView.selectedRow
         let dialog = UIElements.openDialog
-        
-        // TODO: Clear previous selection of files
         
         let modalResponse = dialog.runModal()
         
@@ -1810,17 +1766,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         startWithViewMenu.isEnabled = Bool(btnStartWithView.state)
         
         btnRememberWindowLocation.state = preferences.windowLocationOnStartup.option == .rememberFromLastAppLaunch ? 1 : 0
-        
         btnStartAtWindowLocation.state = preferences.windowLocationOnStartup.option == .specific ? 1 : 0
         
         startWindowLocationMenu.isEnabled = Bool(btnStartAtWindowLocation.state)
-        
-        for item in startWindowLocationMenu.itemArray {
-            
-            if item.title == preferences.windowLocationOnStartup.windowLocation.description {
-                startWindowLocationMenu.select(item)
-            }
-        }
+        startWindowLocationMenu.selectItem(withTitle: preferences.windowLocationOnStartup.windowLocation.description)
         
         // Select the player prefs tab
         playerPrefsTabViewAction(self)

@@ -121,8 +121,8 @@ class BufferManager {
         }
     }
     
-    // Seeks to a certain position (seconds) in the specified track. Returns the calculated start frame and whether or not playback has completed after this seek (i.e. end of file)
-    func seekToTime(_ playbackSession: PlaybackSession, _ seconds: Double) -> (playbackCompleted: Bool, startFrame: AVAudioFramePosition?) {
+    // Seeks to a certain position (seconds) in the specified track. Returns the calculated start frame.
+    func seekToTime(_ playbackSession: PlaybackSession, _ seconds: Double) -> AVAudioFramePosition {
         
         stop()
         
@@ -131,31 +131,13 @@ class BufferManager {
         let playingFile: AVAudioFile = track.avFile!
         let sampleRate = playingFile.processingFormat.sampleRate
         
-        //  Multiply your sample rate by the new time in seconds. This will give you the exact frame of the song at which you want to start the player
+        //  Multiply sample rate by the new time in seconds. This will give the exact start frame.
         let firstFrame = Int64(seconds * sampleRate)
-        let framesToPlay = track.frames! - firstFrame
         
-        // If not enough frames left to play, consider playback finished
-        if framesToPlay > 0 {
-            
-            // Start playback
-            startPlaybackFromFrame(playbackSession, firstFrame)
-            
-            // Return the start frame to later determine seek position
-            return (false, firstFrame)
-            
-        } else {
-            
-            // Nothing to play means playback has completed
-            
-            // Notify observers about playback completion
-            // TODO: This clause is unnecessary because this method will never get called with 0 frames to play
-            
-            let thisSession = PlaybackSession.currentSession!
-            EventRegistry.publishEvent(EventType.playbackCompleted, PlaybackCompletedEvent(thisSession))
-            
-            return (true, nil)
-        }
+        // Start playback
+        startPlaybackFromFrame(playbackSession, firstFrame)
+        
+        return firstFrame
     }
     
     // Stops the scheduling of audio buffers, in response to a request to stop playback (or when seeking to a new position). Waits till all previously scheduled buffers are cleared. After execution of this method, code can assume no scheduled buffers. Marks the end of a "playback session".

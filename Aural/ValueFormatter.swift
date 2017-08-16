@@ -56,6 +56,10 @@ class ValueFormatter {
         return formatFrequency(value)
     }
     
+    static func formatFilterFrequencyRange(_ value1: Double, _ value2: Double) -> String {
+        return String(format: "[ %d %@ - %d %@ ]", Int(value1), AppConstants.frequencyHzUnit, Int(value2), AppConstants.frequencyHzUnit)
+    }
+    
     static func formatFilterFrequencyRange(_ value1: Float, _ value2: Float) -> String {
         return String(format: "[ %d %@ - %d %@ ]", Int(value1), AppConstants.frequencyHzUnit, Int(value2), AppConstants.frequencyHzUnit)
     }

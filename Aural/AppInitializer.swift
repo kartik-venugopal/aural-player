@@ -8,7 +8,7 @@ class AppInitializer {
     
     private static var playerDelegate: PlayerDelegate?
     
-    private static var playerState: SavedPlayerState?
+    private static var appState: AppState?
     
     private static var player: Player?
     
@@ -31,23 +31,31 @@ class AppInitializer {
         configureLogging()
         
         // Load saved player state from app config file, and initialize the player with that state
-        playerState = PlayerStateIO.load()
+        appState = AppStateIO.load()
         
-        if (playerState == nil) {
-            playerState = SavedPlayerState.defaults
+        if (appState == nil) {
+            appState = AppState.defaults
         }
         
-        player = Player()
-        player!.loadPlayerState(playerState!)
+        // Initialize the player
+        let preferences = Preferences.instance()
         
-        let repeatMode = playerState!.repeatMode
-        let shuffleMode = playerState!.shuffleMode
+        player = Player()
+        player!.loadState(appState!.playerState)
+        
+        // TODO - Where is the best place for this ???
+        if (preferences.volumeOnStartup == .specific) {
+            player?.setVolume(preferences.startupVolumeValue)
+        }
         
         // Initialize playlist with playback sequence (repeat/shuffle) and track list
+        let repeatMode = appState!.playlistState.repeatMode
+        let shuffleMode = appState!.playlistState.shuffleMode
+        
         playlist = Playlist(repeatMode, shuffleMode)
         
         // Initialize playerDeleage with player, playlist, and app state
-        playerDelegate = PlayerDelegate(player!, playerState!, playlist!)
+        playerDelegate = PlayerDelegate(player!, appState!, playlist!)
         
         initialized = true
     }

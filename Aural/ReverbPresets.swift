@@ -75,6 +75,6 @@ enum ReverbPresets: String {
  
     // Constructs a ReverPresets object from a description String
     static func fromDescription(_ description: String) -> ReverbPresets {
-        return ReverbPresets(rawValue: Utils.camelCase(description)) ?? PlayerDefaults.reverbPreset
+        return ReverbPresets(rawValue: Utils.camelCase(description)) ?? AppDefaults.reverbPreset
     }
 }

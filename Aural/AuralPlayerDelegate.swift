@@ -21,9 +21,6 @@ protocol AuralPlayerDelegate {
     // Plays (and returns) the previous track, if there is one
     func previousTrack() -> IndexedTrack?
     
-    // Retrieves saved player state, that is "remembered" by the player between app shutdown and the subsequent startup (sound settings and playlist items)
-    func getPlayerState() -> SavedPlayerState
-    
     // Returns the current playback state of the player. See PlaybackState for more details
     func getPlaybackState() -> PlaybackState
     

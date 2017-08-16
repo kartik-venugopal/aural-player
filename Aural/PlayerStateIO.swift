@@ -1,14 +1,14 @@
 /*
-A collection of assorted utility functions that perform I/O for AuralPlayer state (settings, playlist)
+    A collection of assorted utility functions that perform I/O for app state (settings, playlist)
 */
 
 import Foundation
 import AVFoundation
 
-class PlayerStateIO {
+class AppStateIO {
     
     // Saves app config to default user documents directory
-    static func save(_ state: SavedPlayerState) {
+    static func save(_ state: AppState) {
         
         if let dir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first {
             
@@ -24,7 +24,7 @@ class PlayerStateIO {
     }
     
     // Loads app config from default user documents directory
-    static func load() -> SavedPlayerState? {
+    static func load() -> AppState? {
         
         if let dir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first {
             
@@ -38,7 +38,7 @@ class PlayerStateIO {
                 
                 inputStream?.close()
                 
-                return SavedPlayerState.fromJSON(data as! NSDictionary)
+                return AppState.fromJSON(data as! NSDictionary)
                 
             } catch let error as NSError {
                 NSLog("Error loading player state config file: %@", error.description)

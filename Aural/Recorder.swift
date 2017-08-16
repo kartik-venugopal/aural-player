@@ -19,14 +19,26 @@ class Recorder {
     // Half a second, expressed in microseconds
     private static let halfSecondMicros: UInt32 = 500000
     
+    // Used to append timestamps to temp recording files
+    private static var dateFormatter = { () -> DateFormatter in
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd-yyyy_hh-mm-ss"
+        
+        return formatter
+    }()
+    
     init(_ audioEngine: AVAudioEngine) {
         self.audioEngine = audioEngine
     }
     
     func startRecording(_ format: RecordingFormat) {
         
-        // TODO: Append timestamp to file to avoid overwriting user file "temp.aac" !!!
-        tempRecordingFilePath = AppConstants.recordingDirURL.path.appending("/temp.").appending(format.fileExtension)
+        let now = Date()
+        let nowString = Recorder.dateFormatter.string(from: now)
+        
+        tempRecordingFilePath = String(format: "%@/aural-tempRecording_%@.%@", AppConstants.recordingDirURL.path, nowString, format.fileExtension)
+        
         let url = URL(fileURLWithPath: tempRecordingFilePath!, isDirectory: false)
         
         // Create the output file with the specified format

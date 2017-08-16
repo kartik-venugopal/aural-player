@@ -9,7 +9,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     
     var preferences: Preferences = Preferences.instance()
     
-    private var playerState: SavedPlayerState
+    private var appState: AppState
     
     // The current player playlist
     private var playlist: Playlist
@@ -32,11 +32,11 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         return singleton
     }
     
-    init(_ player: Player, _ playerState: SavedPlayerState, _ playlist: Playlist) {
+    init(_ player: Player, _ appState: AppState, _ playlist: Playlist) {
         
         self.player = player
         self.playlist = playlist
-        self.playerState = playerState
+        self.appState = appState
         
         self.trackPrepQueue = OperationQueue()
         trackPrepQueue.underlyingQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
@@ -45,8 +45,13 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         EventRegistry.subscribe(EventType.playbackCompleted, subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive))
     }
     
-    func appLoaded() {
-        loadPlaylistFromSavedState()
+    func appLoaded() -> UIAppState {
+        
+        if (preferences.playlistOnStartup == .rememberFromLastAppLaunch) {
+            loadPlaylistFromSavedState()
+        }
+        
+        return UIAppState(appState, preferences)
     }
     
     // This is called when the app loads initially. Loads the playlist from the app state file on disk. Only meant to be called once.
@@ -61,7 +66,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             
             let autoplay: Bool = self.preferences.autoplayOnStartup
             var autoplayed: Bool = false
-            for trackPath in self.playerState.playlist {
+            for trackPath in self.appState.playlistState.playlist {
                 
                 let resolvedFileInfo = FileSystemUtils.resolveTruePath(URL(fileURLWithPath: trackPath))
                 
@@ -95,8 +100,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         }
     }
     
-    func getPlayerState() -> SavedPlayerState {
-        return playerState
+    func getappState() -> AppState {
+        return appState
     }
     
     // This method should only be called from outside this class. For adding tracks within this class, always call the private method addFiles_sync().
@@ -720,24 +725,13 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         player.tearDown()
         
-        // Save player state
-        let state = player.getPlayerState()
+        let playerState = player.getState()
         
-        state.repeatMode = playlist.getRepeatMode()
-        state.shuffleMode = playlist.getShuffleMode()
+        let playlistState = playlist.getState()
         
-        // Read playlist
-        for track in playlist.getTracks() {
-            state.playlist.append(track.file!.path)
-        }
+        let appState = AppState(uiState, playerState, playlistState)
         
-        // Read UI state
-        state.showEffects = uiState.effectsShown
-        state.showPlaylist = uiState.playlistShown
-        state.windowLocationX = Float(uiState.windowLocationX)
-        state.windowLocationY = Float(uiState.windowLocationY)
-        
-        PlayerStateIO.save(state)
+        AppStateIO.save(appState)
     }
     
     // Called when playback of the current track completes

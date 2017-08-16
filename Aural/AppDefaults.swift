@@ -2,9 +2,9 @@ import Cocoa
 import AVFoundation
 
 /*
-    Default values for player sound settings
+    Default values for app settings
 */
-class PlayerDefaults {
+class AppDefaults {
     
     static let showPlaylist: Bool = true
     static let showEffects: Bool = true

@@ -18,18 +18,18 @@ class AppConstants {
     
     static let supportedFileTypes_save: [String] = [m3u]
     
-    static let audibleRangeMin: Float = 20      // 20 Hz
-    static let audibleRangeMax: Float = 20480   // 20 KHz
+    static let audibleRangeMin: Double = 20      // 20 Hz
+    static let audibleRangeMax: Double = 20480   // 20 KHz
     
     // Frequency ranges for each of the 3 bands (in Hz)
-    static let bass_min: Float = audibleRangeMin
-    static let bass_max: Float = 250
+    static let bass_min: Double = audibleRangeMin
+    static let bass_max: Double = 250
     
-    static let mid_min: Float = 250
-    static let mid_max: Float = 2048
+    static let mid_min: Double = bass_max
+    static let mid_max: Double = 2048
     
-    static let treble_min: Float = 2048
-    static let treble_max: Float = audibleRangeMax
+    static let treble_min: Double = mid_max
+    static let treble_max: Double = audibleRangeMax
     
     // Units for different effects parameters
     
