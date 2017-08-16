@@ -25,6 +25,7 @@ class Recorder {
     
     func startRecording(_ format: RecordingFormat) {
         
+        // TODO: Append timestamp to file to avoid overwriting user file "temp.aac" !!!
         tempRecordingFilePath = AppConstants.recordingDirURL.path.appending("/temp.").appending(format.fileExtension)
         let url = URL(fileURLWithPath: tempRecordingFilePath!, isDirectory: false)
         
@@ -52,15 +53,9 @@ class Recorder {
     
     func stopRecording() {
         
-        // Execute this block asynchronously so as not to block the main thread
-        AsyncExecutor.execute({
-            
-            // This sleep is to make up for the lag in the tap. In other words, continue to collect tapped data for half a second after the stop is requested.
-            usleep(Recorder.halfSecondMicros)
-            
-            self.audioEngine.mainMixerNode.removeTap(onBus: 0)
-        
-        }, dispatchQueue: GCDDispatchQueue(queueType: QueueType.global))
+        // This sleep is to make up for the lag in the tap. In other words, continue to collect tapped data for half a second after the stop is requested.
+        usleep(Recorder.halfSecondMicros)
+        audioEngine.mainMixerNode.removeTap(onBus: 0)
     }
     
     func saveRecording(_ url: URL) {

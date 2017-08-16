@@ -18,19 +18,19 @@ class ScheduledTaskExecutor {
     fileprivate var task: () -> Void
     
     // The queue on which the task will be put
-    fileprivate var queue: GCDDispatchQueue
+    fileprivate var queue: DispatchQueue
     
     // Flags indicating whether this timer is currently running
     fileprivate var running: Bool = false
     fileprivate var stopped: Bool = false
     
-    init(intervalMillis: Int, task: @escaping () -> Void, queue: GCDDispatchQueue) {
+    init(intervalMillis: Int, task: @escaping () -> Void, queue: DispatchQueue) {
         
         self.intervalMillis = intervalMillis
         self.task = task
         self.queue = queue
         
-        timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: 0), queue: queue.underlyingQueue)
+        timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: 0), queue: queue)
         
         // Allow a 10% time leeway
         timer.scheduleRepeating(deadline: DispatchTime.now(), interval: DispatchTimeInterval.milliseconds(intervalMillis), leeway: DispatchTimeInterval.milliseconds(intervalMillis / 10))

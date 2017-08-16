@@ -39,11 +39,10 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         self.playerState = playerState
         
         self.trackPrepQueue = OperationQueue()
-        trackPrepQueue.underlyingQueue = GCDDispatchQueue(queueType: .global, DispatchQoS.QoSClass.background).underlyingQueue
+        trackPrepQueue.underlyingQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
         trackPrepQueue.maxConcurrentOperationCount = 1
         
-        // TODO: This doesn't need to use the main queue
-        EventRegistry.subscribe(EventType.playbackCompleted, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
+        EventRegistry.subscribe(EventType.playbackCompleted, subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive))
     }
     
     // This is called when the app loads initially. Loads the playlist from the app state file on disk. Only meant to be called once.
@@ -96,7 +95,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         return playerState
     }
     
-    // This method should only be called from outside this class. For adding tracks within this class, always call the private method addTracks_sync().
+    // This method should only be called from outside this class. For adding tracks within this class, always call the private method addFiles_sync().
     func addFiles(_ files: [URL]) {
         
         // Move to a background thread to unblock the main thread
@@ -692,7 +691,9 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     }
     
     func stopRecording() {
-        player.stopRecording()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.player.stopRecording()
+        }
     }
     
     func saveRecording(_ url: URL) {
@@ -729,6 +730,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         let app = (NSApplication.shared().delegate as! AppDelegate)
         
         // Read UI state
+        // TODO: Pass this in from UI, in a UIState object
         state.showEffects = app.isEffectsShown()
         state.showPlaylist = app.isPlaylistShown()
         

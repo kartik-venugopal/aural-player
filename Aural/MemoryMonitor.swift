@@ -15,8 +15,8 @@ class MemoryMonitor: NSObject {
     // Start the memory monitor
     static func start() {
         
-        taskExecutor = ScheduledTaskExecutor(intervalMillis: MONITOR_FREQUENCY_MILLIS, task: {checkMemory()}, queue: GCDDispatchQueue(queueName: "Aural.queues.monitoring"))
-        taskExecutor?.startOrResume()
+//        taskExecutor = ScheduledTaskExecutor(intervalMillis: MONITOR_FREQUENCY_MILLIS, task: {checkMemory()}, queue: GCDDispatchQueue(queueName: "Aural.queues.monitoring"))
+//        taskExecutor?.startOrResume()
     }
     
     // Checks memory usage. If it exceeds the limit, the app is exited.

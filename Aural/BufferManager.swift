@@ -30,7 +30,7 @@ class BufferManager {
         
         // Serial operation queue
         queue = OperationQueue()
-        queue.underlyingQueue = GCDDispatchQueue(queueName: "Aural.queues.bufferManager").underlyingQueue
+        queue.underlyingQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.utility)
         queue.maxConcurrentOperationCount = 1
     }
     

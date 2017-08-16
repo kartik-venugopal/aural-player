@@ -240,10 +240,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         });
         
         // Register self as a subscriber to TrackChangedEvent notifications (published when the player is done playing a track)
-        EventRegistry.subscribe(.trackChanged, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
+        EventRegistry.subscribe(.trackChanged, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to TrackAddedEvent notifications (published when new tracks are added to the playlist)
-        EventRegistry.subscribe(.trackAdded, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
+        EventRegistry.subscribe(.trackAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Load saved state (sound settings + playlist) from app config file and adjust UI elements according to that state
         
@@ -294,7 +294,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         playlistCollapsibleView = CollapsibleView(views: [playlistBox, playlistControlsBox])
         fxCollapsibleView = CollapsibleView(views: [fxBox])
         
-        recorderTimer = ScheduledTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingInfo()}, queue: GCDDispatchQueue(queueType: QueueType.main))
+        recorderTimer = ScheduledTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingInfo()}, queue: DispatchQueue.main)
         
         searchPanel.titlebarAppearsTransparent = true
         sortPanel.titlebarAppearsTransparent = true
@@ -463,7 +463,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         // Timer interval depends on whether time stretch unit is active
         let interval = playerState.timeBypass ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * playerState.timeStretchRate))
         
-        seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
+        seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: DispatchQueue.main)
         
         resetPreferencesFields()
     }
@@ -960,7 +960,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
             
             seekTimer?.stop()
             
-            seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
+            seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: DispatchQueue.main)
             
             if (player.getPlaybackState() == .playing) {
                 setSeekTimerState(true)
@@ -980,7 +980,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
             
             seekTimer?.stop()
             
-            seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: GCDDispatchQueue(queueType: QueueType.main))
+            seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: DispatchQueue.main)
             
             if (player.getPlaybackState() == .playing) {
                 setSeekTimerState(true)
