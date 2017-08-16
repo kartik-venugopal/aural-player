@@ -20,8 +20,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     // Currently playing track
     fileprivate var playingTrack: IndexedTrack?
     
-    // Holds a unique set of all tracks that have been prepped for playback. This is needed in order to avoid prepping the same track over and over again. 
-    private var trackPrepRegistry: NSMutableSet
+    // Serial queue for track prep tasks (to prevent concurrent prepping of the same track which could cause contention and is unnecessary to begin with)
+    private var trackPrepQueue: OperationQueue
     
     // See PlaybackState
     fileprivate var playbackState: PlaybackState = .noTrack
@@ -37,8 +37,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         self.player = player
         self.playlist = playlist
         self.playerState = playerState
-        self.trackPrepRegistry = NSMutableSet()
         
+        self.trackPrepQueue = OperationQueue()
+        trackPrepQueue.underlyingQueue = GCDDispatchQueue(queueType: .global, DispatchQoS.QoSClass.background).underlyingQueue
+        trackPrepQueue.maxConcurrentOperationCount = 1
+        
+        // TODO: This doesn't need to use the main queue
         EventRegistry.subscribe(EventType.playbackCompleted, subscriber: self, dispatchQueue: GCDDispatchQueue(queueType: QueueType.main))
     }
     
@@ -46,7 +50,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     func loadPlaylistFromSavedState() {
         
         // Add tracks async, notifying the UI one at a time
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             
             // NOTE - Assume that all entries are valid tracks (supported audio files), not playlists and not directories. i.e. assume that saved state file has not been corrupted.
             
@@ -96,7 +100,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     func addFiles(_ files: [URL]) {
         
         // Move to a background thread to unblock the main thread
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInteractive).async {
 
             let autoplayPref: Bool = self.preferences.autoplayAfterAddingTracks
             let alwaysAutoplay: Bool = self.preferences.autoplayAfterAddingOption == .always
@@ -202,9 +206,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     
     func removeTrack(_ index: Int) -> Int? {
         
-        let trackAtIndex = playlist.getTrackAt(index)!.track!
-        trackPrepRegistry.remove(trackAtIndex)
-        
         let removingPlayingTrack: Bool = (index == playlist.cursor())
         playlist.removeTrack(index)
         
@@ -260,7 +261,9 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     func clearPlaylist() {
         stopPlayback()
         playlist.clear()
-        trackPrepRegistry.removeAllObjects()
+        
+        // This may not be needed
+        trackPrepQueue.cancelAllOperations()
     }
     
     private func stopPlayback() {
@@ -383,36 +386,38 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         let peekNext = self.playlist.peekNext()?.track
         let peekPrevious = self.playlist.peekPrevious()?.track
         
-        // Check if these three tracks have already been prepped. If not, add them to the set to be prepped. Also add them to the registry so that we can "remember" that they've been prepped already.
-        // NOTE - Checking track.preparedForPlayback is not sufficient here, because multiple threads may start prepping the track concurrently, causing contention (and problems).
-        
-        if (peekContinue != nil && !(trackPrepRegistry.contains(peekContinue!))) {
+        // Add each of the three tracks to the set of tracks to be prepped, as long as they're non-nil and not equal to the playing track (which has already been prepped, since it is playing)
+        if (peekContinue != nil && playingTrack?.track !== peekContinue) {
             nextTracksSet.add(peekContinue!)
-            trackPrepRegistry.add(peekContinue!)
         }
         
-        if (peekNext != nil && !(trackPrepRegistry.contains(peekNext!))) {
+        if (peekNext != nil) {
             nextTracksSet.add(peekNext!)
-            trackPrepRegistry.add(peekNext!)
         }
         
-        if (peekPrevious != nil && !(trackPrepRegistry.contains(peekPrevious!))) {
+        if (peekPrevious != nil) {
             nextTracksSet.add(peekPrevious!)
-            trackPrepRegistry.add(peekPrevious!)
         }
         
         if (nextTracksSet.count > 0) {
-        
-            // Push a task to the global queue for async execution, because reading from disk could be expensive and this info is not needed immediately.
-            DispatchQueue.global(qos: .background).async {
+            
+            for _track in nextTracksSet {
                 
-                for _track in nextTracksSet {
+                let track = _track as! Track
+                
+                // If track has not already been prepped, add a serial async task (to avoid concurrent prepping of the same track by two threads) to the trackPrepQueue
+                
+                // Async execution is important here, because reading from disk could be expensive and this info is not needed immediately.
+                if (!track.preparedForPlayback) {
                     
-                    let track = _track as! Track
-                    TrackIO.prepareForPlayback(track)
+                    let prepOp = BlockOperation(block: {
+                        TrackIO.prepareForPlayback(track)
+                    })
                     
-                    // TODO - Read one small buffer for playback, and cache it
+                    trackPrepQueue.addOperation(prepOp)
                 }
+                
+                // TODO - Read one small buffer for playback, and cache it
             }
         }
     }
@@ -671,11 +676,15 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     }
     
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        return playlist.toggleRepeatMode()
+        let modes = playlist.toggleRepeatMode()
+        prepareNextTracksForPlayback()
+        return modes
     }
     
     func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        return playlist.toggleShuffleMode()
+        let modes = playlist.toggleShuffleMode()
+        prepareNextTracksForPlayback()
+        return modes
     }
     
     func startRecording(_ format: RecordingFormat) {

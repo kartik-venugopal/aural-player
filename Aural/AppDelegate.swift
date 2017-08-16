@@ -877,7 +877,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         let selRow = player.moveTrackUp(oldSelRow)
         
         // TODO: Get this to work
-        //        let iset = IndexSet(oldSelRow...selRow)
+        //        let iset = IndexSet(selRow...oldSelRow)
+
         //        playlistView.reloadData(forRowIndexes: iset, columnIndexes: IndexSet([0,1]))
         
         playlistView.reloadData()
@@ -890,7 +891,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         let selRow = player.moveTrackDown(oldSelRow)
         
         // TODO: Get this to work
-//        let iset = IndexSet(selRow...oldSelRow)
+//                let iset = IndexSet(oldSelRow...selRow)
 //        playlistView.reloadData(forRowIndexes: iset, columnIndexes: IndexSet([0,1]))
         
         playlistView.reloadData()

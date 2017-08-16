@@ -3,6 +3,8 @@ import Cocoa
 
 /*
     Encapsulates a GCD dispatch queue with convenient initialization
+ 
+    TODO: Get rid of this class
 */
 class GCDDispatchQueue {
     
@@ -14,12 +16,16 @@ class GCDDispatchQueue {
         self.underlyingQueue = DispatchQueue(label: queueName, attributes: [])
     }
     
-    init(queueType: QueueType) {
+    // TODO: Find out who calls this init and make callers specify qos
+    init(queueType: QueueType, _ qos: DispatchQoS.QoSClass = .default) {
         
         // Intended to be used for main or global queue, but if custom queue, use the default custom queue name
         switch queueType {
+            
         case .main: self.underlyingQueue = DispatchQueue.main
-        case .global: self.underlyingQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.default)
+            
+        case .global: self.underlyingQueue = DispatchQueue.global(qos: qos)
+            
         case .custom: self.underlyingQueue = DispatchQueue(label: GCDDispatchQueue.defaultCustomQueueName, attributes: [])
         }
     }
