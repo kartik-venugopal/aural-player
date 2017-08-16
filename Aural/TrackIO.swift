@@ -108,31 +108,20 @@ class TrackIO {
         var codecDetermined: Bool = false
         var extendedMetadataLoaded: Bool = false
         
-        do {
-            
-            // Playback info is necessary for channel count info
-            if (track.avFile == nil) {
-                TrackIO.prepareForPlayback(track)
-            }
-            track.numChannels = Int(track.avFile!.fileFormat.channelCount)
-            
-            // File size and bit rate
-            let filePath = track.file!.path
-            let attr : NSDictionary? = try FileManager.default.attributesOfItem(atPath: filePath) as NSDictionary
-            
-            if let _attr = attr {
-                
-                let size = Size(sizeBytes: UInt(_attr.fileSize()))
-                let bitRate = normalizeBitRate(Double(size.sizeBytes) * 8 / (Double(track.duration!) * Double(Size.KB)))
-                track.bitRate = bitRate
-                track.size = size
-                
-                fileAttrLoaded = true
-            }
-            
-        } catch let error as NSError {
-            NSLog("Error reading track '%@': %@", track.file!.path, error.description)
+        // Playback info is necessary for channel count info
+        if (track.avFile == nil) {
+            TrackIO.prepareForPlayback(track)
         }
+        track.numChannels = Int(track.avFile!.fileFormat.channelCount)
+        
+        // File size and bit rate
+        let filePath = track.file!.path
+        let size = FileSystemUtils.sizeOfFile(path: filePath)
+        let bitRate = normalizeBitRate(Double(size.sizeBytes) * 8 / (Double(track.duration!) * Double(Size.KB)))
+        track.bitRate = bitRate
+        track.size = size
+        
+        fileAttrLoaded = true
         
         let sourceAsset = track.avAsset!
         
