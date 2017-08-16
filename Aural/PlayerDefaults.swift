@@ -9,6 +9,9 @@ class PlayerDefaults {
     static let showPlaylist: Bool = true
     static let showEffects: Bool = true
     
+    static let windowLocationX: Float = 0
+    static let windowLocationY: Float = 0
+    
     static let repeatMode: RepeatMode = .off
     static let shuffleMode: ShuffleMode = .off
     

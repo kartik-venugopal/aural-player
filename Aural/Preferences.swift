@@ -45,9 +45,6 @@ class Preferences {
     var viewOnStartup: ViewOnStartup
     var windowLocationOnStartup: WindowLocationOnStartup
     
-    var lastWindowLocationX: Float?
-    var lastWindowLocationY: Float?
-    
     private init() {
         
         let prefs = Preferences.defaultsDict
@@ -98,9 +95,6 @@ class Preferences {
         if let windowLocationStr = prefs["windowLocationOnStartup.location"] as? String {
             windowLocationOnStartup.windowLocation = WindowLocations(rawValue: windowLocationStr)!
         }
-        
-        lastWindowLocationX = prefs["lastWindowLocationX"] as? Float
-        lastWindowLocationY = prefs["lastWindowLocationY"] as? Float
     }
     
     static func instance() -> Preferences {
@@ -127,11 +121,6 @@ class Preferences {
         
         defaults.set(singleton.windowLocationOnStartup.option.rawValue, forKey: "windowLocationOnStartup.option")
         defaults.set(singleton.windowLocationOnStartup.windowLocation.rawValue, forKey: "windowLocationOnStartup.location")
-    }
-    
-    static func persistWindowLocation(_ x: Float, _ y: Float) {
-        defaults.set(x, forKey: "lastWindowLocationX")
-        defaults.set(y, forKey: "lastWindowLocationY")
     }
     
     // Persists without blocking the calling thread

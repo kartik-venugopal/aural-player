@@ -5,11 +5,11 @@ import Cocoa
  
  See AuralPlayerDelegate, AuralSoundTuningDelegate, and EventSubscriber protocols to learn more about the public functions implemented here.
  */
-class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSoundTuningDelegate, AuralRecorderDelegate, EventSubscriber {
+class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSoundTuningDelegate, AuralRecorderDelegate, AuralLifeCycleHandler, EventSubscriber {
     
     var preferences: Preferences = Preferences.instance()
     
-    private var playerState: SavedPlayerState?
+    private var playerState: SavedPlayerState
     
     // The current player playlist
     private var playlist: Playlist
@@ -45,8 +45,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         EventRegistry.subscribe(EventType.playbackCompleted, subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive))
     }
     
+    func appLoaded() {
+        loadPlaylistFromSavedState()
+    }
+    
     // This is called when the app loads initially. Loads the playlist from the app state file on disk. Only meant to be called once.
-    func loadPlaylistFromSavedState() {
+    private func loadPlaylistFromSavedState() {
         
         // Add tracks async, notifying the UI one at a time
         DispatchQueue.global(qos: .userInteractive).async {
@@ -57,7 +61,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             
             let autoplay: Bool = self.preferences.autoplayOnStartup
             var autoplayed: Bool = false
-            for trackPath in self.playerState!.playlist {
+            for trackPath in self.playerState.playlist {
                 
                 let resolvedFileInfo = FileSystemUtils.resolveTruePath(URL(fileURLWithPath: trackPath))
                 
@@ -91,7 +95,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         }
     }
     
-    func getPlayerState() -> SavedPlayerState? {
+    func getPlayerState() -> SavedPlayerState {
         return playerState
     }
     
@@ -712,7 +716,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         return player.getRecordingInfo()
     }
     
-    func tearDown() {
+    func appExiting(_ uiState: UIState) {
         
         player.tearDown()
         
@@ -727,12 +731,11 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             state.playlist.append(track.file!.path)
         }
         
-        let app = (NSApplication.shared().delegate as! AppDelegate)
-        
         // Read UI state
-        // TODO: Pass this in from UI, in a UIState object
-        state.showEffects = app.isEffectsShown()
-        state.showPlaylist = app.isPlaylistShown()
+        state.showEffects = uiState.effectsShown
+        state.showPlaylist = uiState.playlistShown
+        state.windowLocationX = Float(uiState.windowLocationX)
+        state.windowLocationY = Float(uiState.windowLocationY)
         
         PlayerStateIO.save(state)
     }

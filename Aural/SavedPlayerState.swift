@@ -4,13 +4,19 @@ Encapsulates all AuralPlayer settings/state. Is persisted to disk upon exit and 
 
 import Cocoa
 
+// TODO: Rename this class to something like AppState > PlayerState, UIState, PlaylistState
 class SavedPlayerState {
     
     // Set defaults so that, if the config file cannot be found/loaded, UI can
     // use defaults
     
+    // TODO: Organize fields into sub-objects
+    
     var showPlaylist: Bool = PlayerDefaults.showPlaylist
-    var showEffects: Bool = PlayerDefaults.showPlaylist
+    var showEffects: Bool = PlayerDefaults.showEffects
+    
+    var windowLocationX: Float = PlayerDefaults.windowLocationX
+    var windowLocationY: Float = PlayerDefaults.windowLocationY
     
     var repeatMode: RepeatMode = PlayerDefaults.repeatMode
     var shuffleMode: ShuffleMode = PlayerDefaults.shuffleMode
@@ -68,6 +74,9 @@ class SavedPlayerState {
         
         dict["showPlaylist"] = showPlaylist as AnyObject
         dict["showEffects"] = showEffects as AnyObject
+        
+        dict["windowLocationX"] = windowLocationX as NSNumber
+        dict["windowLocationY"] = windowLocationY as NSNumber
         
         dict["repeatMode"] = repeatMode.rawValue as AnyObject
         dict["shuffleMode"] = shuffleMode.rawValue as AnyObject
@@ -136,6 +145,14 @@ class SavedPlayerState {
         
         if let showEffects = jsonObject["showEffects"] as? Bool {
             state.showEffects = showEffects
+        }
+        
+        if let locX = jsonObject["windowLocationX"] as? NSNumber {
+            state.windowLocationX = locX.floatValue
+        }
+        
+        if let locY = jsonObject["windowLocationY"] as? NSNumber {
+            state.windowLocationY = locY.floatValue
         }
         
         if let repeatModeStr = jsonObject["repeatMode"] as? String {

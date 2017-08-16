@@ -4,6 +4,7 @@
 import Cocoa
 import AVFoundation
 
+// TODO: Can I have multiple app delegates ?
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubscriber {
     
@@ -248,35 +249,31 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         // Load saved state (sound settings + playlist) from app config file and adjust UI elements according to that state
         
         if (preferences.playlistOnStartup == .rememberFromLastAppLaunch) {
-            player.loadPlaylistFromSavedState()
+            player.appLoaded()
         }
         
         let playerState = player.getPlayerState()
-        if (playerState != nil) {
-            initStatefulUI(playerState!)
-        } else {
-            initStatefulUI(SavedPlayerState.defaults)
-        }
+        initStatefulUI(playerState)
         
         window.isMovableByWindowBackground = true
         window.makeKeyAndOrderFront(self)
         
-        positionWindow()
+        // TODO: Where/when should this be done ?
+        positionWindow(playerState)
+        window.setIsVisible(true)
     }
     
-    func positionWindow() {
+    func positionWindow(_ playerState: SavedPlayerState) {
         
         if (preferences.windowLocationOnStartup.option == .rememberFromLastAppLaunch) {
             
-            let windowLocation = NSPoint(x: CGFloat(preferences.lastWindowLocationX ?? 0), y: CGFloat(preferences.lastWindowLocationY ?? 0))
+            let windowLocation = NSPoint(x: CGFloat(playerState.windowLocationX), y: CGFloat(playerState.windowLocationY))
             window.setFrameOrigin(windowLocation)
             
         } else {
             
             UIUtils.positionWindowRelativeToScreen(window, preferences.windowLocationOnStartup.windowLocation)
         }
-        
-        window.setIsVisible(true)
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -491,8 +488,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     }
     
     func tearDown() {
-        player.tearDown()
-        Preferences.persistWindowLocation(Float(window.frame.origin.x), Float(window.frame.origin.y))
+        
+        let uiState = UIState()
+        uiState.windowLocationX = window.frame.origin.x
+        uiState.windowLocationY = window.frame.origin.y
+        uiState.playlistShown = isPlaylistShown()
+        uiState.effectsShown = isEffectsShown()
+        
+        player.appExiting(uiState)
     }
     
     @IBAction func addTracksAction(_ sender: AnyObject) {
@@ -1205,11 +1208,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         toggleViewEffectsAction(sender)
     }
     
-    func isEffectsShown() -> Bool {
+    private func isEffectsShown() -> Bool {
         return fxCollapsibleView?.hidden == false
     }
     
-    func isPlaylistShown() -> Bool {
+    private func isPlaylistShown() -> Bool {
         return playlistCollapsibleView?.hidden == false
     }
     
