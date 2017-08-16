@@ -80,8 +80,15 @@ class ScheduledTaskExecutor {
             return
         }
         
+        let wasPaused = !running
+        
         running = false
         stopped = true
+        
+        // Timer cannot be canceled while in a suspended state
+        if (wasPaused) {
+            timer.resume()
+        }
         
         timer.cancel()
     }

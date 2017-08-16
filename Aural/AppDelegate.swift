@@ -915,7 +915,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         
         let interval = newBypassState ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * timeSlider.floatValue))
         
-        // TODO: Fix the time bypass bug
         if (interval != seekTimer?.getInterval()) {
             
             seekTimer?.stop()
