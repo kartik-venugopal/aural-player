@@ -167,7 +167,7 @@
 		3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedPlaylist.swift; sourceTree = "<group>"; };
 		3EA29AD41F0B470600DA239E /* EventRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventRegistry.swift; sourceTree = "<group>"; };
 		3EA29AD91F0B47FC00DA239E /* EventProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventProtocols.swift; sourceTree = "<group>"; };
-		3EA5C7A21F458EB400556669 /* UserGuide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = UserGuide.pdf; path = Documentation/UserGuide.pdf; sourceTree = "<group>"; };
+		3EA5C7A21F458EB400556669 /* UserGuide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = UserGuide.pdf; sourceTree = "<group>"; };
 		3EACF1541F19B8F800E62D33 /* CollapsibleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollapsibleView.swift; sourceTree = "<group>"; };
 		3EB20B481EFF230C008138A4 /* AppStateIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStateIO.swift; sourceTree = "<group>"; };
 		3EB20B4A1EFF25EC008138A4 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
@@ -258,6 +258,7 @@
 			children = (
 				3E72FCC51F2C0A780020FD20 /* Developer-readme.rtf */,
 				3E72FCC61F2C0A780020FD20 /* Developer-TODOs.rtf */,
+				3EA5C7A21F458EB400556669 /* UserGuide.pdf */,
 			);
 			path = Documentation;
 			sourceTree = "<group>";
@@ -275,7 +276,6 @@
 			children = (
 				3E85F2581EFA78D6007BE830 /* Aural */,
 				3E85F2571EFA78D6007BE830 /* Products */,
-				3EA5C7A11F458E9E00556669 /* Resources */,
 				3E72FCC41F2C0A780020FD20 /* Documentation */,
 			);
 			sourceTree = "<group>";
@@ -326,14 +326,6 @@
 				3E3DCD241F0F913800E09ADC /* EventTypes.swift */,
 			);
 			name = Events;
-			sourceTree = "<group>";
-		};
-		3EA5C7A11F458E9E00556669 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				3EA5C7A21F458EB400556669 /* UserGuide.pdf */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		3EB20B4F1EFF2C5F008138A4 /* Utils */ = {
