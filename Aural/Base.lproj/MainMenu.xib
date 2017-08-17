@@ -2152,10 +2152,16 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" id="Mcl-VM-OnW">
                         <items>
-                            <menuItem title="User Guide" id="QqV-12-NGD">
+                            <menuItem title="User guide (pdf)" id="jeW-fz-jW1" userLabel="User Guide (pdf)">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="userGuideAction:" target="Voe-Tx-rLC" id="jep-9b-v0p"/>
+                                    <action selector="pdfUserGuideAction:" target="Voe-Tx-rLC" id="gkR-3m-5dX"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="User guide (online, HTML)" id="QqV-12-NGD" userLabel="User Guide (online HTML)">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="onlineUserGuideAction:" target="Voe-Tx-rLC" id="KzL-5z-M3Z"/>
                                 </connections>
                             </menuItem>
                         </items>

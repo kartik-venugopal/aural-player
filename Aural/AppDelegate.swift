@@ -1579,10 +1579,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         fxTabView.selectTabViewItem(at: 6)
     }
     
-    @IBAction func userGuideAction(_ sender: Any) {
-        NSWorkspace.shared().open(AppConstants.userGuideURL)
-    }
-    
     @IBAction func volumeDeltaAction(_ sender: Any) {
         
         let value = volumeDeltaStepper.integerValue
@@ -1796,11 +1792,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
     }
     
-    @IBAction func windowLocationOnStartupAction(_ sender: Any) {
-        
+    @IBAction func windowLocationOnStartupAction(_ sender: Any) {        
         startWindowLocationMenu.isEnabled = Bool(btnStartAtWindowLocation.state)
     }
     
+    @IBAction func onlineUserGuideAction(_ sender: Any) {
+        NSWorkspace.shared().open(AppConstants.onlineUserGuideURL)
+    }
+    
+    @IBAction func pdfUserGuideAction(_ sender: Any) {
+        NSWorkspace.shared().openFile(AppConstants.pdfUserGuidePath)
+    }
 }
 
 // Int to Bool conversion

@@ -65,5 +65,8 @@ class AppConstants {
     static let recordingDirURL: URL = musicDirURL
     
     // Link to online user guide
-    static let userGuideURL: URL = URL(string: "https://rawgit.com/maculateConception/aural-player/master/Documentation/UserGuide.html")!
+    static let onlineUserGuideURL: URL = URL(string: "https://rawgit.com/maculateConception/aural-player/master/Documentation/UserGuide.html")!
+ 
+    // Path to bundled PDF user guide file
+    static let pdfUserGuidePath: String = Bundle.main.path(forResource: "UserGuide", ofType: "pdf")!
 }

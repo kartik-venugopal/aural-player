@@ -49,8 +49,6 @@
 		3E6D75F81EFF79E0007F22A3 /* KeyPressHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D75F71EFF79E0007F22A3 /* KeyPressHandler.swift */; };
 		3E722F791EFCE59F00916BF2 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E722F781EFCE59F00916BF2 /* Playlist.swift */; };
 		3E722F7B1EFCF4EC00916BF2 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E722F7A1EFCF4EC00916BF2 /* PlaylistViewController.swift */; };
-		3E72FCC81F2C0A780020FD20 /* Developer-readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3E72FCC51F2C0A780020FD20 /* Developer-readme.rtf */; };
-		3E72FCC91F2C0A780020FD20 /* Developer-TODOs.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3E72FCC61F2C0A780020FD20 /* Developer-TODOs.rtf */; };
 		3E76D9BC1F0F4228007FF3F8 /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */; };
 		3E79D0B91F219C120017A38F /* TrackInfoTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E79D0B81F219C120017A38F /* TrackInfoTextFieldCell.swift */; };
 		3E79D0BB1F21B0D60017A38F /* AuralRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E79D0BA1F21B0D60017A38F /* AuralRecorder.swift */; };
@@ -76,6 +74,7 @@
 		3EA074AC1F3DBBB0005F8966 /* SavedPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */; };
 		3EA29AD51F0B470600DA239E /* EventRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA29AD41F0B470600DA239E /* EventRegistry.swift */; };
 		3EA29ADA1F0B47FC00DA239E /* EventProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA29AD91F0B47FC00DA239E /* EventProtocols.swift */; };
+		3EA5C7A31F458EB400556669 /* UserGuide.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 3EA5C7A21F458EB400556669 /* UserGuide.pdf */; };
 		3EACF1551F19B8F800E62D33 /* CollapsibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EACF1541F19B8F800E62D33 /* CollapsibleView.swift */; };
 		3EB20B491EFF230C008138A4 /* AppStateIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB20B481EFF230C008138A4 /* AppStateIO.swift */; };
 		3EB20B4B1EFF25EC008138A4 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB20B4A1EFF25EC008138A4 /* AppState.swift */; };
@@ -168,6 +167,7 @@
 		3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedPlaylist.swift; sourceTree = "<group>"; };
 		3EA29AD41F0B470600DA239E /* EventRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventRegistry.swift; sourceTree = "<group>"; };
 		3EA29AD91F0B47FC00DA239E /* EventProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventProtocols.swift; sourceTree = "<group>"; };
+		3EA5C7A21F458EB400556669 /* UserGuide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = UserGuide.pdf; path = Documentation/UserGuide.pdf; sourceTree = "<group>"; };
 		3EACF1541F19B8F800E62D33 /* CollapsibleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollapsibleView.swift; sourceTree = "<group>"; };
 		3EB20B481EFF230C008138A4 /* AppStateIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStateIO.swift; sourceTree = "<group>"; };
 		3EB20B4A1EFF25EC008138A4 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
@@ -275,6 +275,7 @@
 			children = (
 				3E85F2581EFA78D6007BE830 /* Aural */,
 				3E85F2571EFA78D6007BE830 /* Products */,
+				3EA5C7A11F458E9E00556669 /* Resources */,
 				3E72FCC41F2C0A780020FD20 /* Documentation */,
 			);
 			sourceTree = "<group>";
@@ -325,6 +326,14 @@
 				3E3DCD241F0F913800E09ADC /* EventTypes.swift */,
 			);
 			name = Events;
+			sourceTree = "<group>";
+		};
+		3EA5C7A11F458E9E00556669 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3EA5C7A21F458EB400556669 /* UserGuide.pdf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		3EB20B4F1EFF2C5F008138A4 /* Utils */ = {
@@ -490,10 +499,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E85F25C1EFA78D6007BE830 /* Assets.xcassets in Resources */,
-				3E72FCC91F2C0A780020FD20 /* Developer-TODOs.rtf in Resources */,
+				3EA5C7A31F458EB400556669 /* UserGuide.pdf in Resources */,
 				3E2188AC1F0781970085BAB3 /* PopoverController.xib in Resources */,
 				3E85F25F1EFA78D6007BE830 /* MainMenu.xib in Resources */,
-				3E72FCC81F2C0A780020FD20 /* Developer-readme.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
