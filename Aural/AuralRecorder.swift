@@ -10,7 +10,7 @@ protocol AuralRecorder {
     func startRecording(_ format: RecordingFormat)
     
     // Returns info for the active recording (if there is one)
-    func getRecordingInfo() -> RecordingInfo
+    func getRecordingInfo() -> RecordingInfo?
     
     // Stops the current recording
     func stopRecording()

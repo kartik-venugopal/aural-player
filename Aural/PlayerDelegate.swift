@@ -717,7 +717,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         }
     }
     
-    func getRecordingInfo() -> RecordingInfo {
+    func getRecordingInfo() -> RecordingInfo? {
         return player.getRecordingInfo()
     }
     

@@ -15,6 +15,9 @@ class UIElements {
     // Used to save a recording to a file
     static let saveRecordingDialog: NSSavePanel = UIElements.createSaveRecordingPanel()
     
+    // Used to prompt the user, when exiting the app, that a recording is ongoing, and give the user options to save/discard that recording
+    static let saveRecordingAlert: NSAlert = UIElements.createSaveRecordingAlert()
+    
     fileprivate static func createOpenPanel() -> NSOpenPanel {
         
         let dialog = NSOpenPanel()
@@ -67,5 +70,22 @@ class UIElements {
         dialog.directoryURL = AppConstants.musicDirURL
         
         return dialog
+    }
+    
+    private static func createSaveRecordingAlert() -> NSAlert {
+        
+        let alert = NSAlert()
+        
+        alert.window.title = "Save/discard ongoing recording"
+        
+        alert.messageText = "You have an ongoing recording. Would you like to save it before exiting the app ?"
+        alert.alertStyle = .warning
+        alert.icon = UIConstants.imgWarning
+        
+        alert.addButton(withTitle: "Save recording and exit")
+        alert.addButton(withTitle: "Discard recording and exit")
+        alert.addButton(withTitle: "Don't exit")
+        
+        return alert
     }
 }

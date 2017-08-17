@@ -146,7 +146,7 @@
             <windowStyleMask key="styleMask" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="335" y="100" width="415" height="629"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <value key="minSize" type="size" width="415" height="629"/>
             <value key="maxSize" type="size" width="415" height="629"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
@@ -1974,7 +1974,7 @@ G1BhbiBTbGlkZXI
                             </menuItem>
                             <menuItem title="Quit Aural" keyEquivalent="q" id="uhC-xR-Dzb">
                                 <connections>
-                                    <action selector="terminate:" target="-1" id="En0-vb-4Pk"/>
+                                    <action selector="closeAction:" target="Voe-Tx-rLC" id="1vR-VD-rYm"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -2174,7 +2174,7 @@ CA
             <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="383" height="248"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <view key="contentView" wantsLayer="YES" id="h2Z-Yr-cIo">
                 <rect key="frame" x="0.0" y="0.0" width="383" height="248"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -2421,7 +2421,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="269" height="120"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <view key="contentView" wantsLayer="YES" id="raD-bb-lef">
                 <rect key="frame" x="0.0" y="0.0" width="269" height="120"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -2560,7 +2560,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="120" y="65" width="418" height="330"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <view key="contentView" id="kXa-Xa-w7W">
                 <rect key="frame" x="0.0" y="0.0" width="418" height="330"/>
                 <autoresizingMask key="autoresizingMask"/>

@@ -333,7 +333,7 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
         recorder.deleteRecording()
     }
     
-    func getRecordingInfo() -> RecordingInfo {
+    func getRecordingInfo() -> RecordingInfo? {
         return recorder.getRecordingInfo()
     }
     

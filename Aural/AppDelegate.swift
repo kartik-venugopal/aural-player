@@ -887,8 +887,25 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     }
     
     @IBAction func closeAction(_ sender: AnyObject) {
-        tearDown()
-        exit(0)
+        
+        if let _ = player.getRecordingInfo() {
+            
+            // Recording ongoing, prompt the user to save/discard it
+            let response = UIElements.saveRecordingAlert.runModal()
+            
+            switch response {
+                
+            case RecordingAlertResponse.dontExit.rawValue: return
+            case RecordingAlertResponse.saveAndExit.rawValue: stopRecording()
+            case RecordingAlertResponse.discardAndExit.rawValue: player.deleteRecording()
+                
+            // Impossible
+            default: return
+                
+            }
+        }
+        
+        NSApplication.shared().terminate(self)
     }
     
     @IBAction func hideAction(_ sender: AnyObject) {
@@ -1186,21 +1203,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     
     @IBAction func recorderAction(_ sender: Any) {
         
-        let isRecording: Bool = btnRecord.image == UIConstants.imgRecorderStop
+        let isRecording: Bool = player.getRecordingInfo() != nil
         
         if (isRecording) {
-            
-            player.stopRecording()
-            btnRecord.image = UIConstants.imgRecord
-            recorderTimer?.pause()
-            
-            (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = false
-            recorderTabViewButton.needsDisplay = true
-            
-            // TODO: Make this wait until the (async) stopping is complete ... respond to an event notification
-            saveRecording()
-            recordingInfoBox.isHidden = true
-            
+            stopRecording()
         } else {
             
             // Only AAC format works for now
@@ -1216,11 +1222,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         }
     }
     
+    func stopRecording() {
+        
+        player.stopRecording()
+        btnRecord.image = UIConstants.imgRecord
+        recorderTimer?.pause()
+        
+        (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = false
+        recorderTabViewButton.needsDisplay = true
+        
+        // TODO: Make this wait until the (async) stopping is complete ... respond to an event notification
+        saveRecording()
+        recordingInfoBox.isHidden = true
+    }
+    
     func saveRecording() {
         
         let dialog = UIElements.saveRecordingDialog
-        dialog.allowedFileTypes = [RecordingFormat.aac.fileExtension]
-        
         let modalResponse = dialog.runModal()
         
         if (modalResponse == NSModalResponseOK) {
@@ -1232,11 +1250,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     
     func updateRecordingInfo() {
         
-        let recInfo = player.getRecordingInfo()
+        let recInfo = player.getRecordingInfo()!
         lblRecorderDuration.stringValue = Utils.formatDuration(recInfo.duration)
         lblRecorderFileSize.stringValue = recInfo.fileSize.toString()
     }
-    
     
     @IBAction func addFilesMenuItemAction(_ sender: Any) {
         addTracksAction(sender as AnyObject)
@@ -1803,6 +1820,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     @IBAction func pdfUserGuideAction(_ sender: Any) {
         NSWorkspace.shared().openFile(AppConstants.pdfUserGuidePath)
     }
+}
+
+// Enumeration of all possible responses in the save/discard ongoing recording alert (possibly) displayed when exiting the app
+enum RecordingAlertResponse: Int {
+    
+    case saveAndExit = 1000
+    case discardAndExit = 1001
+    case dontExit = 1002
 }
 
 // Int to Bool conversion

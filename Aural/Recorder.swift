@@ -16,6 +16,9 @@ class Recorder {
     // Used to determine the current recording duration
     fileprivate var recordingStartTime: Date?
     
+    // Flag to indicate whether or not a recording is onging
+    private var isRecording: Bool = false
+    
     // Half a second, expressed in microseconds
     private static let halfSecondMicros: UInt32 = 500000
     
@@ -59,8 +62,9 @@ class Recorder {
             }
         })
         
-        // Mark the start time
+        // Mark the start time and the flag
         recordingStartTime = Date()
+        isRecording = true
     }
     
     func stopRecording() {
@@ -68,6 +72,7 @@ class Recorder {
         // This sleep is to make up for the lag in the tap. In other words, continue to collect tapped data for half a second after the stop is requested.
         usleep(Recorder.halfSecondMicros)
         audioEngine.mainMixerNode.removeTap(onBus: 0)
+        isRecording = false
     }
     
     func saveRecording(_ url: URL) {
@@ -77,7 +82,11 @@ class Recorder {
         FileSystemUtils.renameFile(srcURL, url)
     }
     
-    func getRecordingInfo() -> RecordingInfo {
+    func getRecordingInfo() -> RecordingInfo? {
+        
+        if (!isRecording) {
+            return nil
+        }
         
         // Duration = now - startTime
         let now = Date()
