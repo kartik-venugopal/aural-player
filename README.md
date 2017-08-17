@@ -41,6 +41,10 @@ The latest app bundle can be found in the compressed archive file [Aural.app.zip
 
 ## Recent updates
 
+8/17/2017: **PDF User Guide bundled with app** - There is now a PDF version of the User Guide available. It is bundled with the app, and can be opened from within the app, through the Help menu.
+
+8/16/2017: **Bug fix and efficiency improvements** - Fixed a bug in the Time effects unit, and made significant UI efficiency improvements in how the playlist view is updated when tracks are moved/removed.
+
 8/13/2017; **Preferences panel** - Added a preferences dialog to allow users to configure different bits of player/playlist/view functionality.
 
 8/11/2017: **M3U playlist support** - Added support for M3U/M3U8 playlists. Also, app now allows and properly resolves file aliases and symbolic links.
