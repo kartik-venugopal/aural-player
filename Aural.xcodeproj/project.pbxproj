@@ -43,8 +43,6 @@
 		3E58CC271F025B0D00C36DC1 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58CC261F025B0D00C36DC1 /* Colors.swift */; };
 		3E58CC291F02759D00C36DC1 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58CC281F02759D00C36DC1 /* Timer.swift */; };
 		3E58CC2B1F0275B200C36DC1 /* TimerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58CC2A1F0275B200C36DC1 /* TimerUtils.swift */; };
-		3E5FA43A1EFFD656001669C5 /* PlaylistSongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5FA4391EFFD656001669C5 /* PlaylistSongView.swift */; };
-		3E5FA43E1EFFE55F001669C5 /* PlaylistCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5FA43D1EFFE55F001669C5 /* PlaylistCellView.swift */; };
 		3E633C471F14C6530040ECBC /* MultiBandStopFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */; };
 		3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C481F14C9110040ECBC /* ParametricEQNode.swift */; };
 		3E6B56C81F3A8C1E00B03E5C /* SchedulingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6B56C71F3A8C1E00B03E5C /* SchedulingSession.swift */; };
@@ -135,8 +133,6 @@
 		3E58CC261F025B0D00C36DC1 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3E58CC281F02759D00C36DC1 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		3E58CC2A1F0275B200C36DC1 /* TimerUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerUtils.swift; sourceTree = "<group>"; };
-		3E5FA4391EFFD656001669C5 /* PlaylistSongView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistSongView.swift; sourceTree = "<group>"; };
-		3E5FA43D1EFFE55F001669C5 /* PlaylistCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCellView.swift; sourceTree = "<group>"; };
 		3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiBandStopFilterNode.swift; sourceTree = "<group>"; };
 		3E633C481F14C9110040ECBC /* ParametricEQNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametricEQNode.swift; sourceTree = "<group>"; };
 		3E6B56C71F3A8C1E00B03E5C /* SchedulingSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulingSession.swift; sourceTree = "<group>"; };
@@ -231,9 +227,9 @@
 				3E09C6B41F2EE70C007BB489 /* PlaybackSession.swift */,
 				3E6B56C71F3A8C1E00B03E5C /* SchedulingSession.swift */,
 				3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */,
+				3E23D6581F32887E00DBF426 /* RecordingInfo.swift */,
 				3E822B371F21DCF20006CDBC /* RecordingFormat.swift */,
 				3E3C209D1F0A385300AF5A62 /* Protocols */,
-				3E23D6581F32887E00DBF426 /* RecordingInfo.swift */,
 			);
 			name = Player;
 			sourceTree = "<group>";
@@ -399,8 +395,6 @@
 			isa = PBXGroup;
 			children = (
 				3E722F7A1EFCF4EC00916BF2 /* PlaylistViewController.swift */,
-				3E5FA4391EFFD656001669C5 /* PlaylistSongView.swift */,
-				3E5FA43D1EFFE55F001669C5 /* PlaylistCellView.swift */,
 			);
 			name = Playlist;
 			sourceTree = "<group>";
@@ -554,7 +548,6 @@
 				3ECCEE651F41158000858331 /* PrefsTabButtonCell.swift in Sources */,
 				3E58CC291F02759D00C36DC1 /* Timer.swift in Sources */,
 				3E46F55E1F2A8003007CD384 /* ColoredNavigationButtonCell.swift in Sources */,
-				3E5FA43A1EFFD656001669C5 /* PlaylistSongView.swift in Sources */,
 				3E722F7B1EFCF4EC00916BF2 /* PlaylistViewController.swift in Sources */,
 				3E76D9BC1F0F4228007FF3F8 /* AppDefaults.swift in Sources */,
 				3EB2A7EA1F04424E001DF748 /* ItemDisplayingPopupMenuCell.swift in Sources */,
@@ -575,7 +568,6 @@
 				3E3C20AA1F0A7B3D00AF5A62 /* AuralSoundTuningDelegate.swift in Sources */,
 				3E426F821EFDEEBE002F5F18 /* PlaybackState.swift in Sources */,
 				3EB2A7E41F0436D5001DF748 /* EQSliderCell.swift in Sources */,
-				3E5FA43E1EFFE55F001669C5 /* PlaylistCellView.swift in Sources */,
 				3E9796831F00BA5A00690DA2 /* ShuffleMode.swift in Sources */,
 				3E3C20A61F0A687400AF5A62 /* UIElements.swift in Sources */,
 				3E40A9851F0617BC00A66856 /* ScheduledTaskExecutor.swift in Sources */,

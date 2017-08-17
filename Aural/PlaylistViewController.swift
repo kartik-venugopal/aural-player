@@ -15,17 +15,35 @@ class PlaylistViewController: NSViewController, NSTableViewDataSource, NSTableVi
     
     // Each playlist view row contains one track, with name and duration
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        return PlaylistRowView()
+    }
+    
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         let track = (playlist.getTrackAt(row)?.track)!
-        let trackName = track.shortDisplayName
-        let duration = Utils.formatDuration((track.duration)!)
         
-        let view = PlaylistSongView()
-        view.trackName = trackName
-        view.duration = duration
-        view.tableView = tableView
+        if (tableColumn?.identifier == UIConstants.trackNameColumnID) {
+            
+            // Track name
+            let trackName = (track.shortDisplayName)!
         
-        return view
+            if let cell = tableView.make(withIdentifier: UIConstants.trackNameColumnID, owner: nil) as? PlaylistCellView {
+                cell.textField?.stringValue = trackName
+                return cell
+            }
+        
+        } else if (tableColumn?.identifier == UIConstants.durationColumnID) {
+            
+            // Duration
+            let duration = Utils.formatDuration((track.duration)!)
+            
+            if let cell = tableView.make(withIdentifier: UIConstants.durationColumnID, owner: nil) as? PlaylistCellView {
+                cell.textField?.stringValue = duration
+                return cell
+            }
+        }
+        
+        return nil
     }
     
     // Drag n drop
@@ -44,5 +62,50 @@ class PlaylistViewController: NSViewController, NSTableViewDataSource, NSTableVi
         appDelegate.addFiles(objects! as! [URL])
         
         return true
+    }
+}
+
+/*
+    Custom view for a NSTableView row that displays a single playlist track. Customizes the selection look and feel.
+ */
+class PlaylistRowView: NSTableRowView {
+    
+    // Draws a fancy rounded rectangle around the selected track in the playlist view
+    override func drawSelection(in dirtyRect: NSRect) {
+        
+        if self.selectionHighlightStyle != NSTableViewSelectionHighlightStyle.none {
+            
+            let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
+            
+            let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 3, yRadius: 3)
+            Colors.playlistSelectionBoxColor.setFill()
+            selectionPath.fill()
+        }
+    }
+}
+
+/*
+    Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and color.
+ */
+class PlaylistCellView: NSTableCellView {
+    
+    // When the background changes (as a result of selection/deselection) switch appropriate colours
+    override var backgroundStyle: NSBackgroundStyle {
+        
+        didSet {
+            
+            if let field = self.textField {
+                
+                field.font = UIConstants.playlistBoldFont
+                
+                if (backgroundStyle == NSBackgroundStyle.dark) {
+                    // Selected
+                    field.textColor = Colors.playlistSelectedTextColor
+                } else {
+                    // Not selected
+                    field.textColor = Colors.playlistTextColor
+                }
+            }
+        }
     }
 }

@@ -6,6 +6,13 @@ import AppKit
 
 class UIConstants {
     
+    // Playlist view column identifiers
+    static let trackNameColumnID: String = "cv_trackName"
+    static let durationColumnID: String = "cv_duration"
+    
+    // Index set used to reload specific playlist rows
+    static let playlistViewColumnIndexes: IndexSet = IndexSet([0,1])
+    
     // Toggled images
     static let imgPlay: NSImage = NSImage(named: "Play")!
     static let imgPause: NSImage = NSImage(named: "Pause")!

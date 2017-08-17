@@ -13,7 +13,7 @@ class Colors {
     static let playlistTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
     
     // Fill color of box drawn around selected playlist item
-    static let playlistSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.45, alpha: 1)
+    static let playlistSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.35, alpha: 1)
     
     // Color of selected item text inside the playlist
     static let playlistSelectedTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
@@ -63,7 +63,7 @@ class Colors {
     static let popupMenuColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
     
     // Fill color of box drawn around selected tab view item
-    static let tabViewSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.45, alpha: 1)
+    static let tabViewSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.35, alpha: 1)
     
     // Lighter version of tabViewSelectionBoxColor
     static let lightTabViewSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.52, alpha: 1)

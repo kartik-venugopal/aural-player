@@ -835,12 +835,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         let oldSelRow = playlistView.selectedRow
         let selRow = player.moveTrackUp(oldSelRow)
         
-        // TODO: Get this to work
-        //        let iset = IndexSet(selRow...oldSelRow)
-
-        //        playlistView.reloadData(forRowIndexes: iset, columnIndexes: IndexSet([0,1]))
+        // Reload data in the two affected rows
+        let rowIndexes = IndexSet([selRow, oldSelRow])
+        playlistView.reloadData(forRowIndexes: rowIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
         
-        playlistView.reloadData()
         playlistView.selectRowIndexes(IndexSet(integer: selRow), byExtendingSelection: false)
     }
     
@@ -849,11 +847,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         let oldSelRow = playlistView.selectedRow
         let selRow = player.moveTrackDown(oldSelRow)
         
-        // TODO: Get this to work
-//                let iset = IndexSet(oldSelRow...selRow)
-//        playlistView.reloadData(forRowIndexes: iset, columnIndexes: IndexSet([0,1]))
+        // Reload data in the two affected rows
+        let rowIndexes = IndexSet([selRow, oldSelRow])
+        playlistView.reloadData(forRowIndexes: rowIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
         
-        playlistView.reloadData()
         playlistView.selectRowIndexes(IndexSet(integer: selRow), byExtendingSelection: false)
     }
     
@@ -868,7 +865,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
             
             if (modalResponse == NSModalResponseOK) {
                 
-                let file = dialog.url // Path of the file
+                let file = dialog.url
                 player.savePlaylist(file!)
             }
         }
