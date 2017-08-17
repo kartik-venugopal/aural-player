@@ -477,9 +477,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         if (selRow >= 0) {
             
             let newTrackIndex = player.removeTrack(selRow)
-            playlistView.reloadData()
+            
+            // The new number of rows (after track removal) is one less than the size of the playlist view, because the view has not yet been updated
+            let numRows = playlistView.numberOfRows - 1
+            
+            if (numRows > selRow) {
+                
+                // Update all rows from the selected row down to the end of the playlist
+                let rowIndexes = IndexSet(selRow...(numRows - 1))
+                playlistView.reloadData(forRowIndexes: rowIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
+                
+            }
+            
+            // Tell the playlist view to remove one row
+            playlistView.noteNumberOfRowsChanged()
+            
             updatePlaylistSummary()
             selectTrack(newTrackIndex)
+            
             if (newTrackIndex == nil) {
                 clearNowPlayingInfo()
             }
@@ -1072,7 +1087,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         // Not being used yet (to be used when duration is updated)
         if event is TrackInfoUpdatedEvent {
             let _event = event as! TrackInfoUpdatedEvent
-            playlistView.reloadData(forRowIndexes: IndexSet([_event.trackIndex]), columnIndexes: IndexSet([0,1]))
+            playlistView.reloadData(forRowIndexes: IndexSet([_event.trackIndex]), columnIndexes: UIConstants.playlistViewColumnIndexes)
         }
     }
     
