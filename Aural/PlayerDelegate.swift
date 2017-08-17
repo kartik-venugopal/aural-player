@@ -66,7 +66,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             
             let autoplay: Bool = self.preferences.autoplayOnStartup
             var autoplayed: Bool = false
-            for trackPath in self.appState.playlistState.playlist {
+            for trackPath in self.appState.playlistState.tracks {
                 
                 let resolvedFileInfo = FileSystemUtils.resolveTruePath(URL(fileURLWithPath: trackPath))
                 

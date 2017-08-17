@@ -52,7 +52,7 @@ class Playlist {
         state.shuffleMode = self.playbackSequence.shuffleMode
         
         for track in tracks {
-            state.playlist.append(track.file!.path)
+            state.tracks.append(track.file!.path)
         }
         
         return state
