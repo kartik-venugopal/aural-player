@@ -103,6 +103,7 @@
                 <outlet property="playlistBox" destination="RMJ-vL-K67" id="n9m-9V-L46"/>
                 <outlet property="playlistControlsBox" destination="ft1-56-lTI" id="2Y4-JK-td4"/>
                 <outlet property="playlistView" destination="4Fk-6v-HSf" id="QZT-Zn-WBd"/>
+                <outlet property="playlistWorkSpinner" destination="Gb7-pn-6bV" id="ldq-jl-ZgH"/>
                 <outlet property="prefsPanel" destination="miy-XV-uzY" id="6pE-fU-45x"/>
                 <outlet property="prefsTabView" destination="k0I-lv-KcJ" id="ktw-lX-cLK"/>
                 <outlet property="recorderTabViewButton" destination="oIR-f6-2g1" id="tor-ak-Efj"/>
@@ -146,7 +147,7 @@
             <windowStyleMask key="styleMask" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="335" y="100" width="415" height="629"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <value key="minSize" type="size" width="415" height="629"/>
             <value key="maxSize" type="size" width="415" height="629"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
@@ -1801,14 +1802,27 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PC9-RH-ZoK" userLabel="Playlist summary">
-                                    <rect key="frame" x="186" y="6" width="195" height="20"/>
+                                    <rect key="frame" x="242" y="6" width="139" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0 tracks 0:00" id="AP4-Kh-xaT">
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0 tracks  0:00" id="AP4-Kh-xaT">
                                         <font key="font" size="13" name="GillSans"/>
                                         <color key="textColor" white="0.70157877604166663" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
+                                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Gb7-pn-6bV" userLabel="Spinner">
+                                    <rect key="frame" x="283" y="6" width="16" height="16"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <contentFilters>
+                                        <ciFilter name="CIFalseColor">
+                                            <configuration>
+                                                <ciColor key="inputColor0" red="0.78303247690200806" green="0.78303247690200806" blue="0.78303247690200806" alpha="1"/>
+                                                <ciColor key="inputColor1" red="1" green="1" blue="1" alpha="1"/>
+                                                <null key="inputImage"/>
+                                            </configuration>
+                                        </ciFilter>
+                                    </contentFilters>
+                                </progressIndicator>
                             </subviews>
                         </view>
                         <constraints>
@@ -2174,7 +2188,7 @@ CA
             <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="383" height="248"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" wantsLayer="YES" id="h2Z-Yr-cIo">
                 <rect key="frame" x="0.0" y="0.0" width="383" height="248"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -2421,7 +2435,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="269" height="120"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" wantsLayer="YES" id="raD-bb-lef">
                 <rect key="frame" x="0.0" y="0.0" width="269" height="120"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -2560,7 +2574,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="120" y="65" width="418" height="330"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="kXa-Xa-w7W">
                 <rect key="frame" x="0.0" y="0.0" width="418" height="330"/>
                 <autoresizingMask key="autoresizingMask"/>

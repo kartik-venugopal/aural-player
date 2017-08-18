@@ -103,6 +103,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     // Displays the playlist and summary
     @IBOutlet weak var playlistView: NSTableView!
     @IBOutlet weak var lblPlaylistSummary: NSTextField!
+    @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
     
     // Toggle buttons (their images change)
     @IBOutlet weak var btnShuffle: NSButton!
@@ -248,6 +249,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         EventRegistry.subscribe(.trackNotPlayed, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         EventRegistry.subscribe(.tracksNotAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
+        
+        EventRegistry.subscribe(.startedAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
+        
+        EventRegistry.subscribe(.doneAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Load saved state (sound settings + playlist) from app config file and adjust UI elements according to that state
         let appState = player.appLoaded()
@@ -432,6 +437,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         let numTracks = summary.numTracks
         
         lblPlaylistSummary.stringValue = String(format: "%d %@   %@", numTracks, numTracks == 1 ? "track" : "tracks", Utils.formatDuration(summary.totalDuration))
+        
+        // Move the spinner so it is adjacent to the summary text, on the left
+        let summaryString: NSString = lblPlaylistSummary.stringValue as NSString
+        let size: CGSize = summaryString.size(withAttributes: [NSFontAttributeName: lblPlaylistSummary.font as AnyObject])
+        let lblWidth = size.width
+        
+        let newX = 381 - lblWidth - 10 - playlistWorkSpinner.frame.width
+        playlistWorkSpinner.frame.origin.x = newX
     }
     
     fileprivate func updateEQSliders(_ eqBands: [Int: Float]) {
@@ -467,10 +480,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         let modalResponse = dialog.runModal()
         
         if (modalResponse == NSModalResponseOK) {
+            startedAddingTracks()
             addFiles(dialog.urls)
         }
         
         selectTrack(selRow)
+    }
+    
+    func startedAddingTracks() {
+        playlistWorkSpinner.startAnimation(self)
+    }
+    
+    func doneAddingTracks() {
+        playlistWorkSpinner.stopAnimation(self)
     }
     
     @IBAction func removeSingleTrackAction(_ sender: AnyObject) {
@@ -1209,6 +1231,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         if event is TracksNotAddedEvent {
             let _evt = event as! TracksNotAddedEvent
             handleTracksNotAddedError(_evt.errors)
+        }
+        
+        if event is StartedAddingTracksEvent {
+            startedAddingTracks()
+        }
+        
+        if event is DoneAddingTracksEvent {
+            doneAddingTracks()
         }
         
         // Not being used yet (to be used when duration is updated)

@@ -48,6 +48,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     func appLoaded() -> UIAppState {
         
         if (preferences.playlistOnStartup == .rememberFromLastAppLaunch) {
+            EventRegistry.publishEvent(.startedAddingTracks, StartedAddingTracksEvent.instance)
             loadPlaylistFromSavedState()
         }
         
@@ -88,6 +89,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
                     }
                 }
             }
+            
+            EventRegistry.publishEvent(.doneAddingTracks, DoneAddingTracksEvent.instance)
             
             // If errors > 0, send event to UI
             if (errors.count > 0) {
@@ -149,6 +152,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             var errors: [InvalidTrackError] = [InvalidTrackError]()
             
             self.addFiles_sync(files, autoplay, &autoplayed, &errors)
+            
+            EventRegistry.publishEvent(.doneAddingTracks, DoneAddingTracksEvent.instance)
             
             // If errors > 0, send event to UI
             if (errors.count > 0) {

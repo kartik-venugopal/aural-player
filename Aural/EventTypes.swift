@@ -16,6 +16,10 @@ enum EventType {
     case trackNotPlayed
     
     case tracksNotAdded
+    
+    case startedAddingTracks
+    
+    case doneAddingTracks
 }
 
 // Event indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
@@ -48,6 +52,8 @@ class TrackInfoUpdatedEvent: Event {
 }
 
 // Event indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
+
+// TODO: Add Progress info (%) so that determinate progress spinner may be used
 class TrackAddedEvent: Event {
     
     var trackIndex: Int
@@ -77,4 +83,14 @@ class TracksNotAddedEvent: Event {
     init(_ errors: [InvalidTrackError]) {
         self.errors = errors
     }
+}
+
+// Event indicating that tracks are now being added to the playlist in a background thread
+class StartedAddingTracksEvent: Event {
+    static let instance = StartedAddingTracksEvent()
+}
+
+// Event indicating that tracks are done being added to the playlist in a background thread
+class DoneAddingTracksEvent: Event {
+    static let instance = DoneAddingTracksEvent()
 }
