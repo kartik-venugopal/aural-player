@@ -43,7 +43,6 @@ class AppInitializer {
         player = Player()
         player!.loadState(appState!.playerState)
         
-        // TODO - Where is the best place for this ???
         if (preferences.volumeOnStartup == .specific) {
             player?.setVolume(preferences.startupVolumeValue)
         }

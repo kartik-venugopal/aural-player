@@ -228,8 +228,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-        window.setIsVisible(false)
-        
         // Initialize UI with presentation settings (colors, sizes, etc)
         // No app state is needed here
         initStatelessUI()
@@ -258,12 +256,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         let appState = player.appLoaded()
         initStatefulUI(appState)
         
-        window.isMovableByWindowBackground = true
-        window.makeKeyAndOrderFront(self)
-        
         // TODO: Where/when should this be done ?
         positionWindow(appState.windowLocation)
-        window.setIsVisible(true)
+        window.isMovableByWindowBackground = true
+        window.makeKeyAndOrderFront(self)
     }
     
     func positionWindow(_ location: NSPoint) {
