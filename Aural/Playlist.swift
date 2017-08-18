@@ -85,11 +85,11 @@ class Playlist {
     
     // Add a track to this playlist and return its index
     // Assume valid existing and supported file
-    func addTrack(_ file: URL) -> Int {
+    func addTrack(_ file: URL) throws -> Int {
         
         if (!trackExists(file.path)) {
             
-            let track: Track = TrackIO.loadTrack(file)
+            let track: Track = try TrackIO.loadTrack(file)
             tracks.append(track)
             tracksByFilename[file.path] = track
             playbackSequence.trackAdded()

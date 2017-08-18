@@ -1,5 +1,5 @@
 /*
-Reads track info from the filesystem
+    Reads track info from the filesystem
 */
 
 import Cocoa
@@ -9,14 +9,40 @@ class TrackIO {
     
     // Load track info from specified file
     // Assume valid existing and supported file
-    static func loadTrack(_ file: URL) -> Track {
-        
-        let track: Track = Track()
-        track.file = file
+    static func loadTrack(_ file: URL) throws -> Track {
         
         let sourceAsset = AVURLAsset(url: file, options: nil)
+        let assetTracks = sourceAsset.tracks(withMediaType: AVMediaTypeAudio)
         
+        var track: Track
+        
+        // Check if the asset has any audio tracks
+        if (assetTracks.count == 0) {
+            throw NoAudioTracksError(file)
+        }
+            
+        // Find out if track is playable
+        let assetTrack = assetTracks[0]
+        if (!assetTrack.isPlayable) {
+            throw TrackNotPlayableError(file)
+        }
+        
+        // Determine the format to find out if it is supported
+        let format = getFormat(assetTrack)
+        if (!AppConstants.supportedAudioFileFormats.contains(format)) {
+            throw UnsupportedFormatError(file, format)
+        }
+        
+        // TODO: What if file has protected content
+        // Check sourceAsset.hasProtectedContent()
+        // Test against a protected iTunes file
+        
+        track = Track()
+        track.format = format
+        
+        track.file = file
         track.avAsset = sourceAsset
+        
         track.duration = sourceAsset.duration.seconds
 
         let metadataList = sourceAsset.commonMetadata
@@ -78,7 +104,7 @@ class TrackIO {
     // (Lazily) load all the information required to play this track
     static func prepareForPlayback(_ track: Track) {
         
-        if (track.preparedForPlayback) {
+        if (track.preparedForPlayback || track.preparationFailed) {
             return
         }
         
@@ -93,6 +119,11 @@ class TrackIO {
             track.preparedForPlayback = true
             
         } catch let error as NSError {
+            
+            // TODO: Assuming track not playable. Account for other error types.
+            track.preparationFailed = true
+            track.preparationError = TrackNotPlayableError(track.file!)
+            
             NSLog("Error reading track '%@': %@", track.file!.path, error.description)
         }
     }
@@ -105,7 +136,6 @@ class TrackIO {
         }
         
         var fileAttrLoaded: Bool = false
-        var codecDetermined: Bool = false
         var extendedMetadataLoaded: Bool = false
         
         // Playback info is necessary for channel count info
@@ -124,16 +154,6 @@ class TrackIO {
         fileAttrLoaded = true
         
         let sourceAsset = track.avAsset!
-        
-        // Determine codec
-        let assetTrack = sourceAsset.tracks(withMediaType: AVMediaTypeAudio)[0]
-        
-        let desc = CMFormatDescriptionGetMediaSubType(assetTrack.formatDescriptions[0] as! CMFormatDescription)
-        var format = codeToString(desc)
-        format = format.trimmingCharacters(in: CharacterSet.init(charactersIn: "."))
-        track.format = format
-        
-        codecDetermined = true
         
         // Retrieve extended metadata (ID3)
         let metadataList = sourceAsset.metadata
@@ -156,7 +176,7 @@ class TrackIO {
         
         extendedMetadataLoaded = true
         
-        track.detailedInfoLoaded = fileAttrLoaded && codecDetermined && extendedMetadataLoaded
+        track.detailedInfoLoaded = fileAttrLoaded && extendedMetadataLoaded
     }
     
     // (Lazily) load extended metadata (e.g. album), for a search, when it is requested by the UI
@@ -192,6 +212,13 @@ class TrackIO {
     // Normalizes a bit rate by rounding it to the nearest multiple of 32. For ex, a bit rate of 251.5 kbps is rounded to 256 kbps.
     fileprivate static func normalizeBitRate(_ rate: Double) -> Int {
         return Int(round(rate/32)) * 32
+    }
+    
+    private static func getFormat(_ assetTrack: AVAssetTrack) -> String {
+        let desc = CMFormatDescriptionGetMediaSubType(assetTrack.formatDescriptions[0] as! CMFormatDescription)
+        var format = codeToString(desc)
+        format = format.trimmingCharacters(in: CharacterSet.init(charactersIn: "."))
+        return format
     }
     
     // Converts a four character media type code to a readable string

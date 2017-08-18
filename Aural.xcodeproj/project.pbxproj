@@ -28,6 +28,7 @@
 		3E3C20A81F0A697800AF5A62 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C20A71F0A697800AF5A62 /* AppConstants.swift */; };
 		3E3C20AA1F0A7B3D00AF5A62 /* AuralSoundTuningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C20A91F0A7B3D00AF5A62 /* AuralSoundTuningDelegate.swift */; };
 		3E3C20AC1F0A7C0500AF5A62 /* AuralSoundTuner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C20AB1F0A7C0500AF5A62 /* AuralSoundTuner.swift */; };
+		3E3D489B1F464C02004C0F91 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D489A1F464C02004C0F91 /* Errors.swift */; };
 		3E3DCD251F0F913800E09ADC /* EventTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DCD241F0F913800E09ADC /* EventTypes.swift */; };
 		3E40A9851F0617BC00A66856 /* ScheduledTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E40A9841F0617BC00A66856 /* ScheduledTaskExecutor.swift */; };
 		3E426F7E1EFDD9CF002F5F18 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7D1EFDD9CF002F5F18 /* Player.swift */; };
@@ -117,6 +118,7 @@
 		3E3C20A71F0A697800AF5A62 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		3E3C20A91F0A7B3D00AF5A62 /* AuralSoundTuningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuralSoundTuningDelegate.swift; sourceTree = "<group>"; };
 		3E3C20AB1F0A7C0500AF5A62 /* AuralSoundTuner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuralSoundTuner.swift; sourceTree = "<group>"; };
+		3E3D489A1F464C02004C0F91 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		3E3DCD241F0F913800E09ADC /* EventTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTypes.swift; sourceTree = "<group>"; };
 		3E40A9841F0617BC00A66856 /* ScheduledTaskExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduledTaskExecutor.swift; sourceTree = "<group>"; };
 		3E426F7D1EFDD9CF002F5F18 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -232,6 +234,14 @@
 				3E3C209D1F0A385300AF5A62 /* Protocols */,
 			);
 			name = Player;
+			sourceTree = "<group>";
+		};
+		3E3D48991F464BEC004C0F91 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				3E3D489A1F464C02004C0F91 /* Errors.swift */,
+			);
+			name = Errors;
 			sourceTree = "<group>";
 		};
 		3E5FA43F1EFFF039001669C5 /* Views */ = {
@@ -424,6 +434,7 @@
 		3EFFE6BC1F0373B7003728BD /* IO */ = {
 			isa = PBXGroup;
 			children = (
+				3E3D48991F464BEC004C0F91 /* Errors */,
 				3EB20B481EFF230C008138A4 /* AppStateIO.swift */,
 				3EFFE6B81F036E81003728BD /* PlaylistIO.swift */,
 				3EFFE6BA1F0372B3003728BD /* TrackIO.swift */,
@@ -527,6 +538,7 @@
 				3E6B56C81F3A8C1E00B03E5C /* SchedulingSession.swift in Sources */,
 				3E3C20A31F0A3A9700AF5A62 /* AuralPlayer.swift in Sources */,
 				3E822B381F21DCF20006CDBC /* RecordingFormat.swift in Sources */,
+				3E3D489B1F464C02004C0F91 /* Errors.swift in Sources */,
 				3E3C20AC1F0A7C0500AF5A62 /* AuralSoundTuner.swift in Sources */,
 				3E46F5601F2A88D1007CD384 /* ModalDialogResponseButtonCell.swift in Sources */,
 				3E822B361F21C1FD0006CDBC /* AuralRecorderDelegate.swift in Sources */,

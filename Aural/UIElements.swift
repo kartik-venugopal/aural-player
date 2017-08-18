@@ -1,10 +1,11 @@
-
 import Cocoa
 
 /*
     Container for definitions of reusable UI components
 */
 class UIElements {
+    
+    // TODO: Make these lazy vars to reduce memory footprint ???
     
     // Used to add tracks/playlists
     static let openDialog: NSOpenPanel = UIElements.createOpenPanel()
@@ -17,6 +18,12 @@ class UIElements {
     
     // Used to prompt the user, when exiting the app, that a recording is ongoing, and give the user options to save/discard that recording
     static let saveRecordingAlert: NSAlert = UIElements.createSaveRecordingAlert()
+    
+    // Used to inform the user that a certain track cannot be played back
+    static let trackNotPlayedAlert: NSAlert = UIElements.createTrackNotPlayedAlert()
+    
+    // Used to warn the user that certain files were not added to the playlist
+    static let tracksNotAddedAlert: NSAlert = UIElements.createTracksNotAddedAlert()
     
     fileprivate static func createOpenPanel() -> NSOpenPanel {
         
@@ -88,4 +95,79 @@ class UIElements {
         
         return alert
     }
+    
+    private static func createTrackNotPlayedAlert() -> NSAlert {
+        
+        let alert = NSAlert()
+        
+        alert.window.title = "Track not playable"
+        
+        alert.alertStyle = .warning
+        alert.icon = UIConstants.imgError
+
+        alert.addButton(withTitle: "Remove track from playlist")
+        
+        return alert
+    }
+    
+    static func trackNotPlayedAlertWithError(_ error: InvalidTrackError) -> NSAlert {
+        
+        let alert = trackNotPlayedAlert
+        
+        alert.messageText = String(format: "The track '%@' cannot be played back !", error.file.lastPathComponent)
+        alert.informativeText = error.message
+        
+        return alert
+    }
+    
+    private static func createTracksNotAddedAlert() -> NSAlert {
+        
+        let alert = NSAlert()
+        
+        alert.window.title = "Files not added"
+        alert.messageText = "Some files were not added to the playlist. Details below."
+        
+        alert.alertStyle = .warning
+        alert.icon = UIConstants.imgWarning
+        
+        alert.addButton(withTitle: "Ok")
+        
+        return alert
+    }
+    
+    static func tracksNotAddedAlertWithErrors(_ errors: [InvalidTrackError]) -> NSAlert {
+        
+        let alert = tracksNotAddedAlert
+        
+        // Display a maximum of 3 entries and a summary of the rest
+        
+        var infoText: String = ""
+        
+        let numErrors = errors.count
+        for i in 0...min(numErrors - 1, 2) {
+            
+            let error = errors[i]
+            let file = error.file
+            let msg = error.message
+            
+            infoText.append(String(format: "'%@': %@\n\n", file.path, msg))
+        }
+        
+        if (numErrors > 3) {
+            let moreErrors = numErrors - 3
+            infoText.append(String(format: "... and %d more %@", moreErrors, moreErrors > 1 ? "files" : "file"))
+        }
+        
+        alert.informativeText = infoText
+        
+        return alert
+    }
+}
+
+// Enumeration of all possible responses in the save/discard ongoing recording alert (possibly) displayed when exiting the app
+enum RecordingAlertResponse: Int {
+    
+    case saveAndExit = 1000
+    case discardAndExit = 1001
+    case dontExit = 1002
 }

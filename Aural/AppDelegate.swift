@@ -240,11 +240,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
             return evt;
         });
         
-        // Register self as a subscriber to TrackChangedEvent notifications (published when the player is done playing a track)
+        // Register self as a subscriber to various event notifications
         EventRegistry.subscribe(.trackChanged, subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        // Register self as a subscriber to TrackAddedEvent notifications (published when new tracks are added to the playlist)
         EventRegistry.subscribe(.trackAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
+        
+        EventRegistry.subscribe(.trackNotPlayed, subscriber: self, dispatchQueue: DispatchQueue.main)
+        
+        EventRegistry.subscribe(.tracksNotAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Load saved state (sound settings + playlist) from app config file and adjust UI elements according to that state
         let appState = player.appLoaded()
@@ -471,20 +474,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     }
     
     @IBAction func removeSingleTrackAction(_ sender: AnyObject) {
+        removeSingleTrack(playlistView.selectedRow)
+    }
+    
+    func removeSingleTrack(_ index: Int) {
         
-        let selRow = playlistView.selectedRow
-        
-        if (selRow >= 0) {
+        if (index >= 0) {
             
-            let newTrackIndex = player.removeTrack(selRow)
+            let newTrackIndex = player.removeTrack(index)
             
             // The new number of rows (after track removal) is one less than the size of the playlist view, because the view has not yet been updated
             let numRows = playlistView.numberOfRows - 1
             
-            if (numRows > selRow) {
+            if (numRows > index) {
                 
                 // Update all rows from the selected row down to the end of the playlist
-                let rowIndexes = IndexSet(selRow...(numRows - 1))
+                let rowIndexes = IndexSet(index...(numRows - 1))
                 playlistView.reloadData(forRowIndexes: rowIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
                 
             }
@@ -512,21 +517,30 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     // Play / Pause / Resume
     @IBAction func playPauseAction(_ sender: AnyObject) {
         
-        let playbackInfo = player.togglePlayPause()
-        
-        switch playbackInfo.playbackState {
+        do {
             
-        case .noTrack, .paused: setSeekTimerState(false)
-        setPlayPauseImage(UIConstants.imgPlay)
+            let playbackInfo = try player.togglePlayPause()
             
-        case .playing:
+            switch playbackInfo.playbackState {
+                
+            case .noTrack, .paused: setSeekTimerState(false)
+            setPlayPauseImage(UIConstants.imgPlay)
+                
+            case .playing:
+                
+                if (playbackInfo.trackChanged) {
+                    trackChange(playbackInfo.playingTrack)
+                } else {
+                    // Resumed the same track
+                    setSeekTimerState(true)
+                    setPlayPauseImage(UIConstants.imgPause)
+                }
+            }
             
-            if (playbackInfo.trackChanged) {
-                trackChange(playbackInfo.playingTrack)
-            } else {
-                // Resumed the same track
-                setSeekTimerState(true)
-                setPlayPauseImage(UIConstants.imgPause)
+        } catch let error as Error {
+            
+            if (error is InvalidTrackError) {
+                handleTrackNotPlayedError(error as! InvalidTrackError)
             }
         }
     }
@@ -622,39 +636,125 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     
     func playSelectedTrack() {
         if (playlistView.selectedRow >= 0) {
-            let track = player.play(playlistView.selectedRow)
-            trackChange(track)
+            
+            do {
+            
+                let track = try player.play(playlistView.selectedRow)
+                trackChange(track)
+                
+            } catch let error as Error {
+                
+                if (error is InvalidTrackError) {
+                    handleTrackNotPlayedError(error as! InvalidTrackError)
+                }
+            }
         }
     }
     
     @IBAction func nextTrackAction(_ sender: AnyObject) {
         
-        let trackInfo = player.nextTrack()
-        if (trackInfo?.track != nil) {
-            trackChange(trackInfo)
+        do {
+            
+            let trackInfo = try player.nextTrack()
+            if (trackInfo?.track != nil) {
+                trackChange(trackInfo)
+            }
+            
+        } catch let error as Error {
+            
+            if (error is InvalidTrackError) {
+                handleTrackNotPlayedError(error as! InvalidTrackError)
+            }
+        }
+    }
+    
+    func handleTracksNotAddedError(_ errors: [InvalidTrackError]) {
+        
+        // This needs to be done async. Otherwise, the add files dialog hangs.
+        DispatchQueue.main.async {
+            
+            let alert = UIElements.tracksNotAddedAlertWithErrors(errors)
+            
+            let orig = NSPoint(x: self.window.frame.origin.x, y: min(self.window.frame.origin.y + 227, self.window.frame.origin.y + self.window.frame.height - alert.window.frame.height))
+            
+            alert.window.setFrameOrigin(orig)
+            alert.window.setIsVisible(true)
+            
+            alert.runModal()
+        }
+    }
+    
+    func handleTrackNotPlayedError(_ error: InvalidTrackError) {
+        
+        // This needs to be done async. Otherwise, other open dialogs could hang.
+        DispatchQueue.main.async {
+        
+            // First, select the problem track and update the now playing info
+            let playingTrack = self.player.getPlayingTrack()
+            self.trackChange(playingTrack, true)
+            
+            // Position and display the dialog with info
+            let alert = UIElements.trackNotPlayedAlertWithError(error)
+            
+            let orig = NSPoint(x: self.window.frame.origin.x, y: min(self.window.frame.origin.y + 227, self.window.frame.origin.y + self.window.frame.height - alert.window.frame.height))
+            
+            alert.window.setFrameOrigin(orig)
+            alert.window.setIsVisible(true)
+            
+            alert.runModal()
+            
+            // Remove the bad track from the playlist and update the UI
+            
+            let playingTrackIndex = playingTrack!.index!
+            self.removeSingleTrack(playingTrackIndex)
         }
     }
     
     @IBAction func prevTrackAction(_ sender: AnyObject) {
         
-        let trackInfo = player.previousTrack()
-        if (trackInfo?.track != nil) {
-            trackChange(trackInfo)
+        do {
+            
+            let trackInfo = try player.previousTrack()
+            if (trackInfo?.track != nil) {
+                trackChange(trackInfo)
+            }
+            
+        } catch let error as Error {
+            
+            if (error is InvalidTrackError) {
+                handleTrackNotPlayedError(error as! InvalidTrackError)
+            }
         }
     }
     
-    func trackChange(_ newTrack: IndexedTrack?) {
+    // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
+    func trackChange(_ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
         if (newTrack != nil) {
             
-            setSeekTimerState(true)
-            setPlayPauseImage(UIConstants.imgPause)
             showNowPlayingInfo(newTrack!.track!)
-            btnMoreInfo.isHidden = false
             
-            if (popover.isShown) {
-                player.getMoreInfo()
-                (popover.contentViewController as! PopoverController).refresh()
+            if (!errorState) {
+                setSeekTimerState(true)
+                setPlayPauseImage(UIConstants.imgPause)
+                btnMoreInfo.isHidden = false
+                
+                if (popover.isShown) {
+                    player.getMoreInfo()
+                    (popover.contentViewController as! PopoverController).refresh()
+                }
+                
+            } else {
+                
+                // Error state
+                
+                setSeekTimerState(false)
+                setPlayPauseImage(UIConstants.imgPlay)
+                btnMoreInfo.isHidden = true
+                
+                if (popover.isShown) {
+                    hidePopover()
+                }
             }
             
         } else {
@@ -1101,6 +1201,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
             updatePlaylistSummary()
         }
         
+        if event is TrackNotPlayedEvent {
+            let _evt = event as! TrackNotPlayedEvent
+            handleTrackNotPlayedError(_evt.error)
+        }
+        
+        if event is TracksNotAddedEvent {
+            let _evt = event as! TracksNotAddedEvent
+            handleTracksNotAddedError(_evt.errors)
+        }
+        
         // Not being used yet (to be used when duration is updated)
         if event is TrackInfoUpdatedEvent {
             let _event = event as! TrackInfoUpdatedEvent
@@ -1460,7 +1570,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     // Called by KeyPressHandler to determine if any modal dialog is open
     func modalDialogOpen() -> Bool {
         
-        return searchPanel.isVisible || sortPanel.isVisible || UIElements.openDialog.isVisible || UIElements.savePlaylistDialog.isVisible || UIElements.saveRecordingDialog.isVisible
+        return searchPanel.isVisible || sortPanel.isVisible || prefsPanel.isVisible || UIElements.openDialog.isVisible || UIElements.savePlaylistDialog.isVisible || UIElements.saveRecordingDialog.isVisible
     }
     
     @IBAction func sortPlaylistAction(_ sender: Any) {
@@ -1820,14 +1930,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     @IBAction func pdfUserGuideAction(_ sender: Any) {
         NSWorkspace.shared().openFile(AppConstants.pdfUserGuidePath)
     }
-}
-
-// Enumeration of all possible responses in the save/discard ongoing recording alert (possibly) displayed when exiting the app
-enum RecordingAlertResponse: Int {
-    
-    case saveAndExit = 1000
-    case discardAndExit = 1001
-    case dontExit = 1002
 }
 
 // Int to Bool conversion

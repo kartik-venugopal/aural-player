@@ -43,7 +43,9 @@ class UIConstants {
     static let imgEffectsOn: NSImage = NSImage(named: "EffectsView-On")!
     static let imgEffectsOff: NSImage = NSImage(named: "EffectsView-Off")!
     
+    // Images displayed in alerts
     static let imgWarning: NSImage = NSImage(named: "Warning")!
+    static let imgError: NSImage = NSImage(named: "Error")!
     
     // Fonts used by the playlist view
     static let playlistBoldFont: NSFont = NSFont(name: "Gill Sans", size: 13.5)!

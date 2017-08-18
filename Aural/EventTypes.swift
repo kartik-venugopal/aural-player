@@ -1,4 +1,3 @@
-
 import Cocoa
 
 /*
@@ -13,6 +12,10 @@ enum EventType {
     case trackInfoUpdated
     
     case trackAdded
+    
+    case trackNotPlayed
+    
+    case tracksNotAdded
 }
 
 // Event indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
@@ -51,5 +54,27 @@ class TrackAddedEvent: Event {
     
     init(trackIndex: Int) {
         self.trackIndex = trackIndex
+    }
+}
+
+// Event indicating that an error was encountered while attempting to play back a track
+class TrackNotPlayedEvent: Event {
+ 
+    // An error object containing detailed information such as the track file and the root cause
+    var error: InvalidTrackError
+    
+    init(_ error: InvalidTrackError) {
+        self.error = error
+    }
+}
+
+// Event indicating that some selected files were not loaded into the playlist
+class TracksNotAddedEvent: Event {
+    
+    // An array of error objects containing detailed information such as the track file and the root cause
+    var errors: [InvalidTrackError]
+    
+    init(_ errors: [InvalidTrackError]) {
+        self.errors = errors
     }
 }

@@ -7,6 +7,8 @@ import AVFoundation
 
 class Track: NSObject {
     
+    // TODO: Revisit and refactor the fields here. Make file non-nil
+    
     // Track file on some filesystem
     var file: URL?
     
@@ -39,6 +41,10 @@ class Track: NSObject {
     // Used for lazy loading
     var preparedForPlayback: Bool = false
     var detailedInfoLoaded: Bool = false
+    
+    // Error info if track prep fails
+    var preparationFailed: Bool = false
+    var preparationError: InvalidTrackError?
 }
 
 // Wrapper around Track that includes its index in the playlist
