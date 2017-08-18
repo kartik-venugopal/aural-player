@@ -23,6 +23,8 @@ class TrackIO {
             
         // Find out if track is playable
         let assetTrack = assetTracks[0]
+        
+        // TODO: What does isPlayable actually mean ?
         if (!assetTrack.isPlayable) {
             throw TrackNotPlayableError(file)
         }
@@ -120,7 +122,6 @@ class TrackIO {
             
         } catch let error as NSError {
             
-            // TODO: Assuming track not playable. Account for other error types.
             track.preparationFailed = true
             track.preparationError = TrackNotPlayableError(track.file!)
             

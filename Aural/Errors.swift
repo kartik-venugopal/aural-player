@@ -15,12 +15,21 @@ class InvalidTrackError: Error {
     }
 }
 
+// Denotes a non-existent file
+class FileNotFoundError: InvalidTrackError {
+    
+    override init(_ file: URL) {
+        super.init(file)
+        self.message = "File not found on the filesystem. It may have been renamed/moved/deleted."
+    }
+}
+
 // Denotes a file with no audio tracks. For ex, a text/image file
 class NoAudioTracksError: InvalidTrackError {
     
     override init(_ file: URL) {
         super.init(file)
-        self.message = "No audio tracks found in file."
+        self.message = "No audio tracks found in file. Is it a valid audio file ?"
     }
 }
 
@@ -29,7 +38,7 @@ class TrackNotPlayableError: InvalidTrackError {
     
     override init(_ file: URL) {
         super.init(file)
-        self.message = "Track is not playable."
+        self.message = "File is not a playable audio track. Is it a valid audio file of a supported format ?"
     }
 }
 

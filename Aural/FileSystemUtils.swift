@@ -12,6 +12,11 @@ class FileSystemUtils {
         return fileManager.fileExists(atPath: file.path)
     }
     
+    // Checks if a file exists
+    static func fileExists(_ path: String) -> Bool {
+        return fileManager.fileExists(atPath: path)
+    }
+    
     // Renames a file
     static func renameFile(_ src: URL, _ target: URL) {
         do {

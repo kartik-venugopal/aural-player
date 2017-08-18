@@ -71,6 +71,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             var autoplayed: Bool = false
             for trackPath in self.appState.playlistState.tracks {
                 
+                // Playlists might contain broken file references
+                if (!FileSystemUtils.fileExists(trackPath)) {
+                    errors.append(FileNotFoundError(URL(fileURLWithPath: trackPath)))
+                    continue
+                }
+                
                 let resolvedFileInfo = FileSystemUtils.resolveTruePath(URL(fileURLWithPath: trackPath))
                 
                 do {
@@ -173,7 +179,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
                 
                 // Playlists might contain broken file references
                 if (!FileSystemUtils.fileExists(_file)) {
-                    // TODO: Add error
+                    errors.append(FileNotFoundError(_file))
                     continue
                 }
                 
@@ -421,11 +427,9 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             
             let session = PlaybackSession.start(track!)
             
-            // TODO: What if this call fails ? Check "prepared" flag ... retry if failed ?
             let actualTrack = track!.track!
             TrackIO.prepareForPlayback(actualTrack)
             
-            // TODO: Assuming track not playable, what if track has been moved on the filesystem ? Or other reading errors ?
             if (actualTrack.preparationFailed) {
                 throw actualTrack.preparationError!
             }
