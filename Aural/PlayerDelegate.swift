@@ -110,9 +110,14 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         DispatchQueue.main.async {
             
             do {
+                
                 try self.continuePlaying()
-            } catch {
-                // Nothing can go wrong because, if the track were invalid, it could not have been added, and the time between adding and autoplay is negligible.
+                
+            } catch let error as Error {
+                
+                if (error is InvalidTrackError) {
+                    EventRegistry.publishEvent(.trackNotPlayed, TrackNotPlayedEvent(error as! InvalidTrackError))
+                }
             }
             
             // Notify the UI that a track has started playing
@@ -126,8 +131,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             
             do {
                 try self.play(trackIndex)
-            } catch {
-                // Nothing can go wrong because, if the track were invalid, it could not have been added, and the time between adding and autoplay is negligible.
+                
+            } catch let error as Error {
+                
+                if (error is InvalidTrackError) {
+                    EventRegistry.publishEvent(.trackNotPlayed, TrackNotPlayedEvent(error as! InvalidTrackError))
+                }
             }
             
             // Notify the UI that a track has started playing
