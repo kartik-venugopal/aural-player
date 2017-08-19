@@ -228,6 +228,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
+        window.setIsVisible(false)
+        
         // Initialize UI with presentation settings (colors, sizes, etc)
         // No app state is needed here
         initStatelessUI()
@@ -427,20 +429,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         resetPreferencesFields()
     }
     
-    func updatePlaylistSummary() {
+    // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
+    func updatePlaylistSummary(_ trackAddProgress: TrackAddedEventProgress? = nil) {
         
         let summary = player.getPlaylistSummary()
         let numTracks = summary.numTracks
         
         lblPlaylistSummary.stringValue = String(format: "%d %@   %@", numTracks, numTracks == 1 ? "track" : "tracks", Utils.formatDuration(summary.totalDuration))
         
-        // Move the spinner so it is adjacent to the summary text, on the left
-        let summaryString: NSString = lblPlaylistSummary.stringValue as NSString
-        let size: CGSize = summaryString.size(withAttributes: [NSFontAttributeName: lblPlaylistSummary.font as AnyObject])
-        let lblWidth = size.width
-        
-        let newX = 381 - lblWidth - 10 - playlistWorkSpinner.frame.width
-        playlistWorkSpinner.frame.origin.x = newX
+        // Update spinner
+        if (trackAddProgress != nil) {
+            repositionSpinner()
+            playlistWorkSpinner.doubleValue = trackAddProgress!.percentage
+        }
     }
     
     fileprivate func updateEQSliders(_ eqBands: [Int: Float]) {
@@ -476,7 +477,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         let modalResponse = dialog.runModal()
         
         if (modalResponse == NSModalResponseOK) {
-            startedAddingTracks()
             addFiles(dialog.urls)
         }
         
@@ -484,11 +484,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     }
     
     func startedAddingTracks() {
+        playlistWorkSpinner.doubleValue = 0
+        repositionSpinner()
+        playlistWorkSpinner.isHidden = false
         playlistWorkSpinner.startAnimation(self)
     }
     
     func doneAddingTracks() {
         playlistWorkSpinner.stopAnimation(self)
+        playlistWorkSpinner.isHidden = true
+    }
+    
+    // Move the spinner so it is adjacent to the summary text, on the left
+    func repositionSpinner() {
+       
+        let summaryString: NSString = lblPlaylistSummary.stringValue as NSString
+        let size: CGSize = summaryString.size(withAttributes: [NSFontAttributeName: lblPlaylistSummary.font as AnyObject])
+        let lblWidth = size.width
+        
+        let newX = 381 - lblWidth - 10 - playlistWorkSpinner.frame.width
+        playlistWorkSpinner.frame.origin.x = newX
     }
     
     @IBAction func removeSingleTrackAction(_ sender: AnyObject) {
@@ -1215,8 +1230,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         }
         
         if event is TrackAddedEvent {
+            let _evt = event as! TrackAddedEvent
             playlistView.noteNumberOfRowsChanged()
-            updatePlaylistSummary()
+            updatePlaylistSummary(_evt.progress)
         }
         
         if event is TrackNotPlayedEvent {
@@ -1246,6 +1262,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     
     // Adds a set of files (or directories, i.e. files within them) to the current playlist, if supported
     func addFiles(_ files: [URL]) {
+        startedAddingTracks()
         player.addFiles(files)
     }
     

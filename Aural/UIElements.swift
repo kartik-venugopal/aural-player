@@ -160,6 +160,8 @@ class UIElements {
         
         alert.informativeText = infoText
         
+        // TODO: Resize alert per number of lines displayed
+        
         return alert
     }
 }

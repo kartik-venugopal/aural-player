@@ -58,8 +58,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     // This is called when the app loads initially. Loads the playlist from the app state file on disk. Only meant to be called once.
     private func loadPlaylistFromSavedState() {
         
-        var errors: [InvalidTrackError] = [InvalidTrackError]()
-        
         // Add tracks async, notifying the UI one at a time
         DispatchQueue.global(qos: .userInteractive).async {
             
@@ -67,9 +65,17 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             
             // TODO: Can we do this with 2 separate threads instead of just one ? Push to a queue with 2 concurrent ops ?
             
+            var errors: [InvalidTrackError] = [InvalidTrackError]()
             let autoplay: Bool = self.preferences.autoplayOnStartup
             var autoplayed: Bool = false
-            for trackPath in self.appState.playlistState.tracks {
+            
+            let tracks = self.appState.playlistState.tracks
+            let totalTracks = tracks.count
+            var tracksAdded = 0
+            
+            for trackPath in tracks {
+                
+                tracksAdded += 1
                 
                 // Playlists might contain broken file references
                 if (!FileSystemUtils.fileExists(trackPath)) {
@@ -81,7 +87,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
                 
                 do {
                     
-                    try self.addTrack(resolvedFileInfo.resolvedURL)
+                    let progress = TrackAddedEventProgress(tracksAdded, totalTracks)
+                    try self.addTrack(resolvedFileInfo.resolvedURL, progress)
                     
                     if (autoplay && !autoplayed) {
                         self.autoplay()
@@ -161,18 +168,16 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             // Autoplay if the preference is selected AND either the "always" option is selected or no track is currently playing
             let autoplay: Bool = autoplayPref && (alwaysAutoplay || noPlayingTrack)
             
-            // Pass this by reference so that recursive calls will all see the same value
-            var autoplayed = false
+            // Progress
+            let progress = TrackAddOperationProgress(0, files.count, [InvalidTrackError](), false)
             
-            var errors: [InvalidTrackError] = [InvalidTrackError]()
-            
-            self.addFiles_sync(files, autoplay, &autoplayed, &errors)
+            self.addFiles_sync(files, autoplay, progress)
             
             EventRegistry.publishEvent(.doneAddingTracks, DoneAddingTracksEvent.instance)
             
             // If errors > 0, send event to UI
-            if (errors.count > 0) {
-                EventRegistry.publishEvent(.tracksNotAdded, TracksNotAddedEvent(errors))
+            if (progress.errors.count > 0) {
+                EventRegistry.publishEvent(.tracksNotAdded, TracksNotAddedEvent(progress.errors))
             }
         }
     }
@@ -180,7 +185,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     // Adds a bunch of files synchronously
     // The autoplay argument indicates whether or not autoplay is enabled. Make sure to pass it into functions that call back here recursively (addPlaylist() or addDirectory()).
     // The autoplayed argument indicates whether or not autoplay, if enabled, has already been executed. This value is passed by reference so that recursive calls back here will all see the same value.
-    private func addFiles_sync(_ files: [URL], _ autoplay: Bool, _ autoplayed: inout Bool, _ errors: inout [InvalidTrackError]) {
+    private func addFiles_sync(_ files: [URL], _ autoplay: Bool, _ progress: TrackAddOperationProgress) {
         
         if (files.count > 0) {
             
@@ -188,7 +193,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
                 
                 // Playlists might contain broken file references
                 if (!FileSystemUtils.fileExists(_file)) {
-                    errors.append(FileNotFoundError(_file))
+                    progress.errors.append(FileNotFoundError(_file))
                     continue
                 }
                 
@@ -199,7 +204,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
                 if (resolvedFileInfo.isDirectory) {
                     
                     // Directory
-                    addDirectory(file, autoplay, &autoplayed, &errors)
+                    addDirectory(file, autoplay, progress)
                     
                 } else {
                     
@@ -209,25 +214,28 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
                     if (AppConstants.supportedPlaylistFileTypes.contains(fileExtension)) {
                         
                         // Playlist
-                        addPlaylist(file, autoplay, &autoplayed, &errors)
+                        addPlaylist(file, autoplay, progress)
                         
                     } else if (AppConstants.supportedAudioFileTypes.contains(fileExtension)) {
                         
                         // Track
                         do {
                             
-                            let index = try addTrack(file)
+                            progress.tracksAdded += 1
                             
-                            if (autoplay && !autoplayed && index >= 0) {
+                            let eventProgress = TrackAddedEventProgress(progress.tracksAdded, progress.totalTracks)
+                            let index = try addTrack(file, eventProgress)
+                            
+                            if (autoplay && !progress.autoplayed && index >= 0) {
                                 
                                 self.autoplay(index)
-                                autoplayed = true
+                                progress.autoplayed = true
                             }
                             
                         }  catch let error as Error {
                             
                             if (error is InvalidTrackError) {
-                                errors.append(error as! InvalidTrackError)
+                                progress.errors.append(error as! InvalidTrackError)
                             }
                         }
                         
@@ -242,37 +250,45 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     }
     
     // Returns index of newly added track
-    private func addTrack(_ file: URL) throws -> Int {
+    private func addTrack(_ file: URL, _ progress: TrackAddedEventProgress) throws -> Int {
         
         let newTrackIndex = try playlist.addTrack(file)
         if (newTrackIndex >= 0) {
-            notifyTrackAdded(newTrackIndex)
+            notifyTrackAdded(newTrackIndex, progress)
             prepareNextTracksForPlayback()
         }
         return newTrackIndex
     }
     
-    private func addPlaylist(_ playlistFile: URL, _ autoplay: Bool, _ autoplayed: inout Bool, _ errors: inout [InvalidTrackError]) {
+    private func addPlaylist(_ playlistFile: URL, _ autoplay: Bool, _ progress: TrackAddOperationProgress) {
        
         let loadedPlaylist = PlaylistIO.loadPlaylist(playlistFile)
         if (loadedPlaylist != nil) {
-            addFiles_sync(loadedPlaylist!.tracks, autoplay, &autoplayed, &errors)
+            
+            progress.totalTracks -= 1
+            progress.totalTracks += (loadedPlaylist?.tracks.count)!
+            
+            addFiles_sync(loadedPlaylist!.tracks, autoplay, progress)
         }
     }
     
-    private func addDirectory(_ dir: URL, _ autoplay: Bool, _ autoplayed: inout Bool, _ errors: inout [InvalidTrackError]) {
+    private func addDirectory(_ dir: URL, _ autoplay: Bool, _ progress: TrackAddOperationProgress) {
         
         let dirContents = FileSystemUtils.getContentsOfDirectory(dir)
         if (dirContents != nil) {
+            
+            progress.totalTracks -= 1
+            progress.totalTracks += (dirContents?.count)!
+            
             // Add them
-            addFiles_sync(dirContents!, autoplay, &autoplayed, &errors)
+            addFiles_sync(dirContents!, autoplay, progress)
         }
     }
     
     // Publishes a notification that a new track has been added to the playlist
-    func notifyTrackAdded(_ trackIndex: Int) {
+    func notifyTrackAdded(_ trackIndex: Int, _ progress: TrackAddedEventProgress) {
         
-        let trackAddedEvent = TrackAddedEvent(trackIndex: trackIndex)
+        let trackAddedEvent = TrackAddedEvent(trackIndex, progress)
         EventRegistry.publishEvent(.trackAdded, trackAddedEvent)
     }
     
@@ -846,5 +862,21 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         playingTrack?.index = playlist.cursor()
         
         prepareNextTracksForPlayback()
+    }
+}
+
+// Indicates current progress for an operation that adds tracks to the playlist
+class TrackAddOperationProgress {
+    
+    var tracksAdded: Int
+    var totalTracks: Int
+    var errors: [InvalidTrackError]
+    var autoplayed: Bool
+    
+    init(_ tracksAdded: Int, _ totalTracks: Int, _ errors: [InvalidTrackError], _ autoplayed: Bool) {
+        self.tracksAdded = tracksAdded
+        self.totalTracks = totalTracks
+        self.errors = errors
+        self.autoplayed = autoplayed
     }
 }

@@ -52,14 +52,30 @@ class TrackInfoUpdatedEvent: Event {
 }
 
 // Event indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
-
-// TODO: Add Progress info (%) so that determinate progress spinner may be used
 class TrackAddedEvent: Event {
     
     var trackIndex: Int
+    var progress: TrackAddedEventProgress
     
-    init(trackIndex: Int) {
+    init(_ trackIndex: Int, _ progress: TrackAddedEventProgress) {
         self.trackIndex = trackIndex
+        self.progress = progress
+    }
+}
+
+// Indicates current progress associated with a TrackAddedEvent
+class TrackAddedEventProgress {
+    
+    var tracksAdded: Int
+    var totalTracks: Int
+    
+    // Computed property
+    var percentage: Double
+    
+    init(_ tracksAdded: Int, _ totalTracks: Int) {
+        self.tracksAdded = tracksAdded
+        self.totalTracks = totalTracks
+        self.percentage = totalTracks > 0 ? Double(tracksAdded) * 100 / Double(totalTracks) : 0
     }
 }
 
