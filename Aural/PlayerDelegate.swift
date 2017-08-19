@@ -18,13 +18,13 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     private var player: Player
     
     // Currently playing track
-    fileprivate var playingTrack: IndexedTrack?
+    private var playingTrack: IndexedTrack?
     
     // Serial queue for track prep tasks (to prevent concurrent prepping of the same track which could cause contention and is unnecessary to begin with)
     private var trackPrepQueue: OperationQueue
     
     // See PlaybackState
-    fileprivate var playbackState: PlaybackState = .noTrack
+    private var playbackState: PlaybackState = .noTrack
     
     private static let singleton: PlayerDelegate = AppInitializer.getPlayerDelegate()
     

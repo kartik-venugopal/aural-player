@@ -29,7 +29,7 @@ class Size: NSObject {
         calculateSizeFromUnit()
     }
     
-    fileprivate func calculateSizeFromBytes() {
+    private func calculateSizeFromBytes() {
         
         var bytesTemp = sizeBytes
         
@@ -73,7 +73,7 @@ class Size: NSObject {
         sizeUnit = SizeUnit.b
     }
     
-    fileprivate func calculateSizeFromUnit() {
+    private func calculateSizeFromUnit() {
         
         let su: SizeUnit = sizeUnit
         

@@ -7,7 +7,7 @@ Orchestrates publishing of, and subscription to, event notifications, to facilit
 class EventRegistry {
     
     // Keeps track of subscribers. For each event type, stores a list of subscribers along with their notification queues
-    fileprivate static var subscriberRegistry: [EventType: [(EventSubscriber, DispatchQueue)]] = [EventType: [(EventSubscriber, DispatchQueue)]]()
+    private static var subscriberRegistry: [EventType: [(EventSubscriber, DispatchQueue)]] = [EventType: [(EventSubscriber, DispatchQueue)]]()
     
     // Called by a subscriber who is interested in notifications of a certain type of event
     // The queue argument specifies which queue the event notification should be dispatched to (for the UI, this should be the main dispatch queue)

@@ -9,7 +9,7 @@ open class TimerUtils {
     static var instance: TimerUtils = TimerUtils()
     
     // Map of method/operation name -> array of timers for that method/operation
-    fileprivate var timers: [String: [Timer]] = [String: [Timer]]()
+    private var timers: [String: [Timer]] = [String: [Timer]]()
     
     static func start(_ tag: String) -> Timer {
         
@@ -52,7 +52,7 @@ open class TimerUtils {
         }
     }
     
-    fileprivate static func avgForTimers(_ timers: [Timer]) -> Double {
+    private static func avgForTimers(_ timers: [Timer]) -> Double {
         var sum: Double = 0
         
         for timer in timers {

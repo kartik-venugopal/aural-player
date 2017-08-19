@@ -7,7 +7,7 @@ import AVFoundation
 
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+private func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     switch (lhs, rhs) {
     case let (l?, r?):
         return l < r
@@ -20,11 +20,11 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 class Playlist {
     
-    fileprivate var tracks: [Track] = [Track]()
-    fileprivate var tracksByFilename: [String: Track] = [String: Track]()
+    private var tracks: [Track] = [Track]()
+    private var tracksByFilename: [String: Track] = [String: Track]()
     
     // Singleton instance
-    fileprivate static var singleton: Playlist = AppInitializer.getPlaylist()
+    private static var singleton: Playlist = AppInitializer.getPlaylist()
     
     // The playback sequence associated with this playlist
     private var playbackSequence: PlaybackSequence
@@ -200,7 +200,7 @@ class Playlist {
     }
     
     // Swaps two tracks in the array of tracks
-    fileprivate func swapTracks(_ trackIndex1: Int, _ trackIndex2: Int) {
+    private func swapTracks(_ trackIndex1: Int, _ trackIndex2: Int) {
         swap(&tracks[trackIndex1], &tracks[trackIndex2])
     }
     
@@ -223,7 +223,7 @@ class Playlist {
     }
     
     // Checks if a single track matches search criteria, returns information about the match, if there is one
-    fileprivate func trackMatchesQuery(track: Track, searchQuery: SearchQuery) -> (matched: Bool, matchedField: String?, matchedFieldValue: String?) {
+    private func trackMatchesQuery(track: Track, searchQuery: SearchQuery) -> (matched: Bool, matchedField: String?, matchedFieldValue: String?) {
         
         let caseSensitive: Bool = searchQuery.options.caseSensitive
         

@@ -7,8 +7,8 @@ import AVFoundation
 */
 class AudioEngineHelper {
     
-    fileprivate let audioEngine: AVAudioEngine
-    fileprivate var nodes: [AVAudioNode]
+    private let audioEngine: AVAudioEngine
+    private var nodes: [AVAudioNode]
     
     init(engine: AVAudioEngine) {
         self.audioEngine = engine

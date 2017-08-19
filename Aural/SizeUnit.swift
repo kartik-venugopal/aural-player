@@ -16,7 +16,7 @@ enum SizeUnit: String {
         return rawValue.uppercased()
     }
     
-    fileprivate var magnitude: Int {
+    private var magnitude: Int {
         
         switch self {
             

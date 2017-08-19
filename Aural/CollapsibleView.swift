@@ -6,7 +6,7 @@ import Cocoa
 */
 class CollapsibleView {
     
-    fileprivate let views: [NSView]
+    private let views: [NSView]
     var hidden: Bool {
         return views[0].isHidden
     }

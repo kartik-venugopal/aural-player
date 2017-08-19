@@ -13,16 +13,16 @@ class BufferManager {
     static let FRAME_ZERO = AVAudioFramePosition(0)
     
     // Seconds of playback
-    fileprivate static let BUFFER_SIZE: UInt32 = 15
+    private static let BUFFER_SIZE: UInt32 = 15
     
     // The very first buffer should be small, so as to facilitate efficient immediate playback
-    fileprivate static let BUFFER_SIZE_INITIAL: UInt32 = 5
+    private static let BUFFER_SIZE_INITIAL: UInt32 = 5
     
     // The (serial) dispatch queue on which all scheduling tasks will be enqueued
-    fileprivate var queue: OperationQueue
+    private var queue: OperationQueue
     
     // Player node used for actual playback
-    fileprivate var playerNode: AVAudioPlayerNode
+    private var playerNode: AVAudioPlayerNode
     
     init(playerNode: AVAudioPlayerNode) {
         
@@ -40,7 +40,7 @@ class BufferManager {
     }
     
     // Starts track playback from a given frame position. The playbackSesssion parameter is used to ensure that no buffers are scheduled on the player for an old playback session.
-    fileprivate func startPlaybackFromFrame(_ playbackSession: PlaybackSession, _ frame: AVAudioFramePosition) {
+    private func startPlaybackFromFrame(_ playbackSession: PlaybackSession, _ frame: AVAudioFramePosition) {
         
         // Can assume that track.avFile is non-nil, because track has been prepared for playback
         let track: Track = playbackSession.track.track!
@@ -65,7 +65,7 @@ class BufferManager {
     }
     
     // Upon the completion of playback of a buffer, checks if more buffers are needed for the playback session, and if so, schedules one for playback. The playbackSession argument indicates which playback session this task was initiated for.
-    fileprivate func bufferCompletionHandler(_ playbackSession: PlaybackSession, _ schedulingSession: SchedulingSession) {
+    private func bufferCompletionHandler(_ playbackSession: PlaybackSession, _ schedulingSession: SchedulingSession) {
         
         if (PlaybackSession.isCurrent(playbackSession)) {
             
@@ -84,7 +84,7 @@ class BufferManager {
     
     // Schedules a single audio buffer for playback of the specified track
     // The timestamp argument indicates which playback session this task was initiated for
-    fileprivate func scheduleNextBuffer(_ playbackSession: PlaybackSession, _ schedulingSession: SchedulingSession, _ bufferSize: UInt32 = BufferManager.BUFFER_SIZE) {
+    private func scheduleNextBuffer(_ playbackSession: PlaybackSession, _ schedulingSession: SchedulingSession, _ bufferSize: UInt32 = BufferManager.BUFFER_SIZE) {
         
         // Can assume that track.avFile is non-nil, because track has been prepared for playback
         let track: Track = playbackSession.track.track!

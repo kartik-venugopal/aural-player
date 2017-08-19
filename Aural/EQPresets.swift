@@ -29,7 +29,7 @@ enum EQPresets: String {
         }
     }
     
-    fileprivate var flatBands: [Int: Float] {
+    private var flatBands: [Int: Float] {
         
         var bands = [Int: Float]()
         
@@ -41,7 +41,7 @@ enum EQPresets: String {
         return bands
     }
     
-    fileprivate var highBassAndTrebleBands: [Int: Float] {
+    private var highBassAndTrebleBands: [Int: Float] {
         
         var bands = [Int: Float]()
         
@@ -64,7 +64,7 @@ enum EQPresets: String {
         return bands
     }
     
-    fileprivate var softBands: [Int: Float] {
+    private var softBands: [Int: Float] {
         
         var bands = [Int: Float]()
         
@@ -87,7 +87,7 @@ enum EQPresets: String {
         return bands
     }
     
-    fileprivate var karaokeBands: [Int: Float] {
+    private var karaokeBands: [Int: Float] {
         
         var bands = [Int: Float]()
         
@@ -110,7 +110,7 @@ enum EQPresets: String {
         return bands
     }
     
-    fileprivate var vocalBands: [Int: Float] {
+    private var vocalBands: [Int: Float] {
         
         var bands = [Int: Float]()
         

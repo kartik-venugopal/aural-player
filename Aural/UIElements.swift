@@ -25,7 +25,7 @@ class UIElements {
     // Used to warn the user that certain files were not added to the playlist
     static let tracksNotAddedAlert: NSAlert = UIElements.createTracksNotAddedAlert()
     
-    fileprivate static func createOpenPanel() -> NSOpenPanel {
+    private static func createOpenPanel() -> NSOpenPanel {
         
         let dialog = NSOpenPanel()
         
@@ -47,7 +47,7 @@ class UIElements {
         return dialog
     }
     
-    fileprivate static func createSavePanel() -> NSSavePanel {
+    private static func createSavePanel() -> NSSavePanel {
         
         let dialog = NSSavePanel()
         
@@ -63,7 +63,7 @@ class UIElements {
         return dialog
     }
     
-    fileprivate static func createSaveRecordingPanel() -> NSSavePanel {
+    private static func createSaveRecordingPanel() -> NSSavePanel {
         
         let dialog = NSSavePanel()
         

@@ -211,7 +211,7 @@ class TrackIO {
     }
     
     // Normalizes a bit rate by rounding it to the nearest multiple of 32. For ex, a bit rate of 251.5 kbps is rounded to 256 kbps.
-    fileprivate static func normalizeBitRate(_ rate: Double) -> Int {
+    private static func normalizeBitRate(_ rate: Double) -> Int {
         return Int(round(rate/32)) * 32
     }
     
@@ -223,7 +223,7 @@ class TrackIO {
     }
     
     // Converts a four character media type code to a readable string
-    fileprivate static func codeToString(_ code: FourCharCode) -> String {
+    private static func codeToString(_ code: FourCharCode) -> String {
         let n = Int(code)
         var s: String = String (describing: UnicodeScalar((n >> 24) & 255)!)
         s.append(String(describing: UnicodeScalar((n >> 16) & 255)!))

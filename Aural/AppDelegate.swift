@@ -444,7 +444,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         }
     }
     
-    fileprivate func updateEQSliders(_ eqBands: [Int: Float]) {
+    private func updateEQSliders(_ eqBands: [Int: Float]) {
         
         eqSlider32.floatValue = eqBands[32]!
         eqSlider64.floatValue = eqBands[64]!
@@ -631,11 +631,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         hidePopover()
     }
     
-    fileprivate func setPlayPauseImage(_ image: NSImage) {
+    private func setPlayPauseImage(_ image: NSImage) {
         btnPlayPause.image = image
     }
     
-    fileprivate func setSeekTimerState(_ timerOn: Bool) {
+    private func setSeekTimerState(_ timerOn: Bool) {
         
         if (timerOn) {
             seekSlider.isEnabled = true
@@ -856,7 +856,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         setVolumeImage(player.isMuted())
     }
     
-    fileprivate func setVolumeImage(_ muted: Bool) {
+    private func setVolumeImage(_ muted: Bool) {
         
         if (muted) {
             btnVolume.image = UIConstants.imgMute

@@ -7,42 +7,42 @@ import AVFoundation
 
 class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
     
-    fileprivate static let singleton: Player = Player()
+    private static let singleton: Player = Player()
     
     static func instance() -> Player {
         return singleton
     }
     
-    fileprivate let playerNode: AVAudioPlayerNode
-    fileprivate let audioEngine: AVAudioEngine
-    fileprivate let mainMixer: AVAudioMixerNode
+    private let playerNode: AVAudioPlayerNode
+    private let audioEngine: AVAudioEngine
+    private let mainMixer: AVAudioMixerNode
     
     // Used for conversions of sample rates / channel counts
-    fileprivate let auxMixer: AVAudioMixerNode
+    private let auxMixer: AVAudioMixerNode
     
     // Audio graph nodes
-    fileprivate let eqNode: ParametricEQNode
-    fileprivate let pitchNode: AVAudioUnitTimePitch
-    fileprivate let reverbNode: AVAudioUnitReverb
-    fileprivate let filterNode: MultiBandStopFilterNode
-    fileprivate let delayNode: AVAudioUnitDelay
-    fileprivate let timeNode: AVAudioUnitTimePitch
+    private let eqNode: ParametricEQNode
+    private let pitchNode: AVAudioUnitTimePitch
+    private let reverbNode: AVAudioUnitReverb
+    private let filterNode: MultiBandStopFilterNode
+    private let delayNode: AVAudioUnitDelay
+    private let timeNode: AVAudioUnitTimePitch
     
     // Helper
-    fileprivate let audioEngineHelper: AudioEngineHelper
+    private let audioEngineHelper: AudioEngineHelper
     
     // Sound setting value holders
-    fileprivate var playerVolume: Float
-    fileprivate var muted: Bool
-    fileprivate var reverbPreset: AVAudioUnitReverbPreset
+    private var playerVolume: Float
+    private var muted: Bool
+    private var reverbPreset: AVAudioUnitReverbPreset
     
     // Buffer allocation
-    fileprivate var bufferManager: BufferManager
+    private var bufferManager: BufferManager
     
-    fileprivate var recorder: Recorder
+    private var recorder: Recorder
     
     // Current playback position (frame)
-    fileprivate var startFrame: AVAudioFramePosition?
+    private var startFrame: AVAudioFramePosition?
     
     // Sets up the audio engine
     init() {
@@ -116,7 +116,7 @@ class Player: AuralPlayer, AuralSoundTuner, AuralRecorder {
     }
     
     // Prepares the player to play a given track
-    fileprivate func initPlayer(_ track: Track) {
+    private func initPlayer(_ track: Track) {
         
         let format = track.avFile!.processingFormat
         

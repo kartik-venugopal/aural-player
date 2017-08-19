@@ -8,13 +8,13 @@ import AVFoundation
 class Recorder {
    
     // The audio engine that is to be tapped for recording data
-    fileprivate var audioEngine: AVAudioEngine
+    private var audioEngine: AVAudioEngine
     
     // The temporary file that will hold the recording, till the user specifies a path
-    fileprivate var tempRecordingFilePath: String?
+    private var tempRecordingFilePath: String?
     
     // Used to determine the current recording duration
-    fileprivate var recordingStartTime: Date?
+    private var recordingStartTime: Date?
     
     // Flag to indicate whether or not a recording is onging
     private var isRecording: Bool = false

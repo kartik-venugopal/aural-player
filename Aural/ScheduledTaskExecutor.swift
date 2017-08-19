@@ -9,20 +9,20 @@ import Cocoa
 class ScheduledTaskExecutor {
     
     // GCD dispatch source timer
-    fileprivate var timer: DispatchSourceTimer
+    private var timer: DispatchSourceTimer
     
     // The task will pause for this duration between consecutive executions
-    fileprivate var intervalMillis: Int
+    private var intervalMillis: Int
     
     // The code block to be executed
-    fileprivate var task: () -> Void
+    private var task: () -> Void
     
     // The queue on which the task will be put
-    fileprivate var queue: DispatchQueue
+    private var queue: DispatchQueue
     
     // Flags indicating whether this timer is currently running
-    fileprivate var running: Bool = false
-    fileprivate var stopped: Bool = false
+    private var running: Bool = false
+    private var stopped: Bool = false
     
     init(intervalMillis: Int, task: @escaping () -> Void, queue: DispatchQueue) {
         
