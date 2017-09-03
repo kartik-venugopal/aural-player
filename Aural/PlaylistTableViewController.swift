@@ -5,7 +5,7 @@
 import Cocoa
 import AVFoundation
 
-class PlaylistViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     
     var playlist: Playlist = Playlist.instance()
     

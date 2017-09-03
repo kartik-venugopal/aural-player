@@ -85,4 +85,13 @@ class AppInitializer {
         
         return playerDelegate!
     }
+    
+    static func getPlaylistControlDelegate() -> AuralPlaylistControlDelegate {
+        
+        if (!initialized) {
+            initialize()
+        }
+        
+        return playerDelegate!
+    }
 }

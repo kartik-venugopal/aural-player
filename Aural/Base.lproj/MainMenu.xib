@@ -1721,7 +1721,7 @@ G1BhbiBTbGlkZXI
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="addTracksAction:" target="Voe-Tx-rLC" id="ofS-qW-etK"/>
+                                        <action selector="addTracksAction:" target="Voe-Tx-rLC" id="XXF-Ek-Kdn"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Remove selected file from playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ws5-MD-bgB" userLabel="Remove">
@@ -1754,7 +1754,7 @@ G1BhbiBTbGlkZXI
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="clearPlaylistAction:" target="Voe-Tx-rLC" id="kBd-oL-ZKP"/>
+                                        <action selector="clearPlaylistAction:" target="Voe-Tx-rLC" id="44r-1n-Jhy"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Move selected track up" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v8g-5Z-Q77" userLabel="Up">
@@ -1966,9 +1966,9 @@ G1BhbiBTbGlkZXI
             <connections>
                 <outlet property="menu" destination="Cnt-hZ-QmI" id="YkB-Pl-SLT"/>
             </connections>
-            <point key="canvasLocation" x="293.5" y="28.5"/>
+            <point key="canvasLocation" x="124.5" y="35.5"/>
         </window>
-        <viewController id="THs-LC-lDb" customClass="PlaylistViewController" customModule="Aural" customModuleProvider="target"/>
+        <viewController id="THs-LC-lDb" userLabel="Playlist TableView Controller" customClass="PlaylistTableViewController" customModule="Aural" customModuleProvider="target"/>
         <menu title="Main Menu" systemMenu="main" id="Cnt-hZ-QmI">
             <items>
                 <menuItem title="Aural" id="igd-xR-7Ij" userLabel="Aural">

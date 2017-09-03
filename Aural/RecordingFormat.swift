@@ -9,8 +9,6 @@ import AVFoundation
 
 enum RecordingFormat {
     
-    // TODO: Add mp3 recording support
-    case mp3
     case aac
     
     var settings: [String: Any] {
@@ -22,7 +20,6 @@ enum RecordingFormat {
         switch self {
             
         case .aac: settings[AVFormatIDKey] = kAudioFormatMPEG4AAC
-        case .mp3: settings[AVFormatIDKey] = kAudioFormatMPEGLayer3
         }
         
         return settings
@@ -33,7 +30,6 @@ enum RecordingFormat {
         switch self {
             
         case .aac: return "aac"
-        case .mp3: return "mp3"
         }
     }
 }

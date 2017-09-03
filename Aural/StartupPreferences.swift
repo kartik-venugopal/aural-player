@@ -50,7 +50,7 @@ class ViewOnStartup {
     // This is used only if option == .specific
     var viewType: ViewTypes = .defaultView
     
-    // TODO: This is mutable. Potentially unsafe
+    // NOTE: This is mutable. Potentially unsafe
     static let defaultInstance: ViewOnStartup = ViewOnStartup()
 }
 
@@ -62,7 +62,7 @@ class WindowLocationOnStartup {
     // This is used only if option == .specific
     var windowLocation: WindowLocations = .center
     
-    // TODO: This is mutable. Potentially unsafe
+    // NOTE: This is mutable. Potentially unsafe
     static let defaultInstance: WindowLocationOnStartup = WindowLocationOnStartup()
 }
 

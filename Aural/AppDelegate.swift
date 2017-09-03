@@ -6,9 +6,12 @@ import AVFoundation
 
 // TODO: Can I have multiple app delegates ?
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubscriber {
+class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     
     @IBOutlet weak var window: NSWindow!
+    
+    @IBOutlet weak var userDefaults: NSUserDefaultsController!
+    
     
     @IBOutlet weak var prefsPanel: NSPanel!
     @IBOutlet weak var prefsTabView: NSTabView!
@@ -227,6 +230,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
     var preferences: Preferences = Preferences.instance()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        
+//        userDefaults.
         
         window.setIsVisible(false)
         
@@ -1384,7 +1389,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTabViewDelegate,EventSubsc
         (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = false
         recorderTabViewButton.needsDisplay = true
         
-        // TODO: Make this wait until the (async) stopping is complete ... respond to an event notification
         saveRecording()
         recordingInfoBox.isHidden = true
     }

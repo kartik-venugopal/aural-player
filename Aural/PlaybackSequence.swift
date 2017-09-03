@@ -121,7 +121,6 @@ class PlaybackSequence: PlaylistChangeListener {
             cursor = oldIndex
         }
         
-        // TODO: Can this be more efficient ? Swap ?
         reset(firstTrackIndex: cursor)
     }
     

@@ -63,8 +63,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             
             // NOTE - Assume that all entries are valid tracks (supported audio files), not playlists and not directories. i.e. assume that saved state file has not been corrupted.
             
-            // TODO: Can we do this with 2 separate threads instead of just one ? Push to a queue with 2 concurrent ops ?
-            
             var errors: [InvalidTrackError] = [InvalidTrackError]()
             let autoplay: Bool = self.preferences.autoplayOnStartup
             var autoplayed: Bool = false
@@ -508,8 +506,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
                     
                     trackPrepQueue.addOperation(prepOp)
                 }
-                
-                // TODO - Read one small buffer for playback, and cache it
             }
         }
     }
