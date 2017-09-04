@@ -6,8 +6,6 @@ import Cocoa
 
 class PlaylistSortViewController: NSViewController {
     
-    @IBOutlet weak var window: NSWindow!
-    
     // Playlist sort modal dialog fields
     @IBOutlet weak var sortPanel: NSPanel!
     
@@ -31,6 +29,8 @@ class PlaylistSortViewController: NSViewController {
         if (playlistView.numberOfRows == 0) {
             return
         }
+        
+        let window = WindowState.window!
         
         // Position the sort modal dialog and show it
         let sortFrameOrigin = NSPoint(x: window.frame.origin.x + 73, y: min(window.frame.origin.y + 227, window.frame.origin.y + window.frame.height - sortPanel.frame.height))

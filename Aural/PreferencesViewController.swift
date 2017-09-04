@@ -6,7 +6,6 @@ import Cocoa
 
 class PreferencesViewController: NSViewController {
     
-    @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var prefsPanel: NSPanel!
     @IBOutlet weak var prefsTabView: NSTabView!
     
@@ -130,6 +129,8 @@ class PreferencesViewController: NSViewController {
     @IBAction func preferencesAction(_ sender: Any) {
         
         resetPreferencesFields()
+        
+        let window = WindowState.window!
         
         // Position the search modal dialog and show it
         let prefsFrameOrigin = NSPoint(x: window.frame.origin.x - 2, y: min(window.frame.origin.y + 227, window.frame.origin.y + window.frame.height - prefsPanel.frame.height))

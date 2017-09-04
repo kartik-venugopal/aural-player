@@ -1,3 +1,7 @@
+/*
+    Delegates requests from the UI to the actual Effects unit
+ */
+
 import Foundation
 
 class AudioGraphDelegate: AudioGraphDelegateProtocol {

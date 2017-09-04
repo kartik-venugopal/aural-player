@@ -153,6 +153,18 @@ class ObjectGraph {
     }
     
     static func persistState() {
-        AppStateIO.save(ObjectGraph.getAppState())
+        
+        appState?.audioGraphState = audioGraph!.getPersistentState()
+        appState?.playlistState = playlist!.getState()
+        
+        let uiState = UIState()
+        uiState.windowLocationX = Float(WindowState.location().x)
+        uiState.windowLocationY = Float(WindowState.location().y)
+        uiState.showEffects = WindowState.showingEffects
+        uiState.showPlaylist = WindowState.showingPlaylist
+        
+        appState?.uiState = uiState
+        
+        AppStateIO.save(appState!)
     }
 }

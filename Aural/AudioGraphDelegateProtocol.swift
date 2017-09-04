@@ -1,5 +1,5 @@
 /*
- Contract for a middleman/facade, between the UI and the player, that defines app-level (UI-level) operations to tune the sound of the audio player - volume, panning, equalizer (EQ) bands, sound effects.
+    Contract for a middleman/facade, between the UI and the audio graph, that defines app-level (UI-level) operations to tune the sound of the audio player - volume, panning, equalizer (EQ) bands, sound effects.
  */
 import Cocoa
 

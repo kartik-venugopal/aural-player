@@ -1,5 +1,5 @@
 /*
-    Contract for a class that performs CRUD operations on a playlist
+    Contract for a middleman/facade between the UI and the playlist, to perform CRUD operations on the playlist
  */
 
 import Cocoa

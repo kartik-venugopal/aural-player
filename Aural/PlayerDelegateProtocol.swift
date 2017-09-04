@@ -1,8 +1,7 @@
-
 import Cocoa
 
 /*
-    Contract for a middleman/facade between AppDelegate (UI) and Player, responsible for all playback control requests (play/pause/next/previous track, etc) originating from AppDelegate
+    Contract for a middleman/facade between the UI and the audio player, to perform playback
 */
 protocol PlayerDelegateProtocol {
     

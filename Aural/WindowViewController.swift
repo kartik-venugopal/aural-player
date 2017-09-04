@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class WindowViewController: NSViewController, MessageSubscriber {
+class WindowViewController: NSViewController {
     
     @IBOutlet weak var window: NSWindow!
     
@@ -26,6 +26,8 @@ class WindowViewController: NSViewController, MessageSubscriber {
     
     override func viewDidLoad() {
         
+        WindowState.window = self.window
+        
         let appState = ObjectGraph.getUIAppState()
         
         playlistCollapsibleView = CollapsibleView(views: [playlistBox, playlistControlsBox])
@@ -43,7 +45,7 @@ class WindowViewController: NSViewController, MessageSubscriber {
         window.isMovableByWindowBackground = true
         window.makeKeyAndOrderFront(self)
         
-        SyncMessenger.subscribe(.appExitNotification, subscriber: self)
+//        SyncMessenger.subscribe(.appExitNotification, subscriber: self)
     }
     
     func positionWindow(_ location: NSPoint) {
@@ -107,13 +109,16 @@ class WindowViewController: NSViewController, MessageSubscriber {
             btnTogglePlaylist.state = 1
             btnTogglePlaylist.image = UIConstants.imgPlaylistOn
             viewPlaylistMenuItem.state = 1
+            WindowState.showingPlaylist = true
             
         } else {
+            
             playlistCollapsibleView!.hide()
             resizeWindow(playlistShown: false, effectsShown: !(fxCollapsibleView?.hidden)!, animate)
             btnTogglePlaylist.state = 0
             btnTogglePlaylist.image = UIConstants.imgPlaylistOff
             viewPlaylistMenuItem.state = 0
+            WindowState.showingPlaylist = false
         }
         
         setFocusOnPlaylist()
@@ -127,12 +132,16 @@ class WindowViewController: NSViewController, MessageSubscriber {
             btnToggleEffects.state = 1
             btnToggleEffects.image = UIConstants.imgEffectsOn
             viewEffectsMenuItem.state = 1
+            WindowState.showingEffects = true
+            
         } else {
+            
             fxCollapsibleView!.hide()
             resizeWindow(playlistShown: !(playlistCollapsibleView?.hidden)!, effectsShown: false, animate)
             btnToggleEffects.state = 0
             btnToggleEffects.image = UIConstants.imgEffectsOff
             viewEffectsMenuItem.state = 0
+            WindowState.showingEffects = false
         }
         
         setFocusOnPlaylist()
@@ -177,28 +186,40 @@ class WindowViewController: NSViewController, MessageSubscriber {
         return playlistCollapsibleView?.hidden == false
     }
     
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        if (notification is AppExitNotification) {
-            saveUIState()
-        }
-    }
+//    func consumeNotification(_ notification: NotificationMessage) {
+//        
+//        if (notification is AppExitNotification) {
+//            saveUIState()
+//        }
+//    }
+//    
+//    // This method will never get called, as this class does not process requests
+//    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+//        return EmptyResponse.instance
+//    }
+//    
+//    func saveUIState() {
+//        
+//        let appState = ObjectGraph.getAppState()
+//        
+//        let uiState = UIState()
+//        uiState.windowLocationX = Float(window.frame.origin.x)
+//        uiState.windowLocationY = Float(window.frame.origin.y)
+//        uiState.showPlaylist = isPlaylistShown()
+//        uiState.showEffects = isEffectsShown()
+//        
+//        appState.uiState = uiState
+//    }
+}
+
+// Provides convenient access to the main window, across the app
+class WindowState {
     
-    // This method will never get called, as this class does not process requests
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        return EmptyResponse.instance
-    }
+    static var window: NSWindow?
+    static var showingPlaylist: Bool = true
+    static var showingEffects: Bool = true
     
-    func saveUIState() {
-        
-        let appState = ObjectGraph.getAppState()
-        
-        let uiState = UIState()
-        uiState.windowLocationX = Float(window.frame.origin.x)
-        uiState.windowLocationY = Float(window.frame.origin.y)
-        uiState.showPlaylist = isPlaylistShown()
-        uiState.showEffects = isEffectsShown()
-        
-        appState.uiState = uiState
+    static func location() -> NSPoint {
+        return window!.frame.origin
     }
 }

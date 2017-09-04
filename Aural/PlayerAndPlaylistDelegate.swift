@@ -5,7 +5,7 @@ import Cocoa
  
  See AuralPlayerDelegate, AuralSoundTuningDelegate, and EventSubscriber protocols to learn more about the public functions implemented here.
  */
-class PlayerAndPlaylistDelegate: PlayerDelegateProtocol, PlaylistDelegateProtocol, AuralLifeCycleHandler, EventSubscriber {
+class PlayerAndPlaylistDelegate: PlayerDelegateProtocol, PlaylistDelegateProtocol, EventSubscriber, MessageSubscriber {
     
     var preferences: Preferences = Preferences.instance()
     
@@ -48,14 +48,9 @@ class PlayerAndPlaylistDelegate: PlayerDelegateProtocol, PlaylistDelegateProtoco
         trackPrepQueue.maxConcurrentOperationCount = 1
         
         EventRegistry.subscribe(EventType.playbackCompleted, subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive))
-    }
-    
-    func appLoaded() {
         
-        if (preferences.playlistOnStartup == .rememberFromLastAppLaunch) {
-            EventRegistry.publishEvent(.startedAddingTracks, StartedAddingTracksEvent.instance)
-            loadPlaylistFromSavedState()
-        }
+        SyncMessenger.subscribe(.appLoadedNotification, subscriber: self)
+        SyncMessenger.subscribe(.appExitNotification, subscriber: self)
     }
     
     // This is called when the app loads initially. Loads the playlist from the app state file on disk. Only meant to be called once.
@@ -602,16 +597,8 @@ class PlayerAndPlaylistDelegate: PlayerDelegateProtocol, PlaylistDelegateProtoco
         return modes
     }
     
-    func appExiting() {
-        
+    func tearDown() {
         audioGraph.tearDown()
-        
-        let audioGraphState = audioGraph.getPersistentState()
-        let playlistState = playlist.getState()
-        
-        let appState = ObjectGraph.getAppState()
-        appState.audioGraphState = audioGraphState
-        appState.playlistState = playlistState
     }
     
     // Called when playback of the current track completes
@@ -658,6 +645,22 @@ class PlayerAndPlaylistDelegate: PlayerDelegateProtocol, PlaylistDelegateProtoco
         playingTrack?.index = playlist.cursor()
         
         prepareNextTracksForPlayback()
+    }
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        if (notification is AppLoadedNotification && preferences.playlistOnStartup == .rememberFromLastAppLaunch) {
+            EventRegistry.publishEvent(.startedAddingTracks, StartedAddingTracksEvent.instance)
+            loadPlaylistFromSavedState()
+        }
+        
+        if (notification is AppExitNotification) {
+            tearDown()
+        }
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        return EmptyResponse.instance
     }
 }
 

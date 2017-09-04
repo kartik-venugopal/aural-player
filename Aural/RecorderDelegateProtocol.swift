@@ -1,5 +1,5 @@
 /*
- Contract for a middleman/facade, between the UI and the recorder, that defines app-level (UI-level) operations to record audio
+    Contract for a middleman/facade, between the UI and the recorder, that defines app-level (UI-level) operations to record audio
  */
 
 import Cocoa

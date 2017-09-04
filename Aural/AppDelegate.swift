@@ -14,6 +14,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             KeyPressHandler.handle(evt)
             return evt;
         });
+        
+        SyncMessenger.publishNotification(AppLoadedNotification.instance)
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {

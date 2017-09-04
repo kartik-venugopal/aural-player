@@ -6,8 +6,6 @@ import Cocoa
 
 class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscriber {
     
-    @IBOutlet weak var window: NSWindow!
-    
     // Displays the playlist and summary
     @IBOutlet weak var playlistView: NSTableView!
     @IBOutlet weak var lblPlaylistSummary: NSTextField!
@@ -67,9 +65,6 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         // Load saved state (sound settings + playlist) from app config file and adjust UI elements according to that state
         let appState = ObjectGraph.getUIAppState()
         initStatefulUI(appState)
-        
-        // TODO: Clean this up
-        (playlist as! AuralLifeCycleHandler).appLoaded()
     }
     
     func initStatelessUI() {
@@ -358,8 +353,9 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         DispatchQueue.main.async {
             
             let alert = UIElements.tracksNotAddedAlertWithErrors(errors)
+            let window = WindowState.window!
             
-            let orig = NSPoint(x: self.window.frame.origin.x, y: min(self.window.frame.origin.y + 227, self.window.frame.origin.y + self.window.frame.height - alert.window.frame.height))
+            let orig = NSPoint(x: window.frame.origin.x, y: min(window.frame.origin.y + 227, window.frame.origin.y + window.frame.height - alert.window.frame.height))
             
             alert.window.setFrameOrigin(orig)
             alert.window.setIsVisible(true)
@@ -379,8 +375,9 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
             
             // Position and display the dialog with info
             let alert = UIElements.trackNotPlayedAlertWithError(error)
+            let window = WindowState.window!
             
-            let orig = NSPoint(x: self.window.frame.origin.x, y: min(self.window.frame.origin.y + 227, self.window.frame.origin.y + self.window.frame.height - alert.window.frame.height))
+            let orig = NSPoint(x: window.frame.origin.x, y: min(window.frame.origin.y + 227, window.frame.origin.y + window.frame.height - alert.window.frame.height))
             
             alert.window.setFrameOrigin(orig)
             alert.window.setIsVisible(true)
@@ -633,36 +630,43 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
             setSeekTimerState(false)
             let _event = event as! TrackChangedEvent
             trackChange(_event.newTrack)
+            return
         }
         
         if event is TrackAddedEvent {
             let _evt = event as! TrackAddedEvent
             playlistView.noteNumberOfRowsChanged()
             updatePlaylistSummary(_evt.progress)
+            return
         }
         
         if event is TrackNotPlayedEvent {
             let _evt = event as! TrackNotPlayedEvent
             handleTrackNotPlayedError(_evt.error)
+            return
         }
         
         if event is TracksNotAddedEvent {
             let _evt = event as! TracksNotAddedEvent
             handleTracksNotAddedError(_evt.errors)
+            return
         }
         
         if event is StartedAddingTracksEvent {
             startedAddingTracks()
+            return
         }
         
         if event is DoneAddingTracksEvent {
             doneAddingTracks()
+            return
         }
         
         // Not being used yet (to be used when duration is updated)
         if event is TrackInfoUpdatedEvent {
             let _event = event as! TrackInfoUpdatedEvent
             playlistView.reloadData(forRowIndexes: IndexSet([_event.trackIndex]), columnIndexes: UIConstants.playlistViewColumnIndexes)
+            return
         }
     }
     
@@ -734,17 +738,14 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if (notification is AppExitNotification) {
-            // TODO: Clean this up
-            (playlist as! AuralLifeCycleHandler).appExiting()
-        }
-        
         if (notification is PlaylistScrollUpNotification) {
             scrollPlaylistUp()
+            return
         }
         
         if (notification is PlaylistScrollDownNotification) {
             scrollPlaylistDown()
+            return
         }
     }
     

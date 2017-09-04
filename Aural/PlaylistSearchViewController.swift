@@ -6,8 +6,6 @@ import Cocoa
 
 class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     
-    @IBOutlet weak var window: NSWindow!
-    
     // Playlist search modal dialog fields
     @IBOutlet weak var searchPanel: NSPanel!
     @IBOutlet weak var searchField: ColoredCursorSearchField!
@@ -48,6 +46,8 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
         if (playlistView.numberOfRows == 0) {
             return
         }
+        
+        let window = WindowState.window!
         
         // Position the search modal dialog and show it
         let searchFrameOrigin = NSPoint(x: window.frame.origin.x + 16, y: min(window.frame.origin.y + 227, window.frame.origin.y + window.frame.height - searchPanel.frame.height))
