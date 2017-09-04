@@ -1969,6 +1969,11 @@ G1BhbiBTbGlkZXI
             <point key="canvasLocation" x="124.5" y="35.5"/>
         </window>
         <viewController id="THs-LC-lDb" userLabel="Playlist TableView Controller" customClass="PlaylistTableViewController" customModule="Aural" customModuleProvider="target"/>
+        <viewController id="2VK-IM-yA0" userLabel="Help View Controller" customClass="HelpViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="EiT-Mj-1SZ" id="ntl-PJ-mAA"/>
+            </connections>
+        </viewController>
         <menu title="Main Menu" systemMenu="main" id="Cnt-hZ-QmI">
             <items>
                 <menuItem title="Aural" id="igd-xR-7Ij" userLabel="Aural">
@@ -2169,13 +2174,13 @@ CA
                             <menuItem title="User guide (pdf)" id="jeW-fz-jW1" userLabel="User Guide (pdf)">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="pdfUserGuideAction:" target="Voe-Tx-rLC" id="gkR-3m-5dX"/>
+                                    <action selector="pdfUserGuideAction:" target="2VK-IM-yA0" id="uMH-8J-vCf"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="User guide (online, HTML)" id="QqV-12-NGD" userLabel="User Guide (online HTML)">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="onlineUserGuideAction:" target="Voe-Tx-rLC" id="KzL-5z-M3Z"/>
+                                    <action selector="onlineUserGuideAction:" target="2VK-IM-yA0" id="pZC-Al-0Wr"/>
                                 </connections>
                             </menuItem>
                         </items>

@@ -1969,14 +1969,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     @IBAction func windowLocationOnStartupAction(_ sender: Any) {        
         startWindowLocationMenu.isEnabled = Bool(btnStartAtWindowLocation.state)
     }
-    
-    @IBAction func onlineUserGuideAction(_ sender: Any) {
-        NSWorkspace.shared().open(AppConstants.onlineUserGuideURL)
-    }
-    
-    @IBAction func pdfUserGuideAction(_ sender: Any) {
-        NSWorkspace.shared().openFile(AppConstants.pdfUserGuidePath)
-    }
 }
 
 // Int to Bool conversion
