@@ -8,6 +8,8 @@ class AppInitializer {
     
     private static var playerDelegate: PlayerDelegate?
     
+    private static var recorderDelegate: RecorderDelegateProtocol?
+    
     private static var appState: AppState?
     
     private static var audioGraph: AudioGraph?
@@ -32,7 +34,7 @@ class AppInitializer {
     
     static func initialize() {
         
-        configureLogging()
+//        configureLogging()
         
         // Load saved player state from app config file, and initialize the player with that state
         appState = AppStateIO.load()
@@ -52,6 +54,7 @@ class AppInitializer {
         player = Player(audioGraph!)
         
         recorder = Recorder(audioGraph!)
+        recorderDelegate = RecorderDelegate(recorder!)
         
         // Initialize playlist with playback sequence (repeat/shuffle) and track list
         let repeatMode = appState!.playlistState.repeatMode
@@ -99,5 +102,14 @@ class AppInitializer {
         }
         
         return playerDelegate!
+    }
+    
+    static func getRecorderDelegate() -> RecorderDelegateProtocol {
+        
+        if (!initialized) {
+            initialize()
+        }
+        
+        return recorderDelegate!
     }
 }

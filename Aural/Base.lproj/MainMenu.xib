@@ -23,7 +23,6 @@
                 <outlet property="btnPitchBypass" destination="OGV-jG-nOV" id="Ga3-rh-lAm"/>
                 <outlet property="btnPlayPause" destination="52R-Hv-S0B" id="mK4-VJ-VKN"/>
                 <outlet property="btnPreviousSearch" destination="iYr-nA-dwT" id="RgB-X8-iBJ"/>
-                <outlet property="btnRecord" destination="caX-PX-mby" id="hiF-6n-jGG"/>
                 <outlet property="btnRepeat" destination="Fpa-Ii-3YA" id="en0-OB-Uwa"/>
                 <outlet property="btnReverbBypass" destination="R9b-lC-8tk" id="EIK-S0-qLa"/>
                 <outlet property="btnShuffle" destination="kQL-4a-kyh" id="eJE-qZ-92B"/>
@@ -70,8 +69,6 @@
                 <outlet property="lblPitchValue" destination="Kwu-xp-8qk" id="Lla-uh-ar0"/>
                 <outlet property="lblPlayingTime" destination="4f4-mL-8YB" id="b70-tW-uxv"/>
                 <outlet property="lblPlaylistSummary" destination="PC9-RH-ZoK" id="etP-46-7Hc"/>
-                <outlet property="lblRecorderDuration" destination="Uem-Yb-AdQ" id="1Ji-Z3-50m"/>
-                <outlet property="lblRecorderFileSize" destination="hb6-qg-MCr" id="nE7-ok-Q5O"/>
                 <outlet property="lblReverbAmountValue" destination="iQV-Fy-dGc" id="OEZ-OZ-5oJ"/>
                 <outlet property="lblTimeOverlapValue" destination="TVy-7n-XEc" id="DPG-TR-pCL"/>
                 <outlet property="lblTimeStretchRateValue" destination="hQy-Wa-pgf" id="zm0-u6-mbw"/>
@@ -87,7 +84,6 @@
                 <outlet property="playlistView" destination="4Fk-6v-HSf" id="QZT-Zn-WBd"/>
                 <outlet property="playlistWorkSpinner" destination="Gb7-pn-6bV" id="ldq-jl-ZgH"/>
                 <outlet property="recorderTabViewButton" destination="oIR-f6-2g1" id="tor-ak-Efj"/>
-                <outlet property="recordingInfoBox" destination="XTn-sI-WaY" id="VLn-JF-Hyw"/>
                 <outlet property="reverbMenu" destination="6kC-nQ-BsO" id="T7b-0N-Gyx"/>
                 <outlet property="reverbSlider" destination="SVL-7D-xpL" id="qkM-tE-q03"/>
                 <outlet property="reverbTabViewButton" destination="fJP-YC-RHa" id="hc6-vn-KF7"/>
@@ -549,7 +545,7 @@ G1BhbiBTbGlkZXI
                                     <font key="font" size="11" name="GillSans"/>
                                     <tabViewItems>
                                         <tabViewItem label="EQ" identifier="1" id="McD-gg-qp9" userLabel="EQ">
-                                            <view key="view" ambiguous="YES" id="vC5-27-GiC">
+                                            <view key="view" id="vC5-27-GiC">
                                                 <rect key="frame" x="10" y="7" width="409" height="140"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -1545,7 +1541,7 @@ G1BhbiBTbGlkZXI
                                             </view>
                                         </tabViewItem>
                                         <tabViewItem label="Recorder" identifier="" id="ZgM-Kw-eIJ">
-                                            <view key="view" id="LZW-JZ-Gv7">
+                                            <view key="view" ambiguous="YES" id="LZW-JZ-Gv7">
                                                 <rect key="frame" x="10" y="7" width="409" height="140"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -1573,7 +1569,7 @@ G1BhbiBTbGlkZXI
                                                                         <font key="font" metaFont="smallSystem"/>
                                                                     </buttonCell>
                                                                     <connections>
-                                                                        <action selector="recorderAction:" target="Voe-Tx-rLC" id="mlm-nr-edj"/>
+                                                                        <action selector="recorderAction:" target="KtD-Gs-sZQ" id="JWp-fn-wtt"/>
                                                                     </connections>
                                                                 </button>
                                                                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Xv-Xz-5gy" userLabel="Format menu">
@@ -1942,6 +1938,16 @@ G1BhbiBTbGlkZXI
             <point key="canvasLocation" x="124.5" y="35.5"/>
         </window>
         <viewController id="THs-LC-lDb" userLabel="Playlist TableView Controller" customClass="PlaylistTableViewController" customModule="Aural" customModuleProvider="target"/>
+        <viewController id="KtD-Gs-sZQ" customClass="RecorderViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnRecord" destination="caX-PX-mby" id="j68-et-5po"/>
+                <outlet property="lblRecorderDuration" destination="Uem-Yb-AdQ" id="BQt-vw-cNS"/>
+                <outlet property="lblRecorderFileSize" destination="hb6-qg-MCr" id="lmG-GY-rW1"/>
+                <outlet property="recorderTabViewButton" destination="oIR-f6-2g1" id="j4Q-fS-rjb"/>
+                <outlet property="recordingInfoBox" destination="XTn-sI-WaY" id="GHR-Je-Qhb"/>
+                <outlet property="view" destination="LZW-JZ-Gv7" id="t2U-bE-eus"/>
+            </connections>
+        </viewController>
         <viewController id="qZU-Ni-Dah" userLabel="Preferences View Controller" customClass="PreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnAutoplayAfterAddingTracks" destination="auF-TB-XB2" id="y5D-wM-AkF"/>
@@ -2633,12 +2639,11 @@ Gw
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Player" identifier="1" id="qeG-g8-ZQR" userLabel="Player Prefs">
-                                <view key="view" id="IS8-3h-7Hr">
-                                    <rect key="frame" x="0.0" y="0.0" width="391" height="237"/>
+                                <view key="view" ambiguous="YES" id="IS8-3h-7Hr">
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWd-Fg-eFc" userLabel="Seek Length Label">
-                                            <rect key="frame" x="17" y="193" width="75" height="20"/>
+                                            <rect key="frame" x="17" y="-44" width="75" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Seek length" id="WCm-za-Inb">
                                                 <font key="font" size="13" name="GillSans"/>
@@ -2647,7 +2652,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBN-Nf-UUu">
-                                            <rect key="frame" x="301" y="191" width="74" height="20"/>
+                                            <rect key="frame" x="301" y="-46" width="74" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="5 sec" id="MOP-Kg-eKh">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="IDA-wd-8Dq">
@@ -2660,7 +2665,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="612-km-10n">
-                                            <rect key="frame" x="289" y="192" width="17" height="16"/>
+                                            <rect key="frame" x="289" y="-45" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="roundTextured" title="+" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YCo-PB-Os5">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -2671,7 +2676,7 @@ Gw
                                             </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Buf-vH-e4V">
-                                            <rect key="frame" x="89" y="192" width="17" height="16"/>
+                                            <rect key="frame" x="89" y="-45" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="roundTextured" title="-" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="41r-5H-7DS">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -2682,7 +2687,7 @@ Gw
                                             </connections>
                                         </button>
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z2P-US-UeC" userLabel="Seek Length Slider">
-                                            <rect key="frame" x="109" y="193" width="177" height="15"/>
+                                            <rect key="frame" x="109" y="-44" width="177" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="3" maxValue="300" doubleValue="50" tickMarkPosition="below" sliderType="linear" id="VGi-B0-wqx" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                                             <connections>
@@ -2690,7 +2695,7 @@ Gw
                                             </connections>
                                         </slider>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Odv-ow-YMl" userLabel="Volume Increment Label">
-                                            <rect key="frame" x="17" y="149" width="125" height="20"/>
+                                            <rect key="frame" x="17" y="-88" width="125" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Volume increment" id="X6O-m8-VA1">
                                                 <font key="font" size="13" name="GillSans"/>
@@ -2699,7 +2704,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Tz-kD-WEf" userLabel="Volume Increment Field">
-                                            <rect key="frame" x="320" y="147" width="40" height="20"/>
+                                            <rect key="frame" x="320" y="-90" width="40" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="5%" id="4m1-UC-XKP">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="TDK-Gt-XhG">
@@ -2712,7 +2717,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A38-ZO-IeG" userLabel="Volume Increment Stepper">
-                                            <rect key="frame" x="360" y="146" width="15" height="22"/>
+                                            <rect key="frame" x="360" y="-91" width="15" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="5" id="UQQ-Lh-1wc"/>
                                             <connections>
@@ -2720,7 +2725,7 @@ Gw
                                             </connections>
                                         </stepper>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSo-AZ-SOf" userLabel="Volume on startup Label">
-                                            <rect key="frame" x="17" y="112" width="125" height="20"/>
+                                            <rect key="frame" x="17" y="-125" width="125" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Volume on startup" id="Z5Z-1X-jSH">
                                                 <font key="font" size="13" name="GillSans"/>
@@ -2729,7 +2734,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4q7-No-vcO">
-                                            <rect key="frame" x="29" y="90" width="217" height="20"/>
+                                            <rect key="frame" x="29" y="-147" width="217" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="radio" title="Remember volume from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="5SJ-hR-n8a" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -2740,7 +2745,7 @@ Gw
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iIR-GC-hMW">
-                                            <rect key="frame" x="29" y="71" width="90" height="20"/>
+                                            <rect key="frame" x="29" y="-166" width="90" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="radio" title="Specify value" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="Wt6-sm-P6C" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -2751,7 +2756,7 @@ Gw
                                             </connections>
                                         </button>
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fUW-L3-FhW" userLabel="Startup Volume Slider">
-                                            <rect key="frame" x="121" y="72" width="177" height="15"/>
+                                            <rect key="frame" x="121" y="-165" width="177" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" sliderType="linear" id="leV-bZ-fp7" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                                             <connections>
@@ -2759,7 +2764,7 @@ Gw
                                             </connections>
                                         </slider>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCp-DK-wqv" userLabel="Startup Volume Field">
-                                            <rect key="frame" x="335" y="69" width="40" height="20"/>
+                                            <rect key="frame" x="335" y="-168" width="40" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" enabled="NO" state="on" alignment="right" title="50%" id="gFQ-a0-I2Z">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="8Oa-x9-krK">
@@ -2772,7 +2777,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kuz-EH-wmV" userLabel="Pan Delta label">
-                                            <rect key="frame" x="17" y="34" width="148" height="20"/>
+                                            <rect key="frame" x="17" y="-203" width="148" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Balance increment" id="kRA-YO-iBg">
                                                 <font key="font" size="13" name="GillSans"/>
@@ -2781,7 +2786,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="No1-X0-ONc" userLabel="Pan Delta Field">
-                                            <rect key="frame" x="320" y="32" width="40" height="20"/>
+                                            <rect key="frame" x="320" y="-205" width="40" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="10%" id="9Bb-bA-cat">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="zO6-pH-4pN">
@@ -2794,7 +2799,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xdc-nv-mZS" userLabel="Pan Delta Stepper">
-                                            <rect key="frame" x="360" y="31" width="15" height="22"/>
+                                            <rect key="frame" x="360" y="-206" width="15" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="10" id="fR7-Ff-J78"/>
                                             <connections>
@@ -2805,7 +2810,7 @@ Gw
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Playlist" identifier="2" id="YgI-hA-KJv" userLabel="Playlist Prefs">
-                                <view key="view" ambiguous="YES" id="IB3-v5-Fra">
+                                <view key="view" id="IB3-v5-Fra">
                                     <rect key="frame" x="0.0" y="0.0" width="391" height="237"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>

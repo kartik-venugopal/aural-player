@@ -4,7 +4,6 @@
 import Cocoa
 import AVFoundation
 
-// TODO: Can I have multiple app delegates ?
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     
@@ -123,12 +122,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     @IBOutlet weak var lblFilterMidRange: NSTextField!
     @IBOutlet weak var lblFilterTrebleRange: NSTextField!
     
-    // Recorder controls
-    @IBOutlet weak var btnRecord: NSButton!
-    @IBOutlet weak var lblRecorderDuration: NSTextField!
-    @IBOutlet weak var lblRecorderFileSize: NSTextField!
-    @IBOutlet weak var recordingInfoBox: NSBox!
-    
     // Parametric equalizer controls
     @IBOutlet weak var eqGlobalGainSlider: NSSlider!
     @IBOutlet weak var eqSlider1k: NSSlider!
@@ -172,17 +165,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     var playlistCollapsibleView: CollapsibleView?
     var fxCollapsibleView: CollapsibleView?
     
-    // Timer that periodically updates the recording duration (only when recorder is active)
-    var recorderTimer: ScheduledTaskExecutor?
-    
     // Current playlist search results
     var searchResults: SearchResults?
     
     var preferences: Preferences = Preferences.instance()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        
-//        userDefaults.
         
         window.setIsVisible(false)
         
@@ -238,8 +226,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
         
         playlistCollapsibleView = CollapsibleView(views: [playlistBox, playlistControlsBox])
         fxCollapsibleView = CollapsibleView(views: [fxBox])
-        
-        recorderTimer = ScheduledTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingInfo()}, queue: DispatchQueue.main)
         
         searchPanel.titlebarAppearsTransparent = true
         sortPanel.titlebarAppearsTransparent = true
@@ -971,24 +957,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     }
     
     @IBAction func closeAction(_ sender: AnyObject) {
-        
-        if let _ = player.getRecordingInfo() {
-            
-            // Recording ongoing, prompt the user to save/discard it
-            let response = UIElements.saveRecordingAlert.runModal()
-            
-            switch response {
-                
-            case RecordingAlertResponse.dontExit.rawValue: return
-            case RecordingAlertResponse.saveAndExit.rawValue: stopRecording()
-            case RecordingAlertResponse.discardAndExit.rawValue: player.deleteRecording()
-                
-            // Impossible
-            default: return
-                
-            }
-        }
-        
         NSApplication.shared().terminate(self)
     }
     
@@ -1303,59 +1271,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, EventSubscriber {
     
     private func isPlaylistShown() -> Bool {
         return playlistCollapsibleView?.hidden == false
-    }
-    
-    @IBAction func recorderAction(_ sender: Any) {
-        
-        let isRecording: Bool = player.getRecordingInfo() != nil
-        
-        if (isRecording) {
-            stopRecording()
-        } else {
-            
-            // Only AAC format works for now
-            player.startRecording(RecordingFormat.aac)
-            btnRecord.image = UIConstants.imgRecorderStop
-            recorderTimer?.startOrResume()
-            lblRecorderDuration.stringValue = UIConstants.zeroDurationString
-            lblRecorderFileSize.stringValue = Size.ZERO.toString()
-            recordingInfoBox.isHidden = false
-            
-            (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
-            recorderTabViewButton.needsDisplay = true
-        }
-    }
-    
-    func stopRecording() {
-        
-        player.stopRecording()
-        btnRecord.image = UIConstants.imgRecord
-        recorderTimer?.pause()
-        
-        (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = false
-        recorderTabViewButton.needsDisplay = true
-        
-        saveRecording()
-        recordingInfoBox.isHidden = true
-    }
-    
-    func saveRecording() {
-        
-        let dialog = UIElements.saveRecordingDialog
-        let modalResponse = dialog.runModal()
-        
-        if (modalResponse == NSModalResponseOK) {
-            player.saveRecording(dialog.url!)
-        } else {
-            player.deleteRecording()
-        }
-    }
-    
-    func updateRecordingInfo() {
-        
-        let recInfo = player.getRecordingInfo()!
-        lblRecorderDuration.stringValue = Utils.formatDuration(recInfo.duration)
-        lblRecorderFileSize.stringValue = recInfo.fileSize.toString()
     }
     
     @IBAction func addFilesMenuItemAction(_ sender: Any) {
