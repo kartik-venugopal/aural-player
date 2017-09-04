@@ -1,7 +1,7 @@
 import Cocoa
 
 /*
-    Encapsulates UI state
+ Encapsulates UI state
  */
 class UIState {
     
@@ -13,9 +13,9 @@ class UIState {
 }
 
 /*
-    Encapsulates player state
+ Encapsulates audio graph state
  */
-class PlayerState {
+class AudioGraphState {
     
     var volume: Float = AppDefaults.volume
     var muted: Bool = AppDefaults.muted
@@ -60,7 +60,7 @@ class PlayerState {
 }
 
 /*
-    Encapsulates playlist state
+ Encapsulates playlist state
  */
 class PlaylistState {
     
@@ -72,25 +72,27 @@ class PlaylistState {
 }
 
 /*
-    Encapsulates all application state. It is persisted to disk upon exit and loaded into the application upon startup.
+ Encapsulates all application state. It is persisted to disk upon exit and loaded into the application upon startup.
+ 
+ TODO: Make this class conform to different protocols for access/mutation
  */
 class AppState {
     
     var uiState: UIState
-    var playerState: PlayerState
+    var audioGraphState: AudioGraphState
     var playlistState: PlaylistState
     
     static let defaults: AppState = AppState()
     
-    init() {
+    private init() {
         self.uiState = UIState()
-        self.playerState = PlayerState()
+        self.audioGraphState = AudioGraphState()
         self.playlistState = PlaylistState()
     }
     
-    init(_ uiState: UIState, _ playerState: PlayerState, _ playlistState: PlaylistState) {
+    init(_ uiState: UIState, _ audioGraphState: AudioGraphState, _ playlistState: PlaylistState) {
         self.uiState = uiState
-        self.playerState = playerState
+        self.audioGraphState = audioGraphState
         self.playlistState = playlistState
     }
     
@@ -109,65 +111,65 @@ class AppState {
         
         dict["ui"] = uiDict as AnyObject
         
-        var playerDict = [NSString: AnyObject]()
+        var audioGraphDict = [NSString: AnyObject]()
         
-        playerDict["volume"] = playerState.volume as NSNumber
-        playerDict["muted"] = playerState.muted as AnyObject
-        playerDict["balance"] = playerState.balance as NSNumber
+        audioGraphDict["volume"] = audioGraphState.volume as NSNumber
+        audioGraphDict["muted"] = audioGraphState.muted as AnyObject
+        audioGraphDict["balance"] = audioGraphState.balance as NSNumber
         
         var eqDict = [NSString: AnyObject]()
-        eqDict["globalGain"] = playerState.eqGlobalGain as NSNumber
+        eqDict["globalGain"] = audioGraphState.eqGlobalGain as NSNumber
         
         var eqBandsDict = [NSString: NSNumber]()
-        for (freq,gain) in playerState.eqBands {
+        for (freq,gain) in audioGraphState.eqBands {
             eqBandsDict[String(freq) as NSString] = gain as NSNumber
         }
         eqDict["bands"] = eqBandsDict as AnyObject
         
-        playerDict["eq"] = eqDict as AnyObject
+        audioGraphDict["eq"] = eqDict as AnyObject
         
         var pitchDict = [NSString: AnyObject]()
-        pitchDict["bypass"] = playerState.pitchBypass as AnyObject
-        pitchDict["pitch"] = playerState.pitch as NSNumber
-        pitchDict["overlap"] = playerState.pitchOverlap as NSNumber
+        pitchDict["bypass"] = audioGraphState.pitchBypass as AnyObject
+        pitchDict["pitch"] = audioGraphState.pitch as NSNumber
+        pitchDict["overlap"] = audioGraphState.pitchOverlap as NSNumber
         
-        playerDict["pitch"] = pitchDict as AnyObject
+        audioGraphDict["pitch"] = pitchDict as AnyObject
         
         var timeDict = [NSString: AnyObject]()
-        timeDict["bypass"] = playerState.timeBypass as AnyObject
-        timeDict["rate"] = playerState.timeStretchRate as NSNumber
-        timeDict["overlap"] = playerState.timeOverlap as NSNumber
+        timeDict["bypass"] = audioGraphState.timeBypass as AnyObject
+        timeDict["rate"] = audioGraphState.timeStretchRate as NSNumber
+        timeDict["overlap"] = audioGraphState.timeOverlap as NSNumber
         
-        playerDict["time"] = timeDict as AnyObject
+        audioGraphDict["time"] = timeDict as AnyObject
         
         var reverbDict = [NSString: AnyObject]()
-        reverbDict["bypass"] = playerState.reverbBypass as AnyObject
-        reverbDict["preset"] = playerState.reverbPreset.rawValue as AnyObject
-        reverbDict["amount"] = playerState.reverbAmount as NSNumber
+        reverbDict["bypass"] = audioGraphState.reverbBypass as AnyObject
+        reverbDict["preset"] = audioGraphState.reverbPreset.rawValue as AnyObject
+        reverbDict["amount"] = audioGraphState.reverbAmount as NSNumber
         
-        playerDict["reverb"] = reverbDict as AnyObject
+        audioGraphDict["reverb"] = reverbDict as AnyObject
         
         var delayDict = [NSString: AnyObject]()
-        delayDict["bypass"] = playerState.delayBypass as AnyObject
-        delayDict["amount"] = playerState.delayAmount as NSNumber
-        delayDict["time"] = playerState.delayTime as NSNumber
-        delayDict["feedback"] = playerState.delayFeedback as NSNumber
-        delayDict["lowPassCutoff"] = playerState.delayLowPassCutoff as NSNumber
+        delayDict["bypass"] = audioGraphState.delayBypass as AnyObject
+        delayDict["amount"] = audioGraphState.delayAmount as NSNumber
+        delayDict["time"] = audioGraphState.delayTime as NSNumber
+        delayDict["feedback"] = audioGraphState.delayFeedback as NSNumber
+        delayDict["lowPassCutoff"] = audioGraphState.delayLowPassCutoff as NSNumber
         
-        playerDict["delay"] = delayDict as AnyObject
+        audioGraphDict["delay"] = delayDict as AnyObject
         
         var filterDict = [NSString: AnyObject]()
-        filterDict["bypass"] = playerState.filterBypass as AnyObject
-        filterDict["bassMin"] = playerState.filterBassMin as NSNumber
-        filterDict["bassMax"] = playerState.filterBassMax as NSNumber
-        filterDict["midMin"] = playerState.filterMidMin as NSNumber
-        filterDict["midMax"] = playerState.filterMidMax as NSNumber
-        filterDict["trebleMin"] = playerState.filterTrebleMin as NSNumber
-        filterDict["trebleMax"] = playerState.filterTrebleMax as NSNumber
+        filterDict["bypass"] = audioGraphState.filterBypass as AnyObject
+        filterDict["bassMin"] = audioGraphState.filterBassMin as NSNumber
+        filterDict["bassMax"] = audioGraphState.filterBassMax as NSNumber
+        filterDict["midMin"] = audioGraphState.filterMidMin as NSNumber
+        filterDict["midMax"] = audioGraphState.filterMidMax as NSNumber
+        filterDict["trebleMin"] = audioGraphState.filterTrebleMin as NSNumber
+        filterDict["trebleMax"] = audioGraphState.filterTrebleMax as NSNumber
         
-        playerDict["filter"] = filterDict as AnyObject
+        audioGraphDict["filter"] = filterDict as AnyObject
         
-        dict["player"] = playerDict as AnyObject
+        dict["audioGraph"] = audioGraphDict as AnyObject
         
         var playlistDict = [NSString: AnyObject]()
         
@@ -188,7 +190,7 @@ class AppState {
         // UI state
         
         if let uiDict = (jsonObject["ui"] as? NSDictionary) {
-        
+            
             if let showPlaylist = uiDict["showPlaylist"] as? Bool {
                 state.uiState.showPlaylist = showPlaylist
             }
@@ -206,28 +208,28 @@ class AppState {
             }
         }
         
-        // Player state
+        // Audio graph state
         
-        if let playerDict = (jsonObject["player"] as? NSDictionary) {
-        
-            let playerState = state.playerState
+        if let audioGraphDict = (jsonObject["audioGraph"] as? NSDictionary) {
             
-            if let volume = playerDict["volume"] as? NSNumber {
-                playerState.volume = volume.floatValue
+            let audioGraphState = state.audioGraphState
+            
+            if let volume = audioGraphDict["volume"] as? NSNumber {
+                audioGraphState.volume = volume.floatValue
             }
             
-            if let muted = playerDict["muted"] as? Bool {
-                playerState.muted = muted
+            if let muted = audioGraphDict["muted"] as? Bool {
+                audioGraphState.muted = muted
             }
             
-            if let balance = playerDict["balance"] as? NSNumber {
-                playerState.balance = balance.floatValue
+            if let balance = audioGraphDict["balance"] as? NSNumber {
+                audioGraphState.balance = balance.floatValue
             }
             
-            if let eqDict = (playerDict["eq"] as? NSDictionary) {
-            
+            if let eqDict = (audioGraphDict["eq"] as? NSDictionary) {
+                
                 if let globalGain = eqDict["globalGain"] as? NSNumber {
-                    playerState.eqGlobalGain = globalGain.floatValue
+                    audioGraphState.eqGlobalGain = globalGain.floatValue
                 }
                 
                 if let eqBands: NSDictionary = eqDict["bands"] as? NSDictionary {
@@ -239,7 +241,7 @@ class AppState {
                             if let freqInt = Int(freqStr) {
                                 
                                 if let gainNum = gain as? NSNumber {
-                                    playerState.eqBands[freqInt] = gainNum.floatValue
+                                    audioGraphState.eqBands[freqInt] = gainNum.floatValue
                                 }
                             }
                         }
@@ -247,110 +249,110 @@ class AppState {
                 }
             }
             
-            if let pitchDict = (playerDict["pitch"] as? NSDictionary) {
+            if let pitchDict = (audioGraphDict["pitch"] as? NSDictionary) {
                 
                 if let bypass = pitchDict["bypass"] as? Bool {
-                    playerState.pitchBypass = bypass
+                    audioGraphState.pitchBypass = bypass
                 }
                 
                 if let pitch = pitchDict["pitch"] as? NSNumber {
-                    playerState.pitch = pitch.floatValue
+                    audioGraphState.pitch = pitch.floatValue
                 }
                 
                 if let overlap = pitchDict["overlap"] as? NSNumber {
-                    playerState.pitchOverlap = overlap.floatValue
+                    audioGraphState.pitchOverlap = overlap.floatValue
                 }
             }
             
-            if let timeDict = (playerDict["time"] as? NSDictionary) {
+            if let timeDict = (audioGraphDict["time"] as? NSDictionary) {
                 
                 if let bypass = timeDict["bypass"] as? Bool {
-                    playerState.timeBypass = bypass
+                    audioGraphState.timeBypass = bypass
                 }
                 
                 if let rate = timeDict["rate"] as? NSNumber {
-                    playerState.timeStretchRate = rate.floatValue
+                    audioGraphState.timeStretchRate = rate.floatValue
                 }
                 
                 if let timeOverlap = timeDict["overlap"] as? NSNumber {
-                    playerState.timeOverlap = timeOverlap.floatValue
+                    audioGraphState.timeOverlap = timeOverlap.floatValue
                 }
             }
             
-            if let reverbDict = (playerDict["reverb"] as? NSDictionary) {
+            if let reverbDict = (audioGraphDict["reverb"] as? NSDictionary) {
                 
                 if let bypass = reverbDict["bypass"] as? Bool {
-                    playerState.reverbBypass = bypass
+                    audioGraphState.reverbBypass = bypass
                 }
                 
                 if let preset = reverbDict["preset"] as? String {
                     if let reverbPreset = ReverbPresets(rawValue: preset) {
-                        playerState.reverbPreset = reverbPreset
+                        audioGraphState.reverbPreset = reverbPreset
                     }
                 }
                 
                 if let amount = reverbDict["amount"] as? NSNumber {
-                    playerState.reverbAmount = amount.floatValue
+                    audioGraphState.reverbAmount = amount.floatValue
                 }
             }
             
-            if let delayDict = (playerDict["delay"] as? NSDictionary) {
+            if let delayDict = (audioGraphDict["delay"] as? NSDictionary) {
                 
                 if let bypass = delayDict["bypass"] as? Bool {
-                    playerState.delayBypass = bypass
+                    audioGraphState.delayBypass = bypass
                 }
                 
                 if let amount = delayDict["amount"] as? NSNumber {
-                    playerState.delayAmount = amount.floatValue
+                    audioGraphState.delayAmount = amount.floatValue
                 }
                 
                 if let time = delayDict["time"] as? NSNumber {
-                    playerState.delayTime = time.doubleValue
+                    audioGraphState.delayTime = time.doubleValue
                 }
                 
                 if let feedback = delayDict["feedback"] as? NSNumber {
-                    playerState.delayFeedback = feedback.floatValue
+                    audioGraphState.delayFeedback = feedback.floatValue
                 }
                 
                 if let cutoff = delayDict["lowPassCutoff"] as? NSNumber {
-                    playerState.delayLowPassCutoff = cutoff.floatValue
+                    audioGraphState.delayLowPassCutoff = cutoff.floatValue
                 }
             }
             
-            if let filterDict = (playerDict["filter"] as? NSDictionary) {
+            if let filterDict = (audioGraphDict["filter"] as? NSDictionary) {
                 
                 if let bypass = filterDict["bypass"] as? Bool {
-                    playerState.filterBypass = bypass
+                    audioGraphState.filterBypass = bypass
                 }
                 
                 if let bassMin = (filterDict["bassMin"] as? NSNumber) {
-                    playerState.filterBassMin = bassMin.floatValue
+                    audioGraphState.filterBassMin = bassMin.floatValue
                 }
                 
                 if let bassMax = (filterDict["bassMax"] as? NSNumber) {
-                    playerState.filterBassMax = bassMax.floatValue
+                    audioGraphState.filterBassMax = bassMax.floatValue
                 }
                 
                 if let midMin = (filterDict["midMin"] as? NSNumber) {
-                    playerState.filterMidMin = midMin.floatValue
+                    audioGraphState.filterMidMin = midMin.floatValue
                 }
                 
                 if let midMax = (filterDict["midMax"] as? NSNumber) {
-                    playerState.filterMidMax = midMax.floatValue
+                    audioGraphState.filterMidMax = midMax.floatValue
                 }
                 
                 if let trebleMin = (filterDict["trebleMin"] as? NSNumber) {
-                    playerState.filterTrebleMin = trebleMin.floatValue
+                    audioGraphState.filterTrebleMin = trebleMin.floatValue
                 }
                 
                 if let trebleMax = (filterDict["trebleMax"] as? NSNumber) {
-                    playerState.filterTrebleMax = trebleMax.floatValue
+                    audioGraphState.filterTrebleMax = trebleMax.floatValue
                 }
             }
         }
         
         if let playlistDict = (jsonObject["playlist"] as? NSDictionary) {
-        
+            
             if let repeatModeStr = playlistDict["repeatMode"] as? String {
                 if let repeatMode = RepeatMode(rawValue: repeatModeStr) {
                     state.playlistState.repeatMode = repeatMode

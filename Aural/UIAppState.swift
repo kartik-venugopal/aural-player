@@ -108,7 +108,7 @@ class UIAppState {
         self.repeatMode = appState.playlistState.repeatMode
         self.shuffleMode = appState.playlistState.shuffleMode
         
-        let playerState = appState.playerState
+        let playerState = appState.audioGraphState
         
         if (preferences.volumeOnStartup == .rememberFromLastAppLaunch) {
             self.volume = round(playerState.volume * AppConstants.volumeConversion_playerToUI)

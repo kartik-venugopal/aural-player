@@ -1,13 +1,9 @@
-
 import Cocoa
 
 /*
-    Contract for an audio player that is responsible for actual execution of playback control requests (play/pause/next/previous track, etc)
-*/
-protocol AuralPlayer {
-    
-    // Initializes the player with state remembered from the last app execution
-    func loadState(_ state: PlayerState)
+ Contract for an audio player that is responsible for actual execution of playback control requests (play/pause/next/previous track, etc)
+ */
+protocol PlayerProtocol {
     
     // Plays a track associated with a new playback session
     func play(_ playbackSession: PlaybackSession)
@@ -26,10 +22,4 @@ protocol AuralPlayer {
     
     // Gets the playback position (in seconds) of the currently playing track
     func getSeekPosition() -> Double
-    
-    // Encapsulates all current player state in an object and returns it. This is useful when persisting "remembered" player state prior to app shutdown
-    func getState() -> PlayerState
-    
-    // Does anything that needs to be done before the app exits - releasing resources
-    func tearDown()
 }

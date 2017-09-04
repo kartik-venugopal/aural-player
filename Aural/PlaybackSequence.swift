@@ -263,7 +263,7 @@ class PlaybackSequence: PlaylistChangeListener {
         
         // NOTE - If the result is nil, don't modify the cursor, because next() should not end the currently playing track if there is one
         
-        if (tracksCount == 0 || cursor == nil) {
+        if (tracksCount == 0 || tracksCount == 1 || cursor == nil) {
             return nil
         }
         
@@ -357,7 +357,7 @@ class PlaybackSequence: PlaylistChangeListener {
         
         // NOTE - If the result is nil, don't modify the cursor, because previous() should not end the currently playing track if there is one
         
-        if (tracksCount == 0 || cursor == nil) {
+        if (tracksCount == 0 || tracksCount == 1 || cursor == nil) {
             return nil
         }
         

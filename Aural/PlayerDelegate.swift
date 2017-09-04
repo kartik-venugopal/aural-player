@@ -11,11 +11,17 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     
     private var appState: AppState
     
+    // Audio graph
+    private var audioGraph: AudioGraphProtocol
+    
     // The current player playlist
     private var playlist: Playlist
     
     // The actual audio player
-    private var player: Player
+    private var player: PlayerProtocol
+    
+    // Recorder
+    private var recorder: RecorderProtocol
     
     // Currently playing track
     private var playingTrack: IndexedTrack?
@@ -32,9 +38,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         return singleton
     }
     
-    init(_ player: Player, _ appState: AppState, _ playlist: Playlist) {
+    init(_ player: PlayerProtocol, _ audioGraph: AudioGraphProtocol, _ recorder: RecorderProtocol, _ appState: AppState, _ playlist: Playlist) {
         
         self.player = player
+        self.audioGraph = audioGraph
+        self.recorder = recorder
+        
         self.playlist = playlist
         self.appState = appState
         
@@ -586,24 +595,24 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     }
     
     func getVolume() -> Float {
-        return round(player.getVolume() * AppConstants.volumeConversion_playerToUI)
+        return round(audioGraph.getVolume() * AppConstants.volumeConversion_playerToUI)
     }
     
     func setVolume(_ volumePercentage: Float) {
-        player.setVolume(volumePercentage * AppConstants.volumeConversion_UIToPlayer)
+        audioGraph.setVolume(volumePercentage * AppConstants.volumeConversion_UIToPlayer)
     }
     
     func increaseVolume() -> Float {
-        let curVolume = player.getVolume()
+        let curVolume = audioGraph.getVolume()
         let newVolume = min(1, curVolume + preferences.volumeDelta)
-        player.setVolume(newVolume)
+        audioGraph.setVolume(newVolume)
         return round(newVolume * AppConstants.volumeConversion_playerToUI)
     }
     
     func decreaseVolume() -> Float {
-        let curVolume = player.getVolume()
+        let curVolume = audioGraph.getVolume()
         let newVolume = max(0, curVolume - preferences.volumeDelta)
-        player.setVolume(newVolume)
+        audioGraph.setVolume(newVolume)
         return round(newVolume * AppConstants.volumeConversion_playerToUI)
     }
     
@@ -611,29 +620,29 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         let muted = isMuted()
         if muted {
-            player.unmute()
+            audioGraph.unmute()
         } else {
-            player.mute()
+            audioGraph.mute()
         }
         
         return !muted
     }
     
     func isMuted() -> Bool {
-        return player.isMuted()
+        return audioGraph.isMuted()
     }
     
     func getBalance() -> Float {
-        return round(player.getBalance() * AppConstants.panConversion_playerToUI)
+        return round(audioGraph.getBalance() * AppConstants.panConversion_playerToUI)
     }
     
     func setBalance(_ balance: Float) {
-        player.setBalance(balance * AppConstants.panConversion_UIToPlayer)
+        audioGraph.setBalance(balance * AppConstants.panConversion_UIToPlayer)
     }
     
     func panLeft() -> Float {
         
-        let curBalance = player.getBalance()
+        let curBalance = audioGraph.getBalance()
         var newBalance = max(-1, curBalance - preferences.panDelta)
         
         // Snap to center
@@ -641,14 +650,14 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             newBalance = 0
         }
         
-        player.setBalance(newBalance)
+        audioGraph.setBalance(newBalance)
         
         return round(newBalance * AppConstants.panConversion_playerToUI)
     }
     
     func panRight() -> Float {
         
-        let curBalance = player.getBalance()
+        let curBalance = audioGraph.getBalance()
         var newBalance = min(1, curBalance + preferences.panDelta)
         
         // Snap to center
@@ -656,110 +665,110 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
             newBalance = 0
         }
         
-        player.setBalance(newBalance)
+        audioGraph.setBalance(newBalance)
         
         return round(newBalance * AppConstants.panConversion_playerToUI)
     }
     
     // Sets global gain (or preamp) for the equalizer
     func setEQGlobalGain(_ gain: Float) {
-        player.setEQGlobalGain(gain)
+        audioGraph.setEQGlobalGain(gain)
     }
     
     func setEQBand(_ frequency: Int, gain: Float) {
-        player.setEQBand(frequency, gain: gain)
+        audioGraph.setEQBand(frequency, gain: gain)
     }
     
     func setEQBands(_ bands: [Int : Float]) {
-        player.setEQBands(bands)
+        audioGraph.setEQBands(bands)
     }
     
     func togglePitchBypass() -> Bool {
-        return player.togglePitchBypass()
+        return audioGraph.togglePitchBypass()
     }
     
     func setPitch(_ pitch: Float) -> String {
         // Convert from octaves (-2, 2) to cents (-2400, 2400)
-        player.setPitch(pitch * AppConstants.pitchConversion_UIToPlayer)
+        audioGraph.setPitch(pitch * AppConstants.pitchConversion_UIToPlayer)
         return ValueFormatter.formatPitch(pitch)
     }
     
     func setPitchOverlap(_ overlap: Float) -> String {
-        player.setPitchOverlap(overlap)
+        audioGraph.setPitchOverlap(overlap)
         return ValueFormatter.formatOverlap(overlap)
     }
     
     func toggleTimeBypass() -> Bool {
-        return player.toggleTimeBypass()
+        return audioGraph.toggleTimeBypass()
     }
     
     func isTimeBypass() -> Bool {
-        return player.isTimeBypass()
+        return audioGraph.isTimeBypass()
     }
     
     func setTimeStretchRate(_ rate: Float) -> String {
-        player.setTimeStretchRate(rate)
+        audioGraph.setTimeStretchRate(rate)
         return ValueFormatter.formatTimeStretchRate(rate)
     }
     
     func setTimeOverlap(_ overlap: Float) -> String {
-        player.setTimeOverlap(overlap)
+        audioGraph.setTimeOverlap(overlap)
         return ValueFormatter.formatOverlap(overlap)
     }
     
     func toggleReverbBypass() -> Bool {
-        return player.toggleReverbBypass()
+        return audioGraph.toggleReverbBypass()
     }
     
     func setReverb(_ preset: ReverbPresets) {
-        player.setReverb(preset)
+        audioGraph.setReverb(preset)
     }
     
     func setReverbAmount(_ amount: Float) -> String {
-        player.setReverbAmount(amount)
+        audioGraph.setReverbAmount(amount)
         return ValueFormatter.formatReverbAmount(amount)
     }
     
     func toggleDelayBypass() -> Bool {
-        return player.toggleDelayBypass()
+        return audioGraph.toggleDelayBypass()
     }
     
     func setDelayAmount(_ amount: Float) -> String {
-        player.setDelayAmount(amount)
+        audioGraph.setDelayAmount(amount)
         return ValueFormatter.formatDelayAmount(amount)
     }
     
     func setDelayTime(_ time: Double) -> String {
-        player.setDelayTime(time)
+        audioGraph.setDelayTime(time)
         return ValueFormatter.formatDelayTime(time)
     }
     
     func setDelayFeedback(_ percent: Float) -> String {
-        player.setDelayFeedback(percent)
+        audioGraph.setDelayFeedback(percent)
         return ValueFormatter.formatDelayFeedback(percent)
     }
     
     func setDelayLowPassCutoff(_ cutoff: Float) -> String {
-        player.setDelayLowPassCutoff(cutoff)
+        audioGraph.setDelayLowPassCutoff(cutoff)
         return ValueFormatter.formatDelayLowPassCutoff(cutoff)
     }
     
     func toggleFilterBypass() -> Bool {
-        return player.toggleFilterBypass()
+        return audioGraph.toggleFilterBypass()
     }
     
     func setFilterBassBand(_ min: Float, _ max: Float) -> String {
-        player.setFilterBassBand(min, max)
+        audioGraph.setFilterBassBand(min, max)
         return ValueFormatter.formatFilterFrequencyRange(min, max)
     }
     
     func setFilterMidBand(_ min: Float, _ max: Float) -> String {
-        player.setFilterMidBand(min, max)
+        audioGraph.setFilterMidBand(min, max)
         return ValueFormatter.formatFilterFrequencyRange(min, max)
     }
     
     func setFilterTrebleBand(_ min: Float, _ max: Float) -> String {
-        player.setFilterTrebleBand(min, max)
+        audioGraph.setFilterTrebleBand(min, max)
         return ValueFormatter.formatFilterFrequencyRange(min, max)
     }
     
@@ -776,36 +785,36 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     }
     
     func startRecording(_ format: RecordingFormat) {
-        player.startRecording(format)
+        recorder.startRecording(format)
     }
     
     func stopRecording() {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.player.stopRecording()
+            self.recorder.stopRecording()
         }
     }
     
     func saveRecording(_ url: URL) {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.player.saveRecording(url)
+            self.recorder.saveRecording(url)
         }
     }
     
     func deleteRecording() {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.player.deleteRecording()
+            self.recorder.deleteRecording()
         }
     }
     
     func getRecordingInfo() -> RecordingInfo? {
-        return player.getRecordingInfo()
+        return recorder.getRecordingInfo()
     }
     
     func appExiting(_ uiState: UIState) {
         
-        player.tearDown()
+        audioGraph.tearDown()
         
-        let playerState = player.getState()
+        let playerState = audioGraph.getPersistentState()
         
         let playlistState = playlist.getState()
         

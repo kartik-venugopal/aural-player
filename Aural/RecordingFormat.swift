@@ -1,7 +1,7 @@
 /*
     An enumeration of all allowed recording file formats
  
-    NOTE - Currently, only AAC is supported. MP3 support is planned.
+    NOTE - Currently, only AAC is supported. MP3 support is tentatively planned.
  */
 
 import Cocoa

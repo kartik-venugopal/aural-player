@@ -1,10 +1,10 @@
 /*
-Contract for player-level operations to tune the sound of the player - volume, panning, equalizer (EQ) bands, sound effects.
-*/
+ Contract for player-level operations to tune the sound of the player - volume, panning, equalizer (EQ) bands, sound effects.
+ */
 import Cocoa
 import AVFoundation
 
-protocol AuralSoundTuner {
+protocol AudioGraphProtocol {
     
     // Retrieves the current player volume
     func getVolume() -> Float
@@ -77,7 +77,7 @@ protocol AuralSoundTuner {
     
     // Sets the delay feedback, in percentage, specified as a value between -100 and 100
     func setDelayFeedback(_ percent: Float)
-
+    
     // Sets the delay low pass cutoff frequency, in Hz, specified as a value between 10 and 20k
     func setDelayLowPassCutoff(_ cutoff: Float)
     
@@ -92,4 +92,20 @@ protocol AuralSoundTuner {
     
     // Sets the treble band of the filter to the specified frequency range
     func setFilterTrebleBand(_ min: Float, _ max: Float)
+    
+    func getPersistentState() -> AudioGraphState
+    
+    func tearDown()
+}
+
+protocol PlayerGraphProtocol {
+    
+    var playerNode: AVAudioPlayerNode {get}
+    
+    func reconnectPlayerNodeWithFormat(_ format: AVAudioFormat)
+}
+
+protocol RecorderGraphProtocol {
+    
+    var nodeForRecorderTap: AVAudioNode {get}
 }

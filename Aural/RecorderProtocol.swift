@@ -1,10 +1,10 @@
 /*
-    Contract for an audio recorder that is responsible for recording functionality
+ Contract for an audio recorder that is responsible for recording functionality
  */
 
 import Cocoa
 
-protocol AuralRecorder {
+protocol RecorderProtocol {
     
     // Starts a recording with the specified format
     func startRecording(_ format: RecordingFormat)

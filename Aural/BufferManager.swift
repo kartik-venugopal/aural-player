@@ -24,7 +24,7 @@ class BufferManager {
     // Player node used for actual playback
     private var playerNode: AVAudioPlayerNode
     
-    init(playerNode: AVAudioPlayerNode) {
+    init(_ playerNode: AVAudioPlayerNode) {
         
         self.playerNode = playerNode
         

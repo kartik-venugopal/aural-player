@@ -1,14 +1,14 @@
 /*
-    Provides all recording functionality (start/stop/save/delete), and maintains all state for the current recording (start time, file path, etc)
+ Provides all recording functionality (start/stop/save/delete), and maintains all state for the current recording (start time, file path, etc)
  */
 
 import Cocoa
 import AVFoundation
 
-class Recorder {
-   
+class Recorder: RecorderProtocol {
+    
     // The audio engine that is to be tapped for recording data
-    private var audioEngine: AVAudioEngine
+    private var graph: RecorderGraphProtocol
     
     // The temporary file that will hold the recording, till the user specifies a path
     private var tempRecordingFilePath: String?
@@ -31,8 +31,8 @@ class Recorder {
         return formatter
     }()
     
-    init(_ audioEngine: AVAudioEngine) {
-        self.audioEngine = audioEngine
+    init(_ graph: RecorderGraphProtocol) {
+        self.graph = graph
     }
     
     func startRecording(_ format: RecordingFormat) {
@@ -53,7 +53,7 @@ class Recorder {
         }
         
         // Install a tap on the audio engine to start receiving audio data
-        self.audioEngine.mainMixerNode.installTap(onBus: 0, bufferSize: 1024, format: nil, block: { buffer, when in
+        graph.nodeForRecorderTap.installTap(onBus: 0, bufferSize: 1024, format: nil, block: { buffer, when in
             
             do {
                 try recFile?.write(from: buffer)
@@ -71,7 +71,7 @@ class Recorder {
         
         // This sleep is to make up for the lag in the tap. In other words, continue to collect tapped data for half a second after the stop is requested.
         usleep(Recorder.halfSecondMicros)
-        audioEngine.mainMixerNode.removeTap(onBus: 0)
+        graph.nodeForRecorderTap.removeTap(onBus: 0)
         isRecording = false
     }
     

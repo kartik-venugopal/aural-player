@@ -10,7 +10,11 @@ class AppInitializer {
     
     private static var appState: AppState?
     
+    private static var audioGraph: AudioGraph?
+    
     private static var player: Player?
+    
+    private static var recorder: Recorder?
     
     private static var playlist: Playlist?
     
@@ -40,12 +44,14 @@ class AppInitializer {
         // Initialize the player
         let preferences = Preferences.instance()
         
-        player = Player()
-        player!.loadState(appState!.playerState)
-        
+        audioGraph = AudioGraph(appState!.audioGraphState)
         if (preferences.volumeOnStartup == .specific) {
-            player?.setVolume(preferences.startupVolumeValue)
+            audioGraph?.setVolume(preferences.startupVolumeValue)
         }
+        
+        player = Player(audioGraph!)
+        
+        recorder = Recorder(audioGraph!)
         
         // Initialize playlist with playback sequence (repeat/shuffle) and track list
         let repeatMode = appState!.playlistState.repeatMode
@@ -54,7 +60,7 @@ class AppInitializer {
         playlist = Playlist(repeatMode, shuffleMode)
         
         // Initialize playerDeleage with player, playlist, and app state
-        playerDelegate = PlayerDelegate(player!, appState!, playlist!)
+        playerDelegate = PlayerDelegate(player!, audioGraph!, recorder!, appState!, playlist!)
         
         initialized = true
     }
