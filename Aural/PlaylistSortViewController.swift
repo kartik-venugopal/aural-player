@@ -19,7 +19,7 @@ class PlaylistSortViewController: NSViewController {
     
     @IBOutlet weak var playlistView: NSTableView!
     
-    private var playlist: AuralPlaylistControlDelegate = AppInitializer.getPlaylistControlDelegate()
+    private var playlist: AuralPlaylistControlDelegate = ObjectGraph.getPlaylistControlDelegate()
     
     override func viewDidLoad() {
         sortPanel.titlebarAppearsTransparent = true

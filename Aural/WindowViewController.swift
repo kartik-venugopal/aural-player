@@ -26,7 +26,7 @@ class WindowViewController: NSViewController, MessageSubscriber {
     
     override func viewDidLoad() {
         
-        let appState = AppInitializer.getUIAppState()
+        let appState = ObjectGraph.getUIAppState()
         
         playlistCollapsibleView = CollapsibleView(views: [playlistBox, playlistControlsBox])
         fxCollapsibleView = CollapsibleView(views: [fxBox])
@@ -191,7 +191,7 @@ class WindowViewController: NSViewController, MessageSubscriber {
     
     func saveUIState() {
         
-        let appState = AppInitializer.getAppState()
+        let appState = ObjectGraph.getAppState()
         
         let uiState = UIState()
         uiState.windowLocationX = Float(window.frame.origin.x)

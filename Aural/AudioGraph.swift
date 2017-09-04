@@ -51,9 +51,16 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         audioEngineHelper.connectNodes()
         audioEngineHelper.prepareAndStart()
         
-        playerVolume = AppDefaults.volume
-        muted = AppDefaults.muted
-        reverbPreset = AppDefaults.reverbPreset.avPreset
+        muted = state.muted
+        playerVolume = state.volume
+        
+        if (muted) {
+            playerNode.volume = 0
+        } else {
+            playerNode.volume = playerVolume
+        }
+        
+        playerNode.pan = state.balance
         
         // EQ
         eqNode.setBands(state.eqBands)
@@ -71,7 +78,9 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         // Reverb
         reverbNode.bypass = state.reverbBypass
-        setReverb(state.reverbPreset)
+        let avPreset: AVAudioUnitReverbPreset = state.reverbPreset.avPreset
+        reverbPreset = avPreset
+        reverbNode.loadFactoryPreset(reverbPreset)
         reverbNode.wetDryMix = state.reverbAmount
         
         // Delay

@@ -8,7 +8,7 @@ import AVFoundation
 class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     
     var playlist: Playlist = Playlist.instance()
-    var playerDelegate: PlayerDelegate = AppInitializer.getPlayerDelegate()
+    var playerDelegate: PlayerDelegate = ObjectGraph.getPlayerDelegate()
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         return playlist.size()

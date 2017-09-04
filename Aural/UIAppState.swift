@@ -112,11 +112,12 @@ class UIAppState {
         
         if (preferences.volumeOnStartup == .rememberFromLastAppLaunch) {
             self.volume = round(playerState.volume * AppConstants.volumeConversion_playerToUI)
+            self.muted = playerState.muted
         } else {
             self.volume = round(preferences.startupVolumeValue * AppConstants.volumeConversion_playerToUI)
+            self.muted = false
         }
         
-        self.muted = playerState.muted
         self.balance = round(playerState.balance * AppConstants.panConversion_playerToUI)
         
         self.eqGlobalGain = playerState.eqGlobalGain

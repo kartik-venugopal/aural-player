@@ -14,7 +14,7 @@ class RecorderViewController: NSViewController {
     @IBOutlet weak var lblRecorderFileSize: NSTextField!
     @IBOutlet weak var recordingInfoBox: NSBox!
     
-    private let recorder: RecorderDelegateProtocol = AppInitializer.getRecorderDelegate()
+    private let recorder: RecorderDelegateProtocol = ObjectGraph.getRecorderDelegate()
     
     // Timer that periodically updates the recording duration (only when recorder is active)
     private var recorderTimer: ScheduledTaskExecutor?

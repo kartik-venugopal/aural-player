@@ -24,7 +24,7 @@ class Playlist {
     private var tracksByFilename: [String: Track] = [String: Track]()
     
     // Singleton instance
-    private static var singleton: Playlist = AppInitializer.getPlaylist()
+    private static var singleton: Playlist = ObjectGraph.getPlaylist()
     
     // The playback sequence associated with this playlist
     private var playbackSequence: PlaybackSequence

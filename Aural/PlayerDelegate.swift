@@ -29,7 +29,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     // See PlaybackState
     private var playbackState: PlaybackState = .noTrack
     
-    private static let singleton: PlayerDelegate = AppInitializer.getPlayerDelegate()
+    private static let singleton: PlayerDelegate = ObjectGraph.getPlayerDelegate()
     
     static func instance() -> PlayerDelegate {
         return singleton
@@ -787,7 +787,7 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         let audioGraphState = audioGraph.getPersistentState()
         let playlistState = playlist.getState()
         
-        let appState = AppInitializer.getAppState()
+        let appState = ObjectGraph.getAppState()
         appState.audioGraphState = audioGraphState
         appState.playlistState = playlistState
     }

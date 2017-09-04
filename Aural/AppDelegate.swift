@@ -19,6 +19,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         
         SyncMessenger.publishNotification(AppExitNotification.instance)
-        AppStateIO.save(AppInitializer.getAppState())
+        ObjectGraph.persistState()
     }
 }

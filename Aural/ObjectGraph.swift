@@ -4,7 +4,7 @@
 
 import Foundation
 
-class AppInitializer {
+class ObjectGraph {
     
     private static var playerDelegate: PlayerDelegate?
     
@@ -55,6 +55,7 @@ class AppInitializer {
         audioGraph = AudioGraph(appState!.audioGraphState)
         if (preferences.volumeOnStartup == .specific) {
             audioGraph?.setVolume(preferences.startupVolumeValue)
+            audioGraph?.unmute()
         }
         
         audioGraphDelegate = AudioGraphDelegate(audioGraph!, preferences)
@@ -146,5 +147,9 @@ class AppInitializer {
         }
         
         return uiAppState!
+    }
+    
+    static func persistState() {
+        AppStateIO.save(ObjectGraph.getAppState())
     }
 }

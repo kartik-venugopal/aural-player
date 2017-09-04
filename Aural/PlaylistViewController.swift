@@ -66,7 +66,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         
         // Load saved state (sound settings + playlist) from app config file and adjust UI elements according to that state
         player.appLoaded()
-        let appState = AppInitializer.getUIAppState()
+        let appState = ObjectGraph.getUIAppState()
         initStatefulUI(appState)
     }
     

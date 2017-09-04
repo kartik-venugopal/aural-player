@@ -80,11 +80,11 @@ class AudioGraphViewController: NSViewController {
     @IBOutlet weak var eqSlider128: NSSlider!
     @IBOutlet weak var eqPresets: NSPopUpButton!
     
-    private let graph: AudioGraphDelegateProtocol = AppInitializer.getAudioGraphDelegate()
+    private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
     override func viewDidLoad() {
         
-        let appState = AppInitializer.getUIAppState()
+        let appState = ObjectGraph.getUIAppState()
         
         volumeSlider.floatValue = appState.volume
         setVolumeImage(appState.muted)

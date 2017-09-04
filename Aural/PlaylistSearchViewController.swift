@@ -32,7 +32,7 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     
     @IBOutlet weak var playlistView: NSTableView!
     
-    private var playlist: AuralPlaylistControlDelegate = AppInitializer.getPlaylistControlDelegate()
+    private var playlist: AuralPlaylistControlDelegate = ObjectGraph.getPlaylistControlDelegate()
     
     // Current playlist search results
     private var searchResults: SearchResults?
