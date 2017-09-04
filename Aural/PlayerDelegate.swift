@@ -5,7 +5,7 @@ import Cocoa
  
  See AuralPlayerDelegate, AuralSoundTuningDelegate, and EventSubscriber protocols to learn more about the public functions implemented here.
  */
-class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSoundTuningDelegate, AuralRecorderDelegate, AuralLifeCycleHandler, EventSubscriber {
+class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSoundTuningDelegate, AuralLifeCycleHandler, EventSubscriber {
     
     var preferences: Preferences = Preferences.instance()
     
@@ -19,9 +19,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     
     // The actual audio player
     private var player: PlayerProtocol
-    
-    // Recorder
-    private var recorder: RecorderProtocol
     
     // Currently playing track
     private var playingTrack: IndexedTrack?
@@ -42,7 +39,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         
         self.player = player
         self.audioGraph = audioGraph
-        self.recorder = recorder
         
         self.playlist = playlist
         self.appState = appState
@@ -782,32 +778,6 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         let modes = playlist.toggleShuffleMode()
         prepareNextTracksForPlayback()
         return modes
-    }
-    
-    func startRecording(_ format: RecordingFormat) {
-        recorder.startRecording(format)
-    }
-    
-    func stopRecording() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.recorder.stopRecording()
-        }
-    }
-    
-    func saveRecording(_ url: URL) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.recorder.saveRecording(url)
-        }
-    }
-    
-    func deleteRecording() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.recorder.deleteRecording()
-        }
-    }
-    
-    func getRecordingInfo() -> RecordingInfo? {
-        return recorder.getRecordingInfo()
     }
     
     func appExiting(_ uiState: UIState) {
