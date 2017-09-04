@@ -57,7 +57,7 @@
                 <outlet property="sortPanel" destination="Lw0-WI-3wy" id="Rl2-fd-34e"/>
                 <outlet property="viewEffectsMenuItem" destination="fK8-7g-oqx" id="EQv-4S-gcr"/>
                 <outlet property="viewPlaylistMenuItem" destination="af4-4E-1QV" id="Dhx-XG-mI6"/>
-                <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="Muo-3G-9fY"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -80,7 +80,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="closeAction:" target="Voe-Tx-rLC" id="TVm-QP-DyS"/>
+                            <action selector="closeAction:" target="Bfj-ih-EYB" id="7GT-k1-2pa"/>
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZLC-hp-2OD" userLabel="Hide Button">
@@ -91,7 +91,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="hideAction:" target="Voe-Tx-rLC" id="WuL-eu-igo"/>
+                            <action selector="hideAction:" target="Bfj-ih-EYB" id="map-hX-4E2"/>
                         </connections>
                     </button>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BNg-uu-doV" userLabel="AppIcon Image">
@@ -126,7 +126,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                         <connections>
-                            <action selector="togglePlaylistAction:" target="Voe-Tx-rLC" id="Smj-Z6-fkP"/>
+                            <action selector="togglePlaylistAction:" target="Bfj-ih-EYB" id="wxc-N0-l3Z"/>
                         </connections>
                     </button>
                     <button toolTip="Show/hide effects panel" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jtn-oJ-Dzg" userLabel="Toggle Effects">
@@ -142,7 +142,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                         <connections>
-                            <action selector="toggleEffectsAction:" target="Voe-Tx-rLC" id="H6S-tW-STK"/>
+                            <action selector="toggleEffectsAction:" target="Bfj-ih-EYB" id="yEi-xZ-fbe"/>
                         </connections>
                     </button>
                     <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="bezel" cornerRadius="5" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="r0W-tQ-AZF" userLabel="Now Playing Box">
@@ -1993,6 +1993,20 @@ G1BhbiBTbGlkZXI
                 <outlet property="view" destination="EiT-Mj-1SZ" id="ntl-PJ-mAA"/>
             </connections>
         </viewController>
+        <viewController id="Bfj-ih-EYB" customClass="WindowViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnToggleEffects" destination="jtn-oJ-Dzg" id="RZq-Lo-AXs"/>
+                <outlet property="btnTogglePlaylist" destination="TTw-rh-Ama" id="3We-Wo-60N"/>
+                <outlet property="fxBox" destination="DYI-NL-cxu" id="heq-Dq-w1Q"/>
+                <outlet property="playlistBox" destination="RMJ-vL-K67" id="dnP-af-Uyc"/>
+                <outlet property="playlistControlsBox" destination="ft1-56-lTI" id="jQf-uh-XL7"/>
+                <outlet property="playlistView" destination="4Fk-6v-HSf" id="LvC-Mw-2iX"/>
+                <outlet property="view" destination="EiT-Mj-1SZ" id="wr6-aA-rz3"/>
+                <outlet property="viewEffectsMenuItem" destination="fK8-7g-oqx" id="05B-Uw-Hcu"/>
+                <outlet property="viewPlaylistMenuItem" destination="af4-4E-1QV" id="E2Z-qY-PQl"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="df7-MJ-Y6i"/>
+            </connections>
+        </viewController>
         <menu title="Main Menu" systemMenu="main" id="Cnt-hZ-QmI">
             <items>
                 <menuItem title="Aural" id="igd-xR-7Ij" userLabel="Aural">
@@ -2007,12 +2021,12 @@ G1BhbiBTbGlkZXI
                             <menuItem isSeparatorItem="YES" id="KCy-Jo-pWQ"/>
                             <menuItem title="Hide Aural" keyEquivalent="h" id="Q8U-5t-wnF" userLabel="Hide Aural">
                                 <connections>
-                                    <action selector="hide:" target="-1" id="Fub-xu-H2S"/>
+                                    <action selector="hideAction:" target="Bfj-ih-EYB" id="yPZ-JU-Rsj"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Quit Aural" keyEquivalent="q" id="uhC-xR-Dzb">
                                 <connections>
-                                    <action selector="closeAction:" target="Voe-Tx-rLC" id="1vR-VD-rYm"/>
+                                    <action selector="closeAction:" target="Bfj-ih-EYB" id="aYM-Lc-eFm"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -2175,12 +2189,12 @@ CA
                         <items>
                             <menuItem title=" Playlist" state="on" image="TogglePlaylistView-Small" keyEquivalent="1" id="af4-4E-1QV" userLabel="Playlist">
                                 <connections>
-                                    <action selector="toggleViewPlaylistAction:" target="Voe-Tx-rLC" id="qy1-fM-T4F"/>
+                                    <action selector="togglePlaylistMenuItemAction:" target="Bfj-ih-EYB" id="gKh-IQ-lXt"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Effects" state="on" image="ToggleEffectsView-Small" keyEquivalent="2" id="fK8-7g-oqx" userLabel="Effects">
                                 <connections>
-                                    <action selector="toggleViewEffectsAction:" target="Voe-Tx-rLC" id="Kiw-iQ-y6k"/>
+                                    <action selector="toggleEffectsMenuItemAction:" target="Bfj-ih-EYB" id="dAc-si-G6Q"/>
                                 </connections>
                             </menuItem>
                         </items>

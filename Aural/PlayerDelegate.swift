@@ -50,14 +50,12 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         EventRegistry.subscribe(EventType.playbackCompleted, subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive))
     }
     
-    func appLoaded() -> UIAppState {
+    func appLoaded() {
         
         if (preferences.playlistOnStartup == .rememberFromLastAppLaunch) {
             EventRegistry.publishEvent(.startedAddingTracks, StartedAddingTracksEvent.instance)
             loadPlaylistFromSavedState()
         }
-        
-        return UIAppState(appState, preferences)
     }
     
     // This is called when the app loads initially. Loads the playlist from the app state file on disk. Only meant to be called once.
@@ -780,17 +778,16 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
         return modes
     }
     
-    func appExiting(_ uiState: UIState) {
+    func appExiting() {
         
         audioGraph.tearDown()
         
-        let playerState = audioGraph.getPersistentState()
-        
+        let audioGraphState = audioGraph.getPersistentState()
         let playlistState = playlist.getState()
         
-        let appState = AppState(uiState, playerState, playlistState)
-        
-        AppStateIO.save(appState)
+        let appState = AppInitializer.getAppState()
+        appState.audioGraphState = audioGraphState
+        appState.playlistState = playlistState
     }
     
     // Called when playback of the current track completes

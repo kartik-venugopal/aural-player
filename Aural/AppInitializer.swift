@@ -130,6 +130,15 @@ class AppInitializer {
         return audioGraphDelegate!
     }
     
+    static func getAppState() -> AppState {
+        
+        if (!initialized) {
+            initialize()
+        }
+        
+        return appState!
+    }
+    
     static func getUIAppState() -> UIAppState {
         
         if (!initialized) {
