@@ -12,7 +12,7 @@ class TrackInfoViewController: NSViewController, NSTableViewDataSource, NSTableV
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         
-        let _track = PlayerDelegate.instance().getPlayingTrack()?.track
+        let _track = PlayerAndPlaylistDelegate.instance().getPlayingTrack()?.track
         if (_track == nil) {
             return 0
         }
@@ -55,7 +55,7 @@ class TrackInfoViewController: NSViewController, NSTableViewDataSource, NSTableV
     // Each track info view row contains one key-value pair
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
         
-        let _track = PlayerDelegate.instance().getPlayingTrack()?.track
+        let _track = PlayerAndPlaylistDelegate.instance().getPlayingTrack()?.track
         if (_track == nil) {
             return nil
         }

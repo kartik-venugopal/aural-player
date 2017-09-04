@@ -4,7 +4,7 @@
 
 import Cocoa
 
-protocol AuralPlaylistControlDelegate {
+protocol PlaylistDelegateProtocol {
  
     // Add files (i.e. audio files, directories, or saved playlists) to the current playlist. Only supported audio files will be added.
     func addFiles(_ files: [URL])

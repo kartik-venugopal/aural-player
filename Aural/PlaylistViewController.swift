@@ -38,8 +38,8 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         return popover
     }()
     
-    // PlayerDelegate accepts all requests originating from the UI
-    let player: PlayerDelegate = PlayerDelegate.instance()
+    let player: PlayerDelegateProtocol = ObjectGraph.getPlayerDelegate()
+    let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
     // Timer that periodically updates the seek bar
     var seekTimer: ScheduledTaskExecutor? = nil
@@ -65,9 +65,11 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         SyncMessenger.subscribe(.appExitNotification, subscriber: self)
         
         // Load saved state (sound settings + playlist) from app config file and adjust UI elements according to that state
-        player.appLoaded()
         let appState = ObjectGraph.getUIAppState()
         initStatefulUI(appState)
+        
+        // TODO: Clean this up
+        (playlist as! AuralLifeCycleHandler).appLoaded()
     }
     
     func initStatelessUI() {
@@ -106,7 +108,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
     func updatePlaylistSummary(_ trackAddProgress: TrackAddedEventProgress? = nil) {
         
-        let summary = player.getPlaylistSummary()
+        let summary = playlist.getPlaylistSummary()
         let numTracks = summary.numTracks
         
         lblPlaylistSummary.stringValue = String(format: "%d %@   %@", numTracks, numTracks == 1 ? "track" : "tracks", Utils.formatDuration(summary.totalDuration))
@@ -163,7 +165,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         
         if (index >= 0) {
             
-            let newTrackIndex = player.removeTrack(index)
+            let newTrackIndex = playlist.removeTrack(index)
             
             // The new number of rows (after track removal) is one less than the size of the playlist view, because the view has not yet been updated
             let numRows = playlistView.numberOfRows - 1
@@ -488,7 +490,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     
     @IBAction func clearPlaylistAction(_ sender: AnyObject) {
         
-        player.clearPlaylist()
+        playlist.clearPlaylist()
         playlistView.reloadData()
         updatePlaylistSummary()
         
@@ -497,7 +499,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     
     @IBAction func repeatAction(_ sender: AnyObject) {
         
-        let modes = player.toggleRepeatMode()
+        let modes = playlist.toggleRepeatMode()
         
         switch modes.repeatMode {
             
@@ -517,7 +519,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     
     @IBAction func shuffleAction(_ sender: AnyObject) {
         
-        let modes = player.toggleShuffleMode()
+        let modes = playlist.toggleShuffleMode()
         
         switch modes.shuffleMode {
             
@@ -586,7 +588,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     func shiftPlaylistTrackUp() {
         
         let oldSelRow = playlistView.selectedRow
-        let selRow = player.moveTrackUp(oldSelRow)
+        let selRow = playlist.moveTrackUp(oldSelRow)
         
         // Reload data in the two affected rows
         let rowIndexes = IndexSet([selRow, oldSelRow])
@@ -598,7 +600,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     func shiftPlaylistTrackDown() {
         
         let oldSelRow = playlistView.selectedRow
-        let selRow = player.moveTrackDown(oldSelRow)
+        let selRow = playlist.moveTrackDown(oldSelRow)
         
         // Reload data in the two affected rows
         let rowIndexes = IndexSet([selRow, oldSelRow])
@@ -610,7 +612,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     @IBAction func savePlaylistAction(_ sender: AnyObject) {
         
         // Make sure there is at least one track to save
-        if (player.getPlaylistSummary().numTracks > 0) {
+        if (playlist.getPlaylistSummary().numTracks > 0) {
             
             let dialog = UIElements.savePlaylistDialog
             
@@ -619,7 +621,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
             if (modalResponse == NSModalResponseOK) {
                 
                 let file = dialog.url
-                player.savePlaylist(file!)
+                playlist.savePlaylist(file!)
             }
         }
     }
@@ -667,7 +669,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     // Adds a set of files (or directories, i.e. files within them) to the current playlist, if supported
     func addFiles(_ files: [URL]) {
         startedAddingTracks()
-        player.addFiles(files)
+        playlist.addFiles(files)
     }
     
     @IBAction func addFilesMenuItemAction(_ sender: Any) {
@@ -733,7 +735,8 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     func consumeNotification(_ notification: NotificationMessage) {
         
         if (notification is AppExitNotification) {
-            player.appExiting()
+            // TODO: Clean this up
+            (playlist as! AuralLifeCycleHandler).appExiting()
         }
         
         if (notification is PlaylistScrollUpNotification) {

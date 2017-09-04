@@ -4,7 +4,7 @@ import Cocoa
 /*
     Contract for a middleman/facade between AppDelegate (UI) and Player, responsible for all playback control requests (play/pause/next/previous track, etc) originating from AppDelegate
 */
-protocol AuralPlayerDelegate {
+protocol PlayerDelegateProtocol {
     
     // Toggles between the play and pause states, as long as a file is available to play. Returns playback state information the UI can use to update itself following the operation.
     // Note - Throws an error if playback begins with a track that cannot be played back

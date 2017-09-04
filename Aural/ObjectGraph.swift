@@ -6,7 +6,9 @@ import Foundation
 
 class ObjectGraph {
     
-    private static var playerDelegate: PlayerDelegate?
+    private static var playerDelegate: PlayerDelegateProtocol?
+    
+    private static var playlistDelegate: PlaylistDelegateProtocol?
     
     private static var audioGraphDelegate: AudioGraphDelegateProtocol?
     
@@ -71,8 +73,9 @@ class ObjectGraph {
         
         playlist = Playlist(repeatMode, shuffleMode)
         
-        // Initialize playerDeleage with player, playlist, and app state
-        playerDelegate = PlayerDelegate(player!, audioGraph!, recorder!, appState!, playlist!)
+        // Initialize playerDelegate
+        playerDelegate = PlayerAndPlaylistDelegate(player!, audioGraph!, recorder!, appState!, playlist!)
+        playlistDelegate = (playerDelegate as! PlaylistDelegateProtocol)
         
         initialized = true
     }
@@ -95,7 +98,7 @@ class ObjectGraph {
         return player!
     }
     
-    static func getPlayerDelegate() -> PlayerDelegate {
+    static func getPlayerDelegate() -> PlayerDelegateProtocol {
         
         if (!initialized) {
             initialize()
@@ -104,13 +107,13 @@ class ObjectGraph {
         return playerDelegate!
     }
     
-    static func getPlaylistControlDelegate() -> AuralPlaylistControlDelegate {
+    static func getPlaylistDelegate() -> PlaylistDelegateProtocol {
         
         if (!initialized) {
             initialize()
         }
         
-        return playerDelegate!
+        return playlistDelegate!
     }
     
     static func getRecorderDelegate() -> RecorderDelegateProtocol {
