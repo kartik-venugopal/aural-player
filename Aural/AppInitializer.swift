@@ -8,9 +8,13 @@ class AppInitializer {
     
     private static var playerDelegate: PlayerDelegate?
     
+    private static var audioGraphDelegate: AudioGraphDelegateProtocol?
+    
     private static var recorderDelegate: RecorderDelegateProtocol?
     
     private static var appState: AppState?
+    
+    private static var uiAppState: UIAppState?
     
     private static var audioGraph: AudioGraph?
     
@@ -46,10 +50,14 @@ class AppInitializer {
         // Initialize the player
         let preferences = Preferences.instance()
         
+        uiAppState = UIAppState(appState!, preferences)
+        
         audioGraph = AudioGraph(appState!.audioGraphState)
         if (preferences.volumeOnStartup == .specific) {
             audioGraph?.setVolume(preferences.startupVolumeValue)
         }
+        
+        audioGraphDelegate = AudioGraphDelegate(audioGraph!, preferences)
         
         player = Player(audioGraph!)
         
@@ -111,5 +119,23 @@ class AppInitializer {
         }
         
         return recorderDelegate!
+    }
+    
+    static func getAudioGraphDelegate() -> AudioGraphDelegateProtocol {
+        
+        if (!initialized) {
+            initialize()
+        }
+        
+        return audioGraphDelegate!
+    }
+    
+    static func getUIAppState() -> UIAppState {
+        
+        if (!initialized) {
+            initialize()
+        }
+        
+        return uiAppState!
     }
 }

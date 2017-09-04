@@ -51,7 +51,7 @@
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5C-W9-v0v">
                                                         <rect key="frame" x="0.0" y="-5" width="100" height="100"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" id="xAi-0I-nAg" customClass="TrackInfoTextFieldCell" customModule="Aural" customModuleProvider="target">
+                                                        <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" id="xAi-0I-nAg">
                                                             <font key="font" size="13" name="GillSans"/>
                                                             <color key="textColor" white="0.85465494791666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -84,7 +84,7 @@
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5G-6P-XQ5">
                                                         <rect key="frame" x="0.0" y="-5" width="344" height="100"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" id="vn1-yN-fwV" customClass="TrackInfoTextFieldCell" customModule="Aural" customModuleProvider="target">
+                                                        <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" id="vn1-yN-fwV">
                                                             <font key="font" size="13" name="GillSans-Light"/>
                                                             <color key="textColor" white="0.85465494791666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

@@ -55,7 +55,6 @@
 		3E7B61E61F31AB1800F269F0 /* ValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B61E51F31AB1800F269F0 /* ValueFormatter.swift */; };
 		3E80E66F1F04FA60007480CC /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E80E66E1F04FA60007480CC /* Size.swift */; };
 		3E80E6721F04FA7C007480CC /* SizeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E80E6711F04FA7C007480CC /* SizeUnit.swift */; };
-		3E822B361F21C1FD0006CDBC /* AuralRecorderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E822B351F21C1FD0006CDBC /* AuralRecorderDelegate.swift */; };
 		3E822B381F21DCF20006CDBC /* RecordingFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E822B371F21DCF20006CDBC /* RecordingFormat.swift */; };
 		3E85F25A1EFA78D6007BE830 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E85F2591EFA78D6007BE830 /* AppDelegate.swift */; };
 		3E85F25C1EFA78D6007BE830 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E85F25B1EFA78D6007BE830 /* Assets.xcassets */; };
@@ -70,6 +69,14 @@
 		3E9796811F00BA3000690DA2 /* RepeatMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9796801F00BA3000690DA2 /* RepeatMode.swift */; };
 		3E9796831F00BA5A00690DA2 /* ShuffleMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9796821F00BA5A00690DA2 /* ShuffleMode.swift */; };
 		3E98477E1F5CEAAE001A2D28 /* AuralPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98477D1F5CEAAE001A2D28 /* AuralPlayerDelegate.swift */; };
+		3E9847821F5CF23D001A2D28 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9847811F5CF23D001A2D28 /* HelpViewController.swift */; };
+		3E9847841F5CF3F6001A2D28 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9847831F5CF3F6001A2D28 /* PreferencesViewController.swift */; };
+		3E9847861F5CFCE3001A2D28 /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9847851F5CFCE3001A2D28 /* RecorderViewController.swift */; };
+		3E9847891F5CFD62001A2D28 /* RecorderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9847881F5CFD62001A2D28 /* RecorderDelegate.swift */; };
+		3E98478B1F5CFD87001A2D28 /* RecorderDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98478A1F5CFD87001A2D28 /* RecorderDelegateProtocol.swift */; };
+		3E98478D1F5D0419001A2D28 /* AudioGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98478C1F5D0419001A2D28 /* AudioGraphViewController.swift */; };
+		3E98478F1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98478E1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift */; };
+		3E9847911F5D0512001A2D28 /* AudioGraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9847901F5D0512001A2D28 /* AudioGraphDelegate.swift */; };
 		3E9871A21F418CB1009AE9E6 /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9871A11F418CB1009AE9E6 /* UIUtils.swift */; };
 		3E9A575E1F21F778007546A2 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9A575D1F21F778007546A2 /* Recorder.swift */; };
 		3EA074AC1F3DBBB0005F8966 /* SavedPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */; };
@@ -147,7 +154,6 @@
 		3E7B61E51F31AB1800F269F0 /* ValueFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueFormatter.swift; sourceTree = "<group>"; };
 		3E80E66E1F04FA60007480CC /* Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		3E80E6711F04FA7C007480CC /* SizeUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeUnit.swift; sourceTree = "<group>"; };
-		3E822B351F21C1FD0006CDBC /* AuralRecorderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuralRecorderDelegate.swift; sourceTree = "<group>"; };
 		3E822B371F21DCF20006CDBC /* RecordingFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingFormat.swift; sourceTree = "<group>"; };
 		3E85F2561EFA78D6007BE830 /* Aural.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aural.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E85F2591EFA78D6007BE830 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -164,6 +170,14 @@
 		3E9796801F00BA3000690DA2 /* RepeatMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatMode.swift; sourceTree = "<group>"; };
 		3E9796821F00BA5A00690DA2 /* ShuffleMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShuffleMode.swift; sourceTree = "<group>"; };
 		3E98477D1F5CEAAE001A2D28 /* AuralPlayerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuralPlayerDelegate.swift; sourceTree = "<group>"; };
+		3E9847811F5CF23D001A2D28 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
+		3E9847831F5CF3F6001A2D28 /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		3E9847851F5CFCE3001A2D28 /* RecorderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderViewController.swift; sourceTree = "<group>"; };
+		3E9847881F5CFD62001A2D28 /* RecorderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderDelegate.swift; sourceTree = "<group>"; };
+		3E98478A1F5CFD87001A2D28 /* RecorderDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderDelegateProtocol.swift; sourceTree = "<group>"; };
+		3E98478C1F5D0419001A2D28 /* AudioGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphViewController.swift; sourceTree = "<group>"; };
+		3E98478E1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphDelegateProtocol.swift; sourceTree = "<group>"; };
+		3E9847901F5D0512001A2D28 /* AudioGraphDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphDelegate.swift; sourceTree = "<group>"; };
 		3E9871A11F418CB1009AE9E6 /* UIUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
 		3E9A575D1F21F778007546A2 /* Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedPlaylist.swift; sourceTree = "<group>"; };
@@ -207,7 +221,6 @@
 				3E98477D1F5CEAAE001A2D28 /* AuralPlayerDelegate.swift */,
 				3E864ADA1F25C81B006A7626 /* AuralPlaylistControlDelegate.swift */,
 				3E3C20A91F0A7B3D00AF5A62 /* AuralSoundTuningDelegate.swift */,
-				3E822B351F21C1FD0006CDBC /* AuralRecorderDelegate.swift */,
 				3E911CEC1F43F049009C1572 /* AuralLifeCycleHandler.swift */,
 			);
 			name = Protocols;
@@ -230,7 +243,6 @@
 				3E551B861F10801100354DE2 /* AudioEngineHelper.swift */,
 				3E23D6581F32887E00DBF426 /* RecordingInfo.swift */,
 				3E822B371F21DCF20006CDBC /* RecordingFormat.swift */,
-				3E3C209D1F0A385300AF5A62 /* Protocols */,
 			);
 			name = Audio;
 			sourceTree = "<group>";
@@ -300,11 +312,14 @@
 		3E85F2581EFA78D6007BE830 /* Aural */ = {
 			isa = PBXGroup;
 			children = (
+				3E85F2591EFA78D6007BE830 /* AppDelegate.swift */,
 				3ED526501F3003A800001A97 /* AppInitializer.swift */,
 				3E3C20A71F0A697800AF5A62 /* AppConstants.swift */,
 				3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */,
-				3E3C20A01F0A39D500AF5A62 /* PlayerDelegate.swift */,
+				3E9847871F5CFD52001A2D28 /* Delegates */,
+				3E3C209D1F0A385300AF5A62 /* Protocols */,
 				3EA262671F0EFD9600D9BCD9 /* UI */,
+				3E98477F1F5CF0E6001A2D28 /* Playlist */,
 				3E3C20A41F0A3CE100AF5A62 /* Audio */,
 				3ED2AF201F00E8B7000F702C /* Domain */,
 				3EA29AD61F0B473600DA239E /* Events */,
@@ -317,11 +332,50 @@
 			path = Aural;
 			sourceTree = "<group>";
 		};
+		3E98477F1F5CF0E6001A2D28 /* Playlist */ = {
+			isa = PBXGroup;
+			children = (
+				3E722F781EFCE59F00916BF2 /* Playlist.swift */,
+				3E09C6BA1F2F388B007BB489 /* PlaybackSequence.swift */,
+				3ED5264E1F2FA27200001A97 /* PlaylistChangeListener.swift */,
+				3E09C6B61F2F25A7007BB489 /* ShuffleSequence.swift */,
+				3E9796801F00BA3000690DA2 /* RepeatMode.swift */,
+				3E9796821F00BA5A00690DA2 /* ShuffleMode.swift */,
+				3E864ADC1F25E289006A7626 /* SearchResults.swift */,
+				3E0012291F26A5100059B2D0 /* SearchQuery.swift */,
+				3E3BAF231F274771008F090E /* Sort.swift */,
+			);
+			name = Playlist;
+			sourceTree = "<group>";
+		};
+		3E9847801F5CF22C001A2D28 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3E9847811F5CF23D001A2D28 /* HelpViewController.swift */,
+				3E9847831F5CF3F6001A2D28 /* PreferencesViewController.swift */,
+				3E9847851F5CFCE3001A2D28 /* RecorderViewController.swift */,
+				3E98478C1F5D0419001A2D28 /* AudioGraphViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		3E9847871F5CFD52001A2D28 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				3E3C20A01F0A39D500AF5A62 /* PlayerDelegate.swift */,
+				3E9847881F5CFD62001A2D28 /* RecorderDelegate.swift */,
+				3E9847901F5D0512001A2D28 /* AudioGraphDelegate.swift */,
+				3E98478A1F5CFD87001A2D28 /* RecorderDelegateProtocol.swift */,
+				3E98478E1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift */,
+			);
+			name = Delegates;
+			sourceTree = "<group>";
+		};
 		3EA262671F0EFD9600D9BCD9 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3E9847801F5CF22C001A2D28 /* Controllers */,
 				3E5FA43F1EFFF039001669C5 /* Views */,
-				3E85F2591EFA78D6007BE830 /* AppDelegate.swift */,
 				3E6D75F71EFF79E0007F22A3 /* KeyPressHandler.swift */,
 				3E4BBA5B1F030E5B0025F371 /* UIConstants.swift */,
 				3E3C20A51F0A687400AF5A62 /* UIElements.swift */,
@@ -362,18 +416,9 @@
 				3EB20B4A1EFF25EC008138A4 /* AppState.swift */,
 				3E911CEE1F441BE1009C1572 /* UIAppState.swift */,
 				3E97967C1F00286200690DA2 /* Track.swift */,
-				3E722F781EFCE59F00916BF2 /* Playlist.swift */,
-				3E09C6BA1F2F388B007BB489 /* PlaybackSequence.swift */,
-				3ED5264E1F2FA27200001A97 /* PlaylistChangeListener.swift */,
-				3E09C6B61F2F25A7007BB489 /* ShuffleSequence.swift */,
-				3E9796801F00BA3000690DA2 /* RepeatMode.swift */,
-				3E9796821F00BA5A00690DA2 /* ShuffleMode.swift */,
 				3E047B0D1F01436700ADE0F1 /* ReverbPresets.swift */,
 				3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */,
 				3EFFE6BD1F0381FA003728BD /* EQPresets.swift */,
-				3E864ADC1F25E289006A7626 /* SearchResults.swift */,
-				3E0012291F26A5100059B2D0 /* SearchQuery.swift */,
-				3E3BAF231F274771008F090E /* Sort.swift */,
 				3E33B4A31F3F08B8005EF359 /* Preferences.swift */,
 				3EF5A54F1F403D2500C5A2D2 /* StartupPreferences.swift */,
 				3E85FF9E1F40DE3F00A21B0D /* AutoplayPreferences.swift */,
@@ -522,6 +567,7 @@
 				3E58CC2B1F0275B200C36DC1 /* TimerUtils.swift in Sources */,
 				3E2188A81F0771390085BAB3 /* PopoverController.swift in Sources */,
 				3EF5A5501F403D2500C5A2D2 /* StartupPreferences.swift in Sources */,
+				3E9847821F5CF23D001A2D28 /* HelpViewController.swift in Sources */,
 				3E4BBA5C1F030E5B0025F371 /* UIConstants.swift in Sources */,
 				3E33B49E1F3E70F4005EF359 /* FileSystemUtils.swift in Sources */,
 				3E80E66F1F04FA60007480CC /* Size.swift in Sources */,
@@ -539,11 +585,11 @@
 				3E822B381F21DCF20006CDBC /* RecordingFormat.swift in Sources */,
 				3E3D489B1F464C02004C0F91 /* Errors.swift in Sources */,
 				3E46F5601F2A88D1007CD384 /* ModalDialogResponseButtonCell.swift in Sources */,
-				3E822B361F21C1FD0006CDBC /* AuralRecorderDelegate.swift in Sources */,
 				3E722F791EFCE59F00916BF2 /* Playlist.swift in Sources */,
 				3E6D75F81EFF79E0007F22A3 /* KeyPressHandler.swift in Sources */,
 				3E426F7E1EFDD9CF002F5F18 /* Player.swift in Sources */,
 				3E3DCD251F0F913800E09ADC /* EventTypes.swift in Sources */,
+				3E98478F1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift in Sources */,
 				3E2188A41F0763F50085BAB3 /* TrackInfoViewController.swift in Sources */,
 				3E3BAF241F274771008F090E /* Sort.swift in Sources */,
 				3EC593981F28A0C600153D34 /* RangeSlider.swift in Sources */,
@@ -558,13 +604,17 @@
 				3ECCEE651F41158000858331 /* PrefsTabButtonCell.swift in Sources */,
 				3E58CC291F02759D00C36DC1 /* Timer.swift in Sources */,
 				3E46F55E1F2A8003007CD384 /* ColoredNavigationButtonCell.swift in Sources */,
+				3E9847861F5CFCE3001A2D28 /* RecorderViewController.swift in Sources */,
 				3E722F7B1EFCF4EC00916BF2 /* PlaylistTableViewController.swift in Sources */,
 				3E76D9BC1F0F4228007FF3F8 /* AppDefaults.swift in Sources */,
 				3EB2A7EA1F04424E001DF748 /* ItemDisplayingPopupMenuCell.swift in Sources */,
 				3E97967D1F00286200690DA2 /* Track.swift in Sources */,
 				3EFFE6B91F036E81003728BD /* PlaylistIO.swift in Sources */,
 				3E047B0E1F01436700ADE0F1 /* ReverbPresets.swift in Sources */,
+				3E9847891F5CFD62001A2D28 /* RecorderDelegate.swift in Sources */,
 				3E33B4A41F3F08B8005EF359 /* Preferences.swift in Sources */,
+				3E98478D1F5D0419001A2D28 /* AudioGraphViewController.swift in Sources */,
+				3E9847911F5D0512001A2D28 /* AudioGraphDelegate.swift in Sources */,
 				3E9463971F29960F00A9019C /* EffectsUnitButtonCell.swift in Sources */,
 				3E09C6BB1F2F388B007BB489 /* PlaybackSequence.swift in Sources */,
 				3E911CEF1F441BE1009C1572 /* UIAppState.swift in Sources */,
@@ -572,6 +622,7 @@
 				3E09C6B71F2F25A7007BB489 /* ShuffleSequence.swift in Sources */,
 				3EA074AC1F3DBBB0005F8966 /* SavedPlaylist.swift in Sources */,
 				3E3C20A11F0A39D500AF5A62 /* PlayerDelegate.swift in Sources */,
+				3E98478B1F5CFD87001A2D28 /* RecorderDelegateProtocol.swift in Sources */,
 				3E7B61E61F31AB1800F269F0 /* ValueFormatter.swift in Sources */,
 				3E2BDC4D1F0DE1C00099FDB7 /* BufferManager.swift in Sources */,
 				3ED5264F1F2FA27200001A97 /* PlaylistChangeListener.swift in Sources */,
@@ -584,6 +635,7 @@
 				3E23D6591F32887E00DBF426 /* RecordingInfo.swift in Sources */,
 				3E46F55C1F2A7A36007CD384 /* CheckRadioButtonCell.swift in Sources */,
 				3E633C471F14C6530040ECBC /* MultiBandStopFilterNode.swift in Sources */,
+				3E9847841F5CF3F6001A2D28 /* PreferencesViewController.swift in Sources */,
 				3E1CF7F11F5CBAA300613724 /* RecorderProtocol.swift in Sources */,
 				3E1CF7F31F5CBAD500613724 /* AudioGraph.swift in Sources */,
 				3E864ADD1F25E289006A7626 /* SearchResults.swift in Sources */,
