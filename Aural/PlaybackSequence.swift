@@ -80,6 +80,10 @@ class PlaybackSequence: PlaylistChangeListener {
         cursor = nil
     }
     
+    func playlistCleared() {
+        clear()
+    }
+    
     func playlistReordered(_ newPlayingTrackIndex: Int?) {
         cursor = newPlayingTrackIndex
         reset(firstTrackIndex: cursor)

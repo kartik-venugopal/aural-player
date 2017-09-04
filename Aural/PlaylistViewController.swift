@@ -59,8 +59,6 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         // Register self as a subscriber to various message notifications
         SyncMessenger.subscribe(.playlistScrollUpNotification, subscriber: self)
         SyncMessenger.subscribe(.playlistScrollDownNotification, subscriber: self)
-        SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
-        SyncMessenger.subscribe(.appExitNotification, subscriber: self)
         
         // Load saved state (sound settings + playlist) from app config file and adjust UI elements according to that state
         let appState = ObjectGraph.getUIAppState()

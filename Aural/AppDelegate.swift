@@ -21,6 +21,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         
         SyncMessenger.publishNotification(AppExitNotification.instance)
-        ObjectGraph.persistState()
+        ObjectGraph.tearDown()
     }
 }

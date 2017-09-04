@@ -20,4 +20,7 @@ protocol PlaylistChangeListener {
     
     // A single track has been moved, from a particular index to another
     func trackReordered(_ oldIndex: Int, _ newIndex: Int)
+    
+    // The entire playlist has been cleared
+    func playlistCleared()
 }

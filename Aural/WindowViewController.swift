@@ -44,8 +44,6 @@ class WindowViewController: NSViewController {
         positionWindow(appState.windowLocation)
         window.isMovableByWindowBackground = true
         window.makeKeyAndOrderFront(self)
-        
-//        SyncMessenger.subscribe(.appExitNotification, subscriber: self)
     }
     
     func positionWindow(_ location: NSPoint) {
@@ -177,42 +175,9 @@ class WindowViewController: NSViewController {
         
         window.setFrame(wFrame, display: true, animate: animate)
     }
-    
-    private func isEffectsShown() -> Bool {
-        return fxCollapsibleView?.hidden == false
-    }
-    
-    private func isPlaylistShown() -> Bool {
-        return playlistCollapsibleView?.hidden == false
-    }
-    
-//    func consumeNotification(_ notification: NotificationMessage) {
-//        
-//        if (notification is AppExitNotification) {
-//            saveUIState()
-//        }
-//    }
-//    
-//    // This method will never get called, as this class does not process requests
-//    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-//        return EmptyResponse.instance
-//    }
-//    
-//    func saveUIState() {
-//        
-//        let appState = ObjectGraph.getAppState()
-//        
-//        let uiState = UIState()
-//        uiState.windowLocationX = Float(window.frame.origin.x)
-//        uiState.windowLocationY = Float(window.frame.origin.y)
-//        uiState.showPlaylist = isPlaylistShown()
-//        uiState.showEffects = isEffectsShown()
-//        
-//        appState.uiState = uiState
-//    }
 }
 
-// Provides convenient access to the main window, across the app
+// Provides convenient access to the state of the main window, across the app
 class WindowState {
     
     static var window: NSWindow?

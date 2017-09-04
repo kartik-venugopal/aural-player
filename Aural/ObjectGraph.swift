@@ -151,8 +151,11 @@ class ObjectGraph {
         
         return uiAppState!
     }
-    
-    static func persistState() {
+
+    // Called when app exits
+    static func tearDown() {
+        
+        audioGraph?.tearDown()
         
         appState?.audioGraphState = audioGraph!.getPersistentState()
         appState?.playlistState = playlist!.getState()

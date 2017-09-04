@@ -50,7 +50,6 @@ class PlayerAndPlaylistDelegate: PlayerDelegateProtocol, PlaylistDelegateProtoco
         EventRegistry.subscribe(EventType.playbackCompleted, subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive))
         
         SyncMessenger.subscribe(.appLoadedNotification, subscriber: self)
-        SyncMessenger.subscribe(.appExitNotification, subscriber: self)
     }
     
     // This is called when the app loads initially. Loads the playlist from the app state file on disk. Only meant to be called once.
@@ -597,10 +596,6 @@ class PlayerAndPlaylistDelegate: PlayerDelegateProtocol, PlaylistDelegateProtoco
         return modes
     }
     
-    func tearDown() {
-        audioGraph.tearDown()
-    }
-    
     // Called when playback of the current track completes
     func consumeEvent(_ event: Event) {
         
@@ -652,10 +647,6 @@ class PlayerAndPlaylistDelegate: PlayerDelegateProtocol, PlaylistDelegateProtoco
         if (notification is AppLoadedNotification && preferences.playlistOnStartup == .rememberFromLastAppLaunch) {
             EventRegistry.publishEvent(.startedAddingTracks, StartedAddingTracksEvent.instance)
             loadPlaylistFromSavedState()
-        }
-        
-        if (notification is AppExitNotification) {
-            tearDown()
         }
     }
     
