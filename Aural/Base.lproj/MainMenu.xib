@@ -13,45 +13,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="bigLblTrack" destination="siU-Sg-IBb" id="Sra-S0-RRR"/>
-                <outlet property="btnMoreInfo" destination="0Mb-en-nxS" id="wGo-JQ-F9n"/>
-                <outlet property="btnNextSearch" destination="BlR-U8-j24" id="f5G-AR-iHr"/>
-                <outlet property="btnPlayPause" destination="52R-Hv-S0B" id="mK4-VJ-VKN"/>
-                <outlet property="btnPreviousSearch" destination="iYr-nA-dwT" id="RgB-X8-iBJ"/>
-                <outlet property="btnRepeat" destination="Fpa-Ii-3YA" id="en0-OB-Uwa"/>
-                <outlet property="btnShuffle" destination="kQL-4a-kyh" id="eJE-qZ-92B"/>
-                <outlet property="btnVolume" destination="Y0j-zk-a3t" id="JEt-SA-sLv"/>
-                <outlet property="comparisonTypeBeginsWith" destination="Zim-kM-TMG" id="jbL-B5-f57"/>
-                <outlet property="comparisonTypeContains" destination="x2f-22-qf5" id="f7K-Gx-Lgk"/>
-                <outlet property="comparisonTypeEndsWith" destination="R1T-ao-6zp" id="u25-hX-eeF"/>
-                <outlet property="comparisonTypeEquals" destination="yPX-c1-L0X" id="KhE-S3-tsv"/>
-                <outlet property="lblPlayingTime" destination="4f4-mL-8YB" id="b70-tW-uxv"/>
-                <outlet property="lblPlaylistSummary" destination="PC9-RH-ZoK" id="etP-46-7Hc"/>
-                <outlet property="lblTrackArtist" destination="bDo-O3-0JI" id="R2s-4c-465"/>
-                <outlet property="lblTrackTitle" destination="LM5-xW-O9f" id="Dg8-JS-PyS"/>
-                <outlet property="musicArtView" destination="YrG-JU-zDl" id="pn0-XL-ktK"/>
-                <outlet property="playlistView" destination="4Fk-6v-HSf" id="QZT-Zn-WBd"/>
-                <outlet property="playlistWorkSpinner" destination="Gb7-pn-6bV" id="ldq-jl-ZgH"/>
-                <outlet property="searchByAlbum" destination="vJB-tQ-9gW" id="ZD2-lx-g8J"/>
-                <outlet property="searchByArtist" destination="alT-kE-ZJN" id="PHI-hr-kxF"/>
-                <outlet property="searchByName" destination="DT8-PC-txX" id="Nwc-5A-jOT"/>
-                <outlet property="searchByTitle" destination="9wf-Pu-L95" id="dfd-Bf-X1B"/>
-                <outlet property="searchCaseSensitive" destination="MSF-LB-dHT" id="0Cp-wV-9kO"/>
-                <outlet property="searchField" destination="KsO-rj-Fgq" id="FpJ-Jf-CKC"/>
-                <outlet property="searchPanel" destination="jhP-AH-EDd" id="oyW-7j-in7"/>
-                <outlet property="searchResultMatchInfo" destination="tV8-Yi-o5k" id="6fD-Ku-mGV"/>
-                <outlet property="searchResultsSummaryLabel" destination="cAy-bq-MqT" id="818-c4-lAX"/>
-                <outlet property="seekSlider" destination="0m5-4l-3Wg" id="m8W-Pi-SGb"/>
-                <outlet property="sortAscending" destination="trl-at-P9S" id="E1I-uz-yBv"/>
-                <outlet property="sortByDuration" destination="Gd9-ah-OAB" id="l2o-N6-Xq1"/>
-                <outlet property="sortByName" destination="0Oe-zI-vsS" id="cDe-8R-GxK"/>
-                <outlet property="sortDescending" destination="7Ww-4w-TFU" id="InO-Qx-67b"/>
-                <outlet property="sortPanel" destination="Lw0-WI-3wy" id="Rl2-fd-34e"/>
-                <outlet property="window" destination="QvC-M9-y7g" id="Muo-3G-9fY"/>
-            </connections>
-        </customObject>
+        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Aural" customModuleProvider="target"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <window title="Aural" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" texturedBackground="YES"/>
@@ -152,7 +114,7 @@
                                     </shadow>
                                     <sliderCell key="cell" controlSize="small" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="hcm-sc-1cx" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
                                     <connections>
-                                        <action selector="seekSliderAction:" target="Voe-Tx-rLC" id="lSn-7x-rfK"/>
+                                        <action selector="seekSliderAction:" target="V2O-JI-ukn" id="wRF-qD-6e5"/>
                                     </connections>
                                 </slider>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4f4-mL-8YB">
@@ -204,7 +166,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="moreInfoAction:" target="Voe-Tx-rLC" id="jzL-8a-O0k"/>
+                                        <action selector="moreInfoAction:" target="V2O-JI-ukn" id="NKg-mb-2Rn"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -230,7 +192,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="repeatAction:" target="Voe-Tx-rLC" id="I7N-Iy-9lQ"/>
+                                        <action selector="repeatAction:" target="V2O-JI-ukn" id="Wyv-xE-QKG"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Shuffle" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kQL-4a-kyh" userLabel="Shuffle Button">
@@ -241,7 +203,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="shuffleAction:" target="Voe-Tx-rLC" id="Uf1-lu-Gz3"/>
+                                        <action selector="shuffleAction:" target="V2O-JI-ukn" id="J9L-IT-m9F"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Play / Pause" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="52R-Hv-S0B">
@@ -252,7 +214,7 @@
                                         <font key="font" metaFont="smallSystem"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="playPauseAction:" target="Voe-Tx-rLC" id="Hnn-Nx-FRc"/>
+                                        <action selector="playPauseAction:" target="V2O-JI-ukn" id="pT2-xo-ozS"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Previous track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5rt-y8-5rH" userLabel="PrevTrack Button">
@@ -263,7 +225,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="prevTrackAction:" target="Voe-Tx-rLC" id="OZJ-OC-79D"/>
+                                        <action selector="prevTrackAction:" target="V2O-JI-ukn" id="Yq8-U9-Ea7"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Next track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WPR-XR-JlH" userLabel="NextTrack Button">
@@ -274,7 +236,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="nextTrackAction:" target="Voe-Tx-rLC" id="Dmw-70-MGf"/>
+                                        <action selector="nextTrackAction:" target="V2O-JI-ukn" id="Zyh-n8-uES"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Seek bacward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kDf-NX-V6n" userLabel="Seek Bwd Button">
@@ -285,7 +247,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="seekBackwardAction:" target="Voe-Tx-rLC" id="070-n7-w0c"/>
+                                        <action selector="seekBackwardAction:" target="V2O-JI-ukn" id="LyU-2n-lJU"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Seek forward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ydO-EN-rV3" userLabel="Seek Fwd Button">
@@ -296,7 +258,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="seekForwardAction:" target="Voe-Tx-rLC" id="Ehm-tT-1W9"/>
+                                        <action selector="seekForwardAction:" target="V2O-JI-ukn" id="aNV-Ve-27S"/>
                                     </connections>
                                 </button>
                                 <slider toolTip="Volume" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7fw-31-38g" userLabel="Volume Slider">
@@ -486,12 +448,12 @@ G1BhbiBTbGlkZXI
                                     <font key="font" size="11" name="GillSans"/>
                                     <tabViewItems>
                                         <tabViewItem label="EQ" identifier="1" id="McD-gg-qp9" userLabel="EQ">
-                                            <view key="view" id="vC5-27-GiC">
-                                                <rect key="frame" x="10" y="7" width="409" height="140"/>
+                                            <view key="view" ambiguous="YES" id="vC5-27-GiC">
+                                                <rect key="frame" x="10" y="7" width="0.0" height="335"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOh-fy-QB5" userLabel="Frequencies">
-                                                        <rect key="frame" x="73" y="125" width="271" height="17"/>
+                                                        <rect key="frame" x="73" y="320" width="271" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="32      64      128     256     512     1k       2k      4k       8k     16k" id="KZ1-aN-0Yl">
                                                             <font key="font" size="10" name="GillSans"/>
@@ -500,7 +462,7 @@ G1BhbiBTbGlkZXI
                                                         </textFieldCell>
                                                     </textField>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XKK-aS-eMn" userLabel="EQGlobalGain">
-                                                        <rect key="frame" x="27" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="27" y="215" width="18" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="6vO-ax-c7J" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -508,7 +470,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z4B-Hr-jie" userLabel="Eq Slider16k">
-                                                        <rect key="frame" x="320" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="320" y="215" width="18" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="U2x-qh-bz3" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -516,7 +478,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qHV-Kz-sUG" userLabel="Eq Slider8k">
-                                                        <rect key="frame" x="292" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="292" y="215" width="18" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="57x-OJ-Uoc" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -524,7 +486,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VSQ-5C-2KO" userLabel="Eq Slider4k">
-                                                        <rect key="frame" x="264" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="264" y="215" width="18" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="mB8-98-dUb" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -532,7 +494,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DDL-Kj-I4h" userLabel="Eq Slider2k">
-                                                        <rect key="frame" x="236" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="236" y="215" width="18" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="FlN-4s-jCz" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -540,7 +502,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JGZ-0h-WTH" userLabel="Eq Slider1k">
-                                                        <rect key="frame" x="208" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="208" y="215" width="18" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="cSC-j0-EcW" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -548,7 +510,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lgr-1t-FRb">
-                                                        <rect key="frame" x="180" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="180" y="215" width="18" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="LCt-es-pWZ" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -556,7 +518,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuJ-l0-5ih">
-                                                        <rect key="frame" x="152" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="152" y="215" width="18" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="hbt-bq-h69" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -564,7 +526,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iEd-37-pLD">
-                                                        <rect key="frame" x="124" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="124" y="215" width="18" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="qQa-HK-oDY" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -572,7 +534,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mTb-nz-ndF">
-                                                        <rect key="frame" x="96" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="96" y="215" width="18" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="g3f-O3-rIn" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -580,7 +542,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lg0-FS-2I5">
-                                                        <rect key="frame" x="68" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="68" y="215" width="18" height="103"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="vmt-Be-jsH" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -588,7 +550,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3V-ab-jaC">
-                                                        <rect key="frame" x="47" y="103" width="20" height="21"/>
+                                                        <rect key="frame" x="47" y="298" width="20" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+20" id="E9O-1s-8rC">
                                                             <font key="font" size="10" name="GillSans"/>
@@ -597,7 +559,7 @@ G1BhbiBTbGlkZXI
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtf-Xs-OQp">
-                                                        <rect key="frame" x="47" y="13" width="20" height="21"/>
+                                                        <rect key="frame" x="47" y="208" width="20" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-20" id="9U6-wA-5ze">
                                                             <font key="font" size="10" name="GillSans"/>
@@ -606,7 +568,7 @@ G1BhbiBTbGlkZXI
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zm-Bg-NEY">
-                                                        <rect key="frame" x="48" y="64" width="15" height="16"/>
+                                                        <rect key="frame" x="48" y="259" width="15" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0" id="Je7-rK-ohz">
                                                             <font key="font" size="10" name="GillSans"/>
@@ -615,7 +577,7 @@ G1BhbiBTbGlkZXI
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vsR-0Q-cXe">
-                                                        <rect key="frame" x="277" y="1" width="62" height="18"/>
+                                                        <rect key="frame" x="277" y="196" width="62" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Presets" id="ems-fH-sOb">
                                                             <font key="font" size="12" name="GillSans"/>
@@ -624,7 +586,7 @@ G1BhbiBTbGlkZXI
                                                         </textFieldCell>
                                                     </textField>
                                                     <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hG3-Ir-qkY" userLabel="EQ Presets Menu">
-                                                        <rect key="frame" x="310" y="-1" width="34" height="18"/>
+                                                        <rect key="frame" x="310" y="194" width="34" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="disclosure" title="Vocal" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" altersStateOfSelectedItem="NO" selectedItem="z8X-aR-fwU" id="fct-Jo-Wiy" customClass="EQPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1310,7 +1272,7 @@ G1BhbiBTbGlkZXI
                                             </view>
                                         </tabViewItem>
                                         <tabViewItem label="Filter" identifier="" id="wCL-UO-nMJ">
-                                            <view key="view" ambiguous="YES" id="eRG-iQ-ZQv">
+                                            <view key="view" id="eRG-iQ-ZQv">
                                                 <rect key="frame" x="10" y="7" width="409" height="140"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -1605,9 +1567,6 @@ G1BhbiBTbGlkZXI
                                             </view>
                                         </tabViewItem>
                                     </tabViewItems>
-                                    <connections>
-                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="M33-Qj-MWC"/>
-                                    </connections>
                                 </tabView>
                             </subviews>
                         </view>
@@ -1616,133 +1575,6 @@ G1BhbiBTbGlkZXI
                         </shadow>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.70347281678082196" colorSpace="calibratedWhite"/>
-                    </box>
-                    <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ft1-56-lTI" userLabel="Playlist Controls">
-                        <rect key="frame" x="15" y="14" width="385" height="35"/>
-                        <view key="contentView" id="PLJ-vV-mhd">
-                            <rect key="frame" x="0.0" y="0.0" width="385" height="35"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <button toolTip="Add files to playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vmP-3Z-75C" userLabel="Add">
-                                    <rect key="frame" x="7" y="6" width="14" height="14"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="e0H-pg-jGM">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="addTracksAction:" target="Voe-Tx-rLC" id="XXF-Ek-Kdn"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Remove selected file from playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ws5-MD-bgB" userLabel="Remove">
-                                    <rect key="frame" x="24" y="6" width="14" height="14"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="RW1-Gq-U5Q">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="removeSingleTrackAction:" target="Voe-Tx-rLC" id="XMD-nS-FYC"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Save current playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ykd-pV-DhL" userLabel="Save">
-                                    <rect key="frame" x="45" y="6" width="14" height="14"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Save" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="r5P-6g-1T5">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="savePlaylistAction:" target="Voe-Tx-rLC" id="r6d-j2-ZSl"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Clear the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2x-W9-0uj" userLabel="Clear">
-                                    <rect key="frame" x="59" y="5" width="15" height="18"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Clear" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="3UW-IS-bhe">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="clearPlaylistAction:" target="Voe-Tx-rLC" id="44r-1n-Jhy"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Move selected track up" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v8g-5Z-Q77" userLabel="Up">
-                                    <rect key="frame" x="80" y="6" width="14" height="14"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Up" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="2ee-yj-1Uz">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="moveTrackUpAction:" target="Voe-Tx-rLC" id="gke-4N-gTb"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Move selected track down" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lQn-Xx-utz" userLabel="Down">
-                                    <rect key="frame" x="97" y="6" width="14" height="14"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Down" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="bwT-CP-DIg">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="moveTrackDownAction:" target="Voe-Tx-rLC" id="cZJ-AR-tnk"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Search playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Izf-T5-uoB" userLabel="Search">
-                                    <rect key="frame" x="118" y="7" width="14" height="14"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Search" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="8Mw-Zm-Tej">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="searchPlaylistAction:" target="Voe-Tx-rLC" id="Nzo-hY-yhH"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Sort playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7jt-oN-fFd" userLabel="Sort">
-                                    <rect key="frame" x="136" y="4" width="19" height="19"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Sort" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="82I-oA-s7J">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="sortPlaylistAction:" target="Voe-Tx-rLC" id="Rde-kC-7mt"/>
-                                    </connections>
-                                </button>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PC9-RH-ZoK" userLabel="Playlist summary">
-                                    <rect key="frame" x="242" y="6" width="139" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0 tracks  0:00" id="AP4-Kh-xaT">
-                                        <font key="font" size="13" name="GillSans"/>
-                                        <color key="textColor" white="0.70157877604166663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
-                                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Gb7-pn-6bV" userLabel="Spinner">
-                                    <rect key="frame" x="283" y="6" width="16" height="16"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <contentFilters>
-                                        <ciFilter name="CIFalseColor">
-                                            <configuration>
-                                                <ciColor key="inputColor0" red="0.78303247690200806" green="0.78303247690200806" blue="0.78303247690200806" alpha="1"/>
-                                                <ciColor key="inputColor1" red="1" green="1" blue="1" alpha="1"/>
-                                                <null key="inputImage"/>
-                                            </configuration>
-                                        </ciFilter>
-                                    </contentFilters>
-                                </progressIndicator>
-                            </subviews>
-                        </view>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="35" id="VP3-mk-rG7"/>
-                            <constraint firstAttribute="width" constant="385" id="pLM-SH-Bed"/>
-                        </constraints>
-                        <shadow key="shadow" blurRadius="5">
-                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        </shadow>
-                        <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <box boxType="custom" borderType="line" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="RMJ-vL-K67" userLabel="Playlist Box">
                         <rect key="frame" x="15" y="44" width="385" height="176"/>
@@ -1860,6 +1692,133 @@ G1BhbiBTbGlkZXI
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.70347281678082196" colorSpace="calibratedWhite"/>
                     </box>
+                    <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ft1-56-lTI" userLabel="Playlist Controls">
+                        <rect key="frame" x="15" y="14" width="385" height="35"/>
+                        <view key="contentView" id="PLJ-vV-mhd">
+                            <rect key="frame" x="0.0" y="0.0" width="385" height="35"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button toolTip="Add files to playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vmP-3Z-75C" userLabel="Add">
+                                    <rect key="frame" x="7" y="6" width="14" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="e0H-pg-jGM">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="addTracksAction:" target="V2O-JI-ukn" id="UBL-O2-c6B"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Remove selected file from playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ws5-MD-bgB" userLabel="Remove">
+                                    <rect key="frame" x="24" y="6" width="14" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="RW1-Gq-U5Q">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="removeSingleTrackAction:" target="V2O-JI-ukn" id="Jpn-D8-4rJ"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Save current playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ykd-pV-DhL" userLabel="Save">
+                                    <rect key="frame" x="45" y="6" width="14" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Save" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="r5P-6g-1T5">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="savePlaylistAction:" target="V2O-JI-ukn" id="tm5-gp-Ho7"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Clear the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2x-W9-0uj" userLabel="Clear">
+                                    <rect key="frame" x="59" y="5" width="15" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Clear" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="3UW-IS-bhe">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="clearPlaylistAction:" target="V2O-JI-ukn" id="FqD-vM-2ze"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Move selected track up" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v8g-5Z-Q77" userLabel="Up">
+                                    <rect key="frame" x="80" y="6" width="14" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Up" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="2ee-yj-1Uz">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="moveTrackUpAction:" target="V2O-JI-ukn" id="Eb5-Fo-VzW"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Move selected track down" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lQn-Xx-utz" userLabel="Down">
+                                    <rect key="frame" x="97" y="6" width="14" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Down" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="bwT-CP-DIg">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="moveTrackDownAction:" target="V2O-JI-ukn" id="4PO-e3-DPc"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Search playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Izf-T5-uoB" userLabel="Search">
+                                    <rect key="frame" x="118" y="7" width="14" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Search" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="8Mw-Zm-Tej">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="searchPlaylistAction:" target="Ur0-NJ-0ro" id="sLE-hp-rIt"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Sort playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7jt-oN-fFd" userLabel="Sort">
+                                    <rect key="frame" x="136" y="4" width="19" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Sort" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="82I-oA-s7J">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="sortPlaylistAction:" target="8pJ-I5-ie6" id="IjQ-GI-4Lh"/>
+                                    </connections>
+                                </button>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PC9-RH-ZoK" userLabel="Playlist summary">
+                                    <rect key="frame" x="242" y="6" width="139" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0 tracks  0:00" id="AP4-Kh-xaT">
+                                        <font key="font" size="13" name="GillSans"/>
+                                        <color key="textColor" white="0.70157877604166663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Gb7-pn-6bV" userLabel="Spinner">
+                                    <rect key="frame" x="283" y="6" width="16" height="16"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <contentFilters>
+                                        <ciFilter name="CIFalseColor">
+                                            <configuration>
+                                                <ciColor key="inputColor0" red="0.78303247690200806" green="0.78303247690200806" blue="0.78303247690200806" alpha="1"/>
+                                                <ciColor key="inputColor1" red="1" green="1" blue="1" alpha="1"/>
+                                                <null key="inputImage"/>
+                                            </configuration>
+                                        </ciFilter>
+                                    </contentFilters>
+                                </progressIndicator>
+                            </subviews>
+                        </view>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="VP3-mk-rG7"/>
+                            <constraint firstAttribute="width" constant="385" id="pLM-SH-Bed"/>
+                        </constraints>
+                        <shadow key="shadow" blurRadius="5">
+                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </shadow>
+                        <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </box>
                 </subviews>
                 <constraints>
                     <constraint firstItem="ft1-56-lTI" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="15" id="Tll-mg-OJu"/>
@@ -1879,6 +1838,59 @@ G1BhbiBTbGlkZXI
             <point key="canvasLocation" x="124.5" y="35.5"/>
         </window>
         <viewController id="THs-LC-lDb" userLabel="Playlist TableView Controller" customClass="PlaylistTableViewController" customModule="Aural" customModuleProvider="target"/>
+        <viewController id="V2O-JI-ukn" customClass="PlaylistViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="bigLblTrack" destination="siU-Sg-IBb" id="UBn-wL-C9v"/>
+                <outlet property="btnMoreInfo" destination="0Mb-en-nxS" id="GZK-nB-O4F"/>
+                <outlet property="btnPlayPause" destination="52R-Hv-S0B" id="Hm8-MJ-06e"/>
+                <outlet property="btnRepeat" destination="Fpa-Ii-3YA" id="Poy-W3-KeB"/>
+                <outlet property="btnShuffle" destination="kQL-4a-kyh" id="xDd-16-OJY"/>
+                <outlet property="lblPlayingTime" destination="4f4-mL-8YB" id="lyk-la-A2M"/>
+                <outlet property="lblPlaylistSummary" destination="PC9-RH-ZoK" id="VZF-8z-wtz"/>
+                <outlet property="lblTrackArtist" destination="bDo-O3-0JI" id="O5H-fe-7O7"/>
+                <outlet property="lblTrackTitle" destination="LM5-xW-O9f" id="eBc-BG-nmW"/>
+                <outlet property="musicArtView" destination="YrG-JU-zDl" id="a4u-f9-SR6"/>
+                <outlet property="playlistView" destination="4Fk-6v-HSf" id="kwc-dY-9eB"/>
+                <outlet property="playlistWorkSpinner" destination="Gb7-pn-6bV" id="kyk-FL-Xre"/>
+                <outlet property="seekSlider" destination="0m5-4l-3Wg" id="fes-ie-3Xu"/>
+                <outlet property="view" destination="RMJ-vL-K67" id="1Ya-pP-l1z"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="vCs-Db-zcN"/>
+            </connections>
+        </viewController>
+        <viewController id="Ur0-NJ-0ro" customClass="PlaylistSearchViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnNextSearch" destination="BlR-U8-j24" id="3aR-Fk-7Ij"/>
+                <outlet property="btnPreviousSearch" destination="iYr-nA-dwT" id="88k-9m-Svc"/>
+                <outlet property="comparisonTypeBeginsWith" destination="Zim-kM-TMG" id="jCe-ZR-61T"/>
+                <outlet property="comparisonTypeContains" destination="x2f-22-qf5" id="kld-l8-tAK"/>
+                <outlet property="comparisonTypeEndsWith" destination="R1T-ao-6zp" id="cMZ-3u-rRU"/>
+                <outlet property="comparisonTypeEquals" destination="yPX-c1-L0X" id="oTK-U9-hvl"/>
+                <outlet property="playlistView" destination="4Fk-6v-HSf" id="i6d-nP-o68"/>
+                <outlet property="searchByAlbum" destination="vJB-tQ-9gW" id="Q8G-Km-WWX"/>
+                <outlet property="searchByArtist" destination="alT-kE-ZJN" id="3n0-xd-XrQ"/>
+                <outlet property="searchByName" destination="DT8-PC-txX" id="pDg-36-h5R"/>
+                <outlet property="searchByTitle" destination="9wf-Pu-L95" id="n6k-vY-IdE"/>
+                <outlet property="searchCaseSensitive" destination="MSF-LB-dHT" id="abq-rJ-dOV"/>
+                <outlet property="searchField" destination="KsO-rj-Fgq" id="odR-aV-O17"/>
+                <outlet property="searchPanel" destination="jhP-AH-EDd" id="pJP-d0-fh0"/>
+                <outlet property="searchResultMatchInfo" destination="tV8-Yi-o5k" id="as8-3N-fco"/>
+                <outlet property="searchResultsSummaryLabel" destination="cAy-bq-MqT" id="7KD-rp-7pp"/>
+                <outlet property="view" destination="h2Z-Yr-cIo" id="zzW-2i-zdy"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="wmQ-5d-bCA"/>
+            </connections>
+        </viewController>
+        <viewController id="8pJ-I5-ie6" customClass="PlaylistSortViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="playlistView" destination="4Fk-6v-HSf" id="tkr-Yc-uad"/>
+                <outlet property="sortAscending" destination="trl-at-P9S" id="a5P-1p-3Xq"/>
+                <outlet property="sortByDuration" destination="Gd9-ah-OAB" id="qOc-Sc-0Tw"/>
+                <outlet property="sortByName" destination="0Oe-zI-vsS" id="FDR-d5-PDV"/>
+                <outlet property="sortDescending" destination="7Ww-4w-TFU" id="C5F-aQ-fHx"/>
+                <outlet property="sortPanel" destination="Lw0-WI-3wy" id="871-gI-pBK"/>
+                <outlet property="view" destination="raD-bb-lef" id="bSk-qu-6GL"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="41G-LA-im2"/>
+            </connections>
+        </viewController>
         <viewController id="fv4-nc-h1s" customClass="AudioGraphViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnDelayBypass" destination="hFd-0O-hii" id="uGo-DG-Vgc"/>
@@ -2030,12 +2042,12 @@ G1BhbiBTbGlkZXI
                         <items>
                             <menuItem title=" Open files / playlists" image="Add-Small" keyEquivalent="o" id="Ysv-Pf-k88">
                                 <connections>
-                                    <action selector="addFilesMenuItemAction:" target="Voe-Tx-rLC" id="Ce7-om-g0v"/>
+                                    <action selector="addFilesMenuItemAction:" target="V2O-JI-ukn" id="bCs-wN-w2f"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Save playlist" image="Save-Small" keyEquivalent="s" id="Cvk-m8-oAg">
                                 <connections>
-                                    <action selector="savePlaylistMenuItemAction:" target="Voe-Tx-rLC" id="Tzl-ME-ViL"/>
+                                    <action selector="savePlaylistMenuItemAction:" target="V2O-JI-ukn" id="Kac-6Y-Ykh"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Clear playlist" image="Clear-Small" id="ec2-Jm-I4M">
@@ -2043,7 +2055,7 @@ G1BhbiBTbGlkZXI
 CA
 </string>
                                 <connections>
-                                    <action selector="clearPlaylistMenuItemAction:" target="Voe-Tx-rLC" id="amw-cl-HS1"/>
+                                    <action selector="clearPlaylistMenuItemAction:" target="V2O-JI-ukn" id="3Gi-ou-guT"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="ZbT-B5-jLK"/>
@@ -2053,19 +2065,19 @@ DQ
 </string>
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="playSelectedTrackMenuItemAction:" target="Voe-Tx-rLC" id="X7I-Pg-Cid"/>
+                                    <action selector="playSelectedTrackMenuItemAction:" target="V2O-JI-ukn" id="jdD-TS-ErR"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Move selected track up" image="Up-Small" keyEquivalent="" id="f3c-TG-M9r">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
                                 <connections>
-                                    <action selector="moveTrackUpMenuItemAction:" target="Voe-Tx-rLC" id="2le-aU-9ZZ"/>
+                                    <action selector="moveTrackUpMenuItemAction:" target="V2O-JI-ukn" id="BCf-Kt-Kyo"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Move selected track down" image="Down-Small" keyEquivalent="" id="F5x-Nm-ust">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
                                 <connections>
-                                    <action selector="moveTrackDownMenuItemAction:" target="Voe-Tx-rLC" id="qIB-GV-NX3"/>
+                                    <action selector="moveTrackDownMenuItemAction:" target="V2O-JI-ukn" id="aQJ-6s-CoQ"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Remove selected track" image="Remove-Small" id="20j-6Y-sbB" userLabel="Remove selected track">
@@ -2074,19 +2086,19 @@ CA
 </string>
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="removeTrackMenuItemAction:" target="Voe-Tx-rLC" id="h5R-VF-fqv"/>
+                                    <action selector="removeTrackMenuItemAction:" target="V2O-JI-ukn" id="uQK-aw-lnm"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="bMd-aB-U0o"/>
                             <menuItem title=" Search playlist" image="Search-Small" keyEquivalent="f" id="Pxd-7C-8tq">
                                 <connections>
-                                    <action selector="searchPlaylistMenuItemAction:" target="Voe-Tx-rLC" id="USw-Ot-4ok"/>
+                                    <action selector="searchPlaylistMenuItemAction:" target="Ur0-NJ-0ro" id="OQs-Ma-KnR"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Sort playlist" image="Sort-Small" keyEquivalent="s" id="ttf-Ix-LHp" userLabel="Sort playlist">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
-                                    <action selector="sortPlaylistMenuItemAction:" target="Voe-Tx-rLC" id="wIR-gs-wNE"/>
+                                    <action selector="sortPlaylistMenuItemAction:" target="8pJ-I5-ie6" id="Spd-N7-5Ij"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -2099,29 +2111,29 @@ CA
                             <menuItem title=" Play / Pause" image="PlayPause-Small" keyEquivalent=" " id="T9r-Uq-EPf">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="togglePlayPauseMenuItemAction:" target="Voe-Tx-rLC" id="dA1-UD-t63"/>
+                                    <action selector="togglePlayPauseMenuItemAction:" target="V2O-JI-ukn" id="eiQ-7h-6Dh"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Previous track" image="PreviousTrack-Small" keyEquivalent="" id="yq3-HU-6rh">
                                 <connections>
-                                    <action selector="previousTrackMenuItemAction:" target="Voe-Tx-rLC" id="85L-9O-UoG"/>
+                                    <action selector="previousTrackMenuItemAction:" target="V2O-JI-ukn" id="Qow-cq-VZy"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Next track" image="NextTrack-Small" keyEquivalent="" id="z7s-9y-10c">
                                 <connections>
-                                    <action selector="nextTrackMenuItemAction:" target="Voe-Tx-rLC" id="FMj-Cc-23S"/>
+                                    <action selector="nextTrackMenuItemAction:" target="V2O-JI-ukn" id="lKT-GF-Z5O"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Seek backward" image="SeekBackward-Small" keyEquivalent="" id="h8T-Of-b8S">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="seekBackwardMenuItemAction:" target="Voe-Tx-rLC" id="9Vp-ua-Ufi"/>
+                                    <action selector="seekBackwardMenuItemAction:" target="V2O-JI-ukn" id="Zyl-3f-fMR"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Seek forward" image="SeekForward-Small" keyEquivalent="" id="dge-IA-2p7">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="seekForwardMenuItemAction:" target="Voe-Tx-rLC" id="tgJ-SA-zZE"/>
+                                    <action selector="seekForwardMenuItemAction:" target="V2O-JI-ukn" id="VQh-iw-sNx"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="gze-sl-67j"/>
@@ -2157,19 +2169,19 @@ CA
                             <menuItem title=" Toggle repeat mode" image="RepeatMode-Small" keyEquivalent="R" id="CXV-Nr-pIe">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="toggleRepeatModeMenuItemAction:" target="Voe-Tx-rLC" id="wvZ-kP-PFm"/>
+                                    <action selector="toggleRepeatModeMenuItemAction:" target="V2O-JI-ukn" id="u92-9z-M16"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Toggle shuffle mode" image="ShuffleOn-Small" keyEquivalent="S" id="vKU-kn-zJM">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="toggleShuffleModeMenuItemAction:" target="Voe-Tx-rLC" id="eTX-iy-0or"/>
+                                    <action selector="toggleShuffleModeMenuItemAction:" target="V2O-JI-ukn" id="TxG-4d-oFv"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="dsi-6a-jdq"/>
                             <menuItem title=" Detailed track info" image="MoreInfo-Small" keyEquivalent="i" id="GCy-Rj-Mv5">
                                 <connections>
-                                    <action selector="trackInfoMenuItemAction:" target="Voe-Tx-rLC" id="FDP-DL-ibS"/>
+                                    <action selector="trackInfoMenuItemAction:" target="V2O-JI-ukn" id="kXf-az-K0K"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -2263,7 +2275,7 @@ CA
                                         <font key="font" size="11" name="GillSans"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="yD2-eJ-LyO"/>
+                                        <action selector="searchQueryChangedAction:" target="Ur0-NJ-0ro" id="BAJ-8a-fsa"/>
                                     </connections>
                                 </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V4x-eA-PhP" userLabel="Options:">
@@ -2292,7 +2304,7 @@ CA
                                         <font key="font" size="11" name="GillSans"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="oPV-37-VbJ"/>
+                                        <action selector="searchQueryChangedAction:" target="Ur0-NJ-0ro" id="WfF-zf-fai"/>
                                     </connections>
                                 </button>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x2f-22-qf5" userLabel="Contains">
@@ -2303,7 +2315,7 @@ CA
                                         <font key="font" size="11" name="GillSans"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="foG-e2-Wgp"/>
+                                        <action selector="searchQueryChangedAction:" target="Ur0-NJ-0ro" id="6I0-4A-fft"/>
                                     </connections>
                                 </button>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zim-kM-TMG" userLabel="Begins with">
@@ -2314,7 +2326,7 @@ CA
                                         <font key="font" size="11" name="GillSans"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="zws-nv-zgs"/>
+                                        <action selector="searchQueryChangedAction:" target="Ur0-NJ-0ro" id="FHu-M1-Exc"/>
                                     </connections>
                                 </button>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R1T-ao-6zp" userLabel="Ends with">
@@ -2325,7 +2337,7 @@ CA
                                         <font key="font" size="11" name="GillSans"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="bnB-4U-YjR"/>
+                                        <action selector="searchQueryChangedAction:" target="Ur0-NJ-0ro" id="kZ6-LE-5xz"/>
                                     </connections>
                                 </button>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DT8-PC-txX" userLabel="Name field">
@@ -2336,7 +2348,7 @@ CA
                                         <font key="font" size="11" name="GillSans"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="dKM-IR-czW"/>
+                                        <action selector="searchQueryChangedAction:" target="Ur0-NJ-0ro" id="eE6-st-r11"/>
                                     </connections>
                                 </button>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="alT-kE-ZJN" userLabel="Artist field">
@@ -2347,7 +2359,7 @@ CA
                                         <font key="font" size="11" name="GillSans"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="dw2-8f-rfc"/>
+                                        <action selector="searchQueryChangedAction:" target="Ur0-NJ-0ro" id="q76-c5-PuF"/>
                                     </connections>
                                 </button>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9wf-Pu-L95" userLabel="Title field">
@@ -2358,7 +2370,7 @@ CA
                                         <font key="font" size="11" name="GillSans"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="a9n-R2-XkD"/>
+                                        <action selector="searchQueryChangedAction:" target="Ur0-NJ-0ro" id="npt-MN-5mG"/>
                                     </connections>
                                 </button>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vJB-tQ-9gW" userLabel="Album field">
@@ -2369,7 +2381,7 @@ CA
                                         <font key="font" size="11" name="GillSans"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="searchQueryChangedAction:" target="Voe-Tx-rLC" id="xJg-wX-CgW"/>
+                                        <action selector="searchQueryChangedAction:" target="Ur0-NJ-0ro" id="TBG-cO-vwl"/>
                                     </connections>
                                 </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFi-Oz-wqi">
@@ -2419,7 +2431,7 @@ CA
                                         <font key="font" metaFont="cellTitle"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="previousSearchAction:" target="Voe-Tx-rLC" id="dPb-6U-S6f"/>
+                                        <action selector="previousSearchAction:" target="Ur0-NJ-0ro" id="zpc-RF-ny8"/>
                                     </connections>
                                 </button>
                                 <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BlR-U8-j24">
@@ -2430,7 +2442,7 @@ CA
                                         <font key="font" metaFont="cellTitle"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="nextSearchAction:" target="Voe-Tx-rLC" id="ksh-Kb-Wug"/>
+                                        <action selector="nextSearchAction:" target="Ur0-NJ-0ro" id="Bgp-hT-Z5r"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -2449,7 +2461,7 @@ Gw
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="searchDoneAction:" target="Voe-Tx-rLC" id="flT-qc-QqZ"/>
+                            <action selector="searchDoneAction:" target="Ur0-NJ-0ro" id="tgK-ge-YTW"/>
                         </connections>
                     </button>
                 </subviews>
@@ -2501,7 +2513,7 @@ Gw
                                                     <font key="font" size="11" name="GillSans"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="sortOptionsChangedAction:" target="Voe-Tx-rLC" id="G8c-V0-rHp"/>
+                                                    <action selector="sortOptionsChangedAction:" target="8pJ-I5-ie6" id="gTX-00-hMf"/>
                                                 </connections>
                                             </button>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gd9-ah-OAB" userLabel="Duration field">
@@ -2512,7 +2524,7 @@ Gw
                                                     <font key="font" size="11" name="GillSans"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="sortOptionsChangedAction:" target="Voe-Tx-rLC" id="reG-uO-ccb"/>
+                                                    <action selector="sortOptionsChangedAction:" target="8pJ-I5-ie6" id="tGe-MO-cSP"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -2542,7 +2554,7 @@ Gw
                                                     <font key="font" size="11" name="GillSans"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="sortOptionsChangedAction:" target="Voe-Tx-rLC" id="Spt-sv-w12"/>
+                                                    <action selector="sortOptionsChangedAction:" target="8pJ-I5-ie6" id="Vyo-XY-80E"/>
                                                 </connections>
                                             </button>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Ww-4w-TFU">
@@ -2553,7 +2565,7 @@ Gw
                                                     <font key="font" size="11" name="GillSans"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="sortOptionsChangedAction:" target="Voe-Tx-rLC" id="WZY-4C-3WT"/>
+                                                    <action selector="sortOptionsChangedAction:" target="8pJ-I5-ie6" id="itU-gD-B6t"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -2574,7 +2586,7 @@ DQ
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="sortBtnAction:" target="Voe-Tx-rLC" id="o8v-pU-Trm"/>
+                            <action selector="sortBtnAction:" target="8pJ-I5-ie6" id="svb-QC-fbX"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ffh-vZ-RWY" userLabel="Cancel button">
@@ -2588,7 +2600,7 @@ Gw
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="sortCancelBtnAction:" target="Voe-Tx-rLC" id="168-DV-8xJ"/>
+                            <action selector="sortCancelBtnAction:" target="8pJ-I5-ie6" id="Dmn-Zy-czO"/>
                         </connections>
                     </button>
                 </subviews>

@@ -13,7 +13,7 @@ protocol MessageSubscriber {
 }
 
 /*
- Defines a inter-view message, sent from one view to another, in response to state changes or user actions. Messages could be either 1 - notifications, indicating that some change has occurred (e.g. the playlist has been cleared), OR 2 - requests for the execution of a function (e.g. track playback) from a different view.
+ Defines an inter-view message, sent from one view to another, in response to state changes or user actions. Messages could be either 1 - notifications, indicating that some change has occurred (e.g. the playlist has been cleared), OR 2 - requests for the execution of a function (e.g. track playback) from a different view.
  */
 protocol Message {
     var messageType: MessageType {get}
@@ -36,6 +36,9 @@ enum MessageType {
     
     case trackSelectionNotification
     case stopPlaybackRequest
+    
+    case playlistScrollUpNotification
+    case playlistScrollDownNotification
     
     case playbackRateChangedNotification
     case searchQueryChangedNotification
@@ -80,6 +83,24 @@ struct TrackSelectionNotification: NotificationMessage {
     init(_ trackIndex: Int) {
         self.trackIndex = trackIndex
     }
+}
+
+// Notification that the playlist selection is to change (one row up)
+struct PlaylistScrollUpNotification: NotificationMessage {
+    
+    var messageType: MessageType = .playlistScrollUpNotification
+    static let instance: PlaylistScrollUpNotification = PlaylistScrollUpNotification()
+    
+    private init() {}
+}
+
+// Notification that the playlist selection is to change (one row down)
+struct PlaylistScrollDownNotification: NotificationMessage {
+    
+    var messageType: MessageType = .playlistScrollDownNotification
+    static let instance: PlaylistScrollDownNotification = PlaylistScrollDownNotification()
+    
+    private init() {}
 }
 
 // Request from the playlist to stop playback (for instance, when the playlist is cleared, or the playing track has been removed)

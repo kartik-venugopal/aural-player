@@ -159,6 +159,8 @@ class PlayerDelegate: AuralPlayerDelegate, AuralPlaylistControlDelegate, AuralSo
     // This method should only be called from outside this class. For adding tracks within this class, always call the private method addFiles_sync().
     func addFiles(_ files: [URL]) {
         
+        EventRegistry.publishEvent(.startedAddingTracks, StartedAddingTracksEvent.instance)
+        
         // Move to a background thread to unblock the main thread
         DispatchQueue.global(qos: .userInteractive).async {
             
