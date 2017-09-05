@@ -16,6 +16,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
     @IBOutlet weak var seekSlider: NSSlider!
     @IBOutlet weak var btnMoreInfo: NSButton!
     
+    @IBOutlet weak var moreInfoMenuItem: NSMenuItem!
+    
     private let player: PlayerDelegateProtocol = ObjectGraph.getPlayerDelegate()
     
     // Popover view that displays detailed track info
@@ -124,8 +126,13 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         lblSeekPosition.stringValue = UIConstants.zeroDurationString
         seekSlider.floatValue = 0
         artView.image = UIConstants.imgMusicArt
-        btnMoreInfo.isHidden = true
+        toggleMoreInfoButtons(false)
         hidePopover()
+    }
+    
+    private func toggleMoreInfoButtons(_ show: Bool) {
+        btnMoreInfo.isHidden = !show
+        moreInfoMenuItem.isEnabled = show
     }
     
     func hidePopover() {
@@ -166,7 +173,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
             
             if (!errorState) {
                 setSeekTimerState(true)
-                btnMoreInfo.isHidden = false
+                toggleMoreInfoButtons(true)
                 
                 if (popover.isShown) {
                     player.getMoreInfo()
@@ -178,7 +185,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
                 // Error state
                 
                 setSeekTimerState(false)
-                btnMoreInfo.isHidden = true
+                toggleMoreInfoButtons(false)
                 
                 if (popover.isShown) {
                     hidePopover()

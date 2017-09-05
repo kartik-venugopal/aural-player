@@ -1845,6 +1845,7 @@ G1BhbiBTbGlkZXI
                 <outlet property="lblTrackArtist" destination="bDo-O3-0JI" id="Sb8-OG-GT7"/>
                 <outlet property="lblTrackName" destination="siU-Sg-IBb" id="ta2-7x-V9l"/>
                 <outlet property="lblTrackTitle" destination="LM5-xW-O9f" id="ak8-NZ-U21"/>
+                <outlet property="moreInfoMenuItem" destination="GCy-Rj-Mv5" id="LOh-vM-WmL"/>
                 <outlet property="seekSlider" destination="0m5-4l-3Wg" id="J4M-hS-8Ok"/>
                 <outlet property="view" destination="r0W-tQ-AZF" id="l3d-xs-jN0"/>
             </connections>
@@ -2107,7 +2108,7 @@ CA
                 </menuItem>
                 <menuItem title="Controls" id="voC-QS-eVy" userLabel="Controls">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Controls" id="4gC-cq-kT9">
+                    <menu key="submenu" title="Controls" autoenablesItems="NO" id="4gC-cq-kT9">
                         <items>
                             <menuItem title=" Play / Pause" image="PlayPause-Small" keyEquivalent=" " id="T9r-Uq-EPf">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -2180,7 +2181,7 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="dsi-6a-jdq"/>
-                            <menuItem title=" Detailed track info" image="MoreInfo-Small" keyEquivalent="i" id="GCy-Rj-Mv5">
+                            <menuItem title=" Detailed track info" image="MoreInfo-Small" enabled="NO" keyEquivalent="i" id="GCy-Rj-Mv5">
                                 <connections>
                                     <action selector="trackInfoMenuItemAction:" target="2zm-r9-5fb" id="NNR-qG-MAw"/>
                                 </connections>
