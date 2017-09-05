@@ -114,10 +114,10 @@
                                     </shadow>
                                     <sliderCell key="cell" controlSize="small" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="hcm-sc-1cx" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
                                     <connections>
-                                        <action selector="seekSliderAction:" target="V2O-JI-ukn" id="wRF-qD-6e5"/>
+                                        <action selector="seekSliderAction:" target="2zm-r9-5fb" id="gQA-92-T8a"/>
                                     </connections>
                                 </slider>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4f4-mL-8YB">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4f4-mL-8YB" userLabel="Lbl Seek Position">
                                     <rect key="frame" x="201" y="-4" width="63" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="0:00" placeholderString="" id="Dmj-zO-zIU">
@@ -131,7 +131,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="MusicArt" id="XZE-dj-fiU"/>
                                 </imageView>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDo-O3-0JI" userLabel="Artist">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDo-O3-0JI" userLabel="Track Artist">
                                     <rect key="frame" x="94" y="56" width="269" height="23"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="f6r-Bu-Uox">
@@ -140,7 +140,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LM5-xW-O9f" userLabel="Title">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LM5-xW-O9f" userLabel="Track Title">
                                     <rect key="frame" x="94" y="38" width="269" height="23"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="dFa-X7-jcN">
@@ -149,7 +149,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="siU-Sg-IBb" userLabel="Big Track Label">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="siU-Sg-IBb" userLabel="Track Name">
                                     <rect key="frame" x="94" y="25" width="280" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" id="Z1W-iy-lZi">
@@ -166,7 +166,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="moreInfoAction:" target="V2O-JI-ukn" id="NKg-mb-2Rn"/>
+                                        <action selector="moreInfoAction:" target="2zm-r9-5fb" id="uX0-lv-efA"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -1837,22 +1837,27 @@ G1BhbiBTbGlkZXI
             </connections>
             <point key="canvasLocation" x="124.5" y="35.5"/>
         </window>
+        <viewController id="2zm-r9-5fb" customClass="NowPlayingViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="artView" destination="YrG-JU-zDl" id="bcX-qr-OmI"/>
+                <outlet property="btnMoreInfo" destination="0Mb-en-nxS" id="gw8-7r-VO1"/>
+                <outlet property="lblSeekPosition" destination="4f4-mL-8YB" id="hVi-KQ-n5Q"/>
+                <outlet property="lblTrackArtist" destination="bDo-O3-0JI" id="Sb8-OG-GT7"/>
+                <outlet property="lblTrackName" destination="siU-Sg-IBb" id="ta2-7x-V9l"/>
+                <outlet property="lblTrackTitle" destination="LM5-xW-O9f" id="ak8-NZ-U21"/>
+                <outlet property="seekSlider" destination="0m5-4l-3Wg" id="J4M-hS-8Ok"/>
+                <outlet property="view" destination="r0W-tQ-AZF" id="l3d-xs-jN0"/>
+            </connections>
+        </viewController>
         <viewController id="THs-LC-lDb" userLabel="Playlist TableView Controller" customClass="PlaylistTableViewController" customModule="Aural" customModuleProvider="target"/>
         <viewController id="V2O-JI-ukn" customClass="PlaylistViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="bigLblTrack" destination="siU-Sg-IBb" id="UBn-wL-C9v"/>
-                <outlet property="btnMoreInfo" destination="0Mb-en-nxS" id="GZK-nB-O4F"/>
                 <outlet property="btnPlayPause" destination="52R-Hv-S0B" id="Hm8-MJ-06e"/>
                 <outlet property="btnRepeat" destination="Fpa-Ii-3YA" id="Poy-W3-KeB"/>
                 <outlet property="btnShuffle" destination="kQL-4a-kyh" id="xDd-16-OJY"/>
-                <outlet property="lblPlayingTime" destination="4f4-mL-8YB" id="lyk-la-A2M"/>
                 <outlet property="lblPlaylistSummary" destination="PC9-RH-ZoK" id="VZF-8z-wtz"/>
-                <outlet property="lblTrackArtist" destination="bDo-O3-0JI" id="O5H-fe-7O7"/>
-                <outlet property="lblTrackTitle" destination="LM5-xW-O9f" id="eBc-BG-nmW"/>
-                <outlet property="musicArtView" destination="YrG-JU-zDl" id="a4u-f9-SR6"/>
                 <outlet property="playlistView" destination="4Fk-6v-HSf" id="kwc-dY-9eB"/>
                 <outlet property="playlistWorkSpinner" destination="Gb7-pn-6bV" id="kyk-FL-Xre"/>
-                <outlet property="seekSlider" destination="0m5-4l-3Wg" id="fes-ie-3Xu"/>
                 <outlet property="view" destination="RMJ-vL-K67" id="1Ya-pP-l1z"/>
             </connections>
         </viewController>
@@ -2177,7 +2182,7 @@ CA
                             <menuItem isSeparatorItem="YES" id="dsi-6a-jdq"/>
                             <menuItem title=" Detailed track info" image="MoreInfo-Small" keyEquivalent="i" id="GCy-Rj-Mv5">
                                 <connections>
-                                    <action selector="trackInfoMenuItemAction:" target="V2O-JI-ukn" id="kXf-az-K0K"/>
+                                    <action selector="trackInfoMenuItemAction:" target="2zm-r9-5fb" id="NNR-qG-MAw"/>
                                 </connections>
                             </menuItem>
                         </items>

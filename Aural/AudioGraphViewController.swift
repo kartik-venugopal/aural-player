@@ -318,40 +318,21 @@ class AudioGraphViewController: NSViewController {
         
         btnTimeBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         
-        // TODO: Send a notification message "playbackRateChanged"
-        
-        //
-        //        let interval = newBypassState ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * timeSlider.floatValue))
-        //
-        //        if (interval != seekTimer?.getInterval()) {
-        //
-        //            seekTimer?.stop()
-        //
-        //            seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: DispatchQueue.main)
-        //
-        //            if (graph.getPlaybackState() == .playing) {
-        //                setSeekTimerState(true)
-        //            }
-        //        }
+        let newRate = newBypassState ? 1 : timeSlider.floatValue
+        let playbackRateChangedMsg = PlaybackRateChangedNotification(newRate)
+        SyncMessenger.publishNotification(playbackRateChangedMsg)
     }
     
     @IBAction func timeStretchAction(_ sender: AnyObject) {
         
-        let rateValueStr = graph.setTimeStretchRate(timeSlider.floatValue)
+        let newRate = timeSlider.floatValue
+        let rateValueStr = graph.setTimeStretchRate(newRate)
         lblTimeStretchRateValue.stringValue = rateValueStr
         
         let timeStretchActive = !graph.isTimeBypass()
         if (timeStretchActive) {
-            
-            //            let interval = Int(1000 / (2 * timeSlider.floatValue))
-            //
-            //            seekTimer?.stop()
-            //
-            //            seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updatePlayingTime()}, queue: DispatchQueue.main)
-            //
-            //            if (graph.getPlaybackState() == .playing) {
-            //                setSeekTimerState(true)
-            //            }
+            let playbackRateChangedMsg = PlaybackRateChangedNotification(newRate)
+            SyncMessenger.publishNotification(playbackRateChangedMsg)
         }
     }
     

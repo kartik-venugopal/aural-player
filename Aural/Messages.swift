@@ -40,7 +40,9 @@ enum MessageType {
     case playlistScrollUpNotification
     case playlistScrollDownNotification
     
+    case playbackStateChangedNotification
     case playbackRateChangedNotification
+    
     case searchQueryChangedNotification
     
     case appLoadedNotification
@@ -112,7 +114,7 @@ struct StopPlaybackRequest: RequestMessage {
     private init() {}
 }
 
-// Request from the Time effects unit to change the seek timer interval, in response to the user changing the playback rate.
+// Notification that the playback rate has changed, in response to the user manipulating the time stretch effects unit controls.
 struct PlaybackRateChangedNotification: NotificationMessage {
     
     var messageType: MessageType = .playbackRateChangedNotification
@@ -120,6 +122,17 @@ struct PlaybackRateChangedNotification: NotificationMessage {
     
     init(_ newPlaybackRate: Float) {
         self.newPlaybackRate = newPlaybackRate
+    }
+}
+
+// Notification about a change in playback state (paused/playing/noTrack).
+struct PlaybackStateChangedNotification: NotificationMessage {
+    
+    var messageType: MessageType = .playbackStateChangedNotification
+    var newPlaybackState: PlaybackState
+    
+    init(_ newPlaybackState: PlaybackState) {
+        self.newPlaybackState = newPlaybackState
     }
 }
 

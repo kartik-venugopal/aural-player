@@ -16,31 +16,8 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     @IBOutlet weak var btnRepeat: NSButton!
     @IBOutlet weak var btnPlayPause: NSButton!
     
-    // Now playing track info
-    @IBOutlet weak var lblTrackArtist: NSTextField!
-    @IBOutlet weak var lblTrackTitle: NSTextField!
-    @IBOutlet weak var bigLblTrack: NSTextField!
-    
-    @IBOutlet weak var lblPlayingTime: NSTextField!
-    @IBOutlet weak var musicArtView: NSImageView!
-    @IBOutlet weak var seekSlider: NSSlider!
-    
-    @IBOutlet weak var btnMoreInfo: NSButton!
-    
-    // Popover view that displays detailed track info
-    lazy var popover: NSPopover = {
-        let popover = NSPopover()
-        popover.behavior = .semitransient
-        let ctrlr = PopoverController(nibName: "PopoverController", bundle: Bundle.main)
-        popover.contentViewController = ctrlr
-        return popover
-    }()
-    
-    let player: PlayerDelegateProtocol = ObjectGraph.getPlayerDelegate()
-    let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
-    
-    // Timer that periodically updates the seek bar
-    var seekTimer: ScheduledTaskExecutor? = nil
+    private let player: PlayerDelegateProtocol = ObjectGraph.getPlayerDelegate()
+    private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
     override func viewDidLoad() {
         
@@ -93,9 +70,6 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         case .on: btnShuffle.image = UIConstants.imgShuffleOn
             
         }
-        
-        // Timer interval depends on whether time stretch unit is active
-        seekTimer = ScheduledTaskExecutor(intervalMillis: appState.seekTimerInterval, task: {self.updatePlayingTime()}, queue: DispatchQueue.main)
     }
     
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
@@ -158,6 +132,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         
         if (index >= 0) {
             
+            let oldPlayingTrackIndex = player.getPlayingTrack()?.index
             let newTrackIndex = playlist.removeTrack(index)
             
             // The new number of rows (after track removal) is one less than the size of the playlist view, because the view has not yet been updated
@@ -177,18 +152,14 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
             updatePlaylistSummary()
             selectTrack(newTrackIndex)
             
-            if (newTrackIndex == nil) {
-                clearNowPlayingInfo()
+            if (oldPlayingTrackIndex == index) {
+                setPlayPauseImage(UIConstants.imgPlay)
+                let trackChgMsg = TrackChangedNotification(nil)
+                SyncMessenger.publishNotification(trackChgMsg)
             }
         }
         
         showPlaylistSelectedRow()
-    }
-    
-    func hidePopover() {
-        if (popover.isShown) {
-            popover.performClose(nil)
-        }
     }
     
     // Play / Pause / Resume
@@ -197,11 +168,12 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         do {
             
             let playbackInfo = try player.togglePlayPause()
+            let playbackState = playbackInfo.playbackState
             
-            switch playbackInfo.playbackState {
+            switch playbackState {
                 
-            case .noTrack, .paused: setSeekTimerState(false)
-            setPlayPauseImage(UIConstants.imgPlay)
+            case .noTrack, .paused: setPlayPauseImage(UIConstants.imgPlay)
+                SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
                 
             case .playing:
                 
@@ -209,8 +181,8 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
                     trackChange(playbackInfo.playingTrack)
                 } else {
                     // Resumed the same track
-                    setSeekTimerState(true)
                     setPlayPauseImage(UIConstants.imgPause)
+                    SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
                 }
             }
             
@@ -222,89 +194,8 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         }
     }
     
-    func showNowPlayingInfo(_ track: Track) {
-        
-        if (track.longDisplayName != nil) {
-            
-            if (track.longDisplayName!.artist != nil) {
-                
-                // Both title and artist
-                lblTrackArtist.stringValue = "Artist:  " + track.longDisplayName!.artist!
-                lblTrackTitle.stringValue = "Title:  " + track.longDisplayName!.title!
-                
-                bigLblTrack.isHidden = true
-                lblTrackArtist.isHidden = false
-                lblTrackTitle.isHidden = false
-                
-            } else {
-                
-                // Title only
-                bigLblTrack.isHidden = false
-                lblTrackArtist.isHidden = true
-                lblTrackTitle.isHidden = true
-                
-                bigLblTrack.stringValue = track.longDisplayName!.title!
-            }
-            
-        } else {
-            
-            // Short display name
-            bigLblTrack.isHidden = false
-            lblTrackArtist.isHidden = true
-            lblTrackTitle.isHidden = true
-            
-            bigLblTrack.stringValue = track.shortDisplayName!
-        }
-        
-        if (track.metadata!.art != nil) {
-            musicArtView.image = track.metadata!.art!
-        } else {
-            musicArtView.image = UIConstants.imgMusicArt
-        }
-    }
-    
-    func clearNowPlayingInfo() {
-        lblTrackArtist.stringValue = ""
-        lblTrackTitle.stringValue = ""
-        bigLblTrack.stringValue = ""
-        lblPlayingTime.stringValue = UIConstants.zeroDurationString
-        seekSlider.floatValue = 0
-        musicArtView.image = UIConstants.imgMusicArt
-        btnMoreInfo.isHidden = true
-        setPlayPauseImage(UIConstants.imgPlay)
-        hidePopover()
-    }
-    
     private func setPlayPauseImage(_ image: NSImage) {
         btnPlayPause.image = image
-    }
-    
-    private func setSeekTimerState(_ timerOn: Bool) {
-        
-        if (timerOn) {
-            seekSlider.isEnabled = true
-            seekTimer?.startOrResume()
-        } else {
-            seekTimer?.pause()
-            seekSlider.isEnabled = false
-        }
-    }
-    
-    func updatePlayingTime() {
-        
-        if (player.getPlaybackState() == .playing) {
-            
-            let seekPosn = player.getSeekSecondsAndPercentage()
-            
-            lblPlayingTime.stringValue = Utils.formatDuration(seekPosn.seconds)
-            seekSlider.doubleValue = seekPosn.percentage
-        }
-    }
-    
-    func resetPlayingTime() {
-        
-        lblPlayingTime.stringValue = UIConstants.zeroDurationString
-        seekSlider.floatValue = 0
     }
     
     func playlistDoubleClickAction(_ sender: AnyObject) {
@@ -312,10 +203,10 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     }
     
     func playSelectedTrack() {
+        
         if (playlistView.selectedRow >= 0) {
             
             do {
-                
                 let track = try player.play(playlistView.selectedRow)
                 trackChange(track)
                 
@@ -331,7 +222,6 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     @IBAction func nextTrackAction(_ sender: AnyObject) {
         
         do {
-            
             let trackInfo = try player.nextTrack()
             if (trackInfo?.track != nil) {
                 trackChange(trackInfo)
@@ -411,39 +301,24 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         
         if (newTrack != nil) {
             
-            showNowPlayingInfo(newTrack!.track!)
-            
             if (!errorState) {
-                setSeekTimerState(true)
                 setPlayPauseImage(UIConstants.imgPause)
-                btnMoreInfo.isHidden = false
-                
-                if (popover.isShown) {
-                    player.getMoreInfo()
-                    (popover.contentViewController as! PopoverController).refresh()
-                }
                 
             } else {
                 
                 // Error state
-                
-                setSeekTimerState(false)
                 setPlayPauseImage(UIConstants.imgPlay)
-                btnMoreInfo.isHidden = true
-                
-                if (popover.isShown) {
-                    hidePopover()
-                }
             }
             
         } else {
             
-            setSeekTimerState(false)
-            clearNowPlayingInfo()
+            setPlayPauseImage(UIConstants.imgPlay)
         }
         
-        resetPlayingTime()
         selectTrack(newTrack == nil ? nil : newTrack!.index)
+        
+        let trackChgNotification = TrackChangedNotification(newTrack)
+        SyncMessenger.publishNotification(trackChgNotification)
     }
     
     func selectTrack(_ index: Int?) {
@@ -456,7 +331,6 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         } else {
             // Select first track in list, if list not empty
             if (playlistView.numberOfRows > 0) {
-                
                 playlistView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
             }
         }
@@ -470,17 +344,12 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     
     @IBAction func seekBackwardAction(_ sender: AnyObject) {
         player.seekBackward()
-        updatePlayingTime()
+//        updatePlayingTime()
     }
     
     @IBAction func seekForwardAction(_ sender: AnyObject) {
         player.seekForward()
-        updatePlayingTime()
-    }
-    
-    @IBAction func seekSliderAction(_ sender: AnyObject) {
-        player.seekToPercentage(seekSlider.doubleValue)
-        updatePlayingTime()
+//        updatePlayingTime()
     }
     
     @IBAction func clearPlaylistAction(_ sender: AnyObject) {
@@ -529,26 +398,6 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         case .one: btnRepeat.image = UIConstants.imgRepeatOne
         case .all: btnRepeat.image = UIConstants.imgRepeatAll
             
-        }
-    }
-    
-    @IBAction func moreInfoAction(_ sender: AnyObject) {
-        
-        let playingTrack = player.getMoreInfo()
-        if (playingTrack == nil) {
-            return
-        }
-        
-        if (popover.isShown) {
-            popover.performClose(nil)
-            
-        } else {
-            
-            let positioningRect = NSZeroRect
-            let preferredEdge = NSRectEdge.maxX
-            
-            (popover.contentViewController as! PopoverController).refresh()
-            popover.show(relativeTo: positioningRect, of: btnMoreInfo as NSView, preferredEdge: preferredEdge)
         }
     }
     
@@ -625,7 +474,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     func consumeEvent(_ event: Event) {
         
         if event is TrackChangedEvent {
-            setSeekTimerState(false)
+//            setSeekTimerState(false)
             let _event = event as! TrackChangedEvent
             trackChange(_event.newTrack)
             return
@@ -712,10 +561,6 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     
     @IBAction func previousTrackMenuItemAction(_ sender: Any) {
         prevTrackAction(sender as AnyObject)
-    }
-    
-    @IBAction func trackInfoMenuItemAction(_ sender: Any) {
-        moreInfoAction(sender as AnyObject)
     }
     
     @IBAction func seekForwardMenuItemAction(_ sender: Any) {

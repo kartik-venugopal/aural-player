@@ -78,8 +78,7 @@ class UIConstants {
     static let trackInfoLongValueRowHeightMultiplier: CGFloat = 0.9
     
     // Seek timer interval (milliseconds)
-    // TODO: Change this back to 500, once the view controllers and messaging are in place
-    static let seekTimerIntervalMillis: Int = 125
+    static let seekTimerIntervalMillis: Int = 500
     
     // Recorder timer interval (milliseconds)
     static let recorderTimerIntervalMillis: Int = 500
