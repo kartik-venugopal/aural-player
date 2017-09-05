@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class PopoverController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     
     private var info: [(key: String, value: String)] = [(key: String, value: String)]()
     @IBOutlet weak var trackInfoView: NSTableView!

@@ -24,11 +24,15 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         let popover = NSPopover()
         popover.behavior = .semitransient
         
-        let ctrlr = PopoverController(nibName: "PopoverController", bundle: Bundle.main)
+        let ctrlr = PopoverViewController(nibName: "PopoverViewController", bundle: Bundle.main)
         popover.contentViewController = ctrlr
         
         return popover
         
+    }()
+    
+    private lazy var popoverViewController: PopoverViewController = {
+        return (self.popover.contentViewController as! PopoverViewController)
     }()
     
     // Timer that periodically updates the seek bar
@@ -66,7 +70,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
             let positioningRect = NSZeroRect
             let preferredEdge = NSRectEdge.maxX
             
-            (popover.contentViewController as! PopoverController).refresh()
+            popoverViewController.refresh()
             popover.show(relativeTo: positioningRect, of: btnMoreInfo as NSView, preferredEdge: preferredEdge)
         }
     }
@@ -166,7 +170,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
                 
                 if (popover.isShown) {
                     player.getMoreInfo()
-                    (popover.contentViewController as! PopoverController).refresh()
+                    popoverViewController.refresh()
                 }
                 
             } else {
