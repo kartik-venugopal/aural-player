@@ -52,7 +52,7 @@ class PreferencesViewController: NSViewController {
     @IBOutlet weak var btnStartAtWindowLocation: NSButton!
     @IBOutlet weak var startWindowLocationMenu: NSPopUpButton!
     
-    private let preferences: Preferences = Preferences.instance()
+    private let preferences: Preferences = ObjectGraph.getPreferences()
     
     override func viewDidLoad() {
         

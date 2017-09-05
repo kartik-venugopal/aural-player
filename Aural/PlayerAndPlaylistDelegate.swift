@@ -7,18 +7,14 @@ import Cocoa
  */
 class PlayerAndPlaylistDelegate: PlayerDelegateProtocol, PlaylistDelegateProtocol, EventSubscriber, MessageSubscriber {
     
-    var preferences: Preferences = Preferences.instance()
-    
-    private var appState: AppState
-    
-    // Audio graph
-    private var audioGraph: AudioGraphProtocol
-    
     // The current player playlist
-    private var playlist: Playlist
+    private let playlist: Playlist
     
     // The actual audio player
-    private var player: PlayerProtocol
+    private let player: PlayerProtocol
+    
+    private let appState: AppState
+    private let preferences: Preferences
     
     // Currently playing track
     private var playingTrack: IndexedTrack?
@@ -29,19 +25,13 @@ class PlayerAndPlaylistDelegate: PlayerDelegateProtocol, PlaylistDelegateProtoco
     // See PlaybackState
     private var playbackState: PlaybackState = .noTrack
     
-    private static let singleton: PlayerAndPlaylistDelegate = (ObjectGraph.getPlayerDelegate() as! PlayerAndPlaylistDelegate)
-    
-    static func instance() -> PlayerAndPlaylistDelegate {
-        return singleton
-    }
-    
-    init(_ player: PlayerProtocol, _ audioGraph: AudioGraphProtocol, _ recorder: RecorderProtocol, _ appState: AppState, _ playlist: Playlist) {
-        
-        self.player = player
-        self.audioGraph = audioGraph
+    init(_ playlist: Playlist, _ player: PlayerProtocol, _ appState: AppState, _ preferences: Preferences) {
         
         self.playlist = playlist
+        self.player = player
+        
         self.appState = appState
+        self.preferences = preferences
         
         self.trackPrepQueue = OperationQueue()
         trackPrepQueue.underlyingQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)

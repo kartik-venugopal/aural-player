@@ -1,5 +1,5 @@
 /*
- Encapsulates all track information of a playlist. Contains logic to determine playback order for different modes (repeat, shuffle, etc).
+ Encapsulates all track and playback sequence information/logic for a playlist
  */
 
 import Foundation
@@ -18,7 +18,7 @@ private func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     }
 }
 
-class Playlist {
+class Playlist: PlaylistAccessor {
     
     private var tracks: [Track] = [Track]()
     private var tracksByFilename: [String: Track] = [String: Track]()
@@ -72,6 +72,10 @@ class Playlist {
     // Retrieves the track at the given index
     func getTrackAt(_ index: Int?) -> IndexedTrack? {
         return index == nil || index == -1 ? nil : IndexedTrack(tracks[index!], index)
+    }
+    
+    func peekTrackAt(_ index: Int?) -> IndexedTrack? {
+        return getTrackAt(index)
     }
     
     // Retrieves the track at the given index, and selects it for playback, i.e., moves the cursor to the given index

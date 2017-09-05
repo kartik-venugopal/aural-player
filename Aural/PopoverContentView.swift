@@ -4,9 +4,9 @@
 
 import Cocoa
 
-class PopoverContentView:NSView {
+class PopoverContentView: NSView {
     
-    var backgroundView:PopoverBackgroundView?
+    private var backgroundView: PopoverBackgroundView?
     
     override func viewDidMoveToWindow() {
         

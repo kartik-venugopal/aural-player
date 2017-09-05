@@ -9,10 +9,12 @@ class PlaylistIO {
     private static let m3uInfoPrefix: String = "#EXTINF:"
     private static let absoluteFilePathPrefix: String = "file:///"
     
+    private static let playlist: PlaylistAccessor = ObjectGraph.getPlaylistAccessor()
+    
     // Save current playlist to an output file
     static func savePlaylist(_ file: URL) {
         
-        let tracks = Playlist.instance().getTracks()
+        let tracks = playlist.getTracks()
         
         var contents: String = m3uHeader + "\n"
         

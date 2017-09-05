@@ -18,6 +18,8 @@ class ObjectGraph {
     
     private static var uiAppState: UIAppState?
     
+    private static var preferences: Preferences?
+    
     private static var audioGraph: AudioGraph?
     
     private static var player: Player?
@@ -50,17 +52,17 @@ class ObjectGraph {
         }
         
         // Initialize the player
-        let preferences = Preferences.instance()
+        preferences = Preferences.instance()
         
-        uiAppState = UIAppState(appState!, preferences)
+        uiAppState = UIAppState(appState!, preferences!)
         
         audioGraph = AudioGraph(appState!.audioGraphState)
-        if (preferences.volumeOnStartup == .specific) {
-            audioGraph?.setVolume(preferences.startupVolumeValue)
+        if (preferences!.volumeOnStartup == .specific) {
+            audioGraph?.setVolume(preferences!.startupVolumeValue)
             audioGraph?.unmute()
         }
         
-        audioGraphDelegate = AudioGraphDelegate(audioGraph!, preferences)
+        audioGraphDelegate = AudioGraphDelegate(audioGraph!, preferences!)
         
         player = Player(audioGraph!)
         
@@ -74,7 +76,7 @@ class ObjectGraph {
         playlist = Playlist(repeatMode, shuffleMode)
         
         // Initialize playerDelegate
-        playerDelegate = PlayerAndPlaylistDelegate(player!, audioGraph!, recorder!, appState!, playlist!)
+        playerDelegate = PlayerAndPlaylistDelegate(playlist!, player!, appState!, preferences!)
         playlistDelegate = (playerDelegate as! PlaylistDelegateProtocol)
         
         initialized = true
@@ -89,13 +91,8 @@ class ObjectGraph {
         return playlist!
     }
     
-    static func getPlayer() -> Player {
-        
-        if (!initialized) {
-            initialize()
-        }
-        
-        return player!
+    static func getPlaylistAccessor() -> PlaylistAccessor {
+        return getPlaylist()
     }
     
     static func getPlayerDelegate() -> PlayerDelegateProtocol {
@@ -150,6 +147,15 @@ class ObjectGraph {
         }
         
         return uiAppState!
+    }
+    
+    static func getPreferences() -> Preferences {
+        
+        if (!initialized) {
+            initialize()
+        }
+        
+        return preferences!
     }
 
     // Called when app exits
