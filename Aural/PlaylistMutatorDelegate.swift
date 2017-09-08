@@ -5,13 +5,17 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     private let playlist: PlaylistCRUDProtocol
     private let playbackSequence: PlaybackSequence
     
+    private let player: BasicPlaybackDelegateProtocol
+    
     private let playlistState: PlaylistState
     private let preferences: Preferences
     
-    init(_ playlist: PlaylistCRUDProtocol, _ playbackSequence: PlaybackSequence, _ playlistState: PlaylistState, _ preferences: Preferences) {
+    init(_ playlist: PlaylistCRUDProtocol, _ playbackSequence: PlaybackSequence, _ player: BasicPlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences) {
         
         self.playlist = playlist
         self.playbackSequence = playbackSequence
+        
+        self.player = player
         
         self.playlistState = playlistState
         self.preferences = preferences
@@ -27,9 +31,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             // NOTE - Assume that all entries are valid tracks (supported audio files), not playlists and not directories. i.e. assume that saved state file has not been corrupted.
             
-//            var errors: [InvalidTrackError] = [InvalidTrackError]()
-//            let autoplay: Bool = self.preferences.autoplayOnStartup
-//            var autoplayed: Bool = false
+            var errors: [InvalidTrackError] = [InvalidTrackError]()
+            let autoplay: Bool = self.preferences.autoplayOnStartup
+            var autoplayed: Bool = false
             
             let tracks = self.playlistState.tracks
             let totalTracks = tracks.count
@@ -43,7 +47,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 
                 // Playlist might contain broken file references
                 if (!FileSystemUtils.fileExists(trackPath)) {
-//                    errors.append(FileNotFoundError(URL(fileURLWithPath: trackPath)))
+                    errors.append(FileNotFoundError(URL(fileURLWithPath: trackPath)))
                     continue
                 }
                 
@@ -54,25 +58,47 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                     let progress = TrackAddedEventProgress(tracksAdded, totalTracks)
                     try self.addTrack(resolvedFileInfo.resolvedURL, progress)
                     
-//                    if (autoplay && !autoplayed) {
-//                        self.autoplay()
-//                        autoplayed = true
-//                    }
+                    if (autoplay && !autoplayed) {
+                        self.autoplay(tracksAdded - 1, true)
+                        autoplayed = true
+                    }
                     
                 } catch let error as Error {
                     
-//                    if (error is InvalidTrackError) {
-//                        errors.append(error as! InvalidTrackError)
-//                    }
+                    if (error is InvalidTrackError) {
+                        errors.append(error as! InvalidTrackError)
+                    }
                 }
             }
             
             EventRegistry.publishEvent(.doneAddingTracks, DoneAddingTracksEvent.instance)
             
             // If errors > 0, send event to UI
-//            if (errors.count > 0) {
-//                EventRegistry.publishEvent(.tracksNotAdded, TracksNotAddedEvent(errors))
-//            }
+            if (errors.count > 0) {
+                EventRegistry.publishEvent(.tracksNotAdded, TracksNotAddedEvent(errors))
+            }
+        }
+    }
+    
+    private func autoplay(_ index: Int, _ interruptPlayback: Bool) {
+        
+        DispatchQueue.main.async {
+            
+            do {
+                
+                let playingTrack = try self.player.play(index, interruptPlayback)
+                
+                // Notify the UI that a track has started playing
+                if(playingTrack != nil) {
+                    EventRegistry.publishEvent(.trackChanged, TrackChangedEvent(playingTrack))
+                }
+                
+            } catch let error as Error {
+                
+                if (error is InvalidTrackError) {
+                    EventRegistry.publishEvent(.trackNotPlayed, TrackNotPlayedEvent(error as! InvalidTrackError))
+                }
+            }
         }
     }
     
@@ -84,11 +110,12 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         DispatchQueue.global(qos: .userInteractive).async {
             
             let autoplay: Bool = self.preferences.autoplayAfterAddingTracks
+            let interruptPlayback: Bool = self.preferences.autoplayAfterAddingOption == .always
             
             // Progress
             let progress = TrackAddOperationProgress(0, files.count, [InvalidTrackError](), false)
             
-            self.addFiles_sync(files, autoplay, progress)
+            self.addFiles_sync(files, AutoplayOptions(autoplay, interruptPlayback), progress)
             
             EventRegistry.publishEvent(.doneAddingTracks, DoneAddingTracksEvent.instance)
             
@@ -102,7 +129,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     // Adds a bunch of files synchronously
     // The autoplay argument indicates whether or not autoplay is enabled. Make sure to pass it into functions that call back here recursively (addPlaylist() or addDirectory()).
     // The autoplayed argument indicates whether or not autoplay, if enabled, has already been executed. This value is passed by reference so that recursive calls back here will all see the same value.
-    private func addFiles_sync(_ files: [URL], _ autoplay: Bool, _ progress: TrackAddOperationProgress) {
+    private func addFiles_sync(_ files: [URL], _ autoplayOptions: AutoplayOptions, _ progress: TrackAddOperationProgress) {
         
         if (files.count > 0) {
             
@@ -110,7 +137,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 
                 // Playlists might contain broken file references
                 if (!FileSystemUtils.fileExists(_file)) {
-//                    progress.errors.append(FileNotFoundError(_file))
+                    progress.errors.append(FileNotFoundError(_file))
                     continue
                 }
                 
@@ -121,7 +148,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 if (resolvedFileInfo.isDirectory) {
                     
                     // Directory
-                    addDirectory(file, autoplay, progress)
+                    addDirectory(file, autoplayOptions, progress)
                     
                 } else {
                     
@@ -131,7 +158,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                     if (AppConstants.supportedPlaylistFileTypes.contains(fileExtension)) {
                         
                         // Playlist
-                        addPlaylist(file, autoplay, progress)
+                        addPlaylist(file, autoplayOptions, progress)
                         
                     } else if (AppConstants.supportedAudioFileTypes.contains(fileExtension)) {
                         
@@ -143,17 +170,17 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                             let eventProgress = TrackAddedEventProgress(progress.tracksAdded, progress.totalTracks)
                             let index = try addTrack(file, eventProgress)
                             
-//                            if (autoplay && !progress.autoplayed && index >= 0) {
-//                                
-//                                self.autoplay(index)
-//                                progress.autoplayed = true
-//                            }
+                            if (autoplayOptions.autoplay && !progress.autoplayed && index >= 0) {
+                                
+                                self.autoplay(index, autoplayOptions.interruptPlayback)
+                                progress.autoplayed = true
+                            }
                             
                         }  catch let error as Error {
                             
-//                            if (error is InvalidTrackError) {
-//                                progress.errors.append(error as! InvalidTrackError)
-//                            }
+                            if (error is InvalidTrackError) {
+                                progress.errors.append(error as! InvalidTrackError)
+                            }
                         }
                         
                     } else {
@@ -166,7 +193,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         }
     }
     
-    private func addPlaylist(_ playlistFile: URL, _ autoplay: Bool, _ progress: TrackAddOperationProgress) {
+    private func addPlaylist(_ playlistFile: URL, _ autoplayOptions: AutoplayOptions, _ progress: TrackAddOperationProgress) {
         
         let loadedPlaylist = PlaylistIO.loadPlaylist(playlistFile)
         if (loadedPlaylist != nil) {
@@ -174,11 +201,11 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             progress.totalTracks -= 1
             progress.totalTracks += (loadedPlaylist?.tracks.count)!
             
-            addFiles_sync(loadedPlaylist!.tracks, autoplay, progress)
+            addFiles_sync(loadedPlaylist!.tracks, autoplayOptions, progress)
         }
     }
     
-    private func addDirectory(_ dir: URL, _ autoplay: Bool, _ progress: TrackAddOperationProgress) {
+    private func addDirectory(_ dir: URL, _ autoplayOptions: AutoplayOptions, _ progress: TrackAddOperationProgress) {
         
         let dirContents = FileSystemUtils.getContentsOfDirectory(dir)
         if (dirContents != nil) {
@@ -187,7 +214,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             progress.totalTracks += (dirContents?.count)!
             
             // Add them
-            addFiles_sync(dirContents!, autoplay, progress)
+            addFiles_sync(dirContents!, autoplayOptions, progress)
         }
     }
     
@@ -214,6 +241,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     func removeTrack(_ index: Int) {
+        
         playlist.removeTrack(index)
         playbackSequence.trackRemoved(index)
     }
@@ -239,6 +267,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     func clear() {
+        
         playlist.clear()
         playbackSequence.playlistCleared()
     }
@@ -282,5 +311,18 @@ class TrackAddOperationProgress {
         self.totalTracks = totalTracks
         self.errors = errors
         self.autoplayed = autoplayed
+    }
+}
+
+class AutoplayOptions {
+    
+    var autoplay: Bool
+    var interruptPlayback: Bool
+    
+    init(_ autoplay: Bool,
+         _ interruptPlayback: Bool) {
+        
+        self.autoplay = autoplay
+        self.interruptPlayback = interruptPlayback
     }
 }

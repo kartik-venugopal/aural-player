@@ -1,6 +1,6 @@
 import Cocoa
 
-class PlaybackViewController: NSViewController, MessageSubscriber {
+class PlaybackViewController: NSViewController, MessageSubscriber, EventSubscriber {
     
     @IBOutlet weak var seekSlider: NSSlider!
     @IBOutlet weak var btnPlayPause: NSButton!
@@ -36,6 +36,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber {
             
         }
         
+        EventRegistry.subscribe(.trackChanged, subscriber: self, dispatchQueue: DispatchQueue.main)
         SyncMessenger.subscribe(.stopPlaybackRequest, subscriber: self)
     }
     

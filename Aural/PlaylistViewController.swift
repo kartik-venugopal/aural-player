@@ -66,6 +66,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     }
     
     func startedAddingTracks() {
+        
         playlistWorkSpinner.doubleValue = 0
         repositionSpinner()
         playlistWorkSpinner.isHidden = false

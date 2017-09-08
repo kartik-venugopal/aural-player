@@ -1,6 +1,6 @@
 import Foundation
 
-class PlaybackDelegate: PlaybackDelegateProtocol, EventSubscriber {
+class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol, EventSubscriber {
     
     private let player: PlayerProtocol
     private let playbackSequence: PlaybackSequenceProtocol
@@ -61,8 +61,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, EventSubscriber {
     }
     
     private func play(_ track: IndexedTrack?) throws {
-        
-        let playbackState = player.getPlaybackState()
         
         // Stop if currently playing
         stop()
@@ -219,5 +217,15 @@ class PlaybackDelegate: PlaybackDelegateProtocol, EventSubscriber {
         if (PlaybackSession.isCurrent(_evt.session)) {
             trackPlaybackCompleted()
         }
+    }
+    
+    func play(_ index: Int, _ interruptPlayback: Bool) throws -> IndexedTrack? {
+    
+        let playbackState = player.getPlaybackState()
+        if (interruptPlayback || playbackState == .noTrack) {
+            return try play(index)
+        }
+        
+        return nil
     }
 }

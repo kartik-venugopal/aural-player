@@ -18,7 +18,7 @@ class ObjectGraph {
     
     private static var player: Player?
     private static var playbackSequence: PlaybackSequence?
-    private static var playbackDelegate: PlaybackDelegateProtocol?
+    private static var playbackDelegate: PlaybackDelegate?
     
     private static var recorder: Recorder?
     private static var recorderDelegate: RecorderDelegateProtocol?
@@ -71,14 +71,16 @@ class ObjectGraph {
         let repeatMode = appState!.playlistState.repeatMode
         let shuffleMode = appState!.playlistState.shuffleMode
         playbackSequence = PlaybackSequence(0, repeatMode, shuffleMode)
-
-        // Playlist Delegate
-        let accessor = PlaylistAccessorDelegate(playlist!)
-        let mutator = PlaylistMutatorDelegate(playlist!, playbackSequence!, appState!.playlistState, preferences!)
-        playlistDelegate = PlaylistDelegate(accessor, mutator)
         
         // Playback Delegate
         playbackDelegate = PlaybackDelegate(player!, playbackSequence!, playlist!, preferences!)
+
+        // Playlist Delegate
+        let accessor = PlaylistAccessorDelegate(playlist!)
+        let mutator = PlaylistMutatorDelegate(playlist!, playbackSequence!, playbackDelegate!, appState!.playlistState, preferences!)
+        playlistDelegate = PlaylistDelegate(accessor, mutator)
+        
+        
         
         // Recorder and Recorder Delegate
         recorder = Recorder(audioGraph!)

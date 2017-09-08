@@ -35,6 +35,7 @@ enum MessageType {
     case trackChangedNotification
     
     case trackSelectionNotification
+    case trackPlaybackRequest
     case stopPlaybackRequest
     
     case playlistScrollUpNotification
@@ -114,6 +115,16 @@ struct StopPlaybackRequest: RequestMessage {
     static let instance: StopPlaybackRequest = StopPlaybackRequest()
     
     private init() {}
+}
+
+struct TrackPlaybackRequest: RequestMessage {
+    
+    var messageType: MessageType = .trackPlaybackRequest
+    var trackIndex: Int
+    
+    init(_ trackIndex: Int) {
+        self.trackIndex = trackIndex
+    }
 }
 
 // Notification that the playback rate has changed, in response to the user manipulating the time stretch effects unit controls.
