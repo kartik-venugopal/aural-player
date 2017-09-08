@@ -1,57 +1,26 @@
 /*
- Encapsulates all track and playback sequence information/logic for a playlist
+    Encapsulates all CRUD logic for a playlist
  */
 
 import Foundation
 import AVFoundation
 
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-private func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-    switch (lhs, rhs) {
-    case let (l?, r?):
-        return l < r
-    case (nil, _?):
-        return true
-    default:
-        return false
-    }
-}
-
-class Playlist: PlaylistAccessorProtocol {
-
+class Playlist: PlaylistCRUDProtocol {
+    
     private var tracks: [Track] = [Track]()
     private var tracksByFilename: [String: Track] = [String: Track]()
     
-    // Singleton instance
-    private static var singleton: Playlist = Playlist(.off, .off)
-    
-    // The playback sequence associated with this playlist
-    private var playbackSequence: PlaybackSequence
-    
-    init(_ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
-        playbackSequence = PlaybackSequence(0, repeatMode, shuffleMode)
+    func getTracks() -> [Track] {
+        return tracks
     }
     
-    static func instance() -> Playlist {
-        return singleton
+    func peekTrackAt(_ index: Int?) -> IndexedTrack? {
+        let invalidIndex: Bool = index == nil || index! < 0 || index! >= tracks.count
+        return invalidIndex ? nil : IndexedTrack(tracks[index!], index)
     }
     
     func size() -> Int {
         return tracks.count
-    }
-    
-    func getState() -> PlaylistState {
-        
-        let state = PlaylistState()
-        state.repeatMode = self.playbackSequence.repeatMode
-        state.shuffleMode = self.playbackSequence.shuffleMode
-        
-        for track in tracks {
-            state.tracks.append(track.file!.path)
-        }
-        
-        return state
     }
     
     func totalDuration() -> Double {
@@ -66,37 +35,15 @@ class Playlist: PlaylistAccessorProtocol {
     }
     
     func summary() -> (size: Int, totalDuration: Double) {
-        return (size(), totalDuration())
+        return (tracks.count, totalDuration())
     }
     
-    // Retrieves the track at the given index
-    func getTrackAt(_ index: Int?) -> IndexedTrack? {
-        return index == nil || index == -1 ? nil : IndexedTrack(tracks[index!], index)
-    }
-    
-    func peekTrackAt(_ index: Int?) -> IndexedTrack? {
-        return getTrackAt(index)
-    }
-    
-    // Retrieves the track at the given index, and selects it for playback, i.e., moves the cursor to the given index
-    func selectTrackAt(_ index: Int?) -> IndexedTrack? {
-        
-        // Assume index is valid
-        let track = getTrackAt(index)
-        playbackSequence.select(index!)
-        return track
-    }
-    
-    // Add a track to this playlist and return its index
+    // Add a track to the end of this playlist and return its index
     // Assume valid existing and supported file
-    func addTrack(_ file: URL) throws -> Int {
+    func addTrack(_ track: Track) -> Int {
         
-        if (!trackExists(file.path)) {
-            
-            let track: Track = try TrackIO.loadTrack(file)
-            tracks.append(track)
-            tracksByFilename[file.path] = track
-            playbackSequence.trackAdded()
+        if (!trackExists(track)) {
+            doAddTrack(track)
             return tracks.count - 1
         }
         
@@ -104,8 +51,13 @@ class Playlist: PlaylistAccessorProtocol {
         return -1
     }
     
-    func trackExists(_ filename: String) -> Bool {
-        return tracksByFilename[filename] != nil
+    private func doAddTrack(_ track: Track) {
+        tracks.append(track)
+        tracksByFilename[track.file!.path] = track
+    }
+    
+    private func trackExists(_ track: Track) -> Bool {
+        return tracksByFilename[track.file!.path] != nil
     }
     
     func removeTrack(_ index: Int) {
@@ -115,13 +67,7 @@ class Playlist: PlaylistAccessorProtocol {
         if (track != nil) {
             tracksByFilename.removeValue(forKey: track!.file!.path)
             tracks.remove(at: index)
-            playbackSequence.trackRemoved(index)
         }
-    }
-    
-    // Returns the index of the currently playing track in the playlist
-    func cursor() -> Int? {
-        return playbackSequence.getCursor()
     }
     
     func indexOfTrack(_ track: Track?) -> Int?  {
@@ -136,72 +82,34 @@ class Playlist: PlaylistAccessorProtocol {
     func clear() {
         tracks.removeAll()
         tracksByFilename.removeAll()
-        playbackSequence.clear()
     }
     
-    func getTracks() -> [Track] {
-        return tracks
-    }
-    
-    func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        return playbackSequence.toggleRepeatMode()
-    }
-    
-    func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        return playbackSequence.toggleShuffleMode()
-    }
-    
-    func continuePlaying() -> IndexedTrack? {
-        let continueIndex = playbackSequence.subsequent()
-        return continueIndex == nil ? nil : IndexedTrack(tracks[continueIndex!], continueIndex)
-    }
-    
-    // Determines which track will play next if continuePlaying() is invoked, if any. This is used to eagerly prep tracks for future playback. Nil return value indicates no track.
-    func peekContinuePlaying() -> IndexedTrack? {
-        let continueIndex = playbackSequence.peekSubsequent()
-        return continueIndex == nil ? nil : IndexedTrack(tracks[continueIndex!], continueIndex)
-    }
-    
-    func next() -> IndexedTrack? {
-        let nextIndex = playbackSequence.next()
-        return nextIndex == nil ? nil : IndexedTrack(tracks[nextIndex!], nextIndex)
-    }
-    
-    // Determines which track will play next if next() is invoked, if any. This is used to eagerly prep tracks for future playback. Nil return value indicates no track.
-    func peekNext() -> IndexedTrack? {
-        let nextIndex = playbackSequence.peekNext()
-        return nextIndex == nil ? nil : IndexedTrack(tracks[nextIndex!], nextIndex)
-    }
-    
-    func previous() -> IndexedTrack? {
-        let prevIndex = playbackSequence.previous()
-        return prevIndex == nil ? nil : IndexedTrack(tracks[prevIndex!], prevIndex)
-    }
-    
-    // Determines which track will play next if previous() is invoked, if any. This is used to eagerly prep tracks for future playback. Nil return value indicates no track.
-    func peekPrevious() -> IndexedTrack? {
-        let prevIndex = playbackSequence.peekPrevious()
-        return prevIndex == nil ? nil : IndexedTrack(tracks[prevIndex!], prevIndex)
+    func save(_ file: URL) {
+        PlaylistIO.savePlaylist(file)
     }
     
     // Shifts a single track up in the playlist order
-    func shiftTrackUp(_ index: Int) {
+    func moveTrackUp(_ index: Int) -> Int {
         
-        if (index > 0) {
-            let upIndex = index - 1
-            swapTracks(index, upIndex)
-            playbackSequence.trackReordered(index, upIndex)
+        if (index <= 0) {
+            return index
         }
+        
+        let upIndex = index - 1
+        swapTracks(index, upIndex)
+        return upIndex
     }
     
     // Shifts a single track down in the playlist order
-    func shiftTrackDown(_ index: Int) {
+    func moveTrackDown(_ index: Int) -> Int {
         
-        if (index < (tracks.count - 1)) {
-            let downIndex = index + 1
-            swapTracks(index, downIndex)
-            playbackSequence.trackReordered(index, downIndex)
+        if (index >= (tracks.count - 1)) {
+            return index
         }
+        
+        let downIndex = index + 1
+        swapTracks(index, downIndex)
+        return downIndex
     }
     
     // Swaps two tracks in the array of tracks
@@ -306,9 +214,7 @@ class Playlist: PlaylistAccessorProtocol {
         return (false, nil, nil)
     }
     
-    func sortPlaylist(sort: Sort) {
-        
-        let playingTrack = getTrackAt(cursor())
+    func sort(_ sort: Sort) {
         
         switch sort.field {
             
@@ -325,12 +231,6 @@ class Playlist: PlaylistAccessorProtocol {
         } else {
             tracks.sort(by: compareTracks_descendingByDuration)
             }
-        }
-        
-        if (playingTrack != nil) {
-            playbackSequence.playlistReordered(indexOfTrack(playingTrack!.track))
-        } else {
-            playbackSequence.playlistReordered(nil)
         }
     }
     
@@ -352,11 +252,14 @@ class Playlist: PlaylistAccessorProtocol {
         return aTrack.duration! > anotherTrack.duration!
     }
     
-    func getRepeatMode() -> RepeatMode {
-        return playbackSequence.repeatMode
-    }
-    
-    func getShuffleMode() -> ShuffleMode {
-        return playbackSequence.shuffleMode
+    func persistentState() -> PlaylistState {
+        
+        let state = PlaylistState()
+        
+        for track in tracks {
+            state.tracks.append(track.file!.path)
+        }
+        
+        return state
     }
 }

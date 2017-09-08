@@ -7,9 +7,7 @@ import AVFoundation
 
 class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     
-    // TODO: Merge these two variables into one, use protocols
-    private let playlist: PlaylistAccessorProtocol = ObjectGraph.getPlaylistAccessor()
-    private let playlistDelegate: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
+    private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         return playlist.size()
@@ -60,7 +58,7 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
         
         let objects = info.draggingPasteboard().readObjects(forClasses: [NSURL.self], options: nil)
         
-        playlistDelegate.addFiles(objects! as! [URL])
+        playlist.addFiles(objects! as! [URL])
         
         return true
     }

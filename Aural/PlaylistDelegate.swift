@@ -2,36 +2,12 @@ import Foundation
 
 class PlaylistDelegate: PlaylistDelegateProtocol {
     
-    private let mutator: PlaylistMutatorDelegateProtocol
     private let accessor: PlaylistAccessorDelegateProtocol
+    private let mutator: PlaylistMutatorDelegateProtocol
     
-    init(_ mutator: PlaylistMutatorDelegateProtocol, _ accessor: PlaylistAccessorDelegateProtocol) {
-        self.mutator = mutator
+    init(_ accessor: PlaylistAccessorDelegateProtocol, _ mutator: PlaylistMutatorDelegateProtocol) {
         self.accessor = accessor
-    }
-    
-    func addFiles(_ files: [URL]) {
-        mutator.addFiles(files)
-    }
-    
-    func removeTrack(_ index: Int) {
-        mutator.removeTrack(index)
-    }
-    
-    func moveTrackUp(_ index: Int) -> Int {
-        return mutator.moveTrackUp(index)
-    }
-    
-    func moveTrackDown(_ index: Int) -> Int {
-        return mutator.moveTrackDown(index)
-    }
-    
-    func clear() {
-        mutator.clear()
-    }
-    
-    func sort(_ sort: Sort) {
-        mutator.sort(sort)
+        self.mutator = mutator
     }
     
     func getTracks() -> [Track] {
@@ -56,6 +32,30 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     
     func search(_ searchQuery: SearchQuery) -> SearchResults {
         return accessor.search(searchQuery)
+    }
+    
+    func addFiles(_ files: [URL]) {
+        mutator.addFiles(files)
+    }
+    
+    func removeTrack(_ index: Int) {
+        mutator.removeTrack(index)
+    }
+    
+    func moveTrackUp(_ index: Int) -> Int {
+        return mutator.moveTrackUp(index)
+    }
+    
+    func moveTrackDown(_ index: Int) -> Int {
+        return mutator.moveTrackDown(index)
+    }
+    
+    func clear() {
+        mutator.clear()
+    }
+    
+    func sort(_ sort: Sort) {
+        mutator.sort(sort)
     }
     
     func savePlaylist(_ file: URL) {

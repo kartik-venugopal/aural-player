@@ -6,31 +6,22 @@ import Foundation
 
 class ObjectGraph {
     
-    private static var playerDelegate: PlayerDelegateProtocol?
-    
-    private static var playbackDelegate: PlaybackDelegateProtocol?
-    
-    private static var playlistDelegate: PlaylistDelegateProtocol?
-    
-    private static var audioGraphDelegate: AudioGraphDelegateProtocol?
-    
-    private static var recorderDelegate: RecorderDelegateProtocol?
-    
     private static var appState: AppState?
-    
     private static var uiAppState: UIAppState?
-    
     private static var preferences: Preferences?
     
+    private static var playlist: Playlist?
+    private static var playlistDelegate: PlaylistDelegateProtocol?
+    
     private static var audioGraph: AudioGraph?
+    private static var audioGraphDelegate: AudioGraphDelegateProtocol?
     
     private static var player: Player?
+    private static var playbackSequence: PlaybackSequence?
+    private static var playbackDelegate: PlaybackDelegateProtocol?
     
     private static var recorder: Recorder?
-    
-    private static var playlist: NewPlaylist?
-    
-    private static var playbackSequence: PlaybackSequence?
+    private static var recorderDelegate: RecorderDelegateProtocol?
     
     private static var initialized: Bool = false
     
@@ -55,10 +46,11 @@ class ObjectGraph {
             appState = AppState.defaults
         }
         
-        // Initialize the player
         preferences = Preferences.instance()
         
         uiAppState = UIAppState(appState!, preferences!)
+        
+        // Audio Graph
         
         audioGraph = AudioGraph(appState!.audioGraphState)
         if (preferences!.volumeOnStartup == .specific) {
@@ -66,95 +58,33 @@ class ObjectGraph {
             audioGraph?.unmute()
         }
         
+        // Audio Graph Delegate
         audioGraphDelegate = AudioGraphDelegate(audioGraph!, preferences!)
         
+        // Player
         player = Player(audioGraph!)
         
+        // Playlist
+        playlist = Playlist()
+        
+        // Playback Sequence
+        let repeatMode = appState!.playlistState.repeatMode
+        let shuffleMode = appState!.playlistState.shuffleMode
+        playbackSequence = PlaybackSequence(0, repeatMode, shuffleMode)
+
+        // Playlist Delegate
+        let accessor = PlaylistAccessorDelegate(playlist!)
+        let mutator = PlaylistMutatorDelegate(playlist!, playbackSequence!)
+        playlistDelegate = PlaylistDelegate(accessor, mutator)
+        
+        // Playback Delegate
+        playbackDelegate = PlaybackDelegate(player!, playbackSequence!, playlist!, preferences!)
+        
+        // Recorder and Recorder Delegate
         recorder = Recorder(audioGraph!)
         recorderDelegate = RecorderDelegate(recorder!)
         
-        // Initialize playlist with playback sequence (repeat/shuffle) and track list
-        let repeatMode = appState!.playlistState.repeatMode
-        let shuffleMode = appState!.playlistState.shuffleMode
-        
-//        playlist = Playlist(repeatMode, shuffleMode)
-        playlist = NewPlaylist()
-        
-        playbackSequence = PlaybackSequence(0, repeatMode, shuffleMode)
-        
-        // Initialize playerDelegate
-//        playerDelegate = PlayerAndPlaylistDelegate(playlist!, player!, appState!, preferences!)
-        
-        //_ player: PlayerProtocol, _ playbackSequence: PlaybackSequenceProtocol, _ playlist: PlaylistAccessorProtocol, _ preferences: Preferences) {
-        playbackDelegate = PlaybackDelegate(player!, playbackSequence!, playlist!, preferences!)
-        
-        let mutator = PlaylistMutatorDelegate(playlist!, playbackSequence!)
-        let accessor = PlaylistAccessorDelegate(playlist!)
-        playlistDelegate = PlaylistDelegate(mutator, accessor)
-        
         initialized = true
-    }
-    
-    static func getPlaylist() -> NewPlaylist {
-        
-        if (!initialized) {
-            initialize()
-        }
-        
-        return playlist!
-    }
-    
-    static func getPlaylistAccessor() -> PlaylistAccessorProtocol {
-        return getPlaylist()
-    }
-    
-    static func getPlayerDelegate() -> PlayerDelegateProtocol {
-        
-        if (!initialized) {
-            initialize()
-        }
-        
-        return playerDelegate!
-    }
-    
-    static func getPlaybackDelegate() -> PlaybackDelegateProtocol {
-        
-        if (!initialized) {
-            initialize()
-        }
-        
-        return playbackDelegate!
-    }
-    
-    static func getPlaybackInfoDelegate() -> PlaybackInfoDelegateProtocol {
-        return getPlaybackDelegate()
-    }
-    
-    static func getPlaylistDelegate() -> PlaylistDelegateProtocol {
-        
-        if (!initialized) {
-            initialize()
-        }
-        
-        return playlistDelegate!
-    }
-    
-    static func getRecorderDelegate() -> RecorderDelegateProtocol {
-        
-        if (!initialized) {
-            initialize()
-        }
-        
-        return recorderDelegate!
-    }
-    
-    static func getAudioGraphDelegate() -> AudioGraphDelegateProtocol {
-        
-        if (!initialized) {
-            initialize()
-        }
-        
-        return audioGraphDelegate!
     }
     
     static func getAppState() -> AppState {
@@ -183,7 +113,56 @@ class ObjectGraph {
         
         return preferences!
     }
-
+    
+    static func getPlaylistAccessor() -> PlaylistAccessorProtocol {
+        
+        if (!initialized) {
+            initialize()
+        }
+        
+        return playlist!
+    }
+    
+    static func getPlaylistDelegate() -> PlaylistDelegateProtocol {
+        
+        if (!initialized) {
+            initialize()
+        }
+        
+        return playlistDelegate!
+    }
+    
+    static func getAudioGraphDelegate() -> AudioGraphDelegateProtocol {
+        
+        if (!initialized) {
+            initialize()
+        }
+        
+        return audioGraphDelegate!
+    }
+    
+    static func getPlaybackDelegate() -> PlaybackDelegateProtocol {
+        
+        if (!initialized) {
+            initialize()
+        }
+        
+        return playbackDelegate!
+    }
+    
+    static func getPlaybackInfoDelegate() -> PlaybackInfoDelegateProtocol {
+        return getPlaybackDelegate()
+    }
+    
+    static func getRecorderDelegate() -> RecorderDelegateProtocol {
+        
+        if (!initialized) {
+            initialize()
+        }
+        
+        return recorderDelegate!
+    }
+    
     // Called when app exits
     static func tearDown() {
         
