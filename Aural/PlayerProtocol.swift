@@ -22,4 +22,7 @@ protocol PlayerProtocol {
     
     // Gets the playback position (in seconds) of the currently playing track
     func getSeekPosition() -> Double
+    
+    // Returns the current playback state of the player. See PlaybackState for more details
+    func getPlaybackState() -> PlaybackState
 }

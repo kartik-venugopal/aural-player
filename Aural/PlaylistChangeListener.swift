@@ -7,10 +7,7 @@ import Foundation
 protocol PlaylistChangeListener {
     
     // Signals a reordering of the playlist (e.g. sorting)
-    func playlistReordered(_ newTrackIndex: Int?)
-    
-    // A random track has been selected for playback
-    func randomTrackSelected(_ trackIndex: Int)
+    func playlistReordered(_ newCursor: Int?)
     
     // A single new track has been added
     func trackAdded()

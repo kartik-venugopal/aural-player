@@ -45,6 +45,10 @@ class Track: NSObject {
     // Error info if track prep fails
     var preparationFailed: Bool = false
     var preparationError: InvalidTrackError?
+    
+    func loadDetailedInfo() {
+        TrackIO.loadDetailedTrackInfo(self)
+    }
 }
 
 // Wrapper around Track that includes its index in the playlist

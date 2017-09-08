@@ -9,7 +9,7 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
     private var info: [(key: String, value: String)] = [(key: String, value: String)]()
     @IBOutlet weak var trackInfoView: NSTableView!
     
-    private let player: PlayerDelegateProtocol = ObjectGraph.getPlayerDelegate()
+    private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
     
     override func loadView() {
         

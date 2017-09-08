@@ -114,7 +114,7 @@
                                     </shadow>
                                     <sliderCell key="cell" controlSize="small" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="hcm-sc-1cx" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
                                     <connections>
-                                        <action selector="seekSliderAction:" target="2zm-r9-5fb" id="gQA-92-T8a"/>
+                                        <action selector="seekSliderAction:" target="I9L-9m-MZn" id="Lpe-ib-Dby"/>
                                     </connections>
                                 </slider>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4f4-mL-8YB" userLabel="Lbl Seek Position">
@@ -192,7 +192,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="repeatAction:" target="V2O-JI-ukn" id="Wyv-xE-QKG"/>
+                                        <action selector="repeatAction:" target="I9L-9m-MZn" id="GgM-N3-5MH"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Shuffle" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kQL-4a-kyh" userLabel="Shuffle Button">
@@ -203,7 +203,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="shuffleAction:" target="V2O-JI-ukn" id="J9L-IT-m9F"/>
+                                        <action selector="shuffleAction:" target="I9L-9m-MZn" id="4qD-zw-A0v"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Play / Pause" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="52R-Hv-S0B">
@@ -214,7 +214,7 @@
                                         <font key="font" metaFont="smallSystem"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="playPauseAction:" target="V2O-JI-ukn" id="pT2-xo-ozS"/>
+                                        <action selector="playPauseAction:" target="I9L-9m-MZn" id="0IL-95-oaC"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Previous track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5rt-y8-5rH" userLabel="PrevTrack Button">
@@ -225,7 +225,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="prevTrackAction:" target="V2O-JI-ukn" id="Yq8-U9-Ea7"/>
+                                        <action selector="prevTrackAction:" target="I9L-9m-MZn" id="5iU-S0-f8O"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Next track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WPR-XR-JlH" userLabel="NextTrack Button">
@@ -236,7 +236,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="nextTrackAction:" target="V2O-JI-ukn" id="Zyh-n8-uES"/>
+                                        <action selector="nextTrackAction:" target="I9L-9m-MZn" id="kNO-ZP-YtC"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Seek bacward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kDf-NX-V6n" userLabel="Seek Bwd Button">
@@ -247,7 +247,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="seekBackwardAction:" target="V2O-JI-ukn" id="LyU-2n-lJU"/>
+                                        <action selector="seekBackwardAction:" target="I9L-9m-MZn" id="HOz-f3-YNv"/>
                                     </connections>
                                 </button>
                                 <button toolTip="Seek forward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ydO-EN-rV3" userLabel="Seek Fwd Button">
@@ -258,7 +258,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="seekForwardAction:" target="V2O-JI-ukn" id="aNV-Ve-27S"/>
+                                        <action selector="seekForwardAction:" target="I9L-9m-MZn" id="101-uV-OxC"/>
                                     </connections>
                                 </button>
                                 <slider toolTip="Volume" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7fw-31-38g" userLabel="Volume Slider">
@@ -1850,10 +1850,19 @@ G1BhbiBTbGlkZXI
                 <outlet property="view" destination="r0W-tQ-AZF" id="l3d-xs-jN0"/>
             </connections>
         </viewController>
+        <viewController id="I9L-9m-MZn" customClass="PlaybackViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnPlayPause" destination="52R-Hv-S0B" id="42N-hC-nYK"/>
+                <outlet property="btnRepeat" destination="Fpa-Ii-3YA" id="aOb-yY-VwP"/>
+                <outlet property="btnShuffle" destination="kQL-4a-kyh" id="dPy-qf-SDn"/>
+                <outlet property="playlistView" destination="4Fk-6v-HSf" id="G7S-yu-bQn"/>
+                <outlet property="seekSlider" destination="0m5-4l-3Wg" id="5EU-8D-rl7"/>
+                <outlet property="view" destination="X7y-oM-7MJ" id="e4c-ZZ-vAm"/>
+            </connections>
+        </viewController>
         <viewController id="THs-LC-lDb" userLabel="Playlist TableView Controller" customClass="PlaylistTableViewController" customModule="Aural" customModuleProvider="target"/>
         <viewController id="V2O-JI-ukn" customClass="PlaylistViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnPlayPause" destination="52R-Hv-S0B" id="Hm8-MJ-06e"/>
                 <outlet property="btnRepeat" destination="Fpa-Ii-3YA" id="Poy-W3-KeB"/>
                 <outlet property="btnShuffle" destination="kQL-4a-kyh" id="xDd-16-OJY"/>
                 <outlet property="lblPlaylistSummary" destination="PC9-RH-ZoK" id="VZF-8z-wtz"/>
@@ -2067,7 +2076,7 @@ DQ
 </string>
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="playSelectedTrackMenuItemAction:" target="V2O-JI-ukn" id="jdD-TS-ErR"/>
+                                    <action selector="playSelectedTrackMenuItemAction:" target="I9L-9m-MZn" id="JGy-Si-O7j"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Move selected track up" image="Up-Small" keyEquivalent="" id="f3c-TG-M9r">
@@ -2113,29 +2122,29 @@ CA
                             <menuItem title=" Play / Pause" image="PlayPause-Small" keyEquivalent=" " id="T9r-Uq-EPf">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="togglePlayPauseMenuItemAction:" target="V2O-JI-ukn" id="eiQ-7h-6Dh"/>
+                                    <action selector="togglePlayPauseMenuItemAction:" target="I9L-9m-MZn" id="J3G-f1-Lcx"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Previous track" image="PreviousTrack-Small" keyEquivalent="" id="yq3-HU-6rh">
                                 <connections>
-                                    <action selector="previousTrackMenuItemAction:" target="V2O-JI-ukn" id="Qow-cq-VZy"/>
+                                    <action selector="previousTrackMenuItemAction:" target="I9L-9m-MZn" id="UUZ-8C-b7a"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Next track" image="NextTrack-Small" keyEquivalent="" id="z7s-9y-10c">
                                 <connections>
-                                    <action selector="nextTrackMenuItemAction:" target="V2O-JI-ukn" id="lKT-GF-Z5O"/>
+                                    <action selector="nextTrackMenuItemAction:" target="I9L-9m-MZn" id="0VS-rk-g8f"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Seek backward" image="SeekBackward-Small" keyEquivalent="" id="h8T-Of-b8S">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="seekBackwardMenuItemAction:" target="V2O-JI-ukn" id="Zyl-3f-fMR"/>
+                                    <action selector="seekBackwardMenuItemAction:" target="I9L-9m-MZn" id="rOB-ep-w5a"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Seek forward" image="SeekForward-Small" keyEquivalent="" id="dge-IA-2p7">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="seekForwardMenuItemAction:" target="V2O-JI-ukn" id="VQh-iw-sNx"/>
+                                    <action selector="seekForwardMenuItemAction:" target="I9L-9m-MZn" id="22s-3K-Fj3"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="gze-sl-67j"/>
@@ -2171,13 +2180,13 @@ CA
                             <menuItem title=" Toggle repeat mode" image="RepeatMode-Small" keyEquivalent="R" id="CXV-Nr-pIe">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="toggleRepeatModeMenuItemAction:" target="V2O-JI-ukn" id="u92-9z-M16"/>
+                                    <action selector="toggleRepeatModeMenuItemAction:" target="I9L-9m-MZn" id="8qL-KU-IB5"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Toggle shuffle mode" image="ShuffleOn-Small" keyEquivalent="S" id="vKU-kn-zJM">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="toggleShuffleModeMenuItemAction:" target="V2O-JI-ukn" id="TxG-4d-oFv"/>
+                                    <action selector="toggleShuffleModeMenuItemAction:" target="I9L-9m-MZn" id="BT6-tJ-4QS"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="dsi-6a-jdq"/>

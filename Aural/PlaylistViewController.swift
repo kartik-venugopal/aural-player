@@ -1,5 +1,5 @@
 /*
-    View controller for the player/playlist
+    View controller for the playbackInfo/playlist
  */
 
 import Cocoa
@@ -11,19 +11,13 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     @IBOutlet weak var lblPlaylistSummary: NSTextField!
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
     
-    // Toggle buttons (their images change)
-    @IBOutlet weak var btnShuffle: NSButton!
-    @IBOutlet weak var btnRepeat: NSButton!
-    @IBOutlet weak var btnPlayPause: NSButton!
-    
-    private let player: PlayerDelegateProtocol = ObjectGraph.getPlayerDelegate()
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     override func viewDidLoad() {
         
-        // Initialize UI with presentation settings (colors, sizes, etc)
-        // No app state is needed here
-        initStatelessUI()
+        // Enable drag n drop into the playlist view
+        playlistView.register(forDraggedTypes: [String(kUTTypeFileURL)])
         
         // Register self as a subscriber to various event notifications
         EventRegistry.subscribe(.trackChanged, subscriber: self, dispatchQueue: DispatchQueue.main)
@@ -34,49 +28,16 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         EventRegistry.subscribe(.doneAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various message notifications
+        SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.playlistScrollUpNotification, subscriber: self)
         SyncMessenger.subscribe(.playlistScrollDownNotification, subscriber: self)
-        
-        // Load saved state (sound settings + playlist) from app config file and adjust UI elements according to that state
-        let appState = ObjectGraph.getUIAppState()
-        initStatefulUI(appState)
-    }
-    
-    func initStatelessUI() {
-        
-        // Set up a mouse listener (for double clicks -> play selected track)
-        playlistView.doubleAction = #selector(self.playlistDoubleClickAction(_:))
-        playlistView.target = self
-        
-        // Enable drag n drop into the playlist view
-        playlistView.register(forDraggedTypes: [String(kUTTypeFileURL)])
-    }
-    
-    func initStatefulUI(_ appState: UIAppState) {
-        
-        // Set controls to reflect player state
-        
-        switch appState.repeatMode {
-            
-        case .off: btnRepeat.image = UIConstants.imgRepeatOff
-        case .one: btnRepeat.image = UIConstants.imgRepeatOne
-        case .all: btnRepeat.image = UIConstants.imgRepeatAll
-            
-        }
-        
-        switch appState.shuffleMode {
-            
-        case .off: btnShuffle.image = UIConstants.imgShuffleOff
-        case .on: btnShuffle.image = UIConstants.imgShuffleOn
-            
-        }
     }
     
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
     func updatePlaylistSummary(_ trackAddProgress: TrackAddedEventProgress? = nil) {
         
-        let summary = playlist.getPlaylistSummary()
-        let numTracks = summary.numTracks
+        let summary = playlist.summary()
+        let numTracks = summary.size
         
         lblPlaylistSummary.stringValue = String(format: "%d %@   %@", numTracks, numTracks == 1 ? "track" : "tracks", Utils.formatDuration(summary.totalDuration))
         
@@ -97,6 +58,9 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         if (modalResponse == NSModalResponseOK) {
             addFiles(dialog.urls)
         }
+        
+        playlistView.reloadData()
+        updatePlaylistSummary()
         
         selectTrack(selRow)
     }
@@ -132,8 +96,10 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         
         if (index >= 0) {
             
-            let oldPlayingTrackIndex = player.getPlayingTrack()?.index
-            let newTrackIndex = playlist.removeTrack(index)
+            let oldPlayingTrackIndex = playbackInfo.getPlayingTrack()?.index
+            playlist.removeTrack(index)
+            
+            let newTrackIndex = playbackInfo.getPlayingTrack()?.index
             
             // The new number of rows (after track removal) is one less than the size of the playlist view, because the view has not yet been updated
             let numRows = playlistView.numberOfRows - 1
@@ -143,96 +109,20 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
                 // Update all rows from the selected row down to the end of the playlist
                 let rowIndexes = IndexSet(index...(numRows - 1))
                 playlistView.reloadData(forRowIndexes: rowIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
-                
             }
             
             // Tell the playlist view to remove one row
             playlistView.noteNumberOfRowsChanged()
-            
             updatePlaylistSummary()
             selectTrack(newTrackIndex)
             
             if (oldPlayingTrackIndex == index) {
-                setPlayPauseImage(UIConstants.imgPlay)
-                let trackChgMsg = TrackChangedNotification(nil)
-                SyncMessenger.publishNotification(trackChgMsg)
+                let stopPlaybackRequest = StopPlaybackRequest.instance
+                SyncMessenger.publishRequest(stopPlaybackRequest)
             }
         }
         
         showPlaylistSelectedRow()
-    }
-    
-    // Play / Pause / Resume
-    @IBAction func playPauseAction(_ sender: AnyObject) {
-        
-        do {
-            
-            let playbackInfo = try player.togglePlayPause()
-            let playbackState = playbackInfo.playbackState
-            
-            switch playbackState {
-                
-            case .noTrack, .paused: setPlayPauseImage(UIConstants.imgPlay)
-                SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
-                
-            case .playing:
-                
-                if (playbackInfo.trackChanged) {
-                    trackChange(playbackInfo.playingTrack)
-                } else {
-                    // Resumed the same track
-                    setPlayPauseImage(UIConstants.imgPause)
-                    SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
-                }
-            }
-            
-        } catch let error as Error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(error as! InvalidTrackError)
-            }
-        }
-    }
-    
-    private func setPlayPauseImage(_ image: NSImage) {
-        btnPlayPause.image = image
-    }
-    
-    func playlistDoubleClickAction(_ sender: AnyObject) {
-        playSelectedTrack()
-    }
-    
-    func playSelectedTrack() {
-        
-        if (playlistView.selectedRow >= 0) {
-            
-            do {
-                let track = try player.play(playlistView.selectedRow)
-                trackChange(track)
-                
-            } catch let error as Error {
-                
-                if (error is InvalidTrackError) {
-                    handleTrackNotPlayedError(error as! InvalidTrackError)
-                }
-            }
-        }
-    }
-    
-    @IBAction func nextTrackAction(_ sender: AnyObject) {
-        
-        do {
-            let trackInfo = try player.nextTrack()
-            if (trackInfo?.track != nil) {
-                trackChange(trackInfo)
-            }
-            
-        } catch let error as Error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(error as! InvalidTrackError)
-            }
-        }
     }
     
     func handleTracksNotAddedError(_ errors: [InvalidTrackError]) {
@@ -252,73 +142,9 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         }
     }
     
-    func handleTrackNotPlayedError(_ error: InvalidTrackError) {
-        
-        // This needs to be done async. Otherwise, other open dialogs could hang.
-        DispatchQueue.main.async {
-            
-            // First, select the problem track and update the now playing info
-            let playingTrack = self.player.getPlayingTrack()
-            self.trackChange(playingTrack, true)
-            
-            // Position and display the dialog with info
-            let alert = UIElements.trackNotPlayedAlertWithError(error)
-            let window = WindowState.window!
-            
-            let orig = NSPoint(x: window.frame.origin.x, y: min(window.frame.origin.y + 227, window.frame.origin.y + window.frame.height - alert.window.frame.height))
-            
-            alert.window.setFrameOrigin(orig)
-            alert.window.setIsVisible(true)
-            
-            alert.runModal()
-            
-            // Remove the bad track from the playlist and update the UI
-            
-            let playingTrackIndex = playingTrack!.index!
-            self.removeSingleTrack(playingTrackIndex)
-        }
-    }
-    
-    @IBAction func prevTrackAction(_ sender: AnyObject) {
-        
-        do {
-            
-            let trackInfo = try player.previousTrack()
-            if (trackInfo?.track != nil) {
-                trackChange(trackInfo)
-            }
-            
-        } catch let error as Error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(error as! InvalidTrackError)
-            }
-        }
-    }
-    
-    // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
+    // The "errorState" arg indicates whether the playbackInfo is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     func trackChange(_ newTrack: IndexedTrack?, _ errorState: Bool = false) {
-        
-        if (newTrack != nil) {
-            
-            if (!errorState) {
-                setPlayPauseImage(UIConstants.imgPause)
-                
-            } else {
-                
-                // Error state
-                setPlayPauseImage(UIConstants.imgPlay)
-            }
-            
-        } else {
-            
-            setPlayPauseImage(UIConstants.imgPlay)
-        }
-        
         selectTrack(newTrack == nil ? nil : newTrack!.index)
-        
-        let trackChgNotification = TrackChangedNotification(newTrack)
-        SyncMessenger.publishNotification(trackChgNotification)
     }
     
     func selectTrack(_ index: Int?) {
@@ -342,63 +168,14 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         }
     }
     
-    @IBAction func seekBackwardAction(_ sender: AnyObject) {
-        player.seekBackward()
-//        updatePlayingTime()
-    }
-    
-    @IBAction func seekForwardAction(_ sender: AnyObject) {
-        player.seekForward()
-//        updatePlayingTime()
-    }
-    
     @IBAction func clearPlaylistAction(_ sender: AnyObject) {
         
-        playlist.clearPlaylist()
+        playlist.clear()
         playlistView.reloadData()
         updatePlaylistSummary()
         
-        trackChange(nil)
-    }
-    
-    @IBAction func repeatAction(_ sender: AnyObject) {
-        
-        let modes = playlist.toggleRepeatMode()
-        
-        switch modes.repeatMode {
-            
-        case .off: btnRepeat.image = UIConstants.imgRepeatOff
-        case .one: btnRepeat.image = UIConstants.imgRepeatOne
-        case .all: btnRepeat.image = UIConstants.imgRepeatAll
-            
-        }
-        
-        switch modes.shuffleMode {
-            
-        case .off: btnShuffle.image = UIConstants.imgShuffleOff
-        case .on: btnShuffle.image = UIConstants.imgShuffleOn
-            
-        }
-    }
-    
-    @IBAction func shuffleAction(_ sender: AnyObject) {
-        
-        let modes = playlist.toggleShuffleMode()
-        
-        switch modes.shuffleMode {
-            
-        case .off: btnShuffle.image = UIConstants.imgShuffleOff
-        case .on: btnShuffle.image = UIConstants.imgShuffleOn
-            
-        }
-        
-        switch modes.repeatMode {
-            
-        case .off: btnRepeat.image = UIConstants.imgRepeatOff
-        case .one: btnRepeat.image = UIConstants.imgRepeatOne
-        case .all: btnRepeat.image = UIConstants.imgRepeatAll
-            
-        }
+        let stopPlaybackRequest = StopPlaybackRequest.instance
+        SyncMessenger.publishRequest(stopPlaybackRequest)
     }
     
     private func scrollPlaylistUp() {
@@ -456,7 +233,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     @IBAction func savePlaylistAction(_ sender: AnyObject) {
         
         // Make sure there is at least one track to save
-        if (playlist.getPlaylistSummary().numTracks > 0) {
+        if (playlist.summary().size > 0) {
             
             let dialog = UIElements.savePlaylistDialog
             
@@ -474,7 +251,6 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     func consumeEvent(_ event: Event) {
         
         if event is TrackChangedEvent {
-//            setSeekTimerState(false)
             let _event = event as! TrackChangedEvent
             trackChange(_event.newTrack)
             return
@@ -484,12 +260,6 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
             let _evt = event as! TrackAddedEvent
             playlistView.noteNumberOfRowsChanged()
             updatePlaylistSummary(_evt.progress)
-            return
-        }
-        
-        if event is TrackNotPlayedEvent {
-            let _evt = event as! TrackNotPlayedEvent
-            handleTrackNotPlayedError(_evt.error)
             return
         }
         
@@ -519,7 +289,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     
     // Adds a set of files (or directories, i.e. files within them) to the current playlist, if supported
     func addFiles(_ files: [URL]) {
-        startedAddingTracks()
+//        startedAddingTracks()
         playlist.addFiles(files)
     }
     
@@ -529,10 +299,6 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     
     @IBAction func savePlaylistMenuItemAction(_ sender: Any) {
         savePlaylistAction(sender as AnyObject)
-    }
-    
-    @IBAction func playSelectedTrackMenuItemAction(_ sender: Any) {
-        playSelectedTrack()
     }
     
     @IBAction func moveTrackUpMenuItemAction(_ sender: Any) {
@@ -551,35 +317,12 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         clearPlaylistAction(sender as AnyObject)
     }
     
-    @IBAction func togglePlayPauseMenuItemAction(_ sender: Any) {
-        playPauseAction(sender as AnyObject)
-    }
-    
-    @IBAction func nextTrackMenuItemAction(_ sender: Any) {
-        nextTrackAction(sender as AnyObject)
-    }
-    
-    @IBAction func previousTrackMenuItemAction(_ sender: Any) {
-        prevTrackAction(sender as AnyObject)
-    }
-    
-    @IBAction func seekForwardMenuItemAction(_ sender: Any) {
-        seekForwardAction(sender as AnyObject)
-    }
-    
-    @IBAction func seekBackwardMenuItemAction(_ sender: Any) {
-        seekBackwardAction(sender as AnyObject)
-    }
-    
-    @IBAction func toggleRepeatModeMenuItemAction(_ sender: Any) {
-        repeatAction(sender as AnyObject)
-    }
-    
-    @IBAction func toggleShuffleModeMenuItemAction(_ sender: Any) {
-        shuffleAction(sender as AnyObject)
-    }
-    
     func consumeNotification(_ notification: NotificationMessage) {
+        
+        if (notification is TrackChangedNotification) {
+            let msg = notification as! TrackChangedNotification
+            trackChange(msg.newTrack)
+        }
         
         if (notification is PlaylistScrollUpNotification) {
             scrollPlaylistUp()

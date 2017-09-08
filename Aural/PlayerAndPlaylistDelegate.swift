@@ -5,7 +5,7 @@ import Cocoa
  
  See AuralPlayerDelegate, AuralSoundTuningDelegate, and EventSubscriber protocols to learn more about the public functions implemented here.
  */
-class PlayerAndPlaylistDelegate: PlayerDelegateProtocol, PlaylistDelegateProtocol, EventSubscriber, MessageSubscriber {
+class PlayerAndPlaylistDelegate: PlayerDelegateProtocol, EventSubscriber, MessageSubscriber {
     
     // The current player playlist
     private let playlist: Playlist
@@ -341,13 +341,6 @@ class PlayerAndPlaylistDelegate: PlayerDelegateProtocol, PlaylistDelegateProtoco
         trackPrepQueue.cancelAllOperations()
     }
     
-    private func stopPlayback() {
-        PlaybackSession.endCurrent()
-        player.stop()
-        playbackState = .noTrack
-        playingTrack = nil
-    }
-    
     func savePlaylist(_ file: URL) {
         DispatchQueue.global(qos: .userInitiated).async {
             PlaylistIO.savePlaylist(file)
@@ -358,7 +351,7 @@ class PlayerAndPlaylistDelegate: PlayerDelegateProtocol, PlaylistDelegateProtoco
         return playingTrack
     }
     
-    func getPlaylistSummary() -> (numTracks: Int, totalDuration: Double) {
+    func summary() -> (numTracks: Int, totalDuration: Double) {
         return (playlist.size(), playlist.totalDuration())
     }
     
@@ -402,7 +395,14 @@ class PlayerAndPlaylistDelegate: PlayerDelegateProtocol, PlaylistDelegateProtoco
         return playingTrack!
     }
     
-    func continuePlaying() throws -> IndexedTrack? {
+    func stopPlayback() {
+        PlaybackSession.endCurrent()
+        player.stop()
+        playbackState = .noTrack
+        playingTrack = nil
+    }
+    
+    private func continuePlaying() throws -> IndexedTrack? {
         try play(playlist.continuePlaying())
         return playingTrack
     }
@@ -620,7 +620,7 @@ class PlayerAndPlaylistDelegate: PlayerDelegateProtocol, PlaylistDelegateProtoco
     }
     
     func searchPlaylist(searchQuery: SearchQuery) -> SearchResults {
-        return playlist.searchPlaylist(searchQuery: searchQuery)
+        return playlist.search(searchQuery)
     }
     
     func sortPlaylist(sort: Sort) {

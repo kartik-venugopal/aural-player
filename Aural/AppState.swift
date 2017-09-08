@@ -71,6 +71,12 @@ class PlaylistState {
     var tracks: [String] = [String]()
 }
 
+class PlaybackSequenceState {
+    
+    var repeatMode: RepeatMode = AppDefaults.repeatMode
+    var shuffleMode: ShuffleMode = AppDefaults.shuffleMode
+}
+
 /*
  Encapsulates all application state. It is persisted to disk upon exit and loaded into the application upon startup.
  

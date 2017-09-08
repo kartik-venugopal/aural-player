@@ -43,6 +43,8 @@ enum MessageType {
     case playbackStateChangedNotification
     case playbackRateChangedNotification
     
+    case seekPositionChangedNotification
+    
     case searchQueryChangedNotification
     
     case appLoadedNotification
@@ -134,6 +136,14 @@ struct PlaybackStateChangedNotification: NotificationMessage {
     init(_ newPlaybackState: PlaybackState) {
         self.newPlaybackState = newPlaybackState
     }
+}
+
+struct SeekPositionChangedNotification: NotificationMessage {
+    
+    var messageType: MessageType = .seekPositionChangedNotification
+    static let instance: SeekPositionChangedNotification = SeekPositionChangedNotification()
+    
+    private init() {}
 }
 
 struct SearchQueryChangedNotification: NotificationMessage {

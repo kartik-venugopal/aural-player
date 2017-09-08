@@ -4,7 +4,7 @@
 
 import Foundation
 
-class PlaybackSequence: PlaylistChangeListener {
+class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
     
     var repeatMode: RepeatMode = .off
     var shuffleMode: ShuffleMode = .off
@@ -30,6 +30,7 @@ class PlaybackSequence: PlaylistChangeListener {
     }
     
     private func reset(firstTrackIndex: Int?) {
+        
         if (shuffleMode == .on) {
             if (firstTrackIndex != nil) {
                 shuffleSequence.reset(capacity: tracksCount, firstTrackIndex: firstTrackIndex!)
@@ -84,14 +85,14 @@ class PlaybackSequence: PlaylistChangeListener {
         clear()
     }
     
-    func playlistReordered(_ newPlayingTrackIndex: Int?) {
-        cursor = newPlayingTrackIndex
+    func playlistReordered(_ newCursor: Int?) {
+        cursor = newCursor
         reset(firstTrackIndex: cursor)
     }
     
-    func randomTrackSelected(_ trackIndex: Int){
-        cursor = trackIndex
-        reset(firstTrackIndex: trackIndex)
+    func select(_ index: Int) {
+        cursor = index
+        reset(firstTrackIndex: index)
     }
     
     func getCursor() -> Int? {
@@ -169,7 +170,7 @@ class PlaybackSequence: PlaylistChangeListener {
     }
     
     // Determines the next track to play when playback of a (previous) track has completed and no user input has been provided to select the next track to play
-    func continuePlaying() -> Int? {
+    func subsequent() -> Int? {
 
         if (tracksCount == 0) {
             cursor = nil
@@ -452,7 +453,7 @@ class PlaybackSequence: PlaylistChangeListener {
     }
     
     // Determines which track will play next if playlist.continuePlaying() is invoked, if any. This is used to eagerly prep tracks for future playback. Nil return value indicates no track.
-    func peekContinuePlaying() -> Int? {
+    func peekSubsequent() -> Int? {
         
         if (tracksCount == 0) {
             return nil
@@ -695,5 +696,13 @@ class PlaybackSequence: PlaylistChangeListener {
         
         // Impossible
         return nil
+    }
+    
+    func getRepeatMode() -> RepeatMode {
+        return repeatMode
+    }
+    
+    func getShuffleMode() -> ShuffleMode {
+        return shuffleMode
     }
 }

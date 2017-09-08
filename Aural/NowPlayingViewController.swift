@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class NowPlayingViewController: NSViewController, MessageSubscriber {
+class NowPlayingViewController: NSViewController, MessageSubscriber, EventSubscriber {
     
     // Now playing track info
     @IBOutlet weak var lblTrackArtist: NSTextField!
@@ -18,7 +18,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
     
     @IBOutlet weak var moreInfoMenuItem: NSMenuItem!
     
-    private let player: PlayerDelegateProtocol = ObjectGraph.getPlayerDelegate()
+    private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
     
     // Popover view that displays detailed track info
     private lazy var popover: NSPopover = {
@@ -47,19 +47,19 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         // Timer interval depends on whether time stretch unit is active
         seekTimer = ScheduledTaskExecutor(intervalMillis: appState.seekTimerInterval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
         
+        EventRegistry.subscribe(.trackChanged, subscriber: self, dispatchQueue: DispatchQueue.main)
+        
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.playbackRateChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.playbackStateChangedNotification, subscriber: self)
-    }
-    
-    @IBAction func seekSliderAction(_ sender: AnyObject) {
-        player.seekToPercentage(seekSlider.doubleValue)
-        updateSeekPosition()
+        SyncMessenger.subscribe(.seekPositionChangedNotification, subscriber: self)
     }
     
     @IBAction func moreInfoAction(_ sender: AnyObject) {
         
-        let playingTrack = player.getMoreInfo()
+        let playingTrack = player.getPlayingTrack()
+        playingTrack!.track?.loadDetailedInfo()
+        
         if (playingTrack == nil) {
             return
         }
@@ -157,7 +157,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         
         if (player.getPlaybackState() == .playing) {
             
-            let seekPosn = player.getSeekSecondsAndPercentage()
+            let seekPosn = player.getSeekPosition()
             
             lblSeekPosition.stringValue = Utils.formatDuration(seekPosn.seconds)
             seekSlider.doubleValue = seekPosn.percentage
@@ -176,7 +176,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
                 toggleMoreInfoButtons(true)
                 
                 if (popover.isShown) {
-                    player.getMoreInfo()
+                    player.getPlayingTrack()?.track?.loadDetailedInfo()
                     popoverViewController.refresh()
                 }
                 
@@ -244,9 +244,21 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
             playbackStateChanged(msg.newPlaybackState)
             return
         }
+        
+        if (notification is SeekPositionChangedNotification) {
+            updateSeekPosition()
+        }
     }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
         return EmptyResponse.instance
+    }
+    
+    func consumeEvent(_ event: Event) {
+        
+        if (event is TrackChangedEvent) {
+            let _evt = event as! TrackChangedEvent
+            trackChange(_evt.newTrack, false)
+        }
     }
 }

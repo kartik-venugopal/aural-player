@@ -53,7 +53,7 @@ class PlaylistSortViewController: NSViewController {
         sortOptions.field = sortByName.state == 1 ? SortField.name : SortField.duration
         sortOptions.order = sortAscending.state == 1 ? SortOrder.ascending : SortOrder.descending
         
-        playlist.sortPlaylist(sort: sortOptions)
+        playlist.sort(sortOptions)
         dismissModalDialog()
         
         playlistView.reloadData()

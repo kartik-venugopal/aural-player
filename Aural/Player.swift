@@ -15,6 +15,8 @@ class Player: PlayerProtocol {
     // Current playback position (frame)
     private var startFrame: AVAudioFramePosition?
     
+    private var playbackState: PlaybackState = .noTrack
+    
     init(_ graph: PlayerGraphProtocol) {
         
         self.graph = graph
@@ -35,14 +37,17 @@ class Player: PlayerProtocol {
         startFrame = BufferManager.FRAME_ZERO
         initPlayer(playbackSession.track.track!)
         bufferManager.play(playbackSession)
+        playbackState = .playing
     }
     
     func pause() {
         graph.playerNode.pause()
+        playbackState = .paused
     }
     
     func resume() {
         graph.playerNode.play()
+        playbackState = .playing
     }
     
     func stop() {
@@ -51,6 +56,7 @@ class Player: PlayerProtocol {
         graph.playerNode.reset()
         
         startFrame = nil
+        playbackState = .noTrack
     }
     
     func seekToTime(_ playbackSession: PlaybackSession, _ seconds: Double) {
@@ -77,5 +83,9 @@ class Player: PlayerProtocol {
         
         // This should never happen (player is not playing)
         return 0
+    }
+    
+    func getPlaybackState() -> PlaybackState {
+        return playbackState
     }
 }

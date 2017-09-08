@@ -8,6 +8,8 @@ class ObjectGraph {
     
     private static var playerDelegate: PlayerDelegateProtocol?
     
+    private static var playbackDelegate: PlaybackDelegateProtocol?
+    
     private static var playlistDelegate: PlaylistDelegateProtocol?
     
     private static var audioGraphDelegate: AudioGraphDelegateProtocol?
@@ -26,7 +28,9 @@ class ObjectGraph {
     
     private static var recorder: Recorder?
     
-    private static var playlist: Playlist?
+    private static var playlist: NewPlaylist?
+    
+    private static var playbackSequence: PlaybackSequence?
     
     private static var initialized: Bool = false
     
@@ -73,16 +77,25 @@ class ObjectGraph {
         let repeatMode = appState!.playlistState.repeatMode
         let shuffleMode = appState!.playlistState.shuffleMode
         
-        playlist = Playlist(repeatMode, shuffleMode)
+//        playlist = Playlist(repeatMode, shuffleMode)
+        playlist = NewPlaylist()
+        
+        playbackSequence = PlaybackSequence(0, repeatMode, shuffleMode)
         
         // Initialize playerDelegate
-        playerDelegate = PlayerAndPlaylistDelegate(playlist!, player!, appState!, preferences!)
-        playlistDelegate = (playerDelegate as! PlaylistDelegateProtocol)
+//        playerDelegate = PlayerAndPlaylistDelegate(playlist!, player!, appState!, preferences!)
+        
+        //_ player: PlayerProtocol, _ playbackSequence: PlaybackSequenceProtocol, _ playlist: PlaylistAccessorProtocol, _ preferences: Preferences) {
+        playbackDelegate = PlaybackDelegate(player!, playbackSequence!, playlist!, preferences!)
+        
+        let mutator = PlaylistMutatorDelegate(playlist!, playbackSequence!)
+        let accessor = PlaylistAccessorDelegate(playlist!)
+        playlistDelegate = PlaylistDelegate(mutator, accessor)
         
         initialized = true
     }
     
-    static func getPlaylist() -> Playlist {
+    static func getPlaylist() -> NewPlaylist {
         
         if (!initialized) {
             initialize()
@@ -91,7 +104,7 @@ class ObjectGraph {
         return playlist!
     }
     
-    static func getPlaylistAccessor() -> PlaylistAccessor {
+    static func getPlaylistAccessor() -> PlaylistAccessorProtocol {
         return getPlaylist()
     }
     
@@ -102,6 +115,19 @@ class ObjectGraph {
         }
         
         return playerDelegate!
+    }
+    
+    static func getPlaybackDelegate() -> PlaybackDelegateProtocol {
+        
+        if (!initialized) {
+            initialize()
+        }
+        
+        return playbackDelegate!
+    }
+    
+    static func getPlaybackInfoDelegate() -> PlaybackInfoDelegateProtocol {
+        return getPlaybackDelegate()
     }
     
     static func getPlaylistDelegate() -> PlaylistDelegateProtocol {
@@ -164,7 +190,7 @@ class ObjectGraph {
         audioGraph?.tearDown()
         
         appState?.audioGraphState = audioGraph!.getPersistentState()
-        appState?.playlistState = playlist!.getState()
+        appState?.playlistState = playlist!.persistentState()
         
         let uiState = UIState()
         uiState.windowLocationX = Float(WindowState.location().x)

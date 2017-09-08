@@ -1,9 +1,6 @@
-import Cocoa
+import Foundation
 
-/*
-    Contract for a middleman/facade between the UI and the audio player, to perform playback
-*/
-protocol PlayerDelegateProtocol {
+protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
     // Toggles between the play and pause states, as long as a file is available to play. Returns playback state information the UI can use to update itself following the operation.
     // Note - Throws an error if playback begins with a track that cannot be played back
@@ -13,6 +10,8 @@ protocol PlayerDelegateProtocol {
     // Note - Throws an error if the selected track cannot be played back
     func play(_ index: Int) throws -> IndexedTrack
     
+    func stop()
+    
     // Plays (and returns) the next track, if there is one
     // Note - Throws an error if the next track cannot be played back
     func nextTrack() throws -> IndexedTrack?
@@ -21,24 +20,18 @@ protocol PlayerDelegateProtocol {
     // Note - Throws an error if the previous track cannot be played back
     func previousTrack() throws -> IndexedTrack?
     
-    // Returns the current playback state of the player. See PlaybackState for more details
-    func getPlaybackState() -> PlaybackState
-    
-    // Returns the current playback position of the player, for the current track, in terms of seconds and percentage (of the duration)
-    func getSeekSecondsAndPercentage() -> (seconds: Double, percentage: Double)
-    
     // Seeks forward a few seconds, within the current track
     func seekForward()
-
+    
     // Seeks backward a few seconds, within the current track
     func seekBackward()
     
     // Seeks to a specific percentage of the track duration, within the current track
     func seekToPercentage(_ percentage: Double)
     
-    // Returns the currently playing track (with its index)
-    func getPlayingTrack() -> IndexedTrack?
+    // Toggles between repeat modes. See RepeatMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
+    func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
     
-    // Returns the currently playing track, ensuring that detailed info is loaded in it. This is necessary due to lazy loading.
-    func getMoreInfo() -> IndexedTrack?
+    // Toggles between shuffle modes. See ShuffleMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
+    func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
 }

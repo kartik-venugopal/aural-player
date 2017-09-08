@@ -8,7 +8,7 @@ import AVFoundation
 class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     
     // TODO: Merge these two variables into one, use protocols
-    private let playlist: PlaylistAccessor = ObjectGraph.getPlaylistAccessor()
+    private let playlist: PlaylistAccessorProtocol = ObjectGraph.getPlaylistAccessor()
     private let playlistDelegate: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
     func numberOfRows(in tableView: NSTableView) -> Int {

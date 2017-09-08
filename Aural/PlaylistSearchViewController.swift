@@ -103,7 +103,7 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
             query.type = .endsWith
         }
         
-        searchResults = playlist.searchPlaylist(searchQuery: query)
+        searchResults = playlist.search(query)
         
         if ((searchResults?.count)! > 0) {
             
