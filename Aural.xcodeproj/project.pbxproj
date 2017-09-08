@@ -338,7 +338,6 @@
 		3E85F2581EFA78D6007BE830 /* Aural */ = {
 			isa = PBXGroup;
 			children = (
-				3E84F8441F5FBFF90010BCDA /* PlaybackSequence */,
 				3E85F2591EFA78D6007BE830 /* AppDelegate.swift */,
 				3ED526501F3003A800001A97 /* ObjectGraph.swift */,
 				3E3C20A71F0A697800AF5A62 /* AppConstants.swift */,
@@ -346,6 +345,7 @@
 				3E9847871F5CFD52001A2D28 /* Delegates */,
 				3EA262671F0EFD9600D9BCD9 /* UI */,
 				3E98477F1F5CF0E6001A2D28 /* Playlist */,
+				3E84F8441F5FBFF90010BCDA /* PlaybackSequence */,
 				3E3C20A41F0A3CE100AF5A62 /* AudioGraph */,
 				3ED2AF201F00E8B7000F702C /* Domain */,
 				3EA29AD61F0B473600DA239E /* Messaging */,
@@ -395,6 +395,7 @@
 			isa = PBXGroup;
 			children = (
 				3EFC506E1F6085300032BE21 /* Old */,
+				3ECFE5521F5FD8F100D96BE2 /* PlaylistMutatorDelegate.swift */,
 				3E84F83E1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift */,
 				3EFC506C1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift */,
 				3E84F8471F5FC58D0010BCDA /* PlaybackDelegate.swift */,
@@ -403,7 +404,6 @@
 				3E84F8451F5FC0CD0010BCDA /* PlaylistMutatorDelegateProtocol.swift */,
 				3EFC506A1F607B530032BE21 /* PlaylistDelegate.swift */,
 				3E84F8401F5FBE8F0010BCDA /* PlaylistAccessorDelegate.swift */,
-				3ECFE5521F5FD8F100D96BE2 /* PlaylistMutatorDelegate.swift */,
 				3E9847881F5CFD62001A2D28 /* RecorderDelegate.swift */,
 				3E9847901F5D0512001A2D28 /* AudioGraphDelegate.swift */,
 				3E98478A1F5CFD87001A2D28 /* RecorderDelegateProtocol.swift */,

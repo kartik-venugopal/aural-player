@@ -289,7 +289,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     
     // Adds a set of files (or directories, i.e. files within them) to the current playlist, if supported
     func addFiles(_ files: [URL]) {
-//        startedAddingTracks()
+        startedAddingTracks()
         playlist.addFiles(files)
     }
     
