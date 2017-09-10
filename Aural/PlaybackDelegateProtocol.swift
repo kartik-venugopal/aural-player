@@ -34,6 +34,10 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
     // Toggles between shuffle modes. See ShuffleMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
     func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
+    
+    func setRepeatMode(_ repeatMode: RepeatMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
+    
+    func setShuffleMode(_ shuffleMode: ShuffleMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
 }
 
 // Used for autoplay

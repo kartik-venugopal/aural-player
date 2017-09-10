@@ -196,17 +196,17 @@ class AudioGraphViewController: NSViewController {
         setVolumeImage(graph.isMuted())
     }
     
-    @IBAction func volumeBtnAction(_ sender: AnyObject) {
+    @IBAction func muteUnmuteAction(_ sender: AnyObject) {
         setVolumeImage(graph.toggleMute())
     }
     
-    func increaseVolume() {
-        volumeSlider.floatValue = graph.increaseVolume()
+    @IBAction func decreaseVolumeAction(_ sender: Any) {
+        volumeSlider.floatValue = graph.decreaseVolume()
         setVolumeImage(graph.isMuted())
     }
     
-    func decreaseVolume() {
-        volumeSlider.floatValue = graph.decreaseVolume()
+    @IBAction func increaseVolumeAction(_ sender: Any) {
+        volumeSlider.floatValue = graph.increaseVolume()
         setVolumeImage(graph.isMuted())
     }
     
@@ -234,33 +234,12 @@ class AudioGraphViewController: NSViewController {
         graph.setBalance(panSlider.floatValue)
     }
     
-    func panRight() {
-        panSlider.floatValue = graph.panRight()
-    }
-    
-    func panLeft() {
+    @IBAction func panLeftAction(_ sender: Any) {
         panSlider.floatValue = graph.panLeft()
     }
     
-    
-    @IBAction func decreaseVolumeMenuItemAction(_ sender: Any) {
-        decreaseVolume()
-    }
-    
-    @IBAction func increaseVolumeMenuItemAction(_ sender: Any) {
-        increaseVolume()
-    }
-    
-    @IBAction func panLeftMenuItemAction(_ sender: Any) {
-        panLeft()
-    }
-    
-    @IBAction func panRightMenuItemAction(_ sender: Any) {
-        panRight()
-    }
-    
-    @IBAction func muteUnmuteMenuItemAction(_ sender: Any) {
-        volumeBtnAction(sender as AnyObject)
+    @IBAction func panRightAction(_ sender: Any) {
+        panSlider.floatValue = graph.panRight()
     }
     
     private func updateEQSliders(_ eqBands: [Int: Float]) {

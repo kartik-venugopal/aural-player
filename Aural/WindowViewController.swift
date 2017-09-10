@@ -73,20 +73,10 @@ class WindowViewController: NSViewController {
         NSApplication.shared().terminate(self)
     }
     
-    @IBAction func toggleEffectsMenuItemAction(_ sender: AnyObject) {
-        toggleEffects(true)
-    }
-    
-    @IBAction func togglePlaylistMenuItemAction(_ sender: AnyObject) {
-        togglePlaylist(true)
-    }
-    
-    // Toggle button action
     @IBAction func togglePlaylistAction(_ sender: AnyObject) {
         togglePlaylist(true)
     }
     
-    // Toggle button action
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
         toggleEffects(true)
     }

@@ -162,10 +162,6 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
         NSApp.stopModal()
     }
     
-    @IBAction func searchPlaylistMenuItemAction(_ sender: Any) {
-        searchPlaylistAction(sender)
-    }
-    
     @IBAction func searchQueryChangedAction(_ sender: Any) {
         searchQueryChanged()
     }

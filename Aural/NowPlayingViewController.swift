@@ -75,10 +75,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         }
     }
     
-    @IBAction func trackInfoMenuItemAction(_ sender: Any) {
-        moreInfoAction(sender as AnyObject)
-    }
-    
     func showNowPlayingInfo(_ track: Track) {
         
         var artistAndTitleAvailable: Bool = false

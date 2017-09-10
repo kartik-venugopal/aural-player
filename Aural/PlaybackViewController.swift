@@ -11,12 +11,19 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     
     @IBOutlet weak var playlistView: NSTableView!
     
+    @IBOutlet weak var repeatOffMenuItem: NSMenuItem!
+    @IBOutlet weak var repeatOneMenuItem: NSMenuItem!
+    @IBOutlet weak var repeatAllMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var shuffleOffMenuItem: NSMenuItem!
+    @IBOutlet weak var shuffleOnMenuItem: NSMenuItem!
+    
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
     
     override func viewDidLoad() {
         
         // Set up a mouse listener (for double clicks -> play selected track)
-        playlistView.doubleAction = #selector(self.playlistDoubleClickAction(_:))
+        playlistView.doubleAction = #selector(self.playSelectedTrackAction(_:))
         playlistView.target = self
         
         let appState = ObjectGraph.getUIAppState()
@@ -49,15 +56,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         SyncMessenger.publishNotification(seekPositionChangedNotification)
     }
     
-    @IBAction func playSelectedTrackMenuItemAction(_ sender: Any) {
-        playSelectedTrack()
-    }
-    
-    func playlistDoubleClickAction(_ sender: AnyObject) {
-        playSelectedTrack()
-    }
-    
-    func playSelectedTrack() {
+    @IBAction func playSelectedTrackAction(_ sender: AnyObject) {
         
         if (playlistView.selectedRow >= 0) {
             
@@ -83,6 +82,36 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     @IBAction func shuffleAction(_ sender: AnyObject) {
         
         let modes = player.toggleShuffleMode()
+        updateRepeatAndShuffleButtons(modes.repeatMode, modes.shuffleMode)
+    }
+    
+    @IBAction func repeatOffAction(_ sender: AnyObject) {
+        
+        let modes = player.setRepeatMode(.off)
+        updateRepeatAndShuffleButtons(modes.repeatMode, modes.shuffleMode)
+    }
+    
+    @IBAction func repeatOneAction(_ sender: AnyObject) {
+        
+        let modes = player.setRepeatMode(.one)
+        updateRepeatAndShuffleButtons(modes.repeatMode, modes.shuffleMode)
+    }
+    
+    @IBAction func repeatAllAction(_ sender: AnyObject) {
+        
+        let modes = player.setRepeatMode(.all)
+        updateRepeatAndShuffleButtons(modes.repeatMode, modes.shuffleMode)
+    }
+    
+    @IBAction func shuffleOffAction(_ sender: AnyObject) {
+        
+        let modes = player.setShuffleMode(.off)
+        updateRepeatAndShuffleButtons(modes.repeatMode, modes.shuffleMode)
+    }
+    
+    @IBAction func shuffleOnAction(_ sender: AnyObject) {
+        
+        let modes = player.setShuffleMode(.on)
         updateRepeatAndShuffleButtons(modes.repeatMode, modes.shuffleMode)
     }
     
@@ -186,34 +215,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         
         let seekPositionChangedNotification = SeekPositionChangedNotification.instance
         SyncMessenger.publishNotification(seekPositionChangedNotification)
-    }
-    
-    @IBAction func toggleRepeatModeMenuItemAction(_ sender: Any) {
-        repeatAction(sender as AnyObject)
-    }
-    
-    @IBAction func toggleShuffleModeMenuItemAction(_ sender: Any) {
-        shuffleAction(sender as AnyObject)
-    }
-    
-    @IBAction func togglePlayPauseMenuItemAction(_ sender: Any) {
-        playPauseAction(sender as AnyObject)
-    }
-    
-    @IBAction func nextTrackMenuItemAction(_ sender: Any) {
-        nextTrackAction(sender as AnyObject)
-    }
-    
-    @IBAction func previousTrackMenuItemAction(_ sender: Any) {
-        prevTrackAction(sender as AnyObject)
-    }
-    
-    @IBAction func seekForwardMenuItemAction(_ sender: Any) {
-        seekForwardAction(sender as AnyObject)
-    }
-    
-    @IBAction func seekBackwardMenuItemAction(_ sender: Any) {
-        seekBackwardAction(sender as AnyObject)
     }
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.

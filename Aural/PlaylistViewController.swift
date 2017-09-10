@@ -253,30 +253,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         playlist.addFiles(files)
     }
     
-    @IBAction func addFilesMenuItemAction(_ sender: Any) {
-        addTracksAction(sender as AnyObject)
-    }
-    
-    @IBAction func savePlaylistMenuItemAction(_ sender: Any) {
-        savePlaylistAction(sender as AnyObject)
-    }
-    
-    @IBAction func moveTrackUpMenuItemAction(_ sender: Any) {
-        moveTrackUpAction(sender as AnyObject)
-    }
-    
-    @IBAction func moveTrackDownMenuItemAction(_ sender: Any) {
-        moveTrackDownAction(sender as AnyObject)
-    }
-    
-    @IBAction func removeTrackMenuItemAction(_ sender: Any) {
-        removeSingleTrackAction(sender as AnyObject)
-    }
-    
-    @IBAction func clearPlaylistMenuItemAction(_ sender: Any) {
-        clearPlaylistAction(sender as AnyObject)
-    }
-    
     // Playlist info changed, need to reset the UI
     func consumeAsyncMessage(_ message: AsyncMessage) {
         

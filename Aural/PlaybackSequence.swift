@@ -148,6 +148,18 @@ class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
         return (repeatMode, shuffleMode)
     }
     
+    func setRepeatMode(_ repeatMode: RepeatMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
+        
+        self.repeatMode = repeatMode
+        
+        if (repeatMode == .one && shuffleMode == .on) {
+            shuffleMode = .off
+            shuffleSequence.clear()
+        }
+        
+        return (repeatMode, shuffleMode)
+    }
+    
     func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         
         switch shuffleMode {
@@ -163,6 +175,28 @@ class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
             
         case .on: shuffleMode = .off
             shuffleSequence.clear()
+            
+        }
+        
+        return (repeatMode, shuffleMode)
+    }
+    
+    func setShuffleMode(_ shuffleMode: ShuffleMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
+        
+        self.shuffleMode = shuffleMode
+        
+        switch shuffleMode {
+            
+        case .on:
+        
+        // Can't shuffle and repeat one track
+        if (repeatMode == .one) {
+            repeatMode = .off
+        }
+        
+        reset(firstTrackIndex: cursor)
+            
+        case .off: shuffleSequence.clear()
             
         }
         

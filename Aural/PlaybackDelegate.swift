@@ -270,8 +270,20 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return modes
     }
     
+    func setRepeatMode(_ repeatMode: RepeatMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
+        let modes = playbackSequence.setRepeatMode(repeatMode)
+        prepareNextTracksForPlayback()
+        return modes
+    }
+    
     func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         let modes = playbackSequence.toggleShuffleMode()
+        prepareNextTracksForPlayback()
+        return modes
+    }
+    
+    func setShuffleMode(_ shuffleMode: ShuffleMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
+        let modes = playbackSequence.setShuffleMode(shuffleMode)
         prepareNextTracksForPlayback()
         return modes
     }

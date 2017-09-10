@@ -9,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
             <connections>
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="GzC-gU-4Uq"/>
+                <outlet property="dockMenu" destination="7lR-jg-Hrh" id="0Wa-a8-QGX"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -407,7 +408,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="volumeBtnAction:" target="fv4-nc-h1s" id="FJL-C5-OnL"/>
+                                        <action selector="muteUnmuteAction:" target="fv4-nc-h1s" id="4Gn-f3-CU0"/>
                                     </connections>
                                 </button>
                                 <slider toolTip="Pan / Balance" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wom-j6-eli">
@@ -2051,12 +2052,12 @@ G1BhbiBTbGlkZXI
                         <items>
                             <menuItem title=" Open files / playlists" image="Add-Small" keyEquivalent="o" id="Ysv-Pf-k88">
                                 <connections>
-                                    <action selector="addFilesMenuItemAction:" target="V2O-JI-ukn" id="bCs-wN-w2f"/>
+                                    <action selector="addTracksAction:" target="V2O-JI-ukn" id="BFI-Da-kfA"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Save playlist" image="Save-Small" keyEquivalent="s" id="Cvk-m8-oAg">
                                 <connections>
-                                    <action selector="savePlaylistMenuItemAction:" target="V2O-JI-ukn" id="Kac-6Y-Ykh"/>
+                                    <action selector="savePlaylistAction:" target="V2O-JI-ukn" id="6Si-EZ-R1m"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Clear playlist" image="Clear-Small" id="ec2-Jm-I4M">
@@ -2064,7 +2065,7 @@ G1BhbiBTbGlkZXI
 CA
 </string>
                                 <connections>
-                                    <action selector="clearPlaylistMenuItemAction:" target="V2O-JI-ukn" id="3Gi-ou-guT"/>
+                                    <action selector="clearPlaylistAction:" target="V2O-JI-ukn" id="rWQ-oR-j8U"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="ZbT-B5-jLK"/>
@@ -2074,19 +2075,19 @@ DQ
 </string>
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="playSelectedTrackMenuItemAction:" target="I9L-9m-MZn" id="JGy-Si-O7j"/>
+                                    <action selector="playSelectedTrackAction:" target="I9L-9m-MZn" id="vb7-xG-AHl"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Move selected track up" image="Up-Small" keyEquivalent="" id="f3c-TG-M9r">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
                                 <connections>
-                                    <action selector="moveTrackUpMenuItemAction:" target="V2O-JI-ukn" id="BCf-Kt-Kyo"/>
+                                    <action selector="moveTrackUpAction:" target="V2O-JI-ukn" id="gQl-eI-Cae"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Move selected track down" image="Down-Small" keyEquivalent="" id="F5x-Nm-ust">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
                                 <connections>
-                                    <action selector="moveTrackDownMenuItemAction:" target="V2O-JI-ukn" id="aQJ-6s-CoQ"/>
+                                    <action selector="moveTrackDownAction:" target="V2O-JI-ukn" id="jjl-TC-ltc"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Remove selected track" image="Remove-Small" id="20j-6Y-sbB" userLabel="Remove selected track">
@@ -2095,102 +2096,141 @@ CA
 </string>
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="removeTrackMenuItemAction:" target="V2O-JI-ukn" id="uQK-aw-lnm"/>
+                                    <action selector="removeSingleTrackAction:" target="V2O-JI-ukn" id="3S4-Mq-C52"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="bMd-aB-U0o"/>
                             <menuItem title=" Search playlist" image="Search-Small" keyEquivalent="f" id="Pxd-7C-8tq">
                                 <connections>
-                                    <action selector="searchPlaylistMenuItemAction:" target="Ur0-NJ-0ro" id="OQs-Ma-KnR"/>
+                                    <action selector="searchPlaylistAction:" target="Ur0-NJ-0ro" id="jsn-W1-eCo"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Sort playlist" image="Sort-Small" keyEquivalent="s" id="ttf-Ix-LHp" userLabel="Sort playlist">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
-                                    <action selector="sortPlaylistMenuItemAction:" target="8pJ-I5-ie6" id="Spd-N7-5Ij"/>
+                                    <action selector="sortPlaylistAction:" target="8pJ-I5-ie6" id="6Sb-7L-bK7"/>
                                 </connections>
                             </menuItem>
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Controls" id="voC-QS-eVy" userLabel="Controls">
+                <menuItem title="Playback" id="voC-QS-eVy" userLabel="Playback">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Controls" autoenablesItems="NO" id="4gC-cq-kT9">
+                    <menu key="submenu" title="Playback" autoenablesItems="NO" id="4gC-cq-kT9">
                         <items>
                             <menuItem title=" Play / Pause" image="PlayPause-Small" keyEquivalent=" " id="T9r-Uq-EPf">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="togglePlayPauseMenuItemAction:" target="I9L-9m-MZn" id="J3G-f1-Lcx"/>
+                                    <action selector="playPauseAction:" target="I9L-9m-MZn" id="sJB-Gg-eZw"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Previous track" image="PreviousTrack-Small" keyEquivalent="" id="yq3-HU-6rh">
                                 <connections>
-                                    <action selector="previousTrackMenuItemAction:" target="I9L-9m-MZn" id="UUZ-8C-b7a"/>
+                                    <action selector="prevTrackAction:" target="I9L-9m-MZn" id="7dz-d9-RkJ"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Next track" image="NextTrack-Small" keyEquivalent="" id="z7s-9y-10c">
                                 <connections>
-                                    <action selector="nextTrackMenuItemAction:" target="I9L-9m-MZn" id="0VS-rk-g8f"/>
+                                    <action selector="nextTrackAction:" target="I9L-9m-MZn" id="51y-Rg-fTL"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Seek backward" image="SeekBackward-Small" keyEquivalent="" id="h8T-Of-b8S">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="seekBackwardMenuItemAction:" target="I9L-9m-MZn" id="rOB-ep-w5a"/>
+                                    <action selector="seekBackwardAction:" target="I9L-9m-MZn" id="AM6-JA-IST"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Seek forward" image="SeekForward-Small" keyEquivalent="" id="dge-IA-2p7">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="seekForwardMenuItemAction:" target="I9L-9m-MZn" id="22s-3K-Fj3"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="gze-sl-67j"/>
-                            <menuItem title=" Mute / Unmute" image="Mute-Small" keyEquivalent="" id="TYd-HO-2Rv" userLabel="Mute/Unmute">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="muteUnmuteMenuItemAction:" target="fv4-nc-h1s" id="nrh-yj-mIp"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title=" Decrease volume" image="VolumeLow-Small" keyEquivalent="" id="jOS-4R-SUx">
-                                <connections>
-                                    <action selector="decreaseVolumeMenuItemAction:" target="fv4-nc-h1s" id="ctA-eb-5so"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title=" Increase volume" image="VolumeHigh-Small" keyEquivalent="" id="py7-Wp-lx7">
-                                <connections>
-                                    <action selector="increaseVolumeMenuItemAction:" target="fv4-nc-h1s" id="wfs-dR-s78"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title=" Pan left" image="PanL-Small" keyEquivalent="" id="Cvz-HZ-RmP">
-                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
-                                <connections>
-                                    <action selector="panLeftMenuItemAction:" target="fv4-nc-h1s" id="Gt7-X6-ilK"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title=" Pan right" image="PanR-Small" keyEquivalent="" id="qGf-Tr-MHz">
-                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
-                                <connections>
-                                    <action selector="panRightMenuItemAction:" target="fv4-nc-h1s" id="k4s-Wy-AkU"/>
+                                    <action selector="seekForwardAction:" target="I9L-9m-MZn" id="ajA-Vc-CBv"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="O1F-Wz-nQ9"/>
-                            <menuItem title=" Toggle repeat mode" image="RepeatMode-Small" keyEquivalent="R" id="CXV-Nr-pIe">
+                            <menuItem title="Repeat Mode" image="RepeatMode-Small" id="EsD-fI-URV" userLabel="Repeat Mode">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="toggleRepeatModeMenuItemAction:" target="I9L-9m-MZn" id="8qL-KU-IB5"/>
-                                </connections>
+                                <menu key="submenu" title="Repeat Mode" id="5hN-Xu-czo">
+                                    <items>
+                                        <menuItem title="  Off" indentationLevel="1" id="OBr-fe-z4t">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="repeatOffAction:" target="I9L-9m-MZn" id="Nmv-jx-YB8"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Repeat One" image="RepeatOne-Small" id="DMc-0q-KZE">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="repeatOneAction:" target="I9L-9m-MZn" id="32D-Zi-2b6"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Repeat All" image="RepeatAll-Small" id="l9m-G6-uAk">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="repeatAllAction:" target="I9L-9m-MZn" id="pdQ-4q-R86"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
                             </menuItem>
-                            <menuItem title=" Toggle shuffle mode" image="ShuffleOn-Small" keyEquivalent="S" id="vKU-kn-zJM">
+                            <menuItem title="Shuffle Mode" image="ShuffleOn-Small" id="vqy-s3-lEC" userLabel="Shuffle Mode">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="toggleShuffleModeMenuItemAction:" target="I9L-9m-MZn" id="BT6-tJ-4QS"/>
-                                </connections>
+                                <menu key="submenu" title="Shuffle Mode" id="OMy-lv-1Q4">
+                                    <items>
+                                        <menuItem title="  Off" indentationLevel="1" id="UVB-LH-JI0">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="shuffleOffAction:" target="I9L-9m-MZn" id="rjU-fX-PnQ"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="On" image="ShuffleOn-Small" id="A9x-31-Cvm" userLabel="On">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="shuffleOnAction:" target="I9L-9m-MZn" id="Cf5-XD-Bmf"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="dsi-6a-jdq"/>
-                            <menuItem title=" Detailed track info" image="MoreInfo-Small" enabled="NO" keyEquivalent="i" id="GCy-Rj-Mv5">
+                            <menuItem title=" Detailed track info" image="MoreInfo-Small" enabled="NO" keyEquivalent="i" id="GCy-Rj-Mv5" userLabel="More Info">
                                 <connections>
-                                    <action selector="trackInfoMenuItemAction:" target="2zm-r9-5fb" id="NNR-qG-MAw"/>
+                                    <action selector="moreInfoAction:" target="2zm-r9-5fb" id="phi-lu-RvG"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Sound" id="Kxo-JK-yBP" userLabel="Sound">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Sound" autoenablesItems="NO" id="7VF-JM-uEm">
+                        <items>
+                            <menuItem title=" Mute / Unmute" image="Mute-Small" keyEquivalent="" id="zih-cf-fPv" userLabel="Mute/Unmute">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="muteUnmuteAction:" target="fv4-nc-h1s" id="tPn-b5-74W"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Decrease volume" image="VolumeLow-Small" keyEquivalent="" id="itK-jR-sbX">
+                                <connections>
+                                    <action selector="decreaseVolumeAction:" target="fv4-nc-h1s" id="aYQ-8b-kmB"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Increase volume" image="VolumeHigh-Small" keyEquivalent="" id="nfc-KB-m6n">
+                                <connections>
+                                    <action selector="increaseVolumeAction:" target="fv4-nc-h1s" id="UBW-wo-oJf"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="4sc-rl-zri"/>
+                            <menuItem title=" Pan left" image="PanL-Small" keyEquivalent="" id="Lke-5L-p5h">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                <connections>
+                                    <action selector="panLeftAction:" target="fv4-nc-h1s" id="pe3-We-kzP"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Pan right" image="PanR-Small" keyEquivalent="" id="vBE-5e-9da">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                <connections>
+                                    <action selector="panRightAction:" target="fv4-nc-h1s" id="3EY-tj-rl0"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -2202,12 +2242,12 @@ CA
                         <items>
                             <menuItem title=" Playlist" state="on" image="TogglePlaylistView-Small" keyEquivalent="1" id="af4-4E-1QV" userLabel="Playlist">
                                 <connections>
-                                    <action selector="togglePlaylistMenuItemAction:" target="Bfj-ih-EYB" id="gKh-IQ-lXt"/>
+                                    <action selector="togglePlaylistAction:" target="Bfj-ih-EYB" id="N6V-WI-bOl"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Effects" state="on" image="ToggleEffectsView-Small" keyEquivalent="2" id="fK8-7g-oqx" userLabel="Effects">
                                 <connections>
-                                    <action selector="toggleEffectsMenuItemAction:" target="Bfj-ih-EYB" id="dAc-si-G6Q"/>
+                                    <action selector="toggleEffectsAction:" target="Bfj-ih-EYB" id="hHa-yP-wxU"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -3084,6 +3124,100 @@ Gw
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="-228" y="617"/>
         </window>
+        <menu id="7lR-jg-Hrh" userLabel="Dock Menu">
+            <items>
+                <menuItem title="Play / Pause" image="PlayPause-Small" keyEquivalent=" " id="haA-Vb-9QH">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="playPauseAction:" target="I9L-9m-MZn" id="srV-SM-tal"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Previous track" image="PreviousTrack-Small" keyEquivalent="" id="p99-Ng-Iu1" userLabel="Previous track">
+                    <connections>
+                        <action selector="prevTrackAction:" target="I9L-9m-MZn" id="UKj-vS-RnG"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Next track" image="NextTrack-Small" keyEquivalent="" id="b4G-JT-u6L" userLabel="Next track">
+                    <connections>
+                        <action selector="nextTrackAction:" target="I9L-9m-MZn" id="Bct-0w-phs"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Seek backward" image="SeekBackward-Small" keyEquivalent="" id="nyw-QG-ObJ" userLabel="Seek backward">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="seekBackwardAction:" target="I9L-9m-MZn" id="ykj-0W-9ah"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Seek forward" image="SeekForward-Small" keyEquivalent="" id="gmg-BK-hzJ" userLabel="Seek forward">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="seekForwardAction:" target="I9L-9m-MZn" id="BIe-r6-7tC"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="dwA-R8-e0L"/>
+                <menuItem title="Mute / Unmute" image="Mute-Small" keyEquivalent="" id="TUt-R6-cKe">
+                    <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                    <connections>
+                        <action selector="muteUnmuteAction:" target="fv4-nc-h1s" id="miD-F0-eci"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Decrease Volume" image="VolumeLow-Small" keyEquivalent="" id="cCz-MH-bwI" userLabel="Decrease Volume">
+                    <connections>
+                        <action selector="decreaseVolumeAction:" target="fv4-nc-h1s" id="Ea3-yC-aW2"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Increase Volume" image="VolumeHigh-Small" keyEquivalent="" id="gVF-PB-pgp" userLabel="Increase Volume">
+                    <connections>
+                        <action selector="increaseVolumeAction:" target="fv4-nc-h1s" id="6Kk-cy-IaD"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="WpM-FZ-MLT"/>
+                <menuItem title="Repeat Mode" image="RepeatMode-Small" id="stj-Uf-Zis" userLabel="Repeat Mode">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Repeat Mode" id="Y9I-m1-Aag">
+                        <items>
+                            <menuItem title="Off" id="pxm-4j-4jw">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="repeatOffAction:" target="I9L-9m-MZn" id="ozr-H5-ZVr"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Repeat One" image="RepeatOne-Small" id="x3D-4c-i0o">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="repeatOneAction:" target="I9L-9m-MZn" id="U9S-lO-8EW"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Repeat All" image="RepeatAll-Small" id="0zK-7w-8z4">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="repeatAllAction:" target="I9L-9m-MZn" id="gvm-hA-3EA"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Shuffle Mode" image="ShuffleOn-Small" id="uAL-uJ-rZ8" userLabel="Shuffle Mode">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Shuffle Mode" id="NFN-sY-o1g">
+                        <items>
+                            <menuItem title="Off" id="ZUr-qq-9e4">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="shuffleOffAction:" target="I9L-9m-MZn" id="lsu-Cy-zXy"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="On" image="ShuffleOn-Small" id="GtC-65-0P7" userLabel="On">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="shuffleOnAction:" target="I9L-9m-MZn" id="kQV-Yd-llQ"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+            </items>
+        </menu>
     </objects>
     <resources>
         <image name="Add" width="128" height="128"/>
@@ -3113,8 +3247,10 @@ Gw
         <image name="Record" width="256" height="256"/>
         <image name="Remove" width="128" height="128"/>
         <image name="Remove-Small" width="14" height="14"/>
+        <image name="RepeatAll-Small" width="15" height="15"/>
         <image name="RepeatMode-Small" width="15" height="15"/>
         <image name="RepeatOff" width="256" height="256"/>
+        <image name="RepeatOne-Small" width="15" height="15"/>
         <image name="Save" width="128" height="128"/>
         <image name="Save-Small" width="14" height="14"/>
         <image name="Search" width="128" height="128"/>

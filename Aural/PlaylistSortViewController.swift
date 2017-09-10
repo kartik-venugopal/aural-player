@@ -66,10 +66,6 @@ class PlaylistSortViewController: NSViewController {
         dismissModalDialog()
     }
     
-    @IBAction func sortPlaylistMenuItemAction(_ sender: Any) {
-        sortPlaylistAction(sender)
-    }
-    
     func dismissModalDialog() {
         NSApp.stopModal()
     }
