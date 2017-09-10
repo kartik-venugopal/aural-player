@@ -1,6 +1,6 @@
 import Cocoa
 
-class PlaybackViewController: NSViewController, MessageSubscriber, EventSubscriber {
+class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber {
     
     @IBOutlet weak var seekSlider: NSSlider!
     @IBOutlet weak var btnPlayPause: NSButton!
@@ -36,8 +36,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, EventSubscrib
             
         }
         
-        EventRegistry.subscribe(.trackNotPlayed, subscriber: self, dispatchQueue: DispatchQueue.main)
-        EventRegistry.subscribe(.trackChanged, subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe(.trackNotPlayed, subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe(.trackChanged, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(.stopPlaybackRequest, subscriber: self)
     }
@@ -272,17 +272,17 @@ class PlaybackViewController: NSViewController, MessageSubscriber, EventSubscrib
     }
     
     // Playlist info changed, need to reset the UI
-    func consumeEvent(_ event: Event) {
+    func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        if event is TrackChangedEvent {
-            let _event = event as! TrackChangedEvent
-            trackChange(_event.newTrack)
+        if message is TrackChangedAsyncMessage {
+            let _msg = message as! TrackChangedAsyncMessage
+            trackChange(_msg.newTrack)
             return
         }
         
-        if event is TrackNotPlayedEvent {
-            let _evt = event as! TrackNotPlayedEvent
-            handleTrackNotPlayedError(_evt.error)
+        if message is TrackNotPlayedAsyncMessage {
+            let _msg = message as! TrackNotPlayedAsyncMessage
+            handleTrackNotPlayedError(_msg.error)
             return
         }
     }

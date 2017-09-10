@@ -13,7 +13,7 @@ protocol MessageSubscriber {
 }
 
 /*
- Defines an inter-view message, sent from one view to another, in response to state changes or user actions. Messages could be either 1 - notifications, indicating that some change has occurred (e.g. the playlist has been cleared), OR 2 - requests for the execution of a function (e.g. track playback) from a different view.
+    Defines a synchronous message. Messages could be either 1 - notifications, indicating that some change has occurred (e.g. the playlist has been cleared), OR 2 - requests for the execution of a function (e.g. track playback).
  */
 protocol Message {
     var messageType: MessageType {get}

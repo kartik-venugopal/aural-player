@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class NowPlayingViewController: NSViewController, MessageSubscriber, EventSubscriber {
+class NowPlayingViewController: NSViewController, MessageSubscriber {
     
     // Now playing track info
     @IBOutlet weak var lblTrackArtist: NSTextField!
@@ -46,8 +46,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, EventSubscr
         
         // Timer interval depends on whether time stretch unit is active
         seekTimer = ScheduledTaskExecutor(intervalMillis: appState.seekTimerInterval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
-        
-        EventRegistry.subscribe(.trackChanged, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.playbackRateChangedNotification, subscriber: self)
@@ -252,13 +250,5 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, EventSubscr
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
         return EmptyResponse.instance
-    }
-    
-    func consumeEvent(_ event: Event) {
-        
-        if (event is TrackChangedEvent) {
-            let _evt = event as! TrackChangedEvent
-            trackChange(_evt.newTrack, false)
-        }
     }
 }

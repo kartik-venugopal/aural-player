@@ -26,7 +26,7 @@ Control flow and core classes:\
 - AppDelegate delegates all requests from the UI, to PlayerDelegate, which marshals requests as necessary, and forwards them to Player, which provides all the playback/tuning functionality. \
 - Player is a wrapper around AVAudioEngine. AVPlayerNode is the player, and other node objects (EQ, Pitch shift, Reverb, Mixer) form a chain, from input to output.\
 - BufferManager schedules the buffers that are played by the player node.\
-- EventRegistry handles event publishing/subscription to forward event notifications across the different layers of the app.\
+- AsyncMessenger handles event publishing/subscription to forward event notifications across the different layers of the app.\
 - Custom views, under the "Views" source code group, customize the look and feel of the UI, and provide the playlist view's data.\
 - Classes in the "IO" source group perform all the app config and playlist/track I/O.\
 - TrackIO performs lazy loading of track info, to keep memory usage low and speed up app load time. Only basic info (title, duration) is retrieved at first. Then, for playback, more information is retrieved. Finally, if the \'93more info\'94 panel is opened, all details are loaded.\

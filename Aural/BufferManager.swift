@@ -72,7 +72,7 @@ class BufferManager {
             if (schedulingSession.playbackCompleted) {
                 
                 // Notify observers about playback completion
-                EventRegistry.publishEvent(EventType.playbackCompleted, PlaybackCompletedEvent(playbackSession))
+                AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(playbackSession))
                 
             } else if (!schedulingSession.schedulingCompleted) {
                 

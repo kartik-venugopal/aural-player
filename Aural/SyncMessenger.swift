@@ -26,6 +26,7 @@ class SyncMessenger {
         let subscribers = subscriberRegistry[messageType]
         
         if (subscribers != nil) {
+            
             for subscriber in subscribers! {
                 
                 // Notify the subscriber
@@ -42,6 +43,7 @@ class SyncMessenger {
         var responseMsgs: [ResponseMessage] = [ResponseMessage]()
         
         if (subscribers != nil) {
+            
             for subscriber in subscribers! {
                 
                 // Notify the subscriber

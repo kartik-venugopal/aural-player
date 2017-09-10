@@ -42,7 +42,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             let totalTracks = tracks.count
             var tracksAdded = 0
             
-            EventRegistry.publishEvent(.startedAddingTracks, StartedAddingTracksEvent.instance)
+            AsyncMessenger.publishMessage(StartedAddingTracksAsyncMessage.instance)
             
             for trackPath in tracks {
                 
@@ -58,7 +58,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 
                 do {
                     
-                    let progress = TrackAddedEventProgress(tracksAdded, totalTracks)
+                    let progress = TrackAddedAsyncMessageProgress(tracksAdded, totalTracks)
                     try self.addTrack(resolvedFileInfo.resolvedURL, progress)
                     
                     if (autoplay && !autoplayed) {
@@ -74,11 +74,11 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 }
             }
             
-            EventRegistry.publishEvent(.doneAddingTracks, DoneAddingTracksEvent.instance)
+            AsyncMessenger.publishMessage(DoneAddingTracksAsyncMessage.instance)
             
-            // If errors > 0, send event to UI
+            // If errors > 0, send AsyncMessage to UI
             if (errors.count > 0) {
-                EventRegistry.publishEvent(.tracksNotAdded, TracksNotAddedEvent(errors))
+                AsyncMessenger.publishMessage(TracksNotAddedAsyncMessage(errors))
             }
         }
     }
@@ -93,13 +93,13 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 
                 // Notify the UI that a track has started playing
                 if(playingTrack != nil) {
-                    EventRegistry.publishEvent(.trackChanged, TrackChangedEvent(playingTrack))
+                    AsyncMessenger.publishMessage(TrackChangedAsyncMessage(playingTrack))
                 }
                 
             } catch let error as Error {
                 
                 if (error is InvalidTrackError) {
-                    EventRegistry.publishEvent(.trackNotPlayed, TrackNotPlayedEvent(error as! InvalidTrackError))
+                    AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(error as! InvalidTrackError))
                 }
             }
         }
@@ -107,7 +107,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     func addFiles(_ files: [URL]) {
         
-        EventRegistry.publishEvent(.startedAddingTracks, StartedAddingTracksEvent.instance)
+        AsyncMessenger.publishMessage(StartedAddingTracksAsyncMessage.instance)
         
         // Move to a background thread to unblock the main thread
         DispatchQueue.global(qos: .userInteractive).async {
@@ -120,11 +120,11 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             self.addFiles_sync(files, AutoplayOptions(autoplay, interruptPlayback), progress)
             
-            EventRegistry.publishEvent(.doneAddingTracks, DoneAddingTracksEvent.instance)
+            AsyncMessenger.publishMessage(DoneAddingTracksAsyncMessage.instance)
             
-            // If errors > 0, send event to UI
+            // If errors > 0, send AsyncMessage to UI
             if (progress.errors.count > 0) {
-                EventRegistry.publishEvent(.tracksNotAdded, TracksNotAddedEvent(progress.errors))
+                AsyncMessenger.publishMessage(TracksNotAddedAsyncMessage(progress.errors))
             }
         }
     }
@@ -170,8 +170,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                             
                             progress.tracksAdded += 1
                             
-                            let eventProgress = TrackAddedEventProgress(progress.tracksAdded, progress.totalTracks)
-                            let index = try addTrack(file, eventProgress)
+                            let AsyncMessageProgress = TrackAddedAsyncMessageProgress(progress.tracksAdded, progress.totalTracks)
+                            let index = try addTrack(file, AsyncMessageProgress)
                             
                             if (autoplayOptions.autoplay && !progress.autoplayed && index >= 0) {
                                 
@@ -222,7 +222,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     // Returns index of newly added track
-    private func addTrack(_ file: URL, _ progress: TrackAddedEventProgress) throws -> Int {
+    private func addTrack(_ file: URL, _ progress: TrackAddedAsyncMessageProgress) throws -> Int {
         
         let track = try TrackIO.loadTrack(file)
         let index = playlist.addTrack(track)
@@ -235,10 +235,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     // Publishes a notification that a new track has been added to the playlist
-    private func notifyTrackAdded(_ trackIndex: Int, _ progress: TrackAddedEventProgress) {
+    private func notifyTrackAdded(_ trackIndex: Int, _ progress: TrackAddedAsyncMessageProgress) {
         
-        let trackAddedEvent = TrackAddedEvent(trackIndex, progress)
-        EventRegistry.publishEvent(.trackAdded, trackAddedEvent)
+        let trackAddedAsyncMessage = TrackAddedAsyncMessage(trackIndex, progress)
+        AsyncMessenger.publishMessage(trackAddedAsyncMessage)
         
         for listener in changeListeners {
             listener.trackAdded()

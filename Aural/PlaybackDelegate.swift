@@ -1,6 +1,6 @@
 import Foundation
 
-class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol, PlaylistChangeListener, EventSubscriber {
+class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol, PlaylistChangeListener, AsyncMessageSubscriber {
     
     private let player: PlayerProtocol
     private let playbackSequence: PlaybackSequenceProtocol
@@ -21,7 +21,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         trackPrepQueue.underlyingQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
         trackPrepQueue.maxConcurrentOperationCount = 1
         
-        EventRegistry.subscribe(EventType.playbackCompleted, subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive))
+        AsyncMessenger.subscribe(AsyncMessageType.playbackCompleted, subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive))
     }
     
     func togglePlayPause() throws -> (playbackState: PlaybackState, playingTrack: IndexedTrack?, trackChanged: Bool) {
@@ -147,12 +147,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             try subsequentTrack()
             
             // Notify the UI about this track change event
-            EventRegistry.publishEvent(.trackChanged, TrackChangedEvent(getPlayingTrack()))
+            AsyncMessenger.publishMessage(TrackChangedAsyncMessage(getPlayingTrack()))
             
         } catch let error as Error {
             
             if (error is InvalidTrackError) {
-                EventRegistry.publishEvent(.trackNotPlayed, TrackNotPlayedEvent(error as! InvalidTrackError))
+                AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(error as! InvalidTrackError))
             }
         }
     }
@@ -255,20 +255,24 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        return playbackSequence.toggleRepeatMode()
+        let modes = playbackSequence.toggleRepeatMode()
+        prepareNextTracksForPlayback()
+        return modes
     }
     
     func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        return playbackSequence.toggleShuffleMode()
+        let modes = playbackSequence.toggleShuffleMode()
+        prepareNextTracksForPlayback()
+        return modes
     }
     
     // Called when playback of the current track completes
-    func consumeEvent(_ event: Event) {
+    func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        let _evt = event as! PlaybackCompletedEvent
+        let _msg = message as! PlaybackCompletedAsyncMessage
         
         // Do not accept duplicate/old events
-        if (PlaybackSession.isCurrent(_evt.session)) {
+        if (PlaybackSession.isCurrent(_msg.session)) {
             trackPlaybackCompleted()
         }
     }
