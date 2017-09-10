@@ -257,7 +257,7 @@ class Playlist: PlaylistCRUDProtocol {
         let state = PlaylistState()
         
         for track in tracks {
-            state.tracks.append(track.file!.path)
+            state.tracks.append(track.file!)
         }
         
         return state

@@ -181,9 +181,13 @@ struct SearchQueryChangedNotification: NotificationMessage {
 struct AppLoadedNotification: NotificationMessage {
     
     var messageType: MessageType = .appLoadedNotification
-    static let instance: AppLoadedNotification = AppLoadedNotification()
     
-    private init() {}
+    // Files specified as launch parameters (files that the app needs to open upon launch)
+    var filesToOpen: [URL]
+    
+    init(_ filesToOpen: [URL]) {
+        self.filesToOpen = filesToOpen
+    }
 }
 
 struct AppExitNotification: NotificationMessage {

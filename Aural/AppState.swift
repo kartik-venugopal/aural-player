@@ -64,11 +64,8 @@ class AudioGraphState {
  */
 class PlaylistState {
     
-    var repeatMode: RepeatMode = AppDefaults.repeatMode
-    var shuffleMode: ShuffleMode = AppDefaults.shuffleMode
-    
-    // List of track file paths
-    var tracks: [String] = [String]()
+    // List of track files
+    var tracks: [URL] = [URL]()
 }
 
 class PlaybackSequenceState {
@@ -87,6 +84,7 @@ class AppState {
     var uiState: UIState
     var audioGraphState: AudioGraphState
     var playlistState: PlaylistState
+    var playbackSequenceState: PlaybackSequenceState
     
     static let defaults: AppState = AppState()
     
@@ -94,12 +92,14 @@ class AppState {
         self.uiState = UIState()
         self.audioGraphState = AudioGraphState()
         self.playlistState = PlaylistState()
+        self.playbackSequenceState = PlaybackSequenceState()
     }
     
-    init(_ uiState: UIState, _ audioGraphState: AudioGraphState, _ playlistState: PlaylistState) {
+    init(_ uiState: UIState, _ audioGraphState: AudioGraphState, _ playlistState: PlaylistState, _ playbackSequenceState: PlaybackSequenceState) {
         self.uiState = uiState
         self.audioGraphState = audioGraphState
         self.playlistState = playlistState
+        self.playbackSequenceState = playbackSequenceState
     }
     
     // Produces an equivalent object suitable for serialization as JSON
@@ -177,11 +177,21 @@ class AppState {
         
         dict["audioGraph"] = audioGraphDict as AnyObject
         
+        var playbackSequenceDict = [NSString: AnyObject]()
+        
+        playbackSequenceDict["repeatMode"] = playbackSequenceState.repeatMode.rawValue as AnyObject
+        playbackSequenceDict["shuffleMode"] = playbackSequenceState.shuffleMode.rawValue as AnyObject
+        
+        dict["playbackSequence"] = playbackSequenceDict as AnyObject
+        
         var playlistDict = [NSString: AnyObject]()
         
-        playlistDict["repeatMode"] = playlistState.repeatMode.rawValue as AnyObject
-        playlistDict["shuffleMode"] = playlistState.shuffleMode.rawValue as AnyObject
-        playlistDict["tracks"] = NSArray(array: playlistState.tracks)
+        var tracksArr = [String]()
+        for track in playlistState.tracks {
+            tracksArr.append(track.path)
+        }
+        
+        playlistDict["tracks"] = NSArray(array: tracksArr)
         
         dict["playlist"] = playlistDict as AnyObject
         
@@ -357,22 +367,31 @@ class AppState {
             }
         }
         
+        if let playbackSequenceDict = (jsonObject["playbackSequence"] as? NSDictionary) {
+            
+            if let repeatModeStr = playbackSequenceDict["repeatMode"] as? String {
+                if let repeatMode = RepeatMode(rawValue: repeatModeStr) {
+                    state.playbackSequenceState.repeatMode = repeatMode
+                }
+            }
+            
+            if let shuffleModeStr = playbackSequenceDict["shuffleMode"] as? String {
+                if let shuffleMode = ShuffleMode(rawValue: shuffleModeStr) {
+                    state.playbackSequenceState.shuffleMode = shuffleMode
+                }
+            }
+        }
+        
         if let playlistDict = (jsonObject["playlist"] as? NSDictionary) {
             
-            if let repeatModeStr = playlistDict["repeatMode"] as? String {
-                if let repeatMode = RepeatMode(rawValue: repeatModeStr) {
-                    state.playlistState.repeatMode = repeatMode
-                }
-            }
-            
-            if let shuffleModeStr = playlistDict["shuffleMode"] as? String {
-                if let shuffleMode = ShuffleMode(rawValue: shuffleModeStr) {
-                    state.playlistState.shuffleMode = shuffleMode
-                }
-            }
-            
             if let tracks = playlistDict["tracks"] as? [String] {
-                state.playlistState.tracks = tracks
+                
+                var urls: [URL] = [URL]()
+                for track in tracks {
+                    urls.append(URL(fileURLWithPath: track))
+                }
+                
+                state.playlistState.tracks = urls
             }
         }
         

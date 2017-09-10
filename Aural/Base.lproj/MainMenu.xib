@@ -1863,8 +1863,6 @@ G1BhbiBTbGlkZXI
         <viewController id="THs-LC-lDb" userLabel="Playlist TableView Controller" customClass="PlaylistTableViewController" customModule="Aural" customModuleProvider="target"/>
         <viewController id="V2O-JI-ukn" customClass="PlaylistViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnRepeat" destination="Fpa-Ii-3YA" id="Poy-W3-KeB"/>
-                <outlet property="btnShuffle" destination="kQL-4a-kyh" id="xDd-16-OJY"/>
                 <outlet property="lblPlaylistSummary" destination="PC9-RH-ZoK" id="VZF-8z-wtz"/>
                 <outlet property="playlistView" destination="4Fk-6v-HSf" id="kwc-dY-9eB"/>
                 <outlet property="playlistWorkSpinner" destination="Gb7-pn-6bV" id="kyk-FL-Xre"/>

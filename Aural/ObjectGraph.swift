@@ -68,8 +68,8 @@ class ObjectGraph {
         playlist = Playlist()
         
         // Playback Sequence
-        let repeatMode = appState!.playlistState.repeatMode
-        let shuffleMode = appState!.playlistState.shuffleMode
+        let repeatMode = appState!.playbackSequenceState.repeatMode
+        let shuffleMode = appState!.playbackSequenceState.shuffleMode
         playbackSequence = PlaybackSequence(0, repeatMode, shuffleMode)
         
         // Playback Delegate
@@ -173,6 +173,7 @@ class ObjectGraph {
         
         appState?.audioGraphState = audioGraph!.getPersistentState()
         appState?.playlistState = playlist!.persistentState()
+        appState?.playbackSequenceState = playbackSequence!.getPersistentState()
         
         let uiState = UIState()
         uiState.windowLocationX = Float(WindowState.location().x)

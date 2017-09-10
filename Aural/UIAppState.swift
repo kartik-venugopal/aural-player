@@ -105,8 +105,8 @@ class UIAppState {
             self.windowLocation = UIUtils.windowPositionRelativeToScreen(windowWidth, windowHeight, preferences.windowLocationOnStartup.windowLocation)
         }
         
-        self.repeatMode = appState.playlistState.repeatMode
-        self.shuffleMode = appState.playlistState.shuffleMode
+        self.repeatMode = appState.playbackSequenceState.repeatMode
+        self.shuffleMode = appState.playbackSequenceState.shuffleMode
         
         let playerState = appState.audioGraphState
         

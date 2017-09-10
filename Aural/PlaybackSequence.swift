@@ -705,4 +705,13 @@ class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
     func getShuffleMode() -> ShuffleMode {
         return shuffleMode
     }
+    
+    func getPersistentState() -> PlaybackSequenceState {
+        
+        let state = PlaybackSequenceState()
+        state.repeatMode = repeatMode
+        state.shuffleMode = shuffleMode
+        
+        return state
+    }
 }

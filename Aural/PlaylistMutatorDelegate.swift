@@ -26,99 +26,25 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         SyncMessenger.subscribe(.appLoadedNotification, subscriber: self)
     }
     
-    // This is called when the app loads initially. Loads the playlist from the app state file on disk. Only meant to be called once.
-    private func loadPlaylistFromSavedState() {
-        
-        // Add tracks async, notifying the UI one at a time
-        DispatchQueue.global(qos: .userInteractive).async {
-            
-            // NOTE - Assume that all entries are valid tracks (supported audio files), not playlists and not directories. i.e. assume that saved state file has not been corrupted.
-            
-            var errors: [InvalidTrackError] = [InvalidTrackError]()
-            let autoplay: Bool = self.preferences.autoplayOnStartup
-            var autoplayed: Bool = false
-            
-            let tracks = self.playlistState.tracks
-            let totalTracks = tracks.count
-            var tracksAdded = 0
-            
-            AsyncMessenger.publishMessage(StartedAddingTracksAsyncMessage.instance)
-            
-            for trackPath in tracks {
-                
-                tracksAdded += 1
-                
-                // Playlist might contain broken file references
-                if (!FileSystemUtils.fileExists(trackPath)) {
-                    errors.append(FileNotFoundError(URL(fileURLWithPath: trackPath)))
-                    continue
-                }
-                
-                let resolvedFileInfo = FileSystemUtils.resolveTruePath(URL(fileURLWithPath: trackPath))
-                
-                do {
-                    
-                    let progress = TrackAddedAsyncMessageProgress(tracksAdded, totalTracks)
-                    try self.addTrack(resolvedFileInfo.resolvedURL, progress)
-                    
-                    if (autoplay && !autoplayed) {
-                        self.autoplay(tracksAdded - 1, true)
-                        autoplayed = true
-                    }
-                    
-                } catch let error as Error {
-                    
-                    if (error is InvalidTrackError) {
-                        errors.append(error as! InvalidTrackError)
-                    }
-                }
-            }
-            
-            AsyncMessenger.publishMessage(DoneAddingTracksAsyncMessage.instance)
-            
-            // If errors > 0, send AsyncMessage to UI
-            if (errors.count > 0) {
-                AsyncMessenger.publishMessage(TracksNotAddedAsyncMessage(errors))
-            }
-        }
-    }
-    
-    private func autoplay(_ index: Int, _ interruptPlayback: Bool) {
-        
-        DispatchQueue.main.async {
-            
-            do {
-                
-                let playingTrack = try self.player.play(index, interruptPlayback)
-                
-                // Notify the UI that a track has started playing
-                if(playingTrack != nil) {
-                    AsyncMessenger.publishMessage(TrackChangedAsyncMessage(playingTrack))
-                }
-                
-            } catch let error as Error {
-                
-                if (error is InvalidTrackError) {
-                    AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(error as! InvalidTrackError))
-                }
-            }
-        }
-    }
-    
     func addFiles(_ files: [URL]) {
         
-        AsyncMessenger.publishMessage(StartedAddingTracksAsyncMessage.instance)
+        let autoplay: Bool = self.preferences.autoplayAfterAddingTracks
+        let interruptPlayback: Bool = self.preferences.autoplayAfterAddingOption == .always
+        
+        addFiles(files, AutoplayOptions(autoplay, interruptPlayback))
+    }
+    
+    private func addFiles(_ files: [URL], _ autoplayOptions: AutoplayOptions) {
         
         // Move to a background thread to unblock the main thread
         DispatchQueue.global(qos: .userInteractive).async {
             
-            let autoplay: Bool = self.preferences.autoplayAfterAddingTracks
-            let interruptPlayback: Bool = self.preferences.autoplayAfterAddingOption == .always
-            
             // Progress
             let progress = TrackAddOperationProgress(0, files.count, [InvalidTrackError](), false)
             
-            self.addFiles_sync(files, AutoplayOptions(autoplay, interruptPlayback), progress)
+            AsyncMessenger.publishMessage(StartedAddingTracksAsyncMessage.instance)
+            
+            self.addFiles_sync(files, autoplayOptions, progress)
             
             AsyncMessenger.publishMessage(DoneAddingTracksAsyncMessage.instance)
             
@@ -245,6 +171,28 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         }
     }
     
+    private func autoplay(_ index: Int, _ interruptPlayback: Bool) {
+        
+        DispatchQueue.main.async {
+            
+            do {
+                
+                let playingTrack = try self.player.play(index, interruptPlayback)
+                
+                // Notify the UI that a track has started playing
+                if(playingTrack != nil) {
+                    AsyncMessenger.publishMessage(TrackChangedAsyncMessage(playingTrack))
+                }
+                
+            } catch let error as Error {
+                
+                if (error is InvalidTrackError) {
+                    AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(error as! InvalidTrackError))
+                }
+            }
+        }
+    }
+    
     func removeTrack(_ index: Int) {
         
         playlist.removeTrack(index)
@@ -303,10 +251,22 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if (notification is AppLoadedNotification
-            && preferences.playlistOnStartup == .rememberFromLastAppLaunch) {
+        if (notification is AppLoadedNotification) {
             
-            loadPlaylistFromSavedState()
+            let msg = notification as! AppLoadedNotification
+            let filesToOpen = msg.filesToOpen
+            
+            // Check if any launch parameters were specified
+            if (!filesToOpen.isEmpty) {
+                
+                // Launch parameters specified, override playlist saved state and add file paths in params to playlist
+                addFiles(filesToOpen, AutoplayOptions(true, true))
+                
+            } else if (preferences.playlistOnStartup == .rememberFromLastAppLaunch) {
+                
+                // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
+                addFiles(playlistState.tracks, AutoplayOptions(preferences.autoplayOnStartup, true))
+            }
         }
     }
     
