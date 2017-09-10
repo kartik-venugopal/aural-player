@@ -125,10 +125,16 @@ class UIElements {
         let alert = NSAlert()
         
         alert.window.title = "Files not added"
-        alert.messageText = "Some files were not added to the playlist. Details below."
+        
+        let infoText: String = "- Files point to missing/broken paths.\n- Files have no valid audio tracks.\n- Files have unsupported audio formats.\n- Files are corrupted/damaged."
+        
+        alert.informativeText = infoText
         
         alert.alertStyle = .warning
         alert.icon = UIConstants.imgWarning
+        
+        let rect: NSRect = NSRect(x: alert.window.frame.origin.x, y: alert.window.frame.origin.y, width: alert.window.frame.width, height: 150)
+        alert.window.setFrame(rect, display: true)
         
         alert.addButton(withTitle: "Ok")
         
@@ -140,26 +146,8 @@ class UIElements {
         let alert = tracksNotAddedAlert
         
         let numErrors = errors.count
-        // TODO: Display a maximum of 3 entries and a summary of the rest
-        let infoText: String = String(format: "Number of files: %d", numErrors)
         
-//        for i in 0...min(numErrors - 1, 2) {
-//            
-//            let error = errors[i]
-//            let file = error.file
-//            let msg = error.message
-//            
-//            infoText.append(String(format: "'%@': %@\n\n", file.path, msg))
-//        }
-//        
-//        if (numErrors > 3) {
-//            let moreErrors = numErrors - 3
-//            infoText.append(String(format: "... and %d more %@", moreErrors, moreErrors > 1 ? "files" : "file"))
-//        }
-        
-        alert.informativeText = infoText
-        
-        // TODO: Resize alert per number of lines displayed
+        alert.messageText = String(format: "%d of your chosen files were not added to the playlist. Possible reasons are listed below.", numErrors)
         
         return alert
     }
