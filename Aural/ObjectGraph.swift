@@ -77,10 +77,11 @@ class ObjectGraph {
 
         // Playlist Delegate
         let accessor = PlaylistAccessorDelegate(playlist!)
-        let mutator = PlaylistMutatorDelegate(playlist!, playbackSequence!, playbackDelegate!, appState!.playlistState, preferences!)
+        
+        let changeListeners: [PlaylistChangeListener] = [playbackSequence!, playbackDelegate!]
+        let mutator = PlaylistMutatorDelegate(playlist!, playbackSequence!, playbackDelegate!, appState!.playlistState, preferences!, changeListeners)
+        
         playlistDelegate = PlaylistDelegate(accessor, mutator)
-        
-        
         
         // Recorder and Recorder Delegate
         recorder = Recorder(audioGraph!)

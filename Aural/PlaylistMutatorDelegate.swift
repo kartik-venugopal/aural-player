@@ -4,13 +4,14 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     private let playlist: PlaylistCRUDProtocol
     private let playbackSequence: PlaybackSequence
+    private let changeListeners: [PlaylistChangeListener]
     
     private let player: BasicPlaybackDelegateProtocol
     
     private let playlistState: PlaylistState
     private let preferences: Preferences
     
-    init(_ playlist: PlaylistCRUDProtocol, _ playbackSequence: PlaybackSequence, _ player: BasicPlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences) {
+    init(_ playlist: PlaylistCRUDProtocol, _ playbackSequence: PlaybackSequence, _ player: BasicPlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListener]) {
         
         self.playlist = playlist
         self.playbackSequence = playbackSequence
@@ -19,6 +20,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         self.playlistState = playlistState
         self.preferences = preferences
+        
+        self.changeListeners = changeListeners
         
         SyncMessenger.subscribe(.appLoadedNotification, subscriber: self)
     }
@@ -225,9 +228,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         let index = playlist.addTrack(track)
         
         if (index >= 0) {
-            playbackSequence.trackAdded()
             notifyTrackAdded(index, progress)
-            //            prepareNextTracksForPlayback()
         }
         
         return index
@@ -238,19 +239,28 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         let trackAddedEvent = TrackAddedEvent(trackIndex, progress)
         EventRegistry.publishEvent(.trackAdded, trackAddedEvent)
+        
+        for listener in changeListeners {
+            listener.trackAdded()
+        }
     }
     
     func removeTrack(_ index: Int) {
         
         playlist.removeTrack(index)
-        playbackSequence.trackRemoved(index)
+        
+        for listener in changeListeners {
+            listener.trackRemoved(index)
+        }
     }
     
     func moveTrackUp(_ index: Int) -> Int {
         
         let newIndex = playlist.moveTrackUp(index)
         if (newIndex != index) {
-            playbackSequence.trackReordered(index, newIndex)
+            for listener in changeListeners {
+                listener.trackReordered(index, newIndex)
+            }
         }
         
         return newIndex
@@ -260,7 +270,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         let newIndex = playlist.moveTrackDown(index)
         if (newIndex != index) {
-            playbackSequence.trackReordered(index, newIndex)
+            for listener in changeListeners {
+                listener.trackReordered(index, newIndex)
+            }
         }
         
         return newIndex
@@ -269,7 +281,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     func clear() {
         
         playlist.clear()
-        playbackSequence.playlistCleared()
+        
+        for listener in changeListeners {
+            listener.playlistCleared()
+        }
     }
     
     func sort(_ sort: Sort) {
@@ -280,7 +295,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         playlist.sort(sort)
         
         let newCursor = playlist.indexOfTrack(playingTrack?.track)
-        playbackSequence.playlistReordered(newCursor)
+        
+        for listener in changeListeners {
+            listener.playlistReordered(newCursor)
+        }
     }
     
     func consumeNotification(_ notification: NotificationMessage) {

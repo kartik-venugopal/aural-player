@@ -36,6 +36,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, EventSubscrib
             
         }
         
+        EventRegistry.subscribe(.trackNotPlayed, subscriber: self, dispatchQueue: DispatchQueue.main)
         EventRegistry.subscribe(.trackChanged, subscriber: self, dispatchQueue: DispatchQueue.main)
         SyncMessenger.subscribe(.stopPlaybackRequest, subscriber: self)
     }
