@@ -26,6 +26,133 @@
                 <rect key="frame" x="0.0" y="0.0" width="415" height="629"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
+                    <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ft1-56-lTI" userLabel="Playlist Controls">
+                        <rect key="frame" x="15" y="14" width="385" height="35"/>
+                        <view key="contentView" id="PLJ-vV-mhd">
+                            <rect key="frame" x="0.0" y="0.0" width="385" height="35"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button toolTip="Add files to playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vmP-3Z-75C" userLabel="Add">
+                                    <rect key="frame" x="7" y="6" width="14" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="e0H-pg-jGM">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="addTracksAction:" target="V2O-JI-ukn" id="UBL-O2-c6B"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Remove selected file from playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ws5-MD-bgB" userLabel="Remove">
+                                    <rect key="frame" x="24" y="6" width="14" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="RW1-Gq-U5Q">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="removeSingleTrackAction:" target="V2O-JI-ukn" id="Jpn-D8-4rJ"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Save current playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ykd-pV-DhL" userLabel="Save">
+                                    <rect key="frame" x="45" y="6" width="14" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Save" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="r5P-6g-1T5">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="savePlaylistAction:" target="V2O-JI-ukn" id="tm5-gp-Ho7"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Clear the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2x-W9-0uj" userLabel="Clear">
+                                    <rect key="frame" x="59" y="5" width="15" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Clear" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="3UW-IS-bhe">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="clearPlaylistAction:" target="V2O-JI-ukn" id="FqD-vM-2ze"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Move selected track up" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v8g-5Z-Q77" userLabel="Up">
+                                    <rect key="frame" x="80" y="6" width="14" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Up" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="2ee-yj-1Uz">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="moveTrackUpAction:" target="V2O-JI-ukn" id="Eb5-Fo-VzW"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Move selected track down" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lQn-Xx-utz" userLabel="Down">
+                                    <rect key="frame" x="97" y="6" width="14" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Down" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="bwT-CP-DIg">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="moveTrackDownAction:" target="V2O-JI-ukn" id="4PO-e3-DPc"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Search playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Izf-T5-uoB" userLabel="Search">
+                                    <rect key="frame" x="118" y="7" width="14" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Search" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="8Mw-Zm-Tej">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="searchPlaylistAction:" target="Ur0-NJ-0ro" id="sLE-hp-rIt"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Sort playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7jt-oN-fFd" userLabel="Sort">
+                                    <rect key="frame" x="136" y="4" width="19" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Sort" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="82I-oA-s7J">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="sortPlaylistAction:" target="8pJ-I5-ie6" id="IjQ-GI-4Lh"/>
+                                    </connections>
+                                </button>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PC9-RH-ZoK" userLabel="Playlist summary">
+                                    <rect key="frame" x="242" y="6" width="139" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0 tracks  0:00" id="AP4-Kh-xaT">
+                                        <font key="font" size="13" name="GillSans"/>
+                                        <color key="textColor" white="0.70157877604166663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Gb7-pn-6bV" userLabel="Spinner">
+                                    <rect key="frame" x="283" y="6" width="16" height="16"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <contentFilters>
+                                        <ciFilter name="CIFalseColor">
+                                            <configuration>
+                                                <ciColor key="inputColor0" red="0.78303247690200806" green="0.78303247690200806" blue="0.78303247690200806" alpha="1"/>
+                                                <ciColor key="inputColor1" red="1" green="1" blue="1" alpha="1"/>
+                                                <null key="inputImage"/>
+                                            </configuration>
+                                        </ciFilter>
+                                    </contentFilters>
+                                </progressIndicator>
+                            </subviews>
+                        </view>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="VP3-mk-rG7"/>
+                            <constraint firstAttribute="width" constant="385" id="pLM-SH-Bed"/>
+                        </constraints>
+                        <shadow key="shadow" blurRadius="5">
+                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </shadow>
+                        <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </box>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6pS-Kh-BZP" userLabel="Close Button">
                         <rect key="frame" x="13" y="604" width="14" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1691,133 +1818,6 @@ G1BhbiBTbGlkZXI
                         </shadow>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.70347281678082196" colorSpace="calibratedWhite"/>
-                    </box>
-                    <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ft1-56-lTI" userLabel="Playlist Controls">
-                        <rect key="frame" x="15" y="14" width="385" height="35"/>
-                        <view key="contentView" id="PLJ-vV-mhd">
-                            <rect key="frame" x="0.0" y="0.0" width="385" height="35"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <button toolTip="Add files to playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vmP-3Z-75C" userLabel="Add">
-                                    <rect key="frame" x="7" y="6" width="14" height="14"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="e0H-pg-jGM">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="addTracksAction:" target="V2O-JI-ukn" id="UBL-O2-c6B"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Remove selected file from playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ws5-MD-bgB" userLabel="Remove">
-                                    <rect key="frame" x="24" y="6" width="14" height="14"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="RW1-Gq-U5Q">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="removeSingleTrackAction:" target="V2O-JI-ukn" id="Jpn-D8-4rJ"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Save current playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ykd-pV-DhL" userLabel="Save">
-                                    <rect key="frame" x="45" y="6" width="14" height="14"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Save" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="r5P-6g-1T5">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="savePlaylistAction:" target="V2O-JI-ukn" id="tm5-gp-Ho7"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Clear the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2x-W9-0uj" userLabel="Clear">
-                                    <rect key="frame" x="59" y="5" width="15" height="18"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Clear" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="3UW-IS-bhe">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="clearPlaylistAction:" target="V2O-JI-ukn" id="FqD-vM-2ze"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Move selected track up" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v8g-5Z-Q77" userLabel="Up">
-                                    <rect key="frame" x="80" y="6" width="14" height="14"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Up" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="2ee-yj-1Uz">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="moveTrackUpAction:" target="V2O-JI-ukn" id="Eb5-Fo-VzW"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Move selected track down" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lQn-Xx-utz" userLabel="Down">
-                                    <rect key="frame" x="97" y="6" width="14" height="14"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Down" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="bwT-CP-DIg">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="moveTrackDownAction:" target="V2O-JI-ukn" id="4PO-e3-DPc"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Search playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Izf-T5-uoB" userLabel="Search">
-                                    <rect key="frame" x="118" y="7" width="14" height="14"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Search" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="8Mw-Zm-Tej">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="searchPlaylistAction:" target="Ur0-NJ-0ro" id="sLE-hp-rIt"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Sort playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7jt-oN-fFd" userLabel="Sort">
-                                    <rect key="frame" x="136" y="4" width="19" height="19"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Sort" imagePosition="only" alignment="center" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="82I-oA-s7J">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="sortPlaylistAction:" target="8pJ-I5-ie6" id="IjQ-GI-4Lh"/>
-                                    </connections>
-                                </button>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PC9-RH-ZoK" userLabel="Playlist summary">
-                                    <rect key="frame" x="242" y="6" width="139" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0 tracks  0:00" id="AP4-Kh-xaT">
-                                        <font key="font" size="13" name="GillSans"/>
-                                        <color key="textColor" white="0.70157877604166663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
-                                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Gb7-pn-6bV" userLabel="Spinner">
-                                    <rect key="frame" x="283" y="6" width="16" height="16"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <contentFilters>
-                                        <ciFilter name="CIFalseColor">
-                                            <configuration>
-                                                <ciColor key="inputColor0" red="0.78303247690200806" green="0.78303247690200806" blue="0.78303247690200806" alpha="1"/>
-                                                <ciColor key="inputColor1" red="1" green="1" blue="1" alpha="1"/>
-                                                <null key="inputImage"/>
-                                            </configuration>
-                                        </ciFilter>
-                                    </contentFilters>
-                                </progressIndicator>
-                            </subviews>
-                        </view>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="35" id="VP3-mk-rG7"/>
-                            <constraint firstAttribute="width" constant="385" id="pLM-SH-Bed"/>
-                        </constraints>
-                        <shadow key="shadow" blurRadius="5">
-                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        </shadow>
-                        <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                 </subviews>
                 <constraints>
