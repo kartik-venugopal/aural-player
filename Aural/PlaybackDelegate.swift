@@ -166,14 +166,24 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     func nextTrack() throws -> IndexedTrack? {
+        
         let track = playlist.peekTrackAt(playbackSequence.next())
-        try play(track)
+        
+        if (track != nil) {
+            try play(track)
+        }
+        
         return track
     }
     
     func previousTrack() throws -> IndexedTrack? {
+        
         let track = playlist.peekTrackAt(playbackSequence.previous())
-        try play(track)
+        
+        if (track != nil) {
+            try play(track)
+        }
+        
         return track
     }
     
