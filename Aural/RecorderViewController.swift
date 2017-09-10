@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class RecorderViewController: NSViewController {
+class RecorderViewController: NSViewController, MessageSubscriber {
     
     @IBOutlet weak var recorderTabViewButton: NSButton!
     
@@ -22,6 +22,8 @@ class RecorderViewController: NSViewController {
     override func viewDidLoad() {
         
         recorderTimer = ScheduledTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingInfo()}, queue: DispatchQueue.main)
+        
+        SyncMessenger.subscribe(.appExitRequest, subscriber: self)
     }
     
     @IBAction func recorderAction(_ sender: Any) {
@@ -75,5 +77,49 @@ class RecorderViewController: NSViewController {
         let recInfo = recorder.getRecordingInfo()!
         lblRecorderDuration.stringValue = Utils.formatDuration(recInfo.duration)
         lblRecorderFileSize.stringValue = recInfo.fileSize.toString()
+    }
+    
+    private func onExit() -> AppExitResponse {
+        
+        if let _ = recorder.getRecordingInfo() {
+            
+            let alert = UIElements.saveRecordingAlert
+            let window = WindowState.window!
+            
+            let orig = NSPoint(x: window.frame.origin.x, y: min(window.frame.origin.y + 227, window.frame.origin.y + window.frame.height - alert.window.frame.height))
+            
+            alert.window.setFrameOrigin(orig)
+            alert.window.setIsVisible(true)
+            
+            // Recording ongoing, prompt the user to save/discard it
+            let response = alert.runModal()
+            
+            switch response {
+                
+            case RecordingAlertResponse.dontExit.rawValue: return AppExitResponse.dontExit
+            case RecordingAlertResponse.saveAndExit.rawValue: stopRecording()
+                                                                return AppExitResponse.okToExit
+            case RecordingAlertResponse.discardAndExit.rawValue: recorder.deleteRecording()
+                                                                return AppExitResponse.okToExit
+                
+            // Impossible
+            default: return AppExitResponse.okToExit
+                
+            }
+        }
+        
+        return AppExitResponse.okToExit
+    }
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        if (request is AppExitRequest) {
+            return onExit()
+        }
+        
+        return EmptyResponse.instance
     }
 }
