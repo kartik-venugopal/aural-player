@@ -24,6 +24,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         self.changeListeners = changeListeners
         
         SyncMessenger.subscribe(.appLoadedNotification, subscriber: self)
+        SyncMessenger.subscribe(.appReopenedNotification, subscriber: self)
     }
     
     func addFiles(_ files: [URL]) {
@@ -267,6 +268,18 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
                 addFiles(playlistState.tracks, AutoplayOptions(preferences.autoplayOnStartup, true))
             }
+            
+            return
+        }
+        
+        if (notification is AppReopenedNotification) {
+            
+            let msg = notification as! AppReopenedNotification
+            let filesToOpen = msg.filesToOpen
+            
+            addFiles(filesToOpen, AutoplayOptions(true, true))
+            
+            return
         }
     }
     

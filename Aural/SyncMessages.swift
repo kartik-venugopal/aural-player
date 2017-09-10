@@ -51,6 +51,7 @@ enum MessageType {
     case searchQueryChangedNotification
     
     case appLoadedNotification
+    case appReopenedNotification
     case appExitNotification
     
     case appExitRequest
@@ -183,6 +184,18 @@ struct AppLoadedNotification: NotificationMessage {
     var messageType: MessageType = .appLoadedNotification
     
     // Files specified as launch parameters (files that the app needs to open upon launch)
+    var filesToOpen: [URL]
+    
+    init(_ filesToOpen: [URL]) {
+        self.filesToOpen = filesToOpen
+    }
+}
+
+struct AppReopenedNotification: NotificationMessage {
+    
+    var messageType: MessageType = .appReopenedNotification
+    
+    // Files specified as launch parameters (files that the app needs to open)
     var filesToOpen: [URL]
     
     init(_ filesToOpen: [URL]) {
