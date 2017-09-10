@@ -31,6 +31,7 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.playlistScrollUpNotification, subscriber: self)
         SyncMessenger.subscribe(.playlistScrollDownNotification, subscriber: self)
+        SyncMessenger.subscribe(.removeTrackRequest, subscriber: self)
     }
     
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
@@ -337,6 +338,12 @@ class PlaylistViewController: NSViewController, EventSubscriber, MessageSubscrib
     }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        if (request is RemoveTrackRequest) {
+            let req = request as! RemoveTrackRequest
+            removeSingleTrack(req.index)
+        }
+        
         return EmptyResponse.instance
     }
 }

@@ -38,6 +38,8 @@ enum MessageType {
     case trackPlaybackRequest
     case stopPlaybackRequest
     
+    case removeTrackRequest
+    
     case playlistScrollUpNotification
     case playlistScrollDownNotification
     
@@ -115,6 +117,17 @@ struct StopPlaybackRequest: RequestMessage {
     static let instance: StopPlaybackRequest = StopPlaybackRequest()
     
     private init() {}
+}
+
+// Request from the playback view to the playlist view to remove a specific track from the playlist
+struct RemoveTrackRequest: RequestMessage {
+    
+    var messageType: MessageType = .removeTrackRequest
+    var index: Int
+    
+    init(_ index: Int) {
+        self.index = index
+    }
 }
 
 struct TrackPlaybackRequest: RequestMessage {

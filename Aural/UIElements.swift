@@ -139,24 +139,23 @@ class UIElements {
         
         let alert = tracksNotAddedAlert
         
-        // Display a maximum of 3 entries and a summary of the rest
-        
-        var infoText: String = ""
-        
         let numErrors = errors.count
-        for i in 0...min(numErrors - 1, 2) {
-            
-            let error = errors[i]
-            let file = error.file
-            let msg = error.message
-            
-            infoText.append(String(format: "'%@': %@\n\n", file.path, msg))
-        }
+        // TODO: Display a maximum of 3 entries and a summary of the rest
+        let infoText: String = String(format: "Number of files: %d", numErrors)
         
-        if (numErrors > 3) {
-            let moreErrors = numErrors - 3
-            infoText.append(String(format: "... and %d more %@", moreErrors, moreErrors > 1 ? "files" : "file"))
-        }
+//        for i in 0...min(numErrors - 1, 2) {
+//            
+//            let error = errors[i]
+//            let file = error.file
+//            let msg = error.message
+//            
+//            infoText.append(String(format: "'%@': %@\n\n", file.path, msg))
+//        }
+//        
+//        if (numErrors > 3) {
+//            let moreErrors = numErrors - 3
+//            infoText.append(String(format: "... and %d more %@", moreErrors, moreErrors > 1 ? "files" : "file"))
+//        }
         
         alert.informativeText = infoText
         

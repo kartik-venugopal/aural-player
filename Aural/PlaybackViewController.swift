@@ -38,6 +38,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, EventSubscrib
         
         EventRegistry.subscribe(.trackNotPlayed, subscriber: self, dispatchQueue: DispatchQueue.main)
         EventRegistry.subscribe(.trackChanged, subscriber: self, dispatchQueue: DispatchQueue.main)
+        
         SyncMessenger.subscribe(.stopPlaybackRequest, subscriber: self)
     }
     
@@ -264,9 +265,9 @@ class PlaybackViewController: NSViewController, MessageSubscriber, EventSubscrib
             
             // Remove the bad track from the playlist and update the UI
             
-            // TODO: Send remove track request to playlist VC
-//            let playingTrackIndex = playingTrack!.index!
-//            self.removeSingleTrack(playingTrackIndex)
+            let playingTrackIndex = playingTrack!.index!
+            let removeTrackRequest = RemoveTrackRequest(playingTrackIndex)
+            SyncMessenger.publishRequest(removeTrackRequest)
         }
     }
     
