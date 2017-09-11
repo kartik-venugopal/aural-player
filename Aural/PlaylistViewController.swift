@@ -33,7 +33,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     }
     
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
-    func updatePlaylistSummary(_ trackAddProgress: TrackAddedAsyncMessageProgress? = nil) {
+    private func updatePlaylistSummary(_ trackAddProgress: TrackAddedAsyncMessageProgress? = nil) {
         
         let summary = playlist.summary()
         let numTracks = summary.size
@@ -64,7 +64,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         selectTrack(selRow)
     }
     
-    func startedAddingTracks() {
+    private func startedAddingTracks() {
         
         playlistWorkSpinner.doubleValue = 0
         repositionSpinner()
@@ -72,13 +72,13 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         playlistWorkSpinner.startAnimation(self)
     }
     
-    func doneAddingTracks() {
+    private func doneAddingTracks() {
         playlistWorkSpinner.stopAnimation(self)
         playlistWorkSpinner.isHidden = true
     }
     
     // Move the spinner so it is adjacent to the summary text, on the left
-    func repositionSpinner() {
+    private func repositionSpinner() {
         
         let summaryString: NSString = lblPlaylistSummary.stringValue as NSString
         let size: CGSize = summaryString.size(withAttributes: [NSFontAttributeName: lblPlaylistSummary.font as AnyObject])
@@ -92,7 +92,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         removeSingleTrack(playlistView.selectedRow)
     }
     
-    func removeSingleTrack(_ index: Int) {
+    private func removeSingleTrack(_ index: Int) {
         
         if (index >= 0) {
             
@@ -125,7 +125,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         showPlaylistSelectedRow()
     }
     
-    func handleTracksNotAddedError(_ errors: [InvalidTrackError]) {
+    private func handleTracksNotAddedError(_ errors: [InvalidTrackError]) {
         
         // This needs to be done async. Otherwise, the add files dialog hangs.
         DispatchQueue.main.async {
@@ -143,11 +143,11 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     }
     
     // The "errorState" arg indicates whether the playbackInfo is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
-    func trackChange(_ newTrack: IndexedTrack?, _ errorState: Bool = false) {
+    private func trackChange(_ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         selectTrack(newTrack == nil ? nil : newTrack!.index)
     }
     
-    func selectTrack(_ index: Int?) {
+    private func selectTrack(_ index: Int?) {
         
         if index != nil && index! >= 0 {
             
@@ -162,7 +162,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         }
     }
     
-    func showPlaylistSelectedRow() {
+    private func showPlaylistSelectedRow() {
         if (playlistView.numberOfRows > 0) {
             playlistView.scrollRowToVisible(playlistView.selectedRow)
         }
@@ -197,16 +197,16 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     }
     
     @IBAction func moveTrackDownAction(_ sender: AnyObject) {
-        shiftPlaylistTrackDown()
+        movePlaylistTrackDown()
         showPlaylistSelectedRow()
     }
     
     @IBAction func moveTrackUpAction(_ sender: AnyObject) {
-        shiftPlaylistTrackUp()
+        movePlaylistTrackUp()
         showPlaylistSelectedRow()
     }
     
-    func shiftPlaylistTrackUp() {
+    private func movePlaylistTrackUp() {
         
         let oldSelRow = playlistView.selectedRow
         let selRow = playlist.moveTrackUp(oldSelRow)
@@ -218,7 +218,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         playlistView.selectRowIndexes(IndexSet(integer: selRow), byExtendingSelection: false)
     }
     
-    func shiftPlaylistTrackDown() {
+    private func movePlaylistTrackDown() {
         
         let oldSelRow = playlistView.selectedRow
         let selRow = playlist.moveTrackDown(oldSelRow)
@@ -248,7 +248,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     }
     
     // Adds a set of files (or directories, i.e. files within them) to the current playlist, if supported
-    func addFiles(_ files: [URL]) {
+    private func addFiles(_ files: [URL]) {
         startedAddingTracks()
         playlist.addFiles(files)
     }
@@ -285,6 +285,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         if (notification is TrackChangedNotification) {
             let msg = notification as! TrackChangedNotification
             trackChange(msg.newTrack)
+            return
         }
         
         if (notification is PlaylistScrollUpNotification) {

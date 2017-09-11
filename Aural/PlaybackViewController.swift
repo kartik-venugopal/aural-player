@@ -244,7 +244,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         btnPlayPause.image = image
     }
     
-    func handleTrackNotPlayedError(_ error: InvalidTrackError) {
+    private func handleTrackNotPlayedError(_ error: InvalidTrackError) {
         
         // This needs to be done async. Otherwise, other open dialogs could hang.
         DispatchQueue.main.async {

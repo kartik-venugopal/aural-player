@@ -26,21 +26,21 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
             
             // Track name
             let trackName = (track.shortDisplayName)!
+            return createCell(tableView, UIConstants.trackNameColumnID, trackName)
         
-            if let cell = tableView.make(withIdentifier: UIConstants.trackNameColumnID, owner: nil) as? PlaylistCellView {
-                cell.textField?.stringValue = trackName
-                return cell
-            }
-        
-        } else if (tableColumn?.identifier == UIConstants.durationColumnID) {
+        } else {
             
             // Duration
             let duration = Utils.formatDuration((track.duration)!)
-            
-            if let cell = tableView.make(withIdentifier: UIConstants.durationColumnID, owner: nil) as? PlaylistCellView {
-                cell.textField?.stringValue = duration
-                return cell
-            }
+            return createCell(tableView, UIConstants.durationColumnID, duration)
+        }
+    }
+    
+    private func createCell(_ tableView: NSTableView, _ id: String, _ text: String) -> PlaylistCellView? {
+        
+        if let cell = tableView.make(withIdentifier: id, owner: nil) as? PlaylistCellView {
+            cell.textField?.stringValue = text
+            return cell
         }
         
         return nil

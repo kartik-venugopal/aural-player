@@ -47,7 +47,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         }
     }
     
-    func stopRecording() {
+    private func stopRecording() {
         
         recorder.stopRecording()
         btnRecord.image = UIConstants.imgRecord
@@ -60,7 +60,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         recordingInfoBox.isHidden = true
     }
     
-    func saveRecording() {
+    private func saveRecording() {
         
         let dialog = UIElements.saveRecordingDialog
         let modalResponse = dialog.runModal()
@@ -72,7 +72,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         }
     }
     
-    func updateRecordingInfo() {
+    private func updateRecordingInfo() {
         
         let recInfo = recorder.getRecordingInfo()!
         lblRecorderDuration.stringValue = Utils.formatDuration(recInfo.duration)

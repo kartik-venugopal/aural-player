@@ -6,34 +6,40 @@ import Cocoa
 
 class TrackInfoView: NSTableRowView {
     
-    var track: Track?
-    
-    // Used for creating new cells with makeViewWithIdentifier()
-    var trackInfoView: NSTableView?
-    
     // A single key-value pair
     var key: String?
     var value: String?
     
+    // Factory method
+    static func fromKeyAndValue(_ key: String, _ value: String) -> TrackInfoView {
+        
+        let view = TrackInfoView()
+        view.key = key
+        view.value = value
+        
+        return view
+    }
+    
     override func view(atColumn column: Int) -> Any? {
         
         if (column == 0) {
-            // Key
             
-            if let cell = trackInfoView!.make(withIdentifier: "cv_trackInfoKey", owner: nil) as? NSTableCellView {
-                
-                cell.textField?.stringValue = key! + ":"
-                return cell
-            }
+            // Key
+            return createCell(UIConstants.trackInfoKeyColumnID, key! + ":")
             
         } else {
-            // Value
             
-            if let cell = trackInfoView!.make(withIdentifier: "cv_trackInfoValue", owner: nil) as? NSTableCellView {
-                
-                cell.textField?.stringValue = value!
-                return cell
-            }
+            // Value
+            return createCell(UIConstants.trackInfoValueColumnID, value!)
+        }
+    }
+    
+    private func createCell(_ id: String, _ text: String) -> NSTableCellView? {
+        
+        if let cell = TrackInfoViewHolder.trackInfoView!.make(withIdentifier: id, owner: nil) as? NSTableCellView {
+            
+            cell.textField?.stringValue = text
+            return cell
         }
         
         return nil

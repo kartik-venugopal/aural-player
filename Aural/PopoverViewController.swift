@@ -9,29 +9,26 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
     private var info: [(key: String, value: String)] = [(key: String, value: String)]()
     @IBOutlet weak var trackInfoView: NSTableView!
     
-    private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
-    override func loadView() {
-        
-        super.loadView()
-        
-        // Store reference to the table view for later use
-        trackInfoView.reloadData()
-        trackInfoView.scrollRowToVisible(0)
+    override func viewDidLoad() {
+        // Store a reference to trackInfoView that is easily accessible
+        TrackInfoViewHolder.trackInfoView = trackInfoView
+    }
+    
+    override func viewWillAppear() {
+        refresh()
     }
     
     // Called each time the popover is shown ... refreshes the data in the table view depending on which track is currently playing
     func refresh() {
-        
-        if (trackInfoView != nil) {
-            trackInfoView.reloadData()
-            trackInfoView.scrollRowToVisible(0)
-        }
+        trackInfoView.reloadData()
+        trackInfoView.scrollRowToVisible(0)
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         
-        let _track = player.getPlayingTrack()?.track
+        let _track = playbackInfo.getPlayingTrack()?.track
         if (_track == nil) {
             return 0
         }
@@ -73,22 +70,7 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
     
     // Each track info view row contains one key-value pair
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        
-        let _track = player.getPlayingTrack()?.track
-        if (_track == nil) {
-            return nil
-        }
-        
-        let track = _track!
-        
-        let view = TrackInfoView()
-        view.track = track
-        view.trackInfoView = trackInfoView!
-        
-        view.key = info[row].key
-        view.value = info[row].value
-        
-        return view
+        return TrackInfoView.fromKeyAndValue(info[row].key, info[row].value)
     }
     
     // Adjust row height based on if the text wraps over to the next line
@@ -114,4 +96,10 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
         return false
     }
+}
+
+// Place to hold a reference to the trackInfoView object (used in TrackInfoView class)
+class TrackInfoViewHolder {
+    
+    static var trackInfoView: NSTableView?
 }

@@ -426,17 +426,17 @@ class AudioGraphViewController: NSViewController {
         graph.setEQBand(16384, gain: eqSlider16k.floatValue)
     }
     
-    func filterBassChanged() {
+    private func filterBassChanged() {
         let filterBassRangeStr = graph.setFilterBassBand(Float(filterBassSlider.start), Float(filterBassSlider.end))
         lblFilterBassRange.stringValue = filterBassRangeStr
     }
     
-    func filterMidChanged() {
+    private func filterMidChanged() {
         let filterMidRangeStr = graph.setFilterMidBand(Float(filterMidSlider.start), Float(filterMidSlider.end))
         lblFilterMidRange.stringValue = filterMidRangeStr
     }
     
-    func filterTrebleChanged() {
+    private func filterTrebleChanged() {
         let filterTrebleRangeStr = graph.setFilterTrebleBand(Float(filterTrebleSlider.start), Float(filterTrebleSlider.end))
         lblFilterTrebleRange.stringValue = filterTrebleRangeStr
     }

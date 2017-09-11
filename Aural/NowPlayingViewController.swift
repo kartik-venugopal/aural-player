@@ -70,12 +70,11 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
             let positioningRect = NSZeroRect
             let preferredEdge = NSRectEdge.maxX
             
-            popoverViewController.refresh()
             popover.show(relativeTo: positioningRect, of: btnMoreInfo as NSView, preferredEdge: preferredEdge)
         }
     }
     
-    func showNowPlayingInfo(_ track: Track) {
+    private func showNowPlayingInfo(_ track: Track) {
         
         var artistAndTitleAvailable: Bool = false
         
@@ -112,7 +111,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         }
     }
     
-    func clearNowPlayingInfo() {
+    private func clearNowPlayingInfo() {
         
         lblTrackArtist.stringValue = ""
         lblTrackTitle.stringValue = ""
@@ -129,7 +128,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         moreInfoMenuItem.isEnabled = show
     }
     
-    func hidePopover() {
+    private func hidePopover() {
         
         if (popover.isShown) {
             popover.performClose(nil)
@@ -147,7 +146,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         }
     }
     
-    func updateSeekPosition() {
+    private func updateSeekPosition() {
         
         if (player.getPlaybackState() == .playing) {
             
@@ -159,7 +158,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
     }
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
-    func trackChange(_ newTrack: IndexedTrack?, _ errorState: Bool = false) {
+    private func trackChange(_ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
         if (newTrack != nil) {
             
@@ -213,7 +212,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         setSeekTimerState(newState == .playing)
     }
     
-    func resetSeekPosition() {
+    private func resetSeekPosition() {
         
         lblSeekPosition.stringValue = UIConstants.zeroDurationString
         seekSlider.floatValue = 0

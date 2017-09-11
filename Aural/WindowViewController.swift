@@ -21,8 +21,8 @@ class WindowViewController: NSViewController {
     @IBOutlet weak var playlistControlsBox: NSBox!
     @IBOutlet weak var fxBox: NSBox!
     
-    var playlistCollapsibleView: CollapsibleView?
-    var fxCollapsibleView: CollapsibleView?
+    private var playlistCollapsibleView: CollapsibleView?
+    private var fxCollapsibleView: CollapsibleView?
     
     override func viewDidLoad() {
         
@@ -41,13 +41,9 @@ class WindowViewController: NSViewController {
             toggleEffects(false)
         }
         
-        positionWindow(appState.windowLocation)
+        window.setFrameOrigin(appState.windowLocation)
         window.isMovableByWindowBackground = true
         window.makeKeyAndOrderFront(self)
-    }
-    
-    func positionWindow(_ location: NSPoint) {
-        window.setFrameOrigin(location)
     }
     
     @IBAction func hideAction(_ sender: AnyObject) {

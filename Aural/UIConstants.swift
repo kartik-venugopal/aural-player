@@ -10,6 +10,10 @@ class UIConstants {
     static let trackNameColumnID: String = "cv_trackName"
     static let durationColumnID: String = "cv_duration"
     
+    // Track info view column identifiers (popover)
+    static let trackInfoKeyColumnID: String = "cv_trackInfoKey"
+    static let trackInfoValueColumnID: String = "cv_trackInfoValue"
+    
     // Index set used to reload specific playlist rows
     static let playlistViewColumnIndexes: IndexSet = IndexSet([0,1])
     
