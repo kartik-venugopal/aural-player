@@ -11,12 +11,19 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     
     @IBOutlet weak var playlistView: NSTableView!
     
-    @IBOutlet weak var repeatOffMenuItem: NSMenuItem!
-    @IBOutlet weak var repeatOneMenuItem: NSMenuItem!
-    @IBOutlet weak var repeatAllMenuItem: NSMenuItem!
+    @IBOutlet weak var repeatOffMainMenuItem: NSMenuItem!
+    @IBOutlet weak var repeatOneMainMenuItem: NSMenuItem!
+    @IBOutlet weak var repeatAllMainMenuItem: NSMenuItem!
     
-    @IBOutlet weak var shuffleOffMenuItem: NSMenuItem!
-    @IBOutlet weak var shuffleOnMenuItem: NSMenuItem!
+    @IBOutlet weak var shuffleOffMainMenuItem: NSMenuItem!
+    @IBOutlet weak var shuffleOnMainMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var repeatOffDockMenuItem: NSMenuItem!
+    @IBOutlet weak var repeatOneDockMenuItem: NSMenuItem!
+    @IBOutlet weak var repeatAllDockMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var shuffleOffDockMenuItem: NSMenuItem!
+    @IBOutlet weak var shuffleOnDockMenuItem: NSMenuItem!
     
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
     
@@ -27,21 +34,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         playlistView.target = self
         
         let appState = ObjectGraph.getUIAppState()
-        
-        switch appState.repeatMode {
-            
-        case .off: btnRepeat.image = UIConstants.imgRepeatOff
-        case .one: btnRepeat.image = UIConstants.imgRepeatOne
-        case .all: btnRepeat.image = UIConstants.imgRepeatAll
-            
-        }
-        
-        switch appState.shuffleMode {
-            
-        case .off: btnShuffle.image = UIConstants.imgShuffleOff
-        case .on: btnShuffle.image = UIConstants.imgShuffleOn
-            
-        }
+        updateRepeatAndShuffleControls(appState.repeatMode, appState.shuffleMode)
         
         AsyncMessenger.subscribe(.trackNotPlayed, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.trackChanged, subscriber: self, dispatchQueue: DispatchQueue.main)
@@ -76,60 +69,71 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     @IBAction func repeatAction(_ sender: AnyObject) {
         
         let modes = player.toggleRepeatMode()
-        updateRepeatAndShuffleButtons(modes.repeatMode, modes.shuffleMode)
+        updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
     @IBAction func shuffleAction(_ sender: AnyObject) {
         
         let modes = player.toggleShuffleMode()
-        updateRepeatAndShuffleButtons(modes.repeatMode, modes.shuffleMode)
+        updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
     @IBAction func repeatOffAction(_ sender: AnyObject) {
         
         let modes = player.setRepeatMode(.off)
-        updateRepeatAndShuffleButtons(modes.repeatMode, modes.shuffleMode)
+        updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
     @IBAction func repeatOneAction(_ sender: AnyObject) {
         
         let modes = player.setRepeatMode(.one)
-        updateRepeatAndShuffleButtons(modes.repeatMode, modes.shuffleMode)
+        updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
     @IBAction func repeatAllAction(_ sender: AnyObject) {
         
         let modes = player.setRepeatMode(.all)
-        updateRepeatAndShuffleButtons(modes.repeatMode, modes.shuffleMode)
+        updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
     @IBAction func shuffleOffAction(_ sender: AnyObject) {
         
         let modes = player.setShuffleMode(.off)
-        updateRepeatAndShuffleButtons(modes.repeatMode, modes.shuffleMode)
+        updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
     @IBAction func shuffleOnAction(_ sender: AnyObject) {
         
         let modes = player.setShuffleMode(.on)
-        updateRepeatAndShuffleButtons(modes.repeatMode, modes.shuffleMode)
+        updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
-    private func updateRepeatAndShuffleButtons(_ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
+    private func updateRepeatAndShuffleControls(_ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
         
         switch shuffleMode {
             
         case .off: btnShuffle.image = UIConstants.imgShuffleOff
-        case .on: btnShuffle.image = UIConstants.imgShuffleOn
+        [shuffleOffMainMenuItem, shuffleOffDockMenuItem].forEach({$0?.state = 1})
+        [shuffleOnMainMenuItem, shuffleOnDockMenuItem].forEach({$0?.state = 0})
             
+        case .on: btnShuffle.image = UIConstants.imgShuffleOn
+        [shuffleOffMainMenuItem, shuffleOffDockMenuItem].forEach({$0?.state = 0})
+        [shuffleOnMainMenuItem, shuffleOnDockMenuItem].forEach({$0?.state = 1})
         }
         
         switch repeatMode {
             
         case .off: btnRepeat.image = UIConstants.imgRepeatOff
-        case .one: btnRepeat.image = UIConstants.imgRepeatOne
-        case .all: btnRepeat.image = UIConstants.imgRepeatAll
+        [repeatOffMainMenuItem, repeatOffDockMenuItem].forEach({$0.state = 1})
+        [repeatOneMainMenuItem, repeatOneDockMenuItem, repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0?.state = 0})
             
+        case .one: btnRepeat.image = UIConstants.imgRepeatOne
+        [repeatOneMainMenuItem, repeatOneDockMenuItem].forEach({$0.state = 1})
+        [repeatOffMainMenuItem, repeatOffDockMenuItem, repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0?.state = 0})
+            
+        case .all: btnRepeat.image = UIConstants.imgRepeatAll
+        [repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0.state = 1})
+        [repeatOneMainMenuItem, repeatOneDockMenuItem, repeatOffMainMenuItem, repeatOffDockMenuItem].forEach({$0?.state = 0})
         }
     }
     

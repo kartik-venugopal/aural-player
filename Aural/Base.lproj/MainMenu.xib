@@ -1857,7 +1857,17 @@ G1BhbiBTbGlkZXI
                 <outlet property="btnRepeat" destination="Fpa-Ii-3YA" id="aOb-yY-VwP"/>
                 <outlet property="btnShuffle" destination="kQL-4a-kyh" id="dPy-qf-SDn"/>
                 <outlet property="playlistView" destination="4Fk-6v-HSf" id="G7S-yu-bQn"/>
+                <outlet property="repeatAllDockMenuItem" destination="0zK-7w-8z4" id="HHR-b7-ElU"/>
+                <outlet property="repeatAllMainMenuItem" destination="l9m-G6-uAk" id="9UL-l9-hud"/>
+                <outlet property="repeatOffDockMenuItem" destination="pxm-4j-4jw" id="169-zh-oU6"/>
+                <outlet property="repeatOffMainMenuItem" destination="OBr-fe-z4t" id="8Sg-nS-Can"/>
+                <outlet property="repeatOneDockMenuItem" destination="x3D-4c-i0o" id="cXS-8Y-rwE"/>
+                <outlet property="repeatOneMainMenuItem" destination="DMc-0q-KZE" id="Lp9-dP-AVE"/>
                 <outlet property="seekSlider" destination="0m5-4l-3Wg" id="5EU-8D-rl7"/>
+                <outlet property="shuffleOffDockMenuItem" destination="ZUr-qq-9e4" id="c1k-EQ-us5"/>
+                <outlet property="shuffleOffMainMenuItem" destination="UVB-LH-JI0" id="RTx-xw-Un3"/>
+                <outlet property="shuffleOnDockMenuItem" destination="GtC-65-0P7" id="EjA-KG-s0x"/>
+                <outlet property="shuffleOnMainMenuItem" destination="A9x-31-Cvm" id="Y0R-GZ-EYj"/>
                 <outlet property="view" destination="X7y-oM-7MJ" id="e4c-ZZ-vAm"/>
             </connections>
         </viewController>
@@ -3155,23 +3165,6 @@ Gw
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="dwA-R8-e0L"/>
-                <menuItem title="Mute / Unmute" image="Mute-Small" keyEquivalent="" id="TUt-R6-cKe">
-                    <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                    <connections>
-                        <action selector="muteUnmuteAction:" target="fv4-nc-h1s" id="miD-F0-eci"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Decrease Volume" image="VolumeLow-Small" keyEquivalent="" id="cCz-MH-bwI" userLabel="Decrease Volume">
-                    <connections>
-                        <action selector="decreaseVolumeAction:" target="fv4-nc-h1s" id="Ea3-yC-aW2"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Increase Volume" image="VolumeHigh-Small" keyEquivalent="" id="gVF-PB-pgp" userLabel="Increase Volume">
-                    <connections>
-                        <action selector="increaseVolumeAction:" target="fv4-nc-h1s" id="6Kk-cy-IaD"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="WpM-FZ-MLT"/>
                 <menuItem title="Repeat Mode" image="RepeatMode-Small" id="stj-Uf-Zis" userLabel="Repeat Mode">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Repeat Mode" id="Y9I-m1-Aag">
@@ -3216,7 +3209,25 @@ Gw
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="WpM-FZ-MLT"/>
+                <menuItem title="Mute / Unmute" image="Mute-Small" keyEquivalent="" id="TUt-R6-cKe">
+                    <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                    <connections>
+                        <action selector="muteUnmuteAction:" target="fv4-nc-h1s" id="miD-F0-eci"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Decrease Volume" image="VolumeLow-Small" keyEquivalent="" id="cCz-MH-bwI" userLabel="Decrease Volume">
+                    <connections>
+                        <action selector="decreaseVolumeAction:" target="fv4-nc-h1s" id="Ea3-yC-aW2"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Increase Volume" image="VolumeHigh-Small" keyEquivalent="" id="gVF-PB-pgp" userLabel="Increase Volume">
+                    <connections>
+                        <action selector="increaseVolumeAction:" target="fv4-nc-h1s" id="6Kk-cy-IaD"/>
+                    </connections>
+                </menuItem>
             </items>
+            <point key="canvasLocation" x="200" y="524"/>
         </menu>
     </objects>
     <resources>
