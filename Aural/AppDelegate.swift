@@ -14,15 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var appLaunched: Bool = false
     
     public func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-        
-        filesToOpen.removeAll()
-        filesToOpen.append(URL(fileURLWithPath: filename))
-        
-        if (appLaunched) {
-            let reopenMsg = AppReopenedNotification(filesToOpen)
-            SyncMessenger.publishNotification(reopenMsg)
-        }
-        
+        self.application(sender, openFiles: [filename])
         return true
     }
     
