@@ -26,15 +26,15 @@ class PlaybackSession {
     let timestamp: Date
     
     // The track associated with this session
-    let track: IndexedTrack
+    let track: Track
     
-    private init(_ track: IndexedTrack) {
+    private init(_ track: Track) {
         timestamp = Date()
         self.track = track
     }
     
     // Start a new session, implicitly invalidating the old one (if there was one), and returns it
-    static func start(_ track: IndexedTrack) -> PlaybackSession {
+    static func start(_ track: Track) -> PlaybackSession {
         currentSession = PlaybackSession(track)
         return currentSession!
     }

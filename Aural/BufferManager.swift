@@ -43,7 +43,7 @@ class BufferManager {
     private func startPlaybackFromFrame(_ playbackSession: PlaybackSession, _ frame: AVAudioFramePosition) {
         
         // Can assume that track.avFile is non-nil, because track has been prepared for playback
-        let track: Track = playbackSession.track.track!
+        let track: Track = playbackSession.track
         let playingFile: AVAudioFile = track.avFile!
         
         // Set the position in the audio file from which reading is to begin
@@ -87,7 +87,7 @@ class BufferManager {
     private func scheduleNextBuffer(_ playbackSession: PlaybackSession, _ schedulingSession: SchedulingSession, _ bufferSize: UInt32 = BufferManager.BUFFER_SIZE) {
         
         // Can assume that track.avFile is non-nil, because track has been prepared for playback
-        let track: Track = playbackSession.track.track!
+        let track: Track = playbackSession.track
         let playingFile: AVAudioFile = track.avFile!
         
         let sampleRate = playingFile.processingFormat.sampleRate
@@ -127,7 +127,7 @@ class BufferManager {
         stop()
         
         // Can assume that track.avFile is non-nil, because track has been prepared for playback
-        let track: Track = playbackSession.track.track!
+        let track: Track = playbackSession.track
         let playingFile: AVAudioFile = track.avFile!
         let sampleRate = playingFile.processingFormat.sampleRate
         

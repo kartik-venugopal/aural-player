@@ -6,7 +6,7 @@ import Cocoa
 protocol PlayerProtocol {
     
     // Plays a track associated with a new playback session
-    func play(_ playbackSession: PlaybackSession)
+    func play(_ track: Track)
     
     // Pauses the currently playing track
     func pause()
@@ -18,7 +18,7 @@ protocol PlayerProtocol {
     func stop()
     
     // Seeks to a certain time in the track for the given playback session
-    func seekToTime(_ playbackSession: PlaybackSession, _ seconds: Double)
+    func seekToTime(_ track: Track, _ seconds: Double)
     
     // Gets the playback position (in seconds) of the currently playing track
     func getSeekPosition() -> Double

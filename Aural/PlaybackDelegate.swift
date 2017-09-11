@@ -74,8 +74,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         if (track != nil) {
             
-            let session = PlaybackSession.start(track!)
-            
             let actualTrack = track!.track!
             TrackIO.prepareForPlayback(actualTrack)
             
@@ -83,7 +81,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
                 throw actualTrack.preparationError!
             }
             
-            player.play(session)
+            player.play(actualTrack)
             
             // Prepare next possible tracks for playback
             prepareNextTracksForPlayback()
@@ -159,8 +157,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func stop() {
         
-        if (player.getPlaybackState() != .noTrack) {
-            PlaybackSession.endCurrent()
+        if (player.getPlaybackState() != .noTrack) {            
             player.stop()
         }
     }
@@ -217,8 +214,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         // If this seek takes the track to its end, stop playback and proceed to the next track
         if (newPosn < trackDuration) {
             
-            let session = PlaybackSession.start(playingTrack!)
-            player.seekToTime(session, newPosn)
+            let playingTrack = getPlayingTrack()
+            player.seekToTime(playingTrack!.track!, newPosn)
             
         } else {
             trackPlaybackCompleted()
@@ -235,8 +232,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         let curPosn = player.getSeekPosition()
         let newPosn = max(0, curPosn - Double(preferences.seekLength))
         
-        let session = PlaybackSession.start(getPlayingTrack()!)
-        player.seekToTime(session, newPosn)
+        let playingTrack = getPlayingTrack()
+        player.seekToTime(playingTrack!.track!, newPosn)
     }
     
     func seekToPercentage(_ percentage: Double) {
@@ -253,8 +250,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         // If this seek takes the track to its end, stop playback and proceed to the next track
         if (newPosn < trackDuration) {
-            let session = PlaybackSession.start(playingTrack!)
-            player.seekToTime(session, newPosn)
+            player.seekToTime(playingTrack!.track!, newPosn)
         } else {
             trackPlaybackCompleted()
         }
@@ -291,11 +287,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     // Called when playback of the current track completes
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        let _msg = message as! PlaybackCompletedAsyncMessage
-        
-        // Do not accept duplicate/old events
-        if (PlaybackSession.isCurrent(_msg.session)) {
+        if (message is PlaybackCompletedAsyncMessage) {
             trackPlaybackCompleted()
+            return
         }
     }
     

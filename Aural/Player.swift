@@ -7,6 +7,7 @@ import AVFoundation
 
 class Player: PlayerProtocol {
     
+    // The underlying audio graph
     private var graph: PlayerGraphProtocol
     
     // Buffer allocation
@@ -32,25 +33,32 @@ class Player: PlayerProtocol {
         graph.reconnectPlayerNodeWithFormat(format)
     }
     
-    func play(_ playbackSession: PlaybackSession) {
+    func play(_ track: Track) {
         
+        let session = PlaybackSession.start(track)
         startFrame = BufferManager.FRAME_ZERO
-        initPlayer(playbackSession.track.track!)
-        bufferManager.play(playbackSession)
+        
+        initPlayer(track)
+        bufferManager.play(session)
+        
         playbackState = .playing
     }
     
     func pause() {
+        
         graph.playerNode.pause()
         playbackState = .paused
     }
     
     func resume() {
+        
         graph.playerNode.play()
         playbackState = .playing
     }
     
     func stop() {
+        
+        PlaybackSession.endCurrent()
         
         bufferManager.stop()
         graph.playerNode.reset()
@@ -59,8 +67,10 @@ class Player: PlayerProtocol {
         playbackState = .noTrack
     }
     
-    func seekToTime(_ playbackSession: PlaybackSession, _ seconds: Double) {
-        startFrame = bufferManager.seekToTime(playbackSession, seconds)
+    func seekToTime(_ track: Track, _ seconds: Double) {
+        
+        let session = PlaybackSession.start(track)
+        startFrame = bufferManager.seekToTime(session, seconds)
     }
     
     // In seconds
