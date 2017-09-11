@@ -123,14 +123,27 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6bz-6T-Vw4" userLabel="Close button">
+                    <rect key="frame" x="459" y="318" width="14" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="6zC-Ob-fI1">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="closePopoverAction:" target="-2" id="9Xb-hO-zE2"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="262" y="298.5"/>
         </customView>
         <viewController id="c55-QW-xH9" customClass="PopoverViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="trackInfoView" destination="FNS-yf-Iy0" id="9xe-GW-uSb"/>
-                <outlet property="view" destination="c22-O7-iKe" id="BVV-e5-Ehz"/>
             </connections>
         </viewController>
     </objects>
+    <resources>
+        <image name="Close" width="80" height="80"/>
+    </resources>
 </document>

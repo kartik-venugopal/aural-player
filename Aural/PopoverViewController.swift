@@ -1,17 +1,45 @@
 /*
     View controller for the "Track Info" popover
 */
-
 import Cocoa
 
-class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, PopoverViewDelegateProtocol {
     
-    private var info: [(key: String, value: String)] = [(key: String, value: String)]()
+    // The actual popover that is shown
+    private var popover: NSPopover?
+    
+    // The view relative to which the popover is shown
+    private var relativeToView: NSView?
+    
+    // Popover positioning parameters
+    private let positioningRect = NSZeroRect
+    private let preferredEdge = NSRectEdge.maxX
+    
+    // The table view that displays the track info
     @IBOutlet weak var trackInfoView: NSTableView!
+    
+    // Container for the key-value pairs of info displayed
+    private var info: [(key: String, value: String)] = [(key: String, value: String)]()
     
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
+    // Factory method
+    static func create(_ relativeToView: NSView) -> PopoverViewDelegateProtocol {
+        
+        let controller = PopoverViewController(nibName: "PopoverViewController", bundle: Bundle.main)
+        
+        let popover = NSPopover()
+        popover.behavior = .semitransient
+        popover.contentViewController = controller!
+        
+        controller!.popover = popover
+        controller!.relativeToView = relativeToView
+        
+        return controller!
+    }
+    
     override func viewDidLoad() {
+        
         // Store a reference to trackInfoView that is easily accessible
         TrackInfoViewHolder.trackInfoView = trackInfoView
     }
@@ -22,8 +50,12 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
     
     // Called each time the popover is shown ... refreshes the data in the table view depending on which track is currently playing
     func refresh() {
-        trackInfoView.reloadData()
-        trackInfoView.scrollRowToVisible(0)
+        
+        // Don't bother refreshing if not shown
+        if (isShown()) {
+            trackInfoView.reloadData()
+            trackInfoView.scrollRowToVisible(0)
+        }
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -54,6 +86,7 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
         }
         
         for (key, value) in track.extendedMetadata {
+            
             // Some tracks have a "Format" metadata entry ... ignore it
             if (key.lowercased() != "format") {
                 info.append((key: Utils.splitCamelCaseWord(key, true), value: value))
@@ -95,6 +128,37 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
     // Completely disable row selection
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
         return false
+    }
+    
+    func show() {
+        
+        if (!popover!.isShown) {
+            popover!.show(relativeTo: positioningRect, of: relativeToView!, preferredEdge: preferredEdge)
+        }
+    }
+    
+    func isShown() -> Bool {
+        return popover!.isShown
+    }
+    
+    func close() {
+        
+        if (popover!.isShown) {
+            popover!.performClose(self)
+        }
+    }
+    
+    func toggle() {
+        
+        if (popover!.isShown) {
+            close()
+        } else {
+            show()
+        }
+    }
+    
+    @IBAction func closePopoverAction(_ sender: Any) {
+        close()
     }
 }
 

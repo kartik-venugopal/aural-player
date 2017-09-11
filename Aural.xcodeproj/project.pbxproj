@@ -22,6 +22,7 @@
 		3E2188AC1F0781970085BAB3 /* PopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2188AB1F0781970085BAB3 /* PopoverViewController.xib */; };
 		3E23D6591F32887E00DBF426 /* RecordingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E23D6581F32887E00DBF426 /* RecordingInfo.swift */; };
 		3E2BDC4D1F0DE1C00099FDB7 /* BufferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BDC4C1F0DE1C00099FDB7 /* BufferManager.swift */; };
+		3E2D9E461F6670E20020B99E /* PopoverViewDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2D9E451F6670E20020B99E /* PopoverViewDelegateProtocol.swift */; };
 		3E33B49E1F3E70F4005EF359 /* FileSystemUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33B49D1F3E70F4005EF359 /* FileSystemUtils.swift */; };
 		3E33B4A41F3F08B8005EF359 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33B4A31F3F08B8005EF359 /* Preferences.swift */; };
 		3E3AD5441F5D230C006123E9 /* WindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3AD5431F5D230C006123E9 /* WindowViewController.swift */; };
@@ -131,6 +132,7 @@
 		3E2188AB1F0781970085BAB3 /* PopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopoverViewController.xib; sourceTree = "<group>"; };
 		3E23D6581F32887E00DBF426 /* RecordingInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingInfo.swift; sourceTree = "<group>"; };
 		3E2BDC4C1F0DE1C00099FDB7 /* BufferManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferManager.swift; sourceTree = "<group>"; };
+		3E2D9E451F6670E20020B99E /* PopoverViewDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E33B49D1F3E70F4005EF359 /* FileSystemUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSystemUtils.swift; sourceTree = "<group>"; };
 		3E33B4A31F3F08B8005EF359 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		3E3AD5431F5D230C006123E9 /* WindowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowViewController.swift; sourceTree = "<group>"; };
@@ -511,6 +513,7 @@
 				3E2188A71F0771390085BAB3 /* PopoverViewController.swift */,
 				3E2188AB1F0781970085BAB3 /* PopoverViewController.xib */,
 				3E46F5651F2ABA57007CD384 /* PopoverContentView.swift */,
+				3E2D9E451F6670E20020B99E /* PopoverViewDelegateProtocol.swift */,
 			);
 			name = DetailedTrackInfo;
 			sourceTree = "<group>";
@@ -642,6 +645,7 @@
 				3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */,
 				3E84F8481F5FC58D0010BCDA /* PlaybackDelegate.swift in Sources */,
 				3E426F801EFDDDEE002F5F18 /* Utils.swift in Sources */,
+				3E2D9E461F6670E20020B99E /* PopoverViewDelegateProtocol.swift in Sources */,
 				3EC947AF1F5DDEB100FDBE25 /* PlaylistProtocols.swift in Sources */,
 				3E1CF7EF1F5CBA9300613724 /* PlayerProtocol.swift in Sources */,
 				3E85F25A1EFA78D6007BE830 /* AppDelegate.swift in Sources */,

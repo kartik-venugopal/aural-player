@@ -20,21 +20,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
     
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
     
-    // Popover view that displays detailed track info
-    private lazy var popover: NSPopover = {
-        
-        let popover = NSPopover()
-        popover.behavior = .semitransient
-        
-        let ctrlr = PopoverViewController(nibName: "PopoverViewController", bundle: Bundle.main)
-        popover.contentViewController = ctrlr
-        
-        return popover
-        
-    }()
-    
-    private lazy var popoverViewController: PopoverViewController = {
-        return (self.popover.contentViewController as! PopoverViewController)
+    private lazy var popoverView: PopoverViewDelegateProtocol = {
+        return PopoverViewController.create(self.btnMoreInfo as NSView)
     }()
     
     // Timer that periodically updates the seek bar
@@ -62,16 +49,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
             return
         }
         
-        if (popover.isShown) {
-            popover.performClose(nil)
-            
-        } else {
-            
-            let positioningRect = NSZeroRect
-            let preferredEdge = NSRectEdge.maxX
-            
-            popover.show(relativeTo: positioningRect, of: btnMoreInfo as NSView, preferredEdge: preferredEdge)
-        }
+        popoverView.toggle()
     }
     
     private func showNowPlayingInfo(_ track: Track) {
@@ -120,19 +98,12 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         seekSlider.floatValue = 0
         artView.image = UIConstants.imgMusicArt
         toggleMoreInfoButtons(false)
-        hidePopover()
+        popoverView.close()
     }
     
     private func toggleMoreInfoButtons(_ show: Bool) {
         btnMoreInfo.isHidden = !show
         moreInfoMenuItem.isEnabled = show
-    }
-    
-    private func hidePopover() {
-        
-        if (popover.isShown) {
-            popover.performClose(nil)
-        }
     }
     
     private func setSeekTimerState(_ timerOn: Bool) {
@@ -168,9 +139,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
                 setSeekTimerState(true)
                 toggleMoreInfoButtons(true)
                 
-                if (popover.isShown) {
+                if (popoverView.isShown()) {
+                    
                     player.getPlayingTrack()?.track?.loadDetailedInfo()
-                    popoverViewController.refresh()
+                    popoverView.refresh()
                 }
                 
             } else {
@@ -179,10 +151,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
                 
                 setSeekTimerState(false)
                 toggleMoreInfoButtons(false)
-                
-                if (popover.isShown) {
-                    hidePopover()
-                }
+                popoverView.close()
             }
             
         } else {
