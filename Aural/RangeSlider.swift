@@ -216,6 +216,14 @@ class RangeSlider: NSView {
 
     private var barFillGradient: NSGradient? = nil
     
+    func initialize(_ min: Double, _ max: Double, _ start: Double, _ end: Double, _ changeHandler: ((RangeSlider) -> Void)?) {
+        self.minValue = min
+        self.maxValue = max
+        self.start = start
+        self.end = end
+        self.onControlChanged = changeHandler
+    }
+    
     private func recreateBarFillGradient() {
         barFillGradient = createBarFillGradientBasedOnCurrentStyle()
     }

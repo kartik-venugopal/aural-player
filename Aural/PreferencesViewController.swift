@@ -263,9 +263,7 @@ class PreferencesViewController: NSViewController {
     
     // When the check box for "autoplay after adding tracks" is checked/unchecked, update the enabled state of the 2 option radio buttons
     @IBAction func autoplayAfterAddingAction(_ sender: Any) {
-        
-        btnAutoplayIfNotPlaying.isEnabled = Bool(btnAutoplayAfterAddingTracks.state)
-        btnAutoplayAlways.isEnabled = Bool(btnAutoplayAfterAddingTracks.state)
+        [btnAutoplayIfNotPlaying, btnAutoplayAlways].forEach({$0.isEnabled = Bool(btnAutoplayAfterAddingTracks.state)})
     }
     
     @IBAction func autoplayAfterAddingRadioButtonAction(_ sender: Any) {
@@ -273,8 +271,7 @@ class PreferencesViewController: NSViewController {
     }
     
     @IBAction func startupVolumeButtonAction(_ sender: Any) {
-        startupVolumeSlider.isEnabled = btnSpecifyVolume.state == 1
-        lblStartupVolume.isEnabled = btnSpecifyVolume.state == 1
+        [startupVolumeSlider, lblStartupVolume].forEach({$0.isEnabled = Bool(btnSpecifyVolume.state)})
     }
     
     @IBAction func startupVolumeSliderAction(_ sender: Any) {

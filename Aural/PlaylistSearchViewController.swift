@@ -100,6 +100,7 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
         } else if (comparisonTypeBeginsWith.state == 1) {
             query.type = .beginsWith
         } else {
+            // Ends with
             query.type = .endsWith
         }
         
@@ -123,8 +124,7 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
             searchResultsSummaryLabel.stringValue = "No results found"
         }
         searchResultMatchInfo.stringValue = ""
-        btnNextSearch.isHidden = true
-        btnPreviousSearch.isHidden = true
+        [btnNextSearch, btnPreviousSearch].forEach({$0.isHidden = true})
     }
     
     // Iterates to the previous search result

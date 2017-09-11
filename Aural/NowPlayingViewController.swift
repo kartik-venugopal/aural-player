@@ -91,9 +91,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
     
     private func clearNowPlayingInfo() {
         
-        lblTrackArtist.stringValue = ""
-        lblTrackTitle.stringValue = ""
-        lblTrackName.stringValue = ""
+        [lblTrackArtist, lblTrackTitle, lblTrackName].forEach({$0?.stringValue = ""})
         lblSeekPosition.stringValue = UIConstants.zeroDurationString
         seekSlider.floatValue = 0
         artView.image = UIConstants.imgMusicArt
@@ -209,6 +207,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         
         if (notification is SeekPositionChangedNotification) {
             updateSeekPosition()
+            return
         }
     }
     

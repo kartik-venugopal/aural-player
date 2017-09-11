@@ -28,28 +28,33 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     
     @IBAction func recorderAction(_ sender: Any) {
         
-        let isRecording: Bool = recorder.getRecordingInfo() != nil
-        
-        if (isRecording) {
+        if (recorder.getRecordingInfo() != nil) {
             stopRecording()
         } else {
-            
-            // Only AAC format works for now
-            recorder.startRecording(RecordingFormat.aac)
-            btnRecord.image = UIConstants.imgRecorderStop
-            recorderTimer?.startOrResume()
-            lblRecorderDuration.stringValue = UIConstants.zeroDurationString
-            lblRecorderFileSize.stringValue = Size.ZERO.toString()
-            recordingInfoBox.isHidden = false
-            
-            (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
-            recorderTabViewButton.needsDisplay = true
+            startRecording()
         }
+    }
+    
+    private func startRecording() {
+        
+        // Only AAC format works for now
+        recorder.startRecording(RecordingFormat.aac)
+        
+        btnRecord.image = UIConstants.imgRecorderStop
+        recorderTimer?.startOrResume()
+        
+        lblRecorderDuration.stringValue = UIConstants.zeroDurationString
+        lblRecorderFileSize.stringValue = Size.ZERO.toString()
+        recordingInfoBox.isHidden = false
+        
+        (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
+        recorderTabViewButton.needsDisplay = true
     }
     
     private func stopRecording() {
         
         recorder.stopRecording()
+        
         btnRecord.image = UIConstants.imgRecord
         recorderTimer?.pause()
         

@@ -82,6 +82,9 @@ class WindowViewController: NSViewController {
         // Set focus on playlist view if it's visible after the toggle
         
         if (playlistCollapsibleView?.hidden)! {
+            
+            // Show
+            
             resizeWindow(playlistShown: true, effectsShown: !(fxCollapsibleView?.hidden)!, animate)
             playlistCollapsibleView!.show()
             //            window.makeFirstResponder(playlistView)
@@ -91,6 +94,8 @@ class WindowViewController: NSViewController {
             WindowState.showingPlaylist = true
             
         } else {
+            
+            // Hide
             
             playlistCollapsibleView!.hide()
             resizeWindow(playlistShown: false, effectsShown: !(fxCollapsibleView?.hidden)!, animate)
@@ -106,6 +111,9 @@ class WindowViewController: NSViewController {
     private func toggleEffects(_ animate: Bool) {
         
         if (fxCollapsibleView?.hidden)! {
+            
+            // Show
+            
             resizeWindow(playlistShown: !(playlistCollapsibleView?.hidden)!, effectsShown: true, animate)
             fxCollapsibleView!.show()
             btnToggleEffects.state = 1
@@ -114,6 +122,8 @@ class WindowViewController: NSViewController {
             WindowState.showingEffects = true
             
         } else {
+            
+            // Hide
             
             fxCollapsibleView!.hide()
             resizeWindow(playlistShown: !(playlistCollapsibleView?.hidden)!, effectsShown: false, animate)

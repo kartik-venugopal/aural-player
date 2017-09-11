@@ -86,42 +86,27 @@ class AudioGraphViewController: NSViewController {
         
         let appState = ObjectGraph.getUIAppState()
         
+        // Volume and Pan
+        
         volumeSlider.floatValue = appState.volume
         setVolumeImage(appState.muted)
         panSlider.floatValue = appState.balance
         
-        // Set up the filter control sliders
-        
-        filterBassSlider.minValue = AppConstants.bass_min
-        filterBassSlider.maxValue = AppConstants.bass_max
-        filterBassSlider.onControlChanged = {
-            (slider: RangeSlider) -> Void in
-            
-            self.filterBassChanged()
-        }
-        
-        filterMidSlider.minValue = AppConstants.mid_min
-        filterMidSlider.maxValue = AppConstants.mid_max
-        filterMidSlider.onControlChanged = {
-            (slider: RangeSlider) -> Void in
-            
-            self.filterMidChanged()
-        }
-        
-        filterTrebleSlider.minValue = AppConstants.treble_min
-        filterTrebleSlider.maxValue = AppConstants.treble_max
-        filterTrebleSlider.onControlChanged = {
-            (slider: RangeSlider) -> Void in
-            
-            self.filterTrebleChanged()
-        }
+        // Effects unit
         
         fxTabViewButtons = [eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton]
+        
+        // EQ
         
         eqGlobalGainSlider.floatValue = appState.eqGlobalGain
         updateEQSliders(appState.eqBands)
         
         (eqTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
+        
+        // Don't select any items from the EQ presets menu
+        eqPresets.selectItem(at: -1)
+        
+        // Pitch
         
         btnPitchBypass.image = appState.pitchBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         (pitchTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.pitchBypass
@@ -132,6 +117,8 @@ class AudioGraphViewController: NSViewController {
         pitchOverlapSlider.floatValue = appState.pitchOverlap
         lblPitchOverlapValue.stringValue = appState.formattedPitchOverlap
         
+        // Time
+        
         btnTimeBypass.image = appState.timeBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         (timeTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.timeBypass
         
@@ -141,6 +128,8 @@ class AudioGraphViewController: NSViewController {
         timeOverlapSlider.floatValue = appState.timeOverlap
         lblTimeOverlapValue.stringValue = appState.formattedTimeOverlap
         
+        // Reverb
+        
         btnReverbBypass.image = appState.reverbBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         (reverbTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.reverbBypass
         
@@ -148,6 +137,8 @@ class AudioGraphViewController: NSViewController {
         
         reverbSlider.floatValue = appState.reverbAmount
         lblReverbAmountValue.stringValue = appState.formattedReverbAmount
+        
+        // Delay
         
         btnDelayBypass.image = appState.delayBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         (delayTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.delayBypass
@@ -164,31 +155,39 @@ class AudioGraphViewController: NSViewController {
         delayCutoffSlider.floatValue = appState.delayLowPassCutoff
         lblDelayLowPassCutoffValue.stringValue = appState.formattedDelayLowPassCutoff
         
+        // Filter
+        
         btnFilterBypass.image = appState.filterBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
         (filterTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.filterBypass
         
-        filterBassSlider.start = appState.filterBassMin
-        filterBassSlider.end = appState.filterBassMax
+        filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, appState.filterBassMin, appState.filterBassMax, {
+            (slider: RangeSlider) -> Void in
+            self.filterBassChanged()
+        })
+        
+        filterMidSlider.initialize(AppConstants.mid_min, AppConstants.mid_max, appState.filterMidMin, appState.filterMidMax, {
+            (slider: RangeSlider) -> Void in
+            self.filterMidChanged()
+        })
+        
+        filterTrebleSlider.initialize(AppConstants.treble_min, AppConstants.treble_max, appState.filterTrebleMin, appState.filterTrebleMax, {
+            (slider: RangeSlider) -> Void in
+            self.filterTrebleChanged()
+        })
+        
         lblFilterBassRange.stringValue = appState.formattedFilterBassRange
-        
-        filterMidSlider.start = appState.filterMidMin
-        filterMidSlider.end = appState.filterMidMax
         lblFilterMidRange.stringValue = appState.formattedFilterMidRange
-        
-        filterTrebleSlider.start = appState.filterTrebleMin
-        filterTrebleSlider.end = appState.filterTrebleMax
         lblFilterTrebleRange.stringValue = appState.formattedFilterTrebleRange
         
+        // Set tab view button highlight colors and refresh
+        
         for btn in fxTabViewButtons! {
-            (btn.cell as! EffectsUnitButtonCell).highlightColor = btn === recorderTabViewButton ? Colors.tabViewRecorderButtonHighlightColor : Colors.tabViewEffectsButtonHighlightColor
+            (btn.cell as! EffectsUnitButtonCell).highlightColor = (btn === recorderTabViewButton ? Colors.tabViewRecorderButtonHighlightColor : Colors.tabViewEffectsButtonHighlightColor)
             btn.needsDisplay = true
         }
         
-        // Select EQ by default
+        // Select EQ tab view by default
         eqTabViewAction(self)
-        
-        // Don't select any items from the EQ presets menu
-        eqPresets.selectItem(at: -1)
     }
     
     @IBAction func volumeAction(_ sender: AnyObject) {
@@ -443,9 +442,7 @@ class AudioGraphViewController: NSViewController {
     
     @IBAction func eqTabViewAction(_ sender: Any) {
         
-        for button in fxTabViewButtons! {
-            button.state = 0
-        }
+        fxTabViewButtons!.forEach({$0.state = 0})
         
         eqTabViewButton.state = 1
         fxTabView.selectTabViewItem(at: 0)
@@ -453,9 +450,7 @@ class AudioGraphViewController: NSViewController {
     
     @IBAction func pitchTabViewAction(_ sender: Any) {
         
-        for button in fxTabViewButtons! {
-            button.state = 0
-        }
+        fxTabViewButtons!.forEach({$0.state = 0})
         
         pitchTabViewButton.state = 1
         fxTabView.selectTabViewItem(at: 1)
@@ -463,9 +458,7 @@ class AudioGraphViewController: NSViewController {
     
     @IBAction func timeTabViewAction(_ sender: Any) {
         
-        for button in fxTabViewButtons! {
-            button.state = 0
-        }
+        fxTabViewButtons!.forEach({$0.state = 0})
         
         timeTabViewButton.state = 1
         fxTabView.selectTabViewItem(at: 2)
@@ -473,9 +466,7 @@ class AudioGraphViewController: NSViewController {
     
     @IBAction func reverbTabViewAction(_ sender: Any) {
         
-        for button in fxTabViewButtons! {
-            button.state = 0
-        }
+        fxTabViewButtons!.forEach({$0.state = 0})
         
         reverbTabViewButton.state = 1
         fxTabView.selectTabViewItem(at: 3)
@@ -483,9 +474,7 @@ class AudioGraphViewController: NSViewController {
     
     @IBAction func delayTabViewAction(_ sender: Any) {
         
-        for button in fxTabViewButtons! {
-            button.state = 0
-        }
+        fxTabViewButtons!.forEach({$0.state = 0})
         
         delayTabViewButton.state = 1
         fxTabView.selectTabViewItem(at: 4)
@@ -493,9 +482,7 @@ class AudioGraphViewController: NSViewController {
     
     @IBAction func filterTabViewAction(_ sender: Any) {
         
-        for button in fxTabViewButtons! {
-            button.state = 0
-        }
+        fxTabViewButtons!.forEach({$0.state = 0})
         
         filterTabViewButton.state = 1
         fxTabView.selectTabViewItem(at: 5)
@@ -503,9 +490,7 @@ class AudioGraphViewController: NSViewController {
     
     @IBAction func recorderTabViewAction(_ sender: Any) {
         
-        for button in fxTabViewButtons! {
-            button.state = 0
-        }
+        fxTabViewButtons!.forEach({$0.state = 0})
         
         recorderTabViewButton.state = 1
         fxTabView.selectTabViewItem(at: 6)
