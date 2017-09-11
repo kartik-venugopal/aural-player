@@ -40,7 +40,7 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
         
         info.removeAll()
         
-        info.append((key: "Filename", value: track.file!.path))
+        info.append((key: "Filename", value: track.file.path))
         info.append((key: "Size", value: track.size!.toString()))
         info.append((key: "Format", value: track.format!))
         info.append((key: "Duration", value: Utils.formatDuration(track.duration!)))

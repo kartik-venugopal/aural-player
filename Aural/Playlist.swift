@@ -53,11 +53,11 @@ class Playlist: PlaylistCRUDProtocol {
     
     private func doAddTrack(_ track: Track) {
         tracks.append(track)
-        tracksByFilename[track.file!.path] = track
+        tracksByFilename[track.file.path] = track
     }
     
     private func trackExists(_ track: Track) -> Bool {
-        return tracksByFilename[track.file!.path] != nil
+        return tracksByFilename[track.file.path] != nil
     }
     
     func removeTrack(_ index: Int) {
@@ -65,7 +65,7 @@ class Playlist: PlaylistCRUDProtocol {
         let track: Track? = tracks[index]
         
         if (track != nil) {
-            tracksByFilename.removeValue(forKey: track!.file!.path)
+            tracksByFilename.removeValue(forKey: track!.file.path)
             tracks.remove(at: index)
         }
     }
@@ -152,7 +152,7 @@ class Playlist: PlaylistCRUDProtocol {
             
             // Check both the filename and the display name
             
-            let lastPathComponent = track.file!.deletingPathExtension().lastPathComponent
+            let lastPathComponent = track.file.deletingPathExtension().lastPathComponent
             
             trackFields["Filename"] = (lastPathComponent, caseSensitive ? lastPathComponent : lastPathComponent.lowercased())
             
@@ -257,7 +257,7 @@ class Playlist: PlaylistCRUDProtocol {
         let state = PlaylistState()
         
         for track in tracks {
-            state.tracks.append(track.file!)
+            state.tracks.append(track.file)
         }
         
         return state

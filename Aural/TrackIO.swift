@@ -39,10 +39,9 @@ class TrackIO {
         // Check sourceAsset.hasProtectedContent()
         // Test against a protected iTunes file
         
-        track = Track()
+        track = Track(file)
         track.format = format
         
-        track.file = file
         track.avAsset = sourceAsset
         
         track.duration = sourceAsset.duration.seconds
@@ -112,7 +111,7 @@ class TrackIO {
         
         var avFile: AVAudioFile? = nil
         do {
-            avFile = try AVAudioFile(forReading: track.file! as URL)
+            avFile = try AVAudioFile(forReading: track.file as URL)
             
             track.avFile = avFile!
             track.sampleRate = avFile!.processingFormat.sampleRate
@@ -123,9 +122,9 @@ class TrackIO {
         } catch let error as NSError {
             
             track.preparationFailed = true
-            track.preparationError = TrackNotPlayableError(track.file!)
+            track.preparationError = TrackNotPlayableError(track.file)
             
-            NSLog("Error reading track '%@': %@", track.file!.path, error.description)
+            NSLog("Error reading track '%@': %@", track.file.path, error.description)
         }
     }
     
@@ -146,7 +145,7 @@ class TrackIO {
         track.numChannels = Int(track.avFile!.fileFormat.channelCount)
         
         // File size and bit rate
-        let filePath = track.file!.path
+        let filePath = track.file.path
         let size = FileSystemUtils.sizeOfFile(path: filePath)
         let bitRate = normalizeBitRate(Double(size.sizeBytes) * 8 / (Double(track.duration!) * Double(Size.KB)))
         track.bitRate = bitRate

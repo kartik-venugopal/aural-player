@@ -10,7 +10,7 @@ class Track: NSObject {
     // TODO: Revisit and refactor the fields here. Make file non-nil
     
     // Track file on some filesystem
-    var file: URL?
+    let file: URL
     
     // Used during playback (to avoid reading from disk multiple times)
     var avFile: AVAudioFile?
@@ -45,6 +45,10 @@ class Track: NSObject {
     // Error info if track prep fails
     var preparationFailed: Bool = false
     var preparationError: InvalidTrackError?
+    
+    init(_ file: URL) {
+        self.file = file
+    }
     
     func loadDetailedInfo() {
         TrackIO.loadDetailedTrackInfo(self)
