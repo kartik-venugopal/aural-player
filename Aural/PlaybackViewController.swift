@@ -259,14 +259,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
             
             // Position and display the dialog with info
             let alert = UIElements.trackNotPlayedAlertWithError(error)
-            let window = WindowState.window!
-            
-            let orig = NSPoint(x: window.frame.origin.x, y: min(window.frame.origin.y + 227, window.frame.origin.y + window.frame.height - alert.window.frame.height))
-            
-            alert.window.setFrameOrigin(orig)
-            alert.window.setIsVisible(true)
-            
-            alert.runModal()
+            UIUtils.showAlert(alert)
             
             // Remove the bad track from the playlist and update the UI
             

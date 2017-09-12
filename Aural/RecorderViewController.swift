@@ -89,21 +89,17 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         if let _ = recorder.getRecordingInfo() {
             
             let alert = UIElements.saveRecordingAlert
-            let window = WindowState.window!
-            
-            let orig = NSPoint(x: window.frame.origin.x, y: min(window.frame.origin.y + 227, window.frame.origin.y + window.frame.height - alert.window.frame.height))
-            
-            alert.window.setFrameOrigin(orig)
-            alert.window.setIsVisible(true)
             
             // Recording ongoing, prompt the user to save/discard it
-            let response = alert.runModal()
+            let response = UIUtils.showAlert(alert)
             
             switch response {
                 
             case RecordingAlertResponse.dontExit.rawValue: return AppExitResponse.dontExit
+                
             case RecordingAlertResponse.saveAndExit.rawValue: stopRecording()
                                                                 return AppExitResponse.okToExit
+                
             case RecordingAlertResponse.discardAndExit.rawValue: recorder.deleteRecording()
                                                                 return AppExitResponse.okToExit
                 

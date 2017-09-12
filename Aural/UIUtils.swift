@@ -6,6 +6,41 @@ import Cocoa
 
 class UIUtils {
     
+    // Centers a modal dialog with respect to the main app window, and shows it
+    static func showModalDialog(_ dialog: NSWindow) {
+        
+        centerDialog(dialog)
+        
+        NSApp.runModal(for: dialog)
+        dialog.close()
+    }
+    
+    static func showAlert(_ alert: NSAlert) -> NSModalResponse {
+        
+        centerDialog(alert.window)
+        return alert.runModal()
+    }
+    
+    private static func centerDialog(_ dialog: NSWindow) {
+        
+        let window = WindowState.window!
+        
+        let windowX = window.frame.origin.x
+        let windowY = window.frame.origin.y
+        
+        let windowWidth = window.frame.width
+        let windowHeight = window.frame.height
+        
+        let dialogWidth = dialog.frame.width
+        let dialogHeight = dialog.frame.height
+        
+        let posX = windowX + ((windowWidth - dialogWidth) / 2)
+        let posY = windowY + ((windowHeight - dialogHeight) / 2)
+        
+        dialog.setFrameOrigin(NSPoint(x: posX, y: posY))
+        dialog.setIsVisible(true)
+    }
+    
     // Computes a window position relative to the desired location on screen, e.g Top left or Bottom center, etc.
     static func windowPositionRelativeToScreen(_ windowWidth: CGFloat, _ windowHeight: CGFloat, _ locationOnScreen: WindowLocations) -> NSPoint {
         

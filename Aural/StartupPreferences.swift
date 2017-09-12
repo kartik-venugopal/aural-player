@@ -89,17 +89,10 @@ enum WindowLocations: String {
     static let allValues: [WindowLocations] = [center, topLeft, topCenter, topRight, leftCenter, rightCenter, bottomLeft, bottomCenter, bottomRight]
     
     var description: String {
-        
-        switch self {
-        case .center: return "Center"
-        case .topLeft: return "Top left"
-        case .topCenter: return "Top center"
-        case .topRight: return "Top right"
-        case .leftCenter: return "Left center"
-        case .rightCenter: return "Right center"
-        case .bottomLeft: return "Bottom left"
-        case .bottomCenter: return "Bottom center"
-        case .bottomRight: return "Bottom right"
-        }
+        return Utils.splitCamelCaseWord(rawValue, false)
+    }
+    
+    static func fromDescription(_ description: String) -> WindowLocations {
+        return WindowLocations(rawValue: Utils.camelCase(description)) ?? .center
     }
 }

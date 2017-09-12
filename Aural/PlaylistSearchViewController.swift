@@ -47,21 +47,11 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
             return
         }
         
-        let window = WindowState.window!
-        
-        // Position the search modal dialog and show it
-        let searchFrameOrigin = NSPoint(x: window.frame.origin.x + 16, y: min(window.frame.origin.y + 227, window.frame.origin.y + window.frame.height - searchPanel.frame.height))
-        
         searchField.stringValue = ""
         resetSearchFields()
-        
-        searchPanel.setFrameOrigin(searchFrameOrigin)
-        searchPanel.setIsVisible(true)
-        
         searchPanel.makeFirstResponder(searchField)
         
-        NSApp.runModal(for: searchPanel)
-        searchPanel.close()
+        UIUtils.showModalDialog(searchPanel)
     }
     
     // Called when any of the search criteria have changed, performs a new search

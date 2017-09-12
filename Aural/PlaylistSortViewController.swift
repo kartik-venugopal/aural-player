@@ -30,16 +30,7 @@ class PlaylistSortViewController: NSViewController {
             return
         }
         
-        let window = WindowState.window!
-        
-        // Position the sort modal dialog and show it
-        let sortFrameOrigin = NSPoint(x: window.frame.origin.x + 73, y: min(window.frame.origin.y + 227, window.frame.origin.y + window.frame.height - sortPanel.frame.height))
-        
-        sortPanel.setFrameOrigin(sortFrameOrigin)
-        sortPanel.setIsVisible(true)
-        
-        NSApp.runModal(for: sortPanel)
-        sortPanel.close()
+        UIUtils.showModalDialog(sortPanel)
     }
     
     @IBAction func sortOptionsChangedAction(_ sender: Any) {

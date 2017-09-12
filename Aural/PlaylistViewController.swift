@@ -131,14 +131,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         DispatchQueue.main.async {
             
             let alert = UIElements.tracksNotAddedAlertWithErrors(errors)
-            let window = WindowState.window!
-            
-            let orig = NSPoint(x: window.frame.origin.x, y: min(window.frame.origin.y + 227, window.frame.origin.y + window.frame.height - alert.window.frame.height))
-            
-            alert.window.setFrameOrigin(orig)
-            alert.window.setIsVisible(true)
-            
-            alert.runModal()
+            UIUtils.showAlert(alert)
         }
     }
     

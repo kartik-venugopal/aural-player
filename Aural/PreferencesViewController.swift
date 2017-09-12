@@ -75,9 +75,9 @@ class PreferencesViewController: NSViewController {
         
         btnRememberVolume.state = preferences.volumeOnStartup == .rememberFromLastAppLaunch ? 1 : 0
         btnSpecifyVolume.state = preferences.volumeOnStartup == .rememberFromLastAppLaunch ? 0 : 1
-        startupVolumeSlider.isEnabled = btnSpecifyVolume.state == 1
+        startupVolumeSlider.isEnabled = Bool(btnSpecifyVolume.state)
         startupVolumeSlider.integerValue = Int(round(preferences.startupVolumeValue * AppConstants.volumeConversion_playerToUI))
-        lblStartupVolume.isEnabled = btnSpecifyVolume.state == 1
+        lblStartupVolume.isEnabled = Bool(btnSpecifyVolume.state)
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
         
         let panDelta = Int(round(preferences.panDelta * AppConstants.panConversion_playerToUI))
@@ -106,14 +106,7 @@ class PreferencesViewController: NSViewController {
             btnRememberView.state = 1
         }
         
-        for item in startWithViewMenu.itemArray {
-            
-            if item.title == preferences.viewOnStartup.viewType.description {
-                startWithViewMenu.select(item)
-                break;
-            }
-        }
-        
+        startWithViewMenu.selectItem(withTitle: preferences.viewOnStartup.viewType.description)
         startWithViewMenu.isEnabled = Bool(btnStartWithView.state)
         
         btnRememberWindowLocation.state = preferences.windowLocationOnStartup.option == .rememberFromLastAppLaunch ? 1 : 0
@@ -129,17 +122,7 @@ class PreferencesViewController: NSViewController {
     @IBAction func preferencesAction(_ sender: Any) {
         
         resetPreferencesFields()
-        
-        let window = WindowState.window!
-        
-        // Position the search modal dialog and show it
-        let prefsFrameOrigin = NSPoint(x: window.frame.origin.x - 2, y: min(window.frame.origin.y + 227, window.frame.origin.y + window.frame.height - prefsPanel.frame.height))
-        
-        prefsPanel.setFrameOrigin(prefsFrameOrigin)
-        prefsPanel.setIsVisible(true)
-        
-        NSApp.runModal(for: prefsPanel)
-        prefsPanel.close()
+        UIUtils.showModalDialog(prefsPanel)
     }
     
     @IBAction func volumeDeltaAction(_ sender: Any) {
@@ -181,13 +164,7 @@ class PreferencesViewController: NSViewController {
         
         preferences.windowLocationOnStartup.option = btnRememberWindowLocation.state == 1 ? .rememberFromLastAppLaunch : .specific
         
-        for location in WindowLocations.allValues {
-            
-            if startWindowLocationMenu.selectedItem!.title == location.description {
-                preferences.windowLocationOnStartup.windowLocation = location
-                break;
-            }
-        }
+        preferences.windowLocationOnStartup.windowLocation = WindowLocations.fromDescription(startWindowLocationMenu.selectedItem!.title)
         
         dismissModalDialog()
         Preferences.persistAsync()
@@ -225,9 +202,7 @@ class PreferencesViewController: NSViewController {
     
     @IBAction func playerPrefsTabViewAction(_ sender: Any) {
         
-        for button in prefsTabViewButtons! {
-            button.state = 0
-        }
+        prefsTabViewButtons!.forEach({$0.state = 0})
         
         btnPlayerPrefs.state = 1
         prefsTabView.selectTabViewItem(at: 0)
@@ -235,9 +210,7 @@ class PreferencesViewController: NSViewController {
     
     @IBAction func playlistPrefsTabViewAction(_ sender: Any) {
         
-        for button in prefsTabViewButtons! {
-            button.state = 0
-        }
+        prefsTabViewButtons!.forEach({$0.state = 0})
         
         btnPlaylistPrefs.state = 1
         prefsTabView.selectTabViewItem(at: 1)
@@ -245,9 +218,7 @@ class PreferencesViewController: NSViewController {
     
     @IBAction func viewPrefsTabViewAction(_ sender: Any) {
         
-        for button in prefsTabViewButtons! {
-            button.state = 0
-        }
+        prefsTabViewButtons!.forEach({$0.state = 0})
         
         btnViewPrefs.state = 1
         prefsTabView.selectTabViewItem(at: 2)
