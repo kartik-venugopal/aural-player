@@ -86,7 +86,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     
     private func onExit() -> AppExitResponse {
         
-        if let _ = recorder.getRecordingInfo() {
+        if (recorder.isRecording()) {
             
             let alert = UIElements.saveRecordingAlert
             

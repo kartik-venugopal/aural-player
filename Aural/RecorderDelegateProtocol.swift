@@ -12,6 +12,9 @@ protocol RecorderDelegateProtocol {
     // Returns the current duration of the active recording, in seconds, if there is one
     func getRecordingInfo() -> RecordingInfo?
     
+    // Returns whether or not there is an ongoing recording
+    func isRecording() -> Bool
+    
     // Stops the current recording
     func stopRecording()
     

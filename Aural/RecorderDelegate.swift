@@ -37,4 +37,8 @@ class RecorderDelegate: RecorderDelegateProtocol {
     func getRecordingInfo() -> RecordingInfo? {
         return recorder.getRecordingInfo()
     }
+    
+    func isRecording() -> Bool{
+        return recorder.isRecording()
+    }
 }

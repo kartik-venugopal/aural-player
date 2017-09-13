@@ -12,6 +12,9 @@ protocol RecorderProtocol {
     // Returns info for the active recording (if there is one)
     func getRecordingInfo() -> RecordingInfo?
     
+    // Returns whether or not there is an ongoing recording
+    func isRecording() -> Bool
+    
     // Stops the current recording
     func stopRecording()
     
