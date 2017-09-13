@@ -6,16 +6,16 @@ import Foundation
 
 class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
     
-    var repeatMode: RepeatMode = .off
-    var shuffleMode: ShuffleMode = .off
+    private var repeatMode: RepeatMode = .off
+    private var shuffleMode: ShuffleMode = .off
     
-    var tracksCount: Int = 0
+    private var tracksCount: Int = 0
     
     // Cursor is the playlist index of the currently playing track (nil if no track is playing)
-    var cursor: Int? = nil
+    private var cursor: Int? = nil
     
     // Contains a pre-computed shuffle sequence, when shuffleMode is .on
-    private var shuffleSequence: ShuffleSequence = ShuffleSequence(0)
+    private let shuffleSequence: ShuffleSequence = ShuffleSequence(0)
     
     init(_ tracksCount: Int, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
         
@@ -44,6 +44,8 @@ class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
     private func reset() {
         
         if (shuffleMode == .on) {
+            
+            // TODO: Can this logic be moved to ShuffleSequence, and its sequence variable be made private ???
             
             let lastSequenceLastElement = shuffleSequence.sequence.last
             let lastSequenceCount = shuffleSequence.sequence.count

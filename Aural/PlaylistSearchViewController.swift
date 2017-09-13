@@ -57,6 +57,8 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     // Called when any of the search criteria have changed, performs a new search
     private func searchQueryChanged() {
         
+        // TODO: Make this more efficient (only set values that have changed). Split this func into textChanged(), optionsChanged(), typeChanged(), fieldsChanged(), etc.
+        
         let searchText = searchField.stringValue
         
         if (searchText == "") {
@@ -131,10 +133,11 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     private func updateSearchPanelWithResult(searchResult: SearchResult) {
         
         // Select the track in the playlist view, to show the user where the track is
-        selectTrack(searchResult.index)
+        selectTrack(searchResult.trackIndex)
         
-        let resultsText = (searchResults?.count)! == 1 ? "result found" : "results found"
-        searchResultsSummaryLabel.stringValue = String(format: "%d %@. Selected %d / %d", (searchResults?.count)!, resultsText, (searchResults?.cursor)! + 1, (searchResults?.count)!)
+        let numResults = (searchResults?.count)!
+        let resultsText = numResults == 1 ? "result found" : "results found"
+        searchResultsSummaryLabel.stringValue = String(format: "%d %@. Selected %d / %d", numResults, resultsText, searchResult.resultIndex, numResults)
         
         searchResultMatchInfo.stringValue = String(format: "Matched %@: '%@'", searchResult.match.fieldKey.lowercased(), searchResult.match.fieldValue)
         

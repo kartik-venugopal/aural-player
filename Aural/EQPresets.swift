@@ -1,4 +1,3 @@
-
 import Foundation
 
 enum EQPresets: String {
@@ -21,15 +20,19 @@ enum EQPresets: String {
         
         switch self {
             
-        case .flat: return flatBands
-        case .highBassAndTreble: return highBassAndTrebleBands
-        case .soft: return softBands
-        case .vocal: return vocalBands
-        case .karaoke: return karaokeBands
+        case .flat: return EQPresetsBands.flatBands
+        case .highBassAndTreble: return EQPresetsBands.highBassAndTrebleBands
+        case .soft: return EQPresetsBands.softBands
+        case .vocal: return EQPresetsBands.vocalBands
+        case .karaoke: return EQPresetsBands.karaokeBands
+            
         }
     }
+}
+
+fileprivate class EQPresetsBands {
     
-    private var flatBands: [Int: Float] {
+    static let flatBands: [Int: Float] = {
         
         var bands = [Int: Float]()
         
@@ -39,9 +42,9 @@ enum EQPresets: String {
         }
         
         return bands
-    }
+    }()
     
-    private var highBassAndTrebleBands: [Int: Float] {
+    static let highBassAndTrebleBands: [Int: Float] = {
         
         var bands = [Int: Float]()
         
@@ -62,9 +65,9 @@ enum EQPresets: String {
         bands[16384] = 15
         
         return bands
-    }
+    }()
     
-    private var softBands: [Int: Float] {
+    static let softBands: [Int: Float] = {
         
         var bands = [Int: Float]()
         
@@ -85,9 +88,9 @@ enum EQPresets: String {
         bands[16384] = 14
         
         return bands
-    }
+    }()
     
-    private var karaokeBands: [Int: Float] {
+    static let karaokeBands: [Int: Float] = {
         
         var bands = [Int: Float]()
         
@@ -108,9 +111,9 @@ enum EQPresets: String {
         bands[16384] = 15
         
         return bands
-    }
+    }()
     
-    private var vocalBands: [Int: Float] {
+    static let vocalBands: [Int: Float] = {
         
         var bands = [Int: Float]()
         
@@ -131,5 +134,5 @@ enum EQPresets: String {
         bands[16384] = -20
         
         return bands
-    }
+    }()
 }

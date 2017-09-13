@@ -76,8 +76,7 @@
 		3E9212BB1F5D404F00D058FD /* PlaylistSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9212BA1F5D404F00D058FD /* PlaylistSortViewController.swift */; };
 		3E9463971F29960F00A9019C /* EffectsUnitButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9463961F29960F00A9019C /* EffectsUnitButtonCell.swift */; };
 		3E97967D1F00286200690DA2 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E97967C1F00286200690DA2 /* Track.swift */; };
-		3E9796811F00BA3000690DA2 /* RepeatMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9796801F00BA3000690DA2 /* RepeatMode.swift */; };
-		3E9796831F00BA5A00690DA2 /* ShuffleMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9796821F00BA5A00690DA2 /* ShuffleMode.swift */; };
+		3E9796811F00BA3000690DA2 /* RepeatAndShuffleModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9796801F00BA3000690DA2 /* RepeatAndShuffleModes.swift */; };
 		3E9847821F5CF23D001A2D28 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9847811F5CF23D001A2D28 /* HelpViewController.swift */; };
 		3E9847841F5CF3F6001A2D28 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9847831F5CF3F6001A2D28 /* PreferencesViewController.swift */; };
 		3E9847861F5CFCE3001A2D28 /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9847851F5CFCE3001A2D28 /* RecorderViewController.swift */; };
@@ -192,8 +191,7 @@
 		3E9212BA1F5D404F00D058FD /* PlaylistSortViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistSortViewController.swift; sourceTree = "<group>"; };
 		3E9463961F29960F00A9019C /* EffectsUnitButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsUnitButtonCell.swift; sourceTree = "<group>"; };
 		3E97967C1F00286200690DA2 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
-		3E9796801F00BA3000690DA2 /* RepeatMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatMode.swift; sourceTree = "<group>"; };
-		3E9796821F00BA5A00690DA2 /* ShuffleMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShuffleMode.swift; sourceTree = "<group>"; };
+		3E9796801F00BA3000690DA2 /* RepeatAndShuffleModes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatAndShuffleModes.swift; sourceTree = "<group>"; };
 		3E9847811F5CF23D001A2D28 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		3E9847831F5CF3F6001A2D28 /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		3E9847851F5CFCE3001A2D28 /* RecorderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderViewController.swift; sourceTree = "<group>"; };
@@ -350,8 +348,7 @@
 				3EC947AC1F5DDEA400FDBE25 /* PlaybackSequenceProtocol.swift */,
 				3E09C6BA1F2F388B007BB489 /* PlaybackSequence.swift */,
 				3E09C6B61F2F25A7007BB489 /* ShuffleSequence.swift */,
-				3E9796801F00BA3000690DA2 /* RepeatMode.swift */,
-				3E9796821F00BA5A00690DA2 /* ShuffleMode.swift */,
+				3E9796801F00BA3000690DA2 /* RepeatAndShuffleModes.swift */,
 			);
 			name = PlaybackSequence;
 			sourceTree = "<group>";
@@ -715,7 +712,6 @@
 				3E426F821EFDEEBE002F5F18 /* PlaybackState.swift in Sources */,
 				3EB2A7E41F0436D5001DF748 /* EQSliderCell.swift in Sources */,
 				3EFC506D1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift in Sources */,
-				3E9796831F00BA5A00690DA2 /* ShuffleMode.swift in Sources */,
 				3E7C70001F5F45F00035AEF2 /* PlaybackViewController.swift in Sources */,
 				3E3C20A61F0A687400AF5A62 /* UIElements.swift in Sources */,
 				3E40A9851F0617BC00A66856 /* RepeatingTaskExecutor.swift in Sources */,
@@ -739,7 +735,7 @@
 				3EC947B11F5DDECC00FDBE25 /* PlaylistAccessorDelegateProtocol.swift in Sources */,
 				3E3C20A81F0A697800AF5A62 /* AppConstants.swift in Sources */,
 				3EB2A7EE1F04697E001DF748 /* GraphicsUtils.swift in Sources */,
-				3E9796811F00BA3000690DA2 /* RepeatMode.swift in Sources */,
+				3E9796811F00BA3000690DA2 /* RepeatAndShuffleModes.swift in Sources */,
 				3EB2A7E81F043BBE001DF748 /* TickedSliderCells.swift in Sources */,
 				3EFFE6BB1F0372B3003728BD /* TrackIO.swift in Sources */,
 			);

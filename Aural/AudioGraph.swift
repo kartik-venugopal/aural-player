@@ -6,23 +6,23 @@ import AVFoundation
  */
 class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol {
     
-    let audioEngine: AVAudioEngine
-    let mainMixer: AVAudioMixerNode
+    private let audioEngine: AVAudioEngine
+    private let mainMixer: AVAudioMixerNode
     
     // Audio graph nodes
-    let playerNode: AVAudioPlayerNode
-    let eqNode: ParametricEQNode
-    let pitchNode: AVAudioUnitTimePitch
-    let reverbNode: AVAudioUnitReverb
-    let filterNode: MultiBandStopFilterNode
-    let delayNode: AVAudioUnitDelay
-    let timeNode: AVAudioUnitTimePitch
-    let auxMixer: AVAudioMixerNode  // Used for conversions of sample rates / channel counts
+    internal let playerNode: AVAudioPlayerNode
+    private let eqNode: ParametricEQNode
+    private let pitchNode: AVAudioUnitTimePitch
+    private let reverbNode: AVAudioUnitReverb
+    private let filterNode: MultiBandStopFilterNode
+    private let delayNode: AVAudioUnitDelay
+    private let timeNode: AVAudioUnitTimePitch
+    private let auxMixer: AVAudioMixerNode  // Used for conversions of sample rates / channel counts
     
     // Helper
-    let audioEngineHelper: AudioEngineHelper
+    private let audioEngineHelper: AudioEngineHelper
     
-    let nodeForRecorderTap: AVAudioNode
+    internal let nodeForRecorderTap: AVAudioNode
     
     // Sound setting value holders
     private var playerVolume: Float

@@ -19,12 +19,11 @@ class SearchQuery {
 // Indicates which track fields are to be compared, in the search
 class SearchFields {
     
-    // By default, perform only a search by name (display name or filename without the extension)
+    // By default, search by all fields
     var name: Bool = true
-    
-    var artist: Bool = false
-    var title: Bool = false
-    var album: Bool = false
+    var artist: Bool = true
+    var title: Bool = true
+    var album: Bool = true
     
     // Returns true if none of the four fields has been selected for the search
     func noFieldsSelected() -> Bool {

@@ -9,10 +9,10 @@ class SearchResults {
     // Total number of results
     var count: Int
     
-    var results: [SearchResult]
+    private var results: [SearchResult]
     
     // Marks the current result (used during iteration)
-    var cursor: Int = -1
+    private var cursor: Int = -1
     
     init(results: [SearchResult]) {
         self.results = results
@@ -59,8 +59,11 @@ class SearchResults {
 // Represents a single result (track) in a playlist tracks search
 class SearchResult {
     
-    // The index of the result (track) within the playlist
-    var index: Int
+    // The index of this result within the set of all results
+    var resultIndex: Int
+    
+    // The index of the track represented by this result, within the playlist
+    var trackIndex: Int
     
     // Describes which field matched the search query, and its value
     var match: (fieldKey: String, fieldValue: String)
@@ -71,8 +74,10 @@ class SearchResult {
     // Flag to indicate whether there is another result to consume before this one (during iteration)
     var hasPrevious: Bool = false
     
-    init(index: Int, match: (fieldKey: String, fieldValue: String)) {
-        self.index = index
+    init(resultIndex: Int, trackIndex: Int, match: (fieldKey: String, fieldValue: String)) {
+        
+        self.resultIndex = resultIndex
+        self.trackIndex = trackIndex
         self.match = match
     }
 }

@@ -121,6 +121,7 @@ class Playlist: PlaylistCRUDProtocol {
     func search(_ searchQuery: SearchQuery) -> SearchResults {
         
         var results: [SearchResult] = [SearchResult]()
+        var resultIndex = 1
         
         for i in 0...tracks.count - 1 {
             
@@ -128,7 +129,8 @@ class Playlist: PlaylistCRUDProtocol {
             let match = trackMatchesQuery(track: track, searchQuery: searchQuery)
             
             if (match.matched) {
-                results.append(SearchResult(index: i, match: (match.matchedField!, match.matchedFieldValue!)))
+                results.append(SearchResult(resultIndex: resultIndex, trackIndex: i, match: (match.matchedField!, match.matchedFieldValue!)))
+                resultIndex += 1
             }
         }
         

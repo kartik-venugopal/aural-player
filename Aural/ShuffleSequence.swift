@@ -10,10 +10,11 @@ class ShuffleSequence {
     var sequence: [Int]
     
     // The index, within this sequence, of the currently playing track index. This is NOT a playlist index.
-    var cursor: Int
+    private var cursor: Int
     
     // capacity = number of tracks in playlist
     init(_ capacity: Int) {
+        
         sequence = [Int]()
         cursor = -1
         reset(capacity: capacity)

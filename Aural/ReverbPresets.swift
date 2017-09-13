@@ -50,18 +50,18 @@ enum ReverbPresets: String {
         
         switch preset {
             
-        case AVAudioUnitReverbPreset.smallRoom: return ReverbPresets.smallRoom
-        case AVAudioUnitReverbPreset.mediumRoom: return ReverbPresets.mediumRoom
-        case AVAudioUnitReverbPreset.largeRoom: return ReverbPresets.largeRoom
+        case AVAudioUnitReverbPreset.smallRoom: return .smallRoom
+        case AVAudioUnitReverbPreset.mediumRoom: return .mediumRoom
+        case AVAudioUnitReverbPreset.largeRoom: return .largeRoom
             
-        case AVAudioUnitReverbPreset.mediumHall: return ReverbPresets.mediumHall
-        case AVAudioUnitReverbPreset.largeHall: return ReverbPresets.largeHall
+        case AVAudioUnitReverbPreset.mediumHall: return .mediumHall
+        case AVAudioUnitReverbPreset.largeHall: return .largeHall
             
-        case AVAudioUnitReverbPreset.mediumChamber: return ReverbPresets.mediumChamber
-        case AVAudioUnitReverbPreset.largeChamber: return ReverbPresets.largeChamber
+        case AVAudioUnitReverbPreset.mediumChamber: return .mediumChamber
+        case AVAudioUnitReverbPreset.largeChamber: return .largeChamber
             
-        case AVAudioUnitReverbPreset.cathedral: return ReverbPresets.cathedral
-        case AVAudioUnitReverbPreset.plate: return ReverbPresets.plate
+        case AVAudioUnitReverbPreset.cathedral: return .cathedral
+        case AVAudioUnitReverbPreset.plate: return .plate
             
         // This should never happen
         default: return ReverbPresets.smallRoom

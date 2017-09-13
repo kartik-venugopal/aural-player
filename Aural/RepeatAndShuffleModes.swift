@@ -15,3 +15,15 @@ enum RepeatMode: String {
     // Repeat all tracks forever, in playlist order
     case all
 }
+
+/*
+ Enumeration of all possible playback shuffle modes
+ */
+enum ShuffleMode: String {
+    
+    // Play tracks in random order
+    case on
+    
+    // Don't shuffle
+    case off
+}
