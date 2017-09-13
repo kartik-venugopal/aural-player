@@ -10,6 +10,8 @@ class ObjectGraph {
     private static var uiAppState: UIAppState?
     private static var preferences: Preferences?
     
+    private static var preferencesDelegate: PreferencesDelegateProtocol?
+    
     private static var playlist: Playlist?
     private static var playlistDelegate: PlaylistDelegateProtocol?
     
@@ -36,6 +38,7 @@ class ObjectGraph {
         }
         
         preferences = Preferences.instance()
+        preferencesDelegate = PreferencesDelegate(preferences!)
         
         uiAppState = UIAppState(appState!, preferences!)
         
@@ -85,8 +88,8 @@ class ObjectGraph {
         return uiAppState!
     }
     
-    static func getPreferences() -> Preferences {
-        return preferences!
+    static func getPreferencesDelegate() -> PreferencesDelegateProtocol {
+        return preferencesDelegate!
     }
     
     static func getPlaylistAccessor() -> PlaylistAccessorProtocol {

@@ -85,33 +85,25 @@ class Preferences {
     }
     
     // Saves the preferences to disk (copies the values from the cache to UserDefaults)
-    static func persist() {
+    static func persist(_ prefs: Preferences) {
         
-        defaults.set(singleton.seekLength, forKey: "seekLength")
-        defaults.set(singleton.volumeDelta, forKey: "volumeDelta")
-        defaults.set(singleton.volumeOnStartup.rawValue, forKey: "volumeOnStartup")
-        defaults.set(singleton.startupVolumeValue, forKey: "startupVolumeValue")
+        defaults.set(prefs.seekLength, forKey: "seekLength")
+        defaults.set(prefs.volumeDelta, forKey: "volumeDelta")
+        defaults.set(prefs.volumeOnStartup.rawValue, forKey: "volumeOnStartup")
+        defaults.set(prefs.startupVolumeValue, forKey: "startupVolumeValue")
         
-        defaults.set(singleton.panDelta, forKey: "panDelta")
-        defaults.set(singleton.autoplayOnStartup, forKey: "autoplayOnStartup")
-        defaults.set(singleton.autoplayAfterAddingTracks, forKey: "autoplayAfterAddingTracks")
-        defaults.set(singleton.autoplayAfterAddingOption.rawValue, forKey: "autoplayAfterAddingTracks.option")
+        defaults.set(prefs.panDelta, forKey: "panDelta")
+        defaults.set(prefs.autoplayOnStartup, forKey: "autoplayOnStartup")
+        defaults.set(prefs.autoplayAfterAddingTracks, forKey: "autoplayAfterAddingTracks")
+        defaults.set(prefs.autoplayAfterAddingOption.rawValue, forKey: "autoplayAfterAddingTracks.option")
         
-        defaults.set(singleton.playlistOnStartup.rawValue, forKey: "playlistOnStartup")
+        defaults.set(prefs.playlistOnStartup.rawValue, forKey: "playlistOnStartup")
         
-        defaults.set(singleton.viewOnStartup.option.rawValue, forKey: "viewOnStartup.option")
-        defaults.set(singleton.viewOnStartup.viewType.rawValue, forKey: "viewOnStartup.viewType")
+        defaults.set(prefs.viewOnStartup.option.rawValue, forKey: "viewOnStartup.option")
+        defaults.set(prefs.viewOnStartup.viewType.rawValue, forKey: "viewOnStartup.viewType")
         
-        defaults.set(singleton.windowLocationOnStartup.option.rawValue, forKey: "windowLocationOnStartup.option")
-        defaults.set(singleton.windowLocationOnStartup.windowLocation.rawValue, forKey: "windowLocationOnStartup.location")
-    }
-    
-    // Persists without blocking the calling thread
-    static func persistAsync() {
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            persist()
-        }
+        defaults.set(prefs.windowLocationOnStartup.option.rawValue, forKey: "windowLocationOnStartup.option")
+        defaults.set(prefs.windowLocationOnStartup.windowLocation.rawValue, forKey: "windowLocationOnStartup.location")
     }
 }
 

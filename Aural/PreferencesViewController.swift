@@ -52,7 +52,8 @@ class PreferencesViewController: NSViewController {
     @IBOutlet weak var btnStartAtWindowLocation: NSButton!
     @IBOutlet weak var startWindowLocationMenu: NSPopUpButton!
     
-    private let preferences: Preferences = ObjectGraph.getPreferences()
+    private let preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.getPreferencesDelegate()
+    private let preferences: Preferences = ObjectGraph.getPreferencesDelegate().getPreferences()
     
     override func viewDidLoad() {
         
@@ -64,7 +65,16 @@ class PreferencesViewController: NSViewController {
     
     private func resetPreferencesFields() {
         
-        // Player preferences
+        resetPlayerPrefs()
+        resetPlaylistPrefs()
+        resetViewPrefs()
+        
+        // Select the player prefs tab
+        playerPrefsTabViewAction(self)
+    }
+    
+    private func resetPlayerPrefs() {
+        
         let seekLength = preferences.seekLength
         seekLengthSlider.integerValue = seekLength
         seekLengthField.stringValue = Utils.formatDuration_minSec(seekLength)
@@ -74,32 +84,41 @@ class PreferencesViewController: NSViewController {
         volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
         
         btnRememberVolume.state = preferences.volumeOnStartup == .rememberFromLastAppLaunch ? 1 : 0
+        
         btnSpecifyVolume.state = preferences.volumeOnStartup == .rememberFromLastAppLaunch ? 0 : 1
+        
         startupVolumeSlider.isEnabled = Bool(btnSpecifyVolume.state)
         startupVolumeSlider.integerValue = Int(round(preferences.startupVolumeValue * AppConstants.volumeConversion_playerToUI))
+        
         lblStartupVolume.isEnabled = Bool(btnSpecifyVolume.state)
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
         
         let panDelta = Int(round(preferences.panDelta * AppConstants.panConversion_playerToUI))
         panDeltaStepper.integerValue = panDelta
         panDeltaField.stringValue = String(format: "%d%%", panDelta)
+    }
+    
+    private func resetPlaylistPrefs() {
         
-        btnAutoplayOnStartup.state = preferences.autoplayOnStartup ? 1 : 0
-        
-        btnAutoplayAfterAddingTracks.state = preferences.autoplayAfterAddingTracks ? 1 : 0
-        btnAutoplayIfNotPlaying.isEnabled = preferences.autoplayAfterAddingTracks
-        btnAutoplayIfNotPlaying.state = preferences.autoplayAfterAddingOption == .ifNotPlaying ? 1 : 0
-        btnAutoplayAlways.isEnabled = preferences.autoplayAfterAddingTracks
-        btnAutoplayAlways.state = preferences.autoplayAfterAddingOption == .always ? 1 : 0
-        
-        // Playlist preferences
         if (preferences.playlistOnStartup == .empty) {
             btnEmptyPlaylist.state = 1
         } else {
             btnRememberPlaylist.state = 1
         }
         
-        // View preferences
+        btnAutoplayOnStartup.state = preferences.autoplayOnStartup ? 1 : 0
+        
+        btnAutoplayAfterAddingTracks.state = preferences.autoplayAfterAddingTracks ? 1 : 0
+        
+        btnAutoplayIfNotPlaying.isEnabled = preferences.autoplayAfterAddingTracks
+        btnAutoplayIfNotPlaying.state = preferences.autoplayAfterAddingOption == .ifNotPlaying ? 1 : 0
+        
+        btnAutoplayAlways.isEnabled = preferences.autoplayAfterAddingTracks
+        btnAutoplayAlways.state = preferences.autoplayAfterAddingOption == .always ? 1 : 0
+    }
+    
+    private func resetViewPrefs() {
+        
         if (preferences.viewOnStartup.option == .specific) {
             btnStartWithView.state = 1
         } else {
@@ -110,13 +129,11 @@ class PreferencesViewController: NSViewController {
         startWithViewMenu.isEnabled = Bool(btnStartWithView.state)
         
         btnRememberWindowLocation.state = preferences.windowLocationOnStartup.option == .rememberFromLastAppLaunch ? 1 : 0
+        
         btnStartAtWindowLocation.state = preferences.windowLocationOnStartup.option == .specific ? 1 : 0
         
         startWindowLocationMenu.isEnabled = Bool(btnStartAtWindowLocation.state)
         startWindowLocationMenu.selectItem(withTitle: preferences.windowLocationOnStartup.windowLocation.description)
-        
-        // Select the player prefs tab
-        playerPrefsTabViewAction(self)
     }
     
     @IBAction func preferencesAction(_ sender: Any) {
@@ -139,18 +156,27 @@ class PreferencesViewController: NSViewController {
     
     @IBAction func savePreferencesAction(_ sender: Any) {
         
+        // Player prefs
+        
         preferences.seekLength = seekLengthSlider.integerValue
+        
         preferences.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.volumeConversion_UIToPlayer
         
         preferences.volumeOnStartup = btnRememberVolume.state == 1 ? .rememberFromLastAppLaunch : .specific
         preferences.startupVolumeValue = Float(startupVolumeSlider.integerValue) * AppConstants.volumeConversion_UIToPlayer
         
         preferences.panDelta = panDeltaStepper.floatValue * AppConstants.panConversion_UIToPlayer
+        
+        // Playlist prefs
+        
+        preferences.playlistOnStartup = btnEmptyPlaylist.state == 1 ? .empty : .rememberFromLastAppLaunch
+        
         preferences.autoplayOnStartup = Bool(btnAutoplayOnStartup.state)
+        
         preferences.autoplayAfterAddingTracks = Bool(btnAutoplayAfterAddingTracks.state)
         preferences.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.state == 1 ? .ifNotPlaying : .always
         
-        preferences.playlistOnStartup = btnEmptyPlaylist.state == 1 ? .empty : .rememberFromLastAppLaunch
+        // View prefs
         
         preferences.viewOnStartup.option = btnStartWithView.state == 1 ? .specific : .rememberFromLastAppLaunch
         
@@ -167,7 +193,7 @@ class PreferencesViewController: NSViewController {
         preferences.windowLocationOnStartup.windowLocation = WindowLocations.fromDescription(startWindowLocationMenu.selectedItem!.title)
         
         dismissModalDialog()
-        Preferences.persistAsync()
+        preferencesDelegate.savePreferences(preferences)
     }
     
     private func dismissModalDialog() {
