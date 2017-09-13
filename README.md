@@ -39,6 +39,12 @@ The latest app bundle can be found in the compressed archive file [Aural.app.zip
 
 [Demo videos](/Documentation/Demos)
 
+## Planned updates / Work in progress
+
+**Faster track loading** - Improved lazy loading of track information for faster track loading.
+
+**Improved ID3 tag reading** - Currently, only "common" metadata format information is read and displayed by the app. I'm working on a more thorough ID3 tag reader which will display all available ID3 information - e.g. track number within album, recording year, comments, etc.
+
 ## Recent updates
 
 9/11/2017: **Added dock menu** - Added a new dock menu that provides a limited set of essential player controls that can be accessed while the player window is in the background.
