@@ -2,8 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -11,12 +19,12 @@
 			<array/>
 			<key>CFBundleTypeName</key>
 			<string>MP3</string>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.mp3</string>
 			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>NSDocumentClass</key>
 			<string></string>
 		</dict>
@@ -25,56 +33,56 @@
 			<array/>
 			<key>CFBundleTypeName</key>
 			<string>M4A</string>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.mpeg-4-audio</string>
 			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array/>
 			<key>CFBundleTypeName</key>
 			<string>AIFC</string>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.aifc-audio</string>
 			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeName</key>
 			<string>AIFF</string>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.aiff-audio</string>
 			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array/>
 			<key>CFBundleTypeName</key>
 			<string>CAF</string>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.apple.coreaudio-​format</string>
 			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeName</key>
 			<string>WAV</string>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.microsoft.waveform-audio</string>
 			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -98,29 +106,21 @@
 			<string>Editor</string>
 		</dict>
 	</array>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<key>NSPrincipalClass</key>
+	<string>Aural.AuralApplication</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1</string>
-	<key>LSMinimumSystemVersion</key>
-	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>None</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
-	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>None</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
 </dict>
 </plist>

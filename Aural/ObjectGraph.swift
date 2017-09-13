@@ -23,21 +23,10 @@ class ObjectGraph {
     private static var recorder: Recorder?
     private static var recorderDelegate: RecorderDelegateProtocol?
     
-    private static var initialized: Bool = false
-    
-    // Make sure all logging is done to the app's log file
-    private static func configureLogging() {
-        
-        let allPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let documentsDirectory = allPaths.first!
-        let pathForLog = documentsDirectory + ("/" + AppConstants.logFileName)
-        
-        freopen(pathForLog.cString(using: String.Encoding.ascii)!, "a+", stderr)
-    }
+    // Don't let any code invoke this initializer to create instances of ObjectGraph
+    private init() {}
     
     static func initialize() {
-        
-        configureLogging()
         
         // Load saved player state from app config file, and initialize the player with that state
         appState = AppStateIO.load()
@@ -86,70 +75,33 @@ class ObjectGraph {
         // Recorder and Recorder Delegate
         recorder = Recorder(audioGraph!)
         recorderDelegate = RecorderDelegate(recorder!)
-        
-        initialized = true
     }
     
     static func getAppState() -> AppState {
-        
-        if (!initialized) {
-            initialize()
-        }
-        
         return appState!
     }
     
     static func getUIAppState() -> UIAppState {
-        
-        if (!initialized) {
-            initialize()
-        }
-        
         return uiAppState!
     }
     
     static func getPreferences() -> Preferences {
-        
-        if (!initialized) {
-            initialize()
-        }
-        
         return preferences!
     }
     
     static func getPlaylistAccessor() -> PlaylistAccessorProtocol {
-        
-        if (!initialized) {
-            initialize()
-        }
-        
         return playlist!
     }
     
     static func getPlaylistDelegate() -> PlaylistDelegateProtocol {
-        
-        if (!initialized) {
-            initialize()
-        }
-        
         return playlistDelegate!
     }
     
     static func getAudioGraphDelegate() -> AudioGraphDelegateProtocol {
-        
-        if (!initialized) {
-            initialize()
-        }
-        
         return audioGraphDelegate!
     }
     
     static func getPlaybackDelegate() -> PlaybackDelegateProtocol {
-        
-        if (!initialized) {
-            initialize()
-        }
-        
         return playbackDelegate!
     }
     
@@ -158,11 +110,6 @@ class ObjectGraph {
     }
     
     static func getRecorderDelegate() -> RecorderDelegateProtocol {
-        
-        if (!initialized) {
-            initialize()
-        }
-        
         return recorderDelegate!
     }
     

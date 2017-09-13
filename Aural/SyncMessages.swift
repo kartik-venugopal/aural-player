@@ -52,7 +52,6 @@ enum MessageType {
     
     case appLoadedNotification
     case appReopenedNotification
-    case appExitNotification
     
     case appExitRequest
     case appExitResponse
@@ -201,14 +200,6 @@ struct AppReopenedNotification: NotificationMessage {
     init(_ filesToOpen: [URL]) {
         self.filesToOpen = filesToOpen
     }
-}
-
-struct AppExitNotification: NotificationMessage {
-    
-    var messageType: MessageType = .appExitNotification
-    static let instance: AppExitNotification = AppExitNotification()
-    
-    private init() {}
 }
 
 struct AppExitRequest: RequestMessage {

@@ -51,21 +51,6 @@ class WindowViewController: NSViewController {
     }
     
     @IBAction func closeAction(_ sender: AnyObject) {
-        
-        let exitResponses = SyncMessenger.publishRequest(AppExitRequest.instance)
-        
-        for _response in exitResponses {
-            
-            let response = _response as! AppExitResponse
-            
-            // If any of the responses says it's not ok to exit, don't exit
-            if (!response.okToExit) {
-                return
-            }
-        }
-        
-        // None of the responses said don't exit, so it's ok to exit
-        
         NSApplication.shared().terminate(self)
     }
     

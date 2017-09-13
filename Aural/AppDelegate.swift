@@ -12,12 +12,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // Flag that indicates whether the app has already finished launching (used when reopening the app with parameters)
     private var appLaunched: Bool = false
-    
+
+    // Opens the application with a file (audio file or playlist)
     public func application(_ sender: NSApplication, openFile filename: String) -> Bool {
         self.application(sender, openFiles: [filename])
         return true
     }
     
+    // Opens the application with a set of files (audio files or playlists)
     public func application(_ sender: NSApplication, openFiles filenames: [String]) {
         
         filesToOpen.removeAll()
@@ -25,6 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             filesToOpen.append(URL(fileURLWithPath: file))
         }
         
+        // If app has already launched, that means the app is "reopening" with the specified set of files
         if (appLaunched) {
             let reopenMsg = AppReopenedNotification(filesToOpen)
             SyncMessenger.publishNotification(reopenMsg)
@@ -33,19 +36,39 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
+        appLaunched = true
+        
         // Set up key press handler
-        NSEvent.addLocalMonitorForEvents(matching: NSEventMask.keyDown, handler: {(evt: NSEvent!) -> NSEvent in
-            KeyPressHandler.handle(evt)
-            return evt;
+        NSEvent.addLocalMonitorForEvents(matching: NSEventMask.keyDown, handler: {(event: NSEvent!) -> NSEvent in
+            KeyPressHandler.handle(event)
+            return event;
         });
         
-        appLaunched = true
+        // Tell app components that the app has finished loading
         SyncMessenger.publishNotification(AppLoadedNotification(filesToOpen))
     }
     
-    func applicationWillTerminate(_ aNotification: Notification) {
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplicationTerminateReply {
         
-        SyncMessenger.publishNotification(AppExitNotification.instance)
+        // Broadcast a request to all app components that the app needs to exit. Check responses
+        // to see if it is safe to exit
+        let exitResponses = SyncMessenger.publishRequest(AppExitRequest.instance)
+        
+        for _response in exitResponses {
+            
+            let response = _response as! AppExitResponse
+            
+            // If any of the responses says it's not ok to exit, don't exit
+            if (!response.okToExit) {
+                return .terminateCancel
+            }
+        }
+        
+        // Ok to exit
+        return .terminateNow
+    }
+    
+    func applicationWillTerminate(_ aNotification: Notification) {
         ObjectGraph.tearDown()
     }
 }
