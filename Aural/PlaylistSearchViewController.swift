@@ -32,6 +32,8 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
+    private var searchQuery: SearchQuery = SearchQuery(text: "")
+    
     // Current playlist search results
     private var searchResults: SearchResults?
     
@@ -55,48 +57,9 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     }
     
     // Called when any of the search criteria have changed, performs a new search
-    private func searchQueryChanged() {
+    private func updateSearch() {
         
-        // TODO: Make this more efficient (only set values that have changed). Split this func into textChanged(), optionsChanged(), typeChanged(), fieldsChanged(), etc.
-        
-        let searchText = searchField.stringValue
-        
-        if (searchText == "") {
-            resetSearchFields()
-            return
-        }
-        
-        let searchFields = SearchFields()
-        searchFields.name = Bool(searchByName.state)
-        searchFields.artist = Bool(searchByArtist.state)
-        searchFields.title = Bool(searchByTitle.state)
-        searchFields.album = Bool(searchByAlbum.state)
-        
-        // No fields to compare, don't do the search
-        if (searchFields.noFieldsSelected()) {
-            resetSearchFields()
-            return
-        }
-        
-        let searchOptions = SearchOptions()
-        searchOptions.caseSensitive = Bool(searchCaseSensitive.state)
-        
-        let query = SearchQuery(text: searchText)
-        query.fields = searchFields
-        query.options = searchOptions
-        
-        if (comparisonTypeEquals.state == 1) {
-            query.type = .equals
-        } else if (comparisonTypeContains.state == 1) {
-            query.type = .contains
-        } else if (comparisonTypeBeginsWith.state == 1) {
-            query.type = .beginsWith
-        } else {
-            // Ends with
-            query.type = .endsWith
-        }
-        
-        searchResults = playlist.search(query)
+        searchResults = playlist.search(searchQuery)
         
         if ((searchResults?.count)! > 0) {
             
@@ -155,14 +118,62 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
         NSApp.stopModal()
     }
     
-    @IBAction func searchQueryChangedAction(_ sender: Any) {
-        searchQueryChanged()
+    private func searchTextChanged() {
+        let searchText = searchField.stringValue
+        searchQuery.text = searchText
+        
+        if (searchText == "") {
+            resetSearchFields()
+            return
+        }
+        
+        updateSearch()
+    }
+    
+    @IBAction func searchFieldsChangedAction(_ sender: Any) {
+        
+        let searchFields = searchQuery.fields
+        
+        searchFields.name = Bool(searchByName.state)
+        searchFields.artist = Bool(searchByArtist.state)
+        searchFields.title = Bool(searchByTitle.state)
+        searchFields.album = Bool(searchByAlbum.state)
+        
+        // No fields to compare, don't do the search
+        if (searchFields.noFieldsSelected()) {
+            resetSearchFields()
+            return
+        }
+        
+        updateSearch()
+    }
+    
+    @IBAction func searchTypeChangedAction(_ sender: Any) {
+        
+        if (comparisonTypeEquals.state == 1) {
+            searchQuery.type = .equals
+        } else if (comparisonTypeContains.state == 1) {
+            searchQuery.type = .contains
+        } else if (comparisonTypeBeginsWith.state == 1) {
+            searchQuery.type = .beginsWith
+        } else {
+            // Ends with
+            searchQuery.type = .endsWith
+        }
+        
+        updateSearch()
+    }
+    
+    @IBAction func searchOptionsChangedAction(_ sender: Any) {
+        
+        searchQuery.options.caseSensitive = Bool(searchCaseSensitive.state)
+        updateSearch()
     }
     
     func consumeNotification(_ notification: NotificationMessage) {
         
         if (notification is SearchQueryChangedNotification) {
-            searchQueryChanged()
+            searchTextChanged()
         }
     }
     
