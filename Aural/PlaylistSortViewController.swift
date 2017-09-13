@@ -25,8 +25,8 @@ class PlaylistSortViewController: NSViewController {
     
     @IBAction func sortPlaylistAction(_ sender: Any) {
         
-        // Don't do anything if no tracks in playlist
-        if (playlistView.numberOfRows == 0) {
+        // Don't do anything if either no tracks or only 1 track in playlist
+        if (playlistView.numberOfRows < 2) {
             return
         }
         

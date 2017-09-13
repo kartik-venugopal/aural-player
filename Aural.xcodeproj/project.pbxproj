@@ -25,7 +25,6 @@
 		3E2D9E461F6670E20020B99E /* PopoverViewDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2D9E451F6670E20020B99E /* PopoverViewDelegateProtocol.swift */; };
 		3E33B49E1F3E70F4005EF359 /* FileSystemUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33B49D1F3E70F4005EF359 /* FileSystemUtils.swift */; };
 		3E33B4A41F3F08B8005EF359 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33B4A31F3F08B8005EF359 /* Preferences.swift */; };
-		3E3A63671F68EF6A00F72A60 /* AuralApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A63661F68EF6A00F72A60 /* AuralApplication.swift */; };
 		3E3AD5441F5D230C006123E9 /* WindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3AD5431F5D230C006123E9 /* WindowViewController.swift */; };
 		3E3AD5461F5D2BD1006123E9 /* SyncMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3AD5451F5D2BD1006123E9 /* SyncMessenger.swift */; };
 		3E3AD5481F5D2BEC006123E9 /* SyncMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3AD5471F5D2BEC006123E9 /* SyncMessages.swift */; };
@@ -136,7 +135,6 @@
 		3E2D9E451F6670E20020B99E /* PopoverViewDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E33B49D1F3E70F4005EF359 /* FileSystemUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSystemUtils.swift; sourceTree = "<group>"; };
 		3E33B4A31F3F08B8005EF359 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
-		3E3A63661F68EF6A00F72A60 /* AuralApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuralApplication.swift; sourceTree = "<group>"; };
 		3E3AD5431F5D230C006123E9 /* WindowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowViewController.swift; sourceTree = "<group>"; };
 		3E3AD5451F5D2BD1006123E9 /* SyncMessenger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncMessenger.swift; sourceTree = "<group>"; };
 		3E3AD5471F5D2BEC006123E9 /* SyncMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncMessages.swift; sourceTree = "<group>"; };
@@ -374,7 +372,6 @@
 		3E85F2581EFA78D6007BE830 /* Aural */ = {
 			isa = PBXGroup;
 			children = (
-				3E3A63661F68EF6A00F72A60 /* AuralApplication.swift */,
 				3E85F2591EFA78D6007BE830 /* AppDelegate.swift */,
 				3ED526501F3003A800001A97 /* ObjectGraph.swift */,
 				3E3C20A71F0A697800AF5A62 /* AppConstants.swift */,
@@ -724,7 +721,6 @@
 				3E864ADD1F25E289006A7626 /* SearchResults.swift in Sources */,
 				3E9A575E1F21F778007546A2 /* Recorder.swift in Sources */,
 				3EACF1551F19B8F800E62D33 /* CollapsibleView.swift in Sources */,
-				3E3A63671F68EF6A00F72A60 /* AuralApplication.swift in Sources */,
 				3E1D93521F626BF9008AC59E /* Playlist.swift in Sources */,
 				3E00122A1F26A5100059B2D0 /* SearchQuery.swift in Sources */,
 				3ECFE5531F5FD8F100D96BE2 /* PlaylistMutatorDelegate.swift in Sources */,

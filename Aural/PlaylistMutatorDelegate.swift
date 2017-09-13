@@ -167,9 +167,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         let trackAddedAsyncMessage = TrackAddedAsyncMessage(trackIndex, progress)
         AsyncMessenger.publishMessage(trackAddedAsyncMessage)
         
-        for listener in changeListeners {
-            listener.trackAdded()
-        }
+        changeListeners.forEach({$0.trackAdded()})
     }
     
     private func autoplay(_ index: Int, _ interruptPlayback: Bool) {
@@ -197,19 +195,14 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     func removeTrack(_ index: Int) {
         
         playlist.removeTrack(index)
-        
-        for listener in changeListeners {
-            listener.trackRemoved(index)
-        }
+        changeListeners.forEach({$0.trackRemoved(index)})
     }
     
     func moveTrackUp(_ index: Int) -> Int {
         
         let newIndex = playlist.moveTrackUp(index)
         if (newIndex != index) {
-            for listener in changeListeners {
-                listener.trackReordered(index, newIndex)
-            }
+            changeListeners.forEach({$0.trackReordered(index, newIndex)})
         }
         
         return newIndex
@@ -219,9 +212,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         let newIndex = playlist.moveTrackDown(index)
         if (newIndex != index) {
-            for listener in changeListeners {
-                listener.trackReordered(index, newIndex)
-            }
+            changeListeners.forEach({$0.trackReordered(index, newIndex)})
         }
         
         return newIndex
@@ -230,10 +221,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     func clear() {
         
         playlist.clear()
-        
-        for listener in changeListeners {
-            listener.playlistCleared()
-        }
+        changeListeners.forEach({$0.playlistCleared()})
     }
     
     func sort(_ sort: Sort) {
@@ -244,10 +232,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         playlist.sort(sort)
         
         let newCursor = playlist.indexOfTrack(playingTrack?.track)
-        
-        for listener in changeListeners {
-            listener.playlistReordered(newCursor)
-        }
+        changeListeners.forEach({$0.playlistReordered(newCursor)})
     }
     
     func consumeNotification(_ notification: NotificationMessage) {
@@ -275,9 +260,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         if (notification is AppReopenedNotification) {
             
             let msg = notification as! AppReopenedNotification
-            let filesToOpen = msg.filesToOpen
-            
-            addFiles(filesToOpen, AutoplayOptions(true, true))
+            addFiles(msg.filesToOpen, AutoplayOptions(true, true))
             
             return
         }

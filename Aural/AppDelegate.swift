@@ -12,6 +12,36 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // Flag that indicates whether the app has already finished launching (used when reopening the app with parameters)
     private var appLaunched: Bool = false
+    
+    override init() {
+        
+        super.init()
+        
+        // Configuration and initialization
+        
+        configureLogging()
+        ObjectGraph.initialize()
+        setUpKeyPressHandler()
+    }
+    
+    // Make sure all logging is done to the app's log file
+    private func configureLogging() {
+        
+        let allPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentsDirectory = allPaths.first!
+        let pathForLog = documentsDirectory + ("/" + AppConstants.logFileName)
+        
+        freopen(pathForLog.cString(using: String.Encoding.ascii)!, "a+", stderr)
+    }
+    
+    // Set up handler for keyboard input
+    private func setUpKeyPressHandler() {
+        
+        NSEvent.addLocalMonitorForEvents(matching: NSEventMask.keyDown, handler: {(event: NSEvent!) -> NSEvent in
+            KeyPressHandler.handle(event)
+            return event;
+        });
+    }
 
     // Opens the application with a file (audio file or playlist)
     public func application(_ sender: NSApplication, openFile filename: String) -> Bool {
@@ -37,12 +67,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
         appLaunched = true
-        
-        // Set up key press handler
-        NSEvent.addLocalMonitorForEvents(matching: NSEventMask.keyDown, handler: {(event: NSEvent!) -> NSEvent in
-            KeyPressHandler.handle(event)
-            return event;
-        });
         
         // Tell app components that the app has finished loading
         SyncMessenger.publishNotification(AppLoadedNotification(filesToOpen))

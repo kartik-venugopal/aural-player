@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -107,11 +107,11 @@
 		</dict>
 	</array>
 	<key>NSPrincipalClass</key>
-	<string>Aural.AuralApplication</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
+	<string>NSApplication</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>LSMinimumSystemVersion</key>
@@ -120,7 +120,7 @@
 	<string>en</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>None</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
 </dict>
 </plist>
