@@ -32,7 +32,10 @@ class Preferences {
         
         let prefs = Preferences.defaultsDict
         
+        // Player prefs
+        
         seekLength = prefs["seekLength"] as? Int ?? PreferencesDefaults.seekLength
+        
         volumeDelta = prefs["volumeDelta"] as? Float ?? PreferencesDefaults.volumeDelta
         
         if let volumeOnStartupStr = prefs["volumeOnStartup"] as? String {
@@ -44,7 +47,17 @@ class Preferences {
         startupVolumeValue = prefs["startupVolumeValue"] as? Float ?? PreferencesDefaults.startupVolumeValue
         
         panDelta = prefs["panDelta"] as? Float ?? PreferencesDefaults.panDelta
+        
+        // Playlist prefs
+        
+        if let playlistOnStartupStr = prefs["playlistOnStartup"] as? String {
+            playlistOnStartup = PlaylistStartupOptions(rawValue: playlistOnStartupStr)!
+        } else {
+            playlistOnStartup = PreferencesDefaults.playlistOnStartup
+        }
+        
         autoplayOnStartup = prefs["autoplayOnStartup"] as? Bool ?? PreferencesDefaults.autoplayOnStartup
+        
         autoplayAfterAddingTracks = prefs["autoplayAfterAddingTracks"] as? Bool ?? PreferencesDefaults.autoplayAfterAddingTracks
         
         if let autoplayAfterAddingOptionStr = prefs["autoplayAfterAddingTracks.option"] as? String {
@@ -53,11 +66,7 @@ class Preferences {
             autoplayAfterAddingOption = PreferencesDefaults.autoplayAfterAddingOption
         }
         
-        if let playlistOnStartupStr = prefs["playlistOnStartup"] as? String {
-            playlistOnStartup = PlaylistStartupOptions(rawValue: playlistOnStartupStr)!
-        } else {
-            playlistOnStartup = PreferencesDefaults.playlistOnStartup
-        }
+        // View prefs
         
         viewOnStartup = PreferencesDefaults.viewOnStartup
         
