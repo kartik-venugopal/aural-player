@@ -18,6 +18,7 @@ class PlaylistSortViewController: NSViewController {
     @IBOutlet weak var playlistView: NSTableView!
     
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     override func viewDidLoad() {
         sortPanel.titlebarAppearsTransparent = true
@@ -49,8 +50,9 @@ class PlaylistSortViewController: NSViewController {
         
         playlistView.reloadData()
         
-        // TODO
-//        selectTrack(playlist.getPlayingTrack()?.index)
+        let playingTrackIndex = playbackInfo.getPlayingTrack()?.index
+        playlistView.selectRowIndexes(IndexSet(integer: playingTrackIndex ?? 0), byExtendingSelection: false)
+        playlistView.scrollRowToVisible(playlistView.selectedRow)
     }
     
     @IBAction func sortCancelBtnAction(_ sender: Any) {
