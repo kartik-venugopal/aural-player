@@ -41,6 +41,10 @@ The latest app bundle can be found in the compressed archive file [Aural.app.zip
 
 ## Recent updates
 
+9/11/2017: **Added dock menu** - Added a new dock menu that provides a limited set of essential player controls that can be accessed while the player window is in the background.
+
+8/31/2017 - 9/13/2017: **Major code refactoring/cleanup** - Completely rewrote the view layer and the delegate (middleman) layer. Separated huge catch-all view classes into smaller classes that handle specific chunks of functionality. Separated big monolithic delegate into smaller chunks. Refactored back end accordingly.
+
 8/17/2017: **PDF User Guide bundled with app** - There is now a PDF version of the User Guide available. It is bundled with the app, and can be opened from within the app, through the Help menu.
 
 8/16/2017: **Bug fix and efficiency improvements** - Fixed a bug in the Time effects unit, and made significant UI efficiency improvements in how the playlist view is updated when tracks are moved/removed.
