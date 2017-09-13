@@ -25,14 +25,14 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
     }()
     
     // Timer that periodically updates the seek bar
-    private var seekTimer: ScheduledTaskExecutor? = nil
+    private var seekTimer: RepeatingTaskExecutor? = nil
     
     override func viewDidLoad() {
         
         let appState = ObjectGraph.getUIAppState()
         
         // Timer interval depends on whether time stretch unit is active
-        seekTimer = ScheduledTaskExecutor(intervalMillis: appState.seekTimerInterval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
+        seekTimer = RepeatingTaskExecutor(intervalMillis: appState.seekTimerInterval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
         
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.playbackRateChangedNotification, subscriber: self)
@@ -168,7 +168,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         if (interval != seekTimer?.getInterval()) {
             
             seekTimer?.stop()
-            seekTimer = ScheduledTaskExecutor(intervalMillis: interval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
+            seekTimer = RepeatingTaskExecutor(intervalMillis: interval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
             
             let playbackState = player.getPlaybackState()
             setSeekTimerState(playbackState == .playing)

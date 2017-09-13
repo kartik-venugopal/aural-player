@@ -1,12 +1,12 @@
 /*
-    A utility class that provides a mechanism to schedule a repeating task that runs in a background thread. This is useful for daemon tasks, such as memory monitoring. See class MemoryMonitor, which makes use of this class.
+    A timer for repeating tasks that run in a background thread.
 
     Wrapper around a GCD dispatch source timer.
 */
 
 import Cocoa
 
-class ScheduledTaskExecutor {
+class RepeatingTaskExecutor {
     
     // GCD dispatch source timer
     private var timer: DispatchSourceTimer

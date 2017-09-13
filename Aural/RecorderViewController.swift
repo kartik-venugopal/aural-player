@@ -17,11 +17,11 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     private let recorder: RecorderDelegateProtocol = ObjectGraph.getRecorderDelegate()
     
     // Timer that periodically updates the recording duration (only when recorder is active)
-    private var recorderTimer: ScheduledTaskExecutor?
+    private var recorderTimer: RepeatingTaskExecutor?
     
     override func viewDidLoad() {
         
-        recorderTimer = ScheduledTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingInfo()}, queue: DispatchQueue.main)
+        recorderTimer = RepeatingTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingInfo()}, queue: DispatchQueue.main)
         
         SyncMessenger.subscribe(.appExitRequest, subscriber: self)
     }

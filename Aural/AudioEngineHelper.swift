@@ -58,7 +58,10 @@ class AudioEngineHelper {
     func prepareAndStart() {
         
         audioEngine.prepare()
-        
+        start()
+    }
+    
+    func start() {
         do {
             try audioEngine.start()
         } catch let error as NSError {

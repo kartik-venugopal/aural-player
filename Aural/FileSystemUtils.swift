@@ -20,7 +20,7 @@ class FileSystemUtils {
     // Renames a file
     static func renameFile(_ src: URL, _ target: URL) {
         do {
-            try FileManager.default.moveItem(at: src, to: target)
+            try fileManager.moveItem(at: src, to: target)
         } catch let error as NSError {
             NSLog("Error renaming file '%@' to '%@': %@", src.path, target.path, error.description)
         }
@@ -29,7 +29,7 @@ class FileSystemUtils {
     // Deletes a file
     static func deleteFile(_ path: String) {
         do {
-            try FileManager.default.removeItem(atPath: path)
+            try fileManager.removeItem(atPath: path)
         } catch let error as NSError {
             NSLog("Error deleting file '%@': %@", path, error.description)
         }

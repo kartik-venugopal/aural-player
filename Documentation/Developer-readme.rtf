@@ -52,7 +52,7 @@ App config:\
 - A config file (JSON format) is stored (by the code) in the default user's Documents directory. It is written to upon exit and read from at startup. This file stores the player state - track list, volume, and all sound settings . Make sure this is accessible, otherwise, config will not be remembered each time the player starts up and defaults will be used.\
 \
 A word of caution:\
-- Race conditions may occur within BufferManager, because it uses a timer to constantly schedule audio buffers during playback. As seeking within a track occurs or a track is changed, these timers are deallocated, but already executing tasks may dereference dead pointers. StoppableScheduledTaskExecutor was written to solve this problem, but the possibility still exists.\
+- Race conditions may occur within BufferManager, because it uses a timer to constantly schedule audio buffers during playback. As seeking within a track occurs or a track is changed, these timers are deallocated, but already executing tasks may dereference dead pointers. StoppableRepeatingTaskExecutor was written to solve this problem, but the possibility still exists.\
 \
 Icons:\
 - All necessary icons are provided in /Aural/Assets.xcassets\

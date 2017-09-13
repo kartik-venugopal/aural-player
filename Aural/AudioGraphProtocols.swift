@@ -103,6 +103,8 @@ protocol PlayerGraphProtocol {
     var playerNode: AVAudioPlayerNode {get}
     
     func reconnectPlayerNodeWithFormat(_ format: AVAudioFormat)
+    
+    func clearSoundTails()
 }
 
 protocol RecorderGraphProtocol {

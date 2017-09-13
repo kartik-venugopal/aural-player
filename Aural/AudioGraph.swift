@@ -235,8 +235,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         filterNode.setFilterTrebleBand(min, max)
     }
     
-    // TODO: Listen for "playbackStopped" events and invoke this method in response !
-    func stop() {
+    func clearSoundTails() {
         
         // Clear sound tails from reverb and delay nodes, if they're active
         
@@ -302,7 +301,6 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     func tearDown() {
         
         // Stop the player and release the audio engine resources
-        stop()
         audioEngine.stop()
     }
 }

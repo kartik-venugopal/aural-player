@@ -8,10 +8,11 @@ import AVFoundation
 class Player: PlayerProtocol {
     
     // The underlying audio graph
-    private var graph: PlayerGraphProtocol
+    private let graph: PlayerGraphProtocol
+    private let playerNode: AVAudioPlayerNode
     
     // Buffer allocation
-    private var bufferManager: BufferManager
+    private let bufferManager: BufferManager
     
     // Current playback position (frame)
     private var startFrame: AVAudioFramePosition?
@@ -21,7 +22,8 @@ class Player: PlayerProtocol {
     init(_ graph: PlayerGraphProtocol) {
         
         self.graph = graph
-        bufferManager = BufferManager(graph.playerNode)
+        self.playerNode = graph.playerNode
+        self.bufferManager = BufferManager(self.playerNode)
     }
     
     // Prepares the player to play a given track
@@ -46,13 +48,15 @@ class Player: PlayerProtocol {
     
     func pause() {
         
-        graph.playerNode.pause()
+        playerNode.pause()
+        graph.clearSoundTails()
+        
         playbackState = .paused
     }
     
     func resume() {
         
-        graph.playerNode.play()
+        playerNode.play()
         playbackState = .playing
     }
     
@@ -61,7 +65,8 @@ class Player: PlayerProtocol {
         PlaybackSession.endCurrent()
         
         bufferManager.stop()
-        graph.playerNode.reset()
+        playerNode.reset()
+        graph.clearSoundTails()
         
         startFrame = nil
         playbackState = .noTrack
@@ -76,11 +81,11 @@ class Player: PlayerProtocol {
     // In seconds
     func getSeekPosition() -> Double {
         
-        let nodeTime: AVAudioTime? = graph.playerNode.lastRenderTime
+        let nodeTime: AVAudioTime? = playerNode.lastRenderTime
         
         if (nodeTime != nil) {
             
-            let playerTime: AVAudioTime? = graph.playerNode.playerTime(forNodeTime: nodeTime!)
+            let playerTime: AVAudioTime? = playerNode.playerTime(forNodeTime: nodeTime!)
             
             if (playerTime != nil) {
                 
