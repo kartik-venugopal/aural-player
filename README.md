@@ -49,6 +49,8 @@ The latest app bundle can be found in the compressed archive file [Aural.app.zip
 
 9/11/2017: **Added dock menu** - Added a new dock menu that provides a limited set of essential player controls that can be accessed while the player window is in the background.
 
+9/10/2017: **Direct launching of files from Finder** - Any supported audio files/playlists can now be opened directly from Finder, with Aural. Aural now accepts launch parameters. If the app is already open, the selected files/playlists will be appended to its playlist and the first selected track will start playing.
+
 8/31/2017 - 9/13/2017: **Major code refactoring/cleanup** - Completely rewrote the view layer and the delegate (middleman) layer. Separated huge catch-all view classes into smaller classes that handle specific chunks of functionality. Separated big monolithic delegate into smaller chunks. Refactored back end accordingly.
 
 8/17/2017: **PDF User Guide bundled with app** - There is now a PDF version of the User Guide available. It is bundled with the app, and can be opened from within the app, through the Help menu.
