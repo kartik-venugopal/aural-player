@@ -33,6 +33,7 @@ enum MessageType {
     
     case trackRemovedNotification
     case trackChangedNotification
+    case playingTrackInfoUpdatedNotification
     
     case trackSelectionNotification
     case trackPlaybackRequest
@@ -68,6 +69,14 @@ struct TrackChangedNotification: NotificationMessage {
     init(_ newTrack: IndexedTrack?) {
         self.newTrack = newTrack
     }
+}
+
+struct PlayingTrackInfoUpdatedNotification: NotificationMessage {
+    
+    var messageType: MessageType = .playingTrackInfoUpdatedNotification
+    static let instance: PlayingTrackInfoUpdatedNotification = PlayingTrackInfoUpdatedNotification()
+    
+    private init() {}
 }
 
 // Notification from the playlist that a certain track has been removed.

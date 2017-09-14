@@ -14,6 +14,9 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
+    // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
+    private let playlistUpdateQueue = OperationQueue()
+    
     override func viewDidLoad() {
         
         // Enable drag n drop into the playlist view
@@ -24,12 +27,17 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         AsyncMessenger.subscribe(.tracksNotAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.startedAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.doneAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe(.trackInfoUpdated, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various message notifications
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.playlistScrollUpNotification, subscriber: self)
         SyncMessenger.subscribe(.playlistScrollDownNotification, subscriber: self)
         SyncMessenger.subscribe(.removeTrackRequest, subscriber: self)
+        
+        playlistUpdateQueue.maxConcurrentOperationCount = 1
+        playlistUpdateQueue.underlyingQueue = DispatchQueue.main
+        playlistUpdateQueue.qualityOfService = .background
     }
     
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
@@ -250,9 +258,18 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         if message is TrackAddedAsyncMessage {
-            let _msg = message as! TrackAddedAsyncMessage
-            playlistView.noteNumberOfRowsChanged()
-            updatePlaylistSummary(_msg.progress)
+            
+            // Perform task serially wrt other such tasks
+            
+            let updateOp = BlockOperation(block: {
+            
+                let _msg = message as! TrackAddedAsyncMessage
+                self.playlistView.noteNumberOfRowsChanged()
+                self.updatePlaylistSummary(_msg.progress)
+            })
+                
+            playlistUpdateQueue.addOperation(updateOp)
+            
             return
         }
         
@@ -269,6 +286,29 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         if message is DoneAddingTracksAsyncMessage {
             doneAddingTracks()
+            return
+        }
+        
+        if (message is TrackInfoUpdatedAsyncMessage) {
+            
+            // Perform task serially wrt other such tasks
+            
+            let updateOp = BlockOperation(block: {
+                
+                let index = (message as! TrackInfoUpdatedAsyncMessage).trackIndex
+                
+                self.playlistView.reloadData(forRowIndexes: IndexSet(integer: index), columnIndexes: UIConstants.playlistViewColumnIndexes)
+                self.updatePlaylistSummary()
+                
+                // If this is the playing track, tell other views that info has been updated
+                let playingTrackIndex = self.playbackInfo.getPlayingTrack()?.index
+                if (playingTrackIndex == index) {
+                    SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
+                }
+            })
+            
+            playlistUpdateQueue.addOperation(updateOp)
+            
             return
         }
     }

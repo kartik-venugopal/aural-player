@@ -1,63 +1,41 @@
 /*
-    Reads track info from the filesystem
-*/
+ Reads track info from the filesystem
+ */
 
 import Cocoa
 import AVFoundation
 
 class TrackIO {
     
-    // Load track info from specified file
-    // Assume valid existing and supported file
-    static func loadTrack(_ file: URL) throws -> Track {
+    static func initializeTrack(_ file: URL) -> Track {
         
-        let sourceAsset = AVURLAsset(url: file, options: nil)
-        let assetTracks = sourceAsset.tracks(withMediaType: AVMediaTypeAudio)
+        let track = Track(file)
+        track.duration = 0
+        track.shortDisplayName = (file.deletingPathExtension().lastPathComponent)
+        track.longDisplayName = nil
         
-        var track: Track
+        return track
+    }
+    
+    static func loadDisplayInfo(_ track: Track) {
         
-        // Check if the asset has any audio tracks
-        if (assetTracks.count == 0) {
-            throw NoAudioTracksError(file)
-        }
-            
-        // Find out if track is playable
-        let assetTrack = assetTracks[0]
-        
-        // TODO: What does isPlayable actually mean ?
-        if (!assetTrack.isPlayable) {
-            throw TrackNotPlayableError(file)
-        }
-        
-        // Determine the format to find out if it is supported
-        let format = getFormat(assetTrack)
-        if (!AppConstants.supportedAudioFileFormats.contains(format)) {
-            throw UnsupportedFormatError(file, format)
-        }
-        
-        // TODO: What if file has protected content
-        // Check sourceAsset.hasProtectedContent()
-        // Test against a protected iTunes file
-        
-        track = Track(file)
-        track.format = format
-        
+        let sourceAsset = AVURLAsset(url: track.file, options: nil)
         track.avAsset = sourceAsset
-        
         track.duration = sourceAsset.duration.seconds
-
-        let metadataList = sourceAsset.commonMetadata
+        
+        let commonMetadata = sourceAsset.commonMetadata
         var title: String?
         var artist: String?
         var art: NSImage?
         
-        for item in metadataList {
+        // TODO: Put items in a dictionary
+        for item in commonMetadata {
             
-            if item.commonKey == nil || item.value == nil {
+            if item.commonKey == nil {
                 continue
             }
             
-            if let key = item.commonKey, let value = item.value {
+            if let key = item.commonKey {
                 
                 if key == "title" {
                     if (!Utils.isStringEmpty(item.stringValue)) {
@@ -65,10 +43,14 @@ class TrackIO {
                     }
                     
                 } else if key == "artist" {
+                    
                     if (!Utils.isStringEmpty(item.stringValue)) {
                         artist = item.stringValue!
                     }
+                    
                 } else if key == "artwork" {
+                    
+                    let value = item.value
                     if let artwork = NSImage(data: value as! Data) {
                         art = artwork
                     }
@@ -89,17 +71,11 @@ class TrackIO {
             }
             
             shortDisplayName += title!
-            
-        } else {
-            shortDisplayName = (file.deletingPathExtension().lastPathComponent)
-            longDisplayName = nil
+            track.shortDisplayName = shortDisplayName
         }
         
-        track.metadata = (title, artist, art)
-        track.shortDisplayName = shortDisplayName
         track.longDisplayName = longDisplayName
-        
-        return track
+        track.metadata = (title, artist, art)
     }
     
     // (Lazily) load all the information required to play this track
@@ -109,9 +85,49 @@ class TrackIO {
             return
         }
         
+        if (track.avAsset == nil) {
+            track.avAsset = AVURLAsset(url: track.file, options: nil)
+        }
+        
+        let assetTracks = track.avAsset?.tracks(withMediaType: AVMediaTypeAudio)
+        
+        // Check if the asset has any audio tracks
+        if (assetTracks?.count == 0) {
+            track.preparationFailed = true
+            track.preparationError = NoAudioTracksError(track.file)
+            return
+        }
+        
+        // Find out if track is playable
+        let assetTrack = assetTracks?[0]
+        
+        // TODO: What does isPlayable actually mean ?
+        if (!(assetTrack?.isPlayable)!) {
+            track.preparationFailed = true
+            track.preparationError = TrackNotPlayableError(track.file)
+            return
+        }
+        
+        // Determine the format to find out if it is supported
+        let format = getFormat(assetTrack!)
+        track.format = format
+        if (!AppConstants.supportedAudioFileFormats.contains(format)) {
+            track.preparationFailed = true
+            track.preparationError = UnsupportedFormatError(track.file, format)
+            return
+        }
+        
+        // TODO: What if file has protected content
+        // Check sourceAsset.hasProtectedContent()
+        // Test against a protected iTunes file
+        
+        if (track.duration == nil || track.duration == 0) {
+            track.duration = track.avAsset?.duration.seconds
+        }
+        
         var avFile: AVAudioFile? = nil
         do {
-            avFile = try AVAudioFile(forReading: track.file as URL)
+            avFile = try AVAudioFile(forReading: track.file)
             
             track.avFile = avFile!
             track.sampleRate = avFile!.processingFormat.sampleRate
@@ -154,6 +170,8 @@ class TrackIO {
         fileAttrLoaded = true
         
         let sourceAsset = track.avAsset!
+        
+        // TODO: This needs to be done with a specialized ID3 reader
         
         // Retrieve extended metadata (ID3)
         let metadataList = sourceAsset.metadata

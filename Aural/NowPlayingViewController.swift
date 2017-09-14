@@ -18,7 +18,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
     
     @IBOutlet weak var moreInfoMenuItem: NSMenuItem!
     
-    private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     private lazy var popoverView: PopoverViewDelegateProtocol = {
         return PopoverViewController.create(self.btnMoreInfo as NSView)
@@ -38,11 +38,12 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         SyncMessenger.subscribe(.playbackRateChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.playbackStateChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.seekPositionChangedNotification, subscriber: self)
+        SyncMessenger.subscribe(.playingTrackInfoUpdatedNotification, subscriber: self)
     }
     
     @IBAction func moreInfoAction(_ sender: AnyObject) {
         
-        let playingTrack = player.getPlayingTrack()
+        let playingTrack = playbackInfo.getPlayingTrack()
         playingTrack!.track?.loadDetailedInfo()
         
         if (playingTrack == nil) {
@@ -82,7 +83,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         lblTrackArtist.isHidden = !artistAndTitleAvailable
         lblTrackTitle.isHidden = !artistAndTitleAvailable
         
-        if (track.metadata!.art != nil) {
+        if (track.metadata != nil && track.metadata!.art != nil) {
             artView.image = track.metadata!.art!
         } else {
             artView.image = UIConstants.imgMusicArt
@@ -117,9 +118,9 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
     
     private func updateSeekPosition() {
         
-        if (player.getPlaybackState() == .playing) {
+        if (playbackInfo.getPlaybackState() == .playing) {
             
-            let seekPosn = player.getSeekPosition()
+            let seekPosn = playbackInfo.getSeekPosition()
             
             lblSeekPosition.stringValue = Utils.formatDuration(seekPosn.seconds)
             seekSlider.doubleValue = seekPosn.percentage
@@ -139,7 +140,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
                 
                 if (popoverView.isShown()) {
                     
-                    player.getPlayingTrack()?.track?.loadDetailedInfo()
+                    playbackInfo.getPlayingTrack()?.track?.loadDetailedInfo()
                     popoverView.refresh()
                 }
                 
@@ -170,7 +171,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
             seekTimer?.stop()
             seekTimer = RepeatingTaskExecutor(intervalMillis: interval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
             
-            let playbackState = player.getPlaybackState()
+            let playbackState = playbackInfo.getPlaybackState()
             setSeekTimerState(playbackState == .playing)
         }
     }
@@ -208,6 +209,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         if (notification is SeekPositionChangedNotification) {
             updateSeekPosition()
             return
+        }
+        
+        if (notification is PlayingTrackInfoUpdatedNotification) {
+            showNowPlayingInfo(playbackInfo.getPlayingTrack()!.track!)
         }
     }
     

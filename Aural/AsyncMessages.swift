@@ -62,7 +62,7 @@ struct TrackInfoUpdatedAsyncMessage: AsyncMessage {
     var messageType: AsyncMessageType = .trackInfoUpdated
     var trackIndex: Int
     
-    init(trackIndex: Int) {
+    init(_ trackIndex: Int) {
         self.trackIndex = trackIndex
     }
 }

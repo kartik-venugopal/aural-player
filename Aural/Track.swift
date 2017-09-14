@@ -55,6 +55,22 @@ class Track: NSObject {
     }
 }
 
+// TODO: Use this
+class DisplayInfo {
+    
+    var duration: Double?
+    var artist: String?
+    var title: String?
+    var art: NSImage?
+}
+
+// TODO: Use this
+class PlaybackInfo {
+    
+    var avFile: AVAudioFile?
+    var avAsset: AVURLAsset?
+}
+
 // Wrapper around Track that includes its index in the playlist
 class IndexedTrack {
     
