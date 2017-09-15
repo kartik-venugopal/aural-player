@@ -114,19 +114,38 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         
         // Check if the text for the current row will exceed column width (value column)
-        let myString: NSString = info[row].value as NSString
-        let size: CGSize = myString.size(withAttributes: [NSFontAttributeName: UIConstants.popoverValueFont as AnyObject])
+        let keyString: NSString = info[row].key as NSString
+        let keyStrSize: CGSize = keyString.size(withAttributes: [NSFontAttributeName: UIConstants.popoverKeyFont as AnyObject])
         
-        if (size.width > UIConstants.trackInfoValueColumnWidth) {
+        let keyRowHeight: CGFloat
+        if (keyStrSize.width > UIConstants.trackInfoKeyColumnWidth) {
             
-            let rows = Int(size.width / UIConstants.trackInfoValueColumnWidth) + 1
+            let rows = Int(keyStrSize.width / UIConstants.trackInfoKeyColumnWidth) + 1
             // This means the text has wrapped over to the second line
             // So, increase the row height
-            return CGFloat(rows) * UIConstants.trackInfoValueRowHeight * UIConstants.trackInfoLongValueRowHeightMultiplier
+            keyRowHeight = CGFloat(rows) * UIConstants.trackInfoRowHeight * UIConstants.trackInfoLongTextRowHeightMultiplier
         } else {
             // No wrap, one row height is enough
-            return UIConstants.trackInfoValueRowHeight
+            keyRowHeight = UIConstants.trackInfoRowHeight
         }
+        
+        // Check if the text for the current row will exceed column width (value column)
+        let valueString: NSString = info[row].value as NSString
+        let valueStrSize: CGSize = valueString.size(withAttributes: [NSFontAttributeName: UIConstants.popoverValueFont as AnyObject])
+        
+        let valueRowHeight: CGFloat
+        if (valueStrSize.width > UIConstants.trackInfoValueColumnWidth) {
+            
+            let rows = Int(valueStrSize.width / UIConstants.trackInfoValueColumnWidth) + 1
+            // This means the text has wrapped over to the second line
+            // So, increase the row height
+            valueRowHeight = CGFloat(rows) * UIConstants.trackInfoRowHeight * UIConstants.trackInfoLongTextRowHeightMultiplier
+        } else {
+            // No wrap, one row height is enough
+            valueRowHeight = UIConstants.trackInfoRowHeight
+        }
+        
+        return max(keyRowHeight, valueRowHeight)
     }
     
     // Completely disable row selection

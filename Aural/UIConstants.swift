@@ -77,10 +77,13 @@ class UIConstants {
     static let zeroDurationString: String = "0:00"
     
     // Values used to determine the row height of table rows in the detailed track info popover view
-    static let trackInfoValueColumnWidth: CGFloat = 340
-    static let trackInfoValueRowHeight: CGFloat = 26
-    static let trackInfoLongValueRowHeight: CGFloat = 1.75 * trackInfoValueRowHeight
-    static let trackInfoLongValueRowHeightMultiplier: CGFloat = 0.9
+    static let trackInfoKeyColumnWidth: CGFloat = 125
+    
+    static let trackInfoValueColumnWidth: CGFloat = 315
+    
+    static let trackInfoRowHeight: CGFloat = 26
+    static let trackInfoLongTextRowHeight: CGFloat = 1.75 * trackInfoRowHeight
+    static let trackInfoLongTextRowHeightMultiplier: CGFloat = 0.9
     
     // Seek timer interval (milliseconds)
     static let seekTimerIntervalMillis: Int = 500
