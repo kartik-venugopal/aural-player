@@ -39,8 +39,6 @@ The latest app bundle can be found in the compressed archive file [Aural.app.zip
 
 [Demo videos](/Documentation/Demos)
 
-## Planned updates / Work in progress
-
 ## Recent updates
 
 9/15/2017 **Complete reading of ID3/iTunes metadata** - Previously, only "common" metadata format information was read and displayed by the app. Now, all standard/recognizable ID3 and iTunes metadata are read, marshaled into a user-friendly readable format, and displayed. Metadata in other formats are displayed as is (without any marshaling).
