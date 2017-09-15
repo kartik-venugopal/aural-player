@@ -129,20 +129,14 @@ class MetadataEntry {
     let value: String
     
     init(_ type: MetadataType, _ key: String, _ value: String) {
+        
         self.type = type
         self.key = key
         self.value = value
     }
     
     func formattedKey() -> String {
-        
-        switch type {
-            
-        case .common:   return Utils.splitCamelCaseWord(key, true)
-            
-        case .id3:  return ID3Spec.forKey(key) ?? key
-            
-        }
+        return MetadataReader.formattedKey(self)
     }
 }
 
