@@ -37,7 +37,7 @@ class MetadataReader {
             }
         }
         
-        track.setDisplayMetadata(title, artist, art)
+        track.setDisplayMetadata(artist, title, art)
     }
     
     static func loadAllMetadata(_ track: Track) {
