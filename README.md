@@ -12,7 +12,7 @@ Aural Player is a free and open source audio player application for the MacOS (f
 - Supports M3U/M3U8 playlists
 - Sound effects: Graphic equalizer, Pitch shift, Time stretch, Reverb, Delay, Filter
 - Recording of clips
-- Displays ID3 metadata including artwork
+- Displays ID3 and iTunes metadata, including artwork (when available)
 - Searching and sorting of playlist
 
 ### Compatibility
@@ -39,13 +39,11 @@ The latest app bundle can be found in the compressed archive file [Aural.app.zip
 
 [Demo videos](/Documentation/Demos)
 
-## Planned updates / Work in progress
-
-**Faster track loading** - Improved lazy loading of track information for faster track loading.
-
-**Improved ID3 tag reading** - Currently, only "common" metadata format information is read and displayed by the app. I'm working on a more thorough ID3 tag reader which will display all available ID3 information - e.g. track number within album, recording year, comments, etc.
-
 ## Recent updates
+
+9/15/2017 **Complete reading of ID3/iTunes metadata** - Previously, only "common" metadata format information was read and displayed by the app. Now, all standard/recognizable ID3 and iTunes metadata are read, marshaled into a user-friendly readable format, and displayed. Metadata in other formats are displayed as is (without any marshaling).
+
+9/13/2017: **Much faster track adding** - Significantly improved the efficiency of the track add operation. Tracks are added to the playlist almost instantaneously, and all secondary track data is loaded asynchronously as needed.
 
 9/11/2017: **Added dock menu** - Added a new dock menu that provides a limited set of essential player controls that can be accessed while the player window is in the background.
 
