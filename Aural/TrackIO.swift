@@ -7,81 +7,21 @@ import AVFoundation
 
 class TrackIO {
     
-    static func initializeTrack(_ file: URL) -> Track {
-        
-        let track = Track(file)
-        track.duration = 0
-        track.shortDisplayName = (file.deletingPathExtension().lastPathComponent)
-        track.longDisplayName = nil
-        
-        return track
-    }
-    
     static func loadDisplayInfo(_ track: Track) {
         
         let sourceAsset = AVURLAsset(url: track.file, options: nil)
         track.avAsset = sourceAsset
-        track.duration = sourceAsset.duration.seconds
+        track.setDuration(sourceAsset.duration.seconds)
         
-        let commonMetadata = sourceAsset.commonMetadata
-        var title: String?
-        var artist: String?
-        var art: NSImage?
-        
-        // TODO: Put items in a dictionary
-        for item in commonMetadata {
-            
-            if item.commonKey == nil {
-                continue
-            }
-            
-            if let key = item.commonKey {
-                
-                if key == "title" {
-                    if (!Utils.isStringEmpty(item.stringValue)) {
-                        title = item.stringValue!
-                    }
-                    
-                } else if key == "artist" {
-                    
-                    if (!Utils.isStringEmpty(item.stringValue)) {
-                        artist = item.stringValue!
-                    }
-                    
-                } else if key == "artwork" {
-                    
-                    let value = item.value
-                    if let artwork = NSImage(data: value as! Data) {
-                        art = artwork
-                    }
-                }
-            }
-        }
-        
-        var shortDisplayName: String = ""
-        var longDisplayName: (title: String?, artist: String?)?
-        
-        if (title != nil) {
-            
-            if (artist != nil) {
-                shortDisplayName = artist! + " - "
-                longDisplayName = (title: title!, artist: artist!)
-            } else {
-                longDisplayName = (title: title!, artist: nil)
-            }
-            
-            shortDisplayName += title!
-            track.shortDisplayName = shortDisplayName
-        }
-        
-        track.longDisplayName = longDisplayName
-        track.metadata = (title, artist, art)
+        MetadataReader.loadDisplayMetadata(track)
     }
     
     // (Lazily) load all the information required to play this track
     static func prepareForPlayback(_ track: Track) {
         
-        if (track.preparedForPlayback || track.preparationFailed) {
+        let lazyLoadInfo = track.lazyLoadingInfo
+        
+        if (lazyLoadInfo.preparedForPlayback || lazyLoadInfo.preparationFailed) {
             return
         }
         
@@ -93,8 +33,8 @@ class TrackIO {
         
         // Check if the asset has any audio tracks
         if (assetTracks?.count == 0) {
-            track.preparationFailed = true
-            track.preparationError = NoAudioTracksError(track.file)
+            lazyLoadInfo.preparationFailed = true
+            lazyLoadInfo.preparationError = NoAudioTracksError(track.file)
             return
         }
         
@@ -103,17 +43,16 @@ class TrackIO {
         
         // TODO: What does isPlayable actually mean ?
         if (!(assetTrack?.isPlayable)!) {
-            track.preparationFailed = true
-            track.preparationError = TrackNotPlayableError(track.file)
+            lazyLoadInfo.preparationFailed = true
+            lazyLoadInfo.preparationError = TrackNotPlayableError(track.file)
             return
         }
         
         // Determine the format to find out if it is supported
         let format = getFormat(assetTrack!)
-        track.format = format
         if (!AppConstants.supportedAudioFileFormats.contains(format)) {
-            track.preparationFailed = true
-            track.preparationError = UnsupportedFormatError(track.file, format)
+            lazyLoadInfo.preparationFailed = true
+            lazyLoadInfo.preparationError = UnsupportedFormatError(track.file, format)
             return
         }
         
@@ -121,24 +60,30 @@ class TrackIO {
         // Check sourceAsset.hasProtectedContent()
         // Test against a protected iTunes file
         
-        if (track.duration == nil || track.duration == 0) {
-            track.duration = track.avAsset?.duration.seconds
-        }
-        
         var avFile: AVAudioFile? = nil
         do {
             avFile = try AVAudioFile(forReading: track.file)
             
-            track.avFile = avFile!
-            track.sampleRate = avFile!.processingFormat.sampleRate
-            track.frames = Int64(track.sampleRate! * track.duration!)
+            let playbackInfo = PlaybackInfo()
             
-            track.preparedForPlayback = true
+            playbackInfo.avFile = avFile!
+            playbackInfo.sampleRate = avFile!.processingFormat.sampleRate
+            
+            if (!track.hasDuration()) {
+                let duration = track.avAsset!.duration.seconds
+                track.setDuration(duration)
+            }
+            
+            playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
+            playbackInfo.numChannels = Int(playbackInfo.avFile!.fileFormat.channelCount)
+            
+            track.playbackInfo = playbackInfo
+            lazyLoadInfo.preparedForPlayback = true
             
         } catch let error as NSError {
             
-            track.preparationFailed = true
-            track.preparationError = TrackNotPlayableError(track.file)
+            lazyLoadInfo.preparationFailed = true
+            lazyLoadInfo.preparationError = TrackNotPlayableError(track.file)
             
             NSLog("Error reading track '%@': %@", track.file.path, error.description)
         }
@@ -147,84 +92,32 @@ class TrackIO {
     // (Lazily) load detailed track info, when it is requested by the UI
     static func loadDetailedTrackInfo(_ track: Track) {
         
-        if (track.detailedInfoLoaded) {
+        let lazyLoadInfo = track.lazyLoadingInfo
+        
+        if (lazyLoadInfo.detailedInfoLoaded) {
             return
         }
         
         var fileAttrLoaded: Bool = false
         var extendedMetadataLoaded: Bool = false
         
-        // Playback info is necessary for channel count info
-        if (track.avFile == nil) {
-            TrackIO.prepareForPlayback(track)
-        }
-        track.numChannels = Int(track.avFile!.fileFormat.channelCount)
+        let audioAndFileInfo = AudioAndFileInfo()
+        
+        let assetTracks = track.avAsset!.tracks(withMediaType: AVMediaTypeAudio)
+        audioAndFileInfo.format = getFormat(assetTracks[0])
         
         // File size and bit rate
-        let filePath = track.file.path
-        let size = FileSystemUtils.sizeOfFile(path: filePath)
-        let bitRate = normalizeBitRate(Double(size.sizeBytes) * 8 / (Double(track.duration!) * Double(Size.KB)))
-        track.bitRate = bitRate
-        track.size = size
+        audioAndFileInfo.size = FileSystemUtils.sizeOfFile(path: track.file.path)
+        audioAndFileInfo.bitRate = normalizeBitRate(Double(audioAndFileInfo.size!.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB)))
+        
+        track.audioAndFileInfo = audioAndFileInfo
         
         fileAttrLoaded = true
         
-        let sourceAsset = track.avAsset!
-        
-        // TODO: This needs to be done with a specialized ID3 reader
-        
-        // Retrieve extended metadata (ID3)
-        let metadataList = sourceAsset.metadata
-        
-        for item in metadataList {
-            
-            if item.commonKey == nil || item.value == nil {
-                continue
-            }
-            
-            if let key = item.commonKey {
-                
-                if (key != "title" && key != "artist" && key != "artwork") {
-                    if (!Utils.isStringEmpty(item.stringValue)) {
-                        track.extendedMetadata[String(key)] = item.stringValue!
-                    }
-                }
-            }
-        }
-        
+        MetadataReader.loadAllMetadata(track)
         extendedMetadataLoaded = true
         
-        track.detailedInfoLoaded = fileAttrLoaded && extendedMetadataLoaded
-    }
-    
-    // (Lazily) load extended metadata (e.g. album), for a search, when it is requested by the UI
-    static func loadExtendedMetadataForSearch(_ track: Track) {
-        
-        // Check if metadata has already been loaded
-        if (track.extendedMetadata["albumName"] != nil) {
-            return
-        }
-        
-        let sourceAsset = track.avAsset!
-        
-        // Retrieve extended metadata (ID3)
-        let metadataList = sourceAsset.commonMetadata
-        
-        for item in metadataList {
-            
-            if item.commonKey == nil || item.value == nil {
-                continue
-            }
-            
-            if let key = item.commonKey {
-                
-                if (key == "albumName") {
-                    if (!Utils.isStringEmpty(item.stringValue)) {
-                        track.extendedMetadata[String(key)] = item.stringValue!
-                    }
-                }
-            }
-        }
+        lazyLoadInfo.detailedInfoLoaded = fileAttrLoaded && extendedMetadataLoaded
     }
     
     // Normalizes a bit rate by rounding it to the nearest multiple of 32. For ex, a bit rate of 251.5 kbps is rounded to 256 kbps.

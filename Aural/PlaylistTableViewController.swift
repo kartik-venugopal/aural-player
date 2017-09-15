@@ -25,13 +25,13 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
         if (tableColumn?.identifier == UIConstants.trackNameColumnID) {
             
             // Track name
-            let trackName = (track.shortDisplayName)!
+            let trackName = track.conciseDisplayName
             return createCell(tableView, UIConstants.trackNameColumnID, trackName)
         
         } else {
             
             // Duration
-            let duration = Utils.formatDuration((track.duration)!)
+            let duration = Utils.formatDuration(track.duration)
             return createCell(tableView, UIConstants.durationColumnID, duration)
         }
     }

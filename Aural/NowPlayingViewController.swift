@@ -57,34 +57,25 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         
         var artistAndTitleAvailable: Bool = false
         
-        if (track.longDisplayName != nil) {
+        if (track.displayInfo.hasArtistAndTitle()) {
             
-            if (track.longDisplayName!.artist != nil) {
-                
-                artistAndTitleAvailable = true
-                
-                // Both title and artist
-                lblTrackArtist.stringValue = "Artist:  " + track.longDisplayName!.artist!
-                lblTrackTitle.stringValue = "Title:  " + track.longDisplayName!.title!
-                
-            } else {
-                
-                // Title only
-                lblTrackName.stringValue = track.longDisplayName!.title!
-            }
+            artistAndTitleAvailable = true
+            
+            // Both title and artist
+            lblTrackArtist.stringValue = "Artist:  " + track.displayInfo.artist!
+            lblTrackTitle.stringValue = "Title:  " + track.displayInfo.title!
             
         } else {
             
-            // Short display name
-            lblTrackName.stringValue = track.shortDisplayName!
+            lblTrackName.stringValue = track.conciseDisplayName
         }
         
         lblTrackName.isHidden = artistAndTitleAvailable
         lblTrackArtist.isHidden = !artistAndTitleAvailable
         lblTrackTitle.isHidden = !artistAndTitleAvailable
         
-        if (track.metadata != nil && track.metadata!.art != nil) {
-            artView.image = track.metadata!.art!
+        if (track.displayInfo.art != nil) {
+            artView.image = track.displayInfo.art!
         } else {
             artView.image = UIConstants.imgMusicArt
         }

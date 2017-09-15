@@ -151,7 +151,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     // Returns index of newly added track
     private func addTrack(_ file: URL, _ progress: TrackAddedAsyncMessageProgress) throws -> Int {
         
-        let track = TrackIO.initializeTrack(file)
+        let track = Track(file)
         let index = playlist.addTrack(track)
         
         if (index >= 0) {

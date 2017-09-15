@@ -21,7 +21,7 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
     // Container for the key-value pairs of info displayed
     private var info: [(key: String, value: String)] = [(key: String, value: String)]()
     
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    private let playbackInfoDelegate: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     // Factory method
     static func create(_ relativeToView: NSView) -> PopoverViewDelegateProtocol {
@@ -60,7 +60,7 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         
-        let _track = playbackInfo.getPlayingTrack()?.track
+        let _track = playbackInfoDelegate.getPlayingTrack()?.track
         if (_track == nil) {
             return 0
         }
@@ -70,33 +70,37 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
         info.removeAll()
         
         info.append((key: "Filename", value: track.file.path))
-        info.append((key: "Size", value: track.size!.toString()))
-        info.append((key: "Format", value: track.format!))
-        info.append((key: "Duration", value: Utils.formatDuration(track.duration!)))
         
-        if (track.metadata != nil) {
+        let audioAndFileInfo = track.audioAndFileInfo!
+        let playbackInfo = track.playbackInfo!
+        
+        info.append((key: "Size", value: audioAndFileInfo.size!.toString()))
+        info.append((key: "Format", value: audioAndFileInfo.format!))
+        info.append((key: "Duration", value: Utils.formatDuration(track.duration)))
             
-            if (track.metadata!.artist != nil) {
-                info.append((key: "Artist", value: track.metadata!.artist!))
-            }
-            
-            if (track.metadata!.title != nil) {
-                info.append((key: "Title", value: track.metadata!.title!))
-            }
+        if (track.displayInfo.artist != nil) {
+            info.append((key: "Artist", value: track.displayInfo.artist!))
         }
         
-        for (key, value) in track.extendedMetadata {
+        if (track.displayInfo.title != nil) {
+            info.append((key: "Title", value: track.displayInfo.title!))
+        }
+        
+        for (key, entry) in track.metadata {
+            
+            let formattedKey = entry.formattedKey()
+            let value = entry.value
             
             // Some tracks have a "Format" metadata entry ... ignore it
             if (key.lowercased() != "format") {
-                info.append((key: Utils.splitCamelCaseWord(key, true), value: value))
+                info.append((key: formattedKey, value: value))
             }
         }
         
-        info.append((key: "Bit Rate", value: String(format: "%d kbps", track.bitRate!)))
-        info.append((key: "Sample Rate", value: String(format: "%@ Hz", Utils.readableLongInteger(Int64(track.sampleRate!)))))
-        info.append((key: "Channels", value: String(track.numChannels!)))
-        info.append((key: "Frames", value: Utils.readableLongInteger(track.frames!)))
+        info.append((key: "Bit Rate", value: String(format: "%d kbps", audioAndFileInfo.bitRate!)))
+        info.append((key: "Sample Rate", value: String(format: "%@ Hz", Utils.readableLongInteger(Int64(playbackInfo.sampleRate!)))))
+        info.append((key: "Channels", value: String(playbackInfo.numChannels!)))
+        info.append((key: "Frames", value: Utils.readableLongInteger(playbackInfo.frames!)))
         
         return info.count
     }

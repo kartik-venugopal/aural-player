@@ -77,8 +77,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             let actualTrack = track!.track!
             TrackIO.prepareForPlayback(actualTrack)
             
-            if (actualTrack.preparationFailed) {
-                throw actualTrack.preparationError!
+            if (actualTrack.lazyLoadingInfo.preparationFailed) {
+                throw actualTrack.lazyLoadingInfo.preparationError!
             }
             
             player.play(actualTrack)
@@ -123,7 +123,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
                 // If track has not already been prepped, add a serial async task (to avoid concurrent prepping of the same track by two threads) to the trackPrepQueue
                 
                 // Async execution is important here, because reading from disk could be expensive and this info is not needed immediately.
-                if (!track.preparedForPlayback) {
+                if (!track.lazyLoadingInfo.preparedForPlayback) {
                     
                     let prepOp = BlockOperation(block: {
                         TrackIO.prepareForPlayback(track)
@@ -192,7 +192,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         let playingTrack = getPlayingTrack()
         let seconds = playingTrack != nil ? player.getSeekPosition() : 0
-        let percentage = playingTrack != nil ? seconds * 100 / playingTrack!.track!.duration! : 0
+        let percentage = playingTrack != nil ? seconds * 100 / playingTrack!.track!.duration : 0
         
         return (seconds, percentage)
     }
@@ -207,7 +207,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         let curPosn = player.getSeekPosition()
         
         let playingTrack = getPlayingTrack()
-        let trackDuration = playingTrack!.track!.duration!
+        let trackDuration = playingTrack!.track!.duration
         
         let newPosn = min(trackDuration, curPosn + Double(preferences.seekLength))
         
@@ -244,7 +244,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         // Calculate the new start position
         let playingTrack = getPlayingTrack()
-        let trackDuration = playingTrack!.track!.duration!
+        let trackDuration = playingTrack!.track!.duration
         
         let newPosn = percentage * trackDuration / 100
         

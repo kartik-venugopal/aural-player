@@ -28,7 +28,7 @@ class Playlist: PlaylistCRUDProtocol {
         var totalDuration: Double = 0
         
         for track in tracks {
-            totalDuration += track.duration!
+            totalDuration += track.duration
         }
         
         return totalDuration
@@ -158,14 +158,14 @@ class Playlist: PlaylistCRUDProtocol {
             
             trackFields["Filename"] = (lastPathComponent, caseSensitive ? lastPathComponent : lastPathComponent.lowercased())
             
-            let displayName = track.shortDisplayName!
+            let displayName = track.conciseDisplayName
             trackFields["Name"] = (displayName, caseSensitive ? displayName : displayName.lowercased())
         }
         
         // Add artist field if included in search
         if (searchQuery.fields.artist) {
             
-            if let artist = track.metadata?.artist {
+            if let artist = track.displayInfo.artist {
                 trackFields["Artist"] = (artist, caseSensitive ? artist : artist.lowercased())
             }
         }
@@ -173,7 +173,7 @@ class Playlist: PlaylistCRUDProtocol {
         // Add title field if included in search
         if (searchQuery.fields.title) {
             
-            if let title = track.metadata?.title {
+            if let title = track.displayInfo.title {
                 trackFields["Title"] = (title, caseSensitive ? title : title.lowercased())
             }
         }
@@ -182,9 +182,9 @@ class Playlist: PlaylistCRUDProtocol {
         if (searchQuery.fields.album) {
             
             // Make sure album info has been loaded (it is loaded lazily)
-            TrackIO.loadExtendedMetadataForSearch(track)
+            MetadataReader.loadSearchMetadata(track)
             
-            if let album = track.extendedMetadata["albumName"] {
+            if let album = track.metadata[AVMetadataCommonKeyAlbumName]?.value {
                 trackFields["Album"] = (album, caseSensitive ? album : album.lowercased())
             }
         }
@@ -239,19 +239,19 @@ class Playlist: PlaylistCRUDProtocol {
     // Comparison functions for different sort criteria
     
     func compareTracks_ascendingByName(aTrack: Track, anotherTrack: Track) -> Bool {
-        return aTrack.shortDisplayName?.compare(anotherTrack.shortDisplayName!) == ComparisonResult.orderedAscending
+        return aTrack.conciseDisplayName.compare(anotherTrack.conciseDisplayName) == ComparisonResult.orderedAscending
     }
     
     func compareTracks_descendingByName(aTrack: Track, anotherTrack: Track) -> Bool {
-        return aTrack.shortDisplayName?.compare(anotherTrack.shortDisplayName!) == ComparisonResult.orderedDescending
+        return aTrack.conciseDisplayName.compare(anotherTrack.conciseDisplayName) == ComparisonResult.orderedDescending
     }
     
     func compareTracks_ascendingByDuration(aTrack: Track, anotherTrack: Track) -> Bool {
-        return aTrack.duration! < anotherTrack.duration!
+        return aTrack.duration < anotherTrack.duration
     }
     
     func compareTracks_descendingByDuration(aTrack: Track, anotherTrack: Track) -> Bool {
-        return aTrack.duration! > anotherTrack.duration!
+        return aTrack.duration > anotherTrack.duration
     }
     
     func persistentState() -> PlaylistState {

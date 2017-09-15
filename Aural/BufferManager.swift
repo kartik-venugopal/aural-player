@@ -42,9 +42,8 @@ class BufferManager {
     // Starts track playback from a given frame position. The playbackSesssion parameter is used to ensure that no buffers are scheduled on the player for an old playback session.
     private func startPlaybackFromFrame(_ playbackSession: PlaybackSession, _ frame: AVAudioFramePosition) {
         
-        // Can assume that track.avFile is non-nil, because track has been prepared for playback
-        let track: Track = playbackSession.track
-        let playingFile: AVAudioFile = track.avFile!
+        // Can assume that avFile is non-nil, because track has been prepared for playback
+        let playingFile: AVAudioFile = playbackSession.track.playbackInfo!.avFile!
         
         // Set the position in the audio file from which reading is to begin
         playingFile.framePosition = frame
@@ -87,11 +86,10 @@ class BufferManager {
     private func scheduleNextBuffer(_ playbackSession: PlaybackSession, _ schedulingSession: SchedulingSession, _ bufferSize: UInt32 = BufferManager.BUFFER_SIZE) {
         
         // Can assume that track.avFile is non-nil, because track has been prepared for playback
-        let track: Track = playbackSession.track
-        let playingFile: AVAudioFile = track.avFile!
+        let playbackInfo = playbackSession.track.playbackInfo!
+        let playingFile: AVAudioFile = playbackInfo.avFile!
         
-        let sampleRate = playingFile.processingFormat.sampleRate
-        let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: playingFile.processingFormat, frameCapacity: AVAudioFrameCount(Double(bufferSize) * sampleRate))
+        let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: playingFile.processingFormat, frameCapacity: AVAudioFrameCount(Double(bufferSize) * playbackInfo.sampleRate!))
         
         do {
             try playingFile.read(into: buffer)
@@ -99,7 +97,7 @@ class BufferManager {
             NSLog("Error reading from audio file '%@' atPos '%d': %@", playingFile.url.lastPathComponent, playingFile.framePosition, error.description)
         }
         
-        let readAllFrames = playingFile.framePosition >= track.frames!
+        let readAllFrames = playingFile.framePosition >= playbackInfo.frames!
         let bufferNotFull = buffer.frameLength < buffer.frameCapacity
         
         // If all frames have been read, OR the buffer is not full, consider track done playing (EOF)
@@ -127,9 +125,7 @@ class BufferManager {
         stop()
         
         // Can assume that track.avFile is non-nil, because track has been prepared for playback
-        let track: Track = playbackSession.track
-        let playingFile: AVAudioFile = track.avFile!
-        let sampleRate = playingFile.processingFormat.sampleRate
+        let sampleRate = playbackSession.track.playbackInfo!.sampleRate!
         
         //  Multiply sample rate by the new time in seconds. This will give the exact start frame.
         let firstFrame = Int64(seconds * sampleRate)

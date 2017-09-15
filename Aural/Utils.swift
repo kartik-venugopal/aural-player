@@ -44,7 +44,12 @@ class Utils {
                 // Upper case character
                 
                 // Add a space to delimit the words
-                newString.append(" ")
+                if (!firstLetter) {
+                    // Don't append a space if it's the first word (if first word is already capitalized as in "AlbumName")
+                    newString.append(" ")
+                } else {
+                    firstLetter = false
+                }
                 
                 if (capitalizeEachWord) {
                     newString.append(eachCharacter)
