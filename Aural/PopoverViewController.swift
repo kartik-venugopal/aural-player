@@ -18,6 +18,10 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
     // The table view that displays the track info
     @IBOutlet weak var trackInfoView: NSTableView!
     
+    // Used to measure table row height
+    @IBOutlet var virtualKeyField: NSTextField!
+    @IBOutlet var virtualValueField: NSTextField!
+    
     // Container for the key-value pairs of info displayed
     private var info: [(key: String, value: String)] = [(key: String, value: String)]()
     
@@ -113,39 +117,17 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
     // Adjust row height based on if the text wraps over to the next line
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         
-        // Check if the text for the current row will exceed column width (value column)
-        let keyString: NSString = info[row].key as NSString
-        let keyStrSize: CGSize = keyString.size(withAttributes: [NSFontAttributeName: UIConstants.popoverKeyFont as AnyObject])
+        let keyText = info[row].key
+        let valueText = info[row].value
         
-        let keyRowHeight: CGFloat
-        if (keyStrSize.width > UIConstants.trackInfoKeyColumnWidth) {
-            
-            let rows = Int(keyStrSize.width / UIConstants.trackInfoKeyColumnWidth) + 1
-            // This means the text has wrapped over to the second line
-            // So, increase the row height
-            keyRowHeight = CGFloat(rows) * UIConstants.trackInfoRowHeight * UIConstants.trackInfoLongTextRowHeightMultiplier
-        } else {
-            // No wrap, one row height is enough
-            keyRowHeight = UIConstants.trackInfoRowHeight
-        }
+        virtualKeyField.stringValue = keyText
+        virtualValueField.stringValue = valueText
         
-        // Check if the text for the current row will exceed column width (value column)
-        let valueString: NSString = info[row].value as NSString
-        let valueStrSize: CGSize = valueString.size(withAttributes: [NSFontAttributeName: UIConstants.popoverValueFont as AnyObject])
+        let keyHeight = virtualKeyField.cell!.cellSize(forBounds: NSMakeRect(CGFloat(0.0), CGFloat(0.0), UIConstants.trackInfoKeyColumnWidth, CGFloat(Float.greatestFiniteMagnitude))).height
         
-        let valueRowHeight: CGFloat
-        if (valueStrSize.width > UIConstants.trackInfoValueColumnWidth) {
-            
-            let rows = Int(valueStrSize.width / UIConstants.trackInfoValueColumnWidth) + 1
-            // This means the text has wrapped over to the second line
-            // So, increase the row height
-            valueRowHeight = CGFloat(rows) * UIConstants.trackInfoRowHeight * UIConstants.trackInfoLongTextRowHeightMultiplier
-        } else {
-            // No wrap, one row height is enough
-            valueRowHeight = UIConstants.trackInfoRowHeight
-        }
+        let valueHeight = virtualValueField.cell!.cellSize(forBounds: NSMakeRect(CGFloat(0.0), CGFloat(0.0), UIConstants.trackInfoValueColumnWidth, CGFloat(Float.greatestFiniteMagnitude))).height
         
-        return max(keyRowHeight, valueRowHeight)
+        return max(keyHeight, valueHeight) + 5
     }
     
     // Completely disable row selection
