@@ -65,9 +65,15 @@ struct TrackChangedNotification: NotificationMessage {
     
     var messageType: MessageType = .trackChangedNotification
     var newTrack: IndexedTrack?
+    var errorState: Bool = false
     
     init(_ newTrack: IndexedTrack?) {
         self.newTrack = newTrack
+    }
+    
+    init(_ newTrack: IndexedTrack?, _ errorState: Bool) {
+        self.newTrack = newTrack
+        self.errorState = errorState
     }
 }
 

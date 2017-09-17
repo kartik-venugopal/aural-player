@@ -240,7 +240,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
             setPlayPauseImage(UIConstants.imgPlay)
         }
         
-        let trackChgNotification = TrackChangedNotification(newTrack)
+        let trackChgNotification = TrackChangedNotification(newTrack, errorState)
         SyncMessenger.publishNotification(trackChgNotification)
     }
     

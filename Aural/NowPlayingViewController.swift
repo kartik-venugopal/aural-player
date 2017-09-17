@@ -148,6 +148,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
             
             setSeekTimerState(false)
             clearNowPlayingInfo()
+            toggleMoreInfoButtons(false)
+            popoverView.close()
         }
         
         resetSeekPosition()
@@ -181,7 +183,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         
         if (notification is TrackChangedNotification) {
             let msg = notification as! TrackChangedNotification
-            trackChange(msg.newTrack, false)
+            trackChange(msg.newTrack, msg.errorState)
             return
         }
         

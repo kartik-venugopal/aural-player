@@ -77,14 +77,11 @@ class MetadataReader {
                         }
                     }
                     
-                } else {
+                } else if let key = item.key as? String {
                     
-                    if let key = item.key as? String {
-                        
-                        if (!Utils.isStringEmpty(val)) {
-                            let entry = MetadataEntry(metadataType, key, val!)
-                            track.metadata[key] = entry
-                        }
+                    if (!Utils.isStringEmpty(val)) {
+                        let entry = MetadataEntry(metadataType, key, val!)
+                        track.metadata[key] = entry
                     }
                 }
             }
