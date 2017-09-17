@@ -19,14 +19,14 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="341"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="102" horizontalPageScroll="10" verticalLineScroll="102" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCi-21-MRa">
+                <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="502" horizontalPageScroll="10" verticalLineScroll="502" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCi-21-MRa">
                     <rect key="frame" x="12" y="19" width="455" height="282"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="hYB-5h-Z23">
                         <rect key="frame" x="0.0" y="0.0" width="455" height="282"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="100" rowSizeStyle="automatic" viewBased="YES" id="FNS-yf-Iy0">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="500" rowSizeStyle="automatic" viewBased="YES" id="FNS-yf-Iy0">
                                 <rect key="frame" x="0.0" y="0.0" width="455" height="282"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -47,11 +47,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="QeN-zp-ifg">
-                                                <rect key="frame" x="1" y="1" width="125" height="100"/>
+                                                <rect key="frame" x="1" y="1" width="125" height="500"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5C-W9-v0v">
-                                                        <rect key="frame" x="-2" y="0.0" width="125" height="100"/>
+                                                        <rect key="frame" x="-2" y="0.0" width="125" height="500"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="xAi-0I-nAg">
                                                             <font key="font" size="13" name="GillSans"/>
@@ -80,11 +80,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="pOW-cJ-a69">
-                                                <rect key="frame" x="129" y="1" width="315" height="100"/>
+                                                <rect key="frame" x="129" y="1" width="315" height="500"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5G-6P-XQ5">
-                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="100"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="500"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="vn1-yN-fwV">
                                                             <font key="font" size="13" name="GillSans-Light"/>
@@ -147,7 +147,7 @@
             </connections>
         </viewController>
         <textField hidden="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" id="nfR-av-vN1" userLabel="Virtual Key Field">
-            <rect key="frame" x="0.0" y="0.0" width="125" height="100"/>
+            <rect key="frame" x="0.0" y="0.0" width="125" height="500"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="YQG-Fa-9nG">
                 <font key="font" size="13" name="GillSans"/>
@@ -157,7 +157,7 @@
             <point key="canvasLocation" x="-117" y="76"/>
         </textField>
         <textField hidden="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" id="bWc-Mq-OlE" userLabel="Virtual Value Field">
-            <rect key="frame" x="0.0" y="0.0" width="315" height="100"/>
+            <rect key="frame" x="0.0" y="0.0" width="315" height="500"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="PM9-we-s9f">
                 <font key="font" size="13" name="GillSans-Light"/>
