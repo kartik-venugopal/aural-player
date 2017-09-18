@@ -54,17 +54,4 @@ class GraphicsUtils {
         
         text.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: attrs)
     }
-    
-    static func drawLeftAlignedTextInRect(_ rect: NSRect, _ text: String, _ textColor: NSColor, _ font: NSFont) {
-        
-        let attrs: [String: AnyObject] = [
-            NSFontAttributeName: font,
-            NSForegroundColorAttributeName: textColor]
-        
-        let size: CGSize = text.size(withAttributes: attrs)
-        let sx = rect.minX
-        let sy = (rect.height - size.height) / 2 - 2
-        
-        text.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: attrs)
-    }
 }
