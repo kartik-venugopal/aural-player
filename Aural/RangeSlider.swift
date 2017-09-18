@@ -20,10 +20,6 @@
 import Foundation
 import Cocoa
 
-let verticalShadowPadding: CGFloat = 4.0
-let barTrailingMargin: CGFloat = 1.0
-let disabledControlDimmingRatio: CGFloat = 0.65
-
 struct SelectionRange {
     var start: Double
     var end: Double
@@ -32,16 +28,6 @@ struct SelectionRange {
 enum DraggedSlider {
     case start
     case end
-}
-
-enum RangeSliderColorStyle {
-    case yellow
-    case aqua
-}
-
-enum RangeSliderKnobStyle {
-    case square
-    case circular
 }
 
 @IBDesignable
@@ -58,6 +44,10 @@ class RangeSlider: NSView {
     //****************************************************************************//
     
     //MARK: - Public API -
+    
+    let verticalShadowPadding: CGFloat = 4.0
+    let barTrailingMargin: CGFloat = 1.0
+    let disabledControlDimmingRatio: CGFloat = 0.65
     
     /** Whether the control is enabled. By default, if set to false, the control will
      render itself dimmed and ignores user interaction. */
@@ -138,21 +128,6 @@ class RangeSlider: NSView {
      to reposition the bars. */
     var allowClicksOnBarToMoveSliders: Bool = true
     
-    /** The color style of the slider. */
-    var colorStyle: RangeSliderColorStyle = .yellow {
-        didSet {
-            recreateBarFillGradient()
-            setNeedsDisplay(bounds)
-        }
-    }
-    
-    /** The shape style of the slider knobs. Defaults to square. */
-    var knobStyle: RangeSliderKnobStyle = .square {
-        didSet {
-            setNeedsDisplay(bounds)
-        }
-    }
-    
     //****************************************************************************//
     //****************************************************************************//
     
@@ -228,25 +203,16 @@ class RangeSlider: NSView {
     }
     
     private func createBarFillGradientBasedOnCurrentStyle() -> NSGradient {
-        var fillStart: NSColor? = nil
-        var fillEnd: NSColor? = nil
         
-        if colorStyle == .yellow {
-            
-            fillStart = NSColor.red
-            fillEnd = NSColor(deviceRed: CGFloat(0.5), green: CGFloat(0), blue: CGFloat(0), alpha: CGFloat(1))
-            
-        } else {
-            fillStart = NSColor(red: 76/255.0, green: 187/255.0, blue: 251/255.0, alpha: 1.0)
-            fillEnd = NSColor(red: 20/255.0, green: 133/255.0, blue: 243/255.0, alpha: 1.0)
-        }
+        var fillStart: NSColor = NSColor.red
+        var fillEnd: NSColor = NSColor(deviceRed: CGFloat(0.5), green: CGFloat(0), blue: CGFloat(0), alpha: CGFloat(1))
         
         if (!enabled) {
-            fillStart = fillStart?.colorByDesaturating(disabledControlDimmingRatio).withAlphaComponent(disabledControlDimmingRatio)
-            fillEnd = fillEnd?.colorByDesaturating(disabledControlDimmingRatio).withAlphaComponent(disabledControlDimmingRatio)
+            fillStart = fillStart.colorByDesaturating(disabledControlDimmingRatio).withAlphaComponent(disabledControlDimmingRatio)
+            fillEnd = fillEnd.colorByDesaturating(disabledControlDimmingRatio).withAlphaComponent(disabledControlDimmingRatio)
         }
         
-        let barFillGradient = NSGradient(starting: fillStart!, ending: fillEnd!)
+        let barFillGradient = NSGradient(starting: fillStart, ending: fillEnd)
         assert(barFillGradient != nil, "Couldn't generate gradient.")
         
         return barFillGradient!
@@ -260,20 +226,13 @@ class RangeSlider: NSView {
     
     private var barFillStrokeColor: NSColor {
         get {
-            var colorForStyle: NSColor
-            
-            if colorStyle == .yellow {
-                //                colorForStyle = NSColor(red: 1.0, green: 170/255.0, blue: 16/255.0, alpha: 0.70)
-                colorForStyle = NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.7), blue: CGFloat(0.7), alpha: CGFloat(1))
-            } else {
-                colorForStyle = NSColor(red: 12/255.0, green: 118/255.0, blue: 227/255.0, alpha: 0.70)
-            }
+            var color: NSColor = NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.7), blue: CGFloat(0.7), alpha: CGFloat(1))
             
             if (!enabled) {
-                colorForStyle = colorForStyle.colorByDesaturating(disabledControlDimmingRatio)
+                color = color.colorByDesaturating(disabledControlDimmingRatio)
             }
             
-            return colorForStyle
+            return color
         }
     }
     
@@ -299,18 +258,12 @@ class RangeSlider: NSView {
     
     private var sliderWidth: CGFloat {
         get {
-            if knobStyle == .square {
-                //                return 8.0
-                return 10
-            } else {
-                return NSHeight(bounds) - verticalShadowPadding
-            }
+            return 10
         }
     }
     
     private var sliderHeight: CGFloat {
         get {
-            //            return NSHeight(bounds) - verticalShadowPadding
             return 7
         }
     }
@@ -450,14 +403,13 @@ class RangeSlider: NSView {
         let barRect = crispLineRect(NSMakeRect(0, barY, width, barHeight))
         let selectedRect = crispLineRect(NSMakeRect(CGFloat(selection.start) * width, barY,
                                                     width * CGFloat(selection.end - selection.start), barHeight))
-        let isSquareSlider = (knobStyle == .square)
         
         /*  Create bezier paths */
         let framePath = NSBezierPath(roundedRect: barRect, xRadius: 1.5, yRadius: 1.5)
         let selectedPath = NSBezierPath(roundedRect: selectedRect, xRadius: 1.5, yRadius: 1.5)
         
-        let startSliderPath = isSquareSlider ? NSBezierPath(rect: startSliderFrame) : NSBezierPath(ovalIn: startSliderFrame)
-        let endSliderPath = isSquareSlider ? NSBezierPath(rect: endSliderFrame) : NSBezierPath(ovalIn: endSliderFrame)
+        let startSliderPath = NSBezierPath(rect: startSliderFrame)
+        let endSliderPath = NSBezierPath(rect: endSliderFrame)
         
         /*  Draw bar background */
         barBackgroundGradient.draw(in: framePath, angle: -UIConstants.verticalGradientDegrees)
@@ -503,7 +455,6 @@ class RangeSlider: NSView {
         endSliderPath.fill()
     }
 }
-
 
 extension NSColor {
     func colorByDesaturating(_ desaturationRatio: CGFloat) -> NSColor {
