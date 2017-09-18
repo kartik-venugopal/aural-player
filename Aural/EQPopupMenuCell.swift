@@ -13,7 +13,7 @@ class EQPopupMenuCell: NSPopUpButtonCell {
         let drawRect = cellFrame.insetBy(dx: (frameWidth - rectWidth) / 2, dy: 3)
         
         let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 2, yRadius: 2)
-        Colors.sliderBarGradient.draw(in: drawPath, angle: -verticalGradientDegrees)
+        Colors.sliderBarGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
         
         // Draw arrow
         let x = drawRect.maxX - (rectWidth / 2), y = drawRect.maxY - 4

@@ -20,7 +20,6 @@
 import Foundation
 import Cocoa
 
-let verticalGradientDegrees: CGFloat = -90.0
 let verticalShadowPadding: CGFloat = 4.0
 let barTrailingMargin: CGFloat = 1.0
 let disabledControlDimmingRatio: CGFloat = 0.65
@@ -461,7 +460,7 @@ class RangeSlider: NSView {
         let endSliderPath = isSquareSlider ? NSBezierPath(rect: endSliderFrame) : NSBezierPath(ovalIn: endSliderFrame)
         
         /*  Draw bar background */
-        barBackgroundGradient.draw(in: framePath, angle: -verticalGradientDegrees)
+        barBackgroundGradient.draw(in: framePath, angle: -UIConstants.verticalGradientDegrees)
         
         /*  Draw bar fill */
         if NSWidth(selectedRect) > 0.0 {
@@ -470,7 +469,7 @@ class RangeSlider: NSView {
             }
             
             if let fillGradient = barFillGradient {
-                fillGradient.draw(in: selectedPath, angle: verticalGradientDegrees)
+                fillGradient.draw(in: selectedPath, angle: UIConstants.verticalGradientDegrees)
                 barFillStrokeColor.setStroke()
                 //                selectedPath.stroke()
             }
@@ -491,10 +490,10 @@ class RangeSlider: NSView {
         }
         
         /*  Draw slider knobs */
-        sliderGradient.draw(in: endSliderPath, angle: verticalGradientDegrees)
+        sliderGradient.draw(in: endSliderPath, angle: UIConstants.verticalGradientDegrees)
         endSliderPath.stroke()
         
-        sliderGradient.draw(in: startSliderPath, angle: verticalGradientDegrees)
+        sliderGradient.draw(in: startSliderPath, angle: UIConstants.verticalGradientDegrees)
         startSliderPath.stroke()
         
         let knobColor = Colors.sliderKnobColor

@@ -33,7 +33,7 @@ class EQSliderCell: NSSliderCell {
         let tickRect = rectOfTickMark(at: 0)
         let y = (tickRect.minY + tickRect.maxY) / 2
         
-        GraphicsUtils.drawLine(Colors.effectsSliderNotchColor, pt1: NSMakePoint(tickMinX, y), pt2: NSMakePoint(tickMaxX, y), width: 2)
+        GraphicsUtils.drawLine(Colors.sliderNotchColor, pt1: NSMakePoint(tickMinX, y), pt2: NSMakePoint(tickMaxX, y), width: 2)
     }
     
     override func drawTickMarks() {

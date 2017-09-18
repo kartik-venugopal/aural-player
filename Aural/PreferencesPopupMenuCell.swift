@@ -11,7 +11,7 @@ class PreferencesPopupMenuCell: NSPopUpButtonCell {
         let drawRect = cellFrame.insetBy(dx: 0, dy: 5)
         let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: 2, yRadius: 2)
         
-        Colors.sliderBarGradient.draw(in: drawPath, angle: -verticalGradientDegrees)
+        Colors.sliderBarGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
         
         // Draw arrow
         let x = drawRect.maxX - 10, y = drawRect.maxY - 6

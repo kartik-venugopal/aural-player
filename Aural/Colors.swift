@@ -56,8 +56,8 @@ class Colors {
         return barBackgroundGradient!
     }()
     
-    // Color of the ticks/notches on effects unit sliders
-    static let effectsSliderNotchColor: NSColor = NSColor(calibratedWhite: 0.2, alpha: 1)
+    // Color of the ticks/notches on sliders
+    static let sliderNotchColor: NSColor = NSColor(calibratedWhite: 0.2, alpha: 1)
     
     // Pop up menu (reverb/EQ/recorder) color
     static let popupMenuColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)

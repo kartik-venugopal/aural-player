@@ -102,4 +102,6 @@ class UIConstants {
     static let windowHeight_playlistAndEffects: CGFloat = 629
     static let windowHeight_playlistOnly: CGFloat = 443
     static let windowHeight_effectsOnly: CGFloat = 411
+    
+    static let verticalGradientDegrees: CGFloat = -90.0
 }
