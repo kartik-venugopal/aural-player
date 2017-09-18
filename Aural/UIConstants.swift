@@ -55,11 +55,13 @@ class UIConstants {
     static let playlistBoldFont: NSFont = NSFont(name: "Gill Sans", size: 13.5)!
     static let playlistRegularFont: NSFont = NSFont(name: "Gill Sans Light", size: 13.5)!
     
+    private static let gillSans12Font: NSFont = NSFont(name: "Gill Sans", size: 12)!
+    
     // Fonts used by the effects tab view buttons
-    static let tabViewButtonFont: NSFont = NSFont(name: "Gill Sans", size: 12)!
+    static let tabViewButtonFont: NSFont = gillSans12Font
     
     // Fonts used by the search/sort modal dialog done/cancel buttons
-    static let modalDialogButtonFont: NSFont = NSFont(name: "Gill Sans", size: 12)!
+    static let modalDialogButtonFont: NSFont = gillSans12Font
     
     // Fonts used by the search/sort modal dialog navigation buttons
     static let modalDialogNavButtonFont: NSFont = NSFont(name: "Gill Sans Bold", size: 12)!
@@ -78,21 +80,13 @@ class UIConstants {
     
     // Values used to determine the row height of table rows in the detailed track info popover view
     static let trackInfoKeyColumnWidth: CGFloat = 125
-    
     static let trackInfoValueColumnWidth: CGFloat = 315
-    
-    static let trackInfoRowHeight: CGFloat = 26
-    static let trackInfoLongTextRowHeight: CGFloat = 1.75 * trackInfoRowHeight
-    static let trackInfoLongTextRowHeightMultiplier: CGFloat = 0.9
     
     // Seek timer interval (milliseconds)
     static let seekTimerIntervalMillis: Int = 500
     
     // Recorder timer interval (milliseconds)
     static let recorderTimerIntervalMillis: Int = 500
-    
-    // Spacing between collapsible views
-    static let collapsibleViewSpacing: CGFloat = 12
     
     // Window width never changes
     static let windowWidth: CGFloat = 415

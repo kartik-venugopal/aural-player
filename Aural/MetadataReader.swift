@@ -66,11 +66,6 @@ class MetadataReader {
                 
                 let val = item.stringValue
                 
-                let k = item.key as? String ?? nil
-                let ck = item.commonKey ?? nil
-                
-                print("\nKey:", k, "CommonKey:", ck, "Value:", val)
-                
                 if let key = item.commonKey {
                     
                     // Ignore the display metadata keys (that have already been loaded)
