@@ -42,17 +42,29 @@ class GraphicsUtils {
         arrow.stroke()
     }
     
-    static func drawText(_ text: String, _ origin: NSPoint, _ textColor: NSColor, _ font: NSFont) {
+    static func drawCenteredTextInRect(_ rect: NSRect, _ text: String, _ textColor: NSColor, _ font: NSFont) {
         
         let attrs: [String: AnyObject] = [
             NSFontAttributeName: font,
             NSForegroundColorAttributeName: textColor]
         
         let size: CGSize = text.size(withAttributes: attrs)
-        let sx = origin.x
-        let sy = origin.y
+        let sx = (rect.width - size.width) / 2
+        let sy = (rect.height - size.height) / 2 - 2
         
-        let textRect = NSRect(x: sx, y: sy, width: size.width, height: size.height)
-        text.draw(in: textRect, withAttributes: attrs)
+        text.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: attrs)
+    }
+    
+    static func drawLeftAlignedTextInRect(_ rect: NSRect, _ text: String, _ textColor: NSColor, _ font: NSFont) {
+        
+        let attrs: [String: AnyObject] = [
+            NSFontAttributeName: font,
+            NSForegroundColorAttributeName: textColor]
+        
+        let size: CGSize = text.size(withAttributes: attrs)
+        let sx = rect.minX
+        let sy = (rect.height - size.height) / 2 - 2
+        
+        text.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: attrs)
     }
 }

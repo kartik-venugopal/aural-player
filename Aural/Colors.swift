@@ -21,11 +21,8 @@ class Colors {
     // Fill color of all slider knobs
     static let sliderKnobColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
     
-    // Outline color of navigation buttons on modal dialogs
-    static let modalDialogNavButtonOutlineColor: NSColor = NSColor(calibratedWhite: 0.65, alpha: 1)
-    
-    // Outline color of response (Done/Cancel) buttons on modal dialogs
-    static let modalDialogResponseButtonOutlineColor: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
+    // Outline color of buttons on modal dialogs
+    static let modalDialogButtonOutlineColor: NSColor = NSColor(calibratedWhite: 0.575, alpha: 1)
     
     // Color used to outline tab view buttons
     static let tabViewButtonOutlineColor: NSColor = NSColor(calibratedWhite: 0.65, alpha: 1)
@@ -71,10 +68,13 @@ class Colors {
     // Darker version of tabViewSelectionBoxColor
     static let darkTabViewSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.2, alpha: 1)
     
+    // Fill color of modal dialog buttons
+    static let modalDialogButtonColor: NSColor = NSColor.black
+    
     // Fill color of modal dialog navigation buttons (search)
     static let modalDialogNavButtonColor: NSColor = NSColor(calibratedWhite: 0.45, alpha: 1)
     
-    // Fill color of modal dialog navigation buttons (search)
+    // Fill color of text in modal dialog navigation buttons (search)
     static let modalDialogNavButtonTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
     
     // Color of cursor inside playlist search field

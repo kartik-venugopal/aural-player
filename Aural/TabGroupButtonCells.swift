@@ -25,43 +25,29 @@ class TabGroupButtonCell: NSButtonCell {
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         
+        // Background
         if (fillBeforeBorder) {
             backgroundFillColor.setFill()
             let backgroundPath = NSBezierPath.init(rect: cellFrame)
             backgroundPath.fill()
         }
         
-        // Draw border
+        // Border
         let drawRect = cellFrame.insetBy(dx: borderInsetX, dy: borderInsetY)
         let roundedPath = NSBezierPath.init(roundedRect: drawRect, xRadius: borderRadius, yRadius: borderRadius)
         borderStrokeColor.setStroke()
         roundedPath.lineWidth = borderLineWidth
         roundedPath.stroke()
         
-        // If selected, fill in the rect
+        // Selection
         if (self.state == 1) {
-            let roundedPath = NSBezierPath.init(roundedRect: drawRect, xRadius: borderRadius, yRadius: borderRadius)
             selectionBoxColor.setFill()
             roundedPath.fill()
         }
-        
-        drawTitle(cellFrame)
-    }
-    
-    internal func drawTitle(_ cellFrame: NSRect) {
-        
-        // Draw the title
+     
+        // Title
         let textColor = shouldHighlight ? highlightColor : (state == 0 ? unselectedTextColor : selectedTextColor)
-        let attrs: [String: AnyObject] = [
-            NSFontAttributeName: textFont,
-            NSForegroundColorAttributeName: textColor]
-        
-        let size: CGSize = title!.size(withAttributes: attrs)
-        let sx = (cellFrame.width - size.width) / 2
-        let sy = (cellFrame.height - size.height) / 2 - 2
-        
-        let textRect = NSRect(x: sx, y: sy, width: size.width, height: size.height)
-        title!.draw(in: textRect, withAttributes: attrs)
+        GraphicsUtils.drawCenteredTextInRect(cellFrame, title, textColor, textFont)
     }
 }
 

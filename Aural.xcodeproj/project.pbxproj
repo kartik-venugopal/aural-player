@@ -41,8 +41,7 @@
 		3E426F801EFDDDEE002F5F18 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7F1EFDDDEE002F5F18 /* Utils.swift */; };
 		3E426F821EFDEEBE002F5F18 /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F811EFDEEBE002F5F18 /* PlaybackState.swift */; };
 		3E46F55C1F2A7A36007CD384 /* CheckRadioButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F55B1F2A7A36007CD384 /* CheckRadioButtonCell.swift */; };
-		3E46F55E1F2A8003007CD384 /* ColoredNavigationButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F55D1F2A8003007CD384 /* ColoredNavigationButtonCell.swift */; };
-		3E46F5601F2A88D1007CD384 /* ModalDialogResponseButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F55F1F2A88D1007CD384 /* ModalDialogResponseButtonCell.swift */; };
+		3E46F55E1F2A8003007CD384 /* ModalDialogButtonCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F55D1F2A8003007CD384 /* ModalDialogButtonCells.swift */; };
 		3E46F5641F2A918B007CD384 /* ColoredCursorSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F5631F2A918B007CD384 /* ColoredCursorSearchField.swift */; };
 		3E46F5661F2ABA57007CD384 /* PopoverContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F5651F2ABA57007CD384 /* PopoverContentView.swift */; };
 		3E4BBA5C1F030E5B0025F371 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4BBA5B1F030E5B0025F371 /* UIConstants.swift */; };
@@ -153,8 +152,7 @@
 		3E426F7F1EFDDDEE002F5F18 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		3E426F811EFDEEBE002F5F18 /* PlaybackState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackState.swift; sourceTree = "<group>"; };
 		3E46F55B1F2A7A36007CD384 /* CheckRadioButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckRadioButtonCell.swift; sourceTree = "<group>"; };
-		3E46F55D1F2A8003007CD384 /* ColoredNavigationButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColoredNavigationButtonCell.swift; sourceTree = "<group>"; };
-		3E46F55F1F2A88D1007CD384 /* ModalDialogResponseButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalDialogResponseButtonCell.swift; sourceTree = "<group>"; };
+		3E46F55D1F2A8003007CD384 /* ModalDialogButtonCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalDialogButtonCells.swift; sourceTree = "<group>"; };
 		3E46F5631F2A918B007CD384 /* ColoredCursorSearchField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColoredCursorSearchField.swift; sourceTree = "<group>"; };
 		3E46F5651F2ABA57007CD384 /* PopoverContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverContentView.swift; sourceTree = "<group>"; };
 		3E4BBA5B1F030E5B0025F371 /* UIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
@@ -282,9 +280,8 @@
 			isa = PBXGroup;
 			children = (
 				3E9463961F29960F00A9019C /* TabGroupButtonCells.swift */,
+				3E46F55D1F2A8003007CD384 /* ModalDialogButtonCells.swift */,
 				3E46F55B1F2A7A36007CD384 /* CheckRadioButtonCell.swift */,
-				3E46F55D1F2A8003007CD384 /* ColoredNavigationButtonCell.swift */,
-				3E46F55F1F2A88D1007CD384 /* ModalDialogResponseButtonCell.swift */,
 			);
 			name = ButtonCells;
 			sourceTree = "<group>";
@@ -666,7 +663,6 @@
 				3E3D489B1F464C02004C0F91 /* Errors.swift in Sources */,
 				3E3AD54A1F5D2FD5006123E9 /* PlaylistViewController.swift in Sources */,
 				3EBD20081F6C6EC300E1354C /* MetadataSpec.swift in Sources */,
-				3E46F5601F2A88D1007CD384 /* ModalDialogResponseButtonCell.swift in Sources */,
 				3E6D75F81EFF79E0007F22A3 /* KeyPressHandler.swift in Sources */,
 				3E426F7E1EFDD9CF002F5F18 /* Player.swift in Sources */,
 				3E3DCD251F0F913800E09ADC /* AsyncMessages.swift in Sources */,
@@ -683,7 +679,7 @@
 				3E3AD5461F5D2BD1006123E9 /* SyncMessenger.swift in Sources */,
 				3E46F5641F2A918B007CD384 /* ColoredCursorSearchField.swift in Sources */,
 				3E58CC291F02759D00C36DC1 /* Timer.swift in Sources */,
-				3E46F55E1F2A8003007CD384 /* ColoredNavigationButtonCell.swift in Sources */,
+				3E46F55E1F2A8003007CD384 /* ModalDialogButtonCells.swift in Sources */,
 				3E9847861F5CFCE3001A2D28 /* RecorderViewController.swift in Sources */,
 				3E722F7B1EFCF4EC00916BF2 /* PlaylistTableViewController.swift in Sources */,
 				3E76D9BC1F0F4228007FF3F8 /* AppDefaults.swift in Sources */,
