@@ -124,9 +124,9 @@ class UIElements {
         
         let alert = NSAlert()
         
-        alert.window.title = "Files not added"
+        alert.window.title = "File(s) not added"
         
-        let infoText: String = "- Files point to missing/broken paths.\n- Files have no valid audio tracks.\n- Files have unsupported audio formats.\n- Files are corrupted/damaged."
+        let infoText: String = "- File(s) point to missing/broken paths.\n- Playlist file(s) point to audio file(s) with missing/broken paths.\n- File(s) are corrupted/damaged."
         
         alert.informativeText = infoText
         
