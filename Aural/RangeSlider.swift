@@ -45,18 +45,9 @@ class RangeSlider: NSView {
     
     //MARK: - Public API -
     
-    let verticalShadowPadding: CGFloat = 4.0
-    let barTrailingMargin: CGFloat = 1.0
-    let disabledControlDimmingRatio: CGFloat = 0.65
-    
-    /** Whether the control is enabled. By default, if set to false, the control will
-     render itself dimmed and ignores user interaction. */
-    var enabled: Bool = true {
-        didSet {
-            recreateBarFillGradient()
-            setNeedsDisplay(bounds)
-        }
-    }
+    private let verticalShadowPadding: CGFloat = 4.0
+    private let barTrailingMargin: CGFloat = 1.0
+    private let disabledControlDimmingRatio: CGFloat = 0.65
     
     /** Optional action block, called when the control's start or end values change. */
     var onControlChanged : ((RangeSlider) -> Void)?
@@ -98,7 +89,7 @@ class RangeSlider: NSView {
         get {
             let fractionalLength = (selection.end - selection.start)
             
-            return (fractionalLength * (maxValue - minValue)) + (snapsToIntegers && inclusiveLengthForSnapTo ? 1.0 : 0.0)
+            return (fractionalLength * (maxValue - minValue))
         }
     }
     
@@ -115,18 +106,6 @@ class RangeSlider: NSView {
             setNeedsDisplay(bounds)
         }
     }
-    
-    /** Defaults is false (off). If set to true, the slider
-     will snap to whole integer values for both sliders. */
-    var snapsToIntegers: Bool = false
-    
-    /** Defaults to true, and makes the length property
-     inclusive when snapsToIntegers is enabled. */
-    var inclusiveLengthForSnapTo: Bool = true
-    
-    /** Defaults to true, allows clicks off of the slider knobs
-     to reposition the bars. */
-    var allowClicksOnBarToMoveSliders: Bool = true
     
     //****************************************************************************//
     //****************************************************************************//
@@ -188,7 +167,16 @@ class RangeSlider: NSView {
         return barBackgroundGradient!
     }()
 
-    private var barFillGradient: NSGradient? = nil
+    private var barFillGradient: NSGradient {
+        
+        let fillStart: NSColor = NSColor.red
+        let fillEnd: NSColor = NSColor(deviceRed: CGFloat(0.5), green: CGFloat(0), blue: CGFloat(0), alpha: CGFloat(1))
+        
+        let barFillGradient = NSGradient(starting: fillStart, ending: fillEnd)
+        assert(barFillGradient != nil, "Couldn't generate gradient.")
+        
+        return barFillGradient!
+    }
     
     func initialize(_ min: Double, _ max: Double, _ start: Double, _ end: Double, _ changeHandler: ((RangeSlider) -> Void)?) {
         self.minValue = min
@@ -198,43 +186,9 @@ class RangeSlider: NSView {
         self.onControlChanged = changeHandler
     }
     
-    private func recreateBarFillGradient() {
-        barFillGradient = createBarFillGradientBasedOnCurrentStyle()
-    }
+    private let barStrokeColor: NSColor = NSColor(white: 0.0, alpha: 0.25)
     
-    private func createBarFillGradientBasedOnCurrentStyle() -> NSGradient {
-        
-        var fillStart: NSColor = NSColor.red
-        var fillEnd: NSColor = NSColor(deviceRed: CGFloat(0.5), green: CGFloat(0), blue: CGFloat(0), alpha: CGFloat(1))
-        
-        if (!enabled) {
-            fillStart = fillStart.colorByDesaturating(disabledControlDimmingRatio).withAlphaComponent(disabledControlDimmingRatio)
-            fillEnd = fillEnd.colorByDesaturating(disabledControlDimmingRatio).withAlphaComponent(disabledControlDimmingRatio)
-        }
-        
-        let barFillGradient = NSGradient(starting: fillStart, ending: fillEnd)
-        assert(barFillGradient != nil, "Couldn't generate gradient.")
-        
-        return barFillGradient!
-    }
-    
-    private var barStrokeColor: NSColor {
-        get {
-            return NSColor(white: 0.0, alpha: 0.25)
-        }
-    }
-    
-    private var barFillStrokeColor: NSColor {
-        get {
-            var color: NSColor = NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.7), blue: CGFloat(0.7), alpha: CGFloat(1))
-            
-            if (!enabled) {
-                color = color.colorByDesaturating(disabledControlDimmingRatio)
-            }
-            
-            return color
-        }
-    }
+    private var barFillStrokeColor: NSColor = NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.7), blue: CGFloat(0.7), alpha: CGFloat(1))
     
     private var _sliderShadow: NSShadow? = nil
     private func sliderShadow() -> NSShadow? {
@@ -256,84 +210,50 @@ class RangeSlider: NSView {
     
     //MARK: - UI Sizing -
     
-    private var sliderWidth: CGFloat {
-        get {
-            return 10
-        }
-    }
+    private let sliderWidth: CGFloat = 10
+    private let sliderHeight: CGFloat = 7
     
-    private var sliderHeight: CGFloat {
-        get {
-            return 7
-        }
-    }
-    
-    private var minSliderX: CGFloat {
-        get {
-            return 0.0
-        }
-    }
-    
-    private var maxSliderX: CGFloat {
-        get {
-            return NSWidth(bounds) - sliderWidth - barTrailingMargin
-        }
-    }
+    private let minSliderX: CGFloat = 0
+    private var maxSliderX: CGFloat { return NSWidth(bounds) - sliderWidth - barTrailingMargin }
     
     //MARK: - Event -
     
     override func mouseDown(with event: NSEvent) {
-        if (enabled) {
+
+        let point = convert(event.locationInWindow, from: nil)
+        let startSlider = frameForStartSlider()
+        let endSlider = frameForEndSlider()
+        
+        if NSPointInRect(point, startSlider) {
+            currentSliderDragging = .start
+        } else if NSPointInRect(point, endSlider) {
+            currentSliderDragging = .end
+        } else {
             
-            let point = convert(event.locationInWindow, from: nil)
-            let startSlider = frameForStartSlider()
-            let endSlider = frameForEndSlider()
+            let startDist = abs(NSMidX(startSlider) - point.x)
+            let endDist = abs(NSMidX(endSlider) - point.x)
             
-            if NSPointInRect(point, startSlider) {
+            if (startDist < endDist) {
                 currentSliderDragging = .start
-            } else if NSPointInRect(point, endSlider) {
-                currentSliderDragging = .end
             } else {
-                
-                if allowClicksOnBarToMoveSliders {
-                    let startDist = abs(NSMidX(startSlider) - point.x)
-                    let endDist = abs(NSMidX(endSlider) - point.x)
-                    
-                    if (startDist < endDist) {
-                        currentSliderDragging = .start
-                    } else {
-                        currentSliderDragging = .end
-                    }
-                    
-                    updateForClick(atPoint: point)
-                } else {
-                    currentSliderDragging = nil
-                }
+                currentSliderDragging = .end
             }
+            
+            updateForClick(atPoint: point)
         }
     }
     
     override func mouseDragged(with event: NSEvent) {
-        if (enabled) {
-            
-            let point = convert(event.locationInWindow, from: nil)
-            updateForClick(atPoint: point)
-        }
+        let point = convert(event.locationInWindow, from: nil)
+        updateForClick(atPoint: point)
     }
     
     private func updateForClick(atPoint point: NSPoint) {
         
         if currentSliderDragging != nil {
             
-            
-            
             var x = Double(point.x / NSWidth(bounds))
             x = max(min(1.0, x), 0.0)
-            
-            if snapsToIntegers {
-                let steps = maxValue - minValue
-                x = round(x * steps) / steps
-            }
             
             if currentSliderDragging! == .start {
                 selection = SelectionRange(start: x, end: max(selection.end, x))
@@ -416,14 +336,8 @@ class RangeSlider: NSView {
         
         /*  Draw bar fill */
         if NSWidth(selectedRect) > 0.0 {
-            if barFillGradient == nil {
-                barFillGradient = createBarFillGradientBasedOnCurrentStyle()
-            }
-            
-            if let fillGradient = barFillGradient {
-                fillGradient.draw(in: selectedPath, angle: UIConstants.verticalGradientDegrees)
-                barFillStrokeColor.setStroke()
-            }
+            barFillGradient.draw(in: selectedPath, angle: UIConstants.verticalGradientDegrees)
+            barFillStrokeColor.setStroke()
         }
         
         barStrokeColor.setStroke()
