@@ -97,8 +97,7 @@
 		3EB2A7E41F0436D5001DF748 /* EQSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7E31F0436D5001DF748 /* EQSliderCell.swift */; };
 		3EB2A7E61F043989001DF748 /* HorizontalSliderCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7E51F043989001DF748 /* HorizontalSliderCells.swift */; };
 		3EB2A7E81F043BBE001DF748 /* TickedSliderCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7E71F043BBE001DF748 /* TickedSliderCells.swift */; };
-		3EB2A7EA1F04424E001DF748 /* ItemDisplayingPopupMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7E91F04424E001DF748 /* ItemDisplayingPopupMenuCell.swift */; };
-		3EB2A7EC1F04508B001DF748 /* EQPopupMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7EB1F04508B001DF748 /* EQPopupMenuCell.swift */; };
+		3EB2A7EA1F04424E001DF748 /* PopupMenuCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7E91F04424E001DF748 /* PopupMenuCells.swift */; };
 		3EB2A7EE1F04697E001DF748 /* GraphicsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7ED1F04697E001DF748 /* GraphicsUtils.swift */; };
 		3EBD20081F6C6EC300E1354C /* MetadataSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD20071F6C6EC300E1354C /* MetadataSpec.swift */; };
 		3EC593981F28A0C600153D34 /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC593971F28A0C600153D34 /* RangeSlider.swift */; };
@@ -112,7 +111,6 @@
 		3ED5264F1F2FA27200001A97 /* PlaylistChangeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5264E1F2FA27200001A97 /* PlaylistChangeListener.swift */; };
 		3ED526511F3003A800001A97 /* ObjectGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED526501F3003A800001A97 /* ObjectGraph.swift */; };
 		3EEACA061F5E8615003A2140 /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEACA051F5E8615003A2140 /* NowPlayingViewController.swift */; };
-		3EF5A54E1F40388E00C5A2D2 /* PreferencesPopupMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5A54D1F40388E00C5A2D2 /* PreferencesPopupMenuCell.swift */; };
 		3EF5A5501F403D2500C5A2D2 /* StartupPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5A54F1F403D2500C5A2D2 /* StartupPreferences.swift */; };
 		3EFC506B1F607B530032BE21 /* PlaylistDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFC506A1F607B530032BE21 /* PlaylistDelegate.swift */; };
 		3EFC506D1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFC506C1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift */; };
@@ -216,8 +214,7 @@
 		3EB2A7E31F0436D5001DF748 /* EQSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EQSliderCell.swift; sourceTree = "<group>"; };
 		3EB2A7E51F043989001DF748 /* HorizontalSliderCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSliderCells.swift; sourceTree = "<group>"; };
 		3EB2A7E71F043BBE001DF748 /* TickedSliderCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickedSliderCells.swift; sourceTree = "<group>"; };
-		3EB2A7E91F04424E001DF748 /* ItemDisplayingPopupMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDisplayingPopupMenuCell.swift; sourceTree = "<group>"; };
-		3EB2A7EB1F04508B001DF748 /* EQPopupMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EQPopupMenuCell.swift; sourceTree = "<group>"; };
+		3EB2A7E91F04424E001DF748 /* PopupMenuCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupMenuCells.swift; sourceTree = "<group>"; };
 		3EB2A7ED1F04697E001DF748 /* GraphicsUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphicsUtils.swift; sourceTree = "<group>"; };
 		3EBD20071F6C6EC300E1354C /* MetadataSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataSpec.swift; sourceTree = "<group>"; };
 		3EC593971F28A0C600153D34 /* RangeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
@@ -231,7 +228,6 @@
 		3ED5264E1F2FA27200001A97 /* PlaylistChangeListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistChangeListener.swift; sourceTree = "<group>"; };
 		3ED526501F3003A800001A97 /* ObjectGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectGraph.swift; sourceTree = "<group>"; };
 		3EEACA051F5E8615003A2140 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
-		3EF5A54D1F40388E00C5A2D2 /* PreferencesPopupMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesPopupMenuCell.swift; sourceTree = "<group>"; };
 		3EF5A54F1F403D2500C5A2D2 /* StartupPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupPreferences.swift; sourceTree = "<group>"; };
 		3EFC506A1F607B530032BE21 /* PlaylistDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistDelegate.swift; sourceTree = "<group>"; };
 		3EFC506C1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackInfoDelegateProtocol.swift; sourceTree = "<group>"; };
@@ -325,7 +321,7 @@
 				3EF4F86A1F2079D700C45840 /* Playlist */,
 				3EF4F8691F2079B200C45840 /* DetailedTrackInfo */,
 				3EF4F86B1F2079F000C45840 /* Sliders */,
-				3EF4F86C1F207A0B00C45840 /* PopupMenuCells */,
+				3EB2A7E91F04424E001DF748 /* PopupMenuCells.swift */,
 				3E2D9E441F664C000020B99E /* ButtonCells */,
 				3E46F5631F2A918B007CD384 /* ColoredCursorSearchField.swift */,
 			);
@@ -560,16 +556,6 @@
 			name = Sliders;
 			sourceTree = "<group>";
 		};
-		3EF4F86C1F207A0B00C45840 /* PopupMenuCells */ = {
-			isa = PBXGroup;
-			children = (
-				3EB2A7E91F04424E001DF748 /* ItemDisplayingPopupMenuCell.swift */,
-				3EB2A7EB1F04508B001DF748 /* EQPopupMenuCell.swift */,
-				3EF5A54D1F40388E00C5A2D2 /* PreferencesPopupMenuCell.swift */,
-			);
-			name = PopupMenuCells;
-			sourceTree = "<group>";
-		};
 		3EFFE6BC1F0373B7003728BD /* IO */ = {
 			isa = PBXGroup;
 			children = (
@@ -673,7 +659,6 @@
 				3EC947AF1F5DDEB100FDBE25 /* PlaylistProtocols.swift in Sources */,
 				3E1CF7EF1F5CBA9300613724 /* PlayerProtocol.swift in Sources */,
 				3E85F25A1EFA78D6007BE830 /* AppDelegate.swift in Sources */,
-				3EF5A54E1F40388E00C5A2D2 /* PreferencesPopupMenuCell.swift in Sources */,
 				3EB20B4B1EFF25EC008138A4 /* AppState.swift in Sources */,
 				3EFFE6BE1F0381FA003728BD /* EQPresets.swift in Sources */,
 				3E84F8411F5FBE8F0010BCDA /* PlaylistAccessorDelegate.swift in Sources */,
@@ -698,7 +683,6 @@
 				3ED526511F3003A800001A97 /* ObjectGraph.swift in Sources */,
 				3E9212BB1F5D404F00D058FD /* PlaylistSortViewController.swift in Sources */,
 				3E46F5661F2ABA57007CD384 /* PopoverContentView.swift in Sources */,
-				3EB2A7EC1F04508B001DF748 /* EQPopupMenuCell.swift in Sources */,
 				3E3AD5461F5D2BD1006123E9 /* SyncMessenger.swift in Sources */,
 				3E46F5641F2A918B007CD384 /* ColoredCursorSearchField.swift in Sources */,
 				3ECCEE651F41158000858331 /* PrefsTabButtonCell.swift in Sources */,
@@ -707,7 +691,7 @@
 				3E9847861F5CFCE3001A2D28 /* RecorderViewController.swift in Sources */,
 				3E722F7B1EFCF4EC00916BF2 /* PlaylistTableViewController.swift in Sources */,
 				3E76D9BC1F0F4228007FF3F8 /* AppDefaults.swift in Sources */,
-				3EB2A7EA1F04424E001DF748 /* ItemDisplayingPopupMenuCell.swift in Sources */,
+				3EB2A7EA1F04424E001DF748 /* PopupMenuCells.swift in Sources */,
 				3E97967D1F00286200690DA2 /* Track.swift in Sources */,
 				3EFFE6B91F036E81003728BD /* PlaylistIO.swift in Sources */,
 				3E3AD5481F5D2BEC006123E9 /* SyncMessages.swift in Sources */,
