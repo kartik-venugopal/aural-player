@@ -19,11 +19,11 @@ class Preferences {
     var volumeOnStartup: VolumeStartupOptions
     var startupVolumeValue: Float
     var panDelta: Float
+    
+    var playlistOnStartup: PlaylistStartupOptions
     var autoplayOnStartup: Bool
     var autoplayAfterAddingTracks: Bool
     var autoplayAfterAddingOption: AutoplayAfterAddingOptions
-    
-    var playlistOnStartup: PlaylistStartupOptions
     
     var viewOnStartup: ViewOnStartup
     var windowLocationOnStartup: WindowLocationOnStartup

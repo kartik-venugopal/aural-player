@@ -14,6 +14,13 @@ enum PlaylistStartupOptions: String {
     case rememberFromLastAppLaunch
 }
 
+// Possible options for the "autoplay afer adding tracks" user preference
+enum AutoplayAfterAddingOptions: String {
+    
+    case ifNotPlaying
+    case always
+}
+
 // All options for the view at startup
 enum ViewStartupOptions: String {
     
