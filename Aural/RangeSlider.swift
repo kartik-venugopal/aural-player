@@ -423,7 +423,6 @@ class RangeSlider: NSView {
             if let fillGradient = barFillGradient {
                 fillGradient.draw(in: selectedPath, angle: UIConstants.verticalGradientDegrees)
                 barFillStrokeColor.setStroke()
-                //                selectedPath.stroke()
             }
         }
         
