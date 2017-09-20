@@ -5,6 +5,7 @@
 import Cocoa
 import AVFoundation
 
+// TODO: Move PlaybackSession code to BufferManager
 class Player: PlayerProtocol {
     
     // The underlying audio graph
