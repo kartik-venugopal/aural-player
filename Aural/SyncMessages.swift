@@ -205,6 +205,7 @@ struct AppLoadedNotification: NotificationMessage {
     }
 }
 
+// Indicates that the app has been invoked with a request to open certain files
 struct AppReopenedNotification: NotificationMessage {
     
     var messageType: MessageType = .appReopenedNotification
@@ -212,8 +213,12 @@ struct AppReopenedNotification: NotificationMessage {
     // Files specified as launch parameters (files that the app needs to open)
     var filesToOpen: [URL]
     
-    init(_ filesToOpen: [URL]) {
+    // Whether or not the app has already finished launching
+    var appLaunched: Bool
+    
+    init(_ filesToOpen: [URL], _ appLaunched: Bool) {
         self.filesToOpen = filesToOpen
+        self.appLaunched = appLaunched
     }
 }
 

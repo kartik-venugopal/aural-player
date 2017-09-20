@@ -12,6 +12,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // Flag that indicates whether the app has already finished launching (used when reopening the app with parameters)
     private var appLaunched: Bool = false
+    private var launchTime: Date?
     
     override init() {
         
@@ -52,6 +53,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // Opens the application with a set of files (audio files or playlists)
     public func application(_ sender: NSApplication, openFiles filenames: [String]) {
         
+        let now = Date()
+        
         filesToOpen.removeAll()
         for file in filenames {
             filesToOpen.append(URL(fileURLWithPath: file))
@@ -59,7 +62,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // If app has already launched, that means the app is "reopening" with the specified set of files
         if (appLaunched) {
-            let reopenMsg = AppReopenedNotification(filesToOpen)
+            let timeSinceLaunch = now.timeIntervalSince(launchTime!)
+            let reopenMsg = AppReopenedNotification(filesToOpen, timeSinceLaunch > 3)
             SyncMessenger.publishNotification(reopenMsg)
         }
     }
@@ -67,6 +71,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
         appLaunched = true
+        launchTime = Date() 
         
         // Tell app components that the app has finished loading
         SyncMessenger.publishNotification(AppLoadedNotification(filesToOpen))

@@ -267,7 +267,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         if (notification is AppReopenedNotification) {
             
             let msg = notification as! AppReopenedNotification
-            addFiles(msg.filesToOpen, AutoplayOptions(true, true))
+            addFiles(msg.filesToOpen, AutoplayOptions(true, msg.appLaunched))
             
             return
         }
