@@ -252,7 +252,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             // Check if any launch parameters were specified
             if (!filesToOpen.isEmpty) {
                 
-                // Launch parameters specified, override playlist saved state and add file paths in params to playlist
+                // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
                 addFiles(filesToOpen, AutoplayOptions(true, true))
                 
             } else if (preferences.playlistOnStartup == .rememberFromLastAppLaunch) {
@@ -267,7 +267,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         if (notification is AppReopenedNotification) {
             
             let msg = notification as! AppReopenedNotification
-            addFiles(msg.filesToOpen, AutoplayOptions(true, msg.appLaunched))
+            
+            // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
+            addFiles(msg.filesToOpen, AutoplayOptions(!msg.isDuplicateNotification, true))
             
             return
         }

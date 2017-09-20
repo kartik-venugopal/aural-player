@@ -213,12 +213,12 @@ struct AppReopenedNotification: NotificationMessage {
     // Files specified as launch parameters (files that the app needs to open)
     var filesToOpen: [URL]
     
-    // Whether or not the app has already finished launching
-    var appLaunched: Bool
+    // Whether or not the app has already sent a notification of this type very recently
+    var isDuplicateNotification: Bool
     
-    init(_ filesToOpen: [URL], _ appLaunched: Bool) {
+    init(_ filesToOpen: [URL], _ isDuplicateNotification: Bool) {
         self.filesToOpen = filesToOpen
-        self.appLaunched = appLaunched
+        self.isDuplicateNotification = isDuplicateNotification
     }
 }
 
