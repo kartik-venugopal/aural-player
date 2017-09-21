@@ -51,10 +51,6 @@ class UIConstants {
     static let imgWarning: NSImage = NSImage(named: "Warning")!
     static let imgError: NSImage = NSImage(named: "Error")!
     
-    // Fonts used by the playlist view
-    static let playlistBoldFont: NSFont = NSFont(name: "Gill Sans", size: 13.5)!
-    static let playlistRegularFont: NSFont = NSFont(name: "Gill Sans Light", size: 13.5)!
-    
     private static let gillSans12Font: NSFont = NSFont(name: "Gill Sans", size: 12)!
     
     // Fonts used by the effects tab view buttons

@@ -22,6 +22,8 @@ class TrackInfoView: NSTableRowView {
     
     override func view(atColumn column: Int) -> Any? {
         
+        // TODO: Can these values be cached once created ???
+        
         if (column == 0) {
             
             // Key

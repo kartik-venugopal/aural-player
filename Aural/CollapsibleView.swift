@@ -2,11 +2,13 @@
 import Cocoa
 
 /*
-    Helper class that groups NSView objects together as a unit for hiding/showing
+    Wrapper class that groups NSView objects together as a single unit for hiding/showing
 */
 class CollapsibleView {
     
+    // The set of views that are to be hidden/shown as a single unit
     private let views: [NSView]
+    
     var hidden: Bool {
         return views[0].isHidden
     }

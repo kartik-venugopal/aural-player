@@ -1,5 +1,5 @@
 /*
- Customizes the look and feel of the parametric EQ sliders
+    Customizes the look and feel of the parametric EQ sliders
  */
 
 import Cocoa

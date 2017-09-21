@@ -4,6 +4,7 @@
 
 import Cocoa
 
+// Base class for all modal dialog button cells
 class ModalDialogButtonCell: NSButtonCell {
     
     var cellInsetX: CGFloat {return 0}
@@ -36,6 +37,7 @@ class ModalDialogButtonCell: NSButtonCell {
     }
 }
 
+// Cell for all response buttons (Save/Cancel, etc)
 class ModalDialogResponseButtonCell: ModalDialogButtonCell {
     
     override var cellInsetX: CGFloat {return 1}
@@ -45,6 +47,7 @@ class ModalDialogResponseButtonCell: ModalDialogButtonCell {
     override var borderLineWidth: CGFloat {return 0.5}
 }
 
+// Cell for search results navigation buttons (next/previous)
 class ColoredNavigationButtonCell: ModalDialogButtonCell {
     
     override var cellInsetX: CGFloat {return 1}

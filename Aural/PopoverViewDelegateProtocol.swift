@@ -5,16 +5,16 @@ import Foundation
  */
 protocol PopoverViewDelegateProtocol {
     
-    // Show the popover view
+    // Shows the popover view
     func show()
     
     // Checks if the popover view is shown
     func isShown() -> Bool
     
-    // Close the popover view
+    // Closes the popover view
     func close()
     
-    // Toggles the popover view
+    // Toggles the popover view (show/close)
     func toggle()
     
     // Refreshes the track info in the popover view

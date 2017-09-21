@@ -1,5 +1,5 @@
 /*
-    Custom view controller for the NSTableView that displays the playlist. Creates table cells with the necessary track information.
+    Data source and view delegate for the NSTableView that displays the playlist. Creates table cells with the necessary track information.
 */
 
 import Cocoa
@@ -7,13 +7,14 @@ import AVFoundation
 
 class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     
+    // Delegate that performs CRUD on the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         return playlist.size()
     }
     
-    // Each playlist view row contains one track, with name and duration
+    // Each playlist view row contains one track, with display name and duration
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
         return PlaylistRowView()
     }
@@ -94,8 +95,6 @@ class PlaylistCellView: NSTableCellView {
         didSet {
             
             if let field = self.textField {
-                
-                field.font = UIConstants.playlistBoldFont
                 
                 if (backgroundStyle == NSBackgroundStyle.dark) {
                     // Selected

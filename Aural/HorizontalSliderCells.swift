@@ -4,6 +4,7 @@
 
 import Cocoa
 
+// Base class for all horizontal slider cells
 class HorizontalSliderCell: NSSliderCell {
     
     var barRadius: CGFloat {return 1}
@@ -42,6 +43,7 @@ class HorizontalSliderCell: NSSliderCell {
     }
 }
 
+// Cell for volume slider
 class VolumeSliderCell: HorizontalSliderCell {
     
     override var knobWidth: CGFloat {return 7}
@@ -49,6 +51,7 @@ class VolumeSliderCell: HorizontalSliderCell {
     override var knobHeightOutsideBar: CGFloat {return 1}
 }
 
+// Cell for seek position slider
 class SeekSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 0.5}
@@ -56,13 +59,14 @@ class SeekSliderCell: HorizontalSliderCell {
     override var knobRadius: CGFloat {return 0.5}
 }
 
-// For sliders on the Preferences panel
+// Cell for sliders on the Preferences panel
 class PreferencesSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 1.5}
     override var barInsetY: CGFloat {return -1}
 }
 
+// Cell for sliders on the effects panel
 class EffectsSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 1.5}

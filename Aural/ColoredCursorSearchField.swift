@@ -1,5 +1,5 @@
 /*
-    Customizes the color of the cursor of a text field
+    Customizes the color of the cursor of the search modal dialog's text field
  */
 import Cocoa
 
@@ -13,7 +13,8 @@ class ColoredCursorSearchField: NSTextField {
     }
     
     override func textDidChange(_ notification: Notification) {
-        let queryChangedMessage = SearchTextChangedNotification.instance
-        SyncMessenger.publishNotification(queryChangedMessage)
+        
+        // Notify the search view that the query text has changed
+        SyncMessenger.publishNotification(SearchTextChangedNotification.instance)
     }
 }

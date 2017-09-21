@@ -25,9 +25,10 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
     // Container for the key-value pairs of info displayed
     private var info: [(key: String, value: String)] = [(key: String, value: String)]()
     
+    // Delegate that retrieves playing track info
     private let playbackInfoDelegate: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
-    // Factory method
+    // Factory method to create an instance of this class, exposed as an instance of PopoverViewDelegateProtocol
     static func create(_ relativeToView: NSView) -> PopoverViewDelegateProtocol {
         
         let controller = PopoverViewController(nibName: "PopoverViewController", bundle: Bundle.main)
@@ -64,10 +65,14 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         
+        // If no track is playing, no rows to display
+        
         let _track = playbackInfoDelegate.getPlayingTrack()?.track
         if (_track == nil) {
             return 0
         }
+        
+        // A track is playing, add its info to the info array, as key-value pairs
         
         let track = _track!
         
@@ -120,13 +125,16 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
         let keyText = info[row].key
         let valueText = info[row].value
         
+        // Set the key and value within the virtual text fields (which are not displayed)
         virtualKeyField.stringValue = keyText
         virtualValueField.stringValue = valueText
         
+        // And then compute row height from their cell sizes
         let keyHeight = virtualKeyField.cell!.cellSize(forBounds: NSMakeRect(CGFloat(0.0), CGFloat(0.0), UIConstants.trackInfoKeyColumnWidth, CGFloat(Float.greatestFiniteMagnitude))).height
         
         let valueHeight = virtualValueField.cell!.cellSize(forBounds: NSMakeRect(CGFloat(0.0), CGFloat(0.0), UIConstants.trackInfoValueColumnWidth, CGFloat(Float.greatestFiniteMagnitude))).height
         
+        // The desired row height is the maximum of the two heights, plus some padding
         return max(keyHeight, valueHeight) + 5
     }
     

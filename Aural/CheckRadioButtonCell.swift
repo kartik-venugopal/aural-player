@@ -1,5 +1,5 @@
 /*
- Customizes the look n feel of check and radio buttons on all modal dialogs
+    Customizes the look n feel of check and radio buttons on all modal dialogs
  */
 import Cocoa
 

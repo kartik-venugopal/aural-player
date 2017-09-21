@@ -1,9 +1,10 @@
 /*
-    Customizes the look and feel of buttons that control the effects tab view
+    Customizes the look and feel of buttons that control tab groups
  */
 
 import Cocoa
 
+// Base class for all tab group button cells
 class TabGroupButtonCell: NSButtonCell {
     
     // Highlighting colors the button text to indicate that the effects unit represented by this button is currently active
@@ -14,8 +15,8 @@ class TabGroupButtonCell: NSButtonCell {
     var backgroundFillColor: NSColor {return NSColor.black}
     var borderInsetX: CGFloat {return 1}
     var borderInsetY: CGFloat {return 1}
-    var borderRadius: CGFloat {return 2}
-    var borderLineWidth: CGFloat {return 1.5}
+    var borderRadius: CGFloat {return 1}
+    var borderLineWidth: CGFloat {return 1}
     var borderStrokeColor: NSColor {return Colors.tabViewButtonOutlineColor}
     var selectionBoxColor: NSColor {return Colors.tabViewSelectionBoxColor}
     
@@ -51,12 +52,18 @@ class TabGroupButtonCell: NSButtonCell {
     }
 }
 
+// Cell for the Effects unit tab group
 class EffectsUnitButtonCell: TabGroupButtonCell {
+    
+    override var borderRadius: CGFloat {return 2}
+    override var borderLineWidth: CGFloat {return 1.5}
 }
 
+// Cell for the Preferences tab group
 class PrefsTabButtonCell: TabGroupButtonCell {
     
     override var fillBeforeBorder: Bool {return false}
     override var borderRadius: CGFloat {return 4}
+    override var borderLineWidth: CGFloat {return 1.5}
     override var selectionBoxColor: NSColor {return NSColor.black}
 }

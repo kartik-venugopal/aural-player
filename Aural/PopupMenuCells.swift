@@ -1,9 +1,10 @@
 /*
-    Customizes the look and feel of the popup menus that display their selected item
+    Customizes the look and feel of all popup menus
 */
 
 import Cocoa
 
+// Base class for all popup menu cells
 class PopupMenuCell: NSPopUpButtonCell {
     
     var cellInsetX: CGFloat {return 0}
@@ -50,7 +51,7 @@ class PopupMenuCell: NSPopUpButtonCell {
     }
 }
 
-// Reverb and Recorder format menus
+// Cell for reverb preset popup menu
 class ReverbPopupMenuCell: PopupMenuCell {
     
     override var cellInsetY: CGFloat {return 4}
@@ -60,9 +61,11 @@ class ReverbPopupMenuCell: PopupMenuCell {
     override var arrowHeight: CGFloat {return 4}
 }
 
+// Cell for recorder format popup menu
 class RecorderFormatPopupMenuCell: ReverbPopupMenuCell {
 }
 
+// Cell for all preferences popup menus
 class PreferencesPopupMenuCell: PopupMenuCell {
     
     override var cellInsetY: CGFloat {return 5}
@@ -73,7 +76,8 @@ class PreferencesPopupMenuCell: PopupMenuCell {
     override var arrowColor: NSColor {return Colors.lightPopupMenuArrowColor}
 }
 
-class EQPopupMenuCell: PopupMenuCell {
+// Cell for EQ presets popup menu
+class EQPresetsPopupMenuCell: PopupMenuCell {
     
     override var cellInsetX: CGFloat {return 9}
     override var cellInsetY: CGFloat {return 3}

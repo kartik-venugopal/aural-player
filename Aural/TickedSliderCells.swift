@@ -4,6 +4,7 @@
 
 import Cocoa
 
+// Base class for all ticked horizontal slider cells
 class TickedSliderCell: HorizontalSliderCell {
     
     var tickVerticalSpacing: CGFloat {return 1}
@@ -14,6 +15,7 @@ class TickedSliderCell: HorizontalSliderCell {
         
         super.drawBar(inside: aRect, flipped: flipped)
         
+        // Draw ticks (as notches, within the bar)
         let ticksCount = self.numberOfTickMarks
         
         if (ticksCount > 2) {
@@ -27,10 +29,11 @@ class TickedSliderCell: HorizontalSliderCell {
         }
     }
     
-    private func drawTick(_ index: Int, _ aRect: NSRect) {
+    // Draws a single tick within a bar
+    private func drawTick(_ index: Int, _ barRect: NSRect) {
         
-        let tickMinY = aRect.minY + tickVerticalSpacing
-        let tickMaxY = aRect.maxY - tickVerticalSpacing
+        let tickMinY = barRect.minY + tickVerticalSpacing
+        let tickMaxY = barRect.maxY - tickVerticalSpacing
         
         let tickRect = rectOfTickMark(at: index)
         let x = (tickRect.minX + tickRect.maxX) / 2
@@ -43,6 +46,7 @@ class TickedSliderCell: HorizontalSliderCell {
     }
 }
 
+// Cell for pan slider
 class PanTickedSliderCell: TickedSliderCell {
     
     override var barRadius: CGFloat {return 1}
@@ -51,6 +55,7 @@ class PanTickedSliderCell: TickedSliderCell {
     override var knobHeightOutsideBar: CGFloat {return 1}
 }
 
+// Cell for all ticked effects sliders
 class EffectsTickedSliderCell: TickedSliderCell {
     
     override var barRadius: CGFloat {return 1.5}
