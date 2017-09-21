@@ -1,8 +1,9 @@
-
 import Cocoa
 
 /*
-    Orchestrates publishing of, and subscription to, asynchronous message notifications, to facilitate callbacks across different application layers.
+    Manages publishing of, and subscription to, asynchronous message notifications, to facilitate callbacks across different application layers.
+ 
+    First, a subscriber subscribes to a certain type of AsyncMessage. Then, a notification is published by a publisher. The subscriber is then notified on its preferred notificsation queue.
 */
 class AsyncMessenger {
     

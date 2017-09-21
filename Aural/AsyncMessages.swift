@@ -1,35 +1,43 @@
 import Cocoa
 
+// Represents a message that is delivered asynchronously. This type of message is intended to be sent across application layers. For example, when the player needs to inform the UI that track playback has been completed.
 protocol AsyncMessage {
     
     var messageType: AsyncMessageType {get}
 }
 
+// Contract for an object that consumes AsyncMessage
 protocol AsyncMessageSubscriber {
     
-    // Every AsyncMessage subscriber must implement this method to consume an AsyncMessage it is interested in
+    // Consume/Process the given async message
     func consumeAsyncMessage(_ message: AsyncMessage)
 }
 
-/*
-    An enumeration of all AsyncMessage types
-*/
+// An enumeration of all AsyncMessage types
 enum AsyncMessageType {
-    
+   
+    // See PlaybackCompletedAsyncMessage
     case playbackCompleted
 
+    // See TrackChangedAsyncMessage
     case trackChanged
     
+    // See TrackInfoUpdatedAsyncMessage
     case trackInfoUpdated
     
+    // See TrackAddedAsyncMessage
     case trackAdded
     
+    // See TrackNotPlayedAsyncMessage
     case trackNotPlayed
     
+    // See TracksNotAddedAsyncMessage
     case tracksNotAdded
     
+    // See StartedAddingTracksAsyncMessage
     case startedAddingTracks
     
+    // See DoneAddingTracksAsyncMessage
     case doneAddingTracks
 }
 
@@ -51,15 +59,18 @@ struct PlaybackCompletedAsyncMessage: AsyncMessage {
     
     var messageType: AsyncMessageType = .playbackCompleted
     
-    // The PlaybackSession associated with this AsyncMessage. This is required in order to determine if the session is still current. If another session has started before this AsyncMessage occurs, this AsyncMessage is no longer relevant because its session has been invalidated. For instance, if the user selects "Next track" before the previous track completes playing, this playback completion AsyncMessage no longer needs to be processed.
-    let session: PlaybackSession
-    init(_ session: PlaybackSession) {self.session = session}
+    private init() {}
+    
+    // Singleton
+    static let instance: PlaybackCompletedAsyncMessage = PlaybackCompletedAsyncMessage()
 }
 
 // AsyncMessage indicating that some new information has been loaded for a track (e.g. duration/display name, etc), and that the UI should refresh itself to show the new information
 struct TrackInfoUpdatedAsyncMessage: AsyncMessage {
     
     var messageType: AsyncMessageType = .trackInfoUpdated
+    
+    // The index of the track that has been updated
     var trackIndex: Int
     
     init(_ trackIndex: Int) {
@@ -72,7 +83,10 @@ struct TrackAddedAsyncMessage: AsyncMessage {
     
     var messageType: AsyncMessageType = .trackAdded
     
+    // The index of the newly added track
     var trackIndex: Int
+    
+    // The current progress of the track add operation (See TrackAddedAsyncMessageProgress)
     var progress: TrackAddedAsyncMessageProgress
     
     init(_ trackIndex: Int, _ progress: TrackAddedAsyncMessageProgress) {
@@ -84,13 +98,17 @@ struct TrackAddedAsyncMessage: AsyncMessage {
 // Indicates current progress associated with a TrackAddedAsyncMessage
 struct TrackAddedAsyncMessageProgress {
     
+    // Number of tracks added so far
     var tracksAdded: Int
+    
+    // Total number of tracks to add
     var totalTracks: Int
     
-    // Computed property
+    // Percentage of tracks added (computed)
     var percentage: Double
     
     init(_ tracksAdded: Int, _ totalTracks: Int) {
+        
         self.tracksAdded = tracksAdded
         self.totalTracks = totalTracks
         self.percentage = totalTracks > 0 ? Double(tracksAdded) * 100 / Double(totalTracks) : 0

@@ -1,10 +1,9 @@
-/*
- Provides all recording functionality (start/stop/save/delete), and maintains all state for the current recording (start time, file path, etc)
- */
-
 import Cocoa
 import AVFoundation
 
+/*
+    Concrete implementation of RecorderProtocol
+ */
 class Recorder: RecorderProtocol {
     
     // The audio engine that is to be tapped for recording data

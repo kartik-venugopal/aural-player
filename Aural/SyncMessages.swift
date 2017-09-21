@@ -1,7 +1,7 @@
 import Foundation
 
 /*
- Contract for all subscribers of messages
+    Contract for all subscribers of synchronous messages
  */
 protocol MessageSubscriber {
     
@@ -13,58 +13,85 @@ protocol MessageSubscriber {
 }
 
 /*
-    Defines a synchronous message. Messages could be either 1 - notifications, indicating that some change has occurred (e.g. the playlist has been cleared), OR 2 - requests for the execution of a function (e.g. track playback).
+    Defines a synchronous message. SyncMessage objects could be either 1 - notifications, indicating that some change has occurred (e.g. the playlist has been cleared), OR 2 - requests for the execution of a function (e.g. track playback).
  */
-protocol Message {
+protocol SyncMessage {
     var messageType: MessageType {get}
 }
 
-protocol NotificationMessage: Message {
+// Marker protocol denoting a SyncMessage that does not need a response, i.e. a notification
+protocol NotificationMessage: SyncMessage {
 }
 
-protocol RequestMessage: Message {
+// Marker protocol denoting a SyncMessage that is a request, requiring a response
+protocol RequestMessage: SyncMessage {
 }
 
-protocol ResponseMessage: Message {
+// Marker protocol denoting a SyncMessage that is a response to a RequestMessage
+protocol ResponseMessage: SyncMessage {
 }
 
 // Enumeration of the different message types. See the various Message structs below, for descriptions of each message type.
 enum MessageType {
     
+    // See TrackRemovedNotification
     case trackRemovedNotification
+    
+    // See TrackChangedNotification
     case trackChangedNotification
+    
+    // See PlayingTrackInfoUpdatedNotification
     case playingTrackInfoUpdatedNotification
     
-    case trackSelectionNotification
-    case trackPlaybackRequest
+    // See StopPlaybackRequest
     case stopPlaybackRequest
     
+    // See RemoveTrackRequest
     case removeTrackRequest
     
+    // See PlaylistScrollUpNotification
     case playlistScrollUpNotification
+    
+    // See PlaylistScrollDownNotification
     case playlistScrollDownNotification
     
+    // See PlaybackStateChangedNotification
     case playbackStateChangedNotification
+    
+    // See PlaybackRateChangedNotification
     case playbackRateChangedNotification
     
+    // See SeekPositionChangedNotification
     case seekPositionChangedNotification
     
+    // See SearchTextChangedNotification
     case searchTextChangedNotification
     
+    // See AppLoadedNotification
     case appLoadedNotification
+    
+    // See AppReopenedNotification
     case appReopenedNotification
     
+    // See AppExitRequest
     case appExitRequest
+    
+    // See AppExitResponse
     case appExitResponse
     
+    // See EmptyResponse
     case emptyResponse
 }
 
-// Notification from the player that the playing track has changed (for instance, "next track" or when a track has finished playing)
+// Notification indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
 struct TrackChangedNotification: NotificationMessage {
     
     var messageType: MessageType = .trackChangedNotification
+    
+    // The track that is now playing (may be nil, meaning no track playing)
     var newTrack: IndexedTrack?
+    
+    // Flag indicating whether or not playback resulted in an error
     var errorState: Bool = false
     
     init(_ newTrack: IndexedTrack?) {
@@ -77,18 +104,23 @@ struct TrackChangedNotification: NotificationMessage {
     }
 }
 
+// Notification indicating that new information is available for the currently playing track, and the UI needs to be refreshed with the new information
 struct PlayingTrackInfoUpdatedNotification: NotificationMessage {
     
     var messageType: MessageType = .playingTrackInfoUpdatedNotification
-    static let instance: PlayingTrackInfoUpdatedNotification = PlayingTrackInfoUpdatedNotification()
     
     private init() {}
+
+    // Singleton
+    static let instance: PlayingTrackInfoUpdatedNotification = PlayingTrackInfoUpdatedNotification()
 }
 
 // Notification from the playlist that a certain track has been removed.
 struct TrackRemovedNotification: NotificationMessage {
     
     var messageType: MessageType = .trackRemovedNotification
+    
+    // The index of the track that was removed
     var removedTrackIndex: Int
     
     init(_ removedTrackIndex: Int) {
@@ -96,48 +128,45 @@ struct TrackRemovedNotification: NotificationMessage {
     }
 }
 
-// Request from the playlist to play back the user-selected track (for instance, when the user double clicks a track in the playlist)
-struct TrackSelectionNotification: NotificationMessage {
-    
-    var messageType: MessageType = .trackSelectionNotification
-    var trackIndex: Int
-    
-    init(_ trackIndex: Int) {
-        self.trackIndex = trackIndex
-    }
-}
-
-// Notification that the playlist selection is to change (one row up)
+// Notification that the playlist has been scrolled (one row up), and that its selection needs to change
 struct PlaylistScrollUpNotification: NotificationMessage {
     
     var messageType: MessageType = .playlistScrollUpNotification
-    static let instance: PlaylistScrollUpNotification = PlaylistScrollUpNotification()
     
     private init() {}
+    
+    // Singleton
+    static let instance: PlaylistScrollUpNotification = PlaylistScrollUpNotification()
 }
 
-// Notification that the playlist selection is to change (one row down)
+// Notification that the playlist has been scrolled (one row down), and that its selection needs to change
 struct PlaylistScrollDownNotification: NotificationMessage {
     
     var messageType: MessageType = .playlistScrollDownNotification
-    static let instance: PlaylistScrollDownNotification = PlaylistScrollDownNotification()
     
     private init() {}
+    
+    // Singleton
+    static let instance: PlaylistScrollDownNotification = PlaylistScrollDownNotification()
 }
 
 // Request from the playlist to stop playback (for instance, when the playlist is cleared, or the playing track has been removed)
 struct StopPlaybackRequest: RequestMessage {
     
     var messageType: MessageType = .stopPlaybackRequest
-    static let instance: StopPlaybackRequest = StopPlaybackRequest()
     
     private init() {}
+    
+    // Singleton
+    static let instance: StopPlaybackRequest = StopPlaybackRequest()
 }
 
 // Request from the playback view to the playlist view to remove a specific track from the playlist
 struct RemoveTrackRequest: RequestMessage {
     
     var messageType: MessageType = .removeTrackRequest
+    
+    // Index of the track that needs to be removed
     var index: Int
     
     init(_ index: Int) {
@@ -145,20 +174,12 @@ struct RemoveTrackRequest: RequestMessage {
     }
 }
 
-struct TrackPlaybackRequest: RequestMessage {
-    
-    var messageType: MessageType = .trackPlaybackRequest
-    var trackIndex: Int
-    
-    init(_ trackIndex: Int) {
-        self.trackIndex = trackIndex
-    }
-}
-
 // Notification that the playback rate has changed, in response to the user manipulating the time stretch effects unit controls.
 struct PlaybackRateChangedNotification: NotificationMessage {
     
     var messageType: MessageType = .playbackRateChangedNotification
+    
+    // The new playback rate
     var newPlaybackRate: Float
     
     init(_ newPlaybackRate: Float) {
@@ -170,6 +191,8 @@ struct PlaybackRateChangedNotification: NotificationMessage {
 struct PlaybackStateChangedNotification: NotificationMessage {
     
     var messageType: MessageType = .playbackStateChangedNotification
+    
+    // The new playback state
     var newPlaybackState: PlaybackState
     
     init(_ newPlaybackState: PlaybackState) {
@@ -177,22 +200,29 @@ struct PlaybackStateChangedNotification: NotificationMessage {
     }
 }
 
+// Notification about a change in the seek position of the currently playing track (e.g. when a seek is performed)
 struct SeekPositionChangedNotification: NotificationMessage {
     
     var messageType: MessageType = .seekPositionChangedNotification
-    static let instance: SeekPositionChangedNotification = SeekPositionChangedNotification()
     
     private init() {}
+    
+    // Singleton
+    static let instance: SeekPositionChangedNotification = SeekPositionChangedNotification()
 }
 
+// Notification that the search query text in the search modal dialog has changed, triggering a new search with the new search text
 struct SearchTextChangedNotification: NotificationMessage {
     
     var messageType: MessageType = .searchTextChangedNotification
-    static let instance: SearchTextChangedNotification = SearchTextChangedNotification()
     
     private init() {}
+    
+    // Singleton
+    static let instance: SearchTextChangedNotification = SearchTextChangedNotification()
 }
 
+// Notification that the app has loaded
 struct AppLoadedNotification: NotificationMessage {
     
     var messageType: MessageType = .appLoadedNotification
@@ -205,7 +235,7 @@ struct AppLoadedNotification: NotificationMessage {
     }
 }
 
-// Indicates that the app has been invoked with a request to open certain files
+// Notification that the app has been reopened with a request to open certain files
 struct AppReopenedNotification: NotificationMessage {
     
     var messageType: MessageType = .appReopenedNotification
@@ -222,20 +252,29 @@ struct AppReopenedNotification: NotificationMessage {
     }
 }
 
+// Request from the application to its components to perform an exit. Receiving components will determine whether or not the app may exit, and send an AppExitResponse, in response.
 struct AppExitRequest: RequestMessage {
     
     var messageType: MessageType = .appExitRequest
-    static let instance: AppExitRequest = AppExitRequest()
     
     private init() {}
+    
+    // Singleton
+    static let instance: AppExitRequest = AppExitRequest()
 }
 
+// Response to an AppExitRequest
 struct AppExitResponse: ResponseMessage {
     
     var messageType: MessageType = .appExitResponse
+    
+    // Whether or not it is ok for the application to exit
     var okToExit: Bool
     
+    // Instance indicating an "Ok to exit" response
     static let okToExit: AppExitResponse = AppExitResponse(true)
+    
+    // Instance indicating a "Don't exit" response
     static let dontExit: AppExitResponse = AppExitResponse(false)
     
     private init(_ okToExit: Bool) {
@@ -243,10 +282,13 @@ struct AppExitResponse: ResponseMessage {
     }
 }
 
+// Dummy message to be used when there is no other appropriate response message type
 struct EmptyResponse: ResponseMessage {
     
     var messageType: MessageType = .emptyResponse
-    static let instance: EmptyResponse = EmptyResponse()
     
     private init() {}
+    
+    // Singleton
+    static let instance: EmptyResponse = EmptyResponse()
 }

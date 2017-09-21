@@ -1,5 +1,5 @@
 /*
- Contract for an audio recorder that is responsible for recording functionality
+    Contract for an audio recorder that is responsible for recording functionality
  */
 
 import Cocoa
@@ -12,7 +12,7 @@ protocol RecorderProtocol {
     // Returns info for the active recording (if there is one)
     func getRecordingInfo() -> RecordingInfo?
     
-    // Returns whether or not there is an ongoing recording
+    // Returns a value indicating whether or not there is an ongoing recording
     func isRecording() -> Bool
     
     // Stops the current recording

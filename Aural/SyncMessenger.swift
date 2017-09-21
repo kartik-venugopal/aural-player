@@ -1,7 +1,7 @@
 import Cocoa
 
 /*
- Messenger for synchronous message delivery. All messages are dispatched directly from the publisher to the subscriber, via this messenger, synchronously, on the same (calling) thread. For example: When the player starts playing back a new track, it messages the playlist for it to update the playlist selection to match the new playing track.
+    Messenger for synchronous message delivery. All messages are dispatched directly from the publisher to the subscriber, via this messenger, synchronously, on the same (calling) thread. For example: When the player starts playing back a new track, it messages the playlist for it to update the playlist selection to match the new playing track.
  */
 class SyncMessenger {
     
@@ -35,7 +35,7 @@ class SyncMessenger {
         }
     }
     
-    // Called by a publisher to publish a request message
+    // Called by a publisher to publish a request message. Returns an array of responses, one per request consumer.
     static func publishRequest(_ request: RequestMessage) -> [ResponseMessage] {
         
         let messageType = request.messageType
