@@ -1,5 +1,8 @@
 import Foundation
 
+/*
+    Contract for a middleman/delegate that relays all necessary playback operations to the player, and allows manipulation of the playback sequence
+ */
 protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
     // Toggles between the play and pause states, as long as a file is available to play. Returns playback state information the UI can use to update itself following the operation.
@@ -10,6 +13,7 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     // Note - Throws an error if the selected track cannot be played back
     func play(_ index: Int) throws -> IndexedTrack
     
+    // Stops playback
     func stop()
     
     // Plays (and returns) the next track, if there is one
@@ -35,13 +39,16 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     // Toggles between shuffle modes. See ShuffleMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
     func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
     
+    // Sets the repeat mode to a specific value. Returns the new repeat and shuffle mode after performing the toggle operation.
     func setRepeatMode(_ repeatMode: RepeatMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
     
+    // Sets the shuffle mode to a specific value. Returns the new repeat and shuffle mode after performing the toggle operation.
     func setShuffleMode(_ shuffleMode: ShuffleMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
 }
 
-// Used for autoplay
+// A contract for basic playback operations. Used for autoplay
 protocol BasicPlaybackDelegateProtocol {
-    
+
+    // Plays the track with the given index, interrupting current playback if indicated by the interruptPlayback argument.
     func play(_ index: Int, _ interruptPlayback: Bool) throws -> IndexedTrack?
 }

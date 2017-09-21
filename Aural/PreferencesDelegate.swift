@@ -1,5 +1,8 @@
 import Foundation
 
+/*
+    Concrete implementation of PreferencesDelegateProtocol
+ */
 class PreferencesDelegate: PreferencesDelegateProtocol {
     
     private let preferences: Preferences
@@ -14,7 +17,7 @@ class PreferencesDelegate: PreferencesDelegateProtocol {
     
     func savePreferences(_ preferences: Preferences) {
         
-        // Don't block the calling thread
+        // Perform asynchronously, to unblock the main thread
         DispatchQueue.global(qos: .userInitiated).async {
             Preferences.persist(preferences)
         }

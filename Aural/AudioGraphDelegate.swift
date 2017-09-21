@@ -1,5 +1,5 @@
 /*
-    Delegates requests from the UI to the actual Effects unit
+    Concrete implementation of AudioGraphDelegateProtocol
  */
 
 import Foundation
@@ -16,24 +16,38 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     }
     
     func getVolume() -> Float {
+        
+        // Convert from {-1,1} to percentage
         return round(graph.getVolume() * AppConstants.volumeConversion_audioGraphToUI)
     }
     
     func setVolume(_ volumePercentage: Float) {
+        
+        // Convert from percentage to {-1,1}
         graph.setVolume(volumePercentage * AppConstants.volumeConversion_UIToAudioGraph)
     }
     
     func increaseVolume() -> Float {
+        
+        // Volume is increased by an amount set in the user preferences
+        
         let curVolume = graph.getVolume()
         let newVolume = min(1, curVolume + preferences.volumeDelta)
         graph.setVolume(newVolume)
+        
+        // Convert from {-1,1} to percentage
         return round(newVolume * AppConstants.volumeConversion_audioGraphToUI)
     }
     
     func decreaseVolume() -> Float {
+        
+        // Volume is decreased by an amount set in the user preferences
+        
         let curVolume = graph.getVolume()
         let newVolume = max(0, curVolume - preferences.volumeDelta)
         graph.setVolume(newVolume)
+        
+        // Convert from {-1,1} to percentage
         return round(newVolume * AppConstants.volumeConversion_audioGraphToUI)
     }
     
@@ -54,14 +68,20 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     }
     
     func getBalance() -> Float {
+        
+        // Convert from {-1,1} to percentage
         return round(graph.getBalance() * AppConstants.panConversion_audioGraphToUI)
     }
     
     func setBalance(_ balance: Float) {
+        
+        // Convert from percentage to {-1,1}
         graph.setBalance(balance * AppConstants.panConversion_UIToAudioGraph)
     }
     
     func panLeft() -> Float {
+        
+        // Pan is shifted left by an amount set in the user preferences
         
         let curBalance = graph.getBalance()
         var newBalance = max(-1, curBalance - preferences.panDelta)
@@ -73,10 +93,13 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         graph.setBalance(newBalance)
         
+        // Convert from {-1,1} to percentage
         return round(newBalance * AppConstants.panConversion_audioGraphToUI)
     }
     
     func panRight() -> Float {
+        
+        // Pan is shifted right by an amount set in the user preferences
         
         let curBalance = graph.getBalance()
         var newBalance = min(1, curBalance + preferences.panDelta)
@@ -88,10 +111,10 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         graph.setBalance(newBalance)
         
+        // Convert from {-1,1} to percentage
         return round(newBalance * AppConstants.panConversion_audioGraphToUI)
     }
     
-    // Sets global gain (or preamp) for the equalizer
     func setEQGlobalGain(_ gain: Float) {
         graph.setEQGlobalGain(gain)
     }
@@ -109,8 +132,10 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     }
     
     func setPitch(_ pitch: Float) -> String {
+        
         // Convert from octaves (-2, 2) to cents (-2400, 2400)
         graph.setPitch(pitch * AppConstants.pitchConversion_UIToAudioGraph)
+        
         return ValueFormatter.formatPitch(pitch)
     }
     

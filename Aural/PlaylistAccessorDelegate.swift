@@ -1,7 +1,11 @@
 import Foundation
 
+/*
+    Concrete implementation of PlaylistAccessorDelegateProtocol
+ */
 class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
     
+    // The actual playlist
     private let playlist: PlaylistAccessorProtocol
     
     init(_ playlist: PlaylistAccessorProtocol) {

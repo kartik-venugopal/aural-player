@@ -1,5 +1,5 @@
 /*
-    Contract for a middleman/facade, between the UI and the recorder, that defines app-level (UI-level) operations to record audio
+    Contract for a middleman/delegate that relays all recording operations to the recorder
  */
 
 import Cocoa
@@ -12,7 +12,7 @@ protocol RecorderDelegateProtocol {
     // Returns the current duration of the active recording, in seconds, if there is one
     func getRecordingInfo() -> RecordingInfo?
     
-    // Returns whether or not there is an ongoing recording
+    // Returns a value indicating whether or not there is an ongoing recording
     func isRecording() -> Bool
     
     // Stops the current recording

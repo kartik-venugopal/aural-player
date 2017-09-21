@@ -1,5 +1,5 @@
 /*
-    Delegates requests from the UI to the actual Recorder unit
+    Concrete implementation of RecorderDelegateProtocol
  */
 
 import Foundation
@@ -17,18 +17,24 @@ class RecorderDelegate: RecorderDelegateProtocol {
     }
     
     func stopRecording() {
+        
+        // Perform asynchronously, to unblock the main thread
         DispatchQueue.global(qos: .userInitiated).async {
             self.recorder.stopRecording()
         }
     }
     
     func saveRecording(_ url: URL) {
+        
+        // Perform asynchronously, to unblock the main thread
         DispatchQueue.global(qos: .userInitiated).async {
             self.recorder.saveRecording(url)
         }
     }
     
     func deleteRecording() {
+        
+        // Perform asynchronously, to unblock the main thread
         DispatchQueue.global(qos: .userInitiated).async {
             self.recorder.deleteRecording()
         }

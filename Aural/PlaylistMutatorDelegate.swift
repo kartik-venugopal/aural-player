@@ -1,14 +1,26 @@
 import Foundation
 
+/*
+    Concrete implementation of PlaylistMutatorDelegateProtocol
+ */
 class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscriber {
     
+    // The actual playlist
     private let playlist: PlaylistCRUDProtocol
+    
+    // The actual playback sequence
     private let playbackSequence: PlaybackSequence
+    
+    // A set of all observers/listeners that are interested in changes to the playlist
     private let changeListeners: [PlaylistChangeListener]
     
+    // A player with basic playback functionality (used for autoplay)
     private let player: BasicPlaybackDelegateProtocol
     
+    // Persistent playlist state (used upon app startup)
     private let playlistState: PlaylistState
+    
+    // User preferences (used for autoplay)
     private let preferences: Preferences
     
     init(_ playlist: PlaylistCRUDProtocol, _ playbackSequence: PlaybackSequence, _ player: BasicPlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListener]) {
@@ -23,6 +35,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         self.changeListeners = changeListeners
         
+        // Subscribe for message notifications
         SyncMessenger.subscribe(.appLoadedNotification, subscriber: self)
         SyncMessenger.subscribe(.appReopenedNotification, subscriber: self)
     }
@@ -32,10 +45,11 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         let autoplay: Bool = self.preferences.autoplayAfterAddingTracks
         let interruptPlayback: Bool = self.preferences.autoplayAfterAddingOption == .always
         
-        addFiles(files, AutoplayOptions(autoplay, interruptPlayback))
+        addFiles_async(files, AutoplayOptions(autoplay, interruptPlayback))
     }
     
-    private func addFiles(_ files: [URL], _ autoplayOptions: AutoplayOptions) {
+    // Adds files to the playlist asynchronously, emitting event notifications as the work progresses
+    private func addFiles_async(_ files: [URL], _ autoplayOptions: AutoplayOptions) {
         
         // Move to a background thread to unblock the main thread
         DispatchQueue.global(qos: .userInteractive).async {
@@ -56,9 +70,13 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         }
     }
     
-    // Adds a bunch of files synchronously
-    // The autoplay argument indicates whether or not autoplay is enabled. Make sure to pass it into functions that call back here recursively (addPlaylist() or addDirectory()).
-    // The autoplayed argument indicates whether or not autoplay, if enabled, has already been executed. This value is passed by reference so that recursive calls back here will all see the same value.
+    /* 
+        Adds a bunch of files synchronously.
+     
+        The autoplayOptions argument encapsulates all autoplay options.
+     
+        The progress argument indicates current progress.
+     */
     private func addFiles_sync(_ files: [URL], _ autoplayOptions: AutoplayOptions, _ progress: TrackAddOperationProgress) {
         
         if (files.count > 0) {
@@ -123,6 +141,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         }
     }
     
+    // Expands a playlist into individual tracks
     private func addPlaylist(_ playlistFile: URL, _ autoplayOptions: AutoplayOptions, _ progress: TrackAddOperationProgress) {
         
         let loadedPlaylist = PlaylistIO.loadPlaylist(playlistFile)
@@ -135,6 +154,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         }
     }
     
+    // Expands a directory into individual tracks (and subdirectories)
     private func addDirectory(_ dir: URL, _ autoplayOptions: AutoplayOptions, _ progress: TrackAddOperationProgress) {
         
         let dirContents = FileSystemUtils.getContentsOfDirectory(dir)
@@ -148,12 +168,13 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         }
     }
     
-    // Returns index of newly added track
+    // Adds a single track to the playlist. Returns index of newly added track
     private func addTrack(_ file: URL, _ progress: TrackAddedAsyncMessageProgress) throws -> Int {
         
         let track = Track(file)
         let index = playlist.addTrack(track)
         
+        // index >= 0 indicates success in adding the track to the playlist
         if (index >= 0) {
             
             notifyTrackAdded(index, progress)
@@ -174,9 +195,11 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         let trackAddedAsyncMessage = TrackAddedAsyncMessage(trackIndex, progress)
         AsyncMessenger.publishMessage(trackAddedAsyncMessage)
         
+        // Also notify the listeners directly
         changeListeners.forEach({$0.trackAdded()})
     }
     
+    // Performs autoplay, by delegating a playback request to the player
     private func autoplay(_ index: Int, _ interruptPlayback: Bool) {
         
         DispatchQueue.main.async {
@@ -253,12 +276,12 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             if (!filesToOpen.isEmpty) {
                 
                 // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
-                addFiles(filesToOpen, AutoplayOptions(true, true))
+                addFiles_async(filesToOpen, AutoplayOptions(true, true))
                 
             } else if (preferences.playlistOnStartup == .rememberFromLastAppLaunch) {
                 
                 // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
-                addFiles(playlistState.tracks, AutoplayOptions(preferences.autoplayOnStartup, true))
+                addFiles_async(playlistState.tracks, AutoplayOptions(preferences.autoplayOnStartup, true))
             }
             
             return
@@ -269,7 +292,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             let msg = notification as! AppReopenedNotification
             
             // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
-            addFiles(msg.filesToOpen, AutoplayOptions(!msg.isDuplicateNotification, true))
+            addFiles_async(msg.filesToOpen, AutoplayOptions(!msg.isDuplicateNotification, true))
             
             return
         }
@@ -297,9 +320,13 @@ class TrackAddOperationProgress {
     }
 }
 
+// Encapsulates all autoplay options
 class AutoplayOptions {
     
+    // Whether or not autoplay is requested
     var autoplay: Bool
+    
+    // Whether or not existing track playback should be interrupted, to perform autoplay
     var interruptPlayback: Bool
     
     init(_ autoplay: Bool,

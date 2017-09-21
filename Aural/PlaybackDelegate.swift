@@ -1,13 +1,23 @@
 import Foundation
 
+/*
+    Concrete implementation of PlaybackDelegateProtocol and BasicPlaybackDelegateProtocol.
+ */
 class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol, PlaylistChangeListener, AsyncMessageSubscriber {
     
+    // The actual player
     private let player: PlayerProtocol
+    
+    // The actual playback sequence
     private let playbackSequence: PlaybackSequenceProtocol
+    
+    // The actual playlist
     private let playlist: PlaylistAccessorProtocol
+    
+    // User preferences
     private let preferences: Preferences
     
-    // Serial queue for track prep tasks (to prevent concurrent prepping of the same track which could cause contention and is unnecessary to begin with)
+    // Serial queue for track prep tasks (to prevent concurrent prepping of the same track which could cause contention)
     private var trackPrepQueue: OperationQueue
     
     init(_ player: PlayerProtocol, _ playbackSequence: PlaybackSequenceProtocol, _ playlist: PlaylistAccessorProtocol, _ preferences: Preferences) {
@@ -17,10 +27,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         self.playlist = playlist
         self.preferences = preferences
         
+        // Initialize the serial track prep queue
         self.trackPrepQueue = OperationQueue()
         trackPrepQueue.underlyingQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
         trackPrepQueue.maxConcurrentOperationCount = 1
         
+        // Subscribe to message notifications
         AsyncMessenger.subscribe(AsyncMessageType.playbackCompleted, subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive))
     }
     
@@ -46,6 +58,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return (getPlaybackState(), getPlayingTrack(), trackChanged)
     }
     
+    // Plays whatever track follows the currently playing track (if there is one). If no track is playing, selects the first track in the playback sequence. Throws an error if playback fails.
     private func subsequentTrack() throws -> IndexedTrack? {
         let track = playlist.peekTrackAt(playbackSequence.subsequent())
         try play(track)
@@ -67,6 +80,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return track!
     }
     
+    // Throws an error if playback fails
     private func play(_ track: IndexedTrack?) throws {
         
         // Stop if currently playing
@@ -135,6 +149,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         }
     }
     
+    // Responds to a notification that playback of the current track has completed. Selects the subsequent track for playback and plays it, notifying observers of the track change.
     private func trackPlaybackCompleted() {
         
         // Stop playback of the old track
@@ -284,7 +299,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return modes
     }
     
-    // Called when playback of the current track completes
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         if (message is PlaybackCompletedAsyncMessage) {
@@ -302,6 +316,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         return nil
     }
+    
+    // ------------------- PlaylistChangeListener methods ---------------------
+    // Whenever the playlist is modified, the track prep task needs to be executed, to ensure optimal playback responsiveness.
     
     func trackAdded() {
         prepareNextTracksForPlayback()

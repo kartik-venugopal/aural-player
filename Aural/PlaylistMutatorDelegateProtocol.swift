@@ -1,13 +1,26 @@
-/*
- Contract for a middleman/facade between the UI and the playlist, to perform CRUD operations on the playlist
- */
-
 import Cocoa
 
+/*
+    Contract for a middleman/delegate that relays mutating/write operations to the playlist
+ */
 protocol PlaylistMutatorDelegateProtocol {
     
+    /* 
+        Adds a set of files to the playlist, if they are valid and supported by the app.
+     
+        Each of the files can be one of the following:
+        1 - A valid audio file with a supported format
+        2 - A supported playlist file
+        3 - A directory
+     
+        All playlists are expanded into their constituent tracks.
+        All directories are traversed recursively, and all supported files within them are added in turn.
+     
+        Note - Duplicates are omitted (if a file already exists in the playlist, it will not be added).
+     */
     func addFiles(_ files: [URL])
     
+    // Removes a single track with the given index
     func removeTrack(_ index: Int)
     
     // Clears the entire playlist of all tracks

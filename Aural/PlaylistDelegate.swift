@@ -1,8 +1,14 @@
 import Foundation
 
+/*
+    Concrete implementation of PlaylistDelegateProtocol.
+ */
 class PlaylistDelegate: PlaylistDelegateProtocol {
     
+    // Accessor delegate, to which all read-only operations are deferred
     private let accessor: PlaylistAccessorDelegateProtocol
+    
+    // Mutator delegate, to which all mutating/write operations are deferred
     private let mutator: PlaylistMutatorDelegateProtocol
     
     init(_ accessor: PlaylistAccessorDelegateProtocol, _ mutator: PlaylistMutatorDelegateProtocol) {
@@ -59,6 +65,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     }
     
     func savePlaylist(_ file: URL) {
-        PlaylistIO.savePlaylist(file)
+        
+        // Perform asynchronously, to unblock the main thread
+        DispatchQueue.global(qos: .userInitiated).async {
+            PlaylistIO.savePlaylist(file)
+        }
     }
 }
