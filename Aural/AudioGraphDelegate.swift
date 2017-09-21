@@ -16,25 +16,25 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     }
     
     func getVolume() -> Float {
-        return round(graph.getVolume() * AppConstants.volumeConversion_playerToUI)
+        return round(graph.getVolume() * AppConstants.volumeConversion_audioGraphToUI)
     }
     
     func setVolume(_ volumePercentage: Float) {
-        graph.setVolume(volumePercentage * AppConstants.volumeConversion_UIToPlayer)
+        graph.setVolume(volumePercentage * AppConstants.volumeConversion_UIToAudioGraph)
     }
     
     func increaseVolume() -> Float {
         let curVolume = graph.getVolume()
         let newVolume = min(1, curVolume + preferences.volumeDelta)
         graph.setVolume(newVolume)
-        return round(newVolume * AppConstants.volumeConversion_playerToUI)
+        return round(newVolume * AppConstants.volumeConversion_audioGraphToUI)
     }
     
     func decreaseVolume() -> Float {
         let curVolume = graph.getVolume()
         let newVolume = max(0, curVolume - preferences.volumeDelta)
         graph.setVolume(newVolume)
-        return round(newVolume * AppConstants.volumeConversion_playerToUI)
+        return round(newVolume * AppConstants.volumeConversion_audioGraphToUI)
     }
     
     func toggleMute() -> Bool {
@@ -54,11 +54,11 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     }
     
     func getBalance() -> Float {
-        return round(graph.getBalance() * AppConstants.panConversion_playerToUI)
+        return round(graph.getBalance() * AppConstants.panConversion_audioGraphToUI)
     }
     
     func setBalance(_ balance: Float) {
-        graph.setBalance(balance * AppConstants.panConversion_UIToPlayer)
+        graph.setBalance(balance * AppConstants.panConversion_UIToAudioGraph)
     }
     
     func panLeft() -> Float {
@@ -73,7 +73,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         graph.setBalance(newBalance)
         
-        return round(newBalance * AppConstants.panConversion_playerToUI)
+        return round(newBalance * AppConstants.panConversion_audioGraphToUI)
     }
     
     func panRight() -> Float {
@@ -88,7 +88,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         graph.setBalance(newBalance)
         
-        return round(newBalance * AppConstants.panConversion_playerToUI)
+        return round(newBalance * AppConstants.panConversion_audioGraphToUI)
     }
     
     // Sets global gain (or preamp) for the equalizer
@@ -110,7 +110,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     func setPitch(_ pitch: Float) -> String {
         // Convert from octaves (-2, 2) to cents (-2400, 2400)
-        graph.setPitch(pitch * AppConstants.pitchConversion_UIToPlayer)
+        graph.setPitch(pitch * AppConstants.pitchConversion_UIToAudioGraph)
         return ValueFormatter.formatPitch(pitch)
     }
     

@@ -111,14 +111,14 @@ class UIAppState {
         let playerState = appState.audioGraphState
         
         if (preferences.volumeOnStartup == .rememberFromLastAppLaunch) {
-            self.volume = round(playerState.volume * AppConstants.volumeConversion_playerToUI)
+            self.volume = round(playerState.volume * AppConstants.volumeConversion_audioGraphToUI)
             self.muted = playerState.muted
         } else {
-            self.volume = round(preferences.startupVolumeValue * AppConstants.volumeConversion_playerToUI)
+            self.volume = round(preferences.startupVolumeValue * AppConstants.volumeConversion_audioGraphToUI)
             self.muted = false
         }
         
-        self.balance = round(playerState.balance * AppConstants.panConversion_playerToUI)
+        self.balance = round(playerState.balance * AppConstants.panConversion_audioGraphToUI)
         
         self.eqGlobalGain = playerState.eqGlobalGain
         for (freq,gain) in playerState.eqBands {
@@ -126,7 +126,7 @@ class UIAppState {
         }
         
         self.pitchBypass = playerState.pitchBypass
-        self.pitch = playerState.pitch * AppConstants.pitchConversion_playerToUI
+        self.pitch = playerState.pitch * AppConstants.pitchConversion_audioGraphToUI
         self.pitchOverlap = playerState.pitchOverlap
         
         self.formattedPitch = ValueFormatter.formatPitch(self.pitch)

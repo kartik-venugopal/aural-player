@@ -3,23 +3,27 @@ import Cocoa
 import AVFoundation
 
 /*
-A collection of app-level constants
+    A collection of app-level constants
 */
 class AppConstants {
     
-    // Supported playlist formats
+    // Supported playlist file types
     static let m3u: String = "m3u"
     static let m3u8: String = "m3u8"
- 
     static let supportedPlaylistFileTypes: [String] = [m3u, m3u8]
+    
+    // Supported audio file types/formats
     static let supportedAudioFileTypes: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav"]
     
     static let supportedAudioFileFormats: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "lpcm"]
     
+    // File types allowed in the Open file dialog (extensions and UTIs)
     static let supportedFileTypes_open: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", m3u, m3u8, AVFileTypeMPEGLayer3, AVFileTypeAppleM4A, AVFileTypeAIFF, AVFileTypeAIFC, AVFileTypeCoreAudioFormat, AVFileTypeWAVE]
     
+    // File types allowed in the Save file dialog (extensions)
     static let supportedFileTypes_save: [String] = [m3u]
     
+    // Audible range (frequencies)
     static let audibleRangeMin: Double = 20      // 20 Hz
     static let audibleRangeMax: Double = 20480   // 20 KHz
     
@@ -45,16 +49,16 @@ class AppConstants {
     static let frequencyHzUnit: String = "Hz"
     static let frequencyKHzUnit: String = "KHz"
     
-    // Value conversion constants used when passing values across layers of the app (e.g. the UI uses a range of 0-100 for volume, while the player uses a volume range of 0-1)
+    // Value conversion constants used when passing values across layers of the app (e.g. the UI uses a range of 0-100 for volume, while the audio graph uses a volume range of 0-1)
     
-    static let volumeConversion_UIToPlayer: Float = (1/100) // Divide by 100
-    static let volumeConversion_playerToUI: Float = 100     // Multiply by 100
+    static let volumeConversion_UIToAudioGraph: Float = (1/100) // Divide by 100
+    static let volumeConversion_audioGraphToUI: Float = 100     // Multiply by 100
     
-    static let panConversion_UIToPlayer: Float = (1/100) // Divide by 100
-    static let panConversion_playerToUI: Float = 100     // Multiply by 100
+    static let panConversion_UIToAudioGraph: Float = (1/100) // Divide by 100
+    static let panConversion_audioGraphToUI: Float = 100     // Multiply by 100
     
-    static let pitchConversion_UIToPlayer: Float = 1200     // Multiply by 1200
-    static let pitchConversion_playerToUI: Float = (1/1200) // Divide by 1200
+    static let pitchConversion_UIToAudioGraph: Float = 1200     // Multiply by 1200
+    static let pitchConversion_audioGraphToUI: Float = (1/1200) // Divide by 1200
     
     // App state/log files
     static let stateFileName = "auralPlayer-state.json"

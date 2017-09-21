@@ -1,5 +1,5 @@
 /*
-    Initializes the app, alongside AppDelegate. Takes care of configuring logging, loading all app state from disk, and constructing the critical high level objects in the app's object tree - player, playlist, playerDelegate.
+    Takes care of loading all persistent app state from disk, and constructing the critical objects in the app's object tree - player, playlist, audio graph (i.e., "the back end"), and all delegates (middlemen/facades) for interaction between the UI and the "back end".
  */
 
 import Foundation
@@ -28,18 +28,22 @@ class ObjectGraph {
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
     
+    // Performs all necessary object initialization
     static func initialize() {
         
-        // Load saved player state from app config file, and initialize the player with that state
+        // Load persistent app state from disk
         appState = AppStateIO.load()
         
+        // Use defaults if app state could not be loaded from disk
         if (appState == nil) {
             appState = AppState.defaults
         }
         
+        // Preferences (and delegate)
         preferences = Preferences.instance()
         preferencesDelegate = PreferencesDelegate(preferences!)
         
+        // State used for UI initialization
         uiAppState = UIAppState(appState!, preferences!)
         
         // Audio Graph
@@ -75,7 +79,7 @@ class ObjectGraph {
         
         playlistDelegate = PlaylistDelegate(accessor, mutator)
         
-        // Recorder and Recorder Delegate
+        // Recorder (and delegate)
         recorder = Recorder(audioGraph!)
         recorderDelegate = RecorderDelegate(recorder!)
     }
@@ -118,21 +122,18 @@ class ObjectGraph {
     
     // Called when app exits
     static func tearDown() {
-        
+    
+        // Tear down the audio engine
         audioGraph?.tearDown()
+        
+        // Gather all pieces of app state into the appState object
         
         appState?.audioGraphState = audioGraph!.getPersistentState()
         appState?.playlistState = playlist!.persistentState()
         appState?.playbackSequenceState = playbackSequence!.getPersistentState()
+        appState?.uiState = WindowState.getPersistentState()
         
-        let uiState = UIState()
-        uiState.windowLocationX = Float(WindowState.location().x)
-        uiState.windowLocationY = Float(WindowState.location().y)
-        uiState.showEffects = WindowState.showingEffects
-        uiState.showPlaylist = WindowState.showingPlaylist
-        
-        appState?.uiState = uiState
-        
+        // Persist app state to disk
         AppStateIO.save(appState!)
     }
 }

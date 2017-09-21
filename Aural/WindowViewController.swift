@@ -163,4 +163,18 @@ class WindowState {
     static func location() -> NSPoint {
         return window!.frame.origin
     }
+    
+    static func getPersistentState() -> UIState {
+        
+        let uiState = UIState()
+        
+        let windowOrigin = window!.frame.origin
+        uiState.windowLocationX = Float(windowOrigin.x)
+        uiState.windowLocationY = Float(windowOrigin.y)
+        
+        uiState.showEffects = WindowState.showingEffects
+        uiState.showPlaylist = WindowState.showingPlaylist
+        
+        return uiState
+    }
 }

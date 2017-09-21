@@ -79,7 +79,7 @@ class PreferencesViewController: NSViewController {
         seekLengthSlider.integerValue = seekLength
         seekLengthField.stringValue = Utils.formatDuration_minSec(seekLength)
         
-        let volumeDelta = Int(round(preferences.volumeDelta * AppConstants.volumeConversion_playerToUI))
+        let volumeDelta = Int(round(preferences.volumeDelta * AppConstants.volumeConversion_audioGraphToUI))
         volumeDeltaStepper.integerValue = volumeDelta
         volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
         
@@ -88,12 +88,12 @@ class PreferencesViewController: NSViewController {
         btnSpecifyVolume.state = preferences.volumeOnStartup == .rememberFromLastAppLaunch ? 0 : 1
         
         startupVolumeSlider.isEnabled = Bool(btnSpecifyVolume.state)
-        startupVolumeSlider.integerValue = Int(round(preferences.startupVolumeValue * AppConstants.volumeConversion_playerToUI))
+        startupVolumeSlider.integerValue = Int(round(preferences.startupVolumeValue * AppConstants.volumeConversion_audioGraphToUI))
         
         lblStartupVolume.isEnabled = Bool(btnSpecifyVolume.state)
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
         
-        let panDelta = Int(round(preferences.panDelta * AppConstants.panConversion_playerToUI))
+        let panDelta = Int(round(preferences.panDelta * AppConstants.panConversion_audioGraphToUI))
         panDeltaStepper.integerValue = panDelta
         panDeltaField.stringValue = String(format: "%d%%", panDelta)
     }
@@ -160,12 +160,12 @@ class PreferencesViewController: NSViewController {
         
         preferences.seekLength = seekLengthSlider.integerValue
         
-        preferences.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.volumeConversion_UIToPlayer
+        preferences.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.volumeConversion_UIToAudioGraph
         
         preferences.volumeOnStartup = btnRememberVolume.state == 1 ? .rememberFromLastAppLaunch : .specific
-        preferences.startupVolumeValue = Float(startupVolumeSlider.integerValue) * AppConstants.volumeConversion_UIToPlayer
+        preferences.startupVolumeValue = Float(startupVolumeSlider.integerValue) * AppConstants.volumeConversion_UIToAudioGraph
         
-        preferences.panDelta = panDeltaStepper.floatValue * AppConstants.panConversion_UIToPlayer
+        preferences.panDelta = panDeltaStepper.floatValue * AppConstants.panConversion_UIToAudioGraph
         
         // Playlist prefs
         
