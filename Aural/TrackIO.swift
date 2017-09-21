@@ -7,6 +7,7 @@ import AVFoundation
 
 class TrackIO {
     
+    // Load duration and display metadata (artist/title/art)
     static func loadDisplayInfo(_ track: Track) {
         
         let sourceAsset = AVURLAsset(url: track.file, options: nil)
@@ -16,7 +17,7 @@ class TrackIO {
         MetadataReader.loadDisplayMetadata(track)
     }
     
-    // (Lazily) load all the information required to play this track
+    // Load all the information required to play this track
     static func prepareForPlayback(_ track: Track) {
         
         let lazyLoadInfo = track.lazyLoadingInfo
@@ -89,7 +90,7 @@ class TrackIO {
         }
     }
     
-    // (Lazily) load detailed track info, when it is requested by the UI
+    // Load detailed track info
     static func loadDetailedTrackInfo(_ track: Track) {
         
         let lazyLoadInfo = track.lazyLoadingInfo
@@ -125,7 +126,9 @@ class TrackIO {
         return Int(round(rate/32)) * 32
     }
     
+    // Computes a readable format string for an audio track
     private static func getFormat(_ assetTrack: AVAssetTrack) -> String {
+        
         let desc = CMFormatDescriptionGetMediaSubType(assetTrack.formatDescriptions[0] as! CMFormatDescription)
         var format = codeToString(desc)
         format = format.trimmingCharacters(in: CharacterSet.init(charactersIn: "."))

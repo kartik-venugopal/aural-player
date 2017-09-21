@@ -1,7 +1,7 @@
 import Cocoa
 
 /*
- Encapsulates UI state
+    Encapsulates UI state
  */
 class UIState {
     
@@ -13,7 +13,7 @@ class UIState {
 }
 
 /*
- Encapsulates audio graph state
+    Encapsulates audio graph state
  */
 class AudioGraphState {
     
@@ -60,7 +60,7 @@ class AudioGraphState {
 }
 
 /*
- Encapsulates playlist state
+    Encapsulates playlist state
  */
 class PlaylistState {
     
@@ -68,6 +68,9 @@ class PlaylistState {
     var tracks: [URL] = [URL]()
 }
 
+/*
+    Encapsulates playback sequence state
+ */
 class PlaybackSequenceState {
     
     var repeatMode: RepeatMode = AppDefaults.repeatMode
@@ -75,9 +78,9 @@ class PlaybackSequenceState {
 }
 
 /*
- Encapsulates all application state. It is persisted to disk upon exit and loaded into the application upon startup.
+    Encapsulates all application state. It is persisted to disk upon exit and loaded into the application upon startup.
  
- TODO: Make this class conform to different protocols for access/mutation
+    TODO: Make this class conform to different protocols for access/mutation
  */
 class AppState {
     

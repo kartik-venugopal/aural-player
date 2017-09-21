@@ -7,7 +7,7 @@ import AVFoundation
 
 class AppStateIO {
     
-    // Saves app config to default user documents directory
+    // Saves app state to default user documents directory
     static func save(_ state: AppState) {
         
         if let dir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first {
@@ -23,7 +23,7 @@ class AppStateIO {
         }
     }
     
-    // Loads app config from default user documents directory
+    // Loads app state from default user documents directory
     static func load() -> AppState? {
         
         if let dir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first {

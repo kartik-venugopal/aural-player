@@ -1,8 +1,12 @@
 import Cocoa
 import AVFoundation
 
+/*
+    Utility for reading and categorizing track metadata
+ */
 class MetadataReader {
     
+    // Loads the required display metadata (artist/title/art) for a track
     static func loadDisplayMetadata(_ track: Track) {
         
         var title: String?
@@ -40,14 +44,17 @@ class MetadataReader {
         track.setDisplayMetadata(artist, title, art)
     }
     
+    // Loads all available metadata for a track
     static func loadAllMetadata(_ track: Track) {
         
         if (track.avAsset == nil) {
             track.avAsset = AVURLAsset(url: track.file, options: nil)
         }
         
+        // Check which metadata formats are available
         let formats = track.avAsset!.availableMetadataFormats
         
+        // Iterate through the formats and collect metadata for each one
         for format in formats {
             
             let metadataType: MetadataType
@@ -62,25 +69,26 @@ class MetadataReader {
             
             let items = track.avAsset!.metadata(forFormat: format)
             
+            // Iterate through all metadata for this format
             for item in items {
                 
-                let val = item.stringValue
+                let stringValue = item.stringValue
                 
                 if let key = item.commonKey {
                     
                     // Ignore the display metadata keys (that have already been loaded)
                     if (key != AVMetadataCommonKeyTitle && key != AVMetadataCommonKeyArtist && key != AVMetadataCommonKeyArtwork) {
                         
-                        if (!Utils.isStringEmpty(val)) {
-                            let entry = MetadataEntry(.common, key, val!)
+                        if (!Utils.isStringEmpty(stringValue)) {
+                            let entry = MetadataEntry(.common, key, stringValue!)
                             track.metadata[key] = entry
                         }
                     }
                     
                 } else if let key = item.key as? String {
                     
-                    if (!Utils.isStringEmpty(val)) {
-                        let entry = MetadataEntry(metadataType, key, val!)
+                    if (!Utils.isStringEmpty(stringValue)) {
+                        let entry = MetadataEntry(metadataType, key, stringValue!)
                         track.metadata[key] = entry
                     }
                 }
@@ -88,7 +96,7 @@ class MetadataReader {
         }
     }
     
-    // (Lazily) load extended metadata (e.g. album), for a search, when it is requested by the UI
+    // Load only the metadata required for a search (e.g. album), for a track
     static func loadSearchMetadata(_ track: Track) {
         
         // Check if metadata has already been loaded
@@ -96,16 +104,15 @@ class MetadataReader {
             return
         }
         
+        if (track.avAsset == nil) {
+            track.avAsset = AVURLAsset(url: track.file, options: nil)
+        }
+        
         let sourceAsset = track.avAsset!
         
-        // Retrieve extended metadata (ID3)
         let metadataList = sourceAsset.commonMetadata
         
         for item in metadataList {
-            
-            if item.commonKey == nil || item.value == nil {
-                continue
-            }
             
             if let key = item.commonKey {
                 
@@ -120,22 +127,27 @@ class MetadataReader {
         }
     }
     
+    // Computes a user-friendly key, given a format-specific key, if it has a recognized format (ID3/iTunes)
     static func formattedKey(_ entry: MetadataEntry) -> String {
         
+        // Use the metadata spec to format the key
         switch entry.type {
-            
+        
+        // Common space keys (camel cased) need to be split up into separate words
         case .common:   return Utils.splitCamelCaseWord(entry.key, true)
             
         case .id3:  return ID3Spec.readableKey(entry.key) ?? entry.key
             
         case .iTunes: return ITunesSpec.readableKey(entry.key) ?? entry.key
             
+        // Unrecognized entry type, return key as is
         case .other: return entry.key
             
         }
     }
 }
 
+// Denotes the type (format) of a metadata entry
 enum MetadataType {
     
     case common

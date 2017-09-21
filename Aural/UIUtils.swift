@@ -15,12 +15,14 @@ class UIUtils {
         dialog.close()
     }
     
+    // Centers an alert with respect to the main app window, and shows it. Returns the modal response from the alert.
     static func showAlert(_ alert: NSAlert) -> NSModalResponse {
         
         centerDialog(alert.window)
         return alert.runModal()
     }
     
+    // Centers a dialog with respect to the main app window
     private static func centerDialog(_ dialog: NSWindow) {
         
         let window = WindowState.window!

@@ -1,10 +1,14 @@
 import Foundation
 import AVFoundation
 
-// TODO: Add 2.4.0 spec and older 2.00 spec
-// http://id3.org/id3v2.4.0-frames
+/*  
+    Specification for the ID3 metadata format. Versions 2.3 and 2.4 are supported.
+ 
+    See http://id3.org/id3v2.3.0 and http://id3.org/id3v2.4.0-frames
+ */
 class ID3Spec: MetadataSpec {
     
+    // Mappings of format-specific keys to readable keys
     private static var map: [String: String] = initMap()
     
     static func readableKey(_ key: String) -> String? {

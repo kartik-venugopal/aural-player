@@ -1,8 +1,12 @@
 import Foundation
 import AVFoundation
 
+/*
+    Specification for the iTunes metadata format.
+ */
 class ITunesSpec: MetadataSpec {
     
+    // Mappings of format-specific keys to readable keys
     private static var map: [String: String] = initMap()
     
     static func readableKey(_ key: String) -> String? {

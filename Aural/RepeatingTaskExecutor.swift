@@ -1,5 +1,5 @@
 /*
-    A timer for repeating tasks that run in a background thread.
+    A timer for repeating tasks.
 
     Wrapper around a GCD dispatch source timer.
 */
