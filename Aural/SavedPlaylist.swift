@@ -1,5 +1,5 @@
 /*
-    Represents a persistent playlist (as opposed to a playing playlist)
+    Represents a persistent playlist (as opposed to a playing playlist) stored in a m3u file.
  */
 import Foundation
 

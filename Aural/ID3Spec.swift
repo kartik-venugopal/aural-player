@@ -100,7 +100,7 @@ class ID3Spec: MetadataSpec {
         map[AVMetadataID3MetadataKeySynchronizedTempoCodes] = "Synchronized Tempo Codes"
         
         // TALB
-        map[AVMetadataID3MetadataKeyAlbumTitle] = "Album Title"
+        map[AVMetadataID3MetadataKeyAlbumTitle] = "Album Name"
         
         // TBPM
         map[AVMetadataID3MetadataKeyBeatsPerMinute] = "BPM (Beats Per Minute)"

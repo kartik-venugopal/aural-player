@@ -273,7 +273,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
             
             // Remove the bad track from the playlist and update the UI
             
-            let playingTrackIndex = playingTrack!.index!
+            let playingTrackIndex = playingTrack!.index
             let removeTrackRequest = RemoveTrackRequest(playingTrackIndex)
             SyncMessenger.publishRequest(removeTrackRequest)
         }

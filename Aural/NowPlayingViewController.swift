@@ -52,7 +52,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         
         // If there is a track currently playing, load detailed track info and toggle the popover view
         if (playingTrack != nil) {
-            playingTrack!.track?.loadDetailedInfo()
+            playingTrack!.track.loadDetailedInfo()
             popoverView.toggle()
         }
     }
@@ -136,7 +136,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         
         if (newTrack != nil) {
             
-            showNowPlayingInfo(newTrack!.track!)
+            showNowPlayingInfo(newTrack!.track)
             
             if (!errorState) {
                 setSeekTimerState(true)
@@ -144,7 +144,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
                 
                 if (popoverView.isShown()) {
                     
-                    playbackInfo.getPlayingTrack()?.track?.loadDetailedInfo()
+                    playbackInfo.getPlayingTrack()?.track.loadDetailedInfo()
                     popoverView.refresh()
                 }
                 
@@ -208,7 +208,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         }
         
         if (notification is PlayingTrackInfoUpdatedNotification) {
-            showNowPlayingInfo(playbackInfo.getPlayingTrack()!.track!)
+            showNowPlayingInfo(playbackInfo.getPlayingTrack()!.track)
             return
         }
     }

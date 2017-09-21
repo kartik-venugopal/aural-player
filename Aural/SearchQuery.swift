@@ -1,9 +1,6 @@
-/*
-    Encapsulates the options/criteria of a search for tracks performed on the playlist
- */
-
 import Cocoa
 
+// Encapsulates the options/criteria of a playlist search
 class SearchQuery {
     
     var text: String

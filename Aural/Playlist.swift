@@ -1,14 +1,15 @@
 /*
     Encapsulates all CRUD logic for a playlist
  */
-
 import Foundation
 import AVFoundation
 
 class Playlist: PlaylistCRUDProtocol {
     
     private var tracks: [Track] = [Track]()
-    private var tracksByFilename: [String: Track] = [String: Track]()
+    
+    // A map to quickly look up tracks by (absolute) file path (used when adding tracks, to avoid duplicates)
+    private var tracksByFilePath: [String: Track] = [String: Track]()
     
     func getTracks() -> [Track] {
         return tracks
@@ -16,7 +17,7 @@ class Playlist: PlaylistCRUDProtocol {
     
     func peekTrackAt(_ index: Int?) -> IndexedTrack? {
         let invalidIndex: Bool = index == nil || index! < 0 || index! >= tracks.count
-        return invalidIndex ? nil : IndexedTrack(tracks[index!], index)
+        return invalidIndex ? nil : IndexedTrack(tracks[index!], index!)
     }
     
     func size() -> Int {
@@ -38,8 +39,6 @@ class Playlist: PlaylistCRUDProtocol {
         return (tracks.count, totalDuration())
     }
     
-    // Add a track to the end of this playlist and return its index
-    // Assume valid existing and supported file
     func addTrack(_ track: Track) -> Int {
         
         if (!trackExists(track)) {
@@ -53,11 +52,12 @@ class Playlist: PlaylistCRUDProtocol {
     
     private func doAddTrack(_ track: Track) {
         tracks.append(track)
-        tracksByFilename[track.file.path] = track
+        tracksByFilePath[track.file.path] = track
     }
     
+    // Checks whether or not a track with the given absolute file path already exists.
     private func trackExists(_ track: Track) -> Bool {
-        return tracksByFilename[track.file.path] != nil
+        return tracksByFilePath[track.file.path] != nil
     }
     
     func removeTrack(_ index: Int) {
@@ -65,7 +65,7 @@ class Playlist: PlaylistCRUDProtocol {
         let track: Track? = tracks[index]
         
         if (track != nil) {
-            tracksByFilename.removeValue(forKey: track!.file.path)
+            tracksByFilePath.removeValue(forKey: track!.file.path)
             tracks.remove(at: index)
         }
     }
@@ -81,14 +81,13 @@ class Playlist: PlaylistCRUDProtocol {
     
     func clear() {
         tracks.removeAll()
-        tracksByFilename.removeAll()
+        tracksByFilePath.removeAll()
     }
     
     func save(_ file: URL) {
         PlaylistIO.savePlaylist(file)
     }
     
-    // Shifts a single track up in the playlist order
     func moveTrackUp(_ index: Int) -> Int {
         
         if (index <= 0) {
@@ -100,7 +99,6 @@ class Playlist: PlaylistCRUDProtocol {
         return upIndex
     }
     
-    // Shifts a single track down in the playlist order
     func moveTrackDown(_ index: Int) -> Int {
         
         if (index >= (tracks.count - 1)) {
@@ -117,7 +115,6 @@ class Playlist: PlaylistCRUDProtocol {
         swap(&tracks[trackIndex1], &tracks[trackIndex2])
     }
     
-    // Searches the playlist for all tracks matching the specified criteria, and returns a set of results
     func search(_ searchQuery: SearchQuery) -> SearchResults {
         
         var results: [SearchResult] = [SearchResult]()
@@ -137,7 +134,7 @@ class Playlist: PlaylistCRUDProtocol {
         return SearchResults(results: results)
     }
     
-    // Checks if a single track matches search criteria, returns information about the match, if there is one
+    // Checks if a single track matches search criteria, and returns information about the match, if there is one
     private func trackMatchesQuery(track: Track, searchQuery: SearchQuery) -> (matched: Bool, matchedField: String?, matchedFieldValue: String?) {
         
         let caseSensitive: Bool = searchQuery.options.caseSensitive
@@ -254,6 +251,7 @@ class Playlist: PlaylistCRUDProtocol {
         return aTrack.duration > anotherTrack.duration
     }
     
+    // Returns all state for this playlist that needs to be persisted to disk
     func persistentState() -> PlaylistState {
         
         let state = PlaylistState()

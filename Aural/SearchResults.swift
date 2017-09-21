@@ -1,5 +1,5 @@
 /*
-    Encapsulates the results of a search for tracks performed on the playlist, and provides convenient functions for iteration
+    Encapsulates the results of a playlist search, and provides convenient functions for iteration
  */
 
 import Cocoa

@@ -88,7 +88,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         if (track != nil) {
             
-            let actualTrack = track!.track!
+            let actualTrack = track!.track
             TrackIO.prepareForPlayback(actualTrack)
             
             if (actualTrack.lazyLoadingInfo.preparationFailed) {
@@ -207,7 +207,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         let playingTrack = getPlayingTrack()
         let seconds = playingTrack != nil ? player.getSeekPosition() : 0
-        let percentage = playingTrack != nil ? seconds * 100 / playingTrack!.track!.duration : 0
+        let percentage = playingTrack != nil ? seconds * 100 / playingTrack!.track.duration : 0
         
         return (seconds, percentage)
     }
@@ -222,7 +222,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         let curPosn = player.getSeekPosition()
         
         let playingTrack = getPlayingTrack()
-        let trackDuration = playingTrack!.track!.duration
+        let trackDuration = playingTrack!.track.duration
         
         let newPosn = min(trackDuration, curPosn + Double(preferences.seekLength))
         
@@ -230,7 +230,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         if (newPosn < trackDuration) {
             
             let playingTrack = getPlayingTrack()
-            player.seekToTime(playingTrack!.track!, newPosn)
+            player.seekToTime(playingTrack!.track, newPosn)
             
         } else {
             trackPlaybackCompleted()
@@ -248,7 +248,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         let newPosn = max(0, curPosn - Double(preferences.seekLength))
         
         let playingTrack = getPlayingTrack()
-        player.seekToTime(playingTrack!.track!, newPosn)
+        player.seekToTime(playingTrack!.track, newPosn)
     }
     
     func seekToPercentage(_ percentage: Double) {
@@ -259,13 +259,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         // Calculate the new start position
         let playingTrack = getPlayingTrack()
-        let trackDuration = playingTrack!.track!.duration
+        let trackDuration = playingTrack!.track.duration
         
         let newPosn = percentage * trackDuration / 100
         
         // If this seek takes the track to its end, stop playback and proceed to the next track
         if (newPosn < trackDuration) {
-            player.seekToTime(playingTrack!.track!, newPosn)
+            player.seekToTime(playingTrack!.track, newPosn)
         } else {
             trackPlaybackCompleted()
         }
