@@ -1,14 +1,15 @@
 /*
-    Computes the playback sequence for the playlist
+    Concrete implementation of PlaybackSequenceProtocol
  */
 
 import Foundation
 
-class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
+class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
     
     private var repeatMode: RepeatMode = .off
     private var shuffleMode: ShuffleMode = .off
     
+    // Total size of playlist (number of tracks)
     private var tracksCount: Int = 0
     
     // Cursor is the playlist index of the currently playing track (nil if no track is playing)
@@ -24,13 +25,16 @@ class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
         reset(tracksCount: tracksCount)
     }
     
+    // Resets the sequence with a new tracksCount
     private func reset(tracksCount: Int) {
         self.tracksCount = tracksCount
         reset()
     }
     
+    // Resets the sequence with the first track in the sequence being the given track index
     private func reset(firstTrackIndex: Int?) {
         
+        // If shuffle is on, recompute the shuffle sequence
         if (shuffleMode == .on) {
             if (firstTrackIndex != nil) {
                 shuffleSequence.reset(capacity: tracksCount, firstTrackIndex: firstTrackIndex!)
@@ -40,9 +44,9 @@ class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
         }
     }
     
-    // Recomputes the shuffle sequence, if necessary
     private func reset() {
         
+        // If shuffle is on, recompute the shuffle sequence
         if (shuffleMode == .on) {
             
             // TODO: Can this logic be moved to ShuffleSequence, and its sequence variable be made private ???
@@ -70,26 +74,10 @@ class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
         swap(&shuffleSequence.sequence[0], &shuffleSequence.sequence[1])
     }
     
-    func trackAdded() {
-        if (shuffleMode == .on) {
-            shuffleSequence.insertElement(elm: tracksCount)
-        }
-        tracksCount += 1
-    }
-    
-    func clear() {
+    private func clear() {
         shuffleSequence.clear()
         tracksCount = 0
         cursor = nil
-    }
-    
-    func playlistCleared() {
-        clear()
-    }
-    
-    func playlistReordered(_ newCursor: Int?) {
-        cursor = newCursor
-        reset(firstTrackIndex: cursor)
     }
     
     func select(_ index: Int) {
@@ -99,36 +87,6 @@ class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
     
     func getCursor() -> Int? {
         return cursor
-    }
-    
-    func trackRemoved(_ removedTrackIndex: Int) {
-        
-        // If playingTrackIndex >= removedTrackIndex, it will change
-        
-        // Playing track removed
-        if (cursor == removedTrackIndex) {
-            cursor = nil
-        } else if (cursor != nil && cursor! > removedTrackIndex) {
-            // Move the cursor up one index, if it is below the removed track
-            cursor! -= 1
-        }
-        
-        tracksCount -= 1
-        reset(firstTrackIndex: cursor)
-    }
-    
-    func trackReordered(_ oldIndex: Int, _ newIndex: Int) {
-        
-        // If playingTrackIndex == oldIndex or newIndex, it will change
-        
-        // Playing track was moved
-        if (cursor == oldIndex) {
-            cursor = newIndex
-        } else if (cursor == newIndex) { // Track adjacent to playing track was moved
-            cursor = oldIndex
-        }
-        
-        reset(firstTrackIndex: cursor)
     }
     
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
@@ -205,7 +163,6 @@ class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
         return (repeatMode, shuffleMode)
     }
     
-    // Determines the next track to play when playback of a (previous) track has completed and no user input has been provided to select the next track to play
     func subsequent() -> Int? {
 
         if (tracksCount == 0) {
@@ -299,7 +256,6 @@ class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
         return nil
     }
     
-    // Determines the next track to play when the user has requested the next track
     func next() -> Int? {
         
         // NOTE - If the result is nil, don't modify the cursor, because next() should not end the currently playing track if there is one
@@ -393,7 +349,6 @@ class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
         return nil
     }
     
-    // Determines the next track to play when the user has requested the previous track
     func previous() -> Int? {
         
         // NOTE - If the result is nil, don't modify the cursor, because previous() should not end the currently playing track if there is one
@@ -488,7 +443,6 @@ class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
         return nil
     }
     
-    // Determines which track will play next if playlist.continuePlaying() is invoked, if any. This is used to eagerly prep tracks for future playback. Nil return value indicates no track.
     func peekSubsequent() -> Int? {
         
         if (tracksCount == 0) {
@@ -568,7 +522,6 @@ class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
         return nil
     }
     
-    // Determines which track will play next if playlist.next() is invoked, if any. This is used to eagerly prep tracks for future playback. Nil return value indicates no track.
     func peekNext() -> Int? {
         
         // NOTE - If the result is nil, don't modify the cursor, because next() should not end the currently playing track if there is one
@@ -651,7 +604,6 @@ class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
         return nil
     }
     
-    // Determines which track will play next if playlist.previous() is invoked, if any. This is used to eagerly prep tracks for future playback. Nil return value indicates no track.
     func peekPrevious() -> Int? {
         
         // NOTE - If the result is nil, don't modify the cursor, because previous() should not end the currently playing track if there is one
@@ -734,14 +686,6 @@ class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
         return nil
     }
     
-    func getRepeatMode() -> RepeatMode {
-        return repeatMode
-    }
-    
-    func getShuffleMode() -> ShuffleMode {
-        return shuffleMode
-    }
-    
     func getPersistentState() -> PlaybackSequenceState {
         
         let state = PlaybackSequenceState()
@@ -749,5 +693,53 @@ class PlaybackSequence: PlaylistChangeListener, PlaybackSequenceProtocol {
         state.shuffleMode = shuffleMode
         
         return state
+    }
+    
+    // --------------- PlaylistChangeListener methods ----------------
+    
+    func trackAdded() {
+        if (shuffleMode == .on) {
+            shuffleSequence.insertElement(elm: tracksCount)
+        }
+        tracksCount += 1
+    }
+    
+    func trackRemoved(_ removedTrackIndex: Int) {
+        
+        // If playingTrackIndex >= removedTrackIndex, it will change
+        
+        // Playing track removed
+        if (cursor == removedTrackIndex) {
+            cursor = nil
+        } else if (cursor != nil && cursor! > removedTrackIndex) {
+            // Move the cursor up one index, if it is below the removed track
+            cursor! -= 1
+        }
+        
+        tracksCount -= 1
+        reset(firstTrackIndex: cursor)
+    }
+    
+    func trackReordered(_ oldIndex: Int, _ newIndex: Int) {
+        
+        // If playingTrackIndex == oldIndex or newIndex, it will change
+        
+        // Playing track was moved
+        if (cursor == oldIndex) {
+            cursor = newIndex
+        } else if (cursor == newIndex) { // Track adjacent to playing track was moved
+            cursor = oldIndex
+        }
+        
+        reset(firstTrackIndex: cursor)
+    }
+    
+    func playlistReordered(_ newCursor: Int?) {
+        cursor = newCursor
+        reset(firstTrackIndex: cursor)
+    }
+    
+    func playlistCleared() {
+        clear()
     }
 }

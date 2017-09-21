@@ -6,9 +6,6 @@ import Foundation
 
 protocol PlaylistChangeListener {
     
-    // Playlist has been reordered (e.g. sorting). The newCursor argument indicates the new value of the cursor (i.e. playing track) for the playback sequence.
-    func playlistReordered(_ newCursor: Int?)
-    
     // A single new track has been added
     func trackAdded()
     
@@ -17,6 +14,9 @@ protocol PlaylistChangeListener {
     
     // A single track has been moved, from its original index to another
     func trackReordered(_ oldIndex: Int, _ newIndex: Int)
+    
+    // Playlist has been reordered (e.g. sorting). The newCursor argument indicates the new value of the cursor (i.e. playing track) for the playback sequence.
+    func playlistReordered(_ newCursor: Int?)
     
     // The entire playlist has been cleared
     func playlistCleared()

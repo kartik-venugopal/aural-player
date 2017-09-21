@@ -1,9 +1,6 @@
-/*
-    Enumeration of all possible playback repeat modes
-*/
-
 import Foundation
 
+// Enumeration of all possible playback repeat modes
 enum RepeatMode: String {
     
     // Play all tracks once, in playlist order
@@ -16,9 +13,7 @@ enum RepeatMode: String {
     case all
 }
 
-/*
- Enumeration of all possible playback shuffle modes
- */
+// Enumeration of all possible playback shuffle modes
 enum ShuffleMode: String {
     
     // Play tracks in random order
