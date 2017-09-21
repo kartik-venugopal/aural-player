@@ -1,9 +1,9 @@
-/*
- Contract for player-level operations to tune the sound of the player - volume, panning, equalizer (EQ) bands, sound effects.
- */
 import Cocoa
 import AVFoundation
 
+/*
+    Contract for operations to alter the audio graph, i.e. tune the sound output - volume, panning, equalizer (EQ), and sound effects
+ */
 protocol AudioGraphProtocol {
     
     // Retrieves the current player volume
@@ -12,10 +12,10 @@ protocol AudioGraphProtocol {
     // Sets the player volume, specified as a value between 0 and 1
     func setVolume(_ volume: Float)
     
-    // Retrieves the current L/R balance (aka pan)
+    // Retrieves the current stereo L/R balance (aka pan)
     func getBalance() -> Float
     
-    // Sets the L/R balance (aka pan), specified as a value between -1 (L) and 1 (R)
+    // Sets the stereo L/R balance (aka pan), specified as a value between -1 (L) and 1 (R)
     func setBalance(_ balance: Float)
     
     // Mutes the player
@@ -93,21 +93,33 @@ protocol AudioGraphProtocol {
     // Sets the treble band of the filter to the specified frequency range
     func setFilterTrebleBand(_ min: Float, _ max: Float)
     
+    // Returns all state of the audio graph that needs to be persisted to disk
     func getPersistentState() -> AudioGraphState
     
+    // Shuts down the audio graph, releasing all its resources
     func tearDown()
 }
 
+/*
+    Contract for a sub-graph of the audio graph, suitable for a player, that performs operations on only the player node of the graph.
+ */
 protocol PlayerGraphProtocol {
     
+    // The audio graph node responsible for playback
     var playerNode: AVAudioPlayerNode {get}
     
+    // Reconnects the player node to its output node, with a new audio format
     func reconnectPlayerNodeWithFormat(_ format: AVAudioFormat)
     
+    // Clears reverb/delay sound tails. Suitable for use when stopping the player.
     func clearSoundTails()
 }
 
+/*
+    Contract for a sub-graph of the audio graph, suitable for a recorder, that has access to only the graph node on which a recorder tap can be installed.
+ */
 protocol RecorderGraphProtocol {
-    
+ 
+    // The audio graph node on which a recorder tap can be installed
     var nodeForRecorderTap: AVAudioNode {get}
 }

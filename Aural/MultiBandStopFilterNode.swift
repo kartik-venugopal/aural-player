@@ -55,14 +55,17 @@ class MultiBandStopFilterNode: AVAudioUnitEQ {
         band.bypass = bypassBand
     }
 
+    // Sets the range of frequencies to be attenuated, within the bass frequency band
     func setFilterBassBand(_ min: Float, _ max: Float) {
         setBand(bassBand, min, max)
     }
 
+    // Sets the range of frequencies to be attenuated, within the mid frequency band
     func setFilterMidBand(_ min: Float, _ max: Float) {
         setBand(midBand, min, max)
     }
     
+    // Sets the range of frequencies to be attenuated, within the treble frequency band
     func setFilterTrebleBand(_ min: Float, _ max: Float) {
         setBand(trebleBand, min, max)
     }

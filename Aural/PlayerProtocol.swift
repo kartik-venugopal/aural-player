@@ -1,11 +1,11 @@
 import Cocoa
 
 /*
- Contract for an audio player that is responsible for actual execution of playback control requests (play/pause/next/previous track, etc)
+    Contract for an audio player that performs track playback
  */
 protocol PlayerProtocol {
     
-    // Plays a track associated with a new playback session
+    // Plays a given track
     func play(_ track: Track)
     
     // Pauses the currently playing track
@@ -14,10 +14,10 @@ protocol PlayerProtocol {
     // Resumes playback of the currently playing track
     func resume()
     
-    // Stops playback of the currently playing track, in preparation for playback of a new track. Releases all resources associated with the currently playing track.
+    // Stops playback of the currently playing track
     func stop()
     
-    // Seeks to a certain time in the track for the given playback session
+    // Seeks to a certain time in the track
     func seekToTime(_ track: Track, _ seconds: Double)
     
     // Gets the playback position (in seconds) of the currently playing track

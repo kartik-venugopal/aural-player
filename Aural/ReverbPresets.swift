@@ -1,10 +1,9 @@
-/*
-Enumeration of all possible reverb effect presets
-*/
-
 import Foundation
 import AVFoundation
 
+/*
+    Enumeration of all possible reverb effect presets
+ */
 enum ReverbPresets: String {
     
     case smallRoom
@@ -46,6 +45,7 @@ enum ReverbPresets: String {
         }
     }
     
+    // Maps a AVAudioUnitReverbPreset to a ReverbPresets
     static func mapFromAVPreset(_ preset: AVAudioUnitReverbPreset) -> ReverbPresets {
         
         switch preset {
@@ -68,12 +68,12 @@ enum ReverbPresets: String {
         }
     }
     
-    // User-friendly, UI-friendly description String
+    // User-friendly, UI-friendly description string
     var description: String {
         return Utils.splitCamelCaseWord(rawValue, false)
     }
  
-    // Constructs a ReverPresets object from a description String
+    // Constructs a ReverPresets object from a description string
     static func fromDescription(_ description: String) -> ReverbPresets {
         return ReverbPresets(rawValue: Utils.camelCase(description)) ?? AppDefaults.reverbPreset
     }

@@ -1,5 +1,8 @@
 import Foundation
 
+/*
+    An enumeration of equalizer presets the user can choose from
+ */
 enum EQPresets: String {
     
     case flat // default
@@ -8,14 +11,17 @@ enum EQPresets: String {
     case vocal
     case soft
     
+    // A user-friendly description of this preset
     var description: String {
         return Utils.splitCamelCaseWord(rawValue, false)
     }
     
+    // Converts a user-friendly description to an instance of EQPresets
     static func fromDescription(_ description: String) -> EQPresets {
         return EQPresets(rawValue: Utils.camelCase(description)) ?? .flat
     }
     
+    // Returns the frequency->gain mappings for each of the frequency bands, for this preset
     var bands: [Int: Float] {
         
         switch self {
@@ -30,6 +36,7 @@ enum EQPresets: String {
     }
 }
 
+// Container for specific frequency->gain mappings for different EQ presets
 fileprivate class EQPresetsBands {
     
     static let flatBands: [Int: Float] = {

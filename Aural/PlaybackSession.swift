@@ -10,8 +10,6 @@
     If a new session is started while the current one is still active (playing), the old one is implicitly invalidated, and the new session becomes both current and active. In other words, the following code will start session1, then start session2, invalidating session1 ...
     start() -> starts session1
     start() -> starts session2, invalidating session1
- 
-    TODO: Ensure thread-safety
  */
 
 import Cocoa

@@ -1,5 +1,5 @@
 /*
- Wrapper around AVAudioEngine. Handles all audio-related operations ... playback, effects (DSP), etc. Receives calls from PlayerDelegate to modify settings and perform playback.
+    Concrete implementation of PlayerProtocol
  */
 
 import Cocoa
@@ -8,14 +8,14 @@ import AVFoundation
 // TODO: Move PlaybackSession code to BufferManager
 class Player: PlayerProtocol {
     
-    // The underlying audio graph
+    // The underlying audio graph used to perform playback
     private let graph: PlayerGraphProtocol
     private let playerNode: AVAudioPlayerNode
     
-    // Buffer allocation
+    // Helper used for buffer allocation and playback
     private let bufferManager: BufferManager
     
-    // Current playback position (frame)
+    // The start frame for the current playback session (used to calculate seek position). Represents the point in the track at which playback began.
     private var startFrame: AVAudioFramePosition?
     
     private var playbackState: PlaybackState = .noTrack
@@ -79,7 +79,6 @@ class Player: PlayerProtocol {
         startFrame = bufferManager.seekToTime(session, seconds)
     }
     
-    // In seconds
     func getSeekPosition() -> Double {
         
         let nodeTime: AVAudioTime? = playerNode.lastRenderTime
