@@ -1,5 +1,5 @@
 /*
-    View controller for the playlist
+    View controller for playlist controls (adding/removing/reordering tracks)
  */
 
 import Cocoa
@@ -11,7 +11,10 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     @IBOutlet weak var lblPlaylistSummary: NSTextField!
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
     
+    // Delegate that performs CRUD actions on the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
+    
+    // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
@@ -29,12 +32,13 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         AsyncMessenger.subscribe(.doneAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.trackInfoUpdated, subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        // Register self as a subscriber to various message notifications
+        // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.playlistScrollUpNotification, subscriber: self)
         SyncMessenger.subscribe(.playlistScrollDownNotification, subscriber: self)
         SyncMessenger.subscribe(.removeTrackRequest, subscriber: self)
         
+        // Set up the serial operation queue
         playlistUpdateQueue.maxConcurrentOperationCount = 1
         playlistUpdateQueue.underlyingQueue = DispatchQueue.main
         playlistUpdateQueue.qualityOfService = .background
@@ -57,7 +61,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     @IBAction func addTracksAction(_ sender: AnyObject) {
         
-        let selRow = playlistView.selectedRow
         let dialog = UIElements.openDialog
         
         let modalResponse = dialog.runModal()
@@ -65,11 +68,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         if (modalResponse == NSModalResponseOK) {
             addFiles(dialog.urls)
         }
-        
-        playlistView.reloadData()
-        updatePlaylistSummary()
-        
-        selectTrack(selRow)
     }
     
     private func startedAddingTracks() {
@@ -125,6 +123,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             selectTrack(newTrackIndex)
             
             if (oldPlayingTrackIndex == index) {
+                // Request the player to stop playback, if the playing track was removed
                 let stopPlaybackRequest = StopPlaybackRequest.instance
                 SyncMessenger.publishRequest(stopPlaybackRequest)
             }
@@ -143,7 +142,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         }
     }
     
-    // The "errorState" arg indicates whether the playbackInfo is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
+    // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     private func trackChange(_ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         selectTrack(newTrack == nil ? nil : newTrack!.index)
     }
@@ -175,6 +174,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         playlistView.reloadData()
         updatePlaylistSummary()
         
+        // Request the player to stop playback, if there is a track playing
         let stopPlaybackRequest = StopPlaybackRequest.instance
         SyncMessenger.publishRequest(stopPlaybackRequest)
     }
@@ -254,7 +254,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         playlist.addFiles(files)
     }
     
-    // Playlist info changed, need to reset the UI
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         if message is TrackAddedAsyncMessage {

@@ -14,9 +14,10 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     @IBOutlet weak var lblRecorderFileSize: NSTextField!
     @IBOutlet weak var recordingInfoBox: NSBox!
     
+    // Delegate that relays requests to the recorder
     private let recorder: RecorderDelegateProtocol = ObjectGraph.getRecorderDelegate()
     
-    // Timer that periodically updates the recording duration (only when recorder is active)
+    // Timer that periodically updates recording info - duration and filesize (only when recorder is active)
     private var recorderTimer: RepeatingTaskExecutor?
     
     override func viewDidLoad() {
@@ -28,7 +29,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     
     @IBAction func recorderAction(_ sender: Any) {
         
-        if (recorder.getRecordingInfo() != nil) {
+        if (recorder.isRecording()) {
             stopRecording()
         } else {
             startRecording()
@@ -73,6 +74,8 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         if (modalResponse == NSModalResponseOK) {
             recorder.saveRecording(dialog.url!)
         } else {
+            
+            // If user doesn't want to save the recording, discard it (delete the temp file)
             recorder.deleteRecording()
         }
     }
@@ -84,14 +87,13 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         lblRecorderFileSize.stringValue = recInfo.fileSize.toString()
     }
     
+    // This function is invoked when the user attempts to exit the app. It checks if there is an ongoing recording the user may have forgotten about, and prompts the user to save/discard the recording or to cancel the exit.
     private func onExit() -> AppExitResponse {
         
         if (recorder.isRecording()) {
             
-            let alert = UIElements.saveRecordingAlert
-            
             // Recording ongoing, prompt the user to save/discard it
-            let response = UIUtils.showAlert(alert)
+            let response = UIUtils.showAlert(UIElements.saveRecordingAlert)
             
             switch response {
                 
@@ -109,6 +111,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
             }
         }
         
+        // No ongoing recording, proceed with exit
         return AppExitResponse.okToExit
     }
     

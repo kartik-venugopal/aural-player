@@ -52,7 +52,10 @@ class PreferencesViewController: NSViewController {
     @IBOutlet weak var btnStartAtWindowLocation: NSButton!
     @IBOutlet weak var startWindowLocationMenu: NSPopUpButton!
     
+    // Delegate that performs CRUD on user preferences
     private let preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.getPreferencesDelegate()
+    
+    // Cached preferences instance
     private let preferences: Preferences = ObjectGraph.getPreferencesDelegate().getPreferences()
     
     override func viewDidLoad() {
@@ -136,6 +139,7 @@ class PreferencesViewController: NSViewController {
         startWindowLocationMenu.selectItem(withTitle: preferences.windowLocationOnStartup.windowLocation.description)
     }
     
+    // Presents the modal dialog
     @IBAction func preferencesAction(_ sender: Any) {
         
         resetPreferencesFields()

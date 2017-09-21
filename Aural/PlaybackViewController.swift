@@ -1,6 +1,11 @@
+/*
+    View controller for the playback controls (play/pause, prev/next track, seeking, repeat/shuffle)
+ */
 import Cocoa
 
 class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber {
+    
+    // Playback control fields
     
     @IBOutlet weak var seekSlider: NSSlider!
     @IBOutlet weak var btnPlayPause: NSButton!
@@ -8,8 +13,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     // Toggle buttons (their images change)
     @IBOutlet weak var btnShuffle: NSButton!
     @IBOutlet weak var btnRepeat: NSButton!
-    
-    @IBOutlet weak var playlistView: NSTableView!
     
     @IBOutlet weak var repeatOffMainMenuItem: NSMenuItem!
     @IBOutlet weak var repeatOneMainMenuItem: NSMenuItem!
@@ -25,6 +28,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     @IBOutlet weak var shuffleOffDockMenuItem: NSMenuItem!
     @IBOutlet weak var shuffleOnDockMenuItem: NSMenuItem!
     
+    // The playlist view can initiate playback of a track (through double clicks)
+    @IBOutlet weak var playlistView: NSTableView!
+    
+    // Delegate that conveys all playback requests to the player / playback sequence
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
     
     override func viewDidLoad() {
@@ -36,17 +43,20 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         let appState = ObjectGraph.getUIAppState()
         updateRepeatAndShuffleControls(appState.repeatMode, appState.shuffleMode)
         
+        // Subscribe for message notifications
+        
         AsyncMessenger.subscribe(.trackNotPlayed, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.trackChanged, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(.stopPlaybackRequest, subscriber: self)
     }
     
+    // Moving the seek slider results in seeking the track to the new slider position
     @IBAction func seekSliderAction(_ sender: AnyObject) {
+        
         player.seekToPercentage(seekSlider.doubleValue)
         
-        let seekPositionChangedNotification = SeekPositionChangedNotification.instance
-        SyncMessenger.publishNotification(seekPositionChangedNotification)
+        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
     }
     
     @IBAction func playSelectedTrackAction(_ sender: AnyObject) {
@@ -269,7 +279,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         }
     }
     
-    // Playlist info changed, need to reset the UI
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         if message is TrackChangedAsyncMessage {

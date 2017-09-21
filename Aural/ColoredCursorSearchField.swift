@@ -13,7 +13,7 @@ class ColoredCursorSearchField: NSTextField {
     }
     
     override func textDidChange(_ notification: Notification) {
-        let queryChangedMessage = SearchQueryChangedNotification.instance
+        let queryChangedMessage = SearchTextChangedNotification.instance
         SyncMessenger.publishNotification(queryChangedMessage)
     }
 }

@@ -49,7 +49,7 @@ enum MessageType {
     
     case seekPositionChangedNotification
     
-    case searchQueryChangedNotification
+    case searchTextChangedNotification
     
     case appLoadedNotification
     case appReopenedNotification
@@ -185,10 +185,10 @@ struct SeekPositionChangedNotification: NotificationMessage {
     private init() {}
 }
 
-struct SearchQueryChangedNotification: NotificationMessage {
+struct SearchTextChangedNotification: NotificationMessage {
     
-    var messageType: MessageType = .searchQueryChangedNotification
-    static let instance: SearchQueryChangedNotification = SearchQueryChangedNotification()
+    var messageType: MessageType = .searchTextChangedNotification
+    static let instance: SearchTextChangedNotification = SearchTextChangedNotification()
     
     private init() {}
 }

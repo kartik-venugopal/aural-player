@@ -7,6 +7,7 @@ import Cocoa
 class PlaylistSortViewController: NSViewController {
     
     // Playlist sort modal dialog fields
+    
     @IBOutlet weak var sortPanel: NSPanel!
     
     @IBOutlet weak var sortByName: NSButton!
@@ -17,7 +18,10 @@ class PlaylistSortViewController: NSViewController {
     
     @IBOutlet weak var playlistView: NSTableView!
     
+    // Delegate that relays sort requests to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
+    
+    // Delegate that retrieves current playback information
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     override func viewDidLoad() {
@@ -45,9 +49,11 @@ class PlaylistSortViewController: NSViewController {
         sortOptions.field = sortByName.state == 1 ? SortField.name : SortField.duration
         sortOptions.order = sortAscending.state == 1 ? SortOrder.ascending : SortOrder.descending
         
+        // Perform the sort
         playlist.sort(sortOptions)
         dismissModalDialog()
         
+        // Update the UI
         playlistView.reloadData()
         
         let playingTrackIndex = playbackInfo.getPlayingTrack()?.index

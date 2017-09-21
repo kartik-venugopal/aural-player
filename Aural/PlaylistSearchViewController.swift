@@ -7,6 +7,7 @@ import Cocoa
 class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     
     // Playlist search modal dialog fields
+    
     @IBOutlet weak var searchPanel: NSPanel!
     @IBOutlet weak var searchField: ColoredCursorSearchField!
     
@@ -39,7 +40,7 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     
     override func viewDidLoad() {
         searchPanel.titlebarAppearsTransparent = true
-        SyncMessenger.subscribe(.searchQueryChangedNotification, subscriber: self)
+        SyncMessenger.subscribe(.searchTextChangedNotification, subscriber: self)
     }
     
     @IBAction func searchPlaylistAction(_ sender: Any) {
@@ -108,6 +109,7 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
         btnPreviousSearch.isHidden = !searchResult.hasPrevious
     }
     
+    // Selects a track within the playlist view, to show the user where the track is located within the playlist
     private func selectTrack(_ index: Int) {
         
         playlistView.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
@@ -119,9 +121,11 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     }
     
     private func searchTextChanged() {
+        
         let searchText = searchField.stringValue
         searchQuery.text = searchText
         
+        // No search text, don't do the search
         if (searchText == "") {
             resetSearchFields()
             return
@@ -172,7 +176,7 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if (notification is SearchQueryChangedNotification) {
+        if (notification is SearchTextChangedNotification) {
             searchTextChanged()
         }
     }

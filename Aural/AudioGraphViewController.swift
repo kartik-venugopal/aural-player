@@ -1,5 +1,5 @@
 /*
-    View controller for the Effects unit (which controls the audio graph)
+    View controller for the all controls that alter the sound output (i.e. controls that affect the audio graph)
  */
 
 import Cocoa
@@ -11,9 +11,9 @@ class AudioGraphViewController: NSViewController {
     @IBOutlet weak var volumeSlider: NSSlider!
     @IBOutlet weak var panSlider: NSSlider!
     
+    // Effects panel tab view and its buttons
     @IBOutlet weak var fxTabView: NSTabView!
     
-    // Effects panel tab view buttons
     @IBOutlet weak var eqTabViewButton: NSButton!
     @IBOutlet weak var pitchTabViewButton: NSButton!
     @IBOutlet weak var timeTabViewButton: NSButton!
@@ -80,6 +80,7 @@ class AudioGraphViewController: NSViewController {
     @IBOutlet weak var lblFilterMidRange: NSTextField!
     @IBOutlet weak var lblFilterTrebleRange: NSTextField!
     
+    // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
     override func viewDidLoad() {
