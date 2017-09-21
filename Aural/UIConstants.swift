@@ -1,7 +1,6 @@
 /*
     A collection of constants for use by the UI
 */
-
 import AppKit
 
 class UIConstants {
@@ -53,38 +52,39 @@ class UIConstants {
     
     private static let gillSans12Font: NSFont = NSFont(name: "Gill Sans", size: 12)!
     
-    // Fonts used by the effects tab view buttons
+    // Font used by the effects tab view buttons
     static let tabViewButtonFont: NSFont = gillSans12Font
     
-    // Fonts used by the search/sort modal dialog done/cancel buttons
+    // Font used by modal dialog buttons
     static let modalDialogButtonFont: NSFont = gillSans12Font
     
-    // Fonts used by the search/sort modal dialog navigation buttons
+    // Font used by the search modal dialog navigation buttons
     static let modalDialogNavButtonFont: NSFont = NSFont(name: "Gill Sans Bold", size: 12)!
     
-    // Fonts used by the search/sort modal dialog check and radio buttons
+    // Font used by modal dialog check and radio buttons
     static let checkRadioButtonFont: NSFont = NSFont(name: "Gill Sans", size: 11)!
     
+    // Fonts used by the track info popover view (key column and view column)
     static let popoverKeyFont: NSFont = NSFont(name: "Gill Sans", size: 13)!
     static let popoverValueFont: NSFont = NSFont(name: "Gill Sans Light", size: 13)!
     
-    // Fonts used by the popup menus
+    // Font used by the popup menus
     static let popupMenuFont: NSFont = NSFont(name: "Gill Sans", size: 10)!
     
-    // For the label that shows a track's playback position
+    // Default value for the label that shows a track's seek position
     static let zeroDurationString: String = "0:00"
     
     // Values used to determine the row height of table rows in the detailed track info popover view
     static let trackInfoKeyColumnWidth: CGFloat = 125
     static let trackInfoValueColumnWidth: CGFloat = 315
     
-    // Seek timer interval (milliseconds)
+    // Default seek timer interval (milliseconds)
     static let seekTimerIntervalMillis: Int = 500
     
     // Recorder timer interval (milliseconds)
     static let recorderTimerIntervalMillis: Int = 500
     
-    // Window width never changes
+    // Window width (never changes)
     static let windowWidth: CGFloat = 415
  
     // Window heights for different views
@@ -93,5 +93,6 @@ class UIConstants {
     static let windowHeight_playlistOnly: CGFloat = 443
     static let windowHeight_effectsOnly: CGFloat = 411
     
+    // Angle used to fill vertical gradients
     static let verticalGradientDegrees: CGFloat = -90.0
 }

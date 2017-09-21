@@ -62,12 +62,6 @@ class Colors {
     // Fill color of box drawn around selected tab view item
     static let tabViewSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.35, alpha: 1)
     
-    // Lighter version of tabViewSelectionBoxColor
-    static let lightTabViewSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.52, alpha: 1)
-    
-    // Darker version of tabViewSelectionBoxColor
-    static let darkTabViewSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.2, alpha: 1)
-    
     // Fill color of modal dialog buttons
     static let modalDialogButtonColor: NSColor = NSColor.black
     
@@ -82,22 +76,4 @@ class Colors {
     
     // Background color of the popover view
     static let popoverBackgroundColor: NSColor = NSColor(calibratedWhite: 0.3, alpha: 1)
-    
-    // Takes a color as input and darkens it by scaling up its RGB components by a certain factor
-    private func lighten(_ color: NSColor, factor: CGFloat) -> NSColor {
-        let r = color.redComponent
-        let g = color.greenComponent
-        let b = color.blueComponent
-        
-        return NSColor( deviceRed: r * factor, green: g * factor, blue: b * factor, alpha: CGFloat(1))
-    }
-
-    // Takes a color as input and darkens it by scaling down its RGB components by a certain factor
-    private func darken(_ color: NSColor, factor: CGFloat) -> NSColor {
-        let r = color.redComponent
-        let g = color.greenComponent
-        let b = color.blueComponent
-        
-        return NSColor( deviceRed: r / factor, green: g / factor, blue: b / factor, alpha: CGFloat(1))
-    }
 }

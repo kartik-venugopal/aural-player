@@ -1,5 +1,5 @@
 /*
-    Handles all key press events for AppDelegate
+    Handles all key press events
 */
 
 import Cocoa
@@ -27,20 +27,23 @@ class KeyPressHandler {
         
         // ---------------------- Handlers --------------------------
         
-        // (Up arrow) Change selection (up) in playlist
+        // (Up arrow) Scroll up one row in playlist
         if (!isShift && !isCommand && event.keyCode == UP_ARROW) {
             SyncMessenger.publishNotification(PlaylistScrollUpNotification.instance)
+            return
         }
         
-        // (Down arrow) Change selection (down) in playlist
+        // (Down arrow) Scroll down one row in playlist
         if (!isShift && !isCommand && event.keyCode == DOWN_ARROW) {
             SyncMessenger.publishNotification(PlaylistScrollDownNotification.instance)
+            return
         }
         
         // NOTE - This keyboard shortcut is for debugging purposes only, not inteded for the end user
         // (Shift + Command + S) Print Timer stats
         if (isShift && isCommand && event.keyCode == LETTER_S) {
             TimerUtils.printStats()
+            return
         }
     }
 }
