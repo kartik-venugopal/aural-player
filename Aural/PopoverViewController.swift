@@ -25,6 +25,9 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
     // Container for the key-value pairs of info displayed
     private var info: [(key: String, value: String)] = [(key: String, value: String)]()
     
+    // Cached playing track instance (to avoid reloading the same data)
+    private var playingTrack: Track?
+    
     // Delegate that retrieves playing track info
     private let playbackInfoDelegate: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
@@ -63,6 +66,16 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
         }
     }
     
+    // Compares two tracks for equality. True if and only if both are non-nil and their file paths are the same.
+    private func compareTracks(_ track1: Track?, _ track2: Track?) -> Bool {
+        
+        if (track1 == nil || track2 == nil) {
+            return false
+        }
+        
+        return track1!.file.path == track2!.file.path
+    }
+    
     func numberOfRows(in tableView: NSTableView) -> Int {
         
         // If no track is playing, no rows to display
@@ -72,9 +85,15 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
             return 0
         }
         
+        // If it's the same track playing (as last time view was refreshed), no need to reload the track info
+        if (compareTracks(_track, playingTrack)) {
+            return info.count
+        }
+        
         // A track is playing, add its info to the info array, as key-value pairs
         
         let track = _track!
+        self.playingTrack = _track!
         
         info.removeAll()
         
