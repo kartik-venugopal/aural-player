@@ -87,9 +87,9 @@ class AudioGraphViewController: NSViewController {
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
-    // Arrays storing all feedback label hiding timers (so that old timers can be invalidated conveniently)
-    private var volumeLabelHidingTimers: [Timer] = [Timer]()
-    private var panLabelHidingTimers: [Timer] = [Timer]()
+    // Feedback label hiding timers
+    private var volumeLabelHidingTimer: Timer?
+    private var panLabelHidingTimer: Timer?
     
     override func viewDidLoad() {
         
@@ -267,12 +267,11 @@ class AudioGraphViewController: NSViewController {
         lblVolume.stringValue = String(format: "%d%%", Int(round(volumeSlider.floatValue)))
         lblVolume.isHidden = false
         
-        // Invalidate previously activated timers
-        volumeLabelHidingTimers.forEach({$0.invalidate()})
-        volumeLabelHidingTimers.removeAll()
+        // Invalidate previously activated timer
+        volumeLabelHidingTimer?.invalidate()
         
         // Activate a new timer task to auto-hide the label
-        volumeLabelHidingTimers.append(Timer.scheduledTimer(timeInterval: UIConstants.feedbackLabelAutoHideIntervalSeconds, target: self, selector: #selector(self.hideVolumeLabel), userInfo: nil, repeats: false))
+        volumeLabelHidingTimer = Timer.scheduledTimer(timeInterval: UIConstants.feedbackLabelAutoHideIntervalSeconds, target: self, selector: #selector(self.hideVolumeLabel), userInfo: nil, repeats: false)
     }
     
     func hideVolumeLabel() {
@@ -310,12 +309,11 @@ class AudioGraphViewController: NSViewController {
         
         lblPan.isHidden = false
         
-        // Invalidate previously activated timers
-        panLabelHidingTimers.forEach({$0.invalidate()})
-        panLabelHidingTimers.removeAll()
+        // Invalidate previously activated timer
+        panLabelHidingTimer?.invalidate()
         
         // Activate a new timer task to auto-hide the label
-        panLabelHidingTimers.append(Timer.scheduledTimer(timeInterval: UIConstants.feedbackLabelAutoHideIntervalSeconds, target: self, selector: #selector(self.hidePanLabel), userInfo: nil, repeats: false))
+        panLabelHidingTimer = Timer.scheduledTimer(timeInterval: UIConstants.feedbackLabelAutoHideIntervalSeconds, target: self, selector: #selector(self.hidePanLabel), userInfo: nil, repeats: false)
     }
     
     func hidePanLabel() {
