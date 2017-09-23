@@ -1,24 +1,31 @@
 import Foundation
 
 /*
-    An enumeration of equalizer presets the user can choose from
+    An enumeration of Equalizer presets the user can choose from
  */
 enum EQPresets: String {
     
     case flat // default
     case highBassAndTreble
+    
+    case dance
+    case electronic
+    case hipHop
+    case jazz
+    case latin
+    case lounge
+    case piano
+    case pop
+    case rAndB
+    case rock
+    
+    case soft
     case karaoke
     case vocal
-    case soft
-    
-    // A user-friendly description of this preset
-    var description: String {
-        return StringUtils.splitCamelCaseWord(rawValue, false)
-    }
     
     // Converts a user-friendly description to an instance of EQPresets
     static func fromDescription(_ description: String) -> EQPresets {
-        return EQPresets(rawValue: StringUtils.camelCase(description)) ?? .flat
+        return description == "R&B" ? .rAndB : EQPresets(rawValue: StringUtils.camelCase(description)) ?? .flat
     }
     
     // Returns the frequency->gain mappings for each of the frequency bands, for this preset
@@ -28,6 +35,18 @@ enum EQPresets: String {
             
         case .flat: return EQPresetsBands.flatBands
         case .highBassAndTreble: return EQPresetsBands.highBassAndTrebleBands
+            
+        case .dance: return EQPresetsBands.danceBands
+        case .electronic: return EQPresetsBands.electronicBands
+        case .hipHop: return EQPresetsBands.hipHopBands
+        case .jazz: return EQPresetsBands.jazzBands
+        case .latin: return EQPresetsBands.latinBands
+        case .lounge: return EQPresetsBands.loungeBands
+        case .piano: return EQPresetsBands.pianoBands
+        case .pop: return EQPresetsBands.popBands
+        case .rAndB: return EQPresetsBands.rAndBBands
+        case .rock: return EQPresetsBands.rockBands
+            
         case .soft: return EQPresetsBands.softBands
         case .vocal: return EQPresetsBands.vocalBands
         case .karaoke: return EQPresetsBands.karaokeBands
@@ -41,105 +60,118 @@ fileprivate class EQPresetsBands {
     
     static let flatBands: [Int: Float] = {
         
-        var bands = [Int: Float]()
-        
-        // Freqs are powers of 2, starting with 2^5=32 ... 2^14=16k
-        for i in 5...14 {
-            bands[Int(pow(2.0, Double(i)))] = 0
-        }
-        
-        return bands
+        return EQBands([0,0,0,
+                        0,0,0,0,
+                        0,0,0]).bands
     }()
     
     static let highBassAndTrebleBands: [Int: Float] = {
         
-        var bands = [Int: Float]()
+        return EQBands([15, 12.5, 10,
+                        0, 0, 0, 0,
+                        10, 12.5, 15]).bands
+    }()
+    
+    static let danceBands: [Int: Float] = {
         
-        // High bass
-        bands[32] = 15
-        bands[64] = 12.5
-        bands[128] = 10
+        return EQBands([0, 7, 4,
+                        0, -1, -2, -4,
+                        0, 4, 5]).bands
+    }()
+    
+    static let electronicBands: [Int: Float] = {
+    
+        return EQBands([7, 6.5, 0,
+                        -2, -5, 0, 0,
+                        0, 6.5, 7]).bands
+    }()
+    
+    static let hipHopBands: [Int: Float] = {
         
-        // (Tapering) low mids
-        bands[256] = 6
-        bands[512] = 4
-        bands[1024] = 4
-        bands[2048] = 6
+        return EQBands([7, 7, 0,
+                        0, -3, -3, -2,
+                        1, 1, 7]).bands
+    }()
+    
+    static let jazzBands: [Int: Float] = {
         
-        // High treble
-        bands[4096] = 10
-        bands[8192] = 12.5
-        bands[16384] = 15
+        return EQBands([0, 3, 0,
+                        0, -3, -3, 0,
+                        0, 3, 5]).bands
+    }()
+    
+    static let latinBands: [Int: Float] = {
         
-        return bands
+        return EQBands([8, 5, 0,
+                        0, -4, -4, -4,
+                        0, 6, 8]).bands
+    }()
+    
+    static let loungeBands: [Int: Float] = {
+        
+        return EQBands([-5, -2, 0,
+                        2, 4, 3, 0,
+                        0, 3, 0]).bands
+    }()
+    
+    static let pianoBands: [Int: Float] = {
+        
+        return EQBands([1, -1, -3,
+                        0, 1, -1, 2,
+                        3, 1, 2]).bands
+    }()
+    
+    static let popBands: [Int: Float] = {
+        
+        return EQBands([-2, -1.5, 0,
+                        3, 7, 7, 3.5,
+                        0, -2, -3]).bands
+    }()
+    
+    static let rAndBBands: [Int: Float] = {
+        
+        return EQBands([0, 7, 4,
+                        -3, -5, -4.5, -2,
+                        -1.5, 0, 1.5]).bands
+    }()
+    
+    static let rockBands: [Int: Float] = {
+        
+        return EQBands([5, 3, 1.5,
+                        0, -5, -6, -2.5,
+                        0, 2.5, 4]).bands
     }()
     
     static let softBands: [Int: Float] = {
         
-        var bands = [Int: Float]()
-        
-        // Low bass
-        bands[32] = 0
-        bands[64] = 1
-        bands[128] = 2
-        
-        // Moderate mids
-        bands[256] = 6
-        bands[512] = 8
-        bands[1024] = 10
-        bands[2048] = 12
-        
-        // Moderate to high treble
-        bands[4096] = 12
-        bands[8192] = 13
-        bands[16384] = 14
-        
-        return bands
+        return EQBands([0, 1, 2,
+                        6, 8, 10, 12,
+                        12, 13, 14]).bands
     }()
     
     static let karaokeBands: [Int: Float] = {
         
-        var bands = [Int: Float]()
-        
-        // High bass
-        bands[32] = 15
-        bands[64] = 12.5
-        bands[128] = 10
-        
-        // No mids
-        bands[256] = -20
-        bands[512] = -20
-        bands[1024] = -20
-        bands[2048] = -20
-        
-        // High treble
-        bands[4096] = 10
-        bands[8192] = 12.5
-        bands[16384] = 15
-        
-        return bands
+        return EQBands([8, 6, 4,
+                        -20, -20, -20, -20,
+                        4, 6, 8]).bands
     }()
     
     static let vocalBands: [Int: Float] = {
         
-        var bands = [Int: Float]()
-        
-        // Low bass
-        bands[32] = -20
-        bands[64] = -20
-        bands[128] = -20
-        
-        // High mids
-        bands[256] = 12
-        bands[512] = 14
-        bands[1024] = 14
-        bands[2048] = 12
-        
-        // Low treble
-        bands[4096] = -20
-        bands[8192] = -20
-        bands[16384] = -20
-        
-        return bands
+        return EQBands([-20, -20, -20,
+                        12, 14, 14, 12,
+                        -20, -20, -20]).bands
     }()
+}
+
+class EQBands {
+    
+    var bands = [Int: Float]()
+    
+    init(_ gains: [Float]) {
+        
+        for i in 5...14 {
+            bands[Int(pow(2.0, Double(i)))] = gains[i - 5]
+        }
+    }
 }

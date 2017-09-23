@@ -716,14 +716,49 @@ G1BhbiBTbGlkZXI
                                                     <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hG3-Ir-qkY" userLabel="EQ Presets Menu">
                                                         <rect key="frame" x="310" y="-1" width="34" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <popUpButtonCell key="cell" type="disclosure" title="Vocal" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" altersStateOfSelectedItem="NO" selectedItem="z8X-aR-fwU" id="fct-Jo-Wiy" customClass="EQPresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                                                        <popUpButtonCell key="cell" type="disclosure" title="Flat" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" altersStateOfSelectedItem="NO" selectedItem="17g-sk-9J7" id="fct-Jo-Wiy" customClass="EQPresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" size="11" name="GillSans"/>
                                                             <menu key="menu" showsStateColumn="NO" id="N5y-An-5RH">
                                                                 <items>
-                                                                    <menuItem title="Flat" id="2Lk-wt-lDu">
+                                                                    <menuItem title="Flat" id="17g-sk-9J7">
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
+                                                                    <menuItem title="High bass and treble" id="nOb-eq-8jY">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem isSeparatorItem="YES" id="CgC-mH-bvB"/>
+                                                                    <menuItem title="Dance" id="Q6n-0N-xeo">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Electronic" id="2Lk-wt-lDu" userLabel="Electronic">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Hip Hop" id="Gf7-R3-lyy" userLabel="Hip Hop">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Jazz" id="0uE-no-5tv" userLabel="Jazz">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Latin" id="yk5-yy-xfp" userLabel="Latin">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Lounge" id="PgD-Cy-6XS" userLabel="Lounge">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Piano" id="BdL-Yg-B1f" userLabel="Piano">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Pop" id="vbF-9e-RTO" userLabel="Pop">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="R&amp;B" id="PcQ-NC-mE1" userLabel="R&amp;B">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Rock" id="JFB-Pu-PIo" userLabel="Rock">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem isSeparatorItem="YES" id="Iuu-3c-oYP"/>
                                                                     <menuItem title="Soft" id="VSH-Aj-pmk">
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
@@ -731,9 +766,6 @@ G1BhbiBTbGlkZXI
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
                                                                     <menuItem title="Vocal" id="z8X-aR-fwU">
-                                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    </menuItem>
-                                                                    <menuItem title="High bass and treble" id="nOb-eq-8jY">
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
                                                                 </items>

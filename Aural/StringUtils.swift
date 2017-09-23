@@ -86,7 +86,7 @@ class StringUtils {
                 continue
             }
             
-            if (eachCharacter >= "A" && eachCharacter <= "Z") == true {
+            if (newString == "") {
                 
                 // The very first character needs to be lowercased
                 newString.append(String(eachCharacter).lowercased())
