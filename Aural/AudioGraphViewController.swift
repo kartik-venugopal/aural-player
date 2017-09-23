@@ -9,9 +9,13 @@ class AudioGraphViewController: NSViewController {
     // Volume/pan controls
     @IBOutlet weak var btnVolume: NSButton!
     @IBOutlet weak var volumeSlider: NSSlider!
+    @IBOutlet weak var lblVolume: NSTextField!
+    
     @IBOutlet weak var panSlider: NSSlider!
+    @IBOutlet weak var lblPan: NSTextField!
     
     // Effects panel tab view and its buttons
+    
     @IBOutlet weak var fxTabView: NSTabView!
     
     @IBOutlet weak var eqTabViewButton: NSButton!
@@ -82,6 +86,10 @@ class AudioGraphViewController: NSViewController {
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    
+    // Arrays storing all feedback label hiding timers (so that old timers can be invalidated conveniently)
+    private var volumeLabelHidingTimers: [Timer] = [Timer]()
+    private var panLabelHidingTimers: [Timer] = [Timer]()
     
     override func viewDidLoad() {
         
@@ -211,8 +219,10 @@ class AudioGraphViewController: NSViewController {
     }
     
     @IBAction func volumeAction(_ sender: AnyObject) {
+        
         graph.setVolume(volumeSlider.floatValue)
         setVolumeImage(graph.isMuted())
+        showAndAutoHideVolumeLabel()
     }
     
     @IBAction func muteUnmuteAction(_ sender: AnyObject) {
@@ -222,11 +232,13 @@ class AudioGraphViewController: NSViewController {
     @IBAction func decreaseVolumeAction(_ sender: Any) {
         volumeSlider.floatValue = graph.decreaseVolume()
         setVolumeImage(graph.isMuted())
+        showAndAutoHideVolumeLabel()
     }
     
     @IBAction func increaseVolumeAction(_ sender: Any) {
         volumeSlider.floatValue = graph.increaseVolume()
         setVolumeImage(graph.isMuted())
+        showAndAutoHideVolumeLabel()
     }
     
     private func setVolumeImage(_ muted: Bool) {
@@ -249,16 +261,65 @@ class AudioGraphViewController: NSViewController {
         }
     }
     
+    private func showAndAutoHideVolumeLabel() {
+        
+        // Format the text and show the feedback label
+        lblVolume.stringValue = String(format: "%d%%", Int(round(volumeSlider.floatValue)))
+        lblVolume.isHidden = false
+        
+        // Invalidate previously activated timers
+        volumeLabelHidingTimers.forEach({$0.invalidate()})
+        volumeLabelHidingTimers.removeAll()
+        
+        // Activate a new timer task to auto-hide the label
+        volumeLabelHidingTimers.append(Timer.scheduledTimer(timeInterval: UIConstants.feedbackLabelAutoHideIntervalSeconds, target: self, selector: #selector(self.hideVolumeLabel), userInfo: nil, repeats: false))
+    }
+    
+    func hideVolumeLabel() {
+        lblVolume.isHidden = true
+    }
+    
     @IBAction func panAction(_ sender: AnyObject) {
         graph.setBalance(panSlider.floatValue)
+        showAndAutoHidePanLabel()
     }
     
     @IBAction func panLeftAction(_ sender: Any) {
         panSlider.floatValue = graph.panLeft()
+        showAndAutoHidePanLabel()
     }
     
     @IBAction func panRightAction(_ sender: Any) {
         panSlider.floatValue = graph.panRight()
+        showAndAutoHidePanLabel()
+    }
+    
+    private func showAndAutoHidePanLabel() {
+        
+        // Format the text and show the feedback label
+        
+        let panVal = Int(round(panSlider.floatValue))
+        
+        if (panVal < 0) {
+            lblPan.stringValue = String(format: "L (%d%%)", abs(panVal))
+        } else if (panVal > 0) {
+            lblPan.stringValue = String(format: "R (%d%%)", abs(panVal))
+        } else {
+            lblPan.stringValue = "C"
+        }
+        
+        lblPan.isHidden = false
+        
+        // Invalidate previously activated timers
+        panLabelHidingTimers.forEach({$0.invalidate()})
+        panLabelHidingTimers.removeAll()
+        
+        // Activate a new timer task to auto-hide the label
+        panLabelHidingTimers.append(Timer.scheduledTimer(timeInterval: UIConstants.feedbackLabelAutoHideIntervalSeconds, target: self, selector: #selector(self.hidePanLabel), userInfo: nil, repeats: false))
+    }
+    
+    func hidePanLabel() {
+        lblPan.isHidden = true
     }
     
     @IBAction func eqGlobalGainAction(_ sender: AnyObject) {

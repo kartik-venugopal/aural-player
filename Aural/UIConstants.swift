@@ -1,7 +1,7 @@
 /*
     A collection of constants for use by the UI
 */
-import AppKit
+import Cocoa
 
 class UIConstants {
     
@@ -95,4 +95,7 @@ class UIConstants {
     
     // Angle used to fill vertical gradients
     static let verticalGradientDegrees: CGFloat = -90.0
+    
+    // Time interval for which feedback labels that are to be auto-hidden are displayed, before being hidden
+    static let feedbackLabelAutoHideIntervalSeconds: TimeInterval = 1
 }

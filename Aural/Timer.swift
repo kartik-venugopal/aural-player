@@ -4,7 +4,7 @@
 
 import Foundation
 
-open class Timer: NSObject {
+open class CodeTimer: NSObject {
     
     var startTime: Date?
     var endTime: Date?

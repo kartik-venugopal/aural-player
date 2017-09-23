@@ -9,18 +9,18 @@ open class TimerUtils {
     static var instance: TimerUtils = TimerUtils()
     
     // Map of method/operation name -> array of timers for that method/operation
-    private var timers: [String: [Timer]] = [String: [Timer]]()
+    private var timers: [String: [CodeTimer]] = [String: [CodeTimer]]()
     
-    static func start(_ tag: String) -> Timer {
+    static func start(_ tag: String) -> CodeTimer {
         
-        var timersForTag: [Timer]? = instance.timers[tag]
+        var timersForTag: [CodeTimer]? = instance.timers[tag]
         
         if timersForTag == nil  {
-            timersForTag = [Timer]()
+            timersForTag = [CodeTimer]()
             instance.timers[tag] = timersForTag
         }
         
-        let timer: Timer = Timer()
+        let timer: CodeTimer = CodeTimer()
         timer.start()
         instance.timers[tag]!.append(timer)
         
@@ -52,7 +52,7 @@ open class TimerUtils {
         }
     }
     
-    private static func avgForTimers(_ timers: [Timer]) -> Double {
+    private static func avgForTimers(_ timers: [CodeTimer]) -> Double {
         var sum: Double = 0
         
         for timer in timers {
