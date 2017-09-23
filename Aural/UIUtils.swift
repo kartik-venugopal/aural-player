@@ -6,6 +6,11 @@ import Cocoa
 
 class UIUtils {
     
+    // Dismisses the currently displayed modal dialog
+    static func dismissModalDialog() {
+        NSApp.stopModal()
+    }
+    
     // Centers a modal dialog with respect to the main app window, and shows it
     static func showModalDialog(_ dialog: NSWindow) {
         

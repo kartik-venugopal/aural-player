@@ -51,7 +51,7 @@ class PlaylistSortViewController: NSViewController {
         
         // Perform the sort
         playlist.sort(sortOptions)
-        dismissModalDialog()
+        UIUtils.dismissModalDialog()
         
         // Update the UI
         playlistView.reloadData()
@@ -62,10 +62,6 @@ class PlaylistSortViewController: NSViewController {
     }
     
     @IBAction func sortCancelBtnAction(_ sender: Any) {
-        dismissModalDialog()
-    }
-    
-    func dismissModalDialog() {
-        NSApp.stopModal()
+        UIUtils.dismissModalDialog()
     }
 }

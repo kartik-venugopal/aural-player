@@ -196,16 +196,12 @@ class PreferencesViewController: NSViewController {
         
         preferences.windowLocationOnStartup.windowLocation = WindowLocations.fromDescription(startWindowLocationMenu.selectedItem!.title)
         
-        dismissModalDialog()
+        UIUtils.dismissModalDialog()
         preferencesDelegate.savePreferences(preferences)
     }
     
-    private func dismissModalDialog() {
-        NSApp.stopModal()
-    }
-    
     @IBAction func cancelPreferencesAction(_ sender: Any) {
-        dismissModalDialog()
+        UIUtils.dismissModalDialog()
     }
     
     @IBAction func seekLengthAction(_ sender: Any) {

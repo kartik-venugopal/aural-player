@@ -117,7 +117,7 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     }
     
     @IBAction func searchDoneAction(_ sender: Any) {
-        NSApp.stopModal()
+        UIUtils.dismissModalDialog()
     }
     
     private func searchTextChanged() {
