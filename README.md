@@ -41,6 +41,10 @@ The latest app bundle can be found in the compressed archive file [Aural.app.zip
 
 ## Recent updates
 
+9/23/2017 **Volume and Pan feedback labels** - Whenever the volume and pan are updated, feedback labels will now show up, with the new values for volume or pan, and the labels will auto-hide after a second.
+
+9/23/2017 **New EQ presets** - Added 10 new music genre-based Equalizer presets: Rock, Pop, Jazz, etc.
+
 9/15/2017 **Complete reading of ID3/iTunes metadata** - Previously, only "common" metadata format information was read and displayed by the app. Now, all standard/recognizable ID3 and iTunes metadata are read, marshaled into a user-friendly readable format, and displayed. Metadata in other formats are displayed as is (without any marshaling).
 
 9/13/2017: **Much faster track adding** - Significantly improved the efficiency of the track add operation. Tracks are added to the playlist almost instantaneously, and all secondary track data is loaded asynchronously as needed.
