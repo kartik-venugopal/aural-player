@@ -23,13 +23,13 @@ class MetadataReader {
             
             if (item.commonKey == AVMetadataCommonKeyTitle) {
                 
-                if (!Utils.isStringEmpty(item.stringValue)) {
+                if (!StringUtils.isStringEmpty(item.stringValue)) {
                     title = item.stringValue!
                 }
                 
             } else if (item.commonKey == AVMetadataCommonKeyArtist) {
                 
-                if (!Utils.isStringEmpty(item.stringValue)) {
+                if (!StringUtils.isStringEmpty(item.stringValue)) {
                     artist = item.stringValue!
                 }
                 
@@ -79,7 +79,7 @@ class MetadataReader {
                     // Ignore the display metadata keys (that have already been loaded)
                     if (key != AVMetadataCommonKeyTitle && key != AVMetadataCommonKeyArtist && key != AVMetadataCommonKeyArtwork) {
                         
-                        if (!Utils.isStringEmpty(stringValue)) {
+                        if (!StringUtils.isStringEmpty(stringValue)) {
                             let entry = MetadataEntry(.common, key, stringValue!)
                             track.metadata[key] = entry
                         }
@@ -87,7 +87,7 @@ class MetadataReader {
                     
                 } else if let key = item.key as? String {
                     
-                    if (!Utils.isStringEmpty(stringValue)) {
+                    if (!StringUtils.isStringEmpty(stringValue)) {
                         let entry = MetadataEntry(metadataType, key, stringValue!)
                         track.metadata[key] = entry
                     }
@@ -118,7 +118,7 @@ class MetadataReader {
                 
                 if (key == AVMetadataCommonKeyAlbumName) {
                     
-                    if (!Utils.isStringEmpty(item.stringValue)) {
+                    if (!StringUtils.isStringEmpty(item.stringValue)) {
                         let entry = MetadataEntry(.common, key, item.stringValue!)
                         track.metadata[key] = entry
                     }
@@ -134,7 +134,7 @@ class MetadataReader {
         switch entry.type {
         
         // Common space keys (camel cased) need to be split up into separate words
-        case .common:   return Utils.splitCamelCaseWord(entry.key, true)
+        case .common:   return StringUtils.splitCamelCaseWord(entry.key, true)
             
         case .id3:  return ID3Spec.readableKey(entry.key) ?? entry.key
             

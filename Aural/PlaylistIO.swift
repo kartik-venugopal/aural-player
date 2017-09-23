@@ -57,7 +57,7 @@ class PlaylistIO {
                 } else {
                     
                     // Line contains track path
-                    if (!Utils.isStringEmpty(line)) {
+                    if (!StringUtils.isStringEmpty(line)) {
                         
                         // Convert Windows paths to UNIX paths (this will not work for absolute Windows paths like "C:\...")
                         let trackFilePath = line.replacingOccurrences(of: "\\", with: "/")

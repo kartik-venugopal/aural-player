@@ -13,12 +13,12 @@ enum EQPresets: String {
     
     // A user-friendly description of this preset
     var description: String {
-        return Utils.splitCamelCaseWord(rawValue, false)
+        return StringUtils.splitCamelCaseWord(rawValue, false)
     }
     
     // Converts a user-friendly description to an instance of EQPresets
     static func fromDescription(_ description: String) -> EQPresets {
-        return EQPresets(rawValue: Utils.camelCase(description)) ?? .flat
+        return EQPresets(rawValue: StringUtils.camelCase(description)) ?? .flat
     }
     
     // Returns the frequency->gain mappings for each of the frequency bands, for this preset

@@ -7,9 +7,6 @@ import AVFoundation
 
 class Track: NSObject {
     
-    // The filesystem file that contains the audio track represented by this object
-    let file: URL
-    
     // The audio asset object used to retrieve metadata for this track
     var audioAsset: AVURLAsset?
     
@@ -19,8 +16,11 @@ class Track: NSObject {
     // All info relating to playback of this track
     var playbackInfo: PlaybackInfo?
     
-    // Audio and filesystem information for this track
-    var audioAndFileInfo: AudioAndFileInfo?
+    // Audio information for this track
+    var audioInfo: AudioInfo?
+    
+    // Filesystem information for this track
+    var fileSystemInfo: FileSystemInfo
     
     // Track information is loaded lazily as needed, for optimal performance. This object stores internally used information to keep track of what information has been loaded, and if there were any errors.
     var lazyLoadingInfo: LazyLoadingInfo
@@ -30,9 +30,14 @@ class Track: NSObject {
     
     init(_ file: URL) {
         
-        self.file = file
+        self.fileSystemInfo = FileSystemInfo(file)
         self.displayInfo = DisplayInfo(file)
         self.lazyLoadingInfo = LazyLoadingInfo()
+    }
+    
+    // Filesystem URL
+    var file: URL {
+        return fileSystemInfo.file
     }
     
     // A name suitable for display within the playlist and Now Playing box
@@ -122,16 +127,26 @@ class PlaybackInfo {
     var numChannels: Int?
 }
 
-class AudioAndFileInfo {
-    
-    // Filesystem size
-    var size: Size?
+class AudioInfo {
     
     // Bit rate (in kbps)
     var bitRate: Int?
     
     // Audio format (e.g. "mp3", "aac", or "lpcm")
     var format: String?
+}
+
+class FileSystemInfo {
+    
+    // The filesystem file that contains the audio track represented by this object
+    let file: URL
+    
+    init(_ file: URL) {
+        self.file = file
+    }
+    
+    // Filesystem size
+    var size: Size?
 }
 
 class LazyLoadingInfo {
@@ -145,6 +160,11 @@ class LazyLoadingInfo {
     // Error info if track prep fails
     var preparationFailed: Bool = false
     var preparationError: InvalidTrackError?
+    
+    func preparationFailed(_ error: InvalidTrackError?) {
+        preparationFailed = true
+        preparationError = error
+    }
 }
 
 // Encapsulates a single metadata entry

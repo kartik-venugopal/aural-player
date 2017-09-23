@@ -120,7 +120,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
             
             let seekPosn = playbackInfo.getSeekPosition()
             
-            lblSeekPosition.stringValue = Utils.formatDuration(seekPosn.seconds)
+            lblSeekPosition.stringValue = StringUtils.formatDuration(seekPosn.seconds)
             seekSlider.doubleValue = seekPosn.percentage
         }
     }

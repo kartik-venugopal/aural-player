@@ -70,11 +70,11 @@ enum ReverbPresets: String {
     
     // User-friendly, UI-friendly description string
     var description: String {
-        return Utils.splitCamelCaseWord(rawValue, false)
+        return StringUtils.splitCamelCaseWord(rawValue, false)
     }
  
     // Constructs a ReverPresets object from a description string
     static func fromDescription(_ description: String) -> ReverbPresets {
-        return ReverbPresets(rawValue: Utils.camelCase(description)) ?? AppDefaults.reverbPreset
+        return ReverbPresets(rawValue: StringUtils.camelCase(description)) ?? AppDefaults.reverbPreset
     }
 }

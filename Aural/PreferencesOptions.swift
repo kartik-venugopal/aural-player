@@ -96,10 +96,10 @@ enum WindowLocations: String {
     static let allValues: [WindowLocations] = [center, topLeft, topCenter, topRight, leftCenter, rightCenter, bottomLeft, bottomCenter, bottomRight]
     
     var description: String {
-        return Utils.splitCamelCaseWord(rawValue, false)
+        return StringUtils.splitCamelCaseWord(rawValue, false)
     }
     
     static func fromDescription(_ description: String) -> WindowLocations {
-        return WindowLocations(rawValue: Utils.camelCase(description)) ?? .center
+        return WindowLocations(rawValue: StringUtils.camelCase(description)) ?? .center
     }
 }

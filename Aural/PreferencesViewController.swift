@@ -80,7 +80,7 @@ class PreferencesViewController: NSViewController {
         
         let seekLength = preferences.seekLength
         seekLengthSlider.integerValue = seekLength
-        seekLengthField.stringValue = Utils.formatDuration_minSec(seekLength)
+        seekLengthField.stringValue = StringUtils.formatDuration_minSec(seekLength)
         
         let volumeDelta = Int(round(preferences.volumeDelta * AppConstants.volumeConversion_audioGraphToUI))
         volumeDeltaStepper.integerValue = volumeDelta
@@ -211,14 +211,14 @@ class PreferencesViewController: NSViewController {
     @IBAction func seekLengthAction(_ sender: Any) {
         
         let value = seekLengthSlider.integerValue
-        seekLengthField.stringValue = Utils.formatDuration_minSec(value)
+        seekLengthField.stringValue = StringUtils.formatDuration_minSec(value)
     }
     
     @IBAction func seekLengthIncrementAction(_ sender: Any) {
         
         if (Double(seekLengthSlider.integerValue) < seekLengthSlider.maxValue) {
             seekLengthSlider.integerValue += 1
-            seekLengthField.stringValue = Utils.formatDuration_minSec(seekLengthSlider.integerValue)
+            seekLengthField.stringValue = StringUtils.formatDuration_minSec(seekLengthSlider.integerValue)
         }
     }
     
@@ -226,7 +226,7 @@ class PreferencesViewController: NSViewController {
         
         if (Double(seekLengthSlider.integerValue) > seekLengthSlider.minValue) {
             seekLengthSlider.integerValue -= 1
-            seekLengthField.stringValue = Utils.formatDuration_minSec(seekLengthSlider.integerValue)
+            seekLengthField.stringValue = StringUtils.formatDuration_minSec(seekLengthSlider.integerValue)
         }
     }
     

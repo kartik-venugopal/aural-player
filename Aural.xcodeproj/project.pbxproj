@@ -38,7 +38,7 @@
 		3E3DCD251F0F913800E09ADC /* AsyncMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DCD241F0F913800E09ADC /* AsyncMessages.swift */; };
 		3E40A9851F0617BC00A66856 /* RepeatingTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E40A9841F0617BC00A66856 /* RepeatingTaskExecutor.swift */; };
 		3E426F7E1EFDD9CF002F5F18 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7D1EFDD9CF002F5F18 /* Player.swift */; };
-		3E426F801EFDDDEE002F5F18 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7F1EFDDDEE002F5F18 /* Utils.swift */; };
+		3E426F801EFDDDEE002F5F18 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7F1EFDDDEE002F5F18 /* StringUtils.swift */; };
 		3E426F821EFDEEBE002F5F18 /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F811EFDEEBE002F5F18 /* PlaybackState.swift */; };
 		3E46F55C1F2A7A36007CD384 /* CheckRadioButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F55B1F2A7A36007CD384 /* CheckRadioButtonCell.swift */; };
 		3E46F55E1F2A8003007CD384 /* ModalDialogButtonCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F55D1F2A8003007CD384 /* ModalDialogButtonCells.swift */; };
@@ -109,6 +109,7 @@
 		3ECFE5531F5FD8F100D96BE2 /* PlaylistMutatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFE5521F5FD8F100D96BE2 /* PlaylistMutatorDelegate.swift */; };
 		3ED5264F1F2FA27200001A97 /* PlaylistChangeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5264E1F2FA27200001A97 /* PlaylistChangeListener.swift */; };
 		3ED526511F3003A800001A97 /* ObjectGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED526501F3003A800001A97 /* ObjectGraph.swift */; };
+		3EDAE69F1F7613C800D6F808 /* AudioUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDAE69E1F7613C800D6F808 /* AudioUtils.swift */; };
 		3EEACA061F5E8615003A2140 /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEACA051F5E8615003A2140 /* NowPlayingViewController.swift */; };
 		3EF5A5501F403D2500C5A2D2 /* PreferencesOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5A54F1F403D2500C5A2D2 /* PreferencesOptions.swift */; };
 		3EFC506B1F607B530032BE21 /* PlaylistDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFC506A1F607B530032BE21 /* PlaylistDelegate.swift */; };
@@ -150,7 +151,7 @@
 		3E3DCD241F0F913800E09ADC /* AsyncMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncMessages.swift; sourceTree = "<group>"; };
 		3E40A9841F0617BC00A66856 /* RepeatingTaskExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingTaskExecutor.swift; sourceTree = "<group>"; };
 		3E426F7D1EFDD9CF002F5F18 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		3E426F7F1EFDDDEE002F5F18 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		3E426F7F1EFDDDEE002F5F18 /* StringUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		3E426F811EFDEEBE002F5F18 /* PlaybackState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackState.swift; sourceTree = "<group>"; };
 		3E46F55B1F2A7A36007CD384 /* CheckRadioButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckRadioButtonCell.swift; sourceTree = "<group>"; };
 		3E46F55D1F2A8003007CD384 /* ModalDialogButtonCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalDialogButtonCells.swift; sourceTree = "<group>"; };
@@ -225,6 +226,7 @@
 		3ECFE5521F5FD8F100D96BE2 /* PlaylistMutatorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistMutatorDelegate.swift; sourceTree = "<group>"; };
 		3ED5264E1F2FA27200001A97 /* PlaylistChangeListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistChangeListener.swift; sourceTree = "<group>"; };
 		3ED526501F3003A800001A97 /* ObjectGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectGraph.swift; sourceTree = "<group>"; };
+		3EDAE69E1F7613C800D6F808 /* AudioUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioUtils.swift; sourceTree = "<group>"; };
 		3EEACA051F5E8615003A2140 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 		3EF5A54F1F403D2500C5A2D2 /* PreferencesOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesOptions.swift; sourceTree = "<group>"; };
 		3EFC506A1F607B530032BE21 /* PlaylistDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistDelegate.swift; sourceTree = "<group>"; };
@@ -482,12 +484,13 @@
 				3E80E6711F04FA7C007480CC /* SizeUnit.swift */,
 				3E76D9BD1F0F6B2B007FF3F8 /* Concurrency */,
 				3EB2A7ED1F04697E001DF748 /* GraphicsUtils.swift */,
-				3E426F7F1EFDDDEE002F5F18 /* Utils.swift */,
+				3E426F7F1EFDDDEE002F5F18 /* StringUtils.swift */,
 				3E33B49D1F3E70F4005EF359 /* FileSystemUtils.swift */,
 				3EDBF76E1F0339B60088574B /* Testing */,
 				3E7B61E51F31AB1800F269F0 /* ValueFormatter.swift */,
 				3E9871A11F418CB1009AE9E6 /* UIUtils.swift */,
 				3E582E7A1F6A5B440040A092 /* MetadataReader.swift */,
+				3EDAE69E1F7613C800D6F808 /* AudioUtils.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -652,7 +655,7 @@
 				3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */,
 				3E4E599D1F74ED8400C18182 /* AudioIO.swift in Sources */,
 				3E84F8481F5FC58D0010BCDA /* PlaybackDelegate.swift in Sources */,
-				3E426F801EFDDDEE002F5F18 /* Utils.swift in Sources */,
+				3E426F801EFDDDEE002F5F18 /* StringUtils.swift in Sources */,
 				3E2D9E461F6670E20020B99E /* PopoverViewDelegateProtocol.swift in Sources */,
 				3EC947AF1F5DDEB100FDBE25 /* PlaylistProtocols.swift in Sources */,
 				3E1CF7EF1F5CBA9300613724 /* PlayerProtocol.swift in Sources */,
@@ -693,6 +696,7 @@
 				3EC947AD1F5DDEA400FDBE25 /* PlaybackSequenceProtocol.swift in Sources */,
 				3E047B0E1F01436700ADE0F1 /* ReverbPresets.swift in Sources */,
 				3E9847891F5CFD62001A2D28 /* RecorderDelegate.swift in Sources */,
+				3EDAE69F1F7613C800D6F808 /* AudioUtils.swift in Sources */,
 				3E33B4A41F3F08B8005EF359 /* Preferences.swift in Sources */,
 				3E98478D1F5D0419001A2D28 /* AudioGraphViewController.swift in Sources */,
 				3E9847911F5D0512001A2D28 /* AudioGraphDelegate.swift in Sources */,

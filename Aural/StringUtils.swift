@@ -1,10 +1,10 @@
 /*
-    A collection of assorted utility functions for reusability.
+    A collection of assorted String utility functions.
 */
 
 import Cocoa
 
-class Utils {
+class StringUtils {
     
     // Time values in seconds
     static let oneMin = 60

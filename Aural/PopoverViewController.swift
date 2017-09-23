@@ -99,12 +99,12 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
         
         info.append((key: "Filename", value: track.file.path))
         
-        let audioAndFileInfo = track.audioAndFileInfo!
+        let audioInfo = track.audioInfo!
         let playbackInfo = track.playbackInfo!
         
-        info.append((key: "Size", value: audioAndFileInfo.size!.toString()))
-        info.append((key: "Format", value: audioAndFileInfo.format!))
-        info.append((key: "Duration", value: Utils.formatDuration(track.duration)))
+        info.append((key: "Size", value: track.fileSystemInfo.size!.toString()))
+        info.append((key: "Format", value: audioInfo.format!))
+        info.append((key: "Duration", value: StringUtils.formatDuration(track.duration)))
             
         if (track.displayInfo.artist != nil) {
             info.append((key: "Artist", value: track.displayInfo.artist!))
@@ -116,19 +116,16 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
         
         for (key, entry) in track.metadata {
             
-            let formattedKey = entry.formattedKey()
-            let value = entry.value
-            
             // Some tracks have a "Format" metadata entry ... ignore it
             if (key.lowercased() != "format") {
-                info.append((key: formattedKey, value: value))
+                info.append((key: entry.formattedKey(), value: entry.value))
             }
         }
         
-        info.append((key: "Bit Rate", value: String(format: "%d kbps", audioAndFileInfo.bitRate!)))
-        info.append((key: "Sample Rate", value: String(format: "%@ Hz", Utils.readableLongInteger(Int64(playbackInfo.sampleRate!)))))
+        info.append((key: "Bit Rate", value: String(format: "%d kbps", audioInfo.bitRate!)))
+        info.append((key: "Sample Rate", value: String(format: "%@ Hz", StringUtils.readableLongInteger(Int64(playbackInfo.sampleRate!)))))
         info.append((key: "Channels", value: String(playbackInfo.numChannels!)))
-        info.append((key: "Frames", value: Utils.readableLongInteger(playbackInfo.frames!)))
+        info.append((key: "Frames", value: StringUtils.readableLongInteger(playbackInfo.frames!)))
         
         return info.count
     }
