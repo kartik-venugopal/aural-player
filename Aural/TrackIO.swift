@@ -13,8 +13,7 @@ class TrackIO {
         
         let sourceAsset = AVURLAsset(url: track.file, options: nil)
         track.audioAsset = sourceAsset
-        track.setDuration(sourceAsset.duration.seconds)
-        
+        MetadataReader.loadDurationMetadata(track)
         MetadataReader.loadDisplayMetadata(track)
     }
     

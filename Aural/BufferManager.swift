@@ -84,8 +84,9 @@ class BufferManager {
         
         // Can assume that track.playbackInfo is non-nil, because track has been prepared for playback
         let playingFile: AVAudioFile = playbackSession.track.playbackInfo!.audioFile!
+        let length: AVAudioFramePosition = playbackSession.track.playbackInfo!.frames!
         
-        let audioRead = AudioIO.readAudio(Double(bufferSize), playingFile)
+        let audioRead = AudioIO.readAudio(Double(bufferSize), playingFile, length)
         let buffer = audioRead.buffer
         let reachedEOF = audioRead.eof
         

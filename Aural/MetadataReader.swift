@@ -6,6 +6,32 @@ import AVFoundation
  */
 class MetadataReader {
     
+    // Identifier for ID3 TLEN metadata item
+    private static let tlenID: String = AVMetadataItem.identifier(forKey: AVMetadataID3MetadataKeyLength, keySpace:  AVMetadataKeySpaceID3)!
+    
+    // Loads duration metadata for a track, if available
+    static func loadDurationMetadata(_ track: Track) {
+        
+        if (track.audioAsset == nil) {
+            track.audioAsset = AVURLAsset(url: track.file, options: nil)
+        }
+        
+        let tlenItems = AVMetadataItem.metadataItems(from: track.audioAsset!.metadata, filteredByIdentifier: tlenID)
+        if (tlenItems.count > 0) {
+            
+            let tlenItem = tlenItems[0]
+            if (!StringUtils.isStringEmpty(tlenItem.stringValue)) {
+                
+                if let durationMsecs = Double(tlenItem.stringValue!) {
+                    track.setDuration(durationMsecs / 1000)
+                    return
+                }
+            }
+        }
+        
+        track.setDuration(track.audioAsset!.duration.seconds)
+    }
+    
     // Loads the required display metadata (artist/title/art) for a track
     static func loadDisplayMetadata(_ track: Track) {
         
@@ -80,6 +106,7 @@ class MetadataReader {
                     if (key != AVMetadataCommonKeyTitle && key != AVMetadataCommonKeyArtist && key != AVMetadataCommonKeyArtwork) {
                         
                         if (!StringUtils.isStringEmpty(stringValue)) {
+                            
                             let entry = MetadataEntry(.common, key, stringValue!)
                             track.metadata[key] = entry
                         }
@@ -88,6 +115,7 @@ class MetadataReader {
                 } else if let key = item.key as? String {
                     
                     if (!StringUtils.isStringEmpty(stringValue)) {
+                        
                         let entry = MetadataEntry(metadataType, key, stringValue!)
                         track.metadata[key] = entry
                     }
@@ -148,7 +176,7 @@ class MetadataReader {
 }
 
 // Denotes the type (format) of a metadata entry
-enum MetadataType {
+enum MetadataType: String {
     
     case common
     case iTunes

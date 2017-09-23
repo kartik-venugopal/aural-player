@@ -118,7 +118,7 @@ class PlaybackInfo {
     var audioFile: AVAudioFile?
     
     // The total number of frames in the track
-    var frames: Int64?
+    var frames: AVAudioFramePosition?
     
     // The sample rate of the track (in Hz)
     var sampleRate: Double?
