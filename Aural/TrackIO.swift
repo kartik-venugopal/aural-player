@@ -1,17 +1,18 @@
 /*
- Reads track info from the filesystem
+    Reads track info from the filesystem
  */
 
 import Cocoa
 import AVFoundation
 
+// TODO: Create Utils classes to do the dirty work
 class TrackIO {
     
     // Load duration and display metadata (artist/title/art)
     static func loadDisplayInfo(_ track: Track) {
         
         let sourceAsset = AVURLAsset(url: track.file, options: nil)
-        track.avAsset = sourceAsset
+        track.audioAsset = sourceAsset
         track.setDuration(sourceAsset.duration.seconds)
         
         MetadataReader.loadDisplayMetadata(track)
@@ -20,17 +21,20 @@ class TrackIO {
     // Load all the information required to play this track
     static func prepareForPlayback(_ track: Track) {
         
+        // TODO: AudioUtils.validateTrack() -> Bool
+        // TODO: AudioUtils.loadAudioInfo()
+        
         let lazyLoadInfo = track.lazyLoadingInfo
         
         if (lazyLoadInfo.preparedForPlayback || lazyLoadInfo.preparationFailed) {
             return
         }
         
-        if (track.avAsset == nil) {
-            track.avAsset = AVURLAsset(url: track.file, options: nil)
+        if (track.audioAsset == nil) {
+            track.audioAsset = AVURLAsset(url: track.file, options: nil)
         }
         
-        let assetTracks = track.avAsset?.tracks(withMediaType: AVMediaTypeAudio)
+        let assetTracks = track.audioAsset?.tracks(withMediaType: AVMediaTypeAudio)
         
         // Check if the asset has any audio tracks
         if (assetTracks?.count == 0) {
@@ -61,37 +65,35 @@ class TrackIO {
         // Check sourceAsset.hasProtectedContent()
         // Test against a protected iTunes file
         
-        var avFile: AVAudioFile? = nil
-        do {
-            avFile = try AVAudioFile(forReading: track.file)
-            
+        if let audioFile = AudioIO.createAudioFileForReading(track.file) {
+                
             let playbackInfo = PlaybackInfo()
             
-            playbackInfo.avFile = avFile!
-            playbackInfo.sampleRate = avFile!.processingFormat.sampleRate
+            playbackInfo.audioFile = audioFile
+            playbackInfo.sampleRate = audioFile.processingFormat.sampleRate
             
             if (!track.hasDuration()) {
-                let duration = track.avAsset!.duration.seconds
+                let duration = track.audioAsset!.duration.seconds
                 track.setDuration(duration)
             }
             
             playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
-            playbackInfo.numChannels = Int(playbackInfo.avFile!.fileFormat.channelCount)
+            playbackInfo.numChannels = Int(playbackInfo.audioFile!.fileFormat.channelCount)
             
             track.playbackInfo = playbackInfo
             lazyLoadInfo.preparedForPlayback = true
             
-        } catch let error as NSError {
+        } else {
             
             lazyLoadInfo.preparationFailed = true
             lazyLoadInfo.preparationError = TrackNotPlayableError(track.file)
-            
-            NSLog("Error reading track '%@': %@", track.file.path, error.description)
         }
     }
     
     // Load detailed track info
     static func loadDetailedTrackInfo(_ track: Track) {
+        
+        // TODO: AudioUtils.loadAudioInfo()
         
         let lazyLoadInfo = track.lazyLoadingInfo
         
@@ -99,12 +101,9 @@ class TrackIO {
             return
         }
         
-        var fileAttrLoaded: Bool = false
-        var extendedMetadataLoaded: Bool = false
-        
         let audioAndFileInfo = AudioAndFileInfo()
         
-        let assetTracks = track.avAsset!.tracks(withMediaType: AVMediaTypeAudio)
+        let assetTracks = track.audioAsset!.tracks(withMediaType: AVMediaTypeAudio)
         audioAndFileInfo.format = getFormat(assetTracks[0])
         
         // File size and bit rate
@@ -113,12 +112,9 @@ class TrackIO {
         
         track.audioAndFileInfo = audioAndFileInfo
         
-        fileAttrLoaded = true
-        
         MetadataReader.loadAllMetadata(track)
-        extendedMetadataLoaded = true
         
-        lazyLoadInfo.detailedInfoLoaded = fileAttrLoaded && extendedMetadataLoaded
+        lazyLoadInfo.detailedInfoLoaded = true
     }
     
     // Normalizes a bit rate by rounding it to the nearest multiple of 32. For ex, a bit rate of 251.5 kbps is rounded to 256 kbps.

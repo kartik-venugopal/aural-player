@@ -10,8 +10,8 @@ class Track: NSObject {
     // The filesystem file that contains the audio track represented by this object
     let file: URL
     
-    // The Audio/Video asset object used to retrieve metadata for this track
-    var avAsset: AVURLAsset?
+    // The audio asset object used to retrieve metadata for this track
+    var audioAsset: AVURLAsset?
     
     // All info relating to how this track is displayed
     var displayInfo: DisplayInfo
@@ -110,7 +110,7 @@ class DisplayInfo {
 class PlaybackInfo {
 
     // The audio file containing the actual audio samples
-    var avFile: AVAudioFile?
+    var audioFile: AVAudioFile?
     
     // The total number of frames in the track
     var frames: Int64?

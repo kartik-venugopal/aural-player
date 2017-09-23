@@ -30,7 +30,7 @@ class Player: PlayerProtocol {
     // Prepares the player to play a given track
     private func initPlayer(_ track: Track) {
         
-        let format = track.playbackInfo!.avFile!.processingFormat
+        let format = track.playbackInfo!.audioFile!.processingFormat
         
         // Disconnect player and reconnect with the file's processing format
         graph.reconnectPlayerNodeWithFormat(format)

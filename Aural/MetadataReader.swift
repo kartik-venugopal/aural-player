@@ -13,11 +13,11 @@ class MetadataReader {
         var artist: String?
         var art: NSImage?
         
-        if (track.avAsset == nil) {
-            track.avAsset = AVURLAsset(url: track.file, options: nil)
+        if (track.audioAsset == nil) {
+            track.audioAsset = AVURLAsset(url: track.file, options: nil)
         }
         
-        let commonMD = track.avAsset?.commonMetadata
+        let commonMD = track.audioAsset?.commonMetadata
         
         for item in commonMD! {
             
@@ -47,12 +47,12 @@ class MetadataReader {
     // Loads all available metadata for a track
     static func loadAllMetadata(_ track: Track) {
         
-        if (track.avAsset == nil) {
-            track.avAsset = AVURLAsset(url: track.file, options: nil)
+        if (track.audioAsset == nil) {
+            track.audioAsset = AVURLAsset(url: track.file, options: nil)
         }
         
         // Check which metadata formats are available
-        let formats = track.avAsset!.availableMetadataFormats
+        let formats = track.audioAsset!.availableMetadataFormats
         
         // Iterate through the formats and collect metadata for each one
         for format in formats {
@@ -67,7 +67,7 @@ class MetadataReader {
                 
             }
             
-            let items = track.avAsset!.metadata(forFormat: format)
+            let items = track.audioAsset!.metadata(forFormat: format)
             
             // Iterate through all metadata for this format
             for item in items {
@@ -104,11 +104,11 @@ class MetadataReader {
             return
         }
         
-        if (track.avAsset == nil) {
-            track.avAsset = AVURLAsset(url: track.file, options: nil)
+        if (track.audioAsset == nil) {
+            track.audioAsset = AVURLAsset(url: track.file, options: nil)
         }
         
-        let sourceAsset = track.avAsset!
+        let sourceAsset = track.audioAsset!
         
         let metadataList = sourceAsset.commonMetadata
         

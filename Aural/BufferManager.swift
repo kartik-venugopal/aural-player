@@ -1,4 +1,3 @@
-
 import Cocoa
 import AVFoundation
 
@@ -7,6 +6,8 @@ import AVFoundation
 
     A "playback session" begins when playback is started, as a result of either play() or seekToTime(). It ends when either playback is completed or a new request is received (and stop() is called).
 */
+
+// TODO: Recycle buffers and see if it reduces memory consumption (vs code complexity)
 class BufferManager {
     
     // Indicates the beginning of a file, used when starting file playback
@@ -42,79 +43,65 @@ class BufferManager {
     // Starts track playback from a given frame position. The playbackSesssion parameter is used to ensure that no buffers are scheduled on the player for an old playback session.
     private func startPlaybackFromFrame(_ playbackSession: PlaybackSession, _ frame: AVAudioFramePosition) {
         
-        // Can assume that avFile is non-nil, because track has been prepared for playback
-        let playingFile: AVAudioFile = playbackSession.track.playbackInfo!.avFile!
+        // Can assume that audioFile is non-nil, because track has been prepared for playback
+        let playingFile: AVAudioFile = playbackSession.track.playbackInfo!.audioFile!
         
         // Set the position in the audio file from which reading is to begin
         playingFile.framePosition = frame
         
-        // Mark the beginning of a new buffer scheduling session
-        let schedulingSession = SchedulingSession()
-        
         // Schedule one buffer for immediate playback
-        scheduleNextBuffer(playbackSession, schedulingSession, BufferManager.BUFFER_SIZE_INITIAL)
+        scheduleNextBuffer(playbackSession, BufferManager.BUFFER_SIZE_INITIAL)
         
         // Start playing the file
         playerNode.play()
         
         // Schedule one more ("look ahead") buffer
-        if (!schedulingSession.schedulingCompleted) {
-            queue.addOperation({self.scheduleNextBuffer(playbackSession, schedulingSession)})
+        if (!playbackSession.schedulingCompleted) {
+            queue.addOperation({self.scheduleNextBuffer(playbackSession)})
         }
     }
     
     // Upon the completion of playback of a buffer, checks if more buffers are needed for the playback session, and if so, schedules one for playback. The playbackSession argument indicates which playback session this task was initiated for.
-    private func bufferCompletionHandler(_ playbackSession: PlaybackSession, _ schedulingSession: SchedulingSession) {
+    private func bufferCompletionHandler(_ playbackSession: PlaybackSession) {
         
         if (PlaybackSession.isCurrent(playbackSession)) {
             
-            if (schedulingSession.playbackCompleted) {
+            if (playbackSession.playbackCompleted) {
                 
                 // Notify observers about playback completion
                 AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage.instance)
                 
-            } else if (!schedulingSession.schedulingCompleted) {
+            } else if (!playbackSession.schedulingCompleted) {
                 
                 // Continue scheduling more buffers
-                queue.addOperation({self.scheduleNextBuffer(playbackSession, schedulingSession)})
+                queue.addOperation({self.scheduleNextBuffer(playbackSession)})
             }
         }
     }
     
     // Schedules a single audio buffer for playback of the specified track
-    // The timestamp argument indicates which playback session this task was initiated for
-    private func scheduleNextBuffer(_ playbackSession: PlaybackSession, _ schedulingSession: SchedulingSession, _ bufferSize: UInt32 = BufferManager.BUFFER_SIZE) {
+    private func scheduleNextBuffer(_ playbackSession: PlaybackSession, _ bufferSize: UInt32 = BufferManager.BUFFER_SIZE) {
         
-        // Can assume that track.avFile is non-nil, because track has been prepared for playback
-        let playbackInfo = playbackSession.track.playbackInfo!
-        let playingFile: AVAudioFile = playbackInfo.avFile!
+        // Can assume that track.playbackInfo is non-nil, because track has been prepared for playback
+        let playingFile: AVAudioFile = playbackSession.track.playbackInfo!.audioFile!
         
-        let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: playingFile.processingFormat, frameCapacity: AVAudioFrameCount(Double(bufferSize) * playbackInfo.sampleRate!))
+        let audioRead = AudioIO.readAudio(Double(bufferSize), playingFile)
+        let buffer = audioRead.buffer
+        let reachedEOF = audioRead.eof
         
-        do {
-            try playingFile.read(into: buffer)
-        } catch let error as NSError {
-            NSLog("Error reading from audio file '%@' atPos '%d': %@", playingFile.url.lastPathComponent, playingFile.framePosition, error.description)
-        }
-        
-        let readAllFrames = playingFile.framePosition >= playbackInfo.frames!
-        let bufferNotFull = buffer.frameLength < buffer.frameCapacity
-        
-        // If all frames have been read, OR the buffer is not full, consider track done playing (EOF)
-        let reachedEOF = readAllFrames || bufferNotFull
         if (reachedEOF) {
-            schedulingSession.schedulingCompleted = true
+            playbackSession.schedulingCompleted = true
         }
         
-        // Redundant timestamp check, in case the first one in scheduleNextBufferIfNecessary() was performed too soon (stop() called between scheduleNextBufferIfNecessary() and now). This will come in handy when disk seeking suddenly slows down abnormally and the task takes much longer to complete.
+        // Redundant timestamp check, in case the disk read was slow and the session has changed since. This will come in handy when disk seeking suddenly slows down abnormally and the read task takes much longer to complete.
         if (PlaybackSession.isCurrent(playbackSession)) {
         
             playerNode.scheduleBuffer(buffer, at: nil, options: AVAudioPlayerNodeBufferOptions(), completionHandler: {
                 
                 if (reachedEOF) {
-                    schedulingSession.playbackCompleted = true
+                    playbackSession.playbackCompleted = true
                 }
-                self.bufferCompletionHandler(playbackSession, schedulingSession)
+                self.bufferCompletionHandler(playbackSession)
             })
         }
     }
@@ -124,7 +111,7 @@ class BufferManager {
         
         stop()
         
-        // Can assume that track.avFile is non-nil, because track has been prepared for playback
+        // Can assume that track.audioFile is non-nil, because track has been prepared for playback
         let sampleRate = playbackSession.track.playbackInfo!.sampleRate!
         
         //  Multiply sample rate by the new time in seconds. This will give the exact start frame.

@@ -34,6 +34,7 @@ class Recorder: RecorderProtocol {
         self.graph = graph
     }
     
+    // TODO: What if creating the audio file fails ? Return a Bool to indicate success ?
     func startRecording(_ format: RecordingFormat) {
         
         let now = Date()
@@ -41,29 +42,23 @@ class Recorder: RecorderProtocol {
         
         tempRecordingFilePath = String(format: "%@/aural-tempRecording_%@.%@", AppConstants.recordingDirURL.path, nowString, format.fileExtension)
         
-        let url = URL(fileURLWithPath: tempRecordingFilePath!, isDirectory: false)
+        let url = URL(fileURLWithPath: tempRecordingFilePath!)
         
-        // Create the output file with the specified format
-        var recFile: AVAudioFile?
-        do {
-            recFile = try AVAudioFile(forWriting: url, settings: format.settings)
-        } catch let error as NSError {
-            NSLog("Error creating recording file: %@", error.description)
-        }
+        if let recFile = AudioIO.createAudioFileForWriting(url, format.settings) {
         
-        // Install a tap on the audio engine to start receiving audio data
-        graph.nodeForRecorderTap.installTap(onBus: 0, bufferSize: 1024, format: nil, block: { buffer, when in
+            // Install a tap on the audio engine to start receiving audio data
+            graph.nodeForRecorderTap.installTap(onBus: 0, bufferSize: 1024, format: nil, block: { buffer, when in
+                AudioIO.writeAudio(buffer, recFile)
+            })
             
-            do {
-                try recFile?.write(from: buffer)
-            } catch let error as NSError {
-                NSLog("Error writing to file: %@", error.description)
-            }
-        })
-        
-        // Mark the start time and the flag
-        recordingStartTime = Date()
-        recording = true
+            // Mark the start time and the flag
+            recordingStartTime = Date()
+            recording = true
+            
+        } else {
+            
+            NSLog("Unable to create recording audio file with specified format '%@'", format.fileExtension)
+        }
     }
     
     func stopRecording() {
