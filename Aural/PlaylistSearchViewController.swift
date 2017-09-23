@@ -103,7 +103,7 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
         let resultsText = numResults == 1 ? "result found" : "results found"
         searchResultsSummaryLabel.stringValue = String(format: "%d %@. Selected %d / %d", numResults, resultsText, searchResult.resultIndex, numResults)
         
-        searchResultMatchInfo.stringValue = String(format: "Matched %@: '%@'", searchResult.match.fieldKey.lowercased(), searchResult.match.fieldValue)
+        searchResultMatchInfo.stringValue = String(format: "Matched %@: '%@'", searchResult.match.fieldKey, searchResult.match.fieldValue)
         
         btnNextSearch.isHidden = !searchResult.hasNext
         btnPreviousSearch.isHidden = !searchResult.hasPrevious

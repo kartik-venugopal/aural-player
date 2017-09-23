@@ -252,6 +252,7 @@
 				3E426F7D1EFDD9CF002F5F18 /* Player.swift */,
 				3E2BDC4C1F0DE1C00099FDB7 /* BufferManager.swift */,
 				3E09C6B41F2EE70C007BB489 /* PlaybackSession.swift */,
+				3E426F811EFDEEBE002F5F18 /* PlaybackState.swift */,
 			);
 			name = Player;
 			sourceTree = "<group>";
@@ -505,7 +506,6 @@
 		3ED2AF201F00E8B7000F702C /* AppState */ = {
 			isa = PBXGroup;
 			children = (
-				3E426F811EFDEEBE002F5F18 /* PlaybackState.swift */,
 				3EB20B4A1EFF25EC008138A4 /* AppState.swift */,
 				3E911CEE1F441BE1009C1572 /* UIAppState.swift */,
 			);

@@ -50,9 +50,9 @@ class PlaylistIO {
             
             for line in lines {
                 
-                if line.range(of: m3uHeader) != nil {
+                if line.contains(m3uHeader) {
                     // IGNORE EXTM3U header
-                } else if line.range(of: m3uInfoPrefix) != nil {
+                } else if line.contains(m3uInfoPrefix) {
                     // IGNORE EXTINF (duration and display name are recomputed anyway)
                 } else {
                     

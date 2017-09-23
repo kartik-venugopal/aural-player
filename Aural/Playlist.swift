@@ -137,33 +137,30 @@ class Playlist: PlaylistCRUDProtocol {
     // Checks if a single track matches search criteria, and returns information about the match, if there is one
     private func trackMatchesQuery(track: Track, searchQuery: SearchQuery) -> (matched: Bool, matchedField: String?, matchedFieldValue: String?) {
         
-        let caseSensitive: Bool = searchQuery.options.caseSensitive
-        
-        let queryText: String = caseSensitive ? searchQuery.text : searchQuery.text.lowercased()
-        
-        // Actual track fields to compare to query text
-        // FieldName -> (OriginalFieldValue, FieldValueForComparison)
-        // FieldValueForComparison is used for the comparison (and may have different case than OriginalFieldValue), while OriginalFieldValue is returned in the result if there is a match
-        var trackFields: [String: (original: String, compared: String)] = [String: (String, String)]()
-        
         // Add name field if included in search
         if (searchQuery.fields.name) {
             
             // Check both the filename and the display name
             
             let lastPathComponent = track.file.deletingPathExtension().lastPathComponent
-            
-            trackFields["Filename"] = (lastPathComponent, caseSensitive ? lastPathComponent : lastPathComponent.lowercased())
+            if (compare(lastPathComponent, searchQuery)) {
+                return (true, "filename", lastPathComponent)
+            }
             
             let displayName = track.conciseDisplayName
-            trackFields["Name"] = (displayName, caseSensitive ? displayName : displayName.lowercased())
+            if (compare(displayName, searchQuery)) {
+                return (true, "name", displayName)
+            }
         }
         
         // Add artist field if included in search
         if (searchQuery.fields.artist) {
             
             if let artist = track.displayInfo.artist {
-                trackFields["Artist"] = (artist, caseSensitive ? artist : artist.lowercased())
+                
+                if (compare(artist, searchQuery)) {
+                    return (true, "artist", artist)
+                }
             }
         }
         
@@ -171,7 +168,10 @@ class Playlist: PlaylistCRUDProtocol {
         if (searchQuery.fields.title) {
             
             if let title = track.displayInfo.title {
-                trackFields["Title"] = (title, caseSensitive ? title : title.lowercased())
+                
+                if (compare(title, searchQuery)) {
+                    return (true, "title", title)
+                }
             }
         }
         
@@ -182,35 +182,35 @@ class Playlist: PlaylistCRUDProtocol {
             MetadataReader.loadSearchMetadata(track)
             
             if let album = track.metadata[AVMetadataCommonKeyAlbumName]?.value {
-                trackFields["Album"] = (album, caseSensitive ? album : album.lowercased())
-            }
-        }
-        
-        // Check each field value against the search query text
-        for (key: field, value: (original: original, compared: compared)) in trackFields {
-            
-            switch searchQuery.type {
                 
-            case .beginsWith: if compared.hasPrefix(queryText) {
-                return (true, field, original)
-                }
-                
-            case .endsWith: if compared.hasSuffix(queryText) {
-                return (true, field, original)
-                }
-                
-            case .equals: if compared == queryText {
-                return (true, field, original)
-                }
-                
-            case .contains: if compared.range(of: queryText) != nil {
-                return (true, field, original)
+                if (compare(album, searchQuery)) {
+                    return (true, "album", album)
                 }
             }
         }
         
         // Didn't match
         return (false, nil, nil)
+    }
+    
+    private func compare(_ fieldVal: String, _ query: SearchQuery) -> Bool {
+        
+        let caseSensitive: Bool = query.options.caseSensitive
+        let queryText: String = caseSensitive ? query.text : query.text.lowercased()
+        let compared: String = caseSensitive ? fieldVal : fieldVal.lowercased()
+        let type: SearchType = query.type
+        
+        switch type {
+            
+        case .beginsWith: return compared.hasPrefix(queryText)
+            
+        case .endsWith: return compared.hasSuffix(queryText)
+            
+        case .equals: return compared == queryText
+            
+        case .contains: return compared.contains(queryText)
+            
+        }
     }
     
     func sort(_ sort: Sort) {
