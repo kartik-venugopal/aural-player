@@ -12,6 +12,8 @@ class MetadataReader {
     // Loads duration metadata for a track, if available
     static func loadDurationMetadata(_ track: Track) {
         
+        var tlenDuration: Double = 0
+        
         if (track.audioAsset == nil) {
             track.audioAsset = AVURLAsset(url: track.file, options: nil)
         }
@@ -23,13 +25,14 @@ class MetadataReader {
             if (!StringUtils.isStringEmpty(tlenItem.stringValue)) {
                 
                 if let durationMsecs = Double(tlenItem.stringValue!) {
-                    track.setDuration(durationMsecs / 1000)
-                    return
+                    tlenDuration = durationMsecs / 1000
                 }
             }
         }
         
-        track.setDuration(track.audioAsset!.duration.seconds)
+        let assetDuration = track.audioAsset!.duration.seconds
+        
+        track.setDuration(max(tlenDuration, assetDuration))
     }
     
     // Loads the required display metadata (artist/title/art) for a track
