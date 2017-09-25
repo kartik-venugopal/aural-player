@@ -64,9 +64,7 @@ class MetadataReader {
                 
             } else if (item.commonKey == AVMetadataCommonKeyArtwork) {
                 
-                if let artwork = NSImage(data: item.value as! Data) {
-                    art = artwork
-                }
+                art = NSImage(data: item.value as! Data)
             }
         }
         
