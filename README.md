@@ -8,10 +8,10 @@ Aural Player is a free and open source audio player application for the MacOS (f
 
 ### Summary of features
 
-- Playback of MP3, M4A, AAC, AIFF, WAV, and CAF audio files
+- Playback of MP3, AAC, AIFF/AIFC, WAV, and CAF audio files
 - Supports M3U/M3U8 playlists
 - Sound effects: Graphic equalizer, Pitch shift, Time stretch, Reverb, Delay, Filter
-- Recording of clips
+- Recording of clips in AAC/ALAC/AIFF formats
 - Displays ID3 and iTunes metadata, including artwork (when available)
 - Searching and sorting of playlist
 
@@ -40,6 +40,8 @@ The latest app bundle can be found in the compressed archive file [Aural.app.zip
 [Demo videos](/Documentation/Demos)
 
 ## Recent updates
+
+9/25/2017 **New recording formats** - Added support for ALAC (Apple Lossless) and AIFF (CD Quality) recording.
 
 9/23/2017 **Volume and Pan feedback labels** - Whenever the volume and pan are updated, feedback labels will now show up, with the new values for volume or pan, and the labels will auto-hide after a second.
 
