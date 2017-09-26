@@ -14,6 +14,7 @@ Aural Player is a free and open source audio player application for the MacOS (f
 - Recording of clips in AAC/ALAC/AIFF formats
 - Displays ID3 and iTunes metadata, including artwork (when available)
 - Searching and sorting of playlist
+- Multiple compact view options
 
 ### Compatibility
 
