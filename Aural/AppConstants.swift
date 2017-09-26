@@ -10,18 +10,14 @@ class AppConstants {
     // Supported playlist file types
     static let m3u: String = "m3u"
     static let m3u8: String = "m3u8"
-    static let supportedPlaylistFileTypes: [String] = [m3u, m3u8]
+    static let supportedPlaylistFileExtensions: [String] = [m3u, m3u8]
     
     // Supported audio file types/formats
-    static let supportedAudioFileTypes: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav"]
-    
+    static let supportedAudioFileExtensions: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav"]
     static let supportedAudioFileFormats: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "lpcm"]
     
     // File types allowed in the Open file dialog (extensions and UTIs)
     static let supportedFileTypes_open: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", m3u, m3u8, AVFileTypeMPEGLayer3, AVFileTypeAppleM4A, AVFileTypeAIFF, AVFileTypeAIFC, AVFileTypeCoreAudioFormat, AVFileTypeWAVE]
-    
-    // File types allowed in the Save file dialog (extensions)
-    static let supportedFileTypes_save: [String] = [m3u]
     
     // Audible range (frequencies)
     static let audibleRangeMin: Double = 20      // 20 Hz

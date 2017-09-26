@@ -14,11 +14,16 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     @IBOutlet weak var lblRecorderFileSize: NSTextField!
     @IBOutlet weak var recordingInfoBox: NSBox!
     
+    @IBOutlet weak var formatMenu: NSPopUpButton!
+    
     // Delegate that relays requests to the recorder
     private let recorder: RecorderDelegateProtocol = ObjectGraph.getRecorderDelegate()
     
     // Timer that periodically updates recording info - duration and filesize (only when recorder is active)
     private var recorderTimer: RepeatingTaskExecutor?
+    
+    // Cached recording info (used to determine recording format when saving a recording)
+    private var recordingInfo: RecordingInfo?
     
     override func viewDidLoad() {
         
@@ -38,8 +43,9 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     
     private func startRecording() {
         
-        // Only AAC format works for now
-        recorder.startRecording(RecordingFormat.aac)
+        let format = RecordingFormat.formatForDescription((formatMenu.selectedItem?.title)!)
+        
+        recorder.startRecording(format)
         
         btnRecord.image = UIConstants.imgRecorderStop
         recorderTimer?.startOrResume()
@@ -62,13 +68,13 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = false
         recorderTabViewButton.needsDisplay = true
         
-        saveRecording()
+        saveRecording(recordingInfo!.format)
         recordingInfoBox.isHidden = true
     }
     
-    private func saveRecording() {
+    private func saveRecording(_ format: RecordingFormat) {
         
-        let dialog = UIElements.saveRecordingDialog
+        let dialog = UIElements.saveRecordingPanel(format.fileExtension)
         let modalResponse = dialog.runModal()
         
         if (modalResponse == NSModalResponseOK) {
@@ -82,9 +88,9 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     
     private func updateRecordingInfo() {
         
-        let recInfo = recorder.getRecordingInfo()!
-        lblRecorderDuration.stringValue = StringUtils.formatDuration(recInfo.duration)
-        lblRecorderFileSize.stringValue = recInfo.fileSize.toString()
+        recordingInfo = recorder.getRecordingInfo()
+        lblRecorderDuration.stringValue = StringUtils.formatDuration(recordingInfo!.duration)
+        lblRecorderFileSize.stringValue = recordingInfo!.fileSize.toString()
     }
     
     // This function is invoked when the user attempts to exit the app. It checks if there is an ongoing recording the user may have forgotten about, and prompts the user to save/discard the recording or to cancel the exit.

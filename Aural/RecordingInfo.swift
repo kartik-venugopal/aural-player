@@ -6,13 +6,18 @@ import Foundation
 
 class RecordingInfo {
     
+    // Audio format of the recording
+    let format: RecordingFormat
+    
     // Duration in seconds
-    var duration: Double
+    let duration: Double
    
     // Size of recording file on disk
-    var fileSize: Size
+    let fileSize: Size
     
-    init(_ duration: Double, _ fileSize: Size) {
+    init(_ format: RecordingFormat, _ duration: Double, _ fileSize: Size) {
+        
+        self.format = format
         self.duration = duration
         self.fileSize = fileSize
     }

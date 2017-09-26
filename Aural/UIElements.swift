@@ -5,39 +5,37 @@ import Cocoa
 */
 class UIElements {
     
-    // TODO: Make these lazy vars to reduce memory footprint ???
-    
     // Used to add tracks/playlists
-    static let openDialog: NSOpenPanel = UIElements.createOpenPanel()
+    static let openDialog: NSOpenPanel = UIElements.createOpenDialog()
     
     // Used to save current playlist to a file
-    static let savePlaylistDialog: NSSavePanel = UIElements.createSavePanel()
+    static let savePlaylistDialog: NSSavePanel = UIElements.createSavePlaylistDialog()
     
     // Used to save a recording to a file
-    static let saveRecordingDialog: NSSavePanel = UIElements.createSaveRecordingPanel()
+    private static let saveRecordingDialog: NSSavePanel = UIElements.createSaveRecordingDialog()
     
     // Used to prompt the user, when exiting the app, that a recording is ongoing, and give the user options to save/discard that recording
     static let saveRecordingAlert: NSAlert = UIElements.createSaveRecordingAlert()
     
     // Used to inform the user that a certain track cannot be played back
-    static let trackNotPlayedAlert: NSAlert = UIElements.createTrackNotPlayedAlert()
+    private static let trackNotPlayedAlert: NSAlert = UIElements.createTrackNotPlayedAlert()
     
     // Used to warn the user that certain files were not added to the playlist
-    static let tracksNotAddedAlert: NSAlert = UIElements.createTracksNotAddedAlert()
+    private static let tracksNotAddedAlert: NSAlert = UIElements.createTracksNotAddedAlert()
     
-    private static func createOpenPanel() -> NSOpenPanel {
+    private static func createOpenDialog() -> NSOpenPanel {
         
         let dialog = NSOpenPanel()
         
-        dialog.title                   = "Choose media (.mp3/.m4a/.aac/.aif/.wav), playlists (.m3u/.m3u8), or directories";
+        dialog.message = String(format: "Choose media, playlists (.%@/.%@), or directories", AppConstants.m3u, AppConstants.m3u8)
         
-        dialog.showsResizeIndicator    = true;
-        dialog.showsHiddenFiles        = true;
+        dialog.showsResizeIndicator    = true
+        dialog.showsHiddenFiles        = true
         
-        dialog.canChooseDirectories    = true;
+        dialog.canChooseDirectories    = true
         
-        dialog.canCreateDirectories    = true;
-        dialog.allowsMultipleSelection = true;
+        dialog.canCreateDirectories    = true
+        dialog.allowsMultipleSelection = true
         dialog.allowedFileTypes        = AppConstants.supportedFileTypes_open
         
         dialog.resolvesAliases = true;
@@ -47,36 +45,42 @@ class UIElements {
         return dialog
     }
     
-    private static func createSavePanel() -> NSSavePanel {
+    private static func createSavePlaylistDialog() -> NSSavePanel {
         
         let dialog = NSSavePanel()
         
-        dialog.title                   = "Save current playlist as a (.m3u) file"
+        dialog.title                   = String(format: "Save current playlist as a (.%@) file", AppConstants.m3u)
         dialog.showsResizeIndicator    = true
         dialog.showsHiddenFiles        = true
         
         dialog.canCreateDirectories    = true
-        dialog.allowedFileTypes        = AppConstants.supportedFileTypes_save
+        dialog.allowedFileTypes        = [AppConstants.m3u]
         
         dialog.directoryURL = AppConstants.musicDirURL
         
         return dialog
     }
     
-    private static func createSaveRecordingPanel() -> NSSavePanel {
+    private static func createSaveRecordingDialog() -> NSSavePanel {
         
         let dialog = NSSavePanel()
         
-        dialog.title                   = "Save recording as a (.aac) file"
         dialog.showsResizeIndicator    = true
         dialog.showsHiddenFiles        = false
         
         dialog.canCreateDirectories    = true
-        dialog.allowedFileTypes        = [RecordingFormat.aac.fileExtension]
         
         dialog.directoryURL = AppConstants.musicDirURL
         
         return dialog
+    }
+    
+    static func saveRecordingPanel(_ fileExtension: String) -> NSSavePanel {
+        
+        saveRecordingDialog.title = String(format: "Save recording as a (.%@) file", fileExtension)
+        saveRecordingDialog.allowedFileTypes = [fileExtension]
+        
+        return saveRecordingDialog
     }
     
     private static func createSaveRecordingAlert() -> NSAlert {

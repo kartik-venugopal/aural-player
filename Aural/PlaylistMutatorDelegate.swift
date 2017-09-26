@@ -103,12 +103,12 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                     // Single file - playlist or track
                     let fileExtension = file.pathExtension.lowercased()
                     
-                    if (AppConstants.supportedPlaylistFileTypes.contains(fileExtension)) {
+                    if (AppConstants.supportedPlaylistFileExtensions.contains(fileExtension)) {
                         
                         // Playlist
                         addPlaylist(file, autoplayOptions, progress)
                         
-                    } else if (AppConstants.supportedAudioFileTypes.contains(fileExtension)) {
+                    } else if (AppConstants.supportedAudioFileExtensions.contains(fileExtension)) {
                         
                         // Track
                         do {
