@@ -49,12 +49,6 @@ enum MessageType {
     // See RemoveTrackRequest
     case removeTrackRequest
     
-    // See PlaylistScrollUpNotification
-    case playlistScrollUpNotification
-    
-    // See PlaylistScrollDownNotification
-    case playlistScrollDownNotification
-    
     // See PlaybackStateChangedNotification
     case playbackStateChangedNotification
     
@@ -126,28 +120,6 @@ struct TrackRemovedNotification: NotificationMessage {
     init(_ removedTrackIndex: Int) {
         self.removedTrackIndex = removedTrackIndex
     }
-}
-
-// Notification that the playlist has been scrolled (one row up), and that its selection needs to change
-struct PlaylistScrollUpNotification: NotificationMessage {
-    
-    var messageType: MessageType = .playlistScrollUpNotification
-    
-    private init() {}
-    
-    // Singleton
-    static let instance: PlaylistScrollUpNotification = PlaylistScrollUpNotification()
-}
-
-// Notification that the playlist has been scrolled (one row down), and that its selection needs to change
-struct PlaylistScrollDownNotification: NotificationMessage {
-    
-    var messageType: MessageType = .playlistScrollDownNotification
-    
-    private init() {}
-    
-    // Singleton
-    static let instance: PlaylistScrollDownNotification = PlaylistScrollDownNotification()
 }
 
 // Request from the playlist to stop playback (for instance, when the playlist is cleared, or the playing track has been removed)

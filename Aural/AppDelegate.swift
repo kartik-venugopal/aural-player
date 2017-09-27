@@ -27,7 +27,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         configureLogging()
         ObjectGraph.initialize()
-        setUpKeyPressHandler()
     }
     
     // Make sure all logging is done to the app's log file
@@ -38,15 +37,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let pathForLog = documentsDirectory + ("/" + AppConstants.logFileName)
         
         freopen(pathForLog.cString(using: String.Encoding.ascii)!, "a+", stderr)
-    }
-    
-    // Set up handler for keyboard input
-    private func setUpKeyPressHandler() {
-        
-        NSEvent.addLocalMonitorForEvents(matching: NSEventMask.keyDown, handler: {(event: NSEvent!) -> NSEvent in
-            KeyPressHandler.handle(event)
-            return event;
-        });
     }
 
     // Opens the application with a single file (audio file or playlist)

@@ -20,6 +20,9 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
     private let playlistUpdateQueue = OperationQueue()
     
+    // Needed for playlist scrolling with arrow keys
+    private var playlistKeyPressHandler: PlaylistKeyPressHandler?
+    
     override func viewDidLoad() {
         
         // Enable drag n drop into the playlist view
@@ -34,14 +37,19 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
-        SyncMessenger.subscribe(.playlistScrollUpNotification, subscriber: self)
-        SyncMessenger.subscribe(.playlistScrollDownNotification, subscriber: self)
         SyncMessenger.subscribe(.removeTrackRequest, subscriber: self)
         
-        // Set up the serial operation queue
+        // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
         playlistUpdateQueue.underlyingQueue = DispatchQueue.main
         playlistUpdateQueue.qualityOfService = .background
+        
+        // Set up key press handler to enable natural scrolling of the playlist view with arrow keys
+        playlistKeyPressHandler = PlaylistKeyPressHandler(playlistView)
+        NSEvent.addLocalMonitorForEvents(matching: NSEventMask.keyDown, handler: {(event: NSEvent!) -> NSEvent in
+            self.playlistKeyPressHandler?.handle(event)
+            return event;
+        });
     }
     
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
@@ -124,8 +132,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             
             if (oldPlayingTrackIndex == index) {
                 // Request the player to stop playback, if the playing track was removed
-                let stopPlaybackRequest = StopPlaybackRequest.instance
-                SyncMessenger.publishRequest(stopPlaybackRequest)
+                SyncMessenger.publishRequest(StopPlaybackRequest.instance)
             }
         }
         
@@ -136,9 +143,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         // This needs to be done async. Otherwise, the add files dialog hangs.
         DispatchQueue.main.async {
-            
-            let alert = UIElements.tracksNotAddedAlertWithErrors(errors)
-            UIUtils.showAlert(alert)
+            UIUtils.showAlert(UIElements.tracksNotAddedAlertWithErrors(errors))
         }
     }
     
@@ -175,26 +180,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         updatePlaylistSummary()
         
         // Request the player to stop playback, if there is a track playing
-        let stopPlaybackRequest = StopPlaybackRequest.instance
-        SyncMessenger.publishRequest(stopPlaybackRequest)
-    }
-    
-    private func scrollPlaylistUp() {
-        
-        let selRow = playlistView.selectedRow
-        if (selRow > 0) {
-            playlistView.selectRowIndexes(IndexSet(integer: selRow - 1), byExtendingSelection: false)
-            showPlaylistSelectedRow()
-        }
-    }
-    
-    private func scrollPlaylistDown() {
-        
-        let selRow = playlistView.selectedRow
-        if (selRow < (playlistView.numberOfRows - 1)) {
-            playlistView.selectRowIndexes(IndexSet(integer: selRow + 1), byExtendingSelection: false)
-            showPlaylistSelectedRow()
-        }
+        SyncMessenger.publishRequest(StopPlaybackRequest.instance)
     }
     
     @IBAction func moveTrackDownAction(_ sender: AnyObject) {
@@ -317,16 +303,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         if (notification is TrackChangedNotification) {
             let msg = notification as! TrackChangedNotification
             trackChange(msg.newTrack)
-            return
-        }
-        
-        if (notification is PlaylistScrollUpNotification) {
-            scrollPlaylistUp()
-            return
-        }
-        
-        if (notification is PlaylistScrollDownNotification) {
-            scrollPlaylistDown()
             return
         }
     }
