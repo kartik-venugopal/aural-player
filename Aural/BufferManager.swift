@@ -6,8 +6,6 @@ import AVFoundation
 
     A "playback session" begins when playback is started, as a result of either play() or seekToTime(). It ends when either playback is completed or a new request is received (and stop() is called).
 */
-
-// TODO: Recycle buffers and see if it reduces memory consumption (vs code complexity)
 class BufferManager {
     
     // Indicates the beginning of a file, used when starting file playback

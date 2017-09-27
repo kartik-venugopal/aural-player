@@ -5,7 +5,6 @@
 import Cocoa
 import AVFoundation
 
-// TODO: Create Utils classes to do the dirty work
 class TrackIO {
     
     // Load duration and display metadata (artist/title/art)
@@ -44,8 +43,6 @@ class TrackIO {
     
     // Load detailed track info
     static func loadDetailedTrackInfo(_ track: Track) {
-        
-        // TODO: AudioUtils.loadAudioInfo()
         
         let lazyLoadInfo = track.lazyLoadingInfo
         
