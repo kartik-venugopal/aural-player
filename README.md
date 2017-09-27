@@ -28,7 +28,7 @@ Aural Player was written by an audio enthusiast learning to program on OS X, com
 
 ## Downloadable app bundle
 
-The latest app bundle can be found in the compressed archive file [Aural.app.zip](https://github.com/maculateConception/aural-player/blob/master/Aural.app.zip?raw=true).
+Wanna try it out ? The latest app bundle can be found in the compressed archive file [Aural.app.zip](https://github.com/maculateConception/aural-player/blob/master/Aural.app.zip?raw=true). Just download the archive, extract the app file, and run it !
 
 ## Documentation
 
