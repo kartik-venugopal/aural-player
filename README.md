@@ -40,6 +40,10 @@ Wanna try it out ? The latest app bundle can be found in the compressed archive 
 
 [Demo videos](/Documentation/Demos)
 
+## Planned updates
+
+**Resizable, detachable, and movable playlist** The playlist will be resizable, detachable, and movable, with buttons to conveniently snap/attach the playlist to the main app window, in different relative locations (bottom, right, left, etc).
+
 ## Recent updates
 
 9/25/2017: **New recording formats** - Added support for ALAC (Apple Lossless) and AIFF (CD Quality) recording.
