@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class WindowViewController: NSViewController {
+class WindowViewController: NSViewController, NSWindowDelegate {
     
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var playlistWindow: NSWindow!
@@ -12,6 +12,10 @@ class WindowViewController: NSViewController {
     // Buttons to toggle (collapsible) playlist/effects views
     @IBOutlet weak var btnToggleEffects: NSButton!
     @IBOutlet weak var btnTogglePlaylist: NSButton!
+    
+    @IBOutlet weak var btnPlaylistDockRight: NSButton!
+    @IBOutlet weak var btnPlaylistDockBottom: NSButton!
+    private var playlistDockState: PlaylistDockState = .bottom
     
     @IBOutlet weak var viewPlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var viewEffectsMenuItem: NSMenuItem!
@@ -34,22 +38,15 @@ class WindowViewController: NSViewController {
         window.makeKeyAndOrderFront(self)
         
         playlistWindow.isMovableByWindowBackground = true
-        window.addChildWindow(playlistWindow, ordered: NSWindowOrderingMode.below)
+        playlistWindow.delegate = self
         
         if (appState.hidePlaylist) {
             hidePlaylist()
         } else {
+            window.addChildWindow(playlistWindow, ordered: NSWindowOrderingMode.below)
+            dockPlaylistBottomAction(self)
             showPlaylist()
         }
-    }
-    
-    private func positionPlaylistWindow() {
-        
-        let pwX = window.frame.origin.x
-        let pwY = window.frame.origin.y - playlistWindow.frame.height
-        playlistWindow.setFrameOrigin(NSPoint(x: pwX, y: pwY))
-        
-        window.addChildWindow(playlistWindow, ordered: NSWindowOrderingMode.below)
     }
     
     @IBAction func hideAction(_ sender: AnyObject) {
@@ -64,8 +61,38 @@ class WindowViewController: NSViewController {
         togglePlaylist()
     }
     
+    @IBAction func dockPlaylistRightAction(_ sender: AnyObject) {
+        
+        var pFrame = playlistWindow.frame
+     
+        let pwX = window.frame.origin.x + window.frame.width
+        let pwY = window.frame.origin.y
+        pFrame.origin = NSPoint(x: pwX, y: pwY)
+        
+        let pwWd = playlistWindow.frame.width
+        let pwHt = window.frame.height
+        pFrame.size = NSMakeSize(pwWd, pwHt)
+        
+        playlistWindow.setFrame(pFrame, display: true, animate: true)
+    }
+    
+    @IBAction func dockPlaylistBottomAction(_ sender: AnyObject) {
+        
+        var pFrame = playlistWindow.frame
+        
+        let pwX = window.frame.origin.x
+        let pwY = window.frame.origin.y - playlistWindow.frame.height
+        pFrame.origin = NSPoint(x: pwX, y: pwY)
+        
+        let pwWd = window.frame.width
+        let pwHt = playlistWindow.frame.height
+        pFrame.size = NSMakeSize(pwWd, pwHt)
+        
+        playlistWindow.setFrame(pFrame, display: true, animate: true)
+    }
+    
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
-        toggleEffects(true)
+        toggleEffects(false)
     }
     
     private func togglePlaylist() {
@@ -81,7 +108,7 @@ class WindowViewController: NSViewController {
     
     private func showPlaylist() {
         
-        positionPlaylistWindow()
+        window.addChildWindow(playlistWindow, ordered: NSWindowOrderingMode.below)
         playlistWindow.setIsVisible(true)
         btnTogglePlaylist.state = 1
         btnTogglePlaylist.image = UIConstants.imgPlaylistOn
@@ -102,30 +129,37 @@ class WindowViewController: NSViewController {
     
     private func toggleEffects(_ animate: Bool) {
         
-//        if (fxCollapsibleView?.hidden)! {
-//            
-//            // Show
-//            
-//            resizeWindow(playlistShown: !(playlistCollapsibleView?.hidden)!, effectsShown: true, animate)
-//            fxCollapsibleView!.show()
-//            btnToggleEffects.state = 1
-//            btnToggleEffects.image = UIConstants.imgEffectsOn
-//            viewEffectsMenuItem.state = 1
-//            WindowState.showingEffects = true
-//            
-//        } else {
-//            
-//            // Hide
-//            
-//            fxCollapsibleView!.hide()
-//            resizeWindow(playlistShown: !(playlistCollapsibleView?.hidden)!, effectsShown: false, animate)
-//            btnToggleEffects.state = 0
-//            btnToggleEffects.image = UIConstants.imgEffectsOff
-//            viewEffectsMenuItem.state = 0
-//            WindowState.showingEffects = false
-//        }
+        if (fxBox.isHidden) {
+            
+            // Show
+            
+            resizeWindow(true, animate)
+            fxBox.isHidden = false
+            btnToggleEffects.state = 1
+            btnToggleEffects.image = UIConstants.imgEffectsOn
+            viewEffectsMenuItem.state = 1
+            WindowState.showingEffects = true
+            
+        } else {
+            
+            // Hide
+            
+            fxBox.isHidden = true
+            resizeWindow(false, animate)
+            btnToggleEffects.state = 0
+            btnToggleEffects.image = UIConstants.imgEffectsOff
+            viewEffectsMenuItem.state = 0
+            WindowState.showingEffects = false
+        }
         
-        setFocusOnPlaylist()
+        if (playlistWindow.isVisible) {
+//            positionPlaylistWindow()
+            // TODO: If playlist is docked at the bottom, move it up
+            if (playlistDockState == .bottom) {
+                dockPlaylistBottomAction(self)
+            }
+            setFocusOnPlaylist()
+        }
     }
     
     private func setFocusOnPlaylist() {
@@ -133,23 +167,12 @@ class WindowViewController: NSViewController {
     }
     
     // Called when toggling views
-    private func resizeWindow(playlistShown: Bool, effectsShown: Bool, _ animate: Bool) {
+    private func resizeWindow(_ effectsShown: Bool, _ animate: Bool) {
         
         var wFrame = window.frame
         let oldOrigin = wFrame.origin
         
-        var newHeight: CGFloat
-        
-        if (effectsShown && playlistShown) {
-            newHeight = UIConstants.windowHeight_playlistAndEffects
-        } else if (effectsShown) {
-            newHeight = UIConstants.windowHeight_effectsOnly
-        } else if (playlistShown) {
-            newHeight = UIConstants.windowHeight_playlistOnly
-        } else {
-            newHeight = UIConstants.windowHeight_compact
-        }
-        
+        let newHeight: CGFloat = effectsShown ? UIConstants.windowHeight_effectsOnly : UIConstants.windowHeight_compact
         let oldHeight = wFrame.height
         let shrinking: Bool = newHeight < oldHeight
         
@@ -157,6 +180,10 @@ class WindowViewController: NSViewController {
         wFrame.origin = NSMakePoint(oldOrigin.x, shrinking ? oldOrigin.y + (oldHeight - newHeight) : oldOrigin.y - (newHeight - oldHeight))
         
         window.setFrame(wFrame, display: true, animate: animate)
+    }
+    
+    func windowDidMove(_ notification: Notification) {
+        playlistDockState = .none
     }
 }
 
@@ -184,4 +211,12 @@ class WindowState {
         
         return uiState
     }
+}
+
+enum PlaylistDockState {
+    
+    case bottom
+    case right
+    case left
+    case none
 }
