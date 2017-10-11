@@ -92,12 +92,14 @@ class UIConstants {
     
     // Window width (never changes)
     static let windowWidth: CGFloat = 415
+    static let minPlaylistWidth: CGFloat = 415
+    static let minPlaylistHeight: CGFloat = 150
  
     // Window heights for different views
     static let windowHeight_compact: CGFloat = 223
-    static let windowHeight_playlistAndEffects: CGFloat = 629
-    static let windowHeight_playlistOnly: CGFloat = 443
-    static let windowHeight_effectsOnly: CGFloat = 411
+    static let windowHeight_playlistAndEffects: CGFloat = 396
+    static let windowHeight_playlistOnly: CGFloat = 211
+    static let windowHeight_effectsOnly: CGFloat = 408
     
     // Angle used to fill vertical gradients
     static let verticalGradientDegrees: CGFloat = -90.0

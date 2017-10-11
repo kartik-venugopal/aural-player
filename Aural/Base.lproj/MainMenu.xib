@@ -17,16 +17,16 @@
             <windowStyleMask key="styleMask" texturedBackground="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
-            <rect key="contentRect" x="335" y="100" width="415" height="408"/>
+            <rect key="contentRect" x="335" y="100" width="415" height="396"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <value key="minSize" type="size" width="415" height="223"/>
             <value key="maxSize" type="size" width="415" height="411"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="415" height="408"/>
+                <rect key="frame" x="0.0" y="0.0" width="415" height="396"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6pS-Kh-BZP" userLabel="Close Button">
-                        <rect key="frame" x="13" y="383" width="14" height="14"/>
+                        <rect key="frame" x="13" y="371" width="14" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="zDW-yl-Adn">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -37,7 +37,7 @@
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZLC-hp-2OD" userLabel="Hide Button">
-                        <rect key="frame" x="30" y="383" width="14" height="14"/>
+                        <rect key="frame" x="30" y="371" width="14" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Hide" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="jQl-La-S6p">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -48,17 +48,17 @@
                         </connections>
                     </button>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BNg-uu-doV" userLabel="AppIcon Image">
-                        <rect key="frame" x="159" y="382" width="16" height="16"/>
+                        <rect key="frame" x="159" y="370" width="16" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppIcon" id="odg-0G-Ip6"/>
                     </imageView>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oos-wa-wUS" userLabel="AppIcon Image">
-                        <rect key="frame" x="235" y="382" width="16" height="16"/>
+                        <rect key="frame" x="235" y="370" width="16" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppIcon" id="KiA-Be-wTT"/>
                     </imageView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="saz-qI-SEO">
-                        <rect key="frame" x="166" y="379" width="80" height="25"/>
+                        <rect key="frame" x="166" y="367" width="80" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="AURAL" id="q5q-o6-pMi">
                             <font key="font" size="20" name="Courier"/>
@@ -67,7 +67,7 @@
                         </textFieldCell>
                     </textField>
                     <button toolTip="Show/hide playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TTw-rh-Ama" userLabel="Toggle Playlist">
-                        <rect key="frame" x="344" y="379" width="27" height="18"/>
+                        <rect key="frame" x="344" y="367" width="27" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlaylistView-On" imagePosition="only" alignment="center" state="on" borderStyle="border" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="GOt-DE-3fh">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -83,7 +83,7 @@
                         </connections>
                     </button>
                     <button toolTip="Show/hide effects panel" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jtn-oJ-Dzg" userLabel="Toggle Effects">
-                        <rect key="frame" x="373" y="379" width="27" height="18"/>
+                        <rect key="frame" x="373" y="367" width="27" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EffectsView-On" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="vS0-Bp-ifo">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -99,7 +99,7 @@
                         </connections>
                     </button>
                     <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="bezel" cornerRadius="5" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="r0W-tQ-AZF" userLabel="Now Playing Box">
-                        <rect key="frame" x="15" y="274" width="385" height="88"/>
+                        <rect key="frame" x="15" y="262" width="385" height="88"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="RSY-vY-bFZ">
                             <rect key="frame" x="1" y="1" width="383" height="86"/>
@@ -177,7 +177,7 @@
                         <color key="fillColor" white="0.0" alpha="0.70347281678082196" colorSpace="calibratedWhite"/>
                     </box>
                     <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="X7y-oM-7MJ" userLabel="Controls Box">
-                        <rect key="frame" x="15" y="198" width="385" height="64"/>
+                        <rect key="frame" x="15" y="186" width="385" height="64"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="VBo-wa-Nak">
                             <rect key="frame" x="1" y="1" width="383" height="62"/>
@@ -341,7 +341,7 @@ G1BhbiBTbGlkZXI
                         <color key="fillColor" white="0.0" alpha="0.70347281678082196" colorSpace="calibratedWhite"/>
                     </box>
                     <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="DYI-NL-cxu" userLabel="Effects Box">
-                        <rect key="frame" x="15" y="12" width="385" height="174"/>
+                        <rect key="frame" x="15" y="0.0" width="385" height="174"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" ambiguous="YES" id="qKu-X5-tmY">
                             <rect key="frame" x="1" y="1" width="383" height="172"/>
@@ -1650,7 +1650,7 @@ G1BhbiBTbGlkZXI
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="109" y="132" width="415" height="245"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
-            <value key="minSize" type="size" width="415" height="125"/>
+            <value key="minSize" type="size" width="415" height="150"/>
             <view key="contentView" id="dXG-r2-Jrp">
                 <rect key="frame" x="0.0" y="0.0" width="415" height="245"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -1799,7 +1799,7 @@ G1BhbiBTbGlkZXI
                                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                 <tableColumns>
-                                                    <tableColumn identifier="cv_trackName" width="304" minWidth="40" maxWidth="1000" id="ldg-Xi-cOT" userLabel="Track Name">
+                                                    <tableColumn identifier="cv_trackName" width="304" minWidth="40" maxWidth="10000" id="ldg-Xi-cOT" userLabel="Track Name">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Track">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1911,9 +1911,11 @@ G1BhbiBTbGlkZXI
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YfR-ek-hDj" userLabel="Dock Bottom Button">
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="YfR-ek-hDj" userLabel="Dock Bottom Button">
                         <rect key="frame" x="362" y="225" width="18" height="15"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="18" id="ZFK-eq-0N7"/>
+                        </constraints>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockBottom" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="dvX-mS-Dey">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1922,9 +1924,11 @@ G1BhbiBTbGlkZXI
                             <action selector="dockPlaylistBottomAction:" target="Bfj-ih-EYB" id="mv9-An-xEq"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dcb-f2-RhV" userLabel="Dock Right Button">
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="Dcb-f2-RhV" userLabel="Dock Right Button">
                         <rect key="frame" x="383" y="226" width="18" height="15"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="18" id="osD-RF-tY3"/>
+                        </constraints>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockRight" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="hwN-B9-3Fi">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1933,15 +1937,37 @@ G1BhbiBTbGlkZXI
                             <action selector="dockPlaylistRightAction:" target="Bfj-ih-EYB" id="tOV-so-U5P"/>
                         </connections>
                     </button>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="oMJ-8r-ebK" userLabel="Dock Left Button">
+                        <rect key="frame" x="341" y="226" width="18" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="18" id="wdD-oT-zWt"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockLeft" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="XvH-xT-2nM">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="dockPlaylistLeftAction:" target="Bfj-ih-EYB" id="g3L-QG-sHS"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="G3X-tp-7Ag" firstAttribute="top" secondItem="Dcb-f2-RhV" secondAttribute="bottom" constant="6" id="47f-PL-zuM"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="bottom" secondItem="dXG-r2-Jrp" secondAttribute="bottom" constant="-42" id="7J7-Kt-Zif"/>
+                    <constraint firstItem="G3X-tp-7Ag" firstAttribute="top" secondItem="YfR-ek-hDj" secondAttribute="bottom" constant="5" id="9tj-uU-lxO"/>
+                    <constraint firstItem="YfR-ek-hDj" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="5" id="FWS-x9-7ci"/>
+                    <constraint firstItem="Dcb-f2-RhV" firstAttribute="top" secondItem="oMJ-8r-ebK" secondAttribute="top" id="GTJ-lB-fb9"/>
                     <constraint firstItem="VEj-9M-Zdt" firstAttribute="leading" secondItem="G3X-tp-7Ag" secondAttribute="leading" id="Khl-oW-CdE"/>
+                    <constraint firstItem="Dcb-f2-RhV" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="4" id="MPy-KR-yU3"/>
                     <constraint firstItem="VEj-9M-Zdt" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-15" id="Pel-Qs-3mg"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="25" id="Tk5-98-AU2"/>
+                    <constraint firstItem="YfR-ek-hDj" firstAttribute="leading" secondItem="oMJ-8r-ebK" secondAttribute="trailing" constant="3" id="V4R-ui-ZlN"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="centerX" secondItem="dXG-r2-Jrp" secondAttribute="centerX" id="YQT-4E-BzH"/>
+                    <constraint firstItem="Dcb-f2-RhV" firstAttribute="bottom" secondItem="oMJ-8r-ebK" secondAttribute="bottom" id="bhb-fc-PuR"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="gU4-Rx-Ljf"/>
+                    <constraint firstItem="Dcb-f2-RhV" firstAttribute="leading" secondItem="YfR-ek-hDj" secondAttribute="trailing" constant="3" id="lPY-0h-WnZ"/>
                     <constraint firstItem="VEj-9M-Zdt" firstAttribute="bottom" secondItem="dXG-r2-Jrp" secondAttribute="bottom" constant="-14" id="qRj-1C-Ume"/>
+                    <constraint firstItem="Dcb-f2-RhV" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-14" id="yha-Rn-ylg"/>
                 </constraints>
             </view>
             <userDefinedRuntimeAttributes>
@@ -1949,7 +1975,7 @@ G1BhbiBTbGlkZXI
                     <color key="value" white="0.14999999999999999" alpha="0.74724422089041098" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="125" y="376"/>
+            <point key="canvasLocation" x="125" y="362"/>
         </window>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Aural" customModuleProvider="target"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -3354,6 +3380,7 @@ Gw
         <image name="Clear-Small" width="2.5999999046325684" height="3"/>
         <image name="Close" width="80" height="80"/>
         <image name="DockBottom" width="154" height="127"/>
+        <image name="DockLeft" width="154" height="127"/>
         <image name="DockRight" width="154" height="127"/>
         <image name="Down" width="25.600000381469727" height="25.600000381469727"/>
         <image name="Down-Small" width="1.3999999761581421" height="1.3999999761581421"/>
