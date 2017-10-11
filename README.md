@@ -36,9 +36,13 @@ Wanna try it out ? The latest app bundle can be found in the compressed archive 
 
 [User Guide (HTML)](https://rawgit.com/maculateConception/aural-player/master/Documentation/UserGuide.html)
 
+[Demo videos](/Documentation/Demos)
+
 [Developer readme](https://github.com/maculateConception/aural-player/blob/master/Documentation/Developer-readme.rtf?raw=true) 
 
-[Demo videos](/Documentation/Demos)
+## Planned updates
+
+**Resizable, detachable, and movable playlist** The playlist will be resizable, detachable, and movable, with buttons to conveniently snap/attach the playlist to the main app window, in different relative locations (bottom, right, left, etc).
 
 ## Recent updates
 
