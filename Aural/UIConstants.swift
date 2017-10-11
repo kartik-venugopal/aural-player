@@ -51,6 +51,12 @@ class UIConstants {
     static let imgError: NSImage = NSImage(named: "Error")!
     
     private static let gillSans12Font: NSFont = NSFont(name: "Gill Sans", size: 12)!
+    private static let gillSans13Font: NSFont = NSFont(name: "Gill Sans", size: 13)!
+    private static let gillSans13LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 13)!
+    
+    // Fonts used by the playlist view
+    static let playlistSelectedTextFont: NSFont = gillSans13Font
+    static let playlistTextFont: NSFont = gillSans13LightFont
     
     // Font used by the effects tab view buttons
     static let tabViewButtonFont: NSFont = gillSans12Font
@@ -65,8 +71,8 @@ class UIConstants {
     static let checkRadioButtonFont: NSFont = NSFont(name: "Gill Sans", size: 11)!
     
     // Fonts used by the track info popover view (key column and view column)
-    static let popoverKeyFont: NSFont = NSFont(name: "Gill Sans", size: 13)!
-    static let popoverValueFont: NSFont = NSFont(name: "Gill Sans Light", size: 13)!
+    static let popoverKeyFont: NSFont = gillSans13Font
+    static let popoverValueFont: NSFont = gillSans13LightFont
     
     // Font used by the popup menus
     static let popupMenuFont: NSFont = NSFont(name: "Gill Sans", size: 10)!

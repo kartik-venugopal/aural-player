@@ -12,11 +12,11 @@ class Colors {
     // Color of text inside the playlist (non-selected items)
     static let playlistTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
     
+    // Color of selected item text inside the playlist
+    static let playlistSelectedTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
+    
     // Fill color of box drawn around selected playlist item
     static let playlistSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.35, alpha: 1)
-    
-    // Color of selected item text inside the playlist
-    static let playlistSelectedTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
     
     // Fill color of all slider knobs
     static let sliderKnobColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)

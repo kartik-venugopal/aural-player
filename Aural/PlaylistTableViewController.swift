@@ -85,7 +85,7 @@ class PlaylistRowView: NSTableRowView {
 }
 
 /*
-    Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and color.
+    Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
  */
 class PlaylistCellView: NSTableCellView {
     
@@ -97,11 +97,18 @@ class PlaylistCellView: NSTableCellView {
             if let field = self.textField {
                 
                 if (backgroundStyle == NSBackgroundStyle.dark) {
+                    
                     // Selected
+                    
                     field.textColor = Colors.playlistSelectedTextColor
+                    field.font = UIConstants.playlistSelectedTextFont
+                    
                 } else {
+                    
                     // Not selected
+                    
                     field.textColor = Colors.playlistTextColor
+                    field.font = UIConstants.playlistTextFont
                 }
             }
         }
