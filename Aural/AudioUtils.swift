@@ -53,6 +53,8 @@ class AudioUtils {
             if (!track.hasDuration()) {
                 let duration = track.audioAsset!.duration.seconds
                 track.setDuration(duration)
+                
+                // TODO: Emit track updated event, so that duration is updated in UI
             }
             
             playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)

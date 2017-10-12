@@ -11,6 +11,9 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     @IBOutlet weak var lblPlaylistSummary: NSTextField!
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
     
+    // Used to position the spinner
+    @IBOutlet weak var controlsBox: NSBox!
+    
     // Delegate that performs CRUD actions on the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
@@ -98,7 +101,8 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         let size: CGSize = summaryString.size(withAttributes: [NSFontAttributeName: lblPlaylistSummary.font as AnyObject])
         let lblWidth = size.width
         
-        let newX = 381 - lblWidth - 10 - playlistWorkSpinner.frame.width
+        let controlsBoxWidth = controlsBox.frame.width
+        let newX = controlsBoxWidth - lblWidth - 10 - playlistWorkSpinner.frame.width
         playlistWorkSpinner.frame.origin.x = newX
     }
     
@@ -154,16 +158,16 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     private func selectTrack(_ index: Int?) {
         
-        if index != nil && index! >= 0 {
+        if (playlistView.numberOfRows > 0) {
             
-            playlistView.selectRowIndexes(IndexSet(integer: index!), byExtendingSelection: false)
-            showPlaylistSelectedRow()
-            
-        } else {
-            // Select first track in list, if list not empty
-            if (playlistView.numberOfRows > 0) {
+            if (index != nil && index! >= 0) {
+                playlistView.selectRowIndexes(IndexSet(integer: index!), byExtendingSelection: false)
+            } else {
+                // Select first track in list, if list not empty
                 playlistView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
             }
+            
+            showPlaylistSelectedRow()
         }
     }
     
@@ -171,6 +175,14 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         if (playlistView.numberOfRows > 0) {
             playlistView.scrollRowToVisible(playlistView.selectedRow)
         }
+    }
+    
+    @IBAction func scrollToTopAction(_ sender: AnyObject) {
+        selectTrack(0)
+    }
+    
+    @IBAction func scrollToBottomAction(_ sender: AnyObject) {
+        selectTrack(playlistView.numberOfRows - 1)
     }
     
     @IBAction func clearPlaylistAction(_ sender: AnyObject) {
@@ -238,6 +250,13 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     private func addFiles(_ files: [URL]) {
         startedAddingTracks()
         playlist.addFiles(files)
+    }
+    
+    @IBAction func showInPlaylistAction(_ sender: Any) {
+        
+        if let playingTrackIndex = playbackInfo.getPlayingTrack()?.index {
+            selectTrack(playingTrackIndex)
+        }
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {

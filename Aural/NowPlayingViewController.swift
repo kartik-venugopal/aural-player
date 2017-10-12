@@ -19,6 +19,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
     @IBOutlet weak var btnMoreInfo: NSButton!
     @IBOutlet weak var moreInfoMenuItem: NSMenuItem!
     
+    // Button and menu item to show the currently playing track within the playlist
+    @IBOutlet weak var btnShowPlayingTrackInPlaylist: NSButton!
+    @IBOutlet weak var showInPlaylistMenuItem: NSMenuItem!
+    
     // Delegate that retrieves information about the player and the currently playing track
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
@@ -94,13 +98,17 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         resetSeekPosition()
         setSeekTimerState(false)
         
-        toggleMoreInfoButtons(false)
+        togglePlayingTrackButtons(false)
         popoverView.close()
     }
     
-    private func toggleMoreInfoButtons(_ show: Bool) {
+    private func togglePlayingTrackButtons(_ show: Bool) {
+        
         btnMoreInfo.isHidden = !show
         moreInfoMenuItem.isEnabled = show
+        
+        btnShowPlayingTrackInPlaylist.isHidden = !show
+        showInPlaylistMenuItem.isEnabled = show
     }
     
     private func setSeekTimerState(_ timerOn: Bool) {
@@ -140,7 +148,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
             
             if (!errorState) {
                 setSeekTimerState(true)
-                toggleMoreInfoButtons(true)
+                togglePlayingTrackButtons(true)
                 
                 if (popoverView.isShown()) {
                     
