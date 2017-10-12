@@ -85,7 +85,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         
         playlistWindowDocking = true
         
-        resizeWindow(playlistShown: false, effectsShown: !fxBox.isHidden, true)
+        resizeMainWindow(playlistShown: false, effectsShown: !fxBox.isHidden, true)
         
         var pFrame = playlistWindow.frame
         
@@ -120,7 +120,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         
         playlistWindowDocking = true
         
-        resizeWindow(playlistShown: false, effectsShown: !fxBox.isHidden, true)
+        resizeMainWindow(playlistShown: false, effectsShown: !fxBox.isHidden, true)
         
         var pFrame = playlistWindow.frame
         
@@ -158,7 +158,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         
         playlistWindowDocking = true
         
-        resizeWindow(playlistShown: true, effectsShown: !fxBox.isHidden, true)
+        resizeMainWindow(playlistShown: true, effectsShown: !fxBox.isHidden, true)
         
         var pFrame = playlistWindow.frame
         var pwHt: CGFloat = playlistWindow.height
@@ -300,7 +300,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
     
     private func showPlaylist() {
         
-        resizeWindow(playlistShown: playlistDockState == .bottom, effectsShown: !fxBox.isHidden, false)
+        resizeMainWindow(playlistShown: playlistDockState == .bottom, effectsShown: !fxBox.isHidden, false)
         
         window.addChildWindow(playlistWindow, ordered: NSWindowOrderingMode.below)
         playlistWindow.setIsVisible(true)
@@ -348,7 +348,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         let oy = (window.y + window.height) - (playlistWindow.y + playlistWindow.height)
         playlistWindowOffset = NSPoint(x: ox, y: oy)
         
-        resizeWindow(playlistShown: false, effectsShown: !fxBox.isHidden, false)
+        resizeMainWindow(playlistShown: false, effectsShown: !fxBox.isHidden, false)
         
         playlistWindow.setIsVisible(false)
         btnTogglePlaylist.state = 0
@@ -363,7 +363,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             
             // Show
             
-            resizeWindow(playlistShown: playlistWindow.isVisible && playlistDockState == .bottom, effectsShown: true, animate)
+            resizeMainWindow(playlistShown: playlistWindow.isVisible && playlistDockState == .bottom, effectsShown: true, animate)
             fxBox.isHidden = false
             btnToggleEffects.state = 1
             btnToggleEffects.image = UIConstants.imgEffectsOn
@@ -375,7 +375,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             // Hide
             
             fxBox.isHidden = true
-            resizeWindow(playlistShown: playlistWindow.isVisible && playlistDockState == .bottom, effectsShown: false, animate)
+            resizeMainWindow(playlistShown: playlistWindow.isVisible && playlistDockState == .bottom, effectsShown: false, animate)
             btnToggleEffects.state = 0
             btnToggleEffects.image = UIConstants.imgEffectsOff
             viewEffectsMenuItem.state = 0
@@ -388,7 +388,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
     }
     
     // Called when toggling views
-    private func resizeWindow(playlistShown: Bool, effectsShown: Bool, _ animate: Bool) {
+    private func resizeMainWindow(playlistShown: Bool, effectsShown: Bool, _ animate: Bool) {
         
         var wFrame = window.frame
         let oldOrigin = wFrame.origin
@@ -430,7 +430,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         // If the mouse cursor is within the playlist window, it means that only the playlist window is being moved, which invalidates its dock state. If the whole window is being moved, that does not affect the playlist dock state
         if (playlistWindow.frame.contains(NSEvent.mouseLocation())) {
             
-            resizeWindow(playlistShown: false, effectsShown: !fxBox.isHidden, false)
+            resizeMainWindow(playlistShown: false, effectsShown: !fxBox.isHidden, false)
             playlistDockState = .none
         }
     }

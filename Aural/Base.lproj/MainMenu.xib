@@ -1651,106 +1651,82 @@ G1BhbiBTbGlkZXI
             <rect key="contentRect" x="109" y="132" width="415" height="257"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <value key="minSize" type="size" width="415" height="162"/>
-            <view key="contentView" id="dXG-r2-Jrp">
+            <view key="contentView" wantsLayer="YES" id="dXG-r2-Jrp">
                 <rect key="frame" x="0.0" y="0.0" width="415" height="257"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="dz9-pQ-bIr" userLabel="Maximize Button">
+                        <rect key="frame" x="15" y="234" width="15" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="12" id="hnO-YA-nRW"/>
+                            <constraint firstAttribute="width" constant="15" id="uOK-aS-3E2"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Maximize" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="HVi-g0-Mf5">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="maximizePlaylistAction:" target="Bfj-ih-EYB" id="9BP-Iu-XHf"/>
+                        </connections>
+                    </button>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="oMJ-8r-ebK" userLabel="Dock Left Button">
+                        <rect key="frame" x="333" y="234" width="18" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="DL2-u5-MGR"/>
+                            <constraint firstAttribute="width" constant="18" id="wdD-oT-zWt"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockLeft" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="XvH-xT-2nM">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="dockPlaylistLeftAction:" target="Bfj-ih-EYB" id="g3L-QG-sHS"/>
+                        </connections>
+                    </button>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="Dcb-f2-RhV" userLabel="Dock Right Button">
+                        <rect key="frame" x="378" y="234" width="18" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="CK4-3d-NrG"/>
+                            <constraint firstAttribute="width" constant="18" id="osD-RF-tY3"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockRight" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="hwN-B9-3Fi">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="dockPlaylistRightAction:" target="Bfj-ih-EYB" id="tOV-so-U5P"/>
+                        </connections>
+                    </button>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="stR-Fs-RTn" userLabel="Dock Bottom Button">
+                        <rect key="frame" x="355" y="233" width="18" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="2D0-Kv-4ez"/>
+                            <constraint firstAttribute="height" constant="15" id="edw-oN-9Gz"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="18" id="fNZ-ri-cdp"/>
+                            <constraint firstAttribute="width" constant="18" id="ogX-Rq-u40"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockBottom" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="BF1-ww-UJO">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="dockPlaylistBottomAction:" target="Bfj-ih-EYB" id="jgS-ag-KZg"/>
+                        </connections>
+                    </button>
                     <box boxType="custom" borderType="line" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="G3X-tp-7Ag" userLabel="Playlist Box">
-                        <rect key="frame" x="15" y="12" width="385" height="233"/>
+                        <rect key="frame" x="15" y="12" width="385" height="215"/>
                         <view key="contentView" id="H6e-EC-ZCQ">
-                            <rect key="frame" x="1" y="1" width="383" height="231"/>
+                            <rect key="frame" x="1" y="1" width="383" height="213"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="fYp-zd-XVG" userLabel="Playlist Window Controls">
-                                    <rect key="frame" x="0.0" y="206" width="383" height="25"/>
-                                    <view key="contentView" id="5HS-QG-kSb">
-                                        <rect key="frame" x="0.0" y="0.0" width="383" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <subviews>
-                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="dz9-pQ-bIr" userLabel="Maximize Button">
-                                                <rect key="frame" x="4" y="6" width="15" height="12"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="12" id="hnO-YA-nRW"/>
-                                                    <constraint firstAttribute="width" constant="15" id="uOK-aS-3E2"/>
-                                                </constraints>
-                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Maximize" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="HVi-g0-Mf5">
-                                                    <behavior key="behavior" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="maximizePlaylistAction:" target="Bfj-ih-EYB" id="9BP-Iu-XHf"/>
-                                                </connections>
-                                            </button>
-                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="oMJ-8r-ebK" userLabel="Dock Left Button">
-                                                <rect key="frame" x="320" y="5" width="18" height="15"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="18" id="wdD-oT-zWt"/>
-                                                </constraints>
-                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockLeft" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="XvH-xT-2nM">
-                                                    <behavior key="behavior" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="dockPlaylistLeftAction:" target="Bfj-ih-EYB" id="g3L-QG-sHS"/>
-                                                </connections>
-                                            </button>
-                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="YfR-ek-hDj" userLabel="Dock Bottom Button">
-                                                <rect key="frame" x="340" y="4" width="18" height="15"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="18" id="ZFK-eq-0N7"/>
-                                                </constraints>
-                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockBottom" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="dvX-mS-Dey">
-                                                    <behavior key="behavior" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="dockPlaylistBottomAction:" target="Bfj-ih-EYB" id="mv9-An-xEq"/>
-                                                </connections>
-                                            </button>
-                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="Dcb-f2-RhV" userLabel="Dock Right Button">
-                                                <rect key="frame" x="361" y="5" width="18" height="15"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="18" id="osD-RF-tY3"/>
-                                                </constraints>
-                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockRight" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="hwN-B9-3Fi">
-                                                    <behavior key="behavior" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="dockPlaylistRightAction:" target="Bfj-ih-EYB" id="tOV-so-U5P"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="Dcb-f2-RhV" firstAttribute="centerY" secondItem="5HS-QG-kSb" secondAttribute="centerY" id="09k-nz-ZGp"/>
-                                            <constraint firstItem="Dcb-f2-RhV" firstAttribute="top" secondItem="oMJ-8r-ebK" secondAttribute="top" id="1Af-ex-C0b"/>
-                                            <constraint firstAttribute="trailing" secondItem="Dcb-f2-RhV" secondAttribute="trailing" constant="4" id="8ow-G1-f42"/>
-                                            <constraint firstItem="YfR-ek-hDj" firstAttribute="leading" secondItem="oMJ-8r-ebK" secondAttribute="trailing" constant="2" id="9az-bY-YCp"/>
-                                            <constraint firstItem="Dcb-f2-RhV" firstAttribute="leading" secondItem="YfR-ek-hDj" secondAttribute="trailing" constant="3" id="FaQ-3V-PDS"/>
-                                            <constraint firstItem="Dcb-f2-RhV" firstAttribute="bottom" secondItem="oMJ-8r-ebK" secondAttribute="bottom" id="GXK-o0-8mR"/>
-                                            <constraint firstAttribute="bottom" secondItem="YfR-ek-hDj" secondAttribute="bottom" constant="4" id="LCv-23-62J"/>
-                                            <constraint firstItem="dz9-pQ-bIr" firstAttribute="leading" secondItem="5HS-QG-kSb" secondAttribute="leading" constant="4" id="YYm-VD-1GC"/>
-                                            <constraint firstItem="dz9-pQ-bIr" firstAttribute="top" secondItem="5HS-QG-kSb" secondAttribute="top" constant="7" id="gdW-2L-7Yk"/>
-                                            <constraint firstItem="Dcb-f2-RhV" firstAttribute="top" secondItem="5HS-QG-kSb" secondAttribute="top" constant="5" id="jTF-au-2zh"/>
-                                            <constraint firstItem="YfR-ek-hDj" firstAttribute="top" secondItem="5HS-QG-kSb" secondAttribute="top" constant="6" id="pL6-ed-Qc8"/>
-                                        </constraints>
-                                    </view>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="25" id="hj6-DW-ih9"/>
-                                    </constraints>
-                                    <shadow key="shadow" blurRadius="5">
-                                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </shadow>
-                                    <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </box>
                                 <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQR-eW-Rr5" userLabel="Playlist">
-                                    <rect key="frame" x="0.0" y="30" width="383" height="176"/>
+                                    <rect key="frame" x="0.0" y="30" width="383" height="183"/>
                                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Diy-3n-dhX">
-                                        <rect key="frame" x="0.0" y="0.0" width="383" height="176"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="383" height="183"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" id="rhk-oM-jMn">
-                                                <rect key="frame" x="0.0" y="0.0" width="383" height="176"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="383" height="183"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <size key="intercellSpacing" width="3" height="4"/>
                                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -1979,16 +1955,13 @@ G1BhbiBTbGlkZXI
                                 </box>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="fYp-zd-XVG" firstAttribute="leading" secondItem="VEj-9M-Zdt" secondAttribute="leading" id="7PG-Rq-vna"/>
                                 <constraint firstItem="QQR-eW-Rr5" firstAttribute="bottom" secondItem="H6e-EC-ZCQ" secondAttribute="bottom" constant="-30" id="9Kr-j6-sb7"/>
-                                <constraint firstItem="QQR-eW-Rr5" firstAttribute="top" secondItem="H6e-EC-ZCQ" secondAttribute="top" constant="25" id="Axr-IT-AUl"/>
-                                <constraint firstItem="fYp-zd-XVG" firstAttribute="top" secondItem="H6e-EC-ZCQ" secondAttribute="top" id="K0C-CL-DMW"/>
+                                <constraint firstItem="QQR-eW-Rr5" firstAttribute="top" secondItem="H6e-EC-ZCQ" secondAttribute="top" id="Axr-IT-AUl"/>
                                 <constraint firstItem="QQR-eW-Rr5" firstAttribute="trailing" secondItem="H6e-EC-ZCQ" secondAttribute="trailing" id="Mal-SL-kKa"/>
                                 <constraint firstItem="VEj-9M-Zdt" firstAttribute="top" secondItem="QQR-eW-Rr5" secondAttribute="bottom" id="ROc-ga-3ic"/>
                                 <constraint firstItem="QQR-eW-Rr5" firstAttribute="leading" secondItem="H6e-EC-ZCQ" secondAttribute="leading" id="d5O-TJ-9xS"/>
-                                <constraint firstItem="fYp-zd-XVG" firstAttribute="centerX" secondItem="QQR-eW-Rr5" secondAttribute="centerX" id="i7J-KT-jar"/>
-                                <constraint firstItem="fYp-zd-XVG" firstAttribute="trailing" secondItem="VEj-9M-Zdt" secondAttribute="trailing" id="ruN-2w-u1a"/>
-                                <constraint firstItem="fYp-zd-XVG" firstAttribute="leading" secondItem="H6e-EC-ZCQ" secondAttribute="leading" id="yrq-Uc-Rtj"/>
+                                <constraint firstItem="VEj-9M-Zdt" firstAttribute="leading" secondItem="QQR-eW-Rr5" secondAttribute="leading" id="nwu-Q0-vnb"/>
+                                <constraint firstItem="VEj-9M-Zdt" firstAttribute="trailing" secondItem="QQR-eW-Rr5" secondAttribute="trailing" id="wWz-km-4a2"/>
                             </constraints>
                         </view>
                         <shadow key="shadow" blurRadius="5">
@@ -1999,10 +1972,18 @@ G1BhbiBTbGlkZXI
                     </box>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="G3X-tp-7Ag" firstAttribute="bottom" secondItem="dXG-r2-Jrp" secondAttribute="bottom" constant="-12" id="7J7-Kt-Zif"/>
-                    <constraint firstItem="G3X-tp-7Ag" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="12" id="Tk5-98-AU2"/>
-                    <constraint firstItem="G3X-tp-7Ag" firstAttribute="centerX" secondItem="dXG-r2-Jrp" secondAttribute="centerX" id="YQT-4E-BzH"/>
-                    <constraint firstItem="G3X-tp-7Ag" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="gU4-Rx-Ljf"/>
+                    <constraint firstItem="dz9-pQ-bIr" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="11" id="0Z0-XT-29f"/>
+                    <constraint firstItem="stR-Fs-RTn" firstAttribute="leading" secondItem="oMJ-8r-ebK" secondAttribute="trailing" constant="4" id="EFY-Ja-RPb"/>
+                    <constraint firstItem="G3X-tp-7Ag" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="KJv-gi-ETr"/>
+                    <constraint firstItem="G3X-tp-7Ag" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-15" id="KNi-Ku-G3H"/>
+                    <constraint firstItem="G3X-tp-7Ag" firstAttribute="bottom" secondItem="dXG-r2-Jrp" secondAttribute="bottom" constant="-12" id="Rhh-Er-hMh"/>
+                    <constraint firstItem="Dcb-f2-RhV" firstAttribute="leading" secondItem="stR-Fs-RTn" secondAttribute="trailing" constant="5" id="XFp-AW-3gF"/>
+                    <constraint firstItem="Dcb-f2-RhV" firstAttribute="top" secondItem="oMJ-8r-ebK" secondAttribute="top" id="cdO-h9-ddE"/>
+                    <constraint firstItem="G3X-tp-7Ag" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="30" id="dzq-io-NSy"/>
+                    <constraint firstItem="dz9-pQ-bIr" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="lG0-dv-Pmd"/>
+                    <constraint firstItem="stR-Fs-RTn" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="9" id="scv-5z-rhG"/>
+                    <constraint firstItem="oMJ-8r-ebK" firstAttribute="top" secondItem="dz9-pQ-bIr" secondAttribute="top" constant="-3" id="ttb-Xo-UJk"/>
+                    <constraint firstItem="Dcb-f2-RhV" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-19" id="tyb-Jp-Jax"/>
                 </constraints>
             </view>
             <userDefinedRuntimeAttributes>
