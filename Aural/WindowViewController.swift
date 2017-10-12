@@ -21,6 +21,8 @@ class WindowViewController: NSViewController, NSWindowDelegate {
     
     private var playlistDockState: PlaylistDockState = .none
     
+    private var playlistWindowDocking: Bool = false
+    
     private let screen: NSScreen = NSScreen.main()!
     
     private var screenWidth: CGFloat = {
@@ -50,9 +52,14 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         
         if (appState.hidePlaylist) {
             hidePlaylist()
+            
+            // TODO: Make this configurable in preferences
+            // Whenever the playlist is shown, dock it at the bottom
+            playlistDockState = .bottom
+            
         } else {
+            showPlaylist()
             dockPlaylistBottomAction(self)
-            showPlaylist(false)
         }
     }
     
@@ -70,10 +77,9 @@ class WindowViewController: NSViewController, NSWindowDelegate {
     
     @IBAction func dockPlaylistRightAction(_ sender: AnyObject) {
         
-        if (playlistDockState == .bottom) {
-            // Remove main window's bottom edge, prior to docking
-            addWindowBottomEdge()
-        }
+        playlistWindowDocking = true
+        
+        resizeWindow(playlistShown: false, effectsShown: !fxBox.isHidden, true)
         
         var pFrame = playlistWindow.frame
      
@@ -87,16 +93,17 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         let pwHt = window.frame.height
         pFrame.size = NSMakeSize(pwWd, pwHt)
         
-        playlistWindow.setFrame(pFrame, display: true, animate: true)
+        playlistWindow.setFrame(pFrame, display: true, animate: false)
         playlistDockState = .right
+        
+        playlistWindowDocking = false
     }
     
     @IBAction func dockPlaylistLeftAction(_ sender: AnyObject) {
         
-        if (playlistDockState == .bottom) {
-            // Remove main window's bottom edge, prior to docking
-            addWindowBottomEdge()
-        }
+        playlistWindowDocking = true
+        
+        resizeWindow(playlistShown: false, effectsShown: !fxBox.isHidden, true)
         
         var pFrame = playlistWindow.frame
         
@@ -109,16 +116,17 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         let pwY = window.frame.origin.y
         pFrame.origin = NSPoint(x: pwX, y: pwY)
         
-        playlistWindow.setFrame(pFrame, display: true, animate: true)
+        playlistWindow.setFrame(pFrame, display: true, animate: false)
         playlistDockState = .left
+        
+        playlistWindowDocking = false
     }
     
     @IBAction func dockPlaylistBottomAction(_ sender: AnyObject) {
         
-        if (playlistDockState != .bottom) {
-            // Remove main window's bottom edge, prior to docking
-            removeWindowBottomEdge()
-        }
+        playlistWindowDocking = true
+        
+        resizeWindow(playlistShown: true, effectsShown: !fxBox.isHidden, true)
         
         var pFrame = playlistWindow.frame
         
@@ -131,13 +139,15 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         let pwY = window.frame.origin.y - pwHt
         pFrame.origin = NSPoint(x: pwX, y: pwY)
         
-        playlistWindow.setFrame(pFrame, display: true, animate: true)
+        playlistWindow.setFrame(pFrame, display: true, animate: false)
         playlistDockState = .bottom
+        
+        playlistWindowDocking = false
     }
     
     @IBAction func maximizePlaylistAction(_ sender: AnyObject) {
         
-        let originalDockState = playlistDockState
+        playlistWindowDocking = true
         
         var pFrame = playlistWindow.frame
         var pwWd: CGFloat, pwHt: CGFloat
@@ -207,9 +217,9 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         pFrame.origin = NSPoint(x: pwX, y: pwY)
         pFrame.size = NSMakeSize(pwWd, pwHt)
         
-        playlistWindow.setFrame(pFrame.intersection(screen.visibleFrame), display: true, animate: true)
+        playlistWindow.setFrame(pFrame.intersection(screen.visibleFrame), display: true, animate: false)
 
-        playlistDockState = originalDockState
+        playlistWindowDocking = false
     }
     
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
@@ -227,38 +237,25 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         }
     }
     
-    private func showPlaylist(_ reDock: Bool = true) {
+    private func showPlaylist() {
+        
+        resizeWindow(playlistShown: playlistDockState == .bottom, effectsShown: !fxBox.isHidden, false)
         
         window.addChildWindow(playlistWindow, ordered: NSWindowOrderingMode.below)
-        
-        if (reDock) {
-            
-            resizeWindow(playlistShown: true, effectsShown: !fxBox.isHidden, false)
-            
-            if (playlistDockState == .bottom) {
-                removeWindowBottomEdge()
-                dockPlaylistBottomAction(self)
-            } else if (playlistDockState == .right) {
-                dockPlaylistRightAction(self)
-            } else if (playlistDockState == .left) {
-                dockPlaylistLeftAction(self)
-            }
-        }
-        
         playlistWindow.setIsVisible(true)
         btnTogglePlaylist.state = 1
         btnTogglePlaylist.image = UIConstants.imgPlaylistOn
         viewPlaylistMenuItem.state = 1
         WindowState.showingPlaylist = true
+        
+        if (playlistDockState == .bottom) {
+            dockPlaylistBottomAction(self)
+        }
     }
     
     private func hidePlaylist() {
         
         resizeWindow(playlistShown: false, effectsShown: !fxBox.isHidden, false)
-        
-//        if (playlistDockState == .bottom) {
-//            addWindowBottomEdge()
-//        }
         
         playlistWindow.setIsVisible(false)
         btnTogglePlaylist.state = 0
@@ -273,7 +270,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             
             // Show
             
-            resizeWindow(playlistShown: playlistWindow.isVisible, effectsShown: true, animate)
+            resizeWindow(playlistShown: playlistWindow.isVisible && playlistDockState == .bottom, effectsShown: true, animate)
             fxBox.isHidden = false
             btnToggleEffects.state = 1
             btnToggleEffects.image = UIConstants.imgEffectsOn
@@ -285,7 +282,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             // Hide
             
             fxBox.isHidden = true
-            resizeWindow(playlistShown: playlistWindow.isVisible, effectsShown: false, animate)
+            resizeWindow(playlistShown: playlistWindow.isVisible && playlistDockState == .bottom, effectsShown: false, animate)
             btnToggleEffects.state = 0
             btnToggleEffects.image = UIConstants.imgEffectsOff
             viewEffectsMenuItem.state = 0
@@ -297,36 +294,6 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         }
     }
     
-    private func addWindowBottomEdge() {
-        
-        var wFrame = window.frame
-        let oldOrigin = wFrame.origin
-        
-        let oldHeight = wFrame.height
-        let newHeight: CGFloat = oldHeight + UIConstants.windowBottomEdge
-        let shrinking: Bool = newHeight < oldHeight
-        
-        wFrame.size = NSMakeSize(window.frame.width, newHeight)
-        wFrame.origin = NSMakePoint(oldOrigin.x, shrinking ? oldOrigin.y + (oldHeight - newHeight) : oldOrigin.y - (newHeight - oldHeight))
-        
-        window.setFrame(wFrame, display: true)
-    }
-    
-    private func removeWindowBottomEdge() {
-        
-        var wFrame = window.frame
-        let oldOrigin = wFrame.origin
-        
-        let oldHeight = wFrame.height
-        let newHeight: CGFloat = oldHeight - UIConstants.windowBottomEdge
-        let shrinking: Bool = newHeight < oldHeight
-        
-        wFrame.size = NSMakeSize(window.frame.width, newHeight)
-        wFrame.origin = NSMakePoint(oldOrigin.x, shrinking ? oldOrigin.y + (oldHeight - newHeight) : oldOrigin.y - (newHeight - oldHeight))
-        
-        window.setFrame(wFrame, display: true)
-    }
-    
     // Called when toggling views
     private func resizeWindow(playlistShown: Bool, effectsShown: Bool, _ animate: Bool) {
         
@@ -335,30 +302,42 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         
         var newHeight: CGFloat
         
-        if (effectsShown) {
+        if (effectsShown && playlistShown) {
+            newHeight = UIConstants.windowHeight_playlistAndEffects
+        } else if (effectsShown) {
             newHeight = UIConstants.windowHeight_effectsOnly
+        } else if (playlistShown) {
+            newHeight = UIConstants.windowHeight_playlistOnly
         } else {
             newHeight = UIConstants.windowHeight_compact
         }
         
         let oldHeight = wFrame.height
+        
+        if (oldHeight == newHeight) {
+            return
+        }
+        
         let shrinking: Bool = newHeight < oldHeight
         
         wFrame.size = NSMakeSize(window.frame.width, newHeight)
         wFrame.origin = NSMakePoint(oldOrigin.x, shrinking ? oldOrigin.y + (oldHeight - newHeight) : oldOrigin.y - (newHeight - oldHeight))
         
-        window.setFrame(wFrame, display: true, animate: animate)
+        window.setFrame(wFrame, display: true, animate: false)
     }
     
+    // This is to handle only user-initiated (manual) mouse drags on the playlist window
     func windowDidMove(_ notification: Notification) {
+        
+        // If the window move was initiated by a dock/maximize operation, no further action is required, ignore this notification
+        if (playlistWindowDocking) {
+            return
+        }
         
         // If the mouse cursor is within the playlist window, it means that only the playlist window is being moved, which invalidates its dock state. If the whole window is being moved, that does not affect the playlist dock state
         if (playlistWindow.frame.contains(NSEvent.mouseLocation())) {
             
-            if (playlistDockState == .bottom) {
-                addWindowBottomEdge()
-            }
-            
+            resizeWindow(playlistShown: false, effectsShown: !fxBox.isHidden, false)
             playlistDockState = .none
         }
     }
