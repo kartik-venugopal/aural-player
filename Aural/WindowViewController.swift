@@ -89,19 +89,19 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         
         var pFrame = playlistWindow.frame
         
-        let pwX = window.frame.origin.x + window.frame.width
-        var pwY = window.frame.origin.y
+        let pwX = window.x + window.width
+        var pwY = window.y
         pFrame.origin = NSPoint(x: pwX, y: pwY)
         
         if (resize) {
             let maxWd = max(screenWidth - pwX, UIConstants.minPlaylistWidth)
-            let pwWd = min(playlistWindow.frame.width, maxWd)
-            let pwHt = window.frame.height
+            let pwWd = min(playlistWindow.width, maxWd)
+            let pwHt = window.height
             pFrame.size = NSMakeSize(pwWd, pwHt)
             
         } else if (playlistWindowOffset != nil) {
             
-            pwY = (window.frame.origin.y + window.frame.height) - playlistWindowOffset!.y - playlistWindow.frame.height
+            pwY = (window.y + window.height) - playlistWindowOffset!.y - playlistWindow.height
             pFrame.origin = NSPoint(x: pwX, y: pwY)
             playlistWindowOffset = nil
         }
@@ -124,21 +124,21 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         
         var pFrame = playlistWindow.frame
         
-        var pwWd: CGFloat = playlistWindow.frame.width
-        var pwX = window.frame.origin.x - pwWd
-        var pwY = window.frame.origin.y
+        var pwWd: CGFloat = playlistWindow.width
+        var pwX = window.x - pwWd
+        var pwY = window.y
         
         if (resize) {
             
-            let pwHt = window.frame.height
-            let maxWd = max(window.frame.origin.x, UIConstants.minPlaylistWidth)
-            pwWd = min(playlistWindow.frame.width, maxWd)
+            let pwHt = window.height
+            let maxWd = max(window.x, UIConstants.minPlaylistWidth)
+            pwWd = min(playlistWindow.width, maxWd)
             pFrame.size = NSMakeSize(pwWd, pwHt)
             
-            pwX = window.frame.origin.x - pwWd
+            pwX = window.x - pwWd
             
         } else if (playlistWindowOffset != nil) {
-            pwY = (window.frame.origin.y + window.frame.height) - playlistWindowOffset!.y - playlistWindow.frame.height
+            pwY = (window.y + window.height) - playlistWindowOffset!.y - playlistWindow.height
             playlistWindowOffset = nil
         }
         
@@ -161,21 +161,21 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         resizeWindow(playlistShown: true, effectsShown: !fxBox.isHidden, true)
         
         var pFrame = playlistWindow.frame
-        var pwHt: CGFloat = playlistWindow.frame.height
+        var pwHt: CGFloat = playlistWindow.height
         
         if (resize) {
-            let pwWd = window.frame.width
-            let maxHt = max(window.frame.origin.y, UIConstants.minPlaylistHeight)
-            pwHt = min(playlistWindow.frame.height, maxHt)
+            let pwWd = window.width
+            let maxHt = max(window.y, UIConstants.minPlaylistHeight)
+            pwHt = min(playlistWindow.height, maxHt)
             pFrame.size = NSMakeSize(pwWd, pwHt)
         }
         
-        var pwX = window.frame.origin.x
-        let pwY = window.frame.origin.y - pwHt
+        var pwX = window.x
+        let pwY = window.y - pwHt
         pFrame.origin = NSPoint(x: pwX, y: pwY)
         
         if (!resize && playlistWindowOffset != nil) {
-            pwX = (window.frame.origin.x + window.frame.width) - playlistWindowOffset!.x - playlistWindow.frame.width
+            pwX = (window.x + window.width) - playlistWindowOffset!.x - playlistWindow.width
             pFrame.origin = NSPoint(x: pwX, y: pwY)
             playlistWindowOffset = nil
         }
@@ -209,8 +209,8 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         var pwWd: CGFloat, pwHt: CGFloat
         var pwX: CGFloat, pwY: CGFloat
         
-        let winX: CGFloat = window.frame.origin.x
-        let winY: CGFloat = window.frame.origin.y
+        let winX: CGFloat = window.x
+        let winY: CGFloat = window.y
         
         switch playlistDockState {
             
@@ -224,10 +224,10 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             
         case .right:
             
-            pwWd = screenWidth - (winX + window.frame.width)
+            pwWd = screenWidth - (winX + window.width)
             pwHt = screenHeight
             
-            pwX = playlistWindow.frame.origin.x
+            pwX = playlistWindow.x
             pwY = 0
             
         case .left:
@@ -240,32 +240,32 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             
         case .none:
             
-            pwWd = playlistWindow.frame.width
-            pwHt = playlistWindow.frame.height
+            pwWd = playlistWindow.width
+            pwHt = playlistWindow.height
             
-            pwX = playlistWindow.frame.origin.x
-            pwY = playlistWindow.frame.origin.y
+            pwX = playlistWindow.x
+            pwY = playlistWindow.y
             
             var minX: CGFloat = 0, minY: CGFloat = 0, maxX: CGFloat = screenWidth, maxY: CGFloat = screenHeight
             
             if ((pwX + pwWd) < winX) {
                 // Left
                 maxX = winX - 1
-            } else if (pwX > winX + window.frame.width) {
+            } else if (pwX > winX + window.width) {
                 // Right
-                minX = winX + window.frame.width
+                minX = winX + window.width
             } else if ((pwY + pwHt) < winY) {
                 // Below
                 maxY = winY - 1
-            } else if (pwY > (winY + window.frame.height)) {
+            } else if (pwY > (winY + window.height)) {
                 // Above
-                minY = winY + window.frame.height
+                minY = winY + window.height
             } else if (pwX < winX) {
                 // Left (overlapping main window)
                 maxX = winX - 1
             } else if (pwX > winX) {
                 // Right (overlapping main window)
-                minX = winX + window.frame.width
+                minX = winX + window.width
             }
             
             pwX = minX
@@ -344,8 +344,8 @@ class WindowViewController: NSViewController, NSWindowDelegate {
     private func hidePlaylist() {
         
         // Top right corner offset
-        let ox = (window.frame.origin.x + window.frame.width) - (playlistWindow.frame.origin.x + playlistWindow.frame.width)
-        let oy = (window.frame.origin.y + window.frame.height) - (playlistWindow.frame.origin.y + playlistWindow.frame.height)
+        let ox = (window.x + window.width) - (playlistWindow.x + playlistWindow.width)
+        let oy = (window.y + window.height) - (playlistWindow.y + playlistWindow.height)
         playlistWindowOffset = NSPoint(x: ox, y: oy)
         
         resizeWindow(playlistShown: false, effectsShown: !fxBox.isHidden, false)
@@ -413,7 +413,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         
         let shrinking: Bool = newHeight < oldHeight
         
-        wFrame.size = NSMakeSize(window.frame.width, newHeight)
+        wFrame.size = NSMakeSize(window.width, newHeight)
         wFrame.origin = NSMakePoint(oldOrigin.x, shrinking ? oldOrigin.y + (oldHeight - newHeight) : oldOrigin.y - (newHeight - oldHeight))
         
         window.setFrame(wFrame, display: true, animate: false)
@@ -443,20 +443,20 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         
         if (playlistDockState == .bottom) {
             
-            if ((playlistWindow.frame.origin.y + playlistWindow.frame.height) != window.frame.origin.y) {
+            if ((playlistWindow.y + playlistWindow.height) != window.y) {
                 print("No longer docked bottom")
                 playlistDockState = .none
             }
             
         } else if (playlistDockState == .right) {
             
-            if ((window.frame.origin.x + window.frame.width) != playlistWindow.frame.origin.x) {
+            if ((window.x + window.width) != playlistWindow.x) {
                 print("No longer docked right")
                 playlistDockState = .none
             }
         } else if (playlistDockState == .left) {
             
-            if ((playlistWindow.frame.origin.x + playlistWindow.frame.width) != window.frame.origin.x) {
+            if ((playlistWindow.x + playlistWindow.width) != window.x) {
                 print("No longer docked left")
                 playlistDockState = .none
             }
