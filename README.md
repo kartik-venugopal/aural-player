@@ -42,7 +42,9 @@ Wanna try it out ? The latest app bundle can be found in the compressed archive 
 
 ## Planned updates
 
-**Multiple selection in playlist** The playlist will be resizable, detachable, and movable, with buttons to conveniently snap/attach the playlist to the main app window, in different relative locations (bottom, right, left, etc).
+**Multiple selection and drag/drop reordering in playlist** - The playlist will allow selection of multiple items at once, and reordering by dragging and dropping. This will make reordering of playlist tracks much less tedious.
+
+**New playlist views with track groups** - In addition to the current flat view, new views will be added to the playlist, which group tracks by album, artist, genre, etc.
 
 ## Recent updates
 
