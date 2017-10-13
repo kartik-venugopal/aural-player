@@ -17,16 +17,16 @@
             <windowStyleMask key="styleMask" texturedBackground="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
-            <rect key="contentRect" x="335" y="100" width="415" height="408"/>
+            <rect key="contentRect" x="335" y="100" width="415" height="393"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
-            <value key="minSize" type="size" width="415" height="223"/>
-            <value key="maxSize" type="size" width="415" height="408"/>
+            <value key="minSize" type="size" width="415" height="208"/>
+            <value key="maxSize" type="size" width="415" height="393"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="415" height="408"/>
+                <rect key="frame" x="0.0" y="0.0" width="415" height="393"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6pS-Kh-BZP" userLabel="Close Button">
-                        <rect key="frame" x="13" y="383" width="14" height="14"/>
+                        <rect key="frame" x="13" y="368" width="14" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="zDW-yl-Adn">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -37,7 +37,7 @@
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZLC-hp-2OD" userLabel="Hide Button">
-                        <rect key="frame" x="30" y="383" width="14" height="14"/>
+                        <rect key="frame" x="30" y="368" width="14" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Hide" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="jQl-La-S6p">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -48,17 +48,17 @@
                         </connections>
                     </button>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BNg-uu-doV" userLabel="AppIcon Image">
-                        <rect key="frame" x="159" y="382" width="16" height="16"/>
+                        <rect key="frame" x="159" y="367" width="16" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppIcon" id="odg-0G-Ip6"/>
                     </imageView>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oos-wa-wUS" userLabel="AppIcon Image">
-                        <rect key="frame" x="235" y="382" width="16" height="16"/>
+                        <rect key="frame" x="235" y="367" width="16" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppIcon" id="KiA-Be-wTT"/>
                     </imageView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="saz-qI-SEO">
-                        <rect key="frame" x="166" y="379" width="80" height="25"/>
+                        <rect key="frame" x="166" y="364" width="80" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="AURAL" id="q5q-o6-pMi">
                             <font key="font" size="20" name="Courier"/>
@@ -67,7 +67,7 @@
                         </textFieldCell>
                     </textField>
                     <button toolTip="Show/hide playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TTw-rh-Ama" userLabel="Toggle Playlist">
-                        <rect key="frame" x="344" y="379" width="27" height="18"/>
+                        <rect key="frame" x="344" y="364" width="27" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlaylistView-On" imagePosition="only" alignment="center" state="on" borderStyle="border" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="GOt-DE-3fh">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -83,7 +83,7 @@
                         </connections>
                     </button>
                     <button toolTip="Show/hide effects panel" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jtn-oJ-Dzg" userLabel="Toggle Effects">
-                        <rect key="frame" x="373" y="379" width="27" height="18"/>
+                        <rect key="frame" x="373" y="364" width="27" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EffectsView-On" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" transparent="YES" imageScaling="proportionallyUpOrDown" inset="2" id="vS0-Bp-ifo">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -99,7 +99,7 @@
                         </connections>
                     </button>
                     <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="bezel" cornerRadius="5" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="r0W-tQ-AZF" userLabel="Now Playing Box">
-                        <rect key="frame" x="15" y="274" width="385" height="88"/>
+                        <rect key="frame" x="15" y="264" width="385" height="88"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="RSY-vY-bFZ">
                             <rect key="frame" x="1" y="1" width="383" height="86"/>
@@ -120,7 +120,7 @@
                                     <rect key="frame" x="201" y="-4" width="63" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="0:00" placeholderString="" id="Dmj-zO-zIU">
-                                        <font key="font" size="14" name="GillSans"/>
+                                        <font key="font" size="13" name="GillSans"/>
                                         <color key="textColor" white="0.70415581597222221" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" white="0.63127055921052633" alpha="1" colorSpace="calibratedWhite"/>
                                     </textFieldCell>
@@ -134,7 +134,7 @@
                                     <rect key="frame" x="94" y="56" width="265" height="23"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="f6r-Bu-Uox">
-                                        <font key="font" size="14" name="GillSans"/>
+                                        <font key="font" size="13" name="GillSans"/>
                                         <color key="textColor" white="0.70415581597222221" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
@@ -143,7 +143,7 @@
                                     <rect key="frame" x="94" y="38" width="269" height="23"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="dFa-X7-jcN">
-                                        <font key="font" size="14" name="GillSans"/>
+                                        <font key="font" size="13" name="GillSans"/>
                                         <color key="textColor" white="0.70415581597222221" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
@@ -152,7 +152,7 @@
                                     <rect key="frame" x="94" y="35" width="275" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" id="Z1W-iy-lZi">
-                                        <font key="font" size="14" name="GillSans"/>
+                                        <font key="font" size="13" name="GillSans-SemiBold"/>
                                         <color key="textColor" white="0.70415581597222221" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
@@ -188,14 +188,14 @@
                         <color key="fillColor" white="0.0" alpha="0.70347281678082196" colorSpace="calibratedWhite"/>
                     </box>
                     <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="X7y-oM-7MJ" userLabel="Controls Box">
-                        <rect key="frame" x="15" y="198" width="385" height="64"/>
+                        <rect key="frame" x="15" y="198" width="385" height="54"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="VBo-wa-Nak">
-                            <rect key="frame" x="1" y="1" width="383" height="62"/>
+                            <rect key="frame" x="1" y="1" width="383" height="52"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Repeat" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fpa-Ii-3YA" userLabel="Repeat Button">
-                                    <rect key="frame" x="10" y="20" width="19" height="19"/>
+                                    <rect key="frame" x="10" y="17" width="16" height="16"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RepeatOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ob3-hG-IUK">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -206,7 +206,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Shuffle" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kQL-4a-kyh" userLabel="Shuffle Button">
-                                    <rect key="frame" x="33" y="16" width="26" height="26"/>
+                                    <rect key="frame" x="30" y="13" width="23" height="23"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShuffleOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4mr-kA-ORl">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -217,7 +217,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Play / Pause" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="52R-Hv-S0B">
-                                    <rect key="frame" x="164" y="18" width="24" height="24"/>
+                                    <rect key="frame" x="164" y="14" width="20" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Play" imagePosition="overlaps" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="Fs8-y1-Z2g">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -228,7 +228,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Previous track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5rt-y8-5rH" userLabel="PrevTrack Button">
-                                    <rect key="frame" x="123" y="23" width="24" height="14"/>
+                                    <rect key="frame" x="133" y="18" width="18" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PreviousTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="iIh-1Y-xvp">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -239,7 +239,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Next track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WPR-XR-JlH" userLabel="NextTrack Button">
-                                    <rect key="frame" x="203" y="23" width="24" height="14"/>
+                                    <rect key="frame" x="194" y="18" width="18" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NextTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="tbB-z7-Flk">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -250,7 +250,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Seek bacward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kDf-NX-V6n" userLabel="Seek Bwd Button">
-                                    <rect key="frame" x="88" y="23" width="19" height="12"/>
+                                    <rect key="frame" x="107" y="18" width="15" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekBackward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="In9-bs-DEF">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -261,7 +261,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Seek forward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ydO-EN-rV3" userLabel="Seek Fwd Button">
-                                    <rect key="frame" x="243" y="23" width="19" height="12"/>
+                                    <rect key="frame" x="224" y="18" width="15" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekForward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="zEB-5B-Tc5">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -272,7 +272,7 @@
                                     </connections>
                                 </button>
                                 <slider toolTip="Volume" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7fw-31-38g" userLabel="Volume Slider">
-                                    <rect key="frame" x="311" y="31" width="63" height="13"/>
+                                    <rect key="frame" x="315" y="29" width="60" height="8"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <shadow key="shadow" blurRadius="1">
                                         <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -283,7 +283,7 @@
                                     </connections>
                                 </slider>
                                 <button toolTip="Mute / Unmute" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y0j-zk-a3t" userLabel="Volume Button">
-                                    <rect key="frame" x="294" y="31" width="15" height="15"/>
+                                    <rect key="frame" x="298" y="28" width="13" height="13"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="VolumeMedium" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="R0z-S2-u9j">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -293,8 +293,17 @@
                                         <action selector="muteUnmuteAction:" target="fv4-nc-h1s" id="4Gn-f3-CU0"/>
                                     </connections>
                                 </button>
+                                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgq-Jv-JKs" userLabel="Volume Value Label">
+                                    <rect key="frame" x="350" y="40" width="27" height="11"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="Rwi-FH-6K7">
+                                        <font key="font" size="8" name="GillSans-SemiBold"/>
+                                        <color key="textColor" white="0.70298936629999997" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
                                 <slider toolTip="Pan / Balance" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wom-j6-eli">
-                                    <rect key="frame" x="303" y="11" width="62" height="15"/>
+                                    <rect key="frame" x="320" y="9" width="55" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <shadow key="shadow" blurRadius="1">
                                         <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -307,39 +316,21 @@ G1BhbiBTbGlkZXI
                                         <action selector="panAction:" target="fv4-nc-h1s" id="cRn-5x-RMb"/>
                                     </connections>
                                 </slider>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMC-T8-qxI" userLabel="Pan L">
-                                    <rect key="frame" x="285" y="16" width="17" height="11"/>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMC-T8-qxI">
+                                    <rect key="frame" x="296" y="14" width="20" height="11"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="L" id="yEf-6q-iOc">
-                                        <font key="font" size="9" name="GillSans-Bold"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="L/R" id="yEf-6q-iOc">
+                                        <font key="font" size="8" name="GillSans-Bold"/>
                                         <color key="textColor" white="0.70298936631944442" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
-                                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgq-Jv-JKs" userLabel="Volume Value Label">
-                                    <rect key="frame" x="350" y="44" width="27" height="11"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="Rwi-FH-6K7">
-                                        <font key="font" size="9" name="GillSans-SemiBold"/>
-                                        <color key="textColor" white="0.70298936629999997" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
                                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnb-pj-0HV" userLabel="Pan Value Label">
-                                    <rect key="frame" x="314" y="4" width="40" height="11"/>
+                                    <rect key="frame" x="327" y="3" width="40" height="11"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="C" id="Bm0-in-8Wt">
-                                        <font key="font" size="9" name="GillSans-SemiBold"/>
+                                        <font key="font" size="8" name="GillSans-SemiBold"/>
                                         <color key="textColor" white="0.70298936629999997" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZXX-yl-h3G" userLabel="Pan R">
-                                    <rect key="frame" x="365" y="16" width="18" height="11"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="R" id="Mai-oe-f4v">
-                                        <font key="font" size="9" name="GillSans-Bold"/>
-                                        <color key="textColor" white="0.70298936631944442" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
@@ -1652,7 +1643,7 @@ G1BhbiBTbGlkZXI
             <connections>
                 <outlet property="menu" destination="Cnt-hZ-QmI" id="YkB-Pl-SLT"/>
             </connections>
-            <point key="canvasLocation" x="124.5" y="35.5"/>
+            <point key="canvasLocation" x="124.5" y="35"/>
         </window>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="y87-CQ-g44" userLabel="Playlist Window">
@@ -1667,10 +1658,10 @@ G1BhbiBTbGlkZXI
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button toolTip="Maximize playlist" translatesAutoresizingMaskIntoConstraints="NO" id="dz9-pQ-bIr" userLabel="Maximize Button">
-                        <rect key="frame" x="15" y="234" width="15" height="12"/>
+                        <rect key="frame" x="17" y="235" width="13" height="13"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="12" id="hnO-YA-nRW"/>
-                            <constraint firstAttribute="width" constant="15" id="uOK-aS-3E2"/>
+                            <constraint firstAttribute="height" constant="13" id="hnO-YA-nRW"/>
+                            <constraint firstAttribute="width" constant="13" id="uOK-aS-3E2"/>
                         </constraints>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Maximize" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="HVi-g0-Mf5">
                             <behavior key="behavior" lightByContents="YES"/>
@@ -1680,8 +1671,36 @@ G1BhbiBTbGlkZXI
                             <action selector="maximizePlaylistAction:" target="Bfj-ih-EYB" id="9BP-Iu-XHf"/>
                         </connections>
                     </button>
+                    <button toolTip="Maximize playlist vertically" translatesAutoresizingMaskIntoConstraints="NO" id="h8b-Tm-2xI" userLabel="Maximize Vertical Button">
+                        <rect key="frame" x="32" y="235" width="15" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="14" id="Yyr-nF-IvJ"/>
+                            <constraint firstAttribute="width" constant="15" id="hYD-JZ-dPy"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MaximizeVertical" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="tHR-Cv-5hD">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="maximizePlaylistVerticalAction:" target="Bfj-ih-EYB" id="8KH-CN-2uF"/>
+                        </connections>
+                    </button>
+                    <button toolTip="Maximize playlist horizontally" translatesAutoresizingMaskIntoConstraints="NO" id="uBG-kX-7sD" userLabel="Maximize Horizontal Button">
+                        <rect key="frame" x="50" y="234" width="14" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="14" id="Itt-tj-yA0"/>
+                            <constraint firstAttribute="height" constant="15" id="iWc-oC-CT2"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MaximizeHorizontal" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9bj-3q-Wj6">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="maximizePlaylistHorizontalAction:" target="Bfj-ih-EYB" id="EPv-lT-PCH"/>
+                        </connections>
+                    </button>
                     <button toolTip="Dock playlist on the left" translatesAutoresizingMaskIntoConstraints="NO" id="oMJ-8r-ebK" userLabel="Dock Left Button">
-                        <rect key="frame" x="338" y="234" width="18" height="15"/>
+                        <rect key="frame" x="342" y="234" width="18" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="DL2-u5-MGR"/>
                             <constraint firstAttribute="width" constant="18" id="wdD-oT-zWt"/>
@@ -1695,7 +1714,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Dock playlist on the right" translatesAutoresizingMaskIntoConstraints="NO" id="Dcb-f2-RhV" userLabel="Dock Right Button">
-                        <rect key="frame" x="383" y="234" width="18" height="15"/>
+                        <rect key="frame" x="382" y="234" width="18" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="CK4-3d-NrG"/>
                             <constraint firstAttribute="width" constant="18" id="osD-RF-tY3"/>
@@ -1709,11 +1728,9 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Dock playlist on the bottom" translatesAutoresizingMaskIntoConstraints="NO" id="stR-Fs-RTn" userLabel="Dock Bottom Button">
-                        <rect key="frame" x="360" y="233" width="18" height="15"/>
+                        <rect key="frame" x="362" y="233" width="18" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="2D0-Kv-4ez"/>
                             <constraint firstAttribute="height" constant="15" id="edw-oN-9Gz"/>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="18" id="fNZ-ri-cdp"/>
                             <constraint firstAttribute="width" constant="18" id="ogX-Rq-u40"/>
                         </constraints>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockBottom" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="BF1-ww-UJO">
@@ -2020,31 +2037,50 @@ G1BhbiBTbGlkZXI
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="dz9-pQ-bIr" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="11" id="0Z0-XT-29f"/>
-                    <constraint firstItem="stR-Fs-RTn" firstAttribute="leading" secondItem="oMJ-8r-ebK" secondAttribute="trailing" constant="4" id="EFY-Ja-RPb"/>
+                    <constraint firstItem="uBG-kX-7sD" firstAttribute="leading" secondItem="h8b-Tm-2xI" secondAttribute="trailing" constant="3" id="058-ET-R9T"/>
+                    <constraint firstItem="dz9-pQ-bIr" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="9" id="0Z0-XT-29f"/>
+                    <constraint firstItem="stR-Fs-RTn" firstAttribute="leading" secondItem="oMJ-8r-ebK" secondAttribute="trailing" constant="2" id="EFY-Ja-RPb"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="KJv-gi-ETr"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-15" id="KNi-Ku-G3H"/>
                     <constraint firstItem="L3Y-2k-P9G" firstAttribute="bottom" secondItem="dXG-r2-Jrp" secondAttribute="bottom" constant="-44" id="Kh2-Xp-8vm"/>
+                    <constraint firstItem="h8b-Tm-2xI" firstAttribute="top" secondItem="dz9-pQ-bIr" secondAttribute="top" constant="-1" id="Nk5-Uu-FTa"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="bottom" secondItem="dXG-r2-Jrp" secondAttribute="bottom" constant="-12" id="Rhh-Er-hMh"/>
-                    <constraint firstItem="Dcb-f2-RhV" firstAttribute="leading" secondItem="stR-Fs-RTn" secondAttribute="trailing" constant="5" id="XFp-AW-3gF"/>
+                    <constraint firstItem="Dcb-f2-RhV" firstAttribute="leading" secondItem="stR-Fs-RTn" secondAttribute="trailing" constant="2" id="XFp-AW-3gF"/>
+                    <constraint firstItem="h8b-Tm-2xI" firstAttribute="leading" secondItem="dz9-pQ-bIr" secondAttribute="trailing" constant="2" id="b4u-Lr-6Uj"/>
                     <constraint firstItem="Dcb-f2-RhV" firstAttribute="top" secondItem="oMJ-8r-ebK" secondAttribute="top" id="cdO-h9-ddE"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="30" id="dzq-io-NSy"/>
                     <constraint firstItem="8hp-s5-DjV" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-3" id="fkv-g0-WVP"/>
+                    <constraint firstItem="uBG-kX-7sD" firstAttribute="top" secondItem="dz9-pQ-bIr" secondAttribute="top" constant="-1" id="gLV-Na-N9F"/>
                     <constraint firstItem="L3Y-2k-P9G" firstAttribute="leading" secondItem="8hp-s5-DjV" secondAttribute="leading" id="gcN-qK-o3N"/>
                     <constraint firstItem="8hp-s5-DjV" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="37" id="kHh-Qs-XFv"/>
-                    <constraint firstItem="dz9-pQ-bIr" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="lG0-dv-Pmd"/>
+                    <constraint firstItem="dz9-pQ-bIr" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="17" id="lG0-dv-Pmd"/>
                     <constraint firstItem="L3Y-2k-P9G" firstAttribute="trailing" secondItem="8hp-s5-DjV" secondAttribute="trailing" id="pfb-7X-h4O"/>
                     <constraint firstItem="stR-Fs-RTn" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="9" id="scv-5z-rhG"/>
-                    <constraint firstItem="oMJ-8r-ebK" firstAttribute="top" secondItem="dz9-pQ-bIr" secondAttribute="top" constant="-3" id="ttb-Xo-UJk"/>
-                    <constraint firstItem="Dcb-f2-RhV" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-14" id="tyb-Jp-Jax"/>
+                    <constraint firstItem="oMJ-8r-ebK" firstAttribute="top" secondItem="dz9-pQ-bIr" secondAttribute="top" constant="-1" id="ttb-Xo-UJk"/>
+                    <constraint firstItem="Dcb-f2-RhV" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-15" id="tyb-Jp-Jax"/>
                 </constraints>
             </view>
+            <toolbar key="toolbar" implicitIdentifier="0C7E5F82-06A0-4F83-932A-113353F8A2EF" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="YJV-MM-IC4">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="cnR-wF-7Qb"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="vLJ-lf-pfl"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="hp0-HQ-K4H"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="Zhh-Te-bZN"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="spn-R9-kn5"/>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="cnR-wF-7Qb"/>
+                    <toolbarItem reference="vLJ-lf-pfl"/>
+                    <toolbarItem reference="spn-R9-kn5"/>
+                    <toolbarItem reference="hp0-HQ-K4H"/>
+                </defaultToolbarItems>
+            </toolbar>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                     <color key="value" white="0.14999999999999999" alpha="0.74724422089041098" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="125" y="362"/>
+            <point key="canvasLocation" x="86.5" y="521.5"/>
         </window>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Aural" customModuleProvider="target"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -2524,11 +2560,30 @@ CA
                                     <action selector="togglePlaylistAction:" target="Bfj-ih-EYB" id="BbL-VV-771"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Maximize Playlist" image="Maximize-Small" id="Yge-Nz-rQX" userLabel="Maximize Playlist">
+                            <menuItem title="     Maximize Playlist" id="Yge-Nz-rQX" userLabel="Maximize Playlist">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="maximizePlaylistAction:" target="Bfj-ih-EYB" id="NeD-Mb-ysI"/>
-                                </connections>
+                                <menu key="submenu" title="     Maximize Playlist" id="DdJ-Ly-yuE">
+                                    <items>
+                                        <menuItem title="Horizontally and vertically" image="Maximize-Small" id="q3Q-K9-Y23">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="maximizePlaylistAction:" target="Bfj-ih-EYB" id="OpT-uy-IoQ"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Horizontally" image="MaximizeHorizontal-Small" id="1o3-gI-3AQ">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="maximizePlaylistHorizontalAction:" target="Bfj-ih-EYB" id="Eum-SR-3qj"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Vertically" image="MaximizeVertical-Small" id="B8c-Jh-6Le">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="maximizePlaylistVerticalAction:" target="Bfj-ih-EYB" id="TBJ-9I-pY8"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="eo4-eB-OpN"/>
                         </items>
@@ -3518,8 +3573,12 @@ Gw
         <image name="Down-Small" width="1.3999999761581421" height="1.3999999761581421"/>
         <image name="EffectsView-On" width="419" height="422"/>
         <image name="Hide" width="94" height="94"/>
-        <image name="Maximize" width="193" height="159"/>
-        <image name="Maximize-Small" width="15" height="13"/>
+        <image name="Maximize" width="85" height="85"/>
+        <image name="Maximize-Small" width="14" height="14"/>
+        <image name="MaximizeHorizontal" width="85" height="85"/>
+        <image name="MaximizeHorizontal-Small" width="14" height="14"/>
+        <image name="MaximizeVertical" width="89" height="85"/>
+        <image name="MaximizeVertical-Small" width="15" height="14"/>
         <image name="MoreInfo" width="256" height="256"/>
         <image name="MoreInfo-Small" width="13" height="13"/>
         <image name="MusicArt" width="183" height="183"/>

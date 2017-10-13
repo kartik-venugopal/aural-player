@@ -265,7 +265,19 @@ class WindowViewController: NSViewController, NSWindowDelegate {
     }
     
     @IBAction func maximizePlaylistAction(_ sender: AnyObject) {
-        
+        maximizePlaylist()
+    }
+    
+    @IBAction func maximizePlaylistHorizontalAction(_ sender: AnyObject) {
+        maximizePlaylist(true, false)
+    }
+    
+    @IBAction func maximizePlaylistVerticalAction(_ sender: AnyObject) {
+        maximizePlaylist(false, true)
+    }
+    
+    private func maximizePlaylist(_ horizontal: Bool = true, _ vertical: Bool = true) {
+    
         // Mark the flag to indicate that an automated move/resize operation is now taking place
         automatedPlaylistMoveOrResize = true
         
@@ -356,8 +368,22 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             playlistHeight = maxY - minY + 1
         }
         
-        playlistFrame.origin = NSPoint(x: playlistX, y: playlistY)
-        playlistFrame.size = NSMakeSize(playlistWidth, playlistHeight)
+        if (horizontal && vertical) {
+        
+            playlistFrame.origin = NSPoint(x: playlistX, y: playlistY)
+            playlistFrame.size = NSMakeSize(playlistWidth, playlistHeight)
+            
+        } else if (horizontal) {
+            
+            playlistFrame.origin = NSPoint(x: playlistX, y: playlistWindow.y)
+            playlistFrame.size = NSMakeSize(playlistWidth, playlistWindow.height)
+            
+        } else {
+            
+            // Vertical only
+            playlistFrame.origin = NSPoint(x: playlistWindow.x, y: playlistY)
+            playlistFrame.size = NSMakeSize(playlistWindow.width, playlistHeight)
+        }
         
         // Maximize the playlist window, within the visible frame of the screen (i.e. don't overlap with menu bar or dock)
         playlistWindow.setFrame(playlistFrame.intersection(screen.visibleFrame), display: true, animate: false)
