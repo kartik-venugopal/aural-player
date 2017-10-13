@@ -42,9 +42,15 @@ Wanna try it out ? The latest app bundle can be found in the compressed archive 
 
 ## Planned updates
 
-**Resizable, detachable, and movable playlist** The playlist will be resizable, detachable, and movable, with buttons to conveniently snap/attach the playlist to the main app window, in different relative locations (bottom, right, left, etc).
+**Multiple selection and drag/drop reordering in playlist** - The playlist will allow selection of multiple items at once, and reordering by dragging and dropping. This will make reordering and/or removal of multiple playlist tracks much less tedious.
+
+**New playlist views with track groups** - In addition to the current flat view, new views will be added to the playlist, which group tracks by album, artist, genre, etc.
 
 ## Recent updates
+
+10/12/2017: **New playlist navigation functions** - New functions have been added for more convenient playlist navigation. These include: 1 - Show playing track within playlist, 2 - Scroll to top of playlist, and 3 - Scroll to bottom of playlist.
+
+10/12/2017: **Resizable, detachable, and movable playlist** - The playlist is now resizable, detachable, and movable, with buttons to conveniently snap/attach the playlist to the main app window, in different relative locations (bottom, right, left, etc), and smart maximizing.
 
 9/25/2017: **New recording formats** - Added support for ALAC (Apple Lossless) and AIFF (CD Quality) recording.
 
@@ -61,22 +67,6 @@ Wanna try it out ? The latest app bundle can be found in the compressed archive 
 9/10/2017: **Direct launching of files from Finder** - Any supported audio files/playlists can now be opened directly from Finder, with Aural. Aural now accepts launch parameters. If the app is already open, the selected files/playlists will be appended to its playlist and the first selected track will start playing.
 
 8/31/2017 - 9/13/2017: **Major code refactoring/cleanup** - Completely rewrote the view layer and the delegate (middleman) layer. Separated huge catch-all view classes into smaller classes that handle specific chunks of functionality. Separated big monolithic delegate into smaller chunks. Refactored back end accordingly.
-
-8/17/2017: **PDF User Guide bundled with app** - There is now a PDF version of the User Guide available. It is bundled with the app, and can be opened from within the app, through the Help menu.
-
-8/16/2017: **Bug fix and efficiency improvements** - Fixed a bug in the Time effects unit, and made significant UI efficiency improvements in how the playlist view is updated when tracks are moved/removed.
-
-8/13/2017; **Preferences panel** - Added a preferences dialog to allow users to configure different bits of player/playlist/view functionality.
-
-8/11/2017: **M3U playlist support** - Added support for M3U/M3U8 playlists. Also, app now allows and properly resolves file aliases and symbolic links.
-
-8/10/2017: **New HTML User Guide** - Completely rewrote the User Guide. It is now in HTML format and explains all features in detail, with lots of screenshots. Did away with the old RTFD format User Guide.
-
-8/8/2017: **Demo videos** - Added lots of .mp4 demo videos that illustrate different features.
-
-7/28/2017: **UI overhaul** - Major overhaul of the UI. New color scheme (dark background, light text), new slider control look and feel. Each slider control has an accompanying label showing its value, for instant feedback when making adjustments.
-
-7/20/2017: **Swift v3 migration** - Code in master branch ported to Swift v3. Swift 2 code is now in the "swift2" branch. Swift 2 development, from this point on, will be limited to none. Latest changes will go into master branch (with Swift 3 code).
 
 ## Third party code attribution
 
