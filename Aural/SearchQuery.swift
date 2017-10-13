@@ -11,8 +11,6 @@ class SearchQuery {
     init(text: String) {
         self.text = text
     }
-    
-    // TODO: Add reset() method
 }
 
 // Indicates which track fields are to be compared, in the search
@@ -28,8 +26,6 @@ class SearchFields {
     func noFieldsSelected() -> Bool {
         return !name && !artist && !title && !album
     }
-    
-    // TODO: Add reset() method
 }
 
 // Search options
@@ -38,8 +34,6 @@ class SearchOptions {
     // Whether or not field comparisons are to be case sensitive
     // By default, searches are not case sensitive
     var caseSensitive: Bool = false
-    
-    // TODO: Add reset() method
 }
 
 // Enumeration of different types of field comparison for the search

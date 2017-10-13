@@ -51,6 +51,8 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
         }
         
         searchField.stringValue = ""
+        searchQuery.text = ""
+        
         resetSearchFields()
         searchPanel.makeFirstResponder(searchField)
         
@@ -118,7 +120,6 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     
     @IBAction func searchDoneAction(_ sender: Any) {
         UIUtils.dismissModalDialog()
-        // FIXME: TODO: Clear the search query variable (bug)
     }
     
     private func searchTextChanged() {
