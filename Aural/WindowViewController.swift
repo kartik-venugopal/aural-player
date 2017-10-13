@@ -530,6 +530,11 @@ class WindowViewController: NSViewController, NSWindowDelegate {
     // When the playlist window is moved manually by the user, it may be moved such that it is no longer docked (i.e. positioned adjacent) to the main window. This method checks the position of the playlist window after the resize operation, invalidates the playlist window's dock state if necessary, and adds a thin bottom edge to the main window (for aesthetics) if the playlist is no longer docked.
     func windowDidMove(_ notification: Notification) {
         
+        // If this is an app-initiated move operation, do nothing
+        if (automatedPlaylistMoveOrResize) {
+            return
+        }
+        
         // If the mouse cursor is within the playlist window, it means that only the playlist window is being moved. If the main window is being moved, that does not affect the playlist dock state.
         if (playlistWindow.frame.contains(NSEvent.mouseLocation())) {
             
@@ -545,16 +550,17 @@ class WindowViewController: NSViewController, NSWindowDelegate {
     
     // When the playlist window is resized manually by the user, it may be resized such that it is no longer docked (i.e. positioned adjacent) to the main window.
     func windowDidResize(_ notification: Notification) {
-        updatePlaylistWindowDockState()
-    }
-    
-    // This method checks the position of the playlist window after the resize operation, and invalidates the playlist window's dock state if necessary.
-    private func updatePlaylistWindowDockState() {
         
         // If playlist was not docked prior to resize, or this is an app-initiated resize operation (i.e. either dock or maximize), do nothing
         if (playlistDockState == .none || automatedPlaylistMoveOrResize) {
             return
         }
+        
+        updatePlaylistWindowDockState()
+    }
+    
+    // This method checks the position of the playlist window after the resize operation, and invalidates the playlist window's dock state if necessary.
+    private func updatePlaylistWindowDockState() {
         
         if (playlistDockState == .bottom) {
             
