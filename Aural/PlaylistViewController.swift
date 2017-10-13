@@ -11,7 +11,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     @IBOutlet weak var lblPlaylistSummary: NSTextField!
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
     
-    // Used to position the spinner
+    // Box that encloses the playlist controls. Used to position the spinner.
     @IBOutlet weak var controlsBox: NSBox!
     
     // Delegate that performs CRUD actions on the playlist
@@ -81,6 +81,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         }
     }
     
+    // When a track add operation starts, the spinner needs to be initialized
     private func startedAddingTracks() {
         
         playlistWorkSpinner.doubleValue = 0
@@ -89,6 +90,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         playlistWorkSpinner.startAnimation(self)
     }
     
+    // When a track add operation ends, the spinner needs to be de-initialized
     private func doneAddingTracks() {
         playlistWorkSpinner.stopAnimation(self)
         playlistWorkSpinner.isHidden = true
@@ -156,6 +158,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         selectTrack(newTrack == nil ? nil : newTrack!.index)
     }
     
+    // Selects (and shows) a certain track within the playlist view
     private func selectTrack(_ index: Int?) {
         
         if (playlistView.numberOfRows > 0) {
@@ -163,7 +166,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             if (index != nil && index! >= 0) {
                 playlistView.selectRowIndexes(IndexSet(integer: index!), byExtendingSelection: false)
             } else {
-                // Select first track in list, if list not empty
+                // Select first track in list
                 playlistView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
             }
             
@@ -171,16 +174,19 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         }
     }
     
+    // Scrolls the playlist to show its selected row
     private func showPlaylistSelectedRow() {
         if (playlistView.numberOfRows > 0) {
             playlistView.scrollRowToVisible(playlistView.selectedRow)
         }
     }
     
+    // Scrolls the playlist view to the very top
     @IBAction func scrollToTopAction(_ sender: AnyObject) {
         selectTrack(0)
     }
     
+    // Scrolls the playlist view to the very bottom
     @IBAction func scrollToBottomAction(_ sender: AnyObject) {
         selectTrack(playlistView.numberOfRows - 1)
     }
@@ -252,6 +258,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         playlist.addFiles(files)
     }
     
+    // Shows the currently playing track, within the playlist view
     @IBAction func showInPlaylistAction(_ sender: Any) {
         
         if let playingTrackIndex = playbackInfo.getPlayingTrack()?.index {

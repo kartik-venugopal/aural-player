@@ -168,7 +168,7 @@
                                         <action selector="moreInfoAction:" target="2zm-r9-5fb" id="uX0-lv-efA"/>
                                     </connections>
                                 </button>
-                                <button hidden="YES" toolTip="More information about this track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VvF-4h-2Sh" userLabel="Show In Playlist Button">
+                                <button hidden="YES" toolTip="Show this track within the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VvF-4h-2Sh" userLabel="Show In Playlist Button">
                                     <rect key="frame" x="364" y="49" width="14" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShowPlayingTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9AY-Q3-Y6b">

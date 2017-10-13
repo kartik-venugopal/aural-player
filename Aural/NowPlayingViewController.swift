@@ -102,6 +102,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         popoverView.close()
     }
     
+    // When the playing track changes (or there is none), certain functions may or may not be available, so their corresponding UI controls need to be shown/enabled or hidden/disabled.
     private func togglePlayingTrackButtons(_ show: Bool) {
         
         btnMoreInfo.isHidden = !show
