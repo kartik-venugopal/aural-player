@@ -2239,6 +2239,7 @@ G1BhbiBTbGlkZXI
                 <outlet property="btnToggleEffects" destination="jtn-oJ-Dzg" id="RZq-Lo-AXs"/>
                 <outlet property="btnTogglePlaylist" destination="TTw-rh-Ama" id="3We-Wo-60N"/>
                 <outlet property="fxBox" destination="DYI-NL-cxu" id="heq-Dq-w1Q"/>
+                <outlet property="mainWindow" destination="QvC-M9-y7g" id="P0P-5G-KoX"/>
                 <outlet property="playlistWindow" destination="y87-CQ-g44" id="ZRm-qu-dIJ"/>
                 <outlet property="view" destination="EiT-Mj-1SZ" id="wr6-aA-rz3"/>
                 <outlet property="viewEffectsMenuItem" destination="fK8-7g-oqx" id="05B-Uw-Hcu"/>
