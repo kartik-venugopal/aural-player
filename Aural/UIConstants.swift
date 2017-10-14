@@ -5,6 +5,10 @@ import Cocoa
 
 class UIConstants {
     
+    // Y co-ordinates for the Track Name label, depending on whether it is displaying one or two lines of text
+    static let trackNameLabelLocationY_oneLine: CGFloat = 23
+    static let trackNameLabelLocationY_twoLines: CGFloat = 33
+    
     // Playlist view column identifiers
     static let trackNameColumnID: String = "cv_trackName"
     static let durationColumnID: String = "cv_duration"
@@ -52,11 +56,12 @@ class UIConstants {
     
     private static let gillSans12Font: NSFont = NSFont(name: "Gill Sans", size: 12)!
     private static let gillSans13Font: NSFont = NSFont(name: "Gill Sans", size: 13)!
+    private static let gillSans12LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 12)!
     private static let gillSans13LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 13)!
     
     // Fonts used by the playlist view
-    static let playlistSelectedTextFont: NSFont = gillSans13Font
-    static let playlistTextFont: NSFont = gillSans13LightFont
+    static let playlistSelectedTextFont: NSFont = gillSans12Font
+    static let playlistTextFont: NSFont = gillSans12LightFont
     
     // Font used by the effects tab view buttons
     static let tabViewButtonFont: NSFont = gillSans12Font

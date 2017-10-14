@@ -144,4 +144,14 @@ class StringUtils {
             in: CharacterSet.whitespacesAndNewlines
         )
     }
+    
+    // For a given piece of text rendered in a certain font, and a given line width, calculates the number of lines the text will occupy (e.g. in a multi-line label) 
+    static func numberOfLines(_ text: String, _ font: NSFont, _ lineWidth: CGFloat) -> Int {
+        
+        let attrs: [String: AnyObject] = [
+            NSFontAttributeName: font]
+        let size: CGSize = text.size(withAttributes: attrs)
+        
+        return Int(ceil(size.width / lineWidth))
+    }
 }

@@ -76,6 +76,18 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         } else {
             
             lblTrackName.stringValue = track.conciseDisplayName
+            
+            // Re-position the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
+            
+            // Determine how many lines the track name will occupy, within the label
+            let numLines = StringUtils.numberOfLines(track.conciseDisplayName, lblTrackName.font!, lblTrackName.frame.width)
+            
+            // The Y co-ordinate is a pre-determined constant
+            var origin = lblTrackName.frame.origin
+            origin.y = numLines == 1 ? UIConstants.trackNameLabelLocationY_oneLine : UIConstants.trackNameLabelLocationY_twoLines
+            
+            // Re-position the label
+            lblTrackName.setFrameOrigin(origin)
         }
         
         lblTrackName.isHidden = artistAndTitleAvailable
