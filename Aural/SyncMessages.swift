@@ -82,17 +82,22 @@ struct TrackChangedNotification: NotificationMessage {
     
     var messageType: MessageType = .trackChangedNotification
     
+    // The track that was playing before the track change (may be nil, meaning no track was playing)
+    var oldTrack: IndexedTrack?
+    
     // The track that is now playing (may be nil, meaning no track playing)
     var newTrack: IndexedTrack?
     
     // Flag indicating whether or not playback resulted in an error
     var errorState: Bool = false
     
-    init(_ newTrack: IndexedTrack?) {
+    init(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?) {
+        self.oldTrack = oldTrack
         self.newTrack = newTrack
     }
     
-    init(_ newTrack: IndexedTrack?, _ errorState: Bool) {
+    init(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?, _ errorState: Bool) {
+        self.oldTrack = oldTrack
         self.newTrack = newTrack
         self.errorState = errorState
     }

@@ -12,6 +12,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
     @IBOutlet weak var lblTrackName: NSTextField!
     @IBOutlet weak var artView: NSImageView!
     
+    // Fields that display/control seek position within the playing track
     @IBOutlet weak var lblTimeElapsed: NSTextField!
     @IBOutlet weak var lblTimeRemaining: NSTextField!
     @IBOutlet weak var seekSlider: NSSlider!

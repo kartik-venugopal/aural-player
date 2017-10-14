@@ -152,20 +152,22 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     // Responds to a notification that playback of the current track has completed. Selects the subsequent track for playback and plays it, notifying observers of the track change.
     private func trackPlaybackCompleted() {
         
+        let oldTrack = getPlayingTrack()
+        
         // Stop playback of the old track
         stop()
         
         // Continue the playback sequence
         do {
-            try subsequentTrack()
+            let newTrack = try subsequentTrack()
             
             // Notify the UI about this track change event
-            AsyncMessenger.publishMessage(TrackChangedAsyncMessage(getPlayingTrack()))
+            AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, newTrack))
             
         } catch let error as Error {
             
             if (error is InvalidTrackError) {
-                AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(error as! InvalidTrackError))
+                AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(oldTrack, error as! InvalidTrackError))
             }
         }
     }

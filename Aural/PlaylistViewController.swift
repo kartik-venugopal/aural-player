@@ -134,7 +134,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             // Tell the playlist view to remove one row
             playlistView.noteNumberOfRowsChanged()
             updatePlaylistSummary()
-            selectTrack(newTrackIndex)
+//            selectTrack(newTrackIndex)
             
             if (oldPlayingTrackIndex == index) {
                 // Request the player to stop playback, if the playing track was removed
@@ -154,8 +154,22 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     }
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
-    private func trackChange(_ newTrack: IndexedTrack?, _ errorState: Bool = false) {
-        selectTrack(newTrack == nil ? nil : newTrack!.index)
+    private func trackChange(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
+        
+        var rowsArr = [Int]()
+        
+        if (oldTrack != nil) {
+            rowsArr.append(oldTrack!.index)
+        }
+        
+        if (newTrack != nil) {
+            rowsArr.append(newTrack!.index)
+        }
+        
+        let rowIndexes = IndexSet(rowsArr)
+        playlistView.reloadData(forRowIndexes: rowIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
+        
+//        selectTrack(newTrack == nil ? nil : newTrack!.index)
     }
     
     // Selects (and shows) a certain track within the playlist view
@@ -328,7 +342,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         if (notification is TrackChangedNotification) {
             let msg = notification as! TrackChangedNotification
-            trackChange(msg.newTrack)
+            trackChange(msg.oldTrack, msg.newTrack, msg.errorState)
             return
         }
     }

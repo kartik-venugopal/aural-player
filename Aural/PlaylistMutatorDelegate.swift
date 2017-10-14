@@ -204,19 +204,22 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         DispatchQueue.main.async {
             
+            let oldCursor = self.playbackSequence.getCursor()
+            let oldTrack = self.playlist.peekTrackAt(oldCursor)
+            
             do {
                 
                 let playingTrack = try self.player.play(index, interruptPlayback)
                 
                 // Notify the UI that a track has started playing
                 if(playingTrack != nil) {
-                    AsyncMessenger.publishMessage(TrackChangedAsyncMessage(playingTrack))
+                    AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, playingTrack))
                 }
                 
             } catch let error as Error {
                 
                 if (error is InvalidTrackError) {
-                    AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(error as! InvalidTrackError))
+                    AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(oldTrack, error as! InvalidTrackError))
                 }
             }
         }

@@ -5,10 +5,20 @@
 import Cocoa
 import AVFoundation
 
-class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, MessageSubscriber {
     
     // Delegate that performs CRUD on the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
+    
+    // Used to determine the currently playing track
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    
+    // Used to pause/resume the playing track animation
+    private var animationCell: PlaylistCellView?
+    
+    override func viewDidLoad() {
+        SyncMessenger.subscribe(.playbackStateChangedNotification, subscriber: self)
+    }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         return playlist.size()
@@ -23,24 +33,68 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
         
         let track = (playlist.peekTrackAt(row)?.track)!
         
-        if (tableColumn?.identifier == UIConstants.trackNameColumnID) {
+        if (tableColumn?.identifier == UIConstants.trackIndexColumnID) {
+            
+            // Track index
+            
+            let playingTrackIndex = playbackInfo.getPlayingTrack()?.index
+            
+            // If this row contains the playing track, display an animation, instead of the track index
+            if (playingTrackIndex != nil && playingTrackIndex == row) {
+                
+                let cell = createPlayingTrackAnimationCell(tableView)
+                animationCell = cell
+                return cell
+                
+            } else {
+                
+                // Otherwise, create a text cell with the track index
+                return createTextCell(tableView, UIConstants.trackIndexColumnID, String(format: "%d.", row + 1))
+            }
+        
+        } else if (tableColumn?.identifier == UIConstants.trackNameColumnID) {
             
             // Track name
-            let trackName = track.conciseDisplayName
-            return createCell(tableView, UIConstants.trackNameColumnID, trackName)
-        
+            return createTextCell(tableView, UIConstants.trackNameColumnID, track.conciseDisplayName)
+            
         } else {
             
             // Duration
-            let duration = StringUtils.formatSecondsToHMS(track.duration)
-            return createCell(tableView, UIConstants.durationColumnID, duration)
+            return createTextCell(tableView, UIConstants.durationColumnID, StringUtils.formatSecondsToHMS(track.duration))
         }
     }
     
-    private func createCell(_ tableView: NSTableView, _ id: String, _ text: String) -> PlaylistCellView? {
+    private func createTextCell(_ tableView: NSTableView, _ id: String, _ text: String) -> PlaylistCellView? {
         
         if let cell = tableView.make(withIdentifier: id, owner: nil) as? PlaylistCellView {
+            
             cell.textField?.stringValue = text
+            
+            cell.imageView?.isHidden = true
+            cell.textField?.isHidden = false
+            
+            return cell
+        }
+        
+        return nil
+    }
+    
+    private func createPlayingTrackAnimationCell(_ tableView: NSTableView) -> PlaylistCellView? {
+        
+        if let cell = tableView.make(withIdentifier: UIConstants.trackIndexColumnID, owner: nil) as? PlaylistCellView {
+            
+            // Configure and show the image view
+            let imgView = cell.imageView!
+            
+            imgView.canDrawSubviewsIntoLayer = true
+            imgView.imageScaling = .scaleProportionallyDown
+            imgView.animates = true
+            imgView.image = UIConstants.imgPlayingTrack
+            imgView.isHidden = false
+            
+            // Hide the text view
+            cell.textField?.isHidden = true
+            
             return cell
         }
         
@@ -62,6 +116,41 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
         playlist.addFiles(objects! as! [URL])
         
         return true
+    }
+    
+    // Whenever the playing track is paused/resumed, the animation needs to be paused/resumed.
+    private func playbackStateChanged(_ state: PlaybackState) {
+        
+        switch (state) {
+            
+        case .playing:
+            
+            animationCell?.imageView?.animates = true
+            
+        case .paused:
+            
+            animationCell?.imageView?.animates = false
+            
+        default:
+            
+            // Release the animation cell because the track is no longer playing
+            animationCell?.imageView?.animates = false
+            animationCell = nil
+        }
+    }
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+    
+        if (notification is PlaybackStateChangedNotification) {
+            
+            let msg = notification as! PlaybackStateChangedNotification
+            playbackStateChanged(msg.newPlaybackState)
+            return
+        }
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        return EmptyResponse.instance
     }
 }
 

@@ -63,14 +63,18 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         
         if (playlistView.selectedRow >= 0) {
             
+            let oldTrack = player.getPlayingTrack()
+            
             do {
+                
                 let track = try player.play(playlistView.selectedRow)
-                trackChange(track)
+                trackChange(oldTrack, track)
+                playlistView.deselectAll(self)
                 
             } catch let error as Error {
                 
                 if (error is InvalidTrackError) {
-                    handleTrackNotPlayedError(error as! InvalidTrackError)
+                    handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
                 }
             }
         }
@@ -150,6 +154,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     // Play / Pause / Resume
     @IBAction func playPauseAction(_ sender: AnyObject) {
         
+        let oldTrack = player.getPlayingTrack()
+        
         do {
             
             let playbackInfo = try player.togglePlayPause()
@@ -163,7 +169,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
             case .playing:
                 
                 if (playbackInfo.trackChanged) {
-                    trackChange(playbackInfo.playingTrack)
+                    trackChange(oldTrack, playbackInfo.playingTrack)
                 } else {
                     // Resumed the same track
                     setPlayPauseImage(UIConstants.imgPause)
@@ -174,45 +180,51 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         } catch let error as Error {
             
             if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(error as! InvalidTrackError)
+                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
             }
         }
     }
     
     private func stopPlayback() {
+        
+        let oldTrack = player.getPlayingTrack()
         player.stop()
-        trackChange(nil)
+        trackChange(oldTrack, nil)
     }
     
     @IBAction func prevTrackAction(_ sender: AnyObject) {
         
+        let oldTrack = player.getPlayingTrack()
+        
         do {
             
-            let trackInfo = try player.previousTrack()
-            if (trackInfo?.track != nil) {
-                trackChange(trackInfo)
+            let prevTrack = try player.previousTrack()
+            if (prevTrack?.track != nil) {
+                trackChange(oldTrack, prevTrack)
             }
             
         } catch let error as Error {
             
             if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(error as! InvalidTrackError)
+                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
             }
         }
     }
     
     @IBAction func nextTrackAction(_ sender: AnyObject) {
         
+        let oldTrack = player.getPlayingTrack()
+        
         do {
-            let trackInfo = try player.nextTrack()
-            if (trackInfo?.track != nil) {
-                trackChange(trackInfo)
+            let nextTrack = try player.nextTrack()
+            if (nextTrack?.track != nil) {
+                trackChange(oldTrack, nextTrack)
             }
             
         } catch let error as Error {
             
             if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(error as! InvalidTrackError)
+                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
             }
         }
     }
@@ -232,7 +244,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     }
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
-    private func trackChange(_ newTrack: IndexedTrack?, _ errorState: Bool = false) {
+    private func trackChange(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
         if (newTrack != nil) {
             
@@ -250,7 +262,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
             setPlayPauseImage(UIConstants.imgPlay)
         }
         
-        let trackChgNotification = TrackChangedNotification(newTrack, errorState)
+        let trackChgNotification = TrackChangedNotification(oldTrack, newTrack, errorState)
         SyncMessenger.publishNotification(trackChgNotification)
     }
     
@@ -258,14 +270,14 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         btnPlayPause.image = image
     }
     
-    private func handleTrackNotPlayedError(_ error: InvalidTrackError) {
+    private func handleTrackNotPlayedError(_ oldTrack: IndexedTrack?, _ error: InvalidTrackError) {
         
         // This needs to be done async. Otherwise, other open dialogs could hang.
         DispatchQueue.main.async {
             
             // First, select the problem track and update the now playing info
             let playingTrack = self.player.getPlayingTrack()
-            self.trackChange(playingTrack, true)
+            self.trackChange(oldTrack, playingTrack, true)
             
             // Position and display the dialog with info
             let alert = UIElements.trackNotPlayedAlertWithError(error)
@@ -283,13 +295,13 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         
         if message is TrackChangedAsyncMessage {
             let _msg = message as! TrackChangedAsyncMessage
-            trackChange(_msg.newTrack)
+            trackChange(_msg.oldTrack, _msg.newTrack)
             return
         }
         
         if message is TrackNotPlayedAsyncMessage {
             let _msg = message as! TrackNotPlayedAsyncMessage
-            handleTrackNotPlayedError(_msg.error)
+            handleTrackNotPlayedError(_msg.oldTrack, _msg.error)
             return
         }
     }

@@ -10,6 +10,7 @@ class UIConstants {
     static let trackNameLabelLocationY_twoLines: CGFloat = 33
     
     // Playlist view column identifiers
+    static let trackIndexColumnID: String = "cv_trackIndex"
     static let trackNameColumnID: String = "cv_trackName"
     static let durationColumnID: String = "cv_duration"
     
@@ -19,6 +20,9 @@ class UIConstants {
     
     // Index set used to reload specific playlist rows
     static let playlistViewColumnIndexes: IndexSet = IndexSet([0,1])
+    
+    // Animation displyed in playlist to mark the currently playing track
+    static let imgPlayingTrack: NSImage = NSImage(byReferencing: URL(fileURLWithPath: Bundle.main.path(forResource: "playingTrack", ofType: "gif")!))
     
     // Toggled images
     static let imgPlay: NSImage = NSImage(named: "Play")!

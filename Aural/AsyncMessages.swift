@@ -46,10 +46,14 @@ struct TrackChangedAsyncMessage: AsyncMessage {
     
     var messageType: AsyncMessageType = .trackChanged
     
+    // The track that was playing before the track change (may be nil, meaning no track was playing)
+    var oldTrack: IndexedTrack?
+    
     // The track that is now playing (may be nil, meaning no track playing)
     var newTrack: IndexedTrack?
     
-    init(_ newTrack: IndexedTrack?) {
+    init(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?) {
+        self.oldTrack = oldTrack
         self.newTrack = newTrack
     }
 }
@@ -120,10 +124,14 @@ struct TrackNotPlayedAsyncMessage: AsyncMessage {
  
     var messageType: AsyncMessageType = .trackNotPlayed
     
+    // The track that was playing before the track change (may be nil, meaning no track was playing)
+    var oldTrack: IndexedTrack?
+    
     // An error object containing detailed information such as the track file and the root cause
     var error: InvalidTrackError
     
-    init(_ error: InvalidTrackError) {
+    init(_ oldTrack: IndexedTrack?, _ error: InvalidTrackError) {
+        self.oldTrack = oldTrack
         self.error = error
     }
 }
