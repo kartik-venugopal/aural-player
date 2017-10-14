@@ -12,7 +12,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
     @IBOutlet weak var lblTrackName: NSTextField!
     @IBOutlet weak var artView: NSImageView!
     
-    @IBOutlet weak var lblSeekPosition: NSTextField!
+    @IBOutlet weak var lblTimeElapsed: NSTextField!
+    @IBOutlet weak var lblTimeRemaining: NSTextField!
     @IBOutlet weak var seekSlider: NSSlider!
     
     // Button and menu item to display more details about the playing track
@@ -100,6 +101,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
             // Default (placeholder) artwork
             artView.image = UIConstants.imgMusicArt
         }
+        
+        resetSeekPosition(track)
     }
     
     private func clearNowPlayingInfo() {
@@ -107,7 +110,9 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         [lblTrackArtist, lblTrackTitle, lblTrackName].forEach({$0?.stringValue = ""})
         artView.image = UIConstants.imgMusicArt
         
-        resetSeekPosition()
+        seekSlider.floatValue = 0
+        lblTimeElapsed.isHidden = true
+        lblTimeRemaining.isHidden = true
         setSeekTimerState(false)
         
         togglePlayingTrackButtons(false)
@@ -141,14 +146,23 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
             
             let seekPosn = playbackInfo.getSeekPosition()
             
-            lblSeekPosition.stringValue = StringUtils.formatDuration(seekPosn.seconds)
-            seekSlider.doubleValue = seekPosn.percentage
+            let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration)
+            
+            lblTimeElapsed.stringValue = trackTimes.elapsed
+            lblTimeRemaining.stringValue = trackTimes.remaining
+            
+            seekSlider.doubleValue = seekPosn.percentageElapsed
         }
     }
     
-    private func resetSeekPosition() {
+    private func resetSeekPosition(_ track: Track) {
         
-        lblSeekPosition.stringValue = UIConstants.zeroDurationString
+        lblTimeElapsed.stringValue = UIConstants.zeroDurationString
+        lblTimeRemaining.stringValue = StringUtils.formatSecondsToHMS(track.duration, true)
+        
+        lblTimeElapsed.isHidden = false
+        lblTimeRemaining.isHidden = false
+        
         seekSlider.floatValue = 0
     }
     
@@ -175,8 +189,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
                 
                 setSeekTimerState(false)
             }
-            
-            resetSeekPosition()
             
         } else {
             

@@ -104,7 +104,7 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
         
         info.append((key: "Size", value: track.fileSystemInfo.size!.toString()))
         info.append((key: "Format", value: audioInfo.format!))
-        info.append((key: "Duration", value: StringUtils.formatDuration(track.duration)))
+        info.append((key: "Duration", value: StringUtils.formatSecondsToHMS(track.duration)))
             
         if (track.displayInfo.artist != nil) {
             info.append((key: "Artist", value: track.displayInfo.artist!))

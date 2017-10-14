@@ -10,20 +10,34 @@ class StringUtils {
     static let oneMin = 60
     static let oneHour = 60 * oneMin
     
-    // Formats a duration (time interval) from seconds to a displayable string showing hours, minutes, and seconds. For example, 500 seconds becomes "8:20", and 3675 seconds becomes "1:01:15"
-    static func formatDuration(_ _duration: Double) -> String {
+    // Given the elapsed time, in seconds, for a playing track, and its duration (also in seconds), returns 2 formatted strings: 1 - Formatted elapsed time, and 2 - Formatted time remaining. See formatSecondsToHMS()
+    static func formatTrackTimes(_ _elapsedSeconds: Double, _ duration: Double) -> (elapsed: String, remaining: String) {
         
-        let duration = Int(round(_duration))
+        let elapsedSeconds = Int(round(_elapsedSeconds))
         
-        let secs = duration % oneMin
-        let mins = (duration / oneMin) % oneMin
-        let hrs = duration / oneHour
+        let elapsedString = formatSecondsToHMS(_elapsedSeconds)
+        let remainingString = formatSecondsToHMS(duration - Double(elapsedSeconds), true)
         
-        return hrs > 0 ? String(format: "%d:%02d:%02d", hrs, mins, secs) : String(format: "%d:%02d", mins, secs)
+        return (elapsedString, remainingString)
+    }
+    
+    /* Formats a duration (time interval) from seconds to a displayable string showing hours, minutes, and seconds. For example, 500 seconds becomes "8:20", and 3675 seconds becomes "1:01:15".
+     
+        The "includeMinusPrefix" indicates whether or not to include a prefix of "-" in the formatted string returned.
+    */
+    static func formatSecondsToHMS(_ _timeSeconds: Double, _ includeMinusPrefix: Bool = false) -> String {
+        
+        let timeSeconds = Int(round(_timeSeconds))
+        
+        let secs = timeSeconds % oneMin
+        let mins = (timeSeconds / oneMin) % oneMin
+        let hrs = timeSeconds / oneHour
+        
+        return hrs > 0 ? String(format: "%@%d:%02d:%02d", includeMinusPrefix ? "-" : "", hrs, mins, secs) : String(format: "%@%d:%02d", includeMinusPrefix ? "-" : "", mins, secs)
     }
     
     // Formats a duration (time interval) from seconds to a displayable string showing minutes, and seconds. For example, 500 seconds becomes "8 min 20 sec", 120 seconds becomes "2 min", and 36 seconds becomes "36 sec"
-    static func formatDuration_minSec(_ duration: Int) -> String {
+    static func formatSecondsToHMS_minSec(_ duration: Int) -> String {
         
         let secs = duration % oneMin
         let mins = duration / oneMin

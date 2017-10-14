@@ -8,8 +8,8 @@ protocol PlaybackInfoDelegateProtocol {
     // Returns the current playback state of the player. See PlaybackState for more details
     func getPlaybackState() -> PlaybackState
     
-    // Returns the current seek position of the player, for the current track, in terms of seconds and percentage (of the duration)
-    func getSeekPosition() -> (seconds: Double, percentage: Double)
+    // Returns the current seek position of the player, for the current track, i.e. time elapsed, in terms of seconds and percentage (of the total duration), and the total track duration (also in seconds)
+    func getSeekPosition() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double)
     
     // Returns the currently playing track (with its index), if a track is currently playing
     func getPlayingTrack() -> IndexedTrack?

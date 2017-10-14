@@ -32,7 +32,7 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
         } else {
             
             // Duration
-            let duration = StringUtils.formatDuration(track.duration)
+            let duration = StringUtils.formatSecondsToHMS(track.duration)
             return createCell(tableView, UIConstants.durationColumnID, duration)
         }
     }

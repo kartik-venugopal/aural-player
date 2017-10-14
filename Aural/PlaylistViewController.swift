@@ -61,7 +61,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         let summary = playlist.summary()
         let numTracks = summary.size
         
-        lblPlaylistSummary.stringValue = String(format: "%d %@   %@", numTracks, numTracks == 1 ? "track" : "tracks", StringUtils.formatDuration(summary.totalDuration))
+        lblPlaylistSummary.stringValue = String(format: "%d %@   %@", numTracks, numTracks == 1 ? "track" : "tracks", StringUtils.formatSecondsToHMS(summary.totalDuration))
         
         // Update spinner
         if (trackAddProgress != nil) {

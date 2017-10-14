@@ -203,13 +203,15 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return player.getPlaybackState()
     }
     
-    func getSeekPosition() -> (seconds: Double, percentage: Double) {
+    func getSeekPosition() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) {
         
         let playingTrack = getPlayingTrack()
         let seconds = playingTrack != nil ? player.getSeekPosition() : 0
-        let percentage = playingTrack != nil ? seconds * 100 / playingTrack!.track.duration : 0
         
-        return (seconds, percentage)
+        let duration = playingTrack!.track.duration
+        let percentage = playingTrack != nil ? seconds * 100 / duration : 0
+        
+        return (seconds, percentage, duration)
     }
     
     func seekForward() {
