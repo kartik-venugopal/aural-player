@@ -42,7 +42,8 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
             // If this row contains the playing track, display an animation, instead of the track index
             if (playingTrackIndex != nil && playingTrackIndex == row) {
                 
-                let cell = createPlayingTrackAnimationCell(tableView)
+                let playbackState = playbackInfo.getPlaybackState()
+                let cell = createPlayingTrackAnimationCell(tableView, playbackState == .playing)
                 animationCell = cell
                 return cell
                 
@@ -79,7 +80,7 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
         return nil
     }
     
-    private func createPlayingTrackAnimationCell(_ tableView: NSTableView) -> PlaylistCellView? {
+    private func createPlayingTrackAnimationCell(_ tableView: NSTableView, _ animate: Bool) -> PlaylistCellView? {
         
         if let cell = tableView.make(withIdentifier: UIConstants.trackIndexColumnID, owner: nil) as? PlaylistCellView {
             
@@ -88,7 +89,7 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
             
             imgView.canDrawSubviewsIntoLayer = true
             imgView.imageScaling = .scaleProportionallyDown
-            imgView.animates = true
+            imgView.animates = animate
             imgView.image = UIConstants.imgPlayingTrack
             imgView.isHidden = false
             

@@ -1964,7 +1964,7 @@ G1BhbiBTbGlkZXI
                                                 </connections>
                                             </button>
                                             <button toolTip="Save current playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WU5-Qg-TmF" userLabel="Save">
-                                                <rect key="frame" x="36" y="6" width="12" height="12"/>
+                                                <rect key="frame" x="38" y="6" width="12" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Save" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ffe-tx-W5T">
                                                     <behavior key="behavior" lightByContents="YES"/>
@@ -1975,7 +1975,7 @@ G1BhbiBTbGlkZXI
                                                 </connections>
                                             </button>
                                             <button toolTip="Clear the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dt2-O9-nd2" userLabel="Clear">
-                                                <rect key="frame" x="49" y="5" width="13" height="14"/>
+                                                <rect key="frame" x="51" y="5" width="13" height="14"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Clear" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qNq-1r-j67">
                                                     <behavior key="behavior" lightByContents="YES"/>
@@ -1986,7 +1986,7 @@ G1BhbiBTbGlkZXI
                                                 </connections>
                                             </button>
                                             <button toolTip="Move selected track up" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HNS-ia-vrf" userLabel="Up">
-                                                <rect key="frame" x="67" y="6" width="12" height="12"/>
+                                                <rect key="frame" x="69" y="6" width="10" height="14"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Up" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="mpe-B1-Zp1">
                                                     <behavior key="behavior" lightByContents="YES"/>
@@ -1997,7 +1997,7 @@ G1BhbiBTbGlkZXI
                                                 </connections>
                                             </button>
                                             <button toolTip="Move selected track down" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E6L-5f-RH3" userLabel="Down">
-                                                <rect key="frame" x="81" y="6" width="12" height="12"/>
+                                                <rect key="frame" x="80" y="4" width="10" height="14"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Down" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="hOm-qQ-za2">
                                                     <behavior key="behavior" lightByContents="YES"/>
@@ -2008,7 +2008,7 @@ G1BhbiBTbGlkZXI
                                                 </connections>
                                             </button>
                                             <button toolTip="Search playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lK6-tf-gG6" userLabel="Search">
-                                                <rect key="frame" x="99" y="6" width="12" height="12"/>
+                                                <rect key="frame" x="96" y="6" width="12" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Search" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="awc-yh-4CW">
                                                     <behavior key="behavior" lightByContents="YES"/>
@@ -2019,7 +2019,7 @@ G1BhbiBTbGlkZXI
                                                 </connections>
                                             </button>
                                             <button toolTip="Sort playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vfJ-Ss-snt" userLabel="Sort">
-                                                <rect key="frame" x="113" y="4" width="16" height="16"/>
+                                                <rect key="frame" x="110" y="4" width="16" height="16"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Sort" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="NRo-ze-1UN">
                                                     <behavior key="behavior" lightByContents="YES"/>
@@ -3626,7 +3626,7 @@ Gw
         </menu>
     </objects>
     <resources>
-        <image name="Add" width="128" height="128"/>
+        <image name="Add" width="134" height="134"/>
         <image name="Add-Small" width="14" height="14"/>
         <image name="AppIcon" width="400" height="400"/>
         <image name="Clear" width="34.599998474121094" height="40"/>
@@ -3638,7 +3638,7 @@ Gw
         <image name="DockLeft-Small" width="15" height="13"/>
         <image name="DockRight" width="154" height="127"/>
         <image name="DockRight-Small" width="15" height="13"/>
-        <image name="Down" width="25.600000381469727" height="25.600000381469727"/>
+        <image name="Down" width="92" height="128"/>
         <image name="Down-Small" width="1.3999999761581421" height="1.3999999761581421"/>
         <image name="EffectsView-On" width="419" height="422"/>
         <image name="Hide" width="94" height="94"/>
@@ -3662,7 +3662,7 @@ Gw
         <image name="PreviousTrack" width="162" height="88"/>
         <image name="PreviousTrack-Small" width="14" height="8"/>
         <image name="Record" width="256" height="256"/>
-        <image name="Remove" width="128" height="128"/>
+        <image name="Remove" width="134" height="134"/>
         <image name="Remove-Small" width="14" height="14"/>
         <image name="RepeatAll-Small" width="15" height="15"/>
         <image name="RepeatMode-Small" width="15" height="15"/>
@@ -3689,7 +3689,7 @@ Gw
         <image name="SwitchOff" width="185" height="512"/>
         <image name="ToggleEffectsView-Small" width="14" height="14"/>
         <image name="TogglePlaylistView-Small" width="14" height="12"/>
-        <image name="Up" width="25.600000381469727" height="25.600000381469727"/>
+        <image name="Up" width="92" height="128"/>
         <image name="Up-Small" width="1.3999999761581421" height="1.3999999761581421"/>
         <image name="VolumeHigh-Small" width="14" height="14"/>
         <image name="VolumeLow-Small" width="14" height="14"/>
