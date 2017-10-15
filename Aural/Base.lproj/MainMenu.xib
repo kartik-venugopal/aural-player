@@ -1524,7 +1524,7 @@ G1BhbiBTbGlkZXI
                                     </tabViewItems>
                                 </tabView>
                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="QU8-ZM-MyA">
-                                    <rect key="frame" x="0.0" y="147" width="385" height="5"/>
+                                    <rect key="frame" x="0.0" y="147" width="385" height="81"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </box>
                                 <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Mvg-eT-z2w" userLabel="Tab Buttons Box">
@@ -2460,7 +2460,7 @@ CA
                 </menuItem>
                 <menuItem title="Playback" id="voC-QS-eVy" userLabel="Playback">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Playback" autoenablesItems="NO" id="4gC-cq-kT9">
+                    <menu key="submenu" title="Playback" id="4gC-cq-kT9">
                         <items>
                             <menuItem title=" Play / Pause" image="PlayPause-Small" keyEquivalent=" " id="T9r-Uq-EPf">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -2552,7 +2552,7 @@ CA
                 </menuItem>
                 <menuItem title="Sound" id="Kxo-JK-yBP" userLabel="Sound">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Sound" autoenablesItems="NO" id="7VF-JM-uEm">
+                    <menu key="submenu" title="Sound" id="7VF-JM-uEm">
                         <items>
                             <menuItem title=" Mute / Unmute" image="Mute-Small" keyEquivalent="" id="zih-cf-fPv" userLabel="Mute/Unmute">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
