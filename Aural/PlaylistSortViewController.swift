@@ -55,10 +55,6 @@ class PlaylistSortViewController: NSViewController {
         
         // Update the UI
         playlistView.reloadData()
-        
-        let playingTrackIndex = playbackInfo.getPlayingTrack()?.index
-        playlistView.selectRowIndexes(IndexSet(integer: playingTrackIndex ?? 0), byExtendingSelection: false)
-        playlistView.scrollRowToVisible(playlistView.selectedRow)
     }
     
     @IBAction func sortCancelBtnAction(_ sender: Any) {

@@ -19,9 +19,9 @@ class UIConstants {
     static let trackInfoValueColumnID: String = "cv_trackInfoValue"
     
     // Index set used to reload specific playlist rows
-    static let playlistViewColumnIndexes: IndexSet = IndexSet([0,1])
+    static let playlistViewColumnIndexes: IndexSet = IndexSet([0, 1, 2])
     
-    // Animation displyed in playlist to mark the currently playing track
+    // Animation displayed in playlist to mark the currently playing track
     static let imgPlayingTrack: NSImage = NSImage(byReferencing: URL(fileURLWithPath: Bundle.main.path(forResource: "playingTrack", ofType: "gif")!))
     
     // Toggled images

@@ -119,8 +119,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             let oldPlayingTrackIndex = playbackInfo.getPlayingTrack()?.index
             playlist.removeTrack(index)
             
-            let newTrackIndex = playbackInfo.getPlayingTrack()?.index
-            
             // The new number of rows (after track removal) is one less than the size of the playlist view, because the view has not yet been updated
             let numRows = playlistView.numberOfRows - 1
             
@@ -134,7 +132,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             // Tell the playlist view to remove one row
             playlistView.noteNumberOfRowsChanged()
             updatePlaylistSummary()
-//            selectTrack(newTrackIndex)
             
             if (oldPlayingTrackIndex == index) {
                 // Request the player to stop playback, if the playing track was removed
@@ -166,10 +163,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             rowsArr.append(newTrack!.index)
         }
         
-        let rowIndexes = IndexSet(rowsArr)
-        playlistView.reloadData(forRowIndexes: rowIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
-        
-//        selectTrack(newTrack == nil ? nil : newTrack!.index)
+        playlistView.reloadData(forRowIndexes: IndexSet(rowsArr), columnIndexes: UIConstants.playlistViewColumnIndexes)
     }
     
     // Selects (and shows) a certain track within the playlist view
