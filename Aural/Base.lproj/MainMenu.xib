@@ -1761,7 +1761,7 @@ G1BhbiBTbGlkZXI
                                     <rect key="frame" x="0.0" y="25" width="383" height="188"/>
                                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Diy-3n-dhX">
                                         <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" id="rhk-oM-jMn">
                                                 <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
