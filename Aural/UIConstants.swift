@@ -24,6 +24,9 @@ class UIConstants {
     // Animation displayed in playlist to mark the currently playing track
     static let imgPlayingTrack: NSImage = NSImage(byReferencing: URL(fileURLWithPath: Bundle.main.path(forResource: "playingTrack", ofType: "gif")!))
     
+    // Animation displayed in the Now Playing art image view (for track artwork)
+    static let imgPlayingArt: NSImage = NSImage(byReferencing: URL(fileURLWithPath: Bundle.main.path(forResource: "playingArt", ofType: "gif")!))
+    
     // Toggled images
     static let imgPlay: NSImage = NSImage(named: "Play")!
     static let imgPause: NSImage = NSImage(named: "Pause")!
@@ -46,8 +49,6 @@ class UIConstants {
 
     static let imgSwitchOff: NSImage = NSImage(named: "SwitchOff")!
     static let imgSwitchOn: NSImage = NSImage(named: "SwitchOn")!
-    
-    static let imgMusicArt: NSImage = NSImage(named: "MusicArt")!
     
     static let imgPlaylistOn: NSImage = NSImage(named: "PlaylistView-On")!
     static let imgPlaylistOff: NSImage = NSImage(named: "PlaylistView-Off")!

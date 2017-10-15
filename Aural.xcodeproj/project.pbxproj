@@ -57,6 +57,7 @@
 		3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C481F14C9110040ECBC /* ParametricEQNode.swift */; };
 		3E6D75F81EFF79E0007F22A3 /* PlaylistKeyPressHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D75F71EFF79E0007F22A3 /* PlaylistKeyPressHandler.swift */; };
 		3E722F7B1EFCF4EC00916BF2 /* PlaylistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E722F7A1EFCF4EC00916BF2 /* PlaylistTableViewController.swift */; };
+		3E759CA91F9301CE005AEE26 /* playingArt.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E759CA01F9301CE005AEE26 /* playingArt.gif */; };
 		3E76D9BC1F0F4228007FF3F8 /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */; };
 		3E7B61E61F31AB1800F269F0 /* ValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B61E51F31AB1800F269F0 /* ValueFormatter.swift */; };
 		3E7C70001F5F45F00035AEF2 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C6FFF1F5F45F00035AEF2 /* PlaybackViewController.swift */; };
@@ -173,6 +174,7 @@
 		3E722F7A1EFCF4EC00916BF2 /* PlaylistTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewController.swift; sourceTree = "<group>"; };
 		3E72FCC51F2C0A780020FD20 /* Developer-readme.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Developer-readme.rtf"; sourceTree = "<group>"; };
 		3E72FCC61F2C0A780020FD20 /* Developer-TODOs.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Developer-TODOs.rtf"; sourceTree = "<group>"; };
+		3E759CA01F9301CE005AEE26 /* playingArt.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = playingArt.gif; path = Icons/playingArt.gif; sourceTree = "<group>"; };
 		3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
 		3E7B61E51F31AB1800F269F0 /* ValueFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueFormatter.swift; sourceTree = "<group>"; };
 		3E7C6FFF1F5F45F00035AEF2 /* PlaybackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 		3E6151591F91FE0E00351A66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3E759CA01F9301CE005AEE26 /* playingArt.gif */,
 				3E61516A1F920C7600351A66 /* playingTrack.gif */,
 			);
 			name = Resources;
@@ -637,6 +640,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E759CA91F9301CE005AEE26 /* playingArt.gif in Resources */,
 				3E61516B1F920C7600351A66 /* playingTrack.gif in Resources */,
 				3E85F25C1EFA78D6007BE830 /* Assets.xcassets in Resources */,
 				3EA5C7A31F458EB400556669 /* UserGuide.pdf in Resources */,

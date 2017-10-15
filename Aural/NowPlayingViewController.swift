@@ -44,6 +44,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         // Timer interval depends on whether time stretch unit is active
         seekTimer = RepeatingTaskExecutor(intervalMillis: appState.seekTimerInterval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
         
+        // Set up the art view and the default animation
+        artView.canDrawSubviewsIntoLayer = true
+        artView.image = UIConstants.imgPlayingArt
+        
         // Subscribe to various notifications
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.playbackRateChangedNotification, subscriber: self)
@@ -99,8 +103,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         if (track.displayInfo.art != nil) {
             artView.image = track.displayInfo.art!
         } else {
-            // Default (placeholder) artwork
-            artView.image = UIConstants.imgMusicArt
+            
+            // Default artwork animation
+            artView.image = UIConstants.imgPlayingArt
+            artView.animates = true
         }
         
         resetSeekPosition(track)
@@ -109,7 +115,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
     private func clearNowPlayingInfo() {
         
         [lblTrackArtist, lblTrackTitle, lblTrackName].forEach({$0?.stringValue = ""})
-        artView.image = UIConstants.imgMusicArt
+        artView.image = UIConstants.imgPlayingArt
+        artView.animates = false
         
         seekSlider.floatValue = 0
         lblTimeElapsed.isHidden = true
@@ -187,7 +194,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
             } else {
                 
                 // Error state
-                
                 setSeekTimerState(false)
             }
             
@@ -212,8 +218,23 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         }
     }
     
+    // When the playback state changes, the seek timer can be disabled when not needed (e.g. when paused)
     private func playbackStateChanged(_ newState: PlaybackState) {
+        
         setSeekTimerState(newState == .playing)
+        
+        // Pause/resume the art animation (if it is playing)
+        switch (newState) {
+            
+        case .playing:
+            
+            artView.animates = true
+        
+        default:
+            
+            // The track is either paused or no longer playing
+            artView.animates = false
+        }
     }
     
     func consumeNotification(_ notification: NotificationMessage) {

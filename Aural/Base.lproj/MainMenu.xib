@@ -137,7 +137,7 @@
                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YrG-JU-zDl">
                                     <rect key="frame" x="7" y="8" width="70" height="70"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="MusicArt" id="XZE-dj-fiU"/>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="XZE-dj-fiU"/>
                                 </imageView>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDo-O3-0JI" userLabel="Track Artist">
                                     <rect key="frame" x="85" y="54" width="279" height="23"/>
@@ -3633,7 +3633,6 @@ Gw
         <image name="MaximizeVertical-Small" width="15" height="14"/>
         <image name="MoreInfo" width="256" height="256"/>
         <image name="MoreInfo-Small" width="13" height="13"/>
-        <image name="MusicArt" width="183" height="183"/>
         <image name="Mute-Small" width="14" height="14"/>
         <image name="NextTrack" width="162" height="88"/>
         <image name="NextTrack-Small" width="14" height="8"/>
