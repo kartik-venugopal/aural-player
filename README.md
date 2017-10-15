@@ -1,6 +1,6 @@
 # Aural Player
 
-![App demo](/Documentation/Demos/GeneralDemo.gif?raw=true "App demo")
+![App demo](/Documentation/Demos/ShortGeneralDemo.gif?raw=true "App demo")
 
 ## Overview
 
