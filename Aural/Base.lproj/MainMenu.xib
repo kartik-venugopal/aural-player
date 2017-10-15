@@ -106,7 +106,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0m5-4l-3Wg">
-                                    <rect key="frame" x="85" y="20" width="293" height="15"/>
+                                    <rect key="frame" x="90" y="20" width="288" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <shadow key="shadow" blurRadius="1">
                                         <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -117,7 +117,7 @@
                                     </connections>
                                 </slider>
                                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4f4-mL-8YB" userLabel="Lbl Time Elapsed">
-                                    <rect key="frame" x="84" y="-4" width="70" height="27"/>
+                                    <rect key="frame" x="90" y="1" width="70" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0:00" placeholderString="" id="Dmj-zO-zIU">
                                         <font key="font" size="12" name="GillSans-SemiBold"/>
@@ -126,7 +126,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G6u-jj-tnv" userLabel="Lbl Time Remaining">
-                                    <rect key="frame" x="308" y="-4" width="70" height="27"/>
+                                    <rect key="frame" x="308" y="1" width="70" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="- 0:00" placeholderString="" id="jYD-ZF-QDz">
                                         <font key="font" size="12" name="GillSans-SemiBold"/>
@@ -359,118 +359,6 @@ G1BhbiBTbGlkZXI
                             <rect key="frame" x="1" y="1" width="383" height="172"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="as6-oD-NUN" userLabel="EQ button">
-                                    <rect key="frame" x="23" y="148" width="37" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="EQ" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="t8d-1M-SGx" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                            <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="eqTabViewAction:" target="fv4-nc-h1s" id="Cgg-Qa-ADm"/>
-                                    </connections>
-                                </button>
-                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ske-qV-fRn" userLabel="Pitch button">
-                                    <rect key="frame" x="62" y="148" width="45" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Pitch" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Dnk-Ab-YeF" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                            <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="pitchTabViewAction:" target="fv4-nc-h1s" id="CZX-5O-MHT"/>
-                                    </connections>
-                                </button>
-                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H6U-2l-Q6T" userLabel="Time button">
-                                    <rect key="frame" x="109" y="148" width="40" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Time" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="B1L-5Q-Sxe" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                            <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="timeTabViewAction:" target="fv4-nc-h1s" id="1y7-ph-rKB"/>
-                                    </connections>
-                                </button>
-                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fJP-YC-RHa" userLabel="Reverb button">
-                                    <rect key="frame" x="151" y="148" width="53" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Reverb" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zNR-6E-ifb" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                            <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="reverbTabViewAction:" target="fv4-nc-h1s" id="UbG-Fz-cEd"/>
-                                    </connections>
-                                </button>
-                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="frp-nG-aSH" userLabel="Delay button">
-                                    <rect key="frame" x="206" y="148" width="44" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Delay" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VqY-o1-acu" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                            <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="delayTabViewAction:" target="fv4-nc-h1s" id="K4w-AU-23u"/>
-                                    </connections>
-                                </button>
-                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jdg-7o-3QC" userLabel="Filter button">
-                                    <rect key="frame" x="252" y="148" width="41" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Filter" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DWe-Tf-APW" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                            <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="filterTabViewAction:" target="fv4-nc-h1s" id="UrU-7V-V4u"/>
-                                    </connections>
-                                </button>
-                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oIR-f6-2g1" userLabel="Recorder button">
-                                    <rect key="frame" x="295" y="148" width="66" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Recorder" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ftf-0d-Cg5" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                            <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="recorderTabViewAction:" target="fv4-nc-h1s" id="Edb-GB-dIH"/>
-                                    </connections>
-                                </button>
                                 <tabView fixedFrame="YES" drawsBackground="NO" type="rightTabsBezelBorder" initialItem="McD-gg-qp9" translatesAutoresizingMaskIntoConstraints="NO" id="ajb-w5-ueo" userLabel="FX Tabbed group">
                                     <rect key="frame" x="-7" y="-10" width="450" height="160"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -482,7 +370,7 @@ G1BhbiBTbGlkZXI
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOh-fy-QB5" userLabel="Frequencies">
-                                                        <rect key="frame" x="73" y="125" width="271" height="17"/>
+                                                        <rect key="frame" x="73" y="120" width="271" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="32      64      128     256     512     1k       2k      4k       8k     16k" id="KZ1-aN-0Yl">
                                                             <font key="font" size="10" name="GillSans"/>
@@ -491,7 +379,7 @@ G1BhbiBTbGlkZXI
                                                         </textFieldCell>
                                                     </textField>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XKK-aS-eMn" userLabel="EQGlobalGain">
-                                                        <rect key="frame" x="27" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="27" y="20" width="18" height="98"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="6vO-ax-c7J" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -499,7 +387,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z4B-Hr-jie" userLabel="Eq Slider16k">
-                                                        <rect key="frame" x="320" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="320" y="20" width="18" height="98"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="U2x-qh-bz3" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -507,7 +395,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qHV-Kz-sUG" userLabel="Eq Slider8k">
-                                                        <rect key="frame" x="292" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="292" y="20" width="18" height="98"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="57x-OJ-Uoc" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -515,7 +403,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VSQ-5C-2KO" userLabel="Eq Slider4k">
-                                                        <rect key="frame" x="264" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="264" y="20" width="18" height="98"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="mB8-98-dUb" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -523,7 +411,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DDL-Kj-I4h" userLabel="Eq Slider2k">
-                                                        <rect key="frame" x="236" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="236" y="20" width="18" height="98"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="FlN-4s-jCz" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -531,7 +419,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JGZ-0h-WTH" userLabel="Eq Slider1k">
-                                                        <rect key="frame" x="208" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="208" y="20" width="18" height="98"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="cSC-j0-EcW" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -539,7 +427,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lgr-1t-FRb">
-                                                        <rect key="frame" x="180" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="180" y="20" width="18" height="98"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="LCt-es-pWZ" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -547,7 +435,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuJ-l0-5ih">
-                                                        <rect key="frame" x="152" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="152" y="20" width="18" height="98"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="hbt-bq-h69" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -555,7 +443,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iEd-37-pLD">
-                                                        <rect key="frame" x="124" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="124" y="20" width="18" height="98"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="qQa-HK-oDY" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -563,7 +451,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mTb-nz-ndF">
-                                                        <rect key="frame" x="96" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="96" y="20" width="18" height="98"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="g3f-O3-rIn" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -571,7 +459,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lg0-FS-2I5">
-                                                        <rect key="frame" x="68" y="20" width="18" height="103"/>
+                                                        <rect key="frame" x="68" y="20" width="18" height="98"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="vmt-Be-jsH" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                         <connections>
@@ -579,7 +467,7 @@ G1BhbiBTbGlkZXI
                                                         </connections>
                                                     </slider>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3V-ab-jaC">
-                                                        <rect key="frame" x="47" y="103" width="20" height="21"/>
+                                                        <rect key="frame" x="47" y="98" width="20" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+20" id="E9O-1s-8rC">
                                                             <font key="font" size="10" name="GillSans"/>
@@ -597,7 +485,7 @@ G1BhbiBTbGlkZXI
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zm-Bg-NEY">
-                                                        <rect key="frame" x="48" y="64" width="15" height="16"/>
+                                                        <rect key="frame" x="48" y="61" width="15" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0" id="Je7-rK-ohz">
                                                             <font key="font" size="10" name="GillSans"/>
@@ -1635,6 +1523,134 @@ G1BhbiBTbGlkZXI
                                         </tabViewItem>
                                     </tabViewItems>
                                 </tabView>
+                                <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="QU8-ZM-MyA">
+                                    <rect key="frame" x="0.0" y="147" width="385" height="5"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                </box>
+                                <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Mvg-eT-z2w" userLabel="Tab Buttons Box">
+                                    <rect key="frame" x="19" y="145" width="344" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <view key="contentView" ambiguous="YES" id="czT-1A-A7C">
+                                        <rect key="frame" x="1" y="1" width="342" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="as6-oD-NUN" userLabel="EQ button">
+                                                <rect key="frame" x="-1" y="0.0" width="37" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" title="EQ" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="t8d-1M-SGx" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="eqTabViewAction:" target="fv4-nc-h1s" id="Cgg-Qa-ADm"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ske-qV-fRn" userLabel="Pitch button">
+                                                <rect key="frame" x="39" y="0.0" width="45" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" title="Pitch" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Dnk-Ab-YeF" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="pitchTabViewAction:" target="fv4-nc-h1s" id="CZX-5O-MHT"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H6U-2l-Q6T" userLabel="Time button">
+                                                <rect key="frame" x="87" y="0.0" width="40" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" title="Time" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="B1L-5Q-Sxe" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="timeTabViewAction:" target="fv4-nc-h1s" id="1y7-ph-rKB"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fJP-YC-RHa" userLabel="Reverb button">
+                                                <rect key="frame" x="130" y="0.0" width="53" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" title="Reverb" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zNR-6E-ifb" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="reverbTabViewAction:" target="fv4-nc-h1s" id="UbG-Fz-cEd"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="frp-nG-aSH" userLabel="Delay button">
+                                                <rect key="frame" x="186" y="0.0" width="44" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" title="Delay" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VqY-o1-acu" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="delayTabViewAction:" target="fv4-nc-h1s" id="K4w-AU-23u"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jdg-7o-3QC" userLabel="Filter button">
+                                                <rect key="frame" x="233" y="0.0" width="41" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" title="Filter" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DWe-Tf-APW" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="filterTabViewAction:" target="fv4-nc-h1s" id="UrU-7V-V4u"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oIR-f6-2g1" userLabel="Recorder button">
+                                                <rect key="frame" x="277" y="0.0" width="66" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" title="Recorder" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ftf-0d-Cg5" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="recorderTabViewAction:" target="fv4-nc-h1s" id="Edb-GB-dIH"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </view>
+                                    <color key="borderColor" white="0.15444672769970363" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </box>
                             </subviews>
                         </view>
                         <shadow key="shadow" blurRadius="5">
@@ -1761,7 +1777,7 @@ G1BhbiBTbGlkZXI
                                     <rect key="frame" x="0.0" y="25" width="383" height="188"/>
                                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Diy-3n-dhX">
                                         <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
-                                        <autoresizingMask key="autoresizingMask"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" id="rhk-oM-jMn">
                                                 <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
@@ -1879,7 +1895,7 @@ G1BhbiBTbGlkZXI
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JN3-2q-UO2" userLabel="Duration">
-                                                                        <rect key="frame" x="-2" y="-8" width="46" height="30"/>
+                                                                        <rect key="frame" x="-2" y="-8" width="45" height="30"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="30" id="bHr-fg-xG7"/>
                                                                         </constraints>
@@ -1891,7 +1907,7 @@ G1BhbiBTbGlkZXI
                                                                     </textField>
                                                                 </subviews>
                                                                 <constraints>
-                                                                    <constraint firstItem="JN3-2q-UO2" firstAttribute="trailing" secondItem="wOn-dT-ZDk" secondAttribute="trailing" constant="-3" id="KyH-i5-VVR"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="JN3-2q-UO2" secondAttribute="trailing" constant="4" id="Maj-hE-zOH"/>
                                                                     <constraint firstItem="JN3-2q-UO2" firstAttribute="top" secondItem="wOn-dT-ZDk" secondAttribute="top" id="d0l-7r-LUr"/>
                                                                     <constraint firstItem="JN3-2q-UO2" firstAttribute="leading" secondItem="wOn-dT-ZDk" secondAttribute="leading" id="jhH-TJ-fPV"/>
                                                                 </constraints>
@@ -2259,6 +2275,7 @@ G1BhbiBTbGlkZXI
                 <outlet property="lblTimeOverlapValue" destination="TVy-7n-XEc" id="b88-Vj-KMI"/>
                 <outlet property="lblTimeStretchRateValue" destination="hQy-Wa-pgf" id="Orz-Dh-Fdh"/>
                 <outlet property="lblVolume" destination="cgq-Jv-JKs" id="INJ-py-miT"/>
+                <outlet property="line" destination="QU8-ZM-MyA" id="JiT-mO-9LD"/>
                 <outlet property="panSlider" destination="wom-j6-eli" id="1p9-dZ-cRc"/>
                 <outlet property="pitchOverlapSlider" destination="9E2-MV-Hi7" id="EgG-Bp-jfO"/>
                 <outlet property="pitchSlider" destination="g6a-qD-rnZ" id="zWw-vR-BjR"/>

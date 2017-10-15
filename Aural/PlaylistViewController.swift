@@ -138,8 +138,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
                 SyncMessenger.publishRequest(StopPlaybackRequest.instance)
             }
         }
-        
-        showPlaylistSelectedRow()
     }
     
     private func handleTracksNotAddedError(_ errors: [InvalidTrackError]) {
@@ -191,12 +189,16 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     // Scrolls the playlist view to the very top
     @IBAction func scrollToTopAction(_ sender: AnyObject) {
-        selectTrack(0)
+        if (playlistView.numberOfRows > 0) {
+            playlistView.scrollRowToVisible(0)
+        }
     }
     
     // Scrolls the playlist view to the very bottom
     @IBAction func scrollToBottomAction(_ sender: AnyObject) {
-        selectTrack(playlistView.numberOfRows - 1)
+        if (playlistView.numberOfRows > 0) {
+            playlistView.scrollRowToVisible(playlistView.numberOfRows - 1)
+        }
     }
     
     @IBAction func clearPlaylistAction(_ sender: AnyObject) {

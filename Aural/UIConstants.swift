@@ -63,9 +63,12 @@ class UIConstants {
     static let imgWarning: NSImage = NSImage(named: "Warning")!
     static let imgError: NSImage = NSImage(named: "Error")!
     
-    private static let gillSans12Font: NSFont = NSFont(name: "Gill Sans", size: 12)!
-    private static let gillSans13Font: NSFont = NSFont(name: "Gill Sans", size: 13)!
     private static let gillSans12LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 12)!
+    private static let gillSans12Font: NSFont = NSFont(name: "Gill Sans", size: 12)!
+    private static let gillSans12SemiBoldFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
+    private static let gillSans12BoldFont: NSFont = NSFont(name: "Gill Sans Bold", size: 12)!
+    
+    private static let gillSans13Font: NSFont = NSFont(name: "Gill Sans", size: 13)!
     private static let gillSans13LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 13)!
     
     // Fonts used by the playlist view
@@ -74,12 +77,13 @@ class UIConstants {
     
     // Font used by the effects tab view buttons
     static let tabViewButtonFont: NSFont = gillSans12Font
+    static let tabViewButtonBoldFont: NSFont = gillSans12SemiBoldFont
     
     // Font used by modal dialog buttons
     static let modalDialogButtonFont: NSFont = gillSans12Font
     
     // Font used by the search modal dialog navigation buttons
-    static let modalDialogNavButtonFont: NSFont = NSFont(name: "Gill Sans Bold", size: 12)!
+    static let modalDialogNavButtonFont: NSFont = gillSans12BoldFont
     
     // Font used by modal dialog check and radio buttons
     static let checkRadioButtonFont: NSFont = NSFont(name: "Gill Sans", size: 11)!
