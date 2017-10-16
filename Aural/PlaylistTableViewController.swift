@@ -102,7 +102,7 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
             imgView.canDrawSubviewsIntoLayer = true
             imgView.imageScaling = .scaleProportionallyDown
             imgView.animates = animate
-            //imgView.image = UIConstants.imgPlayingTrack
+            imgView.image = UIConstants.imgPlayingTrack
             imgView.isHidden = false
             
             // Hide the text view

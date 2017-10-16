@@ -117,6 +117,8 @@
 		3EFFE6B91F036E81003728BD /* PlaylistIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFFE6B81F036E81003728BD /* PlaylistIO.swift */; };
 		3EFFE6BB1F0372B3003728BD /* TrackIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFFE6BA1F0372B3003728BD /* TrackIO.swift */; };
 		3EFFE6BE1F0381FA003728BD /* EQPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFFE6BD1F0381FA003728BD /* EQPresets.swift */; };
+		D2EB09DF1F953FA400E0510D /* playingArt.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E759CA01F9301CE005AEE26 /* playingArt.gif */; };
+		D2EB09E01F953FA700E0510D /* playingTrack.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E61516A1F920C7600351A66 /* playingTrack.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -165,14 +167,14 @@
 		3E58CC261F025B0D00C36DC1 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3E58CC281F02759D00C36DC1 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		3E58CC2A1F0275B200C36DC1 /* TimerUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerUtils.swift; sourceTree = "<group>"; };
-		3E61516A1F920C7600351A66 /* playingTrack.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = playingTrack.gif; path = Icons/playingTrack.gif; sourceTree = "<group>"; };
+		3E61516A1F920C7600351A66 /* playingTrack.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = playingTrack.gif; path = Resources/playingTrack.gif; sourceTree = "<group>"; };
 		3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiBandStopFilterNode.swift; sourceTree = "<group>"; };
 		3E633C481F14C9110040ECBC /* ParametricEQNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametricEQNode.swift; sourceTree = "<group>"; };
 		3E6D75F71EFF79E0007F22A3 /* PlaylistKeyPressHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistKeyPressHandler.swift; sourceTree = "<group>"; };
 		3E722F7A1EFCF4EC00916BF2 /* PlaylistTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewController.swift; sourceTree = "<group>"; };
 		3E72FCC51F2C0A780020FD20 /* Developer-readme.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Developer-readme.rtf"; sourceTree = "<group>"; };
 		3E72FCC61F2C0A780020FD20 /* Developer-TODOs.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Developer-TODOs.rtf"; sourceTree = "<group>"; };
-		3E759CA01F9301CE005AEE26 /* playingArt.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = playingArt.gif; path = Icons/playingArt.gif; sourceTree = "<group>"; };
+		3E759CA01F9301CE005AEE26 /* playingArt.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = playingArt.gif; path = Resources/playingArt.gif; sourceTree = "<group>"; };
 		3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
 		3E7B61E51F31AB1800F269F0 /* ValueFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueFormatter.swift; sourceTree = "<group>"; };
 		3E7C6FFF1F5F45F00035AEF2 /* PlaybackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
@@ -640,8 +642,10 @@
 			files = (
 				3E85F25C1EFA78D6007BE830 /* Assets.xcassets in Resources */,
 				3EA5C7A31F458EB400556669 /* UserGuide.pdf in Resources */,
+				D2EB09DF1F953FA400E0510D /* playingArt.gif in Resources */,
 				3E2188AC1F0781970085BAB3 /* PopoverViewController.xib in Resources */,
 				3E85F25F1EFA78D6007BE830 /* MainMenu.xib in Resources */,
+				D2EB09E01F953FA700E0510D /* playingTrack.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,10 +26,10 @@ class UIConstants {
     static let playlistViewColumnIndexes: IndexSet = IndexSet([0, 1, 2])
     
     // Animation displayed in playlist to mark the currently playing track
-    //static let imgPlayingTrack: NSImage = NSImage(byReferencing: URL(fileURLWithPath: Bundle.main.path(forResource: "playingTrack", ofType: "gif")!))
+    static let imgPlayingTrack: NSImage = NSImage(byReferencing: URL(fileURLWithPath: Bundle.main.path(forResource: "playingTrack", ofType: "gif")!))
     
     // Animation displayed in the Now Playing art image view (for track artwork)
-    //static let imgPlayingArt: NSImage = NSImage(byReferencing: URL(fileURLWithPath: Bundle.main.path(forResource: "playingArt", ofType: "gif")!))
+    static let imgPlayingArt: NSImage = NSImage(byReferencing: URL(fileURLWithPath: Bundle.main.path(forResource: "playingArt", ofType: "gif")!))
     
     // Toggled images
     static let imgPlay: NSImage = NSImage(named: NSImage.Name(rawValue: "Play"))!
