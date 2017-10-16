@@ -20,280 +20,280 @@ class ID3Spec: MetadataSpec {
         var map: [String: String] = [String: String]()
         
         // AENC
-        map[AVMetadataID3MetadataKeyAudioEncryption] = "Audio Encryption"
+        map[AVMetadataKey.id3MetadataKeyAudioEncryption.rawValue] = "Audio Encryption"
         
         // APIC
-        map[AVMetadataID3MetadataKeyAttachedPicture] = "Attached Picture"
+        map[AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue] = "Attached Picture"
         
         // ASPI
-        map[AVMetadataID3MetadataKeyAudioSeekPointIndex] = "Audio Seek Point Index"
+        map[AVMetadataKey.id3MetadataKeyAudioSeekPointIndex.rawValue] = "Audio Seek Point Index"
         
         // COMM
-        map[AVMetadataID3MetadataKeyComments] = "Comments"
+        map[AVMetadataKey.id3MetadataKeyComments.rawValue] = "Comments"
         
         // COMR
-        map[AVMetadataID3MetadataKeyCommerical] = "Commercial Frame"
+        map[AVMetadataKey.id3MetadataKeyCommerical.rawValue] = "Commercial Frame"
         
         // ENCR
-        map[AVMetadataID3MetadataKeyEncryption] = "Encryption Method Registration"
+        map[AVMetadataKey.id3MetadataKeyEncryption.rawValue] = "Encryption Method Registration"
         
         // EQU2
-        map[AVMetadataID3MetadataKeyEqualization2] = "Equalization"
+        map[AVMetadataKey.id3MetadataKeyEqualization2.rawValue] = "Equalization"
         
         // EQUA
-        map[AVMetadataID3MetadataKeyEqualization] = "Equalization"
+        map[AVMetadataKey.id3MetadataKeyEqualization.rawValue] = "Equalization"
         
         // ETCO
-        map[AVMetadataID3MetadataKeyEventTimingCodes] = "Event Timing Codes"
+        map[AVMetadataKey.id3MetadataKeyEventTimingCodes.rawValue] = "Event Timing Codes"
         
         // GEOB
-        map[AVMetadataID3MetadataKeyGeneralEncapsulatedObject] = "General Encapsulated Object"
+        map[AVMetadataKey.id3MetadataKeyGeneralEncapsulatedObject.rawValue] = "General Encapsulated Object"
         
         // GRID
-        map[AVMetadataID3MetadataKeyGroupIdentifier] = "Group Identification Registration"
+        map[AVMetadataKey.id3MetadataKeyGroupIdentifier.rawValue] = "Group Identification Registration"
         
         // IPLS
-        map[AVMetadataID3MetadataKeyInvolvedPeopleList_v23] = "Involved People List"
+        map[AVMetadataKey.id3MetadataKeyInvolvedPeopleList_v23.rawValue] = "Involved People List"
         
         // LINK
-        map[AVMetadataID3MetadataKeyLink] = "Linked Information"
+        map[AVMetadataKey.id3MetadataKeyLink.rawValue] = "Linked Information"
         
         // MCDI
-        map[AVMetadataID3MetadataKeyMusicCDIdentifier] = "Music CD Identifier"
+        map[AVMetadataKey.id3MetadataKeyMusicCDIdentifier.rawValue] = "Music CD Identifier"
         
         // MLLT
-        map[AVMetadataID3MetadataKeyMPEGLocationLookupTable] = "MPEG Location Lookup Table"
+        map[AVMetadataKey.id3MetadataKeyMPEGLocationLookupTable.rawValue] = "MPEG Location Lookup Table"
         
         // OWNE
-        map[AVMetadataID3MetadataKeyOwnership] = "Ownership Frame"
+        map[AVMetadataKey.id3MetadataKeyOwnership.rawValue] = "Ownership Frame"
         
         // PCNT
-        map[AVMetadataID3MetadataKeyPlayCounter] = "Play Counter"
+        map[AVMetadataKey.id3MetadataKeyPlayCounter.rawValue] = "Play Counter"
         
         // POPM
-        map[AVMetadataID3MetadataKeyPopularimeter] = "Popularimeter"
+        map[AVMetadataKey.id3MetadataKeyPopularimeter.rawValue] = "Popularimeter"
         
         // POSS
-        map[AVMetadataID3MetadataKeyPositionSynchronization] = "Position Synchronisation Frame"
+        map[AVMetadataKey.id3MetadataKeyPositionSynchronization.rawValue] = "Position Synchronisation Frame"
         
         // PRIV
-        map[AVMetadataID3MetadataKeyPrivate] = "Private Frame"
+        map[AVMetadataKey.id3MetadataKeyPrivate.rawValue] = "Private Frame"
         
         // RBUF
-        map[AVMetadataID3MetadataKeyRecommendedBufferSize] = "Recommended Buffer Size"
+        map[AVMetadataKey.id3MetadataKeyRecommendedBufferSize.rawValue] = "Recommended Buffer Size"
         
         // RVA2
-        map[AVMetadataID3MetadataKeyRelativeVolumeAdjustment2] = "Relative Volume Adjustment"
+        map[AVMetadataKey.id3MetadataKeyRelativeVolumeAdjustment2.rawValue] = "Relative Volume Adjustment"
         
         // RVAD
-        map[AVMetadataID3MetadataKeyRelativeVolumeAdjustment] = "Relative Volume Adjustment"
+        map[AVMetadataKey.id3MetadataKeyRelativeVolumeAdjustment.rawValue] = "Relative Volume Adjustment"
         
         // RVRB
-        map[AVMetadataID3MetadataKeyReverb] = "Reverb"
+        map[AVMetadataKey.id3MetadataKeyReverb.rawValue] = "Reverb"
         
         // SEEK
-        map[AVMetadataID3MetadataKeySeek] = "Seek"
+        map[AVMetadataKey.id3MetadataKeySeek.rawValue] = "Seek"
         
         // SIGN
-        map[AVMetadataID3MetadataKeySignature] = "Signature"
+        map[AVMetadataKey.id3MetadataKeySignature.rawValue] = "Signature"
         
         // SYLT
-        map[AVMetadataID3MetadataKeySynchronizedLyric] = "Synchronized Lyric"
+        map[AVMetadataKey.id3MetadataKeySynchronizedLyric.rawValue] = "Synchronized Lyric"
         
         // SYTC
-        map[AVMetadataID3MetadataKeySynchronizedTempoCodes] = "Synchronized Tempo Codes"
+        map[AVMetadataKey.id3MetadataKeySynchronizedTempoCodes.rawValue] = "Synchronized Tempo Codes"
         
         // TALB
-        map[AVMetadataID3MetadataKeyAlbumTitle] = "Album Name"
+        map[AVMetadataKey.id3MetadataKeyAlbumTitle.rawValue] = "Album Name"
         
         // TBPM
-        map[AVMetadataID3MetadataKeyBeatsPerMinute] = "BPM (Beats Per Minute)"
+        map[AVMetadataKey.id3MetadataKeyBeatsPerMinute.rawValue] = "BPM (Beats Per Minute)"
         
         // TCOM
-        map[AVMetadataID3MetadataKeyComposer] = "Composer"
+        map[AVMetadataKey.id3MetadataKeyComposer.rawValue] = "Composer"
         
         // TCON
-        map[AVMetadataID3MetadataKeyContentType] = "Content Type"
+        map[AVMetadataKey.id3MetadataKeyContentType.rawValue] = "Content Type"
         
         // TCOP
-        map[AVMetadataID3MetadataKeyCopyright] = "Copyright Message"
+        map[AVMetadataKey.id3MetadataKeyCopyright.rawValue] = "Copyright Message"
         
         // TDAT
-        map[AVMetadataID3MetadataKeyDate] = "Date"
+        map[AVMetadataKey.id3MetadataKeyDate.rawValue] = "Date"
         
         // TDEN
-        map[AVMetadataID3MetadataKeyEncodingTime] = "Encoding Time"
+        map[AVMetadataKey.id3MetadataKeyEncodingTime.rawValue] = "Encoding Time"
         
         // TDLY
-        map[AVMetadataID3MetadataKeyPlaylistDelay] = "Playlist Delay"
+        map[AVMetadataKey.id3MetadataKeyPlaylistDelay.rawValue] = "Playlist Delay"
         
         // TDOR
-        map[AVMetadataID3MetadataKeyOriginalReleaseTime] = "Original Release Time"
+        map[AVMetadataKey.id3MetadataKeyOriginalReleaseTime.rawValue] = "Original Release Time"
         
         // TDRC
-        map[AVMetadataID3MetadataKeyRecordingTime] = "Recording Time"
+        map[AVMetadataKey.id3MetadataKeyRecordingTime.rawValue] = "Recording Time"
         
         // TDRL
-        map[AVMetadataID3MetadataKeyReleaseTime] = "Release Time"
+        map[AVMetadataKey.id3MetadataKeyReleaseTime.rawValue] = "Release Time"
         
         // TDTG
-        map[AVMetadataID3MetadataKeyTaggingTime] = "Tagging Time"
+        map[AVMetadataKey.id3MetadataKeyTaggingTime.rawValue] = "Tagging Time"
         
         // TENC
-        map[AVMetadataID3MetadataKeyEncodedBy] = "Encoded By"
+        map[AVMetadataKey.id3MetadataKeyEncodedBy.rawValue] = "Encoded By"
         
         // TEXT
-        map[AVMetadataID3MetadataKeyLyricist] = "Lyricist"
+        map[AVMetadataKey.id3MetadataKeyLyricist.rawValue] = "Lyricist"
         
         // TFLT
-        map[AVMetadataID3MetadataKeyFileType] = "File Type"
+        map[AVMetadataKey.id3MetadataKeyFileType.rawValue] = "File Type"
         
         // TIME
-        map[AVMetadataID3MetadataKeyTime] = "Time"
+        map[AVMetadataKey.id3MetadataKeyTime.rawValue] = "Time"
         
         // TIPL
-        map[AVMetadataID3MetadataKeyInvolvedPeopleList_v24] = "Involved People List"
+        map[AVMetadataKey.id3MetadataKeyInvolvedPeopleList_v24.rawValue] = "Involved People List"
         
         // TIT1
-        map[AVMetadataID3MetadataKeyContentGroupDescription] = "Content Group Description"
+        map[AVMetadataKey.id3MetadataKeyContentGroupDescription.rawValue] = "Content Group Description"
         
         // TIT2
-        map[AVMetadataID3MetadataKeyTitleDescription] = "Title"
+        map[AVMetadataKey.id3MetadataKeyTitleDescription.rawValue] = "Title"
         
         // TIT3
-        map[AVMetadataID3MetadataKeySubTitle] = "Subtitle"
+        map[AVMetadataKey.id3MetadataKeySubTitle.rawValue] = "Subtitle"
         
         // TKEY
-        map[AVMetadataID3MetadataKeyInitialKey] = "Initial Key"
+        map[AVMetadataKey.id3MetadataKeyInitialKey.rawValue] = "Initial Key"
         
         // TLAN
-        map[AVMetadataID3MetadataKeyLanguage] = "Language(s)"
+        map[AVMetadataKey.id3MetadataKeyLanguage.rawValue] = "Language(s)"
         
         // TLEN
-        map[AVMetadataID3MetadataKeyLength] = "Length"
+        map[AVMetadataKey.id3MetadataKeyLength.rawValue] = "Length"
         
         // TMCL
-        map[AVMetadataID3MetadataKeyMusicianCreditsList] = "Musician Credits List"
+        map[AVMetadataKey.id3MetadataKeyMusicianCreditsList.rawValue] = "Musician Credits List"
         
         // TMED
-        map[AVMetadataID3MetadataKeyMediaType] = "Media Type"
+        map[AVMetadataKey.id3MetadataKeyMediaType.rawValue] = "Media Type"
         
         // TMOO
-        map[AVMetadataID3MetadataKeyMood] = "Mood"
+        map[AVMetadataKey.id3MetadataKeyMood.rawValue] = "Mood"
         
         // TOAL
-        map[AVMetadataID3MetadataKeyOriginalAlbumTitle] = "Original Album Title"
+        map[AVMetadataKey.id3MetadataKeyOriginalAlbumTitle.rawValue] = "Original Album Title"
         
         // TOFN
-        map[AVMetadataID3MetadataKeyOriginalFilename] = "Original Filename"
+        map[AVMetadataKey.id3MetadataKeyOriginalFilename.rawValue] = "Original Filename"
         
         // TOLY
-        map[AVMetadataID3MetadataKeyOriginalLyricist] = "Original Lyricist(s)"
+        map[AVMetadataKey.id3MetadataKeyOriginalLyricist.rawValue] = "Original Lyricist(s)"
         
         // TOPE
-        map[AVMetadataID3MetadataKeyOriginalArtist] = "Original Artist(s)"
+        map[AVMetadataKey.id3MetadataKeyOriginalArtist.rawValue] = "Original Artist(s)"
         
         // TORY
-        map[AVMetadataID3MetadataKeyOriginalReleaseYear] = "Original Release Year"
+        map[AVMetadataKey.id3MetadataKeyOriginalReleaseYear.rawValue] = "Original Release Year"
         
         // TOWN
-        map[AVMetadataID3MetadataKeyFileOwner] = "File Owner"
+        map[AVMetadataKey.id3MetadataKeyFileOwner.rawValue] = "File Owner"
         
         // TPE1
-        map[AVMetadataID3MetadataKeyLeadPerformer] = "Lead Performer(s)"
+        map[AVMetadataKey.id3MetadataKeyLeadPerformer.rawValue] = "Lead Performer(s)"
         
         // TPE2
-        map[AVMetadataID3MetadataKeyBand] = "Band"
+        map[AVMetadataKey.id3MetadataKeyBand.rawValue] = "Band"
         
         // TPE3
-        map[AVMetadataID3MetadataKeyConductor] = "Conductor"
+        map[AVMetadataKey.id3MetadataKeyConductor.rawValue] = "Conductor"
         
         // TPE4
-        map[AVMetadataID3MetadataKeyModifiedBy] = "Interpreted, Remixed, Or Otherwise Modified By"
+        map[AVMetadataKey.id3MetadataKeyModifiedBy.rawValue] = "Interpreted, Remixed, Or Otherwise Modified By"
         
         // TPOS
-        map[AVMetadataID3MetadataKeyPartOfASet] = "Part Of A Set"
+        map[AVMetadataKey.id3MetadataKeyPartOfASet.rawValue] = "Part Of A Set"
         
         // TPRO
-        map[AVMetadataID3MetadataKeyProducedNotice] = "Produced Notice"
+        map[AVMetadataKey.id3MetadataKeyProducedNotice.rawValue] = "Produced Notice"
         
         // TPUB
-        map[AVMetadataID3MetadataKeyPublisher] = "Publisher"
+        map[AVMetadataKey.id3MetadataKeyPublisher.rawValue] = "Publisher"
         
         // TRCK
-        map[AVMetadataID3MetadataKeyTrackNumber] = "Track Number"
+        map[AVMetadataKey.id3MetadataKeyTrackNumber.rawValue] = "Track Number"
         
         // TRDA
-        map[AVMetadataID3MetadataKeyRecordingDates] = "Recording Dates"
+        map[AVMetadataKey.id3MetadataKeyRecordingDates.rawValue] = "Recording Dates"
         
         // TRSN
-        map[AVMetadataID3MetadataKeyInternetRadioStationName] = "Internet Radio Station Name"
+        map[AVMetadataKey.id3MetadataKeyInternetRadioStationName.rawValue] = "Internet Radio Station Name"
         
         // TRSO
-        map[AVMetadataID3MetadataKeyInternetRadioStationOwner] = "Internet Radio Station Owner"
+        map[AVMetadataKey.id3MetadataKeyInternetRadioStationOwner.rawValue] = "Internet Radio Station Owner"
         
         // TSIZ
-        map[AVMetadataID3MetadataKeySize] = "Size"
+        map[AVMetadataKey.id3MetadataKeySize.rawValue] = "Size"
         
         // TSOA
-        map[AVMetadataID3MetadataKeyAlbumSortOrder] = "Album Sort Order"
+        map[AVMetadataKey.id3MetadataKeyAlbumSortOrder.rawValue] = "Album Sort Order"
         
         // TSOP
-        map[AVMetadataID3MetadataKeyPerformerSortOrder] = "Performer Sort Order"
+        map[AVMetadataKey.id3MetadataKeyPerformerSortOrder.rawValue] = "Performer Sort Order"
         
         // TSOT
-        map[AVMetadataID3MetadataKeyTitleSortOrder] = "Title Sort Order"
+        map[AVMetadataKey.id3MetadataKeyTitleSortOrder.rawValue] = "Title Sort Order"
         
         // TSRC
-        map[AVMetadataID3MetadataKeyInternationalStandardRecordingCode] = "ISRC (International Standard Recording Code)"
+        map[AVMetadataKey.id3MetadataKeyInternationalStandardRecordingCode.rawValue] = "ISRC (International Standard Recording Code)"
         
         // TSSE
-        map[AVMetadataID3MetadataKeyEncodedWith] = "Encoding Software / Hardware"
+        map[AVMetadataKey.id3MetadataKeyEncodedWith.rawValue] = "Encoding Software / Hardware"
         
         // TSST
-        map[AVMetadataID3MetadataKeySetSubtitle] = "Set Subtitle"
+        map[AVMetadataKey.id3MetadataKeySetSubtitle.rawValue] = "Set Subtitle"
         
         // TXXX
-        map[AVMetadataID3MetadataKeyUserText] = "User Defined Text Information Frame"
+        map[AVMetadataKey.id3MetadataKeyUserText.rawValue] = "User Defined Text Information Frame"
         
         // TYER
-        map[AVMetadataID3MetadataKeyYear] = "Year"
+        map[AVMetadataKey.id3MetadataKeyYear.rawValue] = "Year"
         
         // UFID
-        map[AVMetadataID3MetadataKeyUniqueFileIdentifier] = "Unique File Identifier"
+        map[AVMetadataKey.id3MetadataKeyUniqueFileIdentifier.rawValue] = "Unique File Identifier"
         
         // USER
-        map[AVMetadataID3MetadataKeyTermsOfUse] = "Terms Of Use"
+        map[AVMetadataKey.id3MetadataKeyTermsOfUse.rawValue] = "Terms Of Use"
         
         // USLT
-        map[AVMetadataID3MetadataKeyUnsynchronizedLyric] = "Unsychronized Lyric"
+        map[AVMetadataKey.id3MetadataKeyUnsynchronizedLyric.rawValue] = "Unsychronized Lyric"
         
         // WCOM
-        map[AVMetadataID3MetadataKeyCommercialInformation] = "Commercial Information"
+        map[AVMetadataKey.id3MetadataKeyCommercialInformation.rawValue] = "Commercial Information"
         
         // WCOP
-        map[AVMetadataID3MetadataKeyCopyrightInformation] = "Copyright Information"
+        map[AVMetadataKey.id3MetadataKeyCopyrightInformation.rawValue] = "Copyright Information"
         
         // WOAF
-        map[AVMetadataID3MetadataKeyOfficialAudioFileWebpage] = "Official Audio File Webpage"
+        map[AVMetadataKey.id3MetadataKeyOfficialAudioFileWebpage.rawValue] = "Official Audio File Webpage"
         
         // WOAR
-        map[AVMetadataID3MetadataKeyOfficialArtistWebpage] = "Official Artist Webpage"
+        map[AVMetadataKey.id3MetadataKeyOfficialArtistWebpage.rawValue] = "Official Artist Webpage"
         
         // WOAS
-        map[AVMetadataID3MetadataKeyOfficialAudioSourceWebpage] = "Official Audio Source Webpage"
+        map[AVMetadataKey.id3MetadataKeyOfficialAudioSourceWebpage.rawValue] = "Official Audio Source Webpage"
         
         // WORS
-        map[AVMetadataID3MetadataKeyOfficialInternetRadioStationHomepage] = "Official Internet Radio Station Homepage"
+        map[AVMetadataKey.id3MetadataKeyOfficialInternetRadioStationHomepage.rawValue] = "Official Internet Radio Station Homepage"
         
         // WPAY
-        map[AVMetadataID3MetadataKeyPayment] = "Payment"
+        map[AVMetadataKey.id3MetadataKeyPayment.rawValue] = "Payment"
         
         // WPUB
-        map[AVMetadataID3MetadataKeyOfficialPublisherWebpage] = "Publishers Official Webpage"
+        map[AVMetadataKey.id3MetadataKeyOfficialPublisherWebpage.rawValue] = "Publishers Official Webpage"
         
         // WXXX
-        map[AVMetadataID3MetadataKeyUserURL] = "User Defined URL Link Frame"
+        map[AVMetadataKey.id3MetadataKeyUserURL.rawValue] = "User Defined URL Link Frame"
         
         return map
     }

@@ -41,7 +41,7 @@ class AudioIO {
     // Reads a single buffer, with a specified length, of audio data from the specified audio file. The length argument holds the total number of frames in the file. Returns the new buffer with audio data and a flag indicating whether or not EOF was reached during the read.
     static func readAudio(_ seconds: Double, _ audioFile: AVAudioFile, _ length: AVAudioFramePosition) -> (buffer: AVAudioPCMBuffer, eof: Bool) {
         
-        let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: audioFile.processingFormat, frameCapacity: AVAudioFrameCount(seconds * audioFile.processingFormat.sampleRate))
+        let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: audioFile.processingFormat, frameCapacity: AVAudioFrameCount(seconds * audioFile.processingFormat.sampleRate))!
         
         do {
             try audioFile.read(into: buffer)

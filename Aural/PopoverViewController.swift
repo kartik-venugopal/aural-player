@@ -34,16 +34,16 @@ class PopoverViewController: NSViewController, NSTableViewDataSource, NSTableVie
     // Factory method to create an instance of this class, exposed as an instance of PopoverViewDelegateProtocol
     static func create(_ relativeToView: NSView) -> PopoverViewDelegateProtocol {
         
-        let controller = PopoverViewController(nibName: "PopoverViewController", bundle: Bundle.main)
+        let controller = PopoverViewController(nibName: NSNib.Name(rawValue: "PopoverViewController"), bundle: Bundle.main)
         
         let popover = NSPopover()
         popover.behavior = .semitransient
-        popover.contentViewController = controller!
+        popover.contentViewController = controller
         
-        controller!.popover = popover
-        controller!.relativeToView = relativeToView
+        controller.popover = popover
+        controller.relativeToView = relativeToView
         
-        return controller!
+        return controller
     }
     
     override func viewDidLoad() {

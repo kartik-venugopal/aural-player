@@ -274,7 +274,7 @@ class AudioGraphViewController: NSViewController {
         volumeLabelHidingTimer = Timer.scheduledTimer(timeInterval: UIConstants.feedbackLabelAutoHideIntervalSeconds, target: self, selector: #selector(self.hideVolumeLabel), userInfo: nil, repeats: false)
     }
     
-    func hideVolumeLabel() {
+    @objc func hideVolumeLabel() {
         lblVolume.isHidden = true
     }
     
@@ -316,7 +316,7 @@ class AudioGraphViewController: NSViewController {
         panLabelHidingTimer = Timer.scheduledTimer(timeInterval: UIConstants.feedbackLabelAutoHideIntervalSeconds, target: self, selector: #selector(self.hidePanLabel), userInfo: nil, repeats: false)
     }
     
-    func hidePanLabel() {
+    @objc func hidePanLabel() {
         lblPan.isHidden = true
     }
     
@@ -521,57 +521,57 @@ class AudioGraphViewController: NSViewController {
     
     @IBAction func eqTabViewAction(_ sender: Any) {
         
-        fxTabViewButtons!.forEach({$0.state = 0})
+        fxTabViewButtons!.forEach({$0.state = NSControl.StateValue(rawValue: 0)})
         
-        eqTabViewButton.state = 1
+        eqTabViewButton.state = NSControl.StateValue(rawValue: 1)
         fxTabView.selectTabViewItem(at: 0)
     }
     
     @IBAction func pitchTabViewAction(_ sender: Any) {
         
-        fxTabViewButtons!.forEach({$0.state = 0})
+        fxTabViewButtons!.forEach({$0.state = NSControl.StateValue(rawValue: 0)})
         
-        pitchTabViewButton.state = 1
+        pitchTabViewButton.state = NSControl.StateValue(rawValue: 1)
         fxTabView.selectTabViewItem(at: 1)
     }
     
     @IBAction func timeTabViewAction(_ sender: Any) {
         
-        fxTabViewButtons!.forEach({$0.state = 0})
+        fxTabViewButtons!.forEach({$0.state = NSControl.StateValue(rawValue: 0)})
         
-        timeTabViewButton.state = 1
+        timeTabViewButton.state = NSControl.StateValue(rawValue: 1)
         fxTabView.selectTabViewItem(at: 2)
     }
     
     @IBAction func reverbTabViewAction(_ sender: Any) {
         
-        fxTabViewButtons!.forEach({$0.state = 0})
+        fxTabViewButtons!.forEach({$0.state = NSControl.StateValue(rawValue: 0)})
         
-        reverbTabViewButton.state = 1
+        reverbTabViewButton.state = NSControl.StateValue(rawValue: 1)
         fxTabView.selectTabViewItem(at: 3)
     }
     
     @IBAction func delayTabViewAction(_ sender: Any) {
         
-        fxTabViewButtons!.forEach({$0.state = 0})
+        fxTabViewButtons!.forEach({$0.state = NSControl.StateValue(rawValue: 0)})
         
-        delayTabViewButton.state = 1
+        delayTabViewButton.state = NSControl.StateValue(rawValue: 1)
         fxTabView.selectTabViewItem(at: 4)
     }
     
     @IBAction func filterTabViewAction(_ sender: Any) {
         
-        fxTabViewButtons!.forEach({$0.state = 0})
+        fxTabViewButtons!.forEach({$0.state = NSControl.StateValue(rawValue: 0)})
         
-        filterTabViewButton.state = 1
+        filterTabViewButton.state = NSControl.StateValue(rawValue: 1)
         fxTabView.selectTabViewItem(at: 5)
     }
     
     @IBAction func recorderTabViewAction(_ sender: Any) {
         
-        fxTabViewButtons!.forEach({$0.state = 0})
+        fxTabViewButtons!.forEach({$0.state = NSControl.StateValue(rawValue: 0)})
         
-        recorderTabViewButton.state = 1
+        recorderTabViewButton.state = NSControl.StateValue(rawValue: 1)
         fxTabView.selectTabViewItem(at: 6)
     }
 }

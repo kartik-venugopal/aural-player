@@ -21,7 +21,7 @@ class UIUtils {
     }
     
     // Centers an alert with respect to the main app window, and shows it. Returns the modal response from the alert.
-    static func showAlert(_ alert: NSAlert) -> NSModalResponse {
+    static func showAlert(_ alert: NSAlert) -> NSApplication.ModalResponse {
         
         centerDialog(alert.window)
         return alert.runModal()
@@ -51,7 +51,7 @@ class UIUtils {
     // Computes a window position relative to the desired location on screen, e.g Top left or Bottom center, etc.
     static func windowPositionRelativeToScreen(_ windowWidth: CGFloat, _ windowHeight: CGFloat, _ locationOnScreen: WindowLocations) -> NSPoint {
         
-        let screen = NSScreen.main()!
+        let screen = NSScreen.main!
         let screenWidth = screen.frame.width
         let screenHeight = screen.frame.height
         

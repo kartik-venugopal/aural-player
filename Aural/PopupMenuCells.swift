@@ -36,13 +36,13 @@ class PopupMenuCell: NSPopUpButtonCell {
     
     override func drawTitle(_ title: NSAttributedString, withFrame: NSRect, in inView: NSView) -> NSRect {
         
-        let textStyle = NSMutableParagraphStyle.default().mutableCopy() as! NSMutableParagraphStyle
+        let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         textStyle.alignment = NSTextAlignment.center
         
         let textFontAttributes = [
-            NSFontAttributeName: titleFont,
-            NSForegroundColorAttributeName: titleColor,
-            NSParagraphStyleAttributeName: textStyle
+            NSAttributedStringKey.font: titleFont,
+            NSAttributedStringKey.foregroundColor: titleColor,
+            NSAttributedStringKey.paragraphStyle: textStyle
         ]
         
         title.string.draw(in: withFrame, withAttributes: textFontAttributes)

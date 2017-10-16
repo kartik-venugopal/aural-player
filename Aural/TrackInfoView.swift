@@ -36,7 +36,7 @@ class TrackInfoView: NSTableRowView {
     
     private func createCell(_ id: String, _ text: String) -> NSTableCellView? {
         
-        if let cell = TrackInfoViewHolder.trackInfoView!.make(withIdentifier: id, owner: nil) as? NSTableCellView {
+        if let cell = TrackInfoViewHolder.trackInfoView!.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: id), owner: nil) as? NSTableCellView {
             
             cell.textField?.stringValue = text
             return cell

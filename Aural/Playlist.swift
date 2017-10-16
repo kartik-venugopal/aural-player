@@ -190,7 +190,7 @@ class Playlist: PlaylistCRUDProtocol {
             // Make sure album info has been loaded (it is loaded lazily)
             MetadataReader.loadSearchMetadata(track)
             
-            if let album = track.metadata[AVMetadataCommonKeyAlbumName]?.value {
+            if let album = track.metadata[AVMetadataKey.commonKeyAlbumName.rawValue]?.value {
                 
                 if (compare(album, searchQuery)) {
                     return (true, "album", album)

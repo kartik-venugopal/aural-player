@@ -6,7 +6,7 @@ import Cocoa
 
 class HelpViewController: NSViewController {
     
-    private let workspace: NSWorkspace = NSWorkspace.shared()
+    private let workspace: NSWorkspace = NSWorkspace.shared
     
     // Opens the online (HTML) user guide
     @IBAction func onlineUserGuideAction(_ sender: Any) {

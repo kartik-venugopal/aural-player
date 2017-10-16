@@ -17,8 +17,8 @@ class PopoverContentView: NSView {
             if backgroundView == nil {
                 
                 backgroundView = PopoverBackgroundView(frame: frameView.bounds)
-                backgroundView!.autoresizingMask = NSAutoresizingMaskOptions([.viewWidthSizable, .viewHeightSizable]);
-                frameView.addSubview(backgroundView!, positioned: NSWindowOrderingMode.below, relativeTo: frameView)
+                backgroundView!.autoresizingMask = NSView.AutoresizingMask([NSView.AutoresizingMask.width, NSView.AutoresizingMask.height]);
+                frameView.addSubview(backgroundView!, positioned: NSWindow.OrderingMode.below, relativeTo: frameView)
             }
         }
     }
@@ -27,6 +27,6 @@ class PopoverContentView: NSView {
 class PopoverBackgroundView:NSView {
     override func draw(_ dirtyRect: NSRect) {
         Colors.popoverBackgroundColor.setFill()
-        NSRectFill(self.bounds)
+        self.bounds.fill()
     }
 }

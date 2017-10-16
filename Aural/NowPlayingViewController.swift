@@ -46,7 +46,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         
         // Set up the art view and the default animation
         artView.canDrawSubviewsIntoLayer = true
-        artView.image = UIConstants.imgPlayingArt
+        //artView.image = UIConstants.imgPlayingArt
         
         // Subscribe to various notifications
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
@@ -112,7 +112,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         } else {
             
             // Default artwork animation
-            artView.image = UIConstants.imgPlayingArt
+            //artView.image = UIConstants.imgPlayingArt
             artView.animates = true
         }
         
@@ -122,7 +122,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
     private func clearNowPlayingInfo() {
         
         [lblTrackArtist, lblTrackTitle, lblTrackName].forEach({$0?.stringValue = ""})
-        artView.image = UIConstants.imgPlayingArt
+        //artView.image = UIConstants.imgPlayingArt
         artView.animates = false
         
         seekSlider.floatValue = 0

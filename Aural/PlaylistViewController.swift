@@ -29,7 +29,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     override func viewDidLoad() {
         
         // Enable drag n drop into the playlist view
-        playlistView.register(forDraggedTypes: [String(kUTTypeFileURL)])
+        playlistView.registerForDraggedTypes([NSPasteboard.PasteboardType(rawValue: String(kUTTypeFileURL))])
         
         // Register self as a subscriber to various AsyncMessage notifications
         AsyncMessenger.subscribe(.trackAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
@@ -49,7 +49,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         // Set up key press handler to enable natural scrolling of the playlist view with arrow keys
         playlistKeyPressHandler = PlaylistKeyPressHandler(playlistView)
-        NSEvent.addLocalMonitorForEvents(matching: NSEventMask.keyDown, handler: {(event: NSEvent!) -> NSEvent in
+        NSEvent.addLocalMonitorForEvents(matching: NSEvent.EventTypeMask.keyDown, handler: {(event: NSEvent!) -> NSEvent in
             self.playlistKeyPressHandler?.handle(event)
             return event;
         });
@@ -76,7 +76,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         let modalResponse = dialog.runModal()
         
-        if (modalResponse == NSModalResponseOK) {
+        if (modalResponse == NSApplication.ModalResponse.OK) {
             addFiles(dialog.urls)
         }
     }
@@ -100,7 +100,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     private func repositionSpinner() {
         
         let summaryString: NSString = lblPlaylistSummary.stringValue as NSString
-        let size: CGSize = summaryString.size(withAttributes: [NSFontAttributeName: lblPlaylistSummary.font as AnyObject])
+        let size: CGSize = summaryString.size(withAttributes: [NSAttributedStringKey.font: lblPlaylistSummary.font as AnyObject])
         let lblWidth = size.width
         
         let controlsBoxWidth = controlsBox.frame.width
@@ -157,7 +157,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         // Request the player to stop playback, if the playing track was removed
         if (oldPlayingTrackIndex != nil && indexes.contains(oldPlayingTrackIndex!)) {
-            SyncMessenger.publishRequest(StopPlaybackRequest.instance)
+            _ = SyncMessenger.publishRequest(StopPlaybackRequest.instance)
         }
     }
     
@@ -165,7 +165,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         // This needs to be done async. Otherwise, the add files dialog hangs.
         DispatchQueue.main.async {
-            UIUtils.showAlert(UIElements.tracksNotAddedAlertWithErrors(errors))
+            _ = UIUtils.showAlert(UIElements.tracksNotAddedAlertWithErrors(errors))
         }
     }
     
@@ -229,7 +229,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         updatePlaylistSummary()
         
         // Request the player to stop playback, if there is a track playing
-        SyncMessenger.publishRequest(StopPlaybackRequest.instance)
+        _ = SyncMessenger.publishRequest(StopPlaybackRequest.instance)
     }
     
     @IBAction func moveTrackDownAction(_ sender: AnyObject) {
@@ -281,7 +281,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             
             let modalResponse = dialog.runModal()
             
-            if (modalResponse == NSModalResponseOK) {
+            if (modalResponse == NSApplication.ModalResponse.OK) {
                 
                 let file = dialog.url
                 playlist.savePlaylist(file!)

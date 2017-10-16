@@ -33,7 +33,7 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
     func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
         
         // Only the track name column is used for type selection
-        if (tableColumn?.identifier != UIConstants.trackNameColumnID) {
+        if (tableColumn?.identifier.rawValue != UIConstants.trackNameColumnID) {
             return nil
         }
         
@@ -45,7 +45,7 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
         
         let track = (playlist.peekTrackAt(row)?.track)!
         
-        if (tableColumn?.identifier == UIConstants.trackIndexColumnID) {
+        if (tableColumn?.identifier.rawValue == UIConstants.trackIndexColumnID) {
             
             // Track index
             
@@ -65,7 +65,7 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
                 return createTextCell(tableView, UIConstants.trackIndexColumnID, String(format: "%d.", row + 1))
             }
         
-        } else if (tableColumn?.identifier == UIConstants.trackNameColumnID) {
+        } else if (tableColumn?.identifier.rawValue == UIConstants.trackNameColumnID) {
             
             // Track name
             return createTextCell(tableView, UIConstants.trackNameColumnID, track.conciseDisplayName)
@@ -79,7 +79,7 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
     
     private func createTextCell(_ tableView: NSTableView, _ id: String, _ text: String) -> PlaylistCellView? {
         
-        if let cell = tableView.make(withIdentifier: id, owner: nil) as? PlaylistCellView {
+        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: id), owner: nil) as? PlaylistCellView {
             
             cell.textField?.stringValue = text
             
@@ -94,7 +94,7 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
     
     private func createPlayingTrackAnimationCell(_ tableView: NSTableView, _ animate: Bool) -> PlaylistCellView? {
         
-        if let cell = tableView.make(withIdentifier: UIConstants.trackIndexColumnID, owner: nil) as? PlaylistCellView {
+        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: UIConstants.trackIndexColumnID), owner: nil) as? PlaylistCellView {
             
             // Configure and show the image view
             let imgView = cell.imageView!
@@ -102,7 +102,7 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
             imgView.canDrawSubviewsIntoLayer = true
             imgView.imageScaling = .scaleProportionallyDown
             imgView.animates = animate
-            imgView.image = UIConstants.imgPlayingTrack
+            //imgView.image = UIConstants.imgPlayingTrack
             imgView.isHidden = false
             
             // Hide the text view
@@ -115,14 +115,14 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
     }
     
     // Drag n drop
-    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
         
         // No validation required here
         return NSDragOperation.copy;
     }
     
     // Drag n drop
-    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         
         let objects = info.draggingPasteboard().readObjects(forClasses: [NSURL.self], options: nil)
         
@@ -175,7 +175,7 @@ class PlaylistRowView: NSTableRowView {
     // Draws a fancy rounded rectangle around the selected track in the playlist view
     override func drawSelection(in dirtyRect: NSRect) {
         
-        if self.selectionHighlightStyle != NSTableViewSelectionHighlightStyle.none {
+        if self.selectionHighlightStyle != NSTableView.SelectionHighlightStyle.none {
             
             let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
             
@@ -192,13 +192,13 @@ class PlaylistRowView: NSTableRowView {
 class PlaylistCellView: NSTableCellView {
     
     // When the background changes (as a result of selection/deselection) switch appropriate colours
-    override var backgroundStyle: NSBackgroundStyle {
+    override var backgroundStyle: NSView.BackgroundStyle {
         
         didSet {
             
             if let field = self.textField {
                 
-                if (backgroundStyle == NSBackgroundStyle.dark) {
+                if (backgroundStyle == NSView.BackgroundStyle.dark) {
                     
                     // Selected
                     
