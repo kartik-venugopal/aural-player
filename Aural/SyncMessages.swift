@@ -34,9 +34,6 @@ protocol ResponseMessage: SyncMessage {
 // Enumeration of the different message types. See the various Message structs below, for descriptions of each message type.
 enum MessageType {
     
-    // See TrackRemovedNotification
-    case trackRemovedNotification
-    
     // See TrackChangedNotification
     case trackChangedNotification
     
@@ -112,19 +109,6 @@ struct PlayingTrackInfoUpdatedNotification: NotificationMessage {
 
     // Singleton
     static let instance: PlayingTrackInfoUpdatedNotification = PlayingTrackInfoUpdatedNotification()
-}
-
-// Notification from the playlist that a certain track has been removed.
-struct TrackRemovedNotification: NotificationMessage {
-    
-    var messageType: MessageType = .trackRemovedNotification
-    
-    // The index of the track that was removed
-    var removedTrackIndex: Int
-    
-    init(_ removedTrackIndex: Int) {
-        self.removedTrackIndex = removedTrackIndex
-    }
 }
 
 // Request from the playlist to stop playback (for instance, when the playlist is cleared, or the playing track has been removed)

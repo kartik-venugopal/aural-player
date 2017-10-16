@@ -20,8 +20,8 @@ protocol PlaylistMutatorDelegateProtocol {
      */
     func addFiles(_ files: [URL])
     
-    // Removes a single track with the given index
-    func removeTrack(_ index: Int)
+    // Removes track(s) with the given indexes
+    func removeTracks(_ indexes: [Int])
     
     // Clears the entire playlist of all tracks
     func clear()

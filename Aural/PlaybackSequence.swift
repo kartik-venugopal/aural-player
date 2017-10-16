@@ -704,19 +704,35 @@ class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
         tracksCount += 1
     }
     
-    func trackRemoved(_ removedTrackIndex: Int) {
+    func tracksRemoved(_ removedTrackIndexes: [Int]) {
         
-        // If playingTrackIndex >= removedTrackIndex, it will change
-        
-        // Playing track removed
-        if (cursor == removedTrackIndex) {
-            cursor = nil
-        } else if (cursor != nil && cursor! > removedTrackIndex) {
-            // Move the cursor up one index, if it is below the removed track
-            cursor! -= 1
+        // If cursor is non-nil, it may need to be updated
+        if (cursor != nil) {
+            
+            // Check if the playing track was removed. If so, set cursor to nil
+            if (removedTrackIndexes.contains(cursor!)) {
+                cursor = nil
+            } else {
+                
+                // Playing track was not removed, but it might have shifted up, as a result of tracks above it being removed
+                
+                // Sort ascending
+                let sortedIndexes = removedTrackIndexes.sorted(by: {x, y -> Bool in x < y})
+                
+                // For each track above the playing track that was removed, the playing track moved up one row.
+                var arrIndex = 0
+                while (arrIndex < sortedIndexes.count && sortedIndexes[arrIndex] < cursor!) {
+                    
+                    // Decrement the cursor to move the playing track "up"
+                    cursor! -= 1
+                    
+                    arrIndex += 1
+                }
+            }
         }
         
-        tracksCount -= 1
+        // Update the count of total tracks, and reset the sequence
+        tracksCount -= removedTrackIndexes.count
         reset(firstTrackIndex: cursor)
     }
     

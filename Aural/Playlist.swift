@@ -60,14 +60,23 @@ class Playlist: PlaylistCRUDProtocol {
         return tracksByFilePath[track.file.path] != nil
     }
     
-    func removeTrack(_ index: Int) {
+    private func removeTrack(_ index: Int) {
         
-        let track: Track? = tracks[index]
+        let track: Track = tracks[index]
         
-        if (track != nil) {
-            tracksByFilePath.removeValue(forKey: track!.file.path)
-            tracks.remove(at: index)
-        }
+        tracksByFilePath.removeValue(forKey: track.file.path)
+        tracks.remove(at: index)
+    }
+    
+    func removeTracks(_ indexes: [Int]) {
+        
+        // Need to remove tracks in descending order of index, so that indexes of yet-to-be-removed elements are not messed up
+        
+        // Sort descending
+        let sortedIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
+        
+        // TODO: Will forEach always iterate array in order ??? If not, cannot use it. Array needs to be iterated in exact order.
+        sortedIndexes.forEach({removeTrack($0)})
     }
     
     func indexOfTrack(_ track: Track?) -> Int?  {
@@ -235,19 +244,19 @@ class Playlist: PlaylistCRUDProtocol {
     
     // Comparison functions for different sort criteria
     
-    func compareTracks_ascendingByName(aTrack: Track, anotherTrack: Track) -> Bool {
+    private func compareTracks_ascendingByName(aTrack: Track, anotherTrack: Track) -> Bool {
         return aTrack.conciseDisplayName.compare(anotherTrack.conciseDisplayName) == ComparisonResult.orderedAscending
     }
     
-    func compareTracks_descendingByName(aTrack: Track, anotherTrack: Track) -> Bool {
+    private func compareTracks_descendingByName(aTrack: Track, anotherTrack: Track) -> Bool {
         return aTrack.conciseDisplayName.compare(anotherTrack.conciseDisplayName) == ComparisonResult.orderedDescending
     }
     
-    func compareTracks_ascendingByDuration(aTrack: Track, anotherTrack: Track) -> Bool {
+    private func compareTracks_ascendingByDuration(aTrack: Track, anotherTrack: Track) -> Bool {
         return aTrack.duration < anotherTrack.duration
     }
     
-    func compareTracks_descendingByDuration(aTrack: Track, anotherTrack: Track) -> Bool {
+    private func compareTracks_descendingByDuration(aTrack: Track, anotherTrack: Track) -> Bool {
         return aTrack.duration > anotherTrack.duration
     }
     

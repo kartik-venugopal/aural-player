@@ -227,7 +227,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         let playingTrack = getPlayingTrack()
         let trackDuration = playingTrack!.track.duration
-        
+
         let newPosn = min(trackDuration, curPosn + Double(preferences.seekLength))
         
         // If this seek takes the track to its end, stop playback and proceed to the next track
@@ -328,7 +328,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         prepareNextTracksForPlayback()
     }
     
-    func trackRemoved(_ removedTrackIndex: Int) {
+    func tracksRemoved(_ removedTrackIndexes: [Int]) {
         if (playlist.size() > 0) {
             prepareNextTracksForPlayback()
         }

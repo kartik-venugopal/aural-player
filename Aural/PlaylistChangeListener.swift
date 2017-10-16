@@ -9,8 +9,8 @@ protocol PlaylistChangeListener {
     // A single new track has been added
     func trackAdded()
     
-    // A single existing track has been removed, from a particular index
-    func trackRemoved(_ removedTrackIndex: Int)
+    // Tracks have been removed, at the given indexes
+    func tracksRemoved(_ removedTrackIndexes: [Int])
     
     // A single track has been moved, from its original index to another
     func trackReordered(_ oldIndex: Int, _ newIndex: Int)

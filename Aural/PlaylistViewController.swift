@@ -1,5 +1,5 @@
 /*
-    View controller for playlist controls (adding/removing/reordering tracks)
+    View controller for playlist CRUD controls  (adding/removing/reordering tracks and saving/loading to/from playlists)
  */
 
 import Cocoa
@@ -108,38 +108,56 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         playlistWorkSpinner.frame.origin.x = newX
     }
     
-    @IBAction func removeSingleTrackAction(_ sender: AnyObject) {
+    @IBAction func removeTracksAction(_ sender: AnyObject) {
+        
+        let selectedIndexes = playlistView.selectedRowIndexes
+        if (selectedIndexes.count > 0) {
+            
+            // Special case: If all tracks were removed, this is the same as clearing the playlist, delegate to that (simpler and more efficient) function instead.
+            if (selectedIndexes.count == playlistView.numberOfRows) {
+                clearPlaylistAction(sender)
+                return
+            }
 
-        if (playlistView.selectedRowIndexes.count == 1) {
-            removeSingleTrack(playlistView.selectedRow)
+            // The $0 comparison is not needed, except to appease the compiler
+            let indexes = selectedIndexes.filter({$0 >= 0})
+            if (!indexes.isEmpty) {
+                removeTracks(indexes)
+            }
+            
+            // Clear the playlist selection
+            playlistView.deselectAll(self)
         }
     }
     
-    private func removeSingleTrack(_ index: Int) {
+    // Assume non-empty array and valid indexes
+    private func removeTracks(_ indexes: [Int]) {
+
+        // Note down the index of the playing track, if there is one
+        let oldPlayingTrackIndex = playbackInfo.getPlayingTrack()?.index
         
-        if (index >= 0) {
-            
-            let oldPlayingTrackIndex = playbackInfo.getPlayingTrack()?.index
-            playlist.removeTrack(index)
-            
-            // The new number of rows (after track removal) is one less than the size of the playlist view, because the view has not yet been updated
-            let numRows = playlistView.numberOfRows - 1
-            
-            if (numRows > index) {
-                
-                // Update all rows from the selected row down to the end of the playlist
-                let rowIndexes = IndexSet(index...(numRows - 1))
-                playlistView.reloadData(forRowIndexes: rowIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
-            }
-            
-            // Tell the playlist view to remove one row
-            playlistView.noteNumberOfRowsChanged()
-            updatePlaylistSummary()
-            
-            if (oldPlayingTrackIndex == index) {
-                // Request the player to stop playback, if the playing track was removed
-                SyncMessenger.publishRequest(StopPlaybackRequest.instance)
-            }
+        // Remove the tracks from the playlist
+        playlist.removeTracks(indexes)
+        
+        // Update all rows from the first (i.e. smallest number) selected row, down to the end of the playlist
+        
+        let newPlaylistSize = playlistView.numberOfRows - indexes.count
+        let minIndex = (indexes.min())!
+        let newLastIndex = newPlaylistSize - 1
+        
+        // If not all selected rows are contiguous and at the end of the playlist
+        if (minIndex <= newLastIndex) {
+            let rowIndexes = IndexSet(minIndex...newLastIndex)
+            playlistView.reloadData(forRowIndexes: rowIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
+        }
+        
+        // Tell the playlist view that the number of rows has changed, and update the playlist summary
+        playlistView.noteNumberOfRowsChanged()
+        updatePlaylistSummary()
+        
+        // Request the player to stop playback, if the playing track was removed
+        if (oldPlayingTrackIndex != nil && indexes.contains(oldPlayingTrackIndex!)) {
+            SyncMessenger.publishRequest(StopPlaybackRequest.instance)
         }
     }
     
@@ -356,7 +374,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         if (request is RemoveTrackRequest) {
             let req = request as! RemoveTrackRequest
-            removeSingleTrack(req.index)
+            removeTracks([req.index])
         }
         
         return EmptyResponse.instance

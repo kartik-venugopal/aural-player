@@ -44,8 +44,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         mutator.addFiles(files)
     }
     
-    func removeTrack(_ index: Int) {
-        mutator.removeTrack(index)
+    func removeTracks(_ indexes: [Int]) {
+        mutator.removeTracks(indexes)
     }
     
     func moveTrackUp(_ index: Int) -> Int {

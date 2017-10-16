@@ -35,8 +35,8 @@ protocol PlaylistMutatorProtocol {
     // Adds a single track to the playlist, and returns its index within the playlist. If the track was not added, the returned value will be -1.
     func addTrack(_ track: Track) -> Int
     
-    // Removes a single track with the given index
-    func removeTrack(_ index: Int)
+    // Removes tracks with the given indexes
+    func removeTracks(_ indexes: [Int])
     
     // Clears the entire playlist of all tracks
     func clear()

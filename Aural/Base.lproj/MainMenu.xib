@@ -1524,7 +1524,7 @@ G1BhbiBTbGlkZXI
                                     </tabViewItems>
                                 </tabView>
                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="QU8-ZM-MyA">
-                                    <rect key="frame" x="0.0" y="147" width="385" height="81"/>
+                                    <rect key="frame" x="0.0" y="147" width="385" height="193"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </box>
                                 <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Mvg-eT-z2w" userLabel="Tab Buttons Box">
@@ -1779,7 +1779,7 @@ G1BhbiBTbGlkZXI
                                         <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" id="rhk-oM-jMn">
+                                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" id="rhk-oM-jMn">
                                                 <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <size key="intercellSpacing" width="3" height="4"/>
@@ -1952,7 +1952,7 @@ G1BhbiBTbGlkZXI
                                                     <action selector="addTracksAction:" target="V2O-JI-ukn" id="XH1-xw-pQ3"/>
                                                 </connections>
                                             </button>
-                                            <button toolTip="Remove selected file from playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="so9-gR-Vjp" userLabel="Remove">
+                                            <button toolTip="Remove selected tracks from playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="so9-gR-Vjp" userLabel="Remove">
                                                 <rect key="frame" x="19" y="6" width="12" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="mMO-Fu-Bdu">
@@ -1960,7 +1960,7 @@ G1BhbiBTbGlkZXI
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="removeSingleTrackAction:" target="V2O-JI-ukn" id="6qt-Yq-hZU"/>
+                                                    <action selector="removeTracksAction:" target="V2O-JI-ukn" id="ovZ-wk-WLH"/>
                                                 </connections>
                                             </button>
                                             <button toolTip="Save current playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WU5-Qg-TmF" userLabel="Save">
@@ -2142,7 +2142,7 @@ G1BhbiBTbGlkZXI
                     <color key="value" white="0.14999999999999999" alpha="0.74724422089041098" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="86.5" y="521.5"/>
+            <point key="canvasLocation" x="133" y="400"/>
         </window>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Aural" customModuleProvider="target"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -2421,13 +2421,13 @@ DQ
                                     <action selector="moveTrackDownAction:" target="V2O-JI-ukn" id="jjl-TC-ltc"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Remove selected track" image="Remove-Small" id="20j-6Y-sbB" userLabel="Remove selected track">
+                            <menuItem title="Remove selected tracks" image="Remove-Small" id="20j-6Y-sbB" userLabel="Remove selected track">
                                 <string key="keyEquivalent" base64-UTF8="YES">
 CA
 </string>
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="removeSingleTrackAction:" target="V2O-JI-ukn" id="3S4-Mq-C52"/>
+                                    <action selector="removeTracksAction:" target="V2O-JI-ukn" id="Lda-Yl-0oa"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="bMd-aB-U0o"/>

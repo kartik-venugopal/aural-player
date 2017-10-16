@@ -29,6 +29,18 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
         return PlaylistRowView()
     }
     
+    // Enables type selection, allowing the user to conveniently and efficiently find a playlist track by typing its name, which results in the track, if found, being selected within the playlist
+    func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
+        
+        // Only the track name column is used for type selection
+        if (tableColumn?.identifier != UIConstants.trackNameColumnID) {
+            return nil
+        }
+        
+        // Track name is used for type select comparisons
+        return playlist.peekTrackAt(row)?.track.conciseDisplayName
+    }
+    
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         let track = (playlist.peekTrackAt(row)?.track)!

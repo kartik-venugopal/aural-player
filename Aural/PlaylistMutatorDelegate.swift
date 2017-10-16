@@ -225,10 +225,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         }
     }
     
-    func removeTrack(_ index: Int) {
-        
-        playlist.removeTrack(index)
-        changeListeners.forEach({$0.trackRemoved(index)})
+    func removeTracks(_ indexes: [Int]) {
+        playlist.removeTracks(indexes)
+        changeListeners.forEach({$0.tracksRemoved(indexes)})
     }
     
     func moveTrackUp(_ index: Int) -> Int {
