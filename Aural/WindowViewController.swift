@@ -34,16 +34,16 @@ class WindowViewController: NSViewController, NSWindowDelegate {
     private var playlistWindowOffset: CGPoint?
     
     // Convenient accessor to the screen object
-    private let screen: NSScreen = NSScreen.main()!
+    private let screen: NSScreen = NSScreen.main!
     
     // Convenient accessor to the screen's width
     private var screenWidth: CGFloat = {
-        return NSScreen.main()!.frame.width
+        return NSScreen.main!.frame.width
     }()
     
     // Convenient accessor to the screen's height
     private var screenHeight: CGFloat = {
-        return NSScreen.main()!.frame.height
+        return NSScreen.main!.frame.height
     }()
     
     override func viewDidLoad() {
@@ -81,7 +81,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
     }
     
     @IBAction func closeAction(_ sender: AnyObject) {
-        NSApplication.shared().terminate(self)
+        NSApplication.shared.terminate(self)
     }
     
     @IBAction func togglePlaylistAction(_ sender: AnyObject) {
@@ -411,11 +411,11 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         
         // Show playlist window and update UI controls
         
-        mainWindow.addChildWindow(playlistWindow, ordered: NSWindowOrderingMode.below)
+        mainWindow.addChildWindow(playlistWindow, ordered: NSWindow.OrderingMode.below)
         playlistWindow.setIsVisible(true)
-        btnTogglePlaylist.state = 1
+        btnTogglePlaylist.state = NSControl.StateValue(rawValue: 1)
         btnTogglePlaylist.image = UIConstants.imgPlaylistOn
-        viewPlaylistMenuItem.state = 1
+        viewPlaylistMenuItem.state = NSControl.StateValue(rawValue: 1)
         WindowState.showingPlaylist = true
         
         // Re-dock the playlist window, as per the dock state
@@ -476,9 +476,9 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         // Hide playlist window and update UI controls
         
         playlistWindow.setIsVisible(false)
-        btnTogglePlaylist.state = 0
+        btnTogglePlaylist.state = NSControl.StateValue(rawValue: 0)
         btnTogglePlaylist.image = UIConstants.imgPlaylistOff
-        viewPlaylistMenuItem.state = 0
+        viewPlaylistMenuItem.state = NSControl.StateValue(rawValue: 0)
         WindowState.showingPlaylist = false
     }
     
@@ -490,9 +490,9 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             
             resizeMainWindow(playlistShown: playlistWindow.isVisible && playlistDockState == .bottom, effectsShown: true, animate)
             fxBox.isHidden = false
-            btnToggleEffects.state = 1
+            btnToggleEffects.state = NSControl.StateValue(rawValue: 1)
             btnToggleEffects.image = UIConstants.imgEffectsOn
-            viewEffectsMenuItem.state = 1
+            viewEffectsMenuItem.state = NSControl.StateValue(rawValue: 1)
             WindowState.showingEffects = true
             
         } else {
@@ -501,9 +501,9 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             
             fxBox.isHidden = true
             resizeMainWindow(playlistShown: playlistWindow.isVisible && playlistDockState == .bottom, effectsShown: false, animate)
-            btnToggleEffects.state = 0
+            btnToggleEffects.state = NSControl.StateValue(rawValue: 0)
             btnToggleEffects.image = UIConstants.imgEffectsOff
-            viewEffectsMenuItem.state = 0
+            viewEffectsMenuItem.state = NSControl.StateValue(rawValue: 0)
             WindowState.showingEffects = false
         }
         
@@ -562,7 +562,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         }
         
         // If the mouse cursor is within the playlist window, it means that only the playlist window is being moved. If the main window is being moved, that does not affect the playlist dock state.
-        if (playlistWindow.frame.contains(NSEvent.mouseLocation())) {
+        if (playlistWindow.frame.contains(NSEvent.mouseLocation)) {
             
             updatePlaylistWindowDockState()
             

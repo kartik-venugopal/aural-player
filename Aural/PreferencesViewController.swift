@@ -86,14 +86,14 @@ class PreferencesViewController: NSViewController {
         volumeDeltaStepper.integerValue = volumeDelta
         volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
         
-        btnRememberVolume.state = preferences.volumeOnStartup == .rememberFromLastAppLaunch ? 1 : 0
+        btnRememberVolume.state = NSControl.StateValue(rawValue: preferences.volumeOnStartup == .rememberFromLastAppLaunch ? 1 : 0)
         
-        btnSpecifyVolume.state = preferences.volumeOnStartup == .rememberFromLastAppLaunch ? 0 : 1
+        btnSpecifyVolume.state = NSControl.StateValue(rawValue: preferences.volumeOnStartup == .rememberFromLastAppLaunch ? 0 : 1)
         
-        startupVolumeSlider.isEnabled = Bool(btnSpecifyVolume.state)
+        startupVolumeSlider.isEnabled = Bool((btnSpecifyVolume.state).rawValue)
         startupVolumeSlider.integerValue = Int(round(preferences.startupVolumeValue * AppConstants.volumeConversion_audioGraphToUI))
         
-        lblStartupVolume.isEnabled = Bool(btnSpecifyVolume.state)
+        lblStartupVolume.isEnabled = Bool((btnSpecifyVolume.state).rawValue)
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
         
         let panDelta = Int(round(preferences.panDelta * AppConstants.panConversion_audioGraphToUI))
@@ -104,38 +104,38 @@ class PreferencesViewController: NSViewController {
     private func resetPlaylistPrefs() {
         
         if (preferences.playlistOnStartup == .empty) {
-            btnEmptyPlaylist.state = 1
+            btnEmptyPlaylist.state = NSControl.StateValue(rawValue: 1)
         } else {
-            btnRememberPlaylist.state = 1
+            btnRememberPlaylist.state = NSControl.StateValue(rawValue: 1)
         }
         
-        btnAutoplayOnStartup.state = preferences.autoplayOnStartup ? 1 : 0
+        btnAutoplayOnStartup.state = NSControl.StateValue(rawValue: preferences.autoplayOnStartup ? 1 : 0)
         
-        btnAutoplayAfterAddingTracks.state = preferences.autoplayAfterAddingTracks ? 1 : 0
+        btnAutoplayAfterAddingTracks.state = NSControl.StateValue(rawValue: preferences.autoplayAfterAddingTracks ? 1 : 0)
         
         btnAutoplayIfNotPlaying.isEnabled = preferences.autoplayAfterAddingTracks
-        btnAutoplayIfNotPlaying.state = preferences.autoplayAfterAddingOption == .ifNotPlaying ? 1 : 0
+        btnAutoplayIfNotPlaying.state = NSControl.StateValue(rawValue: preferences.autoplayAfterAddingOption == .ifNotPlaying ? 1 : 0)
         
         btnAutoplayAlways.isEnabled = preferences.autoplayAfterAddingTracks
-        btnAutoplayAlways.state = preferences.autoplayAfterAddingOption == .always ? 1 : 0
+        btnAutoplayAlways.state = NSControl.StateValue(rawValue: preferences.autoplayAfterAddingOption == .always ? 1 : 0)
     }
     
     private func resetViewPrefs() {
         
         if (preferences.viewOnStartup.option == .specific) {
-            btnStartWithView.state = 1
+            btnStartWithView.state = NSControl.StateValue(rawValue: 1)
         } else {
-            btnRememberView.state = 1
+            btnRememberView.state = NSControl.StateValue(rawValue: 1)
         }
         
         startWithViewMenu.selectItem(withTitle: preferences.viewOnStartup.viewType.description)
-        startWithViewMenu.isEnabled = Bool(btnStartWithView.state)
+        startWithViewMenu.isEnabled = Bool((btnStartWithView.state).rawValue)
         
-        btnRememberWindowLocation.state = preferences.windowLocationOnStartup.option == .rememberFromLastAppLaunch ? 1 : 0
+        btnRememberWindowLocation.state = NSControl.StateValue(rawValue: preferences.windowLocationOnStartup.option == .rememberFromLastAppLaunch ? 1 : 0)
         
-        btnStartAtWindowLocation.state = preferences.windowLocationOnStartup.option == .specific ? 1 : 0
+        btnStartAtWindowLocation.state = NSControl.StateValue(rawValue: preferences.windowLocationOnStartup.option == .specific ? 1 : 0)
         
-        startWindowLocationMenu.isEnabled = Bool(btnStartAtWindowLocation.state)
+        startWindowLocationMenu.isEnabled = Bool((btnStartAtWindowLocation.state).rawValue)
         startWindowLocationMenu.selectItem(withTitle: preferences.windowLocationOnStartup.windowLocation.description)
     }
     
@@ -166,23 +166,23 @@ class PreferencesViewController: NSViewController {
         
         preferences.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.volumeConversion_UIToAudioGraph
         
-        preferences.volumeOnStartup = btnRememberVolume.state == 1 ? .rememberFromLastAppLaunch : .specific
+        preferences.volumeOnStartup = btnRememberVolume.state.rawValue == 1 ? .rememberFromLastAppLaunch : .specific
         preferences.startupVolumeValue = Float(startupVolumeSlider.integerValue) * AppConstants.volumeConversion_UIToAudioGraph
         
         preferences.panDelta = panDeltaStepper.floatValue * AppConstants.panConversion_UIToAudioGraph
         
         // Playlist prefs
         
-        preferences.playlistOnStartup = btnEmptyPlaylist.state == 1 ? .empty : .rememberFromLastAppLaunch
+        preferences.playlistOnStartup = btnEmptyPlaylist.state.rawValue == 1 ? .empty : .rememberFromLastAppLaunch
         
-        preferences.autoplayOnStartup = Bool(btnAutoplayOnStartup.state)
+        preferences.autoplayOnStartup = Bool((btnAutoplayOnStartup.state).rawValue)
         
-        preferences.autoplayAfterAddingTracks = Bool(btnAutoplayAfterAddingTracks.state)
-        preferences.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.state == 1 ? .ifNotPlaying : .always
+        preferences.autoplayAfterAddingTracks = Bool((btnAutoplayAfterAddingTracks.state).rawValue)
+        preferences.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.state.rawValue == 1 ? .ifNotPlaying : .always
         
         // View prefs
         
-        preferences.viewOnStartup.option = btnStartWithView.state == 1 ? .specific : .rememberFromLastAppLaunch
+        preferences.viewOnStartup.option = btnStartWithView.state.rawValue == 1 ? .specific : .rememberFromLastAppLaunch
         
         for viewType in ViewTypes.allValues {
             
@@ -192,7 +192,7 @@ class PreferencesViewController: NSViewController {
             }
         }
         
-        preferences.windowLocationOnStartup.option = btnRememberWindowLocation.state == 1 ? .rememberFromLastAppLaunch : .specific
+        preferences.windowLocationOnStartup.option = btnRememberWindowLocation.state.rawValue == 1 ? .rememberFromLastAppLaunch : .specific
         
         preferences.windowLocationOnStartup.windowLocation = WindowLocations.fromDescription(startWindowLocationMenu.selectedItem!.title)
         
@@ -228,25 +228,25 @@ class PreferencesViewController: NSViewController {
     
     @IBAction func playerPrefsTabViewAction(_ sender: Any) {
         
-        prefsTabViewButtons!.forEach({$0.state = 0})
+        prefsTabViewButtons!.forEach({$0.state = NSControl.StateValue(rawValue: 0)})
         
-        btnPlayerPrefs.state = 1
+        btnPlayerPrefs.state = NSControl.StateValue(rawValue: 1)
         prefsTabView.selectTabViewItem(at: 0)
     }
     
     @IBAction func playlistPrefsTabViewAction(_ sender: Any) {
         
-        prefsTabViewButtons!.forEach({$0.state = 0})
+        prefsTabViewButtons!.forEach({$0.state = NSControl.StateValue(rawValue: 0)})
         
-        btnPlaylistPrefs.state = 1
+        btnPlaylistPrefs.state = NSControl.StateValue(rawValue: 1)
         prefsTabView.selectTabViewItem(at: 1)
     }
     
     @IBAction func viewPrefsTabViewAction(_ sender: Any) {
         
-        prefsTabViewButtons!.forEach({$0.state = 0})
+        prefsTabViewButtons!.forEach({$0.state = NSControl.StateValue(rawValue: 0)})
         
-        btnViewPrefs.state = 1
+        btnViewPrefs.state = NSControl.StateValue(rawValue: 1)
         prefsTabView.selectTabViewItem(at: 2)
     }
     
@@ -255,12 +255,12 @@ class PreferencesViewController: NSViewController {
     }
     
     @IBAction func startupViewPrefAction(_ sender: Any) {
-        startWithViewMenu.isEnabled = Bool(btnStartWithView.state)
+        startWithViewMenu.isEnabled = Bool((btnStartWithView.state).rawValue)
     }
     
     // When the check box for "autoplay after adding tracks" is checked/unchecked, update the enabled state of the 2 option radio buttons
     @IBAction func autoplayAfterAddingAction(_ sender: Any) {
-        [btnAutoplayIfNotPlaying, btnAutoplayAlways].forEach({$0.isEnabled = Bool(btnAutoplayAfterAddingTracks.state)})
+        [btnAutoplayIfNotPlaying, btnAutoplayAlways].forEach({$0!.isEnabled = Bool((btnAutoplayAfterAddingTracks.state).rawValue)})
     }
     
     @IBAction func autoplayAfterAddingRadioButtonAction(_ sender: Any) {
@@ -268,7 +268,7 @@ class PreferencesViewController: NSViewController {
     }
     
     @IBAction func startupVolumeButtonAction(_ sender: Any) {
-        [startupVolumeSlider, lblStartupVolume].forEach({$0.isEnabled = Bool(btnSpecifyVolume.state)})
+        //[startupVolumeSlider, lblStartupVolume].forEach({($0 as AnyObject).isEnabled = Bool((btnSpecifyVolume.state).rawValue)})
     }
     
     @IBAction func startupVolumeSliderAction(_ sender: Any) {
@@ -276,13 +276,13 @@ class PreferencesViewController: NSViewController {
     }
     
     @IBAction func windowLocationOnStartupAction(_ sender: Any) {
-        startWindowLocationMenu.isEnabled = Bool(btnStartAtWindowLocation.state)
+        startWindowLocationMenu.isEnabled = Bool((btnStartAtWindowLocation.state).rawValue)
     }
 }
 
 // Int to Bool conversion
 extension Bool {
-    init<T: Integer>(_ num: T) {
+    init<T: BinaryInteger>(_ num: T) {
         self.init(num != 0)
     }
 }

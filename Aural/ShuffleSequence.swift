@@ -65,13 +65,13 @@ class ShuffleSequence {
                 }
             }
             
-            shuffle()
+            _ = shuffle()
             
             // Insert the specified first track index at index 0, making it the first element in the new sequence
             sequence.insert(firstTrackIndex, at: 0)
             
             // Advance the cursor once, because the first track in the sequence has already been played back
-            next()
+            _ = next()
         }
     }
     
@@ -150,7 +150,7 @@ class ShuffleSequence {
 }
 
 // Shuffles a collection using the Fisher-Yates algorithm
-extension MutableCollection where Indices.Iterator.Element == Index {
+extension MutableCollection {
     
     mutating func shuffle() {
         let c = count
@@ -160,7 +160,7 @@ extension MutableCollection where Indices.Iterator.Element == Index {
             let d: IndexDistance = numericCast(arc4random_uniform(numericCast(unshuffledCount)))
             guard d != 0 else { continue }
             let i = index(firstUnshuffled, offsetBy: d)
-            swap(&self[firstUnshuffled], &self[i])
+            self.swapAt(firstUnshuffled, i)
         }
     }
 }

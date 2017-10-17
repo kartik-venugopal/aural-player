@@ -19,7 +19,7 @@ class AsyncMessenger {
             subscriberRegistry[AsyncMessageType] = [(AsyncMessageSubscriber, DispatchQueue)]()
         }
         
-        subscriberRegistry[AsyncMessageType]?.append(subscriber, dispatchQueue)
+        subscriberRegistry[AsyncMessageType]?.append((subscriber, dispatchQueue))
     }
     
     // Called by a publisher to publish an event

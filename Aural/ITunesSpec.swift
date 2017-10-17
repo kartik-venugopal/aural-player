@@ -18,148 +18,148 @@ class ITunesSpec: MetadataSpec {
         var map: [String: String] = [String: String]()
         
         // @alb
-        map[AVMetadataiTunesMetadataKeyAlbum] = "Album"
+        map[AVMetadataKey.iTunesMetadataKeyAlbum.rawValue] = "Album"
         
         // @ART
-        map[AVMetadataiTunesMetadataKeyArtist] = "Artist"
+        map[AVMetadataKey.iTunesMetadataKeyArtist.rawValue] = "Artist"
         
         // @cmt
-        map[AVMetadataiTunesMetadataKeyUserComment] = "User Comment"
+        map[AVMetadataKey.iTunesMetadataKeyUserComment.rawValue] = "User Comment"
         
         // covr
-        map[AVMetadataiTunesMetadataKeyCoverArt] = "Cover Art"
+        map[AVMetadataKey.iTunesMetadataKeyCoverArt.rawValue] = "Cover Art"
         
         // cprt
-        map[AVMetadataiTunesMetadataKeyCopyright] = "Copyright"
+        map[AVMetadataKey.iTunesMetadataKeyCopyright.rawValue] = "Copyright"
         
         // @day
-        map[AVMetadataiTunesMetadataKeyReleaseDate] = "Release Date"
+        map[AVMetadataKey.iTunesMetadataKeyReleaseDate.rawValue] = "Release Date"
         
         // @enc
-        map[AVMetadataiTunesMetadataKeyEncodedBy] = "Encoded By"
+        map[AVMetadataKey.iTunesMetadataKeyEncodedBy.rawValue] = "Encoded By"
         
         // gnre
-        map[AVMetadataiTunesMetadataKeyPredefinedGenre] = "Predefined Genre"
+        map[AVMetadataKey.iTunesMetadataKeyPredefinedGenre.rawValue] = "Predefined Genre"
         
         // @gen
-        map[AVMetadataiTunesMetadataKeyUserGenre] = "User Genre"
+        map[AVMetadataKey.iTunesMetadataKeyUserGenre.rawValue] = "User Genre"
         
         // @nam
-        map[AVMetadataiTunesMetadataKeySongName] = "Song Name"
+        map[AVMetadataKey.iTunesMetadataKeySongName.rawValue] = "Song Name"
         
         // @st3
-        map[AVMetadataiTunesMetadataKeyTrackSubTitle] = "Track Sub Title"
+        map[AVMetadataKey.iTunesMetadataKeyTrackSubTitle.rawValue] = "Track Sub Title"
         
         // @too
-        map[AVMetadataiTunesMetadataKeyEncodingTool] = "Encoding Tool"
+        map[AVMetadataKey.iTunesMetadataKeyEncodingTool.rawValue] = "Encoding Tool"
         
         // @wrt
-        map[AVMetadataiTunesMetadataKeyComposer] = "Composer"
+        map[AVMetadataKey.iTunesMetadataKeyComposer.rawValue] = "Composer"
         
         // aART
-        map[AVMetadataiTunesMetadataKeyAlbumArtist] = "Album Artist"
+        map[AVMetadataKey.iTunesMetadataKeyAlbumArtist.rawValue] = "Album Artist"
         
         // akID
-        map[AVMetadataiTunesMetadataKeyAccountKind] = "Account Kind"
+        map[AVMetadataKey.iTunesMetadataKeyAccountKind.rawValue] = "Account Kind"
         
         // apID
-        map[AVMetadataiTunesMetadataKeyAppleID] = "Apple ID"
+        map[AVMetadataKey.iTunesMetadataKeyAppleID.rawValue] = "Apple ID"
         
         // atID
-        map[AVMetadataiTunesMetadataKeyArtistID] = "Artist ID"
+        map[AVMetadataKey.iTunesMetadataKeyArtistID.rawValue] = "Artist ID"
         
         // cnID
-        map[AVMetadataiTunesMetadataKeySongID] = "Song ID"
+        map[AVMetadataKey.iTunesMetadataKeySongID.rawValue] = "Song ID"
         
         // cpil
-        map[AVMetadataiTunesMetadataKeyDiscCompilation] = "Disc Compilation"
+        map[AVMetadataKey.iTunesMetadataKeyDiscCompilation.rawValue] = "Disc Compilation"
         
         // disk
-        map[AVMetadataiTunesMetadataKeyDiscNumber] = "Disc Number"
+        map[AVMetadataKey.iTunesMetadataKeyDiscNumber.rawValue] = "Disc Number"
         
         // geID
-        map[AVMetadataiTunesMetadataKeyGenreID] = "Genre ID"
+        map[AVMetadataKey.iTunesMetadataKeyGenreID.rawValue] = "Genre ID"
         
         // grup
-        map[AVMetadataiTunesMetadataKeyGrouping] = "Grouping"
+        map[AVMetadataKey.iTunesMetadataKeyGrouping.rawValue] = "Grouping"
         
         // plID
-        map[AVMetadataiTunesMetadataKeyPlaylistID] = "Playlist ID"
+        map[AVMetadataKey.iTunesMetadataKeyPlaylistID.rawValue] = "Playlist ID"
         
         // rtng
-        map[AVMetadataiTunesMetadataKeyContentRating] = "Content Rating"
+        map[AVMetadataKey.iTunesMetadataKeyContentRating.rawValue] = "Content Rating"
         
         // tmpo
-        map[AVMetadataiTunesMetadataKeyBeatsPerMin] = "Beats Per Min"
+        map[AVMetadataKey.iTunesMetadataKeyBeatsPerMin.rawValue] = "Beats Per Min"
         
         // trkn
-        map[AVMetadataiTunesMetadataKeyTrackNumber] = "Track Number"
+        map[AVMetadataKey.iTunesMetadataKeyTrackNumber.rawValue] = "Track Number"
         
         // @ard
-        map[AVMetadataiTunesMetadataKeyArtDirector] = "Art Director"
+        map[AVMetadataKey.iTunesMetadataKeyArtDirector.rawValue] = "Art Director"
         
         // @arg
-        map[AVMetadataiTunesMetadataKeyArranger] = "Arranger"
+        map[AVMetadataKey.iTunesMetadataKeyArranger.rawValue] = "Arranger"
         
         // @aut
-        map[AVMetadataiTunesMetadataKeyAuthor] = "Author"
+        map[AVMetadataKey.iTunesMetadataKeyAuthor.rawValue] = "Author"
         
         // @lyr
-        map[AVMetadataiTunesMetadataKeyLyrics] = "Lyrics"
+        map[AVMetadataKey.iTunesMetadataKeyLyrics.rawValue] = "Lyrics"
         
         // @cak
-        map[AVMetadataiTunesMetadataKeyAcknowledgement] = "Acknowledgement"
+        map[AVMetadataKey.iTunesMetadataKeyAcknowledgement.rawValue] = "Acknowledgement"
         
         // @con
-        map[AVMetadataiTunesMetadataKeyConductor] = "Conductor"
+        map[AVMetadataKey.iTunesMetadataKeyConductor.rawValue] = "Conductor"
         
         // @des
-        map[AVMetadataiTunesMetadataKeyDescription] = "Description"
+        map[AVMetadataKey.iTunesMetadataKeyDescription.rawValue] = "Description"
         
         // @dir
-        map[AVMetadataiTunesMetadataKeyDirector] = "Director"
+        map[AVMetadataKey.iTunesMetadataKeyDirector.rawValue] = "Director"
         
         // @equ
-        map[AVMetadataiTunesMetadataKeyEQ] = "EQ"
+        map[AVMetadataKey.iTunesMetadataKeyEQ.rawValue] = "EQ"
         
         // @lnt
-        map[AVMetadataiTunesMetadataKeyLinerNotes] = "Liner Notes"
+        map[AVMetadataKey.iTunesMetadataKeyLinerNotes.rawValue] = "Liner Notes"
         
         // @mak
-        map[AVMetadataiTunesMetadataKeyRecordCompany] = "Record Company"
+        map[AVMetadataKey.iTunesMetadataKeyRecordCompany.rawValue] = "Record Company"
         
         // @ope
-        map[AVMetadataiTunesMetadataKeyOriginalArtist] = "Original Artist"
+        map[AVMetadataKey.iTunesMetadataKeyOriginalArtist.rawValue] = "Original Artist"
         
         // @phg
-        map[AVMetadataiTunesMetadataKeyPhonogramRights] = "Phonogram Rights"
+        map[AVMetadataKey.iTunesMetadataKeyPhonogramRights.rawValue] = "Phonogram Rights"
         
         // @prd
-        map[AVMetadataiTunesMetadataKeyProducer] = "Producer"
+        map[AVMetadataKey.iTunesMetadataKeyProducer.rawValue] = "Producer"
         
         // @prf
-        map[AVMetadataiTunesMetadataKeyPerformer] = "Performer"
+        map[AVMetadataKey.iTunesMetadataKeyPerformer.rawValue] = "Performer"
         
         // @pub
-        map[AVMetadataiTunesMetadataKeyPublisher] = "Publisher"
+        map[AVMetadataKey.iTunesMetadataKeyPublisher.rawValue] = "Publisher"
         
         // @sne
-        map[AVMetadataiTunesMetadataKeySoundEngineer] = "Sound Engineer"
+        map[AVMetadataKey.iTunesMetadataKeySoundEngineer.rawValue] = "Sound Engineer"
         
         // @sol
-        map[AVMetadataiTunesMetadataKeySoloist] = "Soloist"
+        map[AVMetadataKey.iTunesMetadataKeySoloist.rawValue] = "Soloist"
         
         // @src
-        map[AVMetadataiTunesMetadataKeyCredits] = "Credits"
+        map[AVMetadataKey.iTunesMetadataKeyCredits.rawValue] = "Credits"
         
         // @thx
-        map[AVMetadataiTunesMetadataKeyThanks] = "Thanks"
+        map[AVMetadataKey.iTunesMetadataKeyThanks.rawValue] = "Thanks"
         
         // @url
-        map[AVMetadataiTunesMetadataKeyOnlineExtras] = "Online Extras"
+        map[AVMetadataKey.iTunesMetadataKeyOnlineExtras.rawValue] = "Online Extras"
         
         // @xpd
-        map[AVMetadataiTunesMetadataKeyExecProducer] = "Exec Producer"
+        map[AVMetadataKey.iTunesMetadataKeyExecProducer.rawValue] = "Exec Producer"
         
         return map
     }

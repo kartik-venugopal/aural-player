@@ -71,7 +71,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
                 trackChange(oldTrack, track)
                 playlistView.deselectAll(self)
                 
-            } catch let error as Error {
+            } catch let error {
                 
                 if (error is InvalidTrackError) {
                     handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
@@ -127,27 +127,27 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         switch shuffleMode {
             
         case .off: btnShuffle.image = UIConstants.imgShuffleOff
-        [shuffleOffMainMenuItem, shuffleOffDockMenuItem].forEach({$0?.state = 1})
-        [shuffleOnMainMenuItem, shuffleOnDockMenuItem].forEach({$0?.state = 0})
+        [shuffleOffMainMenuItem, shuffleOffDockMenuItem].forEach({$0?.state = NSControl.StateValue(rawValue: 1)})
+        [shuffleOnMainMenuItem, shuffleOnDockMenuItem].forEach({$0?.state = NSControl.StateValue(rawValue: 0)})
             
         case .on: btnShuffle.image = UIConstants.imgShuffleOn
-        [shuffleOffMainMenuItem, shuffleOffDockMenuItem].forEach({$0?.state = 0})
-        [shuffleOnMainMenuItem, shuffleOnDockMenuItem].forEach({$0?.state = 1})
+        [shuffleOffMainMenuItem, shuffleOffDockMenuItem].forEach({$0?.state = NSControl.StateValue(rawValue: 0)})
+        [shuffleOnMainMenuItem, shuffleOnDockMenuItem].forEach({$0?.state = NSControl.StateValue(rawValue: 1)})
         }
         
         switch repeatMode {
             
         case .off: btnRepeat.image = UIConstants.imgRepeatOff
-        [repeatOffMainMenuItem, repeatOffDockMenuItem].forEach({$0.state = 1})
-        [repeatOneMainMenuItem, repeatOneDockMenuItem, repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0?.state = 0})
+        [repeatOffMainMenuItem, repeatOffDockMenuItem].forEach({$0!.state = NSControl.StateValue(rawValue: 1)})
+        [repeatOneMainMenuItem, repeatOneDockMenuItem, repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0?.state = NSControl.StateValue(rawValue: 0)})
             
         case .one: btnRepeat.image = UIConstants.imgRepeatOne
-        [repeatOneMainMenuItem, repeatOneDockMenuItem].forEach({$0.state = 1})
-        [repeatOffMainMenuItem, repeatOffDockMenuItem, repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0?.state = 0})
+        [repeatOneMainMenuItem, repeatOneDockMenuItem].forEach({$0!.state = NSControl.StateValue(rawValue: 1)})
+        [repeatOffMainMenuItem, repeatOffDockMenuItem, repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0?.state = NSControl.StateValue(rawValue: 0)})
             
         case .all: btnRepeat.image = UIConstants.imgRepeatAll
-        [repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0.state = 1})
-        [repeatOneMainMenuItem, repeatOneDockMenuItem, repeatOffMainMenuItem, repeatOffDockMenuItem].forEach({$0?.state = 0})
+        [repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0!.state = NSControl.StateValue(rawValue: 1)})
+        [repeatOneMainMenuItem, repeatOneDockMenuItem, repeatOffMainMenuItem, repeatOffDockMenuItem].forEach({$0?.state = NSControl.StateValue(rawValue: 0)})
         }
     }
     
@@ -177,7 +177,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
                 }
             }
             
-        } catch let error as Error {
+        } catch let error {
             
             if (error is InvalidTrackError) {
                 handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
@@ -203,7 +203,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
                 trackChange(oldTrack, prevTrack)
             }
             
-        } catch let error as Error {
+        } catch let error {
             
             if (error is InvalidTrackError) {
                 handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
@@ -221,7 +221,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
                 trackChange(oldTrack, nextTrack)
             }
             
-        } catch let error as Error {
+        } catch let error {
             
             if (error is InvalidTrackError) {
                 handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
@@ -281,13 +281,13 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
             
             // Position and display the dialog with info
             let alert = UIElements.trackNotPlayedAlertWithError(error)
-            UIUtils.showAlert(alert)
+            _ = UIUtils.showAlert(alert)
             
             // Remove the bad track from the playlist and update the UI
             
             let playingTrackIndex = playingTrack!.index
             let removeTrackRequest = RemoveTrackRequest(playingTrackIndex)
-            SyncMessenger.publishRequest(removeTrackRequest)
+            _ = SyncMessenger.publishRequest(removeTrackRequest)
         }
     }
     

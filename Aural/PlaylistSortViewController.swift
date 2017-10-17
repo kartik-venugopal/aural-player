@@ -46,8 +46,8 @@ class PlaylistSortViewController: NSViewController {
         
         // Gather field values
         let sortOptions = Sort()
-        sortOptions.field = sortByName.state == 1 ? SortField.name : SortField.duration
-        sortOptions.order = sortAscending.state == 1 ? SortOrder.ascending : SortOrder.descending
+        sortOptions.field = sortByName.state.rawValue == 1 ? SortField.name : SortField.duration
+        sortOptions.order = sortAscending.state.rawValue == 1 ? SortOrder.ascending : SortOrder.descending
         
         // Perform the sort
         playlist.sort(sortOptions)

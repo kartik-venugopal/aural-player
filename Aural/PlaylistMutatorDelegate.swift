@@ -124,7 +124,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                                 progress.autoplayed = true
                             }
                             
-                        }  catch let error as Error {
+                        }  catch let error {
                             
                             if (error is InvalidTrackError) {
                                 progress.errors.append(error as! InvalidTrackError)
@@ -216,7 +216,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                     AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, playingTrack))
                 }
                 
-            } catch let error as Error {
+            } catch let error {
                 
                 if (error is InvalidTrackError) {
                     AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(oldTrack, error as! InvalidTrackError))

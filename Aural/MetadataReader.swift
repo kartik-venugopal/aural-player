@@ -7,7 +7,7 @@ import AVFoundation
 class MetadataReader {
     
     // Identifier for ID3 TLEN metadata item
-    private static let tlenID: String = AVMetadataItem.identifier(forKey: AVMetadataID3MetadataKeyLength, keySpace:  AVMetadataKeySpaceID3)!
+    private static let tlenID: String = AVMetadataItem.identifier(forKey: AVMetadataKey.id3MetadataKeyLength, keySpace:  AVMetadataKeySpace.id3)!.rawValue
     
     // Loads duration metadata for a track, if available
     static func loadDurationMetadata(_ track: Track) {
@@ -18,7 +18,7 @@ class MetadataReader {
             track.audioAsset = AVURLAsset(url: track.file, options: nil)
         }
         
-        let tlenItems = AVMetadataItem.metadataItems(from: track.audioAsset!.metadata, filteredByIdentifier: tlenID)
+        let tlenItems = AVMetadataItem.metadataItems(from: track.audioAsset!.metadata, filteredByIdentifier: AVMetadataIdentifier(rawValue: tlenID))
         if (tlenItems.count > 0) {
             
             let tlenItem = tlenItems[0]
@@ -50,19 +50,19 @@ class MetadataReader {
         
         for item in commonMD! {
             
-            if (item.commonKey == AVMetadataCommonKeyTitle) {
+            if (item.commonKey == AVMetadataKey.commonKeyTitle) {
                 
                 if (!StringUtils.isStringEmpty(item.stringValue)) {
                     title = item.stringValue!
                 }
                 
-            } else if (item.commonKey == AVMetadataCommonKeyArtist) {
+            } else if (item.commonKey == AVMetadataKey.commonKeyArtist) {
                 
                 if (!StringUtils.isStringEmpty(item.stringValue)) {
                     artist = item.stringValue!
                 }
                 
-            } else if (item.commonKey == AVMetadataCommonKeyArtwork) {
+            } else if (item.commonKey == AVMetadataKey.commonKeyArtwork) {
                 
                 art = NSImage(data: item.value as! Data)
             }
@@ -88,8 +88,8 @@ class MetadataReader {
             
             switch format {
                 
-            case AVMetadataFormatiTunesMetadata: metadataType = .iTunes
-            case AVMetadataFormatID3Metadata: metadataType = .id3
+            case AVMetadataFormat.iTunesMetadata: metadataType = .iTunes
+            case AVMetadataFormat.id3Metadata: metadataType = .id3
             default: metadataType = .other
                 
             }
@@ -104,12 +104,12 @@ class MetadataReader {
                 if let key = item.commonKey {
                     
                     // Ignore the display metadata keys (that have already been loaded)
-                    if (key != AVMetadataCommonKeyTitle && key != AVMetadataCommonKeyArtist && key != AVMetadataCommonKeyArtwork) {
+                    if (key != AVMetadataKey.commonKeyTitle && key != AVMetadataKey.commonKeyArtist && key != AVMetadataKey.commonKeyArtwork) {
                         
                         if (!StringUtils.isStringEmpty(stringValue)) {
                             
-                            let entry = MetadataEntry(.common, key, stringValue!)
-                            track.metadata[key] = entry
+                            let entry = MetadataEntry(.common, key.rawValue, stringValue!)
+                            track.metadata[key.rawValue] = entry
                         }
                     }
                     
@@ -129,7 +129,7 @@ class MetadataReader {
     static func loadSearchMetadata(_ track: Track) {
         
         // Check if metadata has already been loaded
-        if (track.metadata[AVMetadataCommonKeyAlbumName] != nil) {
+        if (track.metadata[AVMetadataKey.commonKeyAlbumName.rawValue] != nil) {
             return
         }
         
@@ -145,11 +145,11 @@ class MetadataReader {
             
             if let key = item.commonKey {
                 
-                if (key == AVMetadataCommonKeyAlbumName) {
+                if (key == AVMetadataKey.commonKeyAlbumName) {
                     
                     if (!StringUtils.isStringEmpty(item.stringValue)) {
-                        let entry = MetadataEntry(.common, key, item.stringValue!)
-                        track.metadata[key] = entry
+                        let entry = MetadataEntry(.common, key.rawValue, item.stringValue!)
+                        track.metadata[key.rawValue] = entry
                     }
                 }
             }
