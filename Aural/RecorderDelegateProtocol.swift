@@ -9,7 +9,7 @@ protocol RecorderDelegateProtocol {
     // Starts a recording with the specified format
     func startRecording(_ format: RecordingFormat)
     
-    // Returns the current duration of the active recording, in seconds, if there is one
+    // Returns metadata for the active recording (if there is one)
     func getRecordingInfo() -> RecordingInfo?
     
     // Returns a value indicating whether or not there is an ongoing recording
