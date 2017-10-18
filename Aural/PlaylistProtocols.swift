@@ -49,6 +49,9 @@ protocol PlaylistMutatorProtocol {
     
     // Sorts the playlist according to the specified sort parameters
     func sort(_ sort: Sort)
+    
+    // Performs a sequence of playlist reorder operations
+    func reorderTracks(_ reorderOperations: [PlaylistReorderOperation])
 }
 
 /*

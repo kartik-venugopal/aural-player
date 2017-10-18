@@ -303,6 +303,17 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
         return EmptyResponse.instance
     }
+    
+    func reorderTracks(_ reorderOperations: [PlaylistReorderOperation]) {
+        
+        let oldCursor = playbackSequence.getCursor()
+        let playingTrack = playlist.peekTrackAt(oldCursor)
+        
+        playlist.reorderTracks(reorderOperations)
+        
+        let newCursor = playlist.indexOfTrack(playingTrack?.track)
+        changeListeners.forEach({$0.playlistReordered(newCursor)})
+    }
 }
 
 // Indicates current progress for an operation that adds tracks to the playlist

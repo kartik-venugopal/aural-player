@@ -260,6 +260,23 @@ class Playlist: PlaylistCRUDProtocol {
         return aTrack.duration > anotherTrack.duration
     }
     
+    func reorderTracks(_ reorderOperations: [PlaylistReorderOperation]) {
+        
+        // Perform all operations in sequence
+        for op in reorderOperations {
+            
+            // Check which kind of operation this is, and perform it
+            if let copyOp = op as? PlaylistCopyOperation {
+                
+                tracks[copyOp.destIndex] = tracks[copyOp.srcIndex]
+                
+            } else if let overwriteOp = op as? PlaylistOverwriteOperation {
+                
+                tracks[overwriteOp.destIndex] = overwriteOp.srcTrack
+            }
+        }
+    }
+    
     // Returns all state for this playlist that needs to be persisted to disk
     func persistentState() -> PlaylistState {
         

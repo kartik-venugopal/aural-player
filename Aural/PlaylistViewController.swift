@@ -1,5 +1,5 @@
 /*
-    View controller for playlist CRUD controls  (adding/removing/reordering tracks and saving/loading to/from playlists)
+    View controller for playlist CRUD controls (adding/removing/reordering tracks and saving/loading to/from playlists)
  */
 
 import Cocoa
@@ -29,7 +29,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     override func viewDidLoad() {
         
         // Enable drag n drop into the playlist view
-        playlistView.register(forDraggedTypes: [String(kUTTypeFileURL)])
+        playlistView.register(forDraggedTypes: [String(kUTTypeFileURL), "public.data"])
         
         // Register self as a subscriber to various AsyncMessage notifications
         AsyncMessenger.subscribe(.trackAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
