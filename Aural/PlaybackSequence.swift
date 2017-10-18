@@ -717,17 +717,10 @@ class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
                 // Playing track was not removed, but it might have shifted up, as a result of tracks above it being removed
                 
                 // Sort ascending
-                let sortedIndexes = removedTrackIndexes.sorted(by: {x, y -> Bool in x < y})
+                let indexesAboveCursor = removedTrackIndexes.filter({$0 < cursor!})
                 
                 // For each track above the playing track that was removed, the playing track moved up one row.
-                var arrIndex = 0
-                while (arrIndex < sortedIndexes.count && sortedIndexes[arrIndex] < cursor!) {
-                    
-                    // Decrement the cursor to move the playing track "up"
-                    cursor! -= 1
-                    
-                    arrIndex += 1
-                }
+                cursor! -= indexesAboveCursor.count
             }
         }
         
@@ -747,6 +740,7 @@ class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
             cursor = oldIndex
         }
         
+        // TODO: This should not require a reset. Just swap oldIndex with newIndex.
         reset(firstTrackIndex: cursor)
     }
     

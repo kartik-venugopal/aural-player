@@ -317,7 +317,7 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
         var sourceItems = [Track]()
         
         // Make sure they the source indexes are iterated in ascending order. This will be important in Step 4.
-        sourceIndexSet.filter({$0 >= 0}).sorted(by: {x, y -> Bool in x < y}).forEach({sourceItems.append((playlist.peekTrackAt($0)?.track)!)})
+        sourceIndexSet.sorted(by: {x, y -> Bool in x < y}).forEach({sourceItems.append((playlist.peekTrackAt($0)?.track)!)})
         
         let sourceIndexesAboveDropRow = destination.sourceIndexesAboveDropRow
         
@@ -387,7 +387,7 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
         var cursor = 0
         
         // Destination rows need to be sorted in ascending order
-        let destinationRows = destination.rows.filter({$0 >= 0}).sorted(by: {x, y -> Bool in x < y})
+        let destinationRows = destination.rows.sorted(by: {x, y -> Bool in x < y})
         
         destinationRows.forEach({
             

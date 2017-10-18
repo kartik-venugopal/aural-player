@@ -232,43 +232,43 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         SyncMessenger.publishRequest(StopPlaybackRequest.instance)
     }
     
-    @IBAction func moveTrackDownAction(_ sender: AnyObject) {
-        movePlaylistTrackDown()
-        showPlaylistSelectedRow()
+    @IBAction func moveTracksDownAction(_ sender: AnyObject) {
+        moveTracksDown()
     }
     
-    @IBAction func moveTrackUpAction(_ sender: AnyObject) {
-        movePlaylistTrackUp()
-        showPlaylistSelectedRow()
+    @IBAction func moveTracksUpAction(_ sender: AnyObject) {
+        moveTracksUp()
     }
     
-    private func movePlaylistTrackUp() {
+    private func moveTracksUp() {
         
-        if (playlistView.selectedRowIndexes.count == 1) {
-        
-            let oldSelRow = playlistView.selectedRow
-            let selRow = playlist.moveTrackUp(oldSelRow)
+        if (playlistView.selectedRowIndexes.count > 0) {
             
-            // Reload data in the two affected rows
-            let rowIndexes = IndexSet([selRow, oldSelRow])
-            playlistView.reloadData(forRowIndexes: rowIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
+            let selRows = playlistView.selectedRowIndexes
+            let newIndexes = playlist.moveTracksUp(selRows)
             
-            playlistView.selectRowIndexes(IndexSet(integer: selRow), byExtendingSelection: false)
+            let refreshIndexes = selRows.union(newIndexes)
+            
+            // Reload data in the affected rows
+            playlistView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.playlistViewColumnIndexes)
+            
+            playlistView.selectRowIndexes(IndexSet(newIndexes), byExtendingSelection: false)
         }
     }
     
-    private func movePlaylistTrackDown() {
+    private func moveTracksDown() {
         
-        if (playlistView.selectedRowIndexes.count == 1) {
+        if (playlistView.selectedRowIndexes.count > 0) {
             
-            let oldSelRow = playlistView.selectedRow
-            let selRow = playlist.moveTrackDown(oldSelRow)
+            let selRows = playlistView.selectedRowIndexes
+            let newIndexes = playlist.moveTracksDown(selRows)
             
-            // Reload data in the two affected rows
-            let rowIndexes = IndexSet([selRow, oldSelRow])
-            playlistView.reloadData(forRowIndexes: rowIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
+            let refreshIndexes = selRows.union(newIndexes)
             
-            playlistView.selectRowIndexes(IndexSet(integer: selRow), byExtendingSelection: false)
+            // Reload data in the affected rows
+            playlistView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.playlistViewColumnIndexes)
+            
+            playlistView.selectRowIndexes(IndexSet(newIndexes), byExtendingSelection: false)
         }
     }
     

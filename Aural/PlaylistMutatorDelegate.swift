@@ -216,7 +216,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                     AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, playingTrack))
                 }
                 
-            } catch let error as Error {
+            } catch let error {
                 
                 if (error is InvalidTrackError) {
                     AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(oldTrack, error as! InvalidTrackError))
@@ -230,24 +230,42 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         changeListeners.forEach({$0.tracksRemoved(indexes)})
     }
     
-    func moveTrackUp(_ index: Int) -> Int {
+    func moveTracksUp(_ indexes: IndexSet) -> IndexSet {
         
-        let newIndex = playlist.moveTrackUp(index)
-        if (newIndex != index) {
-            changeListeners.forEach({$0.trackReordered(index, newIndex)})
-        }
+        // Note down which track was playing, if any
+        let oldPlayingTrackIndex = playbackSequence.getCursor()
+        let playingTrack = playlist.peekTrackAt(oldPlayingTrackIndex)
         
-        return newIndex
+        // Move tracks up as requested
+        let indexMappings = playlist.moveTracksUp(indexes)
+        
+        // Update the playing track index
+        let newPlayingTrackIndex = oldPlayingTrackIndex == nil ? nil : (indexes.contains(oldPlayingTrackIndex!) ? indexMappings[oldPlayingTrackIndex!] : playlist.indexOfTrack(playingTrack!.track))
+        
+        // TODO: Do this more smartly (only part of the playlist has been reordered)
+        // Notify listeners of the reordering of tracks
+        changeListeners.forEach({$0.playlistReordered(newPlayingTrackIndex)})
+        
+        return IndexSet(indexMappings.values)
     }
     
-    func moveTrackDown(_ index: Int) -> Int {
+    func moveTracksDown(_ indexes: IndexSet) -> IndexSet {
         
-        let newIndex = playlist.moveTrackDown(index)
-        if (newIndex != index) {
-            changeListeners.forEach({$0.trackReordered(index, newIndex)})
-        }
+        // Note down which track was playing, if any
+        let oldPlayingTrackIndex = playbackSequence.getCursor()
+        let playingTrack = playlist.peekTrackAt(oldPlayingTrackIndex)
         
-        return newIndex
+        // Move tracks down as requested
+        let indexMappings = playlist.moveTracksDown(indexes)
+        
+        // Update the playing track index
+        let newPlayingTrackIndex = oldPlayingTrackIndex == nil ? nil : (indexes.contains(oldPlayingTrackIndex!) ? indexMappings[oldPlayingTrackIndex!] : playlist.indexOfTrack(playingTrack!.track))
+        
+        // TODO: Do this more smartly (only part of the playlist has been reordered)
+        // Notify listeners of the reordering of tracks
+        changeListeners.forEach({$0.playlistReordered(newPlayingTrackIndex)})
+        
+        return IndexSet(indexMappings.values)
     }
     
     func clear() {

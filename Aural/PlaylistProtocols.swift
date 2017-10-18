@@ -41,11 +41,19 @@ protocol PlaylistMutatorProtocol {
     // Clears the entire playlist of all tracks
     func clear()
     
-    // Moves the track at the specified index, up one index, in the playlist, if it is not already at the top. Returns the new index of the track (same if it didn't move)
-    func moveTrackUp(_ index: Int) -> Int
+    /*
+        Moves the tracks at the specified indexes, up one index, in the playlist, if they can be moved (they are not already at the top). Returns a mapping of the old indexes to the new indexes, for each of the tracks (for tracks that didn't move, the mapping will have the same key and value).
+     
+        NOTE - Even if some tracks cannot move, those that can will be moved. i.e. This is not an all or nothing operation.
+     */
+    func moveTracksUp(_ indexes: IndexSet) -> [Int: Int]
     
-    // Moves the track at the specified index, down one index, in the playlist, if it is not already at the bottom. Returns the new index of the track (same if it didn't move)
-    func moveTrackDown(_ index: Int) -> Int
+    /*
+        Moves the tracks at the specified indexes, down one index, in the playlist, if they can be moved (they are not already at the bottom). Returns a mapping of the old indexes to the new indexes, for each of the tracks (for tracks that didn't move, the mapping will have the same key and value).
+     
+        NOTE - Even if some tracks cannot move, those that can will be moved. i.e. This is not an all or nothing operation.
+     */
+    func moveTracksDown(_ indexes: IndexSet) -> [Int: Int]
     
     // Sorts the playlist according to the specified sort parameters
     func sort(_ sort: Sort)

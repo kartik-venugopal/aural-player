@@ -48,12 +48,12 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         mutator.removeTracks(indexes)
     }
     
-    func moveTrackUp(_ index: Int) -> Int {
-        return mutator.moveTrackUp(index)
+    func moveTracksUp(_ indexes: IndexSet) -> IndexSet {
+        return mutator.moveTracksUp(indexes)
     }
     
-    func moveTrackDown(_ index: Int) -> Int {
-        return mutator.moveTrackDown(index)
+    func moveTracksDown(_ indexes: IndexSet) -> IndexSet {
+        return mutator.moveTracksDown(indexes)
     }
     
     func clear() {

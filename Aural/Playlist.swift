@@ -97,26 +97,81 @@ class Playlist: PlaylistCRUDProtocol {
         PlaylistIO.savePlaylist(file)
     }
     
-    func moveTrackUp(_ index: Int) -> Int {
-        
-        if (index <= 0) {
-            return index
-        }
+    // Assume track can be moved
+    private func moveTrackUp(_ index: Int) -> Int {
         
         let upIndex = index - 1
         swapTracks(index, upIndex)
         return upIndex
     }
     
-    func moveTrackDown(_ index: Int) -> Int {
-        
-        if (index >= (tracks.count - 1)) {
-            return index
-        }
+    // Assume track can be moved
+    private func moveTrackDown(_ index: Int) -> Int {
         
         let downIndex = index + 1
         swapTracks(index, downIndex)
         return downIndex
+    }
+    
+    func moveTracksUp(_ indexes: IndexSet) -> [Int: Int] {
+        
+        // Indexes need to be in ascending order, because tracks need to be moved up, one by one, from top to bottom of the playlist
+        let ascendingOldIndexes = indexes.sorted(by: {x, y -> Bool in x < y})
+        
+        // Mappings of oldIndex (prior to move) -> newIndex (after move)
+        var indexMappings = [Int: Int]()
+        
+        // Determine if there is a contiguous block of tracks at the top of the playlist, that cannot be moved. If there is, determine its size. At the end of the loop, the cursor's value will equal the size of the block.
+        var unmovableBlockCursor = 0
+        while (ascendingOldIndexes.contains(unmovableBlockCursor)) {
+            
+            // Since this track cannot be moved, map its old index to the same old index
+            indexMappings[unmovableBlockCursor] = unmovableBlockCursor
+            unmovableBlockCursor += 1
+        }
+        
+        // If there are any tracks that can be moved, move them and store the index mappings
+        if (unmovableBlockCursor < ascendingOldIndexes.count) {
+        
+            for index in unmovableBlockCursor...ascendingOldIndexes.count - 1 {
+                indexMappings[ascendingOldIndexes[index]] = moveTrackUp(ascendingOldIndexes[index])
+            }
+        }
+        
+        return indexMappings
+    }
+    
+    func moveTracksDown(_ indexes: IndexSet) -> [Int: Int] {
+        
+        // Indexes need to be in descending order, because tracks need to be moved down, one by one, from bottom to top of the playlist
+        let descendingOldIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
+        
+        // Mappings of oldIndex (prior to move) -> newIndex (after move)
+        var indexMappings = [Int: Int]()
+        
+        // Determine if there is a contiguous block of tracks at the top of the playlist, that cannot be moved. If there is, determine its size.
+        var unmovableBlockCursor = self.size() - 1
+        
+        // Tracks the size of the unmovable block. At the end of the loop, the variable's value will equal the size of the block.
+        var unmovableBlockSize = 0
+        
+        while (descendingOldIndexes.contains(unmovableBlockCursor)) {
+            
+            // Since this track cannot be moved, map its old index to the same old index
+            indexMappings[unmovableBlockCursor] = unmovableBlockCursor
+            unmovableBlockCursor -= 1
+            unmovableBlockSize += 1
+        }
+        
+        // If there are any tracks that can be moved, move them and store the index mappings
+        if (unmovableBlockSize < descendingOldIndexes.count) {
+            
+            for index in unmovableBlockSize...descendingOldIndexes.count - 1 {
+                indexMappings[descendingOldIndexes[index]] = moveTrackDown(descendingOldIndexes[index])
+            }
+        }
+        
+        return indexMappings
     }
     
     // Swaps two tracks in the array of tracks

@@ -1524,7 +1524,7 @@ G1BhbiBTbGlkZXI
                                     </tabViewItems>
                                 </tabView>
                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="QU8-ZM-MyA">
-                                    <rect key="frame" x="0.0" y="147" width="385" height="193"/>
+                                    <rect key="frame" x="0.0" y="147" width="385" height="167"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </box>
                                 <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Mvg-eT-z2w" userLabel="Tab Buttons Box">
@@ -1985,7 +1985,7 @@ G1BhbiBTbGlkZXI
                                                     <action selector="clearPlaylistAction:" target="V2O-JI-ukn" id="tM8-F6-JC7"/>
                                                 </connections>
                                             </button>
-                                            <button toolTip="Move selected track up" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HNS-ia-vrf" userLabel="Up">
+                                            <button toolTip="Move selected tracks up" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HNS-ia-vrf" userLabel="Up">
                                                 <rect key="frame" x="69" y="6" width="10" height="14"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Up" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="mpe-B1-Zp1">
@@ -1993,10 +1993,10 @@ G1BhbiBTbGlkZXI
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="moveTrackUpAction:" target="V2O-JI-ukn" id="gwg-jK-8z8"/>
+                                                    <action selector="moveTracksUpAction:" target="V2O-JI-ukn" id="aWx-PB-Vx2"/>
                                                 </connections>
                                             </button>
-                                            <button toolTip="Move selected track down" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E6L-5f-RH3" userLabel="Down">
+                                            <button toolTip="Move selected tracks down" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E6L-5f-RH3" userLabel="Down">
                                                 <rect key="frame" x="80" y="4" width="10" height="14"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Down" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="hOm-qQ-za2">
@@ -2004,7 +2004,7 @@ G1BhbiBTbGlkZXI
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="moveTrackDownAction:" target="V2O-JI-ukn" id="Imp-F0-947"/>
+                                                    <action selector="moveTracksDownAction:" target="V2O-JI-ukn" id="hDu-KA-U8j"/>
                                                 </connections>
                                             </button>
                                             <button toolTip="Search playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lK6-tf-gG6" userLabel="Search">
@@ -2409,16 +2409,16 @@ DQ
                                     <action selector="playSelectedTrackAction:" target="I9L-9m-MZn" id="vb7-xG-AHl"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Move selected track up" image="Up-Small" keyEquivalent="" id="f3c-TG-M9r">
+                            <menuItem title=" Move selected tracks up" image="Up-Small" keyEquivalent="" id="f3c-TG-M9r">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
                                 <connections>
-                                    <action selector="moveTrackUpAction:" target="V2O-JI-ukn" id="gQl-eI-Cae"/>
+                                    <action selector="moveTracksUpAction:" target="V2O-JI-ukn" id="Y92-0r-yBb"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Move selected track down" image="Down-Small" keyEquivalent="" id="F5x-Nm-ust">
+                            <menuItem title=" Move selected tracks down" image="Down-Small" keyEquivalent="" id="F5x-Nm-ust">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
                                 <connections>
-                                    <action selector="moveTrackDownAction:" target="V2O-JI-ukn" id="jjl-TC-ltc"/>
+                                    <action selector="moveTracksDownAction:" target="V2O-JI-ukn" id="IW9-G1-Asd"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Remove selected tracks" image="Remove-Small" id="20j-6Y-sbB" userLabel="Remove selected track">
