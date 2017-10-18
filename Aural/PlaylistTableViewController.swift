@@ -20,6 +20,8 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
     private let invalidDragOperation: NSDragOperation = []
     
     override func viewDidLoad() {
+        
+        // Subscribe to playbackStateChangedNotifications so that the playing track animation can be paused/resumed, in response to the playing track being paused/resumed
         SyncMessenger.subscribe(.playbackStateChangedNotification, subscriber: self)
     }
     
@@ -44,6 +46,7 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
         return playlist.peekTrackAt(row)?.track.conciseDisplayName
     }
     
+    // Returns a view for a single playlist row
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         let track = (playlist.peekTrackAt(row)?.track)!
