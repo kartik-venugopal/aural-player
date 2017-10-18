@@ -189,8 +189,13 @@ class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTa
                 let destination = calculateReorderingDestination(tableView, sourceIndexSet, row, dropOperation)
                 performReordering(sourceIndexSet, row, destination, dropOperation)
                 
-                // Refresh the playlist view, and re-select the rows that were reordered
-                tableView.reloadData()
+                // Refresh the playlist view (only the relevant rows), and re-select the source rows that were reordered
+                let minReloadIndex = min(sourceIndexSet.min()!, destination.rows.min()!)
+                let maxReloadIndex = max(sourceIndexSet.max()!, destination.rows.max()!)
+                
+                let reloadIndexes = IndexSet(minReloadIndex...maxReloadIndex)
+                tableView.reloadData(forRowIndexes: reloadIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
+                
                 tableView.selectRowIndexes(IndexSet(destination.rows), byExtendingSelection: false)
                 
                 return true
