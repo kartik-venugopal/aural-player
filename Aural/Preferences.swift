@@ -27,6 +27,7 @@ class Preferences {
     
     var viewOnStartup: ViewOnStartup
     var windowLocationOnStartup: WindowLocationOnStartup
+    var playlistLocationOnStartup: PlaylistLocationOnStartup
     
     private init() {
         
@@ -87,6 +88,16 @@ class Preferences {
         if let windowLocationStr = prefs["windowLocationOnStartup.location"] as? String {
             windowLocationOnStartup.windowLocation = WindowLocations(rawValue: windowLocationStr)!
         }
+        
+        playlistLocationOnStartup = PreferencesDefaults.playlistLocationOnStartup
+        
+        if let playlistLocationOnStartupOptionStr = prefs["playlistLocationOnStartup.option"] as? String {
+            playlistLocationOnStartup.option = PlaylistLocationOptions(rawValue: playlistLocationOnStartupOptionStr)!
+        }
+        
+        if let playlistLocationStr = prefs["playlistLocationOnStartup.location"] as? String {
+            playlistLocationOnStartup.playlistLocation = PlaylistLocations(rawValue: playlistLocationStr)!
+        }
     }
     
     static func instance() -> Preferences {
@@ -113,6 +124,9 @@ class Preferences {
         
         defaults.set(prefs.windowLocationOnStartup.option.rawValue, forKey: "windowLocationOnStartup.option")
         defaults.set(prefs.windowLocationOnStartup.windowLocation.rawValue, forKey: "windowLocationOnStartup.location")
+        
+        defaults.set(prefs.playlistLocationOnStartup.option.rawValue, forKey: "playlistLocationOnStartup.option")
+        defaults.set(prefs.playlistLocationOnStartup.playlistLocation.rawValue, forKey: "playlistLocationOnStartup.location")
     }
 }
 
@@ -137,4 +151,5 @@ class PreferencesDefaults {
     // View prefs
     static let viewOnStartup: ViewOnStartup = ViewOnStartup.defaultInstance
     static let windowLocationOnStartup: WindowLocationOnStartup = WindowLocationOnStartup.defaultInstance
+    static let playlistLocationOnStartup: PlaylistLocationOnStartup = PlaylistLocationOnStartup.defaultInstance
 }

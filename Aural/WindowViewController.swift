@@ -25,7 +25,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var fxBox: NSBox!
     
     // Remembers if/where the playlist window has been docked with the main window
-    private var playlistDockState: PlaylistDockState = .none
+    private var playlistDockState: PlaylistDockState = .bottom
     
     // Flag to indicate that a window move/resize operation was initiated by the app (as opposed to by the user)
     private var automatedPlaylistMoveOrResize: Bool = false
@@ -63,16 +63,24 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         playlistWindow.isMovableByWindowBackground = true
         playlistWindow.delegate = self
         
+        let playlistLocation = appState.playlistLocation
+        
+        switch playlistLocation {
+            
+        case .bottom:
+            dockPlaylistBottom()
+            
+        case .left:
+            dockPlaylistLeft()
+            
+        case .right:
+            dockPlaylistRight()
+        }
+        
         if (appState.hidePlaylist) {
             hidePlaylist(false)
-            
-            // TODO: Make this configurable in preferences
-            // Whenever the playlist is shown in the future, dock it at the bottom
-            playlistDockState = .bottom
-            
         } else {
-            showPlaylist()
-            dockPlaylistBottom()
+            showPlaylist(false)
         }
     }
     
@@ -133,6 +141,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         // Dock the playlist window, and set the dock state variable
         playlistWindow.setFrame(playlistFrame, display: true, animate: false)
         playlistDockState = .right
+        WindowState.playlistLocation = .right
         
         // Update the flag to indicate that an automated move/resize operation is no longer taking place
         automatedPlaylistMoveOrResize = false
@@ -186,6 +195,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         // Dock the playlist window, and set the dock state variable
         playlistWindow.setFrame(playlistFrame, display: true, animate: false)
         playlistDockState = .left
+        WindowState.playlistLocation = .left
         
         // Update the flag to indicate that an automated move/resize operation is no longer taking place
         automatedPlaylistMoveOrResize = false
@@ -237,6 +247,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         // Dock the playlist window, and set the dock state variable
         playlistWindow.setFrame(playlistFrame, display: true, animate: false)
         playlistDockState = .bottom
+        WindowState.playlistLocation = .bottom
         
         // Update the flag to indicate that an automated move/resize operation is no longer taking place
         automatedPlaylistMoveOrResize = false
@@ -405,7 +416,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         }
     }
     
-    private func showPlaylist() {
+    private func showPlaylist(_ dock: Bool = true) {
         
         resizeMainWindow(playlistShown: playlistDockState == .bottom, effectsShown: !fxBox.isHidden, false)
         
@@ -418,17 +429,20 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         viewPlaylistMenuItem.state = 1
         WindowState.showingPlaylist = true
         
-        // Re-dock the playlist window, as per the dock state
-        
-        if (playlistDockState == .bottom) {
-            dockPlaylistBottom(false)
-        } else if (playlistDockState == .right) {
-            dockPlaylistRight(false)
-        } else if (playlistDockState == .left) {
-            dockPlaylistLeft(false)
-        } else {
-            // Not docked. Use the saved offset to position the playlist window
-            repositionPlaylistWithOffset()
+        if (dock) {
+            
+            // Re-dock the playlist window, as per the dock state
+            
+            if (playlistDockState == .bottom) {
+                dockPlaylistBottom(false)
+            } else if (playlistDockState == .right) {
+                dockPlaylistRight(false)
+            } else if (playlistDockState == .left) {
+                dockPlaylistLeft(false)
+            } else {
+                // Not docked. Use the saved offset to position the playlist window
+                repositionPlaylistWithOffset()
+            }
         }
     }
     
@@ -593,6 +607,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             // Check if playlist window's top edge is adjacent to main window's bottom edge
             if ((playlistWindow.y + playlistWindow.height) != mainWindow.y) {
                 playlistDockState = .none
+                WindowState.playlistLocation = AppDefaults.playlistLocation
             }
             
         } else if (playlistDockState == .right) {
@@ -600,6 +615,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             // Check if playlist window's left edge is adjacent to main window's right edge
             if ((mainWindow.x + mainWindow.width) != playlistWindow.x) {
                 playlistDockState = .none
+                WindowState.playlistLocation = AppDefaults.playlistLocation
             }
             
         } else if (playlistDockState == .left) {
@@ -607,17 +623,19 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             // Check if playlist window's right edge is adjacent to main window's left edge
             if ((playlistWindow.x + playlistWindow.width) != mainWindow.x) {
                 playlistDockState = .none
+                WindowState.playlistLocation = AppDefaults.playlistLocation
             }
         }
     }
 }
 
-// Provides convenient access to the state of the main window, across the app
+// Provides convenient access to the state of the main and playlist windows, across the app
 class WindowState {
     
     static var window: NSWindow?
-    static var showingPlaylist: Bool = true
-    static var showingEffects: Bool = true
+    static var showingPlaylist: Bool = AppDefaults.showPlaylist
+    static var showingEffects: Bool = AppDefaults.showEffects
+    static var playlistLocation: PlaylistLocations = AppDefaults.playlistLocation
     
     static func location() -> NSPoint {
         return window!.frame.origin
@@ -631,8 +649,10 @@ class WindowState {
         uiState.windowLocationX = Float(windowOrigin.x)
         uiState.windowLocationY = Float(windowOrigin.y)
         
-        uiState.showEffects = WindowState.showingEffects
-        uiState.showPlaylist = WindowState.showingPlaylist
+        uiState.showEffects = showingEffects
+        uiState.showPlaylist = showingPlaylist
+        
+        uiState.playlistLocation = playlistLocation
         
         return uiState
     }

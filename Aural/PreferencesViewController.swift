@@ -52,6 +52,10 @@ class PreferencesViewController: NSViewController {
     @IBOutlet weak var btnStartAtWindowLocation: NSButton!
     @IBOutlet weak var startWindowLocationMenu: NSPopUpButton!
     
+    @IBOutlet weak var btnRememberPlaylistLocation: NSButton!
+    @IBOutlet weak var btnStartAtPlaylistLocation: NSButton!
+    @IBOutlet weak var startPlaylistLocationMenu: NSPopUpButton!
+    
     // Delegate that performs CRUD on user preferences
     private let preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.getPreferencesDelegate()
     
@@ -132,11 +136,16 @@ class PreferencesViewController: NSViewController {
         startWithViewMenu.isEnabled = Bool(btnStartWithView.state)
         
         btnRememberWindowLocation.state = preferences.windowLocationOnStartup.option == .rememberFromLastAppLaunch ? 1 : 0
-        
         btnStartAtWindowLocation.state = preferences.windowLocationOnStartup.option == .specific ? 1 : 0
         
         startWindowLocationMenu.isEnabled = Bool(btnStartAtWindowLocation.state)
         startWindowLocationMenu.selectItem(withTitle: preferences.windowLocationOnStartup.windowLocation.description)
+        
+        btnRememberPlaylistLocation.state = preferences.playlistLocationOnStartup.option == .rememberFromLastAppLaunch ? 1 : 0
+        btnStartAtPlaylistLocation.state = preferences.playlistLocationOnStartup.option == .specific ? 1 : 0
+        
+        startPlaylistLocationMenu.isEnabled = Bool(btnStartAtPlaylistLocation.state)
+        startPlaylistLocationMenu.selectItem(withTitle: preferences.playlistLocationOnStartup.playlistLocation.description)
     }
     
     // Presents the modal dialog
@@ -195,6 +204,10 @@ class PreferencesViewController: NSViewController {
         preferences.windowLocationOnStartup.option = btnRememberWindowLocation.state == 1 ? .rememberFromLastAppLaunch : .specific
         
         preferences.windowLocationOnStartup.windowLocation = WindowLocations.fromDescription(startWindowLocationMenu.selectedItem!.title)
+        
+        preferences.playlistLocationOnStartup.option = btnRememberPlaylistLocation.state == 1 ? .rememberFromLastAppLaunch : .specific
+        
+        preferences.playlistLocationOnStartup.playlistLocation = PlaylistLocations.fromDescription(startPlaylistLocationMenu.selectedItem!.title)
         
         UIUtils.dismissModalDialog()
         preferencesDelegate.savePreferences(preferences)
@@ -277,6 +290,10 @@ class PreferencesViewController: NSViewController {
     
     @IBAction func windowLocationOnStartupAction(_ sender: Any) {
         startWindowLocationMenu.isEnabled = Bool(btnStartAtWindowLocation.state)
+    }
+    
+    @IBAction func playlistLocationOnStartupAction(_ sender: Any) {
+        startPlaylistLocationMenu.isEnabled = Bool(btnStartAtPlaylistLocation.state)
     }
 }
 

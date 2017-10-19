@@ -10,6 +10,7 @@ class UIAppState {
     var hideEffects: Bool
     
     var windowLocation: NSPoint
+    var playlistLocation: PlaylistLocations
     
     var repeatMode: RepeatMode
     var shuffleMode: ShuffleMode
@@ -86,6 +87,8 @@ class UIAppState {
             
         } else {
             
+            // TODO: Account for playlist window dimensions (when playlist is shown) and dock location, when positioning main window
+            
             let windowWidth = UIConstants.windowWidth
             var windowHeight: CGFloat
             
@@ -103,6 +106,15 @@ class UIAppState {
             }
         
             self.windowLocation = UIUtils.windowPositionRelativeToScreen(windowWidth, windowHeight, preferences.windowLocationOnStartup.windowLocation)
+        }
+        
+        if (preferences.playlistLocationOnStartup.option == .rememberFromLastAppLaunch) {
+            
+            self.playlistLocation = appState.uiState.playlistLocation
+            
+        } else {
+            
+            self.playlistLocation = preferences.playlistLocationOnStartup.playlistLocation
         }
         
         self.repeatMode = appState.playbackSequenceState.repeatMode

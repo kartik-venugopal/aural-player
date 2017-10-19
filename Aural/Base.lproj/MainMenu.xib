@@ -1524,7 +1524,7 @@ G1BhbiBTbGlkZXI
                                     </tabViewItems>
                                 </tabView>
                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="QU8-ZM-MyA">
-                                    <rect key="frame" x="0.0" y="147" width="385" height="167"/>
+                                    <rect key="frame" x="0.0" y="147" width="385" height="108"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </box>
                                 <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Mvg-eT-z2w" userLabel="Tab Buttons Box">
@@ -2312,10 +2312,12 @@ G1BhbiBTbGlkZXI
                 <outlet property="btnPlayerPrefs" destination="VPQ-R5-z2I" id="11x-YH-YOq"/>
                 <outlet property="btnPlaylistPrefs" destination="M8M-eC-agz" id="QxH-gh-Lsl"/>
                 <outlet property="btnRememberPlaylist" destination="8na-ND-qME" id="zkD-nT-fHT"/>
+                <outlet property="btnRememberPlaylistLocation" destination="8Dg-L9-Fps" id="pLh-Ba-Gw9"/>
                 <outlet property="btnRememberView" destination="7Y2-gM-UlV" id="P7g-RV-vh8"/>
                 <outlet property="btnRememberVolume" destination="4q7-No-vcO" id="clg-b4-TPb"/>
                 <outlet property="btnRememberWindowLocation" destination="Nry-MO-jFY" id="Iv7-MZ-UYp"/>
                 <outlet property="btnSpecifyVolume" destination="iIR-GC-hMW" id="9HI-rX-jgm"/>
+                <outlet property="btnStartAtPlaylistLocation" destination="qVZ-Rh-Urb" id="rqi-HB-UIN"/>
                 <outlet property="btnStartAtWindowLocation" destination="8H3-Ji-WYJ" id="bep-Us-HCV"/>
                 <outlet property="btnStartWithView" destination="NO5-id-adN" id="F6A-i4-M1O"/>
                 <outlet property="btnViewPrefs" destination="A1g-Lb-y1B" id="O8o-WX-tmh"/>
@@ -2326,6 +2328,7 @@ G1BhbiBTbGlkZXI
                 <outlet property="prefsTabView" destination="k0I-lv-KcJ" id="9Si-Nm-joZ"/>
                 <outlet property="seekLengthField" destination="dBN-Nf-UUu" id="5Uk-ys-sUd"/>
                 <outlet property="seekLengthSlider" destination="z2P-US-UeC" id="VG7-XD-107"/>
+                <outlet property="startPlaylistLocationMenu" destination="Ng8-NX-roP" id="nd2-uD-msY"/>
                 <outlet property="startWindowLocationMenu" destination="h0Y-pW-3qj" id="nas-4J-TWc"/>
                 <outlet property="startWithViewMenu" destination="kck-JI-Q40" id="Hzk-yh-G4p"/>
                 <outlet property="startupVolumeSlider" destination="fUW-L3-FhW" id="Egq-UE-xsy"/>
@@ -3069,23 +3072,23 @@ Gw
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="miy-XV-uzY" userLabel="Preferences Panel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="120" y="65" width="418" height="330"/>
+            <rect key="contentRect" x="120" y="65" width="418" height="359"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="kXa-Xa-w7W">
-                <rect key="frame" x="0.0" y="0.0" width="418" height="330"/>
+                <rect key="frame" x="0.0" y="0.0" width="418" height="359"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="hcG-N8-LWg" userLabel="Prefs Box">
-                        <rect key="frame" x="13" y="42" width="391" height="242"/>
+                        <rect key="frame" x="13" y="44" width="391" height="269"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" ambiguous="YES" id="Fe7-XV-AHs">
-                            <rect key="frame" x="1" y="1" width="389" height="240"/>
+                            <rect key="frame" x="1" y="1" width="389" height="267"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oRt-Kg-Osn" userLabel="Save button">
-                        <rect key="frame" x="253" y="11" width="73" height="19"/>
+                        <rect key="frame" x="253" y="10" width="73" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="roundRect" title="Save" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jeZ-Un-FFA" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -3099,7 +3102,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BiP-3r-keA" userLabel="Cancel button">
-                        <rect key="frame" x="331" y="11" width="73" height="19"/>
+                        <rect key="frame" x="331" y="10" width="73" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4q5-11-emD" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -3113,17 +3116,16 @@ Gw
                         </connections>
                     </button>
                     <tabView fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="k0I-lv-KcJ" userLabel="Preferences TabView">
-                        <rect key="frame" x="13" y="42" width="391" height="237"/>
+                        <rect key="frame" x="13" y="44" width="391" height="264"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Player" identifier="1" id="qeG-g8-ZQR" userLabel="Player Prefs">
-                                <view key="view" ambiguous="YES" id="IS8-3h-7Hr">
-                                    <rect key="frame" x="0.0" y="0.0" width="391" height="237"/>
+                                <view key="view" id="IS8-3h-7Hr">
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWd-Fg-eFc" userLabel="Seek Length Label">
-                                            <rect key="frame" x="17" y="193" width="75" height="20"/>
+                                            <rect key="frame" x="17" y="-44" width="75" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Seek length" id="WCm-za-Inb">
                                                 <font key="font" size="13" name="GillSans"/>
@@ -3132,7 +3134,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBN-Nf-UUu">
-                                            <rect key="frame" x="301" y="191" width="74" height="20"/>
+                                            <rect key="frame" x="301" y="-46" width="74" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="5 sec" id="MOP-Kg-eKh">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="IDA-wd-8Dq">
@@ -3145,7 +3147,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="612-km-10n">
-                                            <rect key="frame" x="289" y="192" width="17" height="16"/>
+                                            <rect key="frame" x="289" y="-45" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="roundTextured" title="+" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YCo-PB-Os5">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -3156,7 +3158,7 @@ Gw
                                             </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Buf-vH-e4V">
-                                            <rect key="frame" x="89" y="192" width="17" height="16"/>
+                                            <rect key="frame" x="89" y="-45" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="roundTextured" title="-" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="41r-5H-7DS">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -3167,7 +3169,7 @@ Gw
                                             </connections>
                                         </button>
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z2P-US-UeC" userLabel="Seek Length Slider">
-                                            <rect key="frame" x="109" y="193" width="177" height="15"/>
+                                            <rect key="frame" x="109" y="-44" width="177" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="3" maxValue="300" doubleValue="50" tickMarkPosition="below" sliderType="linear" id="VGi-B0-wqx" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                                             <connections>
@@ -3175,7 +3177,7 @@ Gw
                                             </connections>
                                         </slider>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Odv-ow-YMl" userLabel="Volume Increment Label">
-                                            <rect key="frame" x="17" y="149" width="125" height="20"/>
+                                            <rect key="frame" x="17" y="-88" width="125" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Volume increment" id="X6O-m8-VA1">
                                                 <font key="font" size="13" name="GillSans"/>
@@ -3184,7 +3186,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Tz-kD-WEf" userLabel="Volume Increment Field">
-                                            <rect key="frame" x="320" y="147" width="40" height="20"/>
+                                            <rect key="frame" x="320" y="-90" width="40" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="5%" id="4m1-UC-XKP">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="TDK-Gt-XhG">
@@ -3197,7 +3199,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A38-ZO-IeG" userLabel="Volume Increment Stepper">
-                                            <rect key="frame" x="360" y="146" width="15" height="22"/>
+                                            <rect key="frame" x="360" y="-91" width="15" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="5" id="UQQ-Lh-1wc"/>
                                             <connections>
@@ -3205,7 +3207,7 @@ Gw
                                             </connections>
                                         </stepper>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSo-AZ-SOf" userLabel="Volume on startup Label">
-                                            <rect key="frame" x="17" y="112" width="125" height="20"/>
+                                            <rect key="frame" x="17" y="-125" width="125" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Volume on startup" id="Z5Z-1X-jSH">
                                                 <font key="font" size="13" name="GillSans"/>
@@ -3214,7 +3216,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4q7-No-vcO">
-                                            <rect key="frame" x="29" y="90" width="217" height="20"/>
+                                            <rect key="frame" x="29" y="-147" width="217" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="radio" title="Remember volume from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="5SJ-hR-n8a" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -3225,7 +3227,7 @@ Gw
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iIR-GC-hMW">
-                                            <rect key="frame" x="29" y="71" width="90" height="20"/>
+                                            <rect key="frame" x="29" y="-166" width="90" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="radio" title="Specify value" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="Wt6-sm-P6C" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -3236,7 +3238,7 @@ Gw
                                             </connections>
                                         </button>
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fUW-L3-FhW" userLabel="Startup Volume Slider">
-                                            <rect key="frame" x="121" y="72" width="177" height="15"/>
+                                            <rect key="frame" x="121" y="-165" width="177" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" sliderType="linear" id="leV-bZ-fp7" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                                             <connections>
@@ -3244,7 +3246,7 @@ Gw
                                             </connections>
                                         </slider>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCp-DK-wqv" userLabel="Startup Volume Field">
-                                            <rect key="frame" x="335" y="69" width="40" height="20"/>
+                                            <rect key="frame" x="335" y="-168" width="40" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" enabled="NO" state="on" alignment="right" title="50%" id="gFQ-a0-I2Z">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="8Oa-x9-krK">
@@ -3257,7 +3259,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kuz-EH-wmV" userLabel="Pan Delta label">
-                                            <rect key="frame" x="17" y="34" width="148" height="20"/>
+                                            <rect key="frame" x="17" y="-203" width="148" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Balance increment" id="kRA-YO-iBg">
                                                 <font key="font" size="13" name="GillSans"/>
@@ -3266,7 +3268,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="No1-X0-ONc" userLabel="Pan Delta Field">
-                                            <rect key="frame" x="320" y="32" width="40" height="20"/>
+                                            <rect key="frame" x="320" y="-205" width="40" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="10%" id="9Bb-bA-cat">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="zO6-pH-4pN">
@@ -3279,7 +3281,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xdc-nv-mZS" userLabel="Pan Delta Stepper">
-                                            <rect key="frame" x="360" y="31" width="15" height="22"/>
+                                            <rect key="frame" x="360" y="-206" width="15" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="10" id="fR7-Ff-J78"/>
                                             <connections>
@@ -3291,11 +3293,11 @@ Gw
                             </tabViewItem>
                             <tabViewItem label="Playlist" identifier="2" id="YgI-hA-KJv" userLabel="Playlist Prefs">
                                 <view key="view" id="IB3-v5-Fra">
-                                    <rect key="frame" x="0.0" y="0.0" width="391" height="237"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="391" height="264"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jeh-go-ay0">
-                                            <rect key="frame" x="17" y="193" width="92" height="20"/>
+                                            <rect key="frame" x="17" y="220" width="92" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="On app startup" id="TDd-25-ElD">
                                                 <font key="font" size="13" name="GillSans"/>
@@ -3304,7 +3306,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8na-ND-qME">
-                                            <rect key="frame" x="29" y="169" width="213" height="20"/>
+                                            <rect key="frame" x="29" y="196" width="213" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="radio" title="Remember playlist from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="08k-Ic-8WP" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -3315,7 +3317,7 @@ Gw
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Zl-DZ-Wz6">
-                                            <rect key="frame" x="29" y="150" width="146" height="20"/>
+                                            <rect key="frame" x="29" y="177" width="146" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="radio" title="Start with empty playlist" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="3H8-eT-vTj" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -3326,7 +3328,7 @@ Gw
                                             </connections>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcJ-se-RYq" userLabel="Autoplay on startup">
-                                            <rect key="frame" x="17" y="112" width="70" height="20"/>
+                                            <rect key="frame" x="17" y="139" width="70" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Autoplay" id="wVd-g9-8ny">
                                                 <font key="font" size="13" name="GillSans"/>
@@ -3335,7 +3337,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gn8-VH-Na5">
-                                            <rect key="frame" x="29" y="90" width="207" height="20"/>
+                                            <rect key="frame" x="29" y="117" width="207" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="On startup (if at least 1 track available)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="9zP-V3-sOS" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -3343,7 +3345,7 @@ Gw
                                             </buttonCell>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="auF-TB-XB2">
-                                            <rect key="frame" x="29" y="71" width="241" height="20"/>
+                                            <rect key="frame" x="29" y="98" width="241" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="After adding tracks, play first added track" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="usf-1O-8HP" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -3354,7 +3356,7 @@ Gw
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uGw-1k-yU2">
-                                            <rect key="frame" x="53" y="50" width="202" height="20"/>
+                                            <rect key="frame" x="53" y="77" width="202" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="radio" title="If no track is currently playing" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="rjw-OJ-t0C" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -3365,7 +3367,7 @@ Gw
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uvD-1v-wz2">
-                                            <rect key="frame" x="53" y="31" width="137" height="20"/>
+                                            <rect key="frame" x="53" y="58" width="137" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="radio" title="Always" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="KeI-6A-58t" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -3379,12 +3381,12 @@ Gw
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Playlist" identifier="2" id="nFE-7c-2Vt" userLabel="View Prefs">
-                                <view key="view" id="zje-kc-CUI">
-                                    <rect key="frame" x="0.0" y="0.0" width="391" height="237"/>
+                                <view key="view" ambiguous="YES" id="zje-kc-CUI">
+                                    <rect key="frame" x="0.0" y="0.0" width="391" height="264"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NO5-id-adN" userLabel="Start with view">
-                                            <rect key="frame" x="29" y="150" width="108" height="20"/>
+                                            <rect key="frame" x="29" y="182" width="108" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="radio" title="Start with view" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="BvL-bP-gAP" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -3395,7 +3397,7 @@ Gw
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Y2-gM-UlV" userLabel="Remember view from last app launch">
-                                            <rect key="frame" x="29" y="169" width="213" height="20"/>
+                                            <rect key="frame" x="29" y="201" width="213" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="radio" title="Remember view from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="FoB-0X-iNr" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -3406,7 +3408,7 @@ Gw
                                             </connections>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8f-7O-VQt" userLabel="View on startup">
-                                            <rect key="frame" x="17" y="193" width="92" height="20"/>
+                                            <rect key="frame" x="17" y="225" width="92" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="View on startup" id="ekB-Wg-VMk">
                                                 <font key="font" size="13" name="GillSans"/>
@@ -3414,17 +3416,8 @@ Gw
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vgv-3y-hlD" userLabel="Window location on startup">
-                                            <rect key="frame" x="17" y="112" width="171" height="20"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Window location on startup" id="AIJ-yj-FNf">
-                                                <font key="font" size="13" name="GillSans"/>
-                                                <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kck-JI-Q40" userLabel="Start View menu">
-                                            <rect key="frame" x="132" y="149" width="145" height="26"/>
+                                            <rect key="frame" x="132" y="181" width="145" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Default (playlist and effects)" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="F7B-EB-JLk" id="oeR-ef-X1J" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -3439,8 +3432,17 @@ Gw
                                                 </menu>
                                             </popUpButtonCell>
                                         </popUpButton>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vgv-3y-hlD" userLabel="Window location on startup">
+                                            <rect key="frame" x="17" y="144" width="171" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Window location on startup" id="AIJ-yj-FNf">
+                                                <font key="font" size="13" name="GillSans"/>
+                                                <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8H3-Ji-WYJ" userLabel="Start at location">
-                                            <rect key="frame" x="29" y="71" width="108" height="20"/>
+                                            <rect key="frame" x="29" y="103" width="108" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="radio" title="Start at location" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="925-BR-n3o" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -3451,7 +3453,7 @@ Gw
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nry-MO-jFY" userLabel="Remember location from last app launch">
-                                            <rect key="frame" x="29" y="90" width="305" height="20"/>
+                                            <rect key="frame" x="29" y="122" width="305" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="radio" title="Remember window location from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="pWA-fq-517" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -3462,22 +3464,92 @@ Gw
                                             </connections>
                                         </button>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h0Y-pW-3qj" userLabel="Start window location menu">
-                                            <rect key="frame" x="133" y="68" width="111" height="26"/>
+                                            <rect key="frame" x="133" y="100" width="111" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Center" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Qr8-km-sr6" id="HW4-YC-UPa" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" size="10" name="GillSans"/>
                                                 <menu key="menu" id="UzQ-5Q-YPv">
                                                     <items>
-                                                        <menuItem title="Center" state="on" id="Qr8-km-sr6"/>
-                                                        <menuItem title="Top left" id="U1S-pw-Ulc"/>
-                                                        <menuItem title="Top center" id="BcZ-f0-7Pn"/>
-                                                        <menuItem title="Top right" id="AAT-QQ-2XF"/>
-                                                        <menuItem title="Left center" id="7Oj-mY-I5z" userLabel="Left center"/>
-                                                        <menuItem title="Right center" id="KKS-Ba-9BX" userLabel="Right center"/>
-                                                        <menuItem title="Bottom left" id="t4b-WC-wk9"/>
-                                                        <menuItem title="Bottom center" id="MDx-v1-Dg9"/>
-                                                        <menuItem title="Bottom right" id="ed9-j5-jbM"/>
+                                                        <menuItem title="Center" state="on" id="Qr8-km-sr6">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Top left" id="U1S-pw-Ulc">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Top center" id="BcZ-f0-7Pn">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Top right" id="AAT-QQ-2XF">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Left center" id="7Oj-mY-I5z" userLabel="Left center">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Right center" id="KKS-Ba-9BX" userLabel="Right center">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Bottom left" id="t4b-WC-wk9">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Bottom center" id="MDx-v1-Dg9">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Bottom right" id="ed9-j5-jbM">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ju-AU-ed9" userLabel="Playlist location on startup">
+                                            <rect key="frame" x="17" y="63" width="249" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playlist location on startup (if/when shown)" id="mEY-3T-zRI">
+                                                <font key="font" size="13" name="GillSans"/>
+                                                <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qVZ-Rh-Urb" userLabel="Start at location">
+                                            <rect key="frame" x="29" y="22" width="108" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="radio" title="Dock at location" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="EiS-pC-Fbs" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="smallSystem"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="playlistLocationOnStartupAction:" target="qZU-Ni-Dah" id="dNd-po-lPf"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Dg-L9-Fps" userLabel="Remember location from last app launch">
+                                            <rect key="frame" x="29" y="41" width="305" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="radio" title="Remember playlist location from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="g7p-TU-sxR" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="smallSystem"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="playlistLocationOnStartupAction:" target="qZU-Ni-Dah" id="Qd9-jV-m29"/>
+                                            </connections>
+                                        </button>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ng8-NX-roP" userLabel="Playlist dock location menu">
+                                            <rect key="frame" x="133" y="19" width="85" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="Bottom" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="dAe-JE-dbs" id="9Gt-CY-kOx" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" size="10" name="GillSans"/>
+                                                <menu key="menu" id="6kb-oS-z2K">
+                                                    <items>
+                                                        <menuItem title="Left" id="rBT-uJ-IFE" userLabel="Left">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Bottom" state="on" id="dAe-JE-dbs" userLabel="Bottom">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Right" id="3Xz-mh-mCH" userLabel="Right">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
                                                     </items>
                                                 </menu>
                                             </popUpButtonCell>
@@ -3488,7 +3560,7 @@ Gw
                         </tabViewItems>
                     </tabView>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VPQ-R5-z2I" userLabel="Player tab button">
-                        <rect key="frame" x="48" y="295" width="103" height="22"/>
+                        <rect key="frame" x="48" y="324" width="103" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Player" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="ysd-b4-M64" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -3499,7 +3571,7 @@ Gw
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M8M-eC-agz" userLabel="Playlist tab button">
-                        <rect key="frame" x="157" y="295" width="103" height="22"/>
+                        <rect key="frame" x="157" y="324" width="103" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Playlist" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="NOz-zz-42Z" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -3510,7 +3582,7 @@ Gw
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A1g-Lb-y1B" userLabel="View tab button">
-                        <rect key="frame" x="266" y="295" width="103" height="22"/>
+                        <rect key="frame" x="266" y="324" width="103" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="View" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="wI4-Lk-wKS" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -3527,7 +3599,7 @@ Gw
                     <color key="value" white="0.30015733506944442" alpha="1" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="-228" y="617"/>
+            <point key="canvasLocation" x="-228" y="631.5"/>
         </window>
         <menu id="7lR-jg-Hrh" userLabel="Dock Menu">
             <items>

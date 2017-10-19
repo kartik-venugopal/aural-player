@@ -10,6 +10,8 @@ class UIState {
     
     var showPlaylist: Bool = AppDefaults.showPlaylist
     var showEffects: Bool = AppDefaults.showEffects
+    
+    var playlistLocation: PlaylistLocations = AppDefaults.playlistLocation
 }
 
 /*
@@ -118,6 +120,8 @@ class AppState {
         uiDict["windowLocationX"] = uiState.windowLocationX as NSNumber
         uiDict["windowLocationY"] = uiState.windowLocationY as NSNumber
         
+        uiDict["playlistLocation"] = uiState.playlistLocation.rawValue as AnyObject
+        
         dict["ui"] = uiDict as AnyObject
         
         var audioGraphDict = [NSString: AnyObject]()
@@ -224,6 +228,12 @@ class AppState {
             
             if let locY = uiDict["windowLocationY"] as? NSNumber {
                 state.uiState.windowLocationY = locY.floatValue
+            }
+            
+            if let playlistLocationStr = uiDict["playlistLocation"] as? String {
+                if let playlistLocation = PlaylistLocations(rawValue: playlistLocationStr) {
+                    state.uiState.playlistLocation = playlistLocation
+                }
             }
         }
         

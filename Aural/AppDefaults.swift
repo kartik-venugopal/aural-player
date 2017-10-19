@@ -12,6 +12,8 @@ class AppDefaults {
     static let windowLocationX: Float = 0
     static let windowLocationY: Float = 0
     
+    static let playlistLocation: PlaylistLocations = .bottom
+    
     static let repeatMode: RepeatMode = .off
     static let shuffleMode: ShuffleMode = .off
     

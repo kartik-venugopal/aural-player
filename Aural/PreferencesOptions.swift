@@ -103,3 +103,40 @@ enum WindowLocations: String {
         return WindowLocations(rawValue: StringUtils.camelCase(description)) ?? .center
     }
 }
+
+// Playlist location on startup preference
+class PlaylistLocationOnStartup {
+    
+    var option: PlaylistLocationOptions = .rememberFromLastAppLaunch
+    
+    // This is used only if option == .specific
+    var playlistLocation: PlaylistLocations = .bottom
+    
+    // NOTE: This is mutable. Potentially unsafe
+    static let defaultInstance: PlaylistLocationOnStartup = PlaylistLocationOnStartup()
+}
+
+// All options for the playlist location at startup
+enum PlaylistLocationOptions: String {
+    
+    case rememberFromLastAppLaunch
+    case specific
+}
+
+// Enumeration of possible startup playlist locations
+enum PlaylistLocations: String {
+    
+    case left
+    case right
+    case bottom
+    
+    static let allValues: [PlaylistLocations] = [left, right, bottom]
+    
+    var description: String {
+        return rawValue.capitalized
+    }
+    
+    static func fromDescription(_ description: String) -> PlaylistLocations {
+        return PlaylistLocations(rawValue: description.lowercased()) ?? .bottom
+    }
+}
