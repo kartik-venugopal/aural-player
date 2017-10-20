@@ -321,6 +321,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return nil
     }
     
+    func play(_ track: Track) throws -> IndexedTrack {
+        let index = playlist.indexOfTrack(track)
+        
+        // Cannot be nil, ok to force unwrap
+        return try play(index!)
+    }
+    
     // ------------------- PlaylistChangeListener methods ---------------------
     // Whenever the playlist is modified, the track prep task needs to be executed, to ensure optimal playback responsiveness.
     

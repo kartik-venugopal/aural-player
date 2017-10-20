@@ -8,6 +8,8 @@ protocol PlaylistAccessorProtocol {
     // Retrieve all tracks
     func getTracks() -> [Track]
     
+    func groupTracks(_ type: GroupType) -> GroupedPlaylist
+    
     // Read the track at a given index. Nil if invalid index is specified.
     func peekTrackAt(_ index: Int?) -> IndexedTrack?
     

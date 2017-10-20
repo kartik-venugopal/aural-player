@@ -13,6 +13,9 @@ class Track: NSObject {
     // All info relating to how this track is displayed
     var displayInfo: DisplayInfo
     
+    // All info relating to how this track is grouped
+    var groupingInfo: GroupingInfo
+    
     // All info relating to playback of this track
     var playbackInfo: PlaybackInfo?
     
@@ -32,6 +35,7 @@ class Track: NSObject {
         
         self.fileSystemInfo = FileSystemInfo(file)
         self.displayInfo = DisplayInfo(file)
+        self.groupingInfo = GroupingInfo()
         self.lazyLoadingInfo = LazyLoadingInfo()
     }
     
@@ -110,6 +114,16 @@ class DisplayInfo {
     func hasArtistAndTitle() -> Bool {
         return artist != nil && title != nil
     }
+}
+
+class GroupingInfo {
+    
+    // The following fields are read from the track's metadata
+    var artist: String?
+    var album: String?
+    var genre: String?
+    var diskNumber: Int?
+    var trackNumber: Int?
 }
 
 class PlaybackInfo {

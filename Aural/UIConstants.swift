@@ -59,6 +59,8 @@ class UIConstants {
     static let imgEffectsOn: NSImage = NSImage(named: "EffectsView-On")!
     static let imgEffectsOff: NSImage = NSImage(named: "EffectsView-Off")!
     
+    static let imgGroup: NSImage = NSImage(named: "Group")!
+    
     // Images displayed in alerts
     static let imgWarning: NSImage = NSImage(named: "Warning")!
     static let imgError: NSImage = NSImage(named: "Error")!
@@ -74,6 +76,12 @@ class UIConstants {
     // Fonts used by the playlist view
     static let playlistSelectedTextFont: NSFont = gillSans12Font
     static let playlistTextFont: NSFont = gillSans12LightFont
+    
+    static let playlistGroupNameSelectedTextFont: NSFont = gillSans12SemiBoldFont
+    static let playlistGroupNameTextFont: NSFont = gillSans12Font
+    
+    static let playlistGroupItemSelectedTextFont: NSFont = gillSans12Font
+    static let playlistGroupItemTextFont: NSFont = gillSans12LightFont
     
     // Font used by the effects tab view buttons
     static let tabViewButtonFont: NSFont = gillSans12Font

@@ -1,5 +1,5 @@
 /*
-    View controller for playlist CRUD controls (adding/removing/reordering tracks and saving/loading to/from playlists)
+ View controller for playlist CRUD controls (adding/removing/reordering tracks and saving/loading to/from playlists)
  */
 
 import Cocoa
@@ -7,7 +7,20 @@ import Cocoa
 class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageSubscriber {
     
     // Displays the playlist and summary
-    @IBOutlet weak var playlistView: NSTableView!
+    
+    @IBOutlet weak var tracksView: NSTableView!
+    @IBOutlet weak var artistsView: NSOutlineView!
+    @IBOutlet weak var albumsView: NSOutlineView!
+    @IBOutlet weak var genresView: NSOutlineView!
+    
+    @IBOutlet weak var btnTracksView: NSButton!
+    @IBOutlet weak var btnArtistsView: NSButton!
+    @IBOutlet weak var btnAlbumsView: NSButton!
+    @IBOutlet weak var btnGenresView: NSButton!
+    
+    @IBOutlet weak var tabGroup: NSTabView!
+    private var tabViewButtons: [NSButton]?
+    
     @IBOutlet weak var lblPlaylistSummary: NSTextField!
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
     
@@ -29,7 +42,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     override func viewDidLoad() {
         
         // Enable drag n drop into the playlist view
-        playlistView.register(forDraggedTypes: [String(kUTTypeFileURL), "public.data"])
+        tracksView.register(forDraggedTypes: [String(kUTTypeFileURL), "public.data"])
         
         // Register self as a subscriber to various AsyncMessage notifications
         AsyncMessenger.subscribe(.trackAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
@@ -48,11 +61,13 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         playlistUpdateQueue.qualityOfService = .background
         
         // Set up key press handler to enable natural scrolling of the playlist view with arrow keys
-        playlistKeyPressHandler = PlaylistKeyPressHandler(playlistView)
+        playlistKeyPressHandler = PlaylistKeyPressHandler([tracksView, artistsView])
         NSEvent.addLocalMonitorForEvents(matching: NSEventMask.keyDown, handler: {(event: NSEvent!) -> NSEvent in
             self.playlistKeyPressHandler?.handle(event)
             return event;
         });
+        
+        tabViewButtons = [btnTracksView, btnArtistsView, btnAlbumsView, btnGenresView]
     }
     
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
@@ -94,6 +109,15 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     private func doneAddingTracks() {
         playlistWorkSpinner.stopAnimation(self)
         playlistWorkSpinner.isHidden = true
+        
+        tracksView.isHidden = true
+        artistsView.reloadData()
+        
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.refreshPlar), userInfo: nil, repeats: false)
+    }
+    
+    func refreshPlar() {
+        artistsView.reloadData()
     }
     
     // Move the spinner so it is adjacent to the summary text, on the left
@@ -110,15 +134,15 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     @IBAction func removeTracksAction(_ sender: AnyObject) {
         
-        let selectedIndexes = playlistView.selectedRowIndexes
+        let selectedIndexes = tracksView.selectedRowIndexes
         if (selectedIndexes.count > 0) {
             
             // Special case: If all tracks were removed, this is the same as clearing the playlist, delegate to that (simpler and more efficient) function instead.
-            if (selectedIndexes.count == playlistView.numberOfRows) {
+            if (selectedIndexes.count == tracksView.numberOfRows) {
                 clearPlaylistAction(sender)
                 return
             }
-
+            
             // The $0 comparison is not needed, except to appease the compiler
             let indexes = selectedIndexes.filter({$0 >= 0})
             if (!indexes.isEmpty) {
@@ -126,13 +150,13 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             }
             
             // Clear the playlist selection
-            playlistView.deselectAll(self)
+            tracksView.deselectAll(self)
         }
     }
     
     // Assume non-empty array and valid indexes
     private func removeTracks(_ indexes: [Int]) {
-
+        
         // Note down the index of the playing track, if there is one
         let oldPlayingTrackIndex = playbackInfo.getPlayingTrack()?.index
         
@@ -141,18 +165,18 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         // Update all rows from the first (i.e. smallest number) selected row, down to the end of the playlist
         
-        let newPlaylistSize = playlistView.numberOfRows - indexes.count
+        let newPlaylistSize = tracksView.numberOfRows - indexes.count
         let minIndex = (indexes.min())!
         let newLastIndex = newPlaylistSize - 1
         
         // If not all selected rows are contiguous and at the end of the playlist
         if (minIndex <= newLastIndex) {
             let rowIndexes = IndexSet(minIndex...newLastIndex)
-            playlistView.reloadData(forRowIndexes: rowIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
+            tracksView.reloadData(forRowIndexes: rowIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
         }
         
         // Tell the playlist view that the number of rows has changed, and update the playlist summary
-        playlistView.noteNumberOfRowsChanged()
+        tracksView.noteNumberOfRowsChanged()
         updatePlaylistSummary()
         
         // Request the player to stop playback, if the playing track was removed
@@ -182,19 +206,19 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             rowsArr.append(newTrack!.index)
         }
         
-        playlistView.reloadData(forRowIndexes: IndexSet(rowsArr), columnIndexes: UIConstants.playlistViewColumnIndexes)
+        tracksView.reloadData(forRowIndexes: IndexSet(rowsArr), columnIndexes: UIConstants.playlistViewColumnIndexes)
     }
     
     // Selects (and shows) a certain track within the playlist view
     private func selectTrack(_ index: Int?) {
         
-        if (playlistView.numberOfRows > 0) {
+        if (tracksView.numberOfRows > 0) {
             
             if (index != nil && index! >= 0) {
-                playlistView.selectRowIndexes(IndexSet(integer: index!), byExtendingSelection: false)
+                tracksView.selectRowIndexes(IndexSet(integer: index!), byExtendingSelection: false)
             } else {
                 // Select first track in list
-                playlistView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
+                tracksView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
             }
             
             showPlaylistSelectedRow()
@@ -203,29 +227,29 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     // Scrolls the playlist to show its selected row
     private func showPlaylistSelectedRow() {
-        if (playlistView.numberOfRows > 0 && playlistView.selectedRow >= 0) {
-            playlistView.scrollRowToVisible(playlistView.selectedRow)
+        if (tracksView.numberOfRows > 0 && tracksView.selectedRow >= 0) {
+            tracksView.scrollRowToVisible(tracksView.selectedRow)
         }
     }
     
     // Scrolls the playlist view to the very top
     @IBAction func scrollToTopAction(_ sender: AnyObject) {
-        if (playlistView.numberOfRows > 0) {
-            playlistView.scrollRowToVisible(0)
+        if (tracksView.numberOfRows > 0) {
+            tracksView.scrollRowToVisible(0)
         }
     }
     
     // Scrolls the playlist view to the very bottom
     @IBAction func scrollToBottomAction(_ sender: AnyObject) {
-        if (playlistView.numberOfRows > 0) {
-            playlistView.scrollRowToVisible(playlistView.numberOfRows - 1)
+        if (tracksView.numberOfRows > 0) {
+            tracksView.scrollRowToVisible(tracksView.numberOfRows - 1)
         }
     }
     
     @IBAction func clearPlaylistAction(_ sender: AnyObject) {
         
         playlist.clear()
-        playlistView.reloadData()
+        tracksView.reloadData()
         updatePlaylistSummary()
         
         // Request the player to stop playback, if there is a track playing
@@ -242,33 +266,33 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     private func moveTracksUp() {
         
-        if (playlistView.selectedRowIndexes.count > 0) {
+        if (tracksView.selectedRowIndexes.count > 0) {
             
-            let selRows = playlistView.selectedRowIndexes
+            let selRows = tracksView.selectedRowIndexes
             let newIndexes = playlist.moveTracksUp(selRows)
             
             let refreshIndexes = selRows.union(newIndexes)
             
             // Reload data in the affected rows
-            playlistView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.playlistViewColumnIndexes)
+            tracksView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.playlistViewColumnIndexes)
             
-            playlistView.selectRowIndexes(IndexSet(newIndexes), byExtendingSelection: false)
+            tracksView.selectRowIndexes(IndexSet(newIndexes), byExtendingSelection: false)
         }
     }
     
     private func moveTracksDown() {
         
-        if (playlistView.selectedRowIndexes.count > 0) {
+        if (tracksView.selectedRowIndexes.count > 0) {
             
-            let selRows = playlistView.selectedRowIndexes
+            let selRows = tracksView.selectedRowIndexes
             let newIndexes = playlist.moveTracksDown(selRows)
             
             let refreshIndexes = selRows.union(newIndexes)
             
             // Reload data in the affected rows
-            playlistView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.playlistViewColumnIndexes)
+            tracksView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.playlistViewColumnIndexes)
             
-            playlistView.selectRowIndexes(IndexSet(newIndexes), byExtendingSelection: false)
+            tracksView.selectRowIndexes(IndexSet(newIndexes), byExtendingSelection: false)
         }
     }
     
@@ -310,12 +334,12 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             // Perform task serially wrt other such tasks
             
             let updateOp = BlockOperation(block: {
-            
+                
                 let _msg = message as! TrackAddedAsyncMessage
-                self.playlistView.noteNumberOfRowsChanged()
+                self.tracksView.noteNumberOfRowsChanged()
                 self.updatePlaylistSummary(_msg.progress)
             })
-                
+            
             playlistUpdateQueue.addOperation(updateOp)
             
             return
@@ -345,7 +369,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
                 
                 let index = (message as! TrackInfoUpdatedAsyncMessage).trackIndex
                 
-                self.playlistView.reloadData(forRowIndexes: IndexSet(integer: index), columnIndexes: UIConstants.playlistViewColumnIndexes)
+                self.tracksView.reloadData(forRowIndexes: IndexSet(integer: index), columnIndexes: UIConstants.playlistViewColumnIndexes)
                 self.updatePlaylistSummary()
                 
                 // If this is the playing track, tell other views that info has been updated
@@ -378,5 +402,54 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         }
         
         return EmptyResponse.instance
+    }
+    
+    @IBAction func tracksViewAction(_ sender: Any) {
+        
+        tabViewButtons!.forEach({
+            $0.state = 0
+            $0.needsDisplay = true
+        })
+        
+        btnTracksView.state = 1
+        tabGroup.selectTabViewItem(at: 0)
+    }
+    
+    @IBAction func tracksTabViewAction(_ sender: Any) {
+     
+        
+    }
+    
+    @IBAction func artistsTabViewAction(_ sender: Any) {
+        
+        tabViewButtons!.forEach({
+            $0.state = 0
+            $0.needsDisplay = true
+        })
+        
+        btnArtistsView.state = 1
+        tabGroup.selectTabViewItem(at: 1)
+    }
+    
+    @IBAction func albumsTabViewAction(_ sender: Any) {
+        
+        tabViewButtons!.forEach({
+            $0.state = 0
+            $0.needsDisplay = true
+        })
+        
+        btnAlbumsView.state = 1
+        tabGroup.selectTabViewItem(at: 2)
+    }
+    
+    @IBAction func genresTabViewAction(_ sender: Any) {
+        
+        tabViewButtons!.forEach({
+            $0.state = 0
+            $0.needsDisplay = true
+        })
+        
+        btnGenresView.state = 1
+        tabGroup.selectTabViewItem(at: 3)
     }
 }

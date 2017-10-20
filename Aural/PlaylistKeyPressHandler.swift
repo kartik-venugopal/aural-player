@@ -6,10 +6,10 @@ import Cocoa
 
 class PlaylistKeyPressHandler {
     
-    private let playlistView: NSTableView
+    private let playlistViews: [NSTableView]
     
-    init(_ playlistView: NSTableView) {
-        self.playlistView = playlistView
+    init(_ playlistViews: [NSTableView]) {
+        self.playlistViews = playlistViews
     }
     
     // Handles a single key press event
@@ -36,7 +36,7 @@ class PlaylistKeyPressHandler {
         if (!isShift && !isCommand && !isOption && (isUpOrDownArrow || isAlphaNumeric)) {
             
             // Forward the event to the playlist view
-            playlistView.keyDown(with: event)
+            playlistViews.forEach({$0.keyDown(with: event)})
             
             return
         }

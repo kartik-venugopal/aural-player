@@ -9,44 +9,156 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Aural/Playlist.swift"
-            timestampString = "530006529.662355"
+            filePath = "Aural/PlaylistViewController.swift"
+            timestampString = "530165540.803176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "moveTracksUp(_:)"
+            startingLineNumber = "420"
+            endingLineNumber = "420"
+            landmarkName = "tracksTabViewAction(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Aural/PlaylistViewController.swift"
+            timestampString = "530165540.803176"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "425"
+            endingLineNumber = "425"
+            landmarkName = "artistsTabViewAction(_:)"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Aural.Playlist.moveTracksUp (Foundation.IndexSet) -&gt; Swift.Dictionary&lt;Swift.Int, Swift.Int&gt;"
+                  symbolName = "Aural.PlaylistViewController.artistsTabViewAction (Any) -&gt; ()"
                   moduleName = "Aural"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kven/Projects/XCode/Aural/Aural/Playlist.swift"
-                  timestampString = "530005366.903978"
+                  urlString = "file:///Users/kven/Projects/XCode/Aural/Aural/PlaylistViewController.swift"
+                  timestampString = "530165542.890867"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "118"
-                  endingLineNumber = "118"
-                  offsetFromSymbolStart = "45">
+                  startingLineNumber = "425"
+                  endingLineNumber = "425"
+                  offsetFromSymbolStart = "27">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Aural.Playlist.(moveTracksUp (Foundation.IndexSet) -&gt; Swift.Dictionary&lt;Swift.Int, Swift.Int&gt;).(closure #1)"
+                  symbolName = "Aural.PlaylistViewController.(artistsTabViewAction (Any) -&gt; ()).(closure #1)"
                   moduleName = "Aural"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kven/Projects/XCode/Aural/Aural/Playlist.swift"
-                  timestampString = "530005366.907868"
+                  urlString = "file:///Users/kven/Projects/XCode/Aural/Aural/PlaylistViewController.swift"
+                  timestampString = "530165542.92414"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "118"
-                  endingLineNumber = "118"
-                  offsetFromSymbolStart = "12">
+                  startingLineNumber = "426"
+                  endingLineNumber = "426"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Aural/PlaylistViewController.swift"
+            timestampString = "530165540.803176"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "436"
+            endingLineNumber = "436"
+            landmarkName = "albumsTabViewAction(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Aural.PlaylistViewController.albumsTabViewAction (Any) -&gt; ()"
+                  moduleName = "Aural"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kven/Projects/XCode/Aural/Aural/PlaylistViewController.swift"
+                  timestampString = "530165542.942313"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "436"
+                  endingLineNumber = "436"
+                  offsetFromSymbolStart = "27">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Aural.PlaylistViewController.(albumsTabViewAction (Any) -&gt; ()).(closure #1)"
+                  moduleName = "Aural"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kven/Projects/XCode/Aural/Aural/PlaylistViewController.swift"
+                  timestampString = "530165542.959292"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "437"
+                  endingLineNumber = "437"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Aural/PlaylistViewController.swift"
+            timestampString = "530165540.803176"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "447"
+            endingLineNumber = "447"
+            landmarkName = "genresTabViewAction(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Aural.PlaylistViewController.genresTabViewAction (Any) -&gt; ()"
+                  moduleName = "Aural"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kven/Projects/XCode/Aural/Aural/PlaylistViewController.swift"
+                  timestampString = "530165542.974663"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "447"
+                  endingLineNumber = "447"
+                  offsetFromSymbolStart = "27">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Aural.PlaylistViewController.(genresTabViewAction (Any) -&gt; ()).(closure #1)"
+                  moduleName = "Aural"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kven/Projects/XCode/Aural/Aural/PlaylistViewController.swift"
+                  timestampString = "530165542.978179"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "448"
+                  endingLineNumber = "448"
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>

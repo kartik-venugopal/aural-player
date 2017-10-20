@@ -13,6 +13,8 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     // Note - Throws an error if the selected track cannot be played back
     func play(_ index: Int) throws -> IndexedTrack
     
+    func play(_ track: Track) throws -> IndexedTrack
+    
     // Stops playback
     func stop()
     

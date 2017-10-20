@@ -14,6 +14,7 @@ class TrackIO {
         track.audioAsset = sourceAsset
         MetadataReader.loadDurationMetadata(track)
         MetadataReader.loadDisplayMetadata(track)
+        MetadataReader.loadGroupingMetadata(track)
     }
     
     // Load all the information required to play this track

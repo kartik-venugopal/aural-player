@@ -343,4 +343,8 @@ class Playlist: PlaylistCRUDProtocol {
         
         return state
     }
+    
+    func groupTracks(_ type: GroupType) -> GroupedPlaylist {
+        return GroupedPlaylist(type, tracks)
+    }
 }

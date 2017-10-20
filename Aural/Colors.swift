@@ -15,6 +15,12 @@ class Colors {
     // Color of selected item text inside the playlist
     static let playlistSelectedTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
     
+    // Color for playlist grouped views
+    static let playlistGroupNameTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    static let playlistGroupNameSelectedTextColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
+    static let playlistGroupItemTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
+    static let playlistGroupItemSelectedTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
+    
     // Fill color of box drawn around selected playlist item
     static let playlistSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.35, alpha: 1)
     

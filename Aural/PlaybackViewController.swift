@@ -31,6 +31,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     // The playlist view can initiate playback of a track (through double clicks)
     @IBOutlet weak var playlistView: NSTableView!
     
+    @IBOutlet weak var playlistArtistView: NSOutlineView!
+    
     // Delegate that conveys all playback requests to the player / playback sequence
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
     
@@ -39,6 +41,9 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         // Set up a mouse listener (for double clicks -> play selected track)
         playlistView.doubleAction = #selector(self.playSelectedTrackAction(_:))
         playlistView.target = self
+        
+        playlistArtistView.doubleAction = #selector(self.playSelectedArtistTrackAction(_:))
+        playlistArtistView.target = self
         
         let appState = ObjectGraph.getUIAppState()
         updateRepeatAndShuffleControls(appState.repeatMode, appState.shuffleMode)
@@ -78,6 +83,48 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
                 }
             }
         }
+    }
+    
+    @IBAction func playSelectedArtistTrackAction(_ sender: AnyObject) {
+        
+        let item = playlistArtistView.item(atRow: playlistArtistView.selectedRow)
+        
+        if let track = item as? Track {
+            
+            let oldTrack = player.getPlayingTrack()
+            
+            do {
+                
+                let track = try player.play(track)
+                trackChange(oldTrack, track)
+                playlistView.deselectAll(self)
+                
+            } catch let error as Error {
+                
+                if (error is InvalidTrackError) {
+                    handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
+                }
+            }
+        }
+        
+//        
+//        if (playlistArtistView.selectedRow)
+//            
+//            let oldTrack = player.getPlayingTrack()
+//            
+//            do {
+//                
+//                let track = try player.play(playlistView.selectedRow)
+//                trackChange(oldTrack, track)
+//                playlistView.deselectAll(self)
+//                
+//            } catch let error as Error {
+//                
+//                if (error is InvalidTrackError) {
+//                    handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
+//                }
+//            }
+//        }
     }
     
     @IBAction func repeatAction(_ sender: AnyObject) {
