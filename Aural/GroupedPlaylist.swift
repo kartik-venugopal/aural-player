@@ -34,8 +34,7 @@ class GroupedPlaylist {
                 _groupName = track.groupingInfo.album
                 
             case .genre:
-                
-                print("Genre")
+
                 _groupName = track.groupingInfo.genre
             }
             

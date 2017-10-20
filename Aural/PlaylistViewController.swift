@@ -68,6 +68,8 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         });
         
         tabViewButtons = [btnTracksView, btnArtistsView, btnAlbumsView, btnGenresView]
+        
+//        print("TV table", tracksView.hash)
     }
     
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
@@ -99,6 +101,8 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     // When a track add operation starts, the spinner needs to be initialized
     private func startedAddingTracks() {
         
+        print("Started added")
+        
         playlistWorkSpinner.doubleValue = 0
         repositionSpinner()
         playlistWorkSpinner.isHidden = false
@@ -107,17 +111,13 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     // When a track add operation ends, the spinner needs to be de-initialized
     private func doneAddingTracks() {
+        
+        print("Done added")
+        
         playlistWorkSpinner.stopAnimation(self)
         playlistWorkSpinner.isHidden = true
+        tracksView.reloadData()
         
-        tracksView.isHidden = true
-        artistsView.reloadData()
-        
-        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.refreshPlar), userInfo: nil, repeats: false)
-    }
-    
-    func refreshPlar() {
-        artistsView.reloadData()
     }
     
     // Move the spinner so it is adjacent to the summary text, on the left
@@ -406,6 +406,11 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     @IBAction func tracksViewAction(_ sender: Any) {
         
+        
+    }
+    
+    @IBAction func tracksTabViewAction(_ sender: Any) {
+     
         tabViewButtons!.forEach({
             $0.state = 0
             $0.needsDisplay = true
@@ -413,11 +418,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         btnTracksView.state = 1
         tabGroup.selectTabViewItem(at: 0)
-    }
-    
-    @IBAction func tracksTabViewAction(_ sender: Any) {
-     
-        
     }
     
     @IBAction func artistsTabViewAction(_ sender: Any) {

@@ -141,7 +141,7 @@ class MetadataReader {
         if let album = loadMetadataForCommonKey(track, AVMetadataCommonKeyAlbumName) {
             
             if (!StringUtils.isStringEmpty(album)) {
-                print("Album:", album, "for track:", track.conciseDisplayName)
+//                print("Album:", album, "for track:", track.conciseDisplayName)
                 let entry = MetadataEntry(.common, AVMetadataCommonKeyAlbumName, album)
                 track.metadata[AVMetadataCommonKeyAlbumName] = entry
             }
@@ -167,23 +167,23 @@ class MetadataReader {
         let diskNumber = track.metadata[AVMetadataID3MetadataKeyPartOfASet]?.value ?? track.metadata[AVMetadataiTunesMetadataKeyDiscNumber]?.value
         let trackNumber = track.metadata[AVMetadataID3MetadataKeyTrackNumber]?.value ?? track.metadata[AVMetadataiTunesMetadataKeyTrackNumber]?.value
         
-        print("\nGroupingInfo for track:", track.conciseDisplayName)
+//        print("\nGroupingInfo for track:", track.conciseDisplayName)
         
         track.groupingInfo.artist = artist
         track.groupingInfo.album = album
         track.groupingInfo.genre = genre
         
-        if (artist != nil) {
-            print("\tArtist:", artist!)
-        }
-        
-        if (album != nil) {
-            print("\tAlbum:", album!)
-        }
-        
-        if (genre != nil) {
-            print("\tGenre:", genre!)
-        }
+//        if (artist != nil) {
+//            print("\tArtist:", artist!)
+//        }
+//        
+//        if (album != nil) {
+//            print("\tAlbum:", album!)
+//        }
+//        
+//        if (genre != nil) {
+//            print("\tGenre:", genre!)
+//        }
         
         // TODO: Clean up
         if let _disk = diskNumber {
@@ -192,7 +192,7 @@ class MetadataReader {
             let numStr = disk.components(separatedBy: "/")[0]
             let num = Int(numStr)
             track.groupingInfo.diskNumber = num
-            print("\tDiskNum:", num!)
+//            print("\tDiskNum:", num!)
         }
         
         if let _trackNum = trackNumber {
@@ -201,7 +201,7 @@ class MetadataReader {
             let tns = trackNum.components(separatedBy: "/")[0]
             let num = Int(tns)
             track.groupingInfo.trackNumber = num
-            print("\tTrackNum:", num!)
+//            print("\tTrackNum:", num!)
         }
         
 //        track.groupingInfo.diskNumber = diskNumber ? Int(diskN)
