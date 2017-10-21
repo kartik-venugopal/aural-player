@@ -11,6 +11,8 @@ protocol PlaylistAccessorDelegateProtocol {
     // Read the track at a given index. Nil if invalid index is specified.
     func peekTrackAt(_ index: Int?) -> IndexedTrack?
     
+    func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> (group: Group, groupIndex: Int, trackIndex: Int)
+    
     // Returns the size (i.e. total number of tracks) of the playlist
     func size() -> Int
     

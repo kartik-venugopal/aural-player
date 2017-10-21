@@ -10,8 +10,8 @@ class TrackIO {
     // Load duration and display metadata (artist/title/art)
     static func loadDisplayInfo(_ track: Track) {
         
-        let sourceAsset = AVURLAsset(url: track.file, options: nil)
-        track.audioAsset = sourceAsset
+        track.audioAsset = AVURLAsset(url: track.file, options: nil)
+        
         MetadataReader.loadDurationMetadata(track)
         MetadataReader.loadDisplayMetadata(track)
         MetadataReader.loadGroupingMetadata(track)

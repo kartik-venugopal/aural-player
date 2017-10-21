@@ -8,10 +8,14 @@ protocol PlaylistAccessorProtocol {
     // Retrieve all tracks
     func getTracks() -> [Track]
     
-    func groupTracks(_ type: GroupType) -> GroupedPlaylist
+    func groupTracks(_ type: GroupType) -> Grouping
     
     // Read the track at a given index. Nil if invalid index is specified.
     func peekTrackAt(_ index: Int?) -> IndexedTrack?
+    
+    func getGroupingForType(_ type: GroupType) -> Grouping
+    
+    func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> (group: Group, groupIndex: Int, trackIndex: Int)
     
     // Determines the index of a given track, within the playlist. Returns nil if the track doesn't exist within the playlist.
     func indexOfTrack(_ track: Track?) -> Int?
@@ -62,6 +66,9 @@ protocol PlaylistMutatorProtocol {
     
     // Performs a sequence of playlist reorder operations
     func reorderTracks(_ reorderOperations: [PlaylistReorderOperation])
+    
+    // Notifies the playlist that info for this track has changed. The playlist may use the updates to re-group the track (by artist/album/genre, etc).
+    func trackInfoUpdated(_ updatedTrack: Track)
 }
 
 /*

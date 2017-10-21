@@ -26,10 +26,29 @@ class Group {
         return tracks.index(of: track)!
     }
     
+    func addTrack(_ track: Track) {
+        
+        ConcurrencyUtils.executeSynchronized(tracks) {
+            tracks.append(track)
+        }
+//        sort()
+    }
+    
     func sort() {
         
-        // Sort by strategy for type
+        // TODO: Sort by strategy for type
         tracks.sort(by: GroupSortStrategies.byAlbumAndTrackNumber)
+    }
+    
+    func removeTrack(_ track: Track) {
+        
+        // TODO: Thread-safe ???
+        ConcurrencyUtils.executeSynchronized(tracks) {
+            
+            if let index = tracks.index(of: track) {
+                tracks.remove(at: index)
+            }
+        }
     }
 }
 
@@ -47,7 +66,7 @@ class GroupSortStrategies {
         
         if let a1 = track1.groupingInfo.album, let a2 = track2.groupingInfo.album {
             
-            if (track1.groupingInfo.album == track2.groupingInfo.album) {
+            if (a1 == a2) {
                 
                 if let d1 = track1.groupingInfo.diskNumber, let d2 = track2.groupingInfo.diskNumber {
                 

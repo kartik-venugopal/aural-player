@@ -697,14 +697,14 @@ class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
     
     // --------------- PlaylistChangeListener methods ----------------
     
-    func trackAdded() {
+    func trackAdded(_ track: Track) {
         if (shuffleMode == .on) {
             shuffleSequence.insertElement(elm: tracksCount)
         }
         tracksCount += 1
     }
     
-    func tracksRemoved(_ removedTrackIndexes: [Int]) {
+    func tracksRemoved(_ removedTrackIndexes: [Int], _ removedTracks: [Track]) {
         
         // If cursor is non-nil, it may need to be updated
         if (cursor != nil) {

@@ -3,6 +3,7 @@
  */
 
 import Cocoa
+import Foundation
 
 class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageSubscriber {
     
@@ -30,6 +31,8 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     // Delegate that performs CRUD actions on the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
+    private let plAcc: PlaylistAccessorProtocol = ObjectGraph.getPlaylistAccessor()
+    
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
@@ -38,6 +41,10 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     // Needed for playlist scrolling with arrow keys
     private var playlistKeyPressHandler: PlaylistKeyPressHandler?
+    
+    private var currentPlaylistView: NSTableView?
+    private var currentViewGrouped: Bool = false
+    private var currentGroupType: GroupType?
     
     override func viewDidLoad() {
         
@@ -69,7 +76,8 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         tabViewButtons = [btnTracksView, btnArtistsView, btnAlbumsView, btnGenresView]
         
-//        print("TV table", tracksView.hash)
+//        tracksTabViewAction(self)
+        artistsTabViewAction(self)
     }
     
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
@@ -101,8 +109,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     // When a track add operation starts, the spinner needs to be initialized
     private func startedAddingTracks() {
         
-        print("Started added")
-        
         playlistWorkSpinner.doubleValue = 0
         repositionSpinner()
         playlistWorkSpinner.isHidden = false
@@ -112,12 +118,17 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     // When a track add operation ends, the spinner needs to be de-initialized
     private func doneAddingTracks() {
         
-        print("Done added")
-        
         playlistWorkSpinner.stopAnimation(self)
         playlistWorkSpinner.isHidden = true
-        tracksView.reloadData()
         
+//        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.refreshGroupedView(_:)), userInfo: nil, repeats: false)
+    }
+    
+    @IBAction func refreshGroupedView(_ sender: AnyObject) {
+        if let gv = currentPlaylistView as? NSOutlineView {
+//        gv.reloadData()
+//        print("GV refreshed !")
+        }
     }
     
     // Move the spinner so it is adjacent to the summary text, on the left
@@ -210,18 +221,46 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     }
     
     // Selects (and shows) a certain track within the playlist view
-    private func selectTrack(_ index: Int?) {
+    private func selectTrack(_ track: IndexedTrack?) {
         
-        if (tracksView.numberOfRows > 0) {
+        if (!currentViewGrouped) {
             
-            if (index != nil && index! >= 0) {
-                tracksView.selectRowIndexes(IndexSet(integer: index!), byExtendingSelection: false)
-            } else {
-                // Select first track in list
-                tracksView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
+            if (tracksView.numberOfRows > 0) {
+                
+                let index = track?.index
+                
+                if (index != nil && index! >= 0) {
+                    tracksView.selectRowIndexes(IndexSet(integer: index!), byExtendingSelection: false)
+                } else {
+                    // Select first track in list
+                    tracksView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
+                }
+                
+                showPlaylistSelectedRow()
             }
             
-            showPlaylistSelectedRow()
+        } else {
+            
+            let groupedView = currentPlaylistView as! NSOutlineView
+            
+            if (groupedView.numberOfRows > 0) {
+                
+                if let _track = track?.track {
+                    
+                    let ginfo = plAcc.getGroupingInfoForTrack(_track, currentGroupType!)
+                    
+                    // Need to expand the parent to make the child visible
+                    groupedView.expandItem(ginfo.group)
+                    
+                    let trackIndex = groupedView.row(forItem: _track)
+                    
+                    groupedView.selectRowIndexes(IndexSet(integer: trackIndex), byExtendingSelection: false)
+                    groupedView.scrollRowToVisible(trackIndex)
+                    
+                } else {
+                    // Expand unknown folder
+                }
+            }
         }
     }
     
@@ -249,7 +288,8 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     @IBAction func clearPlaylistAction(_ sender: AnyObject) {
         
         playlist.clear()
-        tracksView.reloadData()
+        
+        [tracksView, artistsView, albumsView, genresView].forEach({$0?.reloadData()})
         updatePlaylistSummary()
         
         // Request the player to stop playback, if there is a track playing
@@ -321,10 +361,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     // Shows the currently playing track, within the playlist view
     @IBAction func showInPlaylistAction(_ sender: Any) {
-        
-        if let playingTrackIndex = playbackInfo.getPlayingTrack()?.index {
-            selectTrack(playingTrackIndex)
-        }
+        selectTrack(playbackInfo.getPlayingTrack())
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
@@ -336,7 +373,21 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             let updateOp = BlockOperation(block: {
                 
                 let _msg = message as! TrackAddedAsyncMessage
-                self.tracksView.noteNumberOfRowsChanged()
+                
+//                self.tracksView!.noteNumberOfRowsChanged()
+                
+                let track = self.playlist.peekTrackAt(_msg.trackIndex)
+                let group = self.playlist.getGroupingInfoForTrack(track!.track, .artist).group
+                
+//                print("Reloading group:", group.name, "for new track:", _msg.trackIndex)
+                NSLog("Reloading group: %@ for NEW track: %@", group.name, track?.track.conciseDisplayName ?? "FUCK")
+                
+                self.artistsView.reloadItem(group, reloadChildren: true)
+                
+//                [self.artistsView!, self.albumsView!, self.genresView!].forEach({
+//                    $0.noteNumberOfRowsChanged()
+//                })
+                
                 self.updatePlaylistSummary(_msg.progress)
             })
             
@@ -367,9 +418,21 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             
             let updateOp = BlockOperation(block: {
                 
-                let index = (message as! TrackInfoUpdatedAsyncMessage).trackIndex
+                let _msg = (message as! TrackInfoUpdatedAsyncMessage)
+                let index = _msg.trackIndex
                 
-                self.tracksView.reloadData(forRowIndexes: IndexSet(integer: index), columnIndexes: UIConstants.playlistViewColumnIndexes)
+                
+//                self.tracksView.reloadData(forRowIndexes: IndexSet(integer: index), columnIndexes: UIConstants.playlistViewColumnIndexes)
+                
+                let track = self.playlist.peekTrackAt(index)
+                let group = _msg.group
+                
+//                NSLog("Reloading group: %@ for UPDATED track: %@", group.name, track?.track.conciseDisplayName)
+                let tn = track?.track.conciseDisplayName
+                NSLog("Reloading group: %@ for UPDATED track: %@", group.name, tn ?? "FUCK")
+                
+                self.artistsView.reloadItem(group, reloadChildren: true)
+                
                 self.updatePlaylistSummary()
                 
                 // If this is the playing track, tell other views that info has been updated
@@ -404,11 +467,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         return EmptyResponse.instance
     }
     
-    @IBAction func tracksViewAction(_ sender: Any) {
-        
-        
-    }
-    
     @IBAction func tracksTabViewAction(_ sender: Any) {
      
         tabViewButtons!.forEach({
@@ -418,9 +476,15 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         btnTracksView.state = 1
         tabGroup.selectTabViewItem(at: 0)
+        
+        currentPlaylistView = tracksView
+        currentViewGrouped = false
+        currentGroupType = nil
     }
     
     @IBAction func artistsTabViewAction(_ sender: Any) {
+        
+//        artistsView.reloadData()
         
         tabViewButtons!.forEach({
             $0.state = 0
@@ -429,9 +493,15 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         btnArtistsView.state = 1
         tabGroup.selectTabViewItem(at: 1)
+        
+        currentPlaylistView = artistsView
+        currentViewGrouped = true
+        currentGroupType = .artist
     }
     
     @IBAction func albumsTabViewAction(_ sender: Any) {
+        
+//        albumsView.reloadData()
         
         tabViewButtons!.forEach({
             $0.state = 0
@@ -440,9 +510,15 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         btnAlbumsView.state = 1
         tabGroup.selectTabViewItem(at: 2)
+        
+        currentPlaylistView = albumsView
+        currentViewGrouped = true
+        currentGroupType = .album
     }
     
     @IBAction func genresTabViewAction(_ sender: Any) {
+        
+//        genresView.reloadData()
         
         tabViewButtons!.forEach({
             $0.state = 0
@@ -451,5 +527,9 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         btnGenresView.state = 1
         tabGroup.selectTabViewItem(at: 3)
+        
+        currentPlaylistView = genresView
+        currentViewGrouped = true
+        currentGroupType = .genre
     }
 }

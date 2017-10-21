@@ -1,12 +1,12 @@
 import Cocoa
 
-class GroupedPlaylistViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate {
+class GroupingViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate {
     
     // Delegate that performs CRUD on the playlist
     internal let flatPlaylist: PlaylistAccessorProtocol = ObjectGraph.getPlaylistAccessor()
     
     // TODO: This will be non-nil and provided by ObjectGraph
-    internal var playlist: GroupedPlaylist?
+    internal var playlist: Grouping?
     
     internal var grouping: GroupType {return .artist}
     
@@ -21,7 +21,7 @@ class GroupedPlaylistViewController: NSViewController, NSOutlineViewDataSource, 
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         
         if (item == nil) {
-            playlist = flatPlaylist.groupTracks(grouping)
+            playlist = flatPlaylist.getGroupingForType(grouping)
             return playlist!.size()
             
         } else if let group = item as? Group {
@@ -35,7 +35,7 @@ class GroupedPlaylistViewController: NSViewController, NSOutlineViewDataSource, 
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         
         if (playlist == nil) {
-            playlist = flatPlaylist.groupTracks(grouping)
+            playlist = flatPlaylist.getGroupingForType(grouping)
         }
         
         if (item == nil) {
@@ -153,17 +153,17 @@ class GroupedTrackCellView: NSTableCellView {
     }
 }
 
-class PlaylistArtistViewController: GroupedPlaylistViewController {
+class PlaylistArtistsViewController: GroupingViewController {
     
     override var grouping: GroupType {return .artist}
 }
 
-class PlaylistAlbumViewController: GroupedPlaylistViewController {
+class PlaylistAlbumsViewController: GroupingViewController {
     
     override var grouping: GroupType {return .album}
 }
 
-class PlaylistGenreViewController: GroupedPlaylistViewController {
+class PlaylistGenresViewController: GroupingViewController {
     
     override var grouping: GroupType {return .genre}
 }

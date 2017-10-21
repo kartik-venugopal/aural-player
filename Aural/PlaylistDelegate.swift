@@ -4,6 +4,11 @@ import Foundation
     Concrete implementation of PlaylistDelegateProtocol.
  */
 class PlaylistDelegate: PlaylistDelegateProtocol {
+    func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> (group: Group, groupIndex: Int, trackIndex: Int) {
+        
+        return (Group(.artist, ""), 1, 1)
+    }
+
     
     // Accessor delegate, to which all read-only operations are deferred
     private let accessor: PlaylistAccessorDelegateProtocol

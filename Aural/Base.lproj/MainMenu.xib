@@ -1524,7 +1524,7 @@ G1BhbiBTbGlkZXI
                                     </tabViewItems>
                                 </tabView>
                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="QU8-ZM-MyA">
-                                    <rect key="frame" x="0.0" y="147" width="385" height="83"/>
+                                    <rect key="frame" x="0.0" y="147" width="385" height="101"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </box>
                                 <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Mvg-eT-z2w" userLabel="Tab Buttons Box">
@@ -1684,7 +1684,7 @@ G1BhbiBTbGlkZXI
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button toolTip="Maximize playlist" translatesAutoresizingMaskIntoConstraints="NO" id="dz9-pQ-bIr" userLabel="Maximize Button">
-                        <rect key="frame" x="300" y="235" width="12" height="12"/>
+                        <rect key="frame" x="15" y="235" width="12" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="hnO-YA-nRW"/>
                             <constraint firstAttribute="width" constant="12" id="uOK-aS-3E2"/>
@@ -1698,7 +1698,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Maximize playlist vertically" translatesAutoresizingMaskIntoConstraints="NO" id="h8b-Tm-2xI" userLabel="Maximize Vertical Button">
-                        <rect key="frame" x="313" y="235" width="13" height="12"/>
+                        <rect key="frame" x="28" y="235" width="13" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="Yyr-nF-IvJ"/>
                             <constraint firstAttribute="width" constant="13" id="hYD-JZ-dPy"/>
@@ -1712,7 +1712,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Maximize playlist horizontally" translatesAutoresizingMaskIntoConstraints="NO" id="uBG-kX-7sD" userLabel="Maximize Horizontal Button">
-                        <rect key="frame" x="329" y="233" width="12" height="14"/>
+                        <rect key="frame" x="44" y="233" width="12" height="14"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="Itt-tj-yA0"/>
                             <constraint firstAttribute="height" constant="14" id="iWc-oC-CT2"/>
@@ -1725,6 +1725,85 @@ G1BhbiBTbGlkZXI
                             <action selector="maximizePlaylistHorizontalAction:" target="Bfj-ih-EYB" id="EPv-lT-PCH"/>
                         </connections>
                     </button>
+                    <box boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="52r-K9-etW" userLabel="Tab Buttons Box">
+                        <rect key="frame" x="98" y="227" width="218" height="19"/>
+                        <view key="contentView" id="xuF-ha-X5M">
+                            <rect key="frame" x="1" y="1" width="216" height="17"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Jq-nO-nqw" userLabel="Tracks Button">
+                                    <rect key="frame" x="-1" y="-2" width="50" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" title="Tracks" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Mb7-rI-bAt" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                            <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="tracksTabViewAction:" target="8o0-TS-7rF" id="5VG-FP-fJN"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nfG-4p-zAW" userLabel="Artists Button">
+                                    <rect key="frame" x="52" y="-2" width="50" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" title="Artists" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DOR-VL-wey" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                            <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="artistsTabViewAction:" target="8o0-TS-7rF" id="NNi-yH-Xcm"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ubr-s4-BGZ" userLabel="Albums Button">
+                                    <rect key="frame" x="105" y="-2" width="55" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" title="Albums" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Kpr-a9-UbU" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                            <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="albumsTabViewAction:" target="8o0-TS-7rF" id="Xwj-9B-koM"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GNZ-n0-SF5" userLabel="Genres Button">
+                                    <rect key="frame" x="163" y="-2" width="55" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" title="Genres" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wqW-gG-cgg" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                            <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="genresTabViewAction:" target="8o0-TS-7rF" id="f9K-6y-gka"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </view>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="218" id="4Op-dG-4bI"/>
+                            <constraint firstAttribute="height" constant="19" id="USU-eM-gg9"/>
+                        </constraints>
+                        <color key="borderColor" white="0.15444672770000001" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </box>
                     <button toolTip="Dock playlist on the left" translatesAutoresizingMaskIntoConstraints="NO" id="oMJ-8r-ebK" userLabel="Dock Left Button">
                         <rect key="frame" x="346" y="234" width="18" height="15"/>
                         <constraints>
@@ -1768,160 +1847,28 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <box boxType="custom" borderType="line" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="G3X-tp-7Ag" userLabel="Playlist Box">
-                        <rect key="frame" x="15" y="12" width="385" height="215"/>
+                        <rect key="frame" x="15" y="12" width="385" height="205"/>
                         <view key="contentView" id="H6e-EC-ZCQ">
-                            <rect key="frame" x="1" y="1" width="383" height="213"/>
+                            <rect key="frame" x="1" y="1" width="383" height="203"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="VEj-9M-Zdt" userLabel="Playlist Controls">
-                                    <rect key="frame" x="0.0" y="0.0" width="383" height="25"/>
-                                    <view key="contentView" id="29K-u5-ZX9">
-                                        <rect key="frame" x="0.0" y="0.0" width="383" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <subviews>
-                                            <button toolTip="Add files to playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b3N-BT-sEe" userLabel="Add">
-                                                <rect key="frame" x="5" y="6" width="12" height="12"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="RyO-qJ-JqH">
-                                                    <behavior key="behavior" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="addTracksAction:" target="8o0-TS-7rF" id="V8E-da-3KO"/>
-                                                </connections>
-                                            </button>
-                                            <button toolTip="Remove selected tracks from playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="so9-gR-Vjp" userLabel="Remove">
-                                                <rect key="frame" x="19" y="6" width="12" height="12"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="mMO-Fu-Bdu">
-                                                    <behavior key="behavior" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="removeTracksAction:" target="8o0-TS-7rF" id="Nlw-98-JYc"/>
-                                                </connections>
-                                            </button>
-                                            <button toolTip="Save current playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WU5-Qg-TmF" userLabel="Save">
-                                                <rect key="frame" x="38" y="6" width="12" height="12"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Save" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ffe-tx-W5T">
-                                                    <behavior key="behavior" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="savePlaylistAction:" target="8o0-TS-7rF" id="T8S-NT-1LW"/>
-                                                </connections>
-                                            </button>
-                                            <button toolTip="Clear the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dt2-O9-nd2" userLabel="Clear">
-                                                <rect key="frame" x="51" y="5" width="13" height="14"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Clear" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qNq-1r-j67">
-                                                    <behavior key="behavior" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="clearPlaylistAction:" target="8o0-TS-7rF" id="nGv-j0-cKT"/>
-                                                </connections>
-                                            </button>
-                                            <button toolTip="Move selected tracks up" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HNS-ia-vrf" userLabel="Up">
-                                                <rect key="frame" x="69" y="6" width="10" height="14"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Up" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="mpe-B1-Zp1">
-                                                    <behavior key="behavior" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="moveTracksUpAction:" target="8o0-TS-7rF" id="duJ-4l-UZn"/>
-                                                </connections>
-                                            </button>
-                                            <button toolTip="Move selected tracks down" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E6L-5f-RH3" userLabel="Down">
-                                                <rect key="frame" x="80" y="4" width="10" height="14"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Down" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="hOm-qQ-za2">
-                                                    <behavior key="behavior" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="moveTracksDownAction:" target="8o0-TS-7rF" id="j30-3D-2Gx"/>
-                                                </connections>
-                                            </button>
-                                            <button toolTip="Search playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lK6-tf-gG6" userLabel="Search">
-                                                <rect key="frame" x="96" y="6" width="12" height="12"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Search" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="awc-yh-4CW">
-                                                    <behavior key="behavior" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="searchPlaylistAction:" target="Ur0-NJ-0ro" id="57i-gg-oEn"/>
-                                                </connections>
-                                            </button>
-                                            <button toolTip="Sort playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vfJ-Ss-snt" userLabel="Sort">
-                                                <rect key="frame" x="110" y="4" width="16" height="16"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Sort" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="NRo-ze-1UN">
-                                                    <behavior key="behavior" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="sortPlaylistAction:" target="8pJ-I5-ie6" id="hfb-Op-Kz0"/>
-                                                </connections>
-                                            </button>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOF-ba-45D" userLabel="Playlist summary">
-                                                <rect key="frame" x="236" y="2" width="143" height="20"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="139" id="Tay-vK-uN0"/>
-                                                </constraints>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0 tracks  0:00" id="Vpv-ey-N1P">
-                                                    <font key="font" size="13" name="GillSans-SemiBold"/>
-                                                    <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="backgroundColor" white="0.78719075520833337" alpha="1" colorSpace="calibratedWhite"/>
-                                                </textFieldCell>
-                                            </textField>
-                                            <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="pz8-vQ-jTb" userLabel="Spinner">
-                                                <rect key="frame" x="206" y="4" width="16" height="16"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <contentFilters>
-                                                    <ciFilter name="CIFalseColor">
-                                                        <configuration>
-                                                            <ciColor key="inputColor0" red="0.71891206502914429" green="0.71891206502914429" blue="0.71891206502914429" alpha="1"/>
-                                                            <ciColor key="inputColor1" red="0.91730046272277832" green="0.91730046272277832" blue="0.91730046272277832" alpha="1"/>
-                                                            <null key="inputImage"/>
-                                                        </configuration>
-                                                    </ciFilter>
-                                                </contentFilters>
-                                            </progressIndicator>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="YOF-ba-45D" secondAttribute="bottom" constant="2" id="NId-b8-CSb"/>
-                                            <constraint firstAttribute="trailing" secondItem="YOF-ba-45D" secondAttribute="trailing" constant="6" id="itQ-di-n5K"/>
-                                            <constraint firstItem="YOF-ba-45D" firstAttribute="top" secondItem="29K-u5-ZX9" secondAttribute="top" constant="3" id="zVo-5T-7hJ"/>
-                                        </constraints>
-                                    </view>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="25" id="dkk-oq-a1M"/>
-                                    </constraints>
-                                    <shadow key="shadow" blurRadius="5">
-                                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </shadow>
-                                </box>
                                 <tabView drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="DEQ-wC-Bme" userLabel="Playlist Views Tab Group">
-                                    <rect key="frame" x="0.0" y="25" width="383" height="188"/>
+                                    <rect key="frame" x="0.0" y="25" width="383" height="178"/>
                                     <font key="font" metaFont="system"/>
                                     <tabViewItems>
                                         <tabViewItem label="Tab" identifier="1" id="cQ0-Vk-qDI" userLabel="Tracks Tab">
                                             <view key="view" id="Q6U-L3-wFX">
-                                                <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="383" height="178"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQR-eW-Rr5" userLabel="Playlist Tracks View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="383" height="178"/>
                                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Diy-3n-dhX">
-                                                            <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="383" height="178"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" id="rhk-oM-jMn" userLabel="Playlist Tracks View">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="178"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="4"/>
                                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -2087,17 +2034,17 @@ G1BhbiBTbGlkZXI
                                         </tabViewItem>
                                         <tabViewItem label="View" identifier="2" id="tTL-8N-2Qi" userLabel="Artists Tab">
                                             <view key="view" id="TYY-uk-Hhl">
-                                                <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="383" height="183"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PrF-DV-ox1" userLabel="Playlist Artists View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="383" height="183"/>
                                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="9oF-9v-OrO">
-                                                            <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="383" height="183"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="8tt-k4-q7k" id="Hsn-Ar-Mkv" userLabel="Playlist Artists View">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="183"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -2223,17 +2170,17 @@ G1BhbiBTbGlkZXI
                                         </tabViewItem>
                                         <tabViewItem label="Item 2" identifier="" id="ooh-QD-ocJ" userLabel="Albums Tab">
                                             <view key="view" id="mk5-Bj-JGA">
-                                                <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="383" height="183"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xpf-h4-Hqw" userLabel="Playlist Albums View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="383" height="183"/>
                                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="g3t-78-dsq">
-                                                            <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="383" height="183"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="Pbf-De-cAu" id="ysd-F6-711" userLabel="Playlist Albums View">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="183"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -2332,8 +2279,8 @@ G1BhbiBTbGlkZXI
                                                                         </tableColumn>
                                                                     </tableColumns>
                                                                     <connections>
-                                                                        <outlet property="dataSource" destination="j3W-Qy-TCP" id="3m2-zX-RbI"/>
-                                                                        <outlet property="delegate" destination="j3W-Qy-TCP" id="OFd-d4-7ws"/>
+                                                                        <outlet property="dataSource" destination="2Cx-jF-XvQ" id="mUC-Vk-SPB"/>
+                                                                        <outlet property="delegate" destination="2Cx-jF-XvQ" id="iv8-Od-n5z"/>
                                                                     </connections>
                                                                 </outlineView>
                                                             </subviews>
@@ -2359,24 +2306,23 @@ G1BhbiBTbGlkZXI
                                         </tabViewItem>
                                         <tabViewItem label="Item 3" identifier="" id="wyB-Qt-upe" userLabel="Genres Tab">
                                             <view key="view" id="lhi-O1-Dmq">
-                                                <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="383" height="183"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xPh-YO-cTz" userLabel="Playlist Genres View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="aNj-KL-nmJ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
+                                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xPh-YO-cTz" userLabel="Playlist Genres View">
+                                                        <rect key="frame" x="0.0" y="0.0" width="383" height="183"/>
+                                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="aNj-KL-nmJ">
+                                                            <rect key="frame" x="0.0" y="0.0" width="383" height="183"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="RK1-b8-W6Q" id="YHO-bg-iJv" userLabel="Playlist Genres View">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="188"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="183"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                     <tableColumns>
-                                                                        <tableColumn identifier="cv_groupName" width="331" minWidth="331" maxWidth="10000" id="RK1-b8-W6Q" userLabel="Genre">
+                                                                        <tableColumn identifier="cv_groupName" width="332" minWidth="331" maxWidth="10000" id="RK1-b8-W6Q" userLabel="Genre">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2390,7 +2336,7 @@ G1BhbiBTbGlkZXI
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                             <prototypeCellViews>
                                                                                 <tableCellView identifier="cv_groupName" id="Owg-uV-ISg" userLabel="Artist Cell View" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
-                                                                                    <rect key="frame" x="1" y="1" width="331" height="22"/>
+                                                                                    <rect key="frame" x="1" y="1" width="332" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
                                                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dQB-wE-Cha" userLabel="Icon">
@@ -2402,7 +2348,7 @@ G1BhbiBTbGlkZXI
                                                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="MC5-yV-Yqt"/>
                                                                                         </imageView>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjV-gq-tNK" userLabel="Genre Name">
-                                                                                            <rect key="frame" x="22" y="-5" width="311" height="26"/>
+                                                                                            <rect key="frame" x="22" y="-5" width="312" height="26"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="26" id="SGJ-Na-oMg"/>
                                                                                             </constraints>
@@ -2427,7 +2373,7 @@ G1BhbiBTbGlkZXI
                                                                                 </tableCellView>
                                                                             </prototypeCellViews>
                                                                         </tableColumn>
-                                                                        <tableColumn identifier="cv_duration" width="46" minWidth="45" maxWidth="65" id="Frn-3v-acL" userLabel="Duration">
+                                                                        <tableColumn identifier="cv_duration" width="45" minWidth="45" maxWidth="65" id="Frn-3v-acL" userLabel="Duration">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2441,11 +2387,11 @@ G1BhbiBTbGlkZXI
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                             <prototypeCellViews>
                                                                                 <tableCellView identifier="cv_duration" id="KvV-Qz-fY1" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
-                                                                                    <rect key="frame" x="335" y="1" width="46" height="22"/>
+                                                                                    <rect key="frame" x="336" y="1" width="45" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1sl-Ox-dTL" userLabel="Duration">
-                                                                                            <rect key="frame" x="-2" y="-5" width="45" height="26"/>
+                                                                                            <rect key="frame" x="-2" y="-5" width="44" height="26"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="25" id="KKw-Hj-fth"/>
                                                                                             </constraints>
@@ -2469,15 +2415,15 @@ G1BhbiBTbGlkZXI
                                                                         </tableColumn>
                                                                     </tableColumns>
                                                                     <connections>
-                                                                        <outlet property="dataSource" destination="j3W-Qy-TCP" id="URO-ku-OGB"/>
-                                                                        <outlet property="delegate" destination="j3W-Qy-TCP" id="fjp-U5-1Sf"/>
+                                                                        <outlet property="dataSource" destination="4JA-qa-4UB" id="Vhd-mZ-8Wh"/>
+                                                                        <outlet property="delegate" destination="4JA-qa-4UB" id="I6z-QX-9kT"/>
                                                                     </connections>
                                                                 </outlineView>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.80232747400000004" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </clipView>
                                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="CiT-ck-6k5">
-                                                            <rect key="frame" x="0.0" y="-16" width="0.0" height="16"/>
+                                                            <rect key="frame" x="0.0" y="137" width="377" height="16"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Fsv-5F-DEK">
@@ -2486,10 +2432,148 @@ G1BhbiBTbGlkZXI
                                                         </scroller>
                                                     </scrollView>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="xPh-YO-cTz" secondAttribute="trailing" id="Aa1-jk-dlX"/>
+                                                    <constraint firstAttribute="bottom" secondItem="xPh-YO-cTz" secondAttribute="bottom" id="Zg0-mz-IlB"/>
+                                                    <constraint firstItem="xPh-YO-cTz" firstAttribute="leading" secondItem="lhi-O1-Dmq" secondAttribute="leading" id="nCC-cr-wr5"/>
+                                                    <constraint firstItem="xPh-YO-cTz" firstAttribute="top" secondItem="lhi-O1-Dmq" secondAttribute="top" id="wMP-jR-ESI"/>
+                                                </constraints>
                                             </view>
                                         </tabViewItem>
                                     </tabViewItems>
                                 </tabView>
+                                <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="VEj-9M-Zdt" userLabel="Playlist Controls">
+                                    <rect key="frame" x="0.0" y="0.0" width="383" height="25"/>
+                                    <view key="contentView" id="29K-u5-ZX9">
+                                        <rect key="frame" x="0.0" y="0.0" width="383" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <button toolTip="Add files to playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b3N-BT-sEe" userLabel="Add">
+                                                <rect key="frame" x="5" y="6" width="12" height="12"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Add" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="RyO-qJ-JqH">
+                                                    <behavior key="behavior" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="addTracksAction:" target="8o0-TS-7rF" id="V8E-da-3KO"/>
+                                                </connections>
+                                            </button>
+                                            <button toolTip="Remove selected tracks from playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="so9-gR-Vjp" userLabel="Remove">
+                                                <rect key="frame" x="19" y="6" width="12" height="12"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="mMO-Fu-Bdu">
+                                                    <behavior key="behavior" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="removeTracksAction:" target="8o0-TS-7rF" id="Nlw-98-JYc"/>
+                                                </connections>
+                                            </button>
+                                            <button toolTip="Save current playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WU5-Qg-TmF" userLabel="Save">
+                                                <rect key="frame" x="38" y="6" width="12" height="12"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Save" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ffe-tx-W5T">
+                                                    <behavior key="behavior" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="savePlaylistAction:" target="8o0-TS-7rF" id="T8S-NT-1LW"/>
+                                                </connections>
+                                            </button>
+                                            <button toolTip="Clear the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dt2-O9-nd2" userLabel="Clear">
+                                                <rect key="frame" x="51" y="5" width="13" height="14"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Clear" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qNq-1r-j67">
+                                                    <behavior key="behavior" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="clearPlaylistAction:" target="8o0-TS-7rF" id="nGv-j0-cKT"/>
+                                                </connections>
+                                            </button>
+                                            <button toolTip="Move selected tracks up" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HNS-ia-vrf" userLabel="Up">
+                                                <rect key="frame" x="69" y="6" width="10" height="14"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Up" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="mpe-B1-Zp1">
+                                                    <behavior key="behavior" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="moveTracksUpAction:" target="8o0-TS-7rF" id="duJ-4l-UZn"/>
+                                                </connections>
+                                            </button>
+                                            <button toolTip="Move selected tracks down" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E6L-5f-RH3" userLabel="Down">
+                                                <rect key="frame" x="80" y="4" width="10" height="14"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Down" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="hOm-qQ-za2">
+                                                    <behavior key="behavior" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="moveTracksDownAction:" target="8o0-TS-7rF" id="j30-3D-2Gx"/>
+                                                </connections>
+                                            </button>
+                                            <button toolTip="Search playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lK6-tf-gG6" userLabel="Search">
+                                                <rect key="frame" x="96" y="6" width="12" height="12"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Search" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="awc-yh-4CW">
+                                                    <behavior key="behavior" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="searchPlaylistAction:" target="Ur0-NJ-0ro" id="57i-gg-oEn"/>
+                                                </connections>
+                                            </button>
+                                            <button toolTip="Sort playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vfJ-Ss-snt" userLabel="Sort">
+                                                <rect key="frame" x="110" y="4" width="16" height="16"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Sort" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="NRo-ze-1UN">
+                                                    <behavior key="behavior" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="sortPlaylistAction:" target="8pJ-I5-ie6" id="hfb-Op-Kz0"/>
+                                                </connections>
+                                            </button>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOF-ba-45D" userLabel="Playlist summary">
+                                                <rect key="frame" x="236" y="2" width="143" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="139" id="Tay-vK-uN0"/>
+                                                </constraints>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0 tracks  0:00" id="Vpv-ey-N1P">
+                                                    <font key="font" size="13" name="GillSans-SemiBold"/>
+                                                    <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.78719075520833337" alpha="1" colorSpace="calibratedWhite"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="pz8-vQ-jTb" userLabel="Spinner">
+                                                <rect key="frame" x="206" y="4" width="16" height="16"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <contentFilters>
+                                                    <ciFilter name="CIFalseColor">
+                                                        <configuration>
+                                                            <ciColor key="inputColor0" red="0.71891206502914429" green="0.71891206502914429" blue="0.71891206502914429" alpha="1"/>
+                                                            <ciColor key="inputColor1" red="0.91730046272277832" green="0.91730046272277832" blue="0.91730046272277832" alpha="1"/>
+                                                            <null key="inputImage"/>
+                                                        </configuration>
+                                                    </ciFilter>
+                                                </contentFilters>
+                                            </progressIndicator>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="YOF-ba-45D" secondAttribute="bottom" constant="2" id="NId-b8-CSb"/>
+                                            <constraint firstAttribute="trailing" secondItem="YOF-ba-45D" secondAttribute="trailing" constant="6" id="itQ-di-n5K"/>
+                                            <constraint firstItem="YOF-ba-45D" firstAttribute="top" secondItem="29K-u5-ZX9" secondAttribute="top" constant="3" id="zVo-5T-7hJ"/>
+                                        </constraints>
+                                    </view>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="25" id="dkk-oq-a1M"/>
+                                    </constraints>
+                                    <shadow key="shadow" blurRadius="5">
+                                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </shadow>
+                                </box>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="VEj-9M-Zdt" firstAttribute="trailing" secondItem="DEQ-wC-Bme" secondAttribute="trailing" id="1BE-Et-EnH"/>
@@ -2535,89 +2619,27 @@ G1BhbiBTbGlkZXI
                             <action selector="scrollToBottomAction:" target="8o0-TS-7rF" id="kiX-De-oIz"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Jq-nO-nqw" userLabel="Tracks Button">
-                        <rect key="frame" x="15" y="233" width="50" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" title="Tracks" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Mb7-rI-bAt" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                        <connections>
-                            <action selector="tracksTabViewAction:" target="8o0-TS-7rF" id="5VG-FP-fJN"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nfG-4p-zAW" userLabel="Artists Button">
-                        <rect key="frame" x="70" y="233" width="50" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" title="Artists" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DOR-VL-wey" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                        <connections>
-                            <action selector="artistsTabViewAction:" target="8o0-TS-7rF" id="NNi-yH-Xcm"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ubr-s4-BGZ" userLabel="Albums Button">
-                        <rect key="frame" x="125" y="233" width="55" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" title="Albums" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Kpr-a9-UbU" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                        <connections>
-                            <action selector="albumsTabViewAction:" target="8o0-TS-7rF" id="Xwj-9B-koM"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GNZ-n0-SF5" userLabel="Genres Button">
-                        <rect key="frame" x="185" y="233" width="55" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" title="Genres" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wqW-gG-cgg" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                        <connections>
-                            <action selector="genresTabViewAction:" target="8o0-TS-7rF" id="f9K-6y-gka"/>
-                        </connections>
-                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="uBG-kX-7sD" firstAttribute="leading" secondItem="h8b-Tm-2xI" secondAttribute="trailing" constant="3" id="058-ET-R9T"/>
+                    <constraint firstItem="52r-K9-etW" firstAttribute="centerX" secondItem="G3X-tp-7Ag" secondAttribute="centerX" id="0Hw-xz-brm"/>
                     <constraint firstItem="dz9-pQ-bIr" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="10" id="0Z0-XT-29f"/>
+                    <constraint firstItem="52r-K9-etW" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="11" id="Ase-cs-ArA"/>
                     <constraint firstItem="stR-Fs-RTn" firstAttribute="leading" secondItem="oMJ-8r-ebK" secondAttribute="trailing" id="EFY-Ja-RPb"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="KJv-gi-ETr"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-15" id="KNi-Ku-G3H"/>
                     <constraint firstItem="L3Y-2k-P9G" firstAttribute="bottom" secondItem="dXG-r2-Jrp" secondAttribute="bottom" constant="-44" id="Kh2-Xp-8vm"/>
                     <constraint firstItem="h8b-Tm-2xI" firstAttribute="top" secondItem="dz9-pQ-bIr" secondAttribute="top" id="Nk5-Uu-FTa"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="bottom" secondItem="dXG-r2-Jrp" secondAttribute="bottom" constant="-12" id="Rhh-Er-hMh"/>
+                    <constraint firstItem="G3X-tp-7Ag" firstAttribute="top" secondItem="52r-K9-etW" secondAttribute="bottom" constant="10" id="TEm-JU-BZK"/>
                     <constraint firstItem="Dcb-f2-RhV" firstAttribute="leading" secondItem="stR-Fs-RTn" secondAttribute="trailing" id="XFp-AW-3gF"/>
                     <constraint firstItem="h8b-Tm-2xI" firstAttribute="leading" secondItem="dz9-pQ-bIr" secondAttribute="trailing" constant="1" id="b4u-Lr-6Uj"/>
                     <constraint firstItem="Dcb-f2-RhV" firstAttribute="top" secondItem="oMJ-8r-ebK" secondAttribute="top" id="cdO-h9-ddE"/>
-                    <constraint firstItem="G3X-tp-7Ag" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="30" id="dzq-io-NSy"/>
                     <constraint firstItem="8hp-s5-DjV" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-3" id="fkv-g0-WVP"/>
                     <constraint firstItem="uBG-kX-7sD" firstAttribute="top" secondItem="dz9-pQ-bIr" secondAttribute="top" id="gLV-Na-N9F"/>
                     <constraint firstItem="L3Y-2k-P9G" firstAttribute="leading" secondItem="8hp-s5-DjV" secondAttribute="leading" id="gcN-qK-o3N"/>
                     <constraint firstItem="8hp-s5-DjV" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="37" id="kHh-Qs-XFv"/>
-                    <constraint firstItem="dz9-pQ-bIr" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="300" id="lG0-dv-Pmd"/>
+                    <constraint firstItem="dz9-pQ-bIr" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="lG0-dv-Pmd"/>
                     <constraint firstItem="L3Y-2k-P9G" firstAttribute="trailing" secondItem="8hp-s5-DjV" secondAttribute="trailing" id="pfb-7X-h4O"/>
                     <constraint firstItem="stR-Fs-RTn" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="9" id="scv-5z-rhG"/>
                     <constraint firstItem="oMJ-8r-ebK" firstAttribute="top" secondItem="dz9-pQ-bIr" secondAttribute="top" constant="-2" id="ttb-Xo-UJk"/>
@@ -2637,9 +2659,7 @@ G1BhbiBTbGlkZXI
             <connections>
                 <outlet property="artView" destination="YrG-JU-zDl" id="bcX-qr-OmI"/>
                 <outlet property="btnMoreInfo" destination="0Mb-en-nxS" id="gw8-7r-VO1"/>
-                <outlet property="btnShowInPlaylist" destination="VvF-4h-2Sh" id="Zpe-So-eox"/>
                 <outlet property="btnShowPlayingTrackInPlaylist" destination="VvF-4h-2Sh" id="2kG-34-iHp"/>
-                <outlet property="lblSeekPosition" destination="4f4-mL-8YB" id="hVi-KQ-n5Q"/>
                 <outlet property="lblTimeElapsed" destination="4f4-mL-8YB" id="jjJ-bY-HAo"/>
                 <outlet property="lblTimeRemaining" destination="G6u-jj-tnv" id="YSJ-d9-q50"/>
                 <outlet property="lblTrackArtist" destination="bDo-O3-0JI" id="Sb8-OG-GT7"/>
@@ -2653,11 +2673,12 @@ G1BhbiBTbGlkZXI
         </viewController>
         <viewController id="I9L-9m-MZn" customClass="PlaybackViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="albumsView" destination="ysd-F6-711" id="7fi-pk-Cil"/>
+                <outlet property="artistsView" destination="Hsn-Ar-Mkv" id="ehf-4h-UJa"/>
                 <outlet property="btnPlayPause" destination="52R-Hv-S0B" id="42N-hC-nYK"/>
                 <outlet property="btnRepeat" destination="Fpa-Ii-3YA" id="aOb-yY-VwP"/>
                 <outlet property="btnShuffle" destination="kQL-4a-kyh" id="dPy-qf-SDn"/>
-                <outlet property="playlistArtistView" destination="Hsn-Ar-Mkv" id="ptf-Qp-f8d"/>
-                <outlet property="playlistView" destination="rhk-oM-jMn" id="slZ-rH-VXh"/>
+                <outlet property="genresView" destination="YHO-bg-iJv" id="Kh1-pi-ZF8"/>
                 <outlet property="repeatAllDockMenuItem" destination="0zK-7w-8z4" id="HHR-b7-ElU"/>
                 <outlet property="repeatAllMainMenuItem" destination="l9m-G6-uAk" id="9UL-l9-hud"/>
                 <outlet property="repeatOffDockMenuItem" destination="pxm-4j-4jw" id="169-zh-oU6"/>
@@ -2669,19 +2690,22 @@ G1BhbiBTbGlkZXI
                 <outlet property="shuffleOffMainMenuItem" destination="UVB-LH-JI0" id="RTx-xw-Un3"/>
                 <outlet property="shuffleOnDockMenuItem" destination="GtC-65-0P7" id="EjA-KG-s0x"/>
                 <outlet property="shuffleOnMainMenuItem" destination="A9x-31-Cvm" id="Y0R-GZ-EYj"/>
+                <outlet property="tracksView" destination="rhk-oM-jMn" id="J0N-rH-f22"/>
                 <outlet property="view" destination="X7y-oM-7MJ" id="e4c-ZZ-vAm"/>
             </connections>
         </viewController>
-        <viewController id="3Gm-pq-cQv" customClass="PlaylistTableViewController" customModule="Aural" customModuleProvider="target">
+        <viewController id="3Gm-pq-cQv" customClass="PlaylistTracksViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="view" destination="rhk-oM-jMn" id="x3X-4W-4RR"/>
             </connections>
         </viewController>
-        <viewController id="j3W-Qy-TCP" userLabel="Playlist ArtistView Controller" customClass="PlaylistArtistViewController" customModule="Aural" customModuleProvider="target">
+        <viewController id="j3W-Qy-TCP" customClass="PlaylistArtistsViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="view" destination="rhk-oM-jMn" id="kAl-Ew-1P6"/>
             </connections>
         </viewController>
+        <viewController id="2Cx-jF-XvQ" customClass="PlaylistAlbumsViewController" customModule="Aural" customModuleProvider="target"/>
+        <viewController id="4JA-qa-4UB" customClass="PlaylistGenresViewController" customModule="Aural" customModuleProvider="target"/>
         <viewController id="8o0-TS-7rF" userLabel="Playlist View Controller" customClass="PlaylistViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="albumsView" destination="ysd-F6-711" id="mjw-HA-rvd"/>
@@ -2776,7 +2800,6 @@ G1BhbiBTbGlkZXI
                 <outlet property="lblTimeOverlapValue" destination="TVy-7n-XEc" id="b88-Vj-KMI"/>
                 <outlet property="lblTimeStretchRateValue" destination="hQy-Wa-pgf" id="Orz-Dh-Fdh"/>
                 <outlet property="lblVolume" destination="cgq-Jv-JKs" id="INJ-py-miT"/>
-                <outlet property="line" destination="QU8-ZM-MyA" id="JiT-mO-9LD"/>
                 <outlet property="panSlider" destination="wom-j6-eli" id="1p9-dZ-cRc"/>
                 <outlet property="pitchOverlapSlider" destination="9E2-MV-Hi7" id="EgG-Bp-jfO"/>
                 <outlet property="pitchSlider" destination="g6a-qD-rnZ" id="zWw-vR-BjR"/>
@@ -2853,7 +2876,6 @@ G1BhbiBTbGlkZXI
                 <outlet property="view" destination="EiT-Mj-1SZ" id="wr6-aA-rz3"/>
                 <outlet property="viewEffectsMenuItem" destination="fK8-7g-oqx" id="05B-Uw-Hcu"/>
                 <outlet property="viewPlaylistMenuItem" destination="af4-4E-1QV" id="E2Z-qY-PQl"/>
-                <outlet property="window" destination="QvC-M9-y7g" id="df7-MJ-Y6i"/>
             </connections>
         </viewController>
         <menu title="Main Menu" systemMenu="main" id="Cnt-hZ-QmI">

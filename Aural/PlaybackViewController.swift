@@ -28,10 +28,11 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     @IBOutlet weak var shuffleOffDockMenuItem: NSMenuItem!
     @IBOutlet weak var shuffleOnDockMenuItem: NSMenuItem!
     
-    // The playlist view can initiate playback of a track (through double clicks)
-    @IBOutlet weak var playlistView: NSTableView!
-    
-    @IBOutlet weak var playlistArtistView: NSOutlineView!
+    // The playlist views can initiate playback of a track (through double clicks)
+    @IBOutlet weak var tracksView: NSTableView!
+    @IBOutlet weak var artistsView: NSOutlineView!
+    @IBOutlet weak var albumsView: NSOutlineView!
+    @IBOutlet weak var genresView: NSOutlineView!
     
     // Delegate that conveys all playback requests to the player / playback sequence
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
@@ -39,11 +40,13 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     override func viewDidLoad() {
         
         // Set up a mouse listener (for double clicks -> play selected track)
-        playlistView.doubleAction = #selector(self.playSelectedTrackAction(_:))
-        playlistView.target = self
+        tracksView.doubleAction = #selector(self.playSelectedTrackAction(_:))
+        tracksView.target = self
         
-        playlistArtistView.doubleAction = #selector(self.playSelectedArtistTrackAction(_:))
-        playlistArtistView.target = self
+        [artistsView!, albumsView!, genresView!].forEach({
+            $0.doubleAction = #selector(self.playSelectedGroupedTrackAction(_:))
+            $0.target = self
+        })
         
         let appState = ObjectGraph.getUIAppState()
         updateRepeatAndShuffleControls(appState.repeatMode, appState.shuffleMode)
@@ -66,15 +69,15 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     
     @IBAction func playSelectedTrackAction(_ sender: AnyObject) {
         
-        if (playlistView.selectedRow >= 0) {
+        if (tracksView.selectedRow >= 0) {
             
             let oldTrack = player.getPlayingTrack()
             
             do {
                 
-                let track = try player.play(playlistView.selectedRow)
+                let track = try player.play(tracksView.selectedRow)
                 trackChange(oldTrack, track)
-                playlistView.deselectAll(self)
+                tracksView.deselectAll(self)
                 
             } catch let error as Error {
                 
@@ -85,9 +88,11 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         }
     }
     
-    @IBAction func playSelectedArtistTrackAction(_ sender: AnyObject) {
+    @IBAction func playSelectedGroupedTrackAction(_ sender: AnyObject) {
         
-        let item = playlistArtistView.item(atRow: playlistArtistView.selectedRow)
+        let playlistView = sender as! NSOutlineView
+        
+        let item = playlistView.item(atRow: playlistView.selectedRow)
         
         if let track = item as? Track {
             
@@ -99,32 +104,13 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
                 trackChange(oldTrack, track)
                 playlistView.deselectAll(self)
                 
-            } catch let error as Error {
+            } catch let error {
                 
                 if (error is InvalidTrackError) {
                     handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
                 }
             }
         }
-        
-//        
-//        if (playlistArtistView.selectedRow)
-//            
-//            let oldTrack = player.getPlayingTrack()
-//            
-//            do {
-//                
-//                let track = try player.play(playlistView.selectedRow)
-//                trackChange(oldTrack, track)
-//                playlistView.deselectAll(self)
-//                
-//            } catch let error as Error {
-//                
-//                if (error is InvalidTrackError) {
-//                    handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-//                }
-//            }
-//        }
     }
     
     @IBAction func repeatAction(_ sender: AnyObject) {

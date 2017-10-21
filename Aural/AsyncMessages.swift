@@ -75,10 +75,12 @@ struct TrackInfoUpdatedAsyncMessage: AsyncMessage {
     var messageType: AsyncMessageType = .trackInfoUpdated
     
     // The index of the track that has been updated
-    var trackIndex: Int
+    let trackIndex: Int
+    let group: Group
     
-    init(_ trackIndex: Int) {
+    init(_ trackIndex: Int, _ group: Group) {
         self.trackIndex = trackIndex
+        self.group = group
     }
 }
 
@@ -88,13 +90,16 @@ struct TrackAddedAsyncMessage: AsyncMessage {
     var messageType: AsyncMessageType = .trackAdded
     
     // The index of the newly added track
-    var trackIndex: Int
+    let trackIndex: Int
+    
+    let group: Group
     
     // The current progress of the track add operation (See TrackAddedAsyncMessageProgress)
-    var progress: TrackAddedAsyncMessageProgress
+    let progress: TrackAddedAsyncMessageProgress
     
-    init(_ trackIndex: Int, _ progress: TrackAddedAsyncMessageProgress) {
+    init(_ trackIndex: Int, _ group: Group, _ progress: TrackAddedAsyncMessageProgress) {
         self.trackIndex = trackIndex
+        self.group = group
         self.progress = progress
     }
 }
@@ -103,13 +108,13 @@ struct TrackAddedAsyncMessage: AsyncMessage {
 struct TrackAddedAsyncMessageProgress {
     
     // Number of tracks added so far
-    var tracksAdded: Int
+    let tracksAdded: Int
     
     // Total number of tracks to add
-    var totalTracks: Int
+    let totalTracks: Int
     
     // Percentage of tracks added (computed)
-    var percentage: Double
+    let percentage: Double
     
     init(_ tracksAdded: Int, _ totalTracks: Int) {
         
@@ -125,10 +130,10 @@ struct TrackNotPlayedAsyncMessage: AsyncMessage {
     var messageType: AsyncMessageType = .trackNotPlayed
     
     // The track that was playing before the track change (may be nil, meaning no track was playing)
-    var oldTrack: IndexedTrack?
+    let oldTrack: IndexedTrack?
     
     // An error object containing detailed information such as the track file and the root cause
-    var error: InvalidTrackError
+    let error: InvalidTrackError
     
     init(_ oldTrack: IndexedTrack?, _ error: InvalidTrackError) {
         self.oldTrack = oldTrack
@@ -142,7 +147,7 @@ struct TracksNotAddedAsyncMessage: AsyncMessage {
     var messageType: AsyncMessageType = .tracksNotAdded
     
     // An array of error objects containing detailed information such as the track file and the root cause
-    var errors: [InvalidTrackError]
+    let errors: [InvalidTrackError]
     
     init(_ errors: [InvalidTrackError]) {
         self.errors = errors

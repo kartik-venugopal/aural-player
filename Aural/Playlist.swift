@@ -7,9 +7,15 @@ import AVFoundation
 class Playlist: PlaylistCRUDProtocol {
     
     private var tracks: [Track] = [Track]()
+    private var groupings: [GroupType: Grouping] = [GroupType: Grouping]()
     
     // A map to quickly look up tracks by (absolute) file path (used when adding tracks, to avoid duplicates)
     private var tracksByFilePath: [String: Track] = [String: Track]()
+    
+    init() {
+//        [GroupType.artist, GroupType.album, GroupType.genre].forEach({groupings[$0] = Grouping($0)})
+        [GroupType.artist].forEach({groupings[$0] = Grouping($0)})
+    }
     
     func getTracks() -> [Track] {
         return tracks
@@ -53,6 +59,8 @@ class Playlist: PlaylistCRUDProtocol {
     private func doAddTrack(_ track: Track) {
         tracks.append(track)
         tracksByFilePath[track.file.path] = track
+        
+        groupings.values.forEach({$0.trackAdded(track)})
     }
     
     // Checks whether or not a track with the given absolute file path already exists.
@@ -60,12 +68,12 @@ class Playlist: PlaylistCRUDProtocol {
         return tracksByFilePath[track.file.path] != nil
     }
     
-    private func removeTrack(_ index: Int) {
+    private func removeTrack(_ index: Int) -> Track {
         
         let track: Track = tracks[index]
         
         tracksByFilePath.removeValue(forKey: track.file.path)
-        tracks.remove(at: index)
+        return tracks.remove(at: index)
     }
     
     func removeTracks(_ indexes: [Int]) {
@@ -76,7 +84,11 @@ class Playlist: PlaylistCRUDProtocol {
         let sortedIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
         
         // TODO: Will forEach always iterate array in order ??? If not, cannot use it. Array needs to be iterated in exact order.
-        sortedIndexes.forEach({removeTrack($0)})
+        
+        var rt = [Track]()
+        sortedIndexes.forEach({rt.append(removeTrack($0))})
+        
+        groupings.values.forEach({$0.tracksRemoved([], rt)})
     }
     
     func indexOfTrack(_ track: Track?) -> Int?  {
@@ -91,6 +103,8 @@ class Playlist: PlaylistCRUDProtocol {
     func clear() {
         tracks.removeAll()
         tracksByFilePath.removeAll()
+        
+        groupings.values.forEach({$0.playlistCleared()})
     }
     
     func save(_ file: URL) {
@@ -344,7 +358,26 @@ class Playlist: PlaylistCRUDProtocol {
         return state
     }
     
-    func groupTracks(_ type: GroupType) -> GroupedPlaylist {
-        return GroupedPlaylist(type, tracks)
+    func groupTracks(_ type: GroupType) -> Grouping {
+        return Grouping(type)
+    }
+    
+    func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> (group: Group, groupIndex: Int, trackIndex: Int) {
+        
+        let grouping = groupings[groupType]!
+        
+        let group = grouping.getGroupForTrack(track)
+        let gi = grouping.indexOf(group!)
+        let ti = group?.indexOf(track)
+        
+        return (group!, gi, ti!)
+    }
+    
+    func getGroupingForType(_ type: GroupType) -> Grouping {
+        return groupings[type] ?? groupings[.artist]!
+    }
+    
+    func trackInfoUpdated(_ updatedTrack: Track) {
+        groupings.values.forEach({$0.trackInfoUpdated(updatedTrack)})
     }
 }

@@ -5,7 +5,7 @@
 import Cocoa
 import AVFoundation
 
-class PlaylistTableViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, MessageSubscriber {
+class PlaylistTracksViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, MessageSubscriber {
     
     // Delegate that performs CRUD on the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()

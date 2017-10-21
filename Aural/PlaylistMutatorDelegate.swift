@@ -177,12 +177,17 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         // index >= 0 indicates success in adding the track to the playlist
         if (index >= 0) {
             
-            notifyTrackAdded(index, progress)
+            let groupInfo = playlist.getGroupingInfoForTrack(track, .artist)
+            notifyTrackAdded(track, index, groupInfo.group, progress)
             
             // Load display info async (ID3 info, duration)
             DispatchQueue.global(qos: .userInitiated).async {
+                
                 TrackIO.loadDisplayInfo(track)
-                AsyncMessenger.publishMessage(TrackInfoUpdatedAsyncMessage(index))
+                self.playlist.trackInfoUpdated(track)
+                
+                let updatedGroupInfo = self.playlist.getGroupingInfoForTrack(track, .artist)
+                AsyncMessenger.publishMessage(TrackInfoUpdatedAsyncMessage(index, updatedGroupInfo.group))
             }
         }
         
@@ -190,13 +195,12 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     // Publishes a notification that a new track has been added to the playlist
-    private func notifyTrackAdded(_ trackIndex: Int, _ progress: TrackAddedAsyncMessageProgress) {
+    private func notifyTrackAdded(_ track: Track, _ trackIndex: Int, _ group: Group, _ progress: TrackAddedAsyncMessageProgress) {
         
-        let trackAddedAsyncMessage = TrackAddedAsyncMessage(trackIndex, progress)
-        AsyncMessenger.publishMessage(trackAddedAsyncMessage)
+        AsyncMessenger.publishMessage(TrackAddedAsyncMessage(trackIndex, group, progress))
         
         // Also notify the listeners directly
-        changeListeners.forEach({$0.trackAdded()})
+        changeListeners.forEach({$0.trackAdded(track)})
     }
     
     // Performs autoplay, by delegating a playback request to the player
@@ -227,7 +231,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     func removeTracks(_ indexes: [Int]) {
         playlist.removeTracks(indexes)
-        changeListeners.forEach({$0.tracksRemoved(indexes)})
+        changeListeners.forEach({$0.tracksRemoved(indexes, [])})
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> IndexSet {
