@@ -17,6 +17,8 @@ protocol PlaylistAccessorProtocol {
     
     func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> (group: Group, groupIndex: Int, trackIndex: Int)
     
+    func getGroupIndex(_ group: Group) -> Int
+    
     // Determines the index of a given track, within the playlist. Returns nil if the track doesn't exist within the playlist.
     func indexOfTrack(_ track: Track?) -> Int?
     
@@ -39,10 +41,12 @@ protocol PlaylistAccessorProtocol {
 protocol PlaylistMutatorProtocol {
     
     // Adds a single track to the playlist, and returns its index within the playlist. If the track was not added, the returned value will be -1.
-    func addTrack(_ track: Track) -> Int
+    func addTrack(_ track: Track) -> TrackAddResult
     
     // Removes tracks with the given indexes
-    func removeTracks(_ indexes: [Int])
+    func removeTracks(_ indexes: [Int]) -> TrackRemoveResults
+    
+    func removeTracksAndGroups(_ request: RemoveTracksAndGroupsRequest)
     
     // Clears the entire playlist of all tracks
     func clear()

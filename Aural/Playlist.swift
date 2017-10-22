@@ -45,22 +45,30 @@ class Playlist: PlaylistCRUDProtocol {
         return (tracks.count, totalDuration())
     }
     
-    func addTrack(_ track: Track) -> Int {
+    func addTrack(_ track: Track) -> TrackAddResult {
         
         if (!trackExists(track)) {
-            doAddTrack(track)
-            return tracks.count - 1
+            let groupInfo = doAddTrack(track)
+            let index = tracks.count - 1
+            return TrackAddResult(index: index, groupInfo: groupInfo)
         }
         
         // This means nothing was added
-        return -1
+        return TrackAddResult.notAdded
     }
     
-    private func doAddTrack(_ track: Track) {
+    private func doAddTrack(_ track: Track) -> [(group: Group, groupIndex: Int, groupIsNew: Bool)] {
         tracks.append(track)
         tracksByFilePath[track.file.path] = track
         
-        groupings.values.forEach({$0.trackAdded(track)})
+        var allGroupInfo = [(group: Group, groupIndex: Int, groupIsNew: Bool)]()
+        
+        for grouping in groupings.values {
+            
+            allGroupInfo.append(grouping.addTrack(track))
+        }
+        
+        return allGroupInfo
     }
     
     // Checks whether or not a track with the given absolute file path already exists.
@@ -76,7 +84,7 @@ class Playlist: PlaylistCRUDProtocol {
         return tracks.remove(at: index)
     }
     
-    func removeTracks(_ indexes: [Int]) {
+    func removeTracks(_ indexes: [Int]) -> TrackRemoveResults {
         
         // Need to remove tracks in descending order of index, so that indexes of yet-to-be-removed elements are not messed up
         
@@ -88,7 +96,78 @@ class Playlist: PlaylistCRUDProtocol {
         var rt = [Track]()
         sortedIndexes.forEach({rt.append(removeTrack($0))})
         
-        groupings.values.forEach({$0.tracksRemoved([], rt)})
+        let resultsTemp: [(group: Group, groupIndex: Int, trackIndexInGroup: Int, groupWasRemoved: Bool)]
+        resultsTemp = groupings[.artist]!.removeTracks(rt)
+        
+        var results: [(parentGroup: Group?, parentGroupIndex: Int?, childIndex: Int)] = [(parentGroup: Group?, parentGroupIndex: Int?, childIndex: Int)]()
+        
+        for result in resultsTemp {
+            
+            if (result.groupWasRemoved) {
+                print("\tGroup was removed at size 0:", result.groupIndex)
+                results.append((nil, nil, result.groupIndex))
+            } else {
+                print("\tTrack was removed:", result.trackIndexInGroup)
+                results.append((result.group, result.groupIndex, result.trackIndexInGroup))
+            }
+        }
+        
+        results = results.sorted(by: {
+            
+            let g1 = ($0.parentGroupIndex == nil) ? $0.childIndex : $0.parentGroupIndex!
+            let g2 = ($1.parentGroupIndex == nil) ? $1.childIndex : $1.parentGroupIndex!
+            
+            // Two tracks in same group
+            if (g1 == g2) {
+                return $0.childIndex > $1.childIndex
+            } else {
+                return g1 > g2
+            }
+        })
+        
+        return TrackRemoveResults(results)
+    }
+    
+    private func removeTrack(_ track: Track) {
+        
+        let index = indexOfTrack(track)!
+        
+        tracksByFilePath.removeValue(forKey: track.file.path)
+        tracks.remove(at: index)
+    }
+    
+    func removeTracksAndGroups(_ request: RemoveTracksAndGroupsRequest) {
+        
+        request.mappings.forEach({
+        
+            let group = $0.group
+            let tracks = $0.tracks
+            let groupRemoved = $0.groupRemoved
+            
+            var groupIndexes: [Group: Int] = [Group: Int]()
+            
+            if (groupRemoved) {
+                
+                let groupIndex = $0.groupIndex
+                groupings[.artist]!.removeGroup(groupIndex)
+                
+                print("Playlist: Removed group:", group.name)
+                
+                groupIndexes[group] = groupIndex
+                
+                for track in group.tracks {
+                    removeTrack(track)
+                }
+                
+            } else {
+                
+                for track in tracks! {
+                    removeTrack(track)
+                    groupings[.artist]!.removeTrack(track)
+                    print("Playlist: Removed track:", track.conciseDisplayName)
+                }
+            }
+        })
     }
     
     func indexOfTrack(_ track: Track?) -> Int?  {
@@ -367,10 +446,10 @@ class Playlist: PlaylistCRUDProtocol {
         let grouping = groupings[groupType]!
         
         let group = grouping.getGroupForTrack(track)
-        let gi = grouping.indexOf(group!)
-        let ti = group?.indexOf(track)
+        let gi = grouping.indexOf(group)
+        let ti = group.indexOf(track)
         
-        return (group!, gi, ti!)
+        return (group, gi, ti)
     }
     
     func getGroupingForType(_ type: GroupType) -> Grouping {
@@ -379,5 +458,26 @@ class Playlist: PlaylistCRUDProtocol {
     
     func trackInfoUpdated(_ updatedTrack: Track) {
         groupings.values.forEach({$0.trackInfoUpdated(updatedTrack)})
+    }
+    
+    func getGroupIndex(_ group: Group) -> Int {
+        return groupings[.artist]!.groups.index(of: group)!
+    }
+}
+
+struct TrackAddResult {
+    
+    let index: Int
+    let groupInfo: [(group: Group, groupIndex: Int, groupIsNew: Bool)]
+    
+    static let notAdded = TrackAddResult(index: -1, groupInfo: [])
+}
+
+struct TrackRemoveResults {
+    
+    let results: [(parentGroup: Group?, parentGroupIndex: Int?, childIndex: Int)]
+    
+    init(_ results: [(parentGroup: Group?, parentGroupIndex: Int?, childIndex: Int)]) {
+        self.results = results
     }
 }

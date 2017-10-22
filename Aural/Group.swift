@@ -1,6 +1,6 @@
 import Foundation
 
-class Group {
+class Group: NSObject, GroupedPlaylistItem {
     
     var type: GroupType
     var name: String
@@ -40,15 +40,20 @@ class Group {
         tracks.sort(by: GroupSortStrategies.byAlbumAndTrackNumber)
     }
     
-    func removeTrack(_ track: Track) {
+    func removeTrack(_ track: Track) -> Int {
+        
+        var trackIndex: Int = -1
         
         // TODO: Thread-safe ???
         ConcurrencyUtils.executeSynchronized(tracks) {
             
             if let index = tracks.index(of: track) {
                 tracks.remove(at: index)
+                trackIndex = index
             }
         }
+        
+        return trackIndex
     }
 }
 

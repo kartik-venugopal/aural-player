@@ -4,9 +4,10 @@ import Foundation
     Concrete implementation of PlaylistAccessorDelegateProtocol
  */
 class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
+    
     func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> (group: Group, groupIndex: Int, trackIndex: Int) {
         
-        return (Group(.artist, ""), 1, 1)
+        return playlist.getGroupingInfoForTrack(track, groupType)
     }
 
     

@@ -53,6 +53,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         // Register self as a subscriber to various AsyncMessage notifications
         AsyncMessenger.subscribe(.trackAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe(.groupAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.tracksNotAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.startedAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.doneAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
@@ -145,23 +146,125 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     @IBAction func removeTracksAction(_ sender: AnyObject) {
         
-        let selectedIndexes = tracksView.selectedRowIndexes
-        if (selectedIndexes.count > 0) {
-            
-            // Special case: If all tracks were removed, this is the same as clearing the playlist, delegate to that (simpler and more efficient) function instead.
-            if (selectedIndexes.count == tracksView.numberOfRows) {
-                clearPlaylistAction(sender)
-                return
+        if (currentPlaylistView == tracksView) {
+        
+            let selectedIndexes = tracksView.selectedRowIndexes
+            if (selectedIndexes.count > 0) {
+                
+                // Special case: If all tracks were removed, this is the same as clearing the playlist, delegate to that (simpler and more efficient) function instead.
+                if (selectedIndexes.count == tracksView.numberOfRows) {
+                    clearPlaylistAction(sender)
+                    return
+                }
+                
+                // The $0 comparison is not needed, except to appease the compiler
+                let indexes = selectedIndexes.filter({$0 >= 0})
+                if (!indexes.isEmpty) {
+                    removeTracks(indexes)
+                }
+                
+                // Clear the playlist selection
+                tracksView.deselectAll(self)
             }
             
-            // The $0 comparison is not needed, except to appease the compiler
-            let indexes = selectedIndexes.filter({$0 >= 0})
-            if (!indexes.isEmpty) {
-                removeTracks(indexes)
+        } else {
+            
+            // Sort ascending
+            let indexes = artistsView.selectedRowIndexes.sorted(by: {x, y -> Bool in x < y})
+            print("\nInx:", indexes)
+            
+//            var request = RemoveTracksAndGroupsRequest()
+            var removedTracks: [Group: [Track]] = [Group: [Track]]()
+            var removedGroups: [Group] = [Group]()
+            
+            var cur = 0
+            
+            while cur < indexes.count {
+                
+                let index = indexes[cur]
+                let item = artistsView.item(atRow: index)
+                
+                if let group = item as? Group {
+                    
+                    removedGroups.append(group)
+                    if (artistsView.isItemExpanded(group)) {
+                        
+                        // Skip all the group's selected children
+                        let maxChildIndex = index + group.size()
+                        while cur < indexes.count && indexes[cur] <= maxChildIndex {
+                            cur += 1
+                        }
+                        
+                        cur -= 1
+                    }
+                    
+                } else {
+                    
+                    // Track
+                    let track = item as! Track
+                    let group = artistsView.parent(forItem: track) as! Group
+                    
+                    if (removedTracks[group] == nil) {
+                        removedTracks[group] = [Track]()
+                    }
+                    
+                    removedTracks[group]?.append(track)
+                }
+                
+                cur += 1
             }
             
-            // Clear the playlist selection
-            tracksView.deselectAll(self)
+            for (group, tracks) in removedTracks {
+                
+                // If all tracks in group were removed, just remove the group instead
+                if (tracks.count == group.size()) {
+                    print("Removing group because all tracks selected:", group.name)
+                    removedGroups.append(group)
+                } else {
+                    
+                    // Sort descending by track number
+                    removedTracks[group] = tracks.sorted(by: {t1, t2 -> Bool in
+                        return group.indexOf(t1) > group.indexOf(t2)
+                    })
+                }
+            }
+            
+            removedGroups.forEach({removedTracks.removeValue(forKey: $0)})
+            
+            var requestMappings: [(group: Group, groupIndex: Int, tracks: [Track]?, groupRemoved: Bool)] = [(group: Group, groupIndex: Int, tracks: [Track]?, groupRemoved: Bool)]()
+            
+            removedTracks.forEach({requestMappings.append(($0.key, plAcc.getGroupIndex($0.key), $0.value, false))})
+            removedGroups.forEach({requestMappings.append(($0, plAcc.getGroupIndex($0), nil, true))})
+            
+            requestMappings = requestMappings.sorted(by: {m1, m2 -> Bool in
+                return m1.groupIndex > m2.groupIndex
+            })
+            
+            let request = RemoveTracksAndGroupsRequest(requestMappings)
+            playlist.removeTracksAndGroups(request)
+            
+//            for (group, groupIndex, tracks, groupRemoved) in requestMappings {
+//                
+//                if (groupRemoved) {
+//                    
+//                    artistsView.removeItems(at: IndexSet(integer: groupIndex), inParent: nil, withAnimation: .effectFade)
+//                } else {
+//                    
+//                    // Tracks
+//                    for track in tracks! {
+//                        artistsView.removeItems(at: IndexSet(integer: group.indexOf(track)), inParent: group, withAnimation: .effectFade)
+//                        artistsView.reloadItem(group)
+//                    }
+//                }
+//            }
+            
+            let tim = TimerUtils.start("reloadArtistsView")
+            artistsView.reloadData()
+            tim.end()
+            
+            TimerUtils.printStats()
+            
+            updatePlaylistSummary()
         }
     }
     
@@ -172,7 +275,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         let oldPlayingTrackIndex = playbackInfo.getPlayingTrack()?.index
         
         // Remove the tracks from the playlist
-        playlist.removeTracks(indexes)
+        _ = playlist.removeTracks(indexes)
         
         // Update all rows from the first (i.e. smallest number) selected row, down to the end of the playlist
         
@@ -368,27 +471,31 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         if message is TrackAddedAsyncMessage {
             
+            let _msg = message as! TrackAddedAsyncMessage
+            
             // Perform task serially wrt other such tasks
             
             let updateOp = BlockOperation(block: {
                 
-                let _msg = message as! TrackAddedAsyncMessage
+//                self.tracksView.noteNumberOfRowsChanged()
                 
-//                self.tracksView!.noteNumberOfRowsChanged()
-                
-                let track = self.playlist.peekTrackAt(_msg.trackIndex)
-                let group = self.playlist.getGroupingInfoForTrack(track!.track, .artist).group
-                
-//                print("Reloading group:", group.name, "for new track:", _msg.trackIndex)
-                NSLog("Reloading group: %@ for NEW track: %@", group.name, track?.track.conciseDisplayName ?? "FUCK")
-                
+                let group = _msg.group
                 self.artistsView.reloadItem(group, reloadChildren: true)
                 
-//                [self.artistsView!, self.albumsView!, self.genresView!].forEach({
-//                    $0.noteNumberOfRowsChanged()
-//                })
-                
                 self.updatePlaylistSummary(_msg.progress)
+            })
+            
+            playlistUpdateQueue.addOperation(updateOp)
+            
+            return
+        }
+        
+        if message is GroupAddedAsyncMessage {
+            
+            let msg = message as! GroupAddedAsyncMessage
+            
+            let updateOp = BlockOperation(block: {
+                self.artistsView.insertItems(at: IndexSet(integer: msg.groupIndex), inParent: nil, withAnimation: NSTableViewAnimationOptions.effectFade)
             })
             
             playlistUpdateQueue.addOperation(updateOp)

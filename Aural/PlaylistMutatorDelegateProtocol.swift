@@ -21,7 +21,10 @@ protocol PlaylistMutatorDelegateProtocol {
     func addFiles(_ files: [URL])
     
     // Removes track(s) with the given indexes
-    func removeTracks(_ indexes: [Int])
+    func removeTracks(_ indexes: [Int]) -> TrackRemoveResults
+    
+    // Returns sorted child->parent mappings, to be iterated upon, as is
+    func removeTracksAndGroups(_ request: RemoveTracksAndGroupsRequest)
     
     // Clears the entire playlist of all tracks
     func clear()

@@ -26,6 +26,7 @@ class PlaylistTracksViewController: NSViewController, NSTableViewDataSource, NST
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
+//        NSLog("Playlist size: %d", playlist.size())
         return playlist.size()
     }
     

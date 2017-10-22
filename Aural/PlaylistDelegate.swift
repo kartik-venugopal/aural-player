@@ -4,11 +4,6 @@ import Foundation
     Concrete implementation of PlaylistDelegateProtocol.
  */
 class PlaylistDelegate: PlaylistDelegateProtocol {
-    func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> (group: Group, groupIndex: Int, trackIndex: Int) {
-        
-        return (Group(.artist, ""), 1, 1)
-    }
-
     
     // Accessor delegate, to which all read-only operations are deferred
     private let accessor: PlaylistAccessorDelegateProtocol
@@ -49,8 +44,12 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         mutator.addFiles(files)
     }
     
-    func removeTracks(_ indexes: [Int]) {
-        mutator.removeTracks(indexes)
+    func removeTracks(_ indexes: [Int]) -> TrackRemoveResults {
+        return mutator.removeTracks(indexes)
+    }
+    
+    func removeTracksAndGroups(_ request: RemoveTracksAndGroupsRequest) {
+        return mutator.removeTracksAndGroups(request)
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> IndexSet {
@@ -79,5 +78,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         DispatchQueue.global(qos: .userInitiated).async {
             PlaylistIO.savePlaylist(file)
         }
+    }
+    
+    func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> (group: Group, groupIndex: Int, trackIndex: Int) {
+        
+        return accessor.getGroupingInfoForTrack(track, groupType)
     }
 }

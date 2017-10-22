@@ -81,6 +81,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             hidePlaylist(false)
         } else {
             showPlaylist(false)
+            maximizePlaylist()
         }
     }
     

@@ -12,13 +12,15 @@ class Grouping: PlaylistChangeListener, TrackInfoChangeListener {
         self.type = type
     }
     
-    private func addTrack(_ track: Track) {
+    func addTrack(_ track: Track) -> (group: Group, groupIndex: Int, groupIsNew: Bool) {
         
 //        print("Adding: ", track.conciseDisplayName)
         
         let groupName = getGroupNameForTrack(track)
         
         var group: Group?
+        var groupIsNew: Bool = false
+        var groupIndex: Int = -1
         
         ConcurrencyUtils.executeSynchronized(groups) {
         
@@ -27,12 +29,17 @@ class Grouping: PlaylistChangeListener, TrackInfoChangeListener {
                 group = Group(type, groupName)
                 groups.append(group!)
                 groupsByName[groupName] = group
-                NSLog("Created group: %@", groupName)
+                groupIndex = groups.count - 1
+                groupIsNew = true
+//                NSLog("Created group: %@", groupName)
+            } else {
+                groupIndex = groups.index(where: {$0 === group})!
             }
         }
         
         group!.addTrack(track)
-//        print("Added", track.conciseDisplayName, "to:", group!.name)
+        
+        return (group!, groupIndex, groupIsNew)
     }
     
     private func getGroupNameForTrack(_ track: Track) -> String {
@@ -52,49 +59,76 @@ class Grouping: PlaylistChangeListener, TrackInfoChangeListener {
         return _groupName ?? "<Unknown>"
     }
     
-    func getGroupForTrack(_ track: Track) -> Group? {
+    func getGroupForTrack(_ track: Track) -> Group {
         
         let name = getGroupNameForTrack(track)
-        let group = groupsByName[name]
-//        print("REturning", group?.name, "for", track.conciseDisplayName)
-        NSLog("Returning group: %@ for track: %@", name, track.conciseDisplayName)
-        return group
+        return groupsByName[name]!
     }
     
-    func removeTrack(_ track: Track) {
+    // Returns group index
+    func removeGroup(_ group: Group) -> Int {
         
-        for group in groups {
+        if let index = groups.index(of: group) {
             
-            if group.tracks.contains(track) {
-                
-                ConcurrencyUtils.executeSynchronized(groups) {
-                    
-                    group.removeTrack(track)
-//                    print("Removed", track.conciseDisplayName, "from:", group.name)
-                    
-                    if (group.size() == 0) {
-                        
-//                        print("Empty group:", group.name)
-                        
-                        if let index = groups.index(where: {$0 === group}) {
-                            groups.remove(at: index)
-                            groupsByName.removeValue(forKey: group.name)
-                            print("\tRemoved group:", group.name, "at:", index)
-                        }
-                    }
-                }
-                
-                return
+            groups.remove(at: index)
+            groupsByName.removeValue(forKey: group.name)
+            
+            return index
+        }
+        
+        return -1
+    }
+    
+    func removeGroup(_ index: Int) {        
+        let group = groups.remove(at: index)
+        groupsByName.removeValue(forKey: group.name)
+    }
+    
+    func removeTracks(_ tracks: [Track]) -> [(group: Group, groupIndex: Int, trackIndexInGroup: Int, groupWasRemoved: Bool)] {
+        
+        // Sort by index within respective group
+        // TODO: Send this index info from the view layer
+        let sortedTracks = tracks.sorted(by: {indexOf($0) > indexOf($1)})
+        
+        var results = [(group: Group, groupIndex: Int, trackIndexInGroup: Int, groupWasRemoved: Bool)]()
+        
+        for track in sortedTracks {
+            
+            print("Removing from grouping: ", track.conciseDisplayName)
+            results.append(removeTrack(track))
+        }
+        
+        return results
+    }
+    
+    func removeTrack(_ track: Track) -> (group: Group, groupIndex: Int, trackIndexInGroup: Int, groupWasRemoved: Bool) {
+        
+        var groupIndex: Int = -1
+        var groupWasRemoved: Bool = false
+        var trackIndexInGroup: Int = -1
+        
+        let group = getGroupForTrack(track)
+        
+        ConcurrencyUtils.executeSynchronized(groups) {
+            
+            groupIndex = groups.index(of: group)!
+            trackIndexInGroup = group.removeTrack(track)
+            
+            if (group.size() == 0) {
+                groups.remove(at: groupIndex)
+                groupsByName.removeValue(forKey: group.name)
+                groupWasRemoved = true
             }
         }
+        
+        return (group, groupIndex, trackIndexInGroup, groupWasRemoved)
     }
-    
-    
+
     func getGroup(_ index: Int) -> Group? {
         
         return index >= 0 && index < groups.count ? groups[index] : nil
     }
-    
+
     func size() -> Int {
         return groups.count
     }
@@ -169,7 +203,7 @@ class Grouping: PlaylistChangeListener, TrackInfoChangeListener {
     }
     
     func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> (group: Group, groupIndex: Int, trackIndex: Int) {
-        return (Group(.artist, ""), 1, 1)   
+        return (Group(.artist, ""), 1, 1)
     }
     
     func trackInfoUpdated(_ updatedTrack: Track) {
