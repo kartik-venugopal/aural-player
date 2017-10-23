@@ -79,7 +79,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
                 trackChange(oldTrack, track)
                 tracksView.deselectAll(self)
                 
-            } catch let error as Error {
+            } catch let error {
                 
                 if (error is InvalidTrackError) {
                     handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
@@ -210,7 +210,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
                 }
             }
             
-        } catch let error as Error {
+        } catch let error {
             
             if (error is InvalidTrackError) {
                 handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
@@ -236,7 +236,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
                 trackChange(oldTrack, prevTrack)
             }
             
-        } catch let error as Error {
+        } catch let error {
             
             if (error is InvalidTrackError) {
                 handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
@@ -254,7 +254,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
                 trackChange(oldTrack, nextTrack)
             }
             
-        } catch let error as Error {
+        } catch let error {
             
             if (error is InvalidTrackError) {
                 handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
@@ -314,13 +314,13 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
             
             // Position and display the dialog with info
             let alert = UIElements.trackNotPlayedAlertWithError(error)
-            UIUtils.showAlert(alert)
+            _ = UIUtils.showAlert(alert)
             
             // Remove the bad track from the playlist and update the UI
             
             let playingTrackIndex = playingTrack!.index
             let removeTrackRequest = RemoveTrackRequest(playingTrackIndex)
-            SyncMessenger.publishRequest(removeTrackRequest)
+            _ = SyncMessenger.publishRequest(removeTrackRequest)
         }
     }
     

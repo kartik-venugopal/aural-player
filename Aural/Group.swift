@@ -26,12 +26,14 @@ class Group: NSObject, GroupedPlaylistItem {
         return tracks.index(of: track)!
     }
     
-    func addTrack(_ track: Track) {
+    func addTrack(_ track: Track) -> Int {
         
         ConcurrencyUtils.executeSynchronized(tracks) {
             tracks.append(track)
         }
 //        sort()
+        
+        return tracks.count - 1
     }
     
     func sort() {

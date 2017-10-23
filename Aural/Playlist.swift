@@ -6,69 +6,52 @@ import AVFoundation
 
 class Playlist: PlaylistCRUDProtocol {
     
-    private var tracks: [Track] = [Track]()
-    private var groupings: [GroupType: Grouping] = [GroupType: Grouping]()
+    private var flatPlaylist: FlatPlaylistCRUDProtocol
+    private var groupingPlaylists: [GroupType: GroupingPlaylistCRUDProtocol] = [GroupType: GroupingPlaylist]()
     
     // A map to quickly look up tracks by (absolute) file path (used when adding tracks, to avoid duplicates)
     private var tracksByFilePath: [String: Track] = [String: Track]()
     
-    init() {
-//        [GroupType.artist, GroupType.album, GroupType.genre].forEach({groupings[$0] = Grouping($0)})
-        [GroupType.artist].forEach({groupings[$0] = Grouping($0)})
+    init(_ flatPlaylist: FlatPlaylistCRUDProtocol, _ groupingPlaylists: [GroupingPlaylistCRUDProtocol]) {
+        
+        self.flatPlaylist = flatPlaylist
+        groupingPlaylists.forEach({self.groupingPlaylists[$0.getGroupType()] = $0})
     }
     
     func getTracks() -> [Track] {
-        return tracks
-    }
-    
-    func peekTrackAt(_ index: Int?) -> IndexedTrack? {
-        let invalidIndex: Bool = index == nil || index! < 0 || index! >= tracks.count
-        return invalidIndex ? nil : IndexedTrack(tracks[index!], index!)
+        return flatPlaylist.getTracks()
     }
     
     func size() -> Int {
-        return tracks.count
+        return flatPlaylist.getTracks().count
     }
     
     func totalDuration() -> Double {
         
+        let tracks = flatPlaylist.getTracks()
         var totalDuration: Double = 0
         
-        for track in tracks {
-            totalDuration += track.duration
-        }
+        tracks.forEach({totalDuration += $0.duration})
         
         return totalDuration
     }
     
     func summary() -> (size: Int, totalDuration: Double) {
-        return (tracks.count, totalDuration())
+        return (size(), totalDuration())
     }
     
-    func addTrack(_ track: Track) -> TrackAddResult {
+    func addTrack(_ track: Track) -> TrackAddResult? {
         
         if (!trackExists(track)) {
-            let groupInfo = doAddTrack(track)
-            let index = tracks.count - 1
-            return TrackAddResult(index: index, groupInfo: groupInfo)
-        }
-        
-        // This means nothing was added
-        return TrackAddResult.notAdded
-    }
-    
-    private func doAddTrack(_ track: Track) -> [(group: Group, groupIndex: Int, groupIsNew: Bool)] {
-        tracks.append(track)
-        tracksByFilePath[track.file.path] = track
-        
-        var allGroupInfo = [(group: Group, groupIndex: Int, groupIsNew: Bool)]()
-        
-        for grouping in groupings.values {
             
-            allGroupInfo.append(grouping.addTrack(track))
+            let index = flatPlaylist.addTrackForIndex(track)!
+            var groupingResults = [GroupedTrackAddResult]()
+            groupingPlaylists.values.forEach({groupingResults.append($0.addTrackForGroupInfo(track))})
+            
+            return TrackAddResult(index: index, groupInfo: groupingResults)
         }
         
-        return allGroupInfo
+        return nil
     }
     
     // Checks whether or not a track with the given absolute file path already exists.
@@ -76,359 +59,28 @@ class Playlist: PlaylistCRUDProtocol {
         return tracksByFilePath[track.file.path] != nil
     }
     
-    private func removeTrack(_ index: Int) -> Track {
-        
-        let track: Track = tracks[index]
-        
-        tracksByFilePath.removeValue(forKey: track.file.path)
-        return tracks.remove(at: index)
-    }
-    
-    func removeTracks(_ indexes: [Int]) -> TrackRemoveResults {
-        
-        // Need to remove tracks in descending order of index, so that indexes of yet-to-be-removed elements are not messed up
-        
-        // Sort descending
-        let sortedIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
-        
-        // TODO: Will forEach always iterate array in order ??? If not, cannot use it. Array needs to be iterated in exact order.
-        
-        var rt = [Track]()
-        sortedIndexes.forEach({rt.append(removeTrack($0))})
-        
-        let resultsTemp: [(group: Group, groupIndex: Int, trackIndexInGroup: Int, groupWasRemoved: Bool)]
-        resultsTemp = groupings[.artist]!.removeTracks(rt)
-        
-        var results: [(parentGroup: Group?, parentGroupIndex: Int?, childIndex: Int)] = [(parentGroup: Group?, parentGroupIndex: Int?, childIndex: Int)]()
-        
-        for result in resultsTemp {
-            
-            if (result.groupWasRemoved) {
-                print("\tGroup was removed at size 0:", result.groupIndex)
-                results.append((nil, nil, result.groupIndex))
-            } else {
-                print("\tTrack was removed:", result.trackIndexInGroup)
-                results.append((result.group, result.groupIndex, result.trackIndexInGroup))
-            }
-        }
-        
-        results = results.sorted(by: {
-            
-            let g1 = ($0.parentGroupIndex == nil) ? $0.childIndex : $0.parentGroupIndex!
-            let g2 = ($1.parentGroupIndex == nil) ? $1.childIndex : $1.parentGroupIndex!
-            
-            // Two tracks in same group
-            if (g1 == g2) {
-                return $0.childIndex > $1.childIndex
-            } else {
-                return g1 > g2
-            }
-        })
-        
-        return TrackRemoveResults(results)
-    }
-    
-    private func removeTrack(_ track: Track) {
-        
-        let index = indexOfTrack(track)!
-        
-        tracksByFilePath.removeValue(forKey: track.file.path)
-        tracks.remove(at: index)
-    }
-    
-    func removeTracksAndGroups(_ request: RemoveTracksAndGroupsRequest) {
-        
-        request.mappings.forEach({
-        
-            let group = $0.group
-            let tracks = $0.tracks
-            let groupRemoved = $0.groupRemoved
-            
-            var groupIndexes: [Group: Int] = [Group: Int]()
-            
-            if (groupRemoved) {
-                
-                let groupIndex = $0.groupIndex
-                groupings[.artist]!.removeGroup(groupIndex)
-                
-                print("Playlist: Removed group:", group.name)
-                
-                groupIndexes[group] = groupIndex
-                
-                for track in group.tracks {
-                    removeTrack(track)
-                }
-                
-            } else {
-                
-                for track in tracks! {
-                    removeTrack(track)
-                    groupings[.artist]!.removeTrack(track)
-                    print("Playlist: Removed track:", track.conciseDisplayName)
-                }
-            }
-        })
-    }
-    
-    func indexOfTrack(_ track: Track?) -> Int?  {
-        
-        if (track == nil) {
-            return nil
-        }
-        
-        return tracks.index(where: {$0 == track})
-    }
-    
     func clear() {
-        tracks.removeAll()
+        flatPlaylist.clear()
+        groupingPlaylists.values.forEach({$0.clear()})
         tracksByFilePath.removeAll()
-        
-        groupings.values.forEach({$0.playlistCleared()})
-    }
-    
-    func save(_ file: URL) {
-        PlaylistIO.savePlaylist(file)
-    }
-    
-    // Assume track can be moved
-    private func moveTrackUp(_ index: Int) -> Int {
-        
-        let upIndex = index - 1
-        swapTracks(index, upIndex)
-        return upIndex
-    }
-    
-    // Assume track can be moved
-    private func moveTrackDown(_ index: Int) -> Int {
-        
-        let downIndex = index + 1
-        swapTracks(index, downIndex)
-        return downIndex
-    }
-    
-    func moveTracksUp(_ indexes: IndexSet) -> [Int: Int] {
-        
-        // Indexes need to be in ascending order, because tracks need to be moved up, one by one, from top to bottom of the playlist
-        let ascendingOldIndexes = indexes.sorted(by: {x, y -> Bool in x < y})
-        
-        // Mappings of oldIndex (prior to move) -> newIndex (after move)
-        var indexMappings = [Int: Int]()
-        
-        // Determine if there is a contiguous block of tracks at the top of the playlist, that cannot be moved. If there is, determine its size. At the end of the loop, the cursor's value will equal the size of the block.
-        var unmovableBlockCursor = 0
-        while (ascendingOldIndexes.contains(unmovableBlockCursor)) {
-            
-            // Since this track cannot be moved, map its old index to the same old index
-            indexMappings[unmovableBlockCursor] = unmovableBlockCursor
-            unmovableBlockCursor += 1
-        }
-        
-        // If there are any tracks that can be moved, move them and store the index mappings
-        if (unmovableBlockCursor < ascendingOldIndexes.count) {
-        
-            for index in unmovableBlockCursor...ascendingOldIndexes.count - 1 {
-                indexMappings[ascendingOldIndexes[index]] = moveTrackUp(ascendingOldIndexes[index])
-            }
-        }
-        
-        return indexMappings
-    }
-    
-    func moveTracksDown(_ indexes: IndexSet) -> [Int: Int] {
-        
-        // Indexes need to be in descending order, because tracks need to be moved down, one by one, from bottom to top of the playlist
-        let descendingOldIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
-        
-        // Mappings of oldIndex (prior to move) -> newIndex (after move)
-        var indexMappings = [Int: Int]()
-        
-        // Determine if there is a contiguous block of tracks at the top of the playlist, that cannot be moved. If there is, determine its size.
-        var unmovableBlockCursor = self.size() - 1
-        
-        // Tracks the size of the unmovable block. At the end of the loop, the variable's value will equal the size of the block.
-        var unmovableBlockSize = 0
-        
-        while (descendingOldIndexes.contains(unmovableBlockCursor)) {
-            
-            // Since this track cannot be moved, map its old index to the same old index
-            indexMappings[unmovableBlockCursor] = unmovableBlockCursor
-            unmovableBlockCursor -= 1
-            unmovableBlockSize += 1
-        }
-        
-        // If there are any tracks that can be moved, move them and store the index mappings
-        if (unmovableBlockSize < descendingOldIndexes.count) {
-            
-            for index in unmovableBlockSize...descendingOldIndexes.count - 1 {
-                indexMappings[descendingOldIndexes[index]] = moveTrackDown(descendingOldIndexes[index])
-            }
-        }
-        
-        return indexMappings
-    }
-    
-    // Swaps two tracks in the array of tracks
-    private func swapTracks(_ trackIndex1: Int, _ trackIndex2: Int) {
-        swap(&tracks[trackIndex1], &tracks[trackIndex2])
     }
     
     func search(_ searchQuery: SearchQuery) -> SearchResults {
+        // Smart search. Depending on query options, search either flat playlist or one of the grouped playlists. For ex, if searching by artist, it makes sense to search "Artists" playlist. Also, can split up the search into multiple parts, send them to different playlists, and put results together
         
-        var results: [SearchResult] = [SearchResult]()
-        var resultIndex = 1
-        
-        for i in 0...tracks.count - 1 {
-            
-            let track = tracks[i]
-            let match = trackMatchesQuery(track: track, searchQuery: searchQuery)
-            
-            if (match.matched) {
-                results.append(SearchResult(resultIndex: resultIndex, trackIndex: i, match: (match.matchedField!, match.matchedFieldValue!)))
-                resultIndex += 1
-            }
-        }
-        
-        return SearchResults(results: results)
-    }
-    
-    // Checks if a single track matches search criteria, and returns information about the match, if there is one
-    private func trackMatchesQuery(track: Track, searchQuery: SearchQuery) -> (matched: Bool, matchedField: String?, matchedFieldValue: String?) {
-        
-        // Add name field if included in search
-        if (searchQuery.fields.name) {
-            
-            // Check both the filename and the display name
-            
-            let lastPathComponent = track.file.deletingPathExtension().lastPathComponent
-            if (compare(lastPathComponent, searchQuery)) {
-                return (true, "filename", lastPathComponent)
-            }
-            
-            let displayName = track.conciseDisplayName
-            if (compare(displayName, searchQuery)) {
-                return (true, "name", displayName)
-            }
-        }
-        
-        // Add artist field if included in search
-        if (searchQuery.fields.artist) {
-            
-            if let artist = track.displayInfo.artist {
-                
-                if (compare(artist, searchQuery)) {
-                    return (true, "artist", artist)
-                }
-            }
-        }
-        
-        // Add title field if included in search
-        if (searchQuery.fields.title) {
-            
-            if let title = track.displayInfo.title {
-                
-                if (compare(title, searchQuery)) {
-                    return (true, "title", title)
-                }
-            }
-        }
-        
-        // Add album field if included in search
-        if (searchQuery.fields.album) {
-            
-            // Make sure album info has been loaded (it is loaded lazily)
-            MetadataReader.loadSearchMetadata(track)
-            
-            if let album = track.metadata[AVMetadataCommonKeyAlbumName]?.value {
-                
-                if (compare(album, searchQuery)) {
-                    return (true, "album", album)
-                }
-            }
-        }
-        
-        // Didn't match
-        return (false, nil, nil)
-    }
-    
-    private func compare(_ fieldVal: String, _ query: SearchQuery) -> Bool {
-        
-        let caseSensitive: Bool = query.options.caseSensitive
-        let queryText: String = caseSensitive ? query.text : query.text.lowercased()
-        let compared: String = caseSensitive ? fieldVal : fieldVal.lowercased()
-        let type: SearchType = query.type
-        
-        switch type {
-            
-        case .beginsWith: return compared.hasPrefix(queryText)
-            
-        case .endsWith: return compared.hasSuffix(queryText)
-            
-        case .equals: return compared == queryText
-            
-        case .contains: return compared.contains(queryText)
-            
-        }
+        return flatPlaylist.search(searchQuery)
     }
     
     func sort(_ sort: Sort) {
-        
-        switch sort.field {
-            
-        // Sort by name
-        case .name: if sort.order == SortOrder.ascending {
-            tracks.sort(by: compareTracks_ascendingByName)
-        } else {
-            tracks.sort(by: compareTracks_descendingByName)
-            }
-            
-        // Sort by duration
-        case .duration: if sort.order == SortOrder.ascending {
-            tracks.sort(by: compareTracks_ascendingByDuration)
-        } else {
-            tracks.sort(by: compareTracks_descendingByDuration)
-            }
-        }
-    }
-    
-    // Comparison functions for different sort criteria
-    
-    private func compareTracks_ascendingByName(aTrack: Track, anotherTrack: Track) -> Bool {
-        return aTrack.conciseDisplayName.compare(anotherTrack.conciseDisplayName) == ComparisonResult.orderedAscending
-    }
-    
-    private func compareTracks_descendingByName(aTrack: Track, anotherTrack: Track) -> Bool {
-        return aTrack.conciseDisplayName.compare(anotherTrack.conciseDisplayName) == ComparisonResult.orderedDescending
-    }
-    
-    private func compareTracks_ascendingByDuration(aTrack: Track, anotherTrack: Track) -> Bool {
-        return aTrack.duration < anotherTrack.duration
-    }
-    
-    private func compareTracks_descendingByDuration(aTrack: Track, anotherTrack: Track) -> Bool {
-        return aTrack.duration > anotherTrack.duration
-    }
-    
-    func reorderTracks(_ reorderOperations: [PlaylistReorderOperation]) {
-        
-        // Perform all operations in sequence
-        for op in reorderOperations {
-            
-            // Check which kind of operation this is, and perform it
-            if let copyOp = op as? PlaylistCopyOperation {
-                
-                tracks[copyOp.destIndex] = tracks[copyOp.srcIndex]
-                
-            } else if let overwriteOp = op as? PlaylistOverwriteOperation {
-                
-                tracks[overwriteOp.destIndex] = overwriteOp.srcTrack
-            }
-        }
+        flatPlaylist.sort(sort)
+        groupingPlaylists.values.forEach({$0.sort(sort)})
     }
     
     // Returns all state for this playlist that needs to be persisted to disk
     func persistentState() -> PlaylistState {
         
         let state = PlaylistState()
+        let tracks = getTracks()
         
         for track in tracks {
             state.tracks.append(track.file)
@@ -437,47 +89,136 @@ class Playlist: PlaylistCRUDProtocol {
         return state
     }
     
-    func groupTracks(_ type: GroupType) -> Grouping {
-        return Grouping(type)
-    }
-    
-    func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> (group: Group, groupIndex: Int, trackIndex: Int) {
-        
-        let grouping = groupings[groupType]!
-        
-        let group = grouping.getGroupForTrack(track)
-        let gi = grouping.indexOf(group)
-        let ti = group.indexOf(track)
-        
-        return (group, gi, ti)
-    }
-    
-    func getGroupingForType(_ type: GroupType) -> Grouping {
-        return groupings[type] ?? groupings[.artist]!
-    }
-    
     func trackInfoUpdated(_ updatedTrack: Track) {
-        groupings.values.forEach({$0.trackInfoUpdated(updatedTrack)})
+//        groupings.values.forEach({$0.trackInfoUpdated(updatedTrack)})
+        // TODO: Inform all the grouping playlists
     }
     
-    func getGroupIndex(_ group: Group) -> Int {
-        return groupings[.artist]!.groups.index(of: group)!
+    func removeTracks(_ tracks: [Track]) {
+        // TODO: Not really necessary here ?
+        print("Playlist.removeTracks([Track]) not implemented !")
+    }
+    
+    // ----------------------- FlatPlaylist protocols ----------------------------
+    
+    func addTrackForIndex(_ track: Track) -> Int? {
+        
+        if (!trackExists(track)) {
+            groupingPlaylists.values.forEach({_ = $0.addTrackForGroupInfo(track)})
+            return flatPlaylist.addTrackForIndex(track)
+        }
+        
+        return nil
+    }
+    
+    func indexOfTrack(_ track: Track) -> Int? {
+        return flatPlaylist.indexOfTrack(track)
+    }
+    
+    func moveTracksDown(_ indexes: IndexSet) -> [Int : Int] {
+        return flatPlaylist.moveTracksDown(indexes)
+    }
+    
+    func moveTracksUp(_ indexes: IndexSet) -> [Int : Int] {
+        return flatPlaylist.moveTracksUp(indexes)
+    }
+    
+    func peekTrackAt(_ index: Int?) -> IndexedTrack? {
+        return flatPlaylist.peekTrackAt(index)
+    }
+    
+    func removeTracks(_ indexes: IndexSet) -> [Track] {
+        
+        let tracksRemoved = flatPlaylist.removeTracks(indexes)
+        tracksRemoved.forEach({tracksByFilePath.removeValue(forKey: $0.file.path)})
+        
+        groupingPlaylists.values.forEach({
+            $0.removeTracks(tracksRemoved)
+        })
+        
+        return tracksRemoved
+    }
+    
+    func reorderTracks(_ reorderOperations: [PlaylistReorderOperation]) {
+        flatPlaylist.reorderTracks(reorderOperations)
+    }
+    
+    // ----------------------- GroupingPlaylist protocols ----------------------------
+    
+    func getGroupAt(_ type: GroupType, _ index: Int) -> Group {
+        return groupingPlaylists[type]!.getGroupAt(index)
+    }
+    
+    func getGroupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack {
+        return groupingPlaylists[type]!.getGroupingInfoForTrack(track)
+    }
+    
+    func getIndexOf(_ group: Group) -> Int {
+        return groupingPlaylists[group.type]!.getIndexOf(group)
+    }
+    
+    func getNumberOfGroups(_ type: GroupType) -> Int {
+        return groupingPlaylists[type]!.getNumberOfGroups()
+    }
+    
+    func addTrackForGroupInfo(_ track: Track) -> [GroupedTrackAddResult]? {
+        
+        if (!trackExists(track)) {
+        
+            _ = flatPlaylist.addTrackForIndex(track)
+            
+            var groupingResults = [GroupedTrackAddResult]()
+            groupingPlaylists.values.forEach({groupingResults.append($0.addTrackForGroupInfo(track))})
+            
+            return groupingResults
+        }
+        
+        return nil
+    }
+    
+    func removeTracksAndGroups(_ request: RemoveTracksAndGroupsRequest) {
+        
+        // Can remove groups only from grouping playlist matching request's group type
+        let groupType = request.groupType
+        groupingPlaylists[groupType]!.removeTracksAndGroups(request)
+        
+        // For the other playlists, need to expand the removed groups into individual tracks
+        var removedTracks: [Track] = [Track]()
+        
+        request.mappings.forEach({
+            // Just expand all removed groups into their constituent tracks
+            removedTracks.append(contentsOf: $0.groupRemoved ? $0.group.tracks : $0.tracks!)
+        })
+        
+        groupingPlaylists.values.forEach({
+        
+            if $0.getGroupType() != groupType {
+                $0.removeTracks(removedTracks)
+            }
+        })
+        
+        flatPlaylist.removeTracks(removedTracks)
+    }
+    
+    func displayNameFor(_ type: GroupType, _ track: Track) -> String {
+        return groupingPlaylists[type]!.displayNameFor(track)
     }
 }
 
 struct TrackAddResult {
     
     let index: Int
-    let groupInfo: [(group: Group, groupIndex: Int, groupIsNew: Bool)]
+    let groupInfo: [GroupedTrackAddResult]
+}
+
+struct GroupedTrackAddResult {
     
-    static let notAdded = TrackAddResult(index: -1, groupInfo: [])
+    let type: GroupType
+    let track: GroupedTrack
+    let groupCreated: Bool
 }
 
 struct TrackRemoveResults {
     
     let results: [(parentGroup: Group?, parentGroupIndex: Int?, childIndex: Int)]
-    
-    init(_ results: [(parentGroup: Group?, parentGroupIndex: Int?, childIndex: Int)]) {
-        self.results = results
-    }
 }

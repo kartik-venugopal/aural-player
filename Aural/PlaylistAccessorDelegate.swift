@@ -5,12 +5,6 @@ import Foundation
  */
 class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
     
-    func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> (group: Group, groupIndex: Int, trackIndex: Int) {
-        
-        return playlist.getGroupingInfoForTrack(track, groupType)
-    }
-
-    
     // The actual playlist
     private let playlist: PlaylistAccessorProtocol
     
@@ -40,5 +34,11 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
     
     func search(_ searchQuery: SearchQuery) -> SearchResults {
         return playlist.search(searchQuery)
+    }
+    
+    func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> GroupedTrack {
+        
+        // func getGroupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack
+        return playlist.getGroupingInfoForTrack(groupType, track)
     }
 }

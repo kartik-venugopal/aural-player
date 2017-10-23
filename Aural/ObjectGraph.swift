@@ -15,8 +15,6 @@ class ObjectGraph {
     private static var playlist: Playlist?
     private static var playlistDelegate: PlaylistDelegateProtocol?
     
-    private static var groupedPlaylist: Grouping?
-    
     private static var audioGraph: AudioGraph?
     private static var audioGraphDelegate: AudioGraphDelegateProtocol?
     
@@ -62,10 +60,13 @@ class ObjectGraph {
         // Player
         player = Player(audioGraph!)
         
-        // Playlist
-        playlist = Playlist()
+        let flatPlaylist = FlatPlaylist()
+        let artistsPlaylist = GroupingPlaylist(.artist)
+        let albumsPlaylist = GroupingPlaylist(.album)
+        let genresPlaylist = GroupingPlaylist(.genre)
         
-        groupedPlaylist = Grouping(.artist)
+        // Playlist
+        playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
         
         // Playback Sequence
         let repeatMode = appState!.playbackSequenceState.repeatMode
@@ -122,10 +123,6 @@ class ObjectGraph {
     
     static func getRecorderDelegate() -> RecorderDelegateProtocol {
         return recorderDelegate!
-    }
-    
-    static func getGrouping() -> Grouping {
-        return groupedPlaylist!
     }
     
     // Called when app exits

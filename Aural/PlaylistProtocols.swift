@@ -3,24 +3,10 @@ import Foundation
 /*
     Contract for read-only playlist operations
  */
-protocol PlaylistAccessorProtocol {
+protocol PlaylistAccessorProtocol: CommonPlaylistAccessorProtocol, FlatPlaylistAccessorProtocol, GroupingPlaylistSelectiveAccessorProtocol {
     
     // Retrieve all tracks
     func getTracks() -> [Track]
-    
-    func groupTracks(_ type: GroupType) -> Grouping
-    
-    // Read the track at a given index. Nil if invalid index is specified.
-    func peekTrackAt(_ index: Int?) -> IndexedTrack?
-    
-    func getGroupingForType(_ type: GroupType) -> Grouping
-    
-    func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> (group: Group, groupIndex: Int, trackIndex: Int)
-    
-    func getGroupIndex(_ group: Group) -> Int
-    
-    // Determines the index of a given track, within the playlist. Returns nil if the track doesn't exist within the playlist.
-    func indexOfTrack(_ track: Track?) -> Int?
     
     // Returns the size (i.e. total number of tracks) of the playlist
     func size() -> Int
@@ -30,53 +16,36 @@ protocol PlaylistAccessorProtocol {
     
     // Returns a summary of the playlist - both size and total duration
     func summary() -> (size: Int, totalDuration: Double)
-    
-    // Searches the playlist, given certain query parameters, and returns all matching results
-    func search(_ searchQuery: SearchQuery) -> SearchResults
 }
 
 /*
     Contract for mutating/write playlist operations
  */
-protocol PlaylistMutatorProtocol {
+protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol, FlatPlaylistMutatorProtocol, GroupingPlaylistSelectiveMutatorProtocol {
     
     // Adds a single track to the playlist, and returns its index within the playlist. If the track was not added, the returned value will be -1.
-    func addTrack(_ track: Track) -> TrackAddResult
-    
-    // Removes tracks with the given indexes
-    func removeTracks(_ indexes: [Int]) -> TrackRemoveResults
-    
-    func removeTracksAndGroups(_ request: RemoveTracksAndGroupsRequest)
-    
-    // Clears the entire playlist of all tracks
-    func clear()
-    
-    /*
-        Moves the tracks at the specified indexes, up one index, in the playlist, if they can be moved (they are not already at the top). Returns a mapping of the old indexes to the new indexes, for each of the tracks (for tracks that didn't move, the mapping will have the same key and value).
-     
-        NOTE - Even if some tracks cannot move, those that can will be moved. i.e. This is not an all or nothing operation.
-     */
-    func moveTracksUp(_ indexes: IndexSet) -> [Int: Int]
-    
-    /*
-        Moves the tracks at the specified indexes, down one index, in the playlist, if they can be moved (they are not already at the bottom). Returns a mapping of the old indexes to the new indexes, for each of the tracks (for tracks that didn't move, the mapping will have the same key and value).
-     
-        NOTE - Even if some tracks cannot move, those that can will be moved. i.e. This is not an all or nothing operation.
-     */
-    func moveTracksDown(_ indexes: IndexSet) -> [Int: Int]
-    
-    // Sorts the playlist according to the specified sort parameters
-    func sort(_ sort: Sort)
-    
-    // Performs a sequence of playlist reorder operations
-    func reorderTracks(_ reorderOperations: [PlaylistReorderOperation])
-    
-    // Notifies the playlist that info for this track has changed. The playlist may use the updates to re-group the track (by artist/album/genre, etc).
-    func trackInfoUpdated(_ updatedTrack: Track)
+    func addTrack(_ track: Track) -> TrackAddResult?
 }
 
 /*
     Contract for all read-only and mutating/write playlist operations
  */
 protocol PlaylistCRUDProtocol: PlaylistAccessorProtocol, PlaylistMutatorProtocol {
+}
+
+protocol CommonPlaylistAccessorProtocol {
+    
+    // Searches the playlist, given certain query parameters, and returns all matching results
+    func search(_ searchQuery: SearchQuery) -> SearchResults
+}
+
+protocol CommonPlaylistMutatorProtocol {
+    
+    // Clears the entire playlist of all tracks
+    func clear()
+    
+    func removeTracks(_ tracks: [Track])
+    
+    // Sorts the playlist according to the specified sort parameters
+    func sort(_ sort: Sort)
 }

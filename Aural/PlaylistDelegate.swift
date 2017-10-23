@@ -24,6 +24,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         return accessor.peekTrackAt(index)
     }
     
+    func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> GroupedTrack {
+        return accessor.getGroupingInfoForTrack(track, groupType)
+    }
+    
     func size() -> Int {
         return accessor.size()
     }
@@ -44,7 +48,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         mutator.addFiles(files)
     }
     
-    func removeTracks(_ indexes: [Int]) -> TrackRemoveResults {
+    func removeTracks(_ indexes: [Int]) -> [Track] {
         return mutator.removeTracks(indexes)
     }
     
@@ -78,10 +82,5 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         DispatchQueue.global(qos: .userInitiated).async {
             PlaylistIO.savePlaylist(file)
         }
-    }
-    
-    func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> (group: Group, groupIndex: Int, trackIndex: Int) {
-        
-        return accessor.getGroupingInfoForTrack(track, groupType)
     }
 }

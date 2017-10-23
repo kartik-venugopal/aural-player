@@ -207,13 +207,29 @@ class MetadataEntry {
 }
 
 // Wrapper around Track that includes its index in the playlist
-class IndexedTrack {
+struct IndexedTrack {
     
-    var track: Track
-    var index: Int
+    let track: Track
+    let index: Int
     
     init(_ track: Track, _ index: Int) {
         self.track = track
         self.index = index
+    }
+}
+
+struct GroupedTrack {
+    
+    let track: Track
+    let group: Group
+    
+    let trackIndex: Int
+    let groupIndex: Int
+    
+    init(_ track: Track, _ group: Group, _ trackIndex: Int, _ groupIndex: Int) {
+        self.track = track
+        self.group = group
+        self.trackIndex = trackIndex
+        self.groupIndex = groupIndex
     }
 }

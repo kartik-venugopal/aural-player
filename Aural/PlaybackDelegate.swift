@@ -164,7 +164,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             // Notify the UI about this track change event
             AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, newTrack))
             
-        } catch let error as Error {
+        } catch let error {
             
             if (error is InvalidTrackError) {
                 AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(oldTrack, error as! InvalidTrackError))

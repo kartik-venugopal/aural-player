@@ -2,11 +2,9 @@ import Cocoa
 
 class GroupingViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate {
     
-    // Delegate that performs CRUD on the playlist
-    internal let flatPlaylist: PlaylistAccessorProtocol = ObjectGraph.getPlaylistAccessor()
-    
     // TODO: This will be non-nil and provided by ObjectGraph
-    internal var playlist: Grouping?
+    // TODO: Use delegate, not accessor directly
+    internal var playlist: PlaylistAccessorProtocol = ObjectGraph.getPlaylistAccessor()
     
     internal var grouping: GroupType {return .artist}
     
@@ -21,25 +19,20 @@ class GroupingViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         
         if (item == nil) {
-            playlist = flatPlaylist.getGroupingForType(grouping)
-            return playlist!.size()
+            return playlist.getNumberOfGroups(grouping)
             
         } else if let group = item as? Group {
-            
             return group.tracks.count
         }
         
+        // Tracks don't have children
         return 0
     }
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         
-        if (playlist == nil) {
-            playlist = flatPlaylist.getGroupingForType(grouping)
-        }
-        
         if (item == nil) {
-            return playlist!.getGroup(index) ?? "Muthusami"
+            return playlist.getGroupAt(grouping, index)
         } else if let group = item as? Group {
             return group.tracks[index]
         }
@@ -74,7 +67,7 @@ class GroupingViewController: NSViewController, NSOutlineViewDataSource, NSOutli
                 
                 let view: GroupedTrackCellView? = outlineView.make(withIdentifier: (tableColumn?.identifier)!, owner: self) as? GroupedTrackCellView
                 
-                view!.textField?.stringValue = playlist!.displayNameFor(track)
+                view!.textField?.stringValue = playlist.displayNameFor(grouping, track)
                 view!.isName = false
                 view!.imageView?.image = track.displayInfo.art
                 
@@ -153,17 +146,17 @@ class GroupedTrackCellView: NSTableCellView {
     }
 }
 
-class PlaylistArtistsViewController: GroupingViewController {
+class PlaylistArtistsTableViewController: GroupingViewController {
     
     override var grouping: GroupType {return .artist}
 }
 
-class PlaylistAlbumsViewController: GroupingViewController {
+class PlaylistAlbumsTableViewController: GroupingViewController {
     
     override var grouping: GroupType {return .album}
 }
 
-class PlaylistGenresViewController: GroupingViewController {
+class PlaylistGenresTableViewController: GroupingViewController {
     
     override var grouping: GroupType {return .genre}
 }

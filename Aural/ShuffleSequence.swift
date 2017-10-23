@@ -71,7 +71,7 @@ class ShuffleSequence {
             sequence.insert(firstTrackIndex, at: 0)
             
             // Advance the cursor once, because the first track in the sequence has already been played back
-            next()
+            _ = next()
         }
     }
     

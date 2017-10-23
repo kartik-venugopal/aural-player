@@ -6,52 +6,52 @@ import Cocoa
 class SyncMessenger {
     
     // Keeps track of subscribers. For each message type, stores a list of subscribers
-    private static var subscriberRegistry: [MessageType: [MessageSubscriber]] = [MessageType: [MessageSubscriber]]()
+    private static var messageSubscriberRegistry: [MessageType: [MessageSubscriber]] = [MessageType: [MessageSubscriber]]()
+    
+    private static var actionMessageSubscriberRegistry: [ActionType: [ActionMessageSubscriber]] = [ActionType: [ActionMessageSubscriber]]()
     
     // Called by a subscriber who is interested in a certain type of message
     static func subscribe(_ messageType: MessageType, subscriber: MessageSubscriber) {
         
-        let subscribers = subscriberRegistry[messageType]
+        let subscribers = messageSubscriberRegistry[messageType]
         if (subscribers == nil) {
-            subscriberRegistry[messageType] = [MessageSubscriber]()
+            messageSubscriberRegistry[messageType] = [MessageSubscriber]()
         }
         
-        subscriberRegistry[messageType]?.append(subscriber)
+        messageSubscriberRegistry[messageType]?.append(subscriber)
+    }
+    
+    static func subscribe(actionType: ActionType, subscriber: ActionMessageSubscriber) {
+        
+        let subscribers = actionMessageSubscriberRegistry[actionType]
+        if (subscribers == nil) {
+            actionMessageSubscriberRegistry[actionType] = [ActionMessageSubscriber]()
+        }
+        
+        actionMessageSubscriberRegistry[actionType]?.append(subscriber)
     }
     
     // Called by a publisher to publish a notification message
     static func publishNotification(_ notification: NotificationMessage) {
         
-        let messageType = notification.messageType
-        let subscribers = subscriberRegistry[messageType]
-        
-        if (subscribers != nil) {
-            
-            for subscriber in subscribers! {
-                
-                // Notify the subscriber
-                subscriber.consumeNotification(notification)
-            }
-        }
+        let subscribers = messageSubscriberRegistry[notification.messageType]
+        subscribers?.forEach({$0.consumeNotification(notification)})
     }
     
     // Called by a publisher to publish a request message. Returns an array of responses, one per request consumer.
     static func publishRequest(_ request: RequestMessage) -> [ResponseMessage] {
         
         let messageType = request.messageType
-        let subscribers = subscriberRegistry[messageType]
+        let subscribers = messageSubscriberRegistry[messageType]
         var responseMsgs: [ResponseMessage] = [ResponseMessage]()
         
-        if (subscribers != nil) {
-            
-            for subscriber in subscribers! {
-                
-                // Notify the subscriber
-                let responseMsg = subscriber.processRequest(request)
-                responseMsgs.append(responseMsg)
-            }
-        }
-        
+        subscribers?.forEach({responseMsgs.append($0.processRequest(request))})
         return responseMsgs
+    }
+    
+    static func publishActionMessage(_ message: ActionMessage) {
+        
+        let subscribers = actionMessageSubscriberRegistry[message.actionType]
+        subscribers?.forEach({$0.consumeMessage(message)})
     }
 }

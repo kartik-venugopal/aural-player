@@ -59,7 +59,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             AsyncMessenger.publishMessage(StartedAddingTracksAsyncMessage.instance)
             
+            let tim = TimerUtils.start("addOp")
             self.addFiles_sync(files, autoplayOptions, progress)
+            tim.end()
+            TimerUtils.printStats()
             
             AsyncMessenger.publishMessage(DoneAddingTracksAsyncMessage.instance)
             
@@ -124,7 +127,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                                 progress.autoplayed = true
                             }
                             
-                        }  catch let error as Error {
+                        }  catch let error {
                             
                             if (error is InvalidTrackError) {
                                 progress.errors.append(error as! InvalidTrackError)
@@ -171,17 +174,20 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     // Adds a single track to the playlist. Returns index of newly added track
     private func addTrack(_ file: URL, _ progress: TrackAddedAsyncMessageProgress) throws -> Int {
         
+        let tim = TimerUtils.start("addTrack")
+        
         let track = Track(file)
         
         // TODO: This is temporary
         TrackIO.loadDisplayInfo(track)
         
         let trackAddResult = playlist.addTrack(track)
-        let index = trackAddResult.index
-        let groupInfo = trackAddResult.groupInfo
         
         // index >= 0 indicates success in adding the track to the playlist
-        if (index >= 0) {
+        if let result = trackAddResult {
+            
+            let index = result.index
+            let groupInfo = result.groupInfo
             
             notifyTrackAdded(track, index, groupInfo[0], progress)
             
@@ -194,19 +200,26 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
 //                let updatedGroupInfo = self.playlist.getGroupingInfoForTrack(track, .artist)
 //                AsyncMessenger.publishMessage(TrackInfoUpdatedAsyncMessage(index, updatedGroupInfo.group))
 //            }
+            
+            tim.end()
+            return index
         }
         
-        return index
+        tim.end()
+        
+        return -1
     }
     
     // Publishes a notification that a new track has been added to the playlist
-    private func notifyTrackAdded(_ track: Track, _ trackIndex: Int, _ groupInfo: (group: Group, groupIndex: Int, groupIsNew: Bool), _ progress: TrackAddedAsyncMessageProgress) {
+    private func notifyTrackAdded(_ track: Track, _ trackIndex: Int, _ groupInfo: GroupedTrackAddResult, _ progress: TrackAddedAsyncMessageProgress) {
         
-        AsyncMessenger.publishMessage(TrackAddedAsyncMessage(trackIndex, groupInfo.group, progress))
+        let group = groupInfo.track.group
+        
+        AsyncMessenger.publishMessage(TrackAddedAsyncMessage(trackIndex, group, progress))
         
         // Group is new
-        if (groupInfo.groupIsNew) {
-            let msg = GroupAddedAsyncMessage(groupInfo.groupIndex, groupInfo.group, groupInfo.group.type)
+        if (groupInfo.groupCreated) {
+            let msg = GroupAddedAsyncMessage(groupInfo.track.groupIndex, group, group.type)
             AsyncMessenger.publishMessage(msg)
         }
         
@@ -240,9 +253,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         }
     }
     
-    func removeTracks(_ indexes: [Int]) -> TrackRemoveResults {
+    func removeTracks(_ indexes: [Int]) -> [Track] {
         
-        let results = playlist.removeTracks(indexes)
+        let results = playlist.removeTracks(IndexSet(indexes))
         changeListeners.forEach({$0.tracksRemoved(indexes, [])})
         return results
     }
@@ -304,7 +317,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         playlist.sort(sort)
         
-        let newCursor = playlist.indexOfTrack(playingTrack?.track)
+        let newCursor = playlist.indexOfTrack(playingTrack!.track)
         changeListeners.forEach({$0.playlistReordered(newCursor)})
     }
     
@@ -352,7 +365,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         playlist.reorderTracks(reorderOperations)
         
-        let newCursor = playlist.indexOfTrack(playingTrack?.track)
+        let newCursor = playlist.indexOfTrack(playingTrack!.track)
         changeListeners.forEach({$0.playlistReordered(newCursor)})
     }
 }
