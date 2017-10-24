@@ -39,15 +39,27 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         return tracks.remove(at: index)
     }
     
-    private func removeTrack(_ track: Track) {
+    private func removeTrack(_ track: Track) -> Int? {
         
         if let index = indexOfTrack(track) {
             tracks.remove(at: index)
+            return index
         }
+        
+        return nil
     }
     
-    func removeTracks(_ tracks: [Track]) {
-        tracks.forEach({removeTrack($0)})
+    func removeTracks(_ removedTracks: [Track]) -> IndexSet {
+        
+        var trackIndexes = [Int]()
+        
+        removedTracks.forEach({trackIndexes.append(indexOfTrack($0)!)})
+        
+        trackIndexes = trackIndexes.sorted(by: {i1, i2 -> Bool in return i1 > i2})
+        
+        trackIndexes.forEach({_ = removeTrack($0)})
+        
+        return IndexSet(trackIndexes)
     }
     
     func removeTracks(_ indexes: IndexSet) -> [Track] {

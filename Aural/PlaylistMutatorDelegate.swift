@@ -174,8 +174,6 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     // Adds a single track to the playlist. Returns index of newly added track
     private func addTrack(_ file: URL, _ progress: TrackAddedAsyncMessageProgress) throws -> Int {
         
-        let tim = TimerUtils.start("addTrack")
-        
         let track = Track(file)
         
         // TODO: This is temporary
@@ -186,10 +184,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         // index >= 0 indicates success in adding the track to the playlist
         if let result = trackAddResult {
             
-            let index = result.index
-            let groupInfo = result.groupInfo
-            
-            notifyTrackAdded(track, index, groupInfo[0], progress)
+            let index = result.flatPlaylistResult
+            let groupInfo = result.groupingPlaylistResults
+
+            notifyTrackAdded(track, index, groupInfo, progress)
             
             // Load display info async (ID3 info, duration)
 //            DispatchQueue.global(qos: .userInitiated).async {
@@ -201,27 +199,16 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
 //                AsyncMessenger.publishMessage(TrackInfoUpdatedAsyncMessage(index, updatedGroupInfo.group))
 //            }
             
-            tim.end()
             return index
         }
-        
-        tim.end()
         
         return -1
     }
     
     // Publishes a notification that a new track has been added to the playlist
-    private func notifyTrackAdded(_ track: Track, _ trackIndex: Int, _ groupInfo: GroupedTrackAddResult, _ progress: TrackAddedAsyncMessageProgress) {
+    private func notifyTrackAdded(_ track: Track, _ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrackAddResult], _ progress: TrackAddedAsyncMessageProgress) {
         
-        let group = groupInfo.track.group
-        
-        AsyncMessenger.publishMessage(TrackAddedAsyncMessage(trackIndex, group, progress))
-        
-        // Group is new
-        if (groupInfo.groupCreated) {
-            let msg = GroupAddedAsyncMessage(groupInfo.track.groupIndex, group, group.type)
-            AsyncMessenger.publishMessage(msg)
-        }
+        AsyncMessenger.publishMessage(TrackAddedAsyncMessage(trackIndex, groupInfo, progress))
         
         // Also notify the listeners directly
         changeListeners.forEach({$0.trackAdded(track)})
@@ -253,17 +240,22 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         }
     }
     
-    func removeTracks(_ indexes: [Int]) -> [Track] {
+    func removeTracks(_ indexes: [Int]) {
         
         let results = playlist.removeTracks(IndexSet(indexes))
+        
+        // TODO: Emit events to UI
+        
         changeListeners.forEach({$0.tracksRemoved(indexes, [])})
-        return results
     }
     
-    func removeTracksAndGroups(_ request: RemoveTracksAndGroupsRequest) {
-        return playlist.removeTracksAndGroups(request)
+    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {
         
-        // TODO: Notify listeners
+        let results = playlist.removeTracksAndGroups(tracks, groups, groupType)
+        
+        // TODO: Emit events to UI
+        
+        changeListeners.forEach({$0.tracksRemoved(results.flatPlaylistResults.filter({$0 >= 0}), [])})
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> IndexSet {

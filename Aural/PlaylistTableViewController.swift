@@ -50,7 +50,13 @@ class PlaylistTracksTableViewController: NSViewController, NSTableViewDataSource
     // Returns a view for a single playlist row
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let track = (playlist.peekTrackAt(row)?.track)!
+        let tr = playlist.peekTrackAt(row)?.track
+        if tr == nil {
+                print("WTF !!!", row, tableColumn?.identifier)
+            return nil
+        }
+        
+        let track = (tr)!
         
         if (tableColumn?.identifier == UIConstants.trackIndexColumnID) {
             

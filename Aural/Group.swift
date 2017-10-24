@@ -57,9 +57,13 @@ class Group: NSObject, GroupedPlaylistItem {
         
         return trackIndex
     }
+    
+    func removeTrackAtIndex(_ index: Int) {
+        tracks.remove(at: index)
+    }
 }
 
-enum GroupType {
+enum GroupType: String {
     
     case artist
     case album

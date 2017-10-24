@@ -44,11 +44,14 @@ class Playlist: PlaylistCRUDProtocol {
         
         if (!trackExists(track)) {
             
-            let index = flatPlaylist.addTrackForIndex(track)!
-            var groupingResults = [GroupedTrackAddResult]()
-            groupingPlaylists.values.forEach({groupingResults.append($0.addTrackForGroupInfo(track))})
+            tracksByFilePath[track.file.path] = track
             
-            return TrackAddResult(index: index, groupInfo: groupingResults)
+            let index = flatPlaylist.addTrackForIndex(track)!
+            
+            var groupingResults = [GroupType: GroupedTrackAddResult]()
+            groupingPlaylists.values.forEach({groupingResults[$0.getGroupType()] = $0.addTrackForGroupInfo(track)})
+            
+            return TrackAddResult(flatPlaylistResult: index, groupingPlaylistResults: groupingResults)
         }
         
         return nil
@@ -94,22 +97,22 @@ class Playlist: PlaylistCRUDProtocol {
         // TODO: Inform all the grouping playlists
     }
     
-    func removeTracks(_ tracks: [Track]) {
-        // TODO: Not really necessary here ?
-        print("Playlist.removeTracks([Track]) not implemented !")
+    func removeTracks(_ indexes: IndexSet) -> RemoveOperationResults {
+        
+        let removedTracks = flatPlaylist.removeTracks(indexes)
+        removedTracks.forEach({tracksByFilePath.removeValue(forKey: $0.file.path)})
+        
+        var groupingPlaylistResults = [GroupType: ItemRemovedResults]()
+        
+        // Remove from all other playlists
+        groupingPlaylists.values.forEach({
+            groupingPlaylistResults[$0.getGroupType()] = $0.removeTracksAndGroups(removedTracks, [])
+        })
+        
+        return RemoveOperationResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: indexes)
     }
     
     // ----------------------- FlatPlaylist protocols ----------------------------
-    
-    func addTrackForIndex(_ track: Track) -> Int? {
-        
-        if (!trackExists(track)) {
-            groupingPlaylists.values.forEach({_ = $0.addTrackForGroupInfo(track)})
-            return flatPlaylist.addTrackForIndex(track)
-        }
-        
-        return nil
-    }
     
     func indexOfTrack(_ track: Track) -> Int? {
         return flatPlaylist.indexOfTrack(track)
@@ -125,18 +128,6 @@ class Playlist: PlaylistCRUDProtocol {
     
     func peekTrackAt(_ index: Int?) -> IndexedTrack? {
         return flatPlaylist.peekTrackAt(index)
-    }
-    
-    func removeTracks(_ indexes: IndexSet) -> [Track] {
-        
-        let tracksRemoved = flatPlaylist.removeTracks(indexes)
-        tracksRemoved.forEach({tracksByFilePath.removeValue(forKey: $0.file.path)})
-        
-        groupingPlaylists.values.forEach({
-            $0.removeTracks(tracksRemoved)
-        })
-        
-        return tracksRemoved
     }
     
     func reorderTracks(_ reorderOperations: [PlaylistReorderOperation]) {
@@ -161,43 +152,27 @@ class Playlist: PlaylistCRUDProtocol {
         return groupingPlaylists[type]!.getNumberOfGroups()
     }
     
-    func addTrackForGroupInfo(_ track: Track) -> [GroupedTrackAddResult]? {
+    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> RemoveOperationResults {
         
-        if (!trackExists(track)) {
+        // Remove file/track mappings
+        var removedTracks: [Track] = tracks
+        groups.forEach({removedTracks.append(contentsOf: $0.tracks)})
+        removedTracks.forEach({tracksByFilePath.removeValue(forKey: $0.file.path)})
         
-            _ = flatPlaylist.addTrackForIndex(track)
-            
-            var groupingResults = [GroupedTrackAddResult]()
-            groupingPlaylists.values.forEach({groupingResults.append($0.addTrackForGroupInfo(track))})
-            
-            return groupingResults
-        }
+        var groupingPlaylistResults = [GroupType: ItemRemovedResults]()
         
-        return nil
-    }
-    
-    func removeTracksAndGroups(_ request: RemoveTracksAndGroupsRequest) {
+        // Remove from playlist with specified group type
+        groupingPlaylistResults[groupType] = groupingPlaylists[groupType]!.removeTracksAndGroups(tracks, groups)
         
-        // Can remove groups only from grouping playlist matching request's group type
-        let groupType = request.groupType
-        groupingPlaylists[groupType]!.removeTracksAndGroups(request)
+        // Remove from all other playlists
         
-        // For the other playlists, need to expand the removed groups into individual tracks
-        var removedTracks: [Track] = [Track]()
-        
-        request.mappings.forEach({
-            // Just expand all removed groups into their constituent tracks
-            removedTracks.append(contentsOf: $0.groupRemoved ? $0.group.tracks : $0.tracks!)
+        groupingPlaylists.values.filter({$0.getGroupType() != groupType}).forEach({
+            groupingPlaylistResults[$0.getGroupType()] = $0.removeTracksAndGroups(tracks, [])
         })
         
-        groupingPlaylists.values.forEach({
+        let flatPlaylistIndexes = flatPlaylist.removeTracks(tracks)
         
-            if $0.getGroupType() != groupType {
-                $0.removeTracks(removedTracks)
-            }
-        })
-        
-        flatPlaylist.removeTracks(removedTracks)
+        return RemoveOperationResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: flatPlaylistIndexes)
     }
     
     func displayNameFor(_ type: GroupType, _ track: Track) -> String {
@@ -207,18 +182,18 @@ class Playlist: PlaylistCRUDProtocol {
 
 struct TrackAddResult {
     
-    let index: Int
-    let groupInfo: [GroupedTrackAddResult]
+    let flatPlaylistResult: Int
+    let groupingPlaylistResults: [GroupType: GroupedTrackAddResult]
 }
 
 struct GroupedTrackAddResult {
     
-    let type: GroupType
     let track: GroupedTrack
     let groupCreated: Bool
 }
 
-struct TrackRemoveResults {
+struct RemoveOperationResults {
     
-    let results: [(parentGroup: Group?, parentGroupIndex: Int?, childIndex: Int)]
+    let groupingPlaylistResults: [GroupType: ItemRemovedResults]
+    let flatPlaylistResults: IndexSet
 }

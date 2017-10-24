@@ -50,6 +50,9 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
                 groupsByName[groupName] = group
                 groupIndex = groups.count - 1
                 groupCreated = true
+                
+                print("Created group:", groupName, self.type)
+                
             } else {
                 groupIndex = groups.index(where: {$0 === group})!
             }
@@ -58,7 +61,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         let trackIndex = group!.addTrack(track)
         let groupedTrack = GroupedTrack(track, group!, trackIndex, groupIndex)
         
-        return GroupedTrackAddResult(type: group!.type, track: groupedTrack, groupCreated: groupCreated)
+        return GroupedTrackAddResult(track: groupedTrack, groupCreated: groupCreated)
     }
     
     private func getGroupNameForTrack(_ track: Track) -> String {
@@ -103,20 +106,24 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         groupsByName.removeValue(forKey: group.name)
     }
     
-    private func removeTrack(_ track: Track) {
+    private func removeTrack(_ track: Track) -> Int {
      
         let group = getGroupForTrack(track)
+        let trackIndex = group.indexOf(track)
         
         ConcurrencyUtils.executeSynchronized(groups) {
             
             _ = group.removeTrack(track)
             
+            // TODO: IS this necessary ? removeTracksAndGroups will check this before calling here
             if (group.size() == 0) {
                 
                 groups.remove(at: groups.index(of: group)!)
                 groupsByName.removeValue(forKey: group.name)
             }
         }
+        
+        return trackIndex
     }
 
     func getGroupAt(_ index: Int) -> Group {
@@ -158,31 +165,95 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     }
     
     func removeTracks(_ tracks: [Track]) {
-        tracks.forEach({removeTrack($0)})
+        _ = removeTracksAndGroups(tracks, [])
     }
     
-    func removeTracksAndGroups(_ request: RemoveTracksAndGroupsRequest) {
+    func removeTracksFromGroup(_ removedTracks: [Track], _ group: Group) -> IndexSet {
         
-        request.mappings.forEach({
+        var trackIndexes = [Int]()
+        
+        removedTracks.forEach({trackIndexes.append(group.indexOf($0))})
+        
+        trackIndexes = trackIndexes.sorted(by: {i1, i2 -> Bool in return i1 > i2})
+        
+        trackIndexes.forEach({group.removeTrackAtIndex($0)})
+        
+        return IndexSet(trackIndexes)
+    }
+    
+    func removeGroups(_ removedGroups: [Group]) -> IndexSet {
+        
+        var groupIndexes = [Int]()
+        removedGroups.forEach({groupIndexes.append(groups.index(of: $0)!)})
+        
+        // Sort descending
+        groupIndexes = groupIndexes.sorted(by: {i1, i2 -> Bool in return i1 > i2})
+        
+        groupIndexes.forEach({removeGroup($0)})
+        
+        return IndexSet(groupIndexes)
+    }
+    
+    func removeTracksAndGroups(_ tracks: [Track], _ removedGroups: [Group]) -> ItemRemovedResults {
+        
+        var tracksByGroup: [Group: [Track]] = [Group: [Track]]()
+        var _groups = removedGroups
+        
+        // Categorize tracks by group
+        for track in tracks {
             
-            let group = $0.group
-            let groupIndex = $0.groupIndex
-            let tracks = $0.tracks
-            let groupRemoved = $0.groupRemoved
+            let group = getGroupForTrack(track)
             
-            if (groupRemoved) {
+            // Ignore tracks whose groups are being removed
+            if (!_groups.contains(group)) {
                 
-                removeGroup(groupIndex)
-                print("Playlist: Removed group:", group.name)
-                
-            } else {
-                
-                for track in tracks! {
-                    _ = removeTrack(track)
-                    print("Playlist: Removed track:", track.conciseDisplayName)
+                if tracksByGroup[group] == nil {
+                    tracksByGroup[group] = [Track]()
                 }
+                
+                tracksByGroup[group]!.append(track)
             }
+        }
+        
+        // Further simplification
+        for (group, tracks) in tracksByGroup {
+            
+            // If all tracks in group were removed, just remove the group instead
+            if (tracks.count == group.size()) {
+                
+                print("Removing group because all tracks selected:", group.name)
+                _groups.append(group)
+            }
+        }
+        
+        // If a group is being removed, ignore its tracks
+        _groups.forEach({tracksByGroup.removeValue(forKey: $0)})
+        
+        var groupRemovedResults = [GroupRemovedResult]()
+        var trackRemovedResults = [TracksRemovedResult]()
+        
+        // Gather group removals with group indexes
+        _groups.forEach({groupRemovedResults.append(GroupRemovedResult(getIndexOf($0)))})
+        
+        // Remove tracks from their respective groups and note the track indexes (this does not have to be done in the order of group index)
+        tracksByGroup.forEach({
+            
+            let group = $0.key
+            let trackIndexes = removeTracksFromGroup($0.value, group)
+            trackRemovedResults.append(TracksRemovedResult(trackIndexes, group, getIndexOf(group)))
         })
+        
+        // Sort group removals by group index (descending), and remove groups
+        groupRemovedResults = groupRemovedResults.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex})
+        groupRemovedResults.forEach({removeGroup($0.groupIndex)})
+        
+        // Gather all results
+        var allResults = [ItemRemovedResult]()
+        groupRemovedResults.forEach({allResults.append($0)})
+        trackRemovedResults.forEach({allResults.append($0)})
+        
+        // Sort by group index (descending)
+        return ItemRemovedResults(allResults.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}))
     }
     
     func getGroupingInfoForTrack(_ track: Track) -> GroupedTrack {
@@ -205,5 +276,49 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     func getGroupIndex(_ group: Group) -> Int {
         return groups.index(of: group)!
+    }
+}
+
+struct ItemRemovedResults {
+    
+    let results: [ItemRemovedResult]
+    
+    init(_ results: [ItemRemovedResult]) {
+        self.results = results
+    }
+}
+
+protocol ItemRemovedResult {
+    
+    var sortIndex: Int {get}
+}
+
+struct GroupRemovedResult: ItemRemovedResult {
+    
+    let groupIndex: Int
+    
+    var sortIndex: Int {
+        return groupIndex
+    }
+    
+    init(_ groupIndex: Int) {
+        self.groupIndex = groupIndex
+    }
+}
+
+struct TracksRemovedResult: ItemRemovedResult {
+    
+    let trackIndexesInGroup: IndexSet
+    let parentGroup: Group
+    let groupIndex: Int
+    
+    var sortIndex: Int {
+        return groupIndex
+    }
+    
+    init(_ trackIndexesInGroup: IndexSet, _ parentGroup: Group, _ groupIndex: Int) {
+        self.trackIndexesInGroup = trackIndexesInGroup
+        self.parentGroup = parentGroup
+        self.groupIndex = groupIndex
     }
 }

@@ -95,14 +95,15 @@ struct TrackAddedAsyncMessage: AsyncMessage {
     // The index of the newly added track
     let trackIndex: Int
     
-    let group: Group
+    let groupInfo: [GroupType: GroupedTrackAddResult]
     
     // The current progress of the track add operation (See TrackAddedAsyncMessageProgress)
     let progress: TrackAddedAsyncMessageProgress
     
-    init(_ trackIndex: Int, _ group: Group, _ progress: TrackAddedAsyncMessageProgress) {
+    init(_ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrackAddResult], _ progress: TrackAddedAsyncMessageProgress) {
+        
         self.trackIndex = trackIndex
-        self.group = group
+        self.groupInfo = groupInfo
         self.progress = progress
     }
 }
@@ -110,7 +111,7 @@ struct TrackAddedAsyncMessage: AsyncMessage {
 // AsyncMessage indicating that a new group has been added to the playlist, and that the UI should refresh itself to show the new information
 struct GroupAddedAsyncMessage: AsyncMessage {
     
-    var messageType: AsyncMessageType = .trackAdded
+    var messageType: AsyncMessageType = .groupAdded
     
     // The index of the newly added group
     let groupIndex: Int

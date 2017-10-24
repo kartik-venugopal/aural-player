@@ -20,7 +20,6 @@ class GroupingViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         
         if (item == nil) {
             return playlist.getNumberOfGroups(grouping)
-            
         } else if let group = item as? Group {
             return group.tracks.count
         }

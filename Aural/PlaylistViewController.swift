@@ -44,7 +44,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     // Needed for playlist scrolling with arrow keys
     private var playlistKeyPressHandler: PlaylistKeyPressHandler?
     
-    private var currentPlaylistViewType: PlaylistViewType = .tracks
+//    private var currentPlaylistViewType: PlaylistViewType = .tracks
     
     override func viewDidLoad() {
         
@@ -68,16 +68,26 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         playlistUpdateQueue.qualityOfService = .background
         
         // Set up key press handler to enable natural scrolling of the playlist view with arrow keys
-        playlistKeyPressHandler = PlaylistKeyPressHandler([tracksView, artistsView, albumsView, genresView])
+        playlistKeyPressHandler = PlaylistKeyPressHandler(playlistViews!)
         NSEvent.addLocalMonitorForEvents(matching: NSEventMask.keyDown, handler: {(event: NSEvent!) -> NSEvent in
             self.playlistKeyPressHandler?.handle(event)
             return event;
         });
         
         tabViewButtons = [btnTracksView, btnArtistsView, btnAlbumsView, btnGenresView]
+
         
+        artistsTabViewAction(self)
+        albumsTabViewAction(self)
+        genresTabViewAction(self)
+        
+        // Hack to fix problem with NSOutlineView.insertItems()
+        //tabGroup.selectTabViewItem(at: 1)
+        //tabGroup.selectTabViewItem(at: 2)
+        //tabGroup.selectTabViewItem(at: 3)
+        
+        // Show Tracks view, by default
         tracksTabViewAction(self)
-//        artistsTabViewAction(self)
     }
     
     @IBAction func addTracksAction(_ sender: AnyObject) {
@@ -152,11 +162,13 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         NSLog("Clicked Remove:")
         
-        let message = PlaylistActionMessage(.removeTracks, currentPlaylistViewType)
+        let message = PlaylistActionMessage(.removeTracks, PlaylistViewState.current)
         SyncMessenger.publishActionMessage(message)
         
-        var refreshMsg = PlaylistActionMessage(.refresh, .all)
-        SyncMessenger.publishActionMessage(refreshMsg)
+        // TODO: Don't refresh entire views. Send out partial refresh info.
+        
+//        let refreshMsg = PlaylistActionMessage(.refresh, .all)
+//        SyncMessenger.publishActionMessage(refreshMsg)
         
         updatePlaylistSummary()
     }
@@ -182,8 +194,11 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         playlist.clear()
         
-        let message = PlaylistActionMessage(.clearPlaylist, currentPlaylistViewType)
+        let message = PlaylistActionMessage(.clearPlaylist, PlaylistViewState.current)
         SyncMessenger.publishActionMessage(message)
+        
+//        let refreshMsg = PlaylistActionMessage(.refresh, .all)
+//        SyncMessenger.publishActionMessage(refreshMsg)
         
         updatePlaylistSummary()
         
@@ -193,13 +208,13 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     @IBAction func moveTracksUpAction(_ sender: AnyObject) {
         
-        let message = PlaylistActionMessage(.moveTracksUp, currentPlaylistViewType)
+        let message = PlaylistActionMessage(.moveTracksUp, PlaylistViewState.current)
         SyncMessenger.publishActionMessage(message)
     }
     
     @IBAction func moveTracksDownAction(_ sender: AnyObject) {
         
-        let message = PlaylistActionMessage(.moveTracksDown, currentPlaylistViewType)
+        let message = PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current)
         SyncMessenger.publishActionMessage(message)
     }
     
@@ -287,7 +302,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     }
     
     @IBAction func tracksTabViewAction(_ sender: Any) {
-     
+        
         tabViewButtons!.forEach({
             $0.state = 0
             $0.needsDisplay = true
@@ -296,7 +311,9 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         btnTracksView.state = 1
         tabGroup.selectTabViewItem(at: 0)
         
-        currentPlaylistViewType = .tracks
+//        tracksView.reloadData()
+        
+        PlaylistViewState.current = .tracks
     }
     
     @IBAction func artistsTabViewAction(_ sender: Any) {
@@ -309,7 +326,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         btnArtistsView.state = 1
         tabGroup.selectTabViewItem(at: 1)
         
-        currentPlaylistViewType = .artists
+        PlaylistViewState.current = .artists
     }
     
     @IBAction func albumsTabViewAction(_ sender: Any) {
@@ -322,7 +339,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         btnAlbumsView.state = 1
         tabGroup.selectTabViewItem(at: 2)
         
-        currentPlaylistViewType = .albums
+        PlaylistViewState.current = .albums
     }
     
     @IBAction func genresTabViewAction(_ sender: Any) {
@@ -335,6 +352,12 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         btnGenresView.state = 1
         tabGroup.selectTabViewItem(at: 3)
         
-        currentPlaylistViewType = .genres
+        PlaylistViewState.current = .genres
     }
+}
+
+class PlaylistViewState {
+    
+    static var current: PlaylistViewType = .tracks
+    
 }

@@ -21,6 +21,8 @@ protocol FlatPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     // Removes tracks with the given indexes
     func removeTracks(_ indexes: IndexSet) -> [Track]
     
+    func removeTracks(_ tracks: [Track]) -> IndexSet
+    
     /*
      Moves the tracks at the specified indexes, up one index, in the playlist, if they can be moved (they are not already at the top). Returns a mapping of the old indexes to the new indexes, for each of the tracks (for tracks that didn't move, the mapping will have the same key and value).
      
