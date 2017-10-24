@@ -242,9 +242,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     func removeTracks(_ indexes: [Int]) {
         
-        let results = playlist.removeTracks(IndexSet(indexes))
+        let results: RemoveOperationResults = playlist.removeTracks(IndexSet(indexes))
         
-        // TODO: Emit events to UI
+        let message = TracksRemovedAsyncMessage(results)
+        AsyncMessenger.publishMessage(message)
         
         changeListeners.forEach({$0.tracksRemoved(indexes, [])})
     }
@@ -253,7 +254,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         let results = playlist.removeTracksAndGroups(tracks, groups, groupType)
         
-        // TODO: Emit events to UI
+        let message = TracksRemovedAsyncMessage(results)
+        AsyncMessenger.publishMessage(message)
         
         changeListeners.forEach({$0.tracksRemoved(results.flatPlaylistResults.filter({$0 >= 0}), [])})
     }

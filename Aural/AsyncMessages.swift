@@ -28,8 +28,7 @@ enum AsyncMessageType {
     // See TrackAddedAsyncMessage
     case trackAdded
     
-    // See GroupAddedAsyncMessage
-    case groupAdded
+    case tracksRemoved
     
     // See TrackNotPlayedAsyncMessage
     case trackNotPlayed
@@ -108,22 +107,14 @@ struct TrackAddedAsyncMessage: AsyncMessage {
     }
 }
 
-// AsyncMessage indicating that a new group has been added to the playlist, and that the UI should refresh itself to show the new information
-struct GroupAddedAsyncMessage: AsyncMessage {
+struct TracksRemovedAsyncMessage: AsyncMessage {
     
-    var messageType: AsyncMessageType = .groupAdded
+    var messageType: AsyncMessageType = .tracksRemoved
     
-    // The index of the newly added group
-    let groupIndex: Int
+    let results: RemoveOperationResults
     
-    let group: Group
-    let groupType: GroupType
-    
-    init(_ groupIndex: Int, _ group: Group, _ groupType: GroupType) {
-        
-        self.groupIndex = groupIndex
-        self.group = group
-        self.groupType = groupType
+    init(_ results: RemoveOperationResults) {
+        self.results = results
     }
 }
 

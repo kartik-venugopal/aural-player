@@ -28,7 +28,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         // Register self as a subscriber to various AsyncMessage notifications
         AsyncMessenger.subscribe(.trackAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
-        AsyncMessenger.subscribe(.groupAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe(.tracksRemoved, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.tracksNotAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.startedAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.doneAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
@@ -71,8 +71,32 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         })
         
         playlist.removeTracksAndGroups(tracks, groups, groupType)
+    }
+    
+    func tracksRemoved(_ results: RemoveOperationResults) {
         
-//        playlist.remo
+        let tim = TimerUtils.start("reloadGroupView")
+        
+        let removals = results.groupingPlaylistResults[self.groupType]!
+        
+        for removal in removals.results {
+            
+            if let trackRemoval = removal as? TracksRemovedResult {
+                
+                playlistView.removeItems(at: trackRemoval.trackIndexesInGroup, inParent: trackRemoval.parentGroup, withAnimation: .effectFade)
+                playlistView.reloadItem(trackRemoval.parentGroup, reloadChildren: false)
+                
+            } else {
+                
+                let groupRemoval = removal as! GroupRemovedResult
+                playlistView.removeItems(at: IndexSet(integer: groupRemoval.groupIndex), inParent: nil, withAnimation: .effectFade)
+            }
+        }
+        
+        tim.end()
+        
+        print("Refresh:", Int(round(tim.durationMsecs!)))
+
     }
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
@@ -180,6 +204,15 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
             trackAdded(msg)
             return
+        }
+        
+        if let msg = message as? TracksRemovedAsyncMessage {
+            
+            let updateOp = BlockOperation(block: {
+                self.tracksRemoved(msg.results)
+            })
+            
+            playlistUpdateQueue.addOperation(updateOp)
         }
     }
     

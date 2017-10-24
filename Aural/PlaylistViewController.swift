@@ -160,8 +160,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     @IBAction func removeTracksAction(_ sender: AnyObject) {
         
-        NSLog("Clicked Remove:")
-        
         let message = PlaylistActionMessage(.removeTracks, PlaylistViewState.current)
         SyncMessenger.publishActionMessage(message)
         
@@ -310,8 +308,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         btnTracksView.state = 1
         tabGroup.selectTabViewItem(at: 0)
-        
-//        tracksView.reloadData()
         
         PlaylistViewState.current = .tracks
     }

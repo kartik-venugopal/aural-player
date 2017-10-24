@@ -51,7 +51,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
                 groupIndex = groups.count - 1
                 groupCreated = true
                 
-                print("Created group:", groupName, self.type)
+//                print("Created group:", groupName, self.type)
                 
             } else {
                 groupIndex = groups.index(where: {$0 === group})!

@@ -21,6 +21,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         
         // Register self as a subscriber to various AsyncMessage notifications
         AsyncMessenger.subscribe(.trackAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe(.tracksRemoved, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.trackInfoUpdated, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
@@ -50,10 +51,8 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
                 return
             }
             
-            // The $0 comparison is not needed, except to appease the compiler
-            let indexes = selectedIndexes.filter({$0 >= 0})
-            if (!indexes.isEmpty) {
-                removeTracks(indexes)
+            if (!selectedIndexes.isEmpty) {
+                removeTracks(selectedIndexes)
             }
             
             // Clear the playlist selection
@@ -62,17 +61,25 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     // Assume non-empty array and valid indexes
-    private func removeTracks(_ indexes: [Int]) {
+    private func removeTracks(_ indexes: IndexSet) {
         
         // Note down the index of the playing track, if there is one
-//        let oldPlayingTrackIndex = playbackInfo.getPlayingTrack()?.index
+        let oldPlayingTrackIndex = playbackInfo.getPlayingTrack()?.index
         
         // Remove the tracks from the playlist
-        _ = playlist.removeTracks(indexes)
+        _ = playlist.removeTracks(indexes.filter({$0 >= 0}))
+        
+        if (oldPlayingTrackIndex != nil && indexes.contains(oldPlayingTrackIndex!)) {
+            _ = SyncMessenger.publishRequest(StopPlaybackRequest.instance)
+        }
+    }
+    
+    func tracksRemoved(_ results: RemoveOperationResults) {
+        
+        let indexes = results.flatPlaylistResults
         
         // Update all rows from the first (i.e. smallest number) selected row, down to the end of the playlist
-        
-        let newPlaylistSize = tracksView.numberOfRows - indexes.count
+        let newPlaylistSize = playlist.size()
         let minIndex = (indexes.min())!
         let newLastIndex = newPlaylistSize - 1
         
@@ -208,6 +215,15 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
             playlistUpdateQueue.addOperation(updateOp)
             
             return
+        }
+        
+        if let msg = message as? TracksRemovedAsyncMessage {
+            
+            let updateOp = BlockOperation(block: {
+                self.tracksRemoved(msg.results)
+            })
+            
+            playlistUpdateQueue.addOperation(updateOp)
         }
         
         if (message is TrackInfoUpdatedAsyncMessage) {
