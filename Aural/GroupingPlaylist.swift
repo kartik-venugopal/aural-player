@@ -45,13 +45,13 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
             group = findGroupByName(groupName)
             if (group == nil) {
+                
+                // Create the group
                 group = Group(type, groupName)
                 groups.append(group!)
                 groupsByName[groupName] = group
                 groupIndex = groups.count - 1
                 groupCreated = true
-                
-//                print("Created group:", groupName, self.type)
                 
             } else {
                 groupIndex = groups.index(where: {$0 === group})!
@@ -220,14 +220,13 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             
             // If all tracks in group were removed, just remove the group instead
             if (tracks.count == group.size()) {
-                
-                print("Removing group because all tracks selected:", group.name)
                 _groups.append(group)
             }
         }
         
         // If a group is being removed, ignore its tracks
-        _groups.forEach({tracksByGroup.removeValue(forKey: $0)})
+        _groups.forEach({
+            tracksByGroup.removeValue(forKey: $0)})
         
         var groupRemovedResults = [GroupRemovedResult]()
         var trackRemovedResults = [TracksRemovedResult]()

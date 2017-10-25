@@ -53,8 +53,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     func removeTracks() {
         
         let indexes = playlistView.selectedRowIndexes
-        print("\nInx:", indexes)
-        
         var tracks = [Track]()
         var groups = [Group]()
         
@@ -75,8 +73,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     func tracksRemoved(_ results: RemoveOperationResults) {
         
-        let tim = TimerUtils.start("reloadGroupView")
-        
         let removals = results.groupingPlaylistResults[self.groupType]!
         
         for removal in removals.results {
@@ -92,11 +88,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 playlistView.removeItems(at: IndexSet(integer: groupRemoval.groupIndex), inParent: nil, withAnimation: .effectFade)
             }
         }
-        
-        tim.end()
-        
-        print("Refresh:", Int(round(tim.durationMsecs!)))
-
     }
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
@@ -250,7 +241,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
             switch (msg.actionType) {
                 
-//            case .refresh: playlistView.reloadData()
+            case .refresh: playlistView.reloadData()
                 
             case .removeTracks: removeTracks()
                 
@@ -269,6 +260,13 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
 }
 
+extension IndexSet {
+    
+    func toArray() -> [Int] {
+        return self.filter({$0 >= 0})
+    }
+}
+
 class PlaylistArtistsViewController: GroupingPlaylistViewController {
     override internal var groupType: GroupType {return .artist}
     override internal var viewType: PlaylistViewType {return .artists}
@@ -283,105 +281,3 @@ class PlaylistGenresViewController: GroupingPlaylistViewController {
     override internal var groupType: GroupType {return .genre}
     override internal var viewType: PlaylistViewType {return .genres}
 }
-
-/*
- var removedTracks: [Group: [Track]] = [Group: [Track]]()
- var removedGroups: [Group] = [Group]()
- var childIndexes: [Track: Int] = [Track: Int]() // indexes of tracks within their groups
- 
- var cur = 0
- 
- while cur < indexes.count {
- 
- let index = indexes[cur]
- let item = playlistView.item(atRow: index)
- 
- if let group = item as? Group {
- 
- // Group
- 
- removedGroups.append(group)
- if (playlistView.isItemExpanded(group)) {
- 
- // Skip all the group's selected children
- let maxChildIndex = index + group.size()
- while cur < indexes.count && indexes[cur] <= maxChildIndex {
- cur += 1
- }
- 
- cur -= 1
- }
- 
- } else {
- 
- // Track
- 
- let track = item as! Track
- let group = playlistView.parent(forItem: track) as! Group
- 
- if (removedTracks[group] == nil) {
- removedTracks[group] = [Track]()
- }
- 
- removedTracks[group]?.append(track)
- childIndexes[track] = group.indexOf(track)
- }
- 
- cur += 1
- }
- 
- for (group, tracks) in removedTracks {
- 
- // If all tracks in group were removed, just remove the group instead
- if (tracks.count == group.size()) {
- print("Removing group because all tracks selected:", group.name)
- removedGroups.append(group)
- } else {
- 
- // Sort descending by track number
- removedTracks[group] = tracks.sorted(by: {t1, t2 -> Bool in
- return group.indexOf(t1) > group.indexOf(t2)
- })
- }
- }
- 
- removedGroups.forEach({removedTracks.removeValue(forKey: $0)})
- 
- var requestMappings: [(group: Group, groupIndex: Int, tracks: [Track]?, groupRemoved: Bool)] = [(group: Group, groupIndex: Int, tracks: [Track]?, groupRemoved: Bool)]()
- 
- removedTracks.forEach({requestMappings.append(($0.key, plAcc.getIndexOf($0.key), $0.value, false))})
- removedGroups.forEach({requestMappings.append(($0, plAcc.getIndexOf($0), nil, true))})
- 
- requestMappings = requestMappings.sorted(by: {m1, m2 -> Bool in
- return m1.groupIndex > m2.groupIndex
- })
- 
- let request = RemoveTracksAndGroupsRequest(groupType, requestMappings)
- playlist.removeTracksAndGroups(request)
- 
- let tim = TimerUtils.start("reloadArtistsView")
- 
- for (group, groupIndex, tracks, groupRemoved) in requestMappings {
- 
- if (groupRemoved) {
- 
- playlistView.removeItems(at: IndexSet(integer: groupIndex), inParent: nil, withAnimation: .effectFade)
- } else {
- 
- // Tracks
- for track in tracks! {
- 
- // TODO: Look in childIndexes to get the track indexes
- 
- playlistView.removeItems(at: IndexSet(integer: childIndexes[track]!), inParent: group, withAnimation: .effectFade)
- 
- }
- 
- self.playlistView.reloadItem(group, reloadChildren: false)
- }
- }
- 
- tim.end()
- 
- print("Refresh:", Int(round(tim.durationMsecs!)))
- */

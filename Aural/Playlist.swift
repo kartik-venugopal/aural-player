@@ -157,6 +157,10 @@ class Playlist: PlaylistCRUDProtocol {
         // Remove file/track mappings
         var removedTracks: [Track] = tracks
         groups.forEach({removedTracks.append(contentsOf: $0.tracks)})
+        
+        // Remove duplicates
+        removedTracks = Array(Set(removedTracks))
+        
         removedTracks.forEach({tracksByFilePath.removeValue(forKey: $0.file.path)})
         
         var groupingPlaylistResults = [GroupType: ItemRemovedResults]()
@@ -167,10 +171,10 @@ class Playlist: PlaylistCRUDProtocol {
         // Remove from all other playlists
         
         groupingPlaylists.values.filter({$0.getGroupType() != groupType}).forEach({
-            groupingPlaylistResults[$0.getGroupType()] = $0.removeTracksAndGroups(tracks, [])
+            groupingPlaylistResults[$0.getGroupType()] = $0.removeTracksAndGroups(removedTracks, [])
         })
         
-        let flatPlaylistIndexes = flatPlaylist.removeTracks(tracks)
+        let flatPlaylistIndexes = flatPlaylist.removeTracks(removedTracks)
         
         return RemoveOperationResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: flatPlaylistIndexes)
     }

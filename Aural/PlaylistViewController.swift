@@ -163,11 +163,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         let message = PlaylistActionMessage(.removeTracks, PlaylistViewState.current)
         SyncMessenger.publishActionMessage(message)
         
-        // TODO: Don't refresh entire views. Send out partial refresh info.
-        
-//        let refreshMsg = PlaylistActionMessage(.refresh, .all)
-//        SyncMessenger.publishActionMessage(refreshMsg)
-        
         updatePlaylistSummary()
     }
     
