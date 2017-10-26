@@ -42,7 +42,7 @@ Wanna try it out ? The latest app bundle can be found in the compressed archive 
 
 [Developer readme](https://github.com/maculateConception/aural-player/blob/master/Documentation/Developer-readme.rtf?raw=true) 
 
-## Planned updates
+## Work in progress (features coming soon)
 
 **New playlist views with track groups** - In addition to the current flat view, new views will be added to the playlist, which group tracks by album, artist, genre, etc.
 
