@@ -379,8 +379,12 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         playlist.reorderTracks(reorderOperations)
         
-        let newCursor = playlist.indexOfTrack(playingTrack!.track)
+        let newCursor = playingTrack == nil ? nil : playlist.indexOfTrack(playingTrack!.track)
         changeListeners.forEach({$0.playlistReordered(newCursor)})
+    }
+    
+    func reorderTracks(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType) {
+        playlist.reorderTracks(reorderOperations, groupType)
     }
 }
 

@@ -285,6 +285,11 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
                 
                 tracksByGroup[group]!.append(group.indexOf(track))
             }
+            
+            // Cannot move tracks from different groups
+            if (tracksByGroup.keys.count > 1) {
+                return ItemMovedResults.noItemsMoved
+            }
 
             tracksByGroup.forEach({
                 
@@ -365,6 +370,11 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
                 }
                 
                 tracksByGroup[group]!.append(group.indexOf(track))
+            }
+            
+            // Cannot move tracks from different groups
+            if (tracksByGroup.keys.count > 1) {
+                return ItemMovedResults.noItemsMoved
             }
             
             tracksByGroup.forEach({
@@ -448,6 +458,23 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     func getGroupIndex(_ group: Group) -> Int {
         return groups.index(of: group)!
     }
+    
+    func reorderTracks(_ reorderOperations: [GroupingPlaylistReorderOperation]) {
+        
+        // Perform all operations in sequence
+        for op in reorderOperations {
+            
+            // Check which kind of operation this is, and perform it
+            if let copyOp = op as? TrackCopyOperation {
+                
+                copyOp.group.tracks[copyOp.destIndex] = copyOp.group.tracks[copyOp.srcIndex]
+                
+            } else if let overwriteOp = op as? TrackOverwriteOperation {
+                
+                overwriteOp.group.tracks[overwriteOp.destIndex] = overwriteOp.srcTrack
+            }
+        }
+    }
 }
 
 struct ItemRemovedResults {
@@ -497,6 +524,8 @@ struct TracksRemovedResult: ItemRemovedResult {
 struct ItemMovedResults {
     
     let results: [ItemMovedResult]
+    
+    static let noItemsMoved: ItemMovedResults = ItemMovedResults([])
     
     init(_ results: [ItemMovedResult]) {
         self.results = results

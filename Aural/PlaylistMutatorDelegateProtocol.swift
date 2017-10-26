@@ -51,4 +51,6 @@ protocol PlaylistMutatorDelegateProtocol {
     
     // Performs a sequence of playlist reorder operations
     func reorderTracks(_ reorderOperations: [PlaylistReorderOperation])
+    
+    func reorderTracks(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType)
 }

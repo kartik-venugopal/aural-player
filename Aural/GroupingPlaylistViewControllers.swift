@@ -176,6 +176,11 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         let tracks = tracksAndGroups.tracks
         let groups = tracksAndGroups.groups
         
+        // Cannot move both tracks and groups
+        if (tracks.count > 0 && groups.count == 0) {
+            return
+        }
+        
         let results = playlist.moveTracksAndGroupsUp(tracks, groups, self.groupType)
         moveItems(results)
         

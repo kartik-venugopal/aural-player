@@ -59,13 +59,13 @@
 		3E58CC271F025B0D00C36DC1 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58CC261F025B0D00C36DC1 /* Colors.swift */; };
 		3E58CC291F02759D00C36DC1 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58CC281F02759D00C36DC1 /* Timer.swift */; };
 		3E58CC2B1F0275B200C36DC1 /* TimerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58CC2A1F0275B200C36DC1 /* TimerUtils.swift */; };
-		3E59A3771F9959C10087198C /* GroupedPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59A3761F9959C10087198C /* GroupedPlaylistViewController.swift */; };
+		3E59A3771F9959C10087198C /* GroupingPlaylistDataSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59A3761F9959C10087198C /* GroupingPlaylistDataSources.swift */; };
 		3E631F771F9A00C20068FD6A /* ConcurrencyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E631F761F9A00C20068FD6A /* ConcurrencyUtils.swift */; };
 		3E633C471F14C6530040ECBC /* MultiBandStopFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */; };
 		3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C481F14C9110040ECBC /* ParametricEQNode.swift */; };
 		3E6AC30E1F9C48BC00144668 /* RemoveTracksAndGroupsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6AC30D1F9C48BC00144668 /* RemoveTracksAndGroupsRequest.swift */; };
 		3E6D75F81EFF79E0007F22A3 /* PlaylistKeyPressHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D75F71EFF79E0007F22A3 /* PlaylistKeyPressHandler.swift */; };
-		3E722F7B1EFCF4EC00916BF2 /* PlaylistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E722F7A1EFCF4EC00916BF2 /* PlaylistTableViewController.swift */; };
+		3E722F7B1EFCF4EC00916BF2 /* TracksPlaylistDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E722F7A1EFCF4EC00916BF2 /* TracksPlaylistDataSource.swift */; };
 		3E76D9BC1F0F4228007FF3F8 /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */; };
 		3E7B61E61F31AB1800F269F0 /* ValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B61E51F31AB1800F269F0 /* ValueFormatter.swift */; };
 		3E7C70001F5F45F00035AEF2 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C6FFF1F5F45F00035AEF2 /* PlaybackViewController.swift */; };
@@ -187,13 +187,13 @@
 		3E58CC261F025B0D00C36DC1 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3E58CC281F02759D00C36DC1 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		3E58CC2A1F0275B200C36DC1 /* TimerUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerUtils.swift; sourceTree = "<group>"; };
-		3E59A3761F9959C10087198C /* GroupedPlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupedPlaylistViewController.swift; sourceTree = "<group>"; };
+		3E59A3761F9959C10087198C /* GroupingPlaylistDataSources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistDataSources.swift; sourceTree = "<group>"; };
 		3E631F761F9A00C20068FD6A /* ConcurrencyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrencyUtils.swift; sourceTree = "<group>"; };
 		3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiBandStopFilterNode.swift; sourceTree = "<group>"; };
 		3E633C481F14C9110040ECBC /* ParametricEQNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametricEQNode.swift; sourceTree = "<group>"; };
 		3E6AC30D1F9C48BC00144668 /* RemoveTracksAndGroupsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveTracksAndGroupsRequest.swift; sourceTree = "<group>"; };
 		3E6D75F71EFF79E0007F22A3 /* PlaylistKeyPressHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistKeyPressHandler.swift; sourceTree = "<group>"; };
-		3E722F7A1EFCF4EC00916BF2 /* PlaylistTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewController.swift; sourceTree = "<group>"; };
+		3E722F7A1EFCF4EC00916BF2 /* TracksPlaylistDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracksPlaylistDataSource.swift; sourceTree = "<group>"; };
 		3E72FCC51F2C0A780020FD20 /* Developer-readme.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Developer-readme.rtf"; sourceTree = "<group>"; };
 		3E72FCC61F2C0A780020FD20 /* Developer-TODOs.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Developer-TODOs.rtf"; sourceTree = "<group>"; };
 		3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
@@ -591,8 +591,8 @@
 		3EF4F86A1F2079D700C45840 /* Playlist */ = {
 			isa = PBXGroup;
 			children = (
-				3E722F7A1EFCF4EC00916BF2 /* PlaylistTableViewController.swift */,
-				3E59A3761F9959C10087198C /* GroupedPlaylistViewController.swift */,
+				3E722F7A1EFCF4EC00916BF2 /* TracksPlaylistDataSource.swift */,
+				3E59A3761F9959C10087198C /* GroupingPlaylistDataSources.swift */,
 			);
 			name = Playlist;
 			sourceTree = "<group>";
@@ -710,7 +710,7 @@
 				3E33B49E1F3E70F4005EF359 /* FileSystemUtils.swift in Sources */,
 				3E80E66F1F04FA60007480CC /* Size.swift in Sources */,
 				3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */,
-				3E59A3771F9959C10087198C /* GroupedPlaylistViewController.swift in Sources */,
+				3E59A3771F9959C10087198C /* GroupingPlaylistDataSources.swift in Sources */,
 				3E4E599D1F74ED8400C18182 /* AudioIO.swift in Sources */,
 				3E84F8481F5FC58D0010BCDA /* PlaybackDelegate.swift in Sources */,
 				3E426F801EFDDDEE002F5F18 /* StringUtils.swift in Sources */,
@@ -751,7 +751,7 @@
 				3E58CC291F02759D00C36DC1 /* Timer.swift in Sources */,
 				3E46F55E1F2A8003007CD384 /* ModalDialogButtonCells.swift in Sources */,
 				3E9847861F5CFCE3001A2D28 /* RecorderViewController.swift in Sources */,
-				3E722F7B1EFCF4EC00916BF2 /* PlaylistTableViewController.swift in Sources */,
+				3E722F7B1EFCF4EC00916BF2 /* TracksPlaylistDataSource.swift in Sources */,
 				3E76D9BC1F0F4228007FF3F8 /* AppDefaults.swift in Sources */,
 				3EB2A7EA1F04424E001DF748 /* PopupMenuCells.swift in Sources */,
 				3E97967D1F00286200690DA2 /* Track.swift in Sources */,

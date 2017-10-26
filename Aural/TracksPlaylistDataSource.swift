@@ -5,7 +5,7 @@
 import Cocoa
 import AVFoundation
 
-class PlaylistTracksTableViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, MessageSubscriber {
+class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTableViewDelegate, MessageSubscriber {
     
     // Delegate that performs CRUD on the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
@@ -188,7 +188,7 @@ class PlaylistTracksTableViewController: NSViewController, NSTableViewDataSource
         if (info.draggingSource() is NSTableView) {
             
             if let sourceIndexSet = getSourceIndexes(info) {
-            
+                
                 // Calculate the destination rows for the reorder operation, and perform the reordering
                 let destination = calculateReorderingDestination(tableView, sourceIndexSet, row, dropOperation)
                 performReordering(sourceIndexSet, row, destination, dropOperation)
@@ -218,20 +218,20 @@ class PlaylistTracksTableViewController: NSViewController, NSTableViewDataSource
     }
     
     /*
-        In response to a playlist reordering by drag and drop, and given source indexes, a destination index, and the drop operation (on/above), determines which indexes the source rows will occupy, and a "partitionPoint", which is the dividing line between reordered items that were above (index less than) the dropRow and items that were below (index greater than) the dropRow ... it is the last (highest index) destination row for items that were above the dropRow.
+     In response to a playlist reordering by drag and drop, and given source indexes, a destination index, and the drop operation (on/above), determines which indexes the source rows will occupy, and a "partitionPoint", which is the dividing line between reordered items that were above (index less than) the dropRow and items that were below (index greater than) the dropRow ... it is the last (highest index) destination row for items that were above the dropRow.
      
-        In addition the calculation returns the indexes above/below the dropRow, for use when performing the reordering.
+     In addition the calculation returns the indexes above/below the dropRow, for use when performing the reordering.
      
-        For example, if the source rows are [2,3,7], the dropRow is 5, and the destination rows are [4,5,6], the reordering will be as follows:
+     For example, if the source rows are [2,3,7], the dropRow is 5, and the destination rows are [4,5,6], the reordering will be as follows:
      
-        Source items above the dropRow:
-        source at 2 -> destination at 4
-        source at 3 -> destination at 5 (partitionPoint)
+     Source items above the dropRow:
+     source at 2 -> destination at 4
+     source at 3 -> destination at 5 (partitionPoint)
      
-        Source items below the dropRow:
-        source at 7 -> destination at 6
+     Source items below the dropRow:
+     source at 7 -> destination at 6
      
-        Then, the partitionPoint will be 5 (it is the last (highest index) destination row for source items that were above the dropRow).
+     Then, the partitionPoint will be 5 (it is the last (highest index) destination row for source items that were above the dropRow).
      
      */
     private func calculateReorderingDestination(_ tableView: NSTableView, _ sourceIndexSet: IndexSet, _ dropRow: Int, _ operation: NSTableViewDropOperation) -> (rows: IndexSet, partitionPoint: Int, sourceIndexesAboveDropRow: [Int], sourceIndexesBelowDropRow: [Int]) {
@@ -294,23 +294,23 @@ class PlaylistTracksTableViewController: NSViewController, NSTableViewDataSource
         return (IndexSet(minDestinationRow...maxDestinationRow), partitionPoint, sourceIndexesAboveDropRow, sourceIndexesBelowDropRow)
     }
     
-    /* 
-        Performs reordering of playlist tracks, in response to a drag and drop within the tableView.
+    /*
+     Performs reordering of playlist tracks, in response to a drag and drop within the tableView.
      
-        This procedure can be broken down into 4 logical steps:
-        
-        1 - Store all source items (items being reordered) in a temporary location. This is needed because these rows will be overwritten with other items in later steps. The source rows are now considered "holes", i.e. empty array locations that are now able to store other items that will be moved.
+     This procedure can be broken down into 4 logical steps:
      
-        2 - "Percolation" above dropRow: Starting at the partition point (explained above, in the comments for calculateReorderingDestination()) within the destination rows, move all non-source items sitting between the partition point and the topmost (lowest index) source item up, until they occupy the holes created in step 1. This will make room for the source items collected in step 1. If there are no source items above the dropRow, this step will be skipped.
+     1 - Store all source items (items being reordered) in a temporary location. This is needed because these rows will be overwritten with other items in later steps. The source rows are now considered "holes", i.e. empty array locations that are now able to store other items that will be moved.
      
-        3 - "Percolation" below dropRow: Starting below the partition point within the destination rows, move all non-source items sitting between the partition point and the bottommost (highest index) source item down, until they occupy the holes created in step 1. This will make room for the source items collected in step 1. If there are no source items below the dropRow, this step will be skipped.
+     2 - "Percolation" above dropRow: Starting at the partition point (explained above, in the comments for calculateReorderingDestination()) within the destination rows, move all non-source items sitting between the partition point and the topmost (lowest index) source item up, until they occupy the holes created in step 1. This will make room for the source items collected in step 1. If there are no source items above the dropRow, this step will be skipped.
      
-        Steps 2 and 3 will ensure that there are n empty rows (or "holes") around the partition point, where n is the number of source items being reordered. These are the destination rows. There will be no other holes above or below the destination rows.
+     3 - "Percolation" below dropRow: Starting below the partition point within the destination rows, move all non-source items sitting between the partition point and the bottommost (highest index) source item down, until they occupy the holes created in step 1. This will make room for the source items collected in step 1. If there are no source items below the dropRow, this step will be skipped.
      
-        4 - Simply copy over the source items into the destination rows or holes. The reordering is then complete.
+     Steps 2 and 3 will ensure that there are n empty rows (or "holes") around the partition point, where n is the number of source items being reordered. These are the destination rows. There will be no other holes above or below the destination rows.
      
-        NOTE - The playlist is not directly manipulated in this function. Reorder operations are noted down and submitted to the playlist, which then performs all the requested operations in sequence.
- 
+     4 - Simply copy over the source items into the destination rows or holes. The reordering is then complete.
+     
+     NOTE - The playlist is not directly manipulated in this function. Reorder operations are noted down and submitted to the playlist, which then performs all the requested operations in sequence.
+     
      */
     private func performReordering(_ sourceIndexSet: IndexSet, _ dropRow: Int, _ destination: (rows: IndexSet, partitionPoint: Int, sourceIndexesAboveDropRow: [Int], sourceIndexesBelowDropRow: [Int]), _ operation: NSTableViewDropOperation) {
         

@@ -28,6 +28,8 @@ protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     
     // Notifies the playlist that info for this track has changed. The playlist may use the updates to re-group the track (by artist/album/genre, etc).
     func trackInfoUpdated(_ updatedTrack: Track)
+    
+    func reorderTracks(_ reorderOperations: [GroupingPlaylistReorderOperation])
 }
 
 protocol GroupingPlaylistCRUDProtocol: GroupingPlaylistAccessorProtocol, GroupingPlaylistMutatorProtocol {}

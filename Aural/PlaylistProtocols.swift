@@ -60,6 +60,8 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     // Performs a sequence of playlist reorder operations
     func reorderTracks(_ reorderOperations: [PlaylistReorderOperation])
     
+    func reorderTracks(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType)
+    
     // Notifies the playlist that info for this track has changed. The playlist may use the updates to re-group the track (by artist/album/genre, etc).
     func trackInfoUpdated(_ updatedTrack: Track)
 }

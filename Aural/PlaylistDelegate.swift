@@ -84,6 +84,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         mutator.reorderTracks(reorderOperations)
     }
     
+    func reorderTracks(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType) {
+        mutator.reorderTracks(reorderOperations, groupType)
+    }
+    
     func savePlaylist(_ file: URL) {
         
         // Perform asynchronously, to unblock the main thread

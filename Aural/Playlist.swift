@@ -134,6 +134,10 @@ class Playlist: PlaylistCRUDProtocol {
         flatPlaylist.reorderTracks(reorderOperations)
     }
     
+    func reorderTracks(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType) {
+        groupingPlaylists[groupType]!.reorderTracks(reorderOperations)
+    }
+    
     // ----------------------- GroupingPlaylist protocols ----------------------------
     
     func getGroupAt(_ type: GroupType, _ index: Int) -> Group {
