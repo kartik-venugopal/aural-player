@@ -182,6 +182,14 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
             } else if let overwriteOp = op as? PlaylistOverwriteOperation {
                 
                 tracks[overwriteOp.destIndex] = overwriteOp.srcTrack
+                
+            } else if let removeOp = op as? TrackRemoveOperation {
+                
+                tracks.remove(at: removeOp.index)
+                
+            } else if let insertOp = op as? TrackInsertOperation {
+                
+                tracks.insert(insertOp.srcTrack, at: insertOp.destIndex)
             }
         }
     }

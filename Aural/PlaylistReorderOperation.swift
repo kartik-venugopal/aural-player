@@ -17,6 +17,17 @@ struct PlaylistOverwriteOperation: PlaylistReorderOperation {
     var destIndex: Int
 }
 
+struct TrackRemoveOperation: PlaylistReorderOperation {
+    
+    var index: Int
+}
+
+struct TrackInsertOperation: PlaylistReorderOperation {
+    
+    var srcTrack: Track
+    var destIndex: Int
+}
+
 protocol GroupingPlaylistReorderOperation {}
 
 // Denotes an operation to copy a playlist track from one index to another, overwriting the destination

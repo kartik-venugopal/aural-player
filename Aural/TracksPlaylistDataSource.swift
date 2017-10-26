@@ -191,12 +191,12 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
                 
                 // Calculate the destination rows for the reorder operation, and perform the reordering
                 let destination = calculateReorderingDestination(tableView, sourceIndexSet, row, dropOperation)
-                performReordering(sourceIndexSet, row, destination, dropOperation)
+                performReordering(sourceIndexSet, row, destination)
                 
                 // Refresh the playlist view (only the relevant rows), and re-select the source rows that were reordered
                 
                 let src = sourceIndexSet.toArray()
-                let dest = destination.rows.toArray()
+                let dest = destination.toArray()
                 
                 var cur = 0
                 while (cur < src.count) {
@@ -204,13 +204,13 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
                     cur += 1
                 }
                 
-                let minReloadIndex = min(sourceIndexSet.min()!, destination.rows.min()!)
-                let maxReloadIndex = max(sourceIndexSet.max()!, destination.rows.max()!)
+                let minReloadIndex = min(sourceIndexSet.min()!, destination.min()!)
+                let maxReloadIndex = max(sourceIndexSet.max()!, destination.max()!)
                 
                 let reloadIndexes = IndexSet(minReloadIndex...maxReloadIndex)
                 tableView.reloadData(forRowIndexes: reloadIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
                 
-                tableView.selectRowIndexes(IndexSet(destination.rows), byExtendingSelection: false)
+                tableView.selectRowIndexes(destination, byExtendingSelection: false)
                 
                 return true
             }
@@ -244,7 +244,7 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
      Then, the partitionPoint will be 5 (it is the last (highest index) destination row for source items that were above the dropRow).
      
      */
-    private func calculateReorderingDestination(_ tableView: NSTableView, _ sourceIndexSet: IndexSet, _ dropRow: Int, _ operation: NSTableViewDropOperation) -> (rows: IndexSet, partitionPoint: Int, sourceIndexesAboveDropRow: [Int], sourceIndexesBelowDropRow: [Int]) {
+    private func calculateReorderingDestination(_ tableView: NSTableView, _ sourceIndexSet: IndexSet, _ dropRow: Int, _ operation: NSTableViewDropOperation) -> IndexSet {
         
         // Find out how many source items are above the dropRow and how many below
         let sourceIndexesAboveDropRow = sourceIndexSet.filter({$0 < dropRow})
@@ -256,9 +256,6 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
         // The highest index in the destination rows
         var maxDestinationRow: Int
         
-        // Partition point for source items (explained in function comments above)
-        var partitionPoint: Int = 0
-        
         // The destination rows will depend on whether the drop is to be performed above or on the dropRow
         if (operation == .above) {
             
@@ -267,8 +264,6 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
             
             minDestinationRow = dropRow - sourceIndexesAboveDropRow.count
             maxDestinationRow = dropRow + sourceIndexesBelowDropRow.count - 1
-            
-            partitionPoint = dropRow - 1
             
         } else {
             
@@ -285,8 +280,6 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
                 minDestinationRow = dropRow - sourceIndexesAboveDropRow.count + 1
                 maxDestinationRow = dropRow + sourceIndexesBelowDropRow.count
                 
-                partitionPoint = dropRow
-                
             } else {
                 
                 // There are more source items below the dropRow than above it
@@ -296,114 +289,38 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
                 
                 minDestinationRow = dropRow - sourceIndexesAboveDropRow.count
                 maxDestinationRow = dropRow + sourceIndexesBelowDropRow.count - 1
-                
-                partitionPoint = dropRow - 1
             }
         }
         
-        return (IndexSet(minDestinationRow...maxDestinationRow), partitionPoint, sourceIndexesAboveDropRow, sourceIndexesBelowDropRow)
+        return IndexSet(minDestinationRow...maxDestinationRow)
     }
     
-    /*
-     Performs reordering of playlist tracks, in response to a drag and drop within the tableView.
-     
-     This procedure can be broken down into 4 logical steps:
-     
-     1 - Store all source items (items being reordered) in a temporary location. This is needed because these rows will be overwritten with other items in later steps. The source rows are now considered "holes", i.e. empty array locations that are now able to store other items that will be moved.
-     
-     2 - "Percolation" above dropRow: Starting at the partition point (explained above, in the comments for calculateReorderingDestination()) within the destination rows, move all non-source items sitting between the partition point and the topmost (lowest index) source item up, until they occupy the holes created in step 1. This will make room for the source items collected in step 1. If there are no source items above the dropRow, this step will be skipped.
-     
-     3 - "Percolation" below dropRow: Starting below the partition point within the destination rows, move all non-source items sitting between the partition point and the bottommost (highest index) source item down, until they occupy the holes created in step 1. This will make room for the source items collected in step 1. If there are no source items below the dropRow, this step will be skipped.
-     
-     Steps 2 and 3 will ensure that there are n empty rows (or "holes") around the partition point, where n is the number of source items being reordered. These are the destination rows. There will be no other holes above or below the destination rows.
-     
-     4 - Simply copy over the source items into the destination rows or holes. The reordering is then complete.
-     
-     NOTE - The playlist is not directly manipulated in this function. Reorder operations are noted down and submitted to the playlist, which then performs all the requested operations in sequence.
-     
-     */
-    private func performReordering(_ sourceIndexSet: IndexSet, _ dropRow: Int, _ destination: (rows: IndexSet, partitionPoint: Int, sourceIndexesAboveDropRow: [Int], sourceIndexesBelowDropRow: [Int]), _ operation: NSTableViewDropOperation) {
-        
-        // Step 1 - Store all source items (tracks) that are being reordered, in a temporary location.
-        var sourceItems = [Track]()
-        
-        // Make sure they the source indexes are iterated in ascending order. This will be important in Step 4.
-        sourceIndexSet.sorted(by: {x, y -> Bool in x < y}).forEach({sourceItems.append((playlist.peekTrackAt($0)?.track)!)})
-        
-        let sourceIndexesAboveDropRow = destination.sourceIndexesAboveDropRow
-        
-        // Source rows below the drop row need to be sorted in descending order for iteration during percolation
-        let sourceIndexesBelowDropRow = destination.sourceIndexesBelowDropRow.sorted(by: {x, y -> Bool in x > y})
+    private func performReordering(_ sourceIndexSet: IndexSet, _ dropRow: Int, _ destination: IndexSet) {
         
         // Collect all reorder operations, in sequence, for later submission to the playlist
         var playlistReorderOperations = [PlaylistReorderOperation]()
         
-        // Step 2 - Percolate up (above dropRow). As items move up, holes move down.
-        if (sourceIndexesAboveDropRow.count > 0) {
-            
-            // Cursor that keeps track of the current index being processed. Initial value will be one row below the first source index in sourceIndexesAboveDropRow.
-            var cursor = sourceIndexesAboveDropRow[0] + 1
-            
-            // Keeps track of how many "holes" (i.e. empty playlist rows) have been encountered thus far. Starting below the first source index in sourceIndexesAboveDropRow, we already have one "hole".
-            var holes = 1
-            
-            // Iterate down through the rows, till the partitionPoint
-            while (cursor <= destination.partitionPoint) {
-                
-                // If this is a source row, mark it as a hole
-                if (sourceIndexesAboveDropRow.contains(cursor)) {
-                    holes += 1
-                    
-                } else {
-                    
-                    // Percolate the non-source item up into the farthest hole, swapping the hole with this item
-                    
-                    let reorderOperation = PlaylistCopyOperation(srcIndex: cursor, destIndex: cursor - holes)
-                    playlistReorderOperations.append(reorderOperation)
-                }
-                
-                cursor += 1
-            }
-        }
+        // Step 1 - Store all source items (tracks) that are being reordered, in a temporary location.
+        var sourceItems = [Track]()
         
-        // Step 3 - Percolate down (below dropRow). As items move down, holes move up.
-        if (sourceIndexesBelowDropRow.count > 0) {
-            
-            // Cursor that keeps track of the current index being processed. Initial value will be one row above the first source index in sourceIndexesBelowDropRow.
-            var cursor = sourceIndexesBelowDropRow[0] - 1
-            
-            // Keeps track of how many "holes" (i.e. empty playlist rows) have been encountered thus far. Starting above the first source index in sourceIndexesBelowDropRow, we already have one "hole".
-            var holes = 1
-            
-            // Iterate up through the rows, till the partitionPoint
-            while (cursor > destination.partitionPoint) {
-                
-                // If this is a source row, mark it as a hole
-                if (sourceIndexesBelowDropRow.contains(cursor)) {
-                    holes += 1
-                    
-                } else {
-                    
-                    // Percolate the non-source item down into the farthest hole, swapping the hole with this item
-                    
-                    let reorderOperation = PlaylistCopyOperation(srcIndex: cursor, destIndex: cursor + holes)
-                    playlistReorderOperations.append(reorderOperation)
-                }
-                
-                cursor -= 1
-            }
-        }
+        // Make sure they the source indexes are iterated in descending order. This will be important in Step 4.
+        sourceIndexSet.sorted(by: {x, y -> Bool in x > y}).forEach({
+            sourceItems.append((playlist.peekTrackAt($0)?.track)!)
+            playlistReorderOperations.append(TrackRemoveOperation(index: $0))
+        })
         
         // Step 4 - Copy over the source items into the destination holes
         var cursor = 0
         
         // Destination rows need to be sorted in ascending order
-        let destinationRows = destination.rows.sorted(by: {x, y -> Bool in x < y})
+        let destinationRows = destination.sorted(by: {x, y -> Bool in x < y})
+        
+        sourceItems = sourceItems.reversed()
         
         destinationRows.forEach({
             
             // For each destination row, copy over a source item into the corresponding destination hole
-            let reorderOperation = PlaylistOverwriteOperation(srcTrack: sourceItems[cursor], destIndex: $0)
+            let reorderOperation = TrackInsertOperation(srcTrack: sourceItems[cursor], destIndex: $0)
             playlistReorderOperations.append(reorderOperation)
             cursor += 1
         })
