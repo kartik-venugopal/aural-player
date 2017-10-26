@@ -50,7 +50,12 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistUpdateQueue.qualityOfService = .background
     }
     
-    func removeTracks() {
+    func clearPlaylist() {
+        playlist.clear()
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, .all))
+    }
+    
+    private func collectTracksAndGroups() -> (tracks: [Track], groups: [Group]) {
         
         let indexes = playlistView.selectedRowIndexes
         var tracks = [Track]()
@@ -59,7 +64,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         indexes.forEach({
             
             let item = playlistView.item(atRow: $0)
-        
+            
             if let track = item as? Track {
                 tracks.append(track)
             } else {
@@ -67,6 +72,21 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 groups.append(item as! Group)
             }
         })
+        
+        return (tracks, groups)
+    }
+    
+    func removeTracks() {
+        
+        let tracksAndGroups = collectTracksAndGroups()
+        let tracks = tracksAndGroups.tracks
+        let groups = tracksAndGroups.groups
+        
+        // TODO: If all groups selected, clearPlaylist()
+        if (groups.count == plAcc.getNumberOfGroups(self.groupType)) {
+            clearPlaylist()
+            return
+        }
         
         playlist.removeTracksAndGroups(tracks, groups, groupType)
     }
@@ -144,16 +164,68 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         }
     }
     
-    func clearPlaylist() {
-//        playlistView.reloadData()
+    func refresh() {
+        playlistView.reloadData()
     }
     
     func moveTracksUp() {
         
+        let tim = TimerUtils.start("moveUp")
+        
+        let tracksAndGroups = collectTracksAndGroups()
+        let tracks = tracksAndGroups.tracks
+        let groups = tracksAndGroups.groups
+        
+        let results = playlist.moveTracksAndGroupsUp(tracks, groups, self.groupType)
+        moveItems(results)
+        
+        var allItems: [GroupedPlaylistItem] = [GroupedPlaylistItem]()
+        groups.forEach({allItems.append($0)})
+        tracks.forEach({allItems.append($0)})
+        selectAllItems(allItems)
+        
+        tim.end()
+    }
+    
+    private func moveItems(_ results: ItemMovedResults) {
+        
+        for result in results.results {
+            
+            if let trackMovedResult = result as? TrackMovedResult {
+                
+                playlistView.moveItem(at: trackMovedResult.oldTrackIndex, inParent: trackMovedResult.parentGroup, to: trackMovedResult.newTrackIndex, inParent: trackMovedResult.parentGroup)
+                
+            } else {
+                
+                let groupMovedResult = result as! GroupMovedResult
+                playlistView.moveItem(at: groupMovedResult.oldGroupIndex, inParent: nil, to: groupMovedResult.newGroupIndex, inParent: nil)
+            }
+        }
+    }
+    
+    private func selectAllItems(_ items: [GroupedPlaylistItem]) {
+        var selIndexes = [Int]()
+        items.forEach({selIndexes.append(playlistView.row(forItem: $0))})
+        playlistView.selectRowIndexes(IndexSet(selIndexes), byExtendingSelection: false)
     }
     
     func moveTracksDown() {
         
+        let tim = TimerUtils.start("moveDown")
+        
+        let tracksAndGroups = collectTracksAndGroups()
+        let tracks = tracksAndGroups.tracks
+        let groups = tracksAndGroups.groups
+        
+        let results = playlist.moveTracksAndGroupsDown(tracks, groups, self.groupType)
+        moveItems(results)
+        
+        var allItems: [GroupedPlaylistItem] = [GroupedPlaylistItem]()
+        groups.forEach({allItems.append($0)})
+        tracks.forEach({allItems.append($0)})
+        selectAllItems(allItems)
+        
+        tim.end()
     }
     
     private func trackAdded(_ message: TrackAddedAsyncMessage) {
@@ -241,11 +313,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
             switch (msg.actionType) {
                 
-            case .refresh: playlistView.reloadData()
+            case .refresh: refresh()
                 
             case .removeTracks: removeTracks()
-                
-            case .clearPlaylist: clearPlaylist()
                 
             case .moveTracksUp: moveTracksUp()
                 

@@ -53,6 +53,10 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     // See FlatPlaylistMutatorProtocol.moveTracksDown()
     func moveTracksDown(_ indexes: IndexSet) -> [Int: Int]
     
+    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults
+    
+    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults
+    
     // Performs a sequence of playlist reorder operations
     func reorderTracks(_ reorderOperations: [PlaylistReorderOperation])
     

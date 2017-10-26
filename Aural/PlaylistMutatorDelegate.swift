@@ -59,10 +59,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             AsyncMessenger.publishMessage(StartedAddingTracksAsyncMessage.instance)
             
-            let tim = TimerUtils.start("addOp")
             self.addFiles_sync(files, autoplayOptions, progress)
-            tim.end()
-            TimerUtils.printStats()
             
             AsyncMessenger.publishMessage(DoneAddingTracksAsyncMessage.instance)
             
@@ -296,6 +293,14 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         changeListeners.forEach({$0.playlistReordered(newPlayingTrackIndex)})
         
         return IndexSet(indexMappings.values)
+    }
+    
+    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults {
+        return playlist.moveTracksAndGroupsUp(tracks, groups, groupType)
+    }
+    
+    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults {
+        return playlist.moveTracksAndGroupsDown(tracks, groups, groupType)
     }
     
     func clear() {

@@ -139,7 +139,16 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     }
     
     func getIndexOf(_ group: Group) -> Int {
-        return groups.index(where: {$0 === group})!
+        return groups.index(of: group)!
+    }
+    
+    func getIndexOf(_ item: GroupedPlaylistItem) -> Int {
+        
+        if let track = item as? Track {
+            return indexOf(track)
+        } else {
+            return getIndexOf(item as! Group)
+        }
     }
     
     func displayNameFor(_ track: Track) -> String {
@@ -255,6 +264,169 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         return ItemRemovedResults(allResults.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}))
     }
     
+    func moveTracksAndGroupsUp(_ tracks: [Track], _ groupsToMove: [Group]) -> ItemMovedResults {
+        
+        if (!groupsToMove.isEmpty) {
+            return moveGroupsUp(groupsToMove)
+        } else {
+            
+            // Find out which group these tracks belong to, and categorize them
+            var tracksByGroup: [Group: [Int]] = [Group: [Int]]()
+            var results = [ItemMovedResult]()
+            
+            // Categorize tracks by group
+            for track in tracks {
+                
+                let group = getGroupForTrack(track)
+                
+                if tracksByGroup[group] == nil {
+                    tracksByGroup[group] = [Int]()
+                }
+                
+                tracksByGroup[group]!.append(group.indexOf(track))
+            }
+
+            tracksByGroup.forEach({
+                
+                let group = $0.key
+                let mappings = group.moveTracksUp(IndexSet($0.value))
+                for (old, new) in mappings {
+                     results.append(TrackMovedResult(old, new, group))
+                }
+            })
+            
+            // Ascending order (by old index)
+            return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}))
+        }
+    }
+    
+    private func moveGroupsUp(_ groupsToMove: [Group]) -> ItemMovedResults {
+        
+        var indexes = [Int]()
+        groupsToMove.forEach({indexes.append(getIndexOf($0))})
+        
+        // Indexes need to be in ascending order, because tracks need to be moved up, one by one, from top to bottom of the playlist
+        let ascendingOldIndexes = indexes.sorted(by: {x, y -> Bool in x < y})
+        
+        // Mappings of oldIndex (prior to move) -> newIndex (after move)
+        var results = [ItemMovedResult]()
+        
+        // Determine if there is a contiguous block of tracks at the top of the playlist, that cannot be moved. If there is, determine its size. At the end of the loop, the cursor's value will equal the size of the block.
+        var unmovableBlockCursor = 0
+        while (ascendingOldIndexes.contains(unmovableBlockCursor)) {
+            unmovableBlockCursor += 1
+        }
+        
+        // If there are any tracks that can be moved, move them and store the index mappings
+        if (unmovableBlockCursor < ascendingOldIndexes.count) {
+            
+            for index in unmovableBlockCursor...ascendingOldIndexes.count - 1 {
+                
+                let oldIndex = ascendingOldIndexes[index]
+                let newIndex = moveGroupUp(oldIndex)
+                results.append(GroupMovedResult(oldIndex, newIndex))
+            }
+        }
+        
+        // Ascending order (by old index)
+        return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}))
+    }
+    
+    private func moveGroupUp(_ index: Int) -> Int {
+        
+        let upIndex = index - 1
+        swapGroups(index, upIndex)
+        return upIndex
+    }
+    
+    private func swapGroups(_ index1: Int, _ index2: Int) {
+        swap(&groups[index1], &groups[index2])
+    }
+    
+    func moveTracksAndGroupsDown(_ tracks: [Track], _ groupsToMove: [Group]) -> ItemMovedResults {
+        
+        if (!groupsToMove.isEmpty) {
+            
+            return moveGroupsDown(groupsToMove)
+            
+        } else {
+            
+            // Find out which group these tracks belong to, and categorize them
+            var tracksByGroup: [Group: [Int]] = [Group: [Int]]()
+            var results = [ItemMovedResult]()
+            
+            // Categorize tracks by group
+            for track in tracks {
+                
+                let group = getGroupForTrack(track)
+                
+                if tracksByGroup[group] == nil {
+                    tracksByGroup[group] = [Int]()
+                }
+                
+                tracksByGroup[group]!.append(group.indexOf(track))
+            }
+            
+            tracksByGroup.forEach({
+                
+                let group = $0.key
+                let mappings = group.moveTracksDown(IndexSet($0.value))
+                for (old, new) in mappings {
+                    results.append(TrackMovedResult(old, new, group))
+                }
+            })
+            
+            // Descending order (by old index)
+            return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}))
+        }
+    }
+    
+    private func moveGroupsDown(_ groupsToMove: [Group]) -> ItemMovedResults {
+        
+        var indexes = [Int]()
+        groupsToMove.forEach({indexes.append(getIndexOf($0))})
+        
+        // Indexes need to be in descending order, because tracks need to be moved down, one by one, from bottom to top of the playlist
+        let descendingOldIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
+        
+        // Mappings of oldIndex (prior to move) -> newIndex (after move)
+        var results = [ItemMovedResult]()
+        
+        // Determine if there is a contiguous block of tracks at the top of the playlist, that cannot be moved. If there is, determine its size.
+        var unmovableBlockCursor = groups.count - 1
+        
+        // Tracks the size of the unmovable block. At the end of the loop, the variable's value will equal the size of the block.
+        var unmovableBlockSize = 0
+        
+        while (descendingOldIndexes.contains(unmovableBlockCursor)) {
+            
+            // Since this track cannot be moved, map its old index to the same old index
+            unmovableBlockCursor -= 1
+            unmovableBlockSize += 1
+        }
+        
+        // If there are any tracks that can be moved, move them and store the index mappings
+        if (unmovableBlockSize < descendingOldIndexes.count) {
+            
+            for index in unmovableBlockSize...descendingOldIndexes.count - 1 {
+                
+                let oldIndex = descendingOldIndexes[index]
+                let newIndex = moveGroupDown(oldIndex)
+                results.append(GroupMovedResult(oldIndex, newIndex))
+            }
+        }
+        
+        // Descending order (by old index)
+        return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}))
+    }
+    
+    private func moveGroupDown(_ index: Int) -> Int {
+        
+        let downIndex = index + 1
+        swapGroups(index, downIndex)
+        return downIndex
+    }
+    
     func getGroupingInfoForTrack(_ track: Track) -> GroupedTrack {
         
         let group = getGroupForTrack(track)
@@ -319,5 +491,53 @@ struct TracksRemovedResult: ItemRemovedResult {
         self.trackIndexesInGroup = trackIndexesInGroup
         self.parentGroup = parentGroup
         self.groupIndex = groupIndex
+    }
+}
+
+struct ItemMovedResults {
+    
+    let results: [ItemMovedResult]
+    
+    init(_ results: [ItemMovedResult]) {
+        self.results = results
+    }
+}
+
+protocol ItemMovedResult {
+    
+    var sortIndex: Int {get}
+}
+
+struct GroupMovedResult: ItemMovedResult {
+    
+    let oldGroupIndex: Int
+    let newGroupIndex: Int
+    
+    var sortIndex: Int {
+        return oldGroupIndex
+    }
+    
+    init(_ oldGroupIndex: Int, _ newGroupIndex: Int) {
+        
+        self.oldGroupIndex = oldGroupIndex
+        self.newGroupIndex = newGroupIndex
+    }
+}
+
+struct TrackMovedResult: ItemMovedResult {
+    
+    let oldTrackIndex: Int
+    let newTrackIndex: Int
+    let parentGroup: Group
+    
+    var sortIndex: Int {
+        return oldTrackIndex
+    }
+    
+    init(_ oldTrackIndex: Int, _ newTrackIndex: Int, _ parentGroup: Group) {
+        
+        self.oldTrackIndex = oldTrackIndex
+        self.newTrackIndex = newTrackIndex
+        self.parentGroup = parentGroup
     }
 }

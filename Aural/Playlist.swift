@@ -154,6 +154,8 @@ class Playlist: PlaylistCRUDProtocol {
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> RemoveOperationResults {
         
+        let tim = TimerUtils.start("removeTracksAndGroups")
+        
         // Remove file/track mappings
         var removedTracks: [Track] = tracks
         groups.forEach({removedTracks.append(contentsOf: $0.tracks)})
@@ -176,7 +178,21 @@ class Playlist: PlaylistCRUDProtocol {
         
         let flatPlaylistIndexes = flatPlaylist.removeTracks(removedTracks)
         
-        return RemoveOperationResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: flatPlaylistIndexes)
+        let results = RemoveOperationResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: flatPlaylistIndexes)
+        
+        tim.end()
+        print("removeTracksAndGroups:", tim.durationMsecs!)
+        TimerUtils.printStats()
+        
+        return results
+    }
+    
+    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults {
+        return groupingPlaylists[groupType]!.moveTracksAndGroupsUp(tracks, groups)
+    }
+    
+    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults {
+        return groupingPlaylists[groupType]!.moveTracksAndGroupsDown(tracks, groups)
     }
     
     func displayNameFor(_ type: GroupType, _ track: Track) -> String {

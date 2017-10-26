@@ -40,6 +40,11 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistUpdateQueue.qualityOfService = .background
     }
     
+    func clearPlaylist() {
+        playlist.clear()
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, .all))
+    }
+    
     func removeTracks() {
         
         let selectedIndexes = tracksView.selectedRowIndexes
@@ -151,7 +156,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         }
     }
     
-    func clearPlaylist() {
+    func refresh() {
         tracksView.reloadData()
     }
     
@@ -268,11 +273,9 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
             
             switch (msg.actionType) {
                 
-            case .refresh: tracksView.reloadData()
+            case .refresh: refresh()
                 
             case .removeTracks: removeTracks()
-                
-            case .clearPlaylist: clearPlaylist()
                 
             case .moveTracksUp: moveTracksUp()
                 

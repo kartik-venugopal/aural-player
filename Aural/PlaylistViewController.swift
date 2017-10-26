@@ -190,8 +190,8 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         let message = PlaylistActionMessage(.clearPlaylist, PlaylistViewState.current)
         SyncMessenger.publishActionMessage(message)
         
-//        let refreshMsg = PlaylistActionMessage(.refresh, .all)
-//        SyncMessenger.publishActionMessage(refreshMsg)
+        let refreshMsg = PlaylistActionMessage(.refresh, .all)
+        SyncMessenger.publishActionMessage(refreshMsg)
         
         updatePlaylistSummary()
         

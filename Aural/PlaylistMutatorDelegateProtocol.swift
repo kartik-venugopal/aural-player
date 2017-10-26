@@ -42,6 +42,10 @@ protocol PlaylistMutatorDelegateProtocol {
      */
     func moveTracksDown(_ indexes: IndexSet) -> IndexSet
     
+    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults
+    
+    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults
+    
     // Sorts the playlist according to the specified sort parameters
     func sort(_ sort: Sort)
     

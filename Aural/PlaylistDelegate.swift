@@ -64,6 +64,14 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         return mutator.moveTracksDown(indexes)
     }
     
+    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults {
+        return mutator.moveTracksAndGroupsUp(tracks, groups, groupType)
+    }
+    
+    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults {
+        return mutator.moveTracksAndGroupsDown(tracks, groups, groupType)
+    }
+    
     func clear() {
         mutator.clear()
     }
