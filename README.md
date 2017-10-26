@@ -48,7 +48,7 @@ Wanna try it out ? The latest app bundle can be found in the compressed archive 
 
 ## Recent updates
 
-10/15/2017: **Multiple selection and drag/drop reordering in playlist** - The playlist now allows selection of multiple items at once, and reordering by dragging and dropping. This makes reordering and/or removal of multiple playlist tracks much less tedious.
+10/15/2017: **Multiple selection, type selection, and drag/drop reordering in playlist** - The playlist now allows selection of multiple items at once, and type selection to find tracks quickly by typing their name. Also, it now allows reordering by dragging and dropping. This makes reordering, and/or removal of multiple playlist tracks much less tedious, and provides a quick way to search for tracks by name. (Full-fledged search is still available)
 
 10/12/2017: **New playlist navigation functions** - New functions have been added for more convenient playlist navigation. These include: 1 - Show playing track within playlist, 2 - Scroll to top of playlist, and 3 - Scroll to bottom of playlist.
 
