@@ -362,7 +362,6 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         
         let tracksAndGroups = collectTracksAndGroups(outlineView)
         let tracks = tracksAndGroups.tracks
-        let groups = tracksAndGroups.groups
         
         let movingTracks = tracks.count > 0
         
@@ -381,7 +380,17 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
             }
             
         } else {
-            // TODO: reorderGroups()
+            
+            reorderGroups(sourceIndexSet, dropRow, destination)
+            
+            let src = sourceIndexSet.toArray()
+            let dest = destination.rows.toArray()
+            
+            var cur = 0
+            while (cur < src.count) {
+                outlineView.moveItem(at: src[cur], inParent: nil, to: dest[cur], inParent: nil)
+                cur += 1
+            }
         }
     }
     
@@ -469,6 +478,98 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
             
             // For each destination row, copy over a source item into the corresponding destination hole
             let reorderOperation = TrackOverwriteOperation(group: parentGroup, srcTrack: sourceItems[cursor], destIndex: $0)
+            playlistReorderOperations.append(reorderOperation)
+            cursor += 1
+        })
+        
+        // Submit the reorder operations to the playlist
+        playlistDelegate.reorderTracks(playlistReorderOperations, self.grouping)
+    }
+    
+    private func reorderGroups(_ sourceIndexSet: IndexSet, _ dropRow: Int, _ destination: (rows: IndexSet, partitionPoint: Int, sourceIndexesAboveDropRow: [Int], sourceIndexesBelowDropRow: [Int])) {
+        
+        // TODO: Simplify this algorithm. Remove source items and insert at destination indexes
+        
+        // Step 1 - Store all source items (tracks) that are being reordered, in a temporary location.
+        var sourceItems = [Group]()
+        
+        // Make sure they the source indexes are iterated in ascending order. This will be important in Step 4.
+        sourceIndexSet.sorted(by: {x, y -> Bool in x < y}).forEach({sourceItems.append(playlist.getGroupAt(self.grouping, $0))})
+        
+        let sourceIndexesAboveDropRow = destination.sourceIndexesAboveDropRow
+        
+        // Source rows below the drop row need to be sorted in descending order for iteration during percolation
+        let sourceIndexesBelowDropRow = destination.sourceIndexesBelowDropRow.sorted(by: {x, y -> Bool in x > y})
+        
+        // Collect all reorder operations, in sequence, for later submission to the playlist
+        var playlistReorderOperations = [GroupingPlaylistReorderOperation]()
+        
+        // Step 2 - Percolate up (above dropRow). As items move up, holes move down.
+        if (sourceIndexesAboveDropRow.count > 0) {
+            
+            // Cursor that keeps track of the current index being processed. Initial value will be one row below the first source index in sourceIndexesAboveDropRow.
+            var cursor = sourceIndexesAboveDropRow[0] + 1
+            
+            // Keeps track of how many "holes" (i.e. empty playlist rows) have been encountered thus far. Starting below the first source index in sourceIndexesAboveDropRow, we already have one "hole".
+            var holes = 1
+            
+            // Iterate down through the rows, till the partitionPoint
+            while (cursor <= destination.partitionPoint) {
+                
+                // If this is a source row, mark it as a hole
+                if (sourceIndexesAboveDropRow.contains(cursor)) {
+                    holes += 1
+                    
+                } else {
+                    
+                    // Percolate the non-source item up into the farthest hole, swapping the hole with this item
+                    
+                    let reorderOperation = GroupCopyOperation(srcIndex: cursor, destIndex: cursor - holes)
+                    playlistReorderOperations.append(reorderOperation)
+                }
+                
+                cursor += 1
+            }
+        }
+        
+        // Step 3 - Percolate down (below dropRow). As items move down, holes move up.
+        if (sourceIndexesBelowDropRow.count > 0) {
+            
+            // Cursor that keeps track of the current index being processed. Initial value will be one row above the first source index in sourceIndexesBelowDropRow.
+            var cursor = sourceIndexesBelowDropRow[0] - 1
+            
+            // Keeps track of how many "holes" (i.e. empty playlist rows) have been encountered thus far. Starting above the first source index in sourceIndexesBelowDropRow, we already have one "hole".
+            var holes = 1
+            
+            // Iterate up through the rows, till the partitionPoint
+            while (cursor > destination.partitionPoint) {
+                
+                // If this is a source row, mark it as a hole
+                if (sourceIndexesBelowDropRow.contains(cursor)) {
+                    holes += 1
+                    
+                } else {
+                    
+                    // Percolate the non-source item down into the farthest hole, swapping the hole with this item
+                    
+                    let reorderOperation = GroupCopyOperation(srcIndex: cursor, destIndex: cursor + holes)
+                    playlistReorderOperations.append(reorderOperation)
+                }
+                
+                cursor -= 1
+            }
+        }
+        
+        // Step 4 - Copy over the source items into the destination holes
+        var cursor = 0
+        
+        // Destination rows need to be sorted in ascending order
+        let destinationRows = destination.rows.sorted(by: {x, y -> Bool in x < y})
+        
+        destinationRows.forEach({
+            
+            // For each destination row, copy over a source item into the corresponding destination hole
+            let reorderOperation = GroupOverwriteOperation(srcGroup: sourceItems[cursor], destIndex: $0)
             playlistReorderOperations.append(reorderOperation)
             cursor += 1
         })

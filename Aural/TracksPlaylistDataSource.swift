@@ -194,6 +194,16 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
                 performReordering(sourceIndexSet, row, destination, dropOperation)
                 
                 // Refresh the playlist view (only the relevant rows), and re-select the source rows that were reordered
+                
+                let src = sourceIndexSet.toArray()
+                let dest = destination.rows.toArray()
+                
+                var cur = 0
+                while (cur < src.count) {
+                    tableView.moveRow(at: src[cur], to: dest[cur])
+                    cur += 1
+                }
+                
                 let minReloadIndex = min(sourceIndexSet.min()!, destination.rows.min()!)
                 let maxReloadIndex = max(sourceIndexSet.max()!, destination.rows.max()!)
                 

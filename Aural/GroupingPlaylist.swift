@@ -472,6 +472,14 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             } else if let overwriteOp = op as? TrackOverwriteOperation {
                 
                 overwriteOp.group.tracks[overwriteOp.destIndex] = overwriteOp.srcTrack
+                
+            } else if let copyOp = op as? GroupCopyOperation {
+                
+                groups[copyOp.destIndex] = groups[copyOp.srcIndex]
+                
+            } else if let overwriteOp = op as? GroupOverwriteOperation {
+                
+                groups[overwriteOp.destIndex] = overwriteOp.srcGroup
             }
         }
     }
