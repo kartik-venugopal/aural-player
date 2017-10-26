@@ -175,15 +175,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         for op in reorderOperations {
             
             // Check which kind of operation this is, and perform it
-            if let copyOp = op as? PlaylistCopyOperation {
-                
-                tracks[copyOp.destIndex] = tracks[copyOp.srcIndex]
-                
-            } else if let overwriteOp = op as? PlaylistOverwriteOperation {
-                
-                tracks[overwriteOp.destIndex] = overwriteOp.srcTrack
-                
-            } else if let removeOp = op as? TrackRemoveOperation {
+            if let removeOp = op as? TrackRemoveOperation {
                 
                 tracks.remove(at: removeOp.index)
                 

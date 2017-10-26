@@ -465,21 +465,21 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         for op in reorderOperations {
             
             // Check which kind of operation this is, and perform it
-            if let copyOp = op as? TrackCopyOperation {
+            if let removeOp = op as? GroupedTrackRemoveOperation {
                 
-                copyOp.group.tracks[copyOp.destIndex] = copyOp.group.tracks[copyOp.srcIndex]
+                removeOp.group.tracks.remove(at: removeOp.index)
                 
-            } else if let overwriteOp = op as? TrackOverwriteOperation {
+            } else if let insertOp = op as? GroupedTrackInsertOperation {
                 
-                overwriteOp.group.tracks[overwriteOp.destIndex] = overwriteOp.srcTrack
+                insertOp.group.tracks.insert(insertOp.srcTrack, at: insertOp.destIndex)
                 
-            } else if let copyOp = op as? GroupCopyOperation {
+            } else if let removeOp = op as? GroupRemoveOperation {
                 
-                groups[copyOp.destIndex] = groups[copyOp.srcIndex]
+                groups.remove(at: removeOp.index)
                 
-            } else if let overwriteOp = op as? GroupOverwriteOperation {
+            } else if let insertOp = op as? GroupInsertOperation {
                 
-                groups[overwriteOp.destIndex] = overwriteOp.srcGroup
+                groups.insert(insertOp.srcGroup, at: insertOp.destIndex)
             }
         }
     }

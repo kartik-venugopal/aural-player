@@ -3,20 +3,6 @@ import Foundation
 // Marker protocol for a playlist reorder operation
 protocol PlaylistReorderOperation {}
 
-// Denotes an operation to copy a playlist track from one index to another, overwriting the destination
-struct PlaylistCopyOperation: PlaylistReorderOperation {
-    
-    var srcIndex: Int
-    var destIndex: Int
-}
-
-// Denotes an operation to copy a given track to a destination index, overwriting the destination
-struct PlaylistOverwriteOperation: PlaylistReorderOperation {
-    
-    var srcTrack: Track
-    var destIndex: Int
-}
-
 struct TrackRemoveOperation: PlaylistReorderOperation {
     
     var index: Int
@@ -30,32 +16,30 @@ struct TrackInsertOperation: PlaylistReorderOperation {
 
 protocol GroupingPlaylistReorderOperation {}
 
-// Denotes an operation to copy a playlist track from one index to another, overwriting the destination
-struct TrackCopyOperation: GroupingPlaylistReorderOperation {
+struct GroupedTrackRemoveOperation: GroupingPlaylistReorderOperation {
     
     var group: Group
-    var srcIndex: Int
-    var destIndex: Int
+    var index: Int
 }
 
-// Denotes an operation to copy a given track to a destination index, overwriting the destination
-struct TrackOverwriteOperation: GroupingPlaylistReorderOperation {
+struct GroupedTrackInsertOperation: GroupingPlaylistReorderOperation {
     
     var group: Group
     var srcTrack: Track
-    var destIndex: Int
-}
-
-// Denotes an operation to copy a playlist track from one index to another, overwriting the destination
-struct GroupCopyOperation: GroupingPlaylistReorderOperation {
     
     var srcIndex: Int
     var destIndex: Int
 }
 
-// Denotes an operation to copy a given track to a destination index, overwriting the destination
-struct GroupOverwriteOperation: GroupingPlaylistReorderOperation {
+struct GroupRemoveOperation: GroupingPlaylistReorderOperation {
+    
+    var index: Int
+}
+
+struct GroupInsertOperation: GroupingPlaylistReorderOperation {
     
     var srcGroup: Group
+    
+    var srcIndex: Int
     var destIndex: Int
 }

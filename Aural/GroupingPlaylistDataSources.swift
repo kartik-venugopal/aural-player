@@ -130,8 +130,6 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
     // Drag n drop - determines the drag/drop operation
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
         
-        print("Dest item:", item, "childIndex:", index)
-    
         // If the source is the outlineView, that means playlist tracks/groups are being reordered
         if (info.draggingSource() is NSOutlineView) {
             
@@ -154,7 +152,6 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         
         // All items selected
         if outlineView.selectedRowIndexes.count == outlineView.numberOfRows {
-            print("\nAll items selected")
             return false
         }
         
@@ -167,7 +164,6 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         
         // Cannot move both groups and tracks
         if (movingTracks && movingGroups) {
-            print("\nCannot move both groups and tracks")
             return false
         }
         
@@ -185,7 +181,6 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
             
             // Cannot move tracks from different groups
             if (parentGroups.count > 1) {
-                print("\nCannot move tracks from different groups")
                 return false
             }
             
@@ -193,13 +188,11 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
             
             // All tracks within group selected
             if tracks.count == group.tracks.count {
-                print("\nAll tracks within group selected")
                 return false
             }
             
             // Validate parent group and child index
             if (parent == nil || (!(parent is Group)) || ((parent! as! Group) !== group) || childIndex < 0) {
-                print("\nInvalid parent or childIndex")
                 return false
             }
             
@@ -207,19 +200,16 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
          
             // If all groups are selected, they cannot be moved
             if (groups.count == playlist.getNumberOfGroups(self.grouping)) {
-                print("\nAll groups selected")
                 return false
             }
             
             // Validate parent group and child index
             if (parent != nil || childIndex < 0) {
-                print("\nInvalid parent group or childIndex")
                 return false
             }
         }
         
         // Doesn't match any of the invalid cases, it's a valid operation
-        print("\nValid drop !")
         return true
     }
     
@@ -253,15 +243,9 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
             let childIndexes = getSelectedChildIndexes(outlineView)
             let destination = calculateReorderingDestination(childIndexes, item, index)
             
-            print("Dest rows:", destination.rows.toArray(), "partPt:", destination.partitionPoint, "above:", destination.sourceIndexesAboveDropRow, "below", destination.sourceIndexesBelowDropRow)
-            
             performReordering(outlineView, childIndexes, index, destination)
-
-            // Refresh the playlist view (only the relevant rows), and re-select the source rows that were reordered
-            
             
             return true
-            
             
         } else {
             
@@ -313,7 +297,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
      Then, the partitionPoint will be 5 (it is the last (highest index) destination row for source items that were above the dropRow).
      
      */
-    private func calculateReorderingDestination(_ sourceIndexSet: IndexSet, _ parent: Any?, _ childIndex: Int) -> (rows: IndexSet, partitionPoint: Int, sourceIndexesAboveDropRow: [Int], sourceIndexesBelowDropRow: [Int]) {
+    private func calculateReorderingDestination(_ sourceIndexSet: IndexSet, _ parent: Any?, _ childIndex: Int) -> IndexSet {
         
         // Find out how many source items are above the dropRow and how many below
         let sourceIndexesAboveDropRow = sourceIndexSet.filter({$0 < childIndex})
@@ -325,9 +309,6 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         // The highest index in the destination rows
         var maxDestinationRow: Int
         
-        // Partition point for source items (explained in function comments above)
-        var partitionPoint: Int = 0
-        
         // If the drop is being performed on the dropRow, the destination rows will further depend on whether there are more source items above or below the dropRow.
         if (sourceIndexesAboveDropRow.count > sourceIndexesBelowDropRow.count) {
             
@@ -336,10 +317,8 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
             // All source items above the dropRow will form a contiguous block ending at the dropRow
             // All source items below the dropRow will form a contiguous block starting one row below the dropRow and extending below it
             
-            minDestinationRow = childIndex - sourceIndexesAboveDropRow.count + 1
-            maxDestinationRow = childIndex + sourceIndexesBelowDropRow.count
-            
-            partitionPoint = childIndex
+            minDestinationRow = childIndex - sourceIndexesAboveDropRow.count
+            maxDestinationRow = childIndex + sourceIndexesBelowDropRow.count - 1
             
         } else {
             
@@ -350,15 +329,12 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
             
             minDestinationRow = childIndex - sourceIndexesAboveDropRow.count
             maxDestinationRow = childIndex + sourceIndexesBelowDropRow.count - 1
-            
-            partitionPoint = childIndex - 1
         }
         
-        
-        return (IndexSet(minDestinationRow...maxDestinationRow), partitionPoint, sourceIndexesAboveDropRow, sourceIndexesBelowDropRow)
+        return IndexSet(minDestinationRow...maxDestinationRow)
     }
     
-    private func performReordering(_ outlineView: NSOutlineView, _ sourceIndexSet: IndexSet, _ dropRow: Int, _ destination: (rows: IndexSet, partitionPoint: Int, sourceIndexesAboveDropRow: [Int], sourceIndexesBelowDropRow: [Int])) {
+    private func performReordering(_ outlineView: NSOutlineView, _ sourceIndexSet: IndexSet, _ dropRow: Int, _ destination: IndexSet) {
         
         let tracksAndGroups = collectTracksAndGroups(outlineView)
         let tracks = tracksAndGroups.tracks
@@ -368,214 +344,138 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         if (movingTracks) {
             
             let group = outlineView.parent(forItem: tracks[0]) as! Group
-            reorderTracks(sourceIndexSet, group, dropRow, destination)
+            let reorderOps = reorderTracks(sourceIndexSet, group, dropRow, destination)
             
-            let src = sourceIndexSet.toArray()
-            let dest = destination.rows.toArray()
+            var moveUpOps = [GroupedTrackInsertOperation]()
+            var moveDownOps = [GroupedTrackInsertOperation]()
             
-            var cur = 0
-            while (cur < src.count) {
-                outlineView.moveItem(at: src[cur], inParent: group, to: dest[cur], inParent: group)
-                cur += 1
+            for op in reorderOps {
+                
+                if let insertOp = op as? GroupedTrackInsertOperation {
+                    
+                    if insertOp.destIndex < dropRow {
+                        moveDownOps.append(insertOp)
+                    } else {
+                        moveUpOps.append(insertOp)
+                    }
+                }
             }
+            
+            moveUpOps = moveUpOps.sorted(by: {o1, o2 -> Bool in return o1.destIndex < o2.destIndex})
+            moveDownOps = moveDownOps.sorted(by: {o1, o2 -> Bool in return o1.destIndex > o2.destIndex})
+            
+            moveDownOps.forEach({outlineView.moveItem(at: $0.srcIndex, inParent: $0.group, to: $0.destIndex, inParent: $0.group)})
+            moveUpOps.forEach({outlineView.moveItem(at: $0.srcIndex, inParent: $0.group, to: $0.destIndex, inParent: $0.group)})
             
         } else {
             
-            reorderGroups(sourceIndexSet, dropRow, destination)
+            let reorderOps = reorderGroups(sourceIndexSet, dropRow, destination)
             
-            let src = sourceIndexSet.toArray()
-            let dest = destination.rows.toArray()
+            var moveUpOps = [GroupInsertOperation]()
+            var moveDownOps = [GroupInsertOperation]()
             
-            var cur = 0
-            while (cur < src.count) {
-                outlineView.moveItem(at: src[cur], inParent: nil, to: dest[cur], inParent: nil)
-                cur += 1
+            for op in reorderOps {
+                
+                if let insertOp = op as? GroupInsertOperation {
+                    
+                    if insertOp.destIndex < dropRow {
+                        moveDownOps.append(insertOp)
+                    } else {
+                        moveUpOps.append(insertOp)
+                    }
+                }
             }
+            
+            moveUpOps = moveUpOps.sorted(by: {o1, o2 -> Bool in return o1.destIndex < o2.destIndex})
+            moveDownOps = moveDownOps.sorted(by: {o1, o2 -> Bool in return o1.destIndex > o2.destIndex})
+            
+            moveDownOps.forEach({outlineView.moveItem(at: $0.srcIndex, inParent: nil, to: $0.destIndex, inParent: nil)})
+            moveUpOps.forEach({outlineView.moveItem(at: $0.srcIndex, inParent: nil, to: $0.destIndex, inParent: nil)})
         }
     }
     
-    private func reorderTracks(_ sourceIndexSet: IndexSet, _ parentGroup: Group, _ dropRow: Int, _ destination: (rows: IndexSet, partitionPoint: Int, sourceIndexesAboveDropRow: [Int], sourceIndexesBelowDropRow: [Int])) {
+    private func reorderTracks(_ sourceIndexSet: IndexSet, _ parentGroup: Group, _ dropRow: Int, _ destination: IndexSet) -> [GroupingPlaylistReorderOperation] {
         
-        // TODO: Simplify this algorithm. Remove source items and insert at destination indexes
+        // Collect all reorder operations, in sequence, for later submission to the playlist
+        var playlistReorderOperations = [GroupingPlaylistReorderOperation]()
         
         // Step 1 - Store all source items (tracks) that are being reordered, in a temporary location.
         var sourceItems = [Track]()
+        var sourceIndexMappings = [Track: Int]()
         
-        // Make sure they the source indexes are iterated in ascending order. This will be important in Step 4.
-        sourceIndexSet.sorted(by: {x, y -> Bool in x < y}).forEach({sourceItems.append(parentGroup.tracks[$0])})
-        
-        let sourceIndexesAboveDropRow = destination.sourceIndexesAboveDropRow
-        
-        // Source rows below the drop row need to be sorted in descending order for iteration during percolation
-        let sourceIndexesBelowDropRow = destination.sourceIndexesBelowDropRow.sorted(by: {x, y -> Bool in x > y})
-        
-        // Collect all reorder operations, in sequence, for later submission to the playlist
-        var playlistReorderOperations = [GroupingPlaylistReorderOperation]()
-        
-        // Step 2 - Percolate up (above dropRow). As items move up, holes move down.
-        if (sourceIndexesAboveDropRow.count > 0) {
+        // Make sure they the source indexes are iterated in descending order. This will be important in Step 4.
+        sourceIndexSet.sorted(by: {x, y -> Bool in x > y}).forEach({
             
-            // Cursor that keeps track of the current index being processed. Initial value will be one row below the first source index in sourceIndexesAboveDropRow.
-            var cursor = sourceIndexesAboveDropRow[0] + 1
-            
-            // Keeps track of how many "holes" (i.e. empty playlist rows) have been encountered thus far. Starting below the first source index in sourceIndexesAboveDropRow, we already have one "hole".
-            var holes = 1
-            
-            // Iterate down through the rows, till the partitionPoint
-            while (cursor <= destination.partitionPoint) {
-                
-                // If this is a source row, mark it as a hole
-                if (sourceIndexesAboveDropRow.contains(cursor)) {
-                    holes += 1
-                    
-                } else {
-                    
-                    // Percolate the non-source item up into the farthest hole, swapping the hole with this item
-                    
-                    let reorderOperation = TrackCopyOperation(group: parentGroup, srcIndex: cursor, destIndex: cursor - holes)
-                    playlistReorderOperations.append(reorderOperation)
-                }
-                
-                cursor += 1
-            }
-        }
-        
-        // Step 3 - Percolate down (below dropRow). As items move down, holes move up.
-        if (sourceIndexesBelowDropRow.count > 0) {
-            
-            // Cursor that keeps track of the current index being processed. Initial value will be one row above the first source index in sourceIndexesBelowDropRow.
-            var cursor = sourceIndexesBelowDropRow[0] - 1
-            
-            // Keeps track of how many "holes" (i.e. empty playlist rows) have been encountered thus far. Starting above the first source index in sourceIndexesBelowDropRow, we already have one "hole".
-            var holes = 1
-            
-            // Iterate up through the rows, till the partitionPoint
-            while (cursor > destination.partitionPoint) {
-                
-                // If this is a source row, mark it as a hole
-                if (sourceIndexesBelowDropRow.contains(cursor)) {
-                    holes += 1
-                    
-                } else {
-                    
-                    // Percolate the non-source item down into the farthest hole, swapping the hole with this item
-                    
-                    let reorderOperation = TrackCopyOperation(group: parentGroup, srcIndex: cursor, destIndex: cursor + holes)
-                    playlistReorderOperations.append(reorderOperation)
-                }
-                
-                cursor -= 1
-            }
-        }
+            let track = parentGroup.tracks[$0]
+            sourceItems.append(track)
+            sourceIndexMappings[track] = $0
+            playlistReorderOperations.append(GroupedTrackRemoveOperation(group: parentGroup, index: $0))
+        })
         
         // Step 4 - Copy over the source items into the destination holes
         var cursor = 0
         
         // Destination rows need to be sorted in ascending order
-        let destinationRows = destination.rows.sorted(by: {x, y -> Bool in x < y})
+        let destinationRows = destination.sorted(by: {x, y -> Bool in x < y})
+        
+        sourceItems = sourceItems.reversed()
         
         destinationRows.forEach({
             
             // For each destination row, copy over a source item into the corresponding destination hole
-            let reorderOperation = TrackOverwriteOperation(group: parentGroup, srcTrack: sourceItems[cursor], destIndex: $0)
+            let track = sourceItems[cursor]
+            let srcIndex = sourceIndexMappings[track]!
+            let reorderOperation = GroupedTrackInsertOperation(group: parentGroup, srcTrack: track, srcIndex: srcIndex, destIndex: $0)
             playlistReorderOperations.append(reorderOperation)
             cursor += 1
         })
         
         // Submit the reorder operations to the playlist
         playlistDelegate.reorderTracks(playlistReorderOperations, self.grouping)
+        
+        return playlistReorderOperations
     }
     
-    private func reorderGroups(_ sourceIndexSet: IndexSet, _ dropRow: Int, _ destination: (rows: IndexSet, partitionPoint: Int, sourceIndexesAboveDropRow: [Int], sourceIndexesBelowDropRow: [Int])) {
+    private func reorderGroups(_ sourceIndexSet: IndexSet, _ dropRow: Int, _ destination: IndexSet) -> [GroupingPlaylistReorderOperation] {
         
-        // TODO: Simplify this algorithm. Remove source items and insert at destination indexes
+        // Collect all reorder operations, in sequence, for later submission to the playlist
+        var playlistReorderOperations = [GroupingPlaylistReorderOperation]()
         
         // Step 1 - Store all source items (tracks) that are being reordered, in a temporary location.
         var sourceItems = [Group]()
+        var sourceIndexMappings = [Group: Int]()
         
-        // Make sure they the source indexes are iterated in ascending order. This will be important in Step 4.
-        sourceIndexSet.sorted(by: {x, y -> Bool in x < y}).forEach({sourceItems.append(playlist.getGroupAt(self.grouping, $0))})
-        
-        let sourceIndexesAboveDropRow = destination.sourceIndexesAboveDropRow
-        
-        // Source rows below the drop row need to be sorted in descending order for iteration during percolation
-        let sourceIndexesBelowDropRow = destination.sourceIndexesBelowDropRow.sorted(by: {x, y -> Bool in x > y})
-        
-        // Collect all reorder operations, in sequence, for later submission to the playlist
-        var playlistReorderOperations = [GroupingPlaylistReorderOperation]()
-        
-        // Step 2 - Percolate up (above dropRow). As items move up, holes move down.
-        if (sourceIndexesAboveDropRow.count > 0) {
+        // Make sure they the source indexes are iterated in descending order. This will be important in Step 4.
+        sourceIndexSet.sorted(by: {x, y -> Bool in x > y}).forEach({
             
-            // Cursor that keeps track of the current index being processed. Initial value will be one row below the first source index in sourceIndexesAboveDropRow.
-            var cursor = sourceIndexesAboveDropRow[0] + 1
-            
-            // Keeps track of how many "holes" (i.e. empty playlist rows) have been encountered thus far. Starting below the first source index in sourceIndexesAboveDropRow, we already have one "hole".
-            var holes = 1
-            
-            // Iterate down through the rows, till the partitionPoint
-            while (cursor <= destination.partitionPoint) {
-                
-                // If this is a source row, mark it as a hole
-                if (sourceIndexesAboveDropRow.contains(cursor)) {
-                    holes += 1
-                    
-                } else {
-                    
-                    // Percolate the non-source item up into the farthest hole, swapping the hole with this item
-                    
-                    let reorderOperation = GroupCopyOperation(srcIndex: cursor, destIndex: cursor - holes)
-                    playlistReorderOperations.append(reorderOperation)
-                }
-                
-                cursor += 1
-            }
-        }
-        
-        // Step 3 - Percolate down (below dropRow). As items move down, holes move up.
-        if (sourceIndexesBelowDropRow.count > 0) {
-            
-            // Cursor that keeps track of the current index being processed. Initial value will be one row above the first source index in sourceIndexesBelowDropRow.
-            var cursor = sourceIndexesBelowDropRow[0] - 1
-            
-            // Keeps track of how many "holes" (i.e. empty playlist rows) have been encountered thus far. Starting above the first source index in sourceIndexesBelowDropRow, we already have one "hole".
-            var holes = 1
-            
-            // Iterate up through the rows, till the partitionPoint
-            while (cursor > destination.partitionPoint) {
-                
-                // If this is a source row, mark it as a hole
-                if (sourceIndexesBelowDropRow.contains(cursor)) {
-                    holes += 1
-                    
-                } else {
-                    
-                    // Percolate the non-source item down into the farthest hole, swapping the hole with this item
-                    
-                    let reorderOperation = GroupCopyOperation(srcIndex: cursor, destIndex: cursor + holes)
-                    playlistReorderOperations.append(reorderOperation)
-                }
-                
-                cursor -= 1
-            }
-        }
+            let group = playlist.getGroupAt(self.grouping, $0)
+            sourceItems.append(group)
+            sourceIndexMappings[group] = $0
+            playlistReorderOperations.append(GroupRemoveOperation(index: $0))
+        })
         
         // Step 4 - Copy over the source items into the destination holes
         var cursor = 0
         
         // Destination rows need to be sorted in ascending order
-        let destinationRows = destination.rows.sorted(by: {x, y -> Bool in x < y})
+        let destinationRows = destination.sorted(by: {x, y -> Bool in x < y})
+        
+        sourceItems = sourceItems.reversed()
         
         destinationRows.forEach({
             
             // For each destination row, copy over a source item into the corresponding destination hole
-            let reorderOperation = GroupOverwriteOperation(srcGroup: sourceItems[cursor], destIndex: $0)
+            let group = sourceItems[cursor]
+            let srcIndex = sourceIndexMappings[group]!
+            let reorderOperation = GroupInsertOperation(srcGroup: group, srcIndex: srcIndex, destIndex: $0)
             playlistReorderOperations.append(reorderOperation)
             cursor += 1
         })
         
         // Submit the reorder operations to the playlist
         playlistDelegate.reorderTracks(playlistReorderOperations, self.grouping)
+        
+        return playlistReorderOperations
     }
 }
 
