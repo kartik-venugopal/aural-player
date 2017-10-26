@@ -33,14 +33,14 @@ protocol PlaylistMutatorDelegateProtocol {
     
         NOTE - Even if some tracks cannot move, those that can will be moved. i.e. This is not an all or nothing operation.
     */
-    func moveTracksUp(_ indexes: IndexSet) -> IndexSet
+    func moveTracksUp(_ indexes: IndexSet) -> ItemMovedResults
     
     /*
         Moves the tracks at the specified indexes, down one index, in the playlist, if they can be moved (they are not already at the bottom). Returns the new indexes of the tracks (for tracks that didn't move, the new index will match the old index)
      
         NOTE - Even if some tracks cannot move, those that can will be moved. i.e. This is not an all or nothing operation.
      */
-    func moveTracksDown(_ indexes: IndexSet) -> IndexSet
+    func moveTracksDown(_ indexes: IndexSet) -> ItemMovedResults
     
     func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults
     

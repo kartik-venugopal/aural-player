@@ -97,20 +97,19 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         return downIndex
     }
     
-    func moveTracksUp(_ indexes: IndexSet) -> [Int: Int] {
+    func moveTracksUp(_ indexes: IndexSet) -> ItemMovedResults {
         
         // Indexes need to be in ascending order, because tracks need to be moved up, one by one, from top to bottom of the playlist
         let ascendingOldIndexes = indexes.sorted(by: {x, y -> Bool in x < y})
         
         // Mappings of oldIndex (prior to move) -> newIndex (after move)
-        var indexMappings = [Int: Int]()
+        var results = [TrackMovedResult]()
         
         // Determine if there is a contiguous block of tracks at the top of the playlist, that cannot be moved. If there is, determine its size. At the end of the loop, the cursor's value will equal the size of the block.
         var unmovableBlockCursor = 0
         while (ascendingOldIndexes.contains(unmovableBlockCursor)) {
             
             // Since this track cannot be moved, map its old index to the same old index
-            indexMappings[unmovableBlockCursor] = unmovableBlockCursor
             unmovableBlockCursor += 1
         }
         
@@ -118,20 +117,24 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         if (unmovableBlockCursor < ascendingOldIndexes.count) {
             
             for index in unmovableBlockCursor...ascendingOldIndexes.count - 1 {
-                indexMappings[ascendingOldIndexes[index]] = moveTrackUp(ascendingOldIndexes[index])
+                
+                let oldIndex = ascendingOldIndexes[index]
+                let newIndex = moveTrackUp(oldIndex)
+                results.append(TrackMovedResult(oldIndex, newIndex))
             }
         }
         
-        return indexMappings
+        // Ascending order (by old index)
+        return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}))
     }
     
-    func moveTracksDown(_ indexes: IndexSet) -> [Int: Int] {
+    func moveTracksDown(_ indexes: IndexSet) -> ItemMovedResults {
         
         // Indexes need to be in descending order, because tracks need to be moved down, one by one, from bottom to top of the playlist
         let descendingOldIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
         
         // Mappings of oldIndex (prior to move) -> newIndex (after move)
-        var indexMappings = [Int: Int]()
+        var results = [TrackMovedResult]()
         
         // Determine if there is a contiguous block of tracks at the top of the playlist, that cannot be moved. If there is, determine its size.
         var unmovableBlockCursor = tracks.count - 1
@@ -142,7 +145,6 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         while (descendingOldIndexes.contains(unmovableBlockCursor)) {
             
             // Since this track cannot be moved, map its old index to the same old index
-            indexMappings[unmovableBlockCursor] = unmovableBlockCursor
             unmovableBlockCursor -= 1
             unmovableBlockSize += 1
         }
@@ -151,11 +153,15 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         if (unmovableBlockSize < descendingOldIndexes.count) {
             
             for index in unmovableBlockSize...descendingOldIndexes.count - 1 {
-                indexMappings[descendingOldIndexes[index]] = moveTrackDown(descendingOldIndexes[index])
+                
+                let oldIndex = descendingOldIndexes[index]
+                let newIndex = moveTrackDown(oldIndex)
+                results.append(TrackMovedResult(oldIndex, newIndex))
             }
         }
         
-        return indexMappings
+        // Descending order (by old index)
+        return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}))
     }
     
     // Swaps two tracks in the array of tracks

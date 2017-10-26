@@ -118,11 +118,11 @@ class Playlist: PlaylistCRUDProtocol {
         return flatPlaylist.indexOfTrack(track)
     }
     
-    func moveTracksDown(_ indexes: IndexSet) -> [Int : Int] {
+    func moveTracksDown(_ indexes: IndexSet) -> ItemMovedResults {
         return flatPlaylist.moveTracksDown(indexes)
     }
     
-    func moveTracksUp(_ indexes: IndexSet) -> [Int : Int] {
+    func moveTracksUp(_ indexes: IndexSet) -> ItemMovedResults {
         return flatPlaylist.moveTracksUp(indexes)
     }
     

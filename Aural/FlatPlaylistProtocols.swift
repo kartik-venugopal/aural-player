@@ -17,7 +17,6 @@ protocol FlatPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     // Adds a single track to the playlist, and returns its index within the playlist.
     func addTrackForIndex(_ track: Track) -> Int?
     
-    // TODO: Use IndexSet for argument
     // Removes tracks with the given indexes
     func removeTracks(_ indexes: IndexSet) -> [Track]
     
@@ -28,14 +27,14 @@ protocol FlatPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
      
      NOTE - Even if some tracks cannot move, those that can will be moved. i.e. This is not an all or nothing operation.
      */
-    func moveTracksUp(_ indexes: IndexSet) -> [Int: Int]
+    func moveTracksUp(_ indexes: IndexSet) -> ItemMovedResults
     
     /*
      Moves the tracks at the specified indexes, down one index, in the playlist, if they can be moved (they are not already at the bottom). Returns a mapping of the old indexes to the new indexes, for each of the tracks (for tracks that didn't move, the mapping will have the same key and value).
      
      NOTE - Even if some tracks cannot move, those that can will be moved. i.e. This is not an all or nothing operation.
      */
-    func moveTracksDown(_ indexes: IndexSet) -> [Int: Int]
+    func moveTracksDown(_ indexes: IndexSet) -> ItemMovedResults
     
     // Performs a sequence of playlist reorder operations
     func reorderTracks(_ reorderOperations: [PlaylistReorderOperation])

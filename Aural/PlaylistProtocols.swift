@@ -48,10 +48,10 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> RemoveOperationResults
     
     // See FlatPlaylistMutatorProtocol.moveTracksUp()
-    func moveTracksUp(_ indexes: IndexSet) -> [Int: Int]
+    func moveTracksUp(_ indexes: IndexSet) -> ItemMovedResults
     
     // See FlatPlaylistMutatorProtocol.moveTracksDown()
-    func moveTracksDown(_ indexes: IndexSet) -> [Int: Int]
+    func moveTracksDown(_ indexes: IndexSet) -> ItemMovedResults
     
     func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults
     

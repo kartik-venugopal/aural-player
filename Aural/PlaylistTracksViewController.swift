@@ -171,14 +171,8 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
             all tracks selected, don't do anything
          */
         if (numRows > 1 && selRows.count > 0 && selRows.count < numRows) {
-            
-            let newIndexes = playlist.moveTracksUp(selRows)
-            let refreshIndexes = selRows.union(newIndexes)
-            
-            // Reload data in the affected rows
-            tracksView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.playlistViewColumnIndexes)
-            
-            tracksView.selectRowIndexes(IndexSet(newIndexes), byExtendingSelection: false)
+            moveItems(playlist.moveTracksUp(selRows))
+            tracksView.scrollRowToVisible(tracksView.selectedRow)
         }
     }
     
@@ -193,14 +187,20 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
             all tracks selected, don't do anything
          */
         if (numRows > 1 && selRows.count > 0 && selRows.count < numRows) {
+            moveItems(playlist.moveTracksDown(selRows))
+            tracksView.scrollRowToVisible(tracksView.selectedRow)
+        }
+    }
+    
+    private func moveItems(_ results: ItemMovedResults) {
+        
+        for result in results.results {
             
-            let newIndexes = playlist.moveTracksDown(selRows)
-            let refreshIndexes = selRows.union(newIndexes)
+            let trackMovedResult = result as! TrackMovedResult
+            tracksView.moveRow(at: trackMovedResult.oldTrackIndex, to: trackMovedResult.newTrackIndex)
             
-            // Reload data in the affected rows
-            tracksView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.playlistViewColumnIndexes)
-            
-            tracksView.selectRowIndexes(IndexSet(newIndexes), byExtendingSelection: false)
+            let inx = [trackMovedResult.oldTrackIndex, trackMovedResult.newTrackIndex]
+            tracksView.reloadData(forRowIndexes: IndexSet(inx), columnIndexes: UIConstants.playlistViewColumnIndexes)
         }
     }
 

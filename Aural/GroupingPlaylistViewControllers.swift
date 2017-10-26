@@ -184,6 +184,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         tracks.forEach({allItems.append($0)})
         selectAllItems(allItems)
         
+        playlistView.scrollRowToVisible(playlistView.selectedRow)
+        
         tim.end()
     }
     
@@ -224,6 +226,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         groups.forEach({allItems.append($0)})
         tracks.forEach({allItems.append($0)})
         selectAllItems(allItems)
+        
+        playlistView.scrollRowToVisible(playlistView.selectedRow)
         
         tim.end()
     }

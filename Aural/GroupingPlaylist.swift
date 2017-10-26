@@ -528,13 +528,13 @@ struct TrackMovedResult: ItemMovedResult {
     
     let oldTrackIndex: Int
     let newTrackIndex: Int
-    let parentGroup: Group
+    let parentGroup: Group?
     
     var sortIndex: Int {
         return oldTrackIndex
     }
     
-    init(_ oldTrackIndex: Int, _ newTrackIndex: Int, _ parentGroup: Group) {
+    init(_ oldTrackIndex: Int, _ newTrackIndex: Int, _ parentGroup: Group? = nil) {
         
         self.oldTrackIndex = oldTrackIndex
         self.newTrackIndex = newTrackIndex
