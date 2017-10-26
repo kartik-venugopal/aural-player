@@ -281,21 +281,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
     }
     
     /*
-     In response to a playlist reordering by drag and drop, and given source indexes, a destination index, and the drop operation (on/above), determines which indexes the source rows will occupy, and a "partitionPoint", which is the dividing line between reordered items that were above (index less than) the dropRow and items that were below (index greater than) the dropRow ... it is the last (highest index) destination row for items that were above the dropRow.
-     
-     In addition the calculation returns the indexes above/below the dropRow, for use when performing the reordering.
-     
-     For example, if the source rows are [2,3,7], the dropRow is 5, and the destination rows are [4,5,6], the reordering will be as follows:
-     
-     Source items above the dropRow:
-     source at 2 -> destination at 4
-     source at 3 -> destination at 5 (partitionPoint)
-     
-     Source items below the dropRow:
-     source at 7 -> destination at 6
-     
-     Then, the partitionPoint will be 5 (it is the last (highest index) destination row for source items that were above the dropRow).
-     
+        In response to a playlist reordering by drag and drop, and given source indexes, a destination index, and the drop operation (on/above), determines which indexes the source rows will occupy.
      */
     private func calculateReorderingDestination(_ sourceIndexSet: IndexSet, _ parent: Any?, _ childIndex: Int) -> IndexSet {
         
@@ -303,33 +289,14 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         let sourceIndexesAboveDropRow = sourceIndexSet.filter({$0 < childIndex})
         let sourceIndexesBelowDropRow = sourceIndexSet.filter({$0 > childIndex})
         
+        // All source items above the dropRow will form a contiguous block ending at the dropRow
+        // All source items below the dropRow will form a contiguous block starting one row below the dropRow and extending below it
+        
         // The lowest index in the destination rows
-        var minDestinationRow: Int
+        let minDestinationRow = childIndex - sourceIndexesAboveDropRow.count
         
         // The highest index in the destination rows
-        var maxDestinationRow: Int
-        
-        // If the drop is being performed on the dropRow, the destination rows will further depend on whether there are more source items above or below the dropRow.
-        if (sourceIndexesAboveDropRow.count > sourceIndexesBelowDropRow.count) {
-            
-            // There are more source items above the dropRow than below it
-            
-            // All source items above the dropRow will form a contiguous block ending at the dropRow
-            // All source items below the dropRow will form a contiguous block starting one row below the dropRow and extending below it
-            
-            minDestinationRow = childIndex - sourceIndexesAboveDropRow.count
-            maxDestinationRow = childIndex + sourceIndexesBelowDropRow.count - 1
-            
-        } else {
-            
-            // There are more source items below the dropRow than above it
-            
-            // All source items above the dropRow will form a contiguous block ending just above (one row above) the dropRow
-            // All source items below the dropRow will form a contiguous block starting at the dropRow and extending below it
-            
-            minDestinationRow = childIndex - sourceIndexesAboveDropRow.count
-            maxDestinationRow = childIndex + sourceIndexesBelowDropRow.count - 1
-        }
+        let maxDestinationRow = childIndex + sourceIndexesBelowDropRow.count - 1
         
         return IndexSet(minDestinationRow...maxDestinationRow)
     }
@@ -369,6 +336,8 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
             
         } else {
             
+            // Reordering groups
+            
             let reorderOps = reorderGroups(sourceIndexSet, dropRow, destination)
             
             var moveUpOps = [GroupInsertOperation]()
@@ -391,6 +360,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
             
             moveDownOps.forEach({outlineView.moveItem(at: $0.srcIndex, inParent: nil, to: $0.destIndex, inParent: nil)})
             moveUpOps.forEach({outlineView.moveItem(at: $0.srcIndex, inParent: nil, to: $0.destIndex, inParent: nil)})
+            
         }
     }
     

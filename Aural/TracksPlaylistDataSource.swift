@@ -303,13 +303,12 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
         // Step 1 - Store all source items (tracks) that are being reordered, in a temporary location.
         var sourceItems = [Track]()
         
-        // Make sure they the source indexes are iterated in descending order. This will be important in Step 4.
+        // Make sure they the source indexes are iterated in descending order. This will be important later.
         sourceIndexSet.sorted(by: {x, y -> Bool in x > y}).forEach({
             sourceItems.append((playlist.peekTrackAt($0)?.track)!)
             playlistReorderOperations.append(TrackRemoveOperation(index: $0))
         })
         
-        // Step 4 - Copy over the source items into the destination holes
         var cursor = 0
         
         // Destination rows need to be sorted in ascending order
