@@ -358,7 +358,9 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     func moveTracksAndGroupsUp(_ tracks: [Track], _ groupsToMove: [Group]) -> ItemMovedResults {
         
         if (!groupsToMove.isEmpty) {
+            
             return moveGroupsUp(groupsToMove)
+            
         } else {
             
             // Find out which group these tracks belong to, and categorize them

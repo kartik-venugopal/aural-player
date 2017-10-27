@@ -69,21 +69,44 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     
     @IBAction func playSelectedTrackAction(_ sender: AnyObject) {
         
-        if (tracksView.selectedRow >= 0) {
-            
-            let oldTrack = player.getPlayingTrack()
-            
-            do {
+        if PlaylistViewState.current == .tracks {
+        
+            if (tracksView.selectedRow >= 0) {
                 
-                let track = try player.play(tracksView.selectedRow)
-                trackChange(oldTrack, track)
-                tracksView.deselectAll(self)
+                let oldTrack = player.getPlayingTrack()
                 
-            } catch let error {
-                
-                if (error is InvalidTrackError) {
-                    handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
+                do {
+                    
+                    let track = try player.play(tracksView.selectedRow)
+                    trackChange(oldTrack, track)
+                    tracksView.deselectAll(self)
+                    
+                } catch let error {
+                    
+                    if (error is InvalidTrackError) {
+                        handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
+                    }
                 }
+            }
+            
+        } else {
+            
+            var playlistView: NSOutlineView?
+            
+            switch PlaylistViewState.current {
+                
+            case .artists: playlistView = artistsView
+                
+            case .albums: playlistView = albumsView
+                
+            case .genres: playlistView = genresView
+                
+            default: playlistView = nil
+                
+            }
+            
+            if let view = playlistView {
+                playSelectedGroupedTrackAction(view)
             }
         }
     }
