@@ -69,7 +69,45 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     }
     
     func sort(_ sort: Sort) {
-        // TODO
+        
+        switch sort.field {
+            
+        // Sort by name
+        case .name:
+            
+            if sort.order == SortOrder.ascending {
+                groups.sort(by: compareGroups_ascendingByName)
+            } else {
+                groups.sort(by: compareGroups_descendingByName)
+            }
+            
+        // Sort by duration
+        case .duration:
+            
+            if sort.order == SortOrder.ascending {
+                groups.sort(by: compareGroups_ascendingByDuration)
+            } else {
+                groups.sort(by: compareGroups_descendingByDuration)
+            }
+        }
+    }
+    
+    // Comparison functions for different sort criteria
+    
+    private func compareGroups_ascendingByName(aGroup: Group, anotherGroup: Group) -> Bool {
+        return aGroup.name.compare(anotherGroup.name) == ComparisonResult.orderedAscending
+    }
+    
+    private func compareGroups_descendingByName(aGroup: Group, anotherGroup: Group) -> Bool {
+        return aGroup.name.compare(anotherGroup.name) == ComparisonResult.orderedDescending
+    }
+    
+    private func compareGroups_ascendingByDuration(aGroup: Group, anotherGroup: Group) -> Bool {
+        return aGroup.duration < anotherGroup.duration
+    }
+    
+    private func compareGroups_descendingByDuration(aGroup: Group, anotherGroup: Group) -> Bool {
+        return aGroup.duration > anotherGroup.duration
     }
     
     func addTrackForGroupInfo(_ track: Track) -> GroupedTrackAddResult {

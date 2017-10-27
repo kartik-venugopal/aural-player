@@ -49,6 +49,9 @@ protocol PlaylistMutatorDelegateProtocol {
     // Sorts the playlist according to the specified sort parameters
     func sort(_ sort: Sort)
     
+    // Sorts the playlist according to the specified sort parameters
+    func sort(_ sort: Sort, _ groupType: GroupType)
+    
     // Performs a sequence of playlist reorder operations
     func reorderTracks(_ reorderOperations: [PlaylistReorderOperation])
     

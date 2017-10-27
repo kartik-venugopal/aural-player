@@ -84,6 +84,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         mutator.sort(sort)
     }
     
+    func sort(_ sort: Sort, _ groupType: GroupType) {
+        mutator.sort(sort, groupType)
+    }
+    
     func reorderTracks(_ reorderOperations: [PlaylistReorderOperation]) {
         mutator.reorderTracks(reorderOperations)
     }

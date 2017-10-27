@@ -70,6 +70,9 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     
     // Notifies the playlist that info for this track has changed. The playlist may use the updates to re-group the track (by artist/album/genre, etc).
     func trackInfoUpdated(_ updatedTrack: Track)
+    
+    // Sorts the playlist according to the specified sort parameters
+    func sort(_ sort: Sort, _ groupType: GroupType)
 }
 
 /*

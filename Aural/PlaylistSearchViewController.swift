@@ -29,8 +29,6 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     
     @IBOutlet weak var searchCaseSensitive: NSButton!
     
-    @IBOutlet weak var playlistView: NSTableView!
-    
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
     private var searchQuery: SearchQuery = SearchQuery(text: "")
@@ -46,7 +44,7 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     @IBAction func searchPlaylistAction(_ sender: Any) {
         
         // Don't do anything if no tracks in playlist
-        if (playlistView.numberOfRows == 0) {
+        if (playlist.size() == 0) {
             return
         }
         

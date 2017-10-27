@@ -119,8 +119,20 @@ class Playlist: PlaylistCRUDProtocol {
     }
     
     func sort(_ sort: Sort) {
-        flatPlaylist.sort(sort)
-        groupingPlaylists.values.forEach({$0.sort(sort)})
+        doSort(sort)
+    }
+    
+    func sort(_ sort: Sort, _ groupType: GroupType) {
+        doSort(sort, groupType)
+    }
+    
+    private func doSort(_ sort: Sort, _ groupType: GroupType? = nil) {
+        
+        if let groupType = groupType {
+            groupingPlaylists[groupType]!.sort(sort)
+        } else {
+            flatPlaylist.sort(sort)
+        }
     }
     
     // Returns all state for this playlist that needs to be persisted to disk

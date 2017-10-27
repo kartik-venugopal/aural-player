@@ -16,8 +16,6 @@ class PlaylistSortViewController: NSViewController {
     @IBOutlet weak var sortAscending: NSButton!
     @IBOutlet weak var sortDescending: NSButton!
     
-    @IBOutlet weak var playlistView: NSTableView!
-    
     // Delegate that relays sort requests to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
@@ -31,7 +29,7 @@ class PlaylistSortViewController: NSViewController {
     @IBAction func sortPlaylistAction(_ sender: Any) {
         
         // Don't do anything if either no tracks or only 1 track in playlist
-        if (playlistView.numberOfRows < 2) {
+        if (playlist.size() < 2) {
             return
         }
         
@@ -50,11 +48,17 @@ class PlaylistSortViewController: NSViewController {
         sortOptions.order = sortAscending.state == 1 ? SortOrder.ascending : SortOrder.descending
         
         // Perform the sort
-        playlist.sort(sortOptions)
-        UIUtils.dismissModalDialog()
+        if let groupType = PlaylistViewState.groupType {
+            playlist.sort(sortOptions, groupType)
+        } else {
+            playlist.sort(sortOptions)
+        }
         
-        // Update the UI
-        playlistView.reloadData()
+        // Notify playlist view
+        let actionMsg = PlaylistActionMessage(.refresh, PlaylistViewState.current)
+        SyncMessenger.publishActionMessage(actionMsg)
+        
+        UIUtils.dismissModalDialog()
     }
     
     @IBAction func sortCancelBtnAction(_ sender: Any) {

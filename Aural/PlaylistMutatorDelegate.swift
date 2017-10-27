@@ -335,6 +335,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         changeListeners.forEach({$0.playlistReordered(newCursor)})
     }
     
+    func sort(_ sort: Sort, _ groupType: GroupType) {
+        playlist.sort(sort, groupType)
+    }
+    
     func consumeNotification(_ notification: NotificationMessage) {
         
         if (notification is AppLoadedNotification) {
