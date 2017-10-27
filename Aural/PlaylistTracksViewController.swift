@@ -122,9 +122,6 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
 
             if (index != nil && index! >= 0) {
                 tracksView.selectRowIndexes(IndexSet(integer: index!), byExtendingSelection: false)
-            } else {
-                // Select first track in list
-                tracksView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
             }
             
             showPlaylistSelectedRow()
@@ -286,7 +283,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
             case .refresh: refresh()
                 
             case .removeTracks: removeTracks()
-                
+
             case .moveTracksUp: moveTracksUp()
                 
             case .moveTracksDown: moveTracksDown()

@@ -90,11 +90,20 @@ class Playlist: PlaylistCRUDProtocol {
             allResults = allResults.union(resultsByAlbum)
         }
         
-        // Parent group info
         if let groupType = groupType {
+            
+            // Grouping playlist location
             
             for result in allResults.results {
                 result.location.groupInfo = getGroupingInfoForTrack(groupType, result.location.track)
+            }
+            
+        } else {
+            
+            // Flat playlist location
+            
+            for result in allResults.results {
+                result.location.trackIndex = indexOfTrack(result.location.track)
             }
         }
         
