@@ -209,11 +209,15 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     // Scrolls the playlist view to the very top
     @IBAction func scrollToTopAction(_ sender: AnyObject) {
         
+        let message = PlaylistActionMessage(.scrollToTop, PlaylistViewState.current)
+        SyncMessenger.publishActionMessage(message)
     }
     
     // Scrolls the playlist view to the very bottom
     @IBAction func scrollToBottomAction(_ sender: AnyObject) {
         
+        let message = PlaylistActionMessage(.scrollToBottom, PlaylistViewState.current)
+        SyncMessenger.publishActionMessage(message)
     }
     
     // Shows the currently playing track, within the playlist view

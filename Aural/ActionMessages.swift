@@ -30,9 +30,9 @@ enum ActionType {
     
     case moveTracksDown
     
-    case search
+    case scrollToTop
     
-    case sort
+    case scrollToBottom
 }
 
 struct PlaylistActionMessage: ActionMessage {

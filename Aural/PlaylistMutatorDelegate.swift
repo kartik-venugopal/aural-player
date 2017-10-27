@@ -115,8 +115,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                             
                             progress.tracksAdded += 1
                             
-                            let AsyncMessageProgress = TrackAddedAsyncMessageProgress(progress.tracksAdded, progress.totalTracks)
-                            let index = try addTrack(file, AsyncMessageProgress)
+                            let progressMsg = TrackAddedAsyncMessageProgress(progress.tracksAdded, progress.totalTracks)
+                            let index = try addTrack(file, progressMsg)
                             
                             if (autoplayOptions.autoplay && !progress.autoplayed && index >= 0) {
                                 
@@ -130,11 +130,6 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                                 progress.errors.append(error as! InvalidTrackError)
                             }
                         }
-                        
-                    } else {
-                        
-                        // Unsupported file type, ignore
-                        NSLog("Ignoring unsupported file: %@", file.path)
                     }
                 }
             }

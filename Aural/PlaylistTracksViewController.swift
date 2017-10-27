@@ -34,6 +34,8 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         SyncMessenger.subscribe(actionType: .moveTracksUp, subscriber: self)
         SyncMessenger.subscribe(actionType: .moveTracksDown, subscriber: self)
         SyncMessenger.subscribe(actionType: .refresh, subscriber: self)
+        SyncMessenger.subscribe(actionType: .scrollToTop, subscriber: self)
+        SyncMessenger.subscribe(actionType: .scrollToBottom, subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -137,7 +139,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     // Scrolls the playlist view to the very top
-    @IBAction func scrollToTopAction(_ sender: AnyObject) {
+    func scrollToTop() {
         
         if (tracksView.numberOfRows > 0) {
             tracksView.scrollRowToVisible(0)
@@ -145,7 +147,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     // Scrolls the playlist view to the very bottom
-    @IBAction func scrollToBottomAction(_ sender: AnyObject) {
+    func scrollToBottom() {
         
         if (tracksView.numberOfRows > 0) {
             tracksView.scrollRowToVisible(tracksView.numberOfRows - 1)
@@ -287,6 +289,10 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
             case .moveTracksUp: moveTracksUp()
                 
             case .moveTracksDown: moveTracksDown()
+                
+            case .scrollToTop: scrollToTop()
+                
+            case .scrollToBottom: scrollToBottom()
                 
             default: print("AM = ", String(describing: msg.actionType))
                 

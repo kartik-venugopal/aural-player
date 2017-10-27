@@ -44,6 +44,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         SyncMessenger.subscribe(actionType: .moveTracksUp, subscriber: self)
         SyncMessenger.subscribe(actionType: .moveTracksDown, subscriber: self)
         SyncMessenger.subscribe(actionType: .refresh, subscriber: self)
+        SyncMessenger.subscribe(actionType: .scrollToTop, subscriber: self)
+        SyncMessenger.subscribe(actionType: .scrollToBottom, subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -149,7 +151,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     // Scrolls the playlist view to the very top
-    @IBAction func scrollToTopAction(_ sender: AnyObject) {
+    func scrollToTop() {
         
         if (playlistView.numberOfRows > 0) {
             playlistView.scrollRowToVisible(0)
@@ -157,7 +159,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     // Scrolls the playlist view to the very bottom
-    @IBAction func scrollToBottomAction(_ sender: AnyObject) {
+    func scrollToBottom() {
         
         if (playlistView.numberOfRows > 0) {
             playlistView.scrollRowToVisible(playlistView.numberOfRows - 1)
@@ -329,6 +331,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             case .moveTracksUp: moveTracksUp()
                 
             case .moveTracksDown: moveTracksDown()
+                
+            case .scrollToTop: scrollToTop()
+                
+            case .scrollToBottom: scrollToBottom()
                 
             default: return
                 
