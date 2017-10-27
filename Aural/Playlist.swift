@@ -68,10 +68,45 @@ class Playlist: PlaylistCRUDProtocol {
         tracksByFilePath.removeAll()
     }
     
-    func search(_ searchQuery: SearchQuery) -> SearchResults {
+    private func doSearch(_ query: SearchQuery, _ groupType: GroupType? = nil) -> SearchResults {
+        
         // Smart search. Depending on query options, search either flat playlist or one of the grouped playlists. For ex, if searching by artist, it makes sense to search "Artists" playlist. Also, can split up the search into multiple parts, send them to different playlists, and put results together
         
-        return flatPlaylist.search(searchQuery)
+        var allResults: SearchResults = SearchResults([])
+        
+        if (query.fields.name || query.fields.title) {
+            allResults = flatPlaylist.search(query)
+        }
+        
+        if (query.fields.artist) {
+            
+            let resultsByArtist = groupingPlaylists[.artist]!.search(query)
+            allResults = allResults.union(resultsByArtist)
+        }
+        
+        if (query.fields.album) {
+            
+            let resultsByAlbum = groupingPlaylists[.album]!.search(query)
+            allResults = allResults.union(resultsByAlbum)
+        }
+        
+        // Parent group info
+        if let groupType = groupType {
+            
+            for result in allResults.results {
+                result.location.groupInfo = getGroupingInfoForTrack(groupType, result.location.track)
+            }
+        }
+        
+        return allResults
+    }
+    
+    func search(_ query: SearchQuery, _ groupType: GroupType) -> SearchResults {
+        return doSearch(query, groupType)
+    }
+    
+    func search(_ query: SearchQuery) -> SearchResults {
+        return doSearch(query)
     }
     
     func sort(_ sort: Sort) {

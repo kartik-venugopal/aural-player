@@ -1,6 +1,6 @@
 import Foundation
 
-protocol FlatPlaylistAccessorProtocol: CommonPlaylistAccessorProtocol {
+protocol FlatPlaylistAccessorProtocol {
     
     // Retrieve all tracks
     func getTracks() -> [Track]
@@ -10,6 +10,9 @@ protocol FlatPlaylistAccessorProtocol: CommonPlaylistAccessorProtocol {
  
     // Determines the index of a given track, within the playlist. Returns nil if the track doesn't exist within the playlist.
     func indexOfTrack(_ track: Track) -> Int?
+    
+    // Searches the playlist, given certain query parameters, and returns all matching results
+    func search(_ searchQuery: SearchQuery) -> SearchResults
 }
 
 protocol FlatPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {

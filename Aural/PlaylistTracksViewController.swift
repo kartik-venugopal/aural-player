@@ -27,6 +27,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.playingTrackInfoUpdatedNotification, subscriber: self)
+        SyncMessenger.subscribe(.searchResultSelectionRequest, subscriber: self)
         
         SyncMessenger.subscribe(actionType: .removeTracks, subscriber: self)
         SyncMessenger.subscribe(actionType: .clearPlaylist, subscriber: self)
@@ -115,12 +116,10 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     // Selects (and shows) a certain track within the playlist view
-    private func selectTrack(_ track: IndexedTrack?) {
+    private func selectTrack(_ index: Int?) {
         
         if (tracksView.numberOfRows > 0) {
-                
-            let index = track?.index
-            
+
             if (index != nil && index! >= 0) {
                 tracksView.selectRowIndexes(IndexSet(integer: index!), byExtendingSelection: false)
             } else {
@@ -206,7 +205,11 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
 
     // Shows the currently playing track, within the playlist view
     @IBAction func showInPlaylistAction(_ sender: Any) {
-        selectTrack(playbackInfo.getPlayingTrack())
+        selectTrack(playbackInfo.getPlayingTrack()?.index)
+    }
+    
+    private func showSearchResult(_ result: SearchResult) {
+        selectTrack(result.location.trackIndex)
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
@@ -260,6 +263,13 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        if PlaylistViewState.current == .tracks, let req = request as? SearchResultSelectionRequest {
+            showSearchResult(req.searchResult)
+            
+            return EmptyResponse.instance
+        }
+        
         return EmptyResponse.instance
     }
     

@@ -24,4 +24,7 @@ protocol PlaylistAccessorDelegateProtocol {
     
     // Searches the playlist, given certain query parameters, and returns all matching results
     func search(_ searchQuery: SearchQuery) -> SearchResults
+    
+    // Searches the playlist, given certain query parameters, and returns all matching results
+    func search(_ searchQuery: SearchQuery, _ groupType: GroupType) -> SearchResults
 }

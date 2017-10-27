@@ -1,6 +1,6 @@
 import Foundation
 
-protocol GroupingPlaylistAccessorProtocol: CommonPlaylistAccessorProtocol {
+protocol GroupingPlaylistAccessorProtocol {
     
     func getGroupAt(_ index: Int) -> Group
     
@@ -13,6 +13,9 @@ protocol GroupingPlaylistAccessorProtocol: CommonPlaylistAccessorProtocol {
     func getIndexOf(_ group: Group) -> Int
     
     func displayNameFor(_ track: Track) -> String
+    
+    // Searches the playlist, given certain query parameters, and returns all matching results
+    func search(_ searchQuery: SearchQuery) -> SearchResults
 }
 
 protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {

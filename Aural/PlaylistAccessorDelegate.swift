@@ -36,6 +36,10 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
         return playlist.search(searchQuery)
     }
     
+    func search(_ searchQuery: SearchQuery, _ groupType: GroupType) -> SearchResults {
+        return playlist.search(searchQuery, groupType)
+    }
+    
     func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> GroupedTrack {
         
         // func getGroupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack

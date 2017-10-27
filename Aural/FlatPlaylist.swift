@@ -189,7 +189,6 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     func search(_ searchQuery: SearchQuery) -> SearchResults {
         
         var results: [SearchResult] = [SearchResult]()
-        var resultIndex = 1
         
         for i in 0...tracks.count - 1 {
             
@@ -197,12 +196,11 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
             let match = trackMatchesQuery(track: track, searchQuery: searchQuery)
             
             if (match.matched) {
-                results.append(SearchResult(resultIndex: resultIndex, trackIndex: i, match: (match.matchedField!, match.matchedFieldValue!)))
-                resultIndex += 1
+                results.append(SearchResult(location: SearchResultLocation(trackIndex: i, track: track, groupInfo: nil), match: (match.matchedField!, match.matchedFieldValue!)))
             }
         }
         
-        return SearchResults(results: results)
+        return SearchResults(results)
     }
     
     // Checks if a single track matches search criteria, and returns information about the match, if there is one
@@ -213,25 +211,14 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
             
             // Check both the filename and the display name
             
-            let lastPathComponent = track.file.deletingPathExtension().lastPathComponent
-            if (compare(lastPathComponent, searchQuery)) {
-                return (true, "filename", lastPathComponent)
+            let filename = track.file.deletingPathExtension().lastPathComponent
+            if (compare(filename, searchQuery)) {
+                return (true, "filename", filename)
             }
             
             let displayName = track.conciseDisplayName
             if (compare(displayName, searchQuery)) {
                 return (true, "name", displayName)
-            }
-        }
-        
-        // Add artist field if included in search
-        if (searchQuery.fields.artist) {
-            
-            if let artist = track.displayInfo.artist {
-                
-                if (compare(artist, searchQuery)) {
-                    return (true, "artist", artist)
-                }
             }
         }
         
@@ -242,20 +229,6 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
                 
                 if (compare(title, searchQuery)) {
                     return (true, "title", title)
-                }
-            }
-        }
-        
-        // Add album field if included in search
-        if (searchQuery.fields.album) {
-            
-            // Make sure album info has been loaded (it is loaded lazily)
-            MetadataReader.loadSearchMetadata(track)
-            
-            if let album = track.metadata[AVMetadataCommonKeyAlbumName]?.value {
-                
-                if (compare(album, searchQuery)) {
-                    return (true, "album", album)
                 }
             }
         }

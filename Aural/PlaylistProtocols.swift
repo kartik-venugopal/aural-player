@@ -3,7 +3,7 @@ import Foundation
 /*
     Contract for read-only playlist operations
  */
-protocol PlaylistAccessorProtocol: CommonPlaylistAccessorProtocol {
+protocol PlaylistAccessorProtocol {
     
     // Retrieve all tracks
     func getTracks() -> [Track]
@@ -23,6 +23,9 @@ protocol PlaylistAccessorProtocol: CommonPlaylistAccessorProtocol {
     // Returns a summary of the playlist - both size and total duration
     func summary() -> (size: Int, totalDuration: Double)
     
+    // Searches the playlist, given certain query parameters, and returns all matching results
+    func search(_ searchQuery: SearchQuery) -> SearchResults
+    
     func getGroupAt(_ type: GroupType, _ index: Int) -> Group
     
     func getNumberOfGroups(_ type: GroupType) -> Int
@@ -32,6 +35,9 @@ protocol PlaylistAccessorProtocol: CommonPlaylistAccessorProtocol {
     func getIndexOf(_ group: Group) -> Int
     
     func displayNameFor(_ type: GroupType, _ track: Track) -> String
+    
+    // Searches the playlist, given certain query parameters, and returns all matching results
+    func search(_ searchQuery: SearchQuery, _ groupType: GroupType) -> SearchResults
 }
 
 /*
@@ -70,12 +76,6 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     Contract for all read-only and mutating/write playlist operations
  */
 protocol PlaylistCRUDProtocol: PlaylistAccessorProtocol, PlaylistMutatorProtocol {
-}
-
-protocol CommonPlaylistAccessorProtocol {
-    
-    // Searches the playlist, given certain query parameters, and returns all matching results
-    func search(_ searchQuery: SearchQuery) -> SearchResults
 }
 
 protocol CommonPlaylistMutatorProtocol {

@@ -25,12 +25,51 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         groupsByName.removeAll()
     }
     
-    func sort(_ sort: Sort) {
-        // TODO
+    func search(_ query: SearchQuery) -> SearchResults {
+        
+        var results: [SearchResult] = [SearchResult]()
+        
+        // Return all tracks whose group name matches the text
+        for group in groups {
+            
+            if (compare(group.name, query)) {
+                
+                for track in group.tracks {
+                    
+                    results.append(SearchResult(location: SearchResultLocation(trackIndex: nil, track: track, groupInfo: nil), match: (getSearchFieldName(), group.name)))
+                }
+            }
+        }
+        
+        return SearchResults(results)
     }
     
-    func search(_ searchQuery: SearchQuery) -> SearchResults {
-        return SearchResults(results: [])
+    private func getSearchFieldName() -> String {
+        return type.rawValue
+    }
+    
+    private func compare(_ fieldVal: String, _ query: SearchQuery) -> Bool {
+        
+        let caseSensitive: Bool = query.options.caseSensitive
+        let queryText: String = caseSensitive ? query.text : query.text.lowercased()
+        let compared: String = caseSensitive ? fieldVal : fieldVal.lowercased()
+        let type: SearchType = query.type
+        
+        switch type {
+            
+        case .beginsWith: return compared.hasPrefix(queryText)
+            
+        case .endsWith: return compared.hasSuffix(queryText)
+            
+        case .equals: return compared == queryText
+            
+        case .contains: return compared.contains(queryText)
+            
+        }
+    }
+    
+    func sort(_ sort: Sort) {
+        // TODO
     }
     
     func addTrackForGroupInfo(_ track: Track) -> GroupedTrackAddResult {

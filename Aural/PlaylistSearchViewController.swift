@@ -62,7 +62,11 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     // Called when any of the search criteria have changed, performs a new search
     private func updateSearch() {
         
-        searchResults = playlist.search(searchQuery)
+        if (PlaylistViewState.current == .tracks) {
+            searchResults = playlist.search(searchQuery)
+        } else {
+            searchResults = playlist.search(searchQuery, PlaylistViewState.groupType!)
+        }
         
         if ((searchResults?.count)! > 0) {
             
@@ -99,7 +103,7 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     private func updateSearchPanelWithResult(searchResult: SearchResult) {
         
         // Select the track in the playlist view, to show the user where the track is
-        selectTrack(searchResult.trackIndex)
+        selectTrack(searchResult)
         
         let numResults = (searchResults?.count)!
         let resultsText = numResults == 1 ? "result found" : "results found"
@@ -112,10 +116,10 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     }
     
     // Selects a track within the playlist view, to show the user where the track is located within the playlist
-    private func selectTrack(_ index: Int) {
+    private func selectTrack(_ result: SearchResult) {
         
-        playlistView.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
-        playlistView.scrollRowToVisible(playlistView.selectedRow)
+        let msg = SearchResultSelectionRequest(result)
+        _ = SyncMessenger.publishRequest(msg)
     }
     
     @IBAction func searchDoneAction(_ sender: Any) {

@@ -37,6 +37,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.removeTrackRequest, subscriber: self)
+        SyncMessenger.subscribe(.searchResultSelectionRequest, subscriber: self)
         
         SyncMessenger.subscribe(actionType: .removeTracks, subscriber: self)
         SyncMessenger.subscribe(actionType: .clearPlaylist, subscriber: self)
@@ -82,7 +83,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         let tracks = tracksAndGroups.tracks
         let groups = tracksAndGroups.groups
         
-        // TODO: If all groups selected, clearPlaylist()
         if (groups.count == plAcc.getNumberOfGroups(self.groupType)) {
             clearPlaylist()
             return
@@ -270,6 +270,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
 //        selectTrack(playbackInfo.getPlayingTrack())
     }
     
+    private func showSearchResult(_ result: SearchResult) {
+        selectTrack(result.location.groupInfo)
+    }
+    
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         if let msg = message as? TrackAddedAsyncMessage {
@@ -299,9 +303,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
         
-        if (request is RemoveTrackRequest) {
-//            let req = request as! RemoveTrackRequest
-//            removeTracks([req.index])
+        if PlaylistViewState.current == self.viewType, let req = request as? SearchResultSelectionRequest {
+            showSearchResult(req.searchResult)
+            
+            return EmptyResponse.instance
         }
         
         return EmptyResponse.instance
@@ -311,14 +316,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         if let msg = message as? PlaylistActionMessage {
             
-//            print("Got AM:", String(describing: msg.actionType))
-            
             if (msg.viewType != self.viewType && msg.viewType != .all) {
-//                print("Not for ", String(describing: self.viewType), ". Ignoring AM ...")
                 return
             }
-            
-//            print("For ", String(describing: self.viewType), ". Processing AM ...")
             
             switch (msg.actionType) {
                 
@@ -330,7 +330,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 
             case .moveTracksDown: moveTracksDown()
                 
-            default: print("AM = ", String(describing: msg.actionType))
+            default: return
                 
             }
             

@@ -76,18 +76,13 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         tabViewButtons = [btnTracksView, btnArtistsView, btnAlbumsView, btnGenresView]
 
-        
-        artistsTabViewAction(self)
+        tracksTabViewAction(self)
         albumsTabViewAction(self)
         genresTabViewAction(self)
-        
-        // Hack to fix problem with NSOutlineView.insertItems()
-        //tabGroup.selectTabViewItem(at: 1)
-        //tabGroup.selectTabViewItem(at: 2)
-        //tabGroup.selectTabViewItem(at: 3)
+        artistsTabViewAction(self)
         
         // Show Tracks view, by default
-        tracksTabViewAction(self)
+//        tracksTabViewAction(self)
     }
     
     @IBAction func addTracksAction(_ sender: AnyObject) {
@@ -287,8 +282,11 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
         
         if (request is RemoveTrackRequest) {
+            
             let req = request as! RemoveTrackRequest
             _ = playlist.removeTracks([req.index])
+            
+            // TODO: Send out refresh message to all views
         }
         
         return EmptyResponse.instance
@@ -350,5 +348,17 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
 class PlaylistViewState {
     
     static var current: PlaylistViewType = .tracks
+    static var groupType: GroupType? {
     
+        switch current {
+            
+        case .albums: return GroupType.album
+            
+        case .artists: return GroupType.artist
+            
+        case .genres: return GroupType.genre
+            
+        default: return nil
+        }
+    }
 }

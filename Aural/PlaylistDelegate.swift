@@ -44,6 +44,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         return accessor.search(searchQuery)
     }
     
+    func search(_ searchQuery: SearchQuery, _ groupType: GroupType) -> SearchResults {
+        return accessor.search(searchQuery, groupType)
+    }
+    
     func addFiles(_ files: [URL]) {
         mutator.addFiles(files)
     }

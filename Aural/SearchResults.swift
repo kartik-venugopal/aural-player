@@ -8,13 +8,13 @@ class SearchResults {
     
     // Total number of results
     var count: Int
-    
-    private var results: [SearchResult]
+    var results: [SearchResult]
     
     // Marks the current result (used during iteration)
     private var cursor: Int = -1
     
-    init(results: [SearchResult]) {
+    init(_ results: [SearchResult]) {
+        
         self.results = results
         count = results.count
         
@@ -22,13 +22,9 @@ class SearchResults {
         
             for i in 0...count - 1 {
                 
-                if (i > 0) {
-                    results[i].hasPrevious = true
-                }
-                
-                if (i < count - 1) {
-                    results[i].hasNext = true
-                }
+                results[i].resultIndex = i + 1
+                results[i].hasPrevious = i > 0
+                results[i].hasNext = i < count - 1
             }
         }
     }
@@ -54,16 +50,26 @@ class SearchResults {
         cursor -= 1
         return results[cursor]
     }
+    
+    func union(_ otherResults: SearchResults) -> SearchResults {
+        
+        var union = Set<SearchResult>()
+        
+        self.results.forEach({union.insert($0)})
+        otherResults.results.forEach({union.insert($0)})
+        
+        return SearchResults(Array(union))
+    }
 }
 
 // Represents a single result (track) in a playlist tracks search
-class SearchResult {
+class SearchResult: Hashable  {
     
     // The index of this result within the set of all results
     var resultIndex: Int
     
-    // The index of the track represented by this result, within the playlist
-    var trackIndex: Int
+    // The location of the track represented by this result, within the playlist
+    var location: SearchResultLocation
     
     // Describes which field matched the search query, and its value
     var match: (fieldKey: String, fieldValue: String)
@@ -74,10 +80,35 @@ class SearchResult {
     // Flag to indicate whether there is another result to consume before this one (during iteration)
     var hasPrevious: Bool = false
     
-    init(resultIndex: Int, trackIndex: Int, match: (fieldKey: String, fieldValue: String)) {
+    public var hashValue: Int {
+        return location.track.file.path.hashValue
+    }
+    
+    init(location: SearchResultLocation, match: (fieldKey: String, fieldValue: String)) {
         
-        self.resultIndex = resultIndex
-        self.trackIndex = trackIndex
+        // This field will be set by SearchResults
+        self.resultIndex = -1
+        
+        self.location = location
         self.match = match
+    }
+    
+    public static func ==(lhs: SearchResult, rhs: SearchResult) -> Bool {
+        return lhs.location == rhs.location
+    }
+}
+
+struct SearchResultLocation: Equatable {
+    
+    // Only for flat playlists
+    var trackIndex: Int?
+    
+    let track: Track
+    
+    // Only for grouping playlists
+    var groupInfo: GroupedTrack?
+    
+    public static func ==(lhs: SearchResultLocation, rhs: SearchResultLocation) -> Bool {
+        return lhs.track === rhs.track
     }
 }

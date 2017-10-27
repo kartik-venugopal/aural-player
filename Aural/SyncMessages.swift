@@ -64,6 +64,8 @@ enum MessageType {
     // See AppReopenedNotification
     case appReopenedNotification
     
+    case searchResultSelectionRequest
+    
     // See AppExitRequest
     case appExitRequest
     
@@ -120,6 +122,17 @@ struct StopPlaybackRequest: RequestMessage {
     
     // Singleton
     static let instance: StopPlaybackRequest = StopPlaybackRequest()
+}
+
+struct SearchResultSelectionRequest: RequestMessage {
+    
+    var messageType: MessageType = .searchResultSelectionRequest
+    
+    let searchResult: SearchResult
+    
+    init(_ searchResult: SearchResult) {
+        self.searchResult = searchResult
+    }
 }
 
 // Request from the playback view to the playlist view to remove a specific track from the playlist
