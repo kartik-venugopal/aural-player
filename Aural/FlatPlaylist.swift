@@ -262,36 +262,22 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         switch sort.field {
             
         // Sort by name
-        case .name: if sort.order == SortOrder.ascending {
-            tracks.sort(by: compareTracks_ascendingByName)
-        } else {
-            tracks.sort(by: compareTracks_descendingByName)
+        case .name:
+            
+            if sort.order == SortOrder.ascending {
+                tracks.sort(by: Sorts.compareTracks_ascendingByName)
+            } else {
+                tracks.sort(by: Sorts.compareTracks_descendingByName)
             }
             
         // Sort by duration
-        case .duration: if sort.order == SortOrder.ascending {
-            tracks.sort(by: compareTracks_ascendingByDuration)
-        } else {
-            tracks.sort(by: compareTracks_descendingByDuration)
+        case .duration:
+            
+            if sort.order == SortOrder.ascending {
+                tracks.sort(by: Sorts.compareTracks_ascendingByDuration)
+            } else {
+                tracks.sort(by: Sorts.compareTracks_descendingByDuration)
             }
         }
-    }
-    
-    // Comparison functions for different sort criteria
-    
-    private func compareTracks_ascendingByName(aTrack: Track, anotherTrack: Track) -> Bool {
-        return aTrack.conciseDisplayName.compare(anotherTrack.conciseDisplayName) == ComparisonResult.orderedAscending
-    }
-    
-    private func compareTracks_descendingByName(aTrack: Track, anotherTrack: Track) -> Bool {
-        return aTrack.conciseDisplayName.compare(anotherTrack.conciseDisplayName) == ComparisonResult.orderedDescending
-    }
-    
-    private func compareTracks_ascendingByDuration(aTrack: Track, anotherTrack: Track) -> Bool {
-        return aTrack.duration < anotherTrack.duration
-    }
-    
-    private func compareTracks_descendingByDuration(aTrack: Track, anotherTrack: Track) -> Bool {
-        return aTrack.duration > anotherTrack.duration
     }
 }

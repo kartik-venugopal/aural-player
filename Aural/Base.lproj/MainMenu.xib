@@ -2774,6 +2774,7 @@ G1BhbiBTbGlkZXI
                 <outlet property="sortByName" destination="0Oe-zI-vsS" id="FDR-d5-PDV"/>
                 <outlet property="sortDescending" destination="7Ww-4w-TFU" id="C5F-aQ-fHx"/>
                 <outlet property="sortPanel" destination="Lw0-WI-3wy" id="871-gI-pBK"/>
+                <outlet property="sortTracksInGroups" destination="Vbh-Ab-IaO" id="qPb-WG-p9X"/>
                 <outlet property="view" destination="raD-bb-lef" id="bSk-qu-6GL"/>
             </connections>
         </viewController>
@@ -3475,21 +3476,21 @@ Gw
         <window title="Sort tracks in playlist" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="Lw0-WI-3wy" userLabel="Sort Panel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="0.0" y="0.0" width="269" height="120"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="269" height="150"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" wantsLayer="YES" id="raD-bb-lef">
-                <rect key="frame" x="0.0" y="0.0" width="269" height="120"/>
+                <rect key="frame" x="0.0" y="0.0" width="269" height="150"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Options:" translatesAutoresizingMaskIntoConstraints="NO" id="mTM-jv-ju3" userLabel="Sort Options Box">
-                        <rect key="frame" x="20" y="36" width="229" height="69"/>
+                        <rect key="frame" x="20" y="36" width="229" height="99"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" ambiguous="YES" id="QGc-WA-oCX">
-                            <rect key="frame" x="1" y="1" width="227" height="67"/>
+                            <rect key="frame" x="1" y="1" width="227" height="97"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <box fixedFrame="YES" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qZ9-z5-MaD" userLabel="Sort fields box">
-                                    <rect key="frame" x="5" y="-4" width="89" height="65"/>
+                                    <rect key="frame" x="5" y="26" width="89" height="65"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" ambiguous="YES" id="wqh-dX-9Yd">
                                         <rect key="frame" x="2" y="2" width="85" height="61"/>
@@ -3530,7 +3531,7 @@ Gw
                                     </view>
                                 </box>
                                 <box fixedFrame="YES" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aKZ-pg-Zb0" userLabel="Sort order box">
-                                    <rect key="frame" x="129" y="-4" width="89" height="65"/>
+                                    <rect key="frame" x="129" y="26" width="89" height="65"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" ambiguous="YES" id="x7M-jq-Hnz">
                                         <rect key="frame" x="2" y="2" width="85" height="61"/>
@@ -3570,6 +3571,17 @@ Gw
                                         </subviews>
                                     </view>
                                 </box>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vbh-Ab-IaO" userLabel="Sort tracks option">
+                                    <rect key="frame" x="9" y="11" width="209" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Sort tracks within groups" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="t3X-O3-p97" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" size="11" name="GillSans"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="searchFieldsChangedAction:" target="Ur0-NJ-0ro" id="3SZ-yN-af9"/>
+                                    </connections>
+                                </button>
                             </subviews>
                         </view>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -3609,7 +3621,7 @@ Gw
                     <color key="value" white="0.3017306857638889" alpha="1" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="-671" y="178"/>
+            <point key="canvasLocation" x="-671.5" y="193"/>
         </window>
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="miy-XV-uzY" userLabel="Preferences Panel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" utility="YES"/>

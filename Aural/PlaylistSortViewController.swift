@@ -16,6 +16,8 @@ class PlaylistSortViewController: NSViewController {
     @IBOutlet weak var sortAscending: NSButton!
     @IBOutlet weak var sortDescending: NSButton!
     
+    @IBOutlet weak var sortTracksInGroups: NSButton!
+    
     // Delegate that relays sort requests to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
@@ -33,6 +35,8 @@ class PlaylistSortViewController: NSViewController {
             return
         }
         
+        sortTracksInGroups.isEnabled = PlaylistViewState.current != .tracks
+        
         UIUtils.showModalDialog(sortPanel)
     }
     
@@ -49,6 +53,7 @@ class PlaylistSortViewController: NSViewController {
         
         // Perform the sort
         if let groupType = PlaylistViewState.groupType {
+            sortOptions.options.sortTracksInGroups = sortTracksInGroups.state == 1
             playlist.sort(sortOptions, groupType)
         } else {
             playlist.sort(sortOptions)

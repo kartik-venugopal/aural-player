@@ -127,6 +127,7 @@
 		3EEACA061F5E8615003A2140 /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEACA051F5E8615003A2140 /* NowPlayingViewController.swift */; };
 		3EF043A51F9D5ED8000EE7ED /* ActionMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */; };
 		3EF5A5501F403D2500C5A2D2 /* PreferencesOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5A54F1F403D2500C5A2D2 /* PreferencesOptions.swift */; };
+		3EF6A0021FA313120050F0D2 /* Sorts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6A0011FA313120050F0D2 /* Sorts.swift */; };
 		3EFC506B1F607B530032BE21 /* PlaylistDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFC506A1F607B530032BE21 /* PlaylistDelegate.swift */; };
 		3EFC506D1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFC506C1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift */; };
 		3EFFE6B91F036E81003728BD /* PlaylistIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFFE6B81F036E81003728BD /* PlaylistIO.swift */; };
@@ -259,6 +260,7 @@
 		3EEACA051F5E8615003A2140 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 		3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionMessages.swift; sourceTree = "<group>"; };
 		3EF5A54F1F403D2500C5A2D2 /* PreferencesOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesOptions.swift; sourceTree = "<group>"; };
+		3EF6A0011FA313120050F0D2 /* Sorts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sorts.swift; sourceTree = "<group>"; };
 		3EFC506A1F607B530032BE21 /* PlaylistDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistDelegate.swift; sourceTree = "<group>"; };
 		3EFC506C1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackInfoDelegateProtocol.swift; sourceTree = "<group>"; };
 		3EFFE6B81F036E81003728BD /* PlaylistIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistIO.swift; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 				3E864ADC1F25E289006A7626 /* SearchResults.swift */,
 				3E0012291F26A5100059B2D0 /* SearchQuery.swift */,
 				3E3BAF231F274771008F090E /* Sort.swift */,
+				3EF6A0011FA313120050F0D2 /* Sorts.swift */,
 				3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */,
 				3EC6E7C81F95B3AD00FCB6D0 /* PlaylistReorderOperation.swift */,
 				3EE43A161F9B386B00E26A0E /* GroupedPlaylistItem.swift */,
@@ -712,6 +715,7 @@
 				3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */,
 				3E59A3771F9959C10087198C /* GroupingPlaylistDataSources.swift in Sources */,
 				3E4E599D1F74ED8400C18182 /* AudioIO.swift in Sources */,
+				3EF6A0021FA313120050F0D2 /* Sorts.swift in Sources */,
 				3E84F8481F5FC58D0010BCDA /* PlaybackDelegate.swift in Sources */,
 				3E426F801EFDDDEE002F5F18 /* StringUtils.swift in Sources */,
 				3E2D9E461F6670E20020B99E /* PopoverViewDelegateProtocol.swift in Sources */,

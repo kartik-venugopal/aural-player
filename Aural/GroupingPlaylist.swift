@@ -76,38 +76,52 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         case .name:
             
             if sort.order == SortOrder.ascending {
-                groups.sort(by: compareGroups_ascendingByName)
+                
+                groups.sort(by: Sorts.compareGroups_ascendingByName)
+                if sort.options.sortTracksInGroups {
+                    sortAllTracks(compareTracks_ascendingByDisplayName)
+                }
+                
             } else {
-                groups.sort(by: compareGroups_descendingByName)
+                
+                groups.sort(by: Sorts.compareGroups_descendingByName)
+                if sort.options.sortTracksInGroups {
+                    sortAllTracks(compareTracks_descendingByDisplayName)
+                }
             }
             
         // Sort by duration
         case .duration:
             
             if sort.order == SortOrder.ascending {
-                groups.sort(by: compareGroups_ascendingByDuration)
+                
+                groups.sort(by: Sorts.compareGroups_ascendingByDuration)
+                if sort.options.sortTracksInGroups {
+                    sortAllTracks(Sorts.compareTracks_ascendingByDuration)
+                }
+                
             } else {
-                groups.sort(by: compareGroups_descendingByDuration)
+                
+                groups.sort(by: Sorts.compareGroups_descendingByDuration)
+                if sort.options.sortTracksInGroups {
+                    sortAllTracks(Sorts.compareTracks_descendingByDuration)
+                }
             }
         }
     }
     
-    // Comparison functions for different sort criteria
-    
-    private func compareGroups_ascendingByName(aGroup: Group, anotherGroup: Group) -> Bool {
-        return aGroup.name.compare(anotherGroup.name) == ComparisonResult.orderedAscending
+    private func sortAllTracks(_ strategy: (Track, Track) -> Bool) {
+        groups.forEach({
+            $0.tracks.sort(by: strategy)
+        })
     }
     
-    private func compareGroups_descendingByName(aGroup: Group, anotherGroup: Group) -> Bool {
-        return aGroup.name.compare(anotherGroup.name) == ComparisonResult.orderedDescending
+    func compareTracks_ascendingByDisplayName(aTrack: Track, anotherTrack: Track) -> Bool {
+        return displayNameFor(aTrack).compare(displayNameFor(anotherTrack)) == ComparisonResult.orderedAscending
     }
     
-    private func compareGroups_ascendingByDuration(aGroup: Group, anotherGroup: Group) -> Bool {
-        return aGroup.duration < anotherGroup.duration
-    }
-    
-    private func compareGroups_descendingByDuration(aGroup: Group, anotherGroup: Group) -> Bool {
-        return aGroup.duration > anotherGroup.duration
+    func compareTracks_descendingByDisplayName(aTrack: Track, anotherTrack: Track) -> Bool {
+        return displayNameFor(aTrack).compare(displayNameFor(anotherTrack)) == ComparisonResult.orderedDescending
     }
     
     func addTrackForGroupInfo(_ track: Track) -> GroupedTrackAddResult {

@@ -4,13 +4,14 @@
 
 import Cocoa
 
-// Encapsulates all sort options
+// Encapsulates all sort criteria
 class Sort {
     
     // By default, sort is performed by name, in ascending order
     
     var field: SortField = .name
     var order: SortOrder = .ascending
+    var options: SortOptions = SortOptions()
 }
 
 // Specifies which track field is used as sort criteria
@@ -25,4 +26,10 @@ enum SortOrder {
     
     case ascending
     case descending
+}
+
+// Sort options
+class SortOptions {
+    
+    var sortTracksInGroups: Bool = true
 }
