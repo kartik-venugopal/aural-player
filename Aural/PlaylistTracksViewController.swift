@@ -36,6 +36,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         SyncMessenger.subscribe(actionType: .refresh, subscriber: self)
         SyncMessenger.subscribe(actionType: .scrollToTop, subscriber: self)
         SyncMessenger.subscribe(actionType: .scrollToBottom, subscriber: self)
+        SyncMessenger.subscribe(actionType: .showPlayingTrack, subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -203,7 +204,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
     }
 
     // Shows the currently playing track, within the playlist view
-    @IBAction func showInPlaylistAction(_ sender: Any) {
+    func showPlayingTrack() {
         selectTrack(playbackInfo.getPlayingTrack()?.index)
     }
     
@@ -285,6 +286,8 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
             case .refresh: refresh()
                 
             case .removeTracks: removeTracks()
+                
+            case .showPlayingTrack: showPlayingTrack()
 
             case .moveTracksUp: moveTracksUp()
                 

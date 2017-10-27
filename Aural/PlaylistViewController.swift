@@ -44,8 +44,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     // Needed for playlist scrolling with arrow keys
     private var playlistKeyPressHandler: PlaylistKeyPressHandler?
     
-//    private var currentPlaylistViewType: PlaylistViewType = .tracks
-    
     override func viewDidLoad() {
         
         // Enable drag n drop into the playlist view
@@ -75,14 +73,11 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         });
         
         tabViewButtons = [btnTracksView, btnArtistsView, btnAlbumsView, btnGenresView]
-
-        tracksTabViewAction(self)
+        
         albumsTabViewAction(self)
         genresTabViewAction(self)
         artistsTabViewAction(self)
-        
-        // Show Tracks view, by default
-//        tracksTabViewAction(self)
+        tracksTabViewAction(self)
     }
     
     @IBAction func addTracksAction(_ sender: AnyObject) {
@@ -221,8 +216,10 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     }
     
     // Shows the currently playing track, within the playlist view
-    @IBAction func showInPlaylistAction(_ sender: Any) {
+    @IBAction func showPlayingTrackAction(_ sender: Any) {
         
+        let message = PlaylistActionMessage(.showPlayingTrack, PlaylistViewState.current)
+        SyncMessenger.publishActionMessage(message)
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {

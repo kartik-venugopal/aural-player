@@ -279,6 +279,15 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return playlist.peekTrackAt(playbackSequence.getCursor())
     }
     
+    func getPlayingTrackGroupInfo(_ groupType: GroupType) -> GroupedTrack? {
+        
+        if let playingTrack = playlist.peekTrackAt(playbackSequence.getCursor()) {
+            return playlist.getGroupingInfoForTrack(groupType, playingTrack.track)
+        }
+        
+        return nil
+    }
+    
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         let modes = playbackSequence.toggleRepeatMode()
         prepareNextTracksForPlayback()

@@ -46,6 +46,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         SyncMessenger.subscribe(actionType: .refresh, subscriber: self)
         SyncMessenger.subscribe(actionType: .scrollToTop, subscriber: self)
         SyncMessenger.subscribe(actionType: .scrollToBottom, subscriber: self)
+        SyncMessenger.subscribe(actionType: .showPlayingTrack, subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -268,8 +269,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     // Shows the currently playing track, within the playlist view
-    @IBAction func showInPlaylistAction(_ sender: Any) {
-//        selectTrack(playbackInfo.getPlayingTrack())
+    func showPlayingTrack() {
+        selectTrack(playbackInfo.getPlayingTrackGroupInfo(self.groupType))
     }
     
     private func showSearchResult(_ result: SearchResult) {
@@ -327,6 +328,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             case .refresh: refresh()
                 
             case .removeTracks: removeTracks()
+                
+            case .showPlayingTrack: showPlayingTrack()
                 
             case .moveTracksUp: moveTracksUp()
                 

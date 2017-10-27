@@ -177,7 +177,7 @@
                                         <action selector="moreInfoAction:" target="2zm-r9-5fb" id="uX0-lv-efA"/>
                                     </connections>
                                 </button>
-                                <button hidden="YES" toolTip="Show this track within the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VvF-4h-2Sh" userLabel="Show In Playlist Button">
+                                <button hidden="YES" toolTip="Show this track within the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VvF-4h-2Sh" userLabel="Show Playing Track Button">
                                     <rect key="frame" x="364" y="49" width="14" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShowPlayingTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9AY-Q3-Y6b">
@@ -185,7 +185,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="showInPlaylistAction:" target="8o0-TS-7rF" id="JCT-Xp-0je"/>
+                                        <action selector="showPlayingTrackAction:" target="8o0-TS-7rF" id="h6g-zW-GOc"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -3091,9 +3091,6 @@ CA
                             </menuItem>
                             <menuItem title=" Show track in playlist" image="ShowPlayingTrack-Small" enabled="NO" id="XjT-hE-GHo" userLabel="Show track in playlist">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="showInPlaylistAction:" target="8o0-TS-7rF" id="jnz-bj-Q7z"/>
-                                </connections>
                             </menuItem>
                         </items>
                     </menu>

@@ -26,6 +26,8 @@ enum ActionType {
     
     case clearPlaylist
     
+    case showPlayingTrack
+    
     case moveTracksUp
     
     case moveTracksDown
