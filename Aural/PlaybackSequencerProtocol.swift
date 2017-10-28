@@ -43,10 +43,10 @@ protocol PlaybackSequencerProtocol {
     func select(_ index: Int) -> IndexedTrack
     
     // Selects, for playback, the track with the given index
-    func select(_ track: Track)
+    func select(_ track: Track) -> IndexedTrack
     
     // Selects, for playback, the track with the given index
-    func select(_ group: Group)
+    func select(_ group: Group) -> IndexedTrack
     
     // Returns the index of the currently playing track
     func getPlayingTrack() -> IndexedTrack?

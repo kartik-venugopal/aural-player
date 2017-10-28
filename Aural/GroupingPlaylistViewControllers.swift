@@ -258,15 +258,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             let addResult = message.groupInfo[self.groupType]!
         
         let updateOp = BlockOperation(block: {
-            
-            self.playlistView.beginUpdates()
         
             if addResult.groupCreated {
                 
                 // Insert the new group
-                
-                print("\tInserting group", addResult.track.group.name, "at", addResult.track.groupIndex)
-
                 self.playlistView.insertItems(at: IndexSet(integer: addResult.track.groupIndex), inParent: nil, withAnimation: .effectGap)
                 
             } else {
@@ -275,15 +270,11 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 
                 let group = addResult.track.group
                 
-//                self.playlistView.beginUpdates()
                 self.playlistView.reloadItem(group, reloadChildren: false)
                 self.playlistView.insertItems(at: IndexSet(integer: addResult.track.trackIndex), inParent: group, withAnimation: .effectGap)
-//                self.playlistView.endUpdates()
             }
-            
-            self.playlistView.endUpdates()
         })
-////
+
         playlistUpdateQueue.addOperation(updateOp)
     }
     

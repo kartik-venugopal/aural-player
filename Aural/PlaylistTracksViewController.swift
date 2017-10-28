@@ -297,7 +297,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
                 
             case .scrollToBottom: scrollToBottom()
                 
-            default: print("AM = ", String(describing: msg.actionType))
+            default: return
                 
             }
             

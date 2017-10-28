@@ -221,8 +221,6 @@ class Playlist: PlaylistCRUDProtocol {
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> RemoveOperationResults {
         
-        let tim = TimerUtils.start("removeTracksAndGroups")
-        
         // Remove file/track mappings
         var removedTracks: [Track] = tracks
         groups.forEach({removedTracks.append(contentsOf: $0.tracks)})
@@ -246,10 +244,6 @@ class Playlist: PlaylistCRUDProtocol {
         let flatPlaylistIndexes = flatPlaylist.removeTracks(removedTracks)
         
         let results = RemoveOperationResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: flatPlaylistIndexes)
-        
-        tim.end()
-        print("removeTracksAndGroups:", tim.durationMsecs!)
-        TimerUtils.printStats()
         
         return results
     }

@@ -210,7 +210,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         let playingTrack = getPlayingTrack()
         let seconds = playingTrack != nil ? player.getSeekPosition() : 0
         
-        let duration = playingTrack!.track.duration
+        let duration = playingTrack == nil ? 0 : playingTrack!.track.duration
         let percentage = playingTrack != nil ? seconds * 100 / duration : 0
         
         return (seconds, percentage, duration)
@@ -331,16 +331,17 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     func play(_ track: Track) throws -> IndexedTrack {
-        let index = playlist.indexOfTrack(track)
         
-        // Cannot be nil, ok to force unwrap
-        return try play(index!)
+        let indexedTrack = playbackSequencer.select(track)
+        try play(indexedTrack)
+        return indexedTrack
     }
     
     func play(_ group: Group) throws -> IndexedTrack {
         
-        let track = group.trackAtIndex(0)
-        return try play(track)
+        let track = playbackSequencer.select(group)
+        try play(track)
+        return track
     }
     
     // ------------------- PlaylistChangeListener methods ---------------------

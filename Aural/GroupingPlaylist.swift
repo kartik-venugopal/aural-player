@@ -143,8 +143,6 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
                 groupsByName[groupName] = group
                 groupIndex = groups.count - 1
                 
-                print("\nCreated group", groupName, "at", groupIndex)
-                
                 groupCreated = true
                 
             } else {
@@ -189,8 +187,6 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             groups.remove(at: index)
             groupsByName.removeValue(forKey: group.name)
             
-            print("\nRemoved group", group.name, "at", index)
-            
             return index
         }
         
@@ -220,7 +216,6 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
                         groups.remove(at: groupIndex)
                         groupsByName.removeValue(forKey: group.name)
                         groupRemoved = true
-                        print("\nRemoved group", group.name, "at", groupIndex)
                     }
                 }
             }

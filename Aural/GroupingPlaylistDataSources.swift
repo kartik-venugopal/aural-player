@@ -103,7 +103,6 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
     func outlineView(_ outlineView: NSOutlineView, writeItems items: [Any], to pasteboard: NSPasteboard) -> Bool {
         
         let selRows = outlineView.selectedRowIndexes
-        print("SourceItems:", selRows.toArray())
         
         let data = NSKeyedArchiver.archivedData(withRootObject: selRows)
         let item = NSPasteboardItem()

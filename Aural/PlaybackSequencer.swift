@@ -21,27 +21,27 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
     }
     
     func peekSubsequent() -> IndexedTrack? {
-        return playlist.peekTrackAt(sequence.peekSubsequent())
+        return getTrackForCursor(sequence.peekSubsequent())
     }
     
     func subsequent() -> IndexedTrack? {
-        return playlist.peekTrackAt(sequence.subsequent())
+        return getTrackForCursor(sequence.subsequent())
     }
     
     func peekNext() -> IndexedTrack? {
-        return playlist.peekTrackAt(sequence.peekNext())
+        return getTrackForCursor(sequence.peekNext())
     }
     
     func next() -> IndexedTrack? {
-        return playlist.peekTrackAt(sequence.next())
+        return getTrackForCursor(sequence.next())
     }
     
     func peekPrevious() -> IndexedTrack? {
-        return playlist.peekTrackAt(sequence.peekPrevious())
+        return getTrackForCursor(sequence.peekPrevious())
     }
     
     func previous() -> IndexedTrack? {
-        return playlist.peekTrackAt(sequence.previous())
+        return getTrackForCursor(sequence.previous())
     }
     
     func select(_ index: Int) -> IndexedTrack {
@@ -50,7 +50,33 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
     }
     
     func getPlayingTrack() -> IndexedTrack? {
-        return playlist.peekTrackAt(sequence.getCursor())
+        return getTrackForCursor(sequence.getCursor())
+    }
+    
+    private func getTrackForCursor(_ cursor: Int?) -> IndexedTrack? {
+        
+        if let cursor = sequence.getCursor() {
+            
+            switch scope.type {
+                
+            case .album: return wrapTrack(scope.scope!.trackAtIndex(cursor))
+                
+            case .artist: return wrapTrack(scope.scope!.trackAtIndex(cursor))
+                
+            case .genre: return wrapTrack(scope.scope!.trackAtIndex(cursor))
+                
+            default: return playlist.peekTrackAt(cursor)
+                
+            }
+        }
+        
+        return nil
+    }
+    
+    private func wrapTrack(_ track: Track) -> IndexedTrack {
+        
+        let index = playlist.indexOfTrack(track)
+        return IndexedTrack(track, index!)
     }
     
     func setRepeatMode(_ repeatMode: RepeatMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
@@ -80,12 +106,17 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         return state
     }
     
-    func select(_ track: Track) {
+    func select(_ track: Track) -> IndexedTrack {
         // TODO: Figure out the index of this track within the scope
         // Reset the sequence with a tracks count and this track's index as the first index (cursor)
+        
+        let index = playlist.indexOfTrack(track)!
+        sequence.select(index)
+        
+        return IndexedTrack(track, index)
     }
     
-    func select(_ group: Group) {
+    func select(_ group: Group) -> IndexedTrack {
         
         // Reset the sequence with a tracks count (group.size()) and the first track under this group as the first index (cursor = 0)
         
@@ -104,6 +135,10 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         }
         
         scope.type = newType
+        scope.scope = group
+        sequence.reset(tracksCount: group.size())
+        
+        return subsequent()!
     }
     
     // --------------- PlaylistChangeListener methods ----------------
@@ -145,8 +180,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         case .tracks: type = .allTracks
             
         }
-        
-        print("Setting scope.plType to:", String(describing: type))
+
         scope.type = type
     }
     

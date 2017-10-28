@@ -26,13 +26,29 @@ class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
     }
     
     // Resets the sequence with a new tracksCount
-    private func reset(tracksCount: Int) {
+    func reset(tracksCount: Int) {
         self.tracksCount = tracksCount
         reset()
     }
     
     // Resets the sequence with the first track in the sequence being the given track index
-    private func reset(firstTrackIndex: Int?) {
+    func reset(firstTrackIndex: Int?) {
+        
+        // If shuffle is on, recompute the shuffle sequence
+        if (shuffleMode == .on) {
+            if (firstTrackIndex != nil) {
+                shuffleSequence.reset(capacity: tracksCount, firstTrackIndex: firstTrackIndex!)
+            } else {
+                shuffleSequence.reset(capacity: tracksCount)
+            }
+        }
+    }
+    
+    // Resets the sequence with the first track in the sequence being the given track index
+    func reset(tracksCount: Int, firstTrackIndex: Int?) {
+        
+        self.tracksCount = tracksCount
+        reset()
         
         // If shuffle is on, recompute the shuffle sequence
         if (shuffleMode == .on) {
