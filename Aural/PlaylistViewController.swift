@@ -184,7 +184,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         let message = PlaylistActionMessage(.clearPlaylist, PlaylistViewState.current)
         SyncMessenger.publishActionMessage(message)
         
-        let refreshMsg = PlaylistActionMessage(.refresh, .all)
+        let refreshMsg = PlaylistActionMessage(.refresh, nil)
         SyncMessenger.publishActionMessage(refreshMsg)
         
         updatePlaylistSummary()
@@ -325,6 +325,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         tabGroup.selectTabViewItem(at: 0)
         
         PlaylistViewState.current = .tracks
+        SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: .tracks))
     }
     
     @IBAction func artistsTabViewAction(_ sender: Any) {
@@ -338,6 +339,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         tabGroup.selectTabViewItem(at: 1)
         
         PlaylistViewState.current = .artists
+        SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: .artists))
     }
     
     @IBAction func albumsTabViewAction(_ sender: Any) {
@@ -351,6 +353,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         tabGroup.selectTabViewItem(at: 2)
         
         PlaylistViewState.current = .albums
+        SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: .albums))
     }
     
     @IBAction func genresTabViewAction(_ sender: Any) {
@@ -364,12 +367,13 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         tabGroup.selectTabViewItem(at: 3)
         
         PlaylistViewState.current = .genres
+        SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: .genres))
     }
 }
 
 class PlaylistViewState {
     
-    static var current: PlaylistViewType = .tracks
+    static var current: PlaylistType = .tracks
     static var groupType: GroupType? {
     
         switch current {

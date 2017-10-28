@@ -46,7 +46,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
     
     func clearPlaylist() {
         playlist.clear()
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, .all))
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, nil))
     }
     
     func removeTracks() {
@@ -277,7 +277,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         
         if let msg = message as? PlaylistActionMessage {
             
-            if (msg.viewType != .tracks && msg.viewType != .all) {
+            if (msg.playlistType != nil && msg.playlistType != .tracks) {
                 return
             }
             

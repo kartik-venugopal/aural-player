@@ -21,6 +21,9 @@ protocol PlaybackSequencerProtocol {
     // Peeks at (without selecting for playback) the subsequent track in the sequence
     func peekSubsequent() -> IndexedTrack?
     
+    // Selects, for playback, the first track in the sequence
+    func begin() -> IndexedTrack?
+    
     // Selects, for playback, the subsequent track in the sequence
     func subsequent() -> IndexedTrack?
     
@@ -38,6 +41,12 @@ protocol PlaybackSequencerProtocol {
     
     // Selects, for playback, the track with the given index
     func select(_ index: Int) -> IndexedTrack
+    
+    // Selects, for playback, the track with the given index
+    func select(_ track: Track)
+    
+    // Selects, for playback, the track with the given index
+    func select(_ group: Group)
     
     // Returns the index of the currently playing track
     func getPlayingTrack() -> IndexedTrack?

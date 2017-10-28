@@ -6,8 +6,6 @@ import Foundation
 
 class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
     
-    private var scope: SequenceScope?
-    
     private var repeatMode: RepeatMode = .off
     private var shuffleMode: ShuffleMode = .off
     
@@ -761,23 +759,4 @@ class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
     func playlistCleared() {
         clear()
     }
-}
-
-struct SequenceScope {
- 
-    let type: SequenceType
-    
-    // If only a particular artist/album/genre is being played back, holds the specific artist/album/genre group
-    let scope: Group?
-}
-
-enum SequenceType {
- 
-    case allTracks
-    case allArtists
-    case allAlbums
-    case allGenres
-    case artist
-    case album
-    case genre
 }

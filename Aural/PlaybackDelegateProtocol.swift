@@ -15,6 +15,8 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
     func play(_ track: Track) throws -> IndexedTrack
     
+    func play(_ group: Group) throws -> IndexedTrack
+    
     // Stops playback
     func stop()
     

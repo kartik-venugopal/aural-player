@@ -22,7 +22,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     // Intended to be overriden by subclasses
     internal var groupType: GroupType {return .artist}
-    internal var viewType: PlaylistViewType {return .artists}
+    internal var playlistType: PlaylistType {return .artists}
     
     var adds = 0
     var updates = 0
@@ -61,7 +61,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     func clearPlaylist() {
         playlist.clear()
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, .all))
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, nil))
     }
     
     private func collectTracksAndGroups() -> (tracks: [Track], groups: [Group]) {
@@ -316,22 +316,13 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-//        if self.groupType != .artist {
-//            return
-//        }
-        
         if let msg = message as? TrackAddedAsyncMessage {
-            
             trackAdded(msg)
-//            adds += 1
-//            print("\nAdds:", adds)
             return
         }
         
-        
-        
         if let msg = message as? TrackUpdatedAsyncMessage {
-//            trackUpdated(msg)
+            trackUpdated(msg)
             return
         }
         
@@ -344,31 +335,14 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             playlistUpdateQueue.addOperation(updateOp)
             return
         }
-        
-//        if let msg = message as? TrackUpdatedAsyncMessage {
-//            
-//            trackUpdated(msg)
-//            updates += 1
-//            print("\nUpdates:", updates)
-//            return
-//        }
     }
     
     func consumeNotification(_ notification: NotificationMessage) {
-        
-//        if self.groupType != .artist {
-//            return
-//        }
-        
-//        if let msg = notification as? TrackAddedNotification {
-//            trackAdded(msg)
-//            return
-//        }
     }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
         
-        if PlaylistViewState.current == self.viewType, let req = request as? SearchResultSelectionRequest {
+        if PlaylistViewState.current == self.playlistType, let req = request as? SearchResultSelectionRequest {
             showSearchResult(req.searchResult)
             
             return EmptyResponse.instance
@@ -381,7 +355,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         if let msg = message as? PlaylistActionMessage {
             
-            if (msg.viewType != self.viewType && msg.viewType != .all) {
+            if (msg.playlistType != nil && msg.playlistType != self.playlistType) {
                 return
             }
             
@@ -419,15 +393,15 @@ extension IndexSet {
 
 class PlaylistArtistsViewController: GroupingPlaylistViewController {
     override internal var groupType: GroupType {return .artist}
-    override internal var viewType: PlaylistViewType {return .artists}
+    override internal var playlistType: PlaylistType {return .artists}
 }
 
 class PlaylistAlbumsViewController: GroupingPlaylistViewController {
     override internal var groupType: GroupType {return .album}
-    override internal var viewType: PlaylistViewType {return .albums}
+    override internal var playlistType: PlaylistType {return .albums}
 }
 
 class PlaylistGenresViewController: GroupingPlaylistViewController {
     override internal var groupType: GroupType {return .genre}
-    override internal var viewType: PlaylistViewType {return .genres}
+    override internal var playlistType: PlaylistType {return .genres}
 }

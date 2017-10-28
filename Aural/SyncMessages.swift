@@ -70,6 +70,8 @@ enum MessageType {
     // See AppReopenedNotification
     case appReopenedNotification
     
+    case playlistTypeChangedNotification
+    
     case searchResultSelectionRequest
     
     // See AppExitRequest
@@ -85,7 +87,7 @@ enum MessageType {
 // indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
 struct TrackAddedNotification: NotificationMessage {
     
-    var messageType: MessageType = .trackAddedNotification
+    let messageType: MessageType = .trackAddedNotification
     
     // The index of the newly added track
     let trackIndex: Int
@@ -105,7 +107,7 @@ struct TrackAddedNotification: NotificationMessage {
 
 struct TrackGroupUpdatedNotification: NotificationMessage {
     
-    var messageType: MessageType = .trackGroupUpdatedNotification
+    let messageType: MessageType = .trackGroupUpdatedNotification
     
     // The index of the track that has been updated
     let trackIndex: Int
@@ -124,7 +126,7 @@ struct TrackGroupUpdatedNotification: NotificationMessage {
 // This doesn't need to be sync anymore !
 //struct TrackUpdatedNotification: NotificationMessage {
 //    
-//    var messageType: MessageType = .trackUpdatedNotification
+//    let messageType: MessageType = .trackUpdatedNotification
 //    
 //    // The index of the track that has been updated
 //    let trackIndex: Int
@@ -141,7 +143,7 @@ struct TrackGroupUpdatedNotification: NotificationMessage {
 // Notification indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
 struct TrackChangedNotification: NotificationMessage {
     
-    var messageType: MessageType = .trackChangedNotification
+    let messageType: MessageType = .trackChangedNotification
     
     // The track that was playing before the track change (may be nil, meaning no track was playing)
     var oldTrack: IndexedTrack?
@@ -167,7 +169,7 @@ struct TrackChangedNotification: NotificationMessage {
 // Notification indicating that new information is available for the currently playing track, and the UI needs to be refreshed with the new information
 struct PlayingTrackInfoUpdatedNotification: NotificationMessage {
     
-    var messageType: MessageType = .playingTrackInfoUpdatedNotification
+    let messageType: MessageType = .playingTrackInfoUpdatedNotification
     
     private init() {}
 
@@ -178,7 +180,7 @@ struct PlayingTrackInfoUpdatedNotification: NotificationMessage {
 // Request from the playlist to stop playback (for instance, when the playlist is cleared, or the playing track has been removed)
 struct StopPlaybackRequest: RequestMessage {
     
-    var messageType: MessageType = .stopPlaybackRequest
+    let messageType: MessageType = .stopPlaybackRequest
     
     private init() {}
     
@@ -188,7 +190,7 @@ struct StopPlaybackRequest: RequestMessage {
 
 struct SearchResultSelectionRequest: RequestMessage {
     
-    var messageType: MessageType = .searchResultSelectionRequest
+    let messageType: MessageType = .searchResultSelectionRequest
     
     let searchResult: SearchResult
     
@@ -200,7 +202,7 @@ struct SearchResultSelectionRequest: RequestMessage {
 // Request from the playback view to the playlist view to remove a specific track from the playlist
 struct RemoveTrackRequest: RequestMessage {
     
-    var messageType: MessageType = .removeTrackRequest
+    let messageType: MessageType = .removeTrackRequest
     
     // Index of the track that needs to be removed
     var index: Int
@@ -213,7 +215,7 @@ struct RemoveTrackRequest: RequestMessage {
 // Notification that the playback rate has changed, in response to the user manipulating the time stretch effects unit controls.
 struct PlaybackRateChangedNotification: NotificationMessage {
     
-    var messageType: MessageType = .playbackRateChangedNotification
+    let messageType: MessageType = .playbackRateChangedNotification
     
     // The new playback rate
     var newPlaybackRate: Float
@@ -226,7 +228,7 @@ struct PlaybackRateChangedNotification: NotificationMessage {
 // Notification about a change in playback state (paused/playing/noTrack).
 struct PlaybackStateChangedNotification: NotificationMessage {
     
-    var messageType: MessageType = .playbackStateChangedNotification
+    let messageType: MessageType = .playbackStateChangedNotification
     
     // The new playback state
     var newPlaybackState: PlaybackState
@@ -239,7 +241,7 @@ struct PlaybackStateChangedNotification: NotificationMessage {
 // Notification about a change in the seek position of the currently playing track (e.g. when a seek is performed)
 struct SeekPositionChangedNotification: NotificationMessage {
     
-    var messageType: MessageType = .seekPositionChangedNotification
+    let messageType: MessageType = .seekPositionChangedNotification
     
     private init() {}
     
@@ -250,7 +252,7 @@ struct SeekPositionChangedNotification: NotificationMessage {
 // Notification that the search query text in the search modal dialog has changed, triggering a new search with the new search text
 struct SearchTextChangedNotification: NotificationMessage {
     
-    var messageType: MessageType = .searchTextChangedNotification
+    let messageType: MessageType = .searchTextChangedNotification
     
     private init() {}
     
@@ -261,7 +263,7 @@ struct SearchTextChangedNotification: NotificationMessage {
 // Notification that the app has loaded
 struct AppLoadedNotification: NotificationMessage {
     
-    var messageType: MessageType = .appLoadedNotification
+    let messageType: MessageType = .appLoadedNotification
     
     // Files specified as launch parameters (files that the app needs to open upon launch)
     var filesToOpen: [URL]
@@ -274,7 +276,7 @@ struct AppLoadedNotification: NotificationMessage {
 // Notification that the app has been reopened with a request to open certain files
 struct AppReopenedNotification: NotificationMessage {
     
-    var messageType: MessageType = .appReopenedNotification
+    let messageType: MessageType = .appReopenedNotification
     
     // Files specified as launch parameters (files that the app needs to open)
     var filesToOpen: [URL]
@@ -288,10 +290,17 @@ struct AppReopenedNotification: NotificationMessage {
     }
 }
 
+struct PlaylistTypeChangedNotification: NotificationMessage {
+    
+    let messageType: MessageType = .playlistTypeChangedNotification
+    
+    let newPlaylistType: PlaylistType
+}
+
 // Request from the application to its components to perform an exit. Receiving components will determine whether or not the app may exit, and send an AppExitResponse, in response.
 struct AppExitRequest: RequestMessage {
     
-    var messageType: MessageType = .appExitRequest
+    let messageType: MessageType = .appExitRequest
     
     private init() {}
     
@@ -302,7 +311,7 @@ struct AppExitRequest: RequestMessage {
 // Response to an AppExitRequest
 struct AppExitResponse: ResponseMessage {
     
-    var messageType: MessageType = .appExitResponse
+    let messageType: MessageType = .appExitResponse
     
     // Whether or not it is ok for the application to exit
     var okToExit: Bool
@@ -321,7 +330,7 @@ struct AppExitResponse: ResponseMessage {
 // Dummy message to be used when there is no other appropriate response message type
 struct EmptyResponse: ResponseMessage {
     
-    var messageType: MessageType = .emptyResponse
+    let messageType: MessageType = .emptyResponse
     
     private init() {}
     

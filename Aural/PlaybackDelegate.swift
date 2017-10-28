@@ -44,10 +44,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         // Determine current state of player, to then toggle it
         switch playbackState {
             
-        case .noTrack: let playingTrack = try subsequentTrack()
-        if (playingTrack != nil) {
-            trackChanged = true
-        }
+        case .noTrack:
+            
+            if (try subsequentTrack()) != nil {
+                trackChanged = true
+            }
             
         case .paused: resume()
             
@@ -334,6 +335,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         // Cannot be nil, ok to force unwrap
         return try play(index!)
+    }
+    
+    func play(_ group: Group) throws -> IndexedTrack {
+        
+        let track = group.trackAtIndex(0)
+        return try play(track)
     }
     
     // ------------------- PlaylistChangeListener methods ---------------------

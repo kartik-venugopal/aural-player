@@ -116,14 +116,32 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         let playlistView = sender as! NSOutlineView
         
         let item = playlistView.item(atRow: playlistView.selectedRow)
+        let oldTrack = player.getPlayingTrack()
         
         if let track = item as? Track {
-            
-            let oldTrack = player.getPlayingTrack()
             
             do {
                 
                 let track = try player.play(track)
+                trackChange(oldTrack, track)
+                playlistView.deselectAll(self)
+                
+            } catch let error {
+                
+                if (error is InvalidTrackError) {
+                    handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
+                }
+            }
+            
+        } else {
+            
+            let group = item as! Group
+            
+            playlistView.expandItem(group)
+            
+            do {
+                
+                let track = try player.play(group)
                 trackChange(oldTrack, track)
                 playlistView.deselectAll(self)
                 

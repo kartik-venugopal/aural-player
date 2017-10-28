@@ -40,19 +40,10 @@ enum ActionType {
 struct PlaylistActionMessage: ActionMessage {
     
     let actionType: ActionType
-    let viewType: PlaylistViewType
+    let playlistType: PlaylistType?
     
-    init(_ actionType: ActionType, _ viewType: PlaylistViewType) {
+    init(_ actionType: ActionType, _ playlistType: PlaylistType?) {
         self.actionType = actionType
-        self.viewType = viewType
+        self.playlistType = playlistType
     }
-}
-
-enum PlaylistViewType {
- 
-    case all
-    case tracks
-    case artists
-    case albums
-    case genres
 }
