@@ -148,9 +148,12 @@ class Playlist: PlaylistCRUDProtocol {
         return state
     }
     
-    func trackInfoUpdated(_ updatedTrack: Track) {
-//        groupings.values.forEach({$0.trackInfoUpdated(updatedTrack)})
-        // TODO: Inform all the grouping playlists
+    func trackInfoUpdated(_ updatedTrack: Track) -> [GroupType: GroupedTrackUpdateResult] {
+        
+        var groupResults = [GroupType: GroupedTrackUpdateResult]()
+        groupingPlaylists.values.forEach({groupResults[$0.getGroupType()] = $0.trackInfoUpdated(updatedTrack)})
+        
+        return groupResults
     }
     
     func removeTracks(_ indexes: IndexSet) -> RemoveOperationResults {
@@ -209,7 +212,11 @@ class Playlist: PlaylistCRUDProtocol {
     }
     
     func getNumberOfGroups(_ type: GroupType) -> Int {
-        return groupingPlaylists[type]!.getNumberOfGroups()
+        if let playlist = groupingPlaylists[type] {
+        return playlist.getNumberOfGroups()
+        }
+        
+        return 0
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> RemoveOperationResults {
@@ -270,6 +277,13 @@ struct GroupedTrackAddResult {
     
     let track: GroupedTrack
     let groupCreated: Bool
+}
+
+struct GroupedTrackUpdateResult {
+    
+    let track: GroupedTrack
+    let groupCreated: Bool
+    let oldGroupRemoved: Bool
 }
 
 struct RemoveOperationResults {

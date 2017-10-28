@@ -22,24 +22,20 @@ class Group: NSObject, GroupedPlaylistItem {
         return tracks.count
     }
     
-    func indexOf(_ track: Track) -> Int {
-        return tracks.index(of: track)!
+    func indexOf(_ track: Track) -> Int? {
+        return tracks.index(of: track)
     }
     
     func addTrack(_ track: Track) -> Int {
         
+        var index: Int = -1
+        
         ConcurrencyUtils.executeSynchronized(tracks) {
             tracks.append(track)
+            index = tracks.count - 1
         }
-//        sort()
         
-        return tracks.count - 1
-    }
-    
-    func sort() {
-        
-        // TODO: Sort by strategy for type
-        tracks.sort(by: GroupSortStrategies.byAlbumAndTrackNumber)
+        return index
     }
     
     func removeTrack(_ track: Track) -> Int {
@@ -59,7 +55,10 @@ class Group: NSObject, GroupedPlaylistItem {
     }
     
     func removeTrackAtIndex(_ index: Int) {
-        tracks.remove(at: index)
+        
+        ConcurrencyUtils.executeSynchronized(tracks) {
+            tracks.remove(at: index)
+        }
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> [Int: Int] {

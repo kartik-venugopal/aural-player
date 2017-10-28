@@ -24,6 +24,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     internal var groupType: GroupType {return .artist}
     internal var viewType: PlaylistViewType {return .artists}
     
+    var adds = 0
+    var updates = 0
+    
     override func viewDidLoad() {
         
         // Register self as a subscriber to various AsyncMessage notifications
@@ -35,6 +38,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         AsyncMessenger.subscribe(.trackInfoUpdated, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
+//        SyncMessenger.subscribe(.trackAddedNotification, subscriber: self)
+//        SyncMessenger.subscribe(.trackUpdatedNotification, subscriber: self)
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.removeTrackRequest, subscriber: self)
         SyncMessenger.subscribe(.searchResultSelectionRequest, subscriber: self)
@@ -249,14 +254,19 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         // Perform task serially wrt other such tasks
         
-        let updateOp = BlockOperation(block: {
-            
             // Find the groupInfo relevant to this playlist view
             let addResult = message.groupInfo[self.groupType]!
+        
+        let updateOp = BlockOperation(block: {
             
+            self.playlistView.beginUpdates()
+        
             if addResult.groupCreated {
                 
                 // Insert the new group
+                
+                print("\tInserting group", addResult.track.group.name, "at", addResult.track.groupIndex)
+
                 self.playlistView.insertItems(at: IndexSet(integer: addResult.track.groupIndex), inParent: nil, withAnimation: .effectGap)
                 
             } else {
@@ -265,11 +275,33 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 
                 let group = addResult.track.group
                 
+//                self.playlistView.beginUpdates()
                 self.playlistView.reloadItem(group, reloadChildren: false)
                 self.playlistView.insertItems(at: IndexSet(integer: addResult.track.trackIndex), inParent: group, withAnimation: .effectGap)
+//                self.playlistView.endUpdates()
             }
+            
+            self.playlistView.endUpdates()
         })
+////
+        playlistUpdateQueue.addOperation(updateOp)
+    }
+    
+    private func trackUpdated(_ message: TrackUpdatedAsyncMessage) {
         
+        let track = message.groupInfo[self.groupType]!.track
+        let group = message.groupInfo[self.groupType]!.group
+        
+        let updateOp = BlockOperation(block: {
+            
+            self.playlistView.beginUpdates()
+        
+            self.playlistView.reloadItem(group, reloadChildren: false)
+            self.playlistView.reloadItem(track)
+            
+            self.playlistView.endUpdates()
+        })
+            
         playlistUpdateQueue.addOperation(updateOp)
     }
     
@@ -284,9 +316,22 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
+//        if self.groupType != .artist {
+//            return
+//        }
+        
         if let msg = message as? TrackAddedAsyncMessage {
             
             trackAdded(msg)
+//            adds += 1
+//            print("\nAdds:", adds)
+            return
+        }
+        
+        
+        
+        if let msg = message as? TrackUpdatedAsyncMessage {
+//            trackUpdated(msg)
             return
         }
         
@@ -297,16 +342,28 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             })
             
             playlistUpdateQueue.addOperation(updateOp)
+            return
         }
+        
+//        if let msg = message as? TrackUpdatedAsyncMessage {
+//            
+//            trackUpdated(msg)
+//            updates += 1
+//            print("\nUpdates:", updates)
+//            return
+//        }
     }
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if (notification is TrackChangedNotification) {
-//            let msg = notification as! TrackChangedNotification
-//            trackChange(msg.oldTrack, msg.newTrack, msg.errorState)
-            return
-        }
+//        if self.groupType != .artist {
+//            return
+//        }
+        
+//        if let msg = notification as? TrackAddedNotification {
+//            trackAdded(msg)
+//            return
+//        }
     }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {

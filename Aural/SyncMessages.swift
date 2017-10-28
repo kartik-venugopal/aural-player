@@ -34,6 +34,12 @@ protocol ResponseMessage: SyncMessage {
 // Enumeration of the different message types. See the various Message structs below, for descriptions of each message type.
 enum MessageType {
     
+    case trackAddedNotification
+    
+    case trackUpdatedNotification
+    
+    case trackGroupUpdatedNotification
+    
     // See TrackChangedNotification
     case trackChangedNotification
     
@@ -75,6 +81,62 @@ enum MessageType {
     // See EmptyResponse
     case emptyResponse
 }
+
+// indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
+struct TrackAddedNotification: NotificationMessage {
+    
+    var messageType: MessageType = .trackAddedNotification
+    
+    // The index of the newly added track
+    let trackIndex: Int
+    
+    let groupInfo: [GroupType: GroupedTrackAddResult]
+    
+    // The current progress of the track add operation (See TrackAddedMessageProgress)
+    let progress: TrackAddedMessageProgress
+    
+    init(_ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrackAddResult], _ progress: TrackAddedMessageProgress) {
+        
+        self.trackIndex = trackIndex
+        self.groupInfo = groupInfo
+        self.progress = progress
+    }
+}
+
+struct TrackGroupUpdatedNotification: NotificationMessage {
+    
+    var messageType: MessageType = .trackGroupUpdatedNotification
+    
+    // The index of the track that has been updated
+    let trackIndex: Int
+    
+    let oldGroupInfo: [GroupType: GroupedTrackAddResult]
+    let updatedGroupInfo: [GroupType: GroupedTrackUpdateResult]
+    
+    init(_ trackIndex: Int, _ oldGroupInfo: [GroupType: GroupedTrackAddResult], _ updatedGroupInfo: [GroupType: GroupedTrackUpdateResult]) {
+        
+        self.trackIndex = trackIndex
+        self.oldGroupInfo = oldGroupInfo
+        self.updatedGroupInfo = updatedGroupInfo
+    }
+}
+
+// This doesn't need to be sync anymore !
+//struct TrackUpdatedNotification: NotificationMessage {
+//    
+//    var messageType: MessageType = .trackUpdatedNotification
+//    
+//    // The index of the track that has been updated
+//    let trackIndex: Int
+//    
+//    let groupInfo: [GroupType: GroupedTrack]
+//    
+//    init(_ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrack]) {
+//        
+//        self.trackIndex = trackIndex
+//        self.groupInfo = groupInfo
+//    }
+//}
 
 // Notification indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
 struct TrackChangedNotification: NotificationMessage {

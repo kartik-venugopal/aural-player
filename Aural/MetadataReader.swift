@@ -38,35 +38,9 @@ class MetadataReader {
     // Loads the required display metadata (artist/title/art) for a track
     static func loadDisplayMetadata(_ track: Track) {
         
-        var title: String?
-        var artist: String?
-        var art: NSImage?
-        
-        if (track.audioAsset == nil) {
-            track.audioAsset = AVURLAsset(url: track.file, options: nil)
-        }
-        
-        let commonMD = track.audioAsset?.commonMetadata
-        
-        for item in commonMD! {
-            
-            if (item.commonKey == AVMetadataCommonKeyTitle) {
-                
-                if (!StringUtils.isStringEmpty(item.stringValue)) {
-                    title = item.stringValue!
-                }
-                
-            } else if (item.commonKey == AVMetadataCommonKeyArtist) {
-                
-                if (!StringUtils.isStringEmpty(item.stringValue)) {
-                    artist = item.stringValue!
-                }
-                
-            } else if (item.commonKey == AVMetadataCommonKeyArtwork) {
-                
-                art = NSImage(data: item.value as! Data)
-            }
-        }
+        let title = loadMetadataForCommonKey(track, AVMetadataCommonKeyTitle)
+        let artist = loadMetadataForCommonKey(track, AVMetadataCommonKeyArtist)
+        let art = loadArtwork(track)
         
         track.setDisplayMetadata(artist, title, art)
     }
@@ -150,34 +124,33 @@ class MetadataReader {
     static func loadGroupingMetadata(_ track: Track) {
         
         // TODO: Optimize
-        loadAllMetadata(track)
+//        loadAllMetadata(track)
+//        let album = track.metadata[AVMetadataCommonKeyAlbumName]?.value
+//        let genre = track.metadata[AVMetadataCommonKeyType]?.value
         
-        let artist = track.displayInfo.artist
-        let album = track.metadata[AVMetadataCommonKeyAlbumName]?.value
-        let genre = track.metadata[AVMetadataCommonKeyType]?.value
-        let diskNumber = track.metadata[AVMetadataID3MetadataKeyPartOfASet]?.value ?? track.metadata[AVMetadataiTunesMetadataKeyDiscNumber]?.value
-        let trackNumber = track.metadata[AVMetadataID3MetadataKeyTrackNumber]?.value ?? track.metadata[AVMetadataiTunesMetadataKeyTrackNumber]?.value
+//        let diskNumber = track.metadata[AVMetadataID3MetadataKeyPartOfASet]?.value ?? track.metadata[AVMetadataiTunesMetadataKeyDiscNumber]?.value
+//        let trackNumber = track.metadata[AVMetadataID3MetadataKeyTrackNumber]?.value ?? track.metadata[AVMetadataiTunesMetadataKeyTrackNumber]?.value
         
-        track.groupingInfo.artist = artist
-        track.groupingInfo.album = album
-        track.groupingInfo.genre = genre
+        track.groupingInfo.artist = track.displayInfo.artist
+        track.groupingInfo.album = loadMetadataForCommonKey(track, AVMetadataCommonKeyAlbumName)
+        track.groupingInfo.genre = loadMetadataForCommonKey(track, AVMetadataCommonKeyType)
         
         // TODO: Clean up
-        if let _disk = diskNumber {
-            
-            let disk = _disk.replacingOccurrences(of: " ", with: "")
-            let numStr = disk.components(separatedBy: "/")[0]
-            let num = Int(numStr)
-            track.groupingInfo.diskNumber = num
-        }
-        
-        if let _trackNum = trackNumber {
-            
-            let trackNum = _trackNum.replacingOccurrences(of: " ", with: "")
-            let tns = trackNum.components(separatedBy: "/")[0]
-            let num = Int(tns)
-            track.groupingInfo.trackNumber = num
-        }
+//        if let _disk = diskNumber {
+//            
+//            let disk = _disk.replacingOccurrences(of: " ", with: "")
+//            let numStr = disk.components(separatedBy: "/")[0]
+//            let num = Int(numStr)
+//            track.groupingInfo.diskNumber = num
+//        }
+//        
+//        if let _trackNum = trackNumber {
+//            
+//            let trackNum = _trackNum.replacingOccurrences(of: " ", with: "")
+//            let tns = trackNum.components(separatedBy: "/")[0]
+//            let num = Int(tns)
+//            track.groupingInfo.trackNumber = num
+//        }
         
 //        track.groupingInfo.diskNumber = diskNumber ? Int(diskN)
 //        track.groupingInfo.trackNumber = trackNumber
@@ -196,6 +169,14 @@ class MetadataReader {
         }
         
         return nil
+    }
+    
+    static func loadArtwork(_ track: Track) -> NSImage? {
+        
+        let id = AVMetadataItem.identifier(forKey: AVMetadataCommonKeyArtwork, keySpace: AVMetadataKeySpaceCommon)!
+        let items = AVMetadataItem.metadataItems(from: track.audioAsset!.commonMetadata, filteredByIdentifier: id)
+        
+        return (items.isEmpty || items[0].value == nil) ? nil : NSImage(data: items[0].value as! Data)
     }
     
     private static func loadMetadataForKey(_ track: Track, _ key: String, _ keySpace: String) -> String? {

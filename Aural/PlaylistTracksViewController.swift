@@ -234,13 +234,13 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
             playlistUpdateQueue.addOperation(updateOp)
         }
         
-        if (message is TrackInfoUpdatedAsyncMessage) {
+        if (message is TrackUpdatedAsyncMessage) {
             
             // Perform task serially wrt other such tasks
             
             let updateOp = BlockOperation(block: {
                 
-                let _msg = (message as! TrackInfoUpdatedAsyncMessage)
+                let _msg = (message as! TrackUpdatedAsyncMessage)
                 let index = _msg.trackIndex
                 
                 self.tracksView.reloadData(forRowIndexes: IndexSet(integer: index), columnIndexes: UIConstants.playlistViewColumnIndexes)

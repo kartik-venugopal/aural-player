@@ -22,7 +22,7 @@ enum AsyncMessageType {
     // See TrackChangedAsyncMessage
     case trackChanged
     
-    // See TrackInfoUpdatedAsyncMessage
+    // See TrackUpdatedAsyncMessage
     case trackInfoUpdated
     
     // See TrackAddedAsyncMessage
@@ -71,22 +71,24 @@ struct PlaybackCompletedAsyncMessage: AsyncMessage {
     static let instance: PlaybackCompletedAsyncMessage = PlaybackCompletedAsyncMessage()
 }
 
-// AsyncMessage indicating that some new information has been loaded for a track (e.g. duration/display name, etc), and that the UI should refresh itself to show the new information
-struct TrackInfoUpdatedAsyncMessage: AsyncMessage {
+//// AsyncMessage indicating that some new information has been loaded for a track (e.g. duration/display name, etc), and that the UI should refresh itself to show the new information
+struct TrackUpdatedAsyncMessage: AsyncMessage {
     
     var messageType: AsyncMessageType = .trackInfoUpdated
     
     // The index of the track that has been updated
     let trackIndex: Int
-    let group: Group
     
-    init(_ trackIndex: Int, _ group: Group) {
+    let groupInfo: [GroupType: GroupedTrack]
+    
+    init(_ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrack]) {
+        
         self.trackIndex = trackIndex
-        self.group = group
+        self.groupInfo = groupInfo
     }
 }
 
-// AsyncMessage indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
+//// AsyncMessage indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
 struct TrackAddedAsyncMessage: AsyncMessage {
     
     var messageType: AsyncMessageType = .trackAdded
@@ -96,10 +98,10 @@ struct TrackAddedAsyncMessage: AsyncMessage {
     
     let groupInfo: [GroupType: GroupedTrackAddResult]
     
-    // The current progress of the track add operation (See TrackAddedAsyncMessageProgress)
-    let progress: TrackAddedAsyncMessageProgress
+    // The current progress of the track add operation (See TrackAddedMessageProgress)
+    let progress: TrackAddedMessageProgress
     
-    init(_ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrackAddResult], _ progress: TrackAddedAsyncMessageProgress) {
+    init(_ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrackAddResult], _ progress: TrackAddedMessageProgress) {
         
         self.trackIndex = trackIndex
         self.groupInfo = groupInfo
@@ -119,7 +121,7 @@ struct TracksRemovedAsyncMessage: AsyncMessage {
 }
 
 // Indicates current progress associated with a TrackAddedAsyncMessage
-struct TrackAddedAsyncMessageProgress {
+struct TrackAddedMessageProgress {
     
     // Number of tracks added so far
     let tracksAdded: Int

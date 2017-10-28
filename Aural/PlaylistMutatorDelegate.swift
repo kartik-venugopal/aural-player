@@ -115,7 +115,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                             
                             progress.tracksAdded += 1
                             
-                            let progressMsg = TrackAddedAsyncMessageProgress(progress.tracksAdded, progress.totalTracks)
+                            let progressMsg = TrackAddedMessageProgress(progress.tracksAdded, progress.totalTracks)
                             let index = try addTrack(file, progressMsg)
                             
                             if (autoplayOptions.autoplay && !progress.autoplayed && index >= 0) {
@@ -164,11 +164,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     // Adds a single track to the playlist. Returns index of newly added track
-    private func addTrack(_ file: URL, _ progress: TrackAddedAsyncMessageProgress) throws -> Int {
+    private func addTrack(_ file: URL, _ progress: TrackAddedMessageProgress) throws -> Int {
         
         let track = Track(file)
-        
-        // TODO: This is temporary
         TrackIO.loadDisplayInfo(track)
         
         let trackAddResult = playlist.addTrack(track)
@@ -177,19 +175,22 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         if let result = trackAddResult {
             
             let index = result.flatPlaylistResult
-            let groupInfo = result.groupingPlaylistResults
+            let groupResults = result.groupingPlaylistResults
 
-            notifyTrackAdded(track, index, groupInfo, progress)
+            notifyTrackAdded(track, index, groupResults, progress)
+            
+            // TODO: Do I need to do this update async ?
             
             // Load display info async (ID3 info, duration)
-//            DispatchQueue.global(qos: .userInitiated).async {
-//                
-//                TrackIO.loadDisplayInfo(track)
-//                self.playlist.trackInfoUpdated(track)
-//                
-//                let updatedGroupInfo = self.playlist.getGroupingInfoForTrack(track, .artist)
-//                AsyncMessenger.publishMessage(TrackInfoUpdatedAsyncMessage(index, updatedGroupInfo.group))
-//            }
+            DispatchQueue.global(qos: .userInitiated).async {
+                
+                TrackIO.loadDuration(track)
+                
+                var groupInfo = [GroupType: GroupedTrack]()
+                groupResults.forEach({groupInfo[$0.key] = $0.value.track})
+            
+                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(index, groupInfo))
+            }
             
             return index
         }
@@ -198,9 +199,16 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     // Publishes a notification that a new track has been added to the playlist
-    private func notifyTrackAdded(_ track: Track, _ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrackAddResult], _ progress: TrackAddedAsyncMessageProgress) {
+    private func notifyTrackAdded(_ track: Track, _ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrackAddResult], _ progress: TrackAddedMessageProgress) {
+        
+//        NSLog("\tUpdating UI for %@ added", track.conciseDisplayName)
+//        DispatchQueue.main.sync {
+//            SyncMessenger.publishNotification(TrackAddedNotification(trackIndex, groupInfo, progress))
+//        }
         
         AsyncMessenger.publishMessage(TrackAddedAsyncMessage(trackIndex, groupInfo, progress))
+        
+//        NSLog("\tDone updating UI for %@ added", track.conciseDisplayName)
         
         // Also notify the listeners directly
         changeListeners.forEach({$0.trackAdded(track)})

@@ -30,7 +30,7 @@ protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group]) -> ItemMovedResults
     
     // Notifies the playlist that info for this track has changed. The playlist may use the updates to re-group the track (by artist/album/genre, etc).
-    func trackInfoUpdated(_ updatedTrack: Track)
+    func trackInfoUpdated(_ updatedTrack: Track) -> GroupedTrackUpdateResult
     
     func reorderTracks(_ reorderOperations: [GroupingPlaylistReorderOperation])
 }

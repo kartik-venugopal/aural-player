@@ -11,10 +11,12 @@ class TrackIO {
     static func loadDisplayInfo(_ track: Track) {
         
         track.audioAsset = AVURLAsset(url: track.file, options: nil)
-        
-        MetadataReader.loadDurationMetadata(track)
         MetadataReader.loadDisplayMetadata(track)
         MetadataReader.loadGroupingMetadata(track)
+    }
+    
+    static func loadDuration(_ track: Track) {
+        MetadataReader.loadDurationMetadata(track)
     }
     
     // Load all the information required to play this track

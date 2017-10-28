@@ -270,7 +270,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         if (movingTracks) {
             
             let group = outlineView.parent(forItem: tracks[0]) as! Group
-            tracks.forEach({childIndexes.append(group.indexOf($0))})
+            tracks.forEach({childIndexes.append(group.indexOf($0)!)})
             
         } else {
             

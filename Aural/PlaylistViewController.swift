@@ -52,13 +52,16 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         // Register self as a subscriber to various AsyncMessage notifications
         AsyncMessenger.subscribe(.trackAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe(.trackInfoUpdated, subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe(.tracksNotAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.tracksNotAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.startedAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.doneAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
-        AsyncMessenger.subscribe(.trackInfoUpdated, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(.removeTrackRequest, subscriber: self)
+//        SyncMessenger.subscribe(.trackAddedNotification, subscriber: self)
+//        SyncMessenger.subscribe(.trackUpdatedNotification, subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -74,10 +77,11 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         tabViewButtons = [btnTracksView, btnArtistsView, btnAlbumsView, btnGenresView]
         
+        tracksTabViewAction(self)
         albumsTabViewAction(self)
         genresTabViewAction(self)
         artistsTabViewAction(self)
-        tracksTabViewAction(self)
+        
     }
     
     @IBAction func addTracksAction(_ sender: AnyObject) {
@@ -122,7 +126,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     }
     
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
-    private func updatePlaylistSummary(_ trackAddProgress: TrackAddedAsyncMessageProgress? = nil) {
+    private func updatePlaylistSummary(_ trackAddProgress: TrackAddedMessageProgress? = nil) {
         
         let summary = playlist.summary()
         let numTracks = summary.size
@@ -239,6 +243,29 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             return
         }
         
+        if (message is TrackUpdatedAsyncMessage) {
+            
+            // Perform task serially wrt other such tasks
+            
+            let updateOp = BlockOperation(block: {
+                
+                let _msg = (message as! TrackUpdatedAsyncMessage)
+                
+                self.updatePlaylistSummary()
+                
+                // If this is the playing track, tell other views that info has been updated
+                let playingTrackIndex = self.playbackInfo.getPlayingTrack()?.index
+                if (playingTrackIndex == _msg.trackIndex) {
+                    SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
+                }
+            })
+            
+            playlistUpdateQueue.addOperation(updateOp)
+            
+            return
+        }
+
+        
         if message is TracksNotAddedAsyncMessage {
             let _msg = message as! TracksNotAddedAsyncMessage
             handleTracksNotAddedError(_msg.errors)
@@ -254,30 +281,24 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             doneAddingTracks()
             return
         }
-        
-        if (message is TrackInfoUpdatedAsyncMessage) {
-            
-            // Perform task serially wrt other such tasks
-            
-            let updateOp = BlockOperation(block: {
-                
-                let _msg = (message as! TrackInfoUpdatedAsyncMessage)
-                self.updatePlaylistSummary()
-                
-                // If this is the playing track, tell other views that info has been updated
-                let playingTrackIndex = self.playbackInfo.getPlayingTrack()?.index
-                if (playingTrackIndex == _msg.trackIndex) {
-                    SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
-                }
-            })
-            
-            playlistUpdateQueue.addOperation(updateOp)
-            
-            return
-        }
     }
     
-    func consumeNotification(_ notification: NotificationMessage) {
+    func consumeNotification(_ message: NotificationMessage) {
+        
+//        if message is TrackAddedNotification {
+//            
+//            let _msg = message as! TrackAddedNotification
+//            
+//            // Perform task serially wrt other such tasks
+//            
+//            let updateOp = BlockOperation(block: {
+//                self.updatePlaylistSummary(_msg.progress)
+//            })
+//            
+//            playlistUpdateQueue.addOperation(updateOp)
+//            
+//            return
+//        }
     }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
