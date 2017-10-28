@@ -1,9 +1,9 @@
 import Foundation
 
-class Group: NSObject, GroupedPlaylistItem {
+class Group: NSObject, GroupAccessorProtocol, GroupedPlaylistItem {
     
-    var type: GroupType
-    var name: String
+    let type: GroupType
+    let name: String
     var tracks: [Track] = [Track]()
     
     var duration: Double {
@@ -24,6 +24,10 @@ class Group: NSObject, GroupedPlaylistItem {
     
     func indexOf(_ track: Track) -> Int? {
         return tracks.index(of: track)
+    }
+    
+    func trackAtIndex(_ index: Int) -> Track {
+        return tracks[index]
     }
     
     func addTrack(_ track: Track) -> Int {

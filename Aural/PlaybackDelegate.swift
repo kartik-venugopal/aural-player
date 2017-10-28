@@ -9,7 +9,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     private let player: PlayerProtocol
     
     // The actual playback sequence
-    private let playbackSequence: PlaybackSequenceProtocol
+    private let playbackSequencer: PlaybackSequencerProtocol
     
     // The actual playlist
     private let playlist: PlaylistAccessorProtocol
@@ -20,10 +20,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     // Serial queue for track prep tasks (to prevent concurrent prepping of the same track which could cause contention)
     private var trackPrepQueue: OperationQueue
     
-    init(_ player: PlayerProtocol, _ playbackSequence: PlaybackSequenceProtocol, _ playlist: PlaylistAccessorProtocol, _ preferences: Preferences) {
+    init(_ player: PlayerProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ playlist: PlaylistAccessorProtocol, _ preferences: Preferences) {
         
         self.player = player
-        self.playbackSequence = playbackSequence
+        self.playbackSequencer = playbackSequencer
         self.playlist = playlist
         self.preferences = preferences
         
@@ -60,7 +60,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     // Plays whatever track follows the currently playing track (if there is one). If no track is playing, selects the first track in the playback sequence. Throws an error if playback fails.
     private func subsequentTrack() throws -> IndexedTrack? {
-        let track = playlist.peekTrackAt(playbackSequence.subsequent())
+        let track = playbackSequencer.subsequent()
         try play(track)
         return track
     }
@@ -74,10 +74,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     func play(_ index: Int) throws -> IndexedTrack {
-        playbackSequence.select(index)
-        let track = playlist.peekTrackAt(index)
+        let track = playbackSequencer.select(index)
         try play(track)
-        return track!
+        return track
     }
     
     // Throws an error if playback fails
@@ -109,9 +108,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         let prepTracksSet = NSMutableSet()
         
         // The three possible tracks that could play next
-        let peekSubsequent = playlist.peekTrackAt(playbackSequence.peekSubsequent())?.track
-        let peekNext = playlist.peekTrackAt(playbackSequence.peekNext())?.track
-        let peekPrevious = playlist.peekTrackAt(playbackSequence.peekPrevious())?.track
+        let peekSubsequent = playbackSequencer.peekSubsequent()?.track
+        let peekNext = playbackSequencer.peekNext()?.track
+        let peekPrevious = playbackSequencer.peekPrevious()?.track
         
         let playingTrack = getPlayingTrack()
         
@@ -181,7 +180,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func nextTrack() throws -> IndexedTrack? {
         
-        let track = playlist.peekTrackAt(playbackSequence.next())
+        let track = playbackSequencer.next()
         
         if (track != nil) {
             try play(track)
@@ -192,7 +191,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func previousTrack() throws -> IndexedTrack? {
         
-        let track = playlist.peekTrackAt(playbackSequence.previous())
+        let track = playbackSequencer.previous()
         
         if (track != nil) {
             try play(track)
@@ -276,12 +275,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     func getPlayingTrack() -> IndexedTrack? {
-        return playlist.peekTrackAt(playbackSequence.getCursor())
+        return playbackSequencer.getPlayingTrack()
     }
     
     func getPlayingTrackGroupInfo(_ groupType: GroupType) -> GroupedTrack? {
         
-        if let playingTrack = playlist.peekTrackAt(playbackSequence.getCursor()) {
+        if let playingTrack = playbackSequencer.getPlayingTrack() {
             return playlist.getGroupingInfoForTrack(groupType, playingTrack.track)
         }
         
@@ -289,25 +288,25 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        let modes = playbackSequence.toggleRepeatMode()
+        let modes = playbackSequencer.toggleRepeatMode()
         prepareNextTracksForPlayback()
         return modes
     }
     
     func setRepeatMode(_ repeatMode: RepeatMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        let modes = playbackSequence.setRepeatMode(repeatMode)
+        let modes = playbackSequencer.setRepeatMode(repeatMode)
         prepareNextTracksForPlayback()
         return modes
     }
     
     func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        let modes = playbackSequence.toggleShuffleMode()
+        let modes = playbackSequencer.toggleShuffleMode()
         prepareNextTracksForPlayback()
         return modes
     }
     
     func setShuffleMode(_ shuffleMode: ShuffleMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        let modes = playbackSequence.setShuffleMode(shuffleMode)
+        let modes = playbackSequencer.setShuffleMode(shuffleMode)
         prepareNextTracksForPlayback()
         return modes
     }

@@ -41,8 +41,26 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
     }
     
     func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> GroupedTrack {
-        
-        // func getGroupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack
         return playlist.getGroupingInfoForTrack(groupType, track)
+    }
+    
+    func displayNameFor(_ type: GroupType, _ track: Track) -> String {
+        return playlist.displayNameFor(type, track)
+    }
+    
+    func getGroupAt(_ type: GroupType, _ index: Int) -> Group {
+        return playlist.getGroupAt(type, index)
+    }
+    
+    func getGroupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack {
+        return playlist.getGroupingInfoForTrack(type, track)
+    }
+    
+    func getIndexOf(_ group: Group) -> Int {
+        return playlist.getIndexOf(group)
+    }
+    
+    func getNumberOfGroups(_ type: GroupType) -> Int {
+        return playlist.getNumberOfGroups(type)
     }
 }

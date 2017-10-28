@@ -19,7 +19,7 @@ class ObjectGraph {
     private static var audioGraphDelegate: AudioGraphDelegateProtocol?
     
     private static var player: Player?
-    private static var playbackSequence: PlaybackSequence?
+    private static var playbackSequencer: PlaybackSequencer?
     private static var playbackDelegate: PlaybackDelegate?
     
     private static var recorder: Recorder?
@@ -71,16 +71,16 @@ class ObjectGraph {
         // Playback Sequence
         let repeatMode = appState!.playbackSequenceState.repeatMode
         let shuffleMode = appState!.playbackSequenceState.shuffleMode
-        playbackSequence = PlaybackSequence(0, repeatMode, shuffleMode)
+        playbackSequencer = PlaybackSequencer(playlist!, repeatMode, shuffleMode)
         
         // Playback Delegate
-        playbackDelegate = PlaybackDelegate(player!, playbackSequence!, playlist!, preferences!)
+        playbackDelegate = PlaybackDelegate(player!, playbackSequencer!, playlist!, preferences!)
 
         // Playlist Delegate
         let accessor = PlaylistAccessorDelegate(playlist!)
         
-        let changeListeners: [PlaylistChangeListener] = [playbackSequence!, playbackDelegate!]
-        let mutator = PlaylistMutatorDelegate(playlist!, playbackSequence!, playbackDelegate!, appState!.playlistState, preferences!, changeListeners)
+        let changeListeners: [PlaylistChangeListener] = [playbackSequencer!, playbackDelegate!]
+        let mutator = PlaylistMutatorDelegate(playlist!, playbackSequencer!, playbackDelegate!, appState!.playlistState, preferences!, changeListeners)
         
         playlistDelegate = PlaylistDelegate(accessor, mutator)
         
@@ -135,7 +135,7 @@ class ObjectGraph {
         
         appState?.audioGraphState = audioGraph!.getPersistentState()
         appState?.playlistState = playlist!.persistentState()
-        appState?.playbackSequenceState = playbackSequence!.getPersistentState()
+        appState?.playbackSequenceState = playbackSequencer!.getPersistentState()
         appState?.uiState = WindowState.getPersistentState()
         
         // Persist app state to disk

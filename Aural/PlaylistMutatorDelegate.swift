@@ -9,7 +9,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     private let playlist: PlaylistCRUDProtocol
     
     // The actual playback sequence
-    private let playbackSequence: PlaybackSequence
+    private let playbackSequencer: PlaybackSequencerProtocol
     
     // A set of all observers/listeners that are interested in changes to the playlist
     private let changeListeners: [PlaylistChangeListener]
@@ -23,10 +23,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     // User preferences (used for autoplay)
     private let preferences: Preferences
     
-    init(_ playlist: PlaylistCRUDProtocol, _ playbackSequence: PlaybackSequence, _ player: BasicPlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListener]) {
+    init(_ playlist: PlaylistCRUDProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ player: BasicPlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListener]) {
         
         self.playlist = playlist
-        self.playbackSequence = playbackSequence
+        self.playbackSequencer = playbackSequencer
         
         self.player = player
         
@@ -219,8 +219,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         DispatchQueue.main.async {
             
-            let oldCursor = self.playbackSequence.getCursor()
-            let oldTrack = self.playlist.peekTrackAt(oldCursor)
+            let oldTrack = self.playbackSequencer.getPlayingTrack()
             
             do {
                 
@@ -261,32 +260,18 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> ItemMovedResults {
-        
-        // Note down which track was playing, if any
-        let oldPlayingTrackIndex = playbackSequence.getCursor()
-        let playingTrack = playlist.peekTrackAt(oldPlayingTrackIndex)
-        
-        // Move tracks up as requested
-        let results = playlist.moveTracksUp(indexes)
-        
-        // Update the playing track index
-        let newPlayingTrackIndex = oldPlayingTrackIndex == nil ? nil : (indexes.contains(oldPlayingTrackIndex!) ? findNewIndexFor(oldPlayingTrackIndex!, results) : playlist.indexOfTrack(playingTrack!.track))
-        
-        // TODO: Do this more smartly (only part of the playlist has been reordered)
-        // Notify listeners of the reordering of tracks
-        changeListeners.forEach({$0.playlistReordered(newPlayingTrackIndex)})
-        
-        return results
+        return tracksMoved(indexes, playlist.moveTracksUp(indexes))
     }
     
     func moveTracksDown(_ indexes: IndexSet) -> ItemMovedResults {
+        return tracksMoved(indexes, playlist.moveTracksDown(indexes))
+    }
+    
+    private func tracksMoved(_ indexes: IndexSet, _ results: ItemMovedResults) -> ItemMovedResults {
         
         // Note down which track was playing, if any
-        let oldPlayingTrackIndex = playbackSequence.getCursor()
-        let playingTrack = playlist.peekTrackAt(oldPlayingTrackIndex)
-        
-        // Move tracks down as requested
-        let results = playlist.moveTracksDown(indexes)
+        let playingTrack = playbackSequencer.getPlayingTrack()
+        let oldPlayingTrackIndex = playingTrack?.index
         
         // Update the playing track index
         let newPlayingTrackIndex = oldPlayingTrackIndex == nil ? nil : (indexes.contains(oldPlayingTrackIndex!) ? findNewIndexFor(oldPlayingTrackIndex!, results) : playlist.indexOfTrack(playingTrack!.track))
@@ -329,8 +314,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     func sort(_ sort: Sort) {
         
-        let oldCursor = playbackSequence.getCursor()
-        let playingTrack = playlist.peekTrackAt(oldCursor)
+        let playingTrack = playbackSequencer.getPlayingTrack()
         
         playlist.sort(sort)
         
@@ -381,8 +365,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     func reorderTracks(_ reorderOperations: [PlaylistReorderOperation]) {
         
-        let oldCursor = playbackSequence.getCursor()
-        let playingTrack = playlist.peekTrackAt(oldCursor)
+        let playingTrack = playbackSequencer.getPlayingTrack()
         
         playlist.reorderTracks(reorderOperations)
         

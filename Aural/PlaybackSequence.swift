@@ -6,6 +6,8 @@ import Foundation
 
 class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
     
+    private var scope: SequenceScope?
+    
     private var repeatMode: RepeatMode = .off
     private var shuffleMode: ShuffleMode = .off
     
@@ -93,13 +95,16 @@ class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
         
         switch repeatMode {
             
-        case .off: repeatMode = .one
-        
-        // If repeating one track, cannot also shuffle
-        if (shuffleMode == .on) {
-            shuffleMode = .off
-            shuffleSequence.clear()
+        case .off:
+            
+            repeatMode = .one
+            
+            // If repeating one track, cannot also shuffle
+            if (shuffleMode == .on) {
+                shuffleMode = .off
+                shuffleSequence.clear()
             }
+            
         case .one: repeatMode = .all
         case .all: repeatMode = .off
             
@@ -695,6 +700,10 @@ class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
         return state
     }
     
+    func getRepeatAndShuffleModes() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
+        return (repeatMode, shuffleMode)
+    }
+    
     // --------------- PlaylistChangeListener methods ----------------
     
     func trackAdded(_ track: Track) {
@@ -752,4 +761,23 @@ class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
     func playlistCleared() {
         clear()
     }
+}
+
+struct SequenceScope {
+ 
+    let type: SequenceType
+    
+    // If only a particular artist/album/genre is being played back, holds the specific artist/album/genre group
+    let scope: Group?
+}
+
+enum SequenceType {
+ 
+    case allTracks
+    case allArtists
+    case allAlbums
+    case allGenres
+    case artist
+    case album
+    case genre
 }

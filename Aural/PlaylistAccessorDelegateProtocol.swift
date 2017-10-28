@@ -27,4 +27,14 @@ protocol PlaylistAccessorDelegateProtocol {
     
     // Searches the playlist, given certain query parameters, and returns all matching results
     func search(_ searchQuery: SearchQuery, _ groupType: GroupType) -> SearchResults
+    
+    func getGroupAt(_ type: GroupType, _ index: Int) -> Group
+    
+    func getNumberOfGroups(_ type: GroupType) -> Int
+    
+    func getGroupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack
+    
+    func getIndexOf(_ group: Group) -> Int
+    
+    func displayNameFor(_ type: GroupType, _ track: Track) -> String
 }

@@ -48,6 +48,26 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         return accessor.search(searchQuery, groupType)
     }
     
+    func displayNameFor(_ type: GroupType, _ track: Track) -> String {
+        return accessor.displayNameFor(type, track)
+    }
+    
+    func getGroupAt(_ type: GroupType, _ index: Int) -> Group {
+        return accessor.getGroupAt(type, index)
+    }
+    
+    func getGroupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack {
+        return accessor.getGroupingInfoForTrack(type, track)
+    }
+    
+    func getIndexOf(_ group: Group) -> Int {
+        return accessor.getIndexOf(group)
+    }
+    
+    func getNumberOfGroups(_ type: GroupType) -> Int {
+        return accessor.getNumberOfGroups(type)
+    }
+    
     func addFiles(_ files: [URL]) {
         mutator.addFiles(files)
     }
