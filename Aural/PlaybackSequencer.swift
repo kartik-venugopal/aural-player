@@ -16,56 +16,66 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         SyncMessenger.subscribe(.playlistTypeChangedNotification, subscriber: self)
     }
     
+    // No track is currently playing
     func begin() -> IndexedTrack? {
+        
+        sequence.reset(tracksCount: playlist.size())
         return subsequent()
     }
     
     func peekSubsequent() -> IndexedTrack? {
-        return getTrackForCursor(sequence.peekSubsequent())
+        return getTrackForIndex(sequence.peekSubsequent())
     }
     
     func subsequent() -> IndexedTrack? {
-        return getTrackForCursor(sequence.subsequent())
+        return getTrackForIndex(sequence.subsequent())
     }
     
     func peekNext() -> IndexedTrack? {
-        return getTrackForCursor(sequence.peekNext())
+        return getTrackForIndex(sequence.peekNext())
     }
     
     func next() -> IndexedTrack? {
-        return getTrackForCursor(sequence.next())
+        return getTrackForIndex(sequence.next())
     }
     
     func peekPrevious() -> IndexedTrack? {
-        return getTrackForCursor(sequence.peekPrevious())
+        return getTrackForIndex(sequence.peekPrevious())
     }
     
     func previous() -> IndexedTrack? {
-        return getTrackForCursor(sequence.previous())
+        return getTrackForIndex(sequence.previous())
     }
     
     func select(_ index: Int) -> IndexedTrack {
         sequence.select(index)
-        return playlist.peekTrackAt(index)!
+        return getTrackForIndex(index)!
     }
     
     func getPlayingTrack() -> IndexedTrack? {
-        return getTrackForCursor(sequence.getCursor())
+        return getTrackForIndex(sequence.getCursor())
     }
     
-    private func getTrackForCursor(_ cursor: Int?) -> IndexedTrack? {
+    private func getTrackForIndex(_ optionalIndex: Int?) -> IndexedTrack? {
         
-        if let cursor = sequence.getCursor() {
+        // Unwrap optional cursor value
+        if let index = optionalIndex {
             
             switch scope.type {
                 
-            case .album: return wrapTrack(scope.scope!.trackAtIndex(cursor))
+            case .album: return wrapTrack(scope.scope!.trackAtIndex(index))
                 
-            case .artist: return wrapTrack(scope.scope!.trackAtIndex(cursor))
+            case .artist: return wrapTrack(scope.scope!.trackAtIndex(index))
                 
-            case .genre: return wrapTrack(scope.scope!.trackAtIndex(cursor))
+            case .genre: return wrapTrack(scope.scope!.trackAtIndex(index))
                 
-            default: return playlist.peekTrackAt(cursor)
+            case .allTracks: return playlist.peekTrackAt(index)
+                
+            case .allArtists: return wrapTrack(getGroupedTrackForAbsoluteIndex(.artist, index))
+                
+            case .allAlbums: return wrapTrack(getGroupedTrackForAbsoluteIndex(.album, index))
+                
+            case .allGenres: return wrapTrack(getGroupedTrackForAbsoluteIndex(.genre, index))
                 
             }
         }
@@ -73,9 +83,44 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         return nil
     }
     
+    private func getGroupedTrackForAbsoluteIndex(_ groupType: GroupType, _ index: Int) -> Track {
+        
+        var groupIndex = 0
+        var group = playlist.getGroupAt(groupType, 0)
+        
+        var tracks = 0
+        var tracksInGroup = 0
+        
+        while (tracks < index) {
+            
+            while (tracksInGroup < group.size() && tracks < index) {
+                tracksInGroup += 1
+                tracks += 1
+            }
+            
+            if (tracks == index) {
+                let track = group.trackAtIndex(tracksInGroup)
+                print("Track for absIndex:", index, "=", track.conciseDisplayName)
+                return track
+            }
+            
+            groupIndex += 1
+            group = playlist.getGroupAt(groupType, groupIndex)
+        }
+        
+        let track = group.trackAtIndex(tracksInGroup)
+        print("Track for absIndex:", index, "=", track.conciseDisplayName)
+        return track
+    }
+    
     private func wrapTrack(_ track: Track) -> IndexedTrack {
         
+        let tim = TimerUtils.start("wrapTrack")
+        
         let index = playlist.indexOfTrack(track)
+        
+        tim.end()
+        
         return IndexedTrack(track, index!)
     }
     
@@ -107,18 +152,46 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
     }
     
     func select(_ track: Track) -> IndexedTrack {
-        // TODO: Figure out the index of this track within the scope
-        // Reset the sequence with a tracks count and this track's index as the first index (cursor)
         
-        let index = playlist.indexOfTrack(track)!
-        sequence.select(index)
+        let groupType: GroupType
+        let newType: SequenceScopes
         
-        return IndexedTrack(track, index)
+        switch scope.type {
+            
+        case .allAlbums, .album:
+            
+            newType = .album
+            groupType = .album
+            
+        case .allArtists, .artist:
+            
+            newType = .artist
+            groupType = .artist
+            
+        case .allGenres, .genre:
+            
+            newType = .genre
+            groupType = .genre
+            
+        default:
+            
+            newType = .artist
+            groupType = .artist
+            
+        }
+        
+        scope.type = newType
+        
+        let groupInfo = playlist.getGroupingInfoForTrack(groupType, track)
+        let group = groupInfo.group
+        scope.scope = group
+        
+        sequence.reset(tracksCount: group.size())
+        
+        return select(groupInfo.trackIndex)
     }
     
     func select(_ group: Group) -> IndexedTrack {
-        
-        // Reset the sequence with a tracks count (group.size()) and the first track under this group as the first index (cursor = 0)
         
         let newType: SequenceScopes
         
@@ -137,6 +210,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         scope.type = newType
         scope.scope = group
         sequence.reset(tracksCount: group.size())
+        sequence.resetCursor()
         
         return subsequent()!
     }
@@ -166,6 +240,11 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
     }
     
     func scopeTypeChanged(_ playlistType: PlaylistType) {
+        
+        if (sequence.getCursor() != nil) {
+            print("Ignoring playlist type change, because track is playing")
+            return
+        }
         
         var type: SequenceScopes
         

@@ -46,7 +46,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             
         case .noTrack:
             
-            if (try subsequentTrack()) != nil {
+            if try beginPlayback() != nil {
                 trackChanged = true
             }
             
@@ -57,6 +57,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         }
         
         return (getPlaybackState(), getPlayingTrack(), trackChanged)
+    }
+    
+    private func beginPlayback() throws -> IndexedTrack? {
+        
+        let track = playbackSequencer.begin()
+        try play(track)
+        return track
     }
     
     // Plays whatever track follows the currently playing track (if there is one). If no track is playing, selects the first track in the playback sequence. Throws an error if playback fails.
@@ -104,6 +111,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     // Computes which tracks are likely to play next (based on the playback sequence and user actions), and eagerly loads metadata for those tracks in preparation for their future playback. This significantly speeds up playback start time when the track is actually played back.
     private func prepareNextTracksForPlayback() {
+        
+        // TODO
+        return
         
         // Set of all tracks that need to be prepped
         let prepTracksSet = NSMutableSet()

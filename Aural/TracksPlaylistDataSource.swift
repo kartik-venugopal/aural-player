@@ -50,7 +50,7 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
     // Returns a view for a single playlist row
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let track = (playlist.peekTrackAt(row)?.track)!
+        if let track = playlist.peekTrackAt(row)?.track {
         
         if (tableColumn?.identifier == UIConstants.trackIndexColumnID) {
             
@@ -81,6 +81,9 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
             
             // Duration
             return createTextCell(tableView, UIConstants.durationColumnID, StringUtils.formatSecondsToHMS(track.duration))
+        }
+        } else {
+            return nil
         }
     }
     

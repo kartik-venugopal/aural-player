@@ -31,6 +31,10 @@ class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
         reset()
     }
     
+    func resetCursor() {
+        cursor = nil
+    }
+    
     // Resets the sequence with the first track in the sequence being the given track index
     func reset(firstTrackIndex: Int?) {
         
