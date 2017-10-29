@@ -106,7 +106,9 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
             }
             
             if let view = playlistView {
-                playSelectedGroupedTrackAction(view)
+                if (view.selectedRow >= 0) {
+                    playSelectedGroupedTrackAction(view)
+                }
             }
         }
     }
