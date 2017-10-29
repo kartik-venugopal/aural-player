@@ -3,7 +3,8 @@ import Foundation
 class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, MessageSubscriber {
     
     private var sequence: PlaybackSequence
-    private var scope: SequenceScope
+    private var scope: SequenceScope = SequenceScope(.allTracks)
+    private var playlistType: PlaylistType = .tracks
     
     private var playlist: PlaylistAccessorProtocol
     
@@ -11,7 +12,6 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         
         self.sequence = PlaybackSequence(0, repeatMode, shuffleMode)
         self.playlist = playlist
-        self.scope = SequenceScope(.allTracks)
         
         SyncMessenger.subscribe(.playlistTypeChangedNotification, subscriber: self)
     }
@@ -19,7 +19,27 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
     // No track is currently playing
     func begin() -> IndexedTrack? {
         
+        // Set the scope according to playlist type
+        
+        var type: SequenceScopes
+        
+        switch playlistType {
+            
+        case .albums: type = .allAlbums
+            
+        case .artists: type = .allArtists
+            
+        case .genres: type = .allGenres
+            
+        case .tracks: type = .allTracks
+            
+        }
+        
+        scope.type = type
+        
+        // Reset the sequence and begin playing
         sequence.reset(tracksCount: playlist.size())
+        
         return subsequent()
     }
     
@@ -48,8 +68,77 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
     }
     
     func select(_ index: Int) -> IndexedTrack {
+        
+        if (scope.type != .allTracks) {
+            
+            // Need to reset the scope and sequence
+            scope.type = .allTracks
+            sequence.reset(tracksCount: playlist.size())
+        }
+        
+        return doSelectIndex(index)
+    }
+    
+    private func doSelectIndex(_ index: Int) -> IndexedTrack {
+        
         sequence.select(index)
         return getTrackForIndex(index)!
+    }
+    
+    func select(_ track: Track) -> IndexedTrack {
+        
+        var groupType: GroupType
+        
+        switch playlistType {
+            
+        case .albums:
+            
+            scope.type = .album
+            groupType = .album
+            
+        case .artists:
+            
+            scope.type = .artist
+            groupType = .artist
+            
+        case .genres:
+            
+            scope.type = .genre
+            groupType = .genre
+            
+        case .tracks:
+            
+            return select(playlist.indexOfTrack(track)!)
+        }
+        
+        let groupInfo = playlist.getGroupingInfoForTrack(groupType, track)
+        let group = groupInfo.group
+        scope.scope = group
+        sequence.reset(tracksCount: group.size())
+        
+        return doSelectIndex(groupInfo.trackIndex)
+    }
+    
+    func select(_ group: Group) -> IndexedTrack {
+        
+        switch playlistType {
+            
+        case .albums: scope.type = .album
+            
+        case .artists: scope.type = .artist
+            
+        case .genres: scope.type = .genre
+            
+        // This case is impossible (group cannot be selected in tracks view)
+        case .tracks: scope.type = scope.type
+            
+        }
+        
+        scope.scope = group
+        sequence.reset(tracksCount: group.size())
+        sequence.resetCursor()
+        
+        return subsequent()!
     }
     
     func getPlayingTrack() -> IndexedTrack? {
@@ -85,31 +174,27 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
     
     private func getGroupedTrackForAbsoluteIndex(_ groupType: GroupType, _ index: Int) -> Track {
         
-        var groupIndex = 0
-        var group = playlist.getGroupAt(groupType, 0)
+        let tim = TimerUtils.start("trackForAbsIndex")
         
+        var groupIndex = 0
         var tracks = 0
-        var tracksInGroup = 0
+        var trackIndexInGroup = 0
         
         while (tracks < index) {
-            
-            while (tracksInGroup < group.size() && tracks < index) {
-                tracksInGroup += 1
-                tracks += 1
-            }
-            
-            if (tracks == index) {
-                let track = group.trackAtIndex(tracksInGroup)
-                print("Track for absIndex:", index, "=", track.conciseDisplayName)
-                return track
-            }
-            
+            tracks += playlist.getGroupAt(groupType, groupIndex).size()
             groupIndex += 1
-            group = playlist.getGroupAt(groupType, groupIndex)
         }
         
-        let track = group.trackAtIndex(tracksInGroup)
-        print("Track for absIndex:", index, "=", track.conciseDisplayName)
+        // If you've overshot the target index, go back one group, and use the offset to calculate track index within that previous group
+        if (tracks > index) {
+            groupIndex -= 1
+            trackIndexInGroup = playlist.getGroupAt(groupType, groupIndex).size() - (tracks - index)
+        }
+        
+        let group = playlist.getGroupAt(groupType, groupIndex)
+        let track = group.trackAtIndex(trackIndexInGroup)
+        
+        tim.end()
         return track
     }
     
@@ -151,70 +236,6 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         return state
     }
     
-    func select(_ track: Track) -> IndexedTrack {
-        
-        let groupType: GroupType
-        let newType: SequenceScopes
-        
-        switch scope.type {
-            
-        case .allAlbums, .album:
-            
-            newType = .album
-            groupType = .album
-            
-        case .allArtists, .artist:
-            
-            newType = .artist
-            groupType = .artist
-            
-        case .allGenres, .genre:
-            
-            newType = .genre
-            groupType = .genre
-            
-        default:
-            
-            newType = .artist
-            groupType = .artist
-            
-        }
-        
-        scope.type = newType
-        
-        let groupInfo = playlist.getGroupingInfoForTrack(groupType, track)
-        let group = groupInfo.group
-        scope.scope = group
-        
-        sequence.reset(tracksCount: group.size())
-        
-        return select(groupInfo.trackIndex)
-    }
-    
-    func select(_ group: Group) -> IndexedTrack {
-        
-        let newType: SequenceScopes
-        
-        switch scope.type {
-            
-        case .allAlbums: newType = .album
-            
-        case .allArtists: newType = .artist
-            
-        case .allGenres: newType = .genre
-            
-        default: newType = .artist
-            
-        }
-        
-        scope.type = newType
-        scope.scope = group
-        sequence.reset(tracksCount: group.size())
-        sequence.resetCursor()
-        
-        return subsequent()!
-    }
-    
     // --------------- PlaylistChangeListener methods ----------------
     
     // TODO
@@ -239,34 +260,14 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         sequence.playlistCleared()
     }
     
-    func scopeTypeChanged(_ playlistType: PlaylistType) {
-        
-        if (sequence.getCursor() != nil) {
-            print("Ignoring playlist type change, because track is playing")
-            return
-        }
-        
-        var type: SequenceScopes
-        
-        switch playlistType {
-            
-        case .albums: type = .allAlbums
-            
-        case .artists: type = .allArtists
-            
-        case .genres: type = .allGenres
-            
-        case .tracks: type = .allTracks
-            
-        }
-
-        scope.type = type
+    func playlistTypeChanged(_ playlistType: PlaylistType) {
+        self.playlistType = playlistType
     }
     
     func consumeNotification(_ notification: NotificationMessage) {
         
         if let msg = notification as? PlaylistTypeChangedNotification {
-            scopeTypeChanged(msg.newPlaylistType)
+            playlistTypeChanged(msg.newPlaylistType)
             return
         }
     }
