@@ -51,6 +51,8 @@ protocol PlaybackSequencerProtocol {
     // Returns the index of the currently playing track
     func getPlayingTrack() -> IndexedTrack?
     
+    func getPlaybackSequenceInfo() -> (scope: SequenceScope, trackIndex: Int, totalTracks: Int)
+    
     // Toggles between repeat modes. See RepeatMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
     

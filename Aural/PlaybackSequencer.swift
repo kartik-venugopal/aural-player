@@ -16,6 +16,10 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         SyncMessenger.subscribe(.playlistTypeChangedNotification, subscriber: self)
     }
     
+    func getPlaybackSequenceInfo() -> (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {
+        return (scope, (sequence.getCursor() ?? -1) + 1, sequence.size())
+    }
+    
     // No track is currently playing
     func begin() -> IndexedTrack? {
         

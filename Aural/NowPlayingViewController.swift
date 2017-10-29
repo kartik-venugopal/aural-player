@@ -15,6 +15,11 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
     // Fields that display/control seek position within the playing track
     @IBOutlet weak var lblTimeElapsed: NSTextField!
     @IBOutlet weak var lblTimeRemaining: NSTextField!
+    
+    @IBOutlet weak var lblSequenceProgress: NSTextField!
+    @IBOutlet weak var lblPlaybackScope: NSTextField!
+    @IBOutlet weak var imgScope: NSImageView!
+    
     @IBOutlet weak var seekSlider: NSSlider!
     
     // Button and menu item to display more details about the playing track
@@ -192,6 +197,60 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
                 setSeekTimerState(true)
                 togglePlayingTrackButtons(true)
                 
+                let sequence = playbackInfo.getPlaybackSequenceInfo()
+                let scope = sequence.scope
+                
+                let trackIndex = sequence.trackIndex
+                let totalTracks = sequence.totalTracks
+                
+                switch scope.type {
+                    
+                case .allTracks:
+                    
+                    lblPlaybackScope.stringValue = "All tracks"
+                    imgScope.isHidden = true
+                    
+                case .allArtists:
+                    
+                    lblPlaybackScope.stringValue = "All artists"
+                    imgScope.isHidden = true
+                    
+                case .allAlbums:
+                    
+                    lblPlaybackScope.stringValue = "All albums"
+                    imgScope.isHidden = true
+                    
+                case .allGenres:
+                    
+                    lblPlaybackScope.stringValue = "All genres"
+                    imgScope.isHidden = true
+                    
+                case .artist, .album, .genre:
+                    
+                    lblPlaybackScope.stringValue = scope.scope!.name
+                    imgScope.isHidden = false
+                }
+                
+                lblSequenceProgress.stringValue = String(format: "(%d / %d)", trackIndex, totalTracks)
+                
+                let scopeString: NSString = lblPlaybackScope.stringValue as NSString
+                let size: CGSize = scopeString.size(withAttributes: [NSFontAttributeName: lblPlaybackScope.font as AnyObject])
+
+                let lblWidth = lblPlaybackScope.frame.width
+                let textWidth = min(size.width, lblWidth)
+                
+                let margin = (lblWidth - textWidth) / 2
+                
+                let newX = lblPlaybackScope.frame.origin.x + lblPlaybackScope.frame.width - margin + 2
+                lblSequenceProgress.frame.origin.x = newX
+                
+                if (!imgScope.isHidden) {
+   
+                    let margin = (lblWidth - textWidth) / 2
+                    let newX = lblPlaybackScope.frame.origin.x + margin - imgScope.frame.width - 4
+                    imgScope.frame.origin.x = newX
+                }
+                
                 if (popoverView.isShown()) {
                     
                     playbackInfo.getPlayingTrack()?.track.loadDetailedInfo()
@@ -206,6 +265,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
             
         } else {
             
+            [lblPlaybackScope, lblSequenceProgress].forEach({$0?.stringValue = ""})
+            imgScope.isHidden = true
             clearNowPlayingInfo()
         }
     }

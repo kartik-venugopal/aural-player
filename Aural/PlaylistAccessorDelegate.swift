@@ -29,7 +29,11 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
     }
     
     func summary() -> (size: Int, totalDuration: Double) {
-        return (playlist.size(), playlist.totalDuration())
+        return playlist.summary()
+    }
+    
+    func summary(_ groupType: GroupType) -> (size: Int, totalDuration: Double, numGroups: Int) {
+        return playlist.summary(groupType)
     }
     
     func search(_ searchQuery: SearchQuery) -> SearchResults {

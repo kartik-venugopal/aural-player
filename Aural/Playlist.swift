@@ -40,6 +40,10 @@ class Playlist: PlaylistCRUDProtocol {
         return (size(), totalDuration())
     }
     
+    func summary(_ groupType: GroupType) -> (size: Int, totalDuration: Double, numGroups: Int) {
+        return (size(), totalDuration(), groupingPlaylists[groupType]!.getNumberOfGroups())
+    }
+    
     func addTrack(_ track: Track) -> TrackAddResult? {
         
         if (!trackExists(track)) {

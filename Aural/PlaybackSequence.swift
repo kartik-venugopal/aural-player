@@ -25,6 +25,10 @@ class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
         reset(tracksCount: tracksCount)
     }
     
+    func size() -> Int {
+        return tracksCount
+    }
+    
     // Resets the sequence with a new tracksCount
     func reset(tracksCount: Int) {
         self.tracksCount = tracksCount

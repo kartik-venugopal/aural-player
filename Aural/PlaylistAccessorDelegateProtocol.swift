@@ -22,6 +22,9 @@ protocol PlaylistAccessorDelegateProtocol {
     // Returns a summary of the playlist - both size and total duration
     func summary() -> (size: Int, totalDuration: Double)
     
+    // Returns a summary of the playlist - both size and total duration
+    func summary(_ groupType: GroupType) -> (size: Int, totalDuration: Double, numGroups: Int)
+    
     // Searches the playlist, given certain query parameters, and returns all matching results
     func search(_ searchQuery: SearchQuery) -> SearchResults
     

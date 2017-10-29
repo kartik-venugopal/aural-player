@@ -128,10 +128,23 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
     private func updatePlaylistSummary(_ trackAddProgress: TrackAddedMessageProgress? = nil) {
         
-        let summary = playlist.summary()
-        let numTracks = summary.size
-        
-        lblPlaylistSummary.stringValue = String(format: "%d %@   %@", numTracks, numTracks == 1 ? "track" : "tracks", StringUtils.formatSecondsToHMS(summary.totalDuration))
+        if (PlaylistViewState.current == .tracks) {
+            
+            let summary = playlist.summary()
+            let numTracks = summary.size
+            
+            lblPlaylistSummary.stringValue = String(format: "%d %@   %@", numTracks, numTracks == 1 ? "track" : "tracks", StringUtils.formatSecondsToHMS(summary.totalDuration))
+            
+        } else {
+            
+            let groupType = PlaylistViewState.groupType!
+            let summary = playlist.summary(groupType)
+            let numTracks = summary.size
+            let duration = StringUtils.formatSecondsToHMS(summary.totalDuration)
+            let numGroups = summary.numGroups
+            
+            lblPlaylistSummary.stringValue = String(format: "%d %@   %d %@   %@", numGroups, groupType.rawValue + (numGroups == 1 ? "" : "s"), numTracks, numTracks == 1 ? "track" : "tracks", duration)
+        }
         
         // Update spinner
         if (trackAddProgress != nil) {
@@ -325,6 +338,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         tabGroup.selectTabViewItem(at: 0)
         
         PlaylistViewState.current = .tracks
+        updatePlaylistSummary()
         SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: .tracks))
     }
     
@@ -339,6 +353,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         tabGroup.selectTabViewItem(at: 1)
         
         PlaylistViewState.current = .artists
+        updatePlaylistSummary()
         SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: .artists))
     }
     
@@ -353,6 +368,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         tabGroup.selectTabViewItem(at: 2)
         
         PlaylistViewState.current = .albums
+        updatePlaylistSummary()
         SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: .albums))
     }
     
@@ -367,6 +383,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         tabGroup.selectTabViewItem(at: 3)
         
         PlaylistViewState.current = .genres
+        updatePlaylistSummary()
         SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: .genres))
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-enum PlaylistType {
+enum PlaylistType: String {
     
     case tracks
     case artists

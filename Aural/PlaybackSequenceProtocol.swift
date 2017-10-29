@@ -54,4 +54,6 @@ protocol PlaybackSequenceProtocol {
     func setShuffleMode(_ shuffleMode: ShuffleMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
     
     func getRepeatAndShuffleModes() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
+    
+    func size() -> Int
 }

@@ -40,6 +40,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         return accessor.summary()
     }
     
+    func summary(_ groupType: GroupType) -> (size: Int, totalDuration: Double, numGroups: Int) {
+        return accessor.summary(groupType)
+    }
+    
     func search(_ searchQuery: SearchQuery) -> SearchResults {
         return accessor.search(searchQuery)
     }

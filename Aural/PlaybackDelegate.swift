@@ -215,6 +215,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return player.getPlaybackState()
     }
     
+    func getPlaybackSequenceInfo() -> (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {
+        return playbackSequencer.getPlaybackSequenceInfo()
+    }
+    
     func getSeekPosition() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) {
         
         let playingTrack = getPlayingTrack()
