@@ -51,38 +51,41 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         if let track = playlist.peekTrackAt(row)?.track {
-        
-        if (tableColumn?.identifier == UIConstants.trackIndexColumnID) {
             
-            // Track index
-            
-            let playingTrackIndex = playbackInfo.getPlayingTrack()?.index
-            
-            // If this row contains the playing track, display an animation, instead of the track index
-            if (playingTrackIndex != nil && playingTrackIndex == row) {
+            if (tableColumn?.identifier == UIConstants.trackIndexColumnID) {
                 
-                let playbackState = playbackInfo.getPlaybackState()
-                let cell = createPlayingTrackAnimationCell(tableView, playbackState == .playing)
-                animationCell = cell
-                return cell
+                // Track index
+                
+                let playingTrackIndex = playbackInfo.getPlayingTrack()?.index
+                
+                // If this row contains the playing track, display an animation, instead of the track index
+                if (playingTrackIndex != nil && playingTrackIndex == row) {
+                    
+                    let playbackState = playbackInfo.getPlaybackState()
+                    let cell = createPlayingTrackAnimationCell(tableView, playbackState == .playing)
+                    animationCell = cell
+                    return cell
+                    
+                } else {
+                    
+                    // Otherwise, create a text cell with the track index
+                    return createTextCell(tableView, UIConstants.trackIndexColumnID, String(format: "%d.", row + 1))
+                }
+                
+            } else if (tableColumn?.identifier == UIConstants.trackNameColumnID) {
+                
+                // Track name
+                return createTextCell(tableView, UIConstants.trackNameColumnID, track.conciseDisplayName)
                 
             } else {
                 
-                // Otherwise, create a text cell with the track index
-                return createTextCell(tableView, UIConstants.trackIndexColumnID, String(format: "%d.", row + 1))
+                // Duration
+                return createTextCell(tableView, UIConstants.durationColumnID, StringUtils.formatSecondsToHMS(track.duration))
             }
-        
-        } else if (tableColumn?.identifier == UIConstants.trackNameColumnID) {
-            
-            // Track name
-            return createTextCell(tableView, UIConstants.trackNameColumnID, track.conciseDisplayName)
             
         } else {
             
-            // Duration
-            return createTextCell(tableView, UIConstants.durationColumnID, StringUtils.formatSecondsToHMS(track.duration))
-        }
-        } else {
+            print("WTF ! Row", row)
             return nil
         }
     }

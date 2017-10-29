@@ -201,14 +201,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     // Publishes a notification that a new track has been added to the playlist
     private func notifyTrackAdded(_ track: Track, _ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrackAddResult], _ progress: TrackAddedMessageProgress) {
         
-//        NSLog("\tUpdating UI for %@ added", track.conciseDisplayName)
-//        DispatchQueue.main.sync {
-//            SyncMessenger.publishNotification(TrackAddedNotification(trackIndex, groupInfo, progress))
-//        }
-        
         AsyncMessenger.publishMessage(TrackAddedAsyncMessage(trackIndex, groupInfo, progress))
-        
-//        NSLog("\tDone updating UI for %@ added", track.conciseDisplayName)
         
         // Also notify the listeners directly
         changeListeners.forEach({$0.trackAdded(track)})
