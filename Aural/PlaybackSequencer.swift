@@ -174,8 +174,6 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
     
     private func getGroupedTrackForAbsoluteIndex(_ groupType: GroupType, _ index: Int) -> Track {
         
-        let tim = TimerUtils.start("trackForAbsIndex")
-        
         var groupIndex = 0
         var tracks = 0
         var trackIndexInGroup = 0
@@ -194,18 +192,12 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         let group = playlist.getGroupAt(groupType, groupIndex)
         let track = group.trackAtIndex(trackIndexInGroup)
         
-        tim.end()
         return track
     }
     
     private func wrapTrack(_ track: Track) -> IndexedTrack {
         
-        let tim = TimerUtils.start("wrapTrack")
-        
         let index = playlist.indexOfTrack(track)
-        
-        tim.end()
-        
         return IndexedTrack(track, index!)
     }
     

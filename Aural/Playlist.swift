@@ -98,6 +98,8 @@ class Playlist: PlaylistCRUDProtocol {
                 result.location.groupInfo = getGroupingInfoForTrack(groupType, result.location.track)
             }
             
+            allResults = allResults.sortedByGroupAndTrackIndex()
+            
         } else {
             
             // Flat playlist location
@@ -105,6 +107,8 @@ class Playlist: PlaylistCRUDProtocol {
             for result in allResults.results {
                 result.location.trackIndex = indexOfTrack(result.location.track)
             }
+            
+            allResults = allResults.sortedByTrackIndex()
         }
         
         return allResults

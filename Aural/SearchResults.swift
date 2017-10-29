@@ -60,6 +60,42 @@ class SearchResults {
         
         return SearchResults(Array(union))
     }
+    
+    // For display in tracks view
+    func sortedByTrackIndex() -> SearchResults {
+        
+        results.sort(by: {r1, r2 -> Bool in
+            
+            let i1 = r1.location.trackIndex!
+            let i2 = r2.location.trackIndex!
+            
+            return i1 < i2
+        })
+        
+        return SearchResults(results)
+    }
+    
+    // For display in grouping views
+    func sortedByGroupAndTrackIndex() -> SearchResults {
+        
+        results.sort(by: {r1, r2 -> Bool in
+            
+            let g1 = r1.location.groupInfo!.groupIndex
+            let g2 = r2.location.groupInfo!.groupIndex
+            
+            if (g1 == g2) {
+                
+                let t1 = r1.location.groupInfo!.trackIndex
+                let t2 = r2.location.groupInfo!.trackIndex
+                
+                return t1 < t2
+            }
+            
+            return g1 < g2
+        })
+        
+        return SearchResults(results)
+    }
 }
 
 // Represents a single result (track) in a playlist tracks search
