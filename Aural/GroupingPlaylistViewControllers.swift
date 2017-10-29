@@ -119,7 +119,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
-    private func trackChange(_ oldTrack: GroupedTrack?, _ newTrack: GroupedTrack?, _ errorState: Bool = false) {
+    private func trackChanged(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
 
         if (oldTrack != nil) {
             playlistView.reloadItem(oldTrack!.track)
@@ -329,6 +329,13 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     func consumeNotification(_ notification: NotificationMessage) {
+        
+        if (notification is TrackChangedNotification) {
+            
+            let msg = notification as! TrackChangedNotification
+            trackChanged(msg.oldTrack, msg.newTrack, msg.errorState)
+            return
+        }
     }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {

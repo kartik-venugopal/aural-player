@@ -1,6 +1,6 @@
 import Cocoa
 
-class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate {
+class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, MessageSubscriber {
     
     // TODO: This will be non-nil and provided by ObjectGraph
     // TODO: Use delegate, not accessor directly
@@ -8,10 +8,22 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
     
     internal var playlistDelegate: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
+    // Used to determine the currently playing track
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    
     internal var grouping: GroupType {return .artist}
     
     // Signifies an invalid drag/drop operation
     private let invalidDragOperation: NSDragOperation = []
+    
+    // Used to pause/resume the playing track animation
+    private var animationCell: GroupedTrackCellView?
+    
+    override func viewDidLoad() {
+        
+        // Subscribe to playbackStateChangedNotifications so that the playing track animation can be paused/resumed, in response to the playing track being paused/resumed
+        SyncMessenger.subscribe(.playbackStateChangedNotification, subscriber: self)
+    }
     
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
         return PlaylistRowView()
@@ -73,7 +85,27 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
                 
                 view!.textField?.stringValue = playlist.displayNameFor(grouping, track)
                 view!.isName = false
-                view!.imageView?.image = track.displayInfo.art
+                
+                let playingTrack = playbackInfo.getPlayingTrack()?.track
+                
+                // If this row contains the playing track, display an animation, instead of the track index
+                if (track == playingTrack) {
+                    
+                    let playbackState = playbackInfo.getPlaybackState()
+                    view!.imageView?.image = UIConstants.imgPlayingTrack
+                    
+                    // Configure and show the image view
+                    let imgView = view!.imageView!
+                    
+                    imgView.canDrawSubviewsIntoLayer = true
+                    imgView.imageScaling = .scaleProportionallyDown
+                    imgView.animates = (playbackState == .playing)
+                    
+                    animationCell = view
+                    
+                } else {
+                    view!.imageView?.image = track.displayInfo.art
+                }
                 
                 return view
             }
@@ -95,6 +127,49 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
             }
             
             return view
+        }
+        
+        return nil
+    }
+    
+    // Creates a cell view containing text
+    private func createCell(_ outlineView: NSOutlineView, _ id: String, _ text: String, _ image: NSImage, isPlayingTrack: Bool = false, animate: Bool = false) -> GroupedTrackCellView? {
+        
+        if let cell = outlineView.make(withIdentifier: id, owner: nil) as? GroupedTrackCellView {
+            
+            cell.textField?.stringValue = text
+            cell.imageView?.image = image
+            
+            if (isPlayingTrack) {
+                
+                // Configure and show the image view
+                let imgView = cell.imageView!
+                
+                imgView.canDrawSubviewsIntoLayer = true
+                imgView.imageScaling = .scaleProportionallyDown
+                imgView.animates = animate
+            }
+            
+            return cell
+        }
+        
+        return nil
+    }
+    
+    // Creates a cell view containing the animation for the currently playing track
+    private func createPlayingTrackAnimationCell(_ tableView: NSTableView, _ animate: Bool) -> GroupedTrackCellView? {
+        
+        if let cell = tableView.make(withIdentifier: "cv_groupName", owner: nil) as? GroupedTrackCellView {
+            
+            // Configure and show the image view
+            let imgView = cell.imageView!
+            
+            imgView.canDrawSubviewsIntoLayer = true
+            imgView.imageScaling = .scaleProportionallyDown
+            imgView.animates = animate
+            imgView.image = UIConstants.imgPlayingTrack
+            
+            return cell
         }
         
         return nil
@@ -445,6 +520,41 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         playlistDelegate.reorderTracks(playlistReorderOperations, self.grouping)
         
         return playlistReorderOperations
+    }
+    
+    // Whenever the playing track is paused/resumed, the animation needs to be paused/resumed.
+    private func playbackStateChanged(_ state: PlaybackState) {
+        
+        switch (state) {
+            
+        case .playing:
+            
+            animationCell?.imageView?.animates = true
+            
+        case .paused:
+            
+            animationCell?.imageView?.animates = false
+            
+        default:
+            
+            // Release the animation cell because the track is no longer playing
+            animationCell?.imageView?.animates = false
+            animationCell = nil
+        }
+    }
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        if (notification is PlaybackStateChangedNotification) {
+            
+            let msg = notification as! PlaybackStateChangedNotification
+            playbackStateChanged(msg.newPlaybackState)
+            return
+        }
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        return EmptyResponse.instance
     }
 }
 
