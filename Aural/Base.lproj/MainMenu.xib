@@ -2665,7 +2665,7 @@ G1BhbiBTbGlkZXI
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <button toolTip="Scroll to top of playlist" translatesAutoresizingMaskIntoConstraints="NO" id="8hp-s5-DjV" userLabel="Scroll To Top Button">
-                        <rect key="frame" x="433" y="230" width="10" height="10"/>
+                        <rect key="frame" x="402" y="220" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="mq4-LT-THy"/>
                             <constraint firstAttribute="width" constant="10" id="ol1-UY-scQ"/>
@@ -2679,7 +2679,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Scroll to bottom of playlist" translatesAutoresizingMaskIntoConstraints="NO" id="L3Y-2k-P9G" userLabel="Scroll To Bottom Button">
-                        <rect key="frame" x="433" y="44" width="10" height="10"/>
+                        <rect key="frame" x="402" y="44" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="6wY-Om-Pa5"/>
                             <constraint firstAttribute="width" constant="10" id="LWl-rZ-CeC"/>
@@ -2710,11 +2710,11 @@ G1BhbiBTbGlkZXI
                     <constraint firstItem="Dcb-f2-RhV" firstAttribute="leading" secondItem="stR-Fs-RTn" secondAttribute="trailing" id="XFp-AW-3gF"/>
                     <constraint firstItem="h8b-Tm-2xI" firstAttribute="leading" secondItem="dz9-pQ-bIr" secondAttribute="trailing" constant="1" id="b4u-Lr-6Uj"/>
                     <constraint firstItem="Dcb-f2-RhV" firstAttribute="top" secondItem="oMJ-8r-ebK" secondAttribute="top" id="cdO-h9-ddE"/>
-                    <constraint firstItem="8hp-s5-DjV" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="28" id="fkv-g0-WVP"/>
+                    <constraint firstItem="8hp-s5-DjV" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-3" id="fkv-g0-WVP"/>
                     <constraint firstItem="uBG-kX-7sD" firstAttribute="top" secondItem="dz9-pQ-bIr" secondAttribute="top" id="gLV-Na-N9F"/>
                     <constraint firstItem="L3Y-2k-P9G" firstAttribute="leading" secondItem="8hp-s5-DjV" secondAttribute="leading" id="gcN-qK-o3N"/>
                     <constraint firstItem="VEj-9M-Zdt" firstAttribute="centerX" secondItem="G3X-tp-7Ag" secondAttribute="centerX" id="iu6-M7-LDL"/>
-                    <constraint firstItem="8hp-s5-DjV" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="37" id="kHh-Qs-XFv"/>
+                    <constraint firstItem="8hp-s5-DjV" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="47" id="kHh-Qs-XFv"/>
                     <constraint firstItem="dz9-pQ-bIr" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="lG0-dv-Pmd"/>
                     <constraint firstItem="L3Y-2k-P9G" firstAttribute="trailing" secondItem="8hp-s5-DjV" secondAttribute="trailing" id="pfb-7X-h4O"/>
                     <constraint firstItem="52r-K9-etW" firstAttribute="centerY" secondItem="dz9-pQ-bIr" secondAttribute="centerY" id="qNq-PW-pRE"/>

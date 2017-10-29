@@ -158,11 +158,14 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         let summaryString: NSString = lblPlaylistSummary.stringValue as NSString
         let size: CGSize = summaryString.size(withAttributes: [NSFontAttributeName: lblPlaylistSummary.font as AnyObject])
-        let lblWidth = size.width
         
-        let controlsBoxWidth = controlsBox.frame.width
-        let newX = controlsBoxWidth - lblWidth - 10 - playlistWorkSpinner.frame.width
+        let lblWidth = lblPlaylistSummary.frame.width
+        let textWidth = min(size.width, lblWidth)
+        let margin = (lblWidth - textWidth) / 2
+        
+        let newX = lblPlaylistSummary.frame.origin.x + margin - playlistWorkSpinner.frame.width - 10
         playlistWorkSpinner.frame.origin.x = newX
+        playlistWorkSpinner.frame.origin.y = lblPlaylistSummary.frame.origin.y
     }
     
     @IBAction func removeTracksAction(_ sender: AnyObject) {

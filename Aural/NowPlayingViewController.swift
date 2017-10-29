@@ -246,7 +246,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
                 
                 if (!imgScope.isHidden) {
    
-                    let margin = (lblWidth - textWidth) / 2
                     let newX = lblPlaybackScope.frame.origin.x + margin - imgScope.frame.width - 4
                     imgScope.frame.origin.x = newX
                 }
