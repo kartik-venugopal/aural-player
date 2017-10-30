@@ -199,6 +199,26 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         return track
     }
     
+    private func getAbsoluteIndexesForGroupedTracks(_ groupType: GroupType, _ groupIndex: Int, _ trackIndexes: IndexSet) -> IndexSet {
+        
+        if (groupIndex == 0) {
+            return trackIndexes
+        }
+        
+        var absIndex = 0
+        for i in 0...(groupIndex - 1) {
+            absIndex += playlist.getGroupAt(groupType, i).size()
+        }
+        
+        var absIndexes = [Int]()
+        
+        trackIndexes.forEach({
+            absIndexes.append(absIndex + $0)
+        })
+        
+        return IndexSet(absIndexes)
+    }
+    
     private func getAbsoluteIndexForGroupedTrack(_ groupType: GroupType, _ groupIndex: Int, _ trackIndex: Int) -> Int {
         
         if (groupIndex == 0) {
@@ -210,12 +230,10 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
             absIndex += playlist.getGroupAt(groupType, i).size()
         }
         
-        absIndex += trackIndex
-        
-        return absIndex
+        return absIndex + trackIndex
     }
     
-    private func getAbsoluteIndexesForGroup(_ groupType: GroupType, _ groupIndex: Int, _ group: Group) -> IndexSet {
+    private func getAbsoluteIndexesForGroup(_ groupIndex: Int, _ group: Group) -> IndexSet {
         
         if (groupIndex == 0) {
             return IndexSet(0...(group.size() - 1))
@@ -223,7 +241,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         
         var absIndex = 0
         for i in 0...(groupIndex - 1) {
-            absIndex += playlist.getGroupAt(groupType, i).size()
+            absIndex += playlist.getGroupAt(group.type, i).size()
         }
         
         return IndexSet(absIndex...(absIndex + group.size() - 1))
@@ -282,34 +300,46 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         case .allArtists, .allAlbums, .allGenres:
             
             // TODO (find out where (absolute index) new tracks were inserted, and insert the new elements into the sequence)
+            
+            var absIndexes = [Int]()
+            
+            for result in addResults {
+                let groupIndex = result.groupingPlaylistResults[scope.type.toGroupType()!]!.track.groupIndex
+                let trackIndex = result.groupingPlaylistResults[scope.type.toGroupType()!]!.track.trackIndex
+                
+                absIndexes.append(getAbsoluteIndexForGroupedTrack(scope.type.toGroupType()!, groupIndex, trackIndex))
+            }
+            
+            sequence.insertElements(IndexSet(absIndexes))
+            
             return
             
         case .artist, .album, .genre:
             
             // Check if a track was added to the playing artist/album/genre
             let playingGroup = scope.scope!
-            let resultsForGroup = countAddResultsForGroup(playingGroup, addResults)
+            let resultsForGroup = getAddResultsForGroup(playingGroup, addResults)
             
-            if resultsForGroup > 0 {
-                sequence.updateSize(sequence.size() + resultsForGroup)
+            if !resultsForGroup.isEmpty {
+                
+                var tracksInGroup = [Int]()
+                for result in resultsForGroup {
+                    tracksInGroup.append(result.groupingPlaylistResults[playingGroup.type]!.track.trackIndex)
+                }
+                
+                sequence.insertElements(IndexSet(tracksInGroup))
             }
         }
     }
     
-    // Searches the add results to find out how many tracks were added to a specific group
-    private func countAddResultsForGroup(_ group: Group, _ addResults: [TrackAddResult]) -> Int {
+    // Searches the add results to find out which tracks were added to a specific group
+    private func getAddResultsForGroup(_ group: Group, _ addResults: [TrackAddResult]) -> [TrackAddResult] {
         
-        var count = 0
-        
-        addResults.forEach({
+        return addResults.filter({
         
             let resultGroup = $0.groupingPlaylistResults[group.type]!.track.group
-            if resultGroup === group {
-                count += 1
-            }
+            return resultGroup === group
         })
-        
-        return count
     }
     
     func tracksRemoved(_ removeResults: RemoveOperationResults) {
@@ -327,11 +357,28 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
             
         case .allArtists, .allAlbums, .allGenres:
             
-            // TODO (find out where (absolute index) new tracks were removed, and remove those elements from the sequence)
-            var indexesRemoved: [Int] = [Int]()
+            // (find out where (absolute index) new tracks were removed, and remove those elements from the sequence)
             
             let resultsForType = removeResults.groupingPlaylistResults[scope.type.toGroupType()!]!.results
             
+            var absIndexes = [Int]()
+            
+            for result in resultsForType {
+                
+                if let trackRemoved = result as? TracksRemovedResult {
+                    
+                    absIndexes.append(contentsOf: getAbsoluteIndexesForGroupedTracks(trackRemoved.parentGroup.type, trackRemoved.groupIndex, trackRemoved.trackIndexesInGroup))
+                    
+                } else {
+                    
+                    // Group
+                    let groupRemoved = result as! GroupRemovedResult
+                    
+                    absIndexes.append(contentsOf: getAbsoluteIndexesForGroup(groupRemoved.groupIndex, groupRemoved.group))
+                }
+            }
+            
+            sequence.removeElements(IndexSet(absIndexes))
             
             return
             
@@ -369,8 +416,26 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         }
     }
     
-    func trackReordered(_ oldIndex: Int, _ newIndex: Int) {
-        sequence.trackReordered(oldIndex, newIndex)
+    func tracksReordered(_ moveResults: ItemMovedResults) {
+
+        if (moveResults.results.isEmpty) {
+            return
+        }
+        
+        switch scope.type {
+            
+        case .allTracks: return
+            
+            
+        case .allArtists, .allAlbums, .allGenres:
+            
+            
+            return
+            
+        case .artist, .album, .genre:
+            
+            return
+        }
     }
     
     func playlistReordered(_ newCursor: Int?) {

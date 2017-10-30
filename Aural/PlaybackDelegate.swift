@@ -371,7 +371,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         }
     }
     
-    func trackReordered(_ oldIndex: Int, _ newIndex: Int) {
+    func tracksReordered(_ moveResults: ItemMovedResults) {
         prepareNextTracksForPlayback()
     }
     

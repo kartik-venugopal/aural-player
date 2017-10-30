@@ -743,8 +743,23 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         tracksCount = newSize
     }
     
-    func removeElements(_ removeResults: RemoveOperationResults) {
+    func insertElements(_ addedTrackIndexes: IndexSet) {
         
+        // If cursor is non-nil, it may need to be updated
+        if (cursor != nil) {
+            
+            // Playing track might have shifted down, as a result of tracks being added above it
+            
+            let indexesAboveCursor = addedTrackIndexes.filter({$0 <= cursor!})
+            
+            // For each track above the playing track that was added, the playing track moved down one row.
+            cursor! += indexesAboveCursor.count
+            
+        }
+        
+        // Update the count of total tracks, and reset the sequence
+        tracksCount += addedTrackIndexes.count
+        reset(firstTrackIndex: cursor)
     }
     
     func removeElements(_ removedTrackIndexes: IndexSet) {
@@ -759,7 +774,6 @@ class PlaybackSequence: PlaybackSequenceProtocol {
                 
                 // Playing track was not removed, but it might have shifted up, as a result of tracks above it being removed
                 
-                // Sort ascending
                 let indexesAboveCursor = removedTrackIndexes.filter({$0 < cursor!})
                 
                 // For each track above the playing track that was removed, the playing track moved up one row.
