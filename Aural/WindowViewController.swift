@@ -83,6 +83,8 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             showPlaylist(false)
             maximizePlaylist()
         }
+        
+        mainWindow.isOpaque = false
     }
     
     @IBAction func hideAction(_ sender: AnyObject) {

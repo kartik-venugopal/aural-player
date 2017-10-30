@@ -54,11 +54,29 @@ class Colors {
     static let tabViewEffectsButtonHighlightColor: NSColor = NSColor.green
     static let tabViewRecorderButtonHighlightColor: NSColor = NSColor.red
     
-    // Gradient used to fill slider bars
     static let sliderBarGradient: NSGradient = {
         
         let backgroundStart = NSColor(white: 0.6, alpha: 1.0)
         let backgroundEnd =  NSColor(white: 0.4, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
+    // Gradient used to fill slider bars
+    static let sliderBarPlainGradient: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.6, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.4, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
+    static let sliderBarColoredGradient: NSGradient = {
+        
+        let backgroundStart = NSColor(red: 0.9, green: 0.1, blue: 0.1, alpha: 0.8)
+        let backgroundEnd =  NSColor(red: 0.5, green: 0.1, blue: 0.1, alpha: 0.8)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!

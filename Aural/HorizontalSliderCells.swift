@@ -8,7 +8,8 @@ import Cocoa
 class HorizontalSliderCell: NSSliderCell {
     
     var barRadius: CGFloat {return 1}
-    var barGradient: NSGradient {return Colors.sliderBarGradient}
+    var barPlainGradient: NSGradient {return Colors.sliderBarPlainGradient}
+    var barColoredGradient: NSGradient {return Colors.sliderBarColoredGradient}
     var barInsetX: CGFloat {return 0}
     var barInsetY: CGFloat {return 0}
     
@@ -19,8 +20,18 @@ class HorizontalSliderCell: NSSliderCell {
     
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
-        let drawPath = NSBezierPath.init(roundedRect: aRect, xRadius: barRadius, yRadius: barRadius)
-        barGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+        let knobFrame = knobRect(flipped: false)
+        let halfKnobWidth = knobFrame.width / 2
+        
+        let leftRect = NSRect(x: aRect.minX, y: aRect.minY, width: max(halfKnobWidth, knobFrame.minX + halfKnobWidth), height: aRect.height)
+
+        var drawPath = NSBezierPath.init(roundedRect: leftRect, xRadius: barRadius, yRadius: barRadius)
+        barPlainGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+        
+        let rightRect = NSRect(x: knobFrame.maxX - halfKnobWidth, y: aRect.minY, width: aRect.width - knobFrame.minX, height: aRect.height)
+        
+        drawPath = NSBezierPath.init(roundedRect: rightRect, xRadius: barRadius, yRadius: barRadius)
+        barColoredGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
     }
     
     override internal func drawKnob(_ knobRect: NSRect) {
@@ -57,6 +68,12 @@ class SeekSliderCell: HorizontalSliderCell {
     override var barRadius: CGFloat {return 0.5}
     override var barInsetY: CGFloat {return 0.5}
     override var knobRadius: CGFloat {return 0.5}
+    
+    override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
+        
+        let drawPath = NSBezierPath.init(roundedRect: aRect, xRadius: barRadius, yRadius: barRadius)
+        barPlainGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+    }
 }
 
 // Cell for sliders on the Preferences panel
