@@ -339,7 +339,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         var trackRemovedResults = [TracksRemovedResult]()
         
         // Gather group removals with group indexes
-        _groups.forEach({groupRemovedResults.append(GroupRemovedResult(getIndexOf($0)))})
+        _groups.forEach({groupRemovedResults.append(GroupRemovedResult($0, getIndexOf($0)))})
         
         // Remove tracks from their respective groups and note the track indexes (this does not have to be done in the order of group index)
         tracksByGroup.forEach({
@@ -607,13 +607,16 @@ protocol ItemRemovedResult {
 
 struct GroupRemovedResult: ItemRemovedResult {
     
+    let group: Group
     let groupIndex: Int
     
     var sortIndex: Int {
         return groupIndex
     }
     
-    init(_ groupIndex: Int) {
+    init(_ group: Group, _ groupIndex: Int) {
+        
+        self.group = group
         self.groupIndex = groupIndex
     }
 }

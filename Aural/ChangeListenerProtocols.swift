@@ -7,10 +7,10 @@ import Foundation
 protocol PlaylistChangeListener {
     
     // A single new track has been added
-    func trackAdded(_ track: Track)
+    func tracksAdded(_ addResults: [TrackAddResult])
     
     // Tracks have been removed, at the given indexes
-    func tracksRemoved(_ removedTrackIndexes: [Int], _ removedTracks: [Track])
+    func tracksRemoved(_ removeResults: RemoveOperationResults)
     
     // A single track has been moved, from its original index to another
     func trackReordered(_ oldIndex: Int, _ newIndex: Int)
@@ -24,5 +24,6 @@ protocol PlaylistChangeListener {
 
 protocol TrackInfoChangeListener {
     
-    func trackInfoUpdated(_ updatedTrack: Track)
+    // Notifies the playlist that info for this track has changed. The playlist may use the updates to re-group the track (by artist/album/genre, etc).
+    func trackInfoUpdated(_ updatedTrack: Track) -> [GroupType: GroupedTrackUpdateResult]
 }

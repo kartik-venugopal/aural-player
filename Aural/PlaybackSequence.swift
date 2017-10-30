@@ -4,7 +4,7 @@
 
 import Foundation
 
-class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
+class PlaybackSequence: PlaybackSequenceProtocol {
     
     private var repeatMode: RepeatMode = .off
     private var shuffleMode: ShuffleMode = .off
@@ -98,7 +98,7 @@ class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
         swap(&shuffleSequence.sequence[0], &shuffleSequence.sequence[1])
     }
     
-    private func clear() {
+    func clear() {
         shuffleSequence.clear()
         tracksCount = 0
         cursor = nil
@@ -728,14 +728,26 @@ class PlaybackSequence: PlaybackSequenceProtocol, PlaylistChangeListener {
     
     // --------------- PlaylistChangeListener methods ----------------
     
-    func trackAdded(_ track: Track) {
+    
+    func updateSize(_ newSize: Int) {
+        
+        
         if (shuffleMode == .on) {
-            shuffleSequence.insertElement(elm: tracksCount)
+        
+            // Assume size will not decrease in this method (it's only when tracks are added)
+            for i in tracksCount...(newSize - 1) {
+                shuffleSequence.insertElement(elm: i)
+            }
         }
-        tracksCount += 1
+        
+        tracksCount = newSize
     }
     
-    func tracksRemoved(_ removedTrackIndexes: [Int], _ removedTracks: [Track]) {
+    func removeElements(_ removeResults: RemoveOperationResults) {
+        
+    }
+    
+    func removeElements(_ removedTrackIndexes: IndexSet) {
         
         // If cursor is non-nil, it may need to be updated
         if (cursor != nil) {

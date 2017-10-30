@@ -361,11 +361,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     // ------------------- PlaylistChangeListener methods ---------------------
     // Whenever the playlist is modified, the track prep task needs to be executed, to ensure optimal playback responsiveness.
     
-    func trackAdded(_ track: Track) {
+    func tracksAdded(_ addResults: [TrackAddResult]) {
         prepareNextTracksForPlayback()
     }
     
-    func tracksRemoved(_ removedTrackIndexes: [Int], _ removedTracks: [Track]) {
+    func tracksRemoved(_ removeResults: RemoveOperationResults) {
         if (playlist.size() > 0) {
             prepareNextTracksForPlayback()
         }

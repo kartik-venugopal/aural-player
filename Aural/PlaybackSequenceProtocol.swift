@@ -56,4 +56,8 @@ protocol PlaybackSequenceProtocol {
     func getRepeatAndShuffleModes() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
     
     func size() -> Int
+    
+    func updateSize(_ newSize: Int)
+    
+    func clear()
 }

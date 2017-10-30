@@ -129,6 +129,8 @@ class Group: NSObject, GroupAccessorProtocol, GroupedPlaylistItem {
     // Assume track can be moved
     private func moveTrackUp(_ index: Int) -> Int {
         
+        // TODO: Synchronize on tracks
+        
         let upIndex = index - 1
         swapTracks(index, upIndex)
         return upIndex
@@ -136,6 +138,8 @@ class Group: NSObject, GroupAccessorProtocol, GroupedPlaylistItem {
     
     // Assume track can be moved
     private func moveTrackDown(_ index: Int) -> Int {
+        
+        // TODO: Synchronize on tracks
         
         let downIndex = index + 1
         swapTracks(index, downIndex)

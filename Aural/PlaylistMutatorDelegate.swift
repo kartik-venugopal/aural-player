@@ -55,7 +55,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         DispatchQueue.global(qos: .userInteractive).async {
             
             // Progress
-            let progress = TrackAddOperationProgress(0, files.count, [InvalidTrackError](), false)
+            let progress = TrackAddOperationProgress(0, files.count, [TrackAddResult](), [InvalidTrackError](), false)
             
             AsyncMessenger.publishMessage(StartedAddingTracksAsyncMessage.instance)
             
@@ -67,6 +67,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             if (progress.errors.count > 0) {
                 AsyncMessenger.publishMessage(TracksNotAddedAsyncMessage(progress.errors))
             }
+            
+            // Notify change listeners
+            self.changeListeners.forEach({$0.tracksAdded(progress.addResults)})
         }
     }
     
@@ -111,24 +114,20 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                     } else if (AppConstants.supportedAudioFileExtensions.contains(fileExtension)) {
                         
                         // Track
-                        do {
+                        progress.tracksAdded += 1
                             
-                            progress.tracksAdded += 1
+                        let progressMsg = TrackAddedMessageProgress(progress.tracksAdded, progress.totalTracks)
+                        
+                        if let addResult = addTrack(file, progressMsg) {
                             
-                            let progressMsg = TrackAddedMessageProgress(progress.tracksAdded, progress.totalTracks)
-                            let index = try addTrack(file, progressMsg)
-                            
-                            if (autoplayOptions.autoplay && !progress.autoplayed && index >= 0) {
+                            let index = addResult.flatPlaylistResult
+                            if (autoplayOptions.autoplay && !progress.autoplayed) {
                                 
                                 self.autoplay(index, autoplayOptions.interruptPlayback)
                                 progress.autoplayed = true
                             }
                             
-                        }  catch let error {
-                            
-                            if (error is InvalidTrackError) {
-                                progress.errors.append(error as! InvalidTrackError)
-                            }
+                            progress.addResults.append(addResult)
                         }
                     }
                 }
@@ -164,22 +163,21 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     // Adds a single track to the playlist. Returns index of newly added track
-    private func addTrack(_ file: URL, _ progress: TrackAddedMessageProgress) throws -> Int {
+    private func addTrack(_ file: URL, _ progress: TrackAddedMessageProgress) -> TrackAddResult? {
         
         let track = Track(file)
         TrackIO.loadDisplayInfo(track)
         
         let trackAddResult = playlist.addTrack(track)
         
-        // index >= 0 indicates success in adding the track to the playlist
+        // Non-nil result indicates success
         if let result = trackAddResult {
             
             let index = result.flatPlaylistResult
             let groupResults = result.groupingPlaylistResults
 
-            notifyTrackAdded(track, index, groupResults, progress)
-            
-            // TODO: Do I need to do this update async ?
+            // Inform the UI of the new track
+            AsyncMessenger.publishMessage(TrackAddedAsyncMessage(index, groupResults, progress))
             
             // Load display info async (ID3 info, duration)
             DispatchQueue.global(qos: .userInitiated).async {
@@ -191,20 +189,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
                 AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(index, groupInfo))
             }
-            
-            return index
         }
         
-        return -1
-    }
-    
-    // Publishes a notification that a new track has been added to the playlist
-    private func notifyTrackAdded(_ track: Track, _ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrackAddResult], _ progress: TrackAddedMessageProgress) {
-        
-        AsyncMessenger.publishMessage(TrackAddedAsyncMessage(trackIndex, groupInfo, progress))
-        
-        // Also notify the listeners directly
-        changeListeners.forEach({$0.trackAdded(track)})
+        return trackAddResult
     }
     
     // Performs autoplay, by delegating a playback request to the player
@@ -239,7 +226,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         let message = TracksRemovedAsyncMessage(results)
         AsyncMessenger.publishMessage(message)
         
-        changeListeners.forEach({$0.tracksRemoved(indexes, [])})
+        changeListeners.forEach({$0.tracksRemoved(results)})
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {
@@ -249,7 +236,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         let message = TracksRemovedAsyncMessage(results)
         AsyncMessenger.publishMessage(message)
         
-        changeListeners.forEach({$0.tracksRemoved(results.flatPlaylistResults.filter({$0 >= 0}), [])})
+        changeListeners.forEach({$0.tracksRemoved(results)})
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> ItemMovedResults {
@@ -260,6 +247,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         return tracksMoved(indexes, playlist.moveTracksDown(indexes))
     }
     
+    // Up or down
     private func tracksMoved(_ indexes: IndexSet, _ results: ItemMovedResults) -> ItemMovedResults {
         
         // Note down which track was playing, if any
@@ -376,13 +364,16 @@ class TrackAddOperationProgress {
 
     var tracksAdded: Int
     var totalTracks: Int
+    var addResults: [TrackAddResult]
     var errors: [InvalidTrackError]
     var autoplayed: Bool
 
-    init(_ tracksAdded: Int, _ totalTracks: Int, _ errors: [InvalidTrackError], _ autoplayed: Bool) {
+    init(_ tracksAdded: Int, _ totalTracks: Int, _ addResults: [TrackAddResult], _ errors: [InvalidTrackError], _ autoplayed: Bool) {
         
         self.tracksAdded = tracksAdded
         self.totalTracks = totalTracks
+        
+        self.addResults = addResults
         self.errors = errors
         self.autoplayed = autoplayed
     }

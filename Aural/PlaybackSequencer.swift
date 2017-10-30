@@ -199,6 +199,36 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         return track
     }
     
+    private func getAbsoluteIndexForGroupedTrack(_ groupType: GroupType, _ groupIndex: Int, _ trackIndex: Int) -> Int {
+        
+        if (groupIndex == 0) {
+            return trackIndex
+        }
+        
+        var absIndex = 0
+        for i in 0...(groupIndex - 1) {
+            absIndex += playlist.getGroupAt(groupType, i).size()
+        }
+        
+        absIndex += trackIndex
+        
+        return absIndex
+    }
+    
+    private func getAbsoluteIndexesForGroup(_ groupType: GroupType, _ groupIndex: Int, _ group: Group) -> IndexSet {
+        
+        if (groupIndex == 0) {
+            return IndexSet(0...(group.size() - 1))
+        }
+        
+        var absIndex = 0
+        for i in 0...(groupIndex - 1) {
+            absIndex += playlist.getGroupAt(groupType, i).size()
+        }
+        
+        return IndexSet(absIndex...(absIndex + group.size() - 1))
+    }
+    
     private func wrapTrack(_ track: Track) -> IndexedTrack {
         
         let index = playlist.indexOfTrack(track)
@@ -236,12 +266,107 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
     
     // TODO
     
-    func trackAdded(_ track: Track) {
-        sequence.trackAdded(track)
+    func tracksAdded(_ addResults: [TrackAddResult]) {
+        
+        if (addResults.isEmpty) {
+            return
+        }
+
+        switch scope.type {
+            
+        case .allTracks:
+            
+            // Just need to update the tracks count
+            sequence.updateSize(playlist.size())
+            
+        case .allArtists, .allAlbums, .allGenres:
+            
+            // TODO (find out where (absolute index) new tracks were inserted, and insert the new elements into the sequence)
+            return
+            
+        case .artist, .album, .genre:
+            
+            // Check if a track was added to the playing artist/album/genre
+            let playingGroup = scope.scope!
+            let resultsForGroup = countAddResultsForGroup(playingGroup, addResults)
+            
+            if resultsForGroup > 0 {
+                sequence.updateSize(sequence.size() + resultsForGroup)
+            }
+        }
     }
     
-    func tracksRemoved(_ removedTrackIndexes: [Int], _ removedTracks: [Track]) {
-        sequence.tracksRemoved(removedTrackIndexes, removedTracks)
+    // Searches the add results to find out how many tracks were added to a specific group
+    private func countAddResultsForGroup(_ group: Group, _ addResults: [TrackAddResult]) -> Int {
+        
+        var count = 0
+        
+        addResults.forEach({
+        
+            let resultGroup = $0.groupingPlaylistResults[group.type]!.track.group
+            if resultGroup === group {
+                count += 1
+            }
+        })
+        
+        return count
+    }
+    
+    func tracksRemoved(_ removeResults: RemoveOperationResults) {
+        
+        if (removeResults.flatPlaylistResults.isEmpty) {
+            return
+        }
+        
+        switch scope.type {
+            
+        case .allTracks:
+            
+            // Tell the sequence which rows were removed
+             sequence.removeElements(removeResults.flatPlaylistResults)
+            
+        case .allArtists, .allAlbums, .allGenres:
+            
+            // TODO (find out where (absolute index) new tracks were removed, and remove those elements from the sequence)
+            var indexesRemoved: [Int] = [Int]()
+            
+            let resultsForType = removeResults.groupingPlaylistResults[scope.type.toGroupType()!]!.results
+            
+            
+            return
+            
+        case .artist, .album, .genre:
+            
+            // Check if a track was removed from the playing artist/album/genre, or if the entire group was removed
+            let playingGroup = scope.scope!
+            
+            let resultsForType = removeResults.groupingPlaylistResults[playingGroup.type]!.results
+            
+            for result in resultsForType {
+                
+                if let trackRemoved = result as? TracksRemovedResult {
+                    
+                    if (trackRemoved.parentGroup === playingGroup) {
+                        
+                        sequence.removeElements(trackRemoved.trackIndexesInGroup)
+                        break
+                    }
+                    
+                } else {
+                    
+                    // Group
+                    let groupRemoved = result as! GroupRemovedResult
+                        
+                    if (groupRemoved.group === playingGroup) {
+                        
+                        sequence.clear()
+                        scope.scope = nil
+                        
+                        break
+                    }
+                }
+            }
+        }
     }
     
     func trackReordered(_ oldIndex: Int, _ newIndex: Int) {
@@ -294,4 +419,19 @@ enum SequenceScopes {
     case artist
     case album
     case genre
+    
+    func toGroupType() -> GroupType? {
+        
+        switch self {
+            
+        case .allTracks: return nil
+            
+        case .allArtists, .artist: return .artist
+            
+        case .allAlbums, .album: return .album
+            
+        case .allGenres, .genre: return .genre
+            
+        }
+    }
 }
