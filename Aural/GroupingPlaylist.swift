@@ -388,7 +388,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             
             // Cannot move tracks from different groups
             if (tracksByGroup.keys.count > 1) {
-                return ItemMovedResults.noItemsMoved
+                return ItemMovedResults([], self.type.toPlaylistType())
             }
 
             tracksByGroup.forEach({
@@ -401,7 +401,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             })
             
             // Ascending order (by old index)
-            return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}))
+            return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}), self.type.toPlaylistType())
         }
     }
     
@@ -434,7 +434,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         }
         
         // Ascending order (by old index)
-        return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}))
+        return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}), self.type.toPlaylistType())
     }
     
     private func moveGroupUp(_ index: Int) -> Int {
@@ -474,7 +474,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             
             // Cannot move tracks from different groups
             if (tracksByGroup.keys.count > 1) {
-                return ItemMovedResults.noItemsMoved
+                return ItemMovedResults([], self.type.toPlaylistType())
             }
             
             tracksByGroup.forEach({
@@ -487,7 +487,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             })
             
             // Descending order (by old index)
-            return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}))
+            return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}), self.type.toPlaylistType())
         }
     }
     
@@ -527,7 +527,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         }
         
         // Descending order (by old index)
-        return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}))
+        return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}), self.type.toPlaylistType())
     }
     
     private func moveGroupDown(_ index: Int) -> Int {
@@ -641,11 +641,11 @@ struct TracksRemovedResult: ItemRemovedResult {
 struct ItemMovedResults {
     
     let results: [ItemMovedResult]
+    let playlistType: PlaylistType
     
-    static let noItemsMoved: ItemMovedResults = ItemMovedResults([])
-    
-    init(_ results: [ItemMovedResult]) {
+    init(_ results: [ItemMovedResult], _ playlistType: PlaylistType) {
         self.results = results
+        self.playlistType = playlistType
     }
 }
 

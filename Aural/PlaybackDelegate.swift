@@ -91,7 +91,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     private func play(_ track: IndexedTrack?) throws {
         
         // Stop if currently playing
-        stop()
+        haltPlayback()
         
         if (track != nil) {
             
@@ -165,7 +165,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         let oldTrack = getPlayingTrack()
         
         // Stop playback of the old track
-        stop()
+        haltPlayback()
         
         // Continue the playback sequence
         do {
@@ -184,7 +184,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func stop() {
         
-        if (player.getPlaybackState() != .noTrack) {            
+        haltPlayback()
+        playbackSequencer.end()
+    }
+    
+    // Temporarily halts playback
+    private func haltPlayback() {
+        if (player.getPlaybackState() != .noTrack) {
             player.stop()
         }
     }
@@ -371,11 +377,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         }
     }
     
-    func tracksReordered(_ moveResults: ItemMovedResults) {
+    func tracksReordered(_ playlistType: PlaylistType) {
         prepareNextTracksForPlayback()
     }
     
-    func playlistReordered(_ newCursor: Int?) {
+    func playlistReordered(_ playlistType: PlaylistType) {
         prepareNextTracksForPlayback()
     }
     

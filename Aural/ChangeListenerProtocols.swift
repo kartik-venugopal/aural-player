@@ -13,10 +13,10 @@ protocol PlaylistChangeListener {
     func tracksRemoved(_ removeResults: RemoveOperationResults)
     
     // Tracks have been moved
-    func tracksReordered(_ moveResults: ItemMovedResults)
+    func tracksReordered(_ playlistType: PlaylistType)
     
     // Playlist has been reordered (e.g. sorting). The newCursor argument indicates the new value of the cursor (i.e. playing track) for the playback sequence.
-    func playlistReordered(_ newCursor: Int?)
+    func playlistReordered(_ playlistType: PlaylistType)
     
     // The entire playlist has been cleared
     func playlistCleared()

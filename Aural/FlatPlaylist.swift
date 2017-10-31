@@ -125,7 +125,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         }
         
         // Ascending order (by old index)
-        return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}))
+        return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}), .tracks)
     }
     
     func moveTracksDown(_ indexes: IndexSet) -> ItemMovedResults {
@@ -161,7 +161,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         }
         
         // Descending order (by old index)
-        return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}))
+        return ItemMovedResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}), .tracks)
     }
     
     // Swaps two tracks in the array of tracks

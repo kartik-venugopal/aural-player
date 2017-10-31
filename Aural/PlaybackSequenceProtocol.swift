@@ -57,7 +57,5 @@ protocol PlaybackSequenceProtocol {
     
     func size() -> Int
     
-    func updateSize(_ newSize: Int)
-    
     func clear()
 }

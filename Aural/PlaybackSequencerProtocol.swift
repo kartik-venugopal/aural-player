@@ -24,6 +24,9 @@ protocol PlaybackSequencerProtocol {
     // Selects, for playback, the first track in the sequence
     func begin() -> IndexedTrack?
     
+    // Ends the playback sequence (when playback is stopped or ends)
+    func end()
+    
     // Selects, for playback, the subsequent track in the sequence
     func subsequent() -> IndexedTrack?
     

@@ -223,8 +223,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         let results: RemoveOperationResults = playlist.removeTracks(IndexSet(indexes))
         
-        let message = TracksRemovedAsyncMessage(results)
-        AsyncMessenger.publishMessage(message)
+        AsyncMessenger.publishMessage(TracksRemovedAsyncMessage(results))
         
         changeListeners.forEach({$0.tracksRemoved(results)})
     }
@@ -240,27 +239,14 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> ItemMovedResults {
-        return tracksMoved(indexes, playlist.moveTracksUp(indexes))
+        let results = playlist.moveTracksUp(indexes)
+        changeListeners.forEach({$0.tracksReordered(.tracks)})
+        return results
     }
     
     func moveTracksDown(_ indexes: IndexSet) -> ItemMovedResults {
-        return tracksMoved(indexes, playlist.moveTracksDown(indexes))
-    }
-    
-    // Up or down
-    private func tracksMoved(_ indexes: IndexSet, _ results: ItemMovedResults) -> ItemMovedResults {
-        
-        // Note down which track was playing, if any
-        let playingTrack = playbackSequencer.getPlayingTrack()
-        let oldPlayingTrackIndex = playingTrack?.index
-        
-        // Update the playing track index
-        let newPlayingTrackIndex = oldPlayingTrackIndex == nil ? nil : (indexes.contains(oldPlayingTrackIndex!) ? findNewIndexFor(oldPlayingTrackIndex!, results) : playlist.indexOfTrack(playingTrack!.track))
-        
-        // TODO: Do this more smartly (only part of the playlist has been reordered)
-        // Notify listeners of the reordering of tracks
-        changeListeners.forEach({$0.playlistReordered(newPlayingTrackIndex)})
-        
+        let results = playlist.moveTracksDown(indexes)
+        changeListeners.forEach({$0.tracksReordered(.tracks)})
         return results
     }
     
@@ -280,11 +266,15 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults {
-        return playlist.moveTracksAndGroupsUp(tracks, groups, groupType)
+        let results = playlist.moveTracksAndGroupsUp(tracks, groups, groupType)
+        changeListeners.forEach({$0.tracksReordered(groupType.toPlaylistType())})
+        return results
     }
     
     func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults {
-        return playlist.moveTracksAndGroupsDown(tracks, groups, groupType)
+        let results = playlist.moveTracksAndGroupsDown(tracks, groups, groupType)
+        changeListeners.forEach({$0.tracksReordered(groupType.toPlaylistType())})
+        return results
     }
     
     func clear() {
@@ -295,16 +285,14 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     func sort(_ sort: Sort) {
         
-        let playingTrack = playbackSequencer.getPlayingTrack()
-        
         playlist.sort(sort)
-        
-        let newCursor = playingTrack == nil ? nil : playlist.indexOfTrack(playingTrack!.track)
-        changeListeners.forEach({$0.playlistReordered(newCursor)})
+        changeListeners.forEach({$0.playlistReordered(.tracks)})
     }
     
     func sort(_ sort: Sort, _ groupType: GroupType) {
+        
         playlist.sort(sort, groupType)
+        changeListeners.forEach({$0.playlistReordered(groupType.toPlaylistType())})
     }
     
     func consumeNotification(_ notification: NotificationMessage) {
@@ -345,17 +333,13 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     }
     
     func reorderTracks(_ reorderOperations: [PlaylistReorderOperation]) {
-        
-        let playingTrack = playbackSequencer.getPlayingTrack()
-        
         playlist.reorderTracks(reorderOperations)
-        
-        let newCursor = playingTrack == nil ? nil : playlist.indexOfTrack(playingTrack!.track)
-        changeListeners.forEach({$0.playlistReordered(newCursor)})
+        changeListeners.forEach({$0.tracksReordered(.tracks)})
     }
     
     func reorderTracks(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType) {
         playlist.reorderTracks(reorderOperations, groupType)
+        changeListeners.forEach({$0.tracksReordered(groupType.toPlaylistType())})
     }
 }
 

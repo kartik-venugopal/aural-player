@@ -157,6 +157,19 @@ enum GroupType: String {
     case artist
     case album
     case genre
+    
+    func toPlaylistType() -> PlaylistType {
+        
+        switch self {
+            
+        case .artist: return .artists
+            
+        case.album: return .albums
+            
+        case.genre: return .genres
+            
+        }
+    }
 }
 
 class GroupSortStrategies {
