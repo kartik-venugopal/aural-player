@@ -52,6 +52,26 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
     func end() {
         sequence.resetCursor()
         playingTrack = nil
+        
+        scope.scope = nil
+        scope.type = playlistTypeToGeneralScopeType(self.playlistType)
+        
+        print("Scope reset:", scope.type)
+    }
+    
+    private func playlistTypeToGeneralScopeType(_ playlistType: PlaylistType) -> SequenceScopes {
+        
+        switch playlistType {
+            
+        case .artists: return .allArtists
+            
+        case .albums: return .allAlbums
+            
+        case .genres: return .allGenres
+            
+        case .tracks: return .allTracks
+            
+        }
     }
     
     func peekSubsequent() -> IndexedTrack? {
@@ -302,14 +322,19 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
             
             switch scope.type {
                 
-            case .artist, .album, .genre, .allArtists, .allAlbums, .allGenres:
+            case .allArtists, .allAlbums, .allGenres:
                 
                 let groupInfo = playlist.getGroupingInfoForTrack(scope.type.toGroupType()!, playingTrack)
                 
                 return getAbsoluteIndexForGroupedTrack(scope.type.toGroupType()!, groupInfo.groupIndex, groupInfo.trackIndex)
                 
-            case .allTracks: return playlist.indexOfTrack(playingTrack)
+            case .artist, .album, .genre:
                 
+                return scope.scope!.indexOf(playingTrack)
+                
+            case .allTracks:
+                
+                return playlist.indexOfTrack(playingTrack)
             }
         }
         
@@ -318,15 +343,27 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
     
     private func updateSequence() {
         
+        var sequenceSize: Int
+        
+        switch scope.type {
+            
+        case .allTracks, .allArtists, .allAlbums, .allGenres: sequenceSize = playlist.size()
+            
+        case .artist, .album, .genre: sequenceSize = scope.scope!.size()
+            
+        }
+        
         if (sequence.getCursor() != nil) {
             
             // Update the cursor
             let newCursor = calculateNewCursor()
-            sequence.reset(tracksCount: playlist.size(), firstTrackIndex: newCursor)
+            sequence.reset(tracksCount: sequenceSize, firstTrackIndex: newCursor)
             
         } else {
-            sequence.reset(tracksCount: playlist.size())
+            sequence.reset(tracksCount: sequenceSize)
         }
+        
+        print("SeqSize:", sequenceSize, "Cursor:", sequence.getCursor())
     }
     
     func playlistTypeChanged(_ playlistType: PlaylistType) {

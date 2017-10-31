@@ -57,6 +57,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistUpdateQueue.maxConcurrentOperationCount = 1
         playlistUpdateQueue.underlyingQueue = DispatchQueue.main
         playlistUpdateQueue.qualityOfService = .background
+        
     }
     
     func clearPlaylist() {
@@ -392,6 +393,11 @@ extension IndexSet {
 class PlaylistArtistsViewController: GroupingPlaylistViewController {
     override internal var groupType: GroupType {return .artist}
     override internal var playlistType: PlaylistType {return .artists}
+    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        
+//    }
 }
 
 class PlaylistAlbumsViewController: GroupingPlaylistViewController {

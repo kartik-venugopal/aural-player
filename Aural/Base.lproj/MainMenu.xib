@@ -1522,7 +1522,7 @@ G1BhbiBTbGlkZXI
                                                 </tabViewItems>
                                             </tabView>
                                             <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="QU8-ZM-MyA">
-                                                <rect key="frame" x="0.0" y="147" width="385" height="84"/>
+                                                <rect key="frame" x="0.0" y="147" width="385" height="151"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </box>
                                             <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Mvg-eT-z2w" userLabel="Tab Buttons Box">
@@ -2519,7 +2519,7 @@ G1BhbiBTbGlkZXI
                                                         <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
                                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="aNj-KL-nmJ">
                                                             <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="RK1-b8-W6Q" id="YHO-bg-iJv" userLabel="Playlist Genres View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
