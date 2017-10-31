@@ -292,6 +292,16 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
     
     func tracksRemoved(_ removeResults: RemoveOperationResults) {
         
+        // TODO: What if playing track was removed ? Need to look through results to figure it out
+        // Need to determine if either of the following 2 conditions met:
+        // 1 - Playing track itself was removed
+        // 2 - Parent group of playing track was removed
+        
+//        for result in removeResults.groupingPlaylistResults.values {
+//            
+//            if result.results
+//        }
+        
         if (!removeResults.flatPlaylistResults.isEmpty) {
             updateSequence()
         }
