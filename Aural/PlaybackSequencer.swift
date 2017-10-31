@@ -55,8 +55,6 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         
         scope.scope = nil
         scope.type = playlistTypeToGeneralScopeType(self.playlistType)
-        
-        print("Scope reset:", scope.type)
     }
     
     private func playlistTypeToGeneralScopeType(_ playlistType: PlaylistType) -> SequenceScopes {
@@ -90,7 +88,10 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
     
     func next() -> IndexedTrack? {
         let next = getTrackForIndex(sequence.next())
-        playingTrack = next?.track
+        
+        if (next != nil) {
+            playingTrack = next?.track
+        }
         return next
     }
     
@@ -99,8 +100,12 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
     }
     
     func previous() -> IndexedTrack? {
+        
         let previous = getTrackForIndex(sequence.previous())
-        playingTrack = previous?.track
+        
+        if (previous != nil) {
+            playingTrack = previous?.track
+        }
         return previous
     }
     
@@ -372,8 +377,6 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         } else {
             sequence.reset(tracksCount: sequenceSize)
         }
-        
-        print("SeqSize:", sequenceSize, "Cursor:", sequence.getCursor())
     }
     
     func playlistTypeChanged(_ playlistType: PlaylistType) {

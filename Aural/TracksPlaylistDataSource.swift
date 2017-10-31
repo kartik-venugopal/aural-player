@@ -85,7 +85,7 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
             
         } else {
             
-            print("WTF ! Row", row)
+            print("WTF ! Row", row, "PlSize:", playlist.size())
             return nil
         }
     }
@@ -217,6 +217,12 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
                 tableView.reloadData(forRowIndexes: reloadIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
                 
                 tableView.selectRowIndexes(destination, byExtendingSelection: false)
+                
+                if (playbackInfo.getPlayingTrack() != nil) {
+                    let seqInfo = playbackInfo.getPlaybackSequenceInfo()
+                    let sequenceChangedMsg = SequenceChangedNotification(seqInfo.scope, seqInfo.trackIndex, seqInfo.totalTracks)
+                    SyncMessenger.publishNotification(sequenceChangedMsg)
+                }
                 
                 return true
             }

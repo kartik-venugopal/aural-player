@@ -7,6 +7,8 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
     
     internal var playlistDelegate: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
+    internal var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    
     // Signifies an invalid drag/drop operation
     private let invalidDragOperation: NSDragOperation = []
     
@@ -164,6 +166,12 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
                 let destination = calculateReorderingDestination(childIndexes, item, index)
                 
                 performReordering(outlineView, srcRows: srcRows, childIndexes, index, destination)
+                
+                if (playbackInfo.getPlayingTrack() != nil) {
+                    let seqInfo = playbackInfo.getPlaybackSequenceInfo()
+                    let sequenceChangedMsg = SequenceChangedNotification(seqInfo.scope, seqInfo.trackIndex, seqInfo.totalTracks)
+                    SyncMessenger.publishNotification(sequenceChangedMsg)
+                }
                 
                 return true
             }

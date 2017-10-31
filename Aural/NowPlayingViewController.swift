@@ -55,6 +55,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         
         // Subscribe to various notifications
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
+        SyncMessenger.subscribe(.sequenceChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.playbackRateChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.playbackStateChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.seekPositionChangedNotification, subscriber: self)
@@ -208,27 +209,27 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
                 case .allTracks:
                     
                     lblPlaybackScope.stringValue = "All tracks"
-                    imgScope.isHidden = true
+                    imgScope.image = UIConstants.imgPlaylistOn
                     
                 case .allArtists:
                     
                     lblPlaybackScope.stringValue = "All artists"
-                    imgScope.isHidden = true
+                    imgScope.image = UIConstants.imgPlaylistOn
                     
                 case .allAlbums:
                     
                     lblPlaybackScope.stringValue = "All albums"
-                    imgScope.isHidden = true
+                    imgScope.image = UIConstants.imgPlaylistOn
                     
                 case .allGenres:
                     
                     lblPlaybackScope.stringValue = "All genres"
-                    imgScope.isHidden = true
+                    imgScope.image = UIConstants.imgPlaylistOn
                     
                 case .artist, .album, .genre:
                     
                     lblPlaybackScope.stringValue = scope.scope!.name
-                    imgScope.isHidden = false
+                    imgScope.image = UIConstants.imgGroup
                 }
                 
                 lblSequenceProgress.stringValue = String(format: "(%d / %d)", trackIndex, totalTracks)
@@ -265,9 +266,13 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         } else {
             
             [lblPlaybackScope, lblSequenceProgress].forEach({$0?.stringValue = ""})
-            imgScope.isHidden = true
+            imgScope.image = nil
             clearNowPlayingInfo()
         }
+    }
+    
+    private func sequenceChanged(_ msg: SequenceChangedNotification) {
+        lblSequenceProgress.stringValue = String(format: "(%d / %d)", msg.trackIndex, msg.totalTracks)
     }
     
     // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
@@ -309,6 +314,12 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         if (notification is TrackChangedNotification) {
             let msg = notification as! TrackChangedNotification
             trackChange(msg.newTrack, msg.errorState)
+            return
+        }
+        
+        if (notification is SequenceChangedNotification) {
+            let msg = notification as! SequenceChangedNotification
+            sequenceChanged(msg)
             return
         }
         

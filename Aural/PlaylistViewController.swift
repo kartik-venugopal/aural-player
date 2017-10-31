@@ -115,6 +115,12 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         playlistWorkSpinner.stopAnimation(self)
         playlistWorkSpinner.isHidden = true
+        
+        if (playbackInfo.getPlayingTrack() != nil) {
+            let seqInfo = playbackInfo.getPlaybackSequenceInfo()
+            let sequenceChangedMsg = SequenceChangedNotification(seqInfo.scope, seqInfo.trackIndex, seqInfo.totalTracks)
+            SyncMessenger.publishNotification(sequenceChangedMsg)
+        }
     }
     
     private func handleTracksNotAddedError(_ errors: [InvalidTrackError]) {
@@ -173,6 +179,12 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         let message = PlaylistActionMessage(.removeTracks, PlaylistViewState.current)
         SyncMessenger.publishActionMessage(message)
         
+        if (playbackInfo.getPlayingTrack() != nil) {
+            let seqInfo = playbackInfo.getPlaybackSequenceInfo()
+            let sequenceChangedMsg = SequenceChangedNotification(seqInfo.scope, seqInfo.trackIndex, seqInfo.totalTracks)
+            SyncMessenger.publishNotification(sequenceChangedMsg)
+        }
+        
         updatePlaylistSummary()
     }
     
@@ -213,12 +225,24 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         let message = PlaylistActionMessage(.moveTracksUp, PlaylistViewState.current)
         SyncMessenger.publishActionMessage(message)
+        
+        if (playbackInfo.getPlayingTrack() != nil) {
+            let seqInfo = playbackInfo.getPlaybackSequenceInfo()
+            let sequenceChangedMsg = SequenceChangedNotification(seqInfo.scope, seqInfo.trackIndex, seqInfo.totalTracks)
+            SyncMessenger.publishNotification(sequenceChangedMsg)
+        }
     }
     
     @IBAction func moveTracksDownAction(_ sender: AnyObject) {
         
         let message = PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current)
         SyncMessenger.publishActionMessage(message)
+        
+        if (playbackInfo.getPlayingTrack() != nil) {
+            let seqInfo = playbackInfo.getPlaybackSequenceInfo()
+            let sequenceChangedMsg = SequenceChangedNotification(seqInfo.scope, seqInfo.trackIndex, seqInfo.totalTracks)
+            SyncMessenger.publishNotification(sequenceChangedMsg)
+        }
     }
     
     // Scrolls the playlist view to the very top

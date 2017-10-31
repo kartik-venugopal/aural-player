@@ -181,10 +181,10 @@
                                                     <action selector="showPlayingTrackAction:" target="8o0-TS-7rF" id="h6g-zW-GOc"/>
                                                 </connections>
                                             </button>
-                                            <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t3K-5t-f1v">
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t3K-5t-f1v">
                                                 <rect key="frame" x="141" y="6" width="15" height="15"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Group" id="cqS-IM-yaI"/>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="cqS-IM-yaI"/>
                                             </imageView>
                                         </subviews>
                                     </view>
@@ -1522,7 +1522,7 @@ G1BhbiBTbGlkZXI
                                                 </tabViewItems>
                                             </tabView>
                                             <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="QU8-ZM-MyA">
-                                                <rect key="frame" x="0.0" y="147" width="385" height="151"/>
+                                                <rect key="frame" x="0.0" y="147" width="385" height="79"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </box>
                                             <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Mvg-eT-z2w" userLabel="Tab Buttons Box">
@@ -2071,7 +2071,7 @@ G1BhbiBTbGlkZXI
                                                         <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
                                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Diy-3n-dhX">
                                                             <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" id="rhk-oM-jMn" userLabel="Playlist Tracks View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
@@ -2519,7 +2519,7 @@ G1BhbiBTbGlkZXI
                                                         <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
                                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="aNj-KL-nmJ">
                                                             <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="RK1-b8-W6Q" id="YHO-bg-iJv" userLabel="Playlist Genres View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
@@ -4354,7 +4354,6 @@ Gw
         <image name="Down" width="92" height="128"/>
         <image name="Down-Small" width="1.3999999761581421" height="1.3999999761581421"/>
         <image name="EffectsView-On" width="419" height="422"/>
-        <image name="Group" width="256" height="224"/>
         <image name="Hide" width="94" height="94"/>
         <image name="Maximize" width="85" height="85"/>
         <image name="Maximize-Small" width="14" height="14"/>

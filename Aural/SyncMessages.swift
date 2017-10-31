@@ -43,6 +43,8 @@ enum MessageType {
     // See TrackChangedNotification
     case trackChangedNotification
     
+    case sequenceChangedNotification
+    
     // See PlayingTrackInfoUpdatedNotification
     case playingTrackInfoUpdatedNotification
     
@@ -163,6 +165,21 @@ struct TrackChangedNotification: NotificationMessage {
         self.oldTrack = oldTrack
         self.newTrack = newTrack
         self.errorState = errorState
+    }
+}
+
+struct SequenceChangedNotification: NotificationMessage {
+    
+    let messageType: MessageType = .sequenceChangedNotification
+    
+    let updatedSequence: SequenceScope
+    let trackIndex: Int
+    let totalTracks: Int
+    
+    init(_ updatedSequence: SequenceScope, _ trackIndex: Int, _ totalTracks: Int) {
+        self.updatedSequence = updatedSequence
+        self.trackIndex = trackIndex
+        self.totalTracks = totalTracks
     }
 }
 

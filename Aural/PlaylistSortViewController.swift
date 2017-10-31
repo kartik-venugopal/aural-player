@@ -63,6 +63,12 @@ class PlaylistSortViewController: NSViewController {
         let actionMsg = PlaylistActionMessage(.refresh, PlaylistViewState.current)
         SyncMessenger.publishActionMessage(actionMsg)
         
+        if (playbackInfo.getPlayingTrack() != nil) {
+            let seqInfo = playbackInfo.getPlaybackSequenceInfo()
+            let sequenceChangedMsg = SequenceChangedNotification(seqInfo.scope, seqInfo.trackIndex, seqInfo.totalTracks)
+            SyncMessenger.publishNotification(sequenceChangedMsg)
+        }
+        
         UIUtils.dismissModalDialog()
     }
     
