@@ -19,6 +19,8 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
     
     override func viewDidLoad() {
         
+        dragDropDelegate.setGrouping(self.grouping)
+        
         // Subscribe to playbackStateChangedNotifications so that the playing track animation can be paused/resumed, in response to the playing track being paused/resumed
         SyncMessenger.subscribe(.playbackStateChangedNotification, subscriber: self)
     }
