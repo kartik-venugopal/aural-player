@@ -24,22 +24,16 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     internal var groupType: GroupType {return .artist}
     internal var playlistType: PlaylistType {return .artists}
     
-    var adds = 0
-    var updates = 0
-    
     override func viewDidLoad() {
         
         // Register self as a subscriber to various AsyncMessage notifications
         AsyncMessenger.subscribe(.trackAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe(.trackInfoUpdated, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.tracksRemoved, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.tracksNotAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
-        AsyncMessenger.subscribe(.startedAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
-        AsyncMessenger.subscribe(.doneAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
-        AsyncMessenger.subscribe(.trackInfoUpdated, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
-//        SyncMessenger.subscribe(.trackAddedNotification, subscriber: self)
-//        SyncMessenger.subscribe(.trackUpdatedNotification, subscriber: self)
+        SyncMessenger.subscribe(.trackAddedNotification, subscriber: self)
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.removeTrackRequest, subscriber: self)
         SyncMessenger.subscribe(.searchResultSelectionRequest, subscriber: self)
@@ -57,7 +51,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistUpdateQueue.maxConcurrentOperationCount = 1
         playlistUpdateQueue.underlyingQueue = DispatchQueue.main
         playlistUpdateQueue.qualityOfService = .background
-        
     }
     
     func clearPlaylist() {
@@ -179,8 +172,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     func moveTracksUp() {
         
-        let tim = TimerUtils.start("moveUp")
-        
         let tracksAndGroups = collectTracksAndGroups()
         let tracks = tracksAndGroups.tracks
         let groups = tracksAndGroups.groups
@@ -199,8 +190,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         selectAllItems(allItems)
         
         playlistView.scrollRowToVisible(playlistView.selectedRow)
-        
-        tim.end()
     }
     
     private func moveItems(_ results: ItemMovedResults) {
@@ -227,8 +216,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     func moveTracksDown() {
         
-        let tim = TimerUtils.start("moveDown")
-        
         let tracksAndGroups = collectTracksAndGroups()
         let tracks = tracksAndGroups.tracks
         let groups = tracksAndGroups.groups
@@ -247,36 +234,38 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         selectAllItems(allItems)
         
         playlistView.scrollRowToVisible(playlistView.selectedRow)
+    }
+    
+    private func trackAdded(_ message: TrackAddedNotification) {
         
-        tim.end()
+        let result = message.groupInfo[self.groupType]!
+        
+        if result.groupCreated {
+            
+            playlistView.insertItems(at: IndexSet(integer: result.track.groupIndex), inParent: nil, withAnimation: NSTableViewAnimationOptions.effectFade)
+            
+        } else {
+            
+            let group = result.track.group
+            playlistView.insertItems(at: IndexSet(integer: result.track.trackIndex), inParent: group, withAnimation: .effectGap)
+            playlistView.reloadItem(group)
+        }
     }
     
     private func trackAdded(_ message: TrackAddedAsyncMessage) {
         
-        // Perform task serially wrt other such tasks
+        let result = message.groupInfo[self.groupType]!
         
-            // Find the groupInfo relevant to this playlist view
-            let addResult = message.groupInfo[self.groupType]!
+        if result.groupCreated {
+            
+            playlistView.insertItems(at: IndexSet(integer: result.track.groupIndex), inParent: nil, withAnimation: NSTableViewAnimationOptions.effectFade)
+            
+        } else {
         
-        let updateOp = BlockOperation(block: {
-        
-            if addResult.groupCreated {
-                
-                // Insert the new group
-                self.playlistView.insertItems(at: IndexSet(integer: addResult.track.groupIndex), inParent: nil, withAnimation: .effectGap)
-                
-            } else {
-                
-                // Reload the existing group
-                
-                let group = addResult.track.group
-                
-                self.playlistView.reloadItem(group, reloadChildren: false)
-                self.playlistView.insertItems(at: IndexSet(integer: addResult.track.trackIndex), inParent: group, withAnimation: .effectGap)
-            }
-        })
-
-        playlistUpdateQueue.addOperation(updateOp)
+            let group = result.track.group
+            playlistView.insertItems(at: IndexSet(integer: result.track.trackIndex), inParent: group, withAnimation: .effectGap)
+            playlistView.reloadItem(group)
+        }
     }
     
     private func trackUpdated(_ message: TrackUpdatedAsyncMessage) {
@@ -284,17 +273,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         let track = message.groupInfo[self.groupType]!.track
         let group = message.groupInfo[self.groupType]!.group
         
-        let updateOp = BlockOperation(block: {
-            
-            self.playlistView.beginUpdates()
-        
-            self.playlistView.reloadItem(group, reloadChildren: false)
-            self.playlistView.reloadItem(track)
-            
-            self.playlistView.endUpdates()
-        })
-            
-        playlistUpdateQueue.addOperation(updateOp)
+        self.playlistView.reloadItem(group, reloadChildren: false)
+        self.playlistView.reloadItem(track)
     }
     
     // Shows the currently playing track, within the playlist view
@@ -319,17 +299,17 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         }
         
         if let msg = message as? TracksRemovedAsyncMessage {
-            
-            let updateOp = BlockOperation(block: {
-                self.tracksRemoved(msg.results)
-            })
-            
-            playlistUpdateQueue.addOperation(updateOp)
+            tracksRemoved(msg.results)
             return
         }
     }
     
     func consumeNotification(_ notification: NotificationMessage) {
+        
+        if let msg = notification as? TrackAddedNotification {
+            trackAdded(msg)
+            return
+        }
         
         if (notification is TrackChangedNotification) {
             
@@ -393,11 +373,6 @@ extension IndexSet {
 class PlaylistArtistsViewController: GroupingPlaylistViewController {
     override internal var groupType: GroupType {return .artist}
     override internal var playlistType: PlaylistType {return .artists}
-    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        
-//    }
 }
 
 class PlaylistAlbumsViewController: GroupingPlaylistViewController {
