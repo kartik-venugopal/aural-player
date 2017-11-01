@@ -53,6 +53,12 @@ class PanTickedSliderCell: TickedSliderCell {
     override var knobWidth: CGFloat {return 7}
     override var knobRadius: CGFloat {return 0.5}
     override var knobHeightOutsideBar: CGFloat {return 1}
+    
+    override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
+        
+        let drawPath = NSBezierPath.init(roundedRect: aRect, xRadius: barRadius, yRadius: barRadius)
+        barPlainGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+    }
 }
 
 // Cell for all ticked effects sliders

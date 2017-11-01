@@ -169,13 +169,14 @@ class RangeSlider: NSView {
 
     private var barFillGradient: NSGradient {
         
-        let fillStart: NSColor = NSColor.red
-        let fillEnd: NSColor = NSColor(deviceRed: CGFloat(0.5), green: CGFloat(0), blue: CGFloat(0), alpha: CGFloat(1))
-        
-        let barFillGradient = NSGradient(starting: fillStart, ending: fillEnd)
-        assert(barFillGradient != nil, "Couldn't generate gradient.")
-        
-        return barFillGradient!
+//        let fillStart: NSColor = NSColor.red
+//        let fillEnd: NSColor = NSColor(deviceRed: CGFloat(0.5), green: CGFloat(0), blue: CGFloat(0), alpha: CGFloat(1))
+//        
+//        let barFillGradient = NSGradient(starting: fillStart, ending: fillEnd)
+//        assert(barFillGradient != nil, "Couldn't generate gradient.")
+//        
+//        return barFillGradient!
+        return Colors.sliderBarColoredGradient
     }
     
     func initialize(_ min: Double, _ max: Double, _ start: Double, _ end: Double, _ changeHandler: ((RangeSlider) -> Void)?) {

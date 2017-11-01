@@ -30,10 +30,10 @@ class EQSliderCell: NSSliderCell {
         let bottomRect = NSRect(x: drawRect.minX, y: knobFrame.maxY - halfKnobWidth, width: drawRect.width, height: drawRect.height - knobFrame.maxY + halfKnobWidth)
         
         var drawPath = NSBezierPath.init(roundedRect: bottomRect, xRadius: 1, yRadius: 1)
-        Colors.sliderBarColoredGradient.draw(in: drawPath, angle: 180)
+        Colors.sliderBarColoredGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
         
         drawPath = NSBezierPath.init(roundedRect: topRect, xRadius: 1, yRadius: 1)
-        Colors.sliderBarPlainGradient.draw(in: drawPath, angle: 180)
+        Colors.sliderBarPlainGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
         
         // Draw one tick across the center of the bar (marking 0dB)
         let tickMinX = drawRect.minX + 1

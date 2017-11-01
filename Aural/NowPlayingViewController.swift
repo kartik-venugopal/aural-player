@@ -82,8 +82,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
             artistAndTitleAvailable = true
             
             // Both title and artist
-            lblTrackArtist.stringValue = "Artist:  " + track.displayInfo.artist!
-            lblTrackTitle.stringValue = "Title:  " + track.displayInfo.title!
+            lblTrackArtist.stringValue = track.displayInfo.artist!
+            lblTrackTitle.stringValue = track.displayInfo.title!
             
         } else {
             
@@ -232,7 +232,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
                     imgScope.image = UIConstants.imgGroup
                 }
                 
-                lblSequenceProgress.stringValue = String(format: "(%d / %d)", trackIndex, totalTracks)
+                lblSequenceProgress.stringValue = String(format: "%d / %d", trackIndex, totalTracks)
                 
                 let scopeString: NSString = lblPlaybackScope.stringValue as NSString
                 let size: CGSize = scopeString.size(withAttributes: [NSFontAttributeName: lblPlaybackScope.font as AnyObject])
@@ -240,16 +240,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
                 let lblWidth = lblPlaybackScope.frame.width
                 let textWidth = min(size.width, lblWidth)
                 
-                let margin = (lblWidth - textWidth) / 2
-                
-                let newX = lblPlaybackScope.frame.origin.x + lblPlaybackScope.frame.width - margin + 2
-                lblSequenceProgress.frame.origin.x = newX
-                
-                if (!imgScope.isHidden) {
-   
-                    let newX = lblPlaybackScope.frame.origin.x + margin - imgScope.frame.width - 4
-                    imgScope.frame.origin.x = newX
-                }
+                let margin = (lblWidth - textWidth) / 2   
+                let newImgX = lblPlaybackScope.frame.origin.x + margin - imgScope.frame.width - 4
+                imgScope.frame.origin.x = newImgX
+    
                 
                 if (popoverView.isShown()) {
                     
@@ -272,7 +266,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
     }
     
     private func sequenceChanged(_ msg: SequenceChangedNotification) {
-        lblSequenceProgress.stringValue = String(format: "(%d / %d)", msg.trackIndex, msg.totalTracks)
+        lblSequenceProgress.stringValue = String(format: "%d / %d", msg.trackIndex, msg.totalTracks)
     }
     
     // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.

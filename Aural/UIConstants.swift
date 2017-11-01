@@ -6,8 +6,8 @@ import Cocoa
 class UIConstants {
     
     // Y co-ordinates for the Track Name label, depending on whether it is displaying one or two lines of text
-    static let trackNameLabelLocationY_oneLine: CGFloat = 38
-    static let trackNameLabelLocationY_twoLines: CGFloat = 33
+    static let trackNameLabelLocationY_oneLine: CGFloat = 53
+    static let trackNameLabelLocationY_twoLines: CGFloat = 51
     
     // Height values for the Track Name label, depending on whether it is displaying one or two lines of text
     static let trackNameLabelHeight_oneLine: CGFloat = 30
@@ -122,13 +122,14 @@ class UIConstants {
     static let minPlaylistHeight: CGFloat = 150
  
     // Window heights for different views
-    static let windowHeight_compact: CGFloat = 208
-    static let windowHeight_playlistAndEffects: CGFloat = 381
-    static let windowHeight_playlistOnly: CGFloat = 196
-    static let windowHeight_effectsOnly: CGFloat = 393
+    static let windowHeight_compact: CGFloat = 230
+    static let windowHeight_playlistAndEffects: CGFloat = 403
+    static let windowHeight_playlistOnly: CGFloat = 218
+    static let windowHeight_effectsOnly: CGFloat = 415
     
     // Angle used to fill vertical gradients
     static let verticalGradientDegrees: CGFloat = -90.0
+    static let horizontalGradientDegrees: CGFloat = -180.0
     
     // Time interval for which feedback labels that are to be auto-hidden are displayed, before being hidden
     static let feedbackLabelAutoHideIntervalSeconds: TimeInterval = 1

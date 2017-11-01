@@ -99,6 +99,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             TrackIO.prepareForPlayback(actualTrack)
             
             if (actualTrack.lazyLoadingInfo.preparationFailed) {
+                playbackSequencer.end()
                 throw actualTrack.lazyLoadingInfo.preparationError!
             }
             
