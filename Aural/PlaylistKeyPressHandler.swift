@@ -25,7 +25,7 @@ class PlaylistKeyPressHandler {
         let isCommand: Bool = event.modifierFlags.contains(NSEventModifierFlags.command)
         let isOption: Bool = event.modifierFlags.contains(NSEventModifierFlags.option)
         
-        let isUpOrDownArrow: Bool = event.keyCode == KeyCodeConstants.UP_ARROW || event.keyCode == KeyCodeConstants.DOWN_ARROW
+        let isArrow: Bool = KeyCodeConstants.arrows.contains(event.keyCode)
         
         let chars = event.charactersIgnoringModifiers
         let isAlphaNumeric = chars != nil && chars!.rangeOfCharacter(from: CharacterSet.alphanumerics) != nil
@@ -33,7 +33,7 @@ class PlaylistKeyPressHandler {
         // ---------------------- Handlers --------------------------
         
         // Up/Down arrows enable natural playlist scrolling, and alphanumeric characters enable type selection by track name
-        if (!isShift && !isCommand && !isOption && (isUpOrDownArrow || isAlphaNumeric)) {
+        if (!isShift && !isCommand && !isOption && (isArrow || isAlphaNumeric)) {
             
             // Forward the event to the playlist view
             playlistViews.forEach({$0.keyDown(with: event)})
@@ -55,4 +55,9 @@ fileprivate class KeyCodeConstants {
     // TODO: Are these system-independent ???
     static let UP_ARROW: UInt16 = 126
     static let DOWN_ARROW: UInt16 = 125
+    
+    static let LEFT_ARROW: UInt16 = 123
+    static let RIGHT_ARROW: UInt16 = 124
+    
+    static let arrows = [KeyCodeConstants.UP_ARROW, KeyCodeConstants.DOWN_ARROW, KeyCodeConstants.LEFT_ARROW, KeyCodeConstants.RIGHT_ARROW]
 }

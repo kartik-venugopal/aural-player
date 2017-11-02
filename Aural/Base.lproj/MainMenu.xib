@@ -121,7 +121,7 @@
                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="cqS-IM-yaI"/>
                                             </imageView>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMB-QE-CEM" userLabel="Lbl Sequence Progress">
-                                                <rect key="frame" x="201" y="3" width="124" height="20"/>
+                                                <rect key="frame" x="193" y="3" width="124" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" id="41J-vh-Q6Z">
                                                     <font key="font" size="12" name="GillSans-SemiBold"/>
@@ -1763,7 +1763,7 @@ G1BhbiBTbGlkZXI
                             <action selector="maximizePlaylistHorizontalAction:" target="Bfj-ih-EYB" id="EPv-lT-PCH"/>
                         </connections>
                     </button>
-                    <box boxType="custom" borderType="line" cornerRadius="5" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="52r-K9-etW" userLabel="Tab Buttons Box">
+                    <box boxType="custom" borderType="line" cornerRadius="3" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="52r-K9-etW" userLabel="Tab Buttons Box">
                         <rect key="frame" x="128" y="245" width="224" height="22"/>
                         <view key="contentView" id="xuF-ha-X5M">
                             <rect key="frame" x="1" y="1" width="222" height="20"/>
@@ -2217,17 +2217,17 @@ G1BhbiBTbGlkZXI
                                         </tabViewItem>
                                         <tabViewItem label="View" identifier="2" id="tTL-8N-2Qi" userLabel="Artists Tab">
                                             <view key="view" id="TYY-uk-Hhl">
-                                                <rect key="frame" x="0.0" y="0.0" width="448" height="180"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PrF-DV-ox1" userLabel="Playlist Artists View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="448" height="180"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="9oF-9v-OrO">
-                                                            <rect key="frame" x="0.0" y="0.0" width="448" height="180"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="8tt-k4-q7k" id="Hsn-Ar-Mkv" userLabel="Playlist Artists View">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="448" height="180"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -2825,7 +2825,6 @@ G1BhbiBTbGlkZXI
                 <outlet property="btnArtistsView" destination="nfG-4p-zAW" id="7OX-i9-2s9"/>
                 <outlet property="btnGenresView" destination="GNZ-n0-SF5" id="QoG-hf-Fgg"/>
                 <outlet property="btnTracksView" destination="8Jq-nO-nqw" id="5l1-bR-qcR"/>
-                <outlet property="controlsBox" destination="VEj-9M-Zdt" id="in0-0E-pg5"/>
                 <outlet property="genresView" destination="YHO-bg-iJv" id="WLz-0s-g8I"/>
                 <outlet property="lblDurationSummary" destination="YOF-ba-45D" id="eee-97-ba2"/>
                 <outlet property="lblTracksSummary" destination="2Oh-Zx-4dK" id="ekU-P4-OWa"/>
@@ -3140,13 +3139,13 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem title=" Seek backward" image="SeekBackward-Small" keyEquivalent="" id="h8T-Of-b8S">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="seekBackwardAction:" target="I9L-9m-MZn" id="AM6-JA-IST"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Seek forward" image="SeekForward-Small" keyEquivalent="" id="dge-IA-2p7">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="seekForwardAction:" target="I9L-9m-MZn" id="ajA-Vc-CBv"/>
                                 </connections>

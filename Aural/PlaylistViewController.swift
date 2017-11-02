@@ -16,31 +16,27 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     private var playlistViews: [NSTableView]?
     
+    @IBOutlet weak var tabGroup: NSTabView!
+    private var tabViewButtons: [NSButton]?
+    
     @IBOutlet weak var btnTracksView: NSButton!
     @IBOutlet weak var btnArtistsView: NSButton!
     @IBOutlet weak var btnAlbumsView: NSButton!
     @IBOutlet weak var btnGenresView: NSButton!
     
-    @IBOutlet weak var tabGroup: NSTabView!
-    private var tabViewButtons: [NSButton]?
-    
-    @IBOutlet weak var lblDurationSummary: NSTextField!
     @IBOutlet weak var lblTracksSummary: NSTextField!
+    @IBOutlet weak var lblDurationSummary: NSTextField!
     
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
     
-    // Box that encloses the playlist controls. Used to position the spinner.
-    @IBOutlet weak var controlsBox: NSBox!
-    
     // Delegate that performs CRUD actions on the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
-    
-    private let plAcc: PlaylistAccessorProtocol = ObjectGraph.getPlaylistAccessor()
     
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
+    // TODO: Revisit this
     private let playlistUpdateQueue = OperationQueue()
     
     // Needed for playlist scrolling with arrow keys
@@ -115,6 +111,11 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         playlistWorkSpinner.stopAnimation(self)
         playlistWorkSpinner.isHidden = true
         
+        sequenceChanged()
+    }
+    
+    private func sequenceChanged() {
+        
         if (playbackInfo.getPlayingTrack() != nil) {
             let seqInfo = playbackInfo.getPlaybackSequenceInfo()
             let sequenceChangedMsg = SequenceChangedNotification(seqInfo.scope, seqInfo.trackIndex, seqInfo.totalTracks)
@@ -166,12 +167,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         let message = PlaylistActionMessage(.removeTracks, PlaylistViewState.current)
         SyncMessenger.publishActionMessage(message)
         
-        if (playbackInfo.getPlayingTrack() != nil) {
-            let seqInfo = playbackInfo.getPlaybackSequenceInfo()
-            let sequenceChangedMsg = SequenceChangedNotification(seqInfo.scope, seqInfo.trackIndex, seqInfo.totalTracks)
-            SyncMessenger.publishNotification(sequenceChangedMsg)
-        }
-        
+        sequenceChanged()
         updatePlaylistSummary()
     }
     
@@ -212,24 +208,14 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         let message = PlaylistActionMessage(.moveTracksUp, PlaylistViewState.current)
         SyncMessenger.publishActionMessage(message)
-        
-        if (playbackInfo.getPlayingTrack() != nil) {
-            let seqInfo = playbackInfo.getPlaybackSequenceInfo()
-            let sequenceChangedMsg = SequenceChangedNotification(seqInfo.scope, seqInfo.trackIndex, seqInfo.totalTracks)
-            SyncMessenger.publishNotification(sequenceChangedMsg)
-        }
+        sequenceChanged()
     }
     
     @IBAction func moveTracksDownAction(_ sender: AnyObject) {
         
         let message = PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current)
         SyncMessenger.publishActionMessage(message)
-        
-        if (playbackInfo.getPlayingTrack() != nil) {
-            let seqInfo = playbackInfo.getPlaybackSequenceInfo()
-            let sequenceChangedMsg = SequenceChangedNotification(seqInfo.scope, seqInfo.trackIndex, seqInfo.totalTracks)
-            SyncMessenger.publishNotification(sequenceChangedMsg)
-        }
+        sequenceChanged()
     }
     
     // Scrolls the playlist view to the very top
