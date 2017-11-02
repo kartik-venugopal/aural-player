@@ -7,7 +7,7 @@ class UIConstants {
     
     // Y co-ordinates for the Track Name label, depending on whether it is displaying one or two lines of text
     static let trackNameLabelLocationY_oneLine: CGFloat = 53
-    static let trackNameLabelLocationY_twoLines: CGFloat = 51
+    static let trackNameLabelLocationY_twoLines: CGFloat = 53
     
     // Height values for the Track Name label, depending on whether it is displaying one or two lines of text
     static let trackNameLabelHeight_oneLine: CGFloat = 30

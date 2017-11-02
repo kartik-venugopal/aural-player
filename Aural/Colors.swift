@@ -56,8 +56,8 @@ class Colors {
     
     static let sliderBarGradient: NSGradient = {
         
-        let backgroundStart = NSColor(white: 0.6, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0.4, alpha: 1.0)
+        let backgroundStart = NSColor(white: 0.7, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.2, alpha: 1.0)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!
@@ -66,8 +66,8 @@ class Colors {
     // Gradient used to fill slider bars
     static let sliderBarPlainGradient: NSGradient = {
         
-        let backgroundStart = NSColor(white: 0.6, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0.4, alpha: 1.0)
+        let backgroundStart = NSColor(white: 0.7, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.2, alpha: 1.0)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!
@@ -75,8 +75,8 @@ class Colors {
     
     static let sliderBarColoredGradient: NSGradient = {
         
-        let backgroundStart = NSColor(red: 1, green: 0, blue: 0, alpha: 0.5)
-        let backgroundEnd =  NSColor(red: 0.6, green: 0, blue: 0, alpha: 0.5)
+        let backgroundStart = NSColor(red: 1, green: 0, blue: 0, alpha: 1)
+        let backgroundEnd =  NSColor(red: 0.4, green: 0, blue: 0, alpha: 1)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!

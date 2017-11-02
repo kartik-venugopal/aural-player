@@ -28,7 +28,7 @@ class HorizontalSliderCell: NSSliderCell {
         var drawPath = NSBezierPath.init(roundedRect: leftRect, xRadius: barRadius, yRadius: barRadius)
         barColoredGradient.draw(in: drawPath, angle: UIConstants.horizontalGradientDegrees)
         
-        let rightRect = NSRect(x: knobFrame.maxX - halfKnobWidth, y: aRect.minY, width: aRect.width - knobFrame.minX, height: aRect.height)
+        let rightRect = NSRect(x: knobFrame.maxX - halfKnobWidth, y: aRect.minY, width: aRect.width - (knobFrame.maxX - halfKnobWidth), height: aRect.height)
         
         drawPath = NSBezierPath.init(roundedRect: rightRect, xRadius: barRadius, yRadius: barRadius)
         barPlainGradient.draw(in: drawPath, angle: UIConstants.horizontalGradientDegrees)

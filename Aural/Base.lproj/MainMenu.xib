@@ -17,19 +17,19 @@
             <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES" texturedBackground="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
-            <rect key="contentRect" x="335" y="100" width="480" height="415"/>
+            <rect key="contentRect" x="335" y="100" width="480" height="420"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
-            <value key="minSize" type="size" width="480" height="208"/>
-            <value key="maxSize" type="size" width="480" height="393"/>
+            <value key="minSize" type="size" width="480" height="218"/>
+            <value key="maxSize" type="size" width="480" height="420"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="415"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="420"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <box fixedFrame="YES" boxType="custom" borderWidth="0.0" cornerRadius="4" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="9Bt-SX-laS" userLabel="Root Container">
-                        <rect key="frame" x="0.0" y="-5" width="479" height="420"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="420"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" ambiguous="YES" id="dUA-Oc-jvk">
-                            <rect key="frame" x="0.0" y="0.0" width="479" height="420"/>
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="420"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6pS-Kh-BZP" userLabel="Close Button">
@@ -108,7 +108,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9g-wB-lJT" userLabel="Lbl Playback Scope">
-                                                <rect key="frame" x="105" y="33" width="323" height="20"/>
+                                                <rect key="frame" x="105" y="35" width="323" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" id="Q2w-6i-1ji">
                                                     <font key="font" size="12" name="GillSans"/>
@@ -182,7 +182,7 @@
                                                 </connections>
                                             </button>
                                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t3K-5t-f1v">
-                                                <rect key="frame" x="90" y="36" width="15" height="15"/>
+                                                <rect key="frame" x="90" y="38" width="15" height="15"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="cqS-IM-yaI"/>
                                             </imageView>
@@ -580,7 +580,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OGV-jG-nOV" userLabel="Bypass button">
-                                                                    <rect key="frame" x="17" y="73" width="22" height="60"/>
+                                                                    <rect key="frame" x="15" y="103" width="30" height="30"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="g78-ka-ylX">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -591,10 +591,10 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </button>
                                                                 <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Yu8-uy-WrY" userLabel="Controls Box">
-                                                                    <rect key="frame" x="102" y="5" width="293" height="68"/>
+                                                                    <rect key="frame" x="67" y="5" width="355" height="68"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <view key="contentView" ambiguous="YES" id="98N-CG-xwt">
-                                                                        <rect key="frame" x="1" y="1" width="291" height="66"/>
+                                                                        <rect key="frame" x="1" y="1" width="353" height="66"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmk-7Z-Qi0">
@@ -607,7 +607,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwu-xp-8qk">
-                                                                                <rect key="frame" x="247" y="38" width="38" height="15"/>
+                                                                                <rect key="frame" x="310" y="38" width="38" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="IpE-Vk-TQa">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -616,7 +616,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g6a-qD-rnZ" userLabel="Pitch Slider">
-                                                                                <rect key="frame" x="68" y="34" width="165" height="18"/>
+                                                                                <rect key="frame" x="68" y="34" width="230" height="18"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <shadow key="shadow" blurRadius="1">
                                                                                     <size key="offset" width="2" height="-2"/>
@@ -637,7 +637,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wv8-ct-pIS" userLabel="2 Octaves">
-                                                                                <rect key="frame" x="235" y="38" width="20" height="15"/>
+                                                                                <rect key="frame" x="300" y="38" width="20" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="2" id="2CW-2N-nKy">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -655,7 +655,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9E2-MV-Hi7" userLabel="Overlap Slider">
-                                                                                <rect key="frame" x="68" y="5" width="165" height="18"/>
+                                                                                <rect key="frame" x="68" y="5" width="230" height="18"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <shadow key="shadow" blurRadius="1">
                                                                                     <size key="offset" width="2" height="-2"/>
@@ -676,7 +676,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lpb-r4-Ilp" userLabel="Lbl Overlap Value">
-                                                                                <rect key="frame" x="259" y="9" width="26" height="15"/>
+                                                                                <rect key="frame" x="322" y="9" width="26" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="DsQ-If-4RE">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -685,7 +685,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afQ-zG-uNV" userLabel="32 Overlap values">
-                                                                                <rect key="frame" x="235" y="9" width="20" height="15"/>
+                                                                                <rect key="frame" x="300" y="9" width="20" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="32" id="Y4r-BE-tf7">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -705,7 +705,7 @@ G1BhbiBTbGlkZXI
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Time" identifier="" id="ifs-vg-o0B" userLabel="Time">
-                                                        <view key="view" id="jLB-l1-UdU">
+                                                        <view key="view" ambiguous="YES" id="jLB-l1-UdU">
                                                             <rect key="frame" x="10" y="7" width="484" height="140"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -719,7 +719,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KK7-yq-mkB" userLabel="Bypass button">
-                                                                    <rect key="frame" x="17" y="73" width="22" height="60"/>
+                                                                    <rect key="frame" x="15" y="103" width="30" height="30"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ksr-y2-eDd">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -730,10 +730,10 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </button>
                                                                 <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="y0c-x9-eVo" userLabel="Controls Box">
-                                                                    <rect key="frame" x="102" y="5" width="293" height="68"/>
+                                                                    <rect key="frame" x="67" y="5" width="355" height="68"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <view key="contentView" ambiguous="YES" id="oDh-XH-33j">
-                                                                        <rect key="frame" x="1" y="1" width="291" height="66"/>
+                                                                        <rect key="frame" x="1" y="1" width="353" height="66"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjs-74-Vf8" userLabel="Rate">
@@ -755,7 +755,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPq-sp-WSA" userLabel="4 Rate">
-                                                                                <rect key="frame" x="245" y="38" width="25" height="15"/>
+                                                                                <rect key="frame" x="300" y="38" width="25" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="4" id="2cy-zQ-s6g">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -764,7 +764,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1pg-uy-Rlo" userLabel="Time Slider">
-                                                                                <rect key="frame" x="68" y="34" width="175" height="18"/>
+                                                                                <rect key="frame" x="68" y="34" width="230" height="18"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                                 <shadow key="shadow" blurRadius="1">
                                                                                     <size key="offset" width="2" height="-2"/>
@@ -776,7 +776,7 @@ G1BhbiBTbGlkZXI
                                                                                 </connections>
                                                                             </slider>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQy-Wa-pgf" userLabel="Lbl Rate Value">
-                                                                                <rect key="frame" x="241" y="38" width="44" height="15"/>
+                                                                                <rect key="frame" x="318" y="38" width="30" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="DJd-Ca-2oL">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -794,7 +794,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ILK-wT-Zmn" userLabel="Overlap Slider">
-                                                                                <rect key="frame" x="68" y="5" width="175" height="18"/>
+                                                                                <rect key="frame" x="68" y="5" width="230" height="18"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <shadow key="shadow" blurRadius="1">
                                                                                     <size key="offset" width="2" height="-2"/>
@@ -815,7 +815,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzN-mo-CcM" userLabel="32 Overlap values">
-                                                                                <rect key="frame" x="245" y="9" width="25" height="15"/>
+                                                                                <rect key="frame" x="300" y="9" width="25" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="32" id="gZT-Gm-zbY">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -824,7 +824,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVy-7n-XEc" userLabel="Lbl Overlap Value">
-                                                                                <rect key="frame" x="241" y="9" width="44" height="15"/>
+                                                                                <rect key="frame" x="318" y="9" width="30" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="fOq-Tc-fk5">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -855,7 +855,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R9b-lC-8tk" userLabel="Bypass button">
-                                                                    <rect key="frame" x="17" y="73" width="22" height="60"/>
+                                                                    <rect key="frame" x="15" y="103" width="30" height="30"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="YRR-YJ-I2g">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -866,10 +866,10 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </button>
                                                                 <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="chO-yB-LP0" userLabel="Controls Box">
-                                                                    <rect key="frame" x="102" y="5" width="293" height="68"/>
+                                                                    <rect key="frame" x="67" y="5" width="355" height="68"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <view key="contentView" ambiguous="YES" id="I4b-K0-6Me">
-                                                                        <rect key="frame" x="1" y="1" width="291" height="66"/>
+                                                                        <rect key="frame" x="1" y="1" width="353" height="66"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="si3-ai-Wgb">
@@ -931,7 +931,7 @@ G1BhbiBTbGlkZXI
                                                                                 </connections>
                                                                             </popUpButton>
                                                                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SVL-7D-xpL" userLabel="ReverbAmount Slider">
-                                                                                <rect key="frame" x="80" y="5" width="125" height="18"/>
+                                                                                <rect key="frame" x="80" y="5" width="190" height="18"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <shadow key="shadow" blurRadius="1">
                                                                                     <size key="offset" width="2" height="-2"/>
@@ -961,7 +961,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMd-Mc-pkI" userLabel="Wet">
-                                                                                <rect key="frame" x="207" y="9" width="34" height="15"/>
+                                                                                <rect key="frame" x="272" y="9" width="34" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Wet" id="hPV-w6-g9M">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -970,7 +970,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQV-Fy-dGc" userLabel="Lbl Reverb Value">
-                                                                                <rect key="frame" x="229" y="9" width="53" height="15"/>
+                                                                                <rect key="frame" x="294" y="9" width="53" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="100% wet" id="m8G-RV-tIO">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -987,12 +987,12 @@ G1BhbiBTbGlkZXI
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Delay" identifier="" id="Obn-Ia-hsb">
-                                                        <view key="view" ambiguous="YES" id="xRz-PY-Dbe">
+                                                        <view key="view" id="xRz-PY-Dbe">
                                                             <rect key="frame" x="10" y="7" width="484" height="140"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hFd-0O-hii" userLabel="Bypass button">
-                                                                    <rect key="frame" x="17" y="73" width="22" height="60"/>
+                                                                    <rect key="frame" x="15" y="103" width="30" height="30"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qup-b5-rY3">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1012,10 +1012,10 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="v6p-Ex-kdh" userLabel="Controls Box">
-                                                                    <rect key="frame" x="102" y="5" width="293" height="101"/>
+                                                                    <rect key="frame" x="67" y="5" width="355" height="101"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <view key="contentView" ambiguous="YES" id="vGm-MT-zIN">
-                                                                        <rect key="frame" x="1" y="1" width="291" height="99"/>
+                                                                        <rect key="frame" x="1" y="1" width="353" height="99"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmz-Gs-ID0">
@@ -1028,7 +1028,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n58-zU-hzG" userLabel="Time Slider">
-                                                                                <rect key="frame" x="82" y="70" width="135" height="18"/>
+                                                                                <rect key="frame" x="82" y="70" width="195" height="18"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <shadow key="shadow" blurRadius="1">
                                                                                     <size key="offset" width="2" height="-2"/>
@@ -1049,7 +1049,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V5o-i0-UVQ" userLabel="Two Secs">
-                                                                                <rect key="frame" x="219" y="74" width="30" height="15"/>
+                                                                                <rect key="frame" x="279" y="74" width="30" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="2" id="3wc-q1-s6s">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -1058,7 +1058,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWL-U9-yvU" userLabel="Lbl Time Value">
-                                                                                <rect key="frame" x="243" y="74" width="44" height="15"/>
+                                                                                <rect key="frame" x="303" y="74" width="44" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="szU-PH-j2g">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -1067,7 +1067,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xhl-Sb-0op" userLabel="Lbl Amount Value">
-                                                                                <rect key="frame" x="243" y="52" width="44" height="15"/>
+                                                                                <rect key="frame" x="303" y="52" width="44" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="QZd-mF-QfI">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -1076,7 +1076,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w57-Jo-8d2" userLabel="Amount Slider">
-                                                                                <rect key="frame" x="82" y="48" width="135" height="18"/>
+                                                                                <rect key="frame" x="82" y="48" width="195" height="18"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <shadow key="shadow" blurRadius="1">
                                                                                     <size key="offset" width="2" height="-2"/>
@@ -1106,7 +1106,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d70-H8-4PT" userLabel="Hundred">
-                                                                                <rect key="frame" x="219" y="52" width="30" height="15"/>
+                                                                                <rect key="frame" x="279" y="52" width="30" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="100" id="3Ig-84-iJi">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -1115,7 +1115,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D1K-bn-CdT" userLabel="Feedback Slider">
-                                                                                <rect key="frame" x="82" y="26" width="135" height="18"/>
+                                                                                <rect key="frame" x="82" y="26" width="195" height="18"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <shadow key="shadow" blurRadius="1">
                                                                                     <size key="offset" width="2" height="-2"/>
@@ -1136,7 +1136,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n4r-bH-QQU" userLabel="Lbl Feedback Value">
-                                                                                <rect key="frame" x="243" y="30" width="44" height="15"/>
+                                                                                <rect key="frame" x="303" y="30" width="44" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="5rt-9T-Fv7">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -1154,7 +1154,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nUd-8k-gzI" userLabel="Hundred Perc">
-                                                                                <rect key="frame" x="219" y="30" width="30" height="15"/>
+                                                                                <rect key="frame" x="279" y="30" width="30" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="+100" id="gjA-Vt-PEX">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -1163,7 +1163,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZO-sF-ikU" userLabel="Lbl LowPass Value">
-                                                                                <rect key="frame" x="243" y="8" width="44" height="15"/>
+                                                                                <rect key="frame" x="303" y="8" width="44" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="DcA-0j-nt0">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -1172,7 +1172,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Czy-vK-eST" userLabel="Cutoff Slider">
-                                                                                <rect key="frame" x="82" y="4" width="135" height="18"/>
+                                                                                <rect key="frame" x="82" y="4" width="195" height="18"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <shadow key="shadow" blurRadius="1">
                                                                                     <size key="offset" width="2" height="-2"/>
@@ -1202,7 +1202,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSt-nG-RzO" userLabel="Twenty KHz">
-                                                                                <rect key="frame" x="219" y="8" width="30" height="15"/>
+                                                                                <rect key="frame" x="279" y="8" width="30" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="20K" id="TEX-1I-APK">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -1224,7 +1224,7 @@ G1BhbiBTbGlkZXI
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9sH-hV-CNS" userLabel="Bypass button">
-                                                                    <rect key="frame" x="17" y="73" width="22" height="60"/>
+                                                                    <rect key="frame" x="15" y="103" width="30" height="30"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="pWg-An-hIH">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1244,14 +1244,14 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <box fixedFrame="YES" boxType="custom" cornerRadius="4" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="z0Z-Ee-5jA" userLabel="Controls Box">
-                                                                    <rect key="frame" x="62" y="5" width="293" height="101"/>
+                                                                    <rect key="frame" x="67" y="5" width="355" height="101"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <view key="contentView" ambiguous="YES" id="dg4-Ue-vsi">
-                                                                        <rect key="frame" x="1" y="1" width="291" height="99"/>
+                                                                        <rect key="frame" x="1" y="1" width="353" height="99"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UbS-dH-wqD" userLabel="Lbl Treble Range">
-                                                                                <rect key="frame" x="104" y="1" width="120" height="15"/>
+                                                                                <rect key="frame" x="136" y="0.0" width="120" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="[20480Hz - 20480Hz]" id="Slm-ox-E8H">
                                                                                     <font key="font" size="9" name="GillSans"/>
@@ -1260,7 +1260,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcc-sC-SIa" userLabel="Lbl Mid Range">
-                                                                                <rect key="frame" x="104" y="33" width="120" height="15"/>
+                                                                                <rect key="frame" x="136" y="32" width="120" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="[20480Hz - 20480Hz]" id="woL-0N-XUO">
                                                                                     <font key="font" size="9" name="GillSans"/>
@@ -1269,7 +1269,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ifO-9e-3rV" userLabel="Lbl Bass Range">
-                                                                                <rect key="frame" x="104" y="65" width="120" height="15"/>
+                                                                                <rect key="frame" x="136" y="64" width="120" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="[20480Hz - 20480Hz]" id="xva-qM-TEO">
                                                                                     <font key="font" size="9" name="GillSans"/>
@@ -1278,7 +1278,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="biY-3d-Z8S" userLabel="Mid Slider" customClass="RangeSlider" customModule="Aural" customModuleProvider="target">
-                                                                                <rect key="frame" x="62" y="40" width="204" height="25"/>
+                                                                                <rect key="frame" x="62" y="39" width="265" height="25"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <shadow key="shadow" blurRadius="1">
                                                                                     <size key="offset" width="2" height="2"/>
@@ -1286,7 +1286,7 @@ G1BhbiBTbGlkZXI
                                                                                 </shadow>
                                                                             </customView>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXj-6I-dNX" userLabel="Treble 20K">
-                                                                                <rect key="frame" x="268" y="13" width="25" height="15"/>
+                                                                                <rect key="frame" x="330" y="13" width="25" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="20K" id="jeR-DN-5ho">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -1313,7 +1313,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pnY-ud-fuM" userLabel="Mid 2k">
-                                                                                <rect key="frame" x="268" y="45" width="25" height="15"/>
+                                                                                <rect key="frame" x="330" y="45" width="25" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="2K" id="TLz-bv-kRP">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -1340,7 +1340,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eps-k4-xk7" userLabel="Bass 250">
-                                                                                <rect key="frame" x="268" y="77" width="25" height="15"/>
+                                                                                <rect key="frame" x="330" y="77" width="25" height="15"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="250" id="YDG-VV-NKu">
                                                                                     <font key="font" size="10" name="GillSans"/>
@@ -1367,7 +1367,7 @@ G1BhbiBTbGlkZXI
                                                                                 </textFieldCell>
                                                                             </textField>
                                                                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XX6-jc-QLj" userLabel="Bass Slider" customClass="RangeSlider" customModule="Aural" customModuleProvider="target">
-                                                                                <rect key="frame" x="62" y="72" width="204" height="25"/>
+                                                                                <rect key="frame" x="62" y="71" width="265" height="25"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <shadow key="shadow" blurRadius="1">
                                                                                     <size key="offset" width="2" height="2"/>
@@ -1375,7 +1375,7 @@ G1BhbiBTbGlkZXI
                                                                                 </shadow>
                                                                             </customView>
                                                                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ULe-ja-6VD" userLabel="Treble Slider" customClass="RangeSlider" customModule="Aural" customModuleProvider="target">
-                                                                                <rect key="frame" x="62" y="8" width="204" height="25"/>
+                                                                                <rect key="frame" x="62" y="7" width="265" height="25"/>
                                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                 <shadow key="shadow" blurRadius="1">
                                                                                     <size key="offset" width="2" height="2"/>
@@ -1405,10 +1405,10 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="0Zb-sb-85g" userLabel="Controls Box">
-                                                                    <rect key="frame" x="102" y="5" width="293" height="84"/>
+                                                                    <rect key="frame" x="67" y="5" width="355" height="84"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <view key="contentView" ambiguous="YES" id="gfN-TK-gjf">
-                                                                        <rect key="frame" x="1" y="1" width="291" height="82"/>
+                                                                        <rect key="frame" x="1" y="1" width="353" height="82"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <button toolTip="Start / Stop recording" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="caX-PX-mby" userLabel="Record Button">
@@ -4399,7 +4399,7 @@ Gw
         <image name="ShuffleOn-Small" width="15" height="15"/>
         <image name="Sort" width="464" height="386"/>
         <image name="Sort-Small" width="17" height="14"/>
-        <image name="SwitchOff" width="542" height="1280"/>
+        <image name="SwitchOff" width="181" height="180"/>
         <image name="ToggleEffectsView-Small" width="14" height="14"/>
         <image name="TogglePlaylistView-Small" width="14" height="12"/>
         <image name="Up" width="92" height="128"/>

@@ -6,6 +6,8 @@ import Cocoa
 
 class EQSliderCell: NSSliderCell {
     
+    let barRadius: CGFloat = 1.25
+    
     override internal func drawKnob(_ knobRect: NSRect) {
         
         let rectHeight = knobRect.height
@@ -29,10 +31,10 @@ class EQSliderCell: NSSliderCell {
         let topRect = NSRect(x: drawRect.minX, y: drawRect.minY, width: drawRect.width, height: knobFrame.minY + halfKnobWidth)
         let bottomRect = NSRect(x: drawRect.minX, y: knobFrame.maxY - halfKnobWidth, width: drawRect.width, height: drawRect.height - knobFrame.maxY + halfKnobWidth)
         
-        var drawPath = NSBezierPath.init(roundedRect: bottomRect, xRadius: 1, yRadius: 1)
+        var drawPath = NSBezierPath.init(roundedRect: bottomRect, xRadius: barRadius, yRadius: barRadius)
         Colors.sliderBarColoredGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
         
-        drawPath = NSBezierPath.init(roundedRect: topRect, xRadius: 1, yRadius: 1)
+        drawPath = NSBezierPath.init(roundedRect: topRect, xRadius: barRadius, yRadius: barRadius)
         Colors.sliderBarPlainGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
         
         // Draw one tick across the center of the bar (marking 0dB)
