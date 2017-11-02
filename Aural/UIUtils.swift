@@ -27,6 +27,20 @@ class UIUtils {
         return alert.runModal()
     }
     
+    static func createRoundedCorners(_ window: NSWindow) {
+        
+        window.styleMask.insert(NSTitledWindowMask)
+        window.styleMask = window.styleMask.union(NSFullSizeContentViewWindowMask)
+        window.isMovableByWindowBackground	=	true
+        window.titlebarAppearsTransparent 	= 	true
+        window.titleVisibility				=	.hidden
+        window.showsToolbarButton			=	false
+        window.standardWindowButton(NSWindowButton.fullScreenButton)?.isHidden	=	true
+        window.standardWindowButton(NSWindowButton.miniaturizeButton)?.isHidden	=	true
+        window.standardWindowButton(NSWindowButton.closeButton)?.isHidden		=	true
+        window.standardWindowButton(NSWindowButton.zoomButton)?.isHidden			=	true
+    }
+    
     // Centers a dialog with respect to the main app window
     private static func centerDialog(_ dialog: NSWindow) {
         

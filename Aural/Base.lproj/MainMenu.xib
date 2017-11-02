@@ -25,10 +25,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="420"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <box fixedFrame="YES" boxType="custom" borderWidth="0.0" cornerRadius="4" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="9Bt-SX-laS" userLabel="Root Container">
+                    <box boxType="custom" borderWidth="0.0" cornerRadius="4" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="9Bt-SX-laS" userLabel="Root Container">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="420"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView" ambiguous="YES" id="dUA-Oc-jvk">
+                        <view key="contentView" id="dUA-Oc-jvk">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="420"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -363,12 +362,12 @@ G1BhbiBTbGlkZXI
                                                 <font key="font" size="11" name="GillSans"/>
                                                 <tabViewItems>
                                                     <tabViewItem label="EQ" identifier="1" id="McD-gg-qp9" userLabel="EQ">
-                                                        <view key="view" id="vC5-27-GiC">
-                                                            <rect key="frame" x="10" y="7" width="484" height="140"/>
+                                                        <view key="view" ambiguous="YES" id="vC5-27-GiC">
+                                                            <rect key="frame" x="10" y="7" width="0.0" height="335"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOh-fy-QB5" userLabel="Frequencies">
-                                                                    <rect key="frame" x="108" y="120" width="271" height="17"/>
+                                                                    <rect key="frame" x="108" y="315" width="271" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="32      64      128     256     512     1k       2k      4k       8k     16k" id="KZ1-aN-0Yl">
                                                                         <font key="font" size="10" name="GillSans"/>
@@ -377,7 +376,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XKK-aS-eMn" userLabel="EQGlobalGain">
-                                                                    <rect key="frame" x="62" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="62" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="6vO-ax-c7J" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -385,7 +384,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z4B-Hr-jie" userLabel="Eq Slider16k">
-                                                                    <rect key="frame" x="355" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="355" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="U2x-qh-bz3" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -393,7 +392,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qHV-Kz-sUG" userLabel="Eq Slider8k">
-                                                                    <rect key="frame" x="327" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="327" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="57x-OJ-Uoc" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -401,7 +400,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VSQ-5C-2KO" userLabel="Eq Slider4k">
-                                                                    <rect key="frame" x="299" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="299" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="mB8-98-dUb" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -409,7 +408,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DDL-Kj-I4h" userLabel="Eq Slider2k">
-                                                                    <rect key="frame" x="271" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="271" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="FlN-4s-jCz" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -417,7 +416,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JGZ-0h-WTH" userLabel="Eq Slider1k">
-                                                                    <rect key="frame" x="243" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="243" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="cSC-j0-EcW" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -425,7 +424,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lgr-1t-FRb">
-                                                                    <rect key="frame" x="215" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="215" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="LCt-es-pWZ" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -433,7 +432,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuJ-l0-5ih">
-                                                                    <rect key="frame" x="187" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="187" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="hbt-bq-h69" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -441,7 +440,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iEd-37-pLD">
-                                                                    <rect key="frame" x="159" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="159" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="qQa-HK-oDY" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -449,7 +448,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mTb-nz-ndF">
-                                                                    <rect key="frame" x="131" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="131" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="g3f-O3-rIn" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -457,7 +456,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lg0-FS-2I5">
-                                                                    <rect key="frame" x="103" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="103" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="vmt-Be-jsH" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -465,7 +464,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3V-ab-jaC">
-                                                                    <rect key="frame" x="82" y="98" width="20" height="21"/>
+                                                                    <rect key="frame" x="82" y="293" width="20" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+20" id="E9O-1s-8rC">
                                                                         <font key="font" size="10" name="GillSans"/>
@@ -474,7 +473,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtf-Xs-OQp">
-                                                                    <rect key="frame" x="82" y="13" width="20" height="21"/>
+                                                                    <rect key="frame" x="82" y="208" width="20" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-20" id="9U6-wA-5ze">
                                                                         <font key="font" size="10" name="GillSans"/>
@@ -483,7 +482,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zm-Bg-NEY">
-                                                                    <rect key="frame" x="83" y="61" width="15" height="16"/>
+                                                                    <rect key="frame" x="83" y="256" width="15" height="16"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0" id="Je7-rK-ohz">
                                                                         <font key="font" size="10" name="GillSans"/>
@@ -492,7 +491,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vsR-0Q-cXe">
-                                                                    <rect key="frame" x="311" y="1" width="62" height="18"/>
+                                                                    <rect key="frame" x="311" y="196" width="62" height="18"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Presets" id="ems-fH-sOb">
                                                                         <font key="font" size="12" name="GillSans"/>
@@ -501,7 +500,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hG3-Ir-qkY" userLabel="EQ Presets Menu">
-                                                                    <rect key="frame" x="344" y="-1" width="34" height="18"/>
+                                                                    <rect key="frame" x="344" y="194" width="34" height="18"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <popUpButtonCell key="cell" type="disclosure" title="Flat" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="17g-sk-9J7" id="fct-Jo-Wiy" customClass="EQPresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -987,7 +986,7 @@ G1BhbiBTbGlkZXI
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Delay" identifier="" id="Obn-Ia-hsb">
-                                                        <view key="view" ambiguous="YES" id="xRz-PY-Dbe">
+                                                        <view key="view" id="xRz-PY-Dbe">
                                                             <rect key="frame" x="10" y="7" width="484" height="140"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -1522,7 +1521,7 @@ G1BhbiBTbGlkZXI
                                                 </tabViewItems>
                                             </tabView>
                                             <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="QU8-ZM-MyA">
-                                                <rect key="frame" x="0.0" y="147" width="385" height="88"/>
+                                                <rect key="frame" x="0.0" y="147" width="385" height="183"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </box>
                                             <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Mvg-eT-z2w" userLabel="Tab Buttons Box">
@@ -1685,6 +1684,12 @@ G1BhbiBTbGlkZXI
                         <color key="fillColor" white="0.0" alpha="0.896484375" colorSpace="calibratedWhite"/>
                     </box>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="9Bt-SX-laS" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="4Vt-I9-9dE"/>
+                    <constraint firstAttribute="bottom" secondItem="9Bt-SX-laS" secondAttribute="bottom" id="JSN-AL-kuv"/>
+                    <constraint firstItem="9Bt-SX-laS" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="fFE-PM-Q9m"/>
+                    <constraint firstAttribute="trailing" secondItem="9Bt-SX-laS" secondAttribute="trailing" id="tgN-Gw-vHi"/>
+                </constraints>
             </view>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
@@ -1701,13 +1706,21 @@ G1BhbiBTbGlkZXI
             <windowStyleMask key="styleMask" resizable="YES" texturedBackground="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="109" y="132" width="415" height="277"/>
+            <rect key="contentRect" x="109" y="132" width="480" height="277"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
-            <value key="minSize" type="size" width="415" height="162"/>
+            <value key="minSize" type="size" width="480" height="162"/>
             <view key="contentView" wantsLayer="YES" id="dXG-r2-Jrp">
-                <rect key="frame" x="0.0" y="0.0" width="415" height="277"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
+                    <box boxType="custom" borderWidth="0.0" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Stz-0H-b6b" userLabel="Root Container">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
+                        <view key="contentView" id="BTK-z3-8eY">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </view>
+                        <color key="fillColor" white="0.0" alpha="0.89758133561643838" colorSpace="calibratedWhite"/>
+                    </box>
                     <button toolTip="Maximize playlist" translatesAutoresizingMaskIntoConstraints="NO" id="dz9-pQ-bIr" userLabel="Maximize Button">
                         <rect key="frame" x="15" y="252" width="11" height="12"/>
                         <constraints>
@@ -1751,7 +1764,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <box boxType="custom" borderType="line" cornerRadius="5" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="52r-K9-etW" userLabel="Tab Buttons Box">
-                        <rect key="frame" x="96" y="245" width="224" height="22"/>
+                        <rect key="frame" x="128" y="245" width="224" height="22"/>
                         <view key="contentView" id="xuF-ha-X5M">
                             <rect key="frame" x="1" y="1" width="222" height="20"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1830,7 +1843,7 @@ G1BhbiBTbGlkZXI
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <button toolTip="Dock playlist on the left" translatesAutoresizingMaskIntoConstraints="NO" id="oMJ-8r-ebK" userLabel="Dock Left Button">
-                        <rect key="frame" x="356" y="253" width="12" height="11"/>
+                        <rect key="frame" x="421" y="253" width="12" height="11"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="11" id="ARL-Kq-ddv"/>
                             <constraint firstAttribute="width" constant="12" id="Shf-9k-3Og"/>
@@ -1844,7 +1857,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Dock playlist on the right" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dcb-f2-RhV" userLabel="Dock Right Button">
-                        <rect key="frame" x="388" y="253" width="12" height="11"/>
+                        <rect key="frame" x="453" y="253" width="12" height="11"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="Pjq-wB-OHb"/>
                             <constraint firstAttribute="height" constant="11" id="tkT-KF-xe5"/>
@@ -1858,7 +1871,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Dock playlist on the bottom" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="stR-Fs-RTn" userLabel="Dock Bottom Button">
-                        <rect key="frame" x="372" y="253" width="12" height="11"/>
+                        <rect key="frame" x="437" y="253" width="12" height="11"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="11" id="Gcq-OV-geG"/>
                             <constraint firstAttribute="width" constant="12" id="XZE-Zn-4Sn"/>
@@ -1872,13 +1885,13 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="VEj-9M-Zdt" userLabel="Playlist Controls">
-                        <rect key="frame" x="15" y="2" width="385" height="25"/>
+                        <rect key="frame" x="15" y="2" width="450" height="25"/>
                         <view key="contentView" id="29K-u5-ZX9">
-                            <rect key="frame" x="0.0" y="0.0" width="385" height="25"/>
+                            <rect key="frame" x="0.0" y="0.0" width="450" height="25"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Add files to playlist" translatesAutoresizingMaskIntoConstraints="NO" id="b3N-BT-sEe" userLabel="Add">
-                                    <rect key="frame" x="119" y="6" width="12" height="12"/>
+                                    <rect key="frame" x="151" y="6" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="t81-Wj-VEe"/>
                                     </constraints>
@@ -1891,7 +1904,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Remove selected tracks from playlist" translatesAutoresizingMaskIntoConstraints="NO" id="so9-gR-Vjp" userLabel="Remove">
-                                    <rect key="frame" x="135" y="6" width="12" height="12"/>
+                                    <rect key="frame" x="167" y="6" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="ZuA-1s-dGH"/>
                                     </constraints>
@@ -1904,7 +1917,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Save current playlist" translatesAutoresizingMaskIntoConstraints="NO" id="WU5-Qg-TmF" userLabel="Save">
-                                    <rect key="frame" x="159" y="6" width="12" height="12"/>
+                                    <rect key="frame" x="191" y="6" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="aMb-m1-9fO"/>
                                     </constraints>
@@ -1917,7 +1930,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Clear the playlist" translatesAutoresizingMaskIntoConstraints="NO" id="dt2-O9-nd2" userLabel="Clear">
-                                    <rect key="frame" x="174" y="5" width="14" height="14"/>
+                                    <rect key="frame" x="206" y="5" width="14" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="Op2-KC-Enx"/>
                                     </constraints>
@@ -1930,7 +1943,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Move selected tracks up" translatesAutoresizingMaskIntoConstraints="NO" id="HNS-ia-vrf" userLabel="Up">
-                                    <rect key="frame" x="198" y="6" width="14" height="14"/>
+                                    <rect key="frame" x="230" y="6" width="14" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="EON-Il-ldU"/>
                                     </constraints>
@@ -1943,7 +1956,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Move selected tracks down" translatesAutoresizingMaskIntoConstraints="NO" id="E6L-5f-RH3" userLabel="Down">
-                                    <rect key="frame" x="213" y="4" width="10" height="14"/>
+                                    <rect key="frame" x="245" y="4" width="10" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="dLh-b9-3jX"/>
                                     </constraints>
@@ -1956,7 +1969,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Search playlist" translatesAutoresizingMaskIntoConstraints="NO" id="lK6-tf-gG6" userLabel="Search">
-                                    <rect key="frame" x="235" y="6" width="12" height="12"/>
+                                    <rect key="frame" x="267" y="6" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="lVt-kC-Ldq"/>
                                     </constraints>
@@ -1969,7 +1982,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Sort playlist" translatesAutoresizingMaskIntoConstraints="NO" id="vfJ-Ss-snt" userLabel="Sort">
-                                    <rect key="frame" x="251" y="4" width="16" height="16"/>
+                                    <rect key="frame" x="283" y="4" width="16" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="cCi-Eu-lZI"/>
                                         <constraint firstAttribute="width" constant="16" id="ycX-1c-fF8"/>
@@ -2017,13 +2030,13 @@ G1BhbiBTbGlkZXI
                         </shadow>
                     </box>
                     <box boxType="custom" borderType="line" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="G3X-tp-7Ag" userLabel="Playlist Box">
-                        <rect key="frame" x="15" y="28" width="385" height="207"/>
+                        <rect key="frame" x="15" y="28" width="450" height="207"/>
                         <view key="contentView" id="H6e-EC-ZCQ">
-                            <rect key="frame" x="1" y="1" width="383" height="205"/>
+                            <rect key="frame" x="1" y="1" width="448" height="205"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOF-ba-45D" userLabel="Playlist summary">
-                                    <rect key="frame" x="84" y="3" width="215" height="19"/>
+                                    <rect key="frame" x="117" y="3" width="215" height="19"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="211" id="Tay-vK-uN0"/>
                                     </constraints>
@@ -2059,28 +2072,28 @@ G1BhbiBTbGlkZXI
                                     </contentFilters>
                                 </progressIndicator>
                                 <tabView drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="DEQ-wC-Bme" userLabel="Playlist Views Tab Group">
-                                    <rect key="frame" x="0.0" y="26" width="383" height="179"/>
+                                    <rect key="frame" x="0.0" y="26" width="448" height="179"/>
                                     <font key="font" metaFont="system"/>
                                     <tabViewItems>
                                         <tabViewItem label="Tab" identifier="1" id="cQ0-Vk-qDI" userLabel="Tracks Tab">
                                             <view key="view" id="Q6U-L3-wFX">
-                                                <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="448" height="179"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQR-eW-Rr5" userLabel="Playlist Tracks View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="448" height="179"/>
                                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Diy-3n-dhX">
-                                                            <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="448" height="179"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" id="rhk-oM-jMn" userLabel="Playlist Tracks View">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="448" height="179"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="4"/>
                                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                     <tableColumns>
-                                                                        <tableColumn identifier="cv_trackIndex" width="25" minWidth="25" maxWidth="40" id="ZZZ-Bn-ZOg" userLabel="Index">
+                                                                        <tableColumn identifier="cv_trackIndex" width="40" minWidth="25" maxWidth="40" id="ZZZ-Bn-ZOg" userLabel="Index">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2094,11 +2107,11 @@ G1BhbiBTbGlkZXI
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                             <prototypeCellViews>
                                                                                 <tableCellView identifier="cv_trackIndex" id="nKp-mw-lX3" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
-                                                                                    <rect key="frame" x="1" y="2" width="25" height="20"/>
+                                                                                    <rect key="frame" x="1" y="2" width="40" height="20"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxk-19-f5t" userLabel="Index">
-                                                                                            <rect key="frame" x="-2" y="0.0" width="29" height="20"/>
+                                                                                            <rect key="frame" x="-2" y="0.0" width="44" height="20"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="20" id="XMr-VJ-21n"/>
                                                                                             </constraints>
@@ -2109,7 +2122,7 @@ G1BhbiBTbGlkZXI
                                                                                             </textFieldCell>
                                                                                         </textField>
                                                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BCJ-yN-PNl">
-                                                                                            <rect key="frame" x="3" y="3" width="20" height="17"/>
+                                                                                            <rect key="frame" x="10" y="3" width="20" height="17"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="17" id="4bh-TA-J0n"/>
                                                                                                 <constraint firstAttribute="width" constant="20" id="jsz-xe-jcK"/>
@@ -2131,7 +2144,7 @@ G1BhbiBTbGlkZXI
                                                                                 </tableCellView>
                                                                             </prototypeCellViews>
                                                                         </tableColumn>
-                                                                        <tableColumn identifier="cv_trackName" width="304" minWidth="304" maxWidth="10000" id="ldg-Xi-cOT" userLabel="Track Name">
+                                                                        <tableColumn identifier="cv_trackName" width="334" minWidth="304" maxWidth="10000" id="ldg-Xi-cOT" userLabel="Track Name">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Track">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2145,11 +2158,11 @@ G1BhbiBTbGlkZXI
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                             <prototypeCellViews>
                                                                                 <tableCellView identifier="cv_trackName" id="HVN-RA-XGS" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
-                                                                                    <rect key="frame" x="29" y="2" width="304" height="22"/>
+                                                                                    <rect key="frame" x="44" y="2" width="334" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ATH-x0-bUP" userLabel="Track Name">
-                                                                                            <rect key="frame" x="-2" y="-8" width="306" height="30"/>
+                                                                                            <rect key="frame" x="-2" y="-8" width="336" height="30"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="30" id="ND3-SG-glY"/>
                                                                                             </constraints>
@@ -2171,7 +2184,7 @@ G1BhbiBTbGlkZXI
                                                                                 </tableCellView>
                                                                             </prototypeCellViews>
                                                                         </tableColumn>
-                                                                        <tableColumn identifier="cv_duration" width="45" minWidth="45" maxWidth="65" id="JKa-1L-XOI">
+                                                                        <tableColumn identifier="cv_duration" width="65" minWidth="45" maxWidth="65" id="JKa-1L-XOI">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2185,11 +2198,11 @@ G1BhbiBTbGlkZXI
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                             <prototypeCellViews>
                                                                                 <tableCellView identifier="cv_duration" id="wOn-dT-ZDk" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
-                                                                                    <rect key="frame" x="336" y="2" width="45" height="22"/>
+                                                                                    <rect key="frame" x="381" y="2" width="65" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JN3-2q-UO2" userLabel="Duration">
-                                                                                            <rect key="frame" x="-2" y="-8" width="45" height="30"/>
+                                                                                            <rect key="frame" x="-2" y="-8" width="65" height="30"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="30" id="bHr-fg-xG7"/>
                                                                                             </constraints>
@@ -2667,7 +2680,7 @@ G1BhbiBTbGlkZXI
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <button toolTip="Scroll to top of playlist" translatesAutoresizingMaskIntoConstraints="NO" id="8hp-s5-DjV" userLabel="Scroll To Top Button">
-                        <rect key="frame" x="402" y="220" width="10" height="10"/>
+                        <rect key="frame" x="467" y="220" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="mq4-LT-THy"/>
                             <constraint firstAttribute="width" constant="10" id="ol1-UY-scQ"/>
@@ -2681,7 +2694,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Scroll to bottom of playlist" translatesAutoresizingMaskIntoConstraints="NO" id="L3Y-2k-P9G" userLabel="Scroll To Bottom Button">
-                        <rect key="frame" x="402" y="44" width="10" height="10"/>
+                        <rect key="frame" x="467" y="44" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="6wY-Om-Pa5"/>
                             <constraint firstAttribute="width" constant="10" id="LWl-rZ-CeC"/>
@@ -2708,10 +2721,12 @@ G1BhbiBTbGlkZXI
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="bottom" secondItem="dXG-r2-Jrp" secondAttribute="bottom" constant="-28" id="Rhh-Er-hMh"/>
                     <constraint firstItem="VEj-9M-Zdt" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="STv-Rs-TJL"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="top" secondItem="52r-K9-etW" secondAttribute="bottom" constant="10" id="TEm-JU-BZK"/>
+                    <constraint firstItem="Stz-0H-b6b" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" id="Twd-qy-hKp"/>
                     <constraint firstItem="stR-Fs-RTn" firstAttribute="top" secondItem="oMJ-8r-ebK" secondAttribute="top" id="Wcm-WW-5qW"/>
                     <constraint firstItem="Dcb-f2-RhV" firstAttribute="leading" secondItem="stR-Fs-RTn" secondAttribute="trailing" constant="4" id="XFp-AW-3gF"/>
                     <constraint firstItem="h8b-Tm-2xI" firstAttribute="leading" secondItem="dz9-pQ-bIr" secondAttribute="trailing" constant="5" id="b4u-Lr-6Uj"/>
                     <constraint firstItem="Dcb-f2-RhV" firstAttribute="top" secondItem="oMJ-8r-ebK" secondAttribute="top" id="cdO-h9-ddE"/>
+                    <constraint firstAttribute="bottom" secondItem="Stz-0H-b6b" secondAttribute="bottom" id="fbp-T4-I1c"/>
                     <constraint firstItem="8hp-s5-DjV" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-3" id="fkv-g0-WVP"/>
                     <constraint firstItem="uBG-kX-7sD" firstAttribute="top" secondItem="dz9-pQ-bIr" secondAttribute="top" id="gLV-Na-N9F"/>
                     <constraint firstItem="L3Y-2k-P9G" firstAttribute="leading" secondItem="8hp-s5-DjV" secondAttribute="leading" id="gcN-qK-o3N"/>
@@ -2720,13 +2735,15 @@ G1BhbiBTbGlkZXI
                     <constraint firstItem="dz9-pQ-bIr" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="lG0-dv-Pmd"/>
                     <constraint firstItem="L3Y-2k-P9G" firstAttribute="trailing" secondItem="8hp-s5-DjV" secondAttribute="trailing" id="pfb-7X-h4O"/>
                     <constraint firstItem="52r-K9-etW" firstAttribute="centerY" secondItem="dz9-pQ-bIr" secondAttribute="centerY" constant="2" id="qNq-PW-pRE"/>
+                    <constraint firstAttribute="trailing" secondItem="Stz-0H-b6b" secondAttribute="trailing" id="tgZ-gc-ILU"/>
                     <constraint firstItem="oMJ-8r-ebK" firstAttribute="top" secondItem="dz9-pQ-bIr" secondAttribute="top" id="ttb-Xo-UJk"/>
                     <constraint firstItem="Dcb-f2-RhV" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-15" id="tyb-Jp-Jax"/>
+                    <constraint firstItem="Stz-0H-b6b" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" id="uQ5-1q-hxV"/>
                 </constraints>
             </view>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                    <color key="value" white="0.0" alpha="0.89800941780821919" colorSpace="calibratedWhite"/>
+                    <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="90.5" y="478.5"/>
