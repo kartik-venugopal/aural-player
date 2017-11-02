@@ -13,6 +13,8 @@ class UIConstants {
     static let trackNameLabelHeight_oneLine: CGFloat = 30
     static let trackNameLabelHeight_twoLines: CGFloat = 45
     
+    static let minImgScopeLocationX: CGFloat = 85
+    
     // Playlist view column identifiers
     static let trackIndexColumnID: String = "cv_trackIndex"
     static let trackNameColumnID: String = "cv_trackName"

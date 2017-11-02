@@ -242,7 +242,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
                 
                 let margin = (lblWidth - textWidth) / 2   
                 let newImgX = lblPlaybackScope.frame.origin.x + margin - imgScope.frame.width - 4
-                imgScope.frame.origin.x = newImgX
+                imgScope.frame.origin.x = max(UIConstants.minImgScopeLocationX, newImgX)
     
                 
                 if (popoverView.isShown()) {

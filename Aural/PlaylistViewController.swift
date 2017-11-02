@@ -24,7 +24,9 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     @IBOutlet weak var tabGroup: NSTabView!
     private var tabViewButtons: [NSButton]?
     
-    @IBOutlet weak var lblPlaylistSummary: NSTextField!
+    @IBOutlet weak var lblDurationSummary: NSTextField!
+    @IBOutlet weak var lblTracksSummary: NSTextField!
+    
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
     
     // Box that encloses the playlist controls. Used to position the spinner.
@@ -54,14 +56,11 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         AsyncMessenger.subscribe(.trackAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.trackInfoUpdated, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.tracksNotAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
-        AsyncMessenger.subscribe(.tracksNotAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.startedAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.doneAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(.removeTrackRequest, subscriber: self)
-//        SyncMessenger.subscribe(.trackAddedNotification, subscriber: self)
-//        SyncMessenger.subscribe(.trackUpdatedNotification, subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -77,11 +76,12 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         tabViewButtons = [btnTracksView, btnArtistsView, btnAlbumsView, btnGenresView]
         
-        tracksTabViewAction(self)
+        artistsTabViewAction(self)
         albumsTabViewAction(self)
         genresTabViewAction(self)
-        artistsTabViewAction(self)
         
+        // Default view is the Tracks view
+        tracksTabViewAction(self)
     }
     
     @IBAction func addTracksAction(_ sender: AnyObject) {
@@ -105,7 +105,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     private func startedAddingTracks() {
         
         playlistWorkSpinner.doubleValue = 0
-        repositionSpinner()
         playlistWorkSpinner.isHidden = false
         playlistWorkSpinner.startAnimation(self)
     }
@@ -138,40 +137,28 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             
             let summary = playlist.summary()
             let numTracks = summary.size
+            let duration = StringUtils.formatSecondsToHMS(summary.totalDuration)
             
-            lblPlaylistSummary.stringValue = String(format: "%d %@   %@", numTracks, numTracks == 1 ? "track" : "tracks", StringUtils.formatSecondsToHMS(summary.totalDuration))
+            lblTracksSummary.stringValue = String(format: "%d %@", numTracks, numTracks == 1 ? "track" : "tracks")
+            lblDurationSummary.stringValue = String(format: "%@", duration)
             
         } else {
             
             let groupType = PlaylistViewState.groupType!
             let summary = playlist.summary(groupType)
+            
+            let numGroups = summary.numGroups
             let numTracks = summary.size
             let duration = StringUtils.formatSecondsToHMS(summary.totalDuration)
-            let numGroups = summary.numGroups
             
-            lblPlaylistSummary.stringValue = String(format: "%d %@   %d %@   %@", numGroups, groupType.rawValue + (numGroups == 1 ? "" : "s"), numTracks, numTracks == 1 ? "track" : "tracks", duration)
+            lblTracksSummary.stringValue = String(format: "%d %@   %d %@", numGroups, groupType.rawValue + (numGroups == 1 ? "" : "s"), numTracks, numTracks == 1 ? "track" : "tracks", duration)
+            lblDurationSummary.stringValue = String(format: "%@", duration)
         }
         
-        // Update spinner
+        // Update spinner with current progress, if tracks are being added
         if (trackAddProgress != nil) {
-            repositionSpinner()
             playlistWorkSpinner.doubleValue = trackAddProgress!.percentage
         }
-    }
-    
-    // Move the spinner so it is adjacent to the summary text, on the left
-    private func repositionSpinner() {
-        
-        let summaryString: NSString = lblPlaylistSummary.stringValue as NSString
-        let size: CGSize = summaryString.size(withAttributes: [NSFontAttributeName: lblPlaylistSummary.font as AnyObject])
-        
-        let lblWidth = lblPlaylistSummary.frame.width
-        let textWidth = min(size.width, lblWidth)
-        let margin = (lblWidth - textWidth) / 2
-        
-        let newX = lblPlaylistSummary.frame.origin.x + margin - playlistWorkSpinner.frame.width - 10
-        playlistWorkSpinner.frame.origin.x = newX
-        playlistWorkSpinner.frame.origin.y = lblPlaylistSummary.frame.origin.y
     }
     
     @IBAction func removeTracksAction(_ sender: AnyObject) {

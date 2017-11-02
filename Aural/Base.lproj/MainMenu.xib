@@ -80,7 +80,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDo-O3-0JI" userLabel="Track Artist">
-                                                <rect key="frame" x="85" y="54" width="345" height="23"/>
+                                                <rect key="frame" x="85" y="54" width="340" height="23"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="f6r-Bu-Uox">
                                                     <font key="font" size="14" name="GillSans"/>
@@ -89,7 +89,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LM5-xW-O9f" userLabel="Track Title">
-                                                <rect key="frame" x="85" y="74" width="345" height="23"/>
+                                                <rect key="frame" x="85" y="74" width="340" height="23"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="dFa-X7-jcN">
                                                     <font key="font" size="14" name="GillSans-SemiBold"/>
@@ -98,7 +98,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="siU-Sg-IBb" userLabel="Track Name">
-                                                <rect key="frame" x="83" y="58" width="345" height="45"/>
+                                                <rect key="frame" x="85" y="58" width="340" height="45"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" id="Z1W-iy-lZi">
                                                     <font key="font" size="14" name="GillSans-SemiBold"/>
@@ -107,7 +107,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9g-wB-lJT" userLabel="Lbl Playback Scope">
-                                                <rect key="frame" x="105" y="35" width="323" height="20"/>
+                                                <rect key="frame" x="100" y="35" width="325" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" id="Q2w-6i-1ji">
                                                     <font key="font" size="12" name="GillSans"/>
@@ -115,6 +115,11 @@
                                                     <color key="backgroundColor" white="0.63127055919999997" alpha="1" colorSpace="calibratedWhite"/>
                                                 </textFieldCell>
                                             </textField>
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t3K-5t-f1v">
+                                                <rect key="frame" x="85" y="38" width="15" height="15"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="cqS-IM-yaI"/>
+                                            </imageView>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMB-QE-CEM" userLabel="Lbl Sequence Progress">
                                                 <rect key="frame" x="201" y="3" width="124" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -125,7 +130,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0m5-4l-3Wg">
-                                                <rect key="frame" x="90" y="20" width="350" height="15"/>
+                                                <rect key="frame" x="90" y="20" width="352" height="15"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <shadow key="shadow" blurRadius="1">
                                                     <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -145,7 +150,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G6u-jj-tnv" userLabel="Lbl Time Remaining">
-                                                <rect key="frame" x="388" y="0.0" width="55" height="22"/>
+                                                <rect key="frame" x="386" y="0.0" width="55" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="-90:00:59" placeholderString="" id="jYD-ZF-QDz">
                                                     <font key="font" size="12" name="GillSans-SemiBold"/>
@@ -180,11 +185,6 @@
                                                     <action selector="showPlayingTrackAction:" target="8o0-TS-7rF" id="h6g-zW-GOc"/>
                                                 </connections>
                                             </button>
-                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t3K-5t-f1v">
-                                                <rect key="frame" x="90" y="38" width="15" height="15"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="cqS-IM-yaI"/>
-                                            </imageView>
                                         </subviews>
                                     </view>
                                     <shadow key="shadow" blurRadius="5">
@@ -363,11 +363,11 @@ G1BhbiBTbGlkZXI
                                                 <tabViewItems>
                                                     <tabViewItem label="EQ" identifier="1" id="McD-gg-qp9" userLabel="EQ">
                                                         <view key="view" ambiguous="YES" id="vC5-27-GiC">
-                                                            <rect key="frame" x="10" y="7" width="0.0" height="335"/>
+                                                            <rect key="frame" x="10" y="7" width="484" height="140"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOh-fy-QB5" userLabel="Frequencies">
-                                                                    <rect key="frame" x="108" y="315" width="271" height="17"/>
+                                                                    <rect key="frame" x="108" y="120" width="271" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="32      64      128     256     512     1k       2k      4k       8k     16k" id="KZ1-aN-0Yl">
                                                                         <font key="font" size="10" name="GillSans"/>
@@ -376,7 +376,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XKK-aS-eMn" userLabel="EQGlobalGain">
-                                                                    <rect key="frame" x="62" y="215" width="18" height="98"/>
+                                                                    <rect key="frame" x="62" y="20" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="6vO-ax-c7J" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -384,7 +384,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z4B-Hr-jie" userLabel="Eq Slider16k">
-                                                                    <rect key="frame" x="355" y="215" width="18" height="98"/>
+                                                                    <rect key="frame" x="355" y="20" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="U2x-qh-bz3" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -392,7 +392,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qHV-Kz-sUG" userLabel="Eq Slider8k">
-                                                                    <rect key="frame" x="327" y="215" width="18" height="98"/>
+                                                                    <rect key="frame" x="327" y="20" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="57x-OJ-Uoc" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -400,7 +400,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VSQ-5C-2KO" userLabel="Eq Slider4k">
-                                                                    <rect key="frame" x="299" y="215" width="18" height="98"/>
+                                                                    <rect key="frame" x="299" y="20" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="mB8-98-dUb" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -408,7 +408,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DDL-Kj-I4h" userLabel="Eq Slider2k">
-                                                                    <rect key="frame" x="271" y="215" width="18" height="98"/>
+                                                                    <rect key="frame" x="271" y="20" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="FlN-4s-jCz" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -416,7 +416,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JGZ-0h-WTH" userLabel="Eq Slider1k">
-                                                                    <rect key="frame" x="243" y="215" width="18" height="98"/>
+                                                                    <rect key="frame" x="243" y="20" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="cSC-j0-EcW" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -424,7 +424,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lgr-1t-FRb">
-                                                                    <rect key="frame" x="215" y="215" width="18" height="98"/>
+                                                                    <rect key="frame" x="215" y="20" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="LCt-es-pWZ" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -432,7 +432,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuJ-l0-5ih">
-                                                                    <rect key="frame" x="187" y="215" width="18" height="98"/>
+                                                                    <rect key="frame" x="187" y="20" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="hbt-bq-h69" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -440,7 +440,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iEd-37-pLD">
-                                                                    <rect key="frame" x="159" y="215" width="18" height="98"/>
+                                                                    <rect key="frame" x="159" y="20" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="qQa-HK-oDY" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -448,7 +448,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mTb-nz-ndF">
-                                                                    <rect key="frame" x="131" y="215" width="18" height="98"/>
+                                                                    <rect key="frame" x="131" y="20" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="g3f-O3-rIn" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -456,7 +456,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lg0-FS-2I5">
-                                                                    <rect key="frame" x="103" y="215" width="18" height="98"/>
+                                                                    <rect key="frame" x="103" y="20" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="vmt-Be-jsH" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -464,7 +464,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3V-ab-jaC">
-                                                                    <rect key="frame" x="82" y="293" width="20" height="21"/>
+                                                                    <rect key="frame" x="82" y="98" width="20" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+20" id="E9O-1s-8rC">
                                                                         <font key="font" size="10" name="GillSans"/>
@@ -473,7 +473,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtf-Xs-OQp">
-                                                                    <rect key="frame" x="82" y="208" width="20" height="21"/>
+                                                                    <rect key="frame" x="82" y="13" width="20" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-20" id="9U6-wA-5ze">
                                                                         <font key="font" size="10" name="GillSans"/>
@@ -482,7 +482,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zm-Bg-NEY">
-                                                                    <rect key="frame" x="83" y="256" width="15" height="16"/>
+                                                                    <rect key="frame" x="83" y="61" width="15" height="16"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0" id="Je7-rK-ohz">
                                                                         <font key="font" size="10" name="GillSans"/>
@@ -491,7 +491,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vsR-0Q-cXe">
-                                                                    <rect key="frame" x="311" y="196" width="62" height="18"/>
+                                                                    <rect key="frame" x="311" y="1" width="62" height="18"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Presets" id="ems-fH-sOb">
                                                                         <font key="font" size="12" name="GillSans"/>
@@ -500,7 +500,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hG3-Ir-qkY" userLabel="EQ Presets Menu">
-                                                                    <rect key="frame" x="344" y="194" width="34" height="18"/>
+                                                                    <rect key="frame" x="344" y="-1" width="34" height="18"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <popUpButtonCell key="cell" type="disclosure" title="Flat" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="17g-sk-9J7" id="fct-Jo-Wiy" customClass="EQPresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1521,7 +1521,7 @@ G1BhbiBTbGlkZXI
                                                 </tabViewItems>
                                             </tabView>
                                             <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="QU8-ZM-MyA">
-                                                <rect key="frame" x="0.0" y="147" width="385" height="183"/>
+                                                <rect key="frame" x="0.0" y="147" width="385" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </box>
                                             <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Mvg-eT-z2w" userLabel="Tab Buttons Box">
@@ -1722,10 +1722,10 @@ G1BhbiBTbGlkZXI
                         <color key="fillColor" white="0.0" alpha="0.89758133561643838" colorSpace="calibratedWhite"/>
                     </box>
                     <button toolTip="Maximize playlist" translatesAutoresizingMaskIntoConstraints="NO" id="dz9-pQ-bIr" userLabel="Maximize Button">
-                        <rect key="frame" x="15" y="252" width="11" height="12"/>
+                        <rect key="frame" x="15" y="252" width="12" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="hnO-YA-nRW"/>
-                            <constraint firstAttribute="width" constant="11" id="uOK-aS-3E2"/>
+                            <constraint firstAttribute="width" constant="12" id="uOK-aS-3E2"/>
                         </constraints>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Maximize" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="HVi-g0-Mf5">
                             <behavior key="behavior" lightByContents="YES"/>
@@ -1736,10 +1736,10 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Maximize playlist vertically" translatesAutoresizingMaskIntoConstraints="NO" id="h8b-Tm-2xI" userLabel="Maximize Vertical Button">
-                        <rect key="frame" x="31" y="252" width="11" height="12"/>
+                        <rect key="frame" x="31" y="253" width="12" height="11"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="12" id="Yyr-nF-IvJ"/>
-                            <constraint firstAttribute="width" constant="11" id="hYD-JZ-dPy"/>
+                            <constraint firstAttribute="height" constant="11" id="Yyr-nF-IvJ"/>
+                            <constraint firstAttribute="width" constant="12" id="hYD-JZ-dPy"/>
                         </constraints>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MaximizeVertical" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="tHR-Cv-5hD">
                             <behavior key="behavior" lightByContents="YES"/>
@@ -1750,10 +1750,10 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Maximize playlist horizontally" translatesAutoresizingMaskIntoConstraints="NO" id="uBG-kX-7sD" userLabel="Maximize Horizontal Button">
-                        <rect key="frame" x="47" y="252" width="11" height="12"/>
+                        <rect key="frame" x="47" y="253" width="12" height="11"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="11" id="Itt-tj-yA0"/>
-                            <constraint firstAttribute="height" constant="12" id="iWc-oC-CT2"/>
+                            <constraint firstAttribute="width" constant="12" id="Itt-tj-yA0"/>
+                            <constraint firstAttribute="height" constant="11" id="iWc-oC-CT2"/>
                         </constraints>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MaximizeHorizontal" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9bj-3q-Wj6">
                             <behavior key="behavior" lightByContents="YES"/>
@@ -1917,7 +1917,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Save current playlist" translatesAutoresizingMaskIntoConstraints="NO" id="WU5-Qg-TmF" userLabel="Save">
-                                    <rect key="frame" x="191" y="6" width="12" height="12"/>
+                                    <rect key="frame" x="193" y="6" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="aMb-m1-9fO"/>
                                     </constraints>
@@ -1930,7 +1930,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Clear the playlist" translatesAutoresizingMaskIntoConstraints="NO" id="dt2-O9-nd2" userLabel="Clear">
-                                    <rect key="frame" x="206" y="5" width="14" height="14"/>
+                                    <rect key="frame" x="207" y="5" width="14" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="Op2-KC-Enx"/>
                                     </constraints>
@@ -1943,7 +1943,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Move selected tracks up" translatesAutoresizingMaskIntoConstraints="NO" id="HNS-ia-vrf" userLabel="Up">
-                                    <rect key="frame" x="230" y="6" width="14" height="14"/>
+                                    <rect key="frame" x="229" y="6" width="14" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="EON-Il-ldU"/>
                                     </constraints>
@@ -1956,7 +1956,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Move selected tracks down" translatesAutoresizingMaskIntoConstraints="NO" id="E6L-5f-RH3" userLabel="Down">
-                                    <rect key="frame" x="245" y="4" width="10" height="14"/>
+                                    <rect key="frame" x="244" y="4" width="10" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="dLh-b9-3jX"/>
                                     </constraints>
@@ -1969,7 +1969,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Search playlist" translatesAutoresizingMaskIntoConstraints="NO" id="lK6-tf-gG6" userLabel="Search">
-                                    <rect key="frame" x="267" y="6" width="12" height="12"/>
+                                    <rect key="frame" x="266" y="6" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="lVt-kC-Ldq"/>
                                     </constraints>
@@ -1982,7 +1982,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Sort playlist" translatesAutoresizingMaskIntoConstraints="NO" id="vfJ-Ss-snt" userLabel="Sort">
-                                    <rect key="frame" x="283" y="4" width="16" height="16"/>
+                                    <rect key="frame" x="282" y="4" width="16" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="cCi-Eu-lZI"/>
                                         <constraint firstAttribute="width" constant="16" id="ycX-1c-fF8"/>
@@ -1999,13 +1999,13 @@ G1BhbiBTbGlkZXI
                             <constraints>
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="centerY" secondItem="29K-u5-ZX9" secondAttribute="centerY" id="4Mk-bg-2RT"/>
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="bottom" secondItem="b3N-BT-sEe" secondAttribute="bottom" id="88H-S0-CIm"/>
-                                <constraint firstItem="dt2-O9-nd2" firstAttribute="leading" secondItem="WU5-Qg-TmF" secondAttribute="trailing" constant="3" id="8nk-Kj-kXd"/>
+                                <constraint firstItem="dt2-O9-nd2" firstAttribute="leading" secondItem="WU5-Qg-TmF" secondAttribute="trailing" constant="2" id="8nk-Kj-kXd"/>
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="centerY" secondItem="vfJ-Ss-snt" secondAttribute="centerY" id="BXX-8Y-Swq"/>
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="bottom" secondItem="so9-gR-Vjp" secondAttribute="bottom" id="BZZ-Yv-gvw"/>
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="bottom" secondItem="HNS-ia-vrf" secondAttribute="bottom" id="Ejb-0T-hSb"/>
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="leading" secondItem="E6L-5f-RH3" secondAttribute="trailing" constant="12" id="Fzc-Tg-17a"/>
                                 <constraint firstItem="HNS-ia-vrf" firstAttribute="top" secondItem="vfJ-Ss-snt" secondAttribute="top" id="JlI-Iu-P5K"/>
-                                <constraint firstItem="WU5-Qg-TmF" firstAttribute="leading" secondItem="so9-gR-Vjp" secondAttribute="trailing" constant="12" id="K4d-Rg-qxJ"/>
+                                <constraint firstItem="WU5-Qg-TmF" firstAttribute="leading" secondItem="so9-gR-Vjp" secondAttribute="trailing" constant="14" id="K4d-Rg-qxJ"/>
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="top" secondItem="so9-gR-Vjp" secondAttribute="top" id="Lkf-sF-eJ5"/>
                                 <constraint firstItem="E6L-5f-RH3" firstAttribute="leading" secondItem="HNS-ia-vrf" secondAttribute="trailing" constant="1" id="MUz-ga-9Mf"/>
                                 <constraint firstItem="vfJ-Ss-snt" firstAttribute="leading" secondItem="lK6-tf-gG6" secondAttribute="trailing" constant="4" id="XkW-Tc-P95"/>
@@ -2015,10 +2015,10 @@ G1BhbiBTbGlkZXI
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="top" secondItem="WU5-Qg-TmF" secondAttribute="top" id="hLe-DP-yrF"/>
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="top" secondItem="29K-u5-ZX9" secondAttribute="top" constant="7" id="hV0-uL-vbk"/>
                                 <constraint firstItem="so9-gR-Vjp" firstAttribute="leading" secondItem="b3N-BT-sEe" secondAttribute="trailing" constant="4" id="iTL-K0-4MZ"/>
-                                <constraint firstItem="HNS-ia-vrf" firstAttribute="centerX" secondItem="29K-u5-ZX9" secondAttribute="centerX" constant="12" id="nuE-sJ-Fux"/>
+                                <constraint firstItem="HNS-ia-vrf" firstAttribute="centerX" secondItem="29K-u5-ZX9" secondAttribute="centerX" constant="11" id="nuE-sJ-Fux"/>
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="top" secondItem="E6L-5f-RH3" secondAttribute="top" id="oC8-Li-wmL"/>
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="bottom" secondItem="WU5-Qg-TmF" secondAttribute="bottom" id="pUz-XS-TZ9"/>
-                                <constraint firstItem="dt2-O9-nd2" firstAttribute="trailing" secondItem="HNS-ia-vrf" secondAttribute="leading" constant="-10" id="qCT-6b-EMv"/>
+                                <constraint firstItem="dt2-O9-nd2" firstAttribute="trailing" secondItem="HNS-ia-vrf" secondAttribute="leading" constant="-8" id="qCT-6b-EMv"/>
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="top" secondItem="b3N-BT-sEe" secondAttribute="top" id="vWY-vP-b32"/>
                             </constraints>
                         </view>
@@ -2035,65 +2035,29 @@ G1BhbiBTbGlkZXI
                             <rect key="frame" x="1" y="1" width="448" height="205"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOF-ba-45D" userLabel="Playlist summary">
-                                    <rect key="frame" x="117" y="3" width="215" height="19"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="211" id="Tay-vK-uN0"/>
-                                    </constraints>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="0 artists   0 tracks   0:00" id="Vpv-ey-N1P">
-                                        <font key="font" size="13" name="GillSans-SemiBold"/>
-                                        <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="backgroundColor" white="0.78719075520833337" alpha="1" colorSpace="calibratedWhite"/>
-                                    </textFieldCell>
-                                </textField>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3VK-Rr-ZeT" userLabel="Selection summary">
-                                    <rect key="frame" x="2" y="3" width="143" height="20"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="139" id="jSo-S1-imI"/>
-                                        <constraint firstAttribute="height" constant="20" id="vWQ-90-yip"/>
-                                    </constraints>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" id="Cla-Rg-2S4">
-                                        <font key="font" size="13" name="GillSans-SemiBold"/>
-                                        <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="backgroundColor" white="0.78719075520000004" alpha="1" colorSpace="calibratedWhite"/>
-                                    </textFieldCell>
-                                </textField>
-                                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="pz8-vQ-jTb" userLabel="Spinner">
-                                    <rect key="frame" x="200" y="2" width="16" height="16"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <contentFilters>
-                                        <ciFilter name="CIFalseColor">
-                                            <configuration>
-                                                <ciColor key="inputColor0" red="0.71891206502914429" green="0.71891206502914429" blue="0.71891206502914429" alpha="1"/>
-                                                <ciColor key="inputColor1" red="0.91730046272277832" green="0.91730046272277832" blue="0.91730046272277832" alpha="1"/>
-                                                <null key="inputImage"/>
-                                            </configuration>
-                                        </ciFilter>
-                                    </contentFilters>
-                                </progressIndicator>
                                 <tabView drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="DEQ-wC-Bme" userLabel="Playlist Views Tab Group">
-                                    <rect key="frame" x="0.0" y="26" width="448" height="179"/>
+                                    <rect key="frame" x="0.0" y="27" width="448" height="178"/>
                                     <font key="font" metaFont="system"/>
                                     <tabViewItems>
                                         <tabViewItem label="Tab" identifier="1" id="cQ0-Vk-qDI" userLabel="Tracks Tab">
                                             <view key="view" id="Q6U-L3-wFX">
-                                                <rect key="frame" x="0.0" y="0.0" width="448" height="179"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQR-eW-Rr5" userLabel="Playlist Tracks View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="448" height="179"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Diy-3n-dhX">
-                                                            <rect key="frame" x="0.0" y="0.0" width="448" height="179"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" id="rhk-oM-jMn" userLabel="Playlist Tracks View">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="448" height="179"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="4"/>
                                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                     <tableColumns>
-                                                                        <tableColumn identifier="cv_trackIndex" width="40" minWidth="25" maxWidth="40" id="ZZZ-Bn-ZOg" userLabel="Index">
+                                                                        <tableColumn identifier="cv_trackIndex" width="30" minWidth="25" maxWidth="40" id="ZZZ-Bn-ZOg" userLabel="Index">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2107,11 +2071,11 @@ G1BhbiBTbGlkZXI
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                             <prototypeCellViews>
                                                                                 <tableCellView identifier="cv_trackIndex" id="nKp-mw-lX3" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
-                                                                                    <rect key="frame" x="1" y="2" width="40" height="20"/>
+                                                                                    <rect key="frame" x="1" y="2" width="30" height="20"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxk-19-f5t" userLabel="Index">
-                                                                                            <rect key="frame" x="-2" y="0.0" width="44" height="20"/>
+                                                                                            <rect key="frame" x="-2" y="0.0" width="34" height="20"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="20" id="XMr-VJ-21n"/>
                                                                                             </constraints>
@@ -2122,7 +2086,7 @@ G1BhbiBTbGlkZXI
                                                                                             </textFieldCell>
                                                                                         </textField>
                                                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BCJ-yN-PNl">
-                                                                                            <rect key="frame" x="10" y="3" width="20" height="17"/>
+                                                                                            <rect key="frame" x="5" y="3" width="20" height="17"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="17" id="4bh-TA-J0n"/>
                                                                                                 <constraint firstAttribute="width" constant="20" id="jsz-xe-jcK"/>
@@ -2144,7 +2108,7 @@ G1BhbiBTbGlkZXI
                                                                                 </tableCellView>
                                                                             </prototypeCellViews>
                                                                         </tableColumn>
-                                                                        <tableColumn identifier="cv_trackName" width="334" minWidth="304" maxWidth="10000" id="ldg-Xi-cOT" userLabel="Track Name">
+                                                                        <tableColumn identifier="cv_trackName" width="344" minWidth="304" maxWidth="10000" id="ldg-Xi-cOT" userLabel="Track Name">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Track">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2158,11 +2122,11 @@ G1BhbiBTbGlkZXI
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                             <prototypeCellViews>
                                                                                 <tableCellView identifier="cv_trackName" id="HVN-RA-XGS" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
-                                                                                    <rect key="frame" x="44" y="2" width="334" height="22"/>
+                                                                                    <rect key="frame" x="34" y="2" width="344" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ATH-x0-bUP" userLabel="Track Name">
-                                                                                            <rect key="frame" x="-2" y="-8" width="336" height="30"/>
+                                                                                            <rect key="frame" x="-2" y="-8" width="346" height="30"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="30" id="ND3-SG-glY"/>
                                                                                             </constraints>
@@ -2253,23 +2217,23 @@ G1BhbiBTbGlkZXI
                                         </tabViewItem>
                                         <tabViewItem label="View" identifier="2" id="tTL-8N-2Qi" userLabel="Artists Tab">
                                             <view key="view" id="TYY-uk-Hhl">
-                                                <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="448" height="180"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PrF-DV-ox1" userLabel="Playlist Artists View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="448" height="180"/>
                                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="9oF-9v-OrO">
-                                                            <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="448" height="180"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="8tt-k4-q7k" id="Hsn-Ar-Mkv" userLabel="Playlist Artists View">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="448" height="180"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                     <tableColumns>
-                                                                        <tableColumn identifier="cv_groupName" width="322" minWidth="322" maxWidth="10000" id="8tt-k4-q7k" userLabel="Artist">
+                                                                        <tableColumn identifier="cv_groupName" width="372" minWidth="322" maxWidth="10000" id="8tt-k4-q7k" userLabel="Artist">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2283,7 +2247,7 @@ G1BhbiBTbGlkZXI
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                             <prototypeCellViews>
                                                                                 <tableCellView identifier="cv_groupName" id="Mxm-B0-igB" userLabel="Artist Cell View" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
-                                                                                    <rect key="frame" x="1" y="1" width="322" height="22"/>
+                                                                                    <rect key="frame" x="1" y="1" width="372" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
                                                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hUl-K8-2Ls" userLabel="Icon">
@@ -2295,7 +2259,7 @@ G1BhbiBTbGlkZXI
                                                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="5C1-f7-Zq0"/>
                                                                                         </imageView>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjH-HB-eIT" userLabel="Artist Name">
-                                                                                            <rect key="frame" x="22" y="-5" width="302" height="26"/>
+                                                                                            <rect key="frame" x="22" y="-5" width="352" height="26"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="26" id="Pp2-cM-7ax"/>
                                                                                             </constraints>
@@ -2320,7 +2284,7 @@ G1BhbiBTbGlkZXI
                                                                                 </tableCellView>
                                                                             </prototypeCellViews>
                                                                         </tableColumn>
-                                                                        <tableColumn identifier="cv_duration" width="55" minWidth="55" maxWidth="70" id="hty-Gx-34Z" userLabel="Duration">
+                                                                        <tableColumn identifier="cv_duration" width="70" minWidth="55" maxWidth="70" id="hty-Gx-34Z" userLabel="Duration">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2334,11 +2298,11 @@ G1BhbiBTbGlkZXI
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                             <prototypeCellViews>
                                                                                 <tableCellView identifier="cv_duration" id="MQx-zI-vQh" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
-                                                                                    <rect key="frame" x="326" y="1" width="55" height="22"/>
+                                                                                    <rect key="frame" x="376" y="1" width="70" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3t-aF-eD7" userLabel="Duration">
-                                                                                            <rect key="frame" x="-2" y="-5" width="54" height="26"/>
+                                                                                            <rect key="frame" x="-2" y="-5" width="69" height="26"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="25" id="sdq-bm-y3m"/>
                                                                                             </constraints>
@@ -2389,23 +2353,23 @@ G1BhbiBTbGlkZXI
                                         </tabViewItem>
                                         <tabViewItem label="Item 2" identifier="" id="ooh-QD-ocJ" userLabel="Albums Tab">
                                             <view key="view" id="mk5-Bj-JGA">
-                                                <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="448" height="180"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xpf-h4-Hqw" userLabel="Playlist Albums View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="448" height="180"/>
                                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="g3t-78-dsq">
-                                                            <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="448" height="180"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="Pbf-De-cAu" id="ysd-F6-711" userLabel="Playlist Albums View">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="448" height="180"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                     <tableColumns>
-                                                                        <tableColumn identifier="cv_groupName" width="322" minWidth="322" maxWidth="10000" id="Pbf-De-cAu" userLabel="Album">
+                                                                        <tableColumn identifier="cv_groupName" width="372" minWidth="322" maxWidth="10000" id="Pbf-De-cAu" userLabel="Album">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2419,7 +2383,7 @@ G1BhbiBTbGlkZXI
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                             <prototypeCellViews>
                                                                                 <tableCellView identifier="cv_groupName" id="UKi-VH-sNf" userLabel="Album Cell View" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
-                                                                                    <rect key="frame" x="1" y="1" width="322" height="22"/>
+                                                                                    <rect key="frame" x="1" y="1" width="372" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
                                                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iiM-a5-g7U" userLabel="Icon">
@@ -2431,7 +2395,7 @@ G1BhbiBTbGlkZXI
                                                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="EhR-XI-cx2"/>
                                                                                         </imageView>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xJ2-K1-kXw" userLabel="Album Name">
-                                                                                            <rect key="frame" x="22" y="-5" width="302" height="26"/>
+                                                                                            <rect key="frame" x="22" y="-5" width="352" height="26"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="26" id="F6h-SW-gfv"/>
                                                                                             </constraints>
@@ -2456,7 +2420,7 @@ G1BhbiBTbGlkZXI
                                                                                 </tableCellView>
                                                                             </prototypeCellViews>
                                                                         </tableColumn>
-                                                                        <tableColumn identifier="cv_duration" width="55" minWidth="55" maxWidth="70" id="QUE-iY-6En" userLabel="Duration">
+                                                                        <tableColumn identifier="cv_duration" width="70" minWidth="55" maxWidth="70" id="QUE-iY-6En" userLabel="Duration">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2470,11 +2434,11 @@ G1BhbiBTbGlkZXI
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                             <prototypeCellViews>
                                                                                 <tableCellView identifier="cv_duration" id="SCX-o7-Gcq" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
-                                                                                    <rect key="frame" x="326" y="1" width="55" height="22"/>
+                                                                                    <rect key="frame" x="376" y="1" width="70" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NPn-I2-hQr" userLabel="Duration">
-                                                                                            <rect key="frame" x="-2" y="-5" width="54" height="26"/>
+                                                                                            <rect key="frame" x="-2" y="-5" width="69" height="26"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="25" id="Z8b-IA-iUF"/>
                                                                                             </constraints>
@@ -2525,23 +2489,23 @@ G1BhbiBTbGlkZXI
                                         </tabViewItem>
                                         <tabViewItem label="Item 3" identifier="" id="wyB-Qt-upe" userLabel="Genres Tab">
                                             <view key="view" id="lhi-O1-Dmq">
-                                                <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="448" height="180"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xPh-YO-cTz" userLabel="Playlist Genres View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="448" height="180"/>
                                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="aNj-KL-nmJ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="448" height="180"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="RK1-b8-W6Q" id="YHO-bg-iJv" userLabel="Playlist Genres View">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="448" height="180"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                     <tableColumns>
-                                                                        <tableColumn identifier="cv_groupName" width="322" minWidth="322" maxWidth="10000" id="RK1-b8-W6Q" userLabel="Genre">
+                                                                        <tableColumn identifier="cv_groupName" width="372" minWidth="322" maxWidth="10000" id="RK1-b8-W6Q" userLabel="Genre">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2555,7 +2519,7 @@ G1BhbiBTbGlkZXI
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                             <prototypeCellViews>
                                                                                 <tableCellView identifier="cv_groupName" id="Owg-uV-ISg" userLabel="Artist Cell View" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
-                                                                                    <rect key="frame" x="1" y="1" width="322" height="22"/>
+                                                                                    <rect key="frame" x="1" y="1" width="372" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
                                                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dQB-wE-Cha" userLabel="Icon">
@@ -2567,7 +2531,7 @@ G1BhbiBTbGlkZXI
                                                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="MC5-yV-Yqt"/>
                                                                                         </imageView>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjV-gq-tNK" userLabel="Genre Name">
-                                                                                            <rect key="frame" x="22" y="-5" width="302" height="26"/>
+                                                                                            <rect key="frame" x="22" y="-5" width="352" height="26"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="26" id="SGJ-Na-oMg"/>
                                                                                             </constraints>
@@ -2592,7 +2556,7 @@ G1BhbiBTbGlkZXI
                                                                                 </tableCellView>
                                                                             </prototypeCellViews>
                                                                         </tableColumn>
-                                                                        <tableColumn identifier="cv_duration" width="55" minWidth="55" maxWidth="70" id="Frn-3v-acL" userLabel="Duration">
+                                                                        <tableColumn identifier="cv_duration" width="70" minWidth="55" maxWidth="70" id="Frn-3v-acL" userLabel="Duration">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2606,11 +2570,11 @@ G1BhbiBTbGlkZXI
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                             <prototypeCellViews>
                                                                                 <tableCellView identifier="cv_duration" id="KvV-Qz-fY1" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
-                                                                                    <rect key="frame" x="326" y="1" width="55" height="22"/>
+                                                                                    <rect key="frame" x="376" y="1" width="70" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1sl-Ox-dTL" userLabel="Duration">
-                                                                                            <rect key="frame" x="-2" y="-5" width="54" height="26"/>
+                                                                                            <rect key="frame" x="-2" y="-5" width="69" height="26"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="25" id="KKw-Hj-fth"/>
                                                                                             </constraints>
@@ -2661,15 +2625,56 @@ G1BhbiBTbGlkZXI
                                         </tabViewItem>
                                     </tabViewItems>
                                 </tabView>
+                                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="pz8-vQ-jTb" userLabel="Spinner">
+                                    <rect key="frame" x="216" y="6" width="16" height="16"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="16" id="9jr-lH-9kZ"/>
+                                        <constraint firstAttribute="height" constant="16" id="TVu-Or-p07"/>
+                                    </constraints>
+                                    <contentFilters>
+                                        <ciFilter name="CIFalseColor">
+                                            <configuration>
+                                                <ciColor key="inputColor0" red="0.71891206502914429" green="0.71891206502914429" blue="0.71891206502914429" alpha="1"/>
+                                                <ciColor key="inputColor1" red="0.91730046272277832" green="0.91730046272277832" blue="0.91730046272277832" alpha="1"/>
+                                                <null key="inputImage"/>
+                                            </configuration>
+                                        </ciFilter>
+                                    </contentFilters>
+                                </progressIndicator>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Oh-Zx-4dK" userLabel="Tracks summary">
+                                    <rect key="frame" x="8" y="4" width="159" height="19"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="155" id="Ajn-fy-gUO"/>
+                                        <constraint firstAttribute="height" constant="19" id="GNQ-pT-DAn"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 tracks" id="WNH-C9-eWI">
+                                        <font key="font" size="13" name="GillSans-SemiBold"/>
+                                        <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.78719075520000004" alpha="1" colorSpace="calibratedWhite"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOF-ba-45D" userLabel="Duration summary">
+                                    <rect key="frame" x="328" y="4" width="115" height="19"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="111" id="3ce-4n-jB4"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0:00" id="Vpv-ey-N1P">
+                                        <font key="font" size="13" name="GillSans-SemiBold"/>
+                                        <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.78719075520833337" alpha="1" colorSpace="calibratedWhite"/>
+                                    </textFieldCell>
+                                </textField>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="3VK-Rr-ZeT" firstAttribute="leading" secondItem="H6e-EC-ZCQ" secondAttribute="leading" constant="4" id="HJv-kQ-BSd"/>
+                                <constraint firstItem="YOF-ba-45D" firstAttribute="top" secondItem="DEQ-wC-Bme" secondAttribute="bottom" constant="4" id="1c6-Ak-kCg"/>
                                 <constraint firstItem="DEQ-wC-Bme" firstAttribute="top" secondItem="H6e-EC-ZCQ" secondAttribute="top" id="KLS-fy-Kd8"/>
-                                <constraint firstItem="YOF-ba-45D" firstAttribute="centerX" secondItem="H6e-EC-ZCQ" secondAttribute="centerX" id="NFE-Sr-IPZ"/>
-                                <constraint firstItem="3VK-Rr-ZeT" firstAttribute="top" secondItem="DEQ-wC-Bme" secondAttribute="bottom" constant="3" id="Wuz-Ge-vLI"/>
+                                <constraint firstItem="YOF-ba-45D" firstAttribute="trailing" secondItem="H6e-EC-ZCQ" secondAttribute="trailing" constant="-7" id="NFE-Sr-IPZ"/>
+                                <constraint firstItem="pz8-vQ-jTb" firstAttribute="centerX" secondItem="H6e-EC-ZCQ" secondAttribute="centerX" id="NVX-aQ-OaN"/>
                                 <constraint firstItem="DEQ-wC-Bme" firstAttribute="leading" secondItem="H6e-EC-ZCQ" secondAttribute="leading" id="cGn-N4-KhB"/>
-                                <constraint firstItem="YOF-ba-45D" firstAttribute="bottom" secondItem="3VK-Rr-ZeT" secondAttribute="bottom" id="cl6-GQ-mc3"/>
-                                <constraint firstAttribute="bottom" secondItem="3VK-Rr-ZeT" secondAttribute="bottom" constant="3" id="gc9-rC-dC1"/>
+                                <constraint firstItem="2Oh-Zx-4dK" firstAttribute="leading" secondItem="H6e-EC-ZCQ" secondAttribute="leading" constant="10" id="gyZ-LH-dnf"/>
+                                <constraint firstAttribute="bottom" secondItem="YOF-ba-45D" secondAttribute="bottom" constant="4" id="hHV-FN-ndY"/>
+                                <constraint firstItem="pz8-vQ-jTb" firstAttribute="centerY" secondItem="2Oh-Zx-4dK" secondAttribute="centerY" id="l2y-0S-qeo"/>
+                                <constraint firstItem="YOF-ba-45D" firstAttribute="baseline" secondItem="2Oh-Zx-4dK" secondAttribute="baseline" id="nYt-O9-s7T"/>
                                 <constraint firstAttribute="trailing" secondItem="DEQ-wC-Bme" secondAttribute="trailing" id="pdm-6V-SRX"/>
                             </constraints>
                         </view>
@@ -2680,7 +2685,7 @@ G1BhbiBTbGlkZXI
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <button toolTip="Scroll to top of playlist" translatesAutoresizingMaskIntoConstraints="NO" id="8hp-s5-DjV" userLabel="Scroll To Top Button">
-                        <rect key="frame" x="467" y="220" width="10" height="10"/>
+                        <rect key="frame" x="466" y="217" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="mq4-LT-THy"/>
                             <constraint firstAttribute="width" constant="10" id="ol1-UY-scQ"/>
@@ -2694,7 +2699,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Scroll to bottom of playlist" translatesAutoresizingMaskIntoConstraints="NO" id="L3Y-2k-P9G" userLabel="Scroll To Bottom Button">
-                        <rect key="frame" x="467" y="44" width="10" height="10"/>
+                        <rect key="frame" x="466" y="65" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="6wY-Om-Pa5"/>
                             <constraint firstAttribute="width" constant="10" id="LWl-rZ-CeC"/>
@@ -2709,14 +2714,14 @@ G1BhbiBTbGlkZXI
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="uBG-kX-7sD" firstAttribute="leading" secondItem="h8b-Tm-2xI" secondAttribute="trailing" constant="5" id="058-ET-R9T"/>
+                    <constraint firstItem="uBG-kX-7sD" firstAttribute="leading" secondItem="h8b-Tm-2xI" secondAttribute="trailing" constant="4" id="058-ET-R9T"/>
                     <constraint firstItem="52r-K9-etW" firstAttribute="centerX" secondItem="G3X-tp-7Ag" secondAttribute="centerX" id="0Hw-xz-brm"/>
+                    <constraint firstAttribute="bottom" secondItem="L3Y-2k-P9G" secondAttribute="bottom" constant="65" id="5kr-Xf-Tga"/>
                     <constraint firstItem="52r-K9-etW" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="10" id="Ase-cs-ArA"/>
                     <constraint firstItem="stR-Fs-RTn" firstAttribute="leading" secondItem="oMJ-8r-ebK" secondAttribute="trailing" constant="4" id="EFY-Ja-RPb"/>
                     <constraint firstItem="VEj-9M-Zdt" firstAttribute="top" secondItem="G3X-tp-7Ag" secondAttribute="bottom" constant="1" id="EWF-ff-Nba"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="KJv-gi-ETr"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-15" id="KNi-Ku-G3H"/>
-                    <constraint firstItem="L3Y-2k-P9G" firstAttribute="bottom" secondItem="dXG-r2-Jrp" secondAttribute="bottom" constant="-44" id="Kh2-Xp-8vm"/>
                     <constraint firstItem="h8b-Tm-2xI" firstAttribute="top" secondItem="dz9-pQ-bIr" secondAttribute="top" id="Nk5-Uu-FTa"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="bottom" secondItem="dXG-r2-Jrp" secondAttribute="bottom" constant="-28" id="Rhh-Er-hMh"/>
                     <constraint firstItem="VEj-9M-Zdt" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="STv-Rs-TJL"/>
@@ -2724,14 +2729,14 @@ G1BhbiBTbGlkZXI
                     <constraint firstItem="Stz-0H-b6b" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" id="Twd-qy-hKp"/>
                     <constraint firstItem="stR-Fs-RTn" firstAttribute="top" secondItem="oMJ-8r-ebK" secondAttribute="top" id="Wcm-WW-5qW"/>
                     <constraint firstItem="Dcb-f2-RhV" firstAttribute="leading" secondItem="stR-Fs-RTn" secondAttribute="trailing" constant="4" id="XFp-AW-3gF"/>
-                    <constraint firstItem="h8b-Tm-2xI" firstAttribute="leading" secondItem="dz9-pQ-bIr" secondAttribute="trailing" constant="5" id="b4u-Lr-6Uj"/>
+                    <constraint firstItem="h8b-Tm-2xI" firstAttribute="leading" secondItem="dz9-pQ-bIr" secondAttribute="trailing" constant="4" id="b4u-Lr-6Uj"/>
                     <constraint firstItem="Dcb-f2-RhV" firstAttribute="top" secondItem="oMJ-8r-ebK" secondAttribute="top" id="cdO-h9-ddE"/>
                     <constraint firstAttribute="bottom" secondItem="Stz-0H-b6b" secondAttribute="bottom" id="fbp-T4-I1c"/>
-                    <constraint firstItem="8hp-s5-DjV" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-3" id="fkv-g0-WVP"/>
+                    <constraint firstItem="8hp-s5-DjV" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-4" id="fkv-g0-WVP"/>
                     <constraint firstItem="uBG-kX-7sD" firstAttribute="top" secondItem="dz9-pQ-bIr" secondAttribute="top" id="gLV-Na-N9F"/>
                     <constraint firstItem="L3Y-2k-P9G" firstAttribute="leading" secondItem="8hp-s5-DjV" secondAttribute="leading" id="gcN-qK-o3N"/>
                     <constraint firstItem="VEj-9M-Zdt" firstAttribute="centerX" secondItem="G3X-tp-7Ag" secondAttribute="centerX" id="iu6-M7-LDL"/>
-                    <constraint firstItem="8hp-s5-DjV" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="47" id="kHh-Qs-XFv"/>
+                    <constraint firstItem="8hp-s5-DjV" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="50" id="kHh-Qs-XFv"/>
                     <constraint firstItem="dz9-pQ-bIr" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="lG0-dv-Pmd"/>
                     <constraint firstItem="L3Y-2k-P9G" firstAttribute="trailing" secondItem="8hp-s5-DjV" secondAttribute="trailing" id="pfb-7X-h4O"/>
                     <constraint firstItem="52r-K9-etW" firstAttribute="centerY" secondItem="dz9-pQ-bIr" secondAttribute="centerY" constant="2" id="qNq-PW-pRE"/>
@@ -2746,7 +2751,7 @@ G1BhbiBTbGlkZXI
                     <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="90.5" y="478.5"/>
+            <point key="canvasLocation" x="90" y="478.5"/>
         </window>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Aural" customModuleProvider="target"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -2822,7 +2827,8 @@ G1BhbiBTbGlkZXI
                 <outlet property="btnTracksView" destination="8Jq-nO-nqw" id="5l1-bR-qcR"/>
                 <outlet property="controlsBox" destination="VEj-9M-Zdt" id="in0-0E-pg5"/>
                 <outlet property="genresView" destination="YHO-bg-iJv" id="WLz-0s-g8I"/>
-                <outlet property="lblPlaylistSummary" destination="YOF-ba-45D" id="ot3-k3-lwu"/>
+                <outlet property="lblDurationSummary" destination="YOF-ba-45D" id="eee-97-ba2"/>
+                <outlet property="lblTracksSummary" destination="2Oh-Zx-4dK" id="ekU-P4-OWa"/>
                 <outlet property="playlistWorkSpinner" destination="pz8-vQ-jTb" id="aOC-im-x9a"/>
                 <outlet property="tabGroup" destination="DEQ-wC-Bme" id="THI-cY-4Vx"/>
                 <outlet property="tracksView" destination="rhk-oM-jMn" id="FDg-rk-pl4"/>
