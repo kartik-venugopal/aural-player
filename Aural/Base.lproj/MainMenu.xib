@@ -25,7 +25,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="420"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <box boxType="custom" borderWidth="0.0" cornerRadius="4" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="9Bt-SX-laS" userLabel="Root Container">
+                    <box boxType="custom" borderWidth="0.0" cornerRadius="5" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="9Bt-SX-laS" userLabel="Root Container">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="420"/>
                         <view key="contentView" id="dUA-Oc-jvk">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="420"/>
@@ -1713,7 +1713,7 @@ G1BhbiBTbGlkZXI
                 <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <box boxType="custom" borderWidth="0.0" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Stz-0H-b6b" userLabel="Root Container">
+                    <box boxType="custom" borderWidth="0.0" cornerRadius="5" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Stz-0H-b6b" userLabel="Root Container">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
                         <view key="contentView" id="BTK-z3-8eY">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
