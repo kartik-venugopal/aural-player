@@ -202,7 +202,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <button toolTip="Repeat" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fpa-Ii-3YA" userLabel="Repeat Button">
-                                                <rect key="frame" x="7" y="19" width="16" height="16"/>
+                                                <rect key="frame" x="7" y="12" width="23" height="23"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RepeatOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ob3-hG-IUK">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -213,7 +213,7 @@
                                                 </connections>
                                             </button>
                                             <button toolTip="Shuffle" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kQL-4a-kyh" userLabel="Shuffle Button">
-                                                <rect key="frame" x="27" y="15" width="23" height="23"/>
+                                                <rect key="frame" x="32" y="15" width="23" height="23"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShuffleOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4mr-kA-ORl">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -580,7 +580,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OGV-jG-nOV" userLabel="Bypass button">
-                                                                    <rect key="frame" x="15" y="103" width="30" height="30"/>
+                                                                    <rect key="frame" x="15" y="108" width="25" height="25"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="g78-ka-ylX">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -705,7 +705,7 @@ G1BhbiBTbGlkZXI
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Time" identifier="" id="ifs-vg-o0B" userLabel="Time">
-                                                        <view key="view" ambiguous="YES" id="jLB-l1-UdU">
+                                                        <view key="view" id="jLB-l1-UdU">
                                                             <rect key="frame" x="10" y="7" width="484" height="140"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -719,7 +719,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KK7-yq-mkB" userLabel="Bypass button">
-                                                                    <rect key="frame" x="15" y="103" width="30" height="30"/>
+                                                                    <rect key="frame" x="15" y="108" width="25" height="25"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ksr-y2-eDd">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -855,7 +855,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R9b-lC-8tk" userLabel="Bypass button">
-                                                                    <rect key="frame" x="15" y="103" width="30" height="30"/>
+                                                                    <rect key="frame" x="15" y="108" width="25" height="25"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="YRR-YJ-I2g">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -987,12 +987,12 @@ G1BhbiBTbGlkZXI
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Delay" identifier="" id="Obn-Ia-hsb">
-                                                        <view key="view" id="xRz-PY-Dbe">
+                                                        <view key="view" ambiguous="YES" id="xRz-PY-Dbe">
                                                             <rect key="frame" x="10" y="7" width="484" height="140"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hFd-0O-hii" userLabel="Bypass button">
-                                                                    <rect key="frame" x="15" y="103" width="30" height="30"/>
+                                                                    <rect key="frame" x="15" y="108" width="25" height="25"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qup-b5-rY3">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1224,7 +1224,7 @@ G1BhbiBTbGlkZXI
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9sH-hV-CNS" userLabel="Bypass button">
-                                                                    <rect key="frame" x="15" y="103" width="30" height="30"/>
+                                                                    <rect key="frame" x="15" y="108" width="25" height="25"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SwitchOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="pWg-An-hIH">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1681,7 +1681,7 @@ G1BhbiBTbGlkZXI
                                 </button>
                             </subviews>
                         </view>
-                        <color key="borderColor" red="0.16897226069397134" green="0.22837908931743908" blue="0.72853886718072269" alpha="0.74750963184931507" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="borderColor" white="0.0" alpha="0.74750963184931507" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.896484375" colorSpace="calibratedWhite"/>
                     </box>
                 </subviews>
@@ -1706,13 +1706,13 @@ G1BhbiBTbGlkZXI
             <value key="minSize" type="size" width="415" height="162"/>
             <view key="contentView" wantsLayer="YES" id="dXG-r2-Jrp">
                 <rect key="frame" x="0.0" y="0.0" width="415" height="277"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <button toolTip="Maximize playlist" translatesAutoresizingMaskIntoConstraints="NO" id="dz9-pQ-bIr" userLabel="Maximize Button">
-                        <rect key="frame" x="15" y="250" width="12" height="12"/>
+                        <rect key="frame" x="15" y="252" width="11" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="hnO-YA-nRW"/>
-                            <constraint firstAttribute="width" constant="12" id="uOK-aS-3E2"/>
+                            <constraint firstAttribute="width" constant="11" id="uOK-aS-3E2"/>
                         </constraints>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Maximize" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="HVi-g0-Mf5">
                             <behavior key="behavior" lightByContents="YES"/>
@@ -1723,10 +1723,10 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Maximize playlist vertically" translatesAutoresizingMaskIntoConstraints="NO" id="h8b-Tm-2xI" userLabel="Maximize Vertical Button">
-                        <rect key="frame" x="28" y="250" width="13" height="12"/>
+                        <rect key="frame" x="31" y="252" width="11" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="Yyr-nF-IvJ"/>
-                            <constraint firstAttribute="width" constant="13" id="hYD-JZ-dPy"/>
+                            <constraint firstAttribute="width" constant="11" id="hYD-JZ-dPy"/>
                         </constraints>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MaximizeVertical" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="tHR-Cv-5hD">
                             <behavior key="behavior" lightByContents="YES"/>
@@ -1737,10 +1737,10 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Maximize playlist horizontally" translatesAutoresizingMaskIntoConstraints="NO" id="uBG-kX-7sD" userLabel="Maximize Horizontal Button">
-                        <rect key="frame" x="44" y="248" width="12" height="14"/>
+                        <rect key="frame" x="47" y="252" width="11" height="12"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="12" id="Itt-tj-yA0"/>
-                            <constraint firstAttribute="height" constant="14" id="iWc-oC-CT2"/>
+                            <constraint firstAttribute="width" constant="11" id="Itt-tj-yA0"/>
+                            <constraint firstAttribute="height" constant="12" id="iWc-oC-CT2"/>
                         </constraints>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MaximizeHorizontal" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9bj-3q-Wj6">
                             <behavior key="behavior" lightByContents="YES"/>
@@ -1830,12 +1830,12 @@ G1BhbiBTbGlkZXI
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <button toolTip="Dock playlist on the left" translatesAutoresizingMaskIntoConstraints="NO" id="oMJ-8r-ebK" userLabel="Dock Left Button">
-                        <rect key="frame" x="346" y="249" width="18" height="15"/>
+                        <rect key="frame" x="356" y="253" width="12" height="11"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="15" id="DL2-u5-MGR"/>
-                            <constraint firstAttribute="width" constant="18" id="wdD-oT-zWt"/>
+                            <constraint firstAttribute="height" constant="11" id="ARL-Kq-ddv"/>
+                            <constraint firstAttribute="width" constant="12" id="Shf-9k-3Og"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockLeft" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="XvH-xT-2nM">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockLeft" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="XvH-xT-2nM">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -1844,10 +1844,10 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Dock playlist on the right" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dcb-f2-RhV" userLabel="Dock Right Button">
-                        <rect key="frame" x="382" y="249" width="18" height="15"/>
+                        <rect key="frame" x="388" y="253" width="12" height="11"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="15" id="CK4-3d-NrG"/>
-                            <constraint firstAttribute="width" constant="18" id="osD-RF-tY3"/>
+                            <constraint firstAttribute="width" constant="12" id="Pjq-wB-OHb"/>
+                            <constraint firstAttribute="height" constant="11" id="tkT-KF-xe5"/>
                         </constraints>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockRight" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="hwN-B9-3Fi">
                             <behavior key="behavior" lightByContents="YES"/>
@@ -1858,10 +1858,10 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Dock playlist on the bottom" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="stR-Fs-RTn" userLabel="Dock Bottom Button">
-                        <rect key="frame" x="364" y="248" width="18" height="15"/>
+                        <rect key="frame" x="372" y="253" width="12" height="11"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="15" id="edw-oN-9Gz"/>
-                            <constraint firstAttribute="width" constant="18" id="ogX-Rq-u40"/>
+                            <constraint firstAttribute="height" constant="11" id="Gcq-OV-geG"/>
+                            <constraint firstAttribute="width" constant="12" id="XZE-Zn-4Sn"/>
                         </constraints>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockBottom" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="BF1-ww-UJO">
                             <behavior key="behavior" lightByContents="YES"/>
@@ -1878,7 +1878,7 @@ G1BhbiBTbGlkZXI
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Add files to playlist" translatesAutoresizingMaskIntoConstraints="NO" id="b3N-BT-sEe" userLabel="Add">
-                                    <rect key="frame" x="118" y="6" width="12" height="12"/>
+                                    <rect key="frame" x="119" y="6" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="t81-Wj-VEe"/>
                                     </constraints>
@@ -1891,7 +1891,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Remove selected tracks from playlist" translatesAutoresizingMaskIntoConstraints="NO" id="so9-gR-Vjp" userLabel="Remove">
-                                    <rect key="frame" x="134" y="6" width="12" height="12"/>
+                                    <rect key="frame" x="135" y="6" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="ZuA-1s-dGH"/>
                                     </constraints>
@@ -1904,7 +1904,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Save current playlist" translatesAutoresizingMaskIntoConstraints="NO" id="WU5-Qg-TmF" userLabel="Save">
-                                    <rect key="frame" x="158" y="6" width="12" height="12"/>
+                                    <rect key="frame" x="159" y="6" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="aMb-m1-9fO"/>
                                     </constraints>
@@ -1917,7 +1917,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Clear the playlist" translatesAutoresizingMaskIntoConstraints="NO" id="dt2-O9-nd2" userLabel="Clear">
-                                    <rect key="frame" x="173" y="5" width="14" height="14"/>
+                                    <rect key="frame" x="174" y="5" width="14" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="Op2-KC-Enx"/>
                                     </constraints>
@@ -1930,7 +1930,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Move selected tracks up" translatesAutoresizingMaskIntoConstraints="NO" id="HNS-ia-vrf" userLabel="Up">
-                                    <rect key="frame" x="199" y="6" width="14" height="14"/>
+                                    <rect key="frame" x="198" y="6" width="14" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="EON-Il-ldU"/>
                                     </constraints>
@@ -1943,7 +1943,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Move selected tracks down" translatesAutoresizingMaskIntoConstraints="NO" id="E6L-5f-RH3" userLabel="Down">
-                                    <rect key="frame" x="214" y="4" width="10" height="14"/>
+                                    <rect key="frame" x="213" y="4" width="10" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="dLh-b9-3jX"/>
                                     </constraints>
@@ -1956,7 +1956,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Search playlist" translatesAutoresizingMaskIntoConstraints="NO" id="lK6-tf-gG6" userLabel="Search">
-                                    <rect key="frame" x="236" y="6" width="12" height="12"/>
+                                    <rect key="frame" x="235" y="6" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="lVt-kC-Ldq"/>
                                     </constraints>
@@ -1969,7 +1969,7 @@ G1BhbiBTbGlkZXI
                                     </connections>
                                 </button>
                                 <button toolTip="Sort playlist" translatesAutoresizingMaskIntoConstraints="NO" id="vfJ-Ss-snt" userLabel="Sort">
-                                    <rect key="frame" x="252" y="4" width="16" height="16"/>
+                                    <rect key="frame" x="251" y="4" width="16" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="cCi-Eu-lZI"/>
                                         <constraint firstAttribute="width" constant="16" id="ycX-1c-fF8"/>
@@ -2002,10 +2002,10 @@ G1BhbiBTbGlkZXI
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="top" secondItem="WU5-Qg-TmF" secondAttribute="top" id="hLe-DP-yrF"/>
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="top" secondItem="29K-u5-ZX9" secondAttribute="top" constant="7" id="hV0-uL-vbk"/>
                                 <constraint firstItem="so9-gR-Vjp" firstAttribute="leading" secondItem="b3N-BT-sEe" secondAttribute="trailing" constant="4" id="iTL-K0-4MZ"/>
-                                <constraint firstItem="HNS-ia-vrf" firstAttribute="centerX" secondItem="29K-u5-ZX9" secondAttribute="centerX" constant="13" id="nuE-sJ-Fux"/>
+                                <constraint firstItem="HNS-ia-vrf" firstAttribute="centerX" secondItem="29K-u5-ZX9" secondAttribute="centerX" constant="12" id="nuE-sJ-Fux"/>
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="top" secondItem="E6L-5f-RH3" secondAttribute="top" id="oC8-Li-wmL"/>
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="bottom" secondItem="WU5-Qg-TmF" secondAttribute="bottom" id="pUz-XS-TZ9"/>
-                                <constraint firstItem="dt2-O9-nd2" firstAttribute="trailing" secondItem="HNS-ia-vrf" secondAttribute="leading" constant="-12" id="qCT-6b-EMv"/>
+                                <constraint firstItem="dt2-O9-nd2" firstAttribute="trailing" secondItem="HNS-ia-vrf" secondAttribute="leading" constant="-10" id="qCT-6b-EMv"/>
                                 <constraint firstItem="lK6-tf-gG6" firstAttribute="top" secondItem="b3N-BT-sEe" secondAttribute="top" id="vWY-vP-b32"/>
                             </constraints>
                         </view>
@@ -2071,7 +2071,7 @@ G1BhbiBTbGlkZXI
                                                         <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
                                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Diy-3n-dhX">
                                                             <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" id="rhk-oM-jMn" userLabel="Playlist Tracks View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="383" height="179"/>
@@ -2663,7 +2663,7 @@ G1BhbiBTbGlkZXI
                         <shadow key="shadow" blurRadius="5">
                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </shadow>
-                        <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="borderColor" white="0.13663736979166666" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <button toolTip="Scroll to top of playlist" translatesAutoresizingMaskIntoConstraints="NO" id="8hp-s5-DjV" userLabel="Scroll To Top Button">
@@ -2696,10 +2696,10 @@ G1BhbiBTbGlkZXI
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="uBG-kX-7sD" firstAttribute="leading" secondItem="h8b-Tm-2xI" secondAttribute="trailing" constant="3" id="058-ET-R9T"/>
+                    <constraint firstItem="uBG-kX-7sD" firstAttribute="leading" secondItem="h8b-Tm-2xI" secondAttribute="trailing" constant="5" id="058-ET-R9T"/>
                     <constraint firstItem="52r-K9-etW" firstAttribute="centerX" secondItem="G3X-tp-7Ag" secondAttribute="centerX" id="0Hw-xz-brm"/>
                     <constraint firstItem="52r-K9-etW" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="10" id="Ase-cs-ArA"/>
-                    <constraint firstItem="stR-Fs-RTn" firstAttribute="leading" secondItem="oMJ-8r-ebK" secondAttribute="trailing" id="EFY-Ja-RPb"/>
+                    <constraint firstItem="stR-Fs-RTn" firstAttribute="leading" secondItem="oMJ-8r-ebK" secondAttribute="trailing" constant="4" id="EFY-Ja-RPb"/>
                     <constraint firstItem="VEj-9M-Zdt" firstAttribute="top" secondItem="G3X-tp-7Ag" secondAttribute="bottom" constant="1" id="EWF-ff-Nba"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="KJv-gi-ETr"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-15" id="KNi-Ku-G3H"/>
@@ -2708,9 +2708,9 @@ G1BhbiBTbGlkZXI
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="bottom" secondItem="dXG-r2-Jrp" secondAttribute="bottom" constant="-28" id="Rhh-Er-hMh"/>
                     <constraint firstItem="VEj-9M-Zdt" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="STv-Rs-TJL"/>
                     <constraint firstItem="G3X-tp-7Ag" firstAttribute="top" secondItem="52r-K9-etW" secondAttribute="bottom" constant="10" id="TEm-JU-BZK"/>
-                    <constraint firstItem="stR-Fs-RTn" firstAttribute="top" secondItem="oMJ-8r-ebK" secondAttribute="top" constant="1" id="Wcm-WW-5qW"/>
-                    <constraint firstItem="Dcb-f2-RhV" firstAttribute="leading" secondItem="stR-Fs-RTn" secondAttribute="trailing" id="XFp-AW-3gF"/>
-                    <constraint firstItem="h8b-Tm-2xI" firstAttribute="leading" secondItem="dz9-pQ-bIr" secondAttribute="trailing" constant="1" id="b4u-Lr-6Uj"/>
+                    <constraint firstItem="stR-Fs-RTn" firstAttribute="top" secondItem="oMJ-8r-ebK" secondAttribute="top" id="Wcm-WW-5qW"/>
+                    <constraint firstItem="Dcb-f2-RhV" firstAttribute="leading" secondItem="stR-Fs-RTn" secondAttribute="trailing" constant="4" id="XFp-AW-3gF"/>
+                    <constraint firstItem="h8b-Tm-2xI" firstAttribute="leading" secondItem="dz9-pQ-bIr" secondAttribute="trailing" constant="5" id="b4u-Lr-6Uj"/>
                     <constraint firstItem="Dcb-f2-RhV" firstAttribute="top" secondItem="oMJ-8r-ebK" secondAttribute="top" id="cdO-h9-ddE"/>
                     <constraint firstItem="8hp-s5-DjV" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-3" id="fkv-g0-WVP"/>
                     <constraint firstItem="uBG-kX-7sD" firstAttribute="top" secondItem="dz9-pQ-bIr" secondAttribute="top" id="gLV-Na-N9F"/>
@@ -2719,8 +2719,8 @@ G1BhbiBTbGlkZXI
                     <constraint firstItem="8hp-s5-DjV" firstAttribute="top" secondItem="dXG-r2-Jrp" secondAttribute="top" constant="47" id="kHh-Qs-XFv"/>
                     <constraint firstItem="dz9-pQ-bIr" firstAttribute="leading" secondItem="dXG-r2-Jrp" secondAttribute="leading" constant="15" id="lG0-dv-Pmd"/>
                     <constraint firstItem="L3Y-2k-P9G" firstAttribute="trailing" secondItem="8hp-s5-DjV" secondAttribute="trailing" id="pfb-7X-h4O"/>
-                    <constraint firstItem="52r-K9-etW" firstAttribute="centerY" secondItem="dz9-pQ-bIr" secondAttribute="centerY" id="qNq-PW-pRE"/>
-                    <constraint firstItem="oMJ-8r-ebK" firstAttribute="top" secondItem="dz9-pQ-bIr" secondAttribute="top" constant="-2" id="ttb-Xo-UJk"/>
+                    <constraint firstItem="52r-K9-etW" firstAttribute="centerY" secondItem="dz9-pQ-bIr" secondAttribute="centerY" constant="2" id="qNq-PW-pRE"/>
+                    <constraint firstItem="oMJ-8r-ebK" firstAttribute="top" secondItem="dz9-pQ-bIr" secondAttribute="top" id="ttb-Xo-UJk"/>
                     <constraint firstItem="Dcb-f2-RhV" firstAttribute="trailing" secondItem="dXG-r2-Jrp" secondAttribute="trailing" constant="-15" id="tyb-Jp-Jax"/>
                 </constraints>
             </view>
@@ -4345,21 +4345,21 @@ Gw
         <image name="Clear" width="34.599998474121094" height="40"/>
         <image name="Clear-Small" width="2.5999999046325684" height="3"/>
         <image name="Close" width="80" height="80"/>
-        <image name="DockBottom" width="154" height="127"/>
+        <image name="DockBottom" width="14" height="12"/>
         <image name="DockBottom-Small" width="15" height="13"/>
-        <image name="DockLeft" width="154" height="127"/>
+        <image name="DockLeft" width="14" height="12"/>
         <image name="DockLeft-Small" width="15" height="13"/>
-        <image name="DockRight" width="154" height="127"/>
+        <image name="DockRight" width="14" height="12"/>
         <image name="DockRight-Small" width="15" height="13"/>
         <image name="Down" width="92" height="128"/>
         <image name="Down-Small" width="1.3999999761581421" height="1.3999999761581421"/>
         <image name="EffectsView-On" width="419" height="422"/>
         <image name="Hide" width="94" height="94"/>
-        <image name="Maximize" width="85" height="85"/>
+        <image name="Maximize" width="148" height="128"/>
         <image name="Maximize-Small" width="14" height="14"/>
-        <image name="MaximizeHorizontal" width="85" height="85"/>
+        <image name="MaximizeHorizontal" width="148" height="128"/>
         <image name="MaximizeHorizontal-Small" width="14" height="14"/>
-        <image name="MaximizeVertical" width="89" height="85"/>
+        <image name="MaximizeVertical" width="148" height="128"/>
         <image name="MaximizeVertical-Small" width="15" height="14"/>
         <image name="MoreInfo" width="457" height="453"/>
         <image name="MoreInfo-Small" width="13" height="13"/>

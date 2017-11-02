@@ -6,7 +6,7 @@ import Cocoa
 
 class EQSliderCell: NSSliderCell {
     
-    let barRadius: CGFloat = 1.25
+    let barRadius: CGFloat = 1
     
     override internal func drawKnob(_ knobRect: NSRect) {
         

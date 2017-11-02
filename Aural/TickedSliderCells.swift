@@ -14,6 +14,10 @@ class TickedSliderCell: HorizontalSliderCell {
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
         super.drawBar(inside: aRect, flipped: flipped)
+        drawTicks(aRect)
+    }
+    
+    internal func drawTicks(_ aRect: NSRect) {
         
         // Draw ticks (as notches, within the bar)
         let ticksCount = self.numberOfTickMarks
@@ -30,7 +34,7 @@ class TickedSliderCell: HorizontalSliderCell {
     }
     
     // Draws a single tick within a bar
-    private func drawTick(_ index: Int, _ barRect: NSRect) {
+    internal func drawTick(_ index: Int, _ barRect: NSRect) {
         
         let tickMinY = barRect.minY + tickVerticalSpacing
         let tickMaxY = barRect.maxY - tickVerticalSpacing
@@ -58,6 +62,8 @@ class PanTickedSliderCell: TickedSliderCell {
         
         let drawPath = NSBezierPath.init(roundedRect: aRect, xRadius: barRadius, yRadius: barRadius)
         barPlainGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+        
+        drawTicks(aRect)
     }
 }
 
