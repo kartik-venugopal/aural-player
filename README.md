@@ -6,7 +6,7 @@
 
 ## Coming soon ...
 
-(/Documentation/Demos/Experimental.png?raw=true "Coming soon")
+(/Documentation/Screenshots/Experimental.png?raw=true "Coming soon")
 
 ## Overview
 
