@@ -53,19 +53,26 @@ class PlaylistSortViewController: NSViewController {
         
         // Perform the sort
         if let groupType = PlaylistViewState.groupType {
+            
+            // One of the grouping playlist views
             sortOptions.options.sortTracksInGroups = sortTracksInGroups.state == 1
             playlist.sort(sortOptions, groupType)
+            
         } else {
+            
+            // Flat tracks view
             playlist.sort(sortOptions)
         }
         
-        // Notify playlist view
+        // Notify playlist views
         let actionMsg = PlaylistActionMessage(.refresh, PlaylistViewState.current)
         SyncMessenger.publishActionMessage(actionMsg)
         
+        // The playing track may have moved within the playlist. Update the sequence information displayed.
         if (playbackInfo.getPlayingTrack() != nil) {
-            let seqInfo = playbackInfo.getPlaybackSequenceInfo()
-            let sequenceChangedMsg = SequenceChangedNotification(seqInfo.scope, seqInfo.trackIndex, seqInfo.totalTracks)
+            
+            let sequenceInfo = playbackInfo.getPlaybackSequenceInfo()
+            let sequenceChangedMsg = SequenceChangedNotification(sequenceInfo.scope, sequenceInfo.trackIndex, sequenceInfo.totalTracks)
             SyncMessenger.publishNotification(sequenceChangedMsg)
         }
         

@@ -2,17 +2,17 @@ import Foundation
 
 protocol GroupingPlaylistAccessorProtocol {
     
-    func getGroupAt(_ index: Int) -> Group
+    func groupAtIndex(_ index: Int) -> Group
     
-    func getNumberOfGroups() -> Int
+    func numberOfGroups() -> Int
     
-    func getGroupType() -> GroupType
+    func groupType() -> GroupType
  
-    func getGroupingInfoForTrack(_ track: Track) -> GroupedTrack
+    func groupingInfoForTrack(_ track: Track) -> GroupedTrack
     
-    func getIndexOf(_ group: Group) -> Int
+    func indexOfGroup(_ group: Group) -> Int
     
-    func displayNameFor(_ track: Track) -> String
+    func displayNameForTrack(_ track: Track) -> String
     
     // Searches the playlist, given certain query parameters, and returns all matching results
     func search(_ searchQuery: SearchQuery) -> SearchResults
@@ -21,7 +21,7 @@ protocol GroupingPlaylistAccessorProtocol {
 protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     
     // Adds a single track to the playlist, and returns its index within the playlist.
-    func addTrackForGroupInfo(_ track: Track) -> GroupedTrackAddResult
+    func addTrack(_ track: Track) -> GroupedTrackAddResult
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group]) -> ItemRemovedResults
     
@@ -29,10 +29,10 @@ protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     
     func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group]) -> ItemMovedResults
     
-    // Notifies the playlist that info for this track has changed. The playlist may use the updates to re-group the track (by artist/album/genre, etc).
-    func trackInfoUpdated(_ updatedTrack: Track) -> GroupedTrackUpdateResult
+    func reorderTracksAndGroups(_ reorderOperations: [GroupingPlaylistReorderOperation])
     
-    func reorderTracks(_ reorderOperations: [GroupingPlaylistReorderOperation])
+    // Sorts the playlist according to the specified sort parameters
+    func sort(_ sort: Sort)
 }
 
 protocol GroupingPlaylistCRUDProtocol: GroupingPlaylistAccessorProtocol, GroupingPlaylistMutatorProtocol {}

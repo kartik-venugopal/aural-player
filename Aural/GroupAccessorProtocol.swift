@@ -12,5 +12,5 @@ protocol GroupAccessorProtocol {
     
     func trackAtIndex(_ index: Int) -> Track
     
-    func indexOf(_ track: Track) -> Int?
+    func indexOfTrack(_ track: Track) -> Int?
 }

@@ -12,8 +12,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     // Delegate that performs CRUD actions on the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
-    private let plAcc: PlaylistAccessorProtocol = ObjectGraph.getPlaylistAccessor()
-    
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
@@ -39,12 +37,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         SyncMessenger.subscribe(.searchResultSelectionRequest, subscriber: self)
         
         SyncMessenger.subscribe(actionType: .removeTracks, subscriber: self)
-        SyncMessenger.subscribe(actionType: .clearPlaylist, subscriber: self)
         SyncMessenger.subscribe(actionType: .moveTracksUp, subscriber: self)
         SyncMessenger.subscribe(actionType: .moveTracksDown, subscriber: self)
         SyncMessenger.subscribe(actionType: .refresh, subscriber: self)
-        SyncMessenger.subscribe(actionType: .scrollToTop, subscriber: self)
-        SyncMessenger.subscribe(actionType: .scrollToBottom, subscriber: self)
         SyncMessenger.subscribe(actionType: .showPlayingTrack, subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
@@ -79,13 +74,13 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         return (tracks, groups)
     }
     
-    func removeTracks() {
+    func removeallTracks() {
         
         let tracksAndGroups = collectTracksAndGroups()
         let tracks = tracksAndGroups.tracks
         let groups = tracksAndGroups.groups
         
-        if (groups.count == plAcc.getNumberOfGroups(self.groupType)) {
+        if (groups.count == playlist.numberOfGroups(self.groupType)) {
             clearPlaylist()
             return
         }
@@ -102,25 +97,20 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
             if let trackRemoval = removal as? TracksRemovedResult {
                 
-//                print("\nRemoving tracks:", trackRemoval.trackIndexesInGroup.toArray(), "from group",  trackRemoval.parentGroup.name, "of type", trackRemoval.parentGroup.type, "at grp index:", trackRemoval.groupIndex)
-                
                 playlistView.removeItems(at: trackRemoval.trackIndexesInGroup, inParent: trackRemoval.parentGroup, withAnimation: .effectFade)
                 
+                // Make note of the parent group for later
                 groupsToReload.append(trackRemoval.parentGroup)
                 
             } else {
                 
                 let groupRemoval = removal as! GroupRemovedResult
-                
-//                print("\nRemoving group:", groupRemoval.group.name, "of type", groupRemoval.group.type, "at index", groupRemoval.groupIndex)
-                
                 playlistView.removeItems(at: IndexSet(integer: groupRemoval.groupIndex), inParent: nil, withAnimation: .effectFade)
             }
         }
         
         // For all groups from which tracks were removed, reload them
         groupsToReload.forEach({
-//            print("\nReloading group:", $0.name)
             playlistView.reloadItem($0, reloadChildren: false)
         })
     }
@@ -160,22 +150,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         if (playlistView.numberOfRows > 0 && playlistView.selectedRow >= 0) {
             playlistView.scrollRowToVisible(playlistView.selectedRow)
-        }
-    }
-    
-    // Scrolls the playlist view to the very top
-    func scrollToTop() {
-        
-        if (playlistView.numberOfRows > 0) {
-            playlistView.scrollRowToVisible(0)
-        }
-    }
-    
-    // Scrolls the playlist view to the very bottom
-    func scrollToBottom() {
-        
-        if (playlistView.numberOfRows > 0) {
-            playlistView.scrollRowToVisible(playlistView.numberOfRows - 1)
         }
     }
     
@@ -355,19 +329,13 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 
             case .refresh: refresh()
                 
-            case .removeTracks: removeTracks()
+            case .removeTracks: removeallTracks()
                 
             case .showPlayingTrack: showPlayingTrack()
                 
             case .moveTracksUp: moveTracksUp()
                 
             case .moveTracksDown: moveTracksDown()
-                
-            case .scrollToTop: scrollToTop()
-                
-            case .scrollToBottom: scrollToBottom()
-                
-            default: return
                 
             }
             

@@ -94,12 +94,12 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     // Adds a set of files (or directories, i.e. files within them) to the current playlist, if supported
     private func addFiles(_ files: [URL]) {
-        startedAddingTracks()
+        startedAddingallTracks()
         playlist.addFiles(files)
     }
     
     // When a track add operation starts, the spinner needs to be initialized
-    private func startedAddingTracks() {
+    private func startedAddingallTracks() {
         
         playlistWorkSpinner.doubleValue = 0
         playlistWorkSpinner.isHidden = false
@@ -107,7 +107,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     }
     
     // When a track add operation ends, the spinner needs to be de-initialized
-    private func doneAddingTracks() {
+    private func doneAddingallTracks() {
         
         playlistWorkSpinner.stopAnimation(self)
         playlistWorkSpinner.isHidden = true
@@ -118,8 +118,10 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     private func sequenceChanged() {
         
         if (playbackInfo.getPlayingTrack() != nil) {
-            let seqInfo = playbackInfo.getPlaybackSequenceInfo()
-            let sequenceChangedMsg = SequenceChangedNotification(seqInfo.scope, seqInfo.trackIndex, seqInfo.totalTracks)
+            
+            let sequenceInfo = playbackInfo.getPlaybackSequenceInfo()
+            let sequenceChangedMsg = SequenceChangedNotification(sequenceInfo.scope, sequenceInfo.trackIndex, sequenceInfo.totalTracks)
+            
             SyncMessenger.publishNotification(sequenceChangedMsg)
         }
     }
@@ -182,9 +184,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             let modalResponse = dialog.runModal()
             
             if (modalResponse == NSModalResponseOK) {
-                
-                let file = dialog.url
-                playlist.savePlaylist(file!)
+                playlist.savePlaylist(dialog.url!)
             }
         }
     }
@@ -193,16 +193,10 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         playlist.clear()
         
-        let message = PlaylistActionMessage(.clearPlaylist, PlaylistViewState.current)
-        SyncMessenger.publishActionMessage(message)
-        
         let refreshMsg = PlaylistActionMessage(.refresh, nil)
         SyncMessenger.publishActionMessage(refreshMsg)
         
         updatePlaylistSummary()
-        
-        // Request the player to stop playback, if there is a track playing
-        _ = SyncMessenger.publishRequest(StopPlaybackRequest.instance)
     }
     
     @IBAction func moveTracksUpAction(_ sender: AnyObject) {
@@ -222,15 +216,36 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     // Scrolls the playlist view to the very top
     @IBAction func scrollToTopAction(_ sender: AnyObject) {
         
-        let message = PlaylistActionMessage(.scrollToTop, PlaylistViewState.current)
-        SyncMessenger.publishActionMessage(message)
+        let playlistView = playlistViewForViewType()
+        
+        if (playlistView.numberOfRows > 0) {
+            playlistView.scrollRowToVisible(0)
+        }
     }
     
     // Scrolls the playlist view to the very bottom
     @IBAction func scrollToBottomAction(_ sender: AnyObject) {
         
-        let message = PlaylistActionMessage(.scrollToBottom, PlaylistViewState.current)
-        SyncMessenger.publishActionMessage(message)
+        let playlistView = playlistViewForViewType()
+        
+        if (playlistView.numberOfRows > 0) {
+            playlistView.scrollRowToVisible(playlistView.numberOfRows - 1)
+        }
+    }
+    
+    private func playlistViewForViewType() -> NSTableView {
+        
+        switch PlaylistViewState.current {
+            
+        case .tracks: return tracksView
+            
+        case .artists: return artistsView
+            
+        case .albums: return albumsView
+            
+        case .genres: return genresView
+            
+        }
     }
     
     // Shows the currently playing track, within the playlist view
@@ -288,12 +303,12 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         }
         
         if message is StartedAddingTracksAsyncMessage {
-            startedAddingTracks()
+            startedAddingallTracks()
             return
         }
         
         if message is DoneAddingTracksAsyncMessage {
-            doneAddingTracks()
+            doneAddingallTracks()
             return
         }
     }
@@ -307,8 +322,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             
             let req = request as! RemoveTrackRequest
             _ = playlist.removeTracks([req.index])
-            
-            // TODO: Send out refresh message to all views
         }
         
         return EmptyResponse.instance
@@ -393,6 +406,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
 class PlaylistViewState {
     
     static var current: PlaylistType = .tracks
+    
     static var groupType: GroupType? {
     
         switch current {
@@ -404,6 +418,7 @@ class PlaylistViewState {
         case .genres: return GroupType.genre
             
         default: return nil
+            
         }
     }
 }

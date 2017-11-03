@@ -32,7 +32,7 @@ class PlaylistKeyPressHandler {
         
         // ---------------------- Handlers --------------------------
         
-        // Up/Down arrows enable natural playlist scrolling, and alphanumeric characters enable type selection by track name
+        // Arrows enable natural playlist scrolling and group expansion/collapsing, and alphanumeric characters enable type selection by track name
         if (!isShift && !isCommand && !isOption && (isArrow || isAlphaNumeric)) {
             
             // Forward the event to the playlist view

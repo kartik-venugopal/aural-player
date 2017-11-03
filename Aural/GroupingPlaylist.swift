@@ -1,7 +1,5 @@
 import Foundation
 
-// TODO: Thread-safety !
-// TODO: Make this conform to GroupingAccessor
 class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     private var type: GroupType
@@ -12,11 +10,11 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         self.type = type
     }
     
-    func getGroupType() -> GroupType {
+    func groupType() -> GroupType {
         return type
     }
     
-    func getNumberOfGroups() -> Int {
+    func numberOfGroups() -> Int {
         return groups.count
     }
     
@@ -116,15 +114,15 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         })
     }
     
-    func compareTracks_ascendingByDisplayName(aTrack: Track, anotherTrack: Track) -> Bool {
-        return displayNameFor(aTrack).compare(displayNameFor(anotherTrack)) == ComparisonResult.orderedAscending
+    private func compareTracks_ascendingByDisplayName(aTrack: Track, anotherTrack: Track) -> Bool {
+        return displayNameForTrack(aTrack).compare(displayNameForTrack(anotherTrack)) == ComparisonResult.orderedAscending
     }
     
-    func compareTracks_descendingByDisplayName(aTrack: Track, anotherTrack: Track) -> Bool {
-        return displayNameFor(aTrack).compare(displayNameFor(anotherTrack)) == ComparisonResult.orderedDescending
+    private func compareTracks_descendingByDisplayName(aTrack: Track, anotherTrack: Track) -> Bool {
+        return displayNameForTrack(aTrack).compare(displayNameForTrack(anotherTrack)) == ComparisonResult.orderedDescending
     }
     
-    func addTrackForGroupInfo(_ track: Track) -> GroupedTrackAddResult {
+    func addTrack(_ track: Track) -> GroupedTrackAddResult {
         
         let groupName = getGroupNameForTrack(track)
         
@@ -173,14 +171,14 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         return _groupName ?? "<Unknown>"
     }
     
-    func getGroupForTrack(_ track: Track) -> Group {
+    private func getGroupForTrack(_ track: Track) -> Group {
         
         let name = getGroupNameForTrack(track)
         return groupsByName[name]!
     }
     
     // Returns group index
-    func removeGroup(_ group: Group) -> Int {
+    private func removeGroup(_ group: Group) -> Int {
         
         if let index = groups.index(of: group) {
             
@@ -204,7 +202,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         for group in groups {
             
-            if let index = group.indexOf(track) {
+            if let index = group.indexOfTrack(track) {
                 
                 ConcurrencyUtils.executeSynchronized(groups) {
                 
@@ -224,7 +222,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         return groupRemoved
     }
 
-    func getGroupAt(_ index: Int) -> Group {
+    func groupAtIndex(_ index: Int) -> Group {
         return groups[index]
     }
 
@@ -232,24 +230,15 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         return groups.count
     }
     
-    func indexOf(_ track: Track) -> Int {
-        return getGroupForTrack(track).indexOf(track)!
+    func indexOfTrack(_ track: Track) -> Int {
+        return getGroupForTrack(track).indexOfTrack(track)!
     }
     
-    func getIndexOf(_ group: Group) -> Int {
+    func indexOfGroup(_ group: Group) -> Int {
         return groups.index(of: group)!
     }
     
-    func getIndexOf(_ item: GroupedPlaylistItem) -> Int {
-        
-        if let track = item as? Track {
-            return indexOf(track)
-        } else {
-            return getIndexOf(item as! Group)
-        }
-    }
-    
-    func displayNameFor(_ track: Track) -> String {
+    func displayNameForTrack(_ track: Track) -> String {
         
         switch self.type {
             
@@ -267,38 +256,21 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         }
     }
     
-    func findGroupByName(_ name: String) -> Group? {
+    private func findGroupByName(_ name: String) -> Group? {
         return groupsByName[name]
     }
     
-    func removeTracks(_ tracks: [Track]) {
-        _ = removeTracksAndGroups(tracks, [])
-    }
-    
-    func removeTracksFromGroup(_ removedTracks: [Track], _ group: Group) -> IndexSet {
+    private func removeTracksFromGroup(_ removedTracks: [Track], _ group: Group) -> IndexSet {
         
         var trackIndexes = [Int]()
         
-        removedTracks.forEach({trackIndexes.append(group.indexOf($0)!)})
+        removedTracks.forEach({trackIndexes.append(group.indexOfTrack($0)!)})
         
         trackIndexes = trackIndexes.sorted(by: {i1, i2 -> Bool in return i1 > i2})
         
         trackIndexes.forEach({group.removeTrackAtIndex($0)})
         
         return IndexSet(trackIndexes)
-    }
-    
-    func removeGroups(_ removedGroups: [Group]) -> IndexSet {
-        
-        var groupIndexes = [Int]()
-        removedGroups.forEach({groupIndexes.append(groups.index(of: $0)!)})
-        
-        // Sort descending
-        groupIndexes = groupIndexes.sorted(by: {i1, i2 -> Bool in return i1 > i2})
-        
-        groupIndexes.forEach({removeGroup($0)})
-        
-        return IndexSet(groupIndexes)
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ removedGroups: [Group]) -> ItemRemovedResults {
@@ -339,14 +311,14 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         var trackRemovedResults = [TracksRemovedResult]()
         
         // Gather group removals with group indexes
-        _groups.forEach({groupRemovedResults.append(GroupRemovedResult($0, getIndexOf($0)))})
+        _groups.forEach({groupRemovedResults.append(GroupRemovedResult($0, indexOfGroup($0)))})
         
         // Remove tracks from their respective groups and note the track indexes (this does not have to be done in the order of group index)
         tracksByGroup.forEach({
             
             let group = $0.key
             let trackIndexes = removeTracksFromGroup($0.value, group)
-            trackRemovedResults.append(TracksRemovedResult(trackIndexes, group, getIndexOf(group)))
+            trackRemovedResults.append(TracksRemovedResult(trackIndexes, group, indexOfGroup(group)))
         })
         
         // Sort group removals by group index (descending), and remove groups
@@ -383,7 +355,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
                     tracksByGroup[group] = [Int]()
                 }
                 
-                tracksByGroup[group]!.append(group.indexOf(track)!)
+                tracksByGroup[group]!.append(group.indexOfTrack(track)!)
             }
             
             // Cannot move tracks from different groups
@@ -408,7 +380,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     private func moveGroupsUp(_ groupsToMove: [Group]) -> ItemMovedResults {
         
         var indexes = [Int]()
-        groupsToMove.forEach({indexes.append(getIndexOf($0))})
+        groupsToMove.forEach({indexes.append(indexOfGroup($0))})
         
         // Indexes need to be in ascending order, because tracks need to be moved up, one by one, from top to bottom of the playlist
         let ascendingOldIndexes = indexes.sorted(by: {x, y -> Bool in x < y})
@@ -469,7 +441,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
                     tracksByGroup[group] = [Int]()
                 }
                 
-                tracksByGroup[group]!.append(group.indexOf(track)!)
+                tracksByGroup[group]!.append(group.indexOfTrack(track)!)
             }
             
             // Cannot move tracks from different groups
@@ -494,7 +466,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     private func moveGroupsDown(_ groupsToMove: [Group]) -> ItemMovedResults {
         
         var indexes = [Int]()
-        groupsToMove.forEach({indexes.append(getIndexOf($0))})
+        groupsToMove.forEach({indexes.append(indexOfGroup($0))})
         
         // Indexes need to be in descending order, because tracks need to be moved down, one by one, from bottom to top of the playlist
         let descendingOldIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
@@ -537,35 +509,20 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         return downIndex
     }
     
-    func getGroupingInfoForTrack(_ track: Track) -> GroupedTrack {
+    func groupingInfoForTrack(_ track: Track) -> GroupedTrack {
         
         let group = getGroupForTrack(track)
-        let groupIndex = getIndexOf(group)
-        let trackIndex = group.indexOf(track)
+        let groupIndex = indexOfGroup(group)
+        let trackIndex = group.indexOfTrack(track)
         
         return GroupedTrack(track, group, trackIndex!, groupIndex)
-    }
-    
-    func trackInfoUpdated(_ updatedTrack: Track) -> GroupedTrackUpdateResult {
-        
-        var result: GroupedTrackUpdateResult?
-        
-        // Re-add/re-group the updated track
-        ConcurrencyUtils.executeSynchronized(groups) {
-            
-            let groupRemoved = removeTrack(updatedTrack)
-            let addResult = addTrackForGroupInfo(updatedTrack)
-            result = GroupedTrackUpdateResult(track: addResult.track, groupCreated: addResult.groupCreated, oldGroupRemoved: groupRemoved)
-        }
-        
-        return result!
     }
     
     func getGroupIndex(_ group: Group) -> Int {
         return groups.index(of: group)!
     }
     
-    func reorderTracks(_ reorderOperations: [GroupingPlaylistReorderOperation]) {
+    func reorderTracksAndGroups(_ reorderOperations: [GroupingPlaylistReorderOperation]) {
         
         // Perform all operations in sequence
         for op in reorderOperations {

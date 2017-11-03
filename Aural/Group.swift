@@ -22,7 +22,7 @@ class Group: NSObject, GroupAccessorProtocol, GroupedPlaylistItem {
         return tracks.count
     }
     
-    func indexOf(_ track: Track) -> Int? {
+    func indexOfTrack(_ track: Track) -> Int? {
         return tracks.index(of: track)
     }
     

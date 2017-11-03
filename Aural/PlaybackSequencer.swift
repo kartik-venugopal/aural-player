@@ -1,6 +1,6 @@
 import Foundation
 
-class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, MessageSubscriber {
+class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtocol, MessageSubscriber {
     
     private var sequence: PlaybackSequence
     private var scope: SequenceScope = SequenceScope(.allTracks)
@@ -156,7 +156,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
             return select(playlist.indexOfTrack(track)!)
         }
         
-        let groupInfo = playlist.getGroupingInfoForTrack(groupType, track)
+        let groupInfo = playlist.groupingInfoForTrack(groupType, track)
         let group = groupInfo.group
         scope.scope = group
         sequence.reset(tracksCount: group.size())
@@ -203,7 +203,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
                 
             case .genre: return wrapTrack(scope.scope!.trackAtIndex(index))
                 
-            case .allTracks: return playlist.peekTrackAt(index)
+            case .allTracks: return playlist.trackAtIndex(index)
                 
             case .allArtists: return wrapTrack(getGroupedTrackForAbsoluteIndex(.artist, index))
                 
@@ -224,17 +224,17 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         var trackIndexInGroup = 0
         
         while (tracks < index) {
-            tracks += playlist.getGroupAt(groupType, groupIndex).size()
+            tracks += playlist.groupAtIndex(groupType, groupIndex).size()
             groupIndex += 1
         }
         
         // If you've overshot the target index, go back one group, and use the offset to calculate track index within that previous group
         if (tracks > index) {
             groupIndex -= 1
-            trackIndexInGroup = playlist.getGroupAt(groupType, groupIndex).size() - (tracks - index)
+            trackIndexInGroup = playlist.groupAtIndex(groupType, groupIndex).size() - (tracks - index)
         }
         
-        let group = playlist.getGroupAt(groupType, groupIndex)
+        let group = playlist.groupAtIndex(groupType, groupIndex)
         let track = group.trackAtIndex(trackIndexInGroup)
         
         return track
@@ -248,7 +248,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         
         var absIndex = 0
         for i in 0...(groupIndex - 1) {
-            absIndex += playlist.getGroupAt(groupType, i).size()
+            absIndex += playlist.groupAtIndex(groupType, i).size()
         }
         
         return absIndex + trackIndex
@@ -287,7 +287,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
         return state
     }
     
-    // --------------- PlaylistChangeListener methods ----------------
+    // --------------- PlaylistChangeListenerProtocol methods ----------------
     
     func tracksAdded(_ addResults: [TrackAddResult]) {
         
@@ -334,13 +334,13 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListener, Mess
                 
             case .allArtists, .allAlbums, .allGenres:
                 
-                let groupInfo = playlist.getGroupingInfoForTrack(scope.type.toGroupType()!, playingTrack)
+                let groupInfo = playlist.groupingInfoForTrack(scope.type.toGroupType()!, playingTrack)
                 
                 return getAbsoluteIndexForGroupedTrack(scope.type.toGroupType()!, groupInfo.groupIndex, groupInfo.trackIndex)
                 
             case .artist, .album, .genre:
                 
-                return scope.scope!.indexOf(playingTrack)
+                return scope.scope!.indexOfTrack(playingTrack)
                 
             case .allTracks:
                 

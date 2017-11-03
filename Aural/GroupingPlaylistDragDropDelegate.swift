@@ -2,17 +2,14 @@ import Cocoa
 
 class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
     
-    // TODO: Use delegate, not accessor directly
-    internal var playlist: PlaylistAccessorProtocol = ObjectGraph.getPlaylistAccessor()
+    private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
-    internal var playlistDelegate: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
-    
-    internal var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     // Signifies an invalid drag/drop operation
     private let invalidDragOperation: NSDragOperation = []
     
-    internal var grouping: GroupType = .artist
+    private var grouping: GroupType = .artist
     
     func setGrouping(_ groupType: GroupType) {
         self.grouping = groupType
@@ -120,7 +117,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         } else {
             
             // If all groups are selected, they cannot be moved
-            if (groups.count == playlist.getNumberOfGroups(self.grouping)) {
+            if (groups.count == playlist.numberOfGroups(self.grouping)) {
                 return false
             }
             
@@ -168,8 +165,10 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
                 performReordering(outlineView, srcRows: srcRows, childIndexes, index, destination)
                 
                 if (playbackInfo.getPlayingTrack() != nil) {
-                    let seqInfo = playbackInfo.getPlaybackSequenceInfo()
-                    let sequenceChangedMsg = SequenceChangedNotification(seqInfo.scope, seqInfo.trackIndex, seqInfo.totalTracks)
+                    
+                    let sequenceInfo = playbackInfo.getPlaybackSequenceInfo()
+                    let sequenceChangedMsg = SequenceChangedNotification(sequenceInfo.scope, sequenceInfo.trackIndex, sequenceInfo.totalTracks)
+                    
                     SyncMessenger.publishNotification(sequenceChangedMsg)
                 }
                 
@@ -180,7 +179,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
             
             // Files added from Finder, add them to the playlist as URLs
             let objects = info.draggingPasteboard().readObjects(forClasses: [NSURL.self], options: nil)
-            playlistDelegate.addFiles(objects! as! [URL])
+            playlist.addFiles(objects! as! [URL])
             
             return true
         }
@@ -201,11 +200,11 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         if (movingTracks) {
             
             let group = outlineView.parent(forItem: tracks[0]) as! Group
-            tracks.forEach({childIndexes.append(group.indexOf($0)!)})
+            tracks.forEach({childIndexes.append(group.indexOfTrack($0)!)})
             
         } else {
             
-            groups.forEach({childIndexes.append(playlist.getIndexOf($0))})
+            groups.forEach({childIndexes.append(playlist.indexOfGroup($0))})
         }
         
         return IndexSet(childIndexes)
@@ -332,7 +331,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         })
         
         // Submit the reorder operations to the playlist
-        playlistDelegate.reorderTracks(playlistReorderOperations, self.grouping)
+        playlist.reorderTracksAndGroups(playlistReorderOperations, self.grouping)
         
         return playlistReorderOperations
     }
@@ -349,7 +348,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         // Make sure they the source indexes are iterated in descending order. This will be important in Step 4.
         sourceIndexSet.sorted(by: {x, y -> Bool in x > y}).forEach({
             
-            let group = playlist.getGroupAt(self.grouping, $0)
+            let group = playlist.groupAtIndex(self.grouping, $0)
             sourceItems.append(group)
             sourceIndexMappings[group] = $0
             playlistReorderOperations.append(GroupRemoveOperation(index: $0))
@@ -374,7 +373,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         })
         
         // Submit the reorder operations to the playlist
-        playlistDelegate.reorderTracks(playlistReorderOperations, self.grouping)
+        playlist.reorderTracksAndGroups(playlistReorderOperations, self.grouping)
         
         return playlistReorderOperations
     }

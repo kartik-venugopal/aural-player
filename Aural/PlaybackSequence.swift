@@ -730,7 +730,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         return (repeatMode, shuffleMode)
     }
     
-    // --------------- PlaylistChangeListener methods ----------------
+    // --------------- PlaylistChangeListenerProtocol methods ----------------
     
     
 //    func updateSize(_ newSize: Int) {

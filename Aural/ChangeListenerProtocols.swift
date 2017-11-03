@@ -4,7 +4,7 @@
 
 import Foundation
 
-protocol PlaylistChangeListener {
+protocol PlaylistChangeListenerProtocol {
     
     // A single new track has been added
     func tracksAdded(_ addResults: [TrackAddResult])
@@ -20,10 +20,4 @@ protocol PlaylistChangeListener {
     
     // The entire playlist has been cleared
     func playlistCleared()
-}
-
-protocol TrackInfoChangeListener {
-    
-    // Notifies the playlist that info for this track has changed. The playlist may use the updates to re-group the track (by artist/album/genre, etc).
-    func trackInfoUpdated(_ updatedTrack: Track) -> [GroupType: GroupedTrackUpdateResult]
 }

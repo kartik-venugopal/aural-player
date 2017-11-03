@@ -5,11 +5,11 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
  
     private var tracks: [Track] = [Track]()
     
-    func getTracks() -> [Track] {
+    func allTracks() -> [Track] {
         return tracks
     }
     
-    func addTrackForIndex(_ track: Track) -> Int? {
+    func addTrack(_ track: Track) -> Int? {
         tracks.append(track)
         return tracks.count - 1
     }
@@ -30,7 +30,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         return state
     }
  
-    func peekTrackAt(_ index: Int?) -> IndexedTrack? {
+    func trackAtIndex(_ index: Int?) -> IndexedTrack? {
         let invalidIndex: Bool = index == nil || index! < 0 || index! >= tracks.count
         return invalidIndex ? nil : IndexedTrack(tracks[index!], index!)
     }
