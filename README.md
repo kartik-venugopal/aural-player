@@ -1,12 +1,8 @@
 # Aural Player
 
-![App demo](/Documentation/Demos/ShortGeneralDemo.gif?raw=true "App demo")
+![App demo](/Documentation/Demos/ShortGeneralDemo2.gif?raw=true "App demo")
 
-![App demo 2](/Documentation/Demos/ShortDemo2.gif?raw=true "App demo 2")
-
-## Coming soon ...
-
-![Experimental](/Documentation/Screenshots/Experimental.png?raw=true "Experimental")
+![App demo 2](/Documentation/Demos/ShortGeneralDemo3.gif?raw=true "App demo 2")
 
 ## Overview
 
@@ -19,8 +15,10 @@ Aural Player is a free and open source audio player application for the MacOS (f
 - Sound effects: Graphic equalizer, Pitch shift, Time stretch, Reverb, Delay, Filter
 - Recording of clips in AAC/ALAC/AIFF formats
 - Displays ID3 and iTunes metadata, including artwork (when available)
+- Grouping of tracks by artist/album/genre for convenient playlist browsing
 - Searching and sorting of playlist
-- Multiple compact view options
+- Multiple compact and flexible view options - playlist docking and collapsible views
+- Extensive set of keyboard shortcuts for convenient control
 
 ### Compatibility
 
@@ -46,11 +44,11 @@ Wanna try it out ? The latest app bundle can be found in the compressed archive 
 
 [Developer readme](https://github.com/maculateConception/aural-player/blob/master/Documentation/Developer-readme.rtf?raw=true) 
 
-## Work in progress (features coming soon)
-
-**New playlist views with track groups** - In addition to the current flat view, new views will be added to the playlist, which group tracks by album, artist, genre, etc.
-
 ## Recent updates
+
+11/3/2017: **New playlist views with track groups** - In addition to the current flat view, new views have been added to the playlist, which group tracks by album, artist, genre, etc. This allows for convenient playlist browsing.
+
+11/3/2018: **UI refresh** - A lot of UI elements have been redone, for a slicker appearance. Window corners, background colors, slider controls, playlist summary, etc.
 
 10/15/2017: **Multiple selection, type selection, and drag/drop reordering in playlist** - The playlist now allows selection of multiple items at once, and type selection to find tracks quickly by typing their name. Also, it now allows reordering by dragging and dropping. This makes reordering, and/or removal of multiple playlist tracks much less tedious, and provides a quick way to search for tracks by name. (Full-fledged search is still available)
 
@@ -82,23 +80,23 @@ Aural Player makes use of (a modified version of) a reusable UI control called [
 
 ### Default view
 
-![App screenshot](/Documentation/Screenshots/Aural.png?raw=true "App screenshot")
+![App screenshot](/Documentation/Screenshots/Default.png?raw=true "App screenshot")
 
 ### Default view w/ detailed track info popover view
 
-![App screenshot w/ more info view](/Documentation/Screenshots/MoreInfo.png?raw=true "More Info")
+![App screenshot w/ more info view](/Documentation/Screenshots/DetailedInfo.png?raw=true "More Info")
 
-### Playlist-only view
+### Playlist docked to the left
 
-![App screenshot2](/Documentation/Screenshots/Aural-playlistOnly.png?raw=true "App screenshot2")
+![App screenshot2](/Documentation/Screenshots/DockedLeft.png?raw=true "App screenshot2")
 
-### Effects-only view
+### Detached playlist
 
-![App screenshot3](/Documentation/Screenshots/Aural-effectsOnly.png?raw=true "App screenshot3")
+![App screenshot3](/Documentation/Screenshots/DetachedPlaylist.png?raw=true "App screenshot3")
 
 ### Compact view
 
-![App screenshot4](/Documentation/Screenshots/Aural-compact.png?raw=true "App screenshot4")
+![App screenshot4](/Documentation/Screenshots/Compact.png?raw=true "App screenshot4")
 
 ### Pitch shift effects unit
 
@@ -112,6 +110,6 @@ Aural Player makes use of (a modified version of) a reusable UI control called [
 
 ![Filter](/Documentation/Screenshots/Filter.png?raw=true "Filter")
 
-### Recorder unit
+### Delay unit
 
-![Recorder](/Documentation/Screenshots/Recorder.png?raw=true "Recorder")
+![Recorder](/Documentation/Screenshots/Delay.png?raw=true "Delay")
