@@ -3115,6 +3115,16 @@ CA
                                     <action selector="scrollToBottomAction:" target="8o0-TS-7rF" id="oTN-B9-dnG"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Zhb-Uk-nYI"/>
+                            <menuItem title="Switch playlist tab" id="JAN-jg-Zs1" userLabel="Scroll to bottom of playlist">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CQ
+</string>
+                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                <connections>
+                                    <action selector="shiftTabAction:" target="8o0-TS-7rF" id="RQF-kT-T5Q"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -3369,6 +3379,7 @@ CA
                                 </imageView>
                             </subviews>
                         </view>
+                        <color key="borderColor" white="0.14634874131944445" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Options:" translatesAutoresizingMaskIntoConstraints="NO" id="8n2-uW-nFp" userLabel="Search Options Box">
@@ -3506,7 +3517,7 @@ CA
                                 </textField>
                             </subviews>
                         </view>
-                        <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="borderColor" white="0.14634874131944445" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Results:" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="AjL-DZ-9aJ" userLabel="Search Results Box">
@@ -3558,7 +3569,7 @@ CA
                                 </button>
                             </subviews>
                         </view>
-                        <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="borderColor" white="0.14634874131944445" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="67C-2f-Zxj" userLabel="Done button">
@@ -3579,7 +3590,7 @@ Gw
             </view>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                    <color key="value" white="0.30186631944444442" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="value" white="0.0" alpha="0.90467144691780821" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="-292.5" y="152"/>
@@ -3726,7 +3737,7 @@ Gw
             </view>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                    <color key="value" white="0.3017306857638889" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="value" white="0.0" alpha="0.90317315924657537" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="-671.5" y="193"/>
@@ -4259,7 +4270,7 @@ Gw
             </view>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                    <color key="value" white="0.30015733506944442" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="value" white="0.0" alpha="0.90459118150684936" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="-801" y="685"/>

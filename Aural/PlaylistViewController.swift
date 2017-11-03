@@ -63,8 +63,9 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         playlistUpdateQueue.underlyingQueue = DispatchQueue.main
         playlistUpdateQueue.qualityOfService = .background
         
-        // Set up key press handler to enable natural scrolling of the playlist view with arrow keys
-        playlistKeyPressHandler = PlaylistKeyPressHandler(playlistViews!)
+        // Set up key press handler to enable natural scrolling of the playlist view with arrow keys and expansion/collapsing of track groups
+        let viewMappings: [PlaylistType: NSTableView] = [PlaylistType.tracks: tracksView, PlaylistType.artists: artistsView, PlaylistType.albums: albumsView, PlaylistType.genres: genresView]
+        playlistKeyPressHandler = PlaylistKeyPressHandler(viewMappings)
         NSEvent.addLocalMonitorForEvents(matching: NSEventMask.keyDown, handler: {(event: NSEvent!) -> NSEvent in
             self.playlistKeyPressHandler?.handle(event)
             return event;
@@ -264,6 +265,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
                 
                 let _msg = (message as! TrackUpdatedAsyncMessage)
                 
+                // Track duration may have changed, affecting the total playlist duration
                 self.updatePlaylistSummary()
                 
                 // If this is the playing track, tell other views that info has been updated
@@ -297,21 +299,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     }
     
     func consumeNotification(_ message: NotificationMessage) {
-        
-//        if message is TrackAddedNotification {
-//            
-//            let _msg = message as! TrackAddedNotification
-//            
-//            // Perform task serially wrt other such tasks
-//            
-//            let updateOp = BlockOperation(block: {
-//                self.updatePlaylistSummary(_msg.progress)
-//            })
-//            
-//            playlistUpdateQueue.addOperation(updateOp)
-//            
-//            return
-//        }
     }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
@@ -385,6 +372,21 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         PlaylistViewState.current = .genres
         updatePlaylistSummary()
         SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: .genres))
+    }
+    
+    @IBAction func shiftTabAction(_ sender: Any) {
+        
+        switch PlaylistViewState.current {
+            
+        case .tracks: artistsTabViewAction(self)
+            
+        case .artists: albumsTabViewAction(self)
+            
+        case .albums: genresTabViewAction(self)
+            
+        case .genres: tracksTabViewAction(self)
+            
+        }
     }
 }
 

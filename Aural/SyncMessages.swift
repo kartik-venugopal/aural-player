@@ -13,7 +13,7 @@ protocol MessageSubscriber {
 }
 
 /*
-    Defines a synchronous message. SyncMessage objects could be either 1 - notifications, indicating that some change has occurred (e.g. the playlist has been cleared), OR 2 - requests for the execution of a function (e.g. track playback).
+    Defines a synchronous message. SyncMessage objects could be either 1 - notifications, indicating that some change has occurred (e.g. the playlist has been cleared), OR 2 - requests for the execution of a function (e.g. track playback) that may return a response to the caller.
  */
 protocol SyncMessage {
     var messageType: MessageType {get}
@@ -125,23 +125,6 @@ struct TrackGroupUpdatedNotification: NotificationMessage {
     }
 }
 
-// This doesn't need to be sync anymore !
-//struct TrackUpdatedNotification: NotificationMessage {
-//    
-//    let messageType: MessageType = .trackUpdatedNotification
-//    
-//    // The index of the track that has been updated
-//    let trackIndex: Int
-//    
-//    let groupInfo: [GroupType: GroupedTrack]
-//    
-//    init(_ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrack]) {
-//        
-//        self.trackIndex = trackIndex
-//        self.groupInfo = groupInfo
-//    }
-//}
-
 // Notification indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
 struct TrackChangedNotification: NotificationMessage {
     
@@ -168,6 +151,7 @@ struct TrackChangedNotification: NotificationMessage {
     }
 }
 
+// Notification indicating the the playback sequence may have changed and that the UI may need to be refreshed to show updated sequence information
 struct SequenceChangedNotification: NotificationMessage {
     
     let messageType: MessageType = .sequenceChangedNotification
@@ -205,6 +189,7 @@ struct StopPlaybackRequest: RequestMessage {
     static let instance: StopPlaybackRequest = StopPlaybackRequest()
 }
 
+// Request from the playlist search dialog to the playlist, to show a specific search result within the playlist.
 struct SearchResultSelectionRequest: RequestMessage {
     
     let messageType: MessageType = .searchResultSelectionRequest
@@ -307,6 +292,7 @@ struct AppReopenedNotification: NotificationMessage {
     }
 }
 
+// Notification that the playlist view (tracks/artists, etc) has been changed, by switching playlist tabs, within the UI
 struct PlaylistTypeChangedNotification: NotificationMessage {
     
     let messageType: MessageType = .playlistTypeChangedNotification

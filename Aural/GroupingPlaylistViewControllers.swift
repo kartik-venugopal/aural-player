@@ -96,20 +96,33 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     func tracksRemoved(_ results: RemoveOperationResults) {
         
         let removals = results.groupingPlaylistResults[self.groupType]!
+        var groupsToReload = [Group]()
         
         for removal in removals.results {
             
             if let trackRemoval = removal as? TracksRemovedResult {
                 
+//                print("\nRemoving tracks:", trackRemoval.trackIndexesInGroup.toArray(), "from group",  trackRemoval.parentGroup.name, "of type", trackRemoval.parentGroup.type, "at grp index:", trackRemoval.groupIndex)
+                
                 playlistView.removeItems(at: trackRemoval.trackIndexesInGroup, inParent: trackRemoval.parentGroup, withAnimation: .effectFade)
-                playlistView.reloadItem(trackRemoval.parentGroup, reloadChildren: false)
+                
+                groupsToReload.append(trackRemoval.parentGroup)
                 
             } else {
                 
                 let groupRemoval = removal as! GroupRemovedResult
+                
+//                print("\nRemoving group:", groupRemoval.group.name, "of type", groupRemoval.group.type, "at index", groupRemoval.groupIndex)
+                
                 playlistView.removeItems(at: IndexSet(integer: groupRemoval.groupIndex), inParent: nil, withAnimation: .effectFade)
             }
         }
+        
+        // For all groups from which tracks were removed, reload them
+        groupsToReload.forEach({
+//            print("\nReloading group:", $0.name)
+            playlistView.reloadItem($0, reloadChildren: false)
+        })
     }
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
