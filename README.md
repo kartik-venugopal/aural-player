@@ -98,10 +98,6 @@ Aural Player makes use of (a modified version of) a reusable UI control called [
 
 ![App screenshot4](/Documentation/Screenshots/Compact.png?raw=true "App screenshot4")
 
-### Pitch shift effects unit
-
-![Pitch](/Documentation/Screenshots/Pitch.png?raw=true "Pitch Shift")
-
 ### Time stretch effects unit
 
 ![Time](/Documentation/Screenshots/Time.png?raw=true "Time Stretch")
