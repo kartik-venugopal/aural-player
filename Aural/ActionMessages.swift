@@ -21,17 +21,11 @@ enum ActionType {
     
     case removeTracks
     
-    case clearPlaylist
-    
     case showPlayingTrack
     
     case moveTracksUp
     
     case moveTracksDown
-    
-    case scrollToTop
-    
-    case scrollToBottom
 }
 
 struct PlaylistActionMessage: ActionMessage {

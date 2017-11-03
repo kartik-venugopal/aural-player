@@ -40,11 +40,11 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     override func viewDidLoad() {
         
         // Set up a mouse listener (for double clicks -> play selected track)
-        tracksView.doubleAction = #selector(self.playSelectedTrackAction(_:))
-        tracksView.target = self
+//        tracksView.doubleAction = #selector(self.playSelectedTrackAction(_:))
+//        tracksView.target = self
         
-        [artistsView!, albumsView!, genresView!].forEach({
-            $0.doubleAction = #selector(self.playSelectedGroupedTrackAction(_:))
+        [tracksView!, artistsView!, albumsView!, genresView!].forEach({
+            $0.doubleAction = #selector(self.playSelectedTrackAction(_:))
             $0.target = self
         })
         
@@ -71,27 +71,11 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         
         if PlaylistViewState.current == .tracks {
         
-            if (tracksView.selectedRow >= 0) {
-                
-                let oldTrack = player.getPlayingTrack()
-                
-                do {
-                    
-                    let track = try player.play(tracksView.selectedRow)
-                    trackChange(oldTrack, track)
-                    tracksView.deselectAll(self)
-                    
-                } catch let error {
-                    
-                    if (error is InvalidTrackError) {
-                        handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-                    }
-                }
-            }
+            playSelectedFlatViewTrack()
             
         } else {
             
-            var playlistView: NSOutlineView?
+            var playlistView: NSOutlineView
             
             switch PlaylistViewState.current {
                 
@@ -101,21 +85,41 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
                 
             case .genres: playlistView = genresView
                 
-            default: playlistView = nil
+            // Impossible
+            default: return
                 
             }
             
-            if let view = playlistView {
-                if (view.selectedRow >= 0) {
-                    playSelectedGroupedTrackAction(view)
+            playSelectedGroupingViewTrack(playlistView)
+        }
+    }
+    
+    private func playSelectedFlatViewTrack() {
+        
+        if (tracksView.selectedRow >= 0) {
+            
+            let oldTrack = player.getPlayingTrack()
+            
+            do {
+                
+                let track = try player.play(tracksView.selectedRow)
+                trackChange(oldTrack, track)
+                tracksView.deselectAll(self)
+                
+            } catch let error {
+                
+                if (error is InvalidTrackError) {
+                    handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
                 }
             }
         }
     }
     
-    @IBAction func playSelectedGroupedTrackAction(_ sender: AnyObject) {
+    private func playSelectedGroupingViewTrack(_ playlistView: NSOutlineView) {
         
-        let playlistView = sender as! NSOutlineView
+        if (playlistView.selectedRow < 0) {
+            return
+        }
         
         let item = playlistView.item(atRow: playlistView.selectedRow)
         let oldTrack = player.getPlayingTrack()
@@ -202,28 +206,40 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         
         switch shuffleMode {
             
-        case .off: btnShuffle.image = UIConstants.imgShuffleOff
-        [shuffleOffMainMenuItem, shuffleOffDockMenuItem].forEach({$0?.state = 1})
-        [shuffleOnMainMenuItem, shuffleOnDockMenuItem].forEach({$0?.state = 0})
+        case .off:
             
-        case .on: btnShuffle.image = UIConstants.imgShuffleOn
-        [shuffleOffMainMenuItem, shuffleOffDockMenuItem].forEach({$0?.state = 0})
-        [shuffleOnMainMenuItem, shuffleOnDockMenuItem].forEach({$0?.state = 1})
+            btnShuffle.image = UIConstants.imgShuffleOff
+            [shuffleOffMainMenuItem, shuffleOffDockMenuItem].forEach({$0?.state = 1})
+            [shuffleOnMainMenuItem, shuffleOnDockMenuItem].forEach({$0?.state = 0})
+            
+        case .on:
+            
+            btnShuffle.image = UIConstants.imgShuffleOn
+            [shuffleOffMainMenuItem, shuffleOffDockMenuItem].forEach({$0?.state = 0})
+            [shuffleOnMainMenuItem, shuffleOnDockMenuItem].forEach({$0?.state = 1})
+            
         }
         
         switch repeatMode {
             
-        case .off: btnRepeat.image = UIConstants.imgRepeatOff
-        [repeatOffMainMenuItem, repeatOffDockMenuItem].forEach({$0.state = 1})
-        [repeatOneMainMenuItem, repeatOneDockMenuItem, repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0?.state = 0})
+        case .off:
             
-        case .one: btnRepeat.image = UIConstants.imgRepeatOne
-        [repeatOneMainMenuItem, repeatOneDockMenuItem].forEach({$0.state = 1})
-        [repeatOffMainMenuItem, repeatOffDockMenuItem, repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0?.state = 0})
+            btnRepeat.image = UIConstants.imgRepeatOff
+            [repeatOffMainMenuItem, repeatOffDockMenuItem].forEach({$0.state = 1})
+            [repeatOneMainMenuItem, repeatOneDockMenuItem, repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0?.state = 0})
             
-        case .all: btnRepeat.image = UIConstants.imgRepeatAll
-        [repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0.state = 1})
-        [repeatOneMainMenuItem, repeatOneDockMenuItem, repeatOffMainMenuItem, repeatOffDockMenuItem].forEach({$0?.state = 0})
+        case .one:
+            
+            btnRepeat.image = UIConstants.imgRepeatOne
+            [repeatOneMainMenuItem, repeatOneDockMenuItem].forEach({$0.state = 1})
+            [repeatOffMainMenuItem, repeatOffDockMenuItem, repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0?.state = 0})
+            
+        case .all:
+            
+            btnRepeat.image = UIConstants.imgRepeatAll
+            [repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0.state = 1})
+            [repeatOneMainMenuItem, repeatOneDockMenuItem, repeatOffMainMenuItem, repeatOffDockMenuItem].forEach({$0?.state = 0})
+            
         }
     }
     

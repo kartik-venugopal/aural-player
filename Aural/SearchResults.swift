@@ -94,6 +94,7 @@ class SearchResults {
             return g1 < g2
         })
         
+        // TODO: Can I return self ?
         return SearchResults(results)
     }
 }

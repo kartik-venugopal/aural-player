@@ -3,7 +3,7 @@ import Foundation
 /*
     Concrete implementation of PlaybackDelegateProtocol and BasicPlaybackDelegateProtocol.
  */
-class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol, PlaylistChangeListener, AsyncMessageSubscriber {
+class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol, PlaylistChangeListenerProtocol, AsyncMessageSubscriber {
     
     // The actual player
     private let player: PlayerProtocol
@@ -306,7 +306,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     func getPlayingTrackGroupInfo(_ groupType: GroupType) -> GroupedTrack? {
         
         if let playingTrack = playbackSequencer.getPlayingTrack() {
-            return playlist.getGroupingInfoForTrack(groupType, playingTrack.track)
+            return playlist.groupingInfoForTrack(groupType, playingTrack.track)
         }
         
         return nil
@@ -368,7 +368,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return track
     }
     
-    // ------------------- PlaylistChangeListener methods ---------------------
+    // ------------------- PlaylistChangeListenerProtocol methods ---------------------
     // Whenever the playlist is modified, the track prep task needs to be executed, to ensure optimal playback responsiveness.
     
     func tracksAdded(_ addResults: [TrackAddResult]) {
@@ -395,5 +395,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     func playlistCleared() {
+        stop()
     }
 }

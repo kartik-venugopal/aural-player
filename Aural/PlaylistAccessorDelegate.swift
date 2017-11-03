@@ -12,12 +12,12 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
         self.playlist = playlist
     }
     
-    func getTracks() -> [Track] {
-        return playlist.getTracks()
+    func allTracks() -> [Track] {
+        return playlist.allTracks()
     }
     
-    func peekTrackAt(_ index: Int?) -> IndexedTrack? {
-        return playlist.peekTrackAt(index)
+    func trackAtIndex(_ index: Int?) -> IndexedTrack? {
+        return playlist.trackAtIndex(index)
     }
     
     func size() -> Int {
@@ -44,27 +44,27 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
         return playlist.search(searchQuery, groupType)
     }
     
-    func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> GroupedTrack {
-        return playlist.getGroupingInfoForTrack(groupType, track)
+    func groupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> GroupedTrack {
+        return playlist.groupingInfoForTrack(groupType, track)
     }
     
-    func displayNameFor(_ type: GroupType, _ track: Track) -> String {
-        return playlist.displayNameFor(type, track)
+    func displayNameForTrack(_ type: GroupType, _ track: Track) -> String {
+        return playlist.displayNameForTrack(type, track)
     }
     
-    func getGroupAt(_ type: GroupType, _ index: Int) -> Group {
-        return playlist.getGroupAt(type, index)
+    func groupAtIndex(_ type: GroupType, _ index: Int) -> Group {
+        return playlist.groupAtIndex(type, index)
     }
     
-    func getGroupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack {
-        return playlist.getGroupingInfoForTrack(type, track)
+    func groupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack {
+        return playlist.groupingInfoForTrack(type, track)
     }
     
-    func getIndexOf(_ group: Group) -> Int {
-        return playlist.getIndexOf(group)
+    func indexOfGroup(_ group: Group) -> Int {
+        return playlist.indexOfGroup(group)
     }
     
-    func getNumberOfGroups(_ type: GroupType) -> Int {
-        return playlist.getNumberOfGroups(type)
+    func numberOfGroups(_ type: GroupType) -> Int {
+        return playlist.numberOfGroups(type)
     }
 }

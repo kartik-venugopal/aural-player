@@ -9,8 +9,6 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
     // Delegate that performs CRUD actions on the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
-    private let plAcc: PlaylistAccessorProtocol = ObjectGraph.getPlaylistAccessor()
-    
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
@@ -26,16 +24,12 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
-        SyncMessenger.subscribe(.playingTrackInfoUpdatedNotification, subscriber: self)
         SyncMessenger.subscribe(.searchResultSelectionRequest, subscriber: self)
         
         SyncMessenger.subscribe(actionType: .removeTracks, subscriber: self)
-        SyncMessenger.subscribe(actionType: .clearPlaylist, subscriber: self)
         SyncMessenger.subscribe(actionType: .moveTracksUp, subscriber: self)
         SyncMessenger.subscribe(actionType: .moveTracksDown, subscriber: self)
         SyncMessenger.subscribe(actionType: .refresh, subscriber: self)
-        SyncMessenger.subscribe(actionType: .scrollToTop, subscriber: self)
-        SyncMessenger.subscribe(actionType: .scrollToBottom, subscriber: self)
         SyncMessenger.subscribe(actionType: .showPlayingTrack, subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
@@ -49,7 +43,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, nil))
     }
     
-    func removeTracks() {
+    func removeallTracks() {
         
         let selectedIndexes = tracksView.selectedRowIndexes
         if (selectedIndexes.count > 0) {
@@ -136,22 +130,6 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         
         if (tracksView.numberOfRows > 0 && tracksView.selectedRow >= 0) {
             tracksView.scrollRowToVisible(tracksView.selectedRow)
-        }
-    }
-    
-    // Scrolls the playlist view to the very top
-    func scrollToTop() {
-        
-        if (tracksView.numberOfRows > 0) {
-            tracksView.scrollRowToVisible(0)
-        }
-    }
-    
-    // Scrolls the playlist view to the very bottom
-    func scrollToBottom() {
-        
-        if (tracksView.numberOfRows > 0) {
-            tracksView.scrollRowToVisible(tracksView.numberOfRows - 1)
         }
     }
     
@@ -285,19 +263,13 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
                 
             case .refresh: refresh()
                 
-            case .removeTracks: removeTracks()
+            case .removeTracks: removeallTracks()
                 
             case .showPlayingTrack: showPlayingTrack()
 
             case .moveTracksUp: moveTracksUp()
                 
             case .moveTracksDown: moveTracksDown()
-                
-            case .scrollToTop: scrollToTop()
-                
-            case .scrollToBottom: scrollToBottom()
-                
-            default: return
                 
             }
             

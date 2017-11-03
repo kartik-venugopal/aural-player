@@ -115,9 +115,7 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     
     // Selects a track within the playlist view, to show the user where the track is located within the playlist
     private func selectTrack(_ result: SearchResult) {
-        
-        let msg = SearchResultSelectionRequest(result)
-        _ = SyncMessenger.publishRequest(msg)
+        _ = SyncMessenger.publishRequest(SearchResultSelectionRequest(result))
     }
     
     @IBAction func searchDoneAction(_ sender: Any) {

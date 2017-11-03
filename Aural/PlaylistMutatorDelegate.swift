@@ -12,7 +12,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     private let playbackSequencer: PlaybackSequencerProtocol
     
     // A set of all observers/listeners that are interested in changes to the playlist
-    private let changeListeners: [PlaylistChangeListener]
+    private let changeListeners: [PlaylistChangeListenerProtocol]
     
     // A player with basic playback functionality (used for autoplay)
     private let player: BasicPlaybackDelegateProtocol
@@ -23,7 +23,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     // User preferences (used for autoplay)
     private let preferences: Preferences
     
-    init(_ playlist: PlaylistCRUDProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ player: BasicPlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListener]) {
+    init(_ playlist: PlaylistCRUDProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ player: BasicPlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
         
         self.playlist = playlist
         self.playbackSequencer = playbackSequencer
@@ -342,8 +342,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         changeListeners.forEach({$0.tracksReordered(.tracks)})
     }
     
-    func reorderTracks(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType) {
-        playlist.reorderTracks(reorderOperations, groupType)
+    func reorderTracksAndGroups(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType) {
+        
+        playlist.reorderTracksAndGroups(reorderOperations, groupType)
         changeListeners.forEach({$0.tracksReordered(groupType.toPlaylistType())})
     }
 }

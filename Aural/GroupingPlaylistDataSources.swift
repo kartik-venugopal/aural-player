@@ -3,9 +3,9 @@ import Cocoa
 class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, MessageSubscriber {
     
     // TODO: Use delegate, not accessor directly
-    internal var playlist: PlaylistAccessorProtocol = ObjectGraph.getPlaylistAccessor()
+    private let playlist: PlaylistAccessorProtocol = ObjectGraph.getPlaylistAccessor()
     
-    internal var playlistDelegate: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
+    private let playlistDelegate: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
     // Used to determine the currently playing track
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
@@ -15,6 +15,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
     // Used to pause/resume the playing track animation
     private var animationCell: GroupedTrackCellView?
     
+    // Handles all drag/drop operations
     private var dragDropDelegate: GroupingPlaylistDragDropDelegate = GroupingPlaylistDragDropDelegate()
     
     override func viewDidLoad() {
@@ -36,7 +37,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         
         if (item == nil) {
-            return playlist.getNumberOfGroups(grouping)
+            return playlist.numberOfGroups(grouping)
         } else if let group = item as? Group {
             return group.tracks.count
         }
@@ -48,7 +49,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         
         if (item == nil) {
-            return playlist.getGroupAt(grouping, index)
+            return playlist.groupAtIndex(grouping, index)
         } else if let group = item as? Group {
             return group.tracks[index]
         }
@@ -83,7 +84,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
                 
                 let view: GroupedTrackCellView? = outlineView.make(withIdentifier: (tableColumn?.identifier)!, owner: self) as? GroupedTrackCellView
                 
-                view!.textField?.stringValue = playlist.displayNameFor(grouping, track)
+                view!.textField?.stringValue = playlist.displayNameForTrack(grouping, track)
                 view!.isName = false
                 
                 let playingTrack = playbackInfo.getPlayingTrack()?.track

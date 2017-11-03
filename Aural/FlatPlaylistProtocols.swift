@@ -3,10 +3,10 @@ import Foundation
 protocol FlatPlaylistAccessorProtocol {
     
     // Retrieve all tracks
-    func getTracks() -> [Track]
+    func allTracks() -> [Track]
     
     // Read the track at a given index. Nil if invalid index is specified.
-    func peekTrackAt(_ index: Int?) -> IndexedTrack?
+    func trackAtIndex(_ index: Int?) -> IndexedTrack?
  
     // Determines the index of a given track, within the playlist. Returns nil if the track doesn't exist within the playlist.
     func indexOfTrack(_ track: Track) -> Int?
@@ -18,7 +18,7 @@ protocol FlatPlaylistAccessorProtocol {
 protocol FlatPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     
     // Adds a single track to the playlist, and returns its index within the playlist.
-    func addTrackForIndex(_ track: Track) -> Int?
+    func addTrack(_ track: Track) -> Int?
     
     // Removes tracks with the given indexes
     func removeTracks(_ indexes: IndexSet) -> [Track]
@@ -41,6 +41,9 @@ protocol FlatPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     
     // Performs a sequence of playlist reorder operations
     func reorderTracks(_ reorderOperations: [PlaylistReorderOperation])
+    
+    // Sorts the playlist according to the specified sort parameters
+    func sort(_ sort: Sort)
 }
 
 protocol FlatPlaylistCRUDProtocol: FlatPlaylistAccessorProtocol, FlatPlaylistMutatorProtocol {}

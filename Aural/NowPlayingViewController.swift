@@ -16,6 +16,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
     @IBOutlet weak var lblTimeElapsed: NSTextField!
     @IBOutlet weak var lblTimeRemaining: NSTextField!
     
+    // Fields that display information about the current playback scope (e.g. all tracks that make up the current playback sequence - for ex. a specific artist group, or all tracks), and progress within that sequence - for ex. 5/67 (5th track playing out of a total of 67 tracks).
     @IBOutlet weak var lblSequenceProgress: NSTextField!
     @IBOutlet weak var lblPlaybackScope: NSTextField!
     @IBOutlet weak var imgScope: NSImageView!
@@ -53,9 +54,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         artView.canDrawSubviewsIntoLayer = true
         artView.image = UIConstants.imgPlayingArt
         
+        // Subscribe to various notifications
+        
         AsyncMessenger.subscribe(.tracksRemoved, subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        // Subscribe to various notifications
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.sequenceChangedNotification, subscriber: self)
         SyncMessenger.subscribe(.playbackRateChangedNotification, subscriber: self)

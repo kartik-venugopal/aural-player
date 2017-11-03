@@ -16,16 +16,16 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         self.mutator = mutator
     }
     
-    func getTracks() -> [Track] {
-        return accessor.getTracks()
+    func allTracks() -> [Track] {
+        return accessor.allTracks()
     }
     
-    func peekTrackAt(_ index: Int?) -> IndexedTrack? {
-        return accessor.peekTrackAt(index)
+    func trackAtIndex(_ index: Int?) -> IndexedTrack? {
+        return accessor.trackAtIndex(index)
     }
     
-    func getGroupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> GroupedTrack {
-        return accessor.getGroupingInfoForTrack(track, groupType)
+    func groupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> GroupedTrack {
+        return accessor.groupingInfoForTrack(track, groupType)
     }
     
     func size() -> Int {
@@ -52,24 +52,24 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         return accessor.search(searchQuery, groupType)
     }
     
-    func displayNameFor(_ type: GroupType, _ track: Track) -> String {
-        return accessor.displayNameFor(type, track)
+    func displayNameForTrack(_ type: GroupType, _ track: Track) -> String {
+        return accessor.displayNameForTrack(type, track)
     }
     
-    func getGroupAt(_ type: GroupType, _ index: Int) -> Group {
-        return accessor.getGroupAt(type, index)
+    func groupAtIndex(_ type: GroupType, _ index: Int) -> Group {
+        return accessor.groupAtIndex(type, index)
     }
     
-    func getGroupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack {
-        return accessor.getGroupingInfoForTrack(type, track)
+    func groupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack {
+        return accessor.groupingInfoForTrack(type, track)
     }
     
-    func getIndexOf(_ group: Group) -> Int {
-        return accessor.getIndexOf(group)
+    func indexOfGroup(_ group: Group) -> Int {
+        return accessor.indexOfGroup(group)
     }
     
-    func getNumberOfGroups(_ type: GroupType) -> Int {
-        return accessor.getNumberOfGroups(type)
+    func numberOfGroups(_ type: GroupType) -> Int {
+        return accessor.numberOfGroups(type)
     }
     
     func addFiles(_ files: [URL]) {
@@ -116,8 +116,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         mutator.reorderTracks(reorderOperations)
     }
     
-    func reorderTracks(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType) {
-        mutator.reorderTracks(reorderOperations, groupType)
+    func reorderTracksAndGroups(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType) {
+        mutator.reorderTracksAndGroups(reorderOperations, groupType)
     }
     
     func savePlaylist(_ file: URL) {
