@@ -10,7 +10,7 @@ protocol PlaylistChangeListener {
     func tracksAdded(_ addResults: [TrackAddResult])
     
     // Tracks have been removed, at the given indexes
-    func tracksRemoved(_ removeResults: RemoveOperationResults)
+    func tracksRemoved(_ removeResults: RemoveOperationResults, _ playingTrackRemoved: Bool)
     
     // Tracks have been moved
     func tracksReordered(_ playlistType: PlaylistType)

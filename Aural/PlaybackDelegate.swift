@@ -99,7 +99,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             TrackIO.prepareForPlayback(actualTrack)
             
             if (actualTrack.lazyLoadingInfo.preparationFailed) {
+                
+                // If an error occurs, playback is halted, and the playback sequence has ended
                 playbackSequencer.end()
+                
                 throw actualTrack.lazyLoadingInfo.preparationError!
             }
             
@@ -372,7 +375,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         prepareNextTracksForPlayback()
     }
     
-    func tracksRemoved(_ removeResults: RemoveOperationResults) {
+    func tracksRemoved(_ removeResults: RemoveOperationResults, _ playingTrackRemoved: Bool) {
+        
+        if (playingTrackRemoved) {
+            stop()
+        }
+        
         if (playlist.size() > 0) {
             prepareNextTracksForPlayback()
         }

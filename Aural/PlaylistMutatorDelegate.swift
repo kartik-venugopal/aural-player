@@ -179,7 +179,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             // Inform the UI of the new track
             AsyncMessenger.publishMessage(TrackAddedAsyncMessage(index, groupResults, progress))
             
-            // Load display info async (ID3 info, duration)
+            // Load duration async
             DispatchQueue.global(qos: .userInitiated).async {
                 
                 TrackIO.loadDuration(track)
@@ -221,21 +221,26 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     func removeTracks(_ indexes: [Int]) {
         
+        let playingTrack = playbackSequencer.getPlayingTrack()
         let results: RemoveOperationResults = playlist.removeTracks(IndexSet(indexes))
         
-        AsyncMessenger.publishMessage(TracksRemovedAsyncMessage(results))
+        let playingTrackRemoved = playingTrack != nil && indexes.contains(playingTrack!.index)
         
-        changeListeners.forEach({$0.tracksRemoved(results)})
+        AsyncMessenger.publishMessage(TracksRemovedAsyncMessage(results, playingTrackRemoved))
+        
+        changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved)})
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {
         
+        let playingTrack = playbackSequencer.getPlayingTrack()
         let results = playlist.removeTracksAndGroups(tracks, groups, groupType)
         
-        let message = TracksRemovedAsyncMessage(results)
-        AsyncMessenger.publishMessage(message)
+        let playingTrackRemoved = playingTrack != nil && playlist.indexOfTrack(playingTrack!.track) == nil
         
-        changeListeners.forEach({$0.tracksRemoved(results)})
+        AsyncMessenger.publishMessage(TracksRemovedAsyncMessage(results, playingTrackRemoved))
+        
+        changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved)})
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> ItemMovedResults {

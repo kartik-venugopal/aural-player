@@ -71,7 +71,7 @@ struct PlaybackCompletedAsyncMessage: AsyncMessage {
     static let instance: PlaybackCompletedAsyncMessage = PlaybackCompletedAsyncMessage()
 }
 
-//// AsyncMessage indicating that some new information has been loaded for a track (e.g. duration/display name, etc), and that the UI should refresh itself to show the new information
+// AsyncMessage indicating that some new information has been loaded for a track (e.g. duration/display name, etc), and that the UI should refresh itself to show the new information
 struct TrackUpdatedAsyncMessage: AsyncMessage {
     
     var messageType: AsyncMessageType = .trackInfoUpdated
@@ -88,7 +88,7 @@ struct TrackUpdatedAsyncMessage: AsyncMessage {
     }
 }
 
-//// AsyncMessage indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
+// AsyncMessage indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
 struct TrackAddedAsyncMessage: AsyncMessage {
     
     var messageType: AsyncMessageType = .trackAdded
@@ -114,9 +114,11 @@ struct TracksRemovedAsyncMessage: AsyncMessage {
     var messageType: AsyncMessageType = .tracksRemoved
     
     let results: RemoveOperationResults
+    let playingTrackRemoved: Bool
     
-    init(_ results: RemoveOperationResults) {
+    init(_ results: RemoveOperationResults, _ playingTrackRemoved: Bool) {
         self.results = results
+        self.playingTrackRemoved = playingTrackRemoved
     }
 }
 

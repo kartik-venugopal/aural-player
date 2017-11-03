@@ -1,8 +1,5 @@
 import Foundation
 
-/*
- Contract for all subscribers of synchronous messages
- */
 protocol ActionMessageSubscriber {
     
     // Every message subscriber must implement this method to consume a type of message it is interested in
@@ -10,7 +7,7 @@ protocol ActionMessageSubscriber {
 }
 
 /*
- Defines a synchronous message. SyncMessage objects could be either 1 - notifications, indicating that some change has occurred (e.g. the playlist has been cleared), OR 2 - requests for the execution of a function (e.g. track playback).
+    A message sent from one UI component to another, to request that some action be performed. Example - the master playlist view controller (PlaylistViewController) sends action messsages to its child view controllers (for each of the 4 playlist views) requesting each of them to refresh their views when new tracks are added to the playlist.
  */
 protocol ActionMessage {
     

@@ -76,7 +76,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         let oldPlayingTrackIndex = playbackInfo.getPlayingTrack()?.index
         
         // Remove the tracks from the playlist
-        _ = playlist.removeTracks(indexes.filter({$0 >= 0}))
+        _ = playlist.removeTracks(indexes.toArray())
         
         if (oldPlayingTrackIndex != nil && indexes.contains(oldPlayingTrackIndex!)) {
             _ = SyncMessenger.publishRequest(StopPlaybackRequest.instance)

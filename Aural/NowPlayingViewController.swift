@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class NowPlayingViewController: NSViewController, MessageSubscriber {
+class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber {
     
     // Fields that display playing track info
     @IBOutlet weak var lblTrackArtist: NSTextField!
@@ -52,6 +52,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
         // Set up the art view and the default animation
         artView.canDrawSubviewsIntoLayer = true
         artView.image = UIConstants.imgPlayingArt
+        
+        AsyncMessenger.subscribe(.tracksRemoved, subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Subscribe to various notifications
         SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
@@ -342,5 +344,15 @@ class NowPlayingViewController: NSViewController, MessageSubscriber {
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
         return EmptyResponse.instance
+    }
+    
+    func consumeAsyncMessage(_ message: AsyncMessage) {
+        
+        if let msg = message as? TracksRemovedAsyncMessage {
+            
+            if (msg.playingTrackRemoved) {
+                trackChange(nil)
+            }
+        }
     }
 }
