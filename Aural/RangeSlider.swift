@@ -333,11 +333,11 @@ class RangeSlider: NSView {
         let endSliderPath = NSBezierPath(rect: endSliderFrame)
         
         /*  Draw bar background */
-        barBackgroundGradient.draw(in: framePath, angle: -UIConstants.verticalGradientDegrees)
+        barBackgroundGradient.draw(in: framePath, angle: -UIConstants.horizontalGradientDegrees)
         
         /*  Draw bar fill */
         if NSWidth(selectedRect) > 0.0 {
-            barFillGradient.draw(in: selectedPath, angle: UIConstants.verticalGradientDegrees)
+            barFillGradient.draw(in: selectedPath, angle: UIConstants.horizontalGradientDegrees)
             barFillStrokeColor.setStroke()
         }
         
@@ -356,10 +356,10 @@ class RangeSlider: NSView {
         }
         
         /*  Draw slider knobs */
-        sliderGradient.draw(in: endSliderPath, angle: UIConstants.verticalGradientDegrees)
+        sliderGradient.draw(in: endSliderPath, angle: UIConstants.horizontalGradientDegrees)
         endSliderPath.stroke()
         
-        sliderGradient.draw(in: startSliderPath, angle: UIConstants.verticalGradientDegrees)
+        sliderGradient.draw(in: startSliderPath, angle: UIConstants.horizontalGradientDegrees)
         startSliderPath.stroke()
         
         let knobColor = Colors.sliderKnobColor
