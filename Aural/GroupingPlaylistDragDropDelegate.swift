@@ -114,6 +114,15 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
                 return false
             }
             
+            // Dropping on a selected track is not allowed
+            if let parentGroup = parent as? Group {
+                
+                let dropTrack = parentGroup.trackAtIndex(childIndex)
+                if tracks.contains(dropTrack) {
+                    return false
+                }
+            }
+            
         } else {
             
             // If all groups are selected, they cannot be moved
@@ -123,6 +132,12 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
             
             // Validate parent group and child index
             if (parent != nil || childIndex < 0) {
+                return false
+            }
+            
+            // Dropping on a selected group is not allowed
+            let dropGroup = playlist.groupAtIndex(self.grouping, childIndex)
+            if (groups.contains(dropGroup)) {
                 return false
             }
         }
