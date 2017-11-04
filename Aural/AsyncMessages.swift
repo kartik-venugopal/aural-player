@@ -46,13 +46,13 @@ enum AsyncMessageType {
 // AsyncMessage indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
 struct TrackChangedAsyncMessage: AsyncMessage {
     
-    var messageType: AsyncMessageType = .trackChanged
+    let messageType: AsyncMessageType = .trackChanged
     
     // The track that was playing before the track change (may be nil, meaning no track was playing)
-    var oldTrack: IndexedTrack?
+    let oldTrack: IndexedTrack?
     
     // The track that is now playing (may be nil, meaning no track playing)
-    var newTrack: IndexedTrack?
+    let newTrack: IndexedTrack?
     
     init(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?) {
         self.oldTrack = oldTrack
@@ -63,7 +63,7 @@ struct TrackChangedAsyncMessage: AsyncMessage {
 // AsyncMessage indicating that playback of the currently playing track has completed
 struct PlaybackCompletedAsyncMessage: AsyncMessage {
     
-    var messageType: AsyncMessageType = .playbackCompleted
+    let messageType: AsyncMessageType = .playbackCompleted
     
     private init() {}
     
@@ -74,7 +74,7 @@ struct PlaybackCompletedAsyncMessage: AsyncMessage {
 // AsyncMessage indicating that some new information has been loaded for a track (e.g. duration/display name, etc), and that the UI should refresh itself to show the new information
 struct TrackUpdatedAsyncMessage: AsyncMessage {
     
-    var messageType: AsyncMessageType = .trackInfoUpdated
+    let messageType: AsyncMessageType = .trackInfoUpdated
     
     // The index of the track that has been updated
     let trackIndex: Int
@@ -100,7 +100,7 @@ struct TrackUpdatedAsyncMessage: AsyncMessage {
 // AsyncMessage indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
 struct TrackAddedAsyncMessage: AsyncMessage {
     
-    var messageType: AsyncMessageType = .trackAdded
+    let messageType: AsyncMessageType = .trackAdded
     
     // The index of the newly added track
     let trackIndex: Int
@@ -125,7 +125,7 @@ struct TrackAddedAsyncMessage: AsyncMessage {
 
 struct TracksRemovedAsyncMessage: AsyncMessage {
     
-    var messageType: AsyncMessageType = .tracksRemoved
+    let messageType: AsyncMessageType = .tracksRemoved
     
     let results: TrackRemovalResults
     let playingTrackRemoved: Bool
@@ -159,7 +159,7 @@ struct TrackAddedMessageProgress {
 // AsyncMessage indicating that an error was encountered while attempting to play back a track
 struct TrackNotPlayedAsyncMessage: AsyncMessage {
  
-    var messageType: AsyncMessageType = .trackNotPlayed
+    let messageType: AsyncMessageType = .trackNotPlayed
     
     // The track that was playing before the track change (may be nil, meaning no track was playing)
     let oldTrack: IndexedTrack?
@@ -176,7 +176,7 @@ struct TrackNotPlayedAsyncMessage: AsyncMessage {
 // AsyncMessage indicating that some selected files were not loaded into the playlist
 struct TracksNotAddedAsyncMessage: AsyncMessage {
     
-    var messageType: AsyncMessageType = .tracksNotAdded
+    let messageType: AsyncMessageType = .tracksNotAdded
     
     // An array of error objects containing detailed information such as the track file and the root cause
     let errors: [InvalidTrackError]
@@ -189,13 +189,13 @@ struct TracksNotAddedAsyncMessage: AsyncMessage {
 // AsyncMessage indicating that tracks are now being added to the playlist in a background thread
 struct StartedAddingTracksAsyncMessage: AsyncMessage {
     
-    var messageType: AsyncMessageType = .startedAddingTracks
+    let messageType: AsyncMessageType = .startedAddingTracks
     static let instance = StartedAddingTracksAsyncMessage()
 }
 
 // AsyncMessage indicating that tracks are done being added to the playlist in a background thread
 struct DoneAddingTracksAsyncMessage: AsyncMessage {
     
-    var messageType: AsyncMessageType = .doneAddingTracks
+    let messageType: AsyncMessageType = .doneAddingTracks
     static let instance = DoneAddingTracksAsyncMessage()
 }

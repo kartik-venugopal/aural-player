@@ -5,41 +5,41 @@ protocol FlatPlaylistReorderOperation {}
 
 struct TrackRemovalOperation: FlatPlaylistReorderOperation {
     
-    var index: Int
+    let index: Int
 }
 
 struct TrackInsertionOperation: FlatPlaylistReorderOperation {
     
-    var srcTrack: Track
-    var destIndex: Int
+    let srcTrack: Track
+    let destIndex: Int
 }
 
 protocol GroupingPlaylistReorderOperation {}
 
 struct GroupedTrackRemovalOperation: GroupingPlaylistReorderOperation {
     
-    var group: Group
-    var trackIndex: Int
+    let group: Group
+    let trackIndex: Int
 }
 
 struct GroupedTrackInsertionOperation: GroupingPlaylistReorderOperation {
     
-    var group: Group
-    var srcTrack: Track
+    let group: Group
+    let srcTrack: Track
     
-    var srcIndex: Int
-    var destIndex: Int
+    let srcIndex: Int
+    let destIndex: Int
 }
 
 struct GroupRemovalOperation: GroupingPlaylistReorderOperation {
     
-    var index: Int
+    let index: Int
 }
 
 struct GroupInsertionOperation: GroupingPlaylistReorderOperation {
     
-    var srcGroup: Group
+    let srcGroup: Group
     
-    var srcIndex: Int
-    var destIndex: Int
+    let srcIndex: Int
+    let destIndex: Int
 }
