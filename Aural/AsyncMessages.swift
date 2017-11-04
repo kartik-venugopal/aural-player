@@ -127,10 +127,10 @@ struct TracksRemovedAsyncMessage: AsyncMessage {
     
     var messageType: AsyncMessageType = .tracksRemoved
     
-    let results: RemoveOperationResults
+    let results: TrackRemovalResults
     let playingTrackRemoved: Bool
     
-    init(_ results: RemoveOperationResults, _ playingTrackRemoved: Bool) {
+    init(_ results: TrackRemovalResults, _ playingTrackRemoved: Bool) {
         self.results = results
         self.playingTrackRemoved = playingTrackRemoved
     }

@@ -40,9 +40,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     override func viewDidLoad() {
         
         // Set up a mouse listener (for double clicks -> play selected track)
-//        tracksView.doubleAction = #selector(self.playSelectedTrackAction(_:))
-//        tracksView.target = self
-        
         [tracksView!, artistsView!, albumsView!, genresView!].forEach({
             $0.doubleAction = #selector(self.playSelectedTrackAction(_:))
             $0.target = self
@@ -55,15 +52,12 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         
         AsyncMessenger.subscribe(.trackNotPlayed, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.trackChanged, subscriber: self, dispatchQueue: DispatchQueue.main)
-        
-        SyncMessenger.subscribe(.stopPlaybackRequest, subscriber: self)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
     @IBAction func seekSliderAction(_ sender: AnyObject) {
         
         player.seekToPercentage(seekSlider.doubleValue)
-        
         SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
     }
     
@@ -277,13 +271,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         }
     }
     
-    private func stopPlayback() {
-        
-        let oldTrack = player.getPlayingTrack()
-        player.stop()
-        trackChange(oldTrack, nil)
-    }
-    
     @IBAction func prevTrackAction(_ sender: AnyObject) {
         
         let oldTrack = player.getPlayingTrack()
@@ -402,11 +389,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        
-        if (request is StopPlaybackRequest) {
-            stopPlayback()
-        }
-        
         return EmptyResponse.instance
     }
 }

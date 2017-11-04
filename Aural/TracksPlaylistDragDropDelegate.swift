@@ -183,7 +183,7 @@ class TracksPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
     private func performReordering(_ sourceIndexSet: IndexSet, _ dropRow: Int, _ destination: IndexSet) {
         
         // Collect all reorder operations, in sequence, for later submission to the playlist
-        var playlistReorderOperations = [PlaylistReorderOperation]()
+        var playlistReorderOperations = [FlatPlaylistReorderOperation]()
         
         // Step 1 - Store all source items (tracks) that are being reordered, in a temporary location.
         var sourceItems = [Track]()
@@ -191,7 +191,7 @@ class TracksPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         // Make sure they the source indexes are iterated in descending order. This will be important later.
         sourceIndexSet.sorted(by: {x, y -> Bool in x > y}).forEach({
             sourceItems.append((playlist.trackAtIndex($0)?.track)!)
-            playlistReorderOperations.append(TrackRemoveOperation(index: $0))
+            playlistReorderOperations.append(TrackRemovalOperation(index: $0))
         })
         
         var cursor = 0
@@ -204,7 +204,7 @@ class TracksPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         destinationRows.forEach({
             
             // For each destination row, copy over a source item into the corresponding destination hole
-            let reorderOperation = TrackInsertOperation(srcTrack: sourceItems[cursor], destIndex: $0)
+            let reorderOperation = TrackInsertionOperation(srcTrack: sourceItems[cursor], destIndex: $0)
             playlistReorderOperations.append(reorderOperation)
             cursor += 1
         })

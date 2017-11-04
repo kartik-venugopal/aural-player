@@ -1,14 +1,14 @@
 import Foundation
 
 // Marker protocol for a playlist reorder operation
-protocol PlaylistReorderOperation {}
+protocol FlatPlaylistReorderOperation {}
 
-struct TrackRemoveOperation: PlaylistReorderOperation {
+struct TrackRemovalOperation: FlatPlaylistReorderOperation {
     
     var index: Int
 }
 
-struct TrackInsertOperation: PlaylistReorderOperation {
+struct TrackInsertionOperation: FlatPlaylistReorderOperation {
     
     var srcTrack: Track
     var destIndex: Int
@@ -16,13 +16,13 @@ struct TrackInsertOperation: PlaylistReorderOperation {
 
 protocol GroupingPlaylistReorderOperation {}
 
-struct GroupedTrackRemoveOperation: GroupingPlaylistReorderOperation {
+struct GroupedTrackRemovalOperation: GroupingPlaylistReorderOperation {
     
     var group: Group
-    var index: Int
+    var trackIndex: Int
 }
 
-struct GroupedTrackInsertOperation: GroupingPlaylistReorderOperation {
+struct GroupedTrackInsertionOperation: GroupingPlaylistReorderOperation {
     
     var group: Group
     var srcTrack: Track
@@ -31,12 +31,12 @@ struct GroupedTrackInsertOperation: GroupingPlaylistReorderOperation {
     var destIndex: Int
 }
 
-struct GroupRemoveOperation: GroupingPlaylistReorderOperation {
+struct GroupRemovalOperation: GroupingPlaylistReorderOperation {
     
     var index: Int
 }
 
-struct GroupInsertOperation: GroupingPlaylistReorderOperation {
+struct GroupInsertionOperation: GroupingPlaylistReorderOperation {
     
     var srcGroup: Group
     

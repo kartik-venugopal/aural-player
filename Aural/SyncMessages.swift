@@ -48,9 +48,6 @@ enum MessageType {
     // See PlayingTrackInfoUpdatedNotification
     case playingTrackInfoUpdatedNotification
     
-    // See StopPlaybackRequest
-    case stopPlaybackRequest
-    
     // See RemoveTrackRequest
     case removeTrackRequest
     
@@ -158,17 +155,6 @@ struct PlayingTrackInfoUpdatedNotification: NotificationMessage {
 
     // Singleton
     static let instance: PlayingTrackInfoUpdatedNotification = PlayingTrackInfoUpdatedNotification()
-}
-
-// Request from the playlist to stop playback (for instance, when the playlist is cleared, or the playing track has been removed)
-struct StopPlaybackRequest: RequestMessage {
-    
-    let messageType: MessageType = .stopPlaybackRequest
-    
-    private init() {}
-    
-    // Singleton
-    static let instance: StopPlaybackRequest = StopPlaybackRequest()
 }
 
 // Request from the playlist search dialog to the playlist, to show a specific search result within the playlist.

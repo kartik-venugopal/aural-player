@@ -51,6 +51,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         // Register self as a subscriber to various AsyncMessage notifications
         AsyncMessenger.subscribe(.trackAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.trackInfoUpdated, subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe(.tracksRemoved, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.tracksNotAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.startedAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
         AsyncMessenger.subscribe(.doneAddingTracks, subscriber: self, dispatchQueue: DispatchQueue.main)
@@ -316,6 +317,11 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             
             let req = request as! RemoveTrackRequest
             _ = playlist.removeTracks([req.index])
+            
+            sequenceChanged()
+            updatePlaylistSummary()
+            
+            return EmptyResponse.instance
         }
         
         return EmptyResponse.instance

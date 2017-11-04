@@ -52,22 +52,22 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     func addTrack(_ track: Track) -> TrackAddResult?
     
     // Removes tracks with the given indexes
-    func removeTracks(_ indexes: IndexSet) -> RemoveOperationResults
+    func removeTracks(_ indexes: IndexSet) -> TrackRemovalResults
     
-    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> RemoveOperationResults
+    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> TrackRemovalResults
     
     // See FlatPlaylistMutatorProtocol.moveTracksUp()
-    func moveTracksUp(_ indexes: IndexSet) -> ItemMovedResults
+    func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults
     
     // See FlatPlaylistMutatorProtocol.moveTracksDown()
-    func moveTracksDown(_ indexes: IndexSet) -> ItemMovedResults
+    func moveTracksDown(_ indexes: IndexSet) -> ItemMoveResults
     
-    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults
+    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults
     
-    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults
+    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults
     
     // Performs a sequence of playlist reorder operations
-    func reorderTracks(_ reorderOperations: [PlaylistReorderOperation])
+    func reorderTracks(_ reorderOperations: [FlatPlaylistReorderOperation])
     
     func reorderTracksAndGroups(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType)
     

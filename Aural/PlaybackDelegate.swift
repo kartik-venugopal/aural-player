@@ -375,10 +375,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         prepareNextTracksForPlayback()
     }
     
-    func tracksRemoved(_ removeResults: RemoveOperationResults, _ playingTrackRemoved: Bool) {
+    func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool) {
         
         if (playingTrackRemoved) {
             stop()
+            AsyncMessenger.publishMessage(TrackChangedAsyncMessage(nil, nil))
         }
         
         if (playlist.size() > 0) {

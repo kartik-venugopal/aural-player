@@ -157,19 +157,19 @@ class Playlist: PlaylistCRUDProtocol {
         return state
     }
     
-    func removeTracks(_ indexes: IndexSet) -> RemoveOperationResults {
+    func removeTracks(_ indexes: IndexSet) -> TrackRemovalResults {
         
         let removedTracks = flatPlaylist.removeTracks(indexes)
         removedTracks.forEach({tracksByFilePath.removeValue(forKey: $0.file.path)})
         
-        var groupingPlaylistResults = [GroupType: ItemRemovedResults]()
+        var groupingPlaylistResults = [GroupType: [ItemRemovalResult]]()
         
         // Remove from all other playlists
         groupingPlaylists.values.forEach({
             groupingPlaylistResults[$0.groupType()] = $0.removeTracksAndGroups(removedTracks, [])
         })
         
-        return RemoveOperationResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: indexes)
+        return TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: indexes)
     }
     
     // ----------------------- FlatPlaylist protocols ----------------------------
@@ -178,11 +178,11 @@ class Playlist: PlaylistCRUDProtocol {
         return flatPlaylist.indexOfTrack(track)
     }
     
-    func moveTracksDown(_ indexes: IndexSet) -> ItemMovedResults {
+    func moveTracksDown(_ indexes: IndexSet) -> ItemMoveResults {
         return flatPlaylist.moveTracksDown(indexes)
     }
     
-    func moveTracksUp(_ indexes: IndexSet) -> ItemMovedResults {
+    func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults {
         return flatPlaylist.moveTracksUp(indexes)
     }
     
@@ -190,7 +190,7 @@ class Playlist: PlaylistCRUDProtocol {
         return flatPlaylist.trackAtIndex(index)
     }
     
-    func reorderTracks(_ reorderOperations: [PlaylistReorderOperation]) {
+    func reorderTracks(_ reorderOperations: [FlatPlaylistReorderOperation]) {
         flatPlaylist.reorderTracks(reorderOperations)
     }
     
@@ -212,7 +212,7 @@ class Playlist: PlaylistCRUDProtocol {
         return groupingPlaylists[type]!.numberOfGroups()
     }
     
-    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> RemoveOperationResults {
+    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> TrackRemovalResults {
         
         // Remove file/track mappings
         var removedTracks: [Track] = tracks
@@ -223,7 +223,7 @@ class Playlist: PlaylistCRUDProtocol {
         
         removedTracks.forEach({tracksByFilePath.removeValue(forKey: $0.file.path)})
         
-        var groupingPlaylistResults = [GroupType: ItemRemovedResults]()
+        var groupingPlaylistResults = [GroupType: [ItemRemovalResult]]()
         
         // Remove from playlist with specified group type
         groupingPlaylistResults[groupType] = groupingPlaylists[groupType]!.removeTracksAndGroups(tracks, groups)
@@ -236,16 +236,16 @@ class Playlist: PlaylistCRUDProtocol {
         
         let flatPlaylistIndexes = flatPlaylist.removeTracks(removedTracks)
         
-        let results = RemoveOperationResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: flatPlaylistIndexes)
+        let results = TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: flatPlaylistIndexes)
         
         return results
     }
     
-    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults {
+    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
         return groupingPlaylists[groupType]!.moveTracksAndGroupsUp(tracks, groups)
     }
     
-    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults {
+    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
         return groupingPlaylists[groupType]!.moveTracksAndGroupsDown(tracks, groups)
     }
     
@@ -277,8 +277,94 @@ struct GroupedTrackUpdateResult {
     let oldGroupRemoved: Bool
 }
 
-struct RemoveOperationResults {
+struct TrackRemovalResults {
     
-    let groupingPlaylistResults: [GroupType: ItemRemovedResults]
+    let groupingPlaylistResults: [GroupType: [ItemRemovalResult]]
     let flatPlaylistResults: IndexSet
+}
+
+protocol ItemRemovalResult {
+    var sortIndex: Int {get}
+}
+
+struct GroupRemovalResult: ItemRemovalResult {
+    
+    let group: Group
+    let groupIndex: Int
+    
+    var sortIndex: Int {
+        return groupIndex
+    }
+    
+    init(_ group: Group, _ groupIndex: Int) {
+        
+        self.group = group
+        self.groupIndex = groupIndex
+    }
+}
+
+struct GroupedTracksRemovalResult: ItemRemovalResult {
+    
+    let trackIndexesInGroup: IndexSet
+    let parentGroup: Group
+    let groupIndex: Int
+    
+    var sortIndex: Int {
+        return groupIndex
+    }
+    
+    init(_ trackIndexesInGroup: IndexSet, _ parentGroup: Group, _ groupIndex: Int) {
+        self.trackIndexesInGroup = trackIndexesInGroup
+        self.parentGroup = parentGroup
+        self.groupIndex = groupIndex
+    }
+}
+
+struct ItemMoveResults {
+    
+    let results: [ItemMoveResult]
+    let playlistType: PlaylistType
+    
+    init(_ results: [ItemMoveResult], _ playlistType: PlaylistType) {
+        self.results = results
+        self.playlistType = playlistType
+    }
+}
+
+protocol ItemMoveResult {
+    var sortIndex: Int {get}
+}
+
+struct GroupMoveResult: ItemMoveResult {
+    
+    let oldGroupIndex: Int
+    let newGroupIndex: Int
+    
+    var sortIndex: Int {
+        return oldGroupIndex
+    }
+    
+    init(_ oldGroupIndex: Int, _ newGroupIndex: Int) {
+        
+        self.oldGroupIndex = oldGroupIndex
+        self.newGroupIndex = newGroupIndex
+    }
+}
+
+struct TrackMoveResult: ItemMoveResult {
+    
+    let oldTrackIndex: Int
+    let newTrackIndex: Int
+    let parentGroup: Group?
+    
+    var sortIndex: Int {
+        return oldTrackIndex
+    }
+    
+    init(_ oldTrackIndex: Int, _ newTrackIndex: Int, _ parentGroup: Group? = nil) {
+        
+        self.oldTrackIndex = oldTrackIndex
+        self.newTrackIndex = newTrackIndex
+        self.parentGroup = parentGroup
+    }
 }
