@@ -129,16 +129,10 @@ struct TrackChangedNotification: NotificationMessage {
 struct SequenceChangedNotification: NotificationMessage {
     
     let messageType: MessageType = .sequenceChangedNotification
+    private init() {}
     
-    let updatedSequence: SequenceScope
-    let trackIndex: Int
-    let totalTracks: Int
-    
-    init(_ updatedSequence: SequenceScope, _ trackIndex: Int, _ totalTracks: Int) {
-        self.updatedSequence = updatedSequence
-        self.trackIndex = trackIndex
-        self.totalTracks = totalTracks
-    }
+    // Singleton
+    static let instance: SequenceChangedNotification = SequenceChangedNotification()
 }
 
 // Notification indicating that new information is available for the currently playing track, and the UI needs to be refreshed with the new information

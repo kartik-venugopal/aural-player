@@ -272,8 +272,13 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         }
     }
     
-    private func sequenceChanged(_ msg: SequenceChangedNotification) {
-        lblSequenceProgress.stringValue = String(format: "%d / %d", msg.trackIndex, msg.totalTracks)
+    private func sequenceChanged() {
+        
+        let sequence = playbackInfo.getPlaybackSequenceInfo()
+        let trackIndex = sequence.trackIndex
+        let totalTracks = sequence.totalTracks
+        
+        lblSequenceProgress.stringValue = String(format: "%d / %d", trackIndex, totalTracks)
     }
     
     // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
@@ -319,8 +324,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         }
         
         if (notification is SequenceChangedNotification) {
-            let msg = notification as! SequenceChangedNotification
-            sequenceChanged(msg)
+            sequenceChanged()
             return
         }
         

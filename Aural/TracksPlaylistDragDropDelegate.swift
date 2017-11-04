@@ -1,7 +1,3 @@
-/*
- Data source and view delegate for the NSTableView that displays the playlist. Creates table cells with the necessary track information.
- */
-
 import Cocoa
 import AVFoundation
 
@@ -48,6 +44,7 @@ class TracksPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
             
             // Reordering of tracks
             if let sourceIndexSet = getSourceIndexes(info) {
+                
                 return validateReorderOperation(tableView, sourceIndexSet, row, dropOperation) ? .move : invalidDragOperation
             }
             
@@ -80,35 +77,30 @@ class TracksPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
             
             if let sourceIndexSet = getSourceIndexes(info) {
                 
-                // Calculate the destination rows for the reorder operation, and perform the reordering
-                let destination = calculateReorderingDestination(tableView, sourceIndexSet, row, dropOperation)
-                performReordering(sourceIndexSet, row, destination)
+                // Perform the reordering
+                let destination = playlist.dropTracks(sourceIndexSet, row, DropType.fromDropOperation(dropOperation))
                 
                 // Refresh the playlist view (only the relevant rows), and re-select the source rows that were reordered
                 
-                let src = sourceIndexSet.toArray()
-                let dest = destination.toArray()
+                let srcArray = sourceIndexSet.toArray()
+                let destArray = destination.toArray()
                 
+                // Swap source rows with destination rows
                 var cur = 0
-                while (cur < src.count) {
-                    tableView.moveRow(at: src[cur], to: dest[cur])
+                while (cur < sourceIndexSet.count) {
+                    tableView.moveRow(at: srcArray[cur], to: destArray[cur])
                     cur += 1
                 }
                 
-                let minReloadIndex = min(sourceIndexSet.min()!, destination.min()!)
-                let maxReloadIndex = max(sourceIndexSet.max()!, destination.max()!)
-                
-                let reloadIndexes = IndexSet(minReloadIndex...maxReloadIndex)
+                // Reload all source and destination rows, and all rows in between
+                let srcDestUnion = sourceIndexSet.union(destination)
+                let reloadIndexes = IndexSet(srcDestUnion.min()!...srcDestUnion.max()!)
                 tableView.reloadData(forRowIndexes: reloadIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
                 
                 tableView.selectRowIndexes(destination, byExtendingSelection: false)
                 
                 if (playbackInfo.getPlayingTrack() != nil) {
-                    
-                    let sequenceInfo = playbackInfo.getPlaybackSequenceInfo()
-                    let sequenceChangedMsg = SequenceChangedNotification(sequenceInfo.scope, sequenceInfo.trackIndex, sequenceInfo.totalTracks)
-                    
-                    SyncMessenger.publishNotification(sequenceChangedMsg)
+                    SyncMessenger.publishNotification(SequenceChangedNotification.instance)
                 }
                 
                 return true
@@ -125,91 +117,21 @@ class TracksPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         
         return false
     }
+}
+
+enum DropType {
     
-    /*
-     In response to a playlist reordering by drag and drop, and given source indexes, a destination index, and the drop operation (on/above), determines which indexes the source rows will occupy.
-     */
-    private func calculateReorderingDestination(_ tableView: NSTableView, _ sourceIndexSet: IndexSet, _ dropRow: Int, _ operation: NSTableViewDropOperation) -> IndexSet {
+    case on
+    case above
+    
+    static func fromDropOperation(_ dropOp: NSTableViewDropOperation) -> DropType {
         
-        // Find out how many source items are above the dropRow and how many below
-        let sourceIndexesAboveDropRow = sourceIndexSet.filter({$0 < dropRow})
-        let sourceIndexesBelowDropRow = sourceIndexSet.filter({$0 > dropRow})
-        
-        // The lowest index in the destination rows
-        var minDestinationRow: Int
-        
-        // The highest index in the destination rows
-        var maxDestinationRow: Int
-        
-        // The destination rows will depend on whether the drop is to be performed above or on the dropRow
-        if (operation == .above) {
+        switch dropOp {
             
-            // All source items above the dropRow will form a contiguous block ending just above (one row above) the dropRow
-            // All source items below the dropRow will form a contiguous block starting at the dropRow and extending below it
+        case .on: return .on
             
-            minDestinationRow = dropRow - sourceIndexesAboveDropRow.count
-            maxDestinationRow = dropRow + sourceIndexesBelowDropRow.count - 1
+        case .above: return .above
             
-        } else {
-            
-            // On
-            
-            // If the drop is being performed on the dropRow, the destination rows will further depend on whether there are more source items above or below the dropRow.
-            if (sourceIndexesAboveDropRow.count > sourceIndexesBelowDropRow.count) {
-                
-                // There are more source items above the dropRow than below it
-                
-                // All source items above the dropRow will form a contiguous block ending at the dropRow
-                // All source items below the dropRow will form a contiguous block starting one row below the dropRow and extending below it
-                
-                minDestinationRow = dropRow - sourceIndexesAboveDropRow.count + 1
-                maxDestinationRow = dropRow + sourceIndexesBelowDropRow.count
-                
-            } else {
-                
-                // There are more source items below the dropRow than above it
-                
-                // All source items above the dropRow will form a contiguous block ending just above (one row above) the dropRow
-                // All source items below the dropRow will form a contiguous block starting at the dropRow and extending below it
-                
-                minDestinationRow = dropRow - sourceIndexesAboveDropRow.count
-                maxDestinationRow = dropRow + sourceIndexesBelowDropRow.count - 1
-            }
         }
-        
-        return IndexSet(minDestinationRow...maxDestinationRow)
-    }
-    
-    private func performReordering(_ sourceIndexSet: IndexSet, _ dropRow: Int, _ destination: IndexSet) {
-        
-        // Collect all reorder operations, in sequence, for later submission to the playlist
-        var playlistReorderOperations = [FlatPlaylistReorderOperation]()
-        
-        // Step 1 - Store all source items (tracks) that are being reordered, in a temporary location.
-        var sourceItems = [Track]()
-        
-        // Make sure they the source indexes are iterated in descending order. This will be important later.
-        sourceIndexSet.sorted(by: {x, y -> Bool in x > y}).forEach({
-            sourceItems.append((playlist.trackAtIndex($0)?.track)!)
-            playlistReorderOperations.append(TrackRemovalOperation(index: $0))
-        })
-        
-        var cursor = 0
-        
-        // Destination rows need to be sorted in ascending order
-        let destinationRows = destination.sorted(by: {x, y -> Bool in x < y})
-        
-        sourceItems = sourceItems.reversed()
-        
-        destinationRows.forEach({
-            
-            // For each destination row, copy over a source item into the corresponding destination hole
-            let reorderOperation = TrackInsertionOperation(srcTrack: sourceItems[cursor], destIndex: $0)
-            playlistReorderOperations.append(reorderOperation)
-            cursor += 1
-        })
-        
-        // Submit the reorder operations to the playlist
-        playlist.reorderTracks(playlistReorderOperations)
     }
 }

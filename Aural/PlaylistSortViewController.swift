@@ -70,10 +70,7 @@ class PlaylistSortViewController: NSViewController {
         
         // The playing track may have moved within the playlist. Update the sequence information displayed.
         if (playbackInfo.getPlayingTrack() != nil) {
-            
-            let sequenceInfo = playbackInfo.getPlaybackSequenceInfo()
-            let sequenceChangedMsg = SequenceChangedNotification(sequenceInfo.scope, sequenceInfo.trackIndex, sequenceInfo.totalTracks)
-            SyncMessenger.publishNotification(sequenceChangedMsg)
+            SyncMessenger.publishNotification(SequenceChangedNotification.instance)
         }
         
         UIUtils.dismissModalDialog()

@@ -39,8 +39,7 @@ protocol FlatPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
      */
     func moveTracksDown(_ indexes: IndexSet) -> ItemMoveResults
     
-    // Performs a sequence of playlist reorder operations
-    func reorderTracks(_ reorderOperations: [FlatPlaylistReorderOperation])
+    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet
     
     // Sorts the playlist according to the specified sort parameters
     func sort(_ sort: Sort)
