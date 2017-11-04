@@ -86,6 +86,15 @@ struct TrackUpdatedAsyncMessage: AsyncMessage {
         self.trackIndex = trackIndex
         self.groupInfo = groupInfo
     }
+    
+    // Factory method
+    static func fromTrackAddResult(_ result: TrackAddResult) -> TrackUpdatedAsyncMessage {
+        
+        var groupInfo = [GroupType: GroupedTrack]()
+        result.groupingPlaylistResults.forEach({groupInfo[$0.key] = $0.value.track})
+        
+        return TrackUpdatedAsyncMessage(result.flatPlaylistResult, groupInfo)
+    }
 }
 
 // AsyncMessage indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
@@ -106,6 +115,11 @@ struct TrackAddedAsyncMessage: AsyncMessage {
         self.trackIndex = trackIndex
         self.groupInfo = groupInfo
         self.progress = progress
+    }
+    
+    static func fromTrackAddResult(_ result: TrackAddResult, _ progress: TrackAddedMessageProgress) -> TrackAddedAsyncMessage {
+    
+        return TrackAddedAsyncMessage(result.flatPlaylistResult, result.groupingPlaylistResults, progress)
     }
 }
 

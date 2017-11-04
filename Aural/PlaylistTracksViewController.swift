@@ -43,7 +43,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, nil))
     }
     
-    func removeallTracks() {
+    func removeTracks() {
         
         let selectedIndexes = tracksView.selectedRowIndexes
         if (selectedIndexes.count > 0) {
@@ -66,14 +66,11 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
     // Assume non-empty array and valid indexes
     private func removeTracks(_ indexes: IndexSet) {
         
-        // Note down the index of the playing track, if there is one
-        let oldPlayingTrackIndex = playbackInfo.getPlayingTrack()?.index
-        
         // Remove the tracks from the playlist
-        _ = playlist.removeTracks(indexes.toArray())
+        let playingTrackRemoved = playlist.removeTracks(indexes.toArray())
         
-        if (oldPlayingTrackIndex != nil && indexes.contains(oldPlayingTrackIndex!)) {
-            _ = SyncMessenger.publishRequest(StopPlaybackRequest.instance)
+        if (playingTrackRemoved) {
+            SyncMessenger.publishNotification(TrackChangedNotification(nil, nil))
         }
     }
     
@@ -92,7 +89,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
             tracksView.reloadData(forRowIndexes: rowIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
         }
         
-        // Tell the playlist view that the number of rows has changed, and update the playlist summary
+        // Tell the playlist view that the number of rows has changed
         tracksView.noteNumberOfRowsChanged()
     }
     
@@ -263,7 +260,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
                 
             case .refresh: refresh()
                 
-            case .removeTracks: removeallTracks()
+            case .removeTracks: removeTracks()
                 
             case .showPlayingTrack: showPlayingTrack()
 

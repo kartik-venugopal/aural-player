@@ -19,7 +19,8 @@ class Playlist: PlaylistCRUDProtocol {
     }
     
     func allTracks() -> [Track] {
-        return flatPlaylist.allTracks()
+        let copy = flatPlaylist.allTracks()
+        return copy
     }
     
     func size() -> Int {
@@ -208,11 +209,7 @@ class Playlist: PlaylistCRUDProtocol {
     }
     
     func numberOfGroups(_ type: GroupType) -> Int {
-        if let playlist = groupingPlaylists[type] {
-        return playlist.numberOfGroups()
-        }
-        
-        return 0
+        return groupingPlaylists[type]!.numberOfGroups()
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> RemoveOperationResults {

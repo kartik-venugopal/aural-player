@@ -107,24 +107,6 @@ struct TrackAddedNotification: NotificationMessage {
     }
 }
 
-struct TrackGroupUpdatedNotification: NotificationMessage {
-    
-    let messageType: MessageType = .trackGroupUpdatedNotification
-    
-    // The index of the track that has been updated
-    let trackIndex: Int
-    
-    let oldGroupInfo: [GroupType: GroupedTrackAddResult]
-    let updatedGroupInfo: [GroupType: GroupedTrackUpdateResult]
-    
-    init(_ trackIndex: Int, _ oldGroupInfo: [GroupType: GroupedTrackAddResult], _ updatedGroupInfo: [GroupType: GroupedTrackUpdateResult]) {
-        
-        self.trackIndex = trackIndex
-        self.oldGroupInfo = oldGroupInfo
-        self.updatedGroupInfo = updatedGroupInfo
-    }
-}
-
 // Notification indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
 struct TrackChangedNotification: NotificationMessage {
     

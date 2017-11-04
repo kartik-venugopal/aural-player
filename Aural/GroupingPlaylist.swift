@@ -132,7 +132,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         ConcurrencyUtils.executeSynchronized(groups) {
         
-            group = findGroupByName(groupName)
+            group = groupsByName[groupName]
             if (group == nil) {
                 
                 // Create the group
@@ -154,23 +154,25 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         return GroupedTrackAddResult(track: groupedTrack, groupCreated: groupCreated)
     }
     
+    // Track may or may not already exist in playlist
     private func getGroupNameForTrack(_ track: Track) -> String {
         
-        var _groupName: String?
+        var groupName: String?
         
         switch self.type {
             
-        case .artist: _groupName = track.groupingInfo.artist
+        case .artist: groupName = track.groupingInfo.artist
             
-        case .album: _groupName = track.groupingInfo.album
+        case .album: groupName = track.groupingInfo.album
             
-        case .genre: _groupName = track.groupingInfo.genre
+        case .genre: groupName = track.groupingInfo.genre
             
         }
         
-        return _groupName ?? "<Unknown>"
+        return groupName ?? "<Unknown>"
     }
     
+    // Assumes track already exists in playlist, i.e. return value cannot be nil
     private func getGroupForTrack(_ track: Track) -> Group {
         
         let name = getGroupNameForTrack(track)
@@ -254,10 +256,6 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             
             return track.conciseDisplayName
         }
-    }
-    
-    private func findGroupByName(_ name: String) -> Group? {
-        return groupsByName[name]
     }
     
     private func removeTracksFromGroup(_ removedTracks: [Track], _ group: Group) -> IndexSet {

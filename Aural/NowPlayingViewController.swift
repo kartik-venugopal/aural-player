@@ -72,7 +72,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         
         // If there is a track currently playing, load detailed track info and toggle the popover view
         if (playingTrack != nil) {
+            
+            // TODO: This should be done through a delegate (TrackDelegate ???)
             playingTrack!.track.loadDetailedInfo()
+            
             popoverView.toggle()
         }
     }

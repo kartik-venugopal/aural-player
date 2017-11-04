@@ -157,7 +157,6 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             progress.totalTracks -= 1
             progress.totalTracks += (dirContents?.count)!
             
-            // Add them
             addFiles_sync(dirContents!, autoplayOptions, progress)
         }
     }
@@ -168,30 +167,23 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         let track = Track(file)
         TrackIO.loadDisplayInfo(track)
         
-        let trackAddResult = playlist.addTrack(track)
-        
         // Non-nil result indicates success
-        if let result = trackAddResult {
-            
-            let index = result.flatPlaylistResult
-            let groupResults = result.groupingPlaylistResults
+        if let result = playlist.addTrack(track) {
 
             // Inform the UI of the new track
-            AsyncMessenger.publishMessage(TrackAddedAsyncMessage(index, groupResults, progress))
+            AsyncMessenger.publishMessage(TrackAddedAsyncMessage.fromTrackAddResult(result, progress))
             
             // Load duration async
             DispatchQueue.global(qos: .userInitiated).async {
                 
                 TrackIO.loadDuration(track)
-                
-                var groupInfo = [GroupType: GroupedTrack]()
-                groupResults.forEach({groupInfo[$0.key] = $0.value.track})
-            
-                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage(index, groupInfo))
+                AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage.fromTrackAddResult(result))
             }
+            
+            return result
         }
         
-        return trackAddResult
+        return nil
     }
     
     // Performs autoplay, by delegating a playback request to the player
@@ -219,7 +211,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         }
     }
     
-    func removeTracks(_ indexes: [Int]) {
+    func removeTracks(_ indexes: [Int]) -> Bool {
         
         let playingTrack = playbackSequencer.getPlayingTrack()
         let results: RemoveOperationResults = playlist.removeTracks(IndexSet(indexes))
@@ -229,9 +221,11 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         AsyncMessenger.publishMessage(TracksRemovedAsyncMessage(results, playingTrackRemoved))
         
         changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved)})
+        
+        return playingTrackRemoved
     }
     
-    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {
+    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> Bool {
         
         let playingTrack = playbackSequencer.getPlayingTrack()
         let results = playlist.removeTracksAndGroups(tracks, groups, groupType)
@@ -241,6 +235,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         AsyncMessenger.publishMessage(TracksRemovedAsyncMessage(results, playingTrackRemoved))
         
         changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved)})
+        
+        return playingTrackRemoved
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> ItemMovedResults {

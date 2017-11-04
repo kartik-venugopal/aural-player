@@ -21,9 +21,11 @@ protocol PlaylistMutatorDelegateProtocol {
     func addFiles(_ files: [URL])
     
     // Removes track(s) with the given indexes
-    func removeTracks(_ indexes: [Int])
+    // Returns true if 1 - a track was playing, AND 2 - the playing track was removed, false otherwise
+    func removeTracks(_ indexes: [Int]) -> Bool
     
-    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType)
+    // Returns true if 1 - a track was playing, AND 2 - the playing track was removed, false otherwise
+    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> Bool
     
     // Clears the entire playlist of all tracks
     func clear()

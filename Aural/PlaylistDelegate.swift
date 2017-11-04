@@ -76,12 +76,12 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         mutator.addFiles(files)
     }
     
-    func removeTracks(_ indexes: [Int]) {
-        mutator.removeTracks(indexes)
+    func removeTracks(_ indexes: [Int]) -> Bool {
+        return mutator.removeTracks(indexes)
     }
     
-    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {
-        mutator.removeTracksAndGroups(tracks, groups, groupType)
+    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> Bool {
+        return mutator.removeTracksAndGroups(tracks, groups, groupType)
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> ItemMovedResults {
@@ -99,7 +99,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults {
         return mutator.moveTracksAndGroupsDown(tracks, groups, groupType)
     }
-    
+
     func clear() {
         mutator.clear()
     }
