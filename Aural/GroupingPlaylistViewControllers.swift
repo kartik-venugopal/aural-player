@@ -74,7 +74,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         return (tracks, groups)
     }
     
-    func removeallTracks() {
+    func removeTracks() {
         
         let tracksAndGroups = collectTracksAndGroups()
         let tracks = tracksAndGroups.tracks
@@ -85,7 +85,11 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             return
         }
         
-        playlist.removeTracksAndGroups(tracks, groups, groupType)
+        let playingTrackRemoved = playlist.removeTracksAndGroups(tracks, groups, groupType)
+        
+        if (playingTrackRemoved) {
+            SyncMessenger.publishNotification(TrackChangedNotification(nil, nil))
+        }
     }
     
     func tracksRemoved(_ results: RemoveOperationResults) {
@@ -222,23 +226,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         playlistView.scrollRowToVisible(playlistView.selectedRow)
     }
-    
-    private func trackAdded(_ message: TrackAddedNotification) {
-        
-        let result = message.groupInfo[self.groupType]!
-        
-        if result.groupCreated {
-            
-            playlistView.insertItems(at: IndexSet(integer: result.track.groupIndex), inParent: nil, withAnimation: NSTableViewAnimationOptions.effectFade)
-            
-        } else {
-            
-            let group = result.track.group
-            playlistView.insertItems(at: IndexSet(integer: result.track.trackIndex), inParent: group, withAnimation: .effectGap)
-            playlistView.reloadItem(group)
-        }
-    }
-    
+ 
     private func trackAdded(_ message: TrackAddedAsyncMessage) {
         
         let result = message.groupInfo[self.groupType]!
@@ -250,6 +238,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         } else {
         
             let group = result.track.group
+            
             playlistView.insertItems(at: IndexSet(integer: result.track.trackIndex), inParent: group, withAnimation: .effectGap)
             playlistView.reloadItem(group)
         }
@@ -293,11 +282,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if let msg = notification as? TrackAddedNotification {
-            trackAdded(msg)
-            return
-        }
-        
         if (notification is TrackChangedNotification) {
             
             let msg = notification as! TrackChangedNotification
@@ -329,7 +313,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 
             case .refresh: refresh()
                 
-            case .removeTracks: removeallTracks()
+            case .removeTracks: removeTracks()
                 
             case .showPlayingTrack: showPlayingTrack()
                 

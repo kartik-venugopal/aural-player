@@ -88,18 +88,13 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         let modalResponse = dialog.runModal()
         
         if (modalResponse == NSModalResponseOK) {
-            addFiles(dialog.urls)
+            startedAddingTracks()
+            playlist.addFiles(dialog.urls)
         }
     }
     
-    // Adds a set of files (or directories, i.e. files within them) to the current playlist, if supported
-    private func addFiles(_ files: [URL]) {
-        startedAddingallTracks()
-        playlist.addFiles(files)
-    }
-    
     // When a track add operation starts, the spinner needs to be initialized
-    private func startedAddingallTracks() {
+    private func startedAddingTracks() {
         
         playlistWorkSpinner.doubleValue = 0
         playlistWorkSpinner.isHidden = false
@@ -107,7 +102,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     }
     
     // When a track add operation ends, the spinner needs to be de-initialized
-    private func doneAddingallTracks() {
+    private func doneAddingTracks() {
         
         playlistWorkSpinner.stopAnimation(self)
         playlistWorkSpinner.isHidden = true
@@ -295,7 +290,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             return
         }
 
-        
         if message is TracksNotAddedAsyncMessage {
             let _msg = message as! TracksNotAddedAsyncMessage
             handleTracksNotAddedError(_msg.errors)
@@ -303,12 +297,12 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         }
         
         if message is StartedAddingTracksAsyncMessage {
-            startedAddingallTracks()
+            startedAddingTracks()
             return
         }
         
         if message is DoneAddingTracksAsyncMessage {
-            doneAddingallTracks()
+            doneAddingTracks()
             return
         }
     }

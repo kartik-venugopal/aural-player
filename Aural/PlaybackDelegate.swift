@@ -396,5 +396,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func playlistCleared() {
         stop()
+        AsyncMessenger.publishMessage(TrackChangedAsyncMessage(nil, nil))
     }
 }

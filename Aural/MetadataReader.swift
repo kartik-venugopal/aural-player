@@ -99,41 +99,14 @@ class MetadataReader {
         }
     }
     
-    // Load only the metadata required for a search (e.g. album), for a track
-    static func loadSearchMetadata(_ track: Track) {
-        
-        // Check if metadata has already been loaded
-        if (track.metadata[AVMetadataCommonKeyAlbumName] != nil) {
-            return
-        }
-        
-        if (track.audioAsset == nil) {
-            track.audioAsset = AVURLAsset(url: track.file, options: nil)
-        }
-        
-        // Album
-        if let album = loadMetadataForCommonKey(track, AVMetadataCommonKeyAlbumName) {
-            
-            if (!StringUtils.isStringEmpty(album)) {
-                let entry = MetadataEntry(.common, AVMetadataCommonKeyAlbumName, album)
-                track.metadata[AVMetadataCommonKeyAlbumName] = entry
-            }
-        }
-    }
-    
     static func loadGroupingMetadata(_ track: Track) {
-        
-        // TODO: Optimize
-//        loadAllMetadata(track)
-//        let album = track.metadata[AVMetadataCommonKeyAlbumName]?.value
-//        let genre = track.metadata[AVMetadataCommonKeyType]?.value
-        
-//        let diskNumber = track.metadata[AVMetadataID3MetadataKeyPartOfASet]?.value ?? track.metadata[AVMetadataiTunesMetadataKeyDiscNumber]?.value
-//        let trackNumber = track.metadata[AVMetadataID3MetadataKeyTrackNumber]?.value ?? track.metadata[AVMetadataiTunesMetadataKeyTrackNumber]?.value
         
         track.groupingInfo.artist = track.displayInfo.artist
         track.groupingInfo.album = loadMetadataForCommonKey(track, AVMetadataCommonKeyAlbumName)
         track.groupingInfo.genre = loadMetadataForCommonKey(track, AVMetadataCommonKeyType)
+        
+        //        let diskNumber = track.metadata[AVMetadataID3MetadataKeyPartOfASet]?.value ?? track.metadata[AVMetadataiTunesMetadataKeyDiscNumber]?.value
+        //        let trackNumber = track.metadata[AVMetadataID3MetadataKeyTrackNumber]?.value ?? track.metadata[AVMetadataiTunesMetadataKeyTrackNumber]?.value
         
         // TODO: Clean up
 //        if let _disk = diskNumber {
