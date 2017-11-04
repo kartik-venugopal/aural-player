@@ -31,7 +31,7 @@ protocol RequestMessage: SyncMessage {
 protocol ResponseMessage: SyncMessage {
 }
 
-// Enumeration of the different message types. See the various Message structs below, for descriptions of each message type.
+// Enumeration of the different message types. See the letious Message structs below, for descriptions of each message type.
 enum MessageType {
     
     case trackAddedNotification
@@ -110,20 +110,15 @@ struct TrackChangedNotification: NotificationMessage {
     let messageType: MessageType = .trackChangedNotification
     
     // The track that was playing before the track change (may be nil, meaning no track was playing)
-    var oldTrack: IndexedTrack?
+    let oldTrack: IndexedTrack?
     
     // The track that is now playing (may be nil, meaning no track playing)
-    var newTrack: IndexedTrack?
+    let newTrack: IndexedTrack?
     
     // Flag indicating whether or not playback resulted in an error
-    var errorState: Bool = false
+    let errorState: Bool
     
-    init(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?) {
-        self.oldTrack = oldTrack
-        self.newTrack = newTrack
-    }
-    
-    init(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?, _ errorState: Bool) {
+    init(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         self.oldTrack = oldTrack
         self.newTrack = newTrack
         self.errorState = errorState
@@ -175,7 +170,7 @@ struct RemoveTrackRequest: RequestMessage {
     let messageType: MessageType = .removeTrackRequest
     
     // Index of the track that needs to be removed
-    var index: Int
+    let index: Int
     
     init(_ index: Int) {
         self.index = index
@@ -188,7 +183,7 @@ struct PlaybackRateChangedNotification: NotificationMessage {
     let messageType: MessageType = .playbackRateChangedNotification
     
     // The new playback rate
-    var newPlaybackRate: Float
+    let newPlaybackRate: Float
     
     init(_ newPlaybackRate: Float) {
         self.newPlaybackRate = newPlaybackRate
@@ -201,7 +196,7 @@ struct PlaybackStateChangedNotification: NotificationMessage {
     let messageType: MessageType = .playbackStateChangedNotification
     
     // The new playback state
-    var newPlaybackState: PlaybackState
+    let newPlaybackState: PlaybackState
     
     init(_ newPlaybackState: PlaybackState) {
         self.newPlaybackState = newPlaybackState
@@ -236,7 +231,7 @@ struct AppLoadedNotification: NotificationMessage {
     let messageType: MessageType = .appLoadedNotification
     
     // Files specified as launch parameters (files that the app needs to open upon launch)
-    var filesToOpen: [URL]
+    let filesToOpen: [URL]
     
     init(_ filesToOpen: [URL]) {
         self.filesToOpen = filesToOpen
@@ -249,10 +244,10 @@ struct AppReopenedNotification: NotificationMessage {
     let messageType: MessageType = .appReopenedNotification
     
     // Files specified as launch parameters (files that the app needs to open)
-    var filesToOpen: [URL]
+    let filesToOpen: [URL]
     
     // Whether or not the app has already sent a notification of this type very recently
-    var isDuplicateNotification: Bool
+    let isDuplicateNotification: Bool
     
     init(_ filesToOpen: [URL], _ isDuplicateNotification: Bool) {
         self.filesToOpen = filesToOpen
@@ -264,7 +259,6 @@ struct AppReopenedNotification: NotificationMessage {
 struct PlaylistTypeChangedNotification: NotificationMessage {
     
     let messageType: MessageType = .playlistTypeChangedNotification
-    
     let newPlaylistType: PlaylistType
 }
 
@@ -285,7 +279,7 @@ struct AppExitResponse: ResponseMessage {
     let messageType: MessageType = .appExitResponse
     
     // Whether or not it is ok for the application to exit
-    var okToExit: Bool
+    let okToExit: Bool
     
     // Instance indicating an "Ok to exit" response
     static let okToExit: AppExitResponse = AppExitResponse(true)
