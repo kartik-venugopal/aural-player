@@ -165,11 +165,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
                 performReordering(outlineView, srcRows: srcRows, childIndexes, index, destination)
                 
                 if (playbackInfo.getPlayingTrack() != nil) {
-                    
-                    let sequenceInfo = playbackInfo.getPlaybackSequenceInfo()
-                    let sequenceChangedMsg = SequenceChangedNotification(sequenceInfo.scope, sequenceInfo.trackIndex, sequenceInfo.totalTracks)
-                    
-                    SyncMessenger.publishNotification(sequenceChangedMsg)
+                    SyncMessenger.publishNotification(SequenceChangedNotification.instance)
                 }
                 
                 return true

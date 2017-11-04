@@ -329,15 +329,17 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         return EmptyResponse.instance
     }
     
-    func reorderTracks(_ reorderOperations: [FlatPlaylistReorderOperation]) {
-        playlist.reorderTracks(reorderOperations)
-        changeListeners.forEach({$0.tracksReordered(.tracks)})
-    }
-    
     func reorderTracksAndGroups(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType) {
         
         playlist.reorderTracksAndGroups(reorderOperations, groupType)
         changeListeners.forEach({$0.tracksReordered(groupType.toPlaylistType())})
+    }
+    
+    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
+        
+        let destination = playlist.dropTracks(sourceIndexes, dropIndex, dropType)
+        changeListeners.forEach({$0.tracksReordered(.tracks)})
+        return destination
     }
 }
 

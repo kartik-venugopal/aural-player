@@ -190,10 +190,6 @@ class Playlist: PlaylistCRUDProtocol {
         return flatPlaylist.trackAtIndex(index)
     }
     
-    func reorderTracks(_ reorderOperations: [FlatPlaylistReorderOperation]) {
-        flatPlaylist.reorderTracks(reorderOperations)
-    }
-    
     // ----------------------- GroupingPlaylist protocols ----------------------------
     
     func groupAtIndex(_ type: GroupType, _ index: Int) -> Group {
@@ -255,6 +251,10 @@ class Playlist: PlaylistCRUDProtocol {
     
     func reorderTracksAndGroups(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType) {
         groupingPlaylists[groupType]!.reorderTracksAndGroups(reorderOperations)
+    }
+    
+    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
+        return flatPlaylist.dropTracks(sourceIndexes, dropIndex, dropType)
     }
 }
 

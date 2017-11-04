@@ -168,23 +168,6 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     private func swapTracks(_ trackIndex1: Int, _ trackIndex2: Int) {
         swap(&tracks[trackIndex1], &tracks[trackIndex2])
     }
-    
-    func reorderTracks(_ reorderOperations: [FlatPlaylistReorderOperation]) {
-        
-        // Perform all operations in sequence
-        for op in reorderOperations {
-            
-            // Check which kind of operation this is, and perform it
-            if let removeOp = op as? TrackRemovalOperation {
-                
-                tracks.remove(at: removeOp.index)
-                
-            } else if let insertOp = op as? TrackInsertionOperation {
-                
-                tracks.insert(insertOp.srcTrack, at: insertOp.destIndex)
-            }
-        }
-    }
  
     func search(_ searchQuery: SearchQuery) -> SearchResults {
         
@@ -279,5 +262,93 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
                 tracks.sort(by: Sorts.compareTracks_descendingByDuration)
             }
         }
+    }
+    
+    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
+        
+        let destination = calculateReorderingDestination(sourceIndexes, dropIndex, dropType)
+        performReordering(sourceIndexes, destination)
+        return destination
+    }
+    
+    /*
+     In response to a playlist reordering by drag and drop, and given source indexes, a destination index, and the drop operation (on/above), determines which indexes the source indexs will occupy.
+     */
+    private func calculateReorderingDestination(_ sourceIndexSet: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
+        
+        // Find out how many source items are above the dropIndex and how many below
+        let sourceIndexesAboveDropIndex = sourceIndexSet.count(in: 0..<dropIndex)
+        let sourceIndexesBelowDropIndex = sourceIndexSet.count - sourceIndexesAboveDropIndex
+        
+        // The lowest index in the destination indexes
+        var minDestinationIndex: Int
+        
+        // The highest index in the destination indexes
+        var maxDestinationIndex: Int
+        
+        // The destination indexes will depend on whether the drop is to be performed above or on the dropIndex
+        if (dropType == .above) {
+            
+            // All source items above the dropIndex will form a contiguous block ending just above (one index above) the dropIndex
+            // All source items below the dropIndex will form a contiguous block starting at the dropIndex and extending below it
+            
+            minDestinationIndex = dropIndex - sourceIndexesAboveDropIndex
+            maxDestinationIndex = dropIndex + sourceIndexesBelowDropIndex - 1
+            
+        } else {
+            
+            // On
+            
+            // If the drop is being performed on the dropIndex, the destination indexes will further depend on whether there are more source items above or below the dropIndex.
+            if (sourceIndexesAboveDropIndex > sourceIndexesBelowDropIndex) {
+                
+                // There are more source items above the dropIndex than below it
+                
+                // All source items above the dropIndex will form a contiguous block ending at the dropIndex
+                // All source items below the dropIndex will form a contiguous block starting one index below the dropIndex and extending below it
+                
+                minDestinationIndex = dropIndex - sourceIndexesAboveDropIndex + 1
+                maxDestinationIndex = dropIndex + sourceIndexesBelowDropIndex
+                
+            } else {
+                
+                // There are more source items below the dropIndex than above it
+                
+                // All source items above the dropIndex will form a contiguous block ending just above (one index above) the dropIndex
+                // All source items below the dropIndex will form a contiguous block starting at the dropIndex and extending below it
+                
+                minDestinationIndex = dropIndex - sourceIndexesAboveDropIndex
+                maxDestinationIndex = dropIndex + sourceIndexesBelowDropIndex - 1
+            }
+        }
+        
+        return IndexSet(minDestinationIndex...maxDestinationIndex)
+    }
+    
+    private func performReordering(_ sourceIndexes: IndexSet, _ destinationIndexes: IndexSet) {
+        
+        print("Here in flatPlaylist !")
+        
+        // Step 1 - Store all source items (tracks) that are being reordered, in a temporary location.
+        var sourceItems = [Track]()
+        
+        // Make sure they the source indexes are iterated in descending order, because tracks need to be removed from the bottom up.
+        sourceIndexes.sorted(by: {x, y -> Bool in x > y}).forEach({
+            sourceItems.append(tracks.remove(at: $0))
+        })
+        
+        var cursor = 0
+        
+        // Destination indexes need to be sorted in ascending order, because tracks need to be inserted from the top down
+        let destinationIndexes = destinationIndexes.sorted(by: {x, y -> Bool in x < y})
+        
+        sourceItems = sourceItems.reversed()
+        
+        destinationIndexes.forEach({
+            
+            // For each destination index, copy over a source item into the corresponding destination hole
+            tracks.insert(sourceItems[cursor], at: $0)
+            cursor += 1
+        })
     }
 }
