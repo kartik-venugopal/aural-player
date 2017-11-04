@@ -211,21 +211,19 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         }
     }
     
-    func removeTracks(_ indexes: [Int]) -> Bool {
+    func removeTracks(_ indexes: IndexSet) {
         
         let playingTrack = playbackSequencer.getPlayingTrack()
-        let results: RemoveOperationResults = playlist.removeTracks(IndexSet(indexes))
+        let results: TrackRemovalResults = playlist.removeTracks(indexes)
         
         let playingTrackRemoved = playingTrack != nil && indexes.contains(playingTrack!.index)
         
         AsyncMessenger.publishMessage(TracksRemovedAsyncMessage(results, playingTrackRemoved))
         
         changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved)})
-        
-        return playingTrackRemoved
     }
     
-    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> Bool {
+    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {
         
         let playingTrack = playbackSequencer.getPlayingTrack()
         let results = playlist.removeTracksAndGroups(tracks, groups, groupType)
@@ -235,29 +233,27 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         AsyncMessenger.publishMessage(TracksRemovedAsyncMessage(results, playingTrackRemoved))
         
         changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved)})
-        
-        return playingTrackRemoved
     }
     
-    func moveTracksUp(_ indexes: IndexSet) -> ItemMovedResults {
+    func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults {
         let results = playlist.moveTracksUp(indexes)
         changeListeners.forEach({$0.tracksReordered(.tracks)})
         return results
     }
     
-    func moveTracksDown(_ indexes: IndexSet) -> ItemMovedResults {
+    func moveTracksDown(_ indexes: IndexSet) -> ItemMoveResults {
         let results = playlist.moveTracksDown(indexes)
         changeListeners.forEach({$0.tracksReordered(.tracks)})
         return results
     }
     
-    private func findNewIndexFor(_ oldIndex: Int, _ results: ItemMovedResults) -> Int {
+    private func findNewIndexFor(_ oldIndex: Int, _ results: ItemMoveResults) -> Int {
         
         var newIndex: Int = -1
         
         results.results.forEach({
         
-            let trackMovedResult = $0 as! TrackMovedResult
+            let trackMovedResult = $0 as! TrackMoveResult
             if trackMovedResult.oldTrackIndex == oldIndex {
                 newIndex = trackMovedResult.newTrackIndex
             }
@@ -266,13 +262,13 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         return newIndex
     }
     
-    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults {
+    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
         let results = playlist.moveTracksAndGroupsUp(tracks, groups, groupType)
         changeListeners.forEach({$0.tracksReordered(groupType.toPlaylistType())})
         return results
     }
     
-    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults {
+    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
         let results = playlist.moveTracksAndGroupsDown(tracks, groups, groupType)
         changeListeners.forEach({$0.tracksReordered(groupType.toPlaylistType())})
         return results
@@ -333,7 +329,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         return EmptyResponse.instance
     }
     
-    func reorderTracks(_ reorderOperations: [PlaylistReorderOperation]) {
+    func reorderTracks(_ reorderOperations: [FlatPlaylistReorderOperation]) {
         playlist.reorderTracks(reorderOperations)
         changeListeners.forEach({$0.tracksReordered(.tracks)})
     }

@@ -23,11 +23,11 @@ protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     // Adds a single track to the playlist, and returns its index within the playlist.
     func addTrack(_ track: Track) -> GroupedTrackAddResult
     
-    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group]) -> ItemRemovedResults
+    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group]) -> [ItemRemovalResult]
     
-    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group]) -> ItemMovedResults
+    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group]) -> ItemMoveResults
     
-    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group]) -> ItemMovedResults
+    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group]) -> ItemMoveResults
     
     func reorderTracksAndGroups(_ reorderOperations: [GroupingPlaylistReorderOperation])
     

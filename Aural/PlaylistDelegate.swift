@@ -76,27 +76,27 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         mutator.addFiles(files)
     }
     
-    func removeTracks(_ indexes: [Int]) -> Bool {
+    func removeTracks(_ indexes: IndexSet) {
         return mutator.removeTracks(indexes)
     }
     
-    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> Bool {
-        return mutator.removeTracksAndGroups(tracks, groups, groupType)
+    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {
+        mutator.removeTracksAndGroups(tracks, groups, groupType)
     }
     
-    func moveTracksUp(_ indexes: IndexSet) -> ItemMovedResults {
+    func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults {
         return mutator.moveTracksUp(indexes)
     }
     
-    func moveTracksDown(_ indexes: IndexSet) -> ItemMovedResults {
+    func moveTracksDown(_ indexes: IndexSet) -> ItemMoveResults {
         return mutator.moveTracksDown(indexes)
     }
     
-    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults {
+    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
         return mutator.moveTracksAndGroupsUp(tracks, groups, groupType)
     }
     
-    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults {
+    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
         return mutator.moveTracksAndGroupsDown(tracks, groups, groupType)
     }
 
@@ -112,7 +112,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         mutator.sort(sort, groupType)
     }
     
-    func reorderTracks(_ reorderOperations: [PlaylistReorderOperation]) {
+    func reorderTracks(_ reorderOperations: [FlatPlaylistReorderOperation]) {
         mutator.reorderTracks(reorderOperations)
     }
     

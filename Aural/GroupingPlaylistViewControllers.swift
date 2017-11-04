@@ -85,21 +85,17 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             return
         }
         
-        let playingTrackRemoved = playlist.removeTracksAndGroups(tracks, groups, groupType)
-        
-        if (playingTrackRemoved) {
-            SyncMessenger.publishNotification(TrackChangedNotification(nil, nil))
-        }
+        playlist.removeTracksAndGroups(tracks, groups, groupType)
     }
     
-    func tracksRemoved(_ results: RemoveOperationResults) {
+    func tracksRemoved(_ results: TrackRemovalResults) {
         
         let removals = results.groupingPlaylistResults[self.groupType]!
         var groupsToReload = [Group]()
         
-        for removal in removals.results {
+        for removal in removals {
             
-            if let trackRemoval = removal as? TracksRemovedResult {
+            if let trackRemoval = removal as? GroupedTracksRemovalResult {
                 
                 playlistView.removeItems(at: trackRemoval.trackIndexesInGroup, inParent: trackRemoval.parentGroup, withAnimation: .effectFade)
                 
@@ -108,7 +104,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 
             } else {
                 
-                let groupRemoval = removal as! GroupRemovedResult
+                let groupRemoval = removal as! GroupRemovalResult
                 playlistView.removeItems(at: IndexSet(integer: groupRemoval.groupIndex), inParent: nil, withAnimation: .effectFade)
             }
         }
@@ -141,9 +137,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 // Need to expand the parent to make the child visible
                 playlistView.expandItem(track?.group)
                 
-                let trackIndex = playlistView.row(forItem: _track)
+                let trackRowIndex = playlistView.row(forItem: _track)
                 
-                playlistView.selectRowIndexes(IndexSet(integer: trackIndex), byExtendingSelection: false)
+                playlistView.selectRowIndexes(IndexSet(integer: trackRowIndex), byExtendingSelection: false)
                 showPlaylistSelectedRow()
             }
         }
@@ -183,17 +179,17 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistView.scrollRowToVisible(playlistView.selectedRow)
     }
     
-    private func moveItems(_ results: ItemMovedResults) {
+    private func moveItems(_ results: ItemMoveResults) {
         
         for result in results.results {
             
-            if let trackMovedResult = result as? TrackMovedResult {
+            if let trackMovedResult = result as? TrackMoveResult {
                 
                 playlistView.moveItem(at: trackMovedResult.oldTrackIndex, inParent: trackMovedResult.parentGroup, to: trackMovedResult.newTrackIndex, inParent: trackMovedResult.parentGroup)
                 
             } else {
                 
-                let groupMovedResult = result as! GroupMovedResult
+                let groupMovedResult = result as! GroupMoveResult
                 playlistView.moveItem(at: groupMovedResult.oldGroupIndex, inParent: nil, to: groupMovedResult.newGroupIndex, inParent: nil)
             }
         }

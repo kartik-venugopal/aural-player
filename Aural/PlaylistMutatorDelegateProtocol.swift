@@ -22,10 +22,10 @@ protocol PlaylistMutatorDelegateProtocol {
     
     // Removes track(s) with the given indexes
     // Returns true if 1 - a track was playing, AND 2 - the playing track was removed, false otherwise
-    func removeTracks(_ indexes: [Int]) -> Bool
+    func removeTracks(_ indexes: IndexSet)
     
     // Returns true if 1 - a track was playing, AND 2 - the playing track was removed, false otherwise
-    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> Bool
+    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType)
     
     // Clears the entire playlist of all tracks
     func clear()
@@ -35,18 +35,18 @@ protocol PlaylistMutatorDelegateProtocol {
     
         NOTE - Even if some tracks cannot move, those that can will be moved. i.e. This is not an all or nothing operation.
     */
-    func moveTracksUp(_ indexes: IndexSet) -> ItemMovedResults
+    func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults
     
     /*
         Moves the tracks at the specified indexes, down one index, in the playlist, if they can be moved (they are not already at the bottom). Returns the new indexes of the tracks (for tracks that didn't move, the new index will match the old index)
      
         NOTE - Even if some tracks cannot move, those that can will be moved. i.e. This is not an all or nothing operation.
      */
-    func moveTracksDown(_ indexes: IndexSet) -> ItemMovedResults
+    func moveTracksDown(_ indexes: IndexSet) -> ItemMoveResults
     
-    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults
+    func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults
     
-    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMovedResults
+    func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults
     
     // Sorts the playlist according to the specified sort parameters
     func sort(_ sort: Sort)
@@ -55,7 +55,7 @@ protocol PlaylistMutatorDelegateProtocol {
     func sort(_ sort: Sort, _ groupType: GroupType)
     
     // Performs a sequence of playlist reorder operations
-    func reorderTracks(_ reorderOperations: [PlaylistReorderOperation])
+    func reorderTracks(_ reorderOperations: [FlatPlaylistReorderOperation])
     
     func reorderTracksAndGroups(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType)
 }

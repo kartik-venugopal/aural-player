@@ -296,7 +296,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         }
     }
     
-    func tracksRemoved(_ removeResults: RemoveOperationResults, _ playingTrackRemoved: Bool) {
+    func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool) {
         
         if (playingTrackRemoved) {
             end()

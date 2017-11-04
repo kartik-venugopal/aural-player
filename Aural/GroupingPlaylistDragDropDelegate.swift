@@ -243,12 +243,12 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
             let group = outlineView.parent(forItem: tracks.first) as! Group
             let reorderOps = reorderTracks(childIndexes, group, dropRow, destination)
             
-            var moveUpOps = [GroupedTrackInsertOperation]()
-            var moveDownOps = [GroupedTrackInsertOperation]()
+            var moveUpOps = [GroupedTrackInsertionOperation]()
+            var moveDownOps = [GroupedTrackInsertionOperation]()
             
             for op in reorderOps {
                 
-                if let insertOp = op as? GroupedTrackInsertOperation {
+                if let insertOp = op as? GroupedTrackInsertionOperation {
                     
                     if insertOp.destIndex < dropRow {
                         moveDownOps.append(insertOp)
@@ -270,12 +270,12 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
             
             let reorderOps = reorderGroups(childIndexes, dropRow, destination)
             
-            var moveUpOps = [GroupInsertOperation]()
-            var moveDownOps = [GroupInsertOperation]()
+            var moveUpOps = [GroupInsertionOperation]()
+            var moveDownOps = [GroupInsertionOperation]()
             
             for op in reorderOps {
                 
-                if let insertOp = op as? GroupInsertOperation {
+                if let insertOp = op as? GroupInsertionOperation {
                     
                     if insertOp.destIndex < dropRow {
                         moveDownOps.append(insertOp)
@@ -309,7 +309,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
             let track = parentGroup.tracks[$0]
             sourceItems.append(track)
             sourceIndexMappings[track] = $0
-            playlistReorderOperations.append(GroupedTrackRemoveOperation(group: parentGroup, index: $0))
+            playlistReorderOperations.append(GroupedTrackRemovalOperation(group: parentGroup, trackIndex: $0))
         })
         
         // Step 4 - Copy over the source items into the destination holes
@@ -325,7 +325,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
             // For each destination row, copy over a source item into the corresponding destination hole
             let track = sourceItems[cursor]
             let srcIndex = sourceIndexMappings[track]!
-            let reorderOperation = GroupedTrackInsertOperation(group: parentGroup, srcTrack: track, srcIndex: srcIndex, destIndex: $0)
+            let reorderOperation = GroupedTrackInsertionOperation(group: parentGroup, srcTrack: track, srcIndex: srcIndex, destIndex: $0)
             playlistReorderOperations.append(reorderOperation)
             cursor += 1
         })
@@ -351,7 +351,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
             let group = playlist.groupAtIndex(self.grouping, $0)
             sourceItems.append(group)
             sourceIndexMappings[group] = $0
-            playlistReorderOperations.append(GroupRemoveOperation(index: $0))
+            playlistReorderOperations.append(GroupRemovalOperation(index: $0))
         })
         
         // Step 4 - Copy over the source items into the destination holes
@@ -367,7 +367,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
             // For each destination row, copy over a source item into the corresponding destination hole
             let group = sourceItems[cursor]
             let srcIndex = sourceIndexMappings[group]!
-            let reorderOperation = GroupInsertOperation(srcGroup: group, srcIndex: srcIndex, destIndex: $0)
+            let reorderOperation = GroupInsertionOperation(srcGroup: group, srcIndex: srcIndex, destIndex: $0)
             playlistReorderOperations.append(reorderOperation)
             cursor += 1
         })

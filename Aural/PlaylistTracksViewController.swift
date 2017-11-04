@@ -55,26 +55,15 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
             }
             
             if (!selectedIndexes.isEmpty) {
-                removeTracks(selectedIndexes)
+                playlist.removeTracks(selectedIndexes)
+                
+                // Clear the playlist selection
+                tracksView.deselectAll(self)
             }
-            
-            // Clear the playlist selection
-            tracksView.deselectAll(self)
         }
     }
     
-    // Assume non-empty array and valid indexes
-    private func removeTracks(_ indexes: IndexSet) {
-        
-        // Remove the tracks from the playlist
-        let playingTrackRemoved = playlist.removeTracks(indexes.toArray())
-        
-        if (playingTrackRemoved) {
-            SyncMessenger.publishNotification(TrackChangedNotification(nil, nil))
-        }
-    }
-    
-    func tracksRemoved(_ results: RemoveOperationResults) {
+    func tracksRemoved(_ results: TrackRemovalResults) {
         
         let indexes = results.flatPlaylistResults
         
@@ -166,11 +155,11 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         }
     }
     
-    private func moveItems(_ results: ItemMovedResults) {
+    private func moveItems(_ results: ItemMoveResults) {
         
         for result in results.results {
             
-            let trackMovedResult = result as! TrackMovedResult
+            let trackMovedResult = result as! TrackMoveResult
             tracksView.moveRow(at: trackMovedResult.oldTrackIndex, to: trackMovedResult.newTrackIndex)
             
             let inx = [trackMovedResult.oldTrackIndex, trackMovedResult.newTrackIndex]
