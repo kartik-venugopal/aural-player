@@ -60,22 +60,6 @@ Wanna try it out ? The latest app bundle can be found in the disk image file [Au
 
 10/12/2017: **Resizable, detachable, and movable playlist** - The playlist is now resizable, detachable, and movable, with buttons to conveniently snap/attach the playlist to the main app window, in different relative locations (bottom, right, left, etc), and smart maximizing.
 
-9/25/2017: **New recording formats** - Added support for ALAC (Apple Lossless) and AIFF (CD Quality) recording.
-
-9/23/2017: **Volume and Pan feedback labels** - Whenever the volume and pan are updated, feedback labels will now show up, with the new values for volume or pan, and the labels will auto-hide after a second.
-
-9/23/2017: **New EQ presets** - Added 10 new music genre-based Equalizer presets: Rock, Pop, Jazz, etc.
-
-9/15/2017: **Complete reading of ID3/iTunes metadata** - Previously, only "common" metadata format information was read and displayed by the app. Now, all standard/recognizable ID3 and iTunes metadata are read, marshaled into a user-friendly readable format, and displayed. Metadata in other formats are displayed as is (without any marshaling).
-
-9/13/2017: **Much faster track adding** - Significantly improved the efficiency of the track add operation. Tracks are added to the playlist almost instantaneously, and all secondary track data is loaded asynchronously as needed.
-
-9/11/2017: **Added dock menu** - Added a new dock menu that provides a limited set of essential player controls that can be accessed while the player window is in the background.
-
-9/10/2017: **Direct launching of files from Finder** - Any supported audio files/playlists can now be opened directly from Finder, with Aural. Aural now accepts launch parameters. If the app is already open, the selected files/playlists will be appended to its playlist and the first selected track will start playing.
-
-8/31/2017 - 9/13/2017: **Major code refactoring/cleanup** - Completely rewrote the view layer and the delegate (middleman) layer. Separated huge catch-all view classes into smaller classes that handle specific chunks of functionality. Separated big monolithic delegate into smaller chunks. Refactored back end accordingly.
-
 ## Third party code attribution
 
 Aural Player makes use of (a modified version of) a reusable UI control called [RangeSlider](https://github.com/matthewreagan/RangeSlider).
