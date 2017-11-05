@@ -2039,7 +2039,7 @@ G1BhbiBTbGlkZXI
                                     <rect key="frame" x="0.0" y="27" width="448" height="178"/>
                                     <font key="font" metaFont="system"/>
                                     <tabViewItems>
-                                        <tabViewItem label="Tab" identifier="1" id="cQ0-Vk-qDI" userLabel="Tracks Tab">
+                                        <tabViewItem label="Tracks" identifier="1" id="cQ0-Vk-qDI" userLabel="Tracks Tab">
                                             <view key="view" id="Q6U-L3-wFX">
                                                 <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2215,7 +2215,7 @@ G1BhbiBTbGlkZXI
                                                 </constraints>
                                             </view>
                                         </tabViewItem>
-                                        <tabViewItem label="View" identifier="2" id="tTL-8N-2Qi" userLabel="Artists Tab">
+                                        <tabViewItem label="Artists" identifier="2" id="tTL-8N-2Qi" userLabel="Artists Tab">
                                             <view key="view" id="TYY-uk-Hhl">
                                                 <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2351,14 +2351,14 @@ G1BhbiBTbGlkZXI
                                                 </constraints>
                                             </view>
                                         </tabViewItem>
-                                        <tabViewItem label="Item 2" identifier="" id="ooh-QD-ocJ" userLabel="Albums Tab">
+                                        <tabViewItem label="Albums" identifier="" id="ooh-QD-ocJ" userLabel="Albums Tab">
                                             <view key="view" id="mk5-Bj-JGA">
                                                 <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xpf-h4-Hqw" userLabel="Playlist Albums View">
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="g3t-78-dsq">
+                                                        <clipView key="contentView" copiesOnScroll="NO" id="g3t-78-dsq">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -2467,7 +2467,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </outlineView>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="0.80232747400000004" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         </clipView>
                                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="sSv-Rd-15Z">
                                                             <rect key="frame" x="0.0" y="163" width="383" height="16"/>
@@ -2487,14 +2487,14 @@ G1BhbiBTbGlkZXI
                                                 </constraints>
                                             </view>
                                         </tabViewItem>
-                                        <tabViewItem label="Item 3" identifier="" id="wyB-Qt-upe" userLabel="Genres Tab">
+                                        <tabViewItem label="Genres" identifier="" id="wyB-Qt-upe" userLabel="Genres Tab">
                                             <view key="view" id="lhi-O1-Dmq">
                                                 <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xPh-YO-cTz" userLabel="Playlist Genres View">
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="aNj-KL-nmJ">
+                                                        <clipView key="contentView" copiesOnScroll="NO" id="aNj-KL-nmJ">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -2603,7 +2603,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </outlineView>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="0.80232747400000004" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         </clipView>
                                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="CiT-ck-6k5">
                                                             <rect key="frame" x="0.0" y="163" width="383" height="16"/>
