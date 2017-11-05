@@ -116,48 +116,32 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     // Computes which tracks are likely to play next (based on the playback sequence and user actions), and eagerly loads metadata for those tracks in preparation for their future playback. This significantly speeds up playback start time when the track is actually played back.
     private func prepareNextTracksForPlayback() {
         
-        // TODO
-        return
-        
         // Set of all tracks that need to be prepped
-        let prepTracksSet = NSMutableSet()
+        var prepTracksSet = Set<Track>()
         
         // The three possible tracks that could play next
         let peekSubsequent = playbackSequencer.peekSubsequent()?.track
         let peekNext = playbackSequencer.peekNext()?.track
         let peekPrevious = playbackSequencer.peekPrevious()?.track
         
-        let playingTrack = getPlayingTrack()
+        let playingTrack = getPlayingTrack()?.track
         
         // Add each of the three tracks to the set of tracks to be prepped, as long as they're non-nil and not equal to the playing track (which has already been prepped, since it is playing)
-        if (peekSubsequent != nil && playingTrack?.track !== peekSubsequent) {
-            prepTracksSet.add(peekSubsequent!)
-        }
-        
-        if (peekNext != nil) {
-            prepTracksSet.add(peekNext!)
-        }
-        
-        if (peekPrevious != nil) {
-            prepTracksSet.add(peekPrevious!)
-        }
+        [peekSubsequent, peekNext, peekPrevious].forEach({
+            if $0 != nil && $0 !== playingTrack {
+                prepTracksSet.insert($0!)
+            }
+        })
         
         if (prepTracksSet.count > 0) {
             
-            for _track in prepTracksSet {
-                
-                let track = _track as! Track
+            for track in prepTracksSet {
                 
                 // If track has not already been prepped, add a serial async task (to avoid concurrent prepping of the same track by two threads) to the trackPrepQueue
                 
                 // Async execution is important here, because reading from disk could be expensive and this info is not needed immediately.
                 if (!track.lazyLoadingInfo.preparedForPlayback) {
-                    
-                    let prepOp = BlockOperation(block: {
-                        TrackIO.prepareForPlayback(track)
-                    })
-                    
-                    trackPrepQueue.addOperation(prepOp)
+                    trackPrepQueue.addOperation({TrackIO.prepareForPlayback(track)})
                 }
             }
         }
