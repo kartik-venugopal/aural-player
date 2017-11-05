@@ -95,7 +95,7 @@ class TracksPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
                 // Reload all source and destination rows, and all rows in between
                 let srcDestUnion = sourceIndexSet.union(destination)
                 let reloadIndexes = IndexSet(srcDestUnion.min()!...srcDestUnion.max()!)
-                tableView.reloadData(forRowIndexes: reloadIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
+                tableView.reloadData(forRowIndexes: reloadIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
                 
                 tableView.selectRowIndexes(destination, byExtendingSelection: false)
                 

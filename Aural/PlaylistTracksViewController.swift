@@ -68,7 +68,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         // If not all selected rows are contiguous and at the end of the playlist
         if (minIndex <= newLastIndex) {
             let rowIndexes = IndexSet(minIndex...newLastIndex)
-            tracksView.reloadData(forRowIndexes: rowIndexes, columnIndexes: UIConstants.playlistViewColumnIndexes)
+            tracksView.reloadData(forRowIndexes: rowIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         }
         
         // Tell the playlist view that the number of rows has changed
@@ -88,7 +88,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
             rowsArr.append(newTrack!.index)
         }
         
-        tracksView.reloadData(forRowIndexes: IndexSet(rowsArr), columnIndexes: UIConstants.playlistViewColumnIndexes)
+        tracksView.reloadData(forRowIndexes: IndexSet(rowsArr), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
     }
     
     // Selects (and shows) a certain track within the playlist view
@@ -156,7 +156,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
             tracksView.moveRow(at: trackMovedResult.oldTrackIndex, to: trackMovedResult.newTrackIndex)
             
             let inx = [trackMovedResult.oldTrackIndex, trackMovedResult.newTrackIndex]
-            tracksView.reloadData(forRowIndexes: IndexSet(inx), columnIndexes: UIConstants.playlistViewColumnIndexes)
+            tracksView.reloadData(forRowIndexes: IndexSet(inx), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         }
     }
 
@@ -200,7 +200,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
                 let _msg = (message as! TrackUpdatedAsyncMessage)
                 let index = _msg.trackIndex
                 
-                self.tracksView.reloadData(forRowIndexes: IndexSet(integer: index), columnIndexes: UIConstants.playlistViewColumnIndexes)
+                self.tracksView.reloadData(forRowIndexes: IndexSet(integer: index), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
             })
             
             playlistUpdateQueue.addOperation(updateOp)
