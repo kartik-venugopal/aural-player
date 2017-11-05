@@ -46,6 +46,10 @@ Wanna try it out ? The latest app bundle can be found in the disk image file [Au
 
 ## Recent updates
 
+11/4/2017: **App now distributed in DMG, not ZIP** - The downloadable app bundle will now be available in a DMG disk image file. The old ZIP archive will no longer be provided.
+
+11/4/2017: **Fixed window positioning on startup** - Window positioning on startup was broken after introduction of the resizable playlist. That has been fixed and is smarter - takes visible screen frame into account, so that app windows are not pushed behind the MacOS dock.
+
 11/3/2017: **New playlist views with track groups** - In addition to the current flat view, new views have been added to the playlist, which group tracks by album, artist, genre, etc. This allows for convenient playlist browsing.
 
 11/3/2018: **UI refresh** - A lot of UI elements have been redone, for a slicker appearance. Window corners, background colors, slider controls, playlist summary, etc.
