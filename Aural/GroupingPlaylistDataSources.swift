@@ -39,7 +39,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         if (item == nil) {
             return playlist.numberOfGroups(grouping)
         } else if let group = item as? Group {
-            return group.tracks.count
+            return group.size()
         }
         
         // Tracks don't have children
@@ -51,19 +51,14 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         if (item == nil) {
             return playlist.groupAtIndex(grouping, index)
         } else if let group = item as? Group {
-            return group.tracks[index]
+            return group.trackAtIndex(index)
         }
         
         return "Muthusami"
     }
     
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        
-        if item is Group {
-            return true
-        }
-        
-        return false
+        return item is Group
     }
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {

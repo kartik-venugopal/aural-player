@@ -4,7 +4,7 @@ class Group: NSObject, GroupAccessorProtocol, GroupedPlaylistItem {
     
     let type: GroupType
     let name: String
-    var tracks: [Track] = [Track]()
+    private var tracks: [Track] = [Track]()
     
     var duration: Double {
         
@@ -18,6 +18,13 @@ class Group: NSObject, GroupAccessorProtocol, GroupedPlaylistItem {
         self.name = name
     }
     
+    func allTracks() -> [Track] {
+        
+        // Return a copy
+        let allTracks = tracks
+        return allTracks
+    }
+    
     func size() -> Int {
         return tracks.count
     }
@@ -28,6 +35,10 @@ class Group: NSObject, GroupAccessorProtocol, GroupedPlaylistItem {
     
     func trackAtIndex(_ index: Int) -> Track {
         return tracks[index]
+    }
+    
+    func insertTrackAtIndex(_ track: Track, _ index: Int) {
+        tracks.insert(track, at: index)
     }
     
     func addTrack(_ track: Track) -> Int {
@@ -58,11 +69,8 @@ class Group: NSObject, GroupAccessorProtocol, GroupedPlaylistItem {
         return trackIndex
     }
     
-    func removeTrackAtIndex(_ index: Int) {
-        
-        ConcurrencyUtils.executeSynchronized(tracks) {
-            tracks.remove(at: index)
-        }
+    func removeTrackAtIndex(_ index: Int) -> Track {
+        return tracks.remove(at: index)
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> [Int: Int] {
@@ -145,6 +153,10 @@ class Group: NSObject, GroupAccessorProtocol, GroupedPlaylistItem {
     // Swaps two tracks in the array of tracks
     private func swapTracks(_ trackIndex1: Int, _ trackIndex2: Int) {
         swap(&tracks[trackIndex1], &tracks[trackIndex2])
+    }
+    
+    func sort(_ strategy: (Track, Track) -> Bool) {
+        tracks.sort(by: strategy)
     }
 }
 

@@ -73,6 +73,8 @@ enum MessageType {
     
     case searchResultSelectionRequest
     
+    case appInBackgroundNotification
+    
     // See AppExitRequest
     case appExitRequest
     
@@ -295,4 +297,13 @@ struct EmptyResponse: ResponseMessage {
     
     // Singleton
     static let instance: EmptyResponse = EmptyResponse()
+}
+
+struct AppInBackgroundNotification: NotificationMessage {
+ 
+    let messageType: MessageType = .appInBackgroundNotification
+    
+    private init() {}
+    
+    static let instance: AppInBackgroundNotification = AppInBackgroundNotification()
 }

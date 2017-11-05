@@ -66,9 +66,9 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     
     func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults
     
-    func reorderTracksAndGroups(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType)
-    
     func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet
+    
+    func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType, _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults
     
     // Sorts the playlist according to the specified sort parameters
     func sort(_ sort: Sort)
