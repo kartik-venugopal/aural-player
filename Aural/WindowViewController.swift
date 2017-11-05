@@ -56,12 +56,6 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             toggleEffects(false)
         }
         
-        mainWindow.isMovableByWindowBackground = true
-        mainWindow.makeKeyAndOrderFront(self)
-        
-        playlistWindow.isMovableByWindowBackground = true
-        playlistWindow.delegate = self
-        
         let playlistLocation = appState.playlistLocation
         
         switch playlistLocation {
@@ -82,9 +76,6 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             showPlaylist(false)
         }
         
-        mainWindow.isOpaque = false
-        playlistWindow.isOpaque = false
-        
         // If a specific position is specified, use it
         if let mainWindowOrigin = appState.windowLocationXY {
             mainWindow.setFrameOrigin(mainWindowOrigin)
@@ -92,6 +83,14 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             // Need to calculate position
             positionWindowOnStartup(appState.windowLocationOnStartup.windowLocation, !appState.hidePlaylist)
         }
+        
+        [mainWindow, playlistWindow].forEach({
+            $0?.isOpaque = false
+            $0?.isMovableByWindowBackground = true
+        })
+        
+        mainWindow.makeKeyAndOrderFront(self)
+        playlistWindow.delegate = self
     }
     
     private func positionWindowOnStartup(_ relativeLoc: WindowLocations, _ playlistShown: Bool) {
