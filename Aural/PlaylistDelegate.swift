@@ -112,12 +112,13 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         mutator.sort(sort, groupType)
     }
     
-    func reorderTracksAndGroups(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType) {
-        mutator.reorderTracksAndGroups(reorderOperations, groupType)
-    }
-    
     func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
         return mutator.dropTracks(sourceIndexes, dropIndex, dropType)
+    }
+    
+    func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType, _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults {
+        
+        return mutator.dropTracksAndGroups(tracks, groups, groupType, dropParent, dropIndex)
     }
     
     func savePlaylist(_ file: URL) {

@@ -54,8 +54,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
                     return .move
                 }
             }
-            
-            // Impossible
+
             return invalidDragOperation
         }
         
@@ -77,8 +76,8 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         let tracks = tracksAndGroups.tracks
         let groups = tracksAndGroups.groups
         
-        let movingTracks = tracks.count > 0
-        let movingGroups = groups.count > 0
+        let movingTracks = !tracks.isEmpty
+        let movingGroups = !movingTracks
         
         // Cannot move both groups and tracks
         if (movingTracks && movingGroups) {
@@ -105,17 +104,17 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
             let group = parentGroups.first!
             
             // All tracks within group selected
-            if tracks.count == group.tracks.count {
+            if tracks.count == group.size() {
                 return false
             }
             
             // Validate parent group and child index
-            if (parent == nil || (!(parent is Group)) || ((parent! as! Group) !== group) || childIndex < 0) {
+            if (parent == nil || (!(parent is Group)) || ((parent! as! Group) !== group) || childIndex < 0 || childIndex > group.size()) {
                 return false
             }
             
             // Dropping on a selected track is not allowed
-            if let parentGroup = parent as? Group {
+            if childIndex < group.size(), let parentGroup = parent as? Group {
                 
                 let dropTrack = parentGroup.trackAtIndex(childIndex)
                 if tracks.contains(dropTrack) {
@@ -131,19 +130,59 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
             }
             
             // Validate parent group and child index
-            if (parent != nil || childIndex < 0) {
+            let numGroups = playlist.numberOfGroups(self.grouping)
+            if (parent != nil || childIndex < 0 || childIndex > numGroups) {
                 return false
             }
             
             // Dropping on a selected group is not allowed
-            let dropGroup = playlist.groupAtIndex(self.grouping, childIndex)
-            if (groups.contains(dropGroup)) {
-                return false
+            if (childIndex < numGroups) {
+                let dropGroup = playlist.groupAtIndex(self.grouping, childIndex)
+                if (groups.contains(dropGroup)) {
+                    return false
+                }
             }
         }
         
         // Doesn't match any of the invalid cases, it's a valid operation
         return true
+    }
+    
+    // Drag n drop - accepts and performs the drop
+    func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
+        
+        if (info.draggingSource() is NSOutlineView) {
+            
+            if let srcRows = getSourceIndexes(info) {
+            
+                // Collect the information needed to perform the reordering
+                let tracksAndGroups = collectTracksAndGroups(outlineView, srcRows)
+                let parentAsGroup: Group? = item as? Group ?? nil
+                
+                // Perform the reordering
+                let results = playlist.dropTracksAndGroups(tracksAndGroups.tracks, tracksAndGroups.groups, self.grouping, parentAsGroup, index)
+                
+                // Given the results of the reordering, refresh the playlist view
+                refreshView(outlineView, results)
+                
+                // The playback sequence may have changed and the UI may need to be updated
+                if (playbackInfo.getPlayingTrack() != nil) {
+                    SyncMessenger.publishNotification(SequenceChangedNotification.instance)
+                }
+                
+                return true
+            }
+            
+        } else {
+            
+            // Files added from Finder, add them to the playlist as URLs
+            let objects = info.draggingPasteboard().readObjects(forClasses: [NSURL.self], options: nil)
+            playlist.addFiles(objects! as! [URL])
+            
+            return true
+        }
+        
+        return false
     }
     
     private func collectTracksAndGroups(_ outlineView: NSOutlineView, _ sourceIndexes: IndexSet) -> (tracks: [Track], groups: [Group]) {
@@ -166,226 +205,26 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         return (tracks, groups)
     }
     
-    // Drag n drop - accepts and performs the drop
-    func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
+    private func refreshView(_ outlineView: NSOutlineView, _ results: ItemMoveResults) {
         
-        if (info.draggingSource() is NSOutlineView) {
+        // First, sort all the move operations, so that they do not interfere with each other (all downward moves in descending order, followed by all upward moves in ascending order)
+        
+        var sortedMoves = [ItemMoveResult]()
+        sortedMoves.append(contentsOf: results.results.filter({$0.movedDown}).sorted(by: {r1, r2 -> Bool in r1.sortIndex > r2.sortIndex}))
+        sortedMoves.append(contentsOf: results.results.filter({$0.movedUp}).sorted(by: {r1, r2 -> Bool in r1.sortIndex < r2.sortIndex}))
+        
+        // Then, move the relevant items within the playlist view
+        sortedMoves.forEach({
             
-            if let srcRows = getSourceIndexes(info) {
-            
-                // Calculate the destination rows for the reorder operation, and perform the reordering
-                let childIndexes = getSelectedChildIndexes(outlineView, srcRows)
-                let destination = calculateReorderingDestination(childIndexes, item, index)
+            if let trackMoveResult = $0 as? TrackMoveResult {
                 
-                performReordering(outlineView, srcRows: srcRows, childIndexes, index, destination)
+                outlineView.moveItem(at: trackMoveResult.oldTrackIndex, inParent: trackMoveResult.parentGroup!, to: trackMoveResult.newTrackIndex, inParent: trackMoveResult.parentGroup!)
+            } else {
                 
-                if (playbackInfo.getPlayingTrack() != nil) {
-                    SyncMessenger.publishNotification(SequenceChangedNotification.instance)
-                }
+                let groupMoveResult = $0 as! GroupMoveResult
                 
-                return true
+                outlineView.moveItem(at: groupMoveResult.oldGroupIndex, inParent: nil, to: groupMoveResult.newGroupIndex, inParent: nil)
             }
-            
-        } else {
-            
-            // Files added from Finder, add them to the playlist as URLs
-            let objects = info.draggingPasteboard().readObjects(forClasses: [NSURL.self], options: nil)
-            playlist.addFiles(objects! as! [URL])
-            
-            return true
-        }
-        
-        return false
-    }
-    
-    private func getSelectedChildIndexes(_ outlineView: NSOutlineView, _ rowIndexes: IndexSet) -> IndexSet {
-        
-        let tracksAndGroups = collectTracksAndGroups(outlineView, rowIndexes)
-        let tracks = tracksAndGroups.tracks
-        let groups = tracksAndGroups.groups
-        
-        let movingTracks = tracks.count > 0
-        
-        var childIndexes = [Int]()
-        
-        if (movingTracks) {
-            
-            let group = outlineView.parent(forItem: tracks[0]) as! Group
-            tracks.forEach({childIndexes.append(group.indexOfTrack($0)!)})
-            
-        } else {
-            
-            groups.forEach({childIndexes.append(playlist.indexOfGroup($0))})
-        }
-        
-        return IndexSet(childIndexes)
-    }
-    
-    /*
-     In response to a playlist reordering by drag and drop, and given source indexes, a destination index, and the drop operation (on/above), determines which indexes the source rows will occupy.
-     */
-    private func calculateReorderingDestination(_ sourceIndexSet: IndexSet, _ parent: Any?, _ childIndex: Int) -> IndexSet {
-        
-        // Find out how many source items are above the dropRow and how many below
-        let sourceIndexesAboveDropRow = sourceIndexSet.filter({$0 < childIndex})
-        let sourceIndexesBelowDropRow = sourceIndexSet.filter({$0 > childIndex})
-        
-        // All source items above the dropRow will form a contiguous block ending at the dropRow
-        // All source items below the dropRow will form a contiguous block starting one row below the dropRow and extending below it
-        
-        // The lowest index in the destination rows
-        let minDestinationRow = childIndex - sourceIndexesAboveDropRow.count
-        
-        // The highest index in the destination rows
-        let maxDestinationRow = childIndex + sourceIndexesBelowDropRow.count - 1
-        
-        return IndexSet(minDestinationRow...maxDestinationRow)
-    }
-    
-    private func performReordering(_ outlineView: NSOutlineView, srcRows: IndexSet, _ childIndexes: IndexSet, _ dropRow: Int, _ destination: IndexSet) {
-        
-        let tracksAndGroups = collectTracksAndGroups(outlineView, srcRows)
-        let tracks = tracksAndGroups.tracks
-        
-        let movingTracks = !tracks.isEmpty
-        
-        if (movingTracks) {
-            
-            let group = outlineView.parent(forItem: tracks.first) as! Group
-            let reorderOps = reorderTracks(childIndexes, group, dropRow, destination)
-            
-            var moveUpOps = [GroupedTrackInsertionOperation]()
-            var moveDownOps = [GroupedTrackInsertionOperation]()
-            
-            for op in reorderOps {
-                
-                if let insertOp = op as? GroupedTrackInsertionOperation {
-                    
-                    if insertOp.destIndex < dropRow {
-                        moveDownOps.append(insertOp)
-                    } else {
-                        moveUpOps.append(insertOp)
-                    }
-                }
-            }
-            
-            moveUpOps = moveUpOps.sorted(by: {o1, o2 -> Bool in return o1.destIndex < o2.destIndex})
-            moveDownOps = moveDownOps.sorted(by: {o1, o2 -> Bool in return o1.destIndex > o2.destIndex})
-            
-            moveDownOps.forEach({outlineView.moveItem(at: $0.srcIndex, inParent: $0.group, to: $0.destIndex, inParent: $0.group)})
-            moveUpOps.forEach({outlineView.moveItem(at: $0.srcIndex, inParent: $0.group, to: $0.destIndex, inParent: $0.group)})
-            
-        } else {
-            
-            // Reordering groups
-            
-            let reorderOps = reorderGroups(childIndexes, dropRow, destination)
-            
-            var moveUpOps = [GroupInsertionOperation]()
-            var moveDownOps = [GroupInsertionOperation]()
-            
-            for op in reorderOps {
-                
-                if let insertOp = op as? GroupInsertionOperation {
-                    
-                    if insertOp.destIndex < dropRow {
-                        moveDownOps.append(insertOp)
-                    } else {
-                        moveUpOps.append(insertOp)
-                    }
-                }
-            }
-            
-            moveUpOps = moveUpOps.sorted(by: {o1, o2 -> Bool in return o1.destIndex < o2.destIndex})
-            moveDownOps = moveDownOps.sorted(by: {o1, o2 -> Bool in return o1.destIndex > o2.destIndex})
-            
-            moveDownOps.forEach({outlineView.moveItem(at: $0.srcIndex, inParent: nil, to: $0.destIndex, inParent: nil)})
-            moveUpOps.forEach({outlineView.moveItem(at: $0.srcIndex, inParent: nil, to: $0.destIndex, inParent: nil)})
-            
-        }
-    }
-    
-    private func reorderTracks(_ sourceIndexSet: IndexSet, _ parentGroup: Group, _ dropRow: Int, _ destination: IndexSet) -> [GroupingPlaylistReorderOperation] {
-        
-        // Collect all reorder operations, in sequence, for later submission to the playlist
-        var playlistReorderOperations = [GroupingPlaylistReorderOperation]()
-        
-        // Step 1 - Store all source items (tracks) that are being reordered, in a temporary location.
-        var sourceItems = [Track]()
-        var sourceIndexMappings = [Track: Int]()
-        
-        // Make sure they the source indexes are iterated in descending order. This will be important in Step 4.
-        sourceIndexSet.sorted(by: {x, y -> Bool in x > y}).forEach({
-            
-            let track = parentGroup.tracks[$0]
-            sourceItems.append(track)
-            sourceIndexMappings[track] = $0
-            playlistReorderOperations.append(GroupedTrackRemovalOperation(group: parentGroup, trackIndex: $0))
         })
-        
-        // Step 4 - Copy over the source items into the destination holes
-        var cursor = 0
-        
-        // Destination rows need to be sorted in ascending order
-        let destinationRows = destination.sorted(by: {x, y -> Bool in x < y})
-        
-        sourceItems = sourceItems.reversed()
-        
-        destinationRows.forEach({
-            
-            // For each destination row, copy over a source item into the corresponding destination hole
-            let track = sourceItems[cursor]
-            let srcIndex = sourceIndexMappings[track]!
-            let reorderOperation = GroupedTrackInsertionOperation(group: parentGroup, srcTrack: track, srcIndex: srcIndex, destIndex: $0)
-            playlistReorderOperations.append(reorderOperation)
-            cursor += 1
-        })
-        
-        // Submit the reorder operations to the playlist
-        playlist.reorderTracksAndGroups(playlistReorderOperations, self.grouping)
-        
-        return playlistReorderOperations
-    }
-    
-    private func reorderGroups(_ sourceIndexSet: IndexSet, _ dropRow: Int, _ destination: IndexSet) -> [GroupingPlaylistReorderOperation] {
-        
-        // Collect all reorder operations, in sequence, for later submission to the playlist
-        var playlistReorderOperations = [GroupingPlaylistReorderOperation]()
-        
-        // Step 1 - Store all source items (tracks) that are being reordered, in a temporary location.
-        var sourceItems = [Group]()
-        var sourceIndexMappings = [Group: Int]()
-        
-        // Make sure they the source indexes are iterated in descending order. This will be important in Step 4.
-        sourceIndexSet.sorted(by: {x, y -> Bool in x > y}).forEach({
-            
-            let group = playlist.groupAtIndex(self.grouping, $0)
-            sourceItems.append(group)
-            sourceIndexMappings[group] = $0
-            playlistReorderOperations.append(GroupRemovalOperation(index: $0))
-        })
-        
-        // Step 4 - Copy over the source items into the destination holes
-        var cursor = 0
-        
-        // Destination rows need to be sorted in ascending order
-        let destinationRows = destination.sorted(by: {x, y -> Bool in x < y})
-        
-        sourceItems = sourceItems.reversed()
-        
-        destinationRows.forEach({
-            
-            // For each destination row, copy over a source item into the corresponding destination hole
-            let group = sourceItems[cursor]
-            let srcIndex = sourceIndexMappings[group]!
-            let reorderOperation = GroupInsertionOperation(srcGroup: group, srcIndex: srcIndex, destIndex: $0)
-            playlistReorderOperations.append(reorderOperation)
-            cursor += 1
-        })
-        
-        // Submit the reorder operations to the playlist
-        playlist.reorderTracksAndGroups(playlistReorderOperations, self.grouping)
-        
-        return playlistReorderOperations
     }
 }

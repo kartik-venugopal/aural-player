@@ -32,7 +32,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             
             if (compare(group.name, query)) {
                 
-                for track in group.tracks {
+                for track in group.allTracks() {
                     
                     results.append(SearchResult(location: SearchResultLocation(trackIndex: nil, track: track, groupInfo: nil), match: (getSearchFieldName(), group.name)))
                 }
@@ -109,9 +109,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     }
     
     private func sortAllTracks(_ strategy: (Track, Track) -> Bool) {
-        groups.forEach({
-            $0.tracks.sort(by: strategy)
-        })
+        groups.forEach({$0.sort(strategy)})
     }
     
     private func compareTracks_ascendingByDisplayName(aTrack: Track, anotherTrack: Track) -> Bool {
@@ -197,32 +195,6 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         let group = groups.remove(at: index)
         groupsByName.removeValue(forKey: group.name)
     }
-    
-    private func removeTrack(_ track: Track) -> Bool {
-        
-        var groupRemoved: Bool = false
-        
-        for group in groups {
-            
-            if let index = group.indexOfTrack(track) {
-                
-                ConcurrencyUtils.executeSynchronized(groups) {
-                
-                    group.removeTrackAtIndex(index)
-                    
-                    if (group.size() == 0) {
-                        
-                        let groupIndex = groups.index(of: group)!
-                        groups.remove(at: groupIndex)
-                        groupsByName.removeValue(forKey: group.name)
-                        groupRemoved = true
-                    }
-                }
-            }
-        }
-        
-        return groupRemoved
-    }
 
     func groupAtIndex(_ index: Int) -> Group {
         return groups[index]
@@ -266,7 +238,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         trackIndexes = trackIndexes.sorted(by: {i1, i2 -> Bool in return i1 > i2})
         
-        trackIndexes.forEach({group.removeTrackAtIndex($0)})
+        trackIndexes.forEach({_ = group.removeTrackAtIndex($0)})
         
         return IndexSet(trackIndexes)
     }
@@ -520,28 +492,142 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         return groups.index(of: group)!
     }
     
-    func reorderTracksAndGroups(_ reorderOperations: [GroupingPlaylistReorderOperation]) {
+    func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults {
         
-        // Perform all operations in sequence
-        for op in reorderOperations {
-            
-            // Check which kind of operation this is, and perform it
-            if let removeOp = op as? GroupedTrackRemovalOperation {
-                
-                removeOp.group.tracks.remove(at: removeOp.trackIndex)
-                
-            } else if let insertOp = op as? GroupedTrackInsertionOperation {
-                
-                insertOp.group.tracks.insert(insertOp.srcTrack, at: insertOp.destIndex)
-                
-            } else if let removeOp = op as? GroupRemovalOperation {
-                
-                groups.remove(at: removeOp.index)
-                
-            } else if let insertOp = op as? GroupInsertionOperation {
-                
-                groups.insert(insertOp.srcGroup, at: insertOp.destIndex)
-            }
+        let movingGroups = !groups.isEmpty
+        
+        // Get child indexes of tracks/groups
+        let childIndexes = getChildIndexes(tracks, groups, dropParent, movingGroups)
+        
+        // Calculate destination
+        let destination = calculateReorderingDestination(childIndexes, dropIndex)
+        
+        // Reorder
+        return performReordering(movingGroups, childIndexes, dropParent, dropIndex, destination)
+    }
+    
+    // For tracks and groups, get their child indexes within their parents
+    private func getChildIndexes(_ tracks: [Track], _ groups: [Group], _ dropParent: Group?, _ movingGroups: Bool) -> IndexSet {
+        
+        var childIndexes = [Int]()
+        
+        if (movingGroups) {
+            groups.forEach({childIndexes.append(indexOfGroup($0))})
+        } else {
+            tracks.forEach({childIndexes.append(dropParent!.indexOfTrack($0)!)})
         }
+        
+        return IndexSet(childIndexes)
+    }
+    
+    /*
+     In response to a playlist reordering by drag and drop, and given source indexes, a destination index, and the drop operation (on/above), determines which indexes the source rows will occupy.
+     */
+    private func calculateReorderingDestination(_ sourceIndexSet: IndexSet, _ dropIndex: Int) -> IndexSet {
+        
+        // Find out how many source items are above the dropRow and how many below
+        let sourceIndexesAboveDropIndex = sourceIndexSet.count(in: 0..<dropIndex)
+        let sourceIndexesBelowDropIndex = sourceIndexSet.count - sourceIndexesAboveDropIndex
+        
+        // All source items above the dropRow will form a contiguous block ending at the dropRow
+        // All source items below the dropRow will form a contiguous block starting one row below the dropRow and extending below it
+        
+        // The lowest index in the destination rows
+        let minDestinationIndex = dropIndex - sourceIndexesAboveDropIndex
+        
+        // The highest index in the destination rows
+        let maxDestinationIndex = dropIndex + sourceIndexesBelowDropIndex - 1
+        
+        return IndexSet(minDestinationIndex...maxDestinationIndex)
+    }
+    
+    private func performReordering(_ movingGroups: Bool, _ childIndexes: IndexSet, _ dropParent: Group?, _ dropRow: Int, _ destination: IndexSet) -> ItemMoveResults {
+        
+        if (movingGroups) {
+            return reorderGroups(childIndexes, dropRow, destination)
+        } else {
+            // Reordering tracks
+            return reorderTracks(childIndexes, dropParent!, dropRow, destination)
+        }
+    }
+    
+    private func reorderTracks(_ sourceIndexSet: IndexSet, _ parentGroup: Group, _ dropRow: Int, _ destination: IndexSet) -> ItemMoveResults {
+        
+        // Collect all reorder operations, in sequence, for later submission to the playlist
+        var results = [ItemMoveResult]()
+        
+        // Step 1 - Store all source items (tracks) that are being reordered, in a temporary location.
+        var sourceItems = [Track]()
+        var sourceIndexMappings = [Track: Int]()
+        
+        // Make sure they the source indexes are iterated in descending order. This will be important in Step 4.
+        sourceIndexSet.sorted(by: {x, y -> Bool in x > y}).forEach({
+            
+            let track = parentGroup.removeTrackAtIndex($0)
+            sourceItems.append(track)
+            sourceIndexMappings[track] = $0
+        })
+        
+        // Step 4 - Copy over the source items into the destination holes
+        var cursor = 0
+        
+        // Destination rows need to be sorted in ascending order
+        let destinationIndexes = destination.sorted(by: {x, y -> Bool in x < y})
+        
+        sourceItems = sourceItems.reversed()
+        
+        destinationIndexes.forEach({
+            
+            // For each destination row, copy over a source item into the corresponding destination hole
+            let track = sourceItems[cursor]
+            parentGroup.insertTrackAtIndex(track, $0)
+            
+            let srcIndex = sourceIndexMappings[track]!
+            results.append(TrackMoveResult(srcIndex, $0, parentGroup))
+            
+            cursor += 1
+        })
+        
+        return ItemMoveResults(results, self.type.toPlaylistType())
+    }
+    
+    private func reorderGroups(_ sourceIndexSet: IndexSet, _ dropRow: Int, _ destination: IndexSet) -> ItemMoveResults {
+        
+        // Collect all reorder operations, in sequence, for later submission to the playlist
+        var results = [ItemMoveResult]()
+        
+        // Step 1 - Store all source items (tracks) that are being reordered, in a temporary location.
+        var sourceItems = [Group]()
+        var sourceIndexMappings = [Group: Int]()
+        
+        // Make sure they the source indexes are iterated in descending order. This will be important in Step 4.
+        sourceIndexSet.sorted(by: {x, y -> Bool in x > y}).forEach({
+            
+            let group = groups.remove(at: $0)
+            sourceItems.append(group)
+            sourceIndexMappings[group] = $0
+        })
+        
+        // Step 4 - Copy over the source items into the destination holes
+        var cursor = 0
+        
+        // Destination rows need to be sorted in ascending order
+        let destinationIndexes = destination.sorted(by: {x, y -> Bool in x < y})
+        
+        sourceItems = sourceItems.reversed()
+        
+        destinationIndexes.forEach({
+            
+            // For each destination row, copy over a source item into the corresponding destination hole
+            let group = sourceItems[cursor]
+            groups.insert(group, at: $0)
+            
+            let srcIndex = sourceIndexMappings[group]!
+            results.append(GroupMoveResult(srcIndex, $0))
+            
+            cursor += 1
+        })
+        
+        return ItemMoveResults(results, self.type.toPlaylistType())
     }
 }

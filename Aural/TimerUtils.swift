@@ -35,6 +35,8 @@ open class TimerUtils {
             let avg = avgForTimers(timersForTag)
             print("    Count / AvgTime", timersForTag.count, String(format: "%.3lf", avg) + " msec")
         }
+        
+        print("\n-----------------------------------------")
     }
     
     static func printStats(_ forTag: String) {

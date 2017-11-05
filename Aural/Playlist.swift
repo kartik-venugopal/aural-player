@@ -212,7 +212,7 @@ class Playlist: PlaylistCRUDProtocol {
         
         // Remove file/track mappings
         var removedTracks: [Track] = tracks
-        groups.forEach({removedTracks.append(contentsOf: $0.tracks)})
+        groups.forEach({removedTracks.append(contentsOf: $0.allTracks())})
         
         // Remove duplicates
         removedTracks = Array(Set(removedTracks))
@@ -249,12 +249,13 @@ class Playlist: PlaylistCRUDProtocol {
         return groupingPlaylists[type]!.displayNameForTrack(track)
     }
     
-    func reorderTracksAndGroups(_ reorderOperations: [GroupingPlaylistReorderOperation], _ groupType: GroupType) {
-        groupingPlaylists[groupType]!.reorderTracksAndGroups(reorderOperations)
-    }
-    
     func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
         return flatPlaylist.dropTracks(sourceIndexes, dropIndex, dropType)
+    }
+    
+    func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType, _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults {
+        
+        return groupingPlaylists[groupType]!.dropTracksAndGroups(tracks, groups, dropParent, dropIndex)
     }
 }
 
@@ -333,12 +334,17 @@ struct ItemMoveResults {
 
 protocol ItemMoveResult {
     var sortIndex: Int {get}
+    var movedUp: Bool {get}
+    var movedDown: Bool {get}
 }
 
 struct GroupMoveResult: ItemMoveResult {
     
     let oldGroupIndex: Int
     let newGroupIndex: Int
+    
+    let movedUp: Bool
+    let movedDown: Bool
     
     var sortIndex: Int {
         return oldGroupIndex
@@ -348,6 +354,9 @@ struct GroupMoveResult: ItemMoveResult {
         
         self.oldGroupIndex = oldGroupIndex
         self.newGroupIndex = newGroupIndex
+        
+        self.movedUp = newGroupIndex < oldGroupIndex
+        self.movedDown = !self.movedUp
     }
 }
 
@@ -356,6 +365,9 @@ struct TrackMoveResult: ItemMoveResult {
     let oldTrackIndex: Int
     let newTrackIndex: Int
     let parentGroup: Group?
+    
+    let movedUp: Bool
+    let movedDown: Bool
     
     var sortIndex: Int {
         return oldTrackIndex
@@ -366,5 +378,8 @@ struct TrackMoveResult: ItemMoveResult {
         self.oldTrackIndex = oldTrackIndex
         self.newTrackIndex = newTrackIndex
         self.parentGroup = parentGroup
+        
+        self.movedUp = newTrackIndex < oldTrackIndex
+        self.movedDown = !self.movedUp
     }
 }
