@@ -18,19 +18,12 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
     override func viewDidLoad() {
         
         // Register self as a subscriber to various AsyncMessage notifications
-        AsyncMessenger.subscribe(.trackAdded, subscriber: self, dispatchQueue: DispatchQueue.main)
-        AsyncMessenger.subscribe(.tracksRemoved, subscriber: self, dispatchQueue: DispatchQueue.main)
-        AsyncMessenger.subscribe(.trackInfoUpdated, subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .tracksRemoved, .trackInfoUpdated], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
-        SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
-        SyncMessenger.subscribe(.searchResultSelectionRequest, subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionType: .removeTracks, subscriber: self)
-        SyncMessenger.subscribe(actionType: .moveTracksUp, subscriber: self)
-        SyncMessenger.subscribe(actionType: .moveTracksDown, subscriber: self)
-        SyncMessenger.subscribe(actionType: .refresh, subscriber: self)
-        SyncMessenger.subscribe(actionType: .showPlayingTrack, subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .refresh, .showPlayingTrack], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1

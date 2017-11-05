@@ -25,7 +25,7 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
     override func viewDidLoad() {
         
         // Subscribe to playbackStateChangedNotifications so that the playing track animation can be paused/resumed, in response to the playing track being paused/resumed
-        SyncMessenger.subscribe(.playbackStateChangedNotification, subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.playbackStateChangedNotification], subscriber: self)
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {

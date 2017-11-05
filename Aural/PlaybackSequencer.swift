@@ -15,7 +15,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         self.sequence = PlaybackSequence(0, repeatMode, shuffleMode)
         self.playlist = playlist
         
-        SyncMessenger.subscribe(.playlistTypeChangedNotification, subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.playlistTypeChangedNotification], subscriber: self)
     }
     
     func getPlaybackSequenceInfo() -> (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {

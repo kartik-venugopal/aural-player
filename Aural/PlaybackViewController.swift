@@ -48,10 +48,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         let appState = ObjectGraph.getUIAppState()
         updateRepeatAndShuffleControls(appState.repeatMode, appState.shuffleMode)
         
-        // Subscribe for message notifications
-        
-        AsyncMessenger.subscribe(.trackNotPlayed, subscriber: self, dispatchQueue: DispatchQueue.main)
-        AsyncMessenger.subscribe(.trackChanged, subscriber: self, dispatchQueue: DispatchQueue.main)
+        // Subscribe to message notifications
+        AsyncMessenger.subscribe([.trackNotPlayed,.trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position

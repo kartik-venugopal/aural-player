@@ -56,14 +56,9 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         
         // Subscribe to various notifications
         
-        AsyncMessenger.subscribe(.tracksRemoved, subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.tracksRemoved], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(.trackChangedNotification, subscriber: self)
-        SyncMessenger.subscribe(.sequenceChangedNotification, subscriber: self)
-        SyncMessenger.subscribe(.playbackRateChangedNotification, subscriber: self)
-        SyncMessenger.subscribe(.playbackStateChangedNotification, subscriber: self)
-        SyncMessenger.subscribe(.seekPositionChangedNotification, subscriber: self)
-        SyncMessenger.subscribe(.playingTrackInfoUpdatedNotification, subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
     }
     
     @IBAction func moreInfoAction(_ sender: AnyObject) {

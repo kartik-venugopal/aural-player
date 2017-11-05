@@ -38,7 +38,7 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     
     override func viewDidLoad() {
         searchPanel.titlebarAppearsTransparent = true
-        SyncMessenger.subscribe(.searchTextChangedNotification, subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.searchTextChangedNotification], subscriber: self)
     }
     
     @IBAction func searchPlaylistAction(_ sender: Any) {
