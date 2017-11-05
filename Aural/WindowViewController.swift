@@ -56,7 +56,6 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             toggleEffects(false)
         }
         
-        mainWindow.setFrameOrigin(appState.windowLocation)
         mainWindow.isMovableByWindowBackground = true
         mainWindow.makeKeyAndOrderFront(self)
         
@@ -85,6 +84,53 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         
         mainWindow.isOpaque = false
         playlistWindow.isOpaque = false
+        
+        // If a specific position is specified, use it
+        if let mainWindowOrigin = appState.windowLocationXY {
+            mainWindow.setFrameOrigin(mainWindowOrigin)
+        } else {
+            // Need to calculate position
+            positionWindowOnStartup(appState.windowLocationOnStartup.windowLocation, !appState.hidePlaylist)
+        }
+    }
+    
+    private func positionWindowOnStartup(_ relativeLoc: WindowLocations, _ playlistShown: Bool) {
+        
+        var height: CGFloat = mainWindow.height
+        var width: CGFloat = mainWindow.width
+        
+        if (playlistShown) {
+        
+            switch playlistDockState {
+                
+            case .bottom: height += playlistWindow.height
+                
+            case .left, .right: width += playlistWindow.width
+                
+            default: break
+                
+            }
+        }
+        
+        let location = UIUtils.windowPositionRelativeToScreen(width, height, relativeLoc)
+        
+        var x = location.x
+        var y = location.y
+        
+        if (playlistShown) {
+            
+            switch playlistDockState {
+                
+            case .bottom: y += playlistWindow.height
+                
+            case .left: x += playlistWindow.width
+                
+            default: break
+                
+            }
+        }
+        
+        mainWindow.setFrameOrigin(NSPoint(x: x, y: y))
     }
     
     @IBAction func hideAction(_ sender: AnyObject) {

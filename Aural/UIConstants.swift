@@ -119,8 +119,8 @@ class UIConstants {
     static let recorderTimerIntervalMillis: Int = 500
     
     // Window width (never changes)
-    static let windowWidth: CGFloat = 415
-    static let minPlaylistWidth: CGFloat = 415
+    static let windowWidth: CGFloat = 480
+    static let minPlaylistWidth: CGFloat = 480
     static let minPlaylistHeight: CGFloat = 150
  
     // Window heights for different views

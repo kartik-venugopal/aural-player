@@ -9,7 +9,8 @@ class UIAppState {
     var hidePlaylist: Bool
     var hideEffects: Bool
     
-    var windowLocation: NSPoint
+    var windowLocationOnStartup: WindowLocationOnStartup
+    var windowLocationXY: NSPoint?
     var playlistLocation: PlaylistLocations
     
     var repeatMode: RepeatMode
@@ -81,33 +82,6 @@ class UIAppState {
             self.hideEffects = viewType == .playlistOnly || viewType == .compact
         }
         
-        if (preferences.windowLocationOnStartup.option == .rememberFromLastAppLaunch) {
-            
-            self.windowLocation = NSPoint(x: CGFloat(appState.uiState.windowLocationX), y: CGFloat(appState.uiState.windowLocationY))
-            
-        } else {
-            
-            // TODO: Account for playlist window dimensions (when playlist is shown) and dock location, when positioning main window
-            
-            let windowWidth = UIConstants.windowWidth
-            var windowHeight: CGFloat
-            
-            let showPlaylist = !self.hidePlaylist
-            let showEffects = !self.hideEffects
-            
-            if (showPlaylist && showEffects) {
-                windowHeight = UIConstants.windowHeight_playlistAndEffects
-            } else if (showPlaylist) {
-                windowHeight = UIConstants.windowHeight_playlistOnly
-            } else if (showEffects) {
-                windowHeight = UIConstants.windowHeight_effectsOnly
-            } else {
-                windowHeight = UIConstants.windowHeight_compact
-            }
-        
-            self.windowLocation = UIUtils.windowPositionRelativeToScreen(windowWidth, windowHeight, preferences.windowLocationOnStartup.windowLocation)
-        }
-        
         if (preferences.playlistLocationOnStartup.option == .rememberFromLastAppLaunch) {
             
             self.playlistLocation = appState.uiState.playlistLocation
@@ -115,6 +89,13 @@ class UIAppState {
         } else {
             
             self.playlistLocation = preferences.playlistLocationOnStartup.playlistLocation
+        }
+        
+        self.windowLocationOnStartup = preferences.windowLocationOnStartup
+        
+        if (preferences.windowLocationOnStartup.option == .rememberFromLastAppLaunch) {
+            
+            self.windowLocationXY = NSPoint(x: CGFloat(appState.uiState.windowLocationX), y: CGFloat(appState.uiState.windowLocationY))
         }
         
         self.repeatMode = appState.playbackSequenceState.repeatMode
