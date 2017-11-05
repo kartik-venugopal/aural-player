@@ -11,24 +11,34 @@ class SyncMessenger {
     private static var actionMessageSubscriberRegistry: [ActionType: [ActionMessageSubscriber]] = [ActionType: [ActionMessageSubscriber]]()
     
     // Called by a subscriber who is interested in a certain type of message
-    static func subscribe(_ messageType: MessageType, subscriber: MessageSubscriber) {
+    static func subscribe(messageTypes: [MessageType], subscriber: MessageSubscriber) {
         
-        let subscribers = messageSubscriberRegistry[messageType]
-        if (subscribers == nil) {
-            messageSubscriberRegistry[messageType] = [MessageSubscriber]()
-        }
-        
-        messageSubscriberRegistry[messageType]?.append(subscriber)
+        messageTypes.forEach({
+            
+            let messageType = $0
+            
+            let subscribers = messageSubscriberRegistry[messageType]
+            if (subscribers == nil) {
+                messageSubscriberRegistry[messageType] = [MessageSubscriber]()
+            }
+            
+            messageSubscriberRegistry[messageType]?.append(subscriber)
+        })
     }
     
-    static func subscribe(actionType: ActionType, subscriber: ActionMessageSubscriber) {
+    static func subscribe(actionTypes: [ActionType], subscriber: ActionMessageSubscriber) {
         
-        let subscribers = actionMessageSubscriberRegistry[actionType]
-        if (subscribers == nil) {
-            actionMessageSubscriberRegistry[actionType] = [ActionMessageSubscriber]()
-        }
+        actionTypes.forEach({
+            
+            let actionType = $0
         
-        actionMessageSubscriberRegistry[actionType]?.append(subscriber)
+            let subscribers = actionMessageSubscriberRegistry[actionType]
+            if (subscribers == nil) {
+                actionMessageSubscriberRegistry[actionType] = [ActionMessageSubscriber]()
+            }
+            
+            actionMessageSubscriberRegistry[actionType]?.append(subscriber)
+        })
     }
     
     // Called by a publisher to publish a notification message

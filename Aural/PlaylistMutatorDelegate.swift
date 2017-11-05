@@ -35,9 +35,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         self.changeListeners = changeListeners
         
-        // Subscribe for message notifications
-        SyncMessenger.subscribe(.appLoadedNotification, subscriber: self)
-        SyncMessenger.subscribe(.appReopenedNotification, subscriber: self)
+        // Subscribe to message notifications
+        SyncMessenger.subscribe(messageTypes: [.appLoadedNotification, .appReopenedNotification], subscriber: self)
     }
     
     func addFiles(_ files: [URL]) {

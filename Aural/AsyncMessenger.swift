@@ -12,14 +12,19 @@ class AsyncMessenger {
     
     // Called by a subscriber who is interested in notifications of a certain type of event
     // The queue argument specifies which queue the event notification should be dispatched to (for the UI, this should be the main dispatch queue)
-    static func subscribe(_ AsyncMessageType: AsyncMessageType, subscriber: AsyncMessageSubscriber, dispatchQueue: DispatchQueue) {
+    static func subscribe(_ messageTypes: [AsyncMessageType], subscriber: AsyncMessageSubscriber, dispatchQueue: DispatchQueue) {
         
-        let subscribers = subscriberRegistry[AsyncMessageType]
-        if (subscribers == nil) {
-            subscriberRegistry[AsyncMessageType] = [(AsyncMessageSubscriber, DispatchQueue)]()
-        }
+        messageTypes.forEach({
+            
+            let messageType = $0
         
-        subscriberRegistry[AsyncMessageType]?.append(subscriber, dispatchQueue)
+            let subscribers = subscriberRegistry[messageType]
+            if (subscribers == nil) {
+                subscriberRegistry[messageType] = [(AsyncMessageSubscriber, DispatchQueue)]()
+            }
+            
+            subscriberRegistry[messageType]?.append(subscriber, dispatchQueue)
+        })
     }
     
     // Called by a publisher to publish an event

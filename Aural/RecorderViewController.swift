@@ -29,7 +29,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         
         recorderTimer = RepeatingTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingInfo()}, queue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(.appExitRequest, subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
     }
     
     @IBAction func recorderAction(_ sender: Any) {
