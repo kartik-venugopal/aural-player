@@ -17,7 +17,7 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
     private let dragDropDelegate: TracksPlaylistDragDropDelegate = TracksPlaylistDragDropDelegate()
     
     // Used to pause/resume the playing track animation
-    private var animationCell: PlaylistCellView?
+    private var animationCell: NSTableCellView?
     
     // Signifies an invalid drag/drop operation
     private let invalidDragOperation: NSDragOperation = []
@@ -35,7 +35,7 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
     
     // Each playlist view row contains one track, with display name and duration
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return PlaylistRowView()
+        return FlatPlaylistRowView()
     }
     
     // Enables type selection, allowing the user to conveniently and efficiently find a playlist track by typing its name, which results in the track, if found, being selected within the playlist
@@ -95,9 +95,9 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
     }
     
     // Creates a cell view containing text
-    private func createTextCell(_ tableView: NSTableView, _ id: String, _ text: String) -> PlaylistCellView? {
+    private func createTextCell(_ tableView: NSTableView, _ id: String, _ text: String) -> NSTableCellView? {
         
-        if let cell = tableView.make(withIdentifier: id, owner: nil) as? PlaylistCellView {
+        if let cell = tableView.make(withIdentifier: id, owner: nil) as? NSTableCellView {
             
             cell.textField?.stringValue = text
             
@@ -112,9 +112,9 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
     }
     
     // Creates a cell view containing the animation for the currently playing track
-    private func createPlayingTrackAnimationCell(_ tableView: NSTableView, _ animate: Bool) -> PlaylistCellView? {
+    private func createPlayingTrackAnimationCell(_ tableView: NSTableView, _ animate: Bool) -> NSTableCellView? {
         
-        if let cell = tableView.make(withIdentifier: UIConstants.trackIndexColumnID, owner: nil) as? PlaylistCellView {
+        if let cell = tableView.make(withIdentifier: UIConstants.trackIndexColumnID, owner: nil) as? NSTableCellView {
             
             // Configure and show the image view
             let imgView = cell.imageView!
@@ -191,7 +191,7 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
 /*
     Custom view for a NSTableView row that displays a single playlist track. Customizes the selection look and feel.
  */
-class PlaylistRowView: NSTableRowView {
+class FlatPlaylistRowView: NSTableRowView {
     
     // Draws a fancy rounded rectangle around the selected track in the playlist view
     override func drawSelection(in dirtyRect: NSRect) {
@@ -205,35 +205,16 @@ class PlaylistRowView: NSTableRowView {
             selectionPath.fill()
         }
     }
-}
-
-/*
-    Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
- */
-class PlaylistCellView: NSTableCellView {
     
-    // When the background changes (as a result of selection/deselection) switch appropriate colours
-    override var backgroundStyle: NSBackgroundStyle {
+    override func drawBackground(in dirtyRect: NSRect) {
         
-        didSet {
+        UIConstants.flatPlaylistViewColumnIndexes.forEach({
             
-            if let field = self.textField {
-                
-                if (backgroundStyle == NSBackgroundStyle.dark) {
-                    
-                    // Selected
-                    
-                    field.textColor = Colors.playlistSelectedTextColor
-                    field.font = UIConstants.playlistSelectedTextFont
-                    
-                } else {
-                    
-                    // Not selected
-                    
-                    field.textColor = Colors.playlistTextColor
-                    field.font = UIConstants.playlistTextFont
-                }
-            }
-        }
+            let cell = self.view(atColumn: $0) as! NSTableCellView
+            cell.textField?.textColor = isSelected ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
+            cell.textField?.font = isSelected ? UIConstants.playlistSelectedTextFont : UIConstants.playlistTextFont
+        })
+        
+        super.drawBackground(in: dirtyRect)
     }
 }

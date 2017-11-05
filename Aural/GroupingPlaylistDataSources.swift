@@ -27,7 +27,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
     }
     
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
-        return PlaylistRowView()
+        return GroupingPlaylistRowView()
     }
     
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
@@ -70,7 +70,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
                 let view: GroupedTrackCellView? = outlineView.make(withIdentifier: (tableColumn?.identifier)!, owner: self) as? GroupedTrackCellView
                 
                 view!.textField?.stringValue = String(format: "%@ (%d)", group.name, group.size())
-                view!.isName = true
+                view!.isGroup = true
                 view!.imageView?.image = UIConstants.imgGroup
                 
                 return view
@@ -80,7 +80,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
                 let view: GroupedTrackCellView? = outlineView.make(withIdentifier: (tableColumn?.identifier)!, owner: self) as? GroupedTrackCellView
                 
                 view!.textField?.stringValue = playlist.displayNameForTrack(grouping, track)
-                view!.isName = false
+                view!.isGroup = false
                 
                 let playingTrack = playbackInfo.getPlayingTrack()?.track
                 
@@ -113,13 +113,13 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
             if let group = item as? Group {
                 
                 view!.textField?.stringValue = StringUtils.formatSecondsToHMS(group.duration)
-                view?.isName = true
+                view?.isGroup = true
                 view!.textField?.setFrameOrigin(NSPoint(x: 0, y: -12))
                 
             } else if let track = item as? Track {
                 
                 view!.textField?.stringValue = StringUtils.formatSecondsToHMS(track.duration)
-                view?.isName = false
+                view?.isGroup = false
             }
             
             return view
@@ -224,48 +224,36 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
     Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
  */
 class GroupedTrackCellView: NSTableCellView {
+    var isGroup: Bool = false
+}
+
+class GroupingPlaylistRowView: NSTableRowView {
     
-    var isName: Bool = false
-    
-    // When the background changes (as a result of selection/deselection) switch appropriate colours
-    override var backgroundStyle: NSBackgroundStyle {
+    // Draws a fancy rounded rectangle around the selected track in the playlist view
+    override func drawSelection(in dirtyRect: NSRect) {
         
-        didSet {
+        if self.selectionHighlightStyle != NSTableViewSelectionHighlightStyle.none {
             
-            if let field = self.textField {
-                
-                if (backgroundStyle == NSBackgroundStyle.dark) {
-                    
-                    // Selected
-                    
-                    if (isName) {
-                        
-                        field.textColor = Colors.playlistGroupNameSelectedTextColor
-                        field.font = UIConstants.playlistGroupNameSelectedTextFont
-                        
-                    } else {
-                        
-                        field.textColor = Colors.playlistGroupItemSelectedTextColor
-                        field.font = UIConstants.playlistGroupItemSelectedTextFont
-                    }
-                    
-                } else {
-                    
-                    // Not selected
-                    
-                    if (isName) {
-                        
-                        field.textColor = Colors.playlistGroupNameTextColor
-                        field.font = UIConstants.playlistGroupNameTextFont
-                        
-                    } else {
-                        
-                        field.textColor = Colors.playlistGroupItemTextColor
-                        field.font = UIConstants.playlistGroupItemTextFont
-                    }
-                }
-            }
+            let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
+            
+            let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
+            Colors.playlistSelectionBoxColor.setFill()
+            selectionPath.fill()
         }
+    }
+    
+    override func drawBackground(in dirtyRect: NSRect) {
+        
+        UIConstants.groupingPlaylistViewColumnIndexes.forEach({
+            
+            let cell = self.view(atColumn: $0) as! GroupedTrackCellView
+            
+            cell.textField?.textColor = isSelected ? (cell.isGroup ? Colors.playlistGroupNameSelectedTextColor : Colors.playlistGroupItemSelectedTextColor) : (cell.isGroup ? Colors.playlistGroupNameTextColor : Colors.playlistGroupItemTextColor)
+            
+            cell.textField?.font = isSelected ? (cell.isGroup ? UIConstants.playlistGroupNameSelectedTextFont : UIConstants.playlistGroupItemSelectedTextFont) : (cell.isGroup ? UIConstants.playlistGroupNameTextFont : UIConstants.playlistGroupItemTextFont)
+        })
+        
+        super.drawBackground(in: dirtyRect)
     }
 }
 
