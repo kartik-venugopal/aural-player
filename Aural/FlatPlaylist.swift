@@ -327,8 +327,6 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     
     private func performReordering(_ sourceIndexes: IndexSet, _ destinationIndexes: IndexSet) {
         
-        print("Here in flatPlaylist !")
-        
         // Step 1 - Store all source items (tracks) that are being reordered, in a temporary location.
         var sourceItems = [Track]()
         
