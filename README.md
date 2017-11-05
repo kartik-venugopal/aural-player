@@ -52,7 +52,7 @@ Wanna try it out ? The latest app bundle can be found in the disk image file [Au
 
 11/3/2017: **New playlist views with track groups** - In addition to the current flat view, new views have been added to the playlist, which group tracks by album, artist, genre, etc. This allows for convenient playlist browsing.
 
-11/3/2018: **UI refresh** - A lot of UI elements have been redone, for a slicker appearance. Window corners, background colors, slider controls, playlist summary, etc.
+11/3/2018: **UI refresh** - A lot of UI elements have been redone, for a sleeker appearance. Window corners, background colors, slider controls, playlist summary, etc.
 
 10/15/2017: **Multiple selection, type selection, and drag/drop reordering in playlist** - The playlist now allows selection of multiple items at once, and type selection to find tracks quickly by typing their name. Also, it now allows reordering by dragging and dropping. This makes reordering, and/or removal of multiple playlist tracks much less tedious, and provides a quick way to search for tracks by name. (Full-fledged search is still available)
 
