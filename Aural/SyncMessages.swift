@@ -75,6 +75,8 @@ enum MessageType {
     
     case appInBackgroundNotification
     
+    case appInForegroundNotification
+    
     case playbackRequest
     
     // See AppExitRequest
@@ -342,4 +344,13 @@ struct AppInBackgroundNotification: NotificationMessage {
     private init() {}
     
     static let instance: AppInBackgroundNotification = AppInBackgroundNotification()
+}
+
+struct AppInForegroundNotification: NotificationMessage {
+    
+    let messageType: MessageType = .appInForegroundNotification
+    
+    private init() {}
+    
+    static let instance: AppInForegroundNotification = AppInForegroundNotification()
 }

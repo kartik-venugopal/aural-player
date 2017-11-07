@@ -5,6 +5,8 @@
 import Cocoa
 
 // TODO: What to do if the playlist window moves off-screen ??? Should it always be resized so it is completely on-screen ???
+
+// TODO: Cleanup !
 class WindowViewController: NSViewController, NSWindowDelegate {
     
     // Main application window. Contains the Now Playing info box, player controls, and effects panel. Acts as a parent for the playlist window. Not manually resizable. Changes size when toggling playlist/effects views.
@@ -84,10 +86,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             positionWindowOnStartup(appState.windowLocationOnStartup.windowLocation, !appState.hidePlaylist)
         }
         
-        [mainWindow, playlistWindow].forEach({
-            $0?.isOpaque = false
-            $0?.isMovableByWindowBackground = true
-        })
+        [mainWindow, playlistWindow].forEach({$0?.isMovableByWindowBackground = true})
         
         mainWindow.makeKeyAndOrderFront(self)
         playlistWindow.delegate = self
@@ -133,6 +132,10 @@ class WindowViewController: NSViewController, NSWindowDelegate {
     }
     
     @IBAction func hideAction(_ sender: AnyObject) {
+        NSApplication.shared().hide(self)
+    }
+    
+    @IBAction func minimizeAction(_ sender: AnyObject) {
         mainWindow.miniaturize(self)
     }
     
@@ -685,6 +688,8 @@ class WindowState {
     static var showingEffects: Bool = AppDefaults.showEffects
     static var playlistLocation: PlaylistLocations = AppDefaults.playlistLocation
     
+    static var inForeground: Bool = true
+    
     static func location() -> NSPoint {
         return window!.frame.origin
     }
@@ -741,5 +746,25 @@ extension NSWindow {
     // Y co-ordinate of location
     var y: CGFloat {
         return self.frame.origin.y
+    }
+}
+
+class MainWindowDelegate: NSObject, NSWindowDelegate {
+    
+    func windowDidMiniaturize(_ notification: Notification) {
+        WindowState.inForeground = false
+        SyncMessenger.publishNotification(AppInBackgroundNotification.instance)
+    }
+    
+    func windowDidDeminiaturize(_ notification: Notification) {
+        WindowState.inForeground = true
+        SyncMessenger.publishNotification(AppInForegroundNotification.instance)
+    }
+    
+    func windowDidChangeOcclusionState(_ notification: Notification) {
+        if (!WindowState.window!.occlusionState.contains(.visible)) {
+            WindowState.inForeground = false
+            SyncMessenger.publishNotification(AppInBackgroundNotification.instance)
+        }
     }
 }

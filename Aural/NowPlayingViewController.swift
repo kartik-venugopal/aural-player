@@ -59,7 +59,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         
         AsyncMessenger.subscribe([.tracksRemoved], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
     }
     
     @IBAction func moreInfoAction(_ sender: AnyObject) {
@@ -307,12 +307,27 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         setSeekTimerState(isPlaying)
         
         // Pause/resume the art animation
-        artView.animates = isPlaying
+        artView.animates = shouldAnimate()
     }
     
     // When track info for the playing track changes, display fields need to be updated
     private func playingTrackInfoUpdated(_ notification: PlayingTrackInfoUpdatedNotification) {
         showNowPlayingInfo(playbackInfo.getPlayingTrack()!.track)
+    }
+    
+    private func appInBackground() {
+        artView.animates = false
+    }
+    
+    private func appInForeground() {
+        artView.animates = shouldAnimate()
+    }
+    
+    // Helper function that determines whether or not the playing track animation should be shown animated
+    private func shouldAnimate() -> Bool {
+        
+        // Animation enabled only if 1 - the appropriate playlist view is currently shown, 2 - a track is currently playing (not paused), and 3 - the app window is currently in the foreground
+        return (playbackInfo.getPlaybackState() == .playing) && WindowState.inForeground
     }
     
     // MARK: Message handlers
@@ -345,6 +360,14 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         case .playingTrackInfoUpdatedNotification:
             
             playingTrackInfoUpdated(notification as! PlayingTrackInfoUpdatedNotification)
+            
+        case .appInBackgroundNotification:
+            
+            appInBackground()
+            
+        case .appInForegroundNotification:
+            
+            appInForeground()
             
         default: return
             
