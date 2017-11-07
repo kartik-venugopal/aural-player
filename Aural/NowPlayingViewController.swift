@@ -16,11 +16,12 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
     @IBOutlet weak var lblTimeElapsed: NSTextField!
     @IBOutlet weak var lblTimeRemaining: NSTextField!
     
-    // Fields that display information about the current playback scope (e.g. all tracks that make up the current playback sequence - for ex. a specific artist group, or all tracks), and progress within that sequence - for ex. 5/67 (5th track playing out of a total of 67 tracks).
+    // Fields that display information about the current playback scope
     @IBOutlet weak var lblSequenceProgress: NSTextField!
     @IBOutlet weak var lblPlaybackScope: NSTextField!
     @IBOutlet weak var imgScope: NSImageView!
     
+    // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
     @IBOutlet weak var seekSlider: NSSlider!
     
     // Button and menu item to display more details about the playing track
@@ -112,8 +113,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         }
         
         lblTrackName.isHidden = artistAndTitleAvailable
-        lblTrackArtist.isHidden = !artistAndTitleAvailable
-        lblTrackTitle.isHidden = !artistAndTitleAvailable
+        [lblTrackArtist, lblTrackTitle].forEach({$0?.isHidden = !artistAndTitleAvailable})
         
         if (track.displayInfo.art != nil) {
             artView.image = track.displayInfo.art!
@@ -125,13 +125,56 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         }
         
         resetSeekPosition(track)
+        showPlaybackScope()
+    }
+    
+    /* 
+        Displays information about the current playback scope (i.e. the set of tracks that make up the current playback sequence - for ex. a specific artist group, or all tracks), and progress within that sequence - for ex. 5/67 (5th track playing out of a total of 67 tracks).
+     */
+    private func showPlaybackScope() {
+        
+        let sequence = playbackInfo.getPlaybackSequenceInfo()
+        let scope = sequence.scope
+        
+        // Description and image for playback scope
+        switch scope.type {
+            
+        case .allTracks, .allArtists, .allAlbums, .allGenres:
+            
+            lblPlaybackScope.stringValue = StringUtils.splitCamelCaseWord(scope.type.rawValue, false)
+            imgScope.image = UIConstants.imgPlaylistOn
+            
+        case .artist, .album, .genre:
+            
+            lblPlaybackScope.stringValue = scope.scope!.name
+            imgScope.image = UIConstants.imgGroup
+        }
+        
+        // Sequence progress. For example, "5 / 10" (tracks)
+        let trackIndex = sequence.trackIndex
+        let totalTracks = sequence.totalTracks
+        lblSequenceProgress.stringValue = String(format: "%d / %d", trackIndex, totalTracks)
+        
+        // Dynamically position the scope image relative to the scope description string
+        
+        // Determine the width of the scope string
+        let scopeString: NSString = lblPlaybackScope.stringValue as NSString
+        let stringSize: CGSize = scopeString.size(withAttributes: [NSFontAttributeName: lblPlaybackScope.font as AnyObject])
+        let lblWidth = lblPlaybackScope.frame.width
+        let textWidth = min(stringSize.width, lblWidth)
+        
+        // Position the scope image a few pixels to the left of the scope string
+        let margin = (lblWidth - textWidth) / 2
+        let newImgX = lblPlaybackScope.frame.origin.x + margin - imgScope.frame.width - 4
+        imgScope.frame.origin.x = max(UIConstants.minImgScopeLocationX, newImgX)
     }
     
     private func clearNowPlayingInfo() {
         
-        [lblTrackArtist, lblTrackTitle, lblTrackName].forEach({$0?.stringValue = ""})
+        [lblTrackArtist, lblTrackTitle, lblTrackName, lblPlaybackScope, lblSequenceProgress].forEach({$0?.stringValue = ""})
         artView.image = UIConstants.imgPlayingArt
         artView.animates = false
+        imgScope.image = nil
         
         seekSlider.floatValue = 0
         lblTimeElapsed.isHidden = true
@@ -163,6 +206,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         }
     }
     
+    // Updates the seek slider and time elapsed/remaining labels as playback proceeds
     private func updateSeekPosition() {
         
         if (playbackInfo.getPlaybackState() == .playing) {
@@ -178,6 +222,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         }
     }
     
+    // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
     private func resetSeekPosition(_ track: Track) {
         
         lblTimeElapsed.stringValue = UIConstants.zeroDurationString
@@ -189,8 +234,20 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         seekSlider.floatValue = 0
     }
     
+    private func tracksRemoved(_ message: TracksRemovedAsyncMessage) {
+        
+        // Check if the playing track was removed. If so, need to update display fields, because playback will have stopped.
+        if (message.playingTrackRemoved) {
+            trackChanged(nil)
+        }
+    }
+    
+    private func trackChanged(_ notification: TrackChangedNotification) {
+        trackChanged(notification.newTrack, notification.errorState)
+    }
+    
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
-    private func trackChange(_ newTrack: IndexedTrack?, _ errorState: Bool = false) {
+    private func trackChanged(_ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
         if (newTrack != nil) {
             
@@ -199,53 +256,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
             if (!errorState) {
                 setSeekTimerState(true)
                 togglePlayingTrackButtons(true)
-                
-                let sequence = playbackInfo.getPlaybackSequenceInfo()
-                let scope = sequence.scope
-                
-                let trackIndex = sequence.trackIndex
-                let totalTracks = sequence.totalTracks
-                
-                switch scope.type {
-                    
-                case .allTracks:
-                    
-                    lblPlaybackScope.stringValue = "All tracks"
-                    imgScope.image = UIConstants.imgPlaylistOn
-                    
-                case .allArtists:
-                    
-                    lblPlaybackScope.stringValue = "All artists"
-                    imgScope.image = UIConstants.imgPlaylistOn
-                    
-                case .allAlbums:
-                    
-                    lblPlaybackScope.stringValue = "All albums"
-                    imgScope.image = UIConstants.imgPlaylistOn
-                    
-                case .allGenres:
-                    
-                    lblPlaybackScope.stringValue = "All genres"
-                    imgScope.image = UIConstants.imgPlaylistOn
-                    
-                case .artist, .album, .genre:
-                    
-                    lblPlaybackScope.stringValue = scope.scope!.name
-                    imgScope.image = UIConstants.imgGroup
-                }
-                
-                lblSequenceProgress.stringValue = String(format: "%d / %d", trackIndex, totalTracks)
-                
-                let scopeString: NSString = lblPlaybackScope.stringValue as NSString
-                let size: CGSize = scopeString.size(withAttributes: [NSFontAttributeName: lblPlaybackScope.font as AnyObject])
-
-                let lblWidth = lblPlaybackScope.frame.width
-                let textWidth = min(size.width, lblWidth)
-                
-                let margin = (lblWidth - textWidth) / 2   
-                let newImgX = lblPlaybackScope.frame.origin.x + margin - imgScope.frame.width - 4
-                imgScope.frame.origin.x = max(UIConstants.minImgScopeLocationX, newImgX)
-    
                 
                 if (popoverView.isShown()) {
                     
@@ -261,25 +271,22 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
             
         } else {
             
-            [lblPlaybackScope, lblSequenceProgress].forEach({$0?.stringValue = ""})
-            imgScope.image = nil
+            // No track playing, clear the info fields
             clearNowPlayingInfo()
         }
     }
     
+    // Whenever the playback sequence changes (without the playing track changing), the sequence progress might have changed. For example, when the playing track is moved up one row, its progress will change from "4/10" to "3/10". The display fields need to be updated accordingly.
     private func sequenceChanged() {
         
         let sequence = playbackInfo.getPlaybackSequenceInfo()
-        let trackIndex = sequence.trackIndex
-        let totalTracks = sequence.totalTracks
-        
-        lblSequenceProgress.stringValue = String(format: "%d / %d", trackIndex, totalTracks)
+        lblSequenceProgress.stringValue = String(format: "%d / %d", sequence.trackIndex, sequence.totalTracks)
     }
     
     // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
-    private func playbackRateChanged(_ newRate: Float) {
+    private func playbackRateChanged(_ notification: PlaybackRateChangedNotification) {
         
-        let interval = Int(1000 / (2 * newRate))
+        let interval = Int(1000 / (2 * notification.newPlaybackRate))
         
         if (interval != seekTimer?.getInterval()) {
             
@@ -291,72 +298,77 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         }
     }
     
-    // When the playback state changes, the seek timer can be disabled when not needed (e.g. when paused)
-    private func playbackStateChanged(_ newState: PlaybackState) {
+    // When the playback state changes (e.g. playing -> paused), fields may need to be updated
+    private func playbackStateChanged(_ notification: PlaybackStateChangedNotification) {
         
-        setSeekTimerState(newState == .playing)
+        let isPlaying: Bool = (notification.newPlaybackState == .playing)
+    
+        // The seek timer can be disabled when not needed (e.g. when paused)
+        setSeekTimerState(isPlaying)
         
-        // Pause/resume the art animation (if it is playing)
-        switch (newState) {
-            
-        case .playing:
-            
-            artView.animates = true
-        
-        default:
-            
-            // The track is either paused or no longer playing
-            artView.animates = false
-        }
+        // Pause/resume the art animation
+        artView.animates = isPlaying
     }
     
+    // When track info for the playing track changes, display fields need to be updated
+    private func playingTrackInfoUpdated(_ notification: PlayingTrackInfoUpdatedNotification) {
+        showNowPlayingInfo(playbackInfo.getPlayingTrack()!.track)
+    }
+    
+    // MARK: Message handlers
+    
+    // Consume synchronous notification messages
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if (notification is TrackChangedNotification) {
-            let msg = notification as! TrackChangedNotification
-            trackChange(msg.newTrack, msg.errorState)
-            return
-        }
-        
-        if (notification is SequenceChangedNotification) {
+        switch notification.messageType {
+            
+        case .trackChangedNotification:
+            
+            trackChanged(notification as! TrackChangedNotification)
+            
+        case .sequenceChangedNotification:
+            
             sequenceChanged()
-            return
-        }
-        
-        if (notification is PlaybackRateChangedNotification) {
-            let msg = notification as! PlaybackRateChangedNotification
-            playbackRateChanged(msg.newPlaybackRate)
-            return
-        }
-        
-        if (notification is PlaybackStateChangedNotification) {
-            let msg = notification as! PlaybackStateChangedNotification
-            playbackStateChanged(msg.newPlaybackState)
-            return
-        }
-        
-        if (notification is SeekPositionChangedNotification) {
+            
+        case .playbackRateChangedNotification:
+            
+            playbackRateChanged(notification as! PlaybackRateChangedNotification)
+            
+        case .playbackStateChangedNotification:
+            
+            playbackStateChanged(notification as! PlaybackStateChangedNotification)
+            
+        case .seekPositionChangedNotification:
+            
             updateSeekPosition()
-            return
-        }
-        
-        if (notification is PlayingTrackInfoUpdatedNotification) {
-            showNowPlayingInfo(playbackInfo.getPlayingTrack()!.track)
-            return
+            
+        case .playingTrackInfoUpdatedNotification:
+            
+            playingTrackInfoUpdated(notification as! PlayingTrackInfoUpdatedNotification)
+            
+        default: return
+            
         }
     }
     
+    // Process synchronous request messages
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        // This class does not process any requests
         return EmptyResponse.instance
     }
     
+    // Consume asynchronous messages
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        if let msg = message as? TracksRemovedAsyncMessage {
+        switch message.messageType {
             
-            if (msg.playingTrackRemoved) {
-                trackChange(nil)
-            }
+        case .tracksRemoved:
+            
+            tracksRemoved(message as! TracksRemovedAsyncMessage)
+            
+        default: return
+        
         }
     }
 }

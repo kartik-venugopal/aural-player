@@ -241,7 +241,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="prevTrackAction:" target="I9L-9m-MZn" id="5iU-S0-f8O"/>
+                                                    <action selector="previousTrackAction:" target="I9L-9m-MZn" id="zxu-X3-6ZZ"/>
                                                 </connections>
                                             </button>
                                             <button toolTip="Next track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WPR-XR-JlH" userLabel="NextTrack Button">
@@ -1521,7 +1521,7 @@ G1BhbiBTbGlkZXI
                                                 </tabViewItems>
                                             </tabView>
                                             <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="QU8-ZM-MyA">
-                                                <rect key="frame" x="0.0" y="147" width="385" height="79"/>
+                                                <rect key="frame" x="0.0" y="147" width="385" height="5"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </box>
                                             <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Mvg-eT-z2w" userLabel="Tab Buttons Box">
@@ -2070,7 +2070,7 @@ G1BhbiBTbGlkZXI
                                                                             </textFieldCell>
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                             <prototypeCellViews>
-                                                                                <tableCellView identifier="cv_trackIndex" id="nKp-mw-lX3">
+                                                                                <tableCellView identifier="cv_trackIndex" id="nKp-mw-lX3" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
                                                                                     <rect key="frame" x="1" y="2" width="30" height="20"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
@@ -2121,7 +2121,7 @@ G1BhbiBTbGlkZXI
                                                                             </textFieldCell>
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                             <prototypeCellViews>
-                                                                                <tableCellView identifier="cv_trackName" id="HVN-RA-XGS">
+                                                                                <tableCellView identifier="cv_trackName" id="HVN-RA-XGS" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
                                                                                     <rect key="frame" x="34" y="2" width="344" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
@@ -2161,7 +2161,7 @@ G1BhbiBTbGlkZXI
                                                                             </textFieldCell>
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                             <prototypeCellViews>
-                                                                                <tableCellView identifier="cv_duration" id="wOn-dT-ZDk">
+                                                                                <tableCellView identifier="cv_duration" id="wOn-dT-ZDk" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
                                                                                     <rect key="frame" x="381" y="2" width="65" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
@@ -2190,6 +2190,7 @@ G1BhbiBTbGlkZXI
                                                                         </tableColumn>
                                                                     </tableColumns>
                                                                     <connections>
+                                                                        <action trigger="doubleAction" selector="playSelectedTrackAction:" target="42C-EL-Zfe" id="rmj-Ok-kcu"/>
                                                                         <outlet property="dataSource" destination="3Gm-pq-cQv" id="Wge-cr-sB6"/>
                                                                         <outlet property="delegate" destination="3Gm-pq-cQv" id="Cpm-hU-30u"/>
                                                                     </connections>
@@ -2224,7 +2225,7 @@ G1BhbiBTbGlkZXI
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="9oF-9v-OrO">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="8tt-k4-q7k" id="Hsn-Ar-Mkv" userLabel="Playlist Artists View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
@@ -2360,7 +2361,7 @@ G1BhbiBTbGlkZXI
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="g3t-78-dsq">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="Pbf-De-cAu" id="ysd-F6-711" userLabel="Playlist Albums View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
@@ -2496,7 +2497,7 @@ G1BhbiBTbGlkZXI
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="aNj-KL-nmJ">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="RK1-b8-W6Q" id="YHO-bg-iJv" userLabel="Playlist Genres View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
@@ -2776,12 +2777,9 @@ G1BhbiBTbGlkZXI
         </viewController>
         <viewController id="I9L-9m-MZn" customClass="PlaybackViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="albumsView" destination="ysd-F6-711" id="7fi-pk-Cil"/>
-                <outlet property="artistsView" destination="Hsn-Ar-Mkv" id="ehf-4h-UJa"/>
                 <outlet property="btnPlayPause" destination="52R-Hv-S0B" id="42N-hC-nYK"/>
                 <outlet property="btnRepeat" destination="Fpa-Ii-3YA" id="aOb-yY-VwP"/>
                 <outlet property="btnShuffle" destination="kQL-4a-kyh" id="dPy-qf-SDn"/>
-                <outlet property="genresView" destination="YHO-bg-iJv" id="Kh1-pi-ZF8"/>
                 <outlet property="repeatAllDockMenuItem" destination="0zK-7w-8z4" id="HHR-b7-ElU"/>
                 <outlet property="repeatAllMainMenuItem" destination="l9m-G6-uAk" id="9UL-l9-hud"/>
                 <outlet property="repeatOffDockMenuItem" destination="pxm-4j-4jw" id="169-zh-oU6"/>
@@ -2793,7 +2791,6 @@ G1BhbiBTbGlkZXI
                 <outlet property="shuffleOffMainMenuItem" destination="UVB-LH-JI0" id="RTx-xw-Un3"/>
                 <outlet property="shuffleOnDockMenuItem" destination="GtC-65-0P7" id="EjA-KG-s0x"/>
                 <outlet property="shuffleOnMainMenuItem" destination="A9x-31-Cvm" id="Y0R-GZ-EYj"/>
-                <outlet property="tracksView" destination="rhk-oM-jMn" id="J0N-rH-f22"/>
                 <outlet property="view" destination="X7y-oM-7MJ" id="e4c-ZZ-vAm"/>
             </connections>
         </viewController>
@@ -2836,7 +2833,7 @@ G1BhbiBTbGlkZXI
         </viewController>
         <viewController id="42C-EL-Zfe" customClass="PlaylistTracksViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="tracksView" destination="rhk-oM-jMn" id="0VT-XK-3Np"/>
+                <outlet property="playlistView" destination="rhk-oM-jMn" id="dZq-Ff-PbU"/>
                 <outlet property="view" destination="rhk-oM-jMn" id="OOu-80-he3"/>
             </connections>
         </viewController>
@@ -3060,13 +3057,13 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="ZbT-B5-jLK"/>
-                            <menuItem title=" Play selected track" image="Play-Small" id="afl-Xm-nI9" userLabel="Play selected track">
+                            <menuItem title=" Play selected track/group" image="Play-Small" id="afl-Xm-nI9" userLabel="Play selected track/group">
                                 <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="playSelectedTrackAction:" target="I9L-9m-MZn" id="vb7-xG-AHl"/>
+                                    <action selector="playSelectedItemMenuAction:" target="8o0-TS-7rF" id="NyF-wX-hmr"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Move selected tracks up" image="Up-Small" keyEquivalent="" id="f3c-TG-M9r">
@@ -3140,7 +3137,7 @@ CQ
                             </menuItem>
                             <menuItem title=" Previous track" image="PreviousTrack-Small" keyEquivalent="" id="yq3-HU-6rh">
                                 <connections>
-                                    <action selector="prevTrackAction:" target="I9L-9m-MZn" id="7dz-d9-RkJ"/>
+                                    <action selector="previousTrackAction:" target="I9L-9m-MZn" id="Ncr-au-dtP"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Next track" image="NextTrack-Small" keyEquivalent="" id="z7s-9y-10c">
@@ -4285,7 +4282,7 @@ Gw
                 </menuItem>
                 <menuItem title="Previous track" image="PreviousTrack-Small" keyEquivalent="" id="p99-Ng-Iu1" userLabel="Previous track">
                     <connections>
-                        <action selector="prevTrackAction:" target="I9L-9m-MZn" id="UKj-vS-RnG"/>
+                        <action selector="previousTrackAction:" target="I9L-9m-MZn" id="DGP-7d-7kf"/>
                     </connections>
                 </menuItem>
                 <menuItem title="Next track" image="NextTrack-Small" keyEquivalent="" id="b4G-JT-u6L" userLabel="Next track">
@@ -4368,7 +4365,7 @@ Gw
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="200" y="524"/>
+            <point key="canvasLocation" x="169" y="822"/>
         </menu>
     </objects>
     <resources>

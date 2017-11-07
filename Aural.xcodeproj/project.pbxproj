@@ -104,6 +104,7 @@
 		3E98478F1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98478E1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift */; };
 		3E9847911F5D0512001A2D28 /* AudioGraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9847901F5D0512001A2D28 /* AudioGraphDelegate.swift */; };
 		3E9871A21F418CB1009AE9E6 /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9871A11F418CB1009AE9E6 /* UIUtils.swift */; };
+		3E9A01421FB0495400352D99 /* PlaylistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9A01411FB0495400352D99 /* PlaylistView.swift */; };
 		3E9A575E1F21F778007546A2 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9A575D1F21F778007546A2 /* Recorder.swift */; };
 		3EA074AC1F3DBBB0005F8966 /* SavedPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */; };
 		3EA29AD51F0B470600DA239E /* AsyncMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA29AD41F0B470600DA239E /* AsyncMessenger.swift */; };
@@ -242,6 +243,7 @@
 		3E98478E1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E9847901F5D0512001A2D28 /* AudioGraphDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphDelegate.swift; sourceTree = "<group>"; };
 		3E9871A11F418CB1009AE9E6 /* UIUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
+		3E9A01411FB0495400352D99 /* PlaylistView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistView.swift; sourceTree = "<group>"; };
 		3E9A575D1F21F778007546A2 /* Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedPlaylist.swift; sourceTree = "<group>"; };
 		3EA29AD41F0B470600DA239E /* AsyncMessenger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncMessenger.swift; sourceTree = "<group>"; };
@@ -610,6 +612,7 @@
 				3E59A3761F9959C10087198C /* GroupingPlaylistDataSources.swift */,
 				3EF855B11FACFD6300FA8843 /* TracksPlaylistDragDropDelegate.swift */,
 				3E3ADC5C1FA85E46000E83B5 /* GroupingPlaylistDragDropDelegate.swift */,
+				3E9A01411FB0495400352D99 /* PlaylistView.swift */,
 			);
 			name = Playlist;
 			sourceTree = "<group>";
@@ -833,6 +836,7 @@
 				3E09C6B51F2EE70C007BB489 /* PlaybackSession.swift in Sources */,
 				3EC947B11F5DDECC00FDBE25 /* PlaylistAccessorDelegateProtocol.swift in Sources */,
 				3E357B541F9C7DFB00C8F7B1 /* FlatPlaylist.swift in Sources */,
+				3E9A01421FB0495400352D99 /* PlaylistView.swift in Sources */,
 				3E3C20A81F0A697800AF5A62 /* AppConstants.swift in Sources */,
 				3EB2A7EE1F04697E001DF748 /* GraphicsUtils.swift in Sources */,
 				3E9796811F00BA3000690DA2 /* RepeatAndShuffleModes.swift in Sources */,

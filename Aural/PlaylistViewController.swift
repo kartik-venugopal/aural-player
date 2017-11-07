@@ -1,5 +1,5 @@
 /*
- View controller for playlist CRUD controls (adding/removing/reordering tracks and saving/loading to/from playlists)
+    View controller for playlist CRUD controls (adding/removing/reordering tracks and saving/loading to/from playlist files)
  */
 
 import Cocoa
@@ -7,46 +7,40 @@ import Foundation
 
 class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageSubscriber {
     
-    // Displays the playlist and summary
-    
+    // The 4 different playlist views
     @IBOutlet weak var tracksView: NSTableView!
     @IBOutlet weak var artistsView: NSOutlineView!
     @IBOutlet weak var albumsView: NSOutlineView!
     @IBOutlet weak var genresView: NSOutlineView!
     
-    private var playlistViews: [NSTableView]?
-    
+    // The tab group that switches between the 4 playlist views
     @IBOutlet weak var tabGroup: NSTabView!
-    private var tabViewButtons: [NSButton]?
     
+    // Tab group buttons
     @IBOutlet weak var btnTracksView: NSButton!
     @IBOutlet weak var btnArtistsView: NSButton!
     @IBOutlet weak var btnAlbumsView: NSButton!
     @IBOutlet weak var btnGenresView: NSButton!
     
+    private var tabGroupButtons: [NSButton]?
+    
+    // Fields that display playlist summary info
     @IBOutlet weak var lblTracksSummary: NSTextField!
     @IBOutlet weak var lblDurationSummary: NSTextField!
     
+    // Spinner that shows progress when tracks are being added to the playlist
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
     
-    // Delegate that performs CRUD actions on the playlist
+    // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
-    // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
-    // TODO: Revisit this
-    private let playlistUpdateQueue = OperationQueue()
-    
-    // Needed for playlist scrolling with arrow keys
-    private var playlistKeyPressHandler: PlaylistKeyPressHandler?
-    
     override func viewDidLoad() {
         
-        // Enable drag n drop into the playlist view
-        playlistViews = [tracksView, artistsView, albumsView, genresView]
-        playlistViews!.forEach({$0.register(forDraggedTypes: [String(kUTTypeFileURL), "public.data"])})
+        // Enable drag n drop into the playlist views
+        [tracksView, artistsView, albumsView, genresView].forEach({$0.register(forDraggedTypes: [String(kUTTypeFileURL), "public.data"])})
         
         // Register self as a subscriber to various AsyncMessage notifications
         AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.main)
@@ -54,20 +48,19 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.removeTrackRequest], subscriber: self)
         
-        // Set up the serial operation queue for playlist view updates
-        playlistUpdateQueue.maxConcurrentOperationCount = 1
-        playlistUpdateQueue.underlyingQueue = DispatchQueue.main
-        playlistUpdateQueue.qualityOfService = .background
+        // Set up key press handler to enable natural scrolling of the playlist view with arrow keys and expansion/collapsing of track groups.
         
-        // Set up key press handler to enable natural scrolling of the playlist view with arrow keys and expansion/collapsing of track groups
         let viewMappings: [PlaylistType: NSTableView] = [PlaylistType.tracks: tracksView, PlaylistType.artists: artistsView, PlaylistType.albums: albumsView, PlaylistType.genres: genresView]
-        playlistKeyPressHandler = PlaylistKeyPressHandler(viewMappings)
+        
+        let playlistKeyPressHandler = PlaylistKeyPressHandler(viewMappings)
         NSEvent.addLocalMonitorForEvents(matching: NSEventMask.keyDown, handler: {(event: NSEvent!) -> NSEvent in
-            self.playlistKeyPressHandler?.handle(event)
+            playlistKeyPressHandler.handle(event)
             return event;
         });
         
-        tabViewButtons = [btnTracksView, btnArtistsView, btnAlbumsView, btnGenresView]
+        tabGroupButtons = [btnTracksView, btnArtistsView, btnAlbumsView, btnGenresView]
+        
+        // Set up tab group
         
         artistsTabViewAction(self)
         albumsTabViewAction(self)
@@ -113,11 +106,11 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         }
     }
     
-    private func handleTracksNotAddedError(_ errors: [InvalidTrackError]) {
+    private func tracksNotAdded(_ message: TracksNotAddedAsyncMessage) {
         
         // This needs to be done async. Otherwise, the add files dialog hangs.
         DispatchQueue.main.async {
-            _ = UIUtils.showAlert(UIElements.tracksNotAddedAlertWithErrors(errors))
+            _ = UIUtils.showAlert(UIElements.tracksNotAddedAlertWithErrors(message.errors))
         }
     }
     
@@ -154,8 +147,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     @IBAction func removeTracksAction(_ sender: AnyObject) {
         
-        let message = PlaylistActionMessage(.removeTracks, PlaylistViewState.current)
-        SyncMessenger.publishActionMessage(message)
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.removeTracks, PlaylistViewState.current))
         
         sequenceChanged()
         updatePlaylistSummary()
@@ -164,10 +156,9 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     @IBAction func savePlaylistAction(_ sender: AnyObject) {
         
         // Make sure there is at least one track to save
-        if (playlist.summary().size > 0) {
+        if (playlist.size() > 0) {
             
             let dialog = UIElements.savePlaylistDialog
-            
             let modalResponse = dialog.runModal()
             
             if (modalResponse == NSModalResponseOK) {
@@ -179,24 +170,20 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     @IBAction func clearPlaylistAction(_ sender: AnyObject) {
         
         playlist.clear()
-        
-        let refreshMsg = PlaylistActionMessage(.refresh, nil)
-        SyncMessenger.publishActionMessage(refreshMsg)
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, nil))
         
         updatePlaylistSummary()
     }
     
     @IBAction func moveTracksUpAction(_ sender: AnyObject) {
         
-        let message = PlaylistActionMessage(.moveTracksUp, PlaylistViewState.current)
-        SyncMessenger.publishActionMessage(message)
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksUp, PlaylistViewState.current))
         sequenceChanged()
     }
     
     @IBAction func moveTracksDownAction(_ sender: AnyObject) {
         
-        let message = PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current)
-        SyncMessenger.publishActionMessage(message)
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current))
         sequenceChanged()
     }
     
@@ -220,6 +207,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         }
     }
     
+    // Maps the current playlist view type to the corresponding playlist view
     private func playlistViewForViewType() -> NSTableView {
         
         switch PlaylistViewState.current {
@@ -238,146 +226,52 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     // Shows the currently playing track, within the playlist view
     @IBAction func showPlayingTrackAction(_ sender: Any) {
         
-        let message = PlaylistActionMessage(.showPlayingTrack, PlaylistViewState.current)
-        SyncMessenger.publishActionMessage(message)
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.showPlayingTrack, PlaylistViewState.current))
     }
     
-    func consumeAsyncMessage(_ message: AsyncMessage) {
+    // Plays the currently selected track/group
+    @IBAction func playSelectedItemMenuAction(_ sender: Any) {
         
-        if message is TrackAddedAsyncMessage {
-            
-            let _msg = message as! TrackAddedAsyncMessage
-            
-            // Perform task serially wrt other such tasks
-            
-            let updateOp = BlockOperation(block: {
-                self.updatePlaylistSummary(_msg.progress)
-            })
-            
-            playlistUpdateQueue.addOperation(updateOp)
-            
-            return
-        }
-        
-        if (message is TrackUpdatedAsyncMessage) {
-            
-            // Perform task serially wrt other such tasks
-            
-            let updateOp = BlockOperation(block: {
-                
-                let _msg = (message as! TrackUpdatedAsyncMessage)
-                
-                // Track duration may have changed, affecting the total playlist duration
-                self.updatePlaylistSummary()
-                
-                // If this is the playing track, tell other views that info has been updated
-                let playingTrackIndex = self.playbackInfo.getPlayingTrack()?.index
-                if (playingTrackIndex == _msg.trackIndex) {
-                    SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
-                }
-            })
-            
-            playlistUpdateQueue.addOperation(updateOp)
-            
-            return
-        }
-
-        if message is TracksNotAddedAsyncMessage {
-            let _msg = message as! TracksNotAddedAsyncMessage
-            handleTracksNotAddedError(_msg.errors)
-            return
-        }
-        
-        if message is StartedAddingTracksAsyncMessage {
-            startedAddingTracks()
-            return
-        }
-        
-        if message is DoneAddingTracksAsyncMessage {
-            doneAddingTracks()
-            return
-        }
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.playSelectedItem, PlaylistViewState.current))
     }
     
-    func consumeNotification(_ message: NotificationMessage) {
-    }
-    
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        
-        if (request is RemoveTrackRequest) {
-            
-            let req = request as! RemoveTrackRequest
-            _ = playlist.removeTracks([req.index])
-            
-            sequenceChanged()
-            updatePlaylistSummary()
-            
-            return EmptyResponse.instance
-        }
-        
-        return EmptyResponse.instance
-    }
-    
+    // Switches the tab group to the Tracks view
     @IBAction func tracksTabViewAction(_ sender: Any) {
-        
-        tabViewButtons!.forEach({
-            $0.state = 0
-            $0.needsDisplay = true
-        })
-        
-        btnTracksView.state = 1
-        tabGroup.selectTabViewItem(at: 0)
-        
-        PlaylistViewState.current = .tracks
-        updatePlaylistSummary()
-        SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: .tracks))
+        tabViewAction(btnTracksView, 0, .tracks)
     }
     
+    // Switches the tab group to the Artists view
     @IBAction func artistsTabViewAction(_ sender: Any) {
-        
-        tabViewButtons!.forEach({
-            $0.state = 0
-            $0.needsDisplay = true
-        })
-        
-        btnArtistsView.state = 1
-        tabGroup.selectTabViewItem(at: 1)
-        
-        PlaylistViewState.current = .artists
-        updatePlaylistSummary()
-        SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: .artists))
+        tabViewAction(btnArtistsView, 1, .artists)
     }
     
+    // Switches the tab group to the Albums view
     @IBAction func albumsTabViewAction(_ sender: Any) {
-        
-        tabViewButtons!.forEach({
-            $0.state = 0
-            $0.needsDisplay = true
-        })
-        
-        btnAlbumsView.state = 1
-        tabGroup.selectTabViewItem(at: 2)
-        
-        PlaylistViewState.current = .albums
-        updatePlaylistSummary()
-        SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: .albums))
+        tabViewAction(btnAlbumsView, 2, .albums)
     }
     
+    // Switches the tab group to the Genres view
     @IBAction func genresTabViewAction(_ sender: Any) {
+        tabViewAction(btnGenresView, 3, .genres)
+    }
+    
+    // Helper function to switch the tab group to a particular view
+    private func tabViewAction(_ selectedButton: NSButton, _ tabIndex: Int, _ playlistType: PlaylistType) {
         
-        tabViewButtons!.forEach({
+        tabGroupButtons!.forEach({
             $0.state = 0
             $0.needsDisplay = true
         })
         
-        btnGenresView.state = 1
-        tabGroup.selectTabViewItem(at: 3)
+        selectedButton.state = 1
+        tabGroup.selectTabViewItem(at: tabIndex)
         
-        PlaylistViewState.current = .genres
+        PlaylistViewState.current = playlistType
         updatePlaylistSummary()
-        SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: .genres))
+        SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: playlistType))
     }
     
+    // Cycles between playlist tab group tabs
     @IBAction func shiftTabAction(_ sender: Any) {
         
         switch PlaylistViewState.current {
@@ -392,12 +286,94 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             
         }
     }
+    
+    private func trackAdded(_ message: TrackAddedAsyncMessage) {
+        
+        DispatchQueue.main.async {
+            self.updatePlaylistSummary(message.progress)
+        }
+    }
+    
+    private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {
+        
+        DispatchQueue.main.async {
+            
+            // Track duration may have changed, affecting the total playlist duration
+            self.updatePlaylistSummary()
+            
+            // If this is the playing track, tell other views that info has been updated
+            let playingTrackIndex = self.playbackInfo.getPlayingTrack()?.index
+            if (playingTrackIndex == message.trackIndex) {
+                SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
+            }
+        }
+    }
+    
+    private func removeTrack(_ request: RemoveTrackRequest) {
+        
+        playlist.removeTracks([request.index])
+        
+        sequenceChanged()
+        updatePlaylistSummary()
+    }
+    
+    func consumeAsyncMessage(_ message: AsyncMessage) {
+        
+        switch message.messageType {
+            
+        case .trackAdded:
+            
+            trackAdded(message as! TrackAddedAsyncMessage)
+            
+        case .trackInfoUpdated:
+            
+            trackInfoUpdated(message as! TrackUpdatedAsyncMessage)
+            
+        case .tracksNotAdded:
+            
+            tracksNotAdded(message as! TracksNotAddedAsyncMessage)
+            
+        case .startedAddingTracks:
+            
+            startedAddingTracks()
+            
+        case .doneAddingTracks:
+            
+            doneAddingTracks()
+            
+        default: return
+            
+        }
+    }
+    
+    func consumeNotification(_ message: NotificationMessage) {
+        // This class does not consume synchronous notification messages
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        switch request.messageType {
+            
+        case .removeTrackRequest:
+            
+            removeTrack(request as! RemoveTrackRequest)
+            
+        default: break
+            
+        }
+        
+        // This class does not return any meaningful responses
+        return EmptyResponse.instance
+    }
 }
 
+// Convenient accessor for information about the current state of the playlist view
 class PlaylistViewState {
     
+    // The current playlist view type displayed within the playlist tab group
     static var current: PlaylistType = .tracks
     
+    // The group type corresponding to the current playlist view type
     static var groupType: GroupType? {
     
         switch current {
@@ -408,6 +384,7 @@ class PlaylistViewState {
             
         case .genres: return GroupType.genre
             
+        // Group type is not applicable to playlist type .tracks
         default: return nil
             
         }

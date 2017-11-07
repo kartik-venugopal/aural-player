@@ -28,28 +28,18 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     @IBOutlet weak var shuffleOffDockMenuItem: NSMenuItem!
     @IBOutlet weak var shuffleOnDockMenuItem: NSMenuItem!
     
-    // The playlist views can initiate playback of a track (through double clicks)
-    @IBOutlet weak var tracksView: NSTableView!
-    @IBOutlet weak var artistsView: NSOutlineView!
-    @IBOutlet weak var albumsView: NSOutlineView!
-    @IBOutlet weak var genresView: NSOutlineView!
-    
-    // Delegate that conveys all playback requests to the player / playback sequence
+    // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
     
     override func viewDidLoad() {
-        
-        // Set up a mouse listener (for double clicks -> play selected track)
-        [tracksView!, artistsView!, albumsView!, genresView!].forEach({
-            $0.doubleAction = #selector(self.playSelectedTrackAction(_:))
-            $0.target = self
-        })
         
         let appState = ObjectGraph.getUIAppState()
         updateRepeatAndShuffleControls(appState.repeatMode, appState.shuffleMode)
         
         // Subscribe to message notifications
         AsyncMessenger.subscribe([.trackNotPlayed,.trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
+        
+        SyncMessenger.subscribe(messageTypes: [.playbackRequest], subscriber: self)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -59,99 +49,57 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
     }
     
-    @IBAction func playSelectedTrackAction(_ sender: AnyObject) {
+    private func playTrackWithIndex(_ trackIndex: Int) {
         
-        if PlaylistViewState.current == .tracks {
-        
-            playSelectedFlatViewTrack()
-            
-        } else {
-            
-            var playlistView: NSOutlineView
-            
-            switch PlaylistViewState.current {
-                
-            case .artists: playlistView = artistsView
-                
-            case .albums: playlistView = albumsView
-                
-            case .genres: playlistView = genresView
-                
-            // Impossible
-            default: return
-                
-            }
-            
-            playSelectedGroupingViewTrack(playlistView)
-        }
-    }
-    
-    private func playSelectedFlatViewTrack() {
-        
-        if (tracksView.selectedRow >= 0) {
-            
-            let oldTrack = player.getPlayingTrack()
-            
-            do {
-                
-                let track = try player.play(tracksView.selectedRow)
-                trackChange(oldTrack, track)
-                tracksView.deselectAll(self)
-                
-            } catch let error {
-                
-                if (error is InvalidTrackError) {
-                    handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-                }
-            }
-        }
-    }
-    
-    private func playSelectedGroupingViewTrack(_ playlistView: NSOutlineView) {
-        
-        if (playlistView.selectedRow < 0) {
-            return
-        }
-        
-        let item = playlistView.item(atRow: playlistView.selectedRow)
         let oldTrack = player.getPlayingTrack()
         
-        if let track = item as? Track {
+        do {
             
-            do {
-                
-                let track = try player.play(track)
-                trackChange(oldTrack, track)
-                playlistView.deselectAll(self)
-                
-            } catch let error {
-                
-                if (error is InvalidTrackError) {
-                    handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-                }
+            let track = try player.play(trackIndex)
+            trackChanged(oldTrack, track)
+            
+        } catch let error {
+            
+            if (error is InvalidTrackError) {
+                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
             }
+        }
+    }
+
+    private func playTrack(_ track: Track) {
+        
+        let oldTrack = player.getPlayingTrack()
+        
+        do {
             
-        } else {
+            let playingTrack = try player.play(track)
+            trackChanged(oldTrack, playingTrack)
             
-            let group = item as! Group
+        } catch let error {
             
-            playlistView.expandItem(group)
-            
-            do {
-                
-                let track = try player.play(group)
-                trackChange(oldTrack, track)
-                playlistView.deselectAll(self)
-                
-            } catch let error {
-                
-                if (error is InvalidTrackError) {
-                    handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-                }
+            if (error is InvalidTrackError) {
+                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
             }
         }
     }
     
+    private func playGroup(_ group: Group) {
+        
+        let oldTrack = player.getPlayingTrack()
+        
+        do {
+            
+            let track = try player.play(group)
+            trackChanged(oldTrack, track)
+            
+        } catch let error {
+            
+            if (error is InvalidTrackError) {
+                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
+            }
+        }
+    }
+
     @IBAction func repeatAction(_ sender: AnyObject) {
         
         let modes = player.toggleRepeatMode()
@@ -247,13 +195,15 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
             
             switch playbackState {
                 
-            case .noTrack, .paused: setPlayPauseImage(UIConstants.imgPlay)
-            SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
+            case .noTrack, .paused:
+                
+                setPlayPauseImage(UIConstants.imgPlay)
+                SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
                 
             case .playing:
                 
                 if (playbackInfo.trackChanged) {
-                    trackChange(oldTrack, playbackInfo.playingTrack)
+                    trackChanged(oldTrack, playbackInfo.playingTrack)
                 } else {
                     // Resumed the same track
                     setPlayPauseImage(UIConstants.imgPause)
@@ -269,7 +219,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         }
     }
     
-    @IBAction func prevTrackAction(_ sender: AnyObject) {
+    @IBAction func previousTrackAction(_ sender: AnyObject) {
         
         let oldTrack = player.getPlayingTrack()
         
@@ -277,7 +227,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
             
             let prevTrack = try player.previousTrack()
             if (prevTrack?.track != nil) {
-                trackChange(oldTrack, prevTrack)
+                trackChanged(oldTrack, prevTrack)
             }
             
         } catch let error {
@@ -295,7 +245,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         do {
             let nextTrack = try player.nextTrack()
             if (nextTrack?.track != nil) {
-                trackChange(oldTrack, nextTrack)
+                trackChanged(oldTrack, nextTrack)
             }
             
         } catch let error {
@@ -307,25 +257,25 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     }
     
     @IBAction func seekBackwardAction(_ sender: AnyObject) {
-        player.seekBackward()
         
-        let seekPositionChangedNotification = SeekPositionChangedNotification.instance
-        SyncMessenger.publishNotification(seekPositionChangedNotification)
+        player.seekBackward()
+        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
     }
     
     @IBAction func seekForwardAction(_ sender: AnyObject) {
-        player.seekForward()
         
-        let seekPositionChangedNotification = SeekPositionChangedNotification.instance
-        SyncMessenger.publishNotification(seekPositionChangedNotification)
+        player.seekForward()
+        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
     }
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
-    private func trackChange(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
+    private func trackChanged(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
         if (newTrack != nil) {
             
             if (!errorState) {
+                
+                // No error, track is playing
                 setPlayPauseImage(UIConstants.imgPause)
                 
             } else {
@@ -336,15 +286,36 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
             
         } else {
             
+            // No track playing
             setPlayPauseImage(UIConstants.imgPlay)
         }
         
-        let trackChgNotification = TrackChangedNotification(oldTrack, newTrack, errorState)
-        SyncMessenger.publishNotification(trackChgNotification)
+        SyncMessenger.publishNotification(TrackChangedNotification(oldTrack, newTrack, errorState))
     }
     
     private func setPlayPauseImage(_ image: NSImage) {
         btnPlayPause.image = image
+    }
+    
+    private func trackChanged(_ message: TrackChangedAsyncMessage) {
+        trackChanged(message.oldTrack, message.newTrack)
+    }
+    
+    private func trackNotPlayed(_ message: TrackNotPlayedAsyncMessage) {
+        handleTrackNotPlayedError(message.oldTrack, message.error)
+    }
+    
+    private func performPlayback(_ request: PlaybackRequest) {
+        
+        switch request.type {
+            
+        case .index: playTrackWithIndex(request.index!)
+            
+        case .track: playTrack(request.track!)
+            
+        case .group: playGroup(request.group!)
+            
+        }
     }
     
     private func handleTrackNotPlayedError(_ oldTrack: IndexedTrack?, _ error: InvalidTrackError) {
@@ -352,41 +323,51 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         // This needs to be done async. Otherwise, other open dialogs could hang.
         DispatchQueue.main.async {
             
-            // First, select the problem track and update the now playing info
             let playingTrack = self.player.getPlayingTrack()
-            self.trackChange(oldTrack, playingTrack, true)
+            self.trackChanged(oldTrack, playingTrack, true)
             
-            // Position and display the dialog with info
-            let alert = UIElements.trackNotPlayedAlertWithError(error)
-            _ = UIUtils.showAlert(alert)
+            // Position and display an alert with error info
+            _ = UIUtils.showAlert(UIElements.trackNotPlayedAlertWithError(error))
             
             // Remove the bad track from the playlist and update the UI
-            
-            let playingTrackIndex = playingTrack!.index
-            let removeTrackRequest = RemoveTrackRequest(playingTrackIndex)
-            _ = SyncMessenger.publishRequest(removeTrackRequest)
+            _ = SyncMessenger.publishRequest(RemoveTrackRequest(playingTrack!.index))
         }
     }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        if message is TrackChangedAsyncMessage {
-            let _msg = message as! TrackChangedAsyncMessage
-            trackChange(_msg.oldTrack, _msg.newTrack)
-            return
-        }
-        
-        if message is TrackNotPlayedAsyncMessage {
-            let _msg = message as! TrackNotPlayedAsyncMessage
-            handleTrackNotPlayedError(_msg.oldTrack, _msg.error)
-            return
+        switch message.messageType {
+            
+        case .trackChanged:
+            
+            trackChanged(message as! TrackChangedAsyncMessage)
+            
+        case .trackNotPlayed:
+            
+            trackNotPlayed(message as! TrackNotPlayedAsyncMessage)
+            
+        default: return
+            
         }
     }
     
     func consumeNotification(_ notification: NotificationMessage) {
+        // This class does not consume any notifications
     }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        switch request.messageType {
+            
+        case .playbackRequest:
+            
+            performPlayback(request as! PlaybackRequest)
+            
+        default: break
+            
+        }
+        
+        // This class does not return any meaningful responses
         return EmptyResponse.instance
     }
 }

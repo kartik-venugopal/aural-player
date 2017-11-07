@@ -23,6 +23,8 @@ enum ActionType {
     
     case showPlayingTrack
     
+    case playSelectedItem
+    
     case moveTracksUp
     
     case moveTracksDown

@@ -6,6 +6,7 @@ import Cocoa
 
 class PlaylistKeyPressHandler {
     
+    // A mapping of playlist type to the corresponding view that displays it
     private let playlistViews: [PlaylistType: NSTableView]
     
     init(_ playlistViews: [PlaylistType: NSTableView]) {
@@ -35,12 +36,12 @@ class PlaylistKeyPressHandler {
         // Arrows enable natural playlist scrolling and group expansion/collapsing, and alphanumeric characters enable type selection by track name
         if (!isShift && !isCommand && !isOption && (isArrow || isAlphaNumeric)) {
             
-            // Forward the event to the playlist view
+            // Forward the event to the currently displayed playlist view
             playlistViews[PlaylistViewState.current]!.keyDown(with: event)
             return
         }
         
-        // NOTE - This keyboard shortcut is for debugging purposes only, not inteded for the end user
+        // NOTE - This keyboard shortcut is for debugging purposes only, not intended for the end user
         // (Shift + Command + S) Print Timer stats
         if (isShift && isCommand && (chars != nil && chars! == "S")) {
             TimerUtils.printStats()

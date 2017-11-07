@@ -2,10 +2,7 @@ import Cocoa
 
 class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, MessageSubscriber {
     
-    // TODO: Use delegate, not accessor directly
-    private let playlist: PlaylistAccessorProtocol = ObjectGraph.getPlaylistAccessor()
-    
-    private let playlistDelegate: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
+    private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.getPlaylistAccessorDelegate()
     
     // Used to determine the currently playing track
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()

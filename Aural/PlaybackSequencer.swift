@@ -403,7 +403,7 @@ class SequenceScope {
     }
 }
 
-enum SequenceScopes {
+enum SequenceScopes: String {
     
     case allTracks
     case allArtists

@@ -17,7 +17,7 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
     private let dragDropDelegate: TracksPlaylistDragDropDelegate = TracksPlaylistDragDropDelegate()
     
     // Used to pause/resume the playing track animation
-    private var animationCell: NSTableCellView?
+    private var animationCell: PlaylistCellView?
     
     // Signifies an invalid drag/drop operation
     private let invalidDragOperation: NSDragOperation = []
@@ -26,10 +26,11 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
         
         // Subscribe to playbackStateChangedNotifications so that the playing track animation can be paused/resumed, in response to the playing track being paused/resumed
         SyncMessenger.subscribe(messageTypes: [.playbackStateChangedNotification], subscriber: self)
+        
+        TableViewHolder.instance = self.view as! NSTableView
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-//        NSLog("Playlist size: %d", playlist.size())
         return playlist.size()
     }
     
@@ -72,38 +73,36 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
                 } else {
                     
                     // Otherwise, create a text cell with the track index
-                    return createTextCell(tableView, UIConstants.trackIndexColumnID, String(format: "%d.", row + 1))
+                    return createTextCell(tableView, UIConstants.trackIndexColumnID, String(format: "%d.", row + 1), row)
                 }
                 
             } else if (tableColumn?.identifier == UIConstants.trackNameColumnID) {
                 
                 // Track name
-                return createTextCell(tableView, UIConstants.trackNameColumnID, track.conciseDisplayName)
+                return createTextCell(tableView, UIConstants.trackNameColumnID, track.conciseDisplayName, row)
                 
             } else {
                 
                 // Duration
-                return createTextCell(tableView, UIConstants.durationColumnID, StringUtils.formatSecondsToHMS(track.duration))
+                return createTextCell(tableView, UIConstants.durationColumnID, StringUtils.formatSecondsToHMS(track.duration), row)
             }
-            
-        } else {
-            
-            // TODO: Figure out why this happens !
-            print("WTF ! Row", row, "PlSize:", playlist.size())
-            return nil
         }
+        
+        return nil
     }
     
     // Creates a cell view containing text
-    private func createTextCell(_ tableView: NSTableView, _ id: String, _ text: String) -> NSTableCellView? {
+    private func createTextCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> PlaylistCellView? {
         
-        if let cell = tableView.make(withIdentifier: id, owner: nil) as? NSTableCellView {
+        if let cell = tableView.make(withIdentifier: id, owner: nil) as? PlaylistCellView {
             
             cell.textField?.stringValue = text
             
             // Hide the image view and show the text view
             cell.imageView?.isHidden = true
             cell.textField?.isHidden = false
+
+            cell.row = row
             
             return cell
         }
@@ -112,9 +111,9 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
     }
     
     // Creates a cell view containing the animation for the currently playing track
-    private func createPlayingTrackAnimationCell(_ tableView: NSTableView, _ animate: Bool) -> NSTableCellView? {
+    private func createPlayingTrackAnimationCell(_ tableView: NSTableView, _ animate: Bool) -> PlaylistCellView? {
         
-        if let cell = tableView.make(withIdentifier: UIConstants.trackIndexColumnID, owner: nil) as? NSTableCellView {
+        if let cell = tableView.make(withIdentifier: UIConstants.trackIndexColumnID, owner: nil) as? PlaylistCellView {
             
             // Configure and show the image view
             let imgView = cell.imageView!
@@ -205,16 +204,46 @@ class FlatPlaylistRowView: NSTableRowView {
             selectionPath.fill()
         }
     }
+}
+
+/*
+    Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
+ */
+class PlaylistCellView: NSTableCellView {
     
-    override func drawBackground(in dirtyRect: NSRect) {
+    // Used to determine whether or not this cell is selected
+    var row: Int = -1
+
+    // When the background changes (as a result of selection/deselection) switch appropriate colours
+    override var backgroundStyle: NSBackgroundStyle {
         
-        UIConstants.flatPlaylistViewColumnIndexes.forEach({
+        didSet {
             
-            let cell = self.view(atColumn: $0) as! NSTableCellView
-            cell.textField?.textColor = isSelected ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
-            cell.textField?.font = isSelected ? UIConstants.playlistSelectedTextFont : UIConstants.playlistTextFont
-        })
-        
-        super.drawBackground(in: dirtyRect)
+            let isSelRow = TableViewHolder.instance!.selectedRowIndexes.contains(row)
+            
+            if let field = self.textField {
+                
+                if isSelRow {
+                    
+                    // Selected
+                    
+                    field.textColor = Colors.playlistSelectedTextColor
+                    field.font = UIConstants.playlistSelectedTextFont
+                    
+                } else {
+                    
+                    // Not selected
+                    
+                    field.textColor = Colors.playlistTextColor
+                    field.font = UIConstants.playlistTextFont
+                }
+            }
+        }
     }
+}
+
+// Utility class to hold an NSTableView instance for convenient access
+fileprivate class TableViewHolder {
+    
+    static var instance: NSTableView?
 }

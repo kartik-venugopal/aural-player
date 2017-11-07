@@ -10,20 +10,20 @@ class ObjectGraph {
     private static var uiAppState: UIAppState?
     private static var preferences: Preferences?
     
-    private static var preferencesDelegate: PreferencesDelegateProtocol?
+    private static var preferencesDelegate: PreferencesDelegate?
     
     private static var playlist: Playlist?
-    private static var playlistDelegate: PlaylistDelegateProtocol?
+    private static var playlistDelegate: PlaylistDelegate?
     
     private static var audioGraph: AudioGraph?
-    private static var audioGraphDelegate: AudioGraphDelegateProtocol?
+    private static var audioGraphDelegate: AudioGraphDelegate?
     
     private static var player: Player?
     private static var playbackSequencer: PlaybackSequencer?
     private static var playbackDelegate: PlaybackDelegate?
     
     private static var recorder: Recorder?
-    private static var recorderDelegate: RecorderDelegateProtocol?
+    private static var recorderDelegate: RecorderDelegate?
     
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
@@ -46,29 +46,22 @@ class ObjectGraph {
         // State used for UI initialization
         uiAppState = UIAppState(appState!, preferences!)
         
-        // Audio Graph
-        
+        // Audio Graph (and delegate)
         audioGraph = AudioGraph(appState!.audioGraphState)
-        if (preferences!.volumeOnStartup == .specific) {
-            audioGraph?.setVolume(preferences!.startupVolumeValue)
-            audioGraph?.unmute()
-        }
-        
-        // Audio Graph Delegate
         audioGraphDelegate = AudioGraphDelegate(audioGraph!, preferences!)
         
         // Player
         player = Player(audioGraph!)
         
+        // Playlist
         let flatPlaylist = FlatPlaylist()
         let artistsPlaylist = GroupingPlaylist(.artist)
         let albumsPlaylist = GroupingPlaylist(.album)
         let genresPlaylist = GroupingPlaylist(.genre)
         
-        // Playlist
         playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
         
-        // Playback Sequence
+        // Playback Sequencer
         let repeatMode = appState!.playbackSequenceState.repeatMode
         let shuffleMode = appState!.playbackSequenceState.shuffleMode
         playbackSequencer = PlaybackSequencer(playlist!, repeatMode, shuffleMode)
@@ -89,6 +82,8 @@ class ObjectGraph {
         recorderDelegate = RecorderDelegate(recorder!)
     }
     
+    // MARK: Accessor methods to retrieve objects
+    
     static func getAppState() -> AppState {
         return appState!
     }
@@ -103,6 +98,10 @@ class ObjectGraph {
     
     static func getPlaylistAccessor() -> PlaylistAccessorProtocol {
         return playlist!
+    }
+    
+    static func getPlaylistAccessorDelegate() -> PlaylistAccessorDelegateProtocol {
+        return playlistDelegate!
     }
     
     static func getPlaylistDelegate() -> PlaylistDelegateProtocol {
