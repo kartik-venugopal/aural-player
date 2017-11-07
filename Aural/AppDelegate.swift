@@ -103,4 +103,38 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         ObjectGraph.tearDown()
     }
+    
+    func applicationDidBecomeActive(_ notification: Notification) {
+        
+        if (NSApplication.shared().occlusionState.contains(.visible)) {
+            WindowState.inForeground = true
+            SyncMessenger.publishNotification(AppInForegroundNotification.instance)
+        }
+    }
+    
+    func applicationDidResignActive(_ notification: Notification) {
+        WindowState.inForeground = false
+        SyncMessenger.publishNotification(AppInBackgroundNotification.instance)
+    }
+    
+    func applicationDidHide(_ notification: Notification) {
+        WindowState.inForeground = false
+        SyncMessenger.publishNotification(AppInBackgroundNotification.instance)
+    }
+    
+    func applicationDidUnhide(_ notification: Notification) {
+        
+        if (NSApplication.shared().occlusionState.contains(.visible)) {
+            WindowState.inForeground = true
+            SyncMessenger.publishNotification(AppInForegroundNotification.instance)
+        }
+    }
+    
+    func applicationDidChangeOcclusionState(_ notification: Notification) {
+        
+        if (!NSApplication.shared().occlusionState.contains(.visible)) {
+            WindowState.inForeground = false
+            SyncMessenger.publishNotification(AppInBackgroundNotification.instance)
+        }
+    }
 }

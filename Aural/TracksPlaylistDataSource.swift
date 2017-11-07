@@ -24,10 +24,10 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
     
     override func viewDidLoad() {
         
-        // Subscribe to playbackStateChangedNotifications so that the playing track animation can be paused/resumed, in response to the playing track being paused/resumed
-        SyncMessenger.subscribe(messageTypes: [.playbackStateChangedNotification], subscriber: self)
+        // Subscribe to message notifications
+        SyncMessenger.subscribe(messageTypes: [.playbackStateChangedNotification, .playlistTypeChangedNotification, .appInForegroundNotification, .appInBackgroundNotification], subscriber: self)
         
-        TableViewHolder.instance = self.view as! NSTableView
+        TableViewHolder.instance = self.view as? NSTableView
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -59,7 +59,6 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
             if (tableColumn?.identifier == UIConstants.trackIndexColumnID) {
                 
                 // Track index
-                
                 let playingTrackIndex = playbackInfo.getPlayingTrack()?.index
                 
                 // If this row contains the playing track, display an animation, instead of the track index
@@ -120,7 +119,7 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
             
             imgView.canDrawSubviewsIntoLayer = true
             imgView.imageScaling = .scaleProportionallyDown
-            imgView.animates = animate
+            imgView.animates = shouldAnimate()
             imgView.image = UIConstants.imgPlayingTrack
             imgView.isHidden = false
             
@@ -131,6 +130,17 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
         }
         
         return nil
+    }
+    
+    // Helper function that determines whether or not the playing track animation should be shown animated
+    private func shouldAnimate() -> Bool {
+    
+        // Animation enabled only if 1 - the appropriate playlist view is currently shown, 2 - a track is currently playing (not paused), and 3 - the app window is currently in the foreground
+        
+        let playing = playbackInfo.getPlaybackState() == .playing
+        let showingThisPlaylistView = PlaylistViewState.current == .tracks
+        
+        return playing && WindowState.inForeground && showingThisPlaylistView
     }
     
     // Drag n drop - writes source information to the pasteboard
@@ -152,33 +162,56 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
     }
     
     // Whenever the playing track is paused/resumed, the animation needs to be paused/resumed.
-    private func playbackStateChanged(_ state: PlaybackState) {
+    private func playbackStateChanged(_ message: PlaybackStateChangedNotification) {
         
-        switch (state) {
+        animationCell?.imageView?.animates = shouldAnimate()
+        
+        switch (message.newPlaybackState) {
             
-        case .playing:
-            
-            animationCell?.imageView?.animates = true
-            
-        case .paused:
-            
-            animationCell?.imageView?.animates = false
-            
-        default:
+        case .noTrack:
             
             // Release the animation cell because the track is no longer playing
-            animationCell?.imageView?.animates = false
             animationCell = nil
+            
+        default: return
+            
         }
     }
     
-    func consumeNotification(_ notification: NotificationMessage) {
+    private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
+        animationCell?.imageView?.animates = shouldAnimate()
+    }
     
-        if (notification is PlaybackStateChangedNotification) {
+    private func appInBackground() {
+        animationCell?.imageView?.animates = false
+    }
+    
+    private func appInForeground() {
+        animationCell?.imageView?.animates = shouldAnimate()
+    }
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        switch notification.messageType {
             
-            let msg = notification as! PlaybackStateChangedNotification
-            playbackStateChanged(msg.newPlaybackState)
-            return
+        case .playbackStateChangedNotification:
+            
+            playbackStateChanged(notification as! PlaybackStateChangedNotification)
+            
+        case .playlistTypeChangedNotification:
+            
+            playlistTypeChanged(notification as! PlaylistTypeChangedNotification)
+            
+        case .appInBackgroundNotification:
+            
+            appInBackground()
+            
+        case .appInForegroundNotification:
+            
+            appInForeground()
+            
+        default: return
+            
         }
     }
     
