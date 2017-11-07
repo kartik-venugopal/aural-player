@@ -13,6 +13,11 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         self.graph = graph
         self.preferences = preferences
+        
+        if (preferences.volumeOnStartup == .specific) {
+            graph.setVolume(preferences.startupVolumeValue)
+            graph.unmute()
+        }
     }
     
     func getVolume() -> Float {

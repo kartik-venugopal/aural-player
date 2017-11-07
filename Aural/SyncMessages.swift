@@ -75,6 +75,8 @@ enum MessageType {
     
     case appInBackgroundNotification
     
+    case playbackRequest
+    
     // See AppExitRequest
     case appExitRequest
     
@@ -256,6 +258,40 @@ struct PlaylistTypeChangedNotification: NotificationMessage {
     
     let messageType: MessageType = .playlistTypeChangedNotification
     let newPlaylistType: PlaylistType
+}
+
+struct PlaybackRequest: RequestMessage {
+    
+    let messageType: MessageType = .playbackRequest
+    
+    let type: PlaybackRequestType
+    
+    // Only one of these 3 fields will be non-nil, depending on the request type
+    var index: Int? = nil
+    var track: Track? = nil
+    var group: Group? = nil
+
+    init(index: Int) {
+        self.index = index
+        self.type = .index
+    }
+    
+    init(track: Track) {
+        self.track = track
+        self.type = .track
+    }
+    
+    init(group: Group) {
+        self.group = group
+        self.type = .group
+    }
+}
+
+enum PlaybackRequestType {
+    
+    case index
+    case track
+    case group
 }
 
 // Request from the application to its components to perform an exit. Receiving components will determine whether or not the app may exit, and send an AppExitResponse, in response.

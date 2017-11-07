@@ -9,7 +9,7 @@ protocol AsyncMessage {
 // Contract for an object that consumes AsyncMessage
 protocol AsyncMessageSubscriber {
     
-    // Consume/Process the given async message
+    // Consume/process the given async message
     func consumeAsyncMessage(_ message: AsyncMessage)
 }
 
