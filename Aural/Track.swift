@@ -206,7 +206,7 @@ class MetadataEntry {
     }
 }
 
-// Wrapper around Track that includes its index in the playlist
+// Wrapper around Track that includes its index in the flat playlist
 struct IndexedTrack {
     
     let track: Track
@@ -218,6 +218,7 @@ struct IndexedTrack {
     }
 }
 
+// Wrapper around Track that includes its location within a group in a hierarchical playlist
 struct GroupedTrack {
     
     let track: Track

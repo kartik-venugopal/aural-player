@@ -1,11 +1,19 @@
 import Foundation
 
+/*
+    Represents a group of tracks categorized by a certain property of the tracks - such as artist, album, or genre
+ */
 class Group: NSObject, GroupAccessorProtocol, GroupedPlaylistItem {
     
     let type: GroupType
+    
+    // The unique name of this group (either an artist, album, or genre name)
     let name: String
+    
+    // The tracks within this group
     private var tracks: [Track] = [Track]()
     
+    // Total duration of all tracks in this group
     var duration: Double {
         
         var totalDuration: Double = 0
@@ -25,6 +33,7 @@ class Group: NSObject, GroupAccessorProtocol, GroupedPlaylistItem {
         return allTracks
     }
     
+    // Number of tracks
     func size() -> Int {
         return tracks.count
     }
@@ -41,38 +50,19 @@ class Group: NSObject, GroupAccessorProtocol, GroupedPlaylistItem {
         tracks.insert(track, at: index)
     }
     
+    // Adds a track and returns the index of the new track
     func addTrack(_ track: Track) -> Int {
         
-        var index: Int = -1
-        
-        ConcurrencyUtils.executeSynchronized(tracks) {
-            tracks.append(track)
-            index = tracks.count - 1
-        }
-        
-        return index
+        tracks.append(track)
+        return tracks.count - 1
     }
     
-    func removeTrack(_ track: Track) -> Int {
-        
-        var trackIndex: Int = -1
-        
-        // TODO: Thread-safe ???
-        ConcurrencyUtils.executeSynchronized(tracks) {
-            
-            if let index = tracks.index(of: track) {
-                tracks.remove(at: index)
-                trackIndex = index
-            }
-        }
-        
-        return trackIndex
-    }
-    
+    // Removes a track at the given index, and returns the removed track
     func removeTrackAtIndex(_ index: Int) -> Track {
         return tracks.remove(at: index)
     }
     
+    // Moves tracks within this group, at the given indexes, up one index, if possible. Returns a mapping of source indexes to destination indexes.
     func moveTracksUp(_ indexes: IndexSet) -> [Int: Int] {
         
         // Indexes need to be in ascending order, because tracks need to be moved up, one by one, from top to bottom of the playlist
@@ -101,6 +91,7 @@ class Group: NSObject, GroupAccessorProtocol, GroupedPlaylistItem {
         return indexMappings
     }
     
+    // Moves tracks within this group, at the given indexes, down one index, if possible. Returns a mapping of source indexes to destination indexes.
     func moveTracksDown(_ indexes: IndexSet) -> [Int: Int] {
         
         // Indexes need to be in descending order, because tracks need to be moved down, one by one, from bottom to top of the playlist
@@ -155,17 +146,25 @@ class Group: NSObject, GroupAccessorProtocol, GroupedPlaylistItem {
         swap(&tracks[trackIndex1], &tracks[trackIndex2])
     }
     
+    // Sorts all tracks in this group, using the given strategy to compare tracks
     func sort(_ strategy: (Track, Track) -> Bool) {
         tracks.sort(by: strategy)
     }
 }
 
+// Enumerates the different types of track groups
 enum GroupType: String {
     
+    // Group of tracks categorized by their artist
     case artist
+    
+    // Group of tracks categorized by their album
     case album
+    
+    // Group of tracks categorized by their genre
     case genre
     
+    // Maps a GroupType to a corresponding PlaylistType
     func toPlaylistType() -> PlaylistType {
         
         switch self {
