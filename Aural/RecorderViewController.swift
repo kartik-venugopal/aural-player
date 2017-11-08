@@ -47,7 +47,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         
         recorder.startRecording(format)
         
-        btnRecord.image = UIConstants.imgRecorderStop
+        btnRecord.image = Images.imgRecorderStop
         recorderTimer?.startOrResume()
         
         lblRecorderDuration.stringValue = UIConstants.zeroDurationString
@@ -62,7 +62,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         
         recorder.stopRecording()
         
-        btnRecord.image = UIConstants.imgRecord
+        btnRecord.image = Images.imgRecorderStart
         recorderTimer?.pause()
         
         (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = false
@@ -74,7 +74,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     
     private func saveRecording(_ format: RecordingFormat) {
         
-        let dialog = UIElements.saveRecordingPanel(format.fileExtension)
+        let dialog = DialogsAndAlerts.saveRecordingPanel(format.fileExtension)
         let modalResponse = dialog.runModal()
         
         if (modalResponse == NSModalResponseOK) {
@@ -99,7 +99,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         if (recorder.isRecording()) {
             
             // Recording ongoing, prompt the user to save/discard it
-            let response = UIUtils.showAlert(UIElements.saveRecordingAlert)
+            let response = UIUtils.showAlert(DialogsAndAlerts.saveRecordingAlert)
             
             switch response {
                 

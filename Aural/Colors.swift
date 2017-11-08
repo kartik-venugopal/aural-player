@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class Colors {
+struct Colors {
     
     // Color of text inside any of the container boxes
     static let boxTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)

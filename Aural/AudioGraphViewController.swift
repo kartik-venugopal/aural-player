@@ -125,7 +125,7 @@ class AudioGraphViewController: NSViewController {
     
     private func initPitch(_ appState: UIAppState) {
         
-        btnPitchBypass.image = appState.pitchBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        btnPitchBypass.image = appState.pitchBypass ? Images.imgSwitchOff : Images.imgSwitchOn
         (pitchTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.pitchBypass
         
         pitchSlider.floatValue = appState.pitch
@@ -137,7 +137,7 @@ class AudioGraphViewController: NSViewController {
     
     private func initTime(_ appState: UIAppState) {
         
-        btnTimeBypass.image = appState.timeBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        btnTimeBypass.image = appState.timeBypass ? Images.imgSwitchOff : Images.imgSwitchOn
         (timeTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.timeBypass
         
         timeSlider.floatValue = appState.timeStretchRate
@@ -149,7 +149,7 @@ class AudioGraphViewController: NSViewController {
     
     private func initReverb(_ appState: UIAppState) {
         
-        btnReverbBypass.image = appState.reverbBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        btnReverbBypass.image = appState.reverbBypass ? Images.imgSwitchOff : Images.imgSwitchOn
         (reverbTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.reverbBypass
         
         reverbMenu.select(reverbMenu.item(withTitle: appState.reverbPreset))
@@ -160,7 +160,7 @@ class AudioGraphViewController: NSViewController {
     
     private func initDelay(_ appState: UIAppState) {
         
-        btnDelayBypass.image = appState.delayBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        btnDelayBypass.image = appState.delayBypass ? Images.imgSwitchOff : Images.imgSwitchOn
         (delayTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.delayBypass
         
         delayAmountSlider.floatValue = appState.delayAmount
@@ -178,7 +178,7 @@ class AudioGraphViewController: NSViewController {
     
     private func initFilter(_ appState: UIAppState) {
         
-        btnFilterBypass.image = appState.filterBypass ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        btnFilterBypass.image = appState.filterBypass ? Images.imgSwitchOff : Images.imgSwitchOn
         (filterTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.filterBypass
         
         filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, appState.filterBassMin, appState.filterBassMax, {
@@ -244,19 +244,19 @@ class AudioGraphViewController: NSViewController {
     private func setVolumeImage(_ muted: Bool) {
         
         if (muted) {
-            btnVolume.image = UIConstants.imgMute
+            btnVolume.image = Images.imgMute
         } else {
             let vol = graph.getVolume()
             
             // Zero / Low / Medium / High (different images)
             if (vol > 200/3) {
-                btnVolume.image = UIConstants.imgVolumeHigh
+                btnVolume.image = Images.imgVolumeHigh
             } else if (vol > 100/3) {
-                btnVolume.image = UIConstants.imgVolumeMedium
+                btnVolume.image = Images.imgVolumeMedium
             } else if (vol > 0) {
-                btnVolume.image = UIConstants.imgVolumeLow
+                btnVolume.image = Images.imgVolumeLow
             } else {
-                btnVolume.image = UIConstants.imgVolumeZero
+                btnVolume.image = Images.imgVolumeZero
             }
         }
     }
@@ -396,7 +396,7 @@ class AudioGraphViewController: NSViewController {
         (pitchTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !newBypassState
         pitchTabViewButton.needsDisplay = true
         
-        btnPitchBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        btnPitchBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
     }
     
     @IBAction func pitchAction(_ sender: AnyObject) {
@@ -417,7 +417,7 @@ class AudioGraphViewController: NSViewController {
         (timeTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !newBypassState
         timeTabViewButton.needsDisplay = true
         
-        btnTimeBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        btnTimeBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
         
         let newRate = newBypassState ? 1 : timeSlider.floatValue
         let playbackRateChangedMsg = PlaybackRateChangedNotification(newRate)
@@ -450,7 +450,7 @@ class AudioGraphViewController: NSViewController {
         (reverbTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !newBypassState
         reverbTabViewButton.needsDisplay = true
         
-        btnReverbBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        btnReverbBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
     }
     
     @IBAction func reverbAction(_ sender: AnyObject) {
@@ -471,7 +471,7 @@ class AudioGraphViewController: NSViewController {
         (delayTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !newBypassState
         delayTabViewButton.needsDisplay = true
         
-        btnDelayBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        btnDelayBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
     }
     
     @IBAction func delayAmountAction(_ sender: AnyObject) {
@@ -501,7 +501,7 @@ class AudioGraphViewController: NSViewController {
         (filterTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !newBypassState
         filterTabViewButton.needsDisplay = true
         
-        btnFilterBypass.image = newBypassState ? UIConstants.imgSwitchOff : UIConstants.imgSwitchOn
+        btnFilterBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
     }
     
     private func filterBassChanged() {

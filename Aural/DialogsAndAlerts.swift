@@ -3,25 +3,25 @@ import Cocoa
 /*
     Container for definitions of reusable UI components
 */
-class UIElements {
+struct DialogsAndAlerts {
     
     // Used to add tracks/playlists
-    static let openDialog: NSOpenPanel = UIElements.createOpenDialog()
+    static let openDialog: NSOpenPanel = DialogsAndAlerts.createOpenDialog()
     
     // Used to save current playlist to a file
-    static let savePlaylistDialog: NSSavePanel = UIElements.createSavePlaylistDialog()
+    static let savePlaylistDialog: NSSavePanel = DialogsAndAlerts.createSavePlaylistDialog()
     
     // Used to save a recording to a file
-    private static let saveRecordingDialog: NSSavePanel = UIElements.createSaveRecordingDialog()
+    private static let saveRecordingDialog: NSSavePanel = DialogsAndAlerts.createSaveRecordingDialog()
     
     // Used to prompt the user, when exiting the app, that a recording is ongoing, and give the user options to save/discard that recording
-    static let saveRecordingAlert: NSAlert = UIElements.createSaveRecordingAlert()
+    static let saveRecordingAlert: NSAlert = DialogsAndAlerts.createSaveRecordingAlert()
     
     // Used to inform the user that a certain track cannot be played back
-    private static let trackNotPlayedAlert: NSAlert = UIElements.createTrackNotPlayedAlert()
+    private static let trackNotPlayedAlert: NSAlert = DialogsAndAlerts.createTrackNotPlayedAlert()
     
     // Used to warn the user that certain files were not added to the playlist
-    private static let tracksNotAddedAlert: NSAlert = UIElements.createTracksNotAddedAlert()
+    private static let tracksNotAddedAlert: NSAlert = DialogsAndAlerts.createTracksNotAddedAlert()
     
     private static func createOpenDialog() -> NSOpenPanel {
         
@@ -91,7 +91,7 @@ class UIElements {
         
         alert.messageText = "You have an ongoing recording. Would you like to save it before exiting the app ?"
         alert.alertStyle = .warning
-        alert.icon = UIConstants.imgWarning
+        alert.icon = Images.imgWarning
         
         alert.addButton(withTitle: "Save recording and exit")
         alert.addButton(withTitle: "Discard recording and exit")
@@ -107,7 +107,7 @@ class UIElements {
         alert.window.title = "Track not playable"
         
         alert.alertStyle = .warning
-        alert.icon = UIConstants.imgError
+        alert.icon = Images.imgError
 
         alert.addButton(withTitle: "Remove track from playlist")
         
@@ -135,7 +135,7 @@ class UIElements {
         alert.informativeText = infoText
         
         alert.alertStyle = .warning
-        alert.icon = UIConstants.imgWarning
+        alert.icon = Images.imgWarning
         
         let rect: NSRect = NSRect(x: alert.window.frame.origin.x, y: alert.window.frame.origin.y, width: alert.window.frame.width, height: 150)
         alert.window.setFrame(rect, display: true)

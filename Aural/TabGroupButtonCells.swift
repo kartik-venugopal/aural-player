@@ -22,8 +22,8 @@ class TabGroupButtonCell: NSButtonCell {
     
     var unselectedTextColor: NSColor {return Colors.tabViewButtonTextColor}
     var selectedTextColor: NSColor {return Colors.playlistSelectedTextColor}
-    var textFont: NSFont {return UIConstants.tabViewButtonFont}
-    var boldTextFont: NSFont {return UIConstants.tabViewButtonBoldFont}
+    var textFont: NSFont {return Fonts.tabViewButtonFont}
+    var boldTextFont: NSFont {return Fonts.tabViewButtonBoldFont}
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         

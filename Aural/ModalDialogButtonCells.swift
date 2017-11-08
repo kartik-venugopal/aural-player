@@ -16,7 +16,7 @@ class ModalDialogButtonCell: NSButtonCell {
     var borderStrokeColor: NSColor {return Colors.modalDialogButtonOutlineColor}
     
     var textColor: NSColor {return Colors.boxTextColor}
-    var textFont: NSFont {return UIConstants.modalDialogButtonFont}
+    var textFont: NSFont {return Fonts.modalDialogButtonFont}
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         
@@ -59,5 +59,5 @@ class ColoredNavigationButtonCell: ModalDialogButtonCell {
     override var borderLineWidth: CGFloat {return 1.5}
     
     override var textColor: NSColor {return Colors.modalDialogNavButtonTextColor}
-    override var textFont: NSFont {return UIConstants.modalDialogNavButtonFont}
+    override var textFont: NSFont {return Fonts.modalDialogNavButtonFont}
 }

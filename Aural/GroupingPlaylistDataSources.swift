@@ -103,7 +103,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
             
             if let group = item as? Group {
                 
-                let cell = createImageAndTextCell(outlineView, tableColumn!.identifier, true, String(format: "%@ (%d)", group.name, group.size()), UIConstants.imgGroup)
+                let cell = createImageAndTextCell(outlineView, tableColumn!.identifier, true, String(format: "%@ (%d)", group.name, group.size()), Images.imgGroup)
                 cell?.item = group
                 cell?.playlistType = self.playlistType
                 return cell
@@ -113,7 +113,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
                 let track = item as! Track
                 
                 let isPlayingTrack = track == playbackInfo.getPlayingTrack()?.track
-                let image = isPlayingTrack ? UIConstants.imgPlayingTrack : track.displayInfo.art
+                let image = isPlayingTrack ? Images.imgPlayingTrack : track.displayInfo.art
                 
                 let cell = createImageAndTextCell(outlineView, tableColumn!.identifier, false, playlist.displayNameForTrack(playlistType, track), image, isPlayingTrack)
                 cell?.item = track
@@ -309,7 +309,7 @@ class GroupedTrackCellView: NSTableCellView {
                 
                 textField.textColor = isSelRow ? (isGroup ? Colors.playlistGroupNameSelectedTextColor : Colors.playlistGroupItemSelectedTextColor) : (isGroup ? Colors.playlistGroupNameTextColor : Colors.playlistGroupItemTextColor)
                 
-                textField.font = isSelRow ? (isGroup ? UIConstants.playlistGroupNameSelectedTextFont : UIConstants.playlistGroupItemSelectedTextFont) : (isGroup ? UIConstants.playlistGroupNameTextFont : UIConstants.playlistGroupItemTextFont)
+                textField.font = isSelRow ? (isGroup ? Fonts.playlistGroupNameSelectedTextFont : Fonts.playlistGroupItemSelectedTextFont) : (isGroup ? Fonts.playlistGroupNameTextFont : Fonts.playlistGroupItemTextFont)
             }
         }
     }
