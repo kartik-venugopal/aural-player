@@ -104,37 +104,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ObjectGraph.tearDown()
     }
     
+    
+     // MARK: App focus event handlers. Respond to these events by triggering actions to optimize app performance and resource usage (certain UI features can be disabled when the app is not visible or in focus).
+    
     func applicationDidBecomeActive(_ notification: Notification) {
         
-        if (NSApplication.shared().occlusionState.contains(.visible)) {
-            WindowState.inForeground = true
-            SyncMessenger.publishNotification(AppInForegroundNotification.instance)
-        }
+        WindowState.inForeground = true
+        SyncMessenger.publishNotification(AppInForegroundNotification.instance)
     }
     
     func applicationDidResignActive(_ notification: Notification) {
+        
         WindowState.inForeground = false
         SyncMessenger.publishNotification(AppInBackgroundNotification.instance)
     }
     
     func applicationDidHide(_ notification: Notification) {
+        
         WindowState.inForeground = false
         SyncMessenger.publishNotification(AppInBackgroundNotification.instance)
     }
     
     func applicationDidUnhide(_ notification: Notification) {
         
-        if (NSApplication.shared().occlusionState.contains(.visible)) {
-            WindowState.inForeground = true
-            SyncMessenger.publishNotification(AppInForegroundNotification.instance)
-        }
-    }
-    
-    func applicationDidChangeOcclusionState(_ notification: Notification) {
-        
-        if (!NSApplication.shared().occlusionState.contains(.visible)) {
-            WindowState.inForeground = false
-            SyncMessenger.publishNotification(AppInBackgroundNotification.instance)
-        }
+        WindowState.inForeground = true
+        SyncMessenger.publishNotification(AppInForegroundNotification.instance)
     }
 }

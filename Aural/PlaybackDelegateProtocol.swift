@@ -6,30 +6,30 @@ import Foundation
 protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
     // Toggles between the play and pause states, as long as a file is available to play. Returns playback state information the UI can use to update itself following the operation.
-    // Note - Throws an error if playback begins with a track that cannot be played back
+    // NOTE - Throws an error if playback begins with a track that cannot be played back
     func togglePlayPause() throws -> (playbackState: PlaybackState, playingTrack: IndexedTrack?, trackChanged: Bool)
     
     // Plays the track at a given index in the player playlist. Returns complete track information for the track.
-    // Note - Throws an error if the selected track cannot be played back
+    // NOTE - Throws an error if the selected track cannot be played back
     func play(_ index: Int) throws -> IndexedTrack
     
     // Plays the given track. Returns complete track information for the track.
-    // Note - Throws an error if the selected track cannot be played back
+    // NOTE - Throws an error if the selected track cannot be played back
     func play(_ track: Track) throws -> IndexedTrack
     
     // Initiates playback of (tracks within) the given group. Returns complete track information for the track that is chosen to play first.
-    // Note - Throws an error if the selected track cannot be played back
+    // NOTE - Throws an error if the track that is chosen to play first within the given group cannot be played back
     func play(_ group: Group) throws -> IndexedTrack
     
     // Stops playback
     func stop()
     
     // Plays (and returns) the next track, if there is one
-    // Note - Throws an error if the next track cannot be played back
+    // NOTE - Throws an error if the next track cannot be played back
     func nextTrack() throws -> IndexedTrack?
     
     // Plays (and returns) the previous track, if there is one
-    // Note - Throws an error if the previous track cannot be played back
+    // NOTE - Throws an error if the previous track cannot be played back
     func previousTrack() throws -> IndexedTrack?
     
     // Seeks forward a few seconds, within the current track

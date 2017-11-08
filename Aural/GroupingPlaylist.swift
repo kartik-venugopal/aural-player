@@ -129,32 +129,33 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     func addTrack(_ track: Track) -> GroupedTrackAddResult {
         
+        let tim = TimerUtils.start("GroupingPlaylist.addTrack()")
+        
         let groupName = getGroupNameForTrack(track)
         
         var group: Group?
         var groupCreated: Bool = false
-        var groupIndex: Int = -1
+        var groupIndex: Int
         
-        ConcurrencyUtils.executeSynchronized(groups) {
-        
-            group = groupsByName[groupName]
-            if (group == nil) {
-                
-                // Create the group
-                group = Group(groupType, groupName)
-                groups.append(group!)
-                groupsByName[groupName] = group
-                groupIndex = groups.count - 1
-                
-                groupCreated = true
-                
-            } else {
-                groupIndex = groups.index(of: group!)!
-            }
+        group = groupsByName[groupName]
+        if (group == nil) {
+            
+            // Create the group
+            group = Group(groupType, groupName)
+            groups.append(group!)
+            groupsByName[groupName] = group
+            groupIndex = groups.count - 1
+            
+            groupCreated = true
+            
+        } else {
+            groupIndex = groups.index(of: group!)!
         }
         
         let trackIndex = group!.addTrack(track)
         let groupedTrack = GroupedTrack(track, group!, trackIndex, groupIndex)
+        
+        tim.end()
         
         return GroupedTrackAddResult(track: groupedTrack, groupCreated: groupCreated)
     }

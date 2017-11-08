@@ -31,7 +31,7 @@ protocol RequestMessage: SyncMessage {
 protocol ResponseMessage: SyncMessage {
 }
 
-// Enumeration of the different message types. See the letious Message structs below, for descriptions of each message type.
+// Enumeration of the different message types. See the various Message structs below, for descriptions of each message type.
 enum MessageType {
     
     case trackAddedNotification
@@ -40,33 +40,24 @@ enum MessageType {
     
     case trackGroupUpdatedNotification
     
-    // See TrackChangedNotification
     case trackChangedNotification
     
     case sequenceChangedNotification
     
-    // See PlayingTrackInfoUpdatedNotification
     case playingTrackInfoUpdatedNotification
     
-    // See RemoveTrackRequest
     case removeTrackRequest
     
-    // See PlaybackStateChangedNotification
     case playbackStateChangedNotification
     
-    // See PlaybackRateChangedNotification
     case playbackRateChangedNotification
     
-    // See SeekPositionChangedNotification
     case seekPositionChangedNotification
     
-    // See SearchTextChangedNotification
     case searchTextChangedNotification
     
-    // See AppLoadedNotification
     case appLoadedNotification
     
-    // See AppReopenedNotification
     case appReopenedNotification
     
     case playlistTypeChangedNotification
@@ -79,17 +70,14 @@ enum MessageType {
     
     case playbackRequest
     
-    // See AppExitRequest
     case appExitRequest
     
-    // See AppExitResponse
     case appExitResponse
     
-    // See EmptyResponse
     case emptyResponse
 }
 
-// indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
+// Notification indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
 struct TrackAddedNotification: NotificationMessage {
     
     let messageType: MessageType = .trackAddedNotification
@@ -337,20 +325,24 @@ struct EmptyResponse: ResponseMessage {
     static let instance: EmptyResponse = EmptyResponse()
 }
 
+// Notification indicating that the application has moved to the background and is no longer both visible and in focus.
 struct AppInBackgroundNotification: NotificationMessage {
  
     let messageType: MessageType = .appInBackgroundNotification
     
     private init() {}
     
+    // Singleton
     static let instance: AppInBackgroundNotification = AppInBackgroundNotification()
 }
 
+// Notification indicating that the application has moved to the foreground and is both visible and in focus.
 struct AppInForegroundNotification: NotificationMessage {
     
     let messageType: MessageType = .appInForegroundNotification
     
     private init() {}
     
+    // Singleton
     static let instance: AppInForegroundNotification = AppInForegroundNotification()
 }
