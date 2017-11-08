@@ -9,7 +9,7 @@ class CheckRadioButtonCell: NSButtonCell {
         
         let textColor = state == 0 ? Colors.boxTextColor : Colors.playlistSelectedTextColor
         let attrs: [String: AnyObject] = [
-            NSFontAttributeName: UIConstants.checkRadioButtonFont,
+            NSFontAttributeName: Fonts.checkRadioButtonFont,
             NSForegroundColorAttributeName: textColor]
         
         let titleText = title.string

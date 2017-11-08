@@ -476,7 +476,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         mainWindow.addChildWindow(playlistWindow, ordered: NSWindowOrderingMode.below)
         playlistWindow.setIsVisible(true)
         btnTogglePlaylist.state = 1
-        btnTogglePlaylist.image = UIConstants.imgPlaylistOn
+        btnTogglePlaylist.image = Images.imgPlaylistOn
         viewPlaylistMenuItem.state = 1
         WindowState.showingPlaylist = true
         
@@ -542,7 +542,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         
         playlistWindow.setIsVisible(false)
         btnTogglePlaylist.state = 0
-        btnTogglePlaylist.image = UIConstants.imgPlaylistOff
+        btnTogglePlaylist.image = Images.imgPlaylistOff
         viewPlaylistMenuItem.state = 0
         WindowState.showingPlaylist = false
     }
@@ -556,7 +556,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             resizeMainWindow(playlistShown: playlistWindow.isVisible && playlistDockState == .bottom, effectsShown: true, animate)
             fxBox.isHidden = false
             btnToggleEffects.state = 1
-            btnToggleEffects.image = UIConstants.imgEffectsOn
+            btnToggleEffects.image = Images.imgEffectsOn
             viewEffectsMenuItem.state = 1
             WindowState.showingEffects = true
             
@@ -567,7 +567,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             fxBox.isHidden = true
             resizeMainWindow(playlistShown: playlistWindow.isVisible && playlistDockState == .bottom, effectsShown: false, animate)
             btnToggleEffects.state = 0
-            btnToggleEffects.image = UIConstants.imgEffectsOff
+            btnToggleEffects.image = Images.imgEffectsOff
             viewEffectsMenuItem.state = 0
             WindowState.showingEffects = false
         }

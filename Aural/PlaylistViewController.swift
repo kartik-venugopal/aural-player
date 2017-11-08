@@ -72,7 +72,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     
     @IBAction func addTracksAction(_ sender: AnyObject) {
         
-        let dialog = UIElements.openDialog
+        let dialog = DialogsAndAlerts.openDialog
         
         let modalResponse = dialog.runModal()
         
@@ -110,7 +110,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         // This needs to be done async. Otherwise, the add files dialog hangs.
         DispatchQueue.main.async {
-            _ = UIUtils.showAlert(UIElements.tracksNotAddedAlertWithErrors(message.errors))
+            _ = UIUtils.showAlert(DialogsAndAlerts.tracksNotAddedAlertWithErrors(message.errors))
         }
     }
     
@@ -157,7 +157,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         // Make sure there is at least one track to save
         if (playlist.size() > 0) {
             
-            let dialog = UIElements.savePlaylistDialog
+            let dialog = DialogsAndAlerts.savePlaylistDialog
             let modalResponse = dialog.runModal()
             
             if (modalResponse == NSModalResponseOK) {

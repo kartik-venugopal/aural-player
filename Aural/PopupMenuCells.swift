@@ -12,7 +12,7 @@ class PopupMenuCell: NSPopUpButtonCell {
     var rectRadius: CGFloat {return 1}
     var menuGradient: NSGradient {return Colors.sliderBarGradient}
     
-    var titleFont: NSFont {return UIConstants.popupMenuFont}
+    var titleFont: NSFont {return Fonts.popupMenuFont}
     var titleColor: NSColor {return Colors.popupMenuTextColor}
     
     var arrowXMargin: CGFloat {return 5}

@@ -148,13 +148,13 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
             
         case .off:
             
-            btnShuffle.image = UIConstants.imgShuffleOff
+            btnShuffle.image = Images.imgShuffleOff
             [shuffleOffMainMenuItem, shuffleOffDockMenuItem].forEach({$0?.state = 1})
             [shuffleOnMainMenuItem, shuffleOnDockMenuItem].forEach({$0?.state = 0})
             
         case .on:
             
-            btnShuffle.image = UIConstants.imgShuffleOn
+            btnShuffle.image = Images.imgShuffleOn
             [shuffleOffMainMenuItem, shuffleOffDockMenuItem].forEach({$0?.state = 0})
             [shuffleOnMainMenuItem, shuffleOnDockMenuItem].forEach({$0?.state = 1})
             
@@ -164,19 +164,19 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
             
         case .off:
             
-            btnRepeat.image = UIConstants.imgRepeatOff
+            btnRepeat.image = Images.imgRepeatOff
             [repeatOffMainMenuItem, repeatOffDockMenuItem].forEach({$0.state = 1})
             [repeatOneMainMenuItem, repeatOneDockMenuItem, repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0?.state = 0})
             
         case .one:
             
-            btnRepeat.image = UIConstants.imgRepeatOne
+            btnRepeat.image = Images.imgRepeatOne
             [repeatOneMainMenuItem, repeatOneDockMenuItem].forEach({$0.state = 1})
             [repeatOffMainMenuItem, repeatOffDockMenuItem, repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0?.state = 0})
             
         case .all:
             
-            btnRepeat.image = UIConstants.imgRepeatAll
+            btnRepeat.image = Images.imgRepeatAll
             [repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0.state = 1})
             [repeatOneMainMenuItem, repeatOneDockMenuItem, repeatOffMainMenuItem, repeatOffDockMenuItem].forEach({$0?.state = 0})
             
@@ -197,7 +197,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
                 
             case .noTrack, .paused:
                 
-                setPlayPauseImage(UIConstants.imgPlay)
+                setPlayPauseImage(Images.imgPlay)
                 SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
                 
             case .playing:
@@ -206,7 +206,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
                     trackChanged(oldTrack, playbackInfo.playingTrack)
                 } else {
                     // Resumed the same track
-                    setPlayPauseImage(UIConstants.imgPause)
+                    setPlayPauseImage(Images.imgPause)
                     SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
                 }
             }
@@ -276,18 +276,18 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
             if (!errorState) {
                 
                 // No error, track is playing
-                setPlayPauseImage(UIConstants.imgPause)
+                setPlayPauseImage(Images.imgPause)
                 
             } else {
                 
                 // Error state
-                setPlayPauseImage(UIConstants.imgPlay)
+                setPlayPauseImage(Images.imgPlay)
             }
             
         } else {
             
             // No track playing
-            setPlayPauseImage(UIConstants.imgPlay)
+            setPlayPauseImage(Images.imgPlay)
         }
         
         SyncMessenger.publishNotification(TrackChangedNotification(oldTrack, newTrack, errorState))
@@ -327,7 +327,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
             self.trackChanged(oldTrack, playingTrack, true)
             
             // Position and display an alert with error info
-            _ = UIUtils.showAlert(UIElements.trackNotPlayedAlertWithError(error))
+            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(error))
             
             // Remove the bad track from the playlist and update the UI
             _ = SyncMessenger.publishRequest(RemoveTrackRequest(playingTrack!.index))

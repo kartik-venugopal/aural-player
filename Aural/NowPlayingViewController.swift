@@ -53,7 +53,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         
         // Set up the art view and the default animation
         artView.canDrawSubviewsIntoLayer = true
-        artView.image = UIConstants.imgPlayingArt
+        artView.image = Images.imgPlayingArt
         
         // Subscribe to various notifications
         
@@ -120,7 +120,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         } else {
             
             // Default artwork animation
-            artView.image = UIConstants.imgPlayingArt
+            artView.image = Images.imgPlayingArt
             artView.animates = true
         }
         
@@ -142,12 +142,12 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         case .allTracks, .allArtists, .allAlbums, .allGenres:
             
             lblPlaybackScope.stringValue = StringUtils.splitCamelCaseWord(scope.type.rawValue, false)
-            imgScope.image = UIConstants.imgPlaylistOn
+            imgScope.image = Images.imgPlaylistOn
             
         case .artist, .album, .genre:
             
             lblPlaybackScope.stringValue = scope.scope!.name
-            imgScope.image = UIConstants.imgGroup
+            imgScope.image = Images.imgGroup
         }
         
         // Sequence progress. For example, "5 / 10" (tracks)
@@ -172,7 +172,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
     private func clearNowPlayingInfo() {
         
         [lblTrackArtist, lblTrackTitle, lblTrackName, lblPlaybackScope, lblSequenceProgress].forEach({$0?.stringValue = ""})
-        artView.image = UIConstants.imgPlayingArt
+        artView.image = Images.imgPlayingArt
         artView.animates = false
         imgScope.image = nil
         

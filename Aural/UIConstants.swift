@@ -3,7 +3,7 @@
 */
 import Cocoa
 
-class UIConstants {
+struct UIConstants {
     
     // Y co-ordinates for the Track Name label, depending on whether it is displaying one or two lines of text
     static let trackNameLabelLocationY_oneLine: CGFloat = 53
@@ -21,90 +21,12 @@ class UIConstants {
     static let playlistDurationColumnID: String = "cid_Duration"
     
     // Track info view column identifiers (popover)
-    static let trackInfoKeyColumnID: String = "cv_trackInfoKey"
-    static let trackInfoValueColumnID: String = "cv_trackInfoValue"
+    static let trackInfoKeyColumnID: String = "cid_TrackInfoKey"
+    static let trackInfoValueColumnID: String = "cid_TrackInfoValue"
     
     // Index set used to reload specific playlist rows
     static let flatPlaylistViewColumnIndexes: IndexSet = IndexSet([0, 1, 2])
     static let groupingPlaylistViewColumnIndexes: IndexSet = IndexSet([0, 1])
-    
-    // Animation displayed in playlist to mark the currently playing track
-    static let imgPlayingTrack: NSImage = NSImage(byReferencing: URL(fileURLWithPath: Bundle.main.path(forResource: "playingTrack", ofType: "gif")!))
-    
-    // Animation displayed in the Now Playing art image view (for track artwork)
-    static let imgPlayingArt: NSImage = NSImage(byReferencing: URL(fileURLWithPath: Bundle.main.path(forResource: "playingArt", ofType: "gif")!))
-    
-    // Toggled images
-    static let imgPlay: NSImage = NSImage(named: "Play")!
-    static let imgPause: NSImage = NSImage(named: "Pause")!
-    
-    static let imgRecord: NSImage = NSImage(named: "Record")!
-    static let imgRecorderStop: NSImage = NSImage(named: "RecorderStop")!
-
-    static let imgVolumeZero: NSImage = NSImage(named: "VolumeZero")!
-    static let imgVolumeLow: NSImage = NSImage(named: "VolumeLow")!
-    static let imgVolumeMedium: NSImage = NSImage(named: "VolumeMedium")!
-    static let imgVolumeHigh: NSImage = NSImage(named: "VolumeHigh")!
-    static let imgMute: NSImage = NSImage(named: "Mute")!
-    
-    static let imgRepeatOff: NSImage = NSImage(named: "RepeatOff")!
-    static let imgRepeatOne: NSImage = NSImage(named: "RepeatOne")!
-    static let imgRepeatAll: NSImage = NSImage(named: "RepeatAll")!
-    
-    static let imgShuffleOff: NSImage = NSImage(named: "ShuffleOff")!
-    static let imgShuffleOn: NSImage = NSImage(named: "ShuffleOn")!
-
-    static let imgSwitchOff: NSImage = NSImage(named: "SwitchOff")!
-    static let imgSwitchOn: NSImage = NSImage(named: "SwitchOn")!
-    
-    static let imgPlaylistOn: NSImage = NSImage(named: "PlaylistView-On")!
-    static let imgPlaylistOff: NSImage = NSImage(named: "PlaylistView-Off")!
-    static let imgEffectsOn: NSImage = NSImage(named: "EffectsView-On")!
-    static let imgEffectsOff: NSImage = NSImage(named: "EffectsView-Off")!
-    
-    static let imgGroup: NSImage = NSImage(named: "Group")!
-    
-    // Images displayed in alerts
-    static let imgWarning: NSImage = NSImage(named: "Warning")!
-    static let imgError: NSImage = NSImage(named: "Error")!
-    
-    private static let gillSans12LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 12)!
-    private static let gillSans12Font: NSFont = NSFont(name: "Gill Sans", size: 12)!
-    private static let gillSans12SemiBoldFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
-    private static let gillSans12BoldFont: NSFont = NSFont(name: "Gill Sans Bold", size: 12)!
-    
-    private static let gillSans13Font: NSFont = NSFont(name: "Gill Sans", size: 13)!
-    private static let gillSans13LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 13)!
-    
-    // Fonts used by the playlist view
-    static let playlistSelectedTextFont: NSFont = gillSans12Font
-    static let playlistTextFont: NSFont = gillSans12LightFont
-    
-    static let playlistGroupNameSelectedTextFont: NSFont = gillSans12SemiBoldFont
-    static let playlistGroupNameTextFont: NSFont = gillSans12Font
-    
-    static let playlistGroupItemSelectedTextFont: NSFont = gillSans12Font
-    static let playlistGroupItemTextFont: NSFont = gillSans12LightFont
-    
-    // Font used by the effects tab view buttons
-    static let tabViewButtonFont: NSFont = gillSans12Font
-    static let tabViewButtonBoldFont: NSFont = gillSans12SemiBoldFont
-    
-    // Font used by modal dialog buttons
-    static let modalDialogButtonFont: NSFont = gillSans12Font
-    
-    // Font used by the search modal dialog navigation buttons
-    static let modalDialogNavButtonFont: NSFont = gillSans12BoldFont
-    
-    // Font used by modal dialog check and radio buttons
-    static let checkRadioButtonFont: NSFont = NSFont(name: "Gill Sans", size: 11)!
-    
-    // Fonts used by the track info popover view (key column and view column)
-    static let popoverKeyFont: NSFont = gillSans13Font
-    static let popoverValueFont: NSFont = gillSans13LightFont
-    
-    // Font used by the popup menus
-    static let popupMenuFont: NSFont = NSFont(name: "Gill Sans", size: 10)!
     
     // Default value for the label that shows a track's seek position
     static let zeroDurationString: String = "0:00"
@@ -130,7 +52,7 @@ class UIConstants {
     static let windowHeight_playlistOnly: CGFloat = 218
     static let windowHeight_effectsOnly: CGFloat = 415
     
-    // Angle used to fill vertical gradients
+    // Angles used to fill gradients
     static let verticalGradientDegrees: CGFloat = -90.0
     static let horizontalGradientDegrees: CGFloat = -180.0
     

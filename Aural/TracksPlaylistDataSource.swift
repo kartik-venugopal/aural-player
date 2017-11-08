@@ -123,7 +123,7 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
             imgView.canDrawSubviewsIntoLayer = true
             imgView.imageScaling = .scaleProportionallyDown
             imgView.animates = shouldAnimate()
-            imgView.image = UIConstants.imgPlayingTrack
+            imgView.image = Images.imgPlayingTrack
             imgView.isHidden = false
             
             // Hide the text view
@@ -262,7 +262,7 @@ class PlaylistCellView: NSTableCellView {
             if let textField = self.textField {
                 
                 textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
-                textField.font = isSelRow ? UIConstants.playlistSelectedTextFont : UIConstants.playlistTextFont
+                textField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
             }
         }
     }
