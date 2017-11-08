@@ -1521,7 +1521,7 @@ G1BhbiBTbGlkZXI
                                                 </tabViewItems>
                                             </tabView>
                                             <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="QU8-ZM-MyA">
-                                                <rect key="frame" x="0.0" y="147" width="385" height="130"/>
+                                                <rect key="frame" x="0.0" y="147" width="385" height="59"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </box>
                                             <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Mvg-eT-z2w" userLabel="Tab Buttons Box">
@@ -2058,7 +2058,7 @@ G1BhbiBTbGlkZXI
                                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
                                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                     <tableColumns>
-                                                                        <tableColumn identifier="cv_trackIndex" width="30" minWidth="25" maxWidth="40" id="ZZZ-Bn-ZOg" userLabel="Index">
+                                                                        <tableColumn identifier="cid_Index" width="30" minWidth="25" maxWidth="40" id="ZZZ-Bn-ZOg" userLabel="Index">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2071,7 +2071,7 @@ G1BhbiBTbGlkZXI
                                                                             </textFieldCell>
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                             <prototypeCellViews>
-                                                                                <tableCellView identifier="cv_trackIndex" id="nKp-mw-lX3" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
+                                                                                <tableCellView id="nKp-mw-lX3" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
                                                                                     <rect key="frame" x="1" y="2" width="30" height="20"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
@@ -2109,7 +2109,7 @@ G1BhbiBTbGlkZXI
                                                                                 </tableCellView>
                                                                             </prototypeCellViews>
                                                                         </tableColumn>
-                                                                        <tableColumn identifier="cv_trackName" width="344" minWidth="304" maxWidth="10000" id="ldg-Xi-cOT" userLabel="Track Name">
+                                                                        <tableColumn identifier="cid_Name" width="344" minWidth="304" maxWidth="10000" id="ldg-Xi-cOT" userLabel="Track Name">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Track">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2122,7 +2122,7 @@ G1BhbiBTbGlkZXI
                                                                             </textFieldCell>
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                             <prototypeCellViews>
-                                                                                <tableCellView identifier="cv_trackName" id="HVN-RA-XGS" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
+                                                                                <tableCellView id="HVN-RA-XGS" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
                                                                                     <rect key="frame" x="34" y="2" width="344" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
@@ -2149,7 +2149,7 @@ G1BhbiBTbGlkZXI
                                                                                 </tableCellView>
                                                                             </prototypeCellViews>
                                                                         </tableColumn>
-                                                                        <tableColumn identifier="cv_duration" width="65" minWidth="45" maxWidth="65" id="JKa-1L-XOI">
+                                                                        <tableColumn identifier="cid_Duration" width="65" minWidth="45" maxWidth="65" id="JKa-1L-XOI">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2162,7 +2162,7 @@ G1BhbiBTbGlkZXI
                                                                             </textFieldCell>
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                             <prototypeCellViews>
-                                                                                <tableCellView identifier="cv_duration" id="wOn-dT-ZDk" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
+                                                                                <tableCellView id="wOn-dT-ZDk" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
                                                                                     <rect key="frame" x="381" y="2" width="65" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
@@ -2226,7 +2226,7 @@ G1BhbiBTbGlkZXI
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="9oF-9v-OrO">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="8tt-k4-q7k" id="Hsn-Ar-Mkv" userLabel="Playlist Artists View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
@@ -2235,7 +2235,7 @@ G1BhbiBTbGlkZXI
                                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
                                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                     <tableColumns>
-                                                                        <tableColumn identifier="cv_groupName" width="372" minWidth="322" maxWidth="10000" id="8tt-k4-q7k" userLabel="Artist">
+                                                                        <tableColumn identifier="cid_Name" width="372" minWidth="322" maxWidth="10000" id="8tt-k4-q7k" userLabel="Artist">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2248,7 +2248,7 @@ G1BhbiBTbGlkZXI
                                                                             </textFieldCell>
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                             <prototypeCellViews>
-                                                                                <tableCellView identifier="cv_groupName" id="Mxm-B0-igB" userLabel="Artist Cell View" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
+                                                                                <tableCellView id="Mxm-B0-igB" userLabel="Artist Cell View" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
                                                                                     <rect key="frame" x="1" y="1" width="372" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
@@ -2286,7 +2286,7 @@ G1BhbiBTbGlkZXI
                                                                                 </tableCellView>
                                                                             </prototypeCellViews>
                                                                         </tableColumn>
-                                                                        <tableColumn identifier="cv_duration" width="70" minWidth="55" maxWidth="70" id="hty-Gx-34Z" userLabel="Duration">
+                                                                        <tableColumn identifier="cid_Duration" width="70" minWidth="55" maxWidth="70" id="hty-Gx-34Z" userLabel="Duration">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2299,7 +2299,7 @@ G1BhbiBTbGlkZXI
                                                                             </textFieldCell>
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                             <prototypeCellViews>
-                                                                                <tableCellView identifier="cv_duration" id="MQx-zI-vQh" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
+                                                                                <tableCellView id="MQx-zI-vQh" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
                                                                                     <rect key="frame" x="376" y="1" width="70" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
@@ -2362,7 +2362,7 @@ G1BhbiBTbGlkZXI
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="g3t-78-dsq">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="Pbf-De-cAu" id="ysd-F6-711" userLabel="Playlist Albums View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
@@ -2371,7 +2371,7 @@ G1BhbiBTbGlkZXI
                                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
                                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                     <tableColumns>
-                                                                        <tableColumn identifier="cv_groupName" width="372" minWidth="322" maxWidth="10000" id="Pbf-De-cAu" userLabel="Album">
+                                                                        <tableColumn identifier="cid_Name" width="372" minWidth="322" maxWidth="10000" id="Pbf-De-cAu" userLabel="Album">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2384,7 +2384,7 @@ G1BhbiBTbGlkZXI
                                                                             </textFieldCell>
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                             <prototypeCellViews>
-                                                                                <tableCellView identifier="cv_groupName" id="UKi-VH-sNf" userLabel="Album Cell View" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
+                                                                                <tableCellView id="UKi-VH-sNf" userLabel="Album Cell View" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
                                                                                     <rect key="frame" x="1" y="1" width="372" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
@@ -2422,7 +2422,7 @@ G1BhbiBTbGlkZXI
                                                                                 </tableCellView>
                                                                             </prototypeCellViews>
                                                                         </tableColumn>
-                                                                        <tableColumn identifier="cv_duration" width="70" minWidth="55" maxWidth="70" id="QUE-iY-6En" userLabel="Duration">
+                                                                        <tableColumn identifier="cid_Duration" width="70" minWidth="55" maxWidth="70" id="QUE-iY-6En" userLabel="Duration">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2435,7 +2435,7 @@ G1BhbiBTbGlkZXI
                                                                             </textFieldCell>
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                             <prototypeCellViews>
-                                                                                <tableCellView identifier="cv_duration" id="SCX-o7-Gcq" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
+                                                                                <tableCellView id="SCX-o7-Gcq" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
                                                                                     <rect key="frame" x="376" y="1" width="70" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
@@ -2507,7 +2507,7 @@ G1BhbiBTbGlkZXI
                                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
                                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                     <tableColumns>
-                                                                        <tableColumn identifier="cv_groupName" width="372" minWidth="322" maxWidth="10000" id="RK1-b8-W6Q" userLabel="Genre">
+                                                                        <tableColumn identifier="cid_Name" width="372" minWidth="322" maxWidth="10000" id="RK1-b8-W6Q" userLabel="Genre">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2520,7 +2520,7 @@ G1BhbiBTbGlkZXI
                                                                             </textFieldCell>
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                             <prototypeCellViews>
-                                                                                <tableCellView identifier="cv_groupName" id="Owg-uV-ISg" userLabel="Artist Cell View" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
+                                                                                <tableCellView id="Owg-uV-ISg" userLabel="Artist Cell View" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
                                                                                     <rect key="frame" x="1" y="1" width="372" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
@@ -2558,7 +2558,7 @@ G1BhbiBTbGlkZXI
                                                                                 </tableCellView>
                                                                             </prototypeCellViews>
                                                                         </tableColumn>
-                                                                        <tableColumn identifier="cv_duration" width="70" minWidth="55" maxWidth="70" id="Frn-3v-acL" userLabel="Duration">
+                                                                        <tableColumn identifier="cid_Duration" width="70" minWidth="55" maxWidth="70" id="Frn-3v-acL" userLabel="Duration">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2571,7 +2571,7 @@ G1BhbiBTbGlkZXI
                                                                             </textFieldCell>
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                             <prototypeCellViews>
-                                                                                <tableCellView identifier="cv_duration" id="KvV-Qz-fY1" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
+                                                                                <tableCellView id="KvV-Qz-fY1" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
                                                                                     <rect key="frame" x="376" y="1" width="70" height="22"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
