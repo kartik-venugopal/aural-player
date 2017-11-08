@@ -24,10 +24,6 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         return accessor.trackAtIndex(index)
     }
     
-    func groupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> GroupedTrack {
-        return accessor.groupingInfoForTrack(track, groupType)
-    }
-    
     func size() -> Int {
         return accessor.size()
     }
@@ -36,24 +32,16 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         return accessor.totalDuration()
     }
     
-    func summary() -> (size: Int, totalDuration: Double) {
-        return accessor.summary()
+    func summary(_ playlistType: PlaylistType) -> (size: Int, totalDuration: Double, numGroups: Int) {
+        return accessor.summary(playlistType)
     }
     
-    func summary(_ groupType: GroupType) -> (size: Int, totalDuration: Double, numGroups: Int) {
-        return accessor.summary(groupType)
+    func search(_ searchQuery: SearchQuery, _ playlistType: PlaylistType) -> SearchResults {
+        return accessor.search(searchQuery, playlistType)
     }
     
-    func search(_ searchQuery: SearchQuery) -> SearchResults {
-        return accessor.search(searchQuery)
-    }
-    
-    func search(_ searchQuery: SearchQuery, _ groupType: GroupType) -> SearchResults {
-        return accessor.search(searchQuery, groupType)
-    }
-    
-    func displayNameForTrack(_ type: GroupType, _ track: Track) -> String {
-        return accessor.displayNameForTrack(type, track)
+    func displayNameForTrack(_ playlistType: PlaylistType, _ track: Track) -> String {
+        return accessor.displayNameForTrack(playlistType, track)
     }
     
     func groupAtIndex(_ type: GroupType, _ index: Int) -> Group {
@@ -104,12 +92,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         mutator.clear()
     }
     
-    func sort(_ sort: Sort) {
-        mutator.sort(sort)
-    }
-    
-    func sort(_ sort: Sort, _ groupType: GroupType) {
-        mutator.sort(sort, groupType)
+    func sort(_ sort: Sort, _ playlistType: PlaylistType) {
+        mutator.sort(sort, playlistType)
     }
     
     func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {

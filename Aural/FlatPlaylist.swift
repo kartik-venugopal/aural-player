@@ -9,7 +9,24 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         return tracks
     }
     
-    func addTrack(_ track: Track) -> Int? {
+    func size() -> Int {
+        return tracks.count
+    }
+    
+    func totalDuration() -> Double {
+        
+        var totalDuration: Double = 0
+        
+        tracks.forEach({totalDuration += $0.duration})
+        
+        return totalDuration
+    }
+    
+    func displayNameForTrack(_ track: Track) -> String {
+        return track.conciseDisplayName
+    }
+    
+    func addTrack(_ track: Track) -> Int {
         tracks.append(track)
         return tracks.count - 1
     }

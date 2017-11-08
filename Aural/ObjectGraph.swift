@@ -55,9 +55,9 @@ class ObjectGraph {
         
         // Playlist
         let flatPlaylist = FlatPlaylist()
-        let artistsPlaylist = GroupingPlaylist(.artist)
-        let albumsPlaylist = GroupingPlaylist(.album)
-        let genresPlaylist = GroupingPlaylist(.genre)
+        let artistsPlaylist = GroupingPlaylist(.artists, .artist)
+        let albumsPlaylist = GroupingPlaylist(.albums, .album)
+        let genresPlaylist = GroupingPlaylist(.genres, .genre)
         
         playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
         

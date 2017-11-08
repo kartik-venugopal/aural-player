@@ -61,11 +61,7 @@ class PlaylistSearchViewController: NSViewController, MessageSubscriber {
     // Called when any of the search criteria have changed, performs a new search
     private func updateSearch() {
         
-        if (PlaylistViewState.current == .tracks) {
-            searchResults = playlist.search(searchQuery)
-        } else {
-            searchResults = playlist.search(searchQuery, PlaylistViewState.groupType!)
-        }
+        searchResults = playlist.search(searchQuery, PlaylistViewState.current)
         
         if ((searchResults?.count)! > 0) {
             

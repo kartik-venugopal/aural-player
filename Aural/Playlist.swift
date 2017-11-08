@@ -7,15 +7,15 @@ import AVFoundation
 class Playlist: PlaylistCRUDProtocol {
     
     private var flatPlaylist: FlatPlaylistCRUDProtocol
-    private var groupingPlaylists: [GroupType: GroupingPlaylistCRUDProtocol] = [GroupType: GroupingPlaylist]()
+    private var groupingPlaylists: [PlaylistType: GroupingPlaylistCRUDProtocol] = [PlaylistType: GroupingPlaylist]()
     
-    // A map to quickly look up tracks by (absolute) file path (used when adding tracks, to avoid duplicates)
+    // A map to quickly look up tracks by (absolute) file path (used when adding tracks, to prevent duplicates)
     private var tracksByFilePath: [String: Track] = [String: Track]()
     
     init(_ flatPlaylist: FlatPlaylistCRUDProtocol, _ groupingPlaylists: [GroupingPlaylistCRUDProtocol]) {
         
         self.flatPlaylist = flatPlaylist
-        groupingPlaylists.forEach({self.groupingPlaylists[$0.groupType()] = $0})
+        groupingPlaylists.forEach({self.groupingPlaylists[$0.playlistType()] = $0})
     }
     
     func allTracks() -> [Track] {
@@ -24,25 +24,29 @@ class Playlist: PlaylistCRUDProtocol {
     }
     
     func size() -> Int {
-        return flatPlaylist.allTracks().count
+        return flatPlaylist.size()
     }
     
     func totalDuration() -> Double {
-        
-        let tracks = flatPlaylist.allTracks()
-        var totalDuration: Double = 0
-        
-        tracks.forEach({totalDuration += $0.duration})
-        
-        return totalDuration
+        return flatPlaylist.totalDuration()
     }
     
-    func summary() -> (size: Int, totalDuration: Double) {
-        return (size(), totalDuration())
+    func displayNameForTrack(_ playlistType: PlaylistType, _ track: Track) -> String {
+        
+        if (playlistType == .tracks) {
+            return flatPlaylist.displayNameForTrack(track)
+        }
+        
+        return groupingPlaylists[playlistType]!.displayNameForTrack(track)
     }
     
-    func summary(_ groupType: GroupType) -> (size: Int, totalDuration: Double, numGroups: Int) {
-        return (size(), totalDuration(), groupingPlaylists[groupType]!.numberOfGroups())
+    func summary(_ playlistType: PlaylistType) -> (size: Int, totalDuration: Double, numGroups: Int) {
+        
+        if (playlistType == .tracks) {
+            return (size(), totalDuration(), 0)
+        } else {
+            return (size(), totalDuration(), groupingPlaylists[playlistType]!.numberOfGroups())
+        }
     }
     
     func addTrack(_ track: Track) -> TrackAddResult? {
@@ -51,10 +55,10 @@ class Playlist: PlaylistCRUDProtocol {
             
             tracksByFilePath[track.file.path] = track
             
-            let index = flatPlaylist.addTrack(track)!
+            let index = flatPlaylist.addTrack(track)
             
             var groupingResults = [GroupType: GroupedTrackAddResult]()
-            groupingPlaylists.values.forEach({groupingResults[$0.groupType()] = $0.addTrack(track)})
+            groupingPlaylists.values.forEach({groupingResults[$0.typeOfGroups()] = $0.addTrack(track)})
             
             return TrackAddResult(flatPlaylistResult: index, groupingPlaylistResults: groupingResults)
         }
@@ -73,7 +77,7 @@ class Playlist: PlaylistCRUDProtocol {
         tracksByFilePath.removeAll()
     }
     
-    private func doSearch(_ query: SearchQuery, _ groupType: GroupType? = nil) -> SearchResults {
+    private func doSearch(_ query: SearchQuery, _ playlistType: PlaylistType) -> SearchResults {
         
         // Smart search. Depending on query options, search either flat playlist or one of the grouped playlists. For ex, if searching by artist, it makes sense to search "Artists" playlist. Also, can split up the search into multiple parts, send them to different playlists, and put results together
         
@@ -85,17 +89,17 @@ class Playlist: PlaylistCRUDProtocol {
         
         if (query.fields.artist) {
             
-            let resultsByArtist = groupingPlaylists[.artist]!.search(query)
+            let resultsByArtist = groupingPlaylists[.artists]!.search(query)
             allResults = allResults.union(resultsByArtist)
         }
         
         if (query.fields.album) {
             
-            let resultsByAlbum = groupingPlaylists[.album]!.search(query)
+            let resultsByAlbum = groupingPlaylists[.albums]!.search(query)
             allResults = allResults.union(resultsByAlbum)
         }
         
-        if let groupType = groupType {
+        if let groupType = playlistType.toGroupType() {
             
             // Grouping playlist location
             
@@ -119,28 +123,16 @@ class Playlist: PlaylistCRUDProtocol {
         return allResults
     }
     
-    func search(_ query: SearchQuery, _ groupType: GroupType) -> SearchResults {
-        return doSearch(query, groupType)
+    func search(_ searchQuery: SearchQuery, _ playlistType: PlaylistType) -> SearchResults {
+        return doSearch(searchQuery, playlistType)
     }
     
-    func search(_ query: SearchQuery) -> SearchResults {
-        return doSearch(query)
-    }
-    
-    func sort(_ sort: Sort) {
-        doSort(sort)
-    }
-    
-    func sort(_ sort: Sort, _ groupType: GroupType) {
-        doSort(sort, groupType)
-    }
-    
-    private func doSort(_ sort: Sort, _ groupType: GroupType? = nil) {
-        
-        if let groupType = groupType {
-            groupingPlaylists[groupType]!.sort(sort)
-        } else {
+    func sort(_ sort: Sort, _ playlistType: PlaylistType) {
+
+        if playlistType == .tracks {
             flatPlaylist.sort(sort)
+        } else {
+            groupingPlaylists[playlistType]!.sort(sort)
         }
     }
     
@@ -150,12 +142,12 @@ class Playlist: PlaylistCRUDProtocol {
         let state = PlaylistState()
         let tracks = allTracks()
         
-        for track in tracks {
-            state.tracks.append(track.file)
-        }
+        tracks.forEach({state.tracks.append($0.file)})
         
         return state
     }
+    
+    // ----------------------- FlatPlaylist functions ----------------------------
     
     func removeTracks(_ indexes: IndexSet) -> TrackRemovalResults {
         
@@ -166,13 +158,11 @@ class Playlist: PlaylistCRUDProtocol {
         
         // Remove from all other playlists
         groupingPlaylists.values.forEach({
-            groupingPlaylistResults[$0.groupType()] = $0.removeTracksAndGroups(removedTracks, [])
+            groupingPlaylistResults[$0.typeOfGroups()] = $0.removeTracksAndGroups(removedTracks, [])
         })
         
         return TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: indexes)
     }
-    
-    // ----------------------- FlatPlaylist protocols ----------------------------
     
     func indexOfTrack(_ track: Track) -> Int? {
         return flatPlaylist.indexOfTrack(track)
@@ -190,22 +180,26 @@ class Playlist: PlaylistCRUDProtocol {
         return flatPlaylist.trackAtIndex(index)
     }
     
-    // ----------------------- GroupingPlaylist protocols ----------------------------
+    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
+        return flatPlaylist.dropTracks(sourceIndexes, dropIndex, dropType)
+    }
+    
+    // ----------------------- GroupingPlaylist functions ----------------------------
     
     func groupAtIndex(_ type: GroupType, _ index: Int) -> Group {
-        return groupingPlaylists[type]!.groupAtIndex(index)
+        return groupingPlaylists[type.toPlaylistType()]!.groupAtIndex(index)
     }
     
     func groupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack {
-        return groupingPlaylists[type]!.groupingInfoForTrack(track)
+        return groupingPlaylists[type.toPlaylistType()]!.groupingInfoForTrack(track)
     }
     
     func indexOfGroup(_ group: Group) -> Int {
-        return groupingPlaylists[group.type]!.indexOfGroup(group)
+        return groupingPlaylists[group.type.toPlaylistType()]!.indexOfGroup(group)
     }
     
     func numberOfGroups(_ type: GroupType) -> Int {
-        return groupingPlaylists[type]!.numberOfGroups()
+        return groupingPlaylists[type.toPlaylistType()]!.numberOfGroups()
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> TrackRemovalResults {
@@ -222,12 +216,12 @@ class Playlist: PlaylistCRUDProtocol {
         var groupingPlaylistResults = [GroupType: [ItemRemovalResult]]()
         
         // Remove from playlist with specified group type
-        groupingPlaylistResults[groupType] = groupingPlaylists[groupType]!.removeTracksAndGroups(tracks, groups)
+        groupingPlaylistResults[groupType] = groupingPlaylists[groupType.toPlaylistType()]!.removeTracksAndGroups(tracks, groups)
         
         // Remove from all other playlists
         
-        groupingPlaylists.values.filter({$0.groupType() != groupType}).forEach({
-            groupingPlaylistResults[$0.groupType()] = $0.removeTracksAndGroups(removedTracks, [])
+        groupingPlaylists.values.filter({$0.typeOfGroups() != groupType}).forEach({
+            groupingPlaylistResults[$0.typeOfGroups()] = $0.removeTracksAndGroups(removedTracks, [])
         })
         
         let flatPlaylistIndexes = flatPlaylist.removeTracks(removedTracks)
@@ -238,23 +232,15 @@ class Playlist: PlaylistCRUDProtocol {
     }
     
     func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
-        return groupingPlaylists[groupType]!.moveTracksAndGroupsUp(tracks, groups)
+        return groupingPlaylists[groupType.toPlaylistType()]!.moveTracksAndGroupsUp(tracks, groups)
     }
     
     func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
-        return groupingPlaylists[groupType]!.moveTracksAndGroupsDown(tracks, groups)
-    }
-    
-    func displayNameForTrack(_ type: GroupType, _ track: Track) -> String {
-        return groupingPlaylists[type]!.displayNameForTrack(track)
-    }
-    
-    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
-        return flatPlaylist.dropTracks(sourceIndexes, dropIndex, dropType)
+        return groupingPlaylists[groupType.toPlaylistType()]!.moveTracksAndGroupsDown(tracks, groups)
     }
     
     func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType, _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults {
         
-        return groupingPlaylists[groupType]!.dropTracksAndGroups(tracks, groups, dropParent, dropIndex)
+        return groupingPlaylists[groupType.toPlaylistType()]!.dropTracksAndGroups(tracks, groups, dropParent, dropIndex)
     }
 }

@@ -13,6 +13,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
     
     // Indicates the type of groups displayed by this NSOutlineView (intended to be overridden by subclasses)
     fileprivate var groupType: GroupType {return .artist}
+    fileprivate var playlistType: PlaylistType {return .artists}
 
     // Stores the cell containing the playing track animation, for convenient access when pausing/resuming the animation
     private var animationCell: GroupedTrackCellView?
@@ -108,7 +109,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
                 let isPlayingTrack = track == playbackInfo.getPlayingTrack()?.track
                 let image = isPlayingTrack ? UIConstants.imgPlayingTrack : track.displayInfo.art
                 
-                return createImageAndTextCell(outlineView, tableColumn!.identifier, false, playlist.displayNameForTrack(groupType, track), image, isPlayingTrack)
+                return createImageAndTextCell(outlineView, tableColumn!.identifier, false, playlist.displayNameForTrack(playlistType, track), image, isPlayingTrack)
             }
             
         case UIConstants.playlistDurationColumnID:
@@ -313,6 +314,7 @@ class GroupingPlaylistRowView: NSTableRowView {
 class ArtistsPlaylistDataSource: GroupingPlaylistDataSource {
     
     override var groupType: GroupType {return .artist}
+    override var playlistType: PlaylistType {return .artists}
 }
 
 /*
@@ -321,6 +323,7 @@ class ArtistsPlaylistDataSource: GroupingPlaylistDataSource {
 class AlbumsPlaylistDataSource: GroupingPlaylistDataSource {
     
     override var groupType: GroupType {return .album}
+    override var playlistType: PlaylistType {return .albums}
 }
 
 /*
@@ -329,4 +332,5 @@ class AlbumsPlaylistDataSource: GroupingPlaylistDataSource {
 class GenresPlaylistDataSource: GroupingPlaylistDataSource {
     
     override var groupType: GroupType {return .genre}
+    override var playlistType: PlaylistType {return .genres}
 }
