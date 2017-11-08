@@ -1,5 +1,6 @@
 import Foundation
 
+// Utility class that encapsulates logic for different sort strategies
 class Sorts {
     
     static func compareGroups_ascendingByName(aGroup: Group, anotherGroup: Group) -> Bool {
@@ -33,6 +34,4 @@ class Sorts {
     static func compareTracks_descendingByDuration(aTrack: Track, anotherTrack: Track) -> Bool {
         return aTrack.duration > anotherTrack.duration
     }
-    
-    
 }

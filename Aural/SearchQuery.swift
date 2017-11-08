@@ -28,7 +28,7 @@ class SearchFields {
     }
 }
 
-// Search options
+// Additional search options
 class SearchOptions {
     
     // Whether or not field comparisons are to be case sensitive

@@ -294,7 +294,7 @@ class GroupedTrackCellView: NSTableCellView {
     var playlistType: PlaylistType = .artists
     
     // The item represented by the row containing this cell
-    var item: GroupedPlaylistItem?
+    var item: GroupingPlaylistItem?
     
     // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
     override var backgroundStyle: NSBackgroundStyle {

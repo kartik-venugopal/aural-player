@@ -1,9 +1,13 @@
 import Foundation
-import AVFoundation
 
+/*
+    The flat playlist is a non-hierarchical playlist, in which tracks are arranged in a linear fashion, and in which each track is a top-level item and can be located with just an index.
+ */
 class FlatPlaylist: FlatPlaylistCRUDProtocol {
  
     private var tracks: [Track] = [Track]()
+    
+    // MARK: Accessor functions
     
     func allTracks() -> [Track] {
         return tracks
@@ -16,7 +20,6 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     func totalDuration() -> Double {
         
         var totalDuration: Double = 0
-        
         tracks.forEach({totalDuration += $0.duration})
         
         return totalDuration
@@ -26,6 +29,93 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         return track.conciseDisplayName
     }
     
+    func trackAtIndex(_ index: Int?) -> IndexedTrack? {
+        let invalidIndex: Bool = index == nil || index! < 0 || index! >= tracks.count
+        return invalidIndex ? nil : IndexedTrack(tracks[index!], index!)
+    }
+    
+    func indexOfTrack(_ track: Track) -> Int?  {
+        return tracks.index(of: track)
+    }
+    
+    func search(_ searchQuery: SearchQuery) -> SearchResults {
+        
+        var results: [SearchResult] = [SearchResult]()
+        
+        // Iterate through all tracks
+        tracks.forEach({
+            
+            // Check if this track matches the search query
+            let match = trackMatchesQuery($0, searchQuery)
+            
+            // If there was a match, append the result to the set of results
+            if (match.matched) {
+                
+                // Track index will be determined later, if required
+                results.append(SearchResult(location: SearchResultLocation(trackIndex: -1, track: $0, groupInfo: nil), match: (match.matchedField!, match.matchedFieldValue!)))
+            }
+        })
+        
+        return SearchResults(results)
+    }
+    
+    // Checks if a single track matches search criteria, and returns information about the match, if there is one
+    private func trackMatchesQuery(_ track: Track, _ searchQuery: SearchQuery) -> (matched: Bool, matchedField: String?, matchedFieldValue: String?) {
+        
+        // Compare name field if included in search
+        if (searchQuery.fields.name) {
+            
+            // Check both the filename and the display name
+            
+            let filename = track.file.deletingPathExtension().lastPathComponent
+            if (compare(filename, searchQuery)) {
+                return (true, "filename", filename)
+            }
+            
+            let displayName = track.conciseDisplayName
+            if (compare(displayName, searchQuery)) {
+                return (true, "name", displayName)
+            }
+        }
+        
+        // Compare title field if included in search
+        if (searchQuery.fields.title) {
+            
+            if let title = track.displayInfo.title {
+                
+                if (compare(title, searchQuery)) {
+                    return (true, "title", title)
+                }
+            }
+        }
+        
+        // Didn't match
+        return (false, nil, nil)
+    }
+    
+    // Helper function that compares the value of a single field to the search text to determine if there is a match
+    private func compare(_ fieldVal: String, _ query: SearchQuery) -> Bool {
+        
+        let caseSensitive: Bool = query.options.caseSensitive
+        let queryText: String = caseSensitive ? query.text : query.text.lowercased()
+        let compared: String = caseSensitive ? fieldVal : fieldVal.lowercased()
+        let type: SearchType = query.type
+        
+        switch type {
+            
+        case .beginsWith: return compared.hasPrefix(queryText)
+            
+        case .endsWith: return compared.hasSuffix(queryText)
+            
+        case .equals: return compared == queryText
+            
+        case .contains: return compared.contains(queryText)
+            
+        }
+    }
+    
+    // MARK: Mutator functions
+    
     func addTrack(_ track: Track) -> Int {
         tracks.append(track)
         return tracks.count - 1
@@ -34,25 +124,8 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     func clear() {
         tracks.removeAll()
     }
-    
-    // Returns all state for this playlist that needs to be persisted to disk
-    func persistentState() -> PlaylistState {
-        
-        let state = PlaylistState()
-        
-        for track in tracks {
-            state.tracks.append(track.file)
-        }
-        
-        return state
-    }
  
-    func trackAtIndex(_ index: Int?) -> IndexedTrack? {
-        let invalidIndex: Bool = index == nil || index! < 0 || index! >= tracks.count
-        return invalidIndex ? nil : IndexedTrack(tracks[index!], index!)
-    }
-    
-    private func removeTrack(_ index: Int) -> Track {
+    private func removeTrackAtIndex(_ index: Int) -> Track {
         return tracks.remove(at: index)
     }
     
@@ -70,11 +143,14 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         
         var trackIndexes = [Int]()
         
+        // Collect the indexes of each of the tracks being removed
         removedTracks.forEach({trackIndexes.append(indexOfTrack($0)!)})
         
+        // Sort the indexes in descending order (tracks need to be removed in descending order)
         trackIndexes = trackIndexes.sorted(by: {i1, i2 -> Bool in return i1 > i2})
         
-        trackIndexes.forEach({_ = removeTrack($0)})
+        // Remove the tracks at the indexes
+        trackIndexes.forEach({_ = removeTrackAtIndex($0)})
         
         return IndexSet(trackIndexes)
     }
@@ -86,17 +162,12 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         // Sort descending
         let sortedIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
         
-        // TODO: Will forEach always iterate array in order ??? If not, cannot use it. Array needs to be iterated in exact order.
+        // Collect the tracks as they are removed
+        var removedTracks = [Track]()
+        sortedIndexes.forEach({removedTracks.append(removeTrackAtIndex($0))})
         
-        var rt = [Track]()
-        sortedIndexes.forEach({rt.append(removeTrack($0))})
-        
-        return rt
+        return removedTracks
     }
-    
-    func indexOfTrack(_ track: Track) -> Int?  {
-        return tracks.index(of: track)
-    }    
     
     // Assume track can be moved
     private func moveTrackUp(_ index: Int) -> Int {
@@ -186,77 +257,6 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         swap(&tracks[trackIndex1], &tracks[trackIndex2])
     }
  
-    func search(_ searchQuery: SearchQuery) -> SearchResults {
-        
-        var results: [SearchResult] = [SearchResult]()
-        
-        for i in 0...tracks.count - 1 {
-            
-            let track = tracks[i]
-            let match = trackMatchesQuery(track: track, searchQuery: searchQuery)
-            
-            if (match.matched) {
-                results.append(SearchResult(location: SearchResultLocation(trackIndex: i, track: track, groupInfo: nil), match: (match.matchedField!, match.matchedFieldValue!)))
-            }
-        }
-        
-        return SearchResults(results)
-    }
-    
-    // Checks if a single track matches search criteria, and returns information about the match, if there is one
-    private func trackMatchesQuery(track: Track, searchQuery: SearchQuery) -> (matched: Bool, matchedField: String?, matchedFieldValue: String?) {
-        
-        // Add name field if included in search
-        if (searchQuery.fields.name) {
-            
-            // Check both the filename and the display name
-            
-            let filename = track.file.deletingPathExtension().lastPathComponent
-            if (compare(filename, searchQuery)) {
-                return (true, "filename", filename)
-            }
-            
-            let displayName = track.conciseDisplayName
-            if (compare(displayName, searchQuery)) {
-                return (true, "name", displayName)
-            }
-        }
-        
-        // Add title field if included in search
-        if (searchQuery.fields.title) {
-            
-            if let title = track.displayInfo.title {
-                
-                if (compare(title, searchQuery)) {
-                    return (true, "title", title)
-                }
-            }
-        }
-        
-        // Didn't match
-        return (false, nil, nil)
-    }
-    
-    private func compare(_ fieldVal: String, _ query: SearchQuery) -> Bool {
-        
-        let caseSensitive: Bool = query.options.caseSensitive
-        let queryText: String = caseSensitive ? query.text : query.text.lowercased()
-        let compared: String = caseSensitive ? fieldVal : fieldVal.lowercased()
-        let type: SearchType = query.type
-        
-        switch type {
-            
-        case .beginsWith: return compared.hasPrefix(queryText)
-            
-        case .endsWith: return compared.hasSuffix(queryText)
-            
-        case .equals: return compared == queryText
-            
-        case .contains: return compared.contains(queryText)
-            
-        }
-    }
-    
     func sort(_ sort: Sort) {
         
         switch sort.field {
@@ -289,7 +289,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     }
     
     /*
-     In response to a playlist reordering by drag and drop, and given source indexes, a destination index, and the drop operation (on/above), determines which indexes the source indexs will occupy.
+        In response to a playlist reordering by drag and drop, and given source indexes, a destination index, and the drop operation (on/above), determines which destination indexes the source indexs will occupy.
      */
     private func calculateReorderingDestination(_ sourceIndexSet: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
         
@@ -342,13 +342,18 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         return IndexSet(minDestinationIndex...maxDestinationIndex)
     }
     
+    /*
+        Performs a playlist reordering (drag n drop)
+     */
     private func performReordering(_ sourceIndexes: IndexSet, _ destinationIndexes: IndexSet) {
         
-        // Step 1 - Store all source items (tracks) that are being reordered, in a temporary location.
+        // Store all source items (tracks) that are being reordered, in a temporary location.
         var sourceItems = [Track]()
         
         // Make sure they the source indexes are iterated in descending order, because tracks need to be removed from the bottom up.
         sourceIndexes.sorted(by: {x, y -> Bool in x > y}).forEach({
+            
+            // Remove the track at this index and collect it
             sourceItems.append(tracks.remove(at: $0))
         })
         
@@ -357,6 +362,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         // Destination indexes need to be sorted in ascending order, because tracks need to be inserted from the top down
         let destinationIndexes = destinationIndexes.sorted(by: {x, y -> Bool in x < y})
         
+        // Reverse the source items collection to match the order of the destination indexes
         sourceItems = sourceItems.reversed()
         
         destinationIndexes.forEach({

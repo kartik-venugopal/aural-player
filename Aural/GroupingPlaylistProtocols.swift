@@ -1,3 +1,6 @@
+/*
+    Set of protocols for CRUD operations performed on the grouping/hierarchical playlists
+ */
 import Foundation
 
 /*
@@ -5,23 +8,23 @@ import Foundation
  */
 protocol GroupingPlaylistAccessorProtocol {
     
-    // Returns the group at the given index within this playlist. Assumes a valid index.
-    func groupAtIndex(_ index: Int) -> Group
-    
-    // Returns the total number of groups within this playlist.
-    func numberOfGroups() -> Int
-    
     // Returns the type of this playlist
     func playlistType() -> PlaylistType
     
     // Returns the type of each group within this playlist.
     func typeOfGroups() -> GroupType
- 
-    // Given a track, returns all grouping information, such as the parent group and the index of the track within that group.
-    func groupingInfoForTrack(_ track: Track) -> GroupedTrack
+    
+    // Returns the total number of groups within this playlist.
+    func numberOfGroups() -> Int
+    
+    // Returns the group at the given index within this playlist. Assumes a valid index.
+    func groupAtIndex(_ index: Int) -> Group
     
     // Returns the index of a group within this playlist.
     func indexOfGroup(_ group: Group) -> Int
+    
+    // Given a track, returns all grouping information, such as the parent group and the index of the track within that group.
+    func groupingInfoForTrack(_ track: Track) -> GroupedTrack
     
     // Returns the display name for a track within this playlist.
     func displayNameForTrack(_ track: Track) -> String
@@ -85,3 +88,33 @@ protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
 }
 
 protocol GroupingPlaylistCRUDProtocol: GroupingPlaylistAccessorProtocol, GroupingPlaylistMutatorProtocol {}
+
+// Enumerates the different types of track groups
+enum GroupType: String {
+    
+    // Group of tracks categorized by their artist
+    case artist
+    
+    // Group of tracks categorized by their album
+    case album
+    
+    // Group of tracks categorized by their genre
+    case genre
+    
+    // Maps a GroupType to a corresponding PlaylistType
+    func toPlaylistType() -> PlaylistType {
+        
+        switch self {
+            
+        case .artist: return .artists
+            
+        case.album: return .albums
+            
+        case.genre: return .genres
+            
+        }
+    }
+}
+
+// Marker protocol indicating an item that belongs to a grouping playlist
+protocol GroupingPlaylistItem {}
