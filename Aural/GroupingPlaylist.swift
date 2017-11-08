@@ -129,8 +129,6 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     func addTrack(_ track: Track) -> GroupedTrackAddResult {
         
-        let tim = TimerUtils.start("GroupingPlaylist.addTrack()")
-        
         let groupName = getGroupNameForTrack(track)
         
         var group: Group?
@@ -154,8 +152,6 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         let trackIndex = group!.addTrack(track)
         let groupedTrack = GroupedTrack(track, group!, trackIndex, groupIndex)
-        
-        tim.end()
         
         return GroupedTrackAddResult(track: groupedTrack, groupCreated: groupCreated)
     }

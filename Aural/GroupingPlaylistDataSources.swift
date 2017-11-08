@@ -28,6 +28,9 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.playbackStateChangedNotification, .playlistTypeChangedNotification, .appInForegroundNotification, .appInBackgroundNotification], subscriber: self)
+        
+        // Store the NSOutlineView in a variable for convenient subsequent access
+        OutlineViewHolder.instances[self.playlistType] = self.view as? NSOutlineView
     }
     
     // MARK: Data Source
@@ -100,7 +103,10 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
             
             if let group = item as? Group {
                 
-                return createImageAndTextCell(outlineView, tableColumn!.identifier, true, String(format: "%@ (%d)", group.name, group.size()), UIConstants.imgGroup)
+                let cell = createImageAndTextCell(outlineView, tableColumn!.identifier, true, String(format: "%@ (%d)", group.name, group.size()), UIConstants.imgGroup)
+                cell?.item = group
+                cell?.playlistType = self.playlistType
+                return cell
                 
             } else {
                 
@@ -109,7 +115,10 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
                 let isPlayingTrack = track == playbackInfo.getPlayingTrack()?.track
                 let image = isPlayingTrack ? UIConstants.imgPlayingTrack : track.displayInfo.art
                 
-                return createImageAndTextCell(outlineView, tableColumn!.identifier, false, playlist.displayNameForTrack(playlistType, track), image, isPlayingTrack)
+                let cell = createImageAndTextCell(outlineView, tableColumn!.identifier, false, playlist.displayNameForTrack(playlistType, track), image, isPlayingTrack)
+                cell?.item = track
+                cell?.playlistType = self.playlistType
+                return cell
             }
             
         case UIConstants.playlistDurationColumnID:
@@ -118,13 +127,19 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
             
             if let group = item as? Group {
                 
-                return createTextCell(outlineView, UIConstants.playlistDurationColumnID, true, StringUtils.formatSecondsToHMS(group.duration))
+                let cell = createTextCell(outlineView, UIConstants.playlistDurationColumnID, true, StringUtils.formatSecondsToHMS(group.duration))
+                cell?.item = group
+                cell?.playlistType = self.playlistType
+                return cell
                 
             } else {
                 
                 let track = item as! Track
                 
-                return createTextCell(outlineView, UIConstants.playlistDurationColumnID, false, StringUtils.formatSecondsToHMS(track.duration))
+                let cell = createTextCell(outlineView, UIConstants.playlistDurationColumnID, false, StringUtils.formatSecondsToHMS(track.duration))
+                cell?.item = track
+                cell?.playlistType = self.playlistType
+                return cell
             }
             
         default: return nil
@@ -271,11 +286,37 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
     Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
  */
 class GroupedTrackCellView: NSTableCellView {
+    
+    // Whether or not this cell is contained within a row that represents a group (as opposed to a track)
     var isGroup: Bool = false
+    
+    // This is used to determine which NSOutlineView contains this cell
+    var playlistType: PlaylistType = .artists
+    
+    // The item represented by the row containing this cell
+    var item: GroupedPlaylistItem?
+    
+    // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
+    override var backgroundStyle: NSBackgroundStyle {
+        
+        didSet {
+            
+            // Check if this row is selected
+            let outlineView = OutlineViewHolder.instances[self.playlistType]!
+            let isSelRow = outlineView.selectedRowIndexes.contains(outlineView.row(forItem: item))
+            
+            if let textField = self.textField {
+                
+                textField.textColor = isSelRow ? (isGroup ? Colors.playlistGroupNameSelectedTextColor : Colors.playlistGroupItemSelectedTextColor) : (isGroup ? Colors.playlistGroupNameTextColor : Colors.playlistGroupItemTextColor)
+                
+                textField.font = isSelRow ? (isGroup ? UIConstants.playlistGroupNameSelectedTextFont : UIConstants.playlistGroupItemSelectedTextFont) : (isGroup ? UIConstants.playlistGroupNameTextFont : UIConstants.playlistGroupItemTextFont)
+            }
+        }
+    }
 }
 
 /*
-    Custom view for a NSTableView row that displays a single playlist track or group. Customizes the selection look and feel, and the text font/color.
+    Custom view for a NSTableView row that displays a single playlist track or group. Customizes the selection look and feel.
  */
 class GroupingPlaylistRowView: NSTableRowView {
     
@@ -290,21 +331,6 @@ class GroupingPlaylistRowView: NSTableRowView {
             Colors.playlistSelectionBoxColor.setFill()
             selectionPath.fill()
         }
-    }
-    
-    // Sets the text font/color based on whether or not this row belongs to a group/track, and whether or not this row is currently selected
-    override func drawBackground(in dirtyRect: NSRect) {
-        
-        UIConstants.groupingPlaylistViewColumnIndexes.forEach({
-            
-            let cell = self.view(atColumn: $0) as! GroupedTrackCellView
-            
-            cell.textField?.textColor = isSelected ? (cell.isGroup ? Colors.playlistGroupNameSelectedTextColor : Colors.playlistGroupItemSelectedTextColor) : (cell.isGroup ? Colors.playlistGroupNameTextColor : Colors.playlistGroupItemTextColor)
-            
-            cell.textField?.font = isSelected ? (cell.isGroup ? UIConstants.playlistGroupNameSelectedTextFont : UIConstants.playlistGroupItemSelectedTextFont) : (cell.isGroup ? UIConstants.playlistGroupNameTextFont : UIConstants.playlistGroupItemTextFont)
-        })
-        
-        super.drawBackground(in: dirtyRect)
     }
 }
 
@@ -333,4 +359,11 @@ class GenresPlaylistDataSource: GroupingPlaylistDataSource {
     
     override var groupType: GroupType {return .genre}
     override var playlistType: PlaylistType {return .genres}
+}
+
+// Utility class to hold NSOutlineView instances for convenient access
+class OutlineViewHolder {
+    
+    // Mapping of playlist types to their corresponding outline views
+    static var instances = [PlaylistType: NSOutlineView]()
 }
