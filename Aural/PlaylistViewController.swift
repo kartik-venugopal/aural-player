@@ -117,9 +117,10 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
     private func updatePlaylistSummary(_ trackAddProgress: TrackAddedMessageProgress? = nil) {
         
+        let summary = playlist.summary(PlaylistViewState.current)
+        
         if (PlaylistViewState.current == .tracks) {
             
-            let summary = playlist.summary()
             let numTracks = summary.size
             let duration = StringUtils.formatSecondsToHMS(summary.totalDuration)
             
@@ -129,8 +130,6 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         } else {
             
             let groupType = PlaylistViewState.groupType!
-            let summary = playlist.summary(groupType)
-            
             let numGroups = summary.numGroups
             let numTracks = summary.size
             let duration = StringUtils.formatSecondsToHMS(summary.totalDuration)

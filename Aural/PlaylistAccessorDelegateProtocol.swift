@@ -5,13 +5,11 @@ import Foundation
  */
 protocol PlaylistAccessorDelegateProtocol {
     
-    // Retrieve all tracks
+    // Retrieves all tracks
     func allTracks() -> [Track]
     
-    // Read the track at a given index. Nil if invalid index is specified.
+    // Returns the track at a given index. Returns nil if an invalid index is specified.
     func trackAtIndex(_ index: Int?) -> IndexedTrack?
-    
-    func groupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> GroupedTrack
     
     // Returns the size (i.e. total number of tracks) of the playlist
     func size() -> Int
@@ -19,25 +17,24 @@ protocol PlaylistAccessorDelegateProtocol {
     // Returns the total duration of the playlist tracks
     func totalDuration() -> Double
     
-    // Returns a summary of the playlist - both size and total duration
-    func summary() -> (size: Int, totalDuration: Double)
+    // Returns a summary for a specific playlist type - size (number of tracks), total duration, and number of groups. Number of groups will always be 0 for the flat (tracks) playlist.
+    func summary(_ playlistType: PlaylistType) -> (size: Int, totalDuration: Double, numGroups: Int)
     
-    // Returns a summary of the playlist - both size and total duration
-    func summary(_ groupType: GroupType) -> (size: Int, totalDuration: Double, numGroups: Int)
+    // Searches the playlist, given certain query parameters, and returns all matching results. The playlistType argument indicates which playlist type the results are to be displayed within. The search results will contain track location information tailored to the specified playlist type.
+    func search(_ searchQuery: SearchQuery, _ playlistType: PlaylistType) -> SearchResults
     
-    // Searches the playlist, given certain query parameters, and returns all matching results
-    func search(_ searchQuery: SearchQuery) -> SearchResults
-    
-    // Searches the playlist, given certain query parameters, and returns all matching results
-    func search(_ searchQuery: SearchQuery, _ groupType: GroupType) -> SearchResults
-    
+    // Returns the group, of a specific type, at the given index.
     func groupAtIndex(_ type: GroupType, _ index: Int) -> Group
     
+    // Returns the total number of groups of a specific type, within the playlist.
     func numberOfGroups(_ type: GroupType) -> Int
     
+    // Given a track and a specific group type, returns all grouping information, such as the parent group and the index of the track within that group.
     func groupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack
     
+    // Returns the index of a group within the appropriate grouping/hierarchical playlist (indicated by the group's type).
     func indexOfGroup(_ group: Group) -> Int
     
-    func displayNameForTrack(_ type: GroupType, _ track: Track) -> String
+    // Returns the display name for a track within a specific playlist. For example, within the Artists playlist, the display name of a track will consist of just its title.
+    func displayNameForTrack(_ playlistType: PlaylistType, _ track: Track) -> String
 }

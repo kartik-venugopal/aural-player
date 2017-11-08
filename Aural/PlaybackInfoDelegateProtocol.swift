@@ -16,5 +16,6 @@ protocol PlaybackInfoDelegateProtocol {
     // Returns the currently playing track (with its index), if a track is currently playing
     func getPlayingTrack() -> IndexedTrack?
     
+    // Returns grouping info for the playing track, within a specific playlist type
     func getPlayingTrackGroupInfo(_ groupType: GroupType) -> GroupedTrack?
 }

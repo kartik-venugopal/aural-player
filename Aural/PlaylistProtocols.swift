@@ -5,14 +5,14 @@ import Foundation
  */
 protocol PlaylistAccessorProtocol {
     
-    // Retrieve all tracks
+    // Retrieves all tracks
     func allTracks() -> [Track]
     
-    // Read the track at a given index. Nil if invalid index is specified.
-    func trackAtIndex(_ index: Int?) -> IndexedTrack?
-    
-    // Determines the index of a given track, within the playlist. Returns nil if the track doesn't exist within the playlist.
+    // Determines the index of a given track, within the flat playlist. Returns nil if the track doesn't exist within the playlist.
     func indexOfTrack(_ track: Track) -> Int?
+    
+    // Returns the track at a given index. Returns nil if an invalid index is specified.
+    func trackAtIndex(_ index: Int?) -> IndexedTrack?
     
     // Returns the size (i.e. total number of tracks) of the playlist
     func size() -> Int
@@ -20,27 +20,26 @@ protocol PlaylistAccessorProtocol {
     // Returns the total duration of the playlist tracks
     func totalDuration() -> Double
     
-    // Returns a summary of the playlist - both size and total duration
-    func summary() -> (size: Int, totalDuration: Double)
+    // Returns a summary for a specific playlist type - size (number of tracks), total duration, and number of groups. Number of groups will always be 0 for the flat (tracks) playlist.
+    func summary(_ playlistType: PlaylistType) -> (size: Int, totalDuration: Double, numGroups: Int)
     
-    // Returns a summary of the playlist - both size and total duration
-    func summary(_ groupType: GroupType) -> (size: Int, totalDuration: Double, numGroups: Int)
+    // Searches the playlist, given certain query parameters, and returns all matching results. The playlistType argument indicates which playlist type the results are to be displayed within. The search results will contain track location information tailored to the specified playlist type.
+    func search(_ searchQuery: SearchQuery, _ playlistType: PlaylistType) -> SearchResults
     
-    // Searches the playlist, given certain query parameters, and returns all matching results
-    func search(_ searchQuery: SearchQuery) -> SearchResults
-    
+    // Returns the group, of a specific type, at the given index.
     func groupAtIndex(_ type: GroupType, _ index: Int) -> Group
     
+    // Returns the total number of groups of a specific type, within the playlist.
     func numberOfGroups(_ type: GroupType) -> Int
     
+    // Given a track and a specific group type, returns all grouping information, such as the parent group and the index of the track within that group.
     func groupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack
     
+    // Returns the index of a group within the appropriate grouping/hierarchical playlist (indicated by the group's type).
     func indexOfGroup(_ group: Group) -> Int
     
-    func displayNameForTrack(_ type: GroupType, _ track: Track) -> String
-    
-    // Searches the playlist, given certain query parameters, and returns all matching results
-    func search(_ searchQuery: SearchQuery, _ groupType: GroupType) -> SearchResults
+    // Returns the display name for a track within a specific playlist. For example, within the Artists playlist, the display name of a track will consist of just its title.
+    func displayNameForTrack(_ playlistType: PlaylistType, _ track: Track) -> String
 }
 
 /*
@@ -48,33 +47,117 @@ protocol PlaylistAccessorProtocol {
  */
 protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     
-    // Adds a single track to the playlist, and returns information about its location within the playlist
+    /*
+        Adds a single track to the playlist, and returns information about its location within the playlist. Returns nil if track is not added.
+     
+        NOTE:
+     
+            - Duplicates are not allowed (if the track already exists in the playlist, it will not be added).
+     
+            - All playlist types will be affected by this operation. i.e. the track will be added to all playlist types.
+     */
     func addTrack(_ track: Track) -> TrackAddResult?
     
-    // Removes tracks with the given indexes
+    /*
+        Removes track(s) with the given indexes (i.e indexes within the flat playlist). 
+     
+        Returns information about the removal of the tracks from the different playlist types, to aid the view layer in determining the locations of the removed tracks and refreshing the playlist views.
+     
+        NOTE - All playlist types will be affected by this operation. i.e. the tracks will be removed from all playlist types.
+     */
     func removeTracks(_ indexes: IndexSet) -> TrackRemovalResults
     
+    /*
+        Given a set of tracks and groups, removes them from the playlist. Removal of all tracks within a group will result in the removal of the group. Removal of a group will resuly in the removal of all its child tracks. The groupType argument indicates the type of the groups in the groups argument.
+     
+        Returns information about the removal of the tracks from the different playlist types, to aid the view layer in determining the locations of the removed tracks and refreshing the playlist views.
+     
+        NOTE - All playlist types will be affected by this operation. i.e. the removed tracks will be removed from all playlist types.
+     */
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> TrackRemovalResults
     
-    // See FlatPlaylistMutatorProtocol.moveTracksUp()
+    /*
+        Moves the tracks at the specified indexes, up one index, in the flat playlist, if they can be moved (they are not already at the top). Returns mappings of source indexes to destination indexes, for all the tracks (for tracks that didn't move, the new index will match the old index)
+     
+        Returns mappings of source locations to destination locations.
+     
+        NOTE:
+     
+            - Even if some tracks cannot move, those that can will be moved. i.e. This is not an all or nothing operation.
+     
+            - Only the flat playlist will be altered. The other playlist types will be unaffected by this operation. Each playlist type's sequence of tracks/groups is independent from that of all other playlist types.
+     */
     func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults
     
-    // See FlatPlaylistMutatorProtocol.moveTracksDown()
+    /*
+        Moves the tracks at the specified indexes, down one index, in the flat playlist, if they can be moved (they are not already at the bottom). Returns mappings of source indexes to destination indexes, for all the tracks (for tracks that didn't move, the new index will match the old index)
+     
+        Returns mappings of source locations to destination locations.
+     
+        NOTE:
+     
+            - Even if some tracks cannot move, those that can will be moved. i.e. This is not an all or nothing operation.
+     
+            - Only the flat playlist will be altered. The other playlist types will be unaffected by this operation. Each playlist type's sequence of tracks/groups is independent from that of all other playlist types.
+     */
     func moveTracksDown(_ indexes: IndexSet) -> ItemMoveResults
     
+    /*
+        Moves either the specified tracks, or the specified groups (groups take precedence), up one index in the specified grouping/hierarchical playlist type, if they can be moved (they are not already at the top).
+     
+        Returns mappings of source indexes to destination indexes, for all the tracks/groups (for tracks/groups that didn't move, the new index will match the old index).
+     
+        NOTE:
+     
+            - If both tracks and groups are specified, only the groups will be moved.
+     
+            - Even if some tracks/groups cannot move, those that can will be moved. i.e. This is not an all or nothing operation.
+     
+            - Only the specified type of grouping/hierarchical playlist will be altered. The other playlist types will be unaffected by this operation. Each playlist type's sequence of tracks/groups is independent from that of all other playlist types.
+     */
     func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults
     
+    /*
+        Moves either the specified tracks, or the specified groups (groups take precedence), down one index in the specified grouping/hierarchical playlist type, if they can be moved (they are not already at the bottom).
+     
+        Returns mappings of source indexes to destination indexes, for all the tracks/groups (for tracks/groups that didn't move, the new index will match the old index).
+     
+        NOTE:
+     
+            - If both tracks and groups are specified, only the groups will be moved.
+     
+            - Even if some tracks/groups cannot move, those that can will be moved. i.e. This is not an all or nothing operation.
+     
+            - Only the specified type of grouping/hierarchical playlist will be altered. The other playlist types will be unaffected by this operation. Each playlist type's sequence of tracks/groups is independent from that of all other playlist types.
+     */
     func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults
     
+    /*
+        Sorts a specific playlist type according to the specified sort parameters.
+     
+        NOTE: Only the specified type of playlist will be altered. The other playlist types will be unaffected by this operation. Each playlist type's sequence of tracks/groups is independent from that of all other playlist types.
+     */
+    func sort(_ sort: Sort, _ playlistType: PlaylistType)
+    
+    /*
+        Performs a drag and drop reordering operation on the flat playlist, from a set of source indexes to a destination drop index (either on or above the drop index). Returns the set of new destination indexes for the reordered items.
+     
+        NOTE: Only the flat playlist will be altered. The other playlist types will be unaffected by this operation. Each playlist type's sequence of tracks/groups is independent from that of all other playlist types.
+     */
     func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet
     
+    /*
+        Performs a drag and drop reordering operation on a specific grouping/hierarchical playlist. Source items (tracks or groups) are dropped, under a given parent (either the root, if groups are being moved, or a specific group, if tracks are being moved), at a destination drop index.
+     
+        Returns mappings of source locations to destination locations.
+     
+        NOTE:
+     
+        - If both tracks and groups are specified, only the groups will be moved.
+     
+        - Only the specified type of grouping/hierarchical playlist will be altered. The other playlist types will be unaffected by this operation. Each playlist type's sequence of tracks/groups is independent from that of all other playlist types.
+     */
     func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType, _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults
-    
-    // Sorts the playlist according to the specified sort parameters
-    func sort(_ sort: Sort)
-    
-    // Sorts the playlist according to the specified sort parameters
-    func sort(_ sort: Sort, _ groupType: GroupType)
 }
 
 /*
@@ -83,8 +166,15 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
 protocol PlaylistCRUDProtocol: PlaylistAccessorProtocol, PlaylistMutatorProtocol {
 }
 
+/*
+    Contract for common mutating/write playlist operations
+ */
 protocol CommonPlaylistMutatorProtocol {
     
-    // Clears the entire playlist of all tracks
+    /*
+        Clears the entire playlist of all tracks
+     
+        NOTE - All playlist types will be affected by this operation. i.e. all playlist types will be cleared.
+     */
     func clear()
 }

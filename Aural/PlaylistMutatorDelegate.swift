@@ -279,16 +279,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         changeListeners.forEach({$0.playlistCleared()})
     }
     
-    func sort(_ sort: Sort) {
+    func sort(_ sort: Sort, _ playlistType: PlaylistType) {
         
-        playlist.sort(sort)
-        changeListeners.forEach({$0.playlistReordered(.tracks)})
-    }
-    
-    func sort(_ sort: Sort, _ groupType: GroupType) {
-        
-        playlist.sort(sort, groupType)
-        changeListeners.forEach({$0.playlistReordered(groupType.toPlaylistType())})
+        playlist.sort(sort, playlistType)
+        changeListeners.forEach({$0.playlistReordered(playlistType)})
     }
     
     func consumeNotification(_ notification: NotificationMessage) {

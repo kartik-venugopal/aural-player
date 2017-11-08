@@ -28,28 +28,20 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
         return playlist.totalDuration()
     }
     
-    func summary() -> (size: Int, totalDuration: Double) {
-        return playlist.summary()
+    func summary(_ playlistType: PlaylistType) -> (size: Int, totalDuration: Double, numGroups: Int) {
+        return playlist.summary(playlistType)
     }
     
-    func summary(_ groupType: GroupType) -> (size: Int, totalDuration: Double, numGroups: Int) {
-        return playlist.summary(groupType)
-    }
-    
-    func search(_ searchQuery: SearchQuery) -> SearchResults {
-        return playlist.search(searchQuery)
-    }
-    
-    func search(_ searchQuery: SearchQuery, _ groupType: GroupType) -> SearchResults {
-        return playlist.search(searchQuery, groupType)
+    func search(_ searchQuery: SearchQuery, _ playlistType: PlaylistType) -> SearchResults {
+        return playlist.search(searchQuery, playlistType)
     }
     
     func groupingInfoForTrack(_ track: Track, _ groupType: GroupType) -> GroupedTrack {
         return playlist.groupingInfoForTrack(groupType, track)
     }
     
-    func displayNameForTrack(_ type: GroupType, _ track: Track) -> String {
-        return playlist.displayNameForTrack(type, track)
+    func displayNameForTrack(_ playlistType: PlaylistType, _ track: Track) -> String {
+        return playlist.displayNameForTrack(playlistType, track)
     }
     
     func groupAtIndex(_ type: GroupType, _ index: Int) -> Group {
