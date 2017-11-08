@@ -1,20 +1,27 @@
 import Cocoa
 
+/*
+    Performs drag n drop operations for the Artists, Albums, and Genres playlist views
+ */
 class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
     
+    // Delegate that relays CRUD operations to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
+    // Used to determine if a track is currently playing
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     // Signifies an invalid drag/drop operation
     private let invalidDragOperation: NSDragOperation = []
     
-    private var grouping: GroupType = .artist
+    // Indicates the type of groups displayed by this NSOutlineView (intended to be overridden by subclasses)
+    private var groupType: GroupType = .artist
     
     func setGrouping(_ groupType: GroupType) {
-        self.grouping = groupType
+        self.groupType = groupType
     }
  
+    // Writes source information to the pasteboard
     func outlineView(_ outlineView: NSOutlineView, writeItems items: [Any], to pasteboard: NSPasteboard) -> Bool {
         
         var srcRows = [Int]()
@@ -28,7 +35,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         return true
     }
     
-    // Drag n drop - Helper function to retrieve source indexes from NSDraggingInfo
+    // Helper function to retrieve source indexes from the NSDraggingInfo pasteboard
     private func getSourceIndexes(_ draggingInfo: NSDraggingInfo) -> IndexSet? {
         
         let pasteboard = draggingInfo.draggingPasteboard()
@@ -42,15 +49,15 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         return nil
     }
     
-    // Drag n drop - determines the drag/drop operation
+    // Validates the drag/drop operation
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
         
         // If the source is the outlineView, that means playlist tracks/groups are being reordered
         if (info.draggingSource() is NSOutlineView) {
             
-            if let srcRows = getSourceIndexes(info) {
+            if let sourceIndexSet = getSourceIndexes(info) {
                 
-                if validateReorderOperation(outlineView, srcRows, item, index) {
+                if validateReorderOperation(outlineView, sourceIndexSet, item, index) {
                     return .move
                 }
             }
@@ -64,7 +71,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         return .copy
     }
     
-    // Drag n drop - Given a destination parent and child index, determines if the drop is a valid reorder operation (depending on the bounds of the playlist, and the source and destination items)
+    // Given a destination parent and child index, determines if the drop is a valid reorder operation (depending on the bounds of the playlist, and the source and destination items)
     private func validateReorderOperation(_ outlineView: NSOutlineView, _ srcIndexes: IndexSet, _ parent: Any?, _ childIndex: Int) -> Bool {
         
         // All items selected
@@ -72,6 +79,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
             return false
         }
         
+        // Determine which tracks/groups are being reordered
         let tracksAndGroups = collectTracksAndGroups(outlineView, srcIndexes)
         let tracks = tracksAndGroups.tracks
         let groups = tracksAndGroups.groups
@@ -96,7 +104,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
                 parentGroups.insert(group)
             }
             
-            // Cannot move tracks from different groups
+            // Cannot move tracks from different groups (all tracks being moved must belong to the same group)
             if (parentGroups.count > 1) {
                 return false
             }
@@ -125,19 +133,20 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         } else {
             
             // If all groups are selected, they cannot be moved
-            if (groups.count == playlist.numberOfGroups(self.grouping)) {
+            if (groups.count == playlist.numberOfGroups(self.groupType)) {
                 return false
             }
             
             // Validate parent group and child index
-            let numGroups = playlist.numberOfGroups(self.grouping)
+            let numGroups = playlist.numberOfGroups(self.groupType)
             if (parent != nil || childIndex < 0 || childIndex > numGroups) {
                 return false
             }
             
             // Dropping on a selected group is not allowed
             if (childIndex < numGroups) {
-                let dropGroup = playlist.groupAtIndex(self.grouping, childIndex)
+                
+                let dropGroup = playlist.groupAtIndex(self.groupType, childIndex)
                 if (groups.contains(dropGroup)) {
                     return false
                 }
@@ -148,19 +157,19 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         return true
     }
     
-    // Drag n drop - accepts and performs the drop
+    // Performs the drop
     func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
         
         if (info.draggingSource() is NSOutlineView) {
             
-            if let srcRows = getSourceIndexes(info) {
+            if let sourceIndexSet = getSourceIndexes(info) {
             
                 // Collect the information needed to perform the reordering
-                let tracksAndGroups = collectTracksAndGroups(outlineView, srcRows)
+                let tracksAndGroups = collectTracksAndGroups(outlineView, sourceIndexSet)
                 let parentAsGroup: Group? = item as? Group ?? nil
                 
                 // Perform the reordering
-                let results = playlist.dropTracksAndGroups(tracksAndGroups.tracks, tracksAndGroups.groups, self.grouping, parentAsGroup, index)
+                let results = playlist.dropTracksAndGroups(tracksAndGroups.tracks, tracksAndGroups.groups, self.groupType, parentAsGroup, index)
                 
                 // Given the results of the reordering, refresh the playlist view
                 refreshView(outlineView, results)
@@ -172,7 +181,6 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
                 
                 return true
             }
-            
         } else {
             
             // Files added from Finder, add them to the playlist as URLs
@@ -185,6 +193,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         return false
     }
     
+    // Helper function that gathers all selected playlist items as tracks and groups
     private func collectTracksAndGroups(_ outlineView: NSOutlineView, _ sourceIndexes: IndexSet) -> (tracks: [Track], groups: [Group]) {
         
         var tracks = [Track]()
@@ -195,8 +204,12 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
             let item = outlineView.item(atRow: $0)
             
             if let track = item as? Track {
+                
+                // Track
                 tracks.append(track)
+                
             } else {
+                
                 // Group
                 groups.append(item as! Group)
             }
@@ -205,6 +218,7 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
         return (tracks, groups)
     }
     
+    // Given the results of a reorder operation, rearranges playlist view items to reflect the new playlist order
     private func refreshView(_ outlineView: NSOutlineView, _ results: ItemMoveResults) {
         
         // First, sort all the move operations, so that they do not interfere with each other (all downward moves in descending order, followed by all upward moves in ascending order)
@@ -218,11 +232,13 @@ class GroupingPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
             
             if let trackMoveResult = $0 as? TrackMoveResult {
                 
+                // Move track from the old source index within its parent group to its new destination index
                 outlineView.moveItem(at: trackMoveResult.oldTrackIndex, inParent: trackMoveResult.parentGroup!, to: trackMoveResult.newTrackIndex, inParent: trackMoveResult.parentGroup!)
             } else {
                 
                 let groupMoveResult = $0 as! GroupMoveResult
                 
+                // Move group from the old source index within its parent (root) to its new destination index
                 outlineView.moveItem(at: groupMoveResult.oldGroupIndex, inParent: nil, to: groupMoveResult.newGroupIndex, inParent: nil)
             }
         })
