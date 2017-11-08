@@ -22,7 +22,7 @@ class Colors {
     static let playlistGroupItemSelectedTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
     
     // Fill color of box drawn around selected playlist item
-    static let playlistSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.35, alpha: 1)
+    static let playlistSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.15, alpha: 1)
     
     // Fill color of all slider knobs
     static let sliderKnobColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)

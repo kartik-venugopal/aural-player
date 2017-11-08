@@ -16,9 +16,9 @@ class UIConstants {
     static let minImgScopeLocationX: CGFloat = 85
     
     // Playlist view column identifiers
-    static let trackIndexColumnID: String = "cv_trackIndex"
-    static let trackNameColumnID: String = "cv_trackName"
-    static let durationColumnID: String = "cv_duration"
+    static let playlistIndexColumnID: String = "cid_Index"
+    static let playlistNameColumnID: String = "cid_Name"
+    static let playlistDurationColumnID: String = "cid_Duration"
     
     // Track info view column identifiers (popover)
     static let trackInfoKeyColumnID: String = "cv_trackInfoKey"

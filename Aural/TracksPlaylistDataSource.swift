@@ -1,14 +1,12 @@
-/*
-    Data source and view delegate for the NSTableView that displays the playlist. Creates table cells with the necessary track information.
-*/
-
 import Cocoa
-import AVFoundation
 
+/*
+    Data source and view delegate for the NSTableView that displays the "Tracks" (flat) playlist view.
+ */
 class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTableViewDelegate, MessageSubscriber {
     
-    // Delegate that performs CRUD on the playlist
-    private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
+    // Delegate that relays accessor operations to the playlist
+    private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.getPlaylistAccessorDelegate()
     
     // Used to determine the currently playing track
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
@@ -16,47 +14,51 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
     // Handles all drag/drop operations
     private let dragDropDelegate: TracksPlaylistDragDropDelegate = TracksPlaylistDragDropDelegate()
     
-    // Used to pause/resume the playing track animation
+    // Stores the cell containing the playing track animation, for convenient access when pausing/resuming the animation
     private var animationCell: PlaylistCellView?
-    
-    // Signifies an invalid drag/drop operation
-    private let invalidDragOperation: NSDragOperation = []
     
     override func viewDidLoad() {
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.playbackStateChangedNotification, .playlistTypeChangedNotification, .appInForegroundNotification, .appInBackgroundNotification], subscriber: self)
         
+        // Store the NSTableView in a variable for convenient subsequent access
         TableViewHolder.instance = self.view as? NSTableView
     }
     
+    // MARK: Data Source
+    
+    // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
         return playlist.size()
     }
     
-    // Each playlist view row contains one track, with display name and duration
+    // MARK: View Delegate
+    
+    // Returns a view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
         return FlatPlaylistRowView()
     }
     
-    // Enables type selection, allowing the user to conveniently and efficiently find a playlist track by typing its name, which results in the track, if found, being selected within the playlist
+    // Enables type selection, allowing the user to conveniently and efficiently find a playlist track by typing its display name, which results in the track, if found, being selected within the playlist
     func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
         
         // Only the track name column is used for type selection
-        if (tableColumn?.identifier != UIConstants.trackNameColumnID) {
+        if (tableColumn?.identifier != UIConstants.playlistNameColumnID) {
             return nil
         }
         
-        // Track name is used for type select comparisons
         return playlist.trackAtIndex(row)?.track.conciseDisplayName
     }
     
-    // Returns a view for a single playlist row
+    // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         if let track = playlist.trackAtIndex(row)?.track {
             
-            if (tableColumn?.identifier == UIConstants.trackIndexColumnID) {
+            switch tableColumn!.identifier {
+                
+            case UIConstants.playlistIndexColumnID:
                 
                 // Track index
                 let playingTrackIndex = playbackInfo.getPlayingTrack()?.index
@@ -64,26 +66,27 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
                 // If this row contains the playing track, display an animation, instead of the track index
                 if (playingTrackIndex != nil && playingTrackIndex == row) {
                     
-                    let playbackState = playbackInfo.getPlaybackState()
-                    let cell = createPlayingTrackAnimationCell(tableView, playbackState == .playing)
-                    animationCell = cell
-                    return cell
+                    animationCell = createPlayingTrackAnimationCell(tableView)
+                    return animationCell
                     
                 } else {
                     
                     // Otherwise, create a text cell with the track index
-                    return createTextCell(tableView, UIConstants.trackIndexColumnID, String(format: "%d.", row + 1), row)
+                    return createTextCell(tableView, UIConstants.playlistIndexColumnID, String(format: "%d.", row + 1), row)
                 }
                 
-            } else if (tableColumn?.identifier == UIConstants.trackNameColumnID) {
+            case UIConstants.playlistNameColumnID:
                 
                 // Track name
-                return createTextCell(tableView, UIConstants.trackNameColumnID, track.conciseDisplayName, row)
+                return createTextCell(tableView, UIConstants.playlistNameColumnID, track.conciseDisplayName, row)
                 
-            } else {
+            case UIConstants.playlistDurationColumnID:
                 
                 // Duration
-                return createTextCell(tableView, UIConstants.durationColumnID, StringUtils.formatSecondsToHMS(track.duration), row)
+                return createTextCell(tableView, UIConstants.playlistDurationColumnID, StringUtils.formatSecondsToHMS(track.duration), row)
+                
+            default: return nil
+                
             }
         }
         
@@ -110,9 +113,9 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
     }
     
     // Creates a cell view containing the animation for the currently playing track
-    private func createPlayingTrackAnimationCell(_ tableView: NSTableView, _ animate: Bool) -> PlaylistCellView? {
+    private func createPlayingTrackAnimationCell(_ tableView: NSTableView) -> PlaylistCellView? {
         
-        if let cell = tableView.make(withIdentifier: UIConstants.trackIndexColumnID, owner: nil) as? PlaylistCellView {
+        if let cell = tableView.make(withIdentifier: UIConstants.playlistIndexColumnID, owner: nil) as? PlaylistCellView {
             
             // Configure and show the image view
             let imgView = cell.imageView!
@@ -132,7 +135,7 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
         return nil
     }
     
-    // Helper function that determines whether or not the playing track animation should be shown animated
+    // Helper function that determines whether or not the playing track animation should be shown animated or static
     private func shouldAnimate() -> Bool {
     
         // Animation enabled only if 1 - the appropriate playlist view is currently shown, 2 - a track is currently playing (not paused), and 3 - the app window is currently in the foreground
@@ -143,9 +146,10 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
         return playing && WindowState.inForeground && showingThisPlaylistView
     }
     
+    // MARK: Drag n drop
+    
     // Drag n drop - writes source information to the pasteboard
     func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
-        
         return dragDropDelegate.tableView(tableView, writeRowsWith: rowIndexes, to: pboard)
     }
     
@@ -161,31 +165,31 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
         return dragDropDelegate.tableView(tableView, acceptDrop: info, row: row, dropOperation: dropOperation)
     }
     
+    // MARK: Message handling
+    
     // Whenever the playing track is paused/resumed, the animation needs to be paused/resumed.
     private func playbackStateChanged(_ message: PlaybackStateChangedNotification) {
         
         animationCell?.imageView?.animates = shouldAnimate()
         
-        switch (message.newPlaybackState) {
+        if message.newPlaybackState == .noTrack {
             
-        case .noTrack:
-            
-            // Release the animation cell because the track is no longer playing
+            // The track is no longer playing
             animationCell = nil
-            
-        default: return
-            
         }
     }
     
+    // When the current playlist view changes, the animation state might need to change
     private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
         animationCell?.imageView?.animates = shouldAnimate()
     }
     
+    // When the app moves to the background, the animation should be disabled
     private func appInBackground() {
         animationCell?.imageView?.animates = false
     }
     
+    // When the app moves to the foreground, the animation might need to be enabled
     private func appInForeground() {
         animationCell?.imageView?.animates = shouldAnimate()
     }
@@ -244,32 +248,21 @@ class FlatPlaylistRowView: NSTableRowView {
  */
 class PlaylistCellView: NSTableCellView {
     
-    // Used to determine whether or not this cell is selected
+    // The table view row that this cell is contained in. Used to determine whether or not this cell is selected.
     var row: Int = -1
 
-    // When the background changes (as a result of selection/deselection) switch appropriate colours
+    // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
     override var backgroundStyle: NSBackgroundStyle {
         
         didSet {
             
+            // Check if this row is selected
             let isSelRow = TableViewHolder.instance!.selectedRowIndexes.contains(row)
             
-            if let field = self.textField {
+            if let textField = self.textField {
                 
-                if isSelRow {
-                    
-                    // Selected
-                    
-                    field.textColor = Colors.playlistSelectedTextColor
-                    field.font = UIConstants.playlistSelectedTextFont
-                    
-                } else {
-                    
-                    // Not selected
-                    
-                    field.textColor = Colors.playlistTextColor
-                    field.font = UIConstants.playlistTextFont
-                }
+                textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
+                textField.font = isSelRow ? UIConstants.playlistSelectedTextFont : UIConstants.playlistTextFont
             }
         }
     }

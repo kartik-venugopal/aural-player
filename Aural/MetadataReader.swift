@@ -138,7 +138,8 @@ class MetadataReader {
         if (items.count > 0) {
             
             let item = items[0]
-            return item.stringValue
+            let strVal = item.stringValue
+            return StringUtils.isStringEmpty(strVal) ? nil : strVal
         }
         
         return nil

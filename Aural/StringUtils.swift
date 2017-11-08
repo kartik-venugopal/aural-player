@@ -154,9 +154,7 @@ class StringUtils {
     // Trims all whitespace from a string and returns the result
     static func trimString(_ string: String) -> String {
         
-        return string.trimmingCharacters(
-            in: CharacterSet.whitespacesAndNewlines
-        )
+        return string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
     
     // For a given piece of text rendered in a certain font, and a given line width, calculates the number of lines the text will occupy (e.g. in a multi-line label) 

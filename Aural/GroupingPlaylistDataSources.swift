@@ -1,15 +1,20 @@
 import Cocoa
 
+/*
+    Data source and view delegate base class for the NSOutlineView instances that display the "Artists", "Albums", and "Genres" (hierarchical/grouping) playlist views.
+ */
 class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, MessageSubscriber {
     
+    // Delegate that relays accessor operations to the playlist
     private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.getPlaylistAccessorDelegate()
     
     // Used to determine the currently playing track
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
-    internal var grouping: GroupType {return .artist}
+    // Indicates the type of groups displayed by this NSOutlineView (intended to be overridden by subclasses)
+    fileprivate var groupType: GroupType {return .artist}
 
-    // Used to pause/resume the playing track animation
+    // Stores the cell containing the playing track animation, for convenient access when pausing/resuming the animation
     private var animationCell: GroupedTrackCellView?
     
     // Handles all drag/drop operations
@@ -17,25 +22,26 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
     
     override func viewDidLoad() {
         
-        dragDropDelegate.setGrouping(self.grouping)
+        // The drag n drop delegate needs to know the group type
+        dragDropDelegate.setGrouping(self.groupType)
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.playbackStateChangedNotification, .playlistTypeChangedNotification, .appInForegroundNotification, .appInBackgroundNotification], subscriber: self)
     }
     
-    func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
-        return GroupingPlaylistRowView()
-    }
+    // MARK: Data Source
     
-    func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        return item is Group ? 26 : 22
-    }
-    
+    // Returns the number of children for a given item
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         
         if (item == nil) {
-            return playlist.numberOfGroups(grouping)
+            
+            // Root
+            return playlist.numberOfGroups(groupType)
+            
         } else if let group = item as? Group {
+            
+            // Group
             return group.size()
         }
         
@@ -43,95 +49,96 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         return 0
     }
     
+    // Returns the child, at a given index, for a given item
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         
         if (item == nil) {
-            return playlist.groupAtIndex(grouping, index)
+            
+            // Child of the root is a group
+            return playlist.groupAtIndex(groupType, index)
+            
         } else if let group = item as? Group {
+            
+            // Child of a group is a track
             return group.trackAtIndex(index)
         }
         
+        // Impossible
         return ""
     }
     
+    // Determines if a given item is expandable
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
+        
+        // Only groups are expandable
         return item is Group
     }
     
-    func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
-        
-        if (tableColumn?.identifier == "cv_groupName") {
-            
-            if let group = item as? Group {
-                
-                let view: GroupedTrackCellView? = outlineView.make(withIdentifier: (tableColumn?.identifier)!, owner: self) as? GroupedTrackCellView
-                
-                view!.textField?.stringValue = String(format: "%@ (%d)", group.name, group.size())
-                view!.isGroup = true
-                view!.imageView?.image = UIConstants.imgGroup
-                
-                return view
-                
-            } else if let track = item as? Track {
-                
-                let view: GroupedTrackCellView? = outlineView.make(withIdentifier: (tableColumn?.identifier)!, owner: self) as? GroupedTrackCellView
-                
-                view!.textField?.stringValue = playlist.displayNameForTrack(grouping, track)
-                view!.isGroup = false
-                
-                let playingTrack = playbackInfo.getPlayingTrack()?.track
-                
-                // If this row contains the playing track, display an animation, instead of the track index
-                if (track == playingTrack) {
-                    
-                    let playbackState = playbackInfo.getPlaybackState()
-                    view!.imageView?.image = UIConstants.imgPlayingTrack
-                    
-                    // Configure and show the image view
-                    let imgView = view!.imageView!
-                    
-                    imgView.canDrawSubviewsIntoLayer = true
-                    imgView.imageScaling = .scaleProportionallyDown
-                    imgView.animates = (playbackState == .playing)
-                    
-                    animationCell = view
-                    
-                } else {
-                    view!.imageView?.image = track.displayInfo.art
-                }
-                
-                return view
-            }
-            
-        } else if (tableColumn?.identifier == "cv_duration") {
-            
-            let view: GroupedTrackCellView? = outlineView.make(withIdentifier: (tableColumn?.identifier)!, owner: self) as? GroupedTrackCellView
-            
-            if let group = item as? Group {
-                
-                view!.textField?.stringValue = StringUtils.formatSecondsToHMS(group.duration)
-                view?.isGroup = true
-                view!.textField?.setFrameOrigin(NSPoint(x: 0, y: -12))
-                
-            } else if let track = item as? Track {
-                
-                view!.textField?.stringValue = StringUtils.formatSecondsToHMS(track.duration)
-                view?.isGroup = false
-            }
-            
-            return view
-        }
-        
-        return nil
+    // MARK: View Delegate
+    
+    // Returns a view for a single row
+    func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
+        return GroupingPlaylistRowView()
     }
     
-    // Creates a cell view containing text
-    private func createCell(_ outlineView: NSOutlineView, _ id: String, _ text: String, _ image: NSImage, isPlayingTrack: Bool = false, animate: Bool = false) -> GroupedTrackCellView? {
+    // Determines the height of a single row
+    func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
+        
+        // Group rows are taller than track rows
+        return item is Group ? 26 : 22
+    }
+    
+    // Returns a view for a single column
+    func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
+        
+        switch tableColumn!.identifier {
+            
+        case UIConstants.playlistNameColumnID:
+            
+            // Name
+            
+            if let group = item as? Group {
+                
+                return createImageAndTextCell(outlineView, tableColumn!.identifier, true, String(format: "%@ (%d)", group.name, group.size()), UIConstants.imgGroup)
+                
+            } else {
+                
+                let track = item as! Track
+                
+                let isPlayingTrack = track == playbackInfo.getPlayingTrack()?.track
+                let image = isPlayingTrack ? UIConstants.imgPlayingTrack : track.displayInfo.art
+                
+                return createImageAndTextCell(outlineView, tableColumn!.identifier, false, playlist.displayNameForTrack(groupType, track), image, isPlayingTrack)
+            }
+            
+        case UIConstants.playlistDurationColumnID:
+            
+            // Duration
+            
+            if let group = item as? Group {
+                
+                return createTextCell(outlineView, UIConstants.playlistDurationColumnID, true, StringUtils.formatSecondsToHMS(group.duration))
+                
+            } else {
+                
+                let track = item as! Track
+                
+                return createTextCell(outlineView, UIConstants.playlistDurationColumnID, false, StringUtils.formatSecondsToHMS(track.duration))
+            }
+            
+        default: return nil
+            
+        }
+    }
+    
+    // Creates a cell view containing text and an image. If the row containing the cell represents the playing track, the image will be the playing track animation.
+    private func createImageAndTextCell(_ outlineView: NSOutlineView, _ id: String, _ isGroup: Bool, _ text: String, _ image: NSImage?, _ isPlayingTrack: Bool = false) -> GroupedTrackCellView? {
         
         if let cell = outlineView.make(withIdentifier: id, owner: nil) as? GroupedTrackCellView {
             
             cell.textField?.stringValue = text
             cell.imageView?.image = image
+            cell.isGroup = isGroup
             
             if (isPlayingTrack) {
                 
@@ -140,7 +147,10 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
                 
                 imgView.canDrawSubviewsIntoLayer = true
                 imgView.imageScaling = .scaleProportionallyDown
-                imgView.animates = animate
+                imgView.animates = shouldAnimate()
+                
+                // Mark this cell for later
+                animationCell = cell
             }
             
             return cell
@@ -148,34 +158,34 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         
         return nil
     }
-    
-    // Creates a cell view containing the animation for the currently playing track
-    private func createPlayingTrackAnimationCell(_ tableView: NSTableView, _ animate: Bool) -> GroupedTrackCellView? {
+
+    // Creates a cell view containing only text
+    private func createTextCell(_ outlineView: NSOutlineView, _ id: String, _ isGroup: Bool, _ text: String) -> GroupedTrackCellView? {
         
-        if let cell = tableView.make(withIdentifier: "cv_groupName", owner: nil) as? GroupedTrackCellView {
+        if let cell = outlineView.make(withIdentifier: id, owner: nil) as? GroupedTrackCellView {
             
-            // Configure and show the image view
-            let imgView = cell.imageView!
-            
-            imgView.canDrawSubviewsIntoLayer = true
-            imgView.imageScaling = .scaleProportionallyDown
-            imgView.animates = animate
-            imgView.image = UIConstants.imgPlayingTrack
-            
+            cell.textField?.stringValue = text
+            cell.isGroup = isGroup
             return cell
         }
         
         return nil
     }
     
+    // MARK: Drag n Drop
+    
+    // Drag n drop - writes source information to the pasteboard
     func outlineView(_ outlineView: NSOutlineView, writeItems items: [Any], to pasteboard: NSPasteboard) -> Bool {
         return dragDropDelegate.outlineView(outlineView, writeItems: items, to: pasteboard)
     }
     
+    // Drag n drop - determines the drag/drop operation
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
+        
         return dragDropDelegate.outlineView(outlineView, validateDrop: info, proposedItem: item, proposedChildIndex: index)
     }
     
+    // Drag n drop - accepts and performs the drop
     func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
         
         return dragDropDelegate.outlineView(outlineView, acceptDrop: info, item: item, childIndex: index)
@@ -190,7 +200,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
             
         case .noTrack:
             
-            // Release the animation cell because the track is no longer playing
+            // The track is no longer playing
             animationCell = nil
             
         default: return
@@ -198,14 +208,19 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         }
     }
     
+    // MARK: Message handling
+    
+    // When the current playlist view changes, the animation state might need to change
     private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
         animationCell?.imageView?.animates = shouldAnimate()
     }
     
+    // When the app moves to the background, the animation should be disabled
     private func appInBackground() {
         animationCell?.imageView?.animates = false
     }
     
+    // When the app moves to the foreground, the animation might need to be enabled
     private func appInForeground() {
         animationCell?.imageView?.animates = shouldAnimate()
     }
@@ -216,7 +231,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         // Animation enabled only if 1 - the appropriate playlist view is currently shown, 2 - a track is currently playing (not paused), and 3 - the app window is currently in the foreground
         
         let playing = playbackInfo.getPlaybackState() == .playing
-        let showingThisPlaylistView = PlaylistViewState.current == self.grouping.toPlaylistType()
+        let showingThisPlaylistView = PlaylistViewState.current == self.groupType.toPlaylistType()
         
         return playing && WindowState.inForeground && showingThisPlaylistView
     }
@@ -258,6 +273,9 @@ class GroupedTrackCellView: NSTableCellView {
     var isGroup: Bool = false
 }
 
+/*
+    Custom view for a NSTableView row that displays a single playlist track or group. Customizes the selection look and feel, and the text font/color.
+ */
 class GroupingPlaylistRowView: NSTableRowView {
     
     // Draws a fancy rounded rectangle around the selected track in the playlist view
@@ -266,13 +284,14 @@ class GroupingPlaylistRowView: NSTableRowView {
         if self.selectionHighlightStyle != NSTableViewSelectionHighlightStyle.none {
             
             let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
-            
             let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
+            
             Colors.playlistSelectionBoxColor.setFill()
             selectionPath.fill()
         }
     }
     
+    // Sets the text font/color based on whether or not this row belongs to a group/track, and whether or not this row is currently selected
     override func drawBackground(in dirtyRect: NSRect) {
         
         UIConstants.groupingPlaylistViewColumnIndexes.forEach({
@@ -288,17 +307,26 @@ class GroupingPlaylistRowView: NSTableRowView {
     }
 }
 
+/*
+    Data source and view delegate subclass for the "Artists" (hierarchical/grouping) playlist view
+ */
 class ArtistsPlaylistDataSource: GroupingPlaylistDataSource {
     
-    override var grouping: GroupType {return .artist}
+    override var groupType: GroupType {return .artist}
 }
 
+/*
+    Data source and view delegate subclass for the "Albums" (hierarchical/grouping) playlist view
+ */
 class AlbumsPlaylistDataSource: GroupingPlaylistDataSource {
     
-    override var grouping: GroupType {return .album}
+    override var groupType: GroupType {return .album}
 }
 
+/*
+    Data source and view delegate subclass for the "Genres" (hierarchical/grouping) playlist view
+ */
 class GenresPlaylistDataSource: GroupingPlaylistDataSource {
     
-    override var grouping: GroupType {return .genre}
+    override var groupType: GroupType {return .genre}
 }
