@@ -1,3 +1,6 @@
+/*
+    Set of protocols for CRUD operations performed on the flat playlist
+ */
 import Foundation
 
 /*

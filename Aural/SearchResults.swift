@@ -1,13 +1,13 @@
+import Cocoa
+
 /*
     Encapsulates the results of a playlist search, and provides convenient functions for iteration
  */
-
-import Cocoa
-
 class SearchResults {
     
     // Total number of results
     var count: Int
+    
     var results: [SearchResult]
     
     // Marks the current result (used during iteration)
@@ -51,10 +51,12 @@ class SearchResults {
         return results[cursor]
     }
     
+    // Perform a union of this set of results with another set
     func union(_ otherResults: SearchResults) -> SearchResults {
         
         var union = Set<SearchResult>()
         
+        // Add results from the two sets into the union set (duplicates will be removed automatically by the union set)
         self.results.forEach({union.insert($0)})
         otherResults.results.forEach({union.insert($0)})
         
@@ -64,6 +66,7 @@ class SearchResults {
     // For display in tracks view
     func sortedByTrackIndex() -> SearchResults {
         
+        // Sorts in ascending order by track index
         results.sort(by: {r1, r2 -> Bool in
             
             let i1 = r1.location.trackIndex!
@@ -75,9 +78,10 @@ class SearchResults {
         return SearchResults(results)
     }
     
-    // For display in grouping views
+    // For display in grouping/hierarchical views
     func sortedByGroupAndTrackIndex() -> SearchResults {
         
+        // Sorts in ascending order by group index (and track index if group indexes are equal)
         results.sort(by: {r1, r2 -> Bool in
             
             let g1 = r1.location.groupInfo!.groupIndex
@@ -99,7 +103,7 @@ class SearchResults {
     }
 }
 
-// Represents a single result (track) in a playlist tracks search
+// Represents a single result (track) in a playlist search
 class SearchResult: Hashable  {
     
     // The index of this result within the set of all results
@@ -117,7 +121,10 @@ class SearchResult: Hashable  {
     // Flag to indicate whether there is another result to consume before this one (during iteration)
     var hasPrevious: Bool = false
     
+    // Needed for Hashable conformance
     public var hashValue: Int {
+        
+        // The file path of the track is the unique identifier
         return location.track.file.path.hashValue
     }
     
@@ -130,21 +137,25 @@ class SearchResult: Hashable  {
         self.match = match
     }
     
+    // Two SearchResult objects are equal if their locations are equal (i.e. they point to the same track)
     public static func ==(lhs: SearchResult, rhs: SearchResult) -> Bool {
         return lhs.location == rhs.location
     }
 }
 
+// Encapsulates information used to locate a single search result within a playlist
 struct SearchResultLocation: Equatable {
     
     // Only for flat playlists
     var trackIndex: Int?
     
+    // The track whose location is being described
     let track: Track
     
     // Only for grouping playlists
     var groupInfo: GroupedTrack?
     
+    // Two locations are equal if they describe the location of the same track
     public static func ==(lhs: SearchResultLocation, rhs: SearchResultLocation) -> Bool {
         return lhs.track === rhs.track
     }

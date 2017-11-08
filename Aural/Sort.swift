@@ -28,8 +28,9 @@ enum SortOrder {
     case descending
 }
 
-// Sort options
+// Additional sort options
 class SortOptions {
     
+    // Whether or not the tracks within each group are to be sorted
     var sortTracksInGroups: Bool = true
 }

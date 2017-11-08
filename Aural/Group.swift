@@ -3,7 +3,7 @@ import Foundation
 /*
     Represents a group of tracks categorized by a certain property of the tracks - such as artist, album, or genre
  */
-class Group: NSObject, GroupAccessorProtocol, GroupedPlaylistItem {
+class Group: NSObject, GroupAccessorProtocol, GroupingPlaylistItem {
     
     let type: GroupType
     
@@ -149,32 +149,5 @@ class Group: NSObject, GroupAccessorProtocol, GroupedPlaylistItem {
     // Sorts all tracks in this group, using the given strategy to compare tracks
     func sort(_ strategy: (Track, Track) -> Bool) {
         tracks.sort(by: strategy)
-    }
-}
-
-// Enumerates the different types of track groups
-enum GroupType: String {
-    
-    // Group of tracks categorized by their artist
-    case artist
-    
-    // Group of tracks categorized by their album
-    case album
-    
-    // Group of tracks categorized by their genre
-    case genre
-    
-    // Maps a GroupType to a corresponding PlaylistType
-    func toPlaylistType() -> PlaylistType {
-        
-        switch self {
-            
-        case .artist: return .artists
-            
-        case.album: return .albums
-            
-        case.genre: return .genres
-            
-        }
     }
 }

@@ -5,7 +5,7 @@
 import Cocoa
 import AVFoundation
 
-class Track: NSObject, GroupedPlaylistItem {
+class Track: NSObject, GroupingPlaylistItem {
     
     // The audio asset object used to retrieve metadata for this track
     var audioAsset: AVURLAsset?

@@ -1,12 +1,14 @@
-/*
-    Encapsulates all CRUD logic for a playlist
- */
 import Foundation
-import AVFoundation
 
+/*
+    A facade providing unified access to the 4 underlying playlist types (Tracks, Artists, Albums, Genres). Smartly delegates operations to the underlying playlists and aggregates results from those operations.
+ */
 class Playlist: PlaylistCRUDProtocol {
     
+    // Flat playlist
     private var flatPlaylist: FlatPlaylistCRUDProtocol
+    
+    // Hierarchical/grouping playlists (mapped by playlist type)
     private var groupingPlaylists: [PlaylistType: GroupingPlaylistCRUDProtocol] = [PlaylistType: GroupingPlaylist]()
     
     // A map to quickly look up tracks by (absolute) file path (used when adding tracks, to prevent duplicates)
@@ -43,7 +45,10 @@ class Playlist: PlaylistCRUDProtocol {
     func summary(_ playlistType: PlaylistType) -> (size: Int, totalDuration: Double, numGroups: Int) {
         
         if (playlistType == .tracks) {
+            
+            // Tracks don't have any groups, so numGroups = 0
             return (size(), totalDuration(), 0)
+            
         } else {
             return (size(), totalDuration(), groupingPlaylists[playlistType]!.numberOfGroups())
         }
@@ -53,13 +58,17 @@ class Playlist: PlaylistCRUDProtocol {
         
         if (!trackExists(track)) {
             
+            // Add a mapping by track's file path
             tracksByFilePath[track.file.path] = track
             
+            // Add the track to the flat playlist
             let index = flatPlaylist.addTrack(track)
             
+            // Add the track to each of the grouping playlists
             var groupingResults = [GroupType: GroupedTrackAddResult]()
             groupingPlaylists.values.forEach({groupingResults[$0.typeOfGroups()] = $0.addTrack(track)})
             
+            // Return the results of the add operation
             return TrackAddResult(flatPlaylistResult: index, groupingPlaylistResults: groupingResults)
         }
         
@@ -72,36 +81,46 @@ class Playlist: PlaylistCRUDProtocol {
     }
     
     func clear() {
+        
+        // Clear each of the playlists
         flatPlaylist.clear()
         groupingPlaylists.values.forEach({$0.clear()})
+        
+        // Remove all the file path mappings
         tracksByFilePath.removeAll()
     }
     
-    private func doSearch(_ query: SearchQuery, _ playlistType: PlaylistType) -> SearchResults {
+    func search(_ searchQuery: SearchQuery, _ playlistType: PlaylistType) -> SearchResults {
         
-        // Smart search. Depending on query options, search either flat playlist or one of the grouped playlists. For ex, if searching by artist, it makes sense to search "Artists" playlist. Also, can split up the search into multiple parts, send them to different playlists, and put results together
+        // Smart search. Depending on query options, search either flat playlist or one of the grouping playlists. For ex, if searching by artist, it makes sense to search "Artists" playlist. Also, split up the search into multiple parts, send them to different playlists, and aggregate results together.
         
+        // Union of results from each of the individual searches
         var allResults: SearchResults = SearchResults([])
         
-        if (query.fields.name || query.fields.title) {
-            allResults = flatPlaylist.search(query)
+        // The flat playlist searches by name or title
+        if (searchQuery.fields.name || searchQuery.fields.title) {
+            allResults = flatPlaylist.search(searchQuery)
         }
         
-        if (query.fields.artist) {
+        // The Artists playlist searches only by artist
+        if (searchQuery.fields.artist) {
             
-            let resultsByArtist = groupingPlaylists[.artists]!.search(query)
+            let resultsByArtist = groupingPlaylists[.artists]!.search(searchQuery)
             allResults = allResults.union(resultsByArtist)
         }
         
-        if (query.fields.album) {
+        // The Albums playlist searches only by album
+        if (searchQuery.fields.album) {
             
-            let resultsByAlbum = groupingPlaylists[.albums]!.search(query)
+            let resultsByAlbum = groupingPlaylists[.albums]!.search(searchQuery)
             allResults = allResults.union(resultsByAlbum)
         }
         
+        // Determine locations for each of the result tracks, and sort results in ascending order by location
+        // NOTE - Locations are specific to the playlist type. That's why they need to be determined after the searches are performed.
         if let groupType = playlistType.toGroupType() {
             
-            // Grouping playlist location
+            // Grouping playlist locations
             
             for result in allResults.results {
                 result.location.groupInfo = groupingInfoForTrack(groupType, result.location.track)
@@ -111,7 +130,7 @@ class Playlist: PlaylistCRUDProtocol {
             
         } else {
             
-            // Flat playlist location
+            // Flat playlist locations
             
             for result in allResults.results {
                 result.location.trackIndex = indexOfTrack(result.location.track)
@@ -123,12 +142,10 @@ class Playlist: PlaylistCRUDProtocol {
         return allResults
     }
     
-    func search(_ searchQuery: SearchQuery, _ playlistType: PlaylistType) -> SearchResults {
-        return doSearch(searchQuery, playlistType)
-    }
-    
     func sort(_ sort: Sort, _ playlistType: PlaylistType) {
 
+        // Sort only the specified playlist type
+        
         if playlistType == .tracks {
             flatPlaylist.sort(sort)
         } else {
@@ -151,12 +168,13 @@ class Playlist: PlaylistCRUDProtocol {
     
     func removeTracks(_ indexes: IndexSet) -> TrackRemovalResults {
         
+        // Remove tracks from flat playlist
         let removedTracks = flatPlaylist.removeTracks(indexes)
         removedTracks.forEach({tracksByFilePath.removeValue(forKey: $0.file.path)})
         
         var groupingPlaylistResults = [GroupType: [ItemRemovalResult]]()
         
-        // Remove from all other playlists
+        // Remove tracks from all other playlists
         groupingPlaylists.values.forEach({
             groupingPlaylistResults[$0.typeOfGroups()] = $0.removeTracksAndGroups(removedTracks, [])
         })
