@@ -1,20 +1,19 @@
-/*
-    Encapsulates all information about a single track
- */
-
 import Cocoa
 import AVFoundation
 
+/*
+    Encapsulates all information about a single track
+ */
 class Track: NSObject, GroupingPlaylistItem {
     
     // The audio asset object used to retrieve metadata for this track
     var audioAsset: AVURLAsset?
     
     // All info relating to how this track is displayed
-    var displayInfo: DisplayInfo
+    let displayInfo: DisplayInfo
     
     // All info relating to how this track is grouped
-    var groupingInfo: GroupingInfo
+    let groupingInfo: GroupingInfo
     
     // All info relating to playback of this track
     var playbackInfo: PlaybackInfo?
@@ -23,10 +22,10 @@ class Track: NSObject, GroupingPlaylistItem {
     var audioInfo: AudioInfo?
     
     // Filesystem information for this track
-    var fileSystemInfo: FileSystemInfo
+    let fileSystemInfo: FileSystemInfo
     
     // Track information is loaded lazily as needed, for optimal performance. This object stores internally used information to keep track of what information has been loaded, and if there were any errors.
-    var lazyLoadingInfo: LazyLoadingInfo
+    let lazyLoadingInfo: LazyLoadingInfo
     
     // ID3/iTunes metadata
     var metadata: [String: MetadataEntry] = [String: MetadataEntry]()
@@ -122,8 +121,6 @@ class GroupingInfo {
     var artist: String?
     var album: String?
     var genre: String?
-    var diskNumber: Int?
-    var trackNumber: Int?
 }
 
 class PlaybackInfo {
