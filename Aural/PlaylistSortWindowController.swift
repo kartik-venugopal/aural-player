@@ -40,6 +40,7 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
             return
         }
         
+        // Force loading of the window if it hasn't been loaded yet (only once)
         if (!self.isWindowLoaded) {
             _ = self.window!
         }

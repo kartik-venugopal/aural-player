@@ -31,6 +31,12 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     // Spinner that shows progress when tracks are being added to the playlist
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
     
+    // Search dialog
+    private lazy var playlistSearchDialog: ModalDialogDelegate = WindowFactory.getPlaylistSearchDialog()
+    
+    // Sort dialog
+    private lazy var playlistSortDialog: ModalDialogDelegate = WindowFactory.getPlaylistSortDialog()
+    
     // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
@@ -284,6 +290,14 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         case .genres: tracksTabViewAction(self)
             
         }
+    }
+    
+    @IBAction func searchAction(_ sender: Any) {
+        playlistSearchDialog.showDialog()
+    }
+    
+    @IBAction func sortAction(_ sender: Any) {
+        playlistSortDialog.showDialog()
     }
     
     private func trackAdded(_ message: TrackAddedAsyncMessage) {
