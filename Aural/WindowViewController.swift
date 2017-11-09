@@ -4,7 +4,7 @@
 
 import Cocoa
 
-// TODO: What to do if the playlist window moves off-screen ??? Should it always be resized so it is completely on-screen ???
+// TODO: What to do if the playlist window moves off-screen ??? Should it always be resized/moved so it is completely on-screen ???
 
 // TODO: Cleanup !
 class WindowViewController: NSViewController, NSWindowDelegate {
@@ -97,6 +97,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         var height: CGFloat = mainWindow.height
         var width: CGFloat = mainWindow.width
         
+        // If the playlist is shown, the total height/width will be affected by the playlist window
         if (playlistShown) {
         
             switch playlistDockState {
@@ -115,6 +116,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         var x = location.x
         var y = location.y
         
+        // If the playlist is shown, the main window origin will be affected by the playlist window
         if (playlistShown) {
             
             switch playlistDockState {
@@ -128,6 +130,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
             }
         }
         
+        // Reposition the main window
         mainWindow.setFrameOrigin(NSPoint(x: x, y: y))
     }
     

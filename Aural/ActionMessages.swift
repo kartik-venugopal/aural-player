@@ -30,13 +30,27 @@ enum ActionType {
     case moveTracksDown
 }
 
+enum MenuActionType {
+    
+    case showPreferencesDialog
+}
+
 struct PlaylistActionMessage: ActionMessage {
     
-    let actionType: ActionType
+    var actionType: ActionType
     let playlistType: PlaylistType?
     
     init(_ actionType: ActionType, _ playlistType: PlaylistType?) {
         self.actionType = actionType
         self.playlistType = playlistType
+    }
+}
+
+struct MenuActionMessage: ActionMessage {
+    
+    var actionType: ActionType
+    
+    init(_ actionType: ActionType) {
+        self.actionType = actionType
     }
 }

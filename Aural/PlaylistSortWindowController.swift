@@ -1,10 +1,13 @@
-/*
-    View controller for the playlist sort modal dialog
- */
-
 import Cocoa
 
-class PlaylistSortViewController: NSViewController {
+/*
+    Window controller for the playlist sort dialog
+ */
+class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
+    
+    convenience init() {
+        self.init(windowNibName: "PlaylistSort")
+    }
     
     // Playlist sort modal dialog fields
     
@@ -24,20 +27,26 @@ class PlaylistSortViewController: NSViewController {
     // Delegate that retrieves current playback information
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
-    override func viewDidLoad() {
-        sortPanel.titlebarAppearsTransparent = true
+    override func windowDidLoad() {
+        
+        self.window?.titlebarAppearsTransparent = true
+        super.windowDidLoad()
     }
     
-    @IBAction func sortPlaylistAction(_ sender: Any) {
+    func showDialog() {
         
         // Don't do anything if either no tracks or only 1 track in playlist
         if (playlist.size() < 2) {
             return
         }
         
+        if (!self.isWindowLoaded) {
+            _ = self.window!
+        }
+        
         sortTracksInGroups.isEnabled = PlaylistViewState.current != .tracks
         
-        UIUtils.showModalDialog(sortPanel)
+        UIUtils.showModalDialog(self.window!)
     }
     
     @IBAction func sortOptionsChangedAction(_ sender: Any) {

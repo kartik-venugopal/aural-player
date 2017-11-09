@@ -1,12 +1,14 @@
-/*
-    View controller for the Preferences modal dialog
- */
-
 import Cocoa
 
-class PreferencesViewController: NSViewController {
+/*
+    Window controller for the preferences dialog
+ */
+class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDialogDelegate {
     
-    @IBOutlet weak var prefsPanel: NSPanel!
+    convenience init() {
+        self.init(windowNibName: "Preferences")
+    }
+    
     @IBOutlet weak var prefsTabView: NSTabView!
     
     private var prefsTabViewButtons: [NSButton]?
@@ -14,7 +16,7 @@ class PreferencesViewController: NSViewController {
     // Player prefs
     @IBOutlet weak var btnPlayerPrefs: NSButton!
     
-    @IBOutlet weak var seekLengthField: NSTextField!
+    @IBOutlet weak var lblSeekLength: NSTextField!
     @IBOutlet weak var seekLengthSlider: NSSlider!
     
     @IBOutlet weak var volumeDeltaField: NSTextField!
@@ -26,7 +28,7 @@ class PreferencesViewController: NSViewController {
     @IBOutlet weak var startupVolumeSlider: NSSlider!
     @IBOutlet weak var lblStartupVolume: NSTextField!
     
-    @IBOutlet weak var panDeltaField: NSTextField!
+    @IBOutlet weak var lblPanDelta: NSTextField!
     @IBOutlet weak var panDeltaStepper: NSStepper!
     
     // Playlist prefs
@@ -62,12 +64,37 @@ class PreferencesViewController: NSViewController {
     // Cached preferences instance
     private let preferences: Preferences = ObjectGraph.getPreferencesDelegate().getPreferences()
     
-    override func viewDidLoad() {
+    override func windowDidLoad() {
         
-        prefsPanel.titlebarAppearsTransparent = true
+        window?.titlebarAppearsTransparent = true
+        window?.isMovableByWindowBackground = true
+        
         prefsTabViewButtons = [btnPlayerPrefs, btnPlaylistPrefs, btnViewPrefs]
         
+        super.windowDidLoad()
+    }
+    
+    func showDialog() {
+     
+        // Force loading of the window if it hasn't been loaded yet (only once)
+        if (!self.isWindowLoaded) {
+            _ = self.window!
+        }
+        
         resetPreferencesFields()
+        
+        // Select the player prefs tab
+        playerPrefsTabViewAction(self)
+        
+        UIUtils.showModalDialog(self.window!)
+    }
+    
+    func windowWillClose(_ notification: Notification) {
+        
+        resetPreferencesFields()
+        
+        // Select the player prefs tab
+        playerPrefsTabViewAction(self)
     }
     
     private func resetPreferencesFields() {
@@ -75,16 +102,13 @@ class PreferencesViewController: NSViewController {
         resetPlayerPrefs()
         resetPlaylistPrefs()
         resetViewPrefs()
-        
-        // Select the player prefs tab
-        playerPrefsTabViewAction(self)
     }
     
     private func resetPlayerPrefs() {
         
         let seekLength = preferences.seekLength
         seekLengthSlider.integerValue = seekLength
-        seekLengthField.stringValue = StringUtils.formatSecondsToHMS_minSec(seekLength)
+        lblSeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(seekLength)
         
         let volumeDelta = Int(round(preferences.volumeDelta * AppConstants.volumeConversion_audioGraphToUI))
         volumeDeltaStepper.integerValue = volumeDelta
@@ -102,7 +126,7 @@ class PreferencesViewController: NSViewController {
         
         let panDelta = Int(round(preferences.panDelta * AppConstants.panConversion_audioGraphToUI))
         panDeltaStepper.integerValue = panDelta
-        panDeltaField.stringValue = String(format: "%d%%", panDelta)
+        lblPanDelta.stringValue = String(format: "%d%%", panDelta)
     }
     
     private func resetPlaylistPrefs() {
@@ -148,23 +172,12 @@ class PreferencesViewController: NSViewController {
         startPlaylistLocationMenu.selectItem(withTitle: preferences.playlistLocationOnStartup.playlistLocation.description)
     }
     
-    // Presents the modal dialog
-    @IBAction func preferencesAction(_ sender: Any) {
-        
-        resetPreferencesFields()
-        UIUtils.showModalDialog(prefsPanel)
-    }
-    
     @IBAction func volumeDeltaAction(_ sender: Any) {
-        
-        let value = volumeDeltaStepper.integerValue
-        volumeDeltaField.stringValue = String(format: "%d%%", value)
+        volumeDeltaField.stringValue = String(format: "%d%%", volumeDeltaStepper.integerValue)
     }
     
     @IBAction func panDeltaAction(_ sender: Any) {
-        
-        let value = panDeltaStepper.integerValue
-        panDeltaField.stringValue = String(format: "%d%%", value)
+        lblPanDelta.stringValue = String(format: "%d%%", panDeltaStepper.integerValue)
     }
     
     @IBAction func savePreferencesAction(_ sender: Any) {
@@ -209,8 +222,8 @@ class PreferencesViewController: NSViewController {
         
         preferences.playlistLocationOnStartup.playlistLocation = PlaylistLocations.fromDescription(startPlaylistLocationMenu.selectedItem!.title)
         
-        UIUtils.dismissModalDialog()
         preferencesDelegate.savePreferences(preferences)
+        UIUtils.dismissModalDialog()
     }
     
     @IBAction func cancelPreferencesAction(_ sender: Any) {
@@ -220,14 +233,14 @@ class PreferencesViewController: NSViewController {
     @IBAction func seekLengthAction(_ sender: Any) {
         
         let value = seekLengthSlider.integerValue
-        seekLengthField.stringValue = StringUtils.formatSecondsToHMS_minSec(value)
+        lblSeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(value)
     }
     
     @IBAction func seekLengthIncrementAction(_ sender: Any) {
         
         if (Double(seekLengthSlider.integerValue) < seekLengthSlider.maxValue) {
             seekLengthSlider.integerValue += 1
-            seekLengthField.stringValue = StringUtils.formatSecondsToHMS_minSec(seekLengthSlider.integerValue)
+            lblSeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(seekLengthSlider.integerValue)
         }
     }
     
@@ -235,7 +248,7 @@ class PreferencesViewController: NSViewController {
         
         if (Double(seekLengthSlider.integerValue) > seekLengthSlider.minValue) {
             seekLengthSlider.integerValue -= 1
-            seekLengthField.stringValue = StringUtils.formatSecondsToHMS_minSec(seekLengthSlider.integerValue)
+            lblSeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(seekLengthSlider.integerValue)
         }
     }
     
@@ -273,7 +286,7 @@ class PreferencesViewController: NSViewController {
     
     // When the check box for "autoplay after adding tracks" is checked/unchecked, update the enabled state of the 2 option radio buttons
     @IBAction func autoplayAfterAddingAction(_ sender: Any) {
-        [btnAutoplayIfNotPlaying, btnAutoplayAlways].forEach({$0.isEnabled = Bool(btnAutoplayAfterAddingTracks.state)})
+        [btnAutoplayIfNotPlaying, btnAutoplayAlways].forEach({$0!.isEnabled = Bool(btnAutoplayAfterAddingTracks.state)})
     }
     
     @IBAction func autoplayAfterAddingRadioButtonAction(_ sender: Any) {
