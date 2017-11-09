@@ -7,7 +7,7 @@ import Cocoa
 // TODO: What to do if the playlist window moves off-screen ??? Should it always be resized/moved so it is completely on-screen ???
 
 // TODO: Cleanup !
-class WindowViewController: NSViewController, NSWindowDelegate {
+class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSubscriber {
     
     // Main application window. Contains the Now Playing info box, player controls, and effects panel. Acts as a parent for the playlist window. Not manually resizable. Changes size when toggling playlist/effects views.
     @IBOutlet weak var mainWindow: NSWindow!
@@ -90,6 +90,8 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         
         mainWindow.makeKeyAndOrderFront(self)
         playlistWindow.delegate = self
+        
+        SyncMessenger.subscribe(actionTypes: [.dockLeft, .dockRight, .dockBottom, .maximize, .maximizeHorizontal, .maximizeVertical], subscriber: self)
     }
     
     private func positionWindowOnStartup(_ relativeLoc: WindowLocations, _ playlistShown: Bool) {
@@ -621,7 +623,34 @@ class WindowViewController: NSViewController, NSWindowDelegate {
         mainWindow.setFrame(wFrame, display: true, animate: false)
     }
     
-    // When the playlist window is moved manually by the user, it may be moved such that it is no longer docked (i.e. positioned adjacent) to the main window. This method checks the position of the playlist window after the resize operation, invalidates the playlist window's dock state if necessary, and adds a thin bottom edge to the main window (for aesthetics) if the playlist is no longer docked.
+    // MARK: Action Message handling
+    
+    func consumeMessage(_ message: ActionMessage) {
+        
+        switch message.actionType {
+            
+        case .dockLeft: dockPlaylistLeftAction(self)
+            
+        case .dockRight: dockPlaylistRightAction(self)
+            
+        case .dockBottom: dockPlaylistBottomAction(self)
+            
+        case .maximize: maximizePlaylistAction(self)
+            
+        case .maximizeHorizontal: maximizePlaylistHorizontalAction(self)
+            
+        case .maximizeVertical: maximizePlaylistVerticalAction(self)
+            
+        default: return
+            
+        }
+    }
+    
+    // MARK: Playlist Window Delegate functions
+    
+    /*
+        When the playlist window is moved manually by the user, it may be moved such that it is no longer docked (i.e. positioned adjacent) to the main window. This method checks the position of the playlist window after the resize operation, invalidates the playlist window's dock state if necessary, and adds a thin bottom edge to the main window (for aesthetics) if the playlist is no longer docked.
+     */
     func windowDidMove(_ notification: Notification) {
         
         // If this is an app-initiated move operation, do nothing
