@@ -19,7 +19,13 @@ enum ActionType {
     
     case refresh
     
+    case addTracks
+    
     case removeTracks
+    
+    case savePlaylist
+    
+    case clearPlaylist
     
     case showPlayingTrack
     
@@ -28,6 +34,12 @@ enum ActionType {
     case moveTracksUp
     
     case moveTracksDown
+    
+    case shiftTab
+    
+    case search
+    
+    case sort
 }
 
 enum MenuActionType {

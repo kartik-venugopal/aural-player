@@ -1,11 +1,10 @@
-/*
-    View controller for playlist CRUD controls (adding/removing/reordering tracks and saving/loading to/from playlist files)
- */
-
 import Cocoa
-import Foundation
 
-class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageSubscriber {
+class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber {
+    
+    convenience init() {
+        self.init(windowNibName: "Playlist")
+    }
     
     // The 4 different playlist views
     @IBOutlet weak var tracksView: NSTableView!
@@ -43,7 +42,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
-    override func viewDidLoad() {
+    override func windowDidLoad() {
         
         // Enable drag n drop into the playlist views
         [tracksView, artistsView, albumsView, genresView].forEach({$0.register(forDraggedTypes: [String(kUTTypeFileURL), "public.data"])})
@@ -53,6 +52,8 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.removeTrackRequest], subscriber: self)
+        
+        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab], subscriber: self)
         
         // Set up key press handler to enable natural scrolling of the playlist view with arrow keys and expansion/collapsing of track groups.
         
@@ -229,15 +230,9 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     }
     
     // Shows the currently playing track, within the playlist view
-    @IBAction func showPlayingTrackAction(_ sender: Any) {
+    func showPlayingTrack() {
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.showPlayingTrack, PlaylistViewState.current))
-    }
-    
-    // Plays the currently selected track/group
-    @IBAction func playSelectedItemMenuAction(_ sender: Any) {
-        
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.playSelectedItem, PlaylistViewState.current))
     }
     
     // Switches the tab group to the Tracks view
@@ -277,7 +272,7 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
     }
     
     // Cycles between playlist tab group tabs
-    @IBAction func shiftTabAction(_ sender: Any) {
+    func shiftTab() {
         
         switch PlaylistViewState.current {
             
@@ -342,6 +337,10 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
             
             trackInfoUpdated(message as! TrackUpdatedAsyncMessage)
             
+        case .tracksRemoved:
+            
+            updatePlaylistSummary()
+            
         case .tracksNotAdded:
             
             tracksNotAdded(message as! TracksNotAddedAsyncMessage)
@@ -378,6 +377,27 @@ class PlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageS
         // This class does not return any meaningful responses
         return EmptyResponse.instance
     }
+    
+    func consumeMessage(_ message: ActionMessage) {
+        
+        switch message.actionType {
+            
+        case .addTracks: addTracksAction(self)
+            
+        case .savePlaylist: savePlaylistAction(self)
+            
+        case .clearPlaylist: clearPlaylistAction(self)
+            
+        case .search: searchAction(self)
+            
+        case .sort: sortAction(self)
+            
+        case .shiftTab: shiftTab()
+            
+        default: return
+            
+        }
+    }
 }
 
 // Convenient accessor for information about the current state of the playlist view
@@ -388,7 +408,7 @@ class PlaylistViewState {
     
     // The group type corresponding to the current playlist view type
     static var groupType: GroupType? {
-    
+        
         switch current {
             
         case .albums: return GroupType.album

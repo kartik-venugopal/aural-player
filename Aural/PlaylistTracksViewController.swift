@@ -277,6 +277,9 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         case .moveTracksDown:
             
             moveTracksDown()
+            
+        default: return
+            
         }
     }
 }
