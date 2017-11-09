@@ -7,7 +7,7 @@ import AVFoundation
 
 class TrackIO {
     
-    // Load duration and display metadata (artist/title/art)
+    // Load display metadata (artist/title/art and all grouping info)
     static func loadDisplayInfo(_ track: Track) {
         
         track.audioAsset = AVURLAsset(url: track.file, options: nil)
@@ -15,6 +15,7 @@ class TrackIO {
         MetadataReader.loadGroupingMetadata(track)
     }
     
+    // Load duration metadata
     static func loadDuration(_ track: Track) {
         MetadataReader.loadDurationMetadata(track)
     }
@@ -28,36 +29,42 @@ class TrackIO {
             return
         }
         
+        // Validate the audio track
         if let prepError = AudioUtils.validateTrack(track) {
             
+            // Note any error encountered
             lazyLoadInfo.preparationFailed(prepError)
             return
         }
         
-        if let playbackInfo = AudioUtils.getPlaybackInfo(track) {
+        // Track is valid, prepare it for playback
+        if AudioUtils.loadPlaybackInfo(track) {
             
-            track.playbackInfo = playbackInfo
             lazyLoadInfo.preparedForPlayback = true
             
         } else {
+            
+            // If track couldn't be prepared, mark it as not playable
             lazyLoadInfo.preparationFailed(TrackNotPlayableError(track.file))
         }
     }
     
     // Load detailed track info
-    static func loadDetailedTrackInfo(_ track: Track) {
+    static func loadDetailedInfo(_ track: Track) {
         
-        let lazyLoadInfo = track.lazyLoadingInfo
-        
-        if (lazyLoadInfo.detailedInfoLoaded) {
+        if (track.lazyLoadingInfo.detailedInfoLoaded) {
             return
         }
         
-        track.audioInfo = AudioUtils.getAudioInfo(track)
+        // Audio info
+        AudioUtils.loadAudioInfo(track)
+        
+        // Filesystem info
         track.fileSystemInfo.size = FileSystemUtils.sizeOfFile(path: track.file.path)
         
+        // ID3 / ITunes / other metadata
         MetadataReader.loadAllMetadata(track)
         
-        lazyLoadInfo.detailedInfoLoaded = true
+        track.lazyLoadingInfo.detailedInfoLoaded = true
     }
 }

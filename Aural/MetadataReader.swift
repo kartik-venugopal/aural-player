@@ -19,9 +19,9 @@ class MetadataReader {
         }
         
         let tlenItems = AVMetadataItem.metadataItems(from: track.audioAsset!.metadata, filteredByIdentifier: tlenID)
-        if (tlenItems.count > 0) {
+        if (!tlenItems.isEmpty) {
             
-            let tlenItem = tlenItems[0]
+            let tlenItem = tlenItems.first!
             if (!StringUtils.isStringEmpty(tlenItem.stringValue)) {
                 
                 if let durationMsecs = Double(tlenItem.stringValue!) {
@@ -38,9 +38,13 @@ class MetadataReader {
     // Loads the required display metadata (artist/title/art) for a track
     static func loadDisplayMetadata(_ track: Track) {
         
-        let title = loadMetadataForCommonKey(track, AVMetadataCommonKeyTitle)
-        let artist = loadMetadataForCommonKey(track, AVMetadataCommonKeyArtist)
-        let art = loadArtwork(track)
+        if (track.audioAsset == nil) {
+            track.audioAsset = AVURLAsset(url: track.file, options: nil)
+        }
+        
+        let title = getMetadataForCommonKey(track, AVMetadataCommonKeyTitle)
+        let artist = getMetadataForCommonKey(track, AVMetadataCommonKeyArtist)
+        let art = getArtwork(track)
         
         track.setDisplayMetadata(artist, title, art)
     }
@@ -99,74 +103,43 @@ class MetadataReader {
         }
     }
     
+    // Loads the required grouping metadata (artist/album/genre) for a track
     static func loadGroupingMetadata(_ track: Track) {
         
+        if (track.audioAsset == nil) {
+            track.audioAsset = AVURLAsset(url: track.file, options: nil)
+        }
+        
         track.groupingInfo.artist = track.displayInfo.artist
-        track.groupingInfo.album = loadMetadataForCommonKey(track, AVMetadataCommonKeyAlbumName)
-        track.groupingInfo.genre = loadMetadataForCommonKey(track, AVMetadataCommonKeyType)
-        
-        //        let diskNumber = track.metadata[AVMetadataID3MetadataKeyPartOfASet]?.value ?? track.metadata[AVMetadataiTunesMetadataKeyDiscNumber]?.value
-        //        let trackNumber = track.metadata[AVMetadataID3MetadataKeyTrackNumber]?.value ?? track.metadata[AVMetadataiTunesMetadataKeyTrackNumber]?.value
-        
-        // TODO: Clean up
-//        if let _disk = diskNumber {
-//            
-//            let disk = _disk.replacingOccurrences(of: " ", with: "")
-//            let numStr = disk.components(separatedBy: "/")[0]
-//            let num = Int(numStr)
-//            track.groupingInfo.diskNumber = num
-//        }
-//        
-//        if let _trackNum = trackNumber {
-//            
-//            let trackNum = _trackNum.replacingOccurrences(of: " ", with: "")
-//            let tns = trackNum.components(separatedBy: "/")[0]
-//            let num = Int(tns)
-//            track.groupingInfo.trackNumber = num
-//        }
-        
-//        track.groupingInfo.diskNumber = diskNumber ? Int(diskN)
-//        track.groupingInfo.trackNumber = trackNumber
+        track.groupingInfo.album = getMetadataForCommonKey(track, AVMetadataCommonKeyAlbumName)
+        track.groupingInfo.genre = getMetadataForCommonKey(track, AVMetadataCommonKeyType)
     }
     
-    private static func loadMetadataForCommonKey(_ track: Track, _ key: String) -> String? {
+    // Retrieves the common metadata entry for the given track, with the given metadata key, if there is one
+    private static func getMetadataForCommonKey(_ track: Track, _ key: String) -> String? {
         
         let id = AVMetadataItem.identifier(forKey: key, keySpace: AVMetadataKeySpaceCommon)!
         let items = AVMetadataItem.metadataItems(from: track.audioAsset!.commonMetadata, filteredByIdentifier: id)
         
-        // TODO: Make this a one-liner
-        if (items.count > 0) {
-            
-            let item = items[0]
-            let strVal = item.stringValue
-            return StringUtils.isStringEmpty(strVal) ? nil : strVal
-        }
-        
-        return nil
+        return (items.isEmpty || StringUtils.isStringEmpty(items.first!.stringValue)) ? nil : items.first!.stringValue
     }
     
-    static func loadArtwork(_ track: Track) -> NSImage? {
+    // Retrieves the metadata entry for the given track, with the given metadata key and key space, if there is one
+    private static func getMetadataForKey(_ track: Track, _ key: String, _ keySpace: String) -> String? {
+        
+        let id = AVMetadataItem.identifier(forKey: key, keySpace: keySpace)!
+        let items = AVMetadataItem.metadataItems(from: track.audioAsset!.metadata, filteredByIdentifier: id)
+        
+        return (items.isEmpty || StringUtils.isStringEmpty(items.first!.stringValue)) ? nil : items.first!.stringValue
+    }
+    
+    // Retrieves artwork for a given track, if available
+    private static func getArtwork(_ track: Track) -> NSImage? {
         
         let id = AVMetadataItem.identifier(forKey: AVMetadataCommonKeyArtwork, keySpace: AVMetadataKeySpaceCommon)!
         let items = AVMetadataItem.metadataItems(from: track.audioAsset!.commonMetadata, filteredByIdentifier: id)
         
-        return (items.isEmpty || items[0].value == nil) ? nil : NSImage(data: items[0].value as! Data)
-    }
-    
-    private static func loadMetadataForKey(_ track: Track, _ key: String, _ keySpace: String) -> String? {
-        
-        let id = AVMetadataItem.identifier(forKey: key, keySpace: keySpace)!
-        
-        let items = AVMetadataItem.metadataItems(from: track.audioAsset!.metadata, filteredByIdentifier: id)
-        
-        // TODO: Make this a one-liner
-        if (items.count > 0) {
-            
-            let item = items[0]
-            return item.stringValue
-        }
-        
-        return nil
+        return (items.isEmpty || items.first!.value == nil) ? nil : NSImage(data: items.first!.value as! Data)
     }
     
     // Computes a user-friendly key, given a format-specific key, if it has a recognized format (ID3/iTunes)

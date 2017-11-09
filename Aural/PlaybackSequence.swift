@@ -1,18 +1,23 @@
-/*
-    Concrete implementation of PlaybackSequenceProtocol
- */
-
 import Foundation
 
+/*
+    A linear playback sequence that is unaware of the scope (entire playlist or specific group) from which the sequence was created. The size of the sequence will equal the number of tracks in the playback scope, and the indexes will represent absolute indexes within the sequence, that do not necessarily correspond to playlist indexes.
+ 
+    Examples: 
+ 
+         - If the scope was "All tracks" and there were 5 tracks in the playlist, the sequence might look like [0, 1, 2, 3, 4] or if shuffle is selected, maybe [2, 4, 3, 0, 1]
+ 
+        - If the scope was "Artist Madonna" and there were 3 tracks in the Madonna artist group, the sequence might look like [0, 1, 2] or if shuffle is selected, maybe [2, 0, 1] ... regardless of how many total tracks there are in the entire playlist.
+ */
 class PlaybackSequence: PlaybackSequenceProtocol {
     
     private var repeatMode: RepeatMode = .off
     private var shuffleMode: ShuffleMode = .off
     
-    // Total size of playlist (number of tracks)
+    // Total size of sequence (number of tracks)
     private var tracksCount: Int = 0
     
-    // Cursor is the playlist index of the currently playing track (nil if no track is playing)
+    // Cursor is the absolute sequence index of the currently playing track (nil if no track is playing)
     private var cursor: Int? = nil
     
     // Contains a pre-computed shuffle sequence, when shuffleMode is .on
@@ -29,17 +34,18 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         return tracksCount
     }
     
-    // Resets the sequence with a new tracksCount
+    // Resets the sequence with a new tracksCount (i.e. size)
     func reset(tracksCount: Int) {
         self.tracksCount = tracksCount
         reset()
     }
     
+    // Invalidates the cursor
     func resetCursor() {
         cursor = nil
     }
     
-    // Resets the sequence with the first track in the sequence being the given track index
+    // Resets the sequence with the first element in the sequence being the given index
     func reset(firstTrackIndex: Int?) {
         
         // If shuffle is on, recompute the shuffle sequence
@@ -51,10 +57,11 @@ class PlaybackSequence: PlaybackSequenceProtocol {
             }
         }
         
+        // The given index is the new cursor (i.e. playing track sequence index)
         cursor = firstTrackIndex
     }
     
-    // Resets the sequence with the first track in the sequence being the given track index
+    // Resets the sequence with a new size and the first track in the sequence being the given track index
     func reset(tracksCount: Int, firstTrackIndex: Int?) {
         
         self.tracksCount = tracksCount
@@ -72,6 +79,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         cursor = firstTrackIndex
     }
     
+    // Resets the sequence with the same size (intended to be used to re-shuffle the tracks)
     private func reset() {
         
         // If shuffle is on, recompute the shuffle sequence
@@ -87,18 +95,18 @@ class PlaybackSequence: PlaybackSequenceProtocol {
             // Ensure that the first element of the new sequence is different from the last element of the previous sequence, so that no track is played twice in a row
             if (lastSequenceCount > 1 && lastSequenceLastElement != nil && tracksCount > 1) {
                 if (shuffleSequence.peekNext() == lastSequenceLastElement) {
-                    swapFirstTwoSequenceElements()
+                    swapFirstTwoShuffleSequenceElements()
                 }
             }
             
             // Make sure that the first track does not match the currently playing track
             if (tracksCount > 1 && shuffleSequence.peekNext() == cursor) {
-                swapFirstTwoSequenceElements()
+                swapFirstTwoShuffleSequenceElements()
             }
         }
     }
     
-    private func swapFirstTwoSequenceElements() {
+    private func swapFirstTwoShuffleSequenceElements() {
         swap(&shuffleSequence.sequence[0], &shuffleSequence.sequence[1])
     }
     
@@ -109,6 +117,8 @@ class PlaybackSequence: PlaybackSequenceProtocol {
     }
     
     func select(_ index: Int) {
+        
+        // When a specific index is selected, the sequence is reset
         cursor = index
         reset(firstTrackIndex: index)
     }
@@ -143,6 +153,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         
         self.repeatMode = repeatMode
         
+        // If repeating one track, cannot also shuffle
         if (repeatMode == .one && shuffleMode == .on) {
             shuffleMode = .off
             shuffleSequence.clear()

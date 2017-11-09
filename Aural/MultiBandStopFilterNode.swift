@@ -11,7 +11,7 @@ class MultiBandStopFilterNode: AVAudioUnitEQ {
     static let minBandwidth: Float = 0.05
     
     var bassBand: AVAudioUnitEQFilterParameters {
-        return bands[0]
+        return bands.first!
     }
     
     var midBand: AVAudioUnitEQFilterParameters {

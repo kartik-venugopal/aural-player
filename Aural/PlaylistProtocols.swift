@@ -5,13 +5,21 @@ import Foundation
  */
 protocol PlaylistAccessorProtocol {
     
-    // Retrieves all tracks
+    // Retrieves all tracks, in the same order as in the flat playlist
     func allTracks() -> [Track]
     
-    // Determines the index of a given track, within the flat playlist. Returns nil if the track doesn't exist within the playlist.
+    /*
+        Determines the index of a given track, within the flat playlist. Returns nil if the track doesn't exist within the playlist.
+     
+        NOTE - This function is only intended to be used by the flat playlist. The result is meaningless to a grouping/hierarchical playlist.
+    */
     func indexOfTrack(_ track: Track) -> Int?
     
-    // Returns the track at a given index. Returns nil if an invalid index is specified.
+    /*
+        Returns the track at a given index within the flat playlist. Returns nil if an invalid index is specified.
+     
+        NOTE - This function is only intended to be used by the flat playlist. The result is meaningless to a grouping/hierarchical playlist.
+     */
     func trackAtIndex(_ index: Int?) -> IndexedTrack?
     
     // Returns the size (i.e. total number of tracks) of the playlist
@@ -26,10 +34,10 @@ protocol PlaylistAccessorProtocol {
     // Searches the playlist, given certain query parameters, and returns all matching results. The playlistType argument indicates which playlist type the results are to be displayed within. The search results will contain track location information tailored to the specified playlist type.
     func search(_ searchQuery: SearchQuery, _ playlistType: PlaylistType) -> SearchResults
     
-    // Returns the group, of a specific type, at the given index.
+    // Returns the group, of a specific type, at the given index, within the corresponding grouping/hierarchical playlist.
     func groupAtIndex(_ type: GroupType, _ index: Int) -> Group
     
-    // Returns the total number of groups of a specific type, within the playlist.
+    // Returns the total number of groups of a specific type, within the corresponding grouping/hierarchical playlist.
     func numberOfGroups(_ type: GroupType) -> Int
     
     // Given a track and a specific group type, returns all grouping information, such as the parent group and the index of the track within that group.
@@ -194,10 +202,12 @@ enum PlaylistType: String {
     // Hierarchical playlist that groups tracks by their genre
     case genres
     
+    // Maps a PlaylistType to a corresponding GroupType
     func toGroupType() -> GroupType? {
         
         switch self {
             
+        // Group type is not applicable for the flat "Tracks" playlist
         case .tracks: return nil
             
         case .artists: return .artist
