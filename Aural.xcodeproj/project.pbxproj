@@ -87,6 +87,8 @@
 		3E850D541FB444BB0017CD02 /* PlaylistSortWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E850D531FB444BB0017CD02 /* PlaylistSortWindowController.swift */; };
 		3E850D571FB4461E0017CD02 /* PlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E850D561FB4461E0017CD02 /* PlaylistSort.xib */; };
 		3E850D591FB446940017CD02 /* PlaylistMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E850D581FB446940017CD02 /* PlaylistMenuController.swift */; };
+		3E850D5C1FB44DE70017CD02 /* PlaylistSearchWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E850D5B1FB44DE70017CD02 /* PlaylistSearchWindowController.swift */; };
+		3E850D5E1FB44DF30017CD02 /* PlaylistSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E850D5D1FB44DF30017CD02 /* PlaylistSearch.xib */; };
 		3E85F25A1EFA78D6007BE830 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E85F2591EFA78D6007BE830 /* AppDelegate.swift */; };
 		3E85F25C1EFA78D6007BE830 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E85F25B1EFA78D6007BE830 /* Assets.xcassets */; };
 		3E85F25F1EFA78D6007BE830 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E85F25D1EFA78D6007BE830 /* MainMenu.xib */; };
@@ -228,6 +230,8 @@
 		3E850D531FB444BB0017CD02 /* PlaylistSortWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistSortWindowController.swift; sourceTree = "<group>"; };
 		3E850D561FB4461E0017CD02 /* PlaylistSort.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistSort.xib; sourceTree = "<group>"; };
 		3E850D581FB446940017CD02 /* PlaylistMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistMenuController.swift; sourceTree = "<group>"; };
+		3E850D5B1FB44DE70017CD02 /* PlaylistSearchWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistSearchWindowController.swift; sourceTree = "<group>"; };
+		3E850D5D1FB44DF30017CD02 /* PlaylistSearch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistSearch.xib; sourceTree = "<group>"; };
 		3E85F2561EFA78D6007BE830 /* Aural.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aural.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E85F2591EFA78D6007BE830 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E85F25B1EFA78D6007BE830 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -367,10 +371,11 @@
 		3E5FA43F1EFFF039001669C5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3E850D5A1FB44DD30017CD02 /* PlaylistSearch */,
+				3E850D551FB444D20017CD02 /* PlaylistSort */,
 				3E850D511FB441800017CD02 /* WindowFactory.swift */,
 				3E850D4F1FB440840017CD02 /* ModalDialogDelegate.swift */,
 				3E850D4E1FB4405C0017CD02 /* Preferences */,
-				3E850D551FB444D20017CD02 /* PlaylistSort */,
 				3EF4F86A1F2079D700C45840 /* Playlist */,
 				3EF4F8691F2079B200C45840 /* DetailedTrackInfo */,
 				3EF4F86B1F2079F000C45840 /* Sliders */,
@@ -448,6 +453,15 @@
 				3E850D561FB4461E0017CD02 /* PlaylistSort.xib */,
 			);
 			name = PlaylistSort;
+			sourceTree = "<group>";
+		};
+		3E850D5A1FB44DD30017CD02 /* PlaylistSearch */ = {
+			isa = PBXGroup;
+			children = (
+				3E850D5B1FB44DE70017CD02 /* PlaylistSearchWindowController.swift */,
+				3E850D5D1FB44DF30017CD02 /* PlaylistSearch.xib */,
+			);
+			name = PlaylistSearch;
 			sourceTree = "<group>";
 		};
 		3E85F24D1EFA78D6007BE830 = {
@@ -740,6 +754,7 @@
 				3EAFE3C51FB40D0000B4A327 /* Preferences.xib in Resources */,
 				3EA5C7A31F458EB400556669 /* UserGuide.pdf in Resources */,
 				3E850D571FB4461E0017CD02 /* PlaylistSort.xib in Resources */,
+				3E850D5E1FB44DF30017CD02 /* PlaylistSearch.xib in Resources */,
 				3E821AEF1F953253006F8E97 /* playingArt.gif in Resources */,
 				3E2188AC1F0781970085BAB3 /* PopoverViewController.xib in Resources */,
 				3E85F25F1EFA78D6007BE830 /* MainMenu.xib in Resources */,
@@ -777,6 +792,7 @@
 				3EC947AF1F5DDEB100FDBE25 /* PlaylistProtocols.swift in Sources */,
 				3E1CF7EF1F5CBA9300613724 /* PlayerProtocol.swift in Sources */,
 				3E85F25A1EFA78D6007BE830 /* AppDelegate.swift in Sources */,
+				3E850D5C1FB44DE70017CD02 /* PlaylistSearchWindowController.swift in Sources */,
 				3E850D591FB446940017CD02 /* PlaylistMenuController.swift in Sources */,
 				3EB20B4B1EFF25EC008138A4 /* AppState.swift in Sources */,
 				3EFFE6BE1F0381FA003728BD /* EQPresets.swift in Sources */,

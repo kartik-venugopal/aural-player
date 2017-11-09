@@ -160,7 +160,7 @@ Gw
             </view>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                    <color key="value" white="0.0" alpha="0.90317315919999996" colorSpace="calibratedWhite"/>
+                    <color key="value" white="0.16069878472222221" alpha="0.90317315919999996" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="-671.5" y="193"/>
