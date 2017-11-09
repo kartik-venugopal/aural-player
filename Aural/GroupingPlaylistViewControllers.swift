@@ -384,6 +384,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         case .moveTracksDown:
             
             moveTracksDown()
+            
+        default: return
+            
         }
     }
 }

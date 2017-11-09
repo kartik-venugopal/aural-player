@@ -6,10 +6,12 @@ import Cocoa
 class WindowFactory {
     
     // Preferences dialog
-    private static var preferencesWindowController : PreferencesWindowController = PreferencesWindowController()
+    private static var preferencesWindowController: PreferencesWindowController = PreferencesWindowController()
     
     // Playlist search dialog
-    private static var playlistSearchWindowController : PlaylistSearchWindowController = PlaylistSearchWindowController()
+    private static var playlistSearchWindowController: PlaylistSearchWindowController = PlaylistSearchWindowController()
+    
+    private static var playlistWindowController: PlaylistWindowController = PlaylistWindowController()
     
     // Playlist sort dialog
     private static var playlistSortWindowController : PlaylistSortWindowController = PlaylistSortWindowController()
@@ -24,5 +26,9 @@ class WindowFactory {
     
     static func getPlaylistSortDialog() -> ModalDialogDelegate {
         return playlistSortWindowController
+    }
+    
+    static func getPlaylistWindow() -> NSWindow {
+        return playlistWindowController.window!
     }
 }

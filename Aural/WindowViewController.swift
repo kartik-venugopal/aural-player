@@ -13,7 +13,7 @@ class WindowViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var mainWindow: NSWindow!
     
     // Detachable/movable/resizable window that contains the playlist view. Child of the main window.
-    @IBOutlet weak var playlistWindow: NSWindow!
+    private var playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
     
     // Buttons to toggle the playlist/effects views
     @IBOutlet weak var btnToggleEffects: NSButton!
