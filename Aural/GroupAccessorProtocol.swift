@@ -1,5 +1,6 @@
 import Foundation
 
+// TODO: Can this be used to create a read-only version of Group objects ?
 protocol GroupAccessorProtocol {
     
     var type: GroupType {get}

@@ -24,7 +24,7 @@ class AudioUtils {
         }
         
         // Find out if track is playable
-        let assetTrack = assetTracks?[0]
+        let assetTrack = assetTracks?.first
         
         // TODO: What does isPlayable actually mean ?
         if (!(assetTrack?.isPlayable)!) {
@@ -40,8 +40,8 @@ class AudioUtils {
         return nil
     }
     
-    // Returns info necessary for playback of the given track
-    static func getPlaybackInfo(_ track: Track) -> PlaybackInfo? {
+    // Loads info necessary for playback of the given track. Returns whether or not the info was successfully loaded.
+    static func loadPlaybackInfo(_ track: Track) -> Bool {
         
         if let audioFile = AudioIO.createAudioFileForReading(track.file) {
         
@@ -60,24 +60,26 @@ class AudioUtils {
             playbackInfo.frames = Int64(playbackInfo.sampleRate! * track.duration)
             playbackInfo.numChannels = Int(playbackInfo.audioFile!.fileFormat.channelCount)
             
-            return playbackInfo
+            track.playbackInfo = playbackInfo
+            
+            return true
         }
         
-        return nil
+        return false
     }
     
-    // Returns detailed audio-specific info for the given track
-    static func getAudioInfo(_ track: Track) -> AudioInfo {
+    // Loads detailed audio-specific info for the given track
+    static func loadAudioInfo(_ track: Track) {
         
         let audioInfo = AudioInfo()
         
         let assetTracks = track.audioAsset!.tracks(withMediaType: AVMediaTypeAudio)
-        audioInfo.format = getFormat(assetTracks[0])
+        audioInfo.format = getFormat(assetTracks.first!)
         
         let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)
         audioInfo.bitRate = normalizeBitRate(Double(fileSize.sizeBytes) * 8 / (Double(track.duration) * Double(Size.KB)))
         
-        return audioInfo
+        track.audioInfo = audioInfo
     }
     
     // Normalizes a bit rate by rounding it to the nearest multiple of 32. For ex, a bit rate of 251.5 kbps is rounded to 256 kbps.
@@ -88,19 +90,20 @@ class AudioUtils {
     // Computes a readable format string for an audio track
     private static func getFormat(_ assetTrack: AVAssetTrack) -> String {
         
-        let desc = CMFormatDescriptionGetMediaSubType(assetTrack.formatDescriptions[0] as! CMFormatDescription)
-        var format = codeToString(desc)
-        format = format.trimmingCharacters(in: CharacterSet.init(charactersIn: "."))
-        return format
+        let description = CMFormatDescriptionGetMediaSubType(assetTrack.formatDescriptions.first as! CMFormatDescription)
+        return codeToString(description).trimmingCharacters(in: CharacterSet.init(charactersIn: "."))
     }
     
     // Converts a four character media type code to a readable string
     private static func codeToString(_ code: FourCharCode) -> String {
-        let n = Int(code)
-        var s: String = String (describing: UnicodeScalar((n >> 24) & 255)!)
-        s.append(String(describing: UnicodeScalar((n >> 16) & 255)!))
-        s.append(String(describing: UnicodeScalar((n >> 8) & 255)!))
-        s.append(String(describing: UnicodeScalar(n & 255)!))
-        return s.trimmingCharacters(in: CharacterSet.whitespaces)
+        
+        let numericCode = Int(code)
+        
+        var codeString: String = String (describing: UnicodeScalar((numericCode >> 24) & 255)!)
+        codeString.append(String(describing: UnicodeScalar((numericCode >> 16) & 255)!))
+        codeString.append(String(describing: UnicodeScalar((numericCode >> 8) & 255)!))
+        codeString.append(String(describing: UnicodeScalar(numericCode & 255)!))
+        
+        return codeString.trimmingCharacters(in: CharacterSet.whitespaces)
     }
 }

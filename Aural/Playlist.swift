@@ -1,7 +1,7 @@
 import Foundation
 
 /*
-    A facade providing unified access to the 4 underlying playlist types (Tracks, Artists, Albums, Genres). Smartly delegates operations to the underlying playlists and aggregates results from those operations.
+    A facade providing unified access to all underlying playlist types (flat and grouping/hierarchical). Smartly delegates operations to the underlying playlists and aggregates results from those operations.
  */
 class Playlist: PlaylistCRUDProtocol {
     
@@ -164,7 +164,7 @@ class Playlist: PlaylistCRUDProtocol {
         return state
     }
     
-    // ----------------------- FlatPlaylist functions ----------------------------
+    // MARK: Flat playlist functions
     
     func removeTracks(_ indexes: IndexSet) -> TrackRemovalResults {
         
@@ -202,7 +202,7 @@ class Playlist: PlaylistCRUDProtocol {
         return flatPlaylist.dropTracks(sourceIndexes, dropIndex, dropType)
     }
     
-    // ----------------------- GroupingPlaylist functions ----------------------------
+    // MARK: Grouping/hierarchical playlist functions
     
     func groupAtIndex(_ type: GroupType, _ index: Int) -> Group {
         return groupingPlaylists[type.toPlaylistType()]!.groupAtIndex(index)

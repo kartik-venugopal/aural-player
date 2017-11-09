@@ -1,21 +1,22 @@
 import Foundation
 
 /*
-    Contract for read/write operations on the playback sequence. The playback sequence determines the order in which playlist tracks will be selected for playback. 
+    Contract for read/write operations on the playback sequence. The playback sequence determines the order in which tracks will be selected for playback.
  
     This will depend on:
  
-    - the order of tracks in the playlist
+    - the order of tracks in the playlist from which the sequence was created (i.e. the playback scope)
     - the repeat and shuffle modes
  */
 protocol PlaybackSequenceProtocol {
     
-    /*  NOTE - "Subsequent track" is the track in the sequence that will be selected automatically by the app if playback of a track completes. It involves no user input.
+    /*
+        NOTE - "Subsequent track" is the track in the sequence that will be selected automatically by the app if playback of a track completes. It involves no user input.
     
         By contrast, "Next track" is the track in the sequence that will be selected if the user requests the next track in the sequence. This may or may not be the same as the "Subsequent track"
      */
     
-    // NOTE - Nil return values mean no applicable track
+    // NOTE - A non-nil value represents the index, within the sequence, of the track selected for playback. A nil return value means no applicable track.
    
     // Peeks at (without selecting for playback) the subsequent track in the sequence
     func peekSubsequent() -> Int?
@@ -53,9 +54,12 @@ protocol PlaybackSequenceProtocol {
     // Sets the shuffle mode to a specific value. Returns the new repeat and shuffle mode after performing the toggle operation.
     func setShuffleMode(_ shuffleMode: ShuffleMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
     
+    // Returns the current repeat and shuffle modes
     func getRepeatAndShuffleModes() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
-    
+ 
+    // Returns the size of the sequence (i.e. number of tracks)
     func size() -> Int
     
+    // Clears the sequence of all elements
     func clear()
 }

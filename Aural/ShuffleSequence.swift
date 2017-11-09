@@ -1,18 +1,18 @@
 /*
-    Encapsulates a pre-computed shuffle sequence to be used in conjunction with the playlist when shuffling tracks. Determines the order in which tracks will be shuffled.
+    Encapsulates a pre-computed shuffle sequence to be used to determines the order in which shuffled tracks will be played.
  */
 
 import Foundation
 
 class ShuffleSequence {
     
-    // Array of playlist track indexes that constitute the shuffle sequence. This array must always be of the same size as the playlist
+    // Array of sequence track indexes that constitute the shuffle sequence. This array must always be of the same size as the parent playback sequence
     var sequence: [Int]
     
-    // The index, within this sequence, of the currently playing track index. This is NOT a playlist index.
+    // The index, within this sequence, of the currently playing track index. This is NOT a track index. It is an index of an index.
     private var cursor: Int
     
-    // capacity = number of tracks in playlist
+    // capacity = number of tracks in sequence
     init(_ capacity: Int) {
         
         sequence = [Int]()
@@ -20,7 +20,7 @@ class ShuffleSequence {
         reset(capacity: capacity)
     }
     
-    // Shuffle the playlist elements
+    // Shuffle the sequence elements
     private func shuffle() {
         sequence.shuffle()
     }

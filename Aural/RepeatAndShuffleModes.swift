@@ -3,13 +3,13 @@ import Foundation
 // Enumeration of all possible playback repeat modes
 enum RepeatMode: String {
     
-    // Play all tracks once, in playlist order
+    // Play all tracks once, in sequence order
     case off
     
     // Repeat one track forever
     case one
     
-    // Repeat all tracks forever, in playlist order
+    // Repeat all tracks forever, in sequence order
     case all
 }
 

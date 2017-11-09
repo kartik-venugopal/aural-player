@@ -69,7 +69,7 @@ class Track: NSObject, GroupingPlaylistItem {
     
     // Loads metadata and audio/filesystem info for display in the "More Info" view
     func loadDetailedInfo() {
-        TrackIO.loadDetailedTrackInfo(self)
+        TrackIO.loadDetailedInfo(self)
     }
     
     // Prepares this track for playback
