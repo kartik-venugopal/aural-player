@@ -520,58 +520,38 @@ class AudioGraphViewController: NSViewController {
     }
     
     @IBAction func eqTabViewAction(_ sender: Any) {
-        
-        fxTabViewButtons!.forEach({$0.state = 0})
-        
-        eqTabViewButton.state = 1
-        fxTabView.selectTabViewItem(at: 0)
+        tabViewAction(eqTabViewButton, 0)
     }
     
     @IBAction func pitchTabViewAction(_ sender: Any) {
-        
-        fxTabViewButtons!.forEach({$0.state = 0})
-        
-        pitchTabViewButton.state = 1
-        fxTabView.selectTabViewItem(at: 1)
+        tabViewAction(pitchTabViewButton, 1)
     }
     
     @IBAction func timeTabViewAction(_ sender: Any) {
-        
-        fxTabViewButtons!.forEach({$0.state = 0})
-        
-        timeTabViewButton.state = 1
-        fxTabView.selectTabViewItem(at: 2)
+        tabViewAction(timeTabViewButton, 2)
     }
     
     @IBAction func reverbTabViewAction(_ sender: Any) {
-        
-        fxTabViewButtons!.forEach({$0.state = 0})
-        
-        reverbTabViewButton.state = 1
-        fxTabView.selectTabViewItem(at: 3)
+        tabViewAction(reverbTabViewButton, 3)
     }
     
     @IBAction func delayTabViewAction(_ sender: Any) {
-        
-        fxTabViewButtons!.forEach({$0.state = 0})
-        
-        delayTabViewButton.state = 1
-        fxTabView.selectTabViewItem(at: 4)
+        tabViewAction(delayTabViewButton, 4)
     }
     
     @IBAction func filterTabViewAction(_ sender: Any) {
-        
-        fxTabViewButtons!.forEach({$0.state = 0})
-        
-        filterTabViewButton.state = 1
-        fxTabView.selectTabViewItem(at: 5)
+        tabViewAction(filterTabViewButton, 5)
     }
     
     @IBAction func recorderTabViewAction(_ sender: Any) {
+        tabViewAction(recorderTabViewButton, 6)
+    }
+    
+    // Helper function to switch the tab group to a particular view
+    private func tabViewAction(_ selectedButton: NSButton, _ tabIndex: Int) {
         
         fxTabViewButtons!.forEach({$0.state = 0})
-        
-        recorderTabViewButton.state = 1
-        fxTabView.selectTabViewItem(at: 6)
+        selectedButton.state = 1
+        fxTabView.selectTabViewItem(at: tabIndex)
     }
 }

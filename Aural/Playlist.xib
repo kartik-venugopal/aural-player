@@ -98,6 +98,9 @@
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="maximizeAction:" target="-2" id="NgT-Bn-LnR"/>
+                        </connections>
                     </button>
                     <button toolTip="Maximize playlist vertically" translatesAutoresizingMaskIntoConstraints="NO" id="8C3-ek-u6k" userLabel="Maximize Vertical Button">
                         <rect key="frame" x="31" y="253" width="12" height="11"/>
@@ -109,6 +112,9 @@
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="maximizeVerticalAction:" target="-2" id="Wto-9K-dOd"/>
+                        </connections>
                     </button>
                     <button toolTip="Maximize playlist horizontally" translatesAutoresizingMaskIntoConstraints="NO" id="Aky-lm-R5Z" userLabel="Maximize Horizontal Button">
                         <rect key="frame" x="47" y="253" width="12" height="11"/>
@@ -120,6 +126,9 @@
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="maximizeHorizontalAction:" target="-2" id="I8J-um-eBd"/>
+                        </connections>
                     </button>
                     <box boxType="custom" borderType="line" cornerRadius="3" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="rbs-L2-HsW" userLabel="Tab Buttons Box">
                         <rect key="frame" x="128" y="245" width="224" height="22"/>
@@ -210,6 +219,9 @@
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="dockLeftAction:" target="-2" id="xwH-Bh-xqD"/>
+                        </connections>
                     </button>
                     <button toolTip="Dock playlist on the right" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OZu-cx-rp4" userLabel="Dock Right Button">
                         <rect key="frame" x="453" y="253" width="12" height="11"/>
@@ -221,6 +233,9 @@
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="dockRightAction:" target="-2" id="HZT-Lh-1Lv"/>
+                        </connections>
                     </button>
                     <button toolTip="Dock playlist on the bottom" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="o7l-0n-iUv" userLabel="Dock Bottom Button">
                         <rect key="frame" x="437" y="253" width="12" height="11"/>
@@ -232,6 +247,9 @@
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="dockBottomAction:" target="-2" id="e3W-hf-BFN"/>
+                        </connections>
                     </button>
                     <box boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4ZZ-7d-wdS" userLabel="Playlist Controls">
                         <rect key="frame" x="15" y="2" width="450" height="25"/>
@@ -574,7 +592,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="UAe-ZD-AfC">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="mB9-kS-S16" id="5K0-oY-MI4" userLabel="Playlist Artists View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
@@ -710,7 +728,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="Z9Q-VQ-Gxj">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="pe1-iT-lIJ" id="E1b-3I-Lef" userLabel="Playlist Albums View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
@@ -846,7 +864,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="1jW-cE-Hev">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="xZp-4h-2Va" id="xCD-hf-Vph" userLabel="Playlist Genres View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>

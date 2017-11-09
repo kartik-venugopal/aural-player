@@ -40,11 +40,24 @@ enum ActionType {
     case search
     
     case sort
-}
-
-enum MenuActionType {
     
-    case showPreferencesDialog
+    case scrollToTop
+    
+    case scrollToBottom
+    
+    // MARK: Playlist window actions
+    
+    case dockLeft
+    
+    case dockRight
+    
+    case dockBottom
+    
+    case maximize
+    
+    case maximizeHorizontal
+    
+    case maximizeVertical
 }
 
 struct PlaylistActionMessage: ActionMessage {
@@ -55,14 +68,5 @@ struct PlaylistActionMessage: ActionMessage {
     init(_ actionType: ActionType, _ playlistType: PlaylistType?) {
         self.actionType = actionType
         self.playlistType = playlistType
-    }
-}
-
-struct MenuActionMessage: ActionMessage {
-    
-    var actionType: ActionType
-    
-    init(_ actionType: ActionType) {
-        self.actionType = actionType
     }
 }

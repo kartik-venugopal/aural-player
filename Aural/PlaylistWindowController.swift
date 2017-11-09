@@ -53,7 +53,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.removeTrackRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .scrollToTop, .scrollToBottom], subscriber: self)
         
         // Set up key press handler to enable natural scrolling of the playlist view with arrow keys and expansion/collapsing of track groups.
         
@@ -119,6 +119,36 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         DispatchQueue.main.async {
             _ = UIUtils.showAlert(DialogsAndAlerts.tracksNotAddedAlertWithErrors(message.errors))
         }
+    }
+    
+    private func trackAdded(_ message: TrackAddedAsyncMessage) {
+        
+        DispatchQueue.main.async {
+            self.updatePlaylistSummary(message.progress)
+        }
+    }
+    
+    private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {
+        
+        DispatchQueue.main.async {
+            
+            // Track duration may have changed, affecting the total playlist duration
+            self.updatePlaylistSummary()
+            
+            // If this is the playing track, tell other views that info has been updated
+            let playingTrackIndex = self.playbackInfo.getPlayingTrack()?.index
+            if (playingTrackIndex == message.trackIndex) {
+                SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
+            }
+        }
+    }
+    
+    private func removeTrack(_ request: RemoveTrackRequest) {
+        
+        playlist.removeTracks([request.index])
+        
+        sequenceChanged()
+        updatePlaylistSummary()
     }
     
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
@@ -236,33 +266,29 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     }
     
     // Switches the tab group to the Tracks view
-    @IBAction func tracksTabViewAction(_ sender: Any) {
+    @IBAction func tracksTabViewAction(_ sender: AnyObject) {
         tabViewAction(btnTracksView, 0, .tracks)
     }
     
     // Switches the tab group to the Artists view
-    @IBAction func artistsTabViewAction(_ sender: Any) {
+    @IBAction func artistsTabViewAction(_ sender: AnyObject) {
         tabViewAction(btnArtistsView, 1, .artists)
     }
     
     // Switches the tab group to the Albums view
-    @IBAction func albumsTabViewAction(_ sender: Any) {
+    @IBAction func albumsTabViewAction(_ sender: AnyObject) {
         tabViewAction(btnAlbumsView, 2, .albums)
     }
     
     // Switches the tab group to the Genres view
-    @IBAction func genresTabViewAction(_ sender: Any) {
+    @IBAction func genresTabViewAction(_ sender: AnyObject) {
         tabViewAction(btnGenresView, 3, .genres)
     }
     
     // Helper function to switch the tab group to a particular view
     private func tabViewAction(_ selectedButton: NSButton, _ tabIndex: Int, _ playlistType: PlaylistType) {
         
-        tabGroupButtons!.forEach({
-            $0.state = 0
-            $0.needsDisplay = true
-        })
-        
+        tabGroupButtons!.forEach({$0.state = 0})
         selectedButton.state = 1
         tabGroup.selectTabViewItem(at: tabIndex)
         
@@ -287,43 +313,41 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
     }
     
-    @IBAction func searchAction(_ sender: Any) {
+    @IBAction func searchAction(_ sender: AnyObject) {
         playlistSearchDialog.showDialog()
     }
     
-    @IBAction func sortAction(_ sender: Any) {
+    @IBAction func sortAction(_ sender: AnyObject) {
         playlistSortDialog.showDialog()
     }
     
-    private func trackAdded(_ message: TrackAddedAsyncMessage) {
-        
-        DispatchQueue.main.async {
-            self.updatePlaylistSummary(message.progress)
-        }
+    // MARK: Playlist window actions
+    
+    @IBAction func dockLeftAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockLeft, nil))
     }
     
-    private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {
-        
-        DispatchQueue.main.async {
-            
-            // Track duration may have changed, affecting the total playlist duration
-            self.updatePlaylistSummary()
-            
-            // If this is the playing track, tell other views that info has been updated
-            let playingTrackIndex = self.playbackInfo.getPlayingTrack()?.index
-            if (playingTrackIndex == message.trackIndex) {
-                SyncMessenger.publishNotification(PlayingTrackInfoUpdatedNotification.instance)
-            }
-        }
+    @IBAction func dockBottomAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockBottom, nil))
     }
     
-    private func removeTrack(_ request: RemoveTrackRequest) {
-        
-        playlist.removeTracks([request.index])
-        
-        sequenceChanged()
-        updatePlaylistSummary()
+    @IBAction func dockRightAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockRight, nil))
     }
+    
+    @IBAction func maximizeAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.maximize, nil))
+    }
+    
+    @IBAction func maximizeVerticalAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.maximizeVertical, nil))
+    }
+    
+    @IBAction func maximizeHorizontalAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.maximizeHorizontal, nil))
+    }
+    
+    // MARK: Message handling
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
@@ -393,6 +417,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         case .sort: sortAction(self)
             
         case .shiftTab: shiftTab()
+            
+        case .scrollToTop: scrollToTopAction(self)
+            
+        case .scrollToBottom: scrollToBottomAction(self)
             
         default: return
             
