@@ -320,6 +320,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return modes
     }
     
+    func getRepeatAndShuffleModes() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode){
+        return playbackSequencer.getRepeatAndShuffleModes()
+    }
+    
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         if (message is PlaybackCompletedAsyncMessage) {

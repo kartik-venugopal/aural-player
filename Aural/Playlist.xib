@@ -592,7 +592,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="UAe-ZD-AfC">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="mB9-kS-S16" id="5K0-oY-MI4" userLabel="Playlist Artists View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
@@ -694,6 +694,7 @@
                                                                         </tableColumn>
                                                                     </tableColumns>
                                                                     <connections>
+                                                                        <action trigger="doubleAction" selector="playSelectedItemAction:" target="DjS-HJ-s7v" id="A7C-LE-OR2"/>
                                                                         <outlet property="dataSource" destination="8Zj-Ye-lop" id="ndW-kd-N4T"/>
                                                                         <outlet property="delegate" destination="8Zj-Ye-lop" id="66K-Ns-yXX"/>
                                                                     </connections>
@@ -728,7 +729,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="Z9Q-VQ-Gxj">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="pe1-iT-lIJ" id="E1b-3I-Lef" userLabel="Playlist Albums View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
@@ -830,6 +831,7 @@
                                                                         </tableColumn>
                                                                     </tableColumns>
                                                                     <connections>
+                                                                        <action trigger="doubleAction" selector="playSelectedItemAction:" target="kto-DU-wJC" id="SbT-Xd-BBc"/>
                                                                         <outlet property="dataSource" destination="kis-Cx-PlJ" id="K23-KI-f8Z"/>
                                                                         <outlet property="delegate" destination="kis-Cx-PlJ" id="jde-Tg-Qtb"/>
                                                                     </connections>
@@ -864,7 +866,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="1jW-cE-Hev">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="xZp-4h-2Va" id="xCD-hf-Vph" userLabel="Playlist Genres View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
@@ -966,6 +968,7 @@
                                                                         </tableColumn>
                                                                     </tableColumns>
                                                                     <connections>
+                                                                        <action trigger="doubleAction" selector="playSelectedItemAction:" target="m19-kG-Xd8" id="R91-Nd-cQy"/>
                                                                         <outlet property="dataSource" destination="f1w-LJ-ulv" id="OTu-9p-VUf"/>
                                                                         <outlet property="delegate" destination="f1w-LJ-ulv" id="0OH-hi-5wM"/>
                                                                     </connections>

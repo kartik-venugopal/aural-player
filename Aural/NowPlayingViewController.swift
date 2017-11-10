@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber {
+class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
     
     // Fields that display playing track info
     @IBOutlet weak var lblTrackArtist: NSTextField!
@@ -24,13 +24,13 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
     // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
     @IBOutlet weak var seekSlider: NSSlider!
     
-    // Button and menu item to display more details about the playing track
+    // Button to display more details about the playing track
     @IBOutlet weak var btnMoreInfo: NSButton!
-    @IBOutlet weak var moreInfoMenuItem: NSMenuItem!
+//    @IBOutlet weak var moreInfoMenuItem: NSMenuItem!
     
-    // Button and menu item to show the currently playing track within the playlist
+    // Button to show the currently playing track within the playlist
     @IBOutlet weak var btnShowPlayingTrackInPlaylist: NSButton!
-    @IBOutlet weak var showInPlaylistMenuItem: NSMenuItem!
+//    @IBOutlet weak var showInPlaylistMenuItem: NSMenuItem!
     
     // Delegate that retrieves information about the player and the currently playing track
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
@@ -60,6 +60,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
         AsyncMessenger.subscribe([.tracksRemoved], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
+        
+        SyncMessenger.subscribe(actionTypes: [.moreInfo], subscriber: self)
     }
     
     @IBAction func moreInfoAction(_ sender: AnyObject) {
@@ -74,6 +76,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
             
             popoverView.toggle()
         }
+    }
+    
+    @IBAction func showPlayingTrackAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.showPlayingTrack, PlaylistViewState.current))
     }
     
     private func showNowPlayingInfo(_ track: Track) {
@@ -188,11 +194,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
     // When the playing track changes (or there is none), certain functions may or may not be available, so their corresponding UI controls need to be shown/enabled or hidden/disabled.
     private func togglePlayingTrackButtons(_ show: Bool) {
         
-        btnMoreInfo.isHidden = !show
-        moreInfoMenuItem.isEnabled = show
-        
-        btnShowPlayingTrackInPlaylist.isHidden = !show
-        showInPlaylistMenuItem.isEnabled = show
+        [btnMoreInfo, btnShowPlayingTrackInPlaylist].forEach({$0.isHidden = !show})
     }
     
     private func setSeekTimerState(_ timerOn: Bool) {
@@ -392,6 +394,17 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, AsyncMessag
             
         default: return
         
+        }
+    }
+    
+    func consumeMessage(_ message: ActionMessage) {
+        
+        switch message.actionType {
+            
+        case .moreInfo: moreInfoAction(self)
+            
+        default: return
+            
         }
     }
 }

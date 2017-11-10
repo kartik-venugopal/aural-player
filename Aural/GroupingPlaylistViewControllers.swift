@@ -26,10 +26,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     override func viewDidLoad() {
         
-        // Enable playback by double clicking
-        playlistView.doubleAction = #selector(self.playSelectedItemAction(_:))
-        playlistView.target = self
-        
         // Register self as a subscriber to various message notifications
         AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded], subscriber: self, dispatchQueue: DispatchQueue.main)
         
