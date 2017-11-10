@@ -1,5 +1,8 @@
 import Cocoa
 
+/*
+    Provides actions for the Sound menu
+ */
 class SoundMenuController: NSObject {
     
     @IBAction func panLeftAction(_ sender: Any) {
