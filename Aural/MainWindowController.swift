@@ -1,27 +1,23 @@
-/*
-    View controller for all app windows - main window and playlist window. Performs any and all display (or hiding), positioning, alignment, resizing, etc. of the windows and their constituent views.
- */
-
 import Cocoa
+
+/*
+    Window controller for the main window, but also controls the playlist window. Performs any and all display (or hiding), positioning, alignment, resizing, etc. of both the main window and playlist window.
+ */
 
 // TODO: What to do if the playlist window moves off-screen ??? Should it always be resized/moved so it is completely on-screen ???
 
 // TODO: Cleanup !
-class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSubscriber {
+class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageSubscriber {
     
     // Main application window. Contains the Now Playing info box, player controls, and effects panel. Acts as a parent for the playlist window. Not manually resizable. Changes size when toggling playlist/effects views.
-    @IBOutlet weak var mainWindow: NSWindow!
+    private var mainWindow: NSWindow!
     
     // Detachable/movable/resizable window that contains the playlist view. Child of the main window.
-    private var playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
+    private let playlistWindow: NSWindow = WindowManager.getPlaylistWindow()
     
     // Buttons to toggle the playlist/effects views
     @IBOutlet weak var btnToggleEffects: NSButton!
     @IBOutlet weak var btnTogglePlaylist: NSButton!
-    
-    // Menu items to toggle the playlist and effects views
-    @IBOutlet weak var viewPlaylistMenuItem: NSMenuItem!
-    @IBOutlet weak var viewEffectsMenuItem: NSMenuItem!
     
     // The box that encloses the effects panel
     @IBOutlet weak var fxBox: NSBox!
@@ -48,8 +44,13 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
         return NSScreen.main()!.frame.height
     }()
     
-    override func viewDidLoad() {
+    convenience init() {
+        self.init(windowNibName: "MainWindow")
+    }
+    
+    override func windowDidLoad() {
         
+        self.mainWindow = self.window!
         WindowState.window = self.mainWindow
         
         let appState = ObjectGraph.getUIAppState()
@@ -91,7 +92,7 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
         mainWindow.makeKeyAndOrderFront(self)
         playlistWindow.delegate = self
         
-        SyncMessenger.subscribe(actionTypes: [.dockLeft, .dockRight, .dockBottom, .maximize, .maximizeHorizontal, .maximizeVertical], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.dockLeft, .dockRight, .dockBottom, .maximize, .maximizeHorizontal, .maximizeVertical, .togglePlaylist, .toggleEffects], subscriber: self)
     }
     
     private func positionWindowOnStartup(_ relativeLoc: WindowLocations, _ playlistShown: Bool) {
@@ -101,7 +102,7 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
         
         // If the playlist is shown, the total height/width will be affected by the playlist window
         if (playlistShown) {
-        
+            
             switch playlistDockState {
                 
             case .bottom: height += playlistWindow.height
@@ -152,10 +153,6 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
         togglePlaylist()
     }
     
-    @IBAction func dockPlaylistRightAction(_ sender: AnyObject) {
-        dockPlaylistRight()
-    }
-    
     // The "resize" argument indicates whether or not the playlist needs to be resized. This is not necessary when simply toggling the playlist view, which only needs to restore its position on-screen, without changing its size.
     private func dockPlaylistRight(_ resize: Bool = true) {
         
@@ -201,10 +198,6 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
         
         // Update the flag to indicate that an automated move/resize operation is no longer taking place
         automatedPlaylistMoveOrResize = false
-    }
-    
-    @IBAction func dockPlaylistLeftAction(_ sender: AnyObject) {
-        dockPlaylistLeft()
     }
     
     // The "resize" argument indicates whether or not the playlist needs to be resized. This is not necessary when simply toggling the playlist view, which only needs to restore its position on-screen, without changing its size.
@@ -255,10 +248,6 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
         
         // Update the flag to indicate that an automated move/resize operation is no longer taking place
         automatedPlaylistMoveOrResize = false
-    }
-    
-    @IBAction func dockPlaylistBottomAction(_ sender: AnyObject) {
-        dockPlaylistBottom()
     }
     
     private func dockPlaylistBottom(_ resize: Bool = true) {
@@ -331,20 +320,16 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
         automatedPlaylistMoveOrResize = false
     }
     
-    @IBAction func maximizePlaylistAction(_ sender: AnyObject) {
-        maximizePlaylist()
-    }
-    
-    @IBAction func maximizePlaylistHorizontalAction(_ sender: AnyObject) {
+    private func maximizePlaylistHorizontal() {
         maximizePlaylist(true, false)
     }
     
-    @IBAction func maximizePlaylistVerticalAction(_ sender: AnyObject) {
+    private func maximizePlaylistVertical() {
         maximizePlaylist(false, true)
     }
     
     private func maximizePlaylist(_ horizontal: Bool = true, _ vertical: Bool = true) {
-    
+        
         // Mark the flag to indicate that an automated move/resize operation is now taking place
         automatedPlaylistMoveOrResize = true
         
@@ -358,7 +343,7 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
         // Calculate new position and size of playlist window, in relation to the main window, depending on current dock state
         
         switch playlistDockState {
-        
+            
         case .bottom:
             
             playlistWidth = screenWidth
@@ -436,7 +421,7 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
         }
         
         if (horizontal && vertical) {
-        
+            
             playlistFrame.origin = NSPoint(x: playlistX, y: playlistY)
             playlistFrame.size = NSMakeSize(playlistWidth, playlistHeight)
             
@@ -459,7 +444,7 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
         automatedPlaylistMoveOrResize = false
     }
     
-    @IBAction func toggleEffectsAction(_ sender: AnyObject) {
+    private func toggleEffects() {
         toggleEffects(true)
     }
     
@@ -482,7 +467,6 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
         playlistWindow.setIsVisible(true)
         btnTogglePlaylist.state = 1
         btnTogglePlaylist.image = Images.imgPlaylistOn
-        viewPlaylistMenuItem.state = 1
         WindowState.showingPlaylist = true
         
         if (dock) {
@@ -508,7 +492,7 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
     private func repositionPlaylistWithOffset() {
         
         if (playlistWindowOffset != nil) {
-        
+            
             // Mark the flag to indicate that an automated move/resize operation is now taking place
             automatedPlaylistMoveOrResize = true
             
@@ -548,7 +532,6 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
         playlistWindow.setIsVisible(false)
         btnTogglePlaylist.state = 0
         btnTogglePlaylist.image = Images.imgPlaylistOff
-        viewPlaylistMenuItem.state = 0
         WindowState.showingPlaylist = false
     }
     
@@ -562,7 +545,6 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
             fxBox.isHidden = false
             btnToggleEffects.state = 1
             btnToggleEffects.image = Images.imgEffectsOn
-            viewEffectsMenuItem.state = 1
             WindowState.showingEffects = true
             
         } else {
@@ -573,7 +555,6 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
             resizeMainWindow(playlistShown: playlistWindow.isVisible && playlistDockState == .bottom, effectsShown: false, animate)
             btnToggleEffects.state = 0
             btnToggleEffects.image = Images.imgEffectsOff
-            viewEffectsMenuItem.state = 0
             WindowState.showingEffects = false
         }
         
@@ -583,7 +564,7 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
         }
     }
     
-    /* 
+    /*
         Called when toggling the playlist/effects views and/or docking the playlist window. Resizes the main window depending on which views are to be shown (i.e. either displayed on the main window or attached to it).
      
         The "playlistShown" parameter will be true only when the playlist window has been docked at the bottom of the main window, and false otherwise.
@@ -629,17 +610,21 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
         
         switch message.actionType {
             
-        case .dockLeft: dockPlaylistLeftAction(self)
+        case .dockLeft: dockPlaylistLeft()
             
-        case .dockRight: dockPlaylistRightAction(self)
+        case .dockRight: dockPlaylistRight()
             
-        case .dockBottom: dockPlaylistBottomAction(self)
+        case .dockBottom: dockPlaylistBottom()
             
-        case .maximize: maximizePlaylistAction(self)
+        case .maximize: maximizePlaylist()
             
-        case .maximizeHorizontal: maximizePlaylistHorizontalAction(self)
+        case .maximizeHorizontal: maximizePlaylistHorizontal()
             
-        case .maximizeVertical: maximizePlaylistVerticalAction(self)
+        case .maximizeVertical: maximizePlaylistVertical()
+            
+        case .togglePlaylist: togglePlaylist()
+            
+        case .toggleEffects: toggleEffects()
             
         default: return
             
@@ -649,7 +634,7 @@ class WindowViewController: NSViewController, NSWindowDelegate, ActionMessageSub
     // MARK: Playlist Window Delegate functions
     
     /*
-        When the playlist window is moved manually by the user, it may be moved such that it is no longer docked (i.e. positioned adjacent) to the main window. This method checks the position of the playlist window after the resize operation, invalidates the playlist window's dock state if necessary, and adds a thin bottom edge to the main window (for aesthetics) if the playlist is no longer docked.
+     When the playlist window is moved manually by the user, it may be moved such that it is no longer docked (i.e. positioned adjacent) to the main window. This method checks the position of the playlist window after the resize operation, invalidates the playlist window's dock state if necessary, and adds a thin bottom edge to the main window (for aesthetics) if the playlist is no longer docked.
      */
     func windowDidMove(_ notification: Notification) {
         
@@ -782,7 +767,7 @@ extension NSWindow {
 }
 
 /*
-    Responds to main window events, and uses the notifications to trigger actions to optimize app performance and resource usage.
+ Responds to main window events, and uses the notifications to trigger actions to optimize app performance and resource usage.
  */
 class MainWindowDelegate: NSObject, NSWindowDelegate {
     

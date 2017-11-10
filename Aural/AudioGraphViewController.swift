@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class AudioGraphViewController: NSViewController {
+class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     
     // Volume/pan controls
     @IBOutlet weak var btnVolume: NSButton!
@@ -103,6 +103,8 @@ class AudioGraphViewController: NSViewController {
         initDelay(appState)
         initFilter(appState)
         initTabGroup()
+        
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight], subscriber: self)
     }
     
     private func initVolumeAndPan(_ appState: UIAppState) {
@@ -225,17 +227,17 @@ class AudioGraphViewController: NSViewController {
         showAndAutoHideVolumeLabel()
     }
     
-    @IBAction func muteUnmuteAction(_ sender: AnyObject) {
+    private func muteOrUnmute() {
         setVolumeImage(graph.toggleMute())
     }
     
-    @IBAction func decreaseVolumeAction(_ sender: Any) {
+    private func decreaseVolume() {
         volumeSlider.floatValue = graph.decreaseVolume()
         setVolumeImage(graph.isMuted())
         showAndAutoHideVolumeLabel()
     }
     
-    @IBAction func increaseVolumeAction(_ sender: Any) {
+    private func increaseVolume() {
         volumeSlider.floatValue = graph.increaseVolume()
         setVolumeImage(graph.isMuted())
         showAndAutoHideVolumeLabel()
@@ -246,14 +248,15 @@ class AudioGraphViewController: NSViewController {
         if (muted) {
             btnVolume.image = Images.imgMute
         } else {
-            let vol = graph.getVolume()
+            
+            let volume = graph.getVolume()
             
             // Zero / Low / Medium / High (different images)
-            if (vol > 200/3) {
+            if (volume > 200/3) {
                 btnVolume.image = Images.imgVolumeHigh
-            } else if (vol > 100/3) {
+            } else if (volume > 100/3) {
                 btnVolume.image = Images.imgVolumeMedium
-            } else if (vol > 0) {
+            } else if (volume > 0) {
                 btnVolume.image = Images.imgVolumeLow
             } else {
                 btnVolume.image = Images.imgVolumeZero
@@ -283,12 +286,12 @@ class AudioGraphViewController: NSViewController {
         showAndAutoHidePanLabel()
     }
     
-    @IBAction func panLeftAction(_ sender: Any) {
+    private func panLeft() {
         panSlider.floatValue = graph.panLeft()
         showAndAutoHidePanLabel()
     }
     
-    @IBAction func panRightAction(_ sender: Any) {
+    private func panRight() {
         panSlider.floatValue = graph.panRight()
         showAndAutoHidePanLabel()
     }
@@ -553,5 +556,26 @@ class AudioGraphViewController: NSViewController {
         fxTabViewButtons!.forEach({$0.state = 0})
         selectedButton.state = 1
         fxTabView.selectTabViewItem(at: tabIndex)
+    }
+    
+    // MARK: Message handling
+    
+    func consumeMessage(_ message: ActionMessage) {
+        
+        switch message.actionType {
+            
+        case .muteOrUnmute: muteOrUnmute()
+            
+        case .decreaseVolume: decreaseVolume()
+            
+        case .increaseVolume: increaseVolume()
+            
+        case .panLeft: panLeft()
+            
+        case .panRight: panRight()
+            
+        default: return
+            
+        }
     }
 }

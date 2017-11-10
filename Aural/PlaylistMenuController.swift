@@ -43,10 +43,6 @@ class PlaylistMenuController: NSObject {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.shiftTab, nil))
     }
     
-    @IBAction func showPlayingTrackAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.showPlayingTrack, PlaylistViewState.current))
-    }
-    
     @IBAction func playSelectedItemAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.playSelectedItem, PlaylistViewState.current))
     }

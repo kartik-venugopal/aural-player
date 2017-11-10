@@ -1,10 +1,9 @@
 import Cocoa
 
+/*
+    Window controller for the playlist window.
+ */
 class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber {
-    
-    convenience init() {
-        self.init(windowNibName: "Playlist")
-    }
     
     // The 4 different playlist views
     @IBOutlet weak var tracksView: NSTableView!
@@ -31,16 +30,20 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
     
     // Search dialog
-    private lazy var playlistSearchDialog: ModalDialogDelegate = WindowFactory.getPlaylistSearchDialog()
+    private lazy var playlistSearchDialog: ModalDialogDelegate = WindowManager.getPlaylistSearchDialog()
     
     // Sort dialog
-    private lazy var playlistSortDialog: ModalDialogDelegate = WindowFactory.getPlaylistSortDialog()
+    private lazy var playlistSortDialog: ModalDialogDelegate = WindowManager.getPlaylistSortDialog()
     
     // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    
+    convenience init() {
+        self.init(windowNibName: "Playlist")
+    }
     
     override func windowDidLoad() {
         

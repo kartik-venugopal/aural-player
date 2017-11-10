@@ -3,7 +3,7 @@
  */
 import Cocoa
 
-class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber {
+class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
     
     // Playback control fields
     
@@ -13,20 +13,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     // Toggle buttons (their images change)
     @IBOutlet weak var btnShuffle: NSButton!
     @IBOutlet weak var btnRepeat: NSButton!
-    
-    @IBOutlet weak var repeatOffMainMenuItem: NSMenuItem!
-    @IBOutlet weak var repeatOneMainMenuItem: NSMenuItem!
-    @IBOutlet weak var repeatAllMainMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var shuffleOffMainMenuItem: NSMenuItem!
-    @IBOutlet weak var shuffleOnMainMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var repeatOffDockMenuItem: NSMenuItem!
-    @IBOutlet weak var repeatOneDockMenuItem: NSMenuItem!
-    @IBOutlet weak var repeatAllDockMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var shuffleOffDockMenuItem: NSMenuItem!
-    @IBOutlet weak var shuffleOnDockMenuItem: NSMenuItem!
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
@@ -40,6 +26,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         AsyncMessenger.subscribe([.trackNotPlayed,.trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest], subscriber: self)
+        
+        SyncMessenger.subscribe(actionTypes: [.playOrPause, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -112,31 +100,31 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
-    @IBAction func repeatOffAction(_ sender: AnyObject) {
+    private func repeatOff() {
         
         let modes = player.setRepeatMode(.off)
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
-    @IBAction func repeatOneAction(_ sender: AnyObject) {
+    private func repeatOne() {
         
         let modes = player.setRepeatMode(.one)
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
-    @IBAction func repeatAllAction(_ sender: AnyObject) {
+    private func repeatAll() {
         
         let modes = player.setRepeatMode(.all)
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
-    @IBAction func shuffleOffAction(_ sender: AnyObject) {
+    private func shuffleOff() {
         
         let modes = player.setShuffleMode(.off)
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
-    @IBAction func shuffleOnAction(_ sender: AnyObject) {
+    private func shuffleOn() {
         
         let modes = player.setShuffleMode(.on)
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
@@ -144,42 +132,21 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
     
     private func updateRepeatAndShuffleControls(_ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
         
-        switch shuffleMode {
-            
-        case .off:
-            
-            btnShuffle.image = Images.imgShuffleOff
-            [shuffleOffMainMenuItem, shuffleOffDockMenuItem].forEach({$0?.state = 1})
-            [shuffleOnMainMenuItem, shuffleOnDockMenuItem].forEach({$0?.state = 0})
-            
-        case .on:
-            
-            btnShuffle.image = Images.imgShuffleOn
-            [shuffleOffMainMenuItem, shuffleOffDockMenuItem].forEach({$0?.state = 0})
-            [shuffleOnMainMenuItem, shuffleOnDockMenuItem].forEach({$0?.state = 1})
-            
-        }
+        btnShuffle.image = shuffleMode == .off ? Images.imgShuffleOff : Images.imgShuffleOn
         
         switch repeatMode {
             
         case .off:
             
             btnRepeat.image = Images.imgRepeatOff
-            [repeatOffMainMenuItem, repeatOffDockMenuItem].forEach({$0.state = 1})
-            [repeatOneMainMenuItem, repeatOneDockMenuItem, repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0?.state = 0})
             
         case .one:
             
             btnRepeat.image = Images.imgRepeatOne
-            [repeatOneMainMenuItem, repeatOneDockMenuItem].forEach({$0.state = 1})
-            [repeatOffMainMenuItem, repeatOffDockMenuItem, repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0?.state = 0})
-            
+
         case .all:
             
             btnRepeat.image = Images.imgRepeatAll
-            [repeatAllMainMenuItem, repeatAllDockMenuItem].forEach({$0.state = 1})
-            [repeatOneMainMenuItem, repeatOneDockMenuItem, repeatOffMainMenuItem, repeatOffDockMenuItem].forEach({$0?.state = 0})
-            
         }
     }
     
@@ -334,6 +301,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         }
     }
     
+    // MARK: Message handling
+    
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {
@@ -369,5 +338,34 @@ class PlaybackViewController: NSViewController, MessageSubscriber, AsyncMessageS
         
         // This class does not return any meaningful responses
         return EmptyResponse.instance
+    }
+    
+    func consumeMessage(_ message: ActionMessage) {
+        
+        switch message.actionType {
+            
+        case .playOrPause: playPauseAction(self)
+            
+        case .previousTrack: previousTrackAction(self)
+            
+        case .nextTrack: nextTrackAction(self)
+            
+        case .seekBackward: seekBackwardAction(self)
+            
+        case .seekForward: seekForwardAction(self)
+            
+        case .repeatOff: repeatOff()
+            
+        case .repeatOne: repeatOne()
+            
+        case .repeatAll: repeatAll()
+            
+        case .shuffleOff: shuffleOff()
+            
+        case .shuffleOn: shuffleOn()
+            
+        default: return
+            
+        }
     }
 }

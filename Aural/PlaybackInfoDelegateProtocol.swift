@@ -18,4 +18,7 @@ protocol PlaybackInfoDelegateProtocol {
     
     // Returns grouping info for the playing track, for a specific group type
     func getPlayingTrackGroupInfo(_ groupType: GroupType) -> GroupedTrack?
+    
+    // Returns the current repeat and shuffle modes
+    func getRepeatAndShuffleModes() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
 }

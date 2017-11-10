@@ -58,6 +58,48 @@ enum ActionType {
     case maximizeHorizontal
     
     case maximizeVertical
+    
+    // MARK: Playback actions
+    
+    case playOrPause
+    
+    case previousTrack
+    
+    case nextTrack
+    
+    case seekBackward
+    
+    case seekForward
+    
+    case repeatOff
+    
+    case repeatOne
+    
+    case repeatAll
+    
+    case shuffleOff
+    
+    case shuffleOn
+    
+    case moreInfo
+    
+    // MARK: Audio graph actions
+    
+    case muteOrUnmute
+    
+    case increaseVolume
+    
+    case decreaseVolume
+    
+    case panLeft
+    
+    case panRight
+    
+    // MARK: View actions
+    
+    case togglePlaylist
+    
+    case toggleEffects
 }
 
 struct PlaylistActionMessage: ActionMessage {
@@ -68,5 +110,32 @@ struct PlaylistActionMessage: ActionMessage {
     init(_ actionType: ActionType, _ playlistType: PlaylistType?) {
         self.actionType = actionType
         self.playlistType = playlistType
+    }
+}
+
+struct PlaybackActionMessage: ActionMessage {
+    
+    var actionType: ActionType
+    
+    init(_ actionType: ActionType) {
+        self.actionType = actionType
+    }
+}
+
+struct AudioGraphActionMessage: ActionMessage {
+    
+    var actionType: ActionType
+    
+    init(_ actionType: ActionType) {
+        self.actionType = actionType
+    }
+}
+
+struct ViewActionMessage: ActionMessage {
+    
+    var actionType: ActionType
+    
+    init(_ actionType: ActionType) {
+        self.actionType = actionType
     }
 }
