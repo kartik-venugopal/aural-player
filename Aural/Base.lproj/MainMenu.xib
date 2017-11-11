@@ -167,6 +167,11 @@ CQ
                                     <action selector="playOrPauseAction:" target="IvK-xG-TCa" id="RJp-Hs-lxk"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title=" Replay current track" image="Replay" keyEquivalent="r" id="aLr-jT-ZjJ" userLabel="Replay current track">
+                                <connections>
+                                    <action selector="replayTrackAction:" target="IvK-xG-TCa" id="Cze-vX-d1I"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title=" Previous track" image="PreviousTrack-Small" keyEquivalent="" id="yq3-HU-6rh">
                                 <connections>
                                     <action selector="previousTrackAction:" target="IvK-xG-TCa" id="D8O-D4-jyH"/>
@@ -509,6 +514,7 @@ CQ
         <image name="RepeatAll-Small" width="15" height="15"/>
         <image name="RepeatMode-Small" width="15" height="15"/>
         <image name="RepeatOne-Small" width="15" height="15"/>
+        <image name="Replay" width="10.5" height="10.5"/>
         <image name="Save-Small" width="14" height="14"/>
         <image name="ScrollToBottom-Small" width="13" height="13"/>
         <image name="ScrollToTop-Small" width="13" height="13"/>

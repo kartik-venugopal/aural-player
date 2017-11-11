@@ -75,7 +75,7 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="109" y="132" width="480" height="277"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
-            <value key="minSize" type="size" width="480" height="162"/>
+            <value key="minSize" type="size" width="480" height="180"/>
             <view key="contentView" wantsLayer="YES" id="eVi-5y-Ide">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -592,7 +592,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="UAe-ZD-AfC">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="mB9-kS-S16" id="5K0-oY-MI4" userLabel="Playlist Artists View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
@@ -729,7 +729,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="Z9Q-VQ-Gxj">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="pe1-iT-lIJ" id="E1b-3I-Lef" userLabel="Playlist Albums View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
@@ -866,7 +866,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="1jW-cE-Hev">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="xZp-4h-2Va" id="xCD-hf-Vph" userLabel="Playlist Genres View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>

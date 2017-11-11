@@ -63,6 +63,8 @@ enum ActionType {
     
     case playOrPause
     
+    case replayTrack
+    
     case previousTrack
     
     case nextTrack

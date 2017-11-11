@@ -23,6 +23,10 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.playOrPause))
     }
     
+    @IBAction func replayTrackAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaybackActionMessage(.replayTrack))
+    }
+    
     @IBAction func previousTrackAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.previousTrack))
     }
