@@ -44,7 +44,7 @@ struct UIConstants {
     // Window width (never changes)
     static let windowWidth: CGFloat = 480
     static let minPlaylistWidth: CGFloat = 480
-    static let minPlaylistHeight: CGFloat = 150
+    static let minPlaylistHeight: CGFloat = 180
  
     // Window heights for different views
     static let windowHeight_compact: CGFloat = 230

@@ -27,7 +27,99 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.playOrPause, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.playOrPause, .replayTrack, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+    }
+    
+    // Play / Pause / Resume
+    @IBAction func playPauseAction(_ sender: AnyObject) {
+        
+        let oldTrack = player.getPlayingTrack()
+        
+        do {
+            
+            let playbackInfo = try player.togglePlayPause()
+            let playbackState = playbackInfo.playbackState
+            
+            switch playbackState {
+                
+            case .noTrack, .paused:
+                
+                setPlayPauseImage(Images.imgPlay)
+                SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
+                
+            case .playing:
+                
+                if (playbackInfo.trackChanged) {
+                    trackChanged(oldTrack, playbackInfo.playingTrack)
+                } else {
+                    // Resumed the same track
+                    setPlayPauseImage(Images.imgPause)
+                    SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
+                }
+            }
+            
+        } catch let error {
+            
+            if (error is InvalidTrackError) {
+                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
+            }
+        }
+    }
+    
+    private func replayTrack() {
+        
+        if let playingTrack = player.getPlayingTrack() {
+            playTrack(playingTrack.track)
+        }
+    }
+    
+    @IBAction func previousTrackAction(_ sender: AnyObject) {
+        
+        let oldTrack = player.getPlayingTrack()
+        
+        do {
+            
+            let prevTrack = try player.previousTrack()
+            if (prevTrack?.track != nil) {
+                trackChanged(oldTrack, prevTrack)
+            }
+            
+        } catch let error {
+            
+            if (error is InvalidTrackError) {
+                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
+            }
+        }
+    }
+    
+    @IBAction func nextTrackAction(_ sender: AnyObject) {
+        
+        let oldTrack = player.getPlayingTrack()
+        
+        do {
+            let nextTrack = try player.nextTrack()
+            if (nextTrack?.track != nil) {
+                trackChanged(oldTrack, nextTrack)
+            }
+            
+        } catch let error {
+            
+            if (error is InvalidTrackError) {
+                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
+            }
+        }
+    }
+    
+    @IBAction func seekBackwardAction(_ sender: AnyObject) {
+        
+        player.seekBackward()
+        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
+    }
+    
+    @IBAction func seekForwardAction(_ sender: AnyObject) {
+        
+        player.seekForward()
+        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -150,91 +242,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         }
     }
     
-    // Play / Pause / Resume
-    @IBAction func playPauseAction(_ sender: AnyObject) {
-        
-        let oldTrack = player.getPlayingTrack()
-        
-        do {
-            
-            let playbackInfo = try player.togglePlayPause()
-            let playbackState = playbackInfo.playbackState
-            
-            switch playbackState {
-                
-            case .noTrack, .paused:
-                
-                setPlayPauseImage(Images.imgPlay)
-                SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
-                
-            case .playing:
-                
-                if (playbackInfo.trackChanged) {
-                    trackChanged(oldTrack, playbackInfo.playingTrack)
-                } else {
-                    // Resumed the same track
-                    setPlayPauseImage(Images.imgPause)
-                    SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
-                }
-            }
-            
-        } catch let error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-            }
-        }
-    }
-    
-    @IBAction func previousTrackAction(_ sender: AnyObject) {
-        
-        let oldTrack = player.getPlayingTrack()
-        
-        do {
-            
-            let prevTrack = try player.previousTrack()
-            if (prevTrack?.track != nil) {
-                trackChanged(oldTrack, prevTrack)
-            }
-            
-        } catch let error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-            }
-        }
-    }
-    
-    @IBAction func nextTrackAction(_ sender: AnyObject) {
-        
-        let oldTrack = player.getPlayingTrack()
-        
-        do {
-            let nextTrack = try player.nextTrack()
-            if (nextTrack?.track != nil) {
-                trackChanged(oldTrack, nextTrack)
-            }
-            
-        } catch let error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-            }
-        }
-    }
-    
-    @IBAction func seekBackwardAction(_ sender: AnyObject) {
-        
-        player.seekBackward()
-        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
-    }
-    
-    @IBAction func seekForwardAction(_ sender: AnyObject) {
-        
-        player.seekForward()
-        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
-    }
-    
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     private func trackChanged(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
@@ -345,6 +352,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         switch message.actionType {
             
         case .playOrPause: playPauseAction(self)
+            
+        case .replayTrack: replayTrack()
             
         case .previousTrack: previousTrackAction(self)
             
