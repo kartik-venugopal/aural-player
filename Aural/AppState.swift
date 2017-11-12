@@ -24,7 +24,7 @@ class AudioGraphState {
     var balance: Float = AppDefaults.balance
     
     var eqGlobalGain: Float = AppDefaults.eqGlobalGain
-    var eqBands: [Int: Float] = [Int: Float]() // Freq -> Gain
+    var eqBands: [Int: Float] = [Int: Float]() // Index -> Gain
     
     var pitchBypass: Bool = AppDefaults.pitchBypass
     var pitch: Float = AppDefaults.pitch
@@ -146,8 +146,8 @@ class AppState {
         eqDict["globalGain"] = audioGraphState.eqGlobalGain as NSNumber
         
         var eqBandsDict = [NSString: NSNumber]()
-        for (freq,gain) in audioGraphState.eqBands {
-            eqBandsDict[String(freq) as NSString] = gain as NSNumber
+        for (index, gain) in audioGraphState.eqBands {
+            eqBandsDict[String(index) as NSString] = gain as NSNumber
         }
         eqDict["bands"] = eqBandsDict as AnyObject
         
@@ -288,14 +288,14 @@ class AppState {
                 
                 if let eqBands: NSDictionary = eqDict["bands"] as? NSDictionary {
                     
-                    for (freq, gain) in eqBands {
+                    for (index, gain) in eqBands {
                         
-                        if let freqStr = freq as? String {
+                        if let indexStr = index as? String {
                             
-                            if let freqInt = Int(freqStr) {
+                            if let indexInt = Int(indexStr) {
                                 
                                 if let gainNum = gain as? NSNumber {
-                                    audioGraphState.eqBands[freqInt] = gainNum.floatValue
+                                    audioGraphState.eqBands[indexInt] = gainNum.floatValue
                                 }
                             }
                         }

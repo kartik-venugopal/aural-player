@@ -42,6 +42,8 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     @IBOutlet weak var eqSlider128: NSSlider!
     @IBOutlet weak var eqPresets: NSPopUpButton!
     
+    private var eqSliders: [NSSlider] = []
+    
     // Pitch controls
     @IBOutlet weak var btnPitchBypass: NSButton!
     @IBOutlet weak var pitchSlider: NSSlider!
@@ -104,7 +106,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         initFilter(appState)
         initTabGroup()
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .increaseBass, .decreaseBass, .increasePitch, .decreasePitch, .increaseRate, .decreaseRate], subscriber: self)
     }
     
     private func initVolumeAndPan(_ appState: UIAppState) {
@@ -116,8 +118,10 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     
     private func initEQ(_ appState: UIAppState) {
         
+        eqSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
+        
         eqGlobalGainSlider.floatValue = appState.eqGlobalGain
-        updateEQSliders(appState.eqBands)
+        updateAllEQSliders(appState.eqBands)
         
         (eqTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
         
@@ -267,7 +271,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     private func showAndAutoHideVolumeLabel() {
         
         // Format the text and show the feedback label
-        lblVolume.stringValue = String(format: "%d%%", Int(round(volumeSlider.floatValue)))
+        lblVolume.stringValue = ValueFormatter.formatVolume(volumeSlider.floatValue)
         lblVolume.isHidden = false
         
         // Invalidate previously activated timer
@@ -299,17 +303,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     private func showAndAutoHidePanLabel() {
         
         // Format the text and show the feedback label
-        
-        let panVal = Int(round(panSlider.floatValue))
-        
-        if (panVal < 0) {
-            lblPan.stringValue = String(format: "L (%d%%)", abs(panVal))
-        } else if (panVal > 0) {
-            lblPan.stringValue = String(format: "R (%d%%)", abs(panVal))
-        } else {
-            lblPan.stringValue = "C"
-        }
-        
+        lblPan.stringValue = ValueFormatter.formatPan(panSlider.floatValue)
         lblPan.isHidden = false
         
         // Invalidate previously activated timer
@@ -327,44 +321,9 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         graph.setEQGlobalGain(eqGlobalGainSlider.floatValue)
     }
     
-    @IBAction func eqSlider32Action(_ sender: AnyObject) {
-        graph.setEQBand(32, gain: eqSlider32.floatValue)
-    }
-    
-    @IBAction func eqSlider64Action(_ sender: AnyObject) {
-        graph.setEQBand(64, gain: eqSlider64.floatValue)
-    }
-    
-    @IBAction func eqSlider128Action(_ sender: AnyObject) {
-        graph.setEQBand(128, gain: eqSlider128.floatValue)
-    }
-    
-    @IBAction func eqSlider256Action(_ sender: AnyObject) {
-        graph.setEQBand(256, gain: eqSlider256.floatValue)
-    }
-    
-    @IBAction func eqSlider512Action(_ sender: AnyObject) {
-        graph.setEQBand(512, gain: eqSlider512.floatValue)
-    }
-    
-    @IBAction func eqSlider1kAction(_ sender: AnyObject) {
-        graph.setEQBand(1024, gain: eqSlider1k.floatValue)
-    }
-    
-    @IBAction func eqSlider2kAction(_ sender: AnyObject) {
-        graph.setEQBand(2048, gain: eqSlider2k.floatValue)
-    }
-    
-    @IBAction func eqSlider4kAction(_ sender: AnyObject) {
-        graph.setEQBand(4096, gain: eqSlider4k.floatValue)
-    }
-    
-    @IBAction func eqSlider8kAction(_ sender: AnyObject) {
-        graph.setEQBand(8192, gain: eqSlider8k.floatValue)
-    }
-    
-    @IBAction func eqSlider16kAction(_ sender: AnyObject) {
-        graph.setEQBand(16384, gain: eqSlider16k.floatValue)
+    @IBAction func eqSliderAction(_ sender: NSSlider) {
+        // Slider tags match the corresponding EQ band indexes
+        graph.setEQBand(sender.tag, gain: sender.floatValue)
     }
     
     @IBAction func eqPresetsAction(_ sender: AnyObject) {
@@ -373,23 +332,48 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         
         let eqBands: [Int: Float] = preset.bands
         graph.setEQBands(eqBands)
-        updateEQSliders(eqBands)
+        updateAllEQSliders(eqBands)
         
+        // Don't select any of the items
         eqPresets.selectItem(at: -1)
     }
     
+    private func updateAllEQSliders(_ eqBands: [Int: Float]) {
+        // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
+        eqSliders.forEach({
+            $0.floatValue = eqBands[$0.tag] ?? 0
+        })
+    }
+    
     private func updateEQSliders(_ eqBands: [Int: Float]) {
+        // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
+        for (index, gain) in eqBands {
+            eqSliders[index].floatValue = gain
+        }
+    }
+    
+    private func increaseBass() {
+        updateEQSliders(graph.increaseBass())
+    }
+    
+    private func decreaseBass() {
+        updateEQSliders(graph.decreaseBass())
+    }
+    
+    private func increaseMids() {
         
-        eqSlider32.floatValue = eqBands[32]!
-        eqSlider64.floatValue = eqBands[64]!
-        eqSlider128.floatValue = eqBands[128]!
-        eqSlider256.floatValue = eqBands[256]!
-        eqSlider512.floatValue = eqBands[512]!
-        eqSlider1k.floatValue = eqBands[1024]!
-        eqSlider2k.floatValue = eqBands[2048]!
-        eqSlider4k.floatValue = eqBands[4096]!
-        eqSlider8k.floatValue = eqBands[8192]!
-        eqSlider16k.floatValue = eqBands[16384]!
+    }
+    
+    private func decreaseMids() {
+        
+    }
+    
+    private func increaseTreble() {
+        
+    }
+    
+    private func decreaseTreble() {
+        
     }
     
     @IBAction func pitchBypassAction(_ sender: AnyObject) {
@@ -403,14 +387,34 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     }
     
     @IBAction func pitchAction(_ sender: AnyObject) {
-        
-        let pitchValueStr = graph.setPitch(pitchSlider.floatValue)
-        lblPitchValue.stringValue = pitchValueStr
+        lblPitchValue.stringValue = graph.setPitch(pitchSlider.floatValue)
     }
     
     @IBAction func pitchOverlapAction(_ sender: AnyObject) {
-        let pitchOverlapValueStr = graph.setPitchOverlap(pitchOverlapSlider.floatValue)
-        lblPitchOverlapValue.stringValue = pitchOverlapValueStr
+        lblPitchOverlapValue.stringValue = graph.setPitchOverlap(pitchOverlapSlider.floatValue)
+    }
+    
+    private func increasePitch() {
+        pitchChange(graph.increasePitch())
+    }
+    
+    private func decreasePitch() {
+        pitchChange(graph.decreasePitch())
+    }
+    
+    private func pitchChange(_ pitchInfo: (pitch: Float, pitchString: String)) {
+        
+        pitchSlider.floatValue = pitchInfo.pitch
+        lblPitchValue.stringValue = pitchInfo.pitchString
+        
+        (pitchTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
+        pitchTabViewButton.needsDisplay = true
+        btnPitchBypass.image = Images.imgSwitchOn
+        
+        // Show the Pitch tab if the Effects panel is shown
+        if (!fxTabView.isHidden) {
+            pitchTabViewAction(self)
+        }
     }
     
     @IBAction func timeBypassAction(_ sender: AnyObject) {
@@ -435,15 +439,39 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         
         let timeStretchActive = !graph.isTimeBypass()
         if (timeStretchActive) {
-            let playbackRateChangedMsg = PlaybackRateChangedNotification(newRate)
-            SyncMessenger.publishNotification(playbackRateChangedMsg)
+            SyncMessenger.publishNotification(PlaybackRateChangedNotification(newRate))
+        }
+    }
+    
+    private func increaseRate() {
+        rateChange(graph.increaseRate())
+    }
+    
+    private func decreaseRate() {
+        rateChange(graph.decreaseRate())
+    }
+    
+    private func rateChange(_ rateInfo: (rate: Float, rateString: String)) {
+        
+        timeSlider.floatValue = rateInfo.rate
+        lblTimeStretchRateValue.stringValue = rateInfo.rateString
+        
+        let timeStretchActive = !graph.isTimeBypass()
+        if (timeStretchActive) {
+            SyncMessenger.publishNotification(PlaybackRateChangedNotification(rateInfo.rate))
+        }
+        
+        (timeTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
+        timeTabViewButton.needsDisplay = true
+        btnTimeBypass.image = Images.imgSwitchOn
+        
+        if (!fxTabView.isHidden) {
+            timeTabViewAction(self)
         }
     }
     
     @IBAction func timeOverlapAction(_ sender: Any) {
-        
-        let timeOverlapValueStr = graph.setTimeOverlap(timeOverlapSlider.floatValue)
-        lblTimeOverlapValue.stringValue = timeOverlapValueStr
+        lblTimeOverlapValue.stringValue = graph.setTimeOverlap(timeOverlapSlider.floatValue)
     }
     
     @IBAction func reverbBypassAction(_ sender: AnyObject) {
@@ -457,14 +485,11 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     }
     
     @IBAction func reverbAction(_ sender: AnyObject) {
-        
-        let preset: ReverbPresets = ReverbPresets.fromDescription((reverbMenu.selectedItem?.title)!)
-        graph.setReverb(preset)
+        graph.setReverb(ReverbPresets.fromDescription((reverbMenu.selectedItem?.title)!))
     }
     
     @IBAction func reverbAmountAction(_ sender: AnyObject) {
-        let reverbAmountValueStr = graph.setReverbAmount(reverbSlider.floatValue)
-        lblReverbAmountValue.stringValue = reverbAmountValueStr
+        lblReverbAmountValue.stringValue = graph.setReverbAmount(reverbSlider.floatValue)
     }
     
     @IBAction func delayBypassAction(_ sender: AnyObject) {
@@ -478,23 +503,19 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     }
     
     @IBAction func delayAmountAction(_ sender: AnyObject) {
-        let delayAmountValueStr = graph.setDelayAmount(delayAmountSlider.floatValue)
-        lblDelayAmountValue.stringValue = delayAmountValueStr
+        lblDelayAmountValue.stringValue = graph.setDelayAmount(delayAmountSlider.floatValue)
     }
     
     @IBAction func delayTimeAction(_ sender: AnyObject) {
-        let delayTimeValueStr = graph.setDelayTime(delayTimeSlider.doubleValue)
-        lblDelayTimeValue.stringValue = delayTimeValueStr
+        lblDelayTimeValue.stringValue = graph.setDelayTime(delayTimeSlider.doubleValue)
     }
     
     @IBAction func delayFeedbackAction(_ sender: AnyObject) {
-        let delayFeedbackValueStr = graph.setDelayFeedback(delayFeedbackSlider.floatValue)
-        lblDelayFeedbackValue.stringValue = delayFeedbackValueStr
+        lblDelayFeedbackValue.stringValue = graph.setDelayFeedback(delayFeedbackSlider.floatValue)
     }
     
     @IBAction func delayCutoffAction(_ sender: AnyObject) {
-        let delayCutoffValueStr = graph.setDelayLowPassCutoff(delayCutoffSlider.floatValue)
-        lblDelayLowPassCutoffValue.stringValue = delayCutoffValueStr
+        lblDelayLowPassCutoffValue.stringValue = graph.setDelayLowPassCutoff(delayCutoffSlider.floatValue)
     }
     
     @IBAction func filterBypassAction(_ sender: AnyObject) {
@@ -508,18 +529,15 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     }
     
     private func filterBassChanged() {
-        let filterBassRangeStr = graph.setFilterBassBand(Float(filterBassSlider.start), Float(filterBassSlider.end))
-        lblFilterBassRange.stringValue = filterBassRangeStr
+        lblFilterBassRange.stringValue = graph.setFilterBassBand(Float(filterBassSlider.start), Float(filterBassSlider.end))
     }
     
     private func filterMidChanged() {
-        let filterMidRangeStr = graph.setFilterMidBand(Float(filterMidSlider.start), Float(filterMidSlider.end))
-        lblFilterMidRange.stringValue = filterMidRangeStr
+        lblFilterMidRange.stringValue = graph.setFilterMidBand(Float(filterMidSlider.start), Float(filterMidSlider.end))
     }
     
     private func filterTrebleChanged() {
-        let filterTrebleRangeStr = graph.setFilterTrebleBand(Float(filterTrebleSlider.start), Float(filterTrebleSlider.end))
-        lblFilterTrebleRange.stringValue = filterTrebleRangeStr
+        lblFilterTrebleRange.stringValue = graph.setFilterTrebleBand(Float(filterTrebleSlider.start), Float(filterTrebleSlider.end))
     }
     
     @IBAction func eqTabViewAction(_ sender: Any) {
@@ -573,6 +591,18 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         case .panLeft: panLeft()
             
         case .panRight: panRight()
+            
+        case .increaseBass: increaseBass()
+            
+        case .decreaseBass: decreaseBass()
+            
+        case .increasePitch: increasePitch()
+            
+        case .decreasePitch: decreasePitch()
+            
+        case .increaseRate: increaseRate()
+            
+        case .decreaseRate: decreaseRate()
             
         default: return
             

@@ -138,18 +138,34 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         eqNode.globalGain = gain
     }
     
-    func setEQBand(_ freq: Int , gain: Float) {
-        eqNode.setBand(Float(freq), gain: gain)
+    func setEQBand(_ index: Int , gain: Float) {
+        eqNode.setBand(index, gain: gain)
     }
     
     func setEQBands(_ bands: [Int: Float]) {
         eqNode.setBands(bands)
     }
     
+    func increaseBass() -> [Int : Float] {
+        return eqNode.increaseBass()
+    }
+    
+    func decreaseBass() -> [Int : Float] {
+        return eqNode.decreaseBass()
+    }
+    
     func togglePitchBypass() -> Bool {
         let newState = !pitchNode.bypass
         pitchNode.bypass = newState
         return newState
+    }
+    
+    func isPitchBypass() -> Bool {
+        return pitchNode.bypass
+    }
+    
+    func getPitch() -> Float {
+        return pitchNode.pitch
     }
     
     func setPitch(_ pitch: Float) {
@@ -168,6 +184,10 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     
     func isTimeBypass() -> Bool {
         return timeNode.bypass
+    }
+    
+    func getTimeStretchRate() -> Float {
+        return timeNode.rate
     }
     
     func setTimeStretchRate(_ rate: Float) {
@@ -258,9 +278,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.balance = playerNode.pan
         
         // EQ
-        for band in eqNode.bands {
-            state.eqBands[Int(band.frequency)] = band.gain
-        }
+        state.eqBands = eqNode.allBands()
         state.eqGlobalGain = eqNode.globalGain
         
         // Pitch

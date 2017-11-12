@@ -60,9 +60,9 @@ fileprivate class EQPresetsBands {
     
     static let flatBands: [Int: Float] = {
         
-        return EQBands([0,0,0,
-                        0,0,0,0,
-                        0,0,0]).bands
+        return EQBands([0, 0, 0,
+                        0, 0, 0, 0,
+                        0, 0, 0]).bands
     }()
     
     static let highBassAndTrebleBands: [Int: Float] = {
@@ -170,8 +170,8 @@ class EQBands {
     
     init(_ gains: [Float]) {
         
-        for i in 5...14 {
-            bands[Int(pow(2.0, Double(i)))] = gains[i - 5]
+        for i in 0..<10 {
+            bands[i] = gains[i]
         }
     }
 }
