@@ -26,6 +26,10 @@ struct LRUArray<T: EquatableHistoryItem> {
         }
     }
     
+    mutating func addAll(_ newElements: [T]) {
+        newElements.forEach({add($0)})
+    }
+    
     mutating func remove(_ element: T) {
        
         if let index = array.index(where: { $0.equals(element) }) {

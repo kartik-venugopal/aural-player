@@ -12,10 +12,15 @@ class HistoryDelegate: AsyncMessageSubscriber {
         self.playlist = playlist
         self.player = player
         
-        AsyncMessenger.subscribe([.trackPlayed], subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.background))
+        AsyncMessenger.subscribe([.trackPlayed, .itemsAdded], subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.background))
         
+        history.addAddedItems(historyState.recentlyAdded.reversed())
         historyState.recentlyPlayed.reversed().forEach({history.addPlayedItem($0)})
         historyState.favorites.reversed().forEach({history.addFavorite($0)})
+    }
+    
+    func allAddedItems() -> [AddedItem] {
+        return history.allAddedItems()
     }
     
     func allPlayedItems() -> [HistoryItem] {
@@ -24,6 +29,10 @@ class HistoryDelegate: AsyncMessageSubscriber {
     
     func allFavorites() -> [HistoryItem] {
         return history.allFavorites()
+    }
+    
+    func addItem(_ item: URL) {
+        playlist.addFiles([item])
     }
     
     func playItem(_ item: URL, _ playlistType: PlaylistType) throws {
@@ -62,6 +71,7 @@ class HistoryDelegate: AsyncMessageSubscriber {
         
         let state = HistoryState()
         
+        allAddedItems().forEach({state.recentlyAdded.append($0.file)})
         allFavorites().forEach({state.favorites.append($0.file)})
         allPlayedItems().forEach({state.recentlyPlayed.append($0.file)})
         
@@ -70,6 +80,10 @@ class HistoryDelegate: AsyncMessageSubscriber {
     
     private func trackPlayed(_ message: TrackPlayedAsyncMessage) {
         history.addPlayedItem(message.track)
+    }
+    
+    private func itemsAdded(_ message: ItemsAddedAsyncMessage) {
+        history.addAddedItems(message.files)
     }
     
     // MARK: Message handling
@@ -81,6 +95,10 @@ class HistoryDelegate: AsyncMessageSubscriber {
         case .trackPlayed:
             
             trackPlayed(message as! TrackPlayedAsyncMessage)
+            
+        case .itemsAdded:
+            
+            itemsAdded(message as! ItemsAddedAsyncMessage)
             
         default: return
             

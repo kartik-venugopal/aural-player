@@ -45,6 +45,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         let interruptPlayback: Bool = self.preferences.autoplayAfterAddingOption == .always
         
         addFiles_async(files, AutoplayOptions(autoplay, interruptPlayback))
+        AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: files))
     }
     
     // Adds files to the playlist asynchronously, emitting event notifications as the work progresses

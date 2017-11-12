@@ -163,4 +163,21 @@ class FileSystemUtils {
         
         return (resolvedFile2, isDir)
     }
+    
+    static func getLastPathComponents(_ url: URL, _ numComponents: Int) -> String {
+        
+        let comps = url.deletingLastPathComponent().pathComponents
+        
+        var cur = comps.count - 1
+        var compCount = 0
+        var path: String = "/" + url.lastPathComponent
+        
+        while cur >= 0 && compCount < numComponents {
+            path = "/" + comps[cur] + path
+            cur -= 1
+            compCount += 1
+        }
+        
+        return path
+    }
 }
