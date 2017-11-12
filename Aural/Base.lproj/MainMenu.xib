@@ -321,6 +321,122 @@ CQ
                                     <action selector="panRightAction:" target="YGo-hN-fxr" id="QMI-LG-GjK"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="ndN-AA-rLa"/>
+                            <menuItem title=" EQ" id="9wV-eS-AMY" userLabel="EQ">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title=" EQ" id="Vmm-qB-jmV">
+                                    <items>
+                                        <menuItem title="More Bass" keyEquivalent="1" id="2A4-oV-ZMP" userLabel="More Bass">
+                                            <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                            <connections>
+                                                <action selector="increaseBassAction:" target="YGo-hN-fxr" id="HKZ-5u-CQR"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Less Bass" keyEquivalent="1" id="8qz-AS-R99">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                            <connections>
+                                                <action selector="decreaseBassAction:" target="YGo-hN-fxr" id="sZ7-xK-LzA"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="Mnv-51-ZPk"/>
+                                        <menuItem title="More Mids" keyEquivalent="2" id="st7-iK-D4u" userLabel="More Mids">
+                                            <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                        </menuItem>
+                                        <menuItem title="Less Mids" keyEquivalent="2" id="Lih-pb-74i" userLabel="Less Mids">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="YXB-zy-c6y"/>
+                                        <menuItem title="More Treble" keyEquivalent="3" id="Lzn-CF-Lvu">
+                                            <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                        </menuItem>
+                                        <menuItem title="Less Treble" keyEquivalent="3" id="qYn-xb-8yQ">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                                <connections>
+                                    <action selector="panRightAction:" target="YGo-hN-fxr" id="2lO-gA-ExY"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Pitch Shift" id="Cgu-bP-VJq" userLabel="Pitch Shift">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title=" Pitch Shift" id="pQo-cl-9lL">
+                                    <items>
+                                        <menuItem title="Higher" keyEquivalent="+" id="ZQV-NM-rf8">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="increasePitchAction:" target="YGo-hN-fxr" id="lYp-Bl-veG"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Lower" keyEquivalent="-" id="ebX-FL-XYP" userLabel="Slower">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="decreasePitchAction:" target="YGo-hN-fxr" id="Pck-kQ-p27"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="FvH-UH-cOy"/>
+                                        <menuItem title="-1 Octave" id="fVw-ks-nVV">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="-4 Semitones" id="Lm3-tW-hm0">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="-2 Semitones" id="cYW-58-jBH">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="+2 Semitones" id="kkN-dY-eg6">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="+4 Semitones" id="NHt-qJ-lNc">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="+1 Octave" id="lYO-gE-kn8">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                                <connections>
+                                    <action selector="panRightAction:" target="YGo-hN-fxr" id="bqg-qK-Tte"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Time Stretch" id="4bW-6o-06c">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" id="wfR-fc-67w">
+                                    <items>
+                                        <menuItem title="Faster" keyEquivalent="&gt;" id="DWm-i5-nCG">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="increaseRateAction:" target="YGo-hN-fxr" id="4UE-34-qYW"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Slower" keyEquivalent="&lt;" id="9gj-50-hQr" userLabel="Slower">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="decreaseRateAction:" target="YGo-hN-fxr" id="k4F-da-zbd"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="bUM-Tw-5cc"/>
+                                        <menuItem title="0.5x" id="G2L-vr-yl8">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="0.75x" id="yPd-aC-OhZ">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="1.25x" id="e4W-PH-FqF">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="1.5x" id="U8S-Dm-3Sv">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="2x" id="ro9-ab-0Tg">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                                <connections>
+                                    <action selector="panRightAction:" target="YGo-hN-fxr" id="yYO-2Q-3ZT"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>

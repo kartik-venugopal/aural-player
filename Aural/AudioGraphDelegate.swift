@@ -124,12 +124,20 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         graph.setEQGlobalGain(gain)
     }
     
-    func setEQBand(_ frequency: Int, gain: Float) {
-        graph.setEQBand(frequency, gain: gain)
+    func setEQBand(_ index: Int, gain: Float) {
+        graph.setEQBand(index, gain: gain)
     }
     
     func setEQBands(_ bands: [Int : Float]) {
         graph.setEQBands(bands)
+    }
+    
+    func increaseBass() -> [Int : Float] {
+        return graph.increaseBass()
+    }
+    
+    func decreaseBass() -> [Int : Float] {
+        return graph.decreaseBass()
     }
     
     func togglePitchBypass() -> Bool {
@@ -149,6 +157,42 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return ValueFormatter.formatOverlap(overlap)
     }
     
+    func increasePitch() -> (pitch: Float, pitchString: String) {
+        
+        if graph.isPitchBypass() {
+            _ = graph.togglePitchBypass()
+        }
+        
+        // Volume is increased by an amount set in the user preferences
+        
+        let curPitch = graph.getPitch()
+//        let newPitch = min(2400, curPitch + preferences.pitchDelta)
+        let newPitch = min(2400, curPitch + 100)
+        graph.setPitch(newPitch)
+        
+        // Convert from cents to octaves
+        let convPitch = newPitch * AppConstants.pitchConversion_audioGraphToUI
+        
+        return (convPitch, ValueFormatter.formatPitch(convPitch))
+    }
+    
+    func decreasePitch() -> (pitch: Float, pitchString: String) {
+        
+        if graph.isPitchBypass() {
+            _ = graph.togglePitchBypass()
+        }
+        
+        let curPitch = graph.getPitch()
+        //        let newPitch = min(2400, curPitch + preferences.pitchDelta)
+        let newPitch = max(-2400, curPitch - 100)
+        graph.setPitch(newPitch)
+        
+        // Convert from cents to octaves
+        let convPitch = newPitch * AppConstants.pitchConversion_audioGraphToUI
+        
+        return (convPitch, ValueFormatter.formatPitch(convPitch))
+    }
+    
     func toggleTimeBypass() -> Bool {
         return graph.toggleTimeBypass()
     }
@@ -160,6 +204,36 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     func setTimeStretchRate(_ rate: Float) -> String {
         graph.setTimeStretchRate(rate)
         return ValueFormatter.formatTimeStretchRate(rate)
+    }
+    
+    func increaseRate() -> (rate: Float, rateString: String) {
+        
+        if graph.isTimeBypass() {
+            _ = graph.toggleTimeBypass()
+        }
+        
+        // Volume is increased by an amount set in the user preferences
+        
+        let curRate = graph.getTimeStretchRate()
+        let newRate = min(4, curRate + 0.05)
+        graph.setTimeStretchRate(newRate)
+        
+        return (newRate, ValueFormatter.formatTimeStretchRate(newRate))
+    }
+    
+    func decreaseRate() -> (rate: Float, rateString: String) {
+        
+        if graph.isTimeBypass() {
+            _ = graph.toggleTimeBypass()
+        }
+        
+        // Volume is increased by an amount set in the user preferences
+        
+        let curRate = graph.getTimeStretchRate()
+        let newRate = max(0.25, curRate - 0.05)
+        graph.setTimeStretchRate(newRate)
+        
+        return (newRate, ValueFormatter.formatTimeStretchRate(newRate))
     }
     
     func setTimeOverlap(_ overlap: Float) -> String {

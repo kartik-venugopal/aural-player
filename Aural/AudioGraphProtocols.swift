@@ -30,14 +30,26 @@ protocol AudioGraphProtocol {
     // Sets global gain (or preamp) for the equalizer
     func setEQGlobalGain(_ gain: Float)
     
-    // Sets the gain value of a single equalizer frequency band
-    func setEQBand(_ freq: Int , gain: Float)
+    // Sets the gain value of a single equalizer band identified by index (the lowest frequency band has an index of 0).
+    func setEQBand(_ index: Int, gain: Float)
     
-    // Sets the gain values of multiple equalizer frequency bands (when using an EQ preset)
+    // Sets the gain values of multiple equalizer bands (when using an EQ preset)
+    // The bands parameter is a mapping of index -> gain
     func setEQBands(_ bands: [Int: Float])
+    
+    // Returns the new bass band gain values, mapped by index
+    func increaseBass() -> [Int: Float]
+    
+    // Returns the new bass band gain values, mapped by index
+    func decreaseBass() -> [Int: Float]
     
     // Toggles the bypass state of the pitch shift audio effect unit, and returns its new bypass state
     func togglePitchBypass() -> Bool
+    
+    // Returns the current bypass state of the pitch shift audio effect unit
+    func isPitchBypass() -> Bool
+    
+    func getPitch() -> Float
     
     // Sets the pitch shift value, in cents, specified as a value between -2400 and 2400
     func setPitch(_ pitch: Float)
@@ -50,6 +62,8 @@ protocol AudioGraphProtocol {
     
     // Returns the current bypass state of the time audio effect unit
     func isTimeBypass() -> Bool
+    
+    func getTimeStretchRate() -> Float
     
     // Sets the playback rate, specified as a value between 1/32 and 32
     func setTimeStretchRate(_ rate: Float)

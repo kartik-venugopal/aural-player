@@ -40,17 +40,28 @@ protocol AudioGraphDelegateProtocol {
     // Sets global gain (or preamp) for the equalizer
     func setEQGlobalGain(_ gain: Float)
     
-    // Sets the gain value of a single equalizer frequency band.
-    func setEQBand(_ frequency: Int, gain: Float)
+    // Sets the gain value of a single equalizer band identified by index (the lowest frequency band has an index of 0).
+    func setEQBand(_ index: Int, gain: Float)
     
-    // Sets the gain values of multiple equalizer frequency bands (when using an EQ preset)
+    // Sets the gain values of multiple equalizer bands (when using an EQ preset)
+    // The bands parameter is a mapping of index -> gain
     func setEQBands(_ bands: [Int: Float])
+    
+    // Returns the new bass band gain values, mapped by index
+    func increaseBass() -> [Int: Float]
+    
+    // Returns the new bass band gain values, mapped by index
+    func decreaseBass() -> [Int: Float]
     
     // Toggles the bypass state of the pitch shift audio effect unit, and returns its new bypass state
     func togglePitchBypass() -> Bool
     
     // Sets the pitch shift value, in octaves, specified as a value between -2 and 2
     func setPitch(_ pitch: Float) -> String
+    
+    func increasePitch() -> (pitch: Float, pitchString: String)
+    
+    func decreasePitch() -> (pitch: Float, pitchString: String)
     
     // Sets the amount of overlap between segments of the input audio signal into the pitch effects unit, specified as a value between 3 and 32
     func setPitchOverlap(_ overlap: Float) -> String
@@ -63,6 +74,10 @@ protocol AudioGraphDelegateProtocol {
     
     // Sets the playback rate, specified as a value between 1/32 and 32
     func setTimeStretchRate(_ rate: Float) -> String
+    
+    func increaseRate() -> (rate: Float, rateString: String)
+    
+    func decreaseRate() -> (rate: Float, rateString: String)
     
     // Sets the amount of overlap between segments of the input audio signal into the time effects unit, specified as a value between 3 and 32
     func setTimeOverlap(_ overlap: Float) -> String

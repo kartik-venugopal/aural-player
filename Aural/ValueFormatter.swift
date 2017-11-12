@@ -15,6 +15,23 @@ class ValueFormatter {
         return formatter
     }()
     
+    static func formatVolume(_ value: Float) -> String {
+        return String(format: "%d%%", Int(round(value)))
+    }
+    
+    static func formatPan(_ value: Float) -> String {
+        
+        let panVal = Int(round(value))
+        
+        if (panVal < 0) {
+            return String(format: "L (%d%%)", abs(panVal))
+        } else if (panVal > 0) {
+            return String(format: "R (%d%%)", panVal)
+        } else {
+            return "C"
+        }
+    }
+    
     static func formatPitch(_ value: Float) -> String {
         return formatValueWithUnits(NSNumber(value: value), 1, AppConstants.pitchOctavesUnit, true)
     }

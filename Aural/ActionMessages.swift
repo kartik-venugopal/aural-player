@@ -97,6 +97,26 @@ enum ActionType {
     
     case panRight
     
+    case increaseBass
+    
+    case decreaseBass
+    
+    case increaseMids
+    
+    case decreaseMids
+    
+    case increaseTreble
+    
+    case decreaseTreble
+    
+    case increasePitch
+    
+    case decreasePitch
+    
+    case increaseRate
+    
+    case decreaseRate
+    
     // MARK: View actions
     
     case togglePlaylist
