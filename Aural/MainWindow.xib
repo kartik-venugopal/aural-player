@@ -35,7 +35,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zFi-Se-R21" userLabel="Close Button">
-                                    <rect key="frame" x="12" y="393" width="12" height="12"/>
+                                    <rect key="frame" x="12" y="394" width="12" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8cf-gd-eOH">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -46,7 +46,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Hide window" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4p-3A-TgZ" userLabel="Minimize Button">
-                                    <rect key="frame" x="27" y="393" width="12" height="12"/>
+                                    <rect key="frame" x="27" y="394" width="12" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Hide" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="vzp-6D-Pbu">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -56,25 +56,37 @@
                                         <action selector="minimizeAction:" target="-2" id="67L-qB-Vyv"/>
                                     </connections>
                                 </button>
-                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wsz-L7-qt5" userLabel="AppIcon Image">
-                                    <rect key="frame" x="198" y="327" width="16" height="16"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppIcon" id="Q6A-VW-dKO"/>
-                                </imageView>
-                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QGH-Hv-Uyo" userLabel="AppIcon Image">
-                                    <rect key="frame" x="198" y="327" width="16" height="16"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppIcon" id="pmU-Uo-MJp"/>
-                                </imageView>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fE-EF-YEC">
-                                    <rect key="frame" x="200" y="389" width="80" height="25"/>
+                                    <rect key="frame" x="203" y="388" width="75" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="AURAL" id="uY5-TU-vN1">
-                                        <font key="font" size="20" name="Courier"/>
+                                        <font key="font" size="18" name="Courier"/>
                                         <color key="textColor" white="0.7480848524" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
+                                <button toolTip="Show/hide playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-bp-Vzd" userLabel="Toggle Playlist Button">
+                                    <rect key="frame" x="427" y="394" width="17" height="12"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlaylistView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yEP-qA-m8Z">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="togglePlaylistAction:" target="-2" id="Oro-eR-EYP"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Show/hide effects panel" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1Y-N5-RBQ" userLabel="Toggle Effects Button">
+                                    <rect key="frame" x="449" y="394" width="17" height="12"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EffectsView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ayS-P6-02f">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="toggleEffectsAction:" target="-2" id="maE-Ym-EeP"/>
+                                    </connections>
+                                </button>
                                 <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="bezel" cornerRadius="5" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="zwp-2y-nBe" userLabel="Now Playing Box">
                                     <rect key="frame" x="14" y="271" width="452" height="108"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -178,7 +190,7 @@
                                                 </connections>
                                             </button>
                                             <button hidden="YES" toolTip="Show this track within the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8JY-9A-xmx" userLabel="Show Playing Track Button">
-                                                <rect key="frame" x="429" y="54" width="14" height="14"/>
+                                                <rect key="frame" x="429" y="57" width="14" height="14"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShowPlayingTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="nc2-9C-z13">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -188,11 +200,19 @@
                                                     <action selector="showPlayingTrackAction:" target="xTc-Re-68X" id="nb5-WT-vpJ"/>
                                                 </connections>
                                             </button>
+                                            <button hidden="YES" toolTip="Add this track to your Favorites" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gTz-sd-Rf9" userLabel="Favorites Button">
+                                                <rect key="frame" x="429" y="38" width="15" height="15"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Favorites-Off" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="6ed-fl-Djh">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="favoriteAction:" target="xTc-Re-68X" id="8PB-6H-oQ2"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </view>
-                                    <shadow key="shadow" blurRadius="5">
-                                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </shadow>
                                     <color key="borderColor" white="0.103108724" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="0.70347281679999996" colorSpace="custom" customColorSpace="sRGB"/>
                                 </box>
@@ -346,9 +366,6 @@ G1BhbiBTbGlkZXI
                                             </textField>
                                         </subviews>
                                     </view>
-                                    <shadow key="shadow" blurRadius="5">
-                                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </shadow>
                                     <color key="borderColor" white="0.099066840279999999" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="fillColor" white="0.0" alpha="0.70347281679999996" colorSpace="calibratedWhite"/>
                                 </box>
@@ -1524,7 +1541,7 @@ G1BhbiBTbGlkZXI
                                                 </tabViewItems>
                                             </tabView>
                                             <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="cvE-ZQ-FhC">
-                                                <rect key="frame" x="0.0" y="147" width="385" height="188"/>
+                                                <rect key="frame" x="0.0" y="147" width="385" height="195"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </box>
                                             <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="h38-vi-jyT" userLabel="Tab Buttons Box">
@@ -1653,34 +1670,9 @@ G1BhbiBTbGlkZXI
                                             </box>
                                         </subviews>
                                     </view>
-                                    <shadow key="shadow" blurRadius="5">
-                                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </shadow>
                                     <color key="borderColor" white="0.13582356770000001" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="fillColor" white="0.0" alpha="0.70347281679999996" colorSpace="calibratedWhite"/>
                                 </box>
-                                <button toolTip="Show/hide playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-bp-Vzd" userLabel="Toggle Playlist Button">
-                                    <rect key="frame" x="427" y="396" width="17" height="12"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlaylistView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yEP-qA-m8Z">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="togglePlaylistAction:" target="-2" id="Oro-eR-EYP"/>
-                                    </connections>
-                                </button>
-                                <button toolTip="Show/hide effects panel" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1Y-N5-RBQ" userLabel="Toggle Effects Button">
-                                    <rect key="frame" x="449" y="396" width="17" height="12"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EffectsView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ayS-P6-02f">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="toggleEffectsAction:" target="-2" id="maE-Ym-EeP"/>
-                                    </connections>
-                                </button>
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.74750963179999996" colorSpace="calibratedWhite"/>
@@ -1699,11 +1691,16 @@ G1BhbiBTbGlkZXI
                     <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="delegate" destination="PuN-Wx-mLJ" id="TYc-UO-Adz"/>
+            </connections>
             <point key="canvasLocation" x="156" y="34"/>
         </window>
+        <customObject id="PuN-Wx-mLJ" customClass="MainWindowDelegate" customModule="Aural" customModuleProvider="target"/>
         <viewController id="xTc-Re-68X" customClass="NowPlayingViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="artView" destination="mhb-Dj-Xsu" id="ECE-nA-xAY"/>
+                <outlet property="btnFavorite" destination="gTz-sd-Rf9" id="aPS-Yd-rLA"/>
                 <outlet property="btnMoreInfo" destination="uRh-MQ-fbH" id="iZc-9W-3iF"/>
                 <outlet property="btnShowPlayingTrackInPlaylist" destination="8JY-9A-xmx" id="zC9-VT-BxX"/>
                 <outlet property="imgScope" destination="CNE-TW-l7N" id="Wy1-Uc-Kfk"/>
@@ -1800,9 +1797,9 @@ G1BhbiBTbGlkZXI
         </viewController>
     </objects>
     <resources>
-        <image name="AppIcon" width="128" height="128"/>
         <image name="Close" width="80" height="80"/>
         <image name="EffectsView-On" width="419" height="422"/>
+        <image name="Favorites-Off" width="256" height="256"/>
         <image name="Hide" width="94" height="94"/>
         <image name="MoreInfo" width="457" height="453"/>
         <image name="NextTrack" width="162" height="88"/>

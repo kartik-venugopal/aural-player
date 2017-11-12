@@ -25,6 +25,18 @@ class Playlist: PlaylistCRUDProtocol {
         return copy
     }
     
+    func findTrackByFile(_ file: URL) -> IndexedTrack? {
+        
+        if let track = tracksByFilePath[file.path] {
+            
+            if let index = flatPlaylist.indexOfTrack(track) {
+                return IndexedTrack(track, index)
+            }
+        }
+        
+        return nil
+    }
+    
     func size() -> Int {
         return flatPlaylist.size()
     }

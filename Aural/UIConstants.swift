@@ -58,4 +58,5 @@ struct UIConstants {
     
     // Time interval for which feedback labels that are to be auto-hidden are displayed, before being hidden
     static let feedbackLabelAutoHideIntervalSeconds: TimeInterval = 1
+    static let favoritesPopupAutoHideIntervalSeconds: TimeInterval = 1.5
 }

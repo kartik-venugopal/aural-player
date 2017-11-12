@@ -15,6 +15,8 @@ protocol PlaylistAccessorProtocol {
     */
     func indexOfTrack(_ track: Track) -> Int?
     
+    func findTrackByFile(_ file: URL) -> IndexedTrack?
+    
     /*
         Returns the track at a given index within the flat playlist. Returns nil if an invalid index is specified.
      
@@ -219,3 +221,6 @@ enum PlaylistType: String {
         }
     }
 }
+
+// Marker protocol indicating an item that belongs to a playlist (i.e. either a track or a group)
+protocol PlaylistItem {}

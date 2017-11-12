@@ -16,6 +16,15 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
         return playlist.allTracks()
     }
     
+    func indexOfTrack(_ track: Track) -> IndexedTrack? {
+        
+        if let index = playlist.indexOfTrack(track) {
+            return IndexedTrack(track, index)
+        }
+        
+        return nil
+    }
+    
     func trackAtIndex(_ index: Int?) -> IndexedTrack? {
         return playlist.trackAtIndex(index)
     }

@@ -25,6 +25,9 @@ class ObjectGraph {
     private static var recorder: Recorder?
     private static var recorderDelegate: RecorderDelegate?
     
+    private static var history: History?
+    private static var historyDelegate: HistoryDelegate?
+    
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
     
@@ -80,6 +83,9 @@ class ObjectGraph {
         // Recorder (and delegate)
         recorder = Recorder(audioGraph!)
         recorderDelegate = RecorderDelegate(recorder!)
+        
+        history = History()
+        historyDelegate = HistoryDelegate(history!, playlistDelegate!, playbackDelegate!, appState!.historyState)
     }
     
     // MARK: Accessor methods to retrieve objects
@@ -124,6 +130,10 @@ class ObjectGraph {
         return recorderDelegate!
     }
     
+    static func getHistoryDelegate() -> HistoryDelegate {
+        return historyDelegate!
+    }
+    
     // Called when app exits
     static func tearDown() {
     
@@ -136,6 +146,7 @@ class ObjectGraph {
         appState?.playlistState = playlist!.persistentState()
         appState?.playbackSequenceState = playbackSequencer!.getPersistentState()
         appState?.uiState = WindowState.getPersistentState()
+        appState?.historyState = historyDelegate!.getPersistentState()
         
         // Persist app state to disk
         AppStateIO.save(appState!)

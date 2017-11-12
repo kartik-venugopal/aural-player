@@ -14,6 +14,12 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Aural" customModuleProvider="target"/>
         <customObject id="8vj-V6-ug7" customClass="AuralMenuController" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="XfS-j8-3jQ" customClass="HistoryMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="favoritesMenu" destination="VRi-KX-T3V" id="ZSI-tZ-jWA"/>
+                <outlet property="recentlyPlayedItemsMenu" destination="7KE-9e-wni" id="lFn-at-p0s"/>
+            </connections>
+        </customObject>
         <customObject id="sXT-Pr-clR" customClass="PlaylistMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="IvK-xG-TCa" customClass="PlaybackMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
@@ -64,6 +70,30 @@
                                 </connections>
                             </menuItem>
                         </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="History" id="UdL-af-j9j" userLabel="History">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="History" id="SEx-Pv-qTe">
+                        <items>
+                            <menuItem title="Recently added" image="RecentlyAdded" id="H40-WY-cfa" userLabel="Recently added">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Recently added" id="wng-SO-Kcr"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="4mR-wj-sZv"/>
+                            <menuItem title="Recently played" image="RecentlyPlayed" id="pev-lN-gPb" userLabel="Recently played">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Recently played" id="7KE-9e-wni"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="xx7-97-3tr"/>
+                            <menuItem title=" Favorites" image="Favorites" id="AVl-Vq-R1O" userLabel="Favorites">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title=" Favorites" id="VRi-KX-T3V"/>
+                            </menuItem>
+                        </items>
+                        <connections>
+                            <outlet property="delegate" destination="XfS-j8-3jQ" id="zhe-eR-H6f"/>
+                        </connections>
                     </menu>
                 </menuItem>
                 <menuItem title="Playlist" id="nzT-Bj-81Y">
@@ -365,20 +395,20 @@ CQ
                         </connections>
                     </menu>
                 </menuItem>
-                <menuItem title="Help" id="UdL-af-j9j">
+                <menuItem title="Help" id="aLb-n2-tgZ">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Help" id="Mcl-VM-OnW">
+                    <menu key="submenu" title="Help" id="0bT-cg-D9L">
                         <items>
-                            <menuItem title="User guide (pdf)" id="jeW-fz-jW1" userLabel="User Guide (pdf)">
+                            <menuItem title="User guide (pdf)" id="h2e-53-n5z" userLabel="User Guide (pdf)">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="pdfUserGuideAction:" target="bac-wa-rgm" id="UWF-uI-AjR"/>
+                                    <action selector="pdfUserGuideAction:" target="bac-wa-rgm" id="1j2-bU-bbV"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="User guide (online, HTML)" id="QqV-12-NGD" userLabel="User Guide (online HTML)">
+                            <menuItem title="User guide (online, HTML)" id="LrL-UZ-eQ3" userLabel="User Guide (online HTML)">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="onlineUserGuideAction:" target="bac-wa-rgm" id="X2c-fL-tb2"/>
+                                    <action selector="onlineUserGuideAction:" target="bac-wa-rgm" id="mKE-56-BAr"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -499,6 +529,7 @@ CQ
         <image name="DockLeft-Small" width="15" height="13"/>
         <image name="DockRight-Small" width="15" height="13"/>
         <image name="Down-Small" width="1.3999999761581421" height="1.3999999761581421"/>
+        <image name="Favorites" width="15" height="15"/>
         <image name="Maximize-Small" width="14" height="14"/>
         <image name="MaximizeHorizontal-Small" width="14" height="14"/>
         <image name="MaximizeVertical-Small" width="15" height="14"/>
@@ -510,6 +541,8 @@ CQ
         <image name="Play-Small" width="14" height="14"/>
         <image name="PlayPause-Small" width="14" height="14"/>
         <image name="PreviousTrack-Small" width="14" height="8"/>
+        <image name="RecentlyAdded" width="18" height="14"/>
+        <image name="RecentlyPlayed" width="18" height="14"/>
         <image name="Remove-Small" width="14" height="14"/>
         <image name="RepeatAll-Small" width="15" height="15"/>
         <image name="RepeatMode-Small" width="15" height="15"/>

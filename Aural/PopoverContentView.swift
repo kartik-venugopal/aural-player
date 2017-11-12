@@ -1,5 +1,5 @@
 /*
-    Custom view for the track info popover. This is needed in order to set its background color.
+    Custom view for popovers. This is needed in order to set its background color.
  */
 
 import Cocoa
@@ -24,7 +24,8 @@ class PopoverContentView: NSView {
     }
 }
 
-class PopoverBackgroundView:NSView {
+class PopoverBackgroundView: NSView {
+    
     override func draw(_ dirtyRect: NSRect) {
         Colors.popoverBackgroundColor.setFill()
         NSRectFill(self.bounds)

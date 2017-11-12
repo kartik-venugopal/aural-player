@@ -102,6 +102,12 @@ enum ActionType {
     case togglePlaylist
     
     case toggleEffects
+    
+    // MARK: History actions
+    
+    case addFavorite
+    
+    case removeFavorite
 }
 
 struct PlaylistActionMessage: ActionMessage {
@@ -139,5 +145,16 @@ struct ViewActionMessage: ActionMessage {
     
     init(_ actionType: ActionType) {
         self.actionType = actionType
+    }
+}
+
+struct FavoritesActionMessage: ActionMessage {
+    
+    var actionType: ActionType
+    let track: Track
+    
+    init(_ actionType: ActionType, _ track: Track) {
+        self.actionType = actionType
+        self.track = track
     }
 }

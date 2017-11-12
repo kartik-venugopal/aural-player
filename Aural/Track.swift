@@ -4,7 +4,7 @@ import AVFoundation
 /*
     Encapsulates all information about a single track
  */
-class Track: NSObject, GroupingPlaylistItem {
+class Track: NSObject, PlaylistItem {
     
     // The audio asset object used to retrieve metadata for this track
     var audioAsset: AVURLAsset?

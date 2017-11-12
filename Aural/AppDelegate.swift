@@ -110,26 +110,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
      // MARK: App focus event handlers. Respond to these events by triggering actions to optimize app performance and resource usage (certain UI features can be disabled when the app is not visible or in focus).
     
     func applicationDidBecomeActive(_ notification: Notification) {
-        
-        WindowState.inForeground = true
-        SyncMessenger.publishNotification(AppInForegroundNotification.instance)
+        WindowState.setActive(true)
     }
     
     func applicationDidResignActive(_ notification: Notification) {
-        
-        WindowState.inForeground = false
-        SyncMessenger.publishNotification(AppInBackgroundNotification.instance)
+        WindowState.setActive(false)
     }
     
     func applicationDidHide(_ notification: Notification) {
-        
-        WindowState.inForeground = false
-        SyncMessenger.publishNotification(AppInBackgroundNotification.instance)
+        WindowState.setHidden(true)
     }
     
     func applicationDidUnhide(_ notification: Notification) {
-        
-        WindowState.inForeground = true
-        SyncMessenger.publishNotification(AppInForegroundNotification.instance)
+        WindowState.setHidden(false)
     }
 }

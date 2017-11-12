@@ -3,7 +3,7 @@ import Foundation
 /*
     Represents a group of tracks categorized by a certain property of the tracks - such as artist, album, or genre
  */
-class Group: NSObject, GroupAccessorProtocol, GroupingPlaylistItem {
+class Group: NSObject, GroupAccessorProtocol, PlaylistItem {
     
     let type: GroupType
     

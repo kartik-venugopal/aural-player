@@ -3,7 +3,9 @@ import Cocoa
 /*
     Data source and view delegate base class for the NSOutlineView instances that display the "Artists", "Albums", and "Genres" (hierarchical/grouping) playlist views.
  */
-class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, MessageSubscriber {
+class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource, NSOutlineViewDelegate, MessageSubscriber {
+    
+    @IBOutlet weak var playlistView: NSOutlineView!
     
     // Delegate that relays accessor operations to the playlist
     private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.getPlaylistAccessorDelegate()
@@ -21,7 +23,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
     // Handles all drag/drop operations
     private var dragDropDelegate: GroupingPlaylistDragDropDelegate = GroupingPlaylistDragDropDelegate()
     
-    override func viewDidLoad() {
+    override func awakeFromNib() {
         
         // The drag n drop delegate needs to know the group type
         dragDropDelegate.setGrouping(self.groupType)
@@ -30,7 +32,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         SyncMessenger.subscribe(messageTypes: [.playbackStateChangedNotification, .playlistTypeChangedNotification, .appInForegroundNotification, .appInBackgroundNotification], subscriber: self)
         
         // Store the NSOutlineView in a variable for convenient subsequent access
-        OutlineViewHolder.instances[self.playlistType] = self.view as? NSOutlineView
+        OutlineViewHolder.instances[self.playlistType] = playlistView
     }
     
     // MARK: Data Source
@@ -249,7 +251,7 @@ class GroupingPlaylistDataSource: NSViewController, NSOutlineViewDataSource, NSO
         let playing = playbackInfo.getPlaybackState() == .playing
         let showingThisPlaylistView = PlaylistViewState.current == self.groupType.toPlaylistType()
         
-        return playing && WindowState.inForeground && showingThisPlaylistView
+        return playing && WindowState.isInForeground() && showingThisPlaylistView
     }
     
     func consumeNotification(_ notification: NotificationMessage) {
@@ -294,7 +296,7 @@ class GroupedTrackCellView: NSTableCellView {
     var playlistType: PlaylistType = .artists
     
     // The item represented by the row containing this cell
-    var item: GroupingPlaylistItem?
+    var item: PlaylistItem?
     
     // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
     override var backgroundStyle: NSBackgroundStyle {

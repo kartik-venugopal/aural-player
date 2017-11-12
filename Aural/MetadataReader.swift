@@ -42,9 +42,9 @@ class MetadataReader {
             track.audioAsset = AVURLAsset(url: track.file, options: nil)
         }
         
-        let title = getMetadataForCommonKey(track, AVMetadataCommonKeyTitle)
-        let artist = getMetadataForCommonKey(track, AVMetadataCommonKeyArtist)
-        let art = getArtwork(track)
+        let title = getMetadataForCommonKey(track.audioAsset!, AVMetadataCommonKeyTitle)
+        let artist = getMetadataForCommonKey(track.audioAsset!, AVMetadataCommonKeyArtist)
+        let art = getArtwork(track.audioAsset!)
         
         track.setDisplayMetadata(artist, title, art)
     }
@@ -111,33 +111,33 @@ class MetadataReader {
         }
         
         track.groupingInfo.artist = track.displayInfo.artist
-        track.groupingInfo.album = getMetadataForCommonKey(track, AVMetadataCommonKeyAlbumName)
-        track.groupingInfo.genre = getMetadataForCommonKey(track, AVMetadataCommonKeyType)
+        track.groupingInfo.album = getMetadataForCommonKey(track.audioAsset!, AVMetadataCommonKeyAlbumName)
+        track.groupingInfo.genre = getMetadataForCommonKey(track.audioAsset!, AVMetadataCommonKeyType)
     }
     
     // Retrieves the common metadata entry for the given track, with the given metadata key, if there is one
-    private static func getMetadataForCommonKey(_ track: Track, _ key: String) -> String? {
+    private static func getMetadataForCommonKey(_ asset: AVURLAsset, _ key: String) -> String? {
         
         let id = AVMetadataItem.identifier(forKey: key, keySpace: AVMetadataKeySpaceCommon)!
-        let items = AVMetadataItem.metadataItems(from: track.audioAsset!.commonMetadata, filteredByIdentifier: id)
+        let items = AVMetadataItem.metadataItems(from: asset.commonMetadata, filteredByIdentifier: id)
         
         return (items.isEmpty || StringUtils.isStringEmpty(items.first!.stringValue)) ? nil : items.first!.stringValue
     }
     
     // Retrieves the metadata entry for the given track, with the given metadata key and key space, if there is one
-    private static func getMetadataForKey(_ track: Track, _ key: String, _ keySpace: String) -> String? {
+    private static func getMetadataForKey(_ asset: AVURLAsset, _ key: String, _ keySpace: String) -> String? {
         
         let id = AVMetadataItem.identifier(forKey: key, keySpace: keySpace)!
-        let items = AVMetadataItem.metadataItems(from: track.audioAsset!.metadata, filteredByIdentifier: id)
+        let items = AVMetadataItem.metadataItems(from: asset.metadata, filteredByIdentifier: id)
         
         return (items.isEmpty || StringUtils.isStringEmpty(items.first!.stringValue)) ? nil : items.first!.stringValue
     }
     
     // Retrieves artwork for a given track, if available
-    private static func getArtwork(_ track: Track) -> NSImage? {
+    private static func getArtwork(_ asset: AVURLAsset) -> NSImage? {
         
         let id = AVMetadataItem.identifier(forKey: AVMetadataCommonKeyArtwork, keySpace: AVMetadataKeySpaceCommon)!
-        let items = AVMetadataItem.metadataItems(from: track.audioAsset!.commonMetadata, filteredByIdentifier: id)
+        let items = AVMetadataItem.metadataItems(from: asset.commonMetadata, filteredByIdentifier: id)
         
         return (items.isEmpty || items.first!.value == nil) ? nil : NSImage(data: items.first!.value as! Data)
     }
@@ -159,6 +159,17 @@ class MetadataReader {
         case .other: return entry.key
             
         }
+    }
+    
+    static func loadDisplayInfoForFile(_ file: URL) -> (displayName: String, art: NSImage?) {
+        
+        let asset = AVURLAsset(url: file, options: nil)
+        
+        let title = getMetadataForCommonKey(asset, AVMetadataCommonKeyTitle)
+        let artist = getMetadataForCommonKey(asset, AVMetadataCommonKeyArtist)
+        let displayName: String = title != nil ? (artist != nil ? String(format: "%@ - %@", artist!, title!) : title!) : file.deletingPathExtension().lastPathComponent
+        
+        return (displayName, getArtwork(asset))
     }
 }
 

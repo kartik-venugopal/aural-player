@@ -79,6 +79,12 @@ class PlaybackSequenceState {
     var shuffleMode: ShuffleMode = AppDefaults.shuffleMode
 }
 
+class HistoryState {
+    
+    var recentlyPlayed: [URL] = [URL]()
+    var favorites: [URL] = [URL]()
+}
+
 /*
     Encapsulates all application state. It is persisted to disk upon exit and loaded into the application upon startup.
  
@@ -90,21 +96,26 @@ class AppState {
     var audioGraphState: AudioGraphState
     var playlistState: PlaylistState
     var playbackSequenceState: PlaybackSequenceState
+    var historyState: HistoryState
     
     static let defaults: AppState = AppState()
     
     private init() {
+        
         self.uiState = UIState()
         self.audioGraphState = AudioGraphState()
         self.playlistState = PlaylistState()
         self.playbackSequenceState = PlaybackSequenceState()
+        self.historyState = HistoryState()
     }
     
-    init(_ uiState: UIState, _ audioGraphState: AudioGraphState, _ playlistState: PlaylistState, _ playbackSequenceState: PlaybackSequenceState) {
+    init(_ uiState: UIState, _ audioGraphState: AudioGraphState, _ playlistState: PlaylistState, _ playbackSequenceState: PlaybackSequenceState, _ historyState: HistoryState) {
+        
         self.uiState = uiState
         self.audioGraphState = audioGraphState
         self.playlistState = playlistState
         self.playbackSequenceState = playbackSequenceState
+        self.historyState = historyState
     }
     
     // Produces an equivalent object suitable for serialization as JSON
@@ -202,11 +213,29 @@ class AppState {
         
         dict["playlist"] = playlistDict as AnyObject
         
+        var historyDict = [NSString: AnyObject]()
+        
+        var recentlyPlayedArr = [String]()
+        for file in historyState.recentlyPlayed {
+            recentlyPlayedArr.append(file.path)
+        }
+        
+        historyDict["recentlyPlayed"] = NSArray(array: recentlyPlayedArr)
+        
+        var favoritesArr = [String]()
+        for file in historyState.favorites {
+            favoritesArr.append(file.path)
+        }
+        
+        historyDict["favorites"] = NSArray(array: favoritesArr)
+        
+        dict["history"] = historyDict as AnyObject
+        
         return dict as NSDictionary
     }
     
     // Produces a AppState object from deserialized JSON
-    static func fromJSON(_ jsonObject: NSDictionary) -> AppState  {
+    static func fromJSON(_ jsonObject: NSDictionary) -> AppState {
         
         let state = AppState()
         
@@ -405,6 +434,29 @@ class AppState {
                 }
                 
                 state.playlistState.tracks = urls
+            }
+        }
+        
+        if let historyDict = (jsonObject["history"] as? NSDictionary) {
+            
+            if let recentlyPlayed = historyDict["recentlyPlayed"] as? [String] {
+                
+                var recentlyPlayedFiles: [URL] = [URL]()
+                for path in recentlyPlayed {
+                    recentlyPlayedFiles.append(URL(fileURLWithPath: path))
+                }
+                
+                state.historyState.recentlyPlayed = recentlyPlayedFiles
+            }
+            
+            if let favorites = historyDict["favorites"] as? [String] {
+                
+                var favoritesFiles: [URL] = [URL]()
+                for path in favorites {
+                    favoritesFiles.append(URL(fileURLWithPath: path))
+                }
+                
+                state.historyState.favorites = favoritesFiles
             }
         }
         

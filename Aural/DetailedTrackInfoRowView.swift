@@ -4,16 +4,16 @@
 
 import Cocoa
 
-class TrackInfoView: NSTableRowView {
+class DetailedTrackInfoRowView: NSTableRowView {
     
     // A single key-value pair
     var key: String?
     var value: String?
     
     // Factory method
-    static func fromKeyAndValue(_ key: String, _ value: String) -> TrackInfoView {
+    static func fromKeyAndValue(_ key: String, _ value: String) -> DetailedTrackInfoRowView {
         
-        let view = TrackInfoView()
+        let view = DetailedTrackInfoRowView()
         view.key = key
         view.value = value
         

@@ -25,45 +25,45 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <viewController id="AIt-fs-1HU" userLabel="Tracks Playlist Data Source" customClass="TracksPlaylistDataSource" customModule="Aural" customModuleProvider="target">
+        <customObject id="oJe-yI-DST" userLabel="Tracks Data Source" customClass="TracksPlaylistDataSource" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="view" destination="OQk-bh-16f" id="Crg-OF-GU1"/>
+                <outlet property="playlistView" destination="OQk-bh-16f" id="YET-Ew-Kk4"/>
             </connections>
-        </viewController>
-        <viewController id="8Zj-Ye-lop" customClass="ArtistsPlaylistDataSource" customModule="Aural" customModuleProvider="target">
+        </customObject>
+        <customObject id="dqM-Xy-Baa" userLabel="Artists Data Source" customClass="ArtistsPlaylistDataSource" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="view" destination="5K0-oY-MI4" id="xqH-oc-eWT"/>
+                <outlet property="playlistView" destination="5K0-oY-MI4" id="gJs-Gi-w1Z"/>
             </connections>
-        </viewController>
-        <viewController id="kis-Cx-PlJ" userLabel="Albums Playlist Data Source" customClass="AlbumsPlaylistDataSource" customModule="Aural" customModuleProvider="target">
+        </customObject>
+        <customObject id="UB9-4T-QQx" userLabel="Albums Data Source" customClass="AlbumsPlaylistDataSource" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="view" destination="E1b-3I-Lef" id="2OA-r0-1FD"/>
+                <outlet property="playlistView" destination="E1b-3I-Lef" id="qmB-Ga-3KI"/>
             </connections>
-        </viewController>
-        <viewController id="f1w-LJ-ulv" userLabel="Genres Playlist Data Source" customClass="GenresPlaylistDataSource" customModule="Aural" customModuleProvider="target">
+        </customObject>
+        <customObject id="BkO-5V-ZsL" userLabel="Genres Data Source" customClass="GenresPlaylistDataSource" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="view" destination="xCD-hf-Vph" id="ro1-li-COG"/>
+                <outlet property="playlistView" destination="xCD-hf-Vph" id="0wa-8T-Qa2"/>
             </connections>
-        </viewController>
-        <viewController id="GCB-cG-ZJn" userLabel="Tracks Playlist View Controller" customClass="PlaylistTracksViewController" customModule="Aural" customModuleProvider="target">
+        </customObject>
+        <viewController id="GCB-cG-ZJn" userLabel="Tracks View Controller" customClass="PlaylistTracksViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playlistView" destination="OQk-bh-16f" id="V8B-5H-hVL"/>
                 <outlet property="view" destination="OQk-bh-16f" id="l4W-Hj-qcS"/>
             </connections>
         </viewController>
-        <viewController id="DjS-HJ-s7v" userLabel="Artists Playlist View Controller" customClass="PlaylistArtistsViewController" customModule="Aural" customModuleProvider="target">
+        <viewController id="DjS-HJ-s7v" userLabel="Artists View Controller" customClass="PlaylistArtistsViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playlistView" destination="5K0-oY-MI4" id="itA-p8-7Tv"/>
                 <outlet property="view" destination="5K0-oY-MI4" id="RPe-tB-Pc3"/>
             </connections>
         </viewController>
-        <viewController id="kto-DU-wJC" userLabel="Albums Playlist View Controller" customClass="PlaylistAlbumsViewController" customModule="Aural" customModuleProvider="target">
+        <viewController id="kto-DU-wJC" userLabel="Albums View Controller" customClass="PlaylistAlbumsViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playlistView" destination="E1b-3I-Lef" id="rqT-JM-ReO"/>
                 <outlet property="view" destination="E1b-3I-Lef" id="GY7-Cc-G4w"/>
             </connections>
         </viewController>
-        <viewController id="m19-kG-Xd8" userLabel="Genres Playlist View Controller" customClass="PlaylistGenresViewController" customModule="Aural" customModuleProvider="target">
+        <viewController id="m19-kG-Xd8" userLabel="Genres View Controller" customClass="PlaylistGenresViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playlistView" destination="xCD-hf-Vph" id="DLr-xg-j9Q"/>
                 <outlet property="view" destination="xCD-hf-Vph" id="sgy-qK-2UN"/>
@@ -558,8 +558,8 @@
                                                                     </tableColumns>
                                                                     <connections>
                                                                         <action trigger="doubleAction" selector="playSelectedTrackAction:" target="GCB-cG-ZJn" id="5ep-xa-XlS"/>
-                                                                        <outlet property="dataSource" destination="AIt-fs-1HU" id="3Iq-hh-hKC"/>
-                                                                        <outlet property="delegate" destination="AIt-fs-1HU" id="CES-m1-sTT"/>
+                                                                        <outlet property="dataSource" destination="oJe-yI-DST" id="Z0Y-o1-nCS"/>
+                                                                        <outlet property="delegate" destination="oJe-yI-DST" id="QK9-9W-53e"/>
                                                                     </connections>
                                                                 </tableView>
                                                             </subviews>
@@ -695,8 +695,8 @@
                                                                     </tableColumns>
                                                                     <connections>
                                                                         <action trigger="doubleAction" selector="playSelectedItemAction:" target="DjS-HJ-s7v" id="A7C-LE-OR2"/>
-                                                                        <outlet property="dataSource" destination="8Zj-Ye-lop" id="ndW-kd-N4T"/>
-                                                                        <outlet property="delegate" destination="8Zj-Ye-lop" id="66K-Ns-yXX"/>
+                                                                        <outlet property="dataSource" destination="dqM-Xy-Baa" id="7ul-3L-5M5"/>
+                                                                        <outlet property="delegate" destination="dqM-Xy-Baa" id="Kvv-yj-Ry3"/>
                                                                     </connections>
                                                                 </outlineView>
                                                             </subviews>
@@ -729,7 +729,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="Z9Q-VQ-Gxj">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="pe1-iT-lIJ" id="E1b-3I-Lef" userLabel="Playlist Albums View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
@@ -832,8 +832,8 @@
                                                                     </tableColumns>
                                                                     <connections>
                                                                         <action trigger="doubleAction" selector="playSelectedItemAction:" target="kto-DU-wJC" id="SbT-Xd-BBc"/>
-                                                                        <outlet property="dataSource" destination="kis-Cx-PlJ" id="K23-KI-f8Z"/>
-                                                                        <outlet property="delegate" destination="kis-Cx-PlJ" id="jde-Tg-Qtb"/>
+                                                                        <outlet property="dataSource" destination="UB9-4T-QQx" id="Cck-Vl-Lop"/>
+                                                                        <outlet property="delegate" destination="UB9-4T-QQx" id="Onk-hN-Zcq"/>
                                                                     </connections>
                                                                 </outlineView>
                                                             </subviews>
@@ -866,7 +866,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="1jW-cE-Hev">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="xZp-4h-2Va" id="xCD-hf-Vph" userLabel="Playlist Genres View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
@@ -969,8 +969,8 @@
                                                                     </tableColumns>
                                                                     <connections>
                                                                         <action trigger="doubleAction" selector="playSelectedItemAction:" target="m19-kG-Xd8" id="R91-Nd-cQy"/>
-                                                                        <outlet property="dataSource" destination="f1w-LJ-ulv" id="OTu-9p-VUf"/>
-                                                                        <outlet property="delegate" destination="f1w-LJ-ulv" id="0OH-hi-5wM"/>
+                                                                        <outlet property="dataSource" destination="BkO-5V-ZsL" id="gFE-ie-wmn"/>
+                                                                        <outlet property="delegate" destination="BkO-5V-ZsL" id="vaY-Of-xfQ"/>
                                                                     </connections>
                                                                 </outlineView>
                                                             </subviews>

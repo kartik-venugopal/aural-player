@@ -45,4 +45,11 @@ struct Images {
     // Images displayed in alerts
     static let imgWarning: NSImage = NSImage(named: "Warning")!
     static let imgError: NSImage = NSImage(named: "Error")!
+    
+    static let imgPlayedTrack: NSImage = NSImage(named: "PlayedTrack")!
+    
+    static let imgFavoritesOff: NSImage = NSImage(named: "Favorites-Off")!
+    static let imgFavoritesOn: NSImage = NSImage(named: "Favorites-On")!
+    
+    static let historyMenuItemImageSize: NSSize = NSSize(width: 25, height: 25)
 }

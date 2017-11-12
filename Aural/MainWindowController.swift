@@ -72,7 +72,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         // Show and dock the playlist, if needed
         playlistDockState = appState.playlistLocation.toPlaylistDockState()
         if (!appState.hidePlaylist) {
-            showPlaylist()
+            showPlaylist(false)
         }
     }
     
@@ -95,7 +95,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
     // MARK: Playlist docking functions
     
     // Docks the playlist below the main window
-    private func dockBottom() {
+    private func dockBottom(_ animate: Bool = true) {
         
         resizeMainWindow(true, WindowState.showingEffects)
         
@@ -103,11 +103,11 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         let playlistHeight = min(playlistWindow.height, mainWindow.remainingHeight)
         
         dock(mainWindow.origin
-            .applying(CGAffineTransform.init(translationX: 0, y: -playlistHeight)), NSMakeSize(mainWindow.width, playlistHeight))
+            .applying(CGAffineTransform.init(translationX: 0, y: -playlistHeight)), NSMakeSize(mainWindow.width, playlistHeight), animate)
     }
     
     // Docks the playlist to the left of the main window
-    private func dockLeft() {
+    private func dockLeft(_ animate: Bool = true) {
         
         resizeMainWindow(false, WindowState.showingEffects)
         
@@ -115,11 +115,11 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         let playlistWidth = min(mainWindow.remainingWidth, playlistWindow.width)
         
         dock(mainWindow.frame.origin
-            .applying(CGAffineTransform.init(translationX: -playlistWidth, y: 0)), NSMakeSize(playlistWidth, mainWindow.height))
+            .applying(CGAffineTransform.init(translationX: -playlistWidth, y: 0)), NSMakeSize(playlistWidth, mainWindow.height), animate)
     }
     
     // Docks the playlist to the right of the main window
-    private func dockRight() {
+    private func dockRight(_ animate: Bool = true) {
         
         resizeMainWindow(false, WindowState.showingEffects)
         
@@ -127,11 +127,11 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         let playlistWidth = min(mainWindow.remainingWidth, playlistWindow.width)
         
         dock(mainWindow.frame.origin
-            .applying(CGAffineTransform.init(translationX: mainWindow.width, y: 0)), NSMakeSize(playlistWidth, mainWindow.height))
+            .applying(CGAffineTransform.init(translationX: mainWindow.width, y: 0)), NSMakeSize(playlistWidth, mainWindow.height), animate)
     }
     
     // Docks the playlist with the main window, at a given location and size, and ensures that the entire playlist is visible after the dock
-    private func dock(_ playlistWindowOrigin: NSPoint, _ playlistWindowSize: NSSize) {
+    private func dock(_ playlistWindowOrigin: NSPoint, _ playlistWindowSize: NSSize, _ animate: Bool = true) {
         
         var playlistFrame = playlistWindow.frame
         playlistFrame.origin = playlistWindowOrigin
@@ -139,7 +139,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         
         automatedPlaylistMoveOrResize = true
         
-        playlistWindow.setFrame(playlistFrame, display: true, animate: true)
+        playlistWindow.setFrame(playlistFrame, display: true, animate: animate)
         ensurePlaylistVisible()
         
         automatedPlaylistMoveOrResize = false
@@ -335,7 +335,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         }
     }
     
-    private func showPlaylist() {
+    private func showPlaylist(_ animate: Bool = true) {
         
         resizeMainWindow(playlistDockState == .bottom, WindowState.showingEffects)
         
@@ -348,18 +348,18 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         WindowState.showingPlaylist = true
         
         // Re-dock the playlist window, as per the previous dock state
-        reDockPlaylist()
+        reDockPlaylist(animate)
     }
     
-    private func reDockPlaylist() {
+    private func reDockPlaylist(_ animate: Bool = true) {
         
         switch playlistDockState {
             
-        case .bottom, .none:    dockBottom()
+        case .bottom, .none:    dockBottom(animate)
             
-        case .left: dockLeft()
+        case .left: dockLeft(animate)
             
-        case .right: dockRight()
+        case .right: dockRight(animate)
             
         }
     }

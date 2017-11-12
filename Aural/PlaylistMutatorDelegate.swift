@@ -72,7 +72,43 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         }
     }
     
-    /* 
+    // Assume file doesn't already exist
+    func findOrAddFile(_ file: URL) throws -> IndexedTrack {
+        
+        if let foundTrack = playlist.findTrackByFile(file) {
+            return foundTrack
+        }
+    
+        // Need to add it
+        
+        if (!FileSystemUtils.fileExists(file)) {
+            throw FileNotFoundError(file)
+        }
+        
+        // Always resolve sym links and aliases before reading the file
+        let resolvedFileInfo = FileSystemUtils.resolveTruePath(file)
+        let file = resolvedFileInfo.resolvedURL
+        
+        let track = Track(file)
+        TrackIO.loadDisplayInfo(track)
+        
+        // Non-nil result indicates success
+        let result = playlist.addTrack(track)!
+        
+        // Inform the UI of the new track
+        AsyncMessenger.publishMessage(TrackAddedAsyncMessage.fromTrackAddResult(result, TrackAddedMessageProgress(1, 1)))
+        
+        // Load duration async
+        DispatchQueue.global(qos: .userInitiated).async {
+            
+            TrackIO.loadDuration(track)
+            AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage.fromTrackAddResult(result))
+        }
+        
+        return IndexedTrack(track, result.flatPlaylistResult)
+    }
+    
+    /*
         Adds a bunch of files synchronously.
      
         The autoplayOptions argument encapsulates all autoplay options.
