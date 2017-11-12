@@ -106,6 +106,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage.fromTrackAddResult(result))
         }
         
+        // Notify change listeners
+        self.changeListeners.forEach({$0.tracksAdded([result])})
+        AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: [file]))
+        
         return IndexedTrack(track, result.flatPlaylistResult)
     }
     
