@@ -108,6 +108,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             
             player.play(actualTrack)
             
+            // Notify observers
+            AsyncMessenger.publishMessage(TrackPlayedAsyncMessage(track: actualTrack))
+            
             // Prepare next possible tracks for playback
             prepareNextTracksForPlayback()
         }
@@ -347,6 +350,17 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         let indexedTrack = playbackSequencer.select(track)
         try play(indexedTrack)
         return indexedTrack
+    }
+    
+    func play(_ track: Track, _ playlistType: PlaylistType) throws -> IndexedTrack {
+        
+        if (playlistType == .tracks) {
+            // Play by index
+            let index = playlist.indexOfTrack(track)
+            return try play(index!)
+        }
+        
+        return try play(track)
     }
     
     func play(_ group: Group) throws -> IndexedTrack {

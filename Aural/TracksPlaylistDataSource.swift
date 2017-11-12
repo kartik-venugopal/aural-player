@@ -3,7 +3,9 @@ import Cocoa
 /*
     Data source and view delegate for the NSTableView that displays the "Tracks" (flat) playlist view.
  */
-class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTableViewDelegate, MessageSubscriber {
+class TracksPlaylistDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate, MessageSubscriber {
+    
+    @IBOutlet weak var playlistView: NSTableView!
     
     // Delegate that relays accessor operations to the playlist
     private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.getPlaylistAccessorDelegate()
@@ -17,13 +19,13 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
     // Stores the cell containing the playing track animation, for convenient access when pausing/resuming the animation
     private var animationCell: PlaylistCellView?
     
-    override func viewDidLoad() {
+    override func awakeFromNib() {
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.playbackStateChangedNotification, .playlistTypeChangedNotification, .appInForegroundNotification, .appInBackgroundNotification], subscriber: self)
         
         // Store the NSTableView in a variable for convenient subsequent access
-        TableViewHolder.instance = self.view as? NSTableView
+        TableViewHolder.instance = playlistView
     }
     
     // MARK: Data Source
@@ -143,7 +145,7 @@ class TracksPlaylistDataSource: NSViewController, NSTableViewDataSource, NSTable
         let playing = playbackInfo.getPlaybackState() == .playing
         let showingThisPlaylistView = PlaylistViewState.current == .tracks
         
-        return playing && WindowState.inForeground && showingThisPlaylistView
+        return playing && WindowState.isInForeground() && showingThisPlaylistView
     }
     
     // MARK: Drag n drop

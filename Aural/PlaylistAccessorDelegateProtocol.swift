@@ -11,6 +11,8 @@ protocol PlaylistAccessorDelegateProtocol {
     // Returns the track at a given index. Returns nil if an invalid index is specified.
     func trackAtIndex(_ index: Int?) -> IndexedTrack?
     
+    func indexOfTrack(_ track: Track) -> IndexedTrack?
+    
     // Returns the size (i.e. total number of tracks) of the playlist
     func size() -> Int
     

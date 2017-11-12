@@ -1,5 +1,8 @@
 import Cocoa
 
+/*
+    Provides actions for the dock menu
+ */
 class DockMenuController: NSObject {
     
     @IBOutlet weak var repeatOffMenuItem: NSMenuItem!

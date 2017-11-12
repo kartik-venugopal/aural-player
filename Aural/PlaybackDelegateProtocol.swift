@@ -17,6 +17,10 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     // NOTE - Throws an error if the selected track cannot be played back
     func play(_ track: Track) throws -> IndexedTrack
     
+    // Plays the given track. Returns complete track information for the track.
+    // NOTE - Throws an error if the selected track cannot be played back
+    func play(_ track: Track, _ playlistType: PlaylistType) throws -> IndexedTrack
+    
     // Initiates playback of (tracks within) the given group. Returns complete track information for the track that is chosen to play first.
     // NOTE - Throws an error if the track that is chosen to play first within the given group cannot be played back
     func play(_ group: Group) throws -> IndexedTrack

@@ -3,7 +3,7 @@ import Foundation
 /*
     Exposes high-level operations performed on the popover view
  */
-protocol PopoverViewDelegateProtocol {
+protocol PopoverViewDelegate {
     
     // Shows the popover view
     func show()

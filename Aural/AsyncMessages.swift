@@ -30,6 +30,8 @@ enum AsyncMessageType {
     
     case tracksRemoved
     
+    case trackPlayed
+    
     // See TrackNotPlayedAsyncMessage
     case trackNotPlayed
     
@@ -198,4 +200,11 @@ struct DoneAddingTracksAsyncMessage: AsyncMessage {
     
     let messageType: AsyncMessageType = .doneAddingTracks
     static let instance = DoneAddingTracksAsyncMessage()
+}
+
+// For history (recently played items)
+struct TrackPlayedAsyncMessage: AsyncMessage {
+ 
+    let messageType: AsyncMessageType = .trackPlayed
+    let track: Track
 }

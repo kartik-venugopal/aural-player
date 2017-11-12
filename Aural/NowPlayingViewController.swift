@@ -26,18 +26,25 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     // Button to display more details about the playing track
     @IBOutlet weak var btnMoreInfo: NSButton!
-//    @IBOutlet weak var moreInfoMenuItem: NSMenuItem!
     
     // Button to show the currently playing track within the playlist
     @IBOutlet weak var btnShowPlayingTrackInPlaylist: NSButton!
-//    @IBOutlet weak var showInPlaylistMenuItem: NSMenuItem!
+
+    @IBOutlet weak var btnFavorite: NSButton!
     
     // Delegate that retrieves information about the player and the currently playing track
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
+    private let history: HistoryDelegate = ObjectGraph.getHistoryDelegate()
+    
     // The view that displays detailed track information, when requested by the user
-    private lazy var popoverView: PopoverViewDelegateProtocol = {
-        return PopoverViewController.create(self.btnMoreInfo as NSView)
+    private lazy var popoverView: PopoverViewDelegate = {
+        return DetailedTrackInfoViewController.create(self.btnMoreInfo as NSView)
+    }()
+    
+    // The view that displays detailed track information, when requested by the user
+    private lazy var favoritesPopup: FavoritesPopupViewController = {
+        return FavoritesPopupViewController.create(self.btnFavorite as NSView)
     }()
     
     // Timer that periodically updates the seek position slider and label
@@ -80,6 +87,26 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     @IBAction func showPlayingTrackAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.showPlayingTrack, PlaylistViewState.current))
+    }
+    
+    @IBAction func favoriteAction(_ sender: Any) {
+        
+        btnFavorite.image = btnFavorite.image == Images.imgFavoritesOn ? Images.imgFavoritesOff : Images.imgFavoritesOn
+        
+        let plTrack = (playbackInfo.getPlayingTrack()?.track)!
+        
+        if btnFavorite.image == Images.imgFavoritesOn {
+            
+            SyncMessenger.publishActionMessage(FavoritesActionMessage(.addFavorite, plTrack))
+            favoritesPopup.showAddedMessage()
+            btnFavorite.toolTip = "Remove this track from your Favorites"
+            
+        } else {
+            
+            SyncMessenger.publishActionMessage(FavoritesActionMessage(.removeFavorite, plTrack))
+            favoritesPopup.showRemovedMessage()
+            btnFavorite.toolTip = "Add this track to your Favorites"
+        }
     }
     
     private func showNowPlayingInfo(_ track: Track) {
@@ -132,6 +159,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         resetSeekPosition(track)
         showPlaybackScope()
+        
+        let hasFav = history.hasFavorite(track)
+        btnFavorite.image = hasFav ? Images.imgFavoritesOn : Images.imgFavoritesOff
+        btnFavorite.toolTip = hasFav ? "Remove this track from your Favorites" : "Add this track to your Favorites"
     }
     
     /* 
@@ -194,7 +225,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // When the playing track changes (or there is none), certain functions may or may not be available, so their corresponding UI controls need to be shown/enabled or hidden/disabled.
     private func togglePlayingTrackButtons(_ show: Bool) {
         
-        [btnMoreInfo, btnShowPlayingTrackInPlaylist].forEach({$0.isHidden = !show})
+        [btnMoreInfo, btnShowPlayingTrackInPlaylist, btnFavorite].forEach({$0.isHidden = !show})
     }
     
     private func setSeekTimerState(_ timerOn: Bool) {
@@ -329,7 +360,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     private func shouldAnimate() -> Bool {
         
         // Animation enabled only if 1 - the appropriate playlist view is currently shown, 2 - a track is currently playing (not paused), and 3 - the app window is currently in the foreground
-        return (playbackInfo.getPlaybackState() == .playing) && WindowState.inForeground
+        return (playbackInfo.getPlaybackState() == .playing) && WindowState.isInForeground()
     }
     
     // MARK: Message handlers

@@ -115,6 +115,3 @@ enum GroupType: String {
         }
     }
 }
-
-// Marker protocol indicating an item that belongs to a grouping playlist
-protocol GroupingPlaylistItem {}

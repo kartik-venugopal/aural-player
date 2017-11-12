@@ -6,7 +6,7 @@ import Cocoa
 protocol PlaylistMutatorDelegateProtocol {
     
     /* 
-        Adds a set of files to the playlist, if they are valid and supported by the app.
+        Adds a set of files to the playlist, asynchronously, if they are valid and supported by the app.
      
         Each of the files can be one of the following:
         1 - A valid audio file with a supported format
@@ -23,6 +23,8 @@ protocol PlaylistMutatorDelegateProtocol {
             - All playlist types will be affected by this operation. i.e. the tracks will be added to all playlist types.
      */
     func addFiles(_ files: [URL])
+    
+    func findOrAddFile(_ file: URL) throws -> IndexedTrack
     
     /*
         Removes track(s) with the given indexes within the flat playlist.

@@ -145,7 +145,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         moveItems(results)
         
         // Re-select all the items that were moved
-        var allItems: [GroupingPlaylistItem] = [GroupingPlaylistItem]()
+        var allItems: [PlaylistItem] = [PlaylistItem]()
         groups.forEach({allItems.append($0)})
         tracks.forEach({allItems.append($0)})
         selectAllItems(allItems)
@@ -172,7 +172,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     // Selects all the specified items within the playlist view
-    private func selectAllItems(_ items: [GroupingPlaylistItem]) {
+    private func selectAllItems(_ items: [PlaylistItem]) {
         
         // Determine the row indexes for the items
         var selIndexes = [Int]()
@@ -198,7 +198,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         moveItems(results)
         
         // Re-select all the items that were moved
-        var allItems: [GroupingPlaylistItem] = [GroupingPlaylistItem]()
+        var allItems: [PlaylistItem] = [PlaylistItem]()
         groups.forEach({allItems.append($0)})
         tracks.forEach({allItems.append($0)})
         selectAllItems(allItems)
