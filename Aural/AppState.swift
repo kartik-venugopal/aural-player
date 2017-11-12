@@ -81,6 +81,7 @@ class PlaybackSequenceState {
 
 class HistoryState {
     
+    var recentlyAdded: [URL] = [URL]()
     var recentlyPlayed: [URL] = [URL]()
     var favorites: [URL] = [URL]()
 }
@@ -205,28 +206,23 @@ class AppState {
         var playlistDict = [NSString: AnyObject]()
         
         var tracksArr = [String]()
-        for track in playlistState.tracks {
-            tracksArr.append(track.path)
-        }
-        
+        playlistState.tracks.forEach({tracksArr.append($0.path)})
         playlistDict["tracks"] = NSArray(array: tracksArr)
         
         dict["playlist"] = playlistDict as AnyObject
         
         var historyDict = [NSString: AnyObject]()
         
-        var recentlyPlayedArr = [String]()
-        for file in historyState.recentlyPlayed {
-            recentlyPlayedArr.append(file.path)
-        }
+        var recentlyAddedArr = [String]()
+        historyState.recentlyAdded.forEach({recentlyAddedArr.append($0.path)})
+        historyDict["recentlyAdded"] = NSArray(array: recentlyAddedArr)
         
+        var recentlyPlayedArr = [String]()
+        historyState.recentlyPlayed.forEach({recentlyPlayedArr.append($0.path)})
         historyDict["recentlyPlayed"] = NSArray(array: recentlyPlayedArr)
         
         var favoritesArr = [String]()
-        for file in historyState.favorites {
-            favoritesArr.append(file.path)
-        }
-        
+        historyState.favorites.forEach({favoritesArr.append($0.path)})
         historyDict["favorites"] = NSArray(array: favoritesArr)
         
         dict["history"] = historyDict as AnyObject
@@ -427,36 +423,22 @@ class AppState {
         if let playlistDict = (jsonObject["playlist"] as? NSDictionary) {
             
             if let tracks = playlistDict["tracks"] as? [String] {
-                
-                var urls: [URL] = [URL]()
-                for track in tracks {
-                    urls.append(URL(fileURLWithPath: track))
-                }
-                
-                state.playlistState.tracks = urls
+                tracks.forEach({state.playlistState.tracks.append(URL(fileURLWithPath: $0))})
             }
         }
         
         if let historyDict = (jsonObject["history"] as? NSDictionary) {
             
+            if let recentlyAdded = historyDict["recentlyAdded"] as? [String] {
+                recentlyAdded.forEach({state.historyState.recentlyAdded.append(URL(fileURLWithPath: $0))})
+            }
+            
             if let recentlyPlayed = historyDict["recentlyPlayed"] as? [String] {
-                
-                var recentlyPlayedFiles: [URL] = [URL]()
-                for path in recentlyPlayed {
-                    recentlyPlayedFiles.append(URL(fileURLWithPath: path))
-                }
-                
-                state.historyState.recentlyPlayed = recentlyPlayedFiles
+                recentlyPlayed.forEach({state.historyState.recentlyPlayed.append(URL(fileURLWithPath: $0))})
             }
             
             if let favorites = historyDict["favorites"] as? [String] {
-                
-                var favoritesFiles: [URL] = [URL]()
-                for path in favorites {
-                    favoritesFiles.append(URL(fileURLWithPath: path))
-                }
-                
-                state.historyState.favorites = favoritesFiles
+                favorites.forEach({state.historyState.favorites.append(URL(fileURLWithPath: $0))})
             }
         }
         

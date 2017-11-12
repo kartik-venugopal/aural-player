@@ -4,7 +4,8 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
     
     private let history: HistoryDelegate = ObjectGraph.getHistoryDelegate()
     
-    @IBOutlet weak var recentlyPlayedItemsMenu: NSMenu!
+    @IBOutlet weak var recentlyAddedMenu: NSMenu!
+    @IBOutlet weak var recentlyPlayedMenu: NSMenu!
     @IBOutlet weak var favoritesMenu: NSMenu!
     
     private var itemsMap: [NSMenuItem: HistoryItem] = [:]
@@ -15,19 +16,25 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
     
     func menuWillOpen(_ menu: NSMenu) {
         
-        recentlyPlayedItemsMenu.removeAllItems()
+        let tim = TimerUtils.start("historyMenu")
+        
+        recentlyAddedMenu.removeAllItems()
+        recentlyPlayedMenu.removeAllItems()
         favoritesMenu.removeAllItems()
         itemsMap.removeAll()
         
-        history.allPlayedItems().forEach({recentlyPlayedItemsMenu.addItem(createMenuItem($0))})
+        history.allAddedItems().forEach({recentlyAddedMenu.addItem(createMenuItem($0))})
+        history.allPlayedItems().forEach({recentlyPlayedMenu.addItem(createMenuItem($0))})
         history.allFavorites().forEach({favoritesMenu.addItem(createMenuItem($0))})
+        
+        tim.end()
     }
     
     private func createMenuItem(_ item: HistoryItem) -> NSMenuItem {
         
-        let tim = TimerUtils.start("createMenuItem")
+        let action = item is PlayableHistoryItem ? #selector(self.playSelectedItemAction(_:)) : #selector(self.addSelectedItemAction(_:))
         
-        let menuItem = NSMenuItem(title: "  " + item.displayName, action: #selector(self.playSelectedItemAction(_:)), keyEquivalent: "")
+        let menuItem = NSMenuItem(title: "  " + item.displayName, action: action, keyEquivalent: "")
         menuItem.target = self
         
         menuItem.image = item.art
@@ -35,8 +42,11 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
         
         itemsMap[menuItem] = item
         
-        tim.end()
         return menuItem
+    }
+    
+    @IBAction func addSelectedItemAction(_ sender: NSMenuItem) {
+        history.addItem(itemsMap[sender]!.file)
     }
     
     @IBAction func playSelectedItemAction(_ sender: NSMenuItem) {
@@ -47,7 +57,7 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
         } catch let error {
             
             if (error is FileNotFoundError) {
-//                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
+                //                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
                 // TODO: Show alert
             }
         }
