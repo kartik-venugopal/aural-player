@@ -370,24 +370,24 @@ G1BhbiBTbGlkZXI
                                     <color key="fillColor" white="0.0" alpha="0.70347281679999996" colorSpace="calibratedWhite"/>
                                 </box>
                                 <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="8FQ-tu-oTm" userLabel="Effects Box">
-                                    <rect key="frame" x="14" y="19" width="452" height="174"/>
+                                    <rect key="frame" x="14" y="13" width="452" height="180"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" ambiguous="YES" id="mDn-2i-9fW">
-                                        <rect key="frame" x="1" y="1" width="450" height="172"/>
+                                        <rect key="frame" x="1" y="1" width="450" height="178"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tabView fixedFrame="YES" drawsBackground="NO" type="rightTabsBezelBorder" initialItem="TwR-vC-t00" translatesAutoresizingMaskIntoConstraints="NO" id="pVO-cW-Ksf" userLabel="FX Tabbed group">
-                                                <rect key="frame" x="-7" y="-10" width="525" height="160"/>
+                                                <rect key="frame" x="-7" y="-9" width="525" height="160"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <font key="font" size="11" name="GillSans"/>
                                                 <tabViewItems>
                                                     <tabViewItem label="EQ" identifier="1" id="TwR-vC-t00" userLabel="EQ">
-                                                        <view key="view" id="oKN-0I-ona">
-                                                            <rect key="frame" x="10" y="7" width="484" height="140"/>
+                                                        <view key="view" ambiguous="YES" id="oKN-0I-ona">
+                                                            <rect key="frame" x="10" y="7" width="0.0" height="335"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drb-Ap-e8f" userLabel="Frequencies">
-                                                                    <rect key="frame" x="108" y="120" width="271" height="17"/>
+                                                                    <rect key="frame" x="108" y="315" width="271" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="32      64      128     256     512     1k       2k      4k       8k     16k" id="ZGT-4E-z6G">
                                                                         <font key="font" size="10" name="GillSans"/>
@@ -396,7 +396,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cCy-aI-OYJ" userLabel="EQGlobalGain">
-                                                                    <rect key="frame" x="62" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="62" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="e26-Vi-Qsv" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -404,7 +404,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="9" translatesAutoresizingMaskIntoConstraints="NO" id="B8n-AH-bln" userLabel="Eq Slider16k">
-                                                                    <rect key="frame" x="355" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="355" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="4fJ-zb-kji" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -412,7 +412,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="8" translatesAutoresizingMaskIntoConstraints="NO" id="CDA-6g-H1H" userLabel="Eq Slider8k">
-                                                                    <rect key="frame" x="327" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="327" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="qSD-fq-JHQ" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -420,7 +420,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="7" translatesAutoresizingMaskIntoConstraints="NO" id="TDH-NA-zof" userLabel="Eq Slider4k">
-                                                                    <rect key="frame" x="299" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="299" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="yyo-LP-ZvA" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -428,7 +428,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="6" translatesAutoresizingMaskIntoConstraints="NO" id="35c-fr-LIw" userLabel="Eq Slider2k">
-                                                                    <rect key="frame" x="271" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="271" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="exE-Ki-pnM" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -436,7 +436,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="MHc-Fl-uII" userLabel="Eq Slider1k">
-                                                                    <rect key="frame" x="243" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="243" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="uTv-98-JV9" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -444,7 +444,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="8Zg-c9-CCL">
-                                                                    <rect key="frame" x="215" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="215" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="Jr3-n8-a3h" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -452,7 +452,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="kqA-pL-u5v">
-                                                                    <rect key="frame" x="187" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="187" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="0Gn-6u-AV6" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -460,7 +460,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="BD5-Cg-gjm">
-                                                                    <rect key="frame" x="159" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="159" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="Euu-9y-3HE" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -468,7 +468,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="371-is-HPy">
-                                                                    <rect key="frame" x="131" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="131" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="7bd-3R-7de" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -476,7 +476,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H4J-pP-BUK">
-                                                                    <rect key="frame" x="103" y="20" width="18" height="98"/>
+                                                                    <rect key="frame" x="103" y="215" width="18" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="Fhv-h5-LBN" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
                                                                     <connections>
@@ -484,7 +484,7 @@ G1BhbiBTbGlkZXI
                                                                     </connections>
                                                                 </slider>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Jg-mg-6WN">
-                                                                    <rect key="frame" x="82" y="98" width="20" height="21"/>
+                                                                    <rect key="frame" x="82" y="293" width="20" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+20" id="wxV-JA-K3r">
                                                                         <font key="font" size="10" name="GillSans"/>
@@ -493,7 +493,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdd-S4-9XO">
-                                                                    <rect key="frame" x="82" y="13" width="20" height="21"/>
+                                                                    <rect key="frame" x="82" y="208" width="20" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-20" id="yWh-OK-KIc">
                                                                         <font key="font" size="10" name="GillSans"/>
@@ -502,7 +502,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gme-VK-Beu">
-                                                                    <rect key="frame" x="83" y="61" width="15" height="16"/>
+                                                                    <rect key="frame" x="83" y="256" width="15" height="16"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0" id="GdC-pc-Xpk">
                                                                         <font key="font" size="10" name="GillSans"/>
@@ -511,7 +511,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RuE-tG-SHk">
-                                                                    <rect key="frame" x="311" y="1" width="62" height="18"/>
+                                                                    <rect key="frame" x="311" y="196" width="62" height="18"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Presets" id="pHU-J6-6pa">
                                                                         <font key="font" size="12" name="GillSans"/>
@@ -520,7 +520,7 @@ G1BhbiBTbGlkZXI
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HcP-V6-Iz0" userLabel="EQ Presets Menu">
-                                                                    <rect key="frame" x="344" y="-1" width="34" height="18"/>
+                                                                    <rect key="frame" x="344" y="194" width="34" height="18"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <popUpButtonCell key="cell" type="disclosure" title="Flat" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="cFU-2Y-fv0" id="Pj3-6q-fft" customClass="EQPresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -585,7 +585,7 @@ G1BhbiBTbGlkZXI
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Pitch" identifier="2" id="jMl-8A-uQb" userLabel="Pitch">
-                                                        <view key="view" ambiguous="YES" id="stY-xi-Nqz">
+                                                        <view key="view" id="stY-xi-Nqz">
                                                             <rect key="frame" x="10" y="7" width="484" height="140"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -1541,20 +1541,20 @@ G1BhbiBTbGlkZXI
                                                 </tabViewItems>
                                             </tabView>
                                             <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="cvE-ZQ-FhC">
-                                                <rect key="frame" x="0.0" y="147" width="385" height="203"/>
+                                                <rect key="frame" x="0.0" y="153" width="385" height="117"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </box>
                                             <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="h38-vi-jyT" userLabel="Tab Buttons Box">
-                                                <rect key="frame" x="19" y="151" width="410" height="22"/>
+                                                <rect key="frame" x="4" y="152" width="440" height="27"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <view key="contentView" ambiguous="YES" id="nI6-0T-EED">
-                                                    <rect key="frame" x="1" y="1" width="408" height="20"/>
+                                                    <rect key="frame" x="1" y="1" width="438" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cGH-Ad-GRz" userLabel="EQ button">
-                                                            <rect key="frame" x="-1" y="0.0" width="37" height="20"/>
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cGH-Ad-GRz" userLabel="EQ button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
+                                                            <rect key="frame" x="2" y="0.0" width="47" height="25"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="square" title="EQ" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="O27-cM-12s" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                                            <buttonCell key="cell" type="square" title="EQ" bezelStyle="shadowlessSquare" image="EQTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="O27-cM-12s" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -1567,10 +1567,10 @@ G1BhbiBTbGlkZXI
                                                                 <action selector="eqTabViewAction:" target="N9k-Qt-3p4" id="5mw-sY-TL1"/>
                                                             </connections>
                                                         </button>
-                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xHa-FL-oRF" userLabel="Pitch button">
-                                                            <rect key="frame" x="50" y="0.0" width="45" height="20"/>
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xHa-FL-oRF" userLabel="Pitch button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
+                                                            <rect key="frame" x="51" y="0.0" width="56" height="25"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="square" title="Pitch" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Agt-kE-ihB" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                                            <buttonCell key="cell" type="square" title="Pitch" bezelStyle="shadowlessSquare" image="PitchTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Agt-kE-ihB" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -1583,10 +1583,10 @@ G1BhbiBTbGlkZXI
                                                                 <action selector="pitchTabViewAction:" target="N9k-Qt-3p4" id="itT-KQ-T6n"/>
                                                             </connections>
                                                         </button>
-                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b7Q-2I-PgT" userLabel="Time button">
-                                                            <rect key="frame" x="109" y="0.0" width="40" height="20"/>
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b7Q-2I-PgT" userLabel="Time button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
+                                                            <rect key="frame" x="109" y="0.0" width="57" height="25"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="square" title="Time" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FjP-jK-9xx" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                                            <buttonCell key="cell" type="square" title="Time" bezelStyle="shadowlessSquare" image="TimeTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FjP-jK-9xx" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -1599,10 +1599,10 @@ G1BhbiBTbGlkZXI
                                                                 <action selector="timeTabViewAction:" target="N9k-Qt-3p4" id="u5p-hn-MXu"/>
                                                             </connections>
                                                         </button>
-                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QYm-lv-QP2" userLabel="Reverb button">
-                                                            <rect key="frame" x="163" y="0.0" width="53" height="20"/>
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QYm-lv-QP2" userLabel="Reverb button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
+                                                            <rect key="frame" x="168" y="0.0" width="67" height="25"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="square" title="Reverb" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="djm-jz-YEB" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                                            <buttonCell key="cell" type="square" title="Reverb" bezelStyle="shadowlessSquare" image="ReverbTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="djm-jz-YEB" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -1615,10 +1615,10 @@ G1BhbiBTbGlkZXI
                                                                 <action selector="reverbTabViewAction:" target="N9k-Qt-3p4" id="F1w-uy-ILh"/>
                                                             </connections>
                                                         </button>
-                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NEz-fc-0ib" userLabel="Delay button">
-                                                            <rect key="frame" x="230" y="0.0" width="44" height="20"/>
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NEz-fc-0ib" userLabel="Delay button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
+                                                            <rect key="frame" x="237" y="0.0" width="60" height="25"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="square" title="Delay" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="atH-Ek-20f" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                                            <buttonCell key="cell" type="square" title="Delay" bezelStyle="shadowlessSquare" image="DelayTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="atH-Ek-20f" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -1631,10 +1631,10 @@ G1BhbiBTbGlkZXI
                                                                 <action selector="delayTabViewAction:" target="N9k-Qt-3p4" id="PhN-DJ-t9O"/>
                                                             </connections>
                                                         </button>
-                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z8T-oU-qrj" userLabel="Filter button">
-                                                            <rect key="frame" x="288" y="0.0" width="41" height="20"/>
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z8T-oU-qrj" userLabel="Filter button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
+                                                            <rect key="frame" x="299" y="0.0" width="58" height="25"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="square" title="Filter" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OZ8-Cp-h0b" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                                            <buttonCell key="cell" type="square" title="Filter" bezelStyle="shadowlessSquare" image="FilterTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OZ8-Cp-h0b" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -1647,10 +1647,10 @@ G1BhbiBTbGlkZXI
                                                                 <action selector="filterTabViewAction:" target="N9k-Qt-3p4" id="ihe-DH-oNx"/>
                                                             </connections>
                                                         </button>
-                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qcs-hu-5fg" userLabel="Recorder button">
-                                                            <rect key="frame" x="343" y="0.0" width="66" height="20"/>
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qcs-hu-5fg" userLabel="Recorder button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
+                                                            <rect key="frame" x="359" y="0.0" width="78" height="25"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="square" title="Recorder" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vu1-3C-7oF" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                                            <buttonCell key="cell" type="square" title="Recorder" bezelStyle="shadowlessSquare" image="RecorderTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vu1-3C-7oF" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -1798,21 +1798,28 @@ G1BhbiBTbGlkZXI
     </objects>
     <resources>
         <image name="Close" width="80" height="80"/>
+        <image name="DelayTab" width="153" height="146"/>
+        <image name="EQTab" width="419" height="422"/>
         <image name="EffectsView-On" width="419" height="422"/>
         <image name="Favorites-Off" width="256" height="256"/>
+        <image name="FilterTab" width="512" height="512"/>
         <image name="Hide" width="94" height="94"/>
         <image name="MoreInfo" width="457" height="453"/>
         <image name="NextTrack" width="162" height="88"/>
+        <image name="PitchTab" width="17" height="13"/>
         <image name="Play" width="127" height="146"/>
         <image name="PlaylistView-On" width="185" height="161"/>
         <image name="PreviousTrack" width="162" height="88"/>
         <image name="Record" width="256" height="256"/>
+        <image name="RecorderTab" width="384" height="384"/>
         <image name="RepeatOff" width="256" height="256"/>
+        <image name="ReverbTab" width="211" height="211"/>
         <image name="SeekBackward" width="155" height="88"/>
         <image name="SeekForward" width="155" height="88"/>
         <image name="ShowPlayingTrack" width="102" height="102"/>
         <image name="ShuffleOff" width="256" height="256"/>
         <image name="SwitchOff" width="181" height="180"/>
+        <image name="TimeTab" width="12" height="12"/>
         <image name="VolumeMedium" width="256" height="256"/>
     </resources>
 </document>

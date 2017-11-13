@@ -6,7 +6,7 @@ import Cocoa
 
 class RecorderViewController: NSViewController, MessageSubscriber {
     
-    @IBOutlet weak var recorderTabViewButton: NSButton!
+    @IBOutlet weak var recorderTabViewButton: MultiImageButton!
     
     // Recorder controls
     @IBOutlet weak var btnRecord: NSButton!
@@ -55,6 +55,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         recordingInfoBox.isHidden = false
         
         (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
+        recorderTabViewButton.image = recorderTabViewButton.onStateImage
         recorderTabViewButton.needsDisplay = true
     }
     
@@ -66,6 +67,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         recorderTimer?.pause()
         
         (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = false
+        recorderTabViewButton.image = recorderTabViewButton.offStateImage
         recorderTabViewButton.needsDisplay = true
         
         saveRecording(recordingInfo!.format)
@@ -103,17 +105,24 @@ class RecorderViewController: NSViewController, MessageSubscriber {
             
             switch response {
                 
-            case RecordingAlertResponse.dontExit.rawValue: return AppExitResponse.dontExit
+            case RecordingAlertResponse.dontExit.rawValue:
                 
-            case RecordingAlertResponse.saveAndExit.rawValue: stopRecording()
-                                                                return AppExitResponse.okToExit
+                return AppExitResponse.dontExit
                 
-            case RecordingAlertResponse.discardAndExit.rawValue: recorder.deleteRecording()
-                                                                return AppExitResponse.okToExit
+            case RecordingAlertResponse.saveAndExit.rawValue:
+                
+                stopRecording()
+                return AppExitResponse.okToExit
+                
+            case RecordingAlertResponse.discardAndExit.rawValue:
+                
+                recorder.deleteRecording()
+                return AppExitResponse.okToExit
                 
             // Impossible
-            default: return AppExitResponse.okToExit
+            default:
                 
+                return AppExitResponse.okToExit
             }
         }
         

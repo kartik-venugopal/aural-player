@@ -729,7 +729,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="Z9Q-VQ-Gxj">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="pe1-iT-lIJ" id="E1b-3I-Lef" userLabel="Playlist Albums View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
@@ -866,7 +866,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                         <clipView key="contentView" copiesOnScroll="NO" id="1jW-cE-Hev">
                                                             <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="xZp-4h-2Va" id="xCD-hf-Vph" userLabel="Playlist Genres View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
@@ -1126,9 +1126,9 @@
         </window>
     </objects>
     <resources>
-        <image name="Add" width="134" height="134"/>
+        <image name="Add" width="192" height="192"/>
         <image name="Clear" width="34.599998474121094" height="40"/>
-        <image name="DockBottom" width="14" height="12"/>
+        <image name="DockBottom" width="563" height="512"/>
         <image name="DockLeft" width="14" height="12"/>
         <image name="DockRight" width="14" height="12"/>
         <image name="Down" width="92" height="128"/>

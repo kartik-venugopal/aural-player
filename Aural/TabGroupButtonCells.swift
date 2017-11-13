@@ -52,13 +52,6 @@ class TabGroupButtonCell: NSButtonCell {
     }
 }
 
-// Cell for the Effects unit tab group
-class EffectsUnitButtonCell: TabGroupButtonCell {
-    
-    override var borderRadius: CGFloat {return 1.5}
-    override var borderLineWidth: CGFloat {return 1.5}
-}
-
 class PlaylistViewsButtonCell: TabGroupButtonCell {
     
     override var borderRadius: CGFloat {return 2}
