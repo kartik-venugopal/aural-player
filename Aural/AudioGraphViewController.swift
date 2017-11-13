@@ -106,7 +106,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         initFilter(appState)
         initTabGroup()
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .increaseBass, .decreaseBass, .increasePitch, .decreasePitch, .increaseRate, .decreaseRate], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble, .increasePitch, .decreasePitch, .setPitch, .increaseRate, .decreaseRate, .setRate], subscriber: self)
     }
     
     private func initVolumeAndPan(_ appState: UIAppState) {
@@ -352,28 +352,40 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         }
     }
     
+    private func showEQTab() {
+        if (!fxTabView.isHidden) {
+            eqTabViewAction(self)
+        }
+    }
+    
     private func increaseBass() {
         updateEQSliders(graph.increaseBass())
+        showEQTab()
     }
     
     private func decreaseBass() {
         updateEQSliders(graph.decreaseBass())
+        showEQTab()
     }
     
     private func increaseMids() {
-        
+        updateEQSliders(graph.increaseMids())
+        showEQTab()
     }
     
     private func decreaseMids() {
-        
+        updateEQSliders(graph.decreaseMids())
+        showEQTab()
     }
     
     private func increaseTreble() {
-        
+        updateEQSliders(graph.increaseTreble())
+        showEQTab()
     }
     
     private func decreaseTreble() {
-        
+        updateEQSliders(graph.decreaseTreble())
+        showEQTab()
     }
     
     @IBAction func pitchBypassAction(_ sender: AnyObject) {
@@ -388,6 +400,25 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     
     @IBAction func pitchAction(_ sender: AnyObject) {
         lblPitchValue.stringValue = graph.setPitch(pitchSlider.floatValue)
+    }
+    
+    private func setPitch(_ pitch: Float) {
+        
+        if graph.isPitchBypass() {
+            _ = graph.togglePitchBypass()
+        }
+        
+        lblPitchValue.stringValue = graph.setPitch(pitch)
+        pitchSlider.floatValue = pitch
+        
+        (pitchTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
+        pitchTabViewButton.needsDisplay = true
+        btnPitchBypass.image = Images.imgSwitchOn
+        
+        // Show the Pitch tab if the Effects panel is shown
+        if (!fxTabView.isHidden) {
+            pitchTabViewAction(self)
+        }
     }
     
     @IBAction func pitchOverlapAction(_ sender: AnyObject) {
@@ -433,14 +464,32 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     
     @IBAction func timeStretchAction(_ sender: AnyObject) {
         
-        let newRate = timeSlider.floatValue
-        let rateValueStr = graph.setTimeStretchRate(newRate)
-        lblTimeStretchRateValue.stringValue = rateValueStr
+        lblTimeStretchRateValue.stringValue = graph.setTimeStretchRate(timeSlider.floatValue)
         
-        let timeStretchActive = !graph.isTimeBypass()
-        if (timeStretchActive) {
-            SyncMessenger.publishNotification(PlaybackRateChangedNotification(newRate))
+        if (!graph.isTimeBypass()) {
+            SyncMessenger.publishNotification(PlaybackRateChangedNotification(timeSlider.floatValue))
         }
+    }
+    
+    private func setRate(_ rate: Float) {
+        
+        // Ensure unit is activated
+        if graph.isTimeBypass() {
+            _ = graph.toggleTimeBypass()
+        }
+        
+        lblTimeStretchRateValue.stringValue = graph.setTimeStretchRate(rate)
+        timeSlider.floatValue = rate
+        
+        (timeTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
+        timeTabViewButton.needsDisplay = true
+        btnTimeBypass.image = Images.imgSwitchOn
+        
+        if (!fxTabView.isHidden) {
+            timeTabViewAction(self)
+        }
+        
+        SyncMessenger.publishNotification(PlaybackRateChangedNotification(rate))
     }
     
     private func increaseRate() {
@@ -580,6 +629,8 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     
     func consumeMessage(_ message: ActionMessage) {
         
+        let message = message as! AudioGraphActionMessage
+        
         switch message.actionType {
             
         case .muteOrUnmute: muteOrUnmute()
@@ -596,13 +647,25 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
             
         case .decreaseBass: decreaseBass()
             
+        case .increaseMids: increaseMids()
+            
+        case .decreaseMids: decreaseMids()
+            
+        case .increaseTreble: increaseTreble()
+            
+        case .decreaseTreble: decreaseTreble()
+            
         case .increasePitch: increasePitch()
             
         case .decreasePitch: decreasePitch()
             
+        case .setPitch: setPitch(message.value!)
+            
         case .increaseRate: increaseRate()
             
         case .decreaseRate: decreaseRate()
+            
+        case .setRate: setRate(message.value!)
             
         default: return
             

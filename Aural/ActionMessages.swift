@@ -113,9 +113,13 @@ enum ActionType {
     
     case decreasePitch
     
+    case setPitch
+    
     case increaseRate
     
     case decreaseRate
+    
+    case setRate
     
     // MARK: View actions
     
@@ -153,9 +157,11 @@ struct PlaybackActionMessage: ActionMessage {
 struct AudioGraphActionMessage: ActionMessage {
     
     var actionType: ActionType
+    var value: Float?
     
-    init(_ actionType: ActionType) {
+    init(_ actionType: ActionType, _ value: Float? = nil) {
         self.actionType = actionType
+        self.value = value
     }
 }
 

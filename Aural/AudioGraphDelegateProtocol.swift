@@ -47,20 +47,37 @@ protocol AudioGraphDelegateProtocol {
     // The bands parameter is a mapping of index -> gain
     func setEQBands(_ bands: [Int: Float])
     
-    // Returns the new bass band gain values, mapped by index
+    // Increases the equalizer bass band gains by a small increment. Returns the new bass band gain values, mapped by index.
     func increaseBass() -> [Int: Float]
     
-    // Returns the new bass band gain values, mapped by index
+    // Decreases the equalizer bass band gains by a small decrement. Returns the new bass band gain values, mapped by index.
     func decreaseBass() -> [Int: Float]
+    
+    // Increases the equalizer mid-frequency band gains by a small increment. Returns the new mid-frequency band gain values, mapped by index.
+    func increaseMids() -> [Int: Float]
+    
+    // Decreases the equalizer mid-frequency band gains by a small decrement. Returns the new mid-frequency band gain values, mapped by index.
+    func decreaseMids() -> [Int: Float]
+    
+    // Increases the equalizer treble band gains by a small increment. Returns the new treble band gain values, mapped by index.
+    func increaseTreble() -> [Int: Float]
+    
+    // Decreases the equalizer treble band gains by a small decrement. Returns the new treble band gain values, mapped by index.
+    func decreaseTreble() -> [Int: Float]
     
     // Toggles the bypass state of the pitch shift audio effect unit, and returns its new bypass state
     func togglePitchBypass() -> Bool
     
+    // Returns the current bypass state of the pitch shift audio effect unit
+    func isPitchBypass() -> Bool
+    
     // Sets the pitch shift value, in octaves, specified as a value between -2 and 2
     func setPitch(_ pitch: Float) -> String
     
+    // Increases the pitch shift by a small increment. Returns the new pitch shift value.
     func increasePitch() -> (pitch: Float, pitchString: String)
     
+    // Decreases the pitch shift by a small decrement. Returns the new pitch shift value.
     func decreasePitch() -> (pitch: Float, pitchString: String)
     
     // Sets the amount of overlap between segments of the input audio signal into the pitch effects unit, specified as a value between 3 and 32
@@ -75,8 +92,10 @@ protocol AudioGraphDelegateProtocol {
     // Sets the playback rate, specified as a value between 1/32 and 32
     func setTimeStretchRate(_ rate: Float) -> String
     
+    // Increases the playback rate by a small increment. Returns the new playback rate value.
     func increaseRate() -> (rate: Float, rateString: String)
     
+    // Decreases the playback rate by a small decrement. Returns the new playback rate value.
     func decreaseRate() -> (rate: Float, rateString: String)
     
     // Sets the amount of overlap between segments of the input audio signal into the time effects unit, specified as a value between 3 and 32

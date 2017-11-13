@@ -154,6 +154,22 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         return eqNode.decreaseBass()
     }
     
+    func increaseMids() -> [Int: Float] {
+        return eqNode.increaseMids()
+    }
+    
+    func decreaseMids() -> [Int: Float] {
+        return eqNode.decreaseMids()
+    }
+    
+    func increaseTreble() -> [Int: Float] {
+        return eqNode.increaseTreble()
+    }
+    
+    func decreaseTreble() -> [Int: Float] {
+        return eqNode.decreaseTreble()
+    }
+    
     func togglePitchBypass() -> Bool {
         let newState = !pitchNode.bypass
         pitchNode.bypass = newState

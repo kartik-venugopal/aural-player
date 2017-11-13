@@ -31,7 +31,28 @@
                 <outlet property="shuffleOnMenuItem" destination="A9x-31-Cvm" id="cQ4-NA-2ye"/>
             </connections>
         </customObject>
-        <customObject id="YGo-hN-fxr" customClass="SoundMenuController" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="YGo-hN-fxr" customClass="SoundMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="halfOctaveAboveMenuItem" destination="oiI-Ft-yc5" id="2VO-d4-8QL"/>
+                <outlet property="halfOctaveBelowMenuItem" destination="Lm3-tW-hm0" id="Hx3-ya-ekH"/>
+                <outlet property="oneOctaveAboveMenuItem" destination="lYO-gE-kn8" id="cF3-jz-2Y3"/>
+                <outlet property="oneOctaveBelowMenuItem" destination="Wyn-lR-dym" id="cwk-rT-q61"/>
+                <outlet property="rate0_25MenuItem" destination="G2L-vr-yl8" id="AEf-jk-STi"/>
+                <outlet property="rate0_5MenuItem" destination="fJT-vV-mCQ" id="58J-mV-01W"/>
+                <outlet property="rate0_75MenuItem" destination="yPd-aC-OhZ" id="PiW-z7-g5r"/>
+                <outlet property="rate1_25MenuItem" destination="e4W-PH-FqF" id="g6V-IO-bJa"/>
+                <outlet property="rate1_5MenuItem" destination="U8S-Dm-3Sv" id="cyF-Q2-RJT"/>
+                <outlet property="rate2MenuItem" destination="ro9-ab-0Tg" id="yuN-Zq-1U2"/>
+                <outlet property="rate3MenuItem" destination="2vl-Ma-c41" id="lnm-qP-Ob3"/>
+                <outlet property="rate4MenuItem" destination="fst-0S-zTa" id="Afz-Ag-CvM"/>
+                <outlet property="sixthOctaveAboveMenuItem" destination="kkN-dY-eg6" id="iml-9A-Fly"/>
+                <outlet property="sixthOctaveBelowMenuItem" destination="cYW-58-jBH" id="04l-XA-aLr"/>
+                <outlet property="thirdOctaveAboveMenuItem" destination="NHt-qJ-lNc" id="a2a-EQ-z9I"/>
+                <outlet property="thirdOctaveBelowMenuItem" destination="YNJ-sM-QkM" id="tm2-Qq-LrK"/>
+                <outlet property="twoOctavesAboveMenuItem" destination="fN8-4T-8mm" id="7QK-92-U0N"/>
+                <outlet property="twoOctavesBelowMenuItem" destination="fVw-ks-nVV" id="FCS-vy-DvL"/>
+            </connections>
+        </customObject>
         <customObject id="xzd-WN-BuR" customClass="ViewMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="toggleEffectsMenuItem" destination="fK8-7g-oqx" id="xo8-0f-yDo"/>
@@ -322,9 +343,9 @@ CQ
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="ndN-AA-rLa"/>
-                            <menuItem title=" EQ" id="9wV-eS-AMY" userLabel="EQ">
+                            <menuItem title="  EQ" image="EQ" id="9wV-eS-AMY" userLabel="EQ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title=" EQ" id="Vmm-qB-jmV">
+                                <menu key="submenu" title="  EQ" id="Vmm-qB-jmV">
                                     <items>
                                         <menuItem title="More Bass" keyEquivalent="1" id="2A4-oV-ZMP" userLabel="More Bass">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
@@ -341,26 +362,35 @@ CQ
                                         <menuItem isSeparatorItem="YES" id="Mnv-51-ZPk"/>
                                         <menuItem title="More Mids" keyEquivalent="2" id="st7-iK-D4u" userLabel="More Mids">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                            <connections>
+                                                <action selector="increaseMidsAction:" target="YGo-hN-fxr" id="am7-7m-giu"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Less Mids" keyEquivalent="2" id="Lih-pb-74i" userLabel="Less Mids">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                            <connections>
+                                                <action selector="decreaseMidsAction:" target="YGo-hN-fxr" id="BUl-JO-oFT"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="YXB-zy-c6y"/>
                                         <menuItem title="More Treble" keyEquivalent="3" id="Lzn-CF-Lvu">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                            <connections>
+                                                <action selector="increaseTrebleAction:" target="YGo-hN-fxr" id="SGf-AY-2yM"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Less Treble" keyEquivalent="3" id="qYn-xb-8yQ">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                            <connections>
+                                                <action selector="decreaseTrebleAction:" target="YGo-hN-fxr" id="LeQ-yY-Q04"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
-                                <connections>
-                                    <action selector="panRightAction:" target="YGo-hN-fxr" id="2lO-gA-ExY"/>
-                                </connections>
                             </menuItem>
-                            <menuItem title=" Pitch Shift" id="Cgu-bP-VJq" userLabel="Pitch Shift">
+                            <menuItem title=" Pitch" image="Pitch" id="Cgu-bP-VJq" userLabel="Pitch Shift">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title=" Pitch Shift" id="pQo-cl-9lL">
+                                <menu key="submenu" title=" Pitch" id="pQo-cl-9lL">
                                     <items>
                                         <menuItem title="Higher" keyEquivalent="+" id="ZQV-NM-rf8">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -375,33 +405,72 @@ CQ
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="FvH-UH-cOy"/>
-                                        <menuItem title="-1 Octave" id="fVw-ks-nVV">
+                                        <menuItem title="-2 Octaves" tag="-12" id="fVw-ks-nVV" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setPitchAction:" target="YGo-hN-fxr" id="Dge-5K-Ijh"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="-4 Semitones" id="Lm3-tW-hm0">
+                                        <menuItem title="-1 Octave" tag="-12" id="Wyn-lR-dym" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setPitchAction:" target="YGo-hN-fxr" id="4kz-58-1Cs"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="-2 Semitones" id="cYW-58-jBH">
+                                        <menuItem title="-6 Semitones" tag="-4" id="Lm3-tW-hm0" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setPitchAction:" target="YGo-hN-fxr" id="PQV-iJ-A5r"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="+2 Semitones" id="kkN-dY-eg6">
+                                        <menuItem title="-4 Semitones" tag="-4" id="YNJ-sM-QkM" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setPitchAction:" target="YGo-hN-fxr" id="cdc-zd-w8Q"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="+4 Semitones" id="NHt-qJ-lNc">
+                                        <menuItem title="-2 Semitones" tag="-2" id="cYW-58-jBH" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setPitchAction:" target="YGo-hN-fxr" id="7cY-i4-xcw"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="+1 Octave" id="lYO-gE-kn8">
+                                        <menuItem title="+2 Semitones" tag="2" id="kkN-dY-eg6" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setPitchAction:" target="YGo-hN-fxr" id="lhZ-0D-Qtl"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="+4 Semitones" tag="4" id="NHt-qJ-lNc" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setPitchAction:" target="YGo-hN-fxr" id="pKN-rz-myR"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="+6 Semitones" tag="-4" id="oiI-Ft-yc5" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setPitchAction:" target="YGo-hN-fxr" id="wbT-be-bdf"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="+1 Octave" tag="12" id="lYO-gE-kn8" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setPitchAction:" target="YGo-hN-fxr" id="sOD-oo-hfJ"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="+2 Octaves" tag="12" id="fN8-4T-8mm" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setPitchAction:" target="YGo-hN-fxr" id="YuZ-g0-Bk8"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
-                                <connections>
-                                    <action selector="panRightAction:" target="YGo-hN-fxr" id="bqg-qK-Tte"/>
-                                </connections>
                             </menuItem>
-                            <menuItem title=" Time Stretch" id="4bW-6o-06c">
+                            <menuItem title=" Time" image="Time" id="4bW-6o-06c">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" id="wfR-fc-67w">
+                                <menu key="submenu" title=" Time" id="wfR-fc-67w">
                                     <items>
                                         <menuItem title="Faster" keyEquivalent="&gt;" id="DWm-i5-nCG">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -416,26 +485,56 @@ CQ
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="bUM-Tw-5cc"/>
-                                        <menuItem title="0.5x" id="G2L-vr-yl8">
+                                        <menuItem title="0.25x" tag="5" id="G2L-vr-yl8" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setRateAction:" target="YGo-hN-fxr" id="eUT-zW-SMz"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="0.75x" id="yPd-aC-OhZ">
+                                        <menuItem title="0.5x" tag="5" id="fJT-vV-mCQ" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setRateAction:" target="YGo-hN-fxr" id="ijy-iU-grX"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="1.25x" id="e4W-PH-FqF">
+                                        <menuItem title="0.75x" id="yPd-aC-OhZ" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setRateAction:" target="YGo-hN-fxr" id="AG8-sW-mQt"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="1.5x" id="U8S-Dm-3Sv">
+                                        <menuItem title="1.25x" id="e4W-PH-FqF" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setRateAction:" target="YGo-hN-fxr" id="nkb-GP-1uv"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="2x" id="ro9-ab-0Tg">
+                                        <menuItem title="1.5x" id="U8S-Dm-3Sv" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setRateAction:" target="YGo-hN-fxr" id="HhH-pe-kbe"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="2x" id="ro9-ab-0Tg" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setRateAction:" target="YGo-hN-fxr" id="efw-pB-YMb"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="3x" id="2vl-Ma-c41" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setRateAction:" target="YGo-hN-fxr" id="iiD-3I-SCm"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="4x" id="fst-0S-zTa" customClass="SoundParameterMenuItem" customModule="Aural" customModuleProvider="target">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setRateAction:" target="YGo-hN-fxr" id="YhG-yr-1g7"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
-                                <connections>
-                                    <action selector="panRightAction:" target="YGo-hN-fxr" id="yYO-2Q-3ZT"/>
-                                </connections>
                             </menuItem>
                         </items>
                     </menu>
@@ -646,6 +745,7 @@ CQ
         <image name="DockLeft-Small" width="15" height="13"/>
         <image name="DockRight-Small" width="15" height="13"/>
         <image name="Down-Small" width="1.3999999761581421" height="1.3999999761581421"/>
+        <image name="EQ" width="14" height="14"/>
         <image name="Favorites" width="15" height="15"/>
         <image name="Maximize-Small" width="14" height="14"/>
         <image name="MaximizeHorizontal-Small" width="14" height="14"/>
@@ -655,6 +755,7 @@ CQ
         <image name="NextTrack-Small" width="14" height="8"/>
         <image name="PanL-Small" width="14" height="14"/>
         <image name="PanR-Small" width="14" height="14"/>
+        <image name="Pitch" width="17" height="13"/>
         <image name="Play-Small" width="14" height="14"/>
         <image name="PlayPause-Small" width="14" height="14"/>
         <image name="PreviousTrack-Small" width="14" height="8"/>
@@ -674,6 +775,7 @@ CQ
         <image name="ShowPlayingTrack-Small" width="13" height="13"/>
         <image name="ShuffleOn-Small" width="15" height="15"/>
         <image name="Sort-Small" width="17" height="14"/>
+        <image name="Time" width="16" height="13"/>
         <image name="ToggleEffectsView-Small" width="14" height="14"/>
         <image name="TogglePlaylistView-Small" width="14" height="12"/>
         <image name="Up-Small" width="1.3999999761581421" height="1.3999999761581421"/>

@@ -410,8 +410,8 @@
 			children = (
 				3E1CF7EC1F5CBA2500613724 /* AudioGraphProtocols.swift */,
 				3E1CF7F21F5CBAD500613724 /* AudioGraph.swift */,
-				3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */,
 				3E633C481F14C9110040ECBC /* ParametricEQNode.swift */,
+				3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */,
 				3E551B861F10801100354DE2 /* AudioEngineHelper.swift */,
 				3EFFE6BD1F0381FA003728BD /* EQPresets.swift */,
 				3E047B0D1F01436700ADE0F1 /* ReverbPresets.swift */,
