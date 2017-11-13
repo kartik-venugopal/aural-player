@@ -140,8 +140,28 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return graph.decreaseBass()
     }
     
+    func increaseMids() -> [Int : Float] {
+        return graph.increaseMids()
+    }
+    
+    func decreaseMids() -> [Int : Float] {
+        return graph.decreaseMids()
+    }
+    
+    func increaseTreble() -> [Int : Float] {
+        return graph.increaseTreble()
+    }
+    
+    func decreaseTreble() -> [Int : Float] {
+        return graph.decreaseTreble()
+    }
+    
     func togglePitchBypass() -> Bool {
         return graph.togglePitchBypass()
+    }
+    
+    func isPitchBypass() -> Bool {
+        return graph.isPitchBypass()
     }
     
     func setPitch(_ pitch: Float) -> String {
@@ -161,13 +181,10 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         if graph.isPitchBypass() {
             _ = graph.togglePitchBypass()
+            graph.setPitch(0)
         }
         
-        // Volume is increased by an amount set in the user preferences
-        
-        let curPitch = graph.getPitch()
-//        let newPitch = min(2400, curPitch + preferences.pitchDelta)
-        let newPitch = min(2400, curPitch + 100)
+        let newPitch = min(2400, graph.getPitch() + 100)
         graph.setPitch(newPitch)
         
         // Convert from cents to octaves
@@ -180,11 +197,10 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         if graph.isPitchBypass() {
             _ = graph.togglePitchBypass()
+            graph.setPitch(0)
         }
         
-        let curPitch = graph.getPitch()
-        //        let newPitch = min(2400, curPitch + preferences.pitchDelta)
-        let newPitch = max(-2400, curPitch - 100)
+        let newPitch = max(-2400, graph.getPitch() - 100)
         graph.setPitch(newPitch)
         
         // Convert from cents to octaves
@@ -210,6 +226,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         if graph.isTimeBypass() {
             _ = graph.toggleTimeBypass()
+            graph.setTimeStretchRate(1)
         }
         
         // Volume is increased by an amount set in the user preferences
@@ -225,6 +242,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         if graph.isTimeBypass() {
             _ = graph.toggleTimeBypass()
+            graph.setTimeStretchRate(1)
         }
         
         // Volume is increased by an amount set in the user preferences

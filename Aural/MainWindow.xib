@@ -382,7 +382,7 @@ G1BhbiBTbGlkZXI
                                                 <font key="font" size="11" name="GillSans"/>
                                                 <tabViewItems>
                                                     <tabViewItem label="EQ" identifier="1" id="TwR-vC-t00" userLabel="EQ">
-                                                        <view key="view" ambiguous="YES" id="oKN-0I-ona">
+                                                        <view key="view" id="oKN-0I-ona">
                                                             <rect key="frame" x="10" y="7" width="484" height="140"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -585,7 +585,7 @@ G1BhbiBTbGlkZXI
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Pitch" identifier="2" id="jMl-8A-uQb" userLabel="Pitch">
-                                                        <view key="view" id="stY-xi-Nqz">
+                                                        <view key="view" ambiguous="YES" id="stY-xi-Nqz">
                                                             <rect key="frame" x="10" y="7" width="484" height="140"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -1541,7 +1541,7 @@ G1BhbiBTbGlkZXI
                                                 </tabViewItems>
                                             </tabView>
                                             <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="cvE-ZQ-FhC">
-                                                <rect key="frame" x="0.0" y="147" width="385" height="193"/>
+                                                <rect key="frame" x="0.0" y="147" width="385" height="203"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </box>
                                             <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="h38-vi-jyT" userLabel="Tab Buttons Box">

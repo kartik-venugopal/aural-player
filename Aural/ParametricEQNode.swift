@@ -7,25 +7,19 @@ import AVFoundation
 
 class ParametricEQNode: AVAudioUnitEQ {
     
-    var bassBands: [AVAudioUnitEQFilterParameters] {
-        return [bands[0], bands[1], bands[2]]
-    }
+    var bassBandIndexes: [Int] = [0, 1, 2]
+    var midBandIndexes: [Int] = [3, 4, 5, 6]
+    var trebleBandIndexes: [Int] = [7, 8, 9]
     
-    var midBands: [AVAudioUnitEQFilterParameters] {
-        return [bands[3], bands[4], bands[5], bands[6]]
-    }
-    
-    var trebleBands: [AVAudioUnitEQFilterParameters] {
-        return [bands[7], bands[8], bands[9]]
-    }
-    
-    var bandsIndexRange: Range<Int> {
-        return 0..<(numberOfBands)
-    }
+    let bandsIndexRange: Range<Int>
     
     private let numberOfBands: Int = 10
+    private let maxGain: Float = 20
+    private let minGain: Float = -20
   
     override init() {
+        
+        bandsIndexRange = 0..<(numberOfBands)
         
         super.init(numberOfBands: numberOfBands)
         
@@ -43,60 +37,53 @@ class ParametricEQNode: AVAudioUnitEQ {
     }
     
     func increaseBass() -> [Int: Float] {
-        
-        var newGainValues = [Int: Float]()
-        var index = 0
-        bassBands.forEach({
-            
-            let newGainValue = min($0.gain + 1, 20)
-            $0.gain = newGainValue
-            newGainValues[index] = newGainValue
-            index += 1
-        })
-        
-        return newGainValues
+        return increaseBandGains(bassBandIndexes)
     }
     
     func decreaseBass() -> [Int: Float] {
+        return decreaseBandGains(bassBandIndexes)
+    }
+    
+    func increaseMids() -> [Int: Float] {
+        return increaseBandGains(midBandIndexes)
+    }
+    
+    func decreaseMids() -> [Int: Float] {
+        return decreaseBandGains(midBandIndexes)
+    }
+    
+    func increaseTreble() -> [Int: Float] {
+        return increaseBandGains(trebleBandIndexes)
+    }
+    
+    func decreaseTreble() -> [Int: Float] {
+        return decreaseBandGains(trebleBandIndexes)
+    }
+    
+    private func increaseBandGains(_ bandIndexes: [Int]) -> [Int: Float] {
         
         var newGainValues = [Int: Float]()
-        var index = 0
-        bassBands.forEach({
+        bandIndexes.forEach({
             
-            let newGainValue = max($0.gain - 1, -20)
-            $0.gain = newGainValue
-            newGainValues[index] = newGainValue
-            index += 1
+            let band = bands[$0]
+            band.gain = min(band.gain + 1, maxGain)
+            newGainValues[$0] = band.gain
         })
         
         return newGainValues
     }
     
-    func increaseMids() -> [Float] {
+    private func decreaseBandGains(_ bandIndexes: [Int]) -> [Int: Float] {
         
-        var newGainValues = [Float]()
-        midBands.forEach({
+        var newGainValues = [Int: Float]()
+        bandIndexes.forEach({
             
-            let newGainValue = min($0.gain + 1, 20)
-            $0.gain = newGainValue
-            newGainValues.append(newGainValue)
+            let band = bands[$0]
+            band.gain = max(band.gain - 1, minGain)
+            newGainValues[$0] = band.gain
         })
         
         return newGainValues
-    }
-    
-    func increaseTreble() -> [Float] {
-        
-        var newGainValues = [Float]()
-        trebleBands.forEach({
-            
-            let newGainValue = min($0.gain + 1, 20)
-            $0.gain = newGainValue
-            newGainValues.append(newGainValue)
-        })
-        
-        return newGainValues
-
     }
     
     // Helper function to set gain for a band
