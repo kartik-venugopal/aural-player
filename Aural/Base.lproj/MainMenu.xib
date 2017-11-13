@@ -219,7 +219,7 @@ CQ
                                     <action selector="playOrPauseAction:" target="IvK-xG-TCa" id="RJp-Hs-lxk"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="  Replay current track" image="Replay" keyEquivalent="r" id="aLr-jT-ZjJ" userLabel="Replay current track">
+                            <menuItem title=" Replay current track" image="Replay" keyEquivalent="r" id="aLr-jT-ZjJ" userLabel="Replay current track">
                                 <connections>
                                     <action selector="replayTrackAction:" target="IvK-xG-TCa" id="Cze-vX-d1I"/>
                                 </connections>
@@ -553,9 +553,9 @@ CQ
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="sUj-gu-cOk"/>
-                            <menuItem title="     Dock Playlist" id="RWg-5h-jkO" userLabel="Dock Playlist">
+                            <menuItem title="  Dock Playlist" image="DockBottom-Small" id="RWg-5h-jkO" userLabel="Dock Playlist">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="     Dock Playlist" id="S2A-E2-dfO">
+                                <menu key="submenu" title="  Dock Playlist" id="S2A-E2-dfO">
                                     <items>
                                         <menuItem title="On the left" image="DockLeft-Small" id="3ni-vP-4WM">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -578,9 +578,9 @@ CQ
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="     Maximize Playlist" id="Yge-Nz-rQX" userLabel="Maximize Playlist">
+                            <menuItem title="  Maximize Playlist" image="Maximize-Small" id="Yge-Nz-rQX" userLabel="Maximize Playlist">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="     Maximize Playlist" id="DdJ-Ly-yuE">
+                                <menu key="submenu" title="  Maximize Playlist" id="DdJ-Ly-yuE">
                                     <items>
                                         <menuItem title="Horizontally and vertically" image="Maximize-Small" id="q3Q-K9-Y23">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -740,15 +740,15 @@ CQ
     <resources>
         <image name="Add-Small" width="12" height="12"/>
         <image name="Clear-Small" width="2.5999999046325684" height="3"/>
-        <image name="DockBottom-Small" width="15" height="13"/>
-        <image name="DockLeft-Small" width="15" height="13"/>
-        <image name="DockRight-Small" width="15" height="13"/>
+        <image name="DockBottom-Small" width="12" height="10"/>
+        <image name="DockLeft-Small" width="12" height="10"/>
+        <image name="DockRight-Small" width="12" height="10"/>
         <image name="Down-Small" width="10" height="14"/>
         <image name="EQ" width="14" height="14"/>
         <image name="Favorites" width="15" height="15"/>
-        <image name="Maximize-Small" width="14" height="14"/>
-        <image name="MaximizeHorizontal-Small" width="14" height="14"/>
-        <image name="MaximizeVertical-Small" width="15" height="14"/>
+        <image name="Maximize-Small" width="12" height="10"/>
+        <image name="MaximizeHorizontal-Small" width="12" height="10"/>
+        <image name="MaximizeVertical-Small" width="12" height="10"/>
         <image name="MoreInfo-Small" width="12" height="12"/>
         <image name="Mute-Small" width="14" height="14"/>
         <image name="NextTrack-Small" width="14" height="8"/>
