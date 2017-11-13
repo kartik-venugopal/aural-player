@@ -52,4 +52,18 @@ struct Images {
     static let imgFavoritesOn: NSImage = NSImage(named: "Favorites-On")!
     
     static let historyMenuItemImageSize: NSSize = NSSize(width: 25, height: 25)
+    
+    static let imgPitchOff: NSImage = NSImage(named: "PitchTab")!
+    static let imgTimeOff: NSImage = NSImage(named: "TimeTab")!
+    static let imgReverbOff: NSImage = NSImage(named: "ReverbTab")!
+    static let imgDelayOff: NSImage = NSImage(named: "DelayTab")!
+    static let imgFilterOff: NSImage = NSImage(named: "FilterTab")!
+    static let imgRecorderOff: NSImage = NSImage(named: "RecorderTab")!
+    
+    static let imgPitchOn: NSImage = NSImage(named: "PitchTab-On")!
+    static let imgTimeOn: NSImage = NSImage(named: "TimeTab-On")!
+    static let imgReverbOn: NSImage = NSImage(named: "ReverbTab-On")!
+    static let imgDelayOn: NSImage = NSImage(named: "DelayTab-On")!
+    static let imgFilterOn: NSImage = NSImage(named: "FilterTab-On")!
+    static let imgRecorderOn: NSImage = NSImage(named: "RecorderTab-On")!
 }

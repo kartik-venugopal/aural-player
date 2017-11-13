@@ -19,12 +19,12 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     @IBOutlet weak var fxTabView: NSTabView!
     
     @IBOutlet weak var eqTabViewButton: NSButton!
-    @IBOutlet weak var pitchTabViewButton: NSButton!
-    @IBOutlet weak var timeTabViewButton: NSButton!
-    @IBOutlet weak var reverbTabViewButton: NSButton!
-    @IBOutlet weak var delayTabViewButton: NSButton!
-    @IBOutlet weak var filterTabViewButton: NSButton!
-    @IBOutlet weak var recorderTabViewButton: NSButton!
+    @IBOutlet weak var pitchTabViewButton: MultiImageButton!
+    @IBOutlet weak var timeTabViewButton: MultiImageButton!
+    @IBOutlet weak var reverbTabViewButton: MultiImageButton!
+    @IBOutlet weak var delayTabViewButton: MultiImageButton!
+    @IBOutlet weak var filterTabViewButton: MultiImageButton!
+    @IBOutlet weak var recorderTabViewButton: MultiImageButton!
     
     private var fxTabViewButtons: [NSButton]?
     
@@ -104,6 +104,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         initReverb(appState)
         initDelay(appState)
         initFilter(appState)
+        initRecorder()
         initTabGroup()
         
         SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble, .increasePitch, .decreasePitch, .setPitch, .increaseRate, .decreaseRate, .setRate], subscriber: self)
@@ -131,7 +132,11 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     
     private func initPitch(_ appState: UIAppState) {
         
+        pitchTabViewButton.offStateImage = Images.imgPitchOff
+        pitchTabViewButton.onStateImage = Images.imgPitchOn
+        
         btnPitchBypass.image = appState.pitchBypass ? Images.imgSwitchOff : Images.imgSwitchOn
+        pitchTabViewButton.image = appState.pitchBypass ? pitchTabViewButton.offStateImage : pitchTabViewButton.onStateImage
         (pitchTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.pitchBypass
         
         pitchSlider.floatValue = appState.pitch
@@ -143,7 +148,11 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     
     private func initTime(_ appState: UIAppState) {
         
+        timeTabViewButton.offStateImage = Images.imgTimeOff
+        timeTabViewButton.onStateImage = Images.imgTimeOn
+        
         btnTimeBypass.image = appState.timeBypass ? Images.imgSwitchOff : Images.imgSwitchOn
+        timeTabViewButton.image = appState.timeBypass ? timeTabViewButton.offStateImage : timeTabViewButton.onStateImage
         (timeTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.timeBypass
         
         timeSlider.floatValue = appState.timeStretchRate
@@ -155,7 +164,11 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     
     private func initReverb(_ appState: UIAppState) {
         
+        reverbTabViewButton.offStateImage = Images.imgReverbOff
+        reverbTabViewButton.onStateImage = Images.imgReverbOn
+        
         btnReverbBypass.image = appState.reverbBypass ? Images.imgSwitchOff : Images.imgSwitchOn
+        reverbTabViewButton.image = appState.reverbBypass ? reverbTabViewButton.offStateImage : reverbTabViewButton.onStateImage
         (reverbTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.reverbBypass
         
         reverbMenu.select(reverbMenu.item(withTitle: appState.reverbPreset))
@@ -166,7 +179,11 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     
     private func initDelay(_ appState: UIAppState) {
         
+        delayTabViewButton.offStateImage = Images.imgDelayOff
+        delayTabViewButton.onStateImage = Images.imgDelayOn
+        
         btnDelayBypass.image = appState.delayBypass ? Images.imgSwitchOff : Images.imgSwitchOn
+        delayTabViewButton.image = appState.delayBypass ? delayTabViewButton.offStateImage : delayTabViewButton.onStateImage
         (delayTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.delayBypass
         
         delayAmountSlider.floatValue = appState.delayAmount
@@ -184,7 +201,11 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     
     private func initFilter(_ appState: UIAppState) {
         
+        filterTabViewButton.offStateImage = Images.imgFilterOff
+        filterTabViewButton.onStateImage = Images.imgFilterOn
+        
         btnFilterBypass.image = appState.filterBypass ? Images.imgSwitchOff : Images.imgSwitchOn
+        filterTabViewButton.image = appState.filterBypass ? filterTabViewButton.offStateImage : filterTabViewButton.onStateImage
         (filterTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !appState.filterBypass
         
         filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, appState.filterBassMin, appState.filterBassMax, {
@@ -205,6 +226,13 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         lblFilterBassRange.stringValue = appState.formattedFilterBassRange
         lblFilterMidRange.stringValue = appState.formattedFilterMidRange
         lblFilterTrebleRange.stringValue = appState.formattedFilterTrebleRange
+    }
+    
+    private func initRecorder() {
+    
+        recorderTabViewButton.offStateImage = Images.imgRecorderOff
+        recorderTabViewButton.onStateImage = Images.imgRecorderOn
+        recorderTabViewButton.image = recorderTabViewButton.offStateImage
     }
     
     private func initTabGroup() {
@@ -393,6 +421,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         let newBypassState = graph.togglePitchBypass()
         
         (pitchTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !newBypassState
+        pitchTabViewButton.image = newBypassState ? pitchTabViewButton.offStateImage : pitchTabViewButton.onStateImage
         pitchTabViewButton.needsDisplay = true
         
         btnPitchBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
@@ -412,6 +441,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         pitchSlider.floatValue = pitch
         
         (pitchTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
+        pitchTabViewButton.image = pitchTabViewButton.onStateImage
         pitchTabViewButton.needsDisplay = true
         btnPitchBypass.image = Images.imgSwitchOn
         
@@ -439,6 +469,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         lblPitchValue.stringValue = pitchInfo.pitchString
         
         (pitchTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
+        pitchTabViewButton.image = pitchTabViewButton.onStateImage
         pitchTabViewButton.needsDisplay = true
         btnPitchBypass.image = Images.imgSwitchOn
         
@@ -453,9 +484,10 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         let newBypassState = graph.toggleTimeBypass()
         
         (timeTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !newBypassState
-        timeTabViewButton.needsDisplay = true
         
         btnTimeBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
+        timeTabViewButton.image = newBypassState ? timeTabViewButton.offStateImage : timeTabViewButton.onStateImage
+        timeTabViewButton.needsDisplay = true
         
         let newRate = newBypassState ? 1 : timeSlider.floatValue
         let playbackRateChangedMsg = PlaybackRateChangedNotification(newRate)
@@ -482,6 +514,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         timeSlider.floatValue = rate
         
         (timeTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
+        timeTabViewButton.image = timeTabViewButton.onStateImage
         timeTabViewButton.needsDisplay = true
         btnTimeBypass.image = Images.imgSwitchOn
         
@@ -511,6 +544,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         }
         
         (timeTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
+        timeTabViewButton.image = timeTabViewButton.onStateImage
         timeTabViewButton.needsDisplay = true
         btnTimeBypass.image = Images.imgSwitchOn
         
@@ -528,6 +562,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         let newBypassState = graph.toggleReverbBypass()
         
         (reverbTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !newBypassState
+        reverbTabViewButton.image = newBypassState ? reverbTabViewButton.offStateImage : reverbTabViewButton.onStateImage
         reverbTabViewButton.needsDisplay = true
         
         btnReverbBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
@@ -546,6 +581,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         let newBypassState = graph.toggleDelayBypass()
         
         (delayTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !newBypassState
+        delayTabViewButton.image = newBypassState ? delayTabViewButton.offStateImage : delayTabViewButton.onStateImage
         delayTabViewButton.needsDisplay = true
         
         btnDelayBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
@@ -572,6 +608,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         let newBypassState = graph.toggleFilterBypass()
         
         (filterTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = !newBypassState
+        filterTabViewButton.image = newBypassState ? filterTabViewButton.offStateImage : filterTabViewButton.onStateImage
         filterTabViewButton.needsDisplay = true
         
         btnFilterBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
