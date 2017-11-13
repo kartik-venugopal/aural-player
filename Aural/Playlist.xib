@@ -89,10 +89,10 @@
                         <color key="fillColor" white="0.0" alpha="0.89758133559999997" colorSpace="calibratedWhite"/>
                     </box>
                     <button toolTip="Maximize playlist" translatesAutoresizingMaskIntoConstraints="NO" id="5cl-4B-qVy" userLabel="Maximize Button">
-                        <rect key="frame" x="15" y="252" width="12" height="12"/>
+                        <rect key="frame" x="15" y="253" width="12" height="11"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="AR5-ZZ-IXv"/>
-                            <constraint firstAttribute="height" constant="12" id="cX0-JT-4YU"/>
+                            <constraint firstAttribute="height" constant="11" id="cX0-JT-4YU"/>
                         </constraints>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Maximize" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="xwR-NC-5EX">
                             <behavior key="behavior" lightByContents="YES"/>
@@ -1126,13 +1126,13 @@
         </window>
     </objects>
     <resources>
-        <image name="Add" width="192" height="192"/>
+        <image name="Add" width="134" height="134"/>
         <image name="Clear" width="34.599998474121094" height="40"/>
-        <image name="DockBottom" width="563" height="512"/>
-        <image name="DockLeft" width="14" height="12"/>
-        <image name="DockRight" width="14" height="12"/>
+        <image name="DockBottom" width="700" height="600"/>
+        <image name="DockLeft" width="700" height="600"/>
+        <image name="DockRight" width="700" height="600"/>
         <image name="Down" width="92" height="128"/>
-        <image name="Maximize" width="148" height="128"/>
+        <image name="Maximize" width="700" height="600"/>
         <image name="MaximizeHorizontal" width="148" height="128"/>
         <image name="MaximizeVertical" width="148" height="128"/>
         <image name="Remove" width="134" height="134"/>
