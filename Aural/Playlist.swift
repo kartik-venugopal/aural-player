@@ -3,7 +3,7 @@ import Foundation
 /*
     A facade providing unified access to all underlying playlist types (flat and grouping/hierarchical). Smartly delegates operations to the underlying playlists and aggregates results from those operations.
  */
-class Playlist: PlaylistCRUDProtocol {
+class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     
     // Flat playlist
     private var flatPlaylist: FlatPlaylistCRUDProtocol
@@ -166,7 +166,7 @@ class Playlist: PlaylistCRUDProtocol {
     }
     
     // Returns all state for this playlist that needs to be persisted to disk
-    func persistentState() -> PlaylistState {
+    func persistentState() -> PersistentState {
         
         let state = PlaylistState()
         let tracks = allTracks()

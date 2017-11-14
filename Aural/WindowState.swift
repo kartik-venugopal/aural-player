@@ -46,7 +46,7 @@ class WindowState {
         return appActive && !appHidden && !minimized
     }
     
-    static func getPersistentState() -> UIState {
+    static func persistentState() -> UIState {
         
         let uiState = UIState()
         

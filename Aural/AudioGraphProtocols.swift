@@ -119,9 +119,6 @@ protocol AudioGraphProtocol {
     // Sets the treble band of the filter to the specified frequency range
     func setFilterTrebleBand(_ min: Float, _ max: Float)
     
-    // Returns all state of the audio graph that needs to be persisted to disk
-    func getPersistentState() -> AudioGraphState
-    
     // Shuts down the audio graph, releasing all its resources
     func tearDown()
 }
