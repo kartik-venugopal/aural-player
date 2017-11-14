@@ -1,5 +1,17 @@
 import Cocoa
 
+protocol PersistentObject {
+    
+    func persistentState()
+}
+
+protocol PersistentState {
+
+    func serializableMap() -> NSDictionary
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState
+}
+
 /*
     Encapsulates UI state
  */

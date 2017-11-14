@@ -53,6 +53,8 @@ struct Images {
     
     static let historyMenuItemImageSize: NSSize = NSSize(width: 25, height: 25)
     
+    // On/off state images for different tabs of the Effects panel
+    
     static let imgPitchOff: NSImage = NSImage(named: "PitchTab")!
     static let imgTimeOff: NSImage = NSImage(named: "TimeTab")!
     static let imgReverbOff: NSImage = NSImage(named: "ReverbTab")!

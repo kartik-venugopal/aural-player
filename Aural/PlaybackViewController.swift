@@ -30,7 +30,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         SyncMessenger.subscribe(actionTypes: [.playOrPause, .replayTrack, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
-    // Play / Pause / Resume
+    // Plays, pauses, or resumes playback
     @IBAction func playPauseAction(_ sender: AnyObject) {
         
         let oldTrack = player.getPlayingTrack()
@@ -66,13 +66,16 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         }
     }
     
+    // Replays the currently playing track, from the beginning, if there is one
     private func replayTrack() {
         
-        if let playingTrack = player.getPlayingTrack() {
-            playTrack(playingTrack.track)
+        if let _ = player.getPlayingTrack() {
+            player.seekToPercentage(0)
+            SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
         }
     }
     
+    // Plays the previous track in the current playback sequence
     @IBAction func previousTrackAction(_ sender: AnyObject) {
         
         let oldTrack = player.getPlayingTrack()
@@ -92,6 +95,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         }
     }
     
+    // Plays the next track in the current playback sequence
     @IBAction func nextTrackAction(_ sender: AnyObject) {
         
         let oldTrack = player.getPlayingTrack()
@@ -110,12 +114,14 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         }
     }
     
+    // Seeks backward within the currently playing track
     @IBAction func seekBackwardAction(_ sender: AnyObject) {
         
         player.seekBackward()
         SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
     }
     
+    // Seeks forward within the currently playing track
     @IBAction func seekForwardAction(_ sender: AnyObject) {
         
         player.seekForward()
@@ -180,42 +186,49 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         }
     }
 
+    // Toggles the repeat mode
     @IBAction func repeatAction(_ sender: AnyObject) {
         
         let modes = player.toggleRepeatMode()
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
+    // Toggles the shuffle mode
     @IBAction func shuffleAction(_ sender: AnyObject) {
         
         let modes = player.toggleShuffleMode()
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
+    // Sets the repeat mode to "Off"
     private func repeatOff() {
         
         let modes = player.setRepeatMode(.off)
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
+    // Sets the repeat mode to "Repeat One"
     private func repeatOne() {
         
         let modes = player.setRepeatMode(.one)
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
+    // Sets the repeat mode to "Repeat All"
     private func repeatAll() {
         
         let modes = player.setRepeatMode(.all)
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
+    // Sets the shuffle mode to "Off"
     private func shuffleOff() {
         
         let modes = player.setShuffleMode(.off)
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
+    // Sets the shuffle mode to "On"
     private func shuffleOn() {
         
         let modes = player.setShuffleMode(.on)

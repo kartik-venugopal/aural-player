@@ -76,9 +76,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         WindowManager.showMainWindow()
         
-        let type = UserDefaults.standard.string(forKey: "AppleInterfaceStyle") ?? "Light"
-        print("Type:", type)
-        
         // Update the appLaunched flag
         appLaunched = true
         

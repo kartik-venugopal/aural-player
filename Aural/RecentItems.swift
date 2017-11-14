@@ -1,13 +1,14 @@
 import Cocoa
 
+// Protocol that marks a history item as being equatable (for comparison in data structures)
 protocol EquatableHistoryItem {
     func equals(_ other: EquatableHistoryItem) -> Bool
 }
 
-// Marker protocol
+// Marker protocol that indicates a history item as being playable (i.e. if it represents a track, as opposed to a playlist file or folder)
 protocol PlayableHistoryItem {}
 
-// Intended to be abstract class
+// An abstract base class for all history items
 class HistoryItem: EquatableHistoryItem {
     
     var file: URL
@@ -18,6 +19,7 @@ class HistoryItem: EquatableHistoryItem {
         self.file = file
     }
     
+    // Compares this history item to another. Returns true if the two items point to the same filesystem path, and false otherwise.
     func equals(_ other: EquatableHistoryItem) -> Bool {
         
         if let otherHistoryItem = other as? HistoryItem {
@@ -27,9 +29,10 @@ class HistoryItem: EquatableHistoryItem {
         return false
     }
     
+    // Loads display information (name and art) from the filesystem file
     fileprivate func loadDisplayInfoFromFile() {
         
-        // Load display info (async) from disk
+        // Load display info (async) from disk. This is done during app startup, and hence can and should be done asynchronously. It is not required immediately.
         DispatchQueue.global(qos: .background).async {
             
             let displayInfo = MetadataReader.loadDisplayInfoForFile(self.file)
@@ -85,9 +88,10 @@ class AddedItem: HistoryItem {
     }
 }
 
-// Recently played item (track)
+// Item (track) that has been added to the Recently played list.
 class PlayedItem: HistoryItem, PlayableHistoryItem {
 
+    // Optional track information. If the track was added to the Recently played list during the current app execution, this will be non-nil because a corresponding Track instance exists. Otherwise, this item will be loaded from disk as a file object (URL) upon app startup, and this Track object will be nil.
     let track: Track?
     
     init(_ file: URL, _ track: Track? = nil) {
@@ -95,6 +99,7 @@ class PlayedItem: HistoryItem, PlayableHistoryItem {
         self.track = track
         super.init(file)
         
+        // If track info is available, load display info from it
         if (track != nil) {
             
             // Load display info from the track
@@ -105,11 +110,12 @@ class PlayedItem: HistoryItem, PlayableHistoryItem {
             
         } else {
 
+            // No track info available, read display info from filesystem
             loadDisplayInfoFromFile()
         }
     }
 }
 
-// Favorited item (track)
+// Item (track) that has been added to the Favorites list. Identical, in structure, to a PlayedItem.
 class FavoritesItem: PlayedItem {
 }

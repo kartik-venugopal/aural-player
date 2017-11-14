@@ -1,6 +1,6 @@
 import Cocoa
 
-// Provides convenient access to the state of the main and playlist windows, across the app
+// Provides convenient access to the state of the main and playlist windows, across the view layer of the app
 class WindowState {
     
     static var window: NSWindow?
@@ -8,6 +8,7 @@ class WindowState {
     static var showingEffects: Bool = AppDefaults.showEffects
     static var playlistLocation: PlaylistLocations = AppDefaults.playlistLocation
     
+    // These variables determine whether or not the app is currently in the "foreground"
     static var appActive: Bool = true
     static var appHidden: Bool = false
     static var minimized: Bool = false
@@ -16,6 +17,7 @@ class WindowState {
         
         appActive = isActive
         
+        // Publish a notification indicating whether or not the app is now in the foreground
         isInForeground() ? SyncMessenger.publishNotification(AppInForegroundNotification.instance) : SyncMessenger.publishNotification(AppInBackgroundNotification.instance)
     }
     
@@ -23,6 +25,7 @@ class WindowState {
         
         appHidden = isHidden
         
+        // Publish a notification indicating whether or not the app is now in the foreground
         isInForeground() ? SyncMessenger.publishNotification(AppInForegroundNotification.instance) : SyncMessenger.publishNotification(AppInBackgroundNotification.instance)
     }
     
@@ -30,6 +33,7 @@ class WindowState {
         
         minimized = isMinimized
         
+        // Publish a notification indicating whether or not the app is now in the foreground
         isInForeground() ? SyncMessenger.publishNotification(AppInForegroundNotification.instance) : SyncMessenger.publishNotification(AppInBackgroundNotification.instance)
     }
     
@@ -37,6 +41,7 @@ class WindowState {
         return window!.frame.origin
     }
     
+    // The app is considered to be in the foreground if it is active, it is not hidden, and it is not minimized.
     static func isInForeground() -> Bool {
         return appActive && !appHidden && !minimized
     }

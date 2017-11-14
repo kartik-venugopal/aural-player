@@ -14,7 +14,7 @@ class EQSliderCell: NSSliderCell {
         let bar = barRect(flipped: true)
         let yCenter = knobRect.minY + (rectHeight / 2)
         
-        let knobHeight: CGFloat = 13, knobWidth: CGFloat = bar.width + 2
+        let knobHeight: CGFloat = 11.5, knobWidth: CGFloat = bar.width + 2
         let knobMinY = yCenter - (knobHeight / 2)
         let rect = NSRect(x: bar.minX - ((knobWidth - bar.width) / 2), y: knobMinY, width: knobWidth, height: knobHeight)
         

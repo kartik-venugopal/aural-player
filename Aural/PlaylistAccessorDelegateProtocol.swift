@@ -11,6 +11,11 @@ protocol PlaylistAccessorDelegateProtocol {
     // Returns the track at a given index. Returns nil if an invalid index is specified.
     func trackAtIndex(_ index: Int?) -> IndexedTrack?
     
+    /*
+        Determines the index of a given track, within the flat playlist. Returns nil if the track doesn't exist within the playlist.
+     
+        NOTE - This function is only intended to be used by the flat playlist. The result is meaningless to a grouping/hierarchical playlist.
+     */
     func indexOfTrack(_ track: Track) -> IndexedTrack?
     
     // Returns the size (i.e. total number of tracks) of the playlist

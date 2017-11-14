@@ -31,6 +31,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistUpdateQueue.qualityOfService = .background
     }
     
+    // Plays the track selected within the playlist, if there is one. If multiple tracks are selected, the first one will be chosen.
     @IBAction func playSelectedTrackAction(_ sender: AnyObject) {
        
         let selRow = playlistView.selectedRow
@@ -117,6 +118,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         }
     }
     
+    // Rearranges tracks within the view that have been reordered
     private func moveItems(_ results: ItemMoveResults) {
         
         for result in results.results as! [TrackMoveResult] {
@@ -182,6 +184,7 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
     }
     
+    // Selects an item within the playlist view, to show a single result of a search
     private func handleSearchResultSelection(_ request: SearchResultSelectionRequest) {
         
         if PlaylistViewState.current == .tracks {

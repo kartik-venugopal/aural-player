@@ -5,7 +5,7 @@ import Cocoa
  */
 class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber {
     
-    // The 4 different playlist views
+    // The different playlist views
     @IBOutlet weak var tracksView: NSTableView!
     @IBOutlet weak var artistsView: NSOutlineView!
     @IBOutlet weak var albumsView: NSOutlineView!
@@ -80,6 +80,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         tracksTabViewAction(self)
     }
     
+    // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist
     @IBAction func addTracksAction(_ sender: AnyObject) {
         
         let dialog = DialogsAndAlerts.openDialog
@@ -92,7 +93,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
     }
     
-    // When a track add operation starts, the spinner needs to be initialized
+    // When a track add operation starts, the progress spinner needs to be initialized
     private func startedAddingTracks() {
         
         playlistWorkSpinner.doubleValue = 0
@@ -100,7 +101,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         playlistWorkSpinner.startAnimation(self)
     }
     
-    // When a track add operation ends, the spinner needs to be de-initialized
+    // When a track add operation ends, the progress spinner needs to be de-initialized
     private func doneAddingTracks() {
         
         playlistWorkSpinner.stopAnimation(self)
@@ -109,6 +110,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         sequenceChanged()
     }
     
+    // When the playback sequence has changed, the UI needs to show the updated info
     private func sequenceChanged() {
         
         if (playbackInfo.getPlayingTrack() != nil) {
@@ -116,6 +118,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
     }
     
+    // Handles an error when tracks could not be added to the playlist
     private func tracksNotAdded(_ message: TracksNotAddedAsyncMessage) {
         
         // This needs to be done async. Otherwise, the add files dialog hangs.
@@ -124,6 +127,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
     }
     
+    // Handles a notification that a single track has been added to the playlist
     private func trackAdded(_ message: TrackAddedAsyncMessage) {
         
         DispatchQueue.main.async {
@@ -131,6 +135,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
     }
     
+    // Handles a notification that a single track has been updated
     private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {
         
         DispatchQueue.main.async {
@@ -146,6 +151,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
     }
     
+    // Handles a request to remove a single track from the playlist
     private func removeTrack(_ request: RemoveTrackRequest) {
         
         playlist.removeTracks([request.index])
@@ -184,6 +190,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
     }
     
+    // Removes selected items from the current playlist view. Delegates the action to the appropriate playlist view, because this operation depends on which playlist view is currently shown.
     @IBAction func removeTracksAction(_ sender: AnyObject) {
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.removeTracks, PlaylistViewState.current))
@@ -192,6 +199,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         updatePlaylistSummary()
     }
     
+    // Invokes the Save file dialog, to allow the user to save all playlist items to a playlist file
     @IBAction func savePlaylistAction(_ sender: AnyObject) {
         
         // Make sure there is at least one track to save
@@ -206,27 +214,32 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
     }
     
+    // Removes all items from the playlist
     @IBAction func clearPlaylistAction(_ sender: AnyObject) {
         
         playlist.clear()
+        
+        // Tell all playlist views to refresh themselves
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, nil))
         
         updatePlaylistSummary()
     }
     
+    // Moves any selected playlist items up one row in the playlist. Delegates the action to the appropriate playlist view, because this operation depends on which playlist view is currently shown.
     @IBAction func moveTracksUpAction(_ sender: AnyObject) {
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksUp, PlaylistViewState.current))
         sequenceChanged()
     }
     
+    // Moves any selected playlist items down one row in the playlist. Delegates the action to the appropriate playlist view, because this operation depends on which playlist view is currently shown.
     @IBAction func moveTracksDownAction(_ sender: AnyObject) {
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current))
         sequenceChanged()
     }
     
-    // Scrolls the playlist view to the very top
+    // Scrolls the current playlist view to the very top
     @IBAction func scrollToTopAction(_ sender: AnyObject) {
         
         let playlistView = playlistViewForViewType()
@@ -236,7 +249,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
     }
     
-    // Scrolls the playlist view to the very bottom
+    // Scrolls the current playlist view to the very bottom
     @IBAction func scrollToBottomAction(_ sender: AnyObject) {
         
         let playlistView = playlistViewForViewType()
@@ -262,9 +275,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
     }
     
-    // Shows the currently playing track, within the playlist view
+    // Shows the currently playing track, within the current playlist view. Delegates the action to the appropriate playlist view, because this operation depends on which playlist view is currently shown.
     func showPlayingTrack() {
-        
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.showPlayingTrack, PlaylistViewState.current))
     }
     
@@ -316,36 +328,44 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
     }
     
+    // Presents the search modal dialog to allow the user to search for playlist tracks
     @IBAction func searchAction(_ sender: AnyObject) {
         playlistSearchDialog.showDialog()
     }
     
+    // Presents the sort modal dialog to allow the user to sort playlist tracks
     @IBAction func sortAction(_ sender: AnyObject) {
         playlistSortDialog.showDialog()
     }
     
     // MARK: Playlist window actions
     
+    // Docks the playlist window to the left of the main window
     @IBAction func dockLeftAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockLeft, nil))
     }
     
+    // Docks the playlist window below the main window
     @IBAction func dockBottomAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockBottom, nil))
     }
     
+    // Docks the playlist window to the right of the main window
     @IBAction func dockRightAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockRight, nil))
     }
     
+    // Maximizes the playlist window, both horizontally and vertically
     @IBAction func maximizeAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.maximize, nil))
     }
     
+    // Maximizes the playlist window vertically
     @IBAction func maximizeVerticalAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.maximizeVertical, nil))
     }
     
+    // Maximizes the playlist window horizontally
     @IBAction func maximizeHorizontalAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.maximizeHorizontal, nil))
     }
@@ -431,7 +451,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     }
 }
 
-// Convenient accessor for information about the current state of the playlist view
+// Convenient accessor for information about the current playlist view
 class PlaylistViewState {
     
     // The current playlist view type displayed within the playlist tab group

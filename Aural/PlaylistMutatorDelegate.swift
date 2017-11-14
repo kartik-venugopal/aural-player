@@ -73,15 +73,16 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         }
     }
     
-    // Assume file doesn't already exist
     func findOrAddFile(_ file: URL) throws -> IndexedTrack {
         
+        // If track exists, return it
         if let foundTrack = playlist.findTrackByFile(file) {
             return foundTrack
         }
     
-        // Need to add it
+        // Track doesn't exist, need to add it
         
+        // If the file points to an invalid location, throw an error
         if (!FileSystemUtils.fileExists(file)) {
             throw FileNotFoundError(file)
         }
@@ -90,6 +91,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         let resolvedFileInfo = FileSystemUtils.resolveTruePath(file)
         let file = resolvedFileInfo.resolvedURL
         
+        // Load display info
         let track = Track(file)
         TrackIO.loadDisplayInfo(track)
         

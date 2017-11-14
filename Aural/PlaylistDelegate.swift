@@ -4,14 +4,6 @@ import Foundation
     Concrete implementation of PlaylistDelegateProtocol.
  */
 class PlaylistDelegate: PlaylistDelegateProtocol {
-
-    func findOrAddFile(_ file: URL) throws -> IndexedTrack {
-        return try mutator.findOrAddFile(file)
-    }
-
-    func indexOfTrack(_ track: Track) -> IndexedTrack? {
-        return accessor.indexOfTrack(track)
-    }
     
     // Accessor delegate, to which all read-only operations are deferred
     private let accessor: PlaylistAccessorDelegateProtocol
@@ -30,6 +22,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     
     func trackAtIndex(_ index: Int?) -> IndexedTrack? {
         return accessor.trackAtIndex(index)
+    }
+    
+    func indexOfTrack(_ track: Track) -> IndexedTrack? {
+        return accessor.indexOfTrack(track)
     }
     
     func size() -> Int {
@@ -70,6 +66,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     
     func addFiles(_ files: [URL]) {
         mutator.addFiles(files)
+    }
+    
+    func findOrAddFile(_ file: URL) throws -> IndexedTrack {
+        return try mutator.findOrAddFile(file)
     }
     
     func removeTracks(_ indexes: IndexSet) {

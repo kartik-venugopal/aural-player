@@ -53,6 +53,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         initialWindowLayout()
     }
     
+    // One-time seutp. Lays out both windows per user preferences and saved app state.
     private func initialWindowLayout() {
         
         let appState = ObjectGraph.getUIAppState()
@@ -66,7 +67,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
             mainWindow.setFrameOrigin(mainWindowOrigin)
         } else {
             // Need to calculate position
-            positionWindowsRelativeToScreen(appState.windowLocationOnStartup.windowLocation, appState.playlistLocation, !appState.hidePlaylist)
+            positionMainWindowRelativeToScreen(appState.windowLocationOnStartup.windowLocation, appState.playlistLocation, !appState.hidePlaylist)
         }
         
         // Show and dock the playlist, if needed
@@ -76,7 +77,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         }
     }
     
-    private func positionWindowsRelativeToScreen(_ relativeLoc: WindowLocations, _ playlistLocation: PlaylistLocations, _ playlistShown: Bool) {
+    // Positions the main app window relative to screen, per user preference. For example, "Top Left" or "Bottom Center"
+    private func positionMainWindowRelativeToScreen(_ relativeLoc: WindowLocations, _ playlistLocation: PlaylistLocations, _ playlistShown: Bool) {
         
         // Calculate total width/height, taking both possible windows into account
         let width: CGFloat = playlistShown && playlistLocation != .bottom ? mainWindow.width + playlistWindow.width : mainWindow.width
@@ -322,10 +324,12 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
     
     // MARK: View toggling functions
     
+    // Shows/hides the playlist window
     @IBAction func togglePlaylistAction(_ sender: AnyObject) {
         togglePlaylist()
     }
     
+    // Shows/hides the playlist window
     private func togglePlaylist() {
         
         if (!playlistWindow.isVisible) {
@@ -335,6 +339,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         }
     }
     
+    // Shows the playlist window
     private func showPlaylist(_ animate: Bool = true) {
         
         resizeMainWindow(playlistDockState == .bottom, WindowState.showingEffects)
@@ -351,6 +356,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         reDockPlaylist(animate)
     }
     
+    // Docks the playlist window per its current dock state
     private func reDockPlaylist(_ animate: Bool = true) {
         
         switch playlistDockState {
@@ -364,6 +370,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         }
     }
    
+    // Hides the playlist window
     private func hidePlaylist() {
         
         // Add bottom edge to the main window
@@ -377,10 +384,12 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         WindowState.showingPlaylist = false
     }
     
+    // Shows/hides the effects panel on the main window
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
         toggleEffects()
     }
     
+    // Shows/hides the effects panel on the main window
     private func toggleEffects(_ animate: Bool = true) {
         
         if (!WindowState.showingEffects) {
@@ -444,7 +453,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
     /*
         Called when toggling the playlist/effects views and/or docking the playlist window. Resizes the main window depending on which views are to be shown (i.e. either displayed on the main window or attached to it).
      
-        The "playlistShown" parameter will be true only when the playlist window has been docked at the bottom of the main window, and false otherwise.
+        The "playlistAffectsHeight" parameter will be true only when the playlist window is visible and has been docked at the bottom of the main window, and false otherwise.
      */
     private func resizeMainWindow(_ playlistAffectsHeight: Bool, _ effectsShown: Bool, _ animate: Bool = false) {
         
@@ -483,10 +492,12 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
     
     // MARK: Other window functions
     
+    // Closes the window, and quits the app
     @IBAction func closeAction(_ sender: AnyObject) {
         NSApplication.shared().terminate(self)
     }
     
+    // Minimizes the app
     @IBAction func minimizeAction(_ sender: AnyObject) {
         mainWindow.miniaturize(self)
     }
@@ -594,7 +605,7 @@ class MainWindowDelegate: NSObject, NSWindowDelegate {
         WindowState.setMinimized(true)
     }
 
-    // When the window is restored, the app can be considered to be in the "foreground". The UI features that are disabled to reduce system resources usage, can be re-enabled, because the window is now visible to the end user.
+    // When the window is restored, the app can be considered to be in the "foreground" (if it is also in focus). The UI features that are disabled to reduce system resources usage, can be re-enabled, because the window is now visible to the end user.
     func windowDidDeminiaturize(_ notification: Notification) {
         WindowState.setMinimized(false)
     }
