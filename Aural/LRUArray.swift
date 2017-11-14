@@ -21,7 +21,7 @@ struct LRUArray<T: EquatableHistoryItem> {
             array.remove(at: index)
         }
         
-        // Add the new element at the top
+        // Add the new element at the end
         array.append(newElement)
         
         // Max size has been reached, remove the oldest item

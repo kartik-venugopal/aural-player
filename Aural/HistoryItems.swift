@@ -2,6 +2,8 @@ import Cocoa
 
 // Protocol that marks a history item as being equatable (for comparison in data structures)
 protocol EquatableHistoryItem {
+    
+    // Compares this history item to another. Returns true if the two items point to the same filesystem path, and false otherwise.
     func equals(_ other: EquatableHistoryItem) -> Bool
 }
 
@@ -12,7 +14,7 @@ protocol PlayableHistoryItem {}
 class HistoryItem: EquatableHistoryItem {
     
     var file: URL
-    var displayName: String = ""
+    var displayName: String
     var art: NSImage = Images.imgPlayedTrack
     
     init(_ file: URL) {
@@ -22,7 +24,6 @@ class HistoryItem: EquatableHistoryItem {
         self.displayName = file.lastPathComponent
     }
     
-    // Compares this history item to another. Returns true if the two items point to the same filesystem path, and false otherwise.
     func equals(_ other: EquatableHistoryItem) -> Bool {
         
         if let otherHistoryItem = other as? HistoryItem {
@@ -58,7 +59,7 @@ class AddedItem: HistoryItem {
     
     override func loadDisplayInfoFromFile() {
         
-        // Always resolve sym links and aliases before reading the file
+        // Resolve sym links and aliases
         let resolvedFileInfo = FileSystemUtils.resolveTruePath(file)
         self.file = resolvedFileInfo.resolvedURL
         
