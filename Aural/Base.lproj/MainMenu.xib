@@ -62,6 +62,8 @@
         <customObject id="bac-wa-rgm" customClass="HelpMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="29W-IU-ITu" customClass="DockMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="favoritesMenu" destination="WRB-ga-QzB" id="mFI-MZ-xYg"/>
+                <outlet property="recentlyPlayedMenu" destination="aSw-mI-3ut" id="3Cf-Ir-DJz"/>
                 <outlet property="repeatAllMenuItem" destination="0zK-7w-8z4" id="gRt-Im-ymR"/>
                 <outlet property="repeatOffMenuItem" destination="pxm-4j-4jw" id="PhF-dS-I4b"/>
                 <outlet property="repeatOneMenuItem" destination="x3D-4c-i0o" id="YMR-Ju-ZaC"/>
@@ -634,13 +636,22 @@ CQ
         </menu>
         <menu id="7lR-jg-Hrh" userLabel="Dock Menu">
             <items>
+                <menuItem title="Recently played" image="RecentlyPlayed" id="SXx-y5-6Um" userLabel="Recently played">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Recently played" id="aSw-mI-3ut"/>
+                </menuItem>
+                <menuItem title="Favorites" image="Favorites" id="yx1-0C-wVJ" userLabel="Favorites">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Favorites" id="WRB-ga-QzB"/>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="C2z-jB-bGV"/>
                 <menuItem title="Play / Pause" image="PlayPause-Small" keyEquivalent=" " id="haA-Vb-9QH">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="playOrPauseAction:" target="29W-IU-ITu" id="3I0-ka-dGb"/>
                     </connections>
                 </menuItem>
-                <menuItem title=" Replay current track" image="Replay" keyEquivalent="r" id="xaX-37-oif" userLabel="Replay current track">
+                <menuItem title="Replay current track" image="Replay" keyEquivalent="r" id="xaX-37-oif" userLabel="Replay current track">
                     <connections>
                         <action selector="replayTrackAction:" target="29W-IU-ITu" id="maR-Bc-sWa"/>
                     </connections>

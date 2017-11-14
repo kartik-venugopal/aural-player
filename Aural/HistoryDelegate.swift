@@ -28,6 +28,8 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber {
         history.addRecentlyAddedItems(historyState.recentlyAdded.reversed())
         historyState.recentlyPlayed.reversed().forEach({history.addRecentlyPlayedItem($0)})
         historyState.favorites.reversed().forEach({history.addFavorite($0)})
+        
+        AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
     }
     
     func allRecentlyAddedItems() -> [AddedItem] {
@@ -74,10 +76,12 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber {
     
     func addFavorite(_ track: Track) {
         history.addFavorite(track)
+        AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
     }
     
     func removeFavorite(_ track: Track) {
         history.removeFavorite(track)
+        AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
     }
     
     func getPersistentState() -> HistoryState {
@@ -94,11 +98,13 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber {
     // Whenever a track is played by the player, add an entry in the "Recently played" list
     private func trackPlayed(_ message: TrackPlayedAsyncMessage) {
         history.addRecentlyPlayedItem(message.track)
+        AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
     }
     
     // Whenever items are added to the playlist, add entries to the "Recently added" list
     private func itemsAdded(_ message: ItemsAddedAsyncMessage) {
         history.addRecentlyAddedItems(message.files)
+        AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
     }
     
     // MARK: Message handling

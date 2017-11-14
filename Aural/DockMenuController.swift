@@ -5,7 +5,7 @@ import Cocoa
  
     NOTE - No actions are directly handled by this class. Action messages are published to other app components that are responsible for these functions.
  */
-class DockMenuController: NSObject {
+class DockMenuController: NSObject, AsyncMessageSubscriber {
     
     // Menu items whose states are toggled when they (or others) are clicked
     
@@ -18,12 +18,35 @@ class DockMenuController: NSObject {
     @IBOutlet weak var shuffleOffMenuItem: NSMenuItem!
     @IBOutlet weak var shuffleOnMenuItem: NSMenuItem!
     
+    // Sub-menu that displays recently played tracks. Clicking on any of these items will result in the track being played.
+    @IBOutlet weak var recentlyPlayedMenu: NSMenu!
+    
+    // Sub-menu that displays tracks marked "favorites". Clicking on any of these items will result in the track being  played.
+    @IBOutlet weak var favoritesMenu: NSMenu!
+    
     // Delegate that retrieves current playback info (e.g. repeat/shuffle modes)
     private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
+    // Delegate that performs CRUD on the history model
+    private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
+    
+    // Stores a mapping of menu items to their corresponding model objects. This is useful when the items are clicked and track/file information for the item is to be retrieved.
+    private var historyItemsMap: [NSMenuItem: HistoryItem] = [:]
+    
     // One-time setup. When the menu is loaded for the first time, update the menu item states per the current playback modes
     override func awakeFromNib() {
+        
         updateRepeatAndShuffleMenuItemStates()
+        
+        // Subscribe to message notifications
+        AsyncMessenger.subscribe([.historyUpdated], subscriber: self, dispatchQueue: DispatchQueue.main)
+        
+        recreateHistoryMenus()
+    }
+    
+    // When a "Recently played" or "Favorites" menu item is clicked, the item is played
+    @IBAction func playSelectedItemAction(_ sender: NSMenuItem) {
+        history.playItem(historyItemsMap[sender]!.file, PlaylistViewState.current)
     }
     
     // Pauses or resumes playback
@@ -125,6 +148,43 @@ class DockMenuController: NSObject {
             
             repeatAllMenuItem.state = 1
             [repeatOffMenuItem, repeatOneMenuItem].forEach({$0?.state = 0})
+        }
+    }
+    
+    // Re-creates the History menus from the model
+    private func recreateHistoryMenus() {
+        
+        // Clear the menus
+        recentlyPlayedMenu.removeAllItems()
+        favoritesMenu.removeAllItems()
+        historyItemsMap.removeAll()
+        
+        // Retrieve the model and re-create all sub-menu items
+        history.allRecentlyPlayedItems().forEach({recentlyPlayedMenu.addItem(createMenuItem($0))})
+        history.allFavorites().forEach({favoritesMenu.addItem(createMenuItem($0))})
+    }
+    
+    // Factory method to create a single menu item, given a model object (HistoryItem)
+    private func createMenuItem(_ item: HistoryItem) -> NSMenuItem {
+        
+        let menuItem = NSMenuItem(title: "  " + item.displayName, action: #selector(self.playSelectedItemAction(_:)), keyEquivalent: "")
+        menuItem.target = self
+        
+        historyItemsMap[menuItem] = item
+        
+        return menuItem
+    }
+    
+    // MARK: Message handling
+    
+    func consumeAsyncMessage(_ message: AsyncMessage) {
+        
+        switch message.messageType {
+            
+        case .historyUpdated: recreateHistoryMenus()
+ 
+        default: return
+            
         }
     }
 }
