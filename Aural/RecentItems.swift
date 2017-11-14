@@ -17,6 +17,9 @@ class HistoryItem: EquatableHistoryItem {
     
     init(_ file: URL) {
         self.file = file
+        
+        // Default the displayName to file name (intended to be replaced later)
+        self.displayName = file.lastPathComponent
     }
     
     // Compares this history item to another. Returns true if the two items point to the same filesystem path, and false otherwise.

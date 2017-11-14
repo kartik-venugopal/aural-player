@@ -261,7 +261,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
     }
     
     // Mutes or unmutes the player
-    private func muteOrUnmute() {
+    @IBAction func muteOrUnmuteAction(_ sender: AnyObject) {
         setVolumeImage(graph.toggleMute())
     }
     
@@ -717,7 +717,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         
         switch message.actionType {
             
-        case .muteOrUnmute: muteOrUnmute()
+        case .muteOrUnmute: muteOrUnmuteAction(self)
             
         case .decreaseVolume: decreaseVolume()
             

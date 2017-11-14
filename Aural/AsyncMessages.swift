@@ -37,6 +37,8 @@ enum AsyncMessageType {
     case startedAddingTracks
     
     case doneAddingTracks
+    
+    case historyUpdated
 }
 
 // AsyncMessage indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
@@ -214,4 +216,15 @@ struct TrackPlayedAsyncMessage: AsyncMessage {
  
     let messageType: AsyncMessageType = .trackPlayed
     let track: Track
+}
+
+// Indicates that History information has been updated. UI elements may choose to refresh their views (e.g. dock menu), in response to this message.
+struct HistoryUpdatedAsyncMessage: AsyncMessage {
+    
+    let messageType: AsyncMessageType = .historyUpdated
+ 
+    private init() {}
+    
+    // Singleton
+    static let instance: HistoryUpdatedAsyncMessage = HistoryUpdatedAsyncMessage()
 }
