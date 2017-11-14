@@ -3,7 +3,7 @@ import Foundation
 /*
     Concrete implementation of PlaybackSequencerProtocol. Also implements PlaylistChangeListenerProtocol, to respond to changes in the playlist, and MessageSubscriber to respond to changes in the playlist view.
  */
-class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtocol, MessageSubscriber {
+class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtocol, MessageSubscriber, PersistentModelObject {
     
     // The underlying linear sequence of tracks for the current playback scope
     private let sequence: PlaybackSequence
@@ -347,7 +347,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         return sequence.toggleShuffleMode()
     }
     
-    func getPersistentState() -> PlaybackSequenceState {
+    func persistentState() -> PersistentState {
         
         let state = PlaybackSequenceState()
         

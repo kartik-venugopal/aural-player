@@ -4,7 +4,7 @@ import AVFoundation
 /*
     Wrapper around AVAudioEngine. Manages the AVAudioEngine audio graph.
  */
-class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol {
+class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol, PersistentModelObject {
     
     private let audioEngine: AVAudioEngine
     private let mainMixer: AVAudioMixerNode
@@ -284,7 +284,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         }
     }
     
-    func getPersistentState() -> AudioGraphState {
+    func persistentState() -> PersistentState {
         
         let state: AudioGraphState = AudioGraphState()
         

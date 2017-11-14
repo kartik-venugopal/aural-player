@@ -143,11 +143,11 @@ class ObjectGraph {
         
         // Gather all pieces of app state into the appState object
         
-        appState?.audioGraphState = audioGraph!.getPersistentState()
-        appState?.playlistState = playlist!.persistentState()
-        appState?.playbackSequenceState = playbackSequencer!.getPersistentState()
-        appState?.uiState = WindowState.getPersistentState()
-        appState?.historyState = historyDelegate!.getPersistentState()
+        appState?.audioGraphState = audioGraph!.persistentState() as! AudioGraphState
+        appState?.playlistState = playlist!.persistentState() as! PlaylistState
+        appState?.playbackSequenceState = playbackSequencer!.persistentState() as! PlaybackSequenceState
+        appState?.uiState = WindowState.persistentState()
+        appState?.historyState = historyDelegate!.persistentState() as! HistoryState
         
         // Persist app state to disk
         AppStateIO.save(appState!)

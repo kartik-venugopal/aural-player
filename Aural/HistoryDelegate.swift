@@ -3,7 +3,7 @@ import Foundation
 /*
     Concrete implementation of HistoryDelegateProtocol
  */
-class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber {
+class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, PersistentModelObject {
     
     // The actual underlying History model object
     private let history: HistoryProtocol
@@ -84,7 +84,7 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber {
         AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
     }
     
-    func getPersistentState() -> HistoryState {
+    func persistentState() -> PersistentState {
         
         let state = HistoryState()
         

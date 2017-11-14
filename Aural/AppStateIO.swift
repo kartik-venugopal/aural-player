@@ -17,7 +17,7 @@ class AppStateIO {
             let outputStream = OutputStream(url: path, append: false)
             outputStream?.open()
             
-            JSONSerialization.writeJSONObject(state.forWritingAsJSON(), to: outputStream!, options: JSONSerialization.WritingOptions.prettyPrinted, error: nil)
+            JSONSerialization.writeJSONObject(state.toSerializableMap(), to: outputStream!, options: JSONSerialization.WritingOptions.prettyPrinted, error: nil)
             
             outputStream?.close()
         }
@@ -38,7 +38,7 @@ class AppStateIO {
                 
                 inputStream?.close()
                 
-                return AppState.fromJSON(data as! NSDictionary)
+                return AppState.deserialize(data as! NSDictionary)
                 
             } catch let error as NSError {
                 NSLog("Error loading player state config file: %@", error.description)
