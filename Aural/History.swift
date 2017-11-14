@@ -9,8 +9,6 @@ import Cocoa
  */
 class History: HistoryProtocol {
     
-    // NOTE - All history items in the 3 lists are stored in chronological order (in the LRUArray data structure), i.e. most recent items first.
- 
     // Recently added items
     var recentlyAddedItems: LRUArray<AddedItem> = LRUArray<AddedItem>(25)
     
