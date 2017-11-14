@@ -16,16 +16,12 @@ protocol AsyncMessageSubscriber {
 // An enumeration of all AsyncMessage types
 enum AsyncMessageType {
    
-    // See PlaybackCompletedAsyncMessage
     case playbackCompleted
 
-    // See TrackChangedAsyncMessage
     case trackChanged
     
-    // See TrackUpdatedAsyncMessage
     case trackInfoUpdated
     
-    // See TrackAddedAsyncMessage
     case trackAdded
     
     case itemsAdded
@@ -34,16 +30,12 @@ enum AsyncMessageType {
     
     case trackPlayed
     
-    // See TrackNotPlayedAsyncMessage
     case trackNotPlayed
     
-    // See TracksNotAddedAsyncMessage
     case tracksNotAdded
     
-    // See StartedAddingTracksAsyncMessage
     case startedAddingTracks
     
-    // See DoneAddingTracksAsyncMessage
     case doneAddingTracks
 }
 
@@ -127,11 +119,15 @@ struct TrackAddedAsyncMessage: AsyncMessage {
     }
 }
 
+// Message indicating that some tracks have been removed from the playlist.
 struct TracksRemovedAsyncMessage: AsyncMessage {
     
     let messageType: AsyncMessageType = .tracksRemoved
     
+    // Information about which tracks were removed and their former locations within the playlist (used to refresh the playlist views)
     let results: TrackRemovalResults
+    
+    // Flag indicating whether or not the currently playing track was removed. If no track was playing, this will be false.
     let playingTrackRemoved: Bool
     
     init(_ results: TrackRemovalResults, _ playingTrackRemoved: Bool) {
@@ -204,14 +200,16 @@ struct DoneAddingTracksAsyncMessage: AsyncMessage {
     static let instance = DoneAddingTracksAsyncMessage()
 }
 
-// History (recently added items)
+// Indicates that some items were added to the playlist. This is used for the History feature, to keep track of recently added items.
 struct ItemsAddedAsyncMessage: AsyncMessage {
     
     let messageType: AsyncMessageType = .itemsAdded
+    
+    // The files that were added to the playlist
     let files: [URL]
 }
 
-// For history (recently played items)
+// Indicates that a track was played. This is used for the History feature, to keep track of recently played items.
 struct TrackPlayedAsyncMessage: AsyncMessage {
  
     let messageType: AsyncMessageType = .trackPlayed

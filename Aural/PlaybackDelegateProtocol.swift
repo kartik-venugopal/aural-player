@@ -5,35 +5,56 @@ import Foundation
  */
 protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
-    // Toggles between the play and pause states, as long as a file is available to play. Returns playback state information the UI can use to update itself following the operation.
-    // NOTE - Throws an error if playback begins with a track that cannot be played back
+    /*
+        Toggles between the play and pause states, as long as a file is available to play. Returns playback state information the UI can use to update itself following the operation.
+    
+        Throws an error if playback begins with a track that cannot be played back.
+     */
     func togglePlayPause() throws -> (playbackState: PlaybackState, playingTrack: IndexedTrack?, trackChanged: Bool)
     
-    // Plays the track at a given index in the player playlist. Returns complete track information for the track.
-    // NOTE - Throws an error if the selected track cannot be played back
+    /* 
+        Plays the track at a given index in the player playlist. Returns complete track information for the track.
+ 
+        Throws an error if the selected track cannot be played back.
+ 
+        NOTE - When a single index is specified, it is implied that the playlist from which this request originated was the flat "Tracks" playlist, because this playlist locates tracks by a single absolute index. Hence, this function is intended to be called only when playback originates from the "Tracks" playlist.
+     */
     func play(_ index: Int) throws -> IndexedTrack
     
-    // Plays the given track. Returns complete track information for the track.
-    // NOTE - Throws an error if the selected track cannot be played back
+    /*
+        Plays the given track. Returns complete track information for the track.
+        
+        Throws an error if the selected track cannot be played back.
+        
+        NOTE - When a track is specified, it is implied that the playlist from which this request originated was a grouping/hierarchical playlist, because such a playlist does not provide a single index to locate an item. It provides either a track or a group. Hence, this function is intended to be called only when playback originates from one of the grouping/hierarchical playlists.
+     */
     func play(_ track: Track) throws -> IndexedTrack
     
-    // Plays the given track. Returns complete track information for the track.
-    // NOTE - Throws an error if the selected track cannot be played back
+    /* 
+        Plays the given track. Returns complete track information for the track.
+        
+        Throws an error if the selected track cannot be played back.
+        
+        NOTE - The "playlistType" argument is used to initialize the playback sequence (which is dependent on the current playlist view)
+    */
     func play(_ track: Track, _ playlistType: PlaylistType) throws -> IndexedTrack
     
-    // Initiates playback of (tracks within) the given group. Returns complete track information for the track that is chosen to play first.
-    // NOTE - Throws an error if the track that is chosen to play first within the given group cannot be played back
+    /* 
+        Initiates playback of (tracks within) the given group. Returns complete track information for the track that is chosen to play first.
+ 
+        Throws an error if the track that is chosen to play first within the given group cannot be played back
+     
+        NOTE - When a group is specified, it is implied that the playlist from which this request originated was a grouping/hierarchical playlist, because such a playlist does not provide a single index to locate an item. It provides either a track or a group. Hence, this function is intended to be called only when playback originates from one of the grouping/hierarchical playlists.
+     */
     func play(_ group: Group) throws -> IndexedTrack
     
     // Stops playback
     func stop()
     
-    // Plays (and returns) the next track, if there is one
-    // NOTE - Throws an error if the next track cannot be played back
+    // Plays (and returns) the next track, if there is one. Throws an error if the next track cannot be played back
     func nextTrack() throws -> IndexedTrack?
     
-    // Plays (and returns) the previous track, if there is one
-    // NOTE - Throws an error if the previous track cannot be played back
+    // Plays (and returns) the previous track, if there is one. Throws an error if the previous track cannot be played back
     func previousTrack() throws -> IndexedTrack?
     
     // Seeks forward a few seconds, within the current track

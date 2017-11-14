@@ -14,9 +14,7 @@ class MetadataReader {
         
         var tlenDuration: Double = 0
         
-        if (track.audioAsset == nil) {
-            track.audioAsset = AVURLAsset(url: track.file, options: nil)
-        }
+        ensureTrackAssetLoaded(track)
         
         let tlenItems = AVMetadataItem.metadataItems(from: track.audioAsset!.metadata, filteredByIdentifier: tlenID)
         if (!tlenItems.isEmpty) {
@@ -35,12 +33,17 @@ class MetadataReader {
         track.setDuration(max(tlenDuration, assetDuration))
     }
     
-    // Loads the required display metadata (artist/title/art) for a track
-    static func loadDisplayMetadata(_ track: Track) {
-        
+    // Helper function that ensures that a track's AVURLAsset has been initialized
+    private static func ensureTrackAssetLoaded(_ track: Track) {
         if (track.audioAsset == nil) {
             track.audioAsset = AVURLAsset(url: track.file, options: nil)
         }
+    }
+    
+    // Loads the required display metadata (artist/title/art) for a track
+    static func loadDisplayMetadata(_ track: Track) {
+        
+        ensureTrackAssetLoaded(track)
         
         let title = getMetadataForCommonKey(track.audioAsset!, AVMetadataCommonKeyTitle)
         let artist = getMetadataForCommonKey(track.audioAsset!, AVMetadataCommonKeyArtist)
@@ -52,9 +55,7 @@ class MetadataReader {
     // Loads all available metadata for a track
     static func loadAllMetadata(_ track: Track) {
         
-        if (track.audioAsset == nil) {
-            track.audioAsset = AVURLAsset(url: track.file, options: nil)
-        }
+        ensureTrackAssetLoaded(track)
         
         // Check which metadata formats are available
         let formats = track.audioAsset!.availableMetadataFormats
@@ -67,7 +68,9 @@ class MetadataReader {
             switch format {
                 
             case AVMetadataFormatiTunesMetadata: metadataType = .iTunes
+                
             case AVMetadataFormatID3Metadata: metadataType = .id3
+                
             default: metadataType = .other
                 
             }
@@ -85,18 +88,14 @@ class MetadataReader {
                     if (key != AVMetadataCommonKeyTitle && key != AVMetadataCommonKeyArtist && key != AVMetadataCommonKeyArtwork) {
                         
                         if (!StringUtils.isStringEmpty(stringValue)) {
-                            
-                            let entry = MetadataEntry(.common, key, stringValue!)
-                            track.metadata[key] = entry
+                            track.metadata[key] = MetadataEntry(.common, key, stringValue!)
                         }
                     }
                     
                 } else if let key = item.key as? String {
                     
                     if (!StringUtils.isStringEmpty(stringValue)) {
-                        
-                        let entry = MetadataEntry(metadataType, key, stringValue!)
-                        track.metadata[key] = entry
+                        track.metadata[key] = MetadataEntry(metadataType, key, stringValue!)
                     }
                 }
             }
@@ -106,9 +105,7 @@ class MetadataReader {
     // Loads the required grouping metadata (artist/album/genre) for a track
     static func loadGroupingMetadata(_ track: Track) {
         
-        if (track.audioAsset == nil) {
-            track.audioAsset = AVURLAsset(url: track.file, options: nil)
-        }
+        ensureTrackAssetLoaded(track)
         
         track.groupingInfo.artist = track.displayInfo.artist
         track.groupingInfo.album = getMetadataForCommonKey(track.audioAsset!, AVMetadataCommonKeyAlbumName)
@@ -161,12 +158,15 @@ class MetadataReader {
         }
     }
     
+    // Loads display information (name and artwork, if available) for the track at the given file. If no metadata is available, the display name will be derived from the file name.
     static func loadDisplayInfoForFile(_ file: URL) -> (displayName: String, art: NSImage?) {
         
         let asset = AVURLAsset(url: file, options: nil)
         
         let title = getMetadataForCommonKey(asset, AVMetadataCommonKeyTitle)
         let artist = getMetadataForCommonKey(asset, AVMetadataCommonKeyArtist)
+        
+        // Display name is a function of artist and title, if available. Defaults to filesystem file name.
         let displayName: String = title != nil ? (artist != nil ? String(format: "%@ - %@", artist!, title!) : title!) : file.deletingPathExtension().lastPathComponent
         
         return (displayName, getArtwork(asset))

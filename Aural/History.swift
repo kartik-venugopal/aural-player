@@ -1,32 +1,50 @@
 import Cocoa
-
-class History {
+/*
+    Model object that manages all historical information, in chronological order:
  
-    var addedItems: LRUArray<AddedItem> = LRUArray<AddedItem>(25)
-    var playedItems: LRUArray<PlayedItem> = LRUArray<PlayedItem>(25)
+    - Recently added items: tracks, playlist files, folders
+    - Recently played items: tracks
+    - Favorites: tracks
+ 
+ */
+class History: HistoryProtocol {
+    
+    // NOTE - All history items in the 3 lists are stored in chronological order (in the LRUArray data structure), i.e. most recent items first.
+ 
+    // Recently added items
+    var recentlyAddedItems: LRUArray<AddedItem> = LRUArray<AddedItem>(25)
+    
+    // Recently played items
+    var recentlyPlayedItems: LRUArray<PlayedItem> = LRUArray<PlayedItem>(25)
+    
+    // Favorites items
     var favorites: LRUArray<FavoritesItem> = LRUArray<FavoritesItem>(25)
     
-    func addAddedItems(_ items: [URL]) {
+    func addRecentlyAddedItems(_ items: [URL]) {
         
-        var addedItemsArr: [AddedItem] = []
-        items.forEach({addedItemsArr.append(AddedItem($0))})
-        addedItems.addAll(addedItemsArr)
+        var recentlyAddedItemsArr: [AddedItem] = []
+        items.forEach({recentlyAddedItemsArr.append(AddedItem($0))})
+        recentlyAddedItems.addAll(recentlyAddedItemsArr)
     }
     
-    func allAddedItems() -> [AddedItem] {
-        return addedItems.toArray().reversed()
+    func allRecentlyAddedItems() -> [AddedItem] {
+        
+        // Reverse the array for chronological order (most recent items first)
+        return recentlyAddedItems.toArray().reversed()
     }
     
-    func addPlayedItem(_ item: Track) {
-        playedItems.add(PlayedItem(item.file, item))
+    func addRecentlyPlayedItem(_ item: Track) {
+        recentlyPlayedItems.add(PlayedItem(item.file, item))
     }
     
-    func addPlayedItem(_ item: URL) {
-        playedItems.add(PlayedItem(item, nil))
+    func addRecentlyPlayedItem(_ item: URL) {
+        recentlyPlayedItems.add(PlayedItem(item, nil))
     }
     
-    func allPlayedItems() -> [PlayedItem] {
-        return playedItems.toArray().reversed()
+    func allRecentlyPlayedItems() -> [PlayedItem] {
+        
+        // Reverse the array for chronological order (most recent items first)
+        return recentlyPlayedItems.toArray().reversed()
     }
     
     func hasFavorite(_ track: Track) -> Bool {
@@ -46,6 +64,8 @@ class History {
     }
     
     func allFavorites() -> [FavoritesItem] {
+        
+        // Reverse the array for chronological order (most recent items first)
         return favorites.toArray().reversed()
     }
 }

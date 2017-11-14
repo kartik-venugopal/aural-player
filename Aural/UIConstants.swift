@@ -48,15 +48,15 @@ struct UIConstants {
  
     // Window heights for different views
     static let windowHeight_compact: CGFloat = 230
-    static let windowHeight_playlistAndEffects: CGFloat = 403
+    static let windowHeight_playlistAndEffects: CGFloat = 408
     static let windowHeight_playlistOnly: CGFloat = 218
-    static let windowHeight_effectsOnly: CGFloat = 415
+    static let windowHeight_effectsOnly: CGFloat = 420
     
     // Angles used to fill gradients
     static let verticalGradientDegrees: CGFloat = -90.0
     static let horizontalGradientDegrees: CGFloat = -180.0
     
-    // Time interval for which feedback labels that are to be auto-hidden are displayed, before being hidden
+    // Time intervals for which feedback labels or views that are to be auto-hidden are displayed, before being hidden
     static let feedbackLabelAutoHideIntervalSeconds: TimeInterval = 1
     static let favoritesPopupAutoHideIntervalSeconds: TimeInterval = 1.5
 }

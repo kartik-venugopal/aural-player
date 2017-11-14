@@ -35,14 +35,14 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Delegate that retrieves information about the player and the currently playing track
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
-    private let history: HistoryDelegate = ObjectGraph.getHistoryDelegate()
+    private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
     
     // The view that displays detailed track information, when requested by the user
     private lazy var popoverView: PopoverViewDelegate = {
         return DetailedTrackInfoViewController.create(self.btnMoreInfo as NSView)
     }()
     
-    // The view that displays detailed track information, when requested by the user
+    // The view that displays a brief info message when a track is added to or removed from Favorites
     private lazy var favoritesPopup: FavoritesPopupViewController = {
         return FavoritesPopupViewController.create(self.btnFavorite as NSView)
     }()
@@ -71,6 +71,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         SyncMessenger.subscribe(actionTypes: [.moreInfo], subscriber: self)
     }
     
+    // Shows a popover with detailed information for the currently playing track, if there is one
     @IBAction func moreInfoAction(_ sender: AnyObject) {
         
         let playingTrack = playbackInfo.getPlayingTrack()
@@ -85,25 +86,30 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         }
     }
     
+    // Shows (selects) the currently playing track, within the playlist, if there is one
     @IBAction func showPlayingTrackAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.showPlayingTrack, PlaylistViewState.current))
     }
     
+    // Adds/removes the currently playing track to/from the "Favorites" list
     @IBAction func favoriteAction(_ sender: Any) {
         
+        // Toggle the button image per state
         btnFavorite.image = btnFavorite.image == Images.imgFavoritesOn ? Images.imgFavoritesOff : Images.imgFavoritesOn
         
-        let plTrack = (playbackInfo.getPlayingTrack()?.track)!
+        // Assume there is a track playing (this function cannot be invoked otherwise)
+        let playingTrack = (playbackInfo.getPlayingTrack()?.track)!
         
+        // Publish an action message to add/remove the item to/from Favorites
         if btnFavorite.image == Images.imgFavoritesOn {
             
-            SyncMessenger.publishActionMessage(FavoritesActionMessage(.addFavorite, plTrack))
+            SyncMessenger.publishActionMessage(FavoritesActionMessage(.addFavorite, playingTrack))
             favoritesPopup.showAddedMessage()
             btnFavorite.toolTip = "Remove this track from your Favorites"
             
         } else {
             
-            SyncMessenger.publishActionMessage(FavoritesActionMessage(.removeFavorite, plTrack))
+            SyncMessenger.publishActionMessage(FavoritesActionMessage(.removeFavorite, playingTrack))
             favoritesPopup.showRemovedMessage()
             btnFavorite.toolTip = "Add this track to your Favorites"
         }

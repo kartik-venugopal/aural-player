@@ -252,6 +252,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         eqTabViewAction(self)
     }
     
+    // Updates the volume
     @IBAction func volumeAction(_ sender: AnyObject) {
         
         graph.setVolume(volumeSlider.floatValue)
@@ -259,16 +260,19 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         showAndAutoHideVolumeLabel()
     }
     
+    // Mutes or unmutes the player
     private func muteOrUnmute() {
         setVolumeImage(graph.toggleMute())
     }
     
+    // Decreases the volume by a certain preset decrement
     private func decreaseVolume() {
         volumeSlider.floatValue = graph.decreaseVolume()
         setVolumeImage(graph.isMuted())
         showAndAutoHideVolumeLabel()
     }
     
+    // Increases the volume by a certain preset increment
     private func increaseVolume() {
         volumeSlider.floatValue = graph.increaseVolume()
         setVolumeImage(graph.isMuted())
@@ -313,16 +317,19 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         lblVolume.isHidden = true
     }
     
+    // Updates the stereo pan
     @IBAction func panAction(_ sender: AnyObject) {
         graph.setBalance(panSlider.floatValue)
         showAndAutoHidePanLabel()
     }
     
+    // Pans the sound towards the left channel, by a certain preset value
     private func panLeft() {
         panSlider.floatValue = graph.panLeft()
         showAndAutoHidePanLabel()
     }
     
+    // Pans the sound towards the right channel, by a certain preset value
     private func panRight() {
         panSlider.floatValue = graph.panRight()
         showAndAutoHidePanLabel()
@@ -345,15 +352,18 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         lblPan.isHidden = true
     }
     
+    // Updates the global gain value of the Equalizer
     @IBAction func eqGlobalGainAction(_ sender: AnyObject) {
         graph.setEQGlobalGain(eqGlobalGainSlider.floatValue)
     }
     
+    // Updates the gain value of a single frequency band (specified by the slider parameter) of the Equalizer
     @IBAction func eqSliderAction(_ sender: NSSlider) {
         // Slider tags match the corresponding EQ band indexes
         graph.setEQBand(sender.tag, gain: sender.floatValue)
     }
     
+    // Applies a built-in preset to the Equalizer
     @IBAction func eqPresetsAction(_ sender: AnyObject) {
         
         let preset = EQPresets.fromDescription((eqPresets.selectedItem?.title)!)
@@ -386,36 +396,43 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         }
     }
     
+    // Provides a "bass boost". Increases each of the EQ bass bands by a certain preset increment.
     private func increaseBass() {
         updateEQSliders(graph.increaseBass())
         showEQTab()
     }
     
+    // Decreases each of the EQ bass bands by a certain preset decrement
     private func decreaseBass() {
         updateEQSliders(graph.decreaseBass())
         showEQTab()
     }
     
+    // Increases each of the EQ mid-frequency bands by a certain preset increment
     private func increaseMids() {
         updateEQSliders(graph.increaseMids())
         showEQTab()
     }
     
+    // Decreases each of the EQ mid-frequency bands by a certain preset decrement
     private func decreaseMids() {
         updateEQSliders(graph.decreaseMids())
         showEQTab()
     }
     
+    // Decreases each of the EQ treble bands by a certain preset increment
     private func increaseTreble() {
         updateEQSliders(graph.increaseTreble())
         showEQTab()
     }
     
+    // Decreases each of the EQ treble bands by a certain preset decrement
     private func decreaseTreble() {
         updateEQSliders(graph.decreaseTreble())
         showEQTab()
     }
     
+    // Activates/deactivates the Pitch effects unit
     @IBAction func pitchBypassAction(_ sender: AnyObject) {
         
         let newBypassState = graph.togglePitchBypass()
@@ -427,10 +444,12 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         btnPitchBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
     }
     
+    // Updates the pitch
     @IBAction func pitchAction(_ sender: AnyObject) {
         lblPitchValue.stringValue = graph.setPitch(pitchSlider.floatValue)
     }
     
+    // Sets the pitch to a specific value
     private func setPitch(_ pitch: Float) {
         
         if graph.isPitchBypass() {
@@ -451,18 +470,22 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         }
     }
     
+    // Updates the Overlap parameter of the Pitch shift effects unit
     @IBAction func pitchOverlapAction(_ sender: AnyObject) {
         lblPitchOverlapValue.stringValue = graph.setPitchOverlap(pitchOverlapSlider.floatValue)
     }
     
+    // Increases the overall pitch by a certain preset increment
     private func increasePitch() {
         pitchChange(graph.increasePitch())
     }
     
+    // Decreases the overall pitch by a certain preset decrement
     private func decreasePitch() {
         pitchChange(graph.decreasePitch())
     }
     
+    // Changes the pitch to a specified value
     private func pitchChange(_ pitchInfo: (pitch: Float, pitchString: String)) {
         
         pitchSlider.floatValue = pitchInfo.pitch
@@ -479,6 +502,7 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         }
     }
     
+    // Activates/deactivates the Time stretch effects unit
     @IBAction func timeBypassAction(_ sender: AnyObject) {
         
         let newBypassState = graph.toggleTimeBypass()
@@ -494,15 +518,18 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         SyncMessenger.publishNotification(playbackRateChangedMsg)
     }
     
+    // Updates the playback rate value
     @IBAction func timeStretchAction(_ sender: AnyObject) {
         
         lblTimeStretchRateValue.stringValue = graph.setTimeStretchRate(timeSlider.floatValue)
         
+        // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if (!graph.isTimeBypass()) {
             SyncMessenger.publishNotification(PlaybackRateChangedNotification(timeSlider.floatValue))
         }
     }
     
+    // Sets the playback rate to a specific value
     private func setRate(_ rate: Float) {
         
         // Ensure unit is activated
@@ -525,23 +552,21 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         SyncMessenger.publishNotification(PlaybackRateChangedNotification(rate))
     }
     
+    // Increases the playback rate by a certain preset increment
     private func increaseRate() {
         rateChange(graph.increaseRate())
     }
     
+    // Decreases the playback rate by a certain preset decrement
     private func decreaseRate() {
         rateChange(graph.decreaseRate())
     }
     
+    // Changes the playback rate to a specific value
     private func rateChange(_ rateInfo: (rate: Float, rateString: String)) {
         
         timeSlider.floatValue = rateInfo.rate
         lblTimeStretchRateValue.stringValue = rateInfo.rateString
-        
-        let timeStretchActive = !graph.isTimeBypass()
-        if (timeStretchActive) {
-            SyncMessenger.publishNotification(PlaybackRateChangedNotification(rateInfo.rate))
-        }
         
         (timeTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
         timeTabViewButton.image = timeTabViewButton.onStateImage
@@ -551,12 +576,16 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         if (!fxTabView.isHidden) {
             timeTabViewAction(self)
         }
+        
+        SyncMessenger.publishNotification(PlaybackRateChangedNotification(rateInfo.rate))
     }
     
+    // Updates the Overlap parameter of the Time stretch effects unit
     @IBAction func timeOverlapAction(_ sender: Any) {
         lblTimeOverlapValue.stringValue = graph.setTimeOverlap(timeOverlapSlider.floatValue)
     }
     
+    // Activates/deactivates the Reverb effects unit
     @IBAction func reverbBypassAction(_ sender: AnyObject) {
         
         let newBypassState = graph.toggleReverbBypass()
@@ -568,14 +597,17 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         btnReverbBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
     }
     
+    // Updates the Reverb preset
     @IBAction func reverbAction(_ sender: AnyObject) {
         graph.setReverb(ReverbPresets.fromDescription((reverbMenu.selectedItem?.title)!))
     }
     
+    // Updates the Reverb amount parameter
     @IBAction func reverbAmountAction(_ sender: AnyObject) {
         lblReverbAmountValue.stringValue = graph.setReverbAmount(reverbSlider.floatValue)
     }
     
+    // Activates/deactivates the Delay effects unit
     @IBAction func delayBypassAction(_ sender: AnyObject) {
         
         let newBypassState = graph.toggleDelayBypass()
@@ -587,22 +619,27 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         btnDelayBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
     }
     
+    // Updates the Delay amount parameter
     @IBAction func delayAmountAction(_ sender: AnyObject) {
         lblDelayAmountValue.stringValue = graph.setDelayAmount(delayAmountSlider.floatValue)
     }
     
+    // Updates the Delay time parameter
     @IBAction func delayTimeAction(_ sender: AnyObject) {
         lblDelayTimeValue.stringValue = graph.setDelayTime(delayTimeSlider.doubleValue)
     }
     
+    // Updates the Delay feedback parameter
     @IBAction func delayFeedbackAction(_ sender: AnyObject) {
         lblDelayFeedbackValue.stringValue = graph.setDelayFeedback(delayFeedbackSlider.floatValue)
     }
     
+    // Updates the Delay low pass cutoff parameter
     @IBAction func delayCutoffAction(_ sender: AnyObject) {
         lblDelayLowPassCutoffValue.stringValue = graph.setDelayLowPassCutoff(delayCutoffSlider.floatValue)
     }
     
+    // Activates/deactivates the Filter effects unit
     @IBAction func filterBypassAction(_ sender: AnyObject) {
         
         let newBypassState = graph.toggleFilterBypass()
@@ -614,42 +651,52 @@ class AudioGraphViewController: NSViewController, ActionMessageSubscriber {
         btnFilterBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
     }
     
+    // Action function for the Filter unit's bass slider. Updates the Filter bass band.
     private func filterBassChanged() {
         lblFilterBassRange.stringValue = graph.setFilterBassBand(Float(filterBassSlider.start), Float(filterBassSlider.end))
     }
     
+    // Action function for the Filter unit's mid-frequency slider. Updates the Filter mid-frequency band.
     private func filterMidChanged() {
         lblFilterMidRange.stringValue = graph.setFilterMidBand(Float(filterMidSlider.start), Float(filterMidSlider.end))
     }
     
+    // Action function for the Filter unit's treble slider. Updates the Filter treble band.
     private func filterTrebleChanged() {
         lblFilterTrebleRange.stringValue = graph.setFilterTrebleBand(Float(filterTrebleSlider.start), Float(filterTrebleSlider.end))
     }
     
+    // Switches the tab view to the EQ (Equalizer) tab
     @IBAction func eqTabViewAction(_ sender: Any) {
         tabViewAction(eqTabViewButton, 0)
     }
     
+    // Switches the tab view to the Pitch tab
     @IBAction func pitchTabViewAction(_ sender: Any) {
         tabViewAction(pitchTabViewButton, 1)
     }
     
+    // Switches the tab view to the Time tab
     @IBAction func timeTabViewAction(_ sender: Any) {
         tabViewAction(timeTabViewButton, 2)
     }
     
+    // Switches the tab view to the Reverb tab
     @IBAction func reverbTabViewAction(_ sender: Any) {
         tabViewAction(reverbTabViewButton, 3)
     }
     
+    // Switches the tab view to the Delay tab
     @IBAction func delayTabViewAction(_ sender: Any) {
         tabViewAction(delayTabViewButton, 4)
     }
     
+    // Switches the tab view to the Filter tab
     @IBAction func filterTabViewAction(_ sender: Any) {
         tabViewAction(filterTabViewButton, 5)
     }
     
+    // Switches the tab view to the Recorder tab
     @IBAction func recorderTabViewAction(_ sender: Any) {
         tabViewAction(recorderTabViewButton, 6)
     }

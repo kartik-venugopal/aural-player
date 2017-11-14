@@ -250,10 +250,12 @@ struct PlaylistTypeChangedNotification: NotificationMessage {
     let newPlaylistType: PlaylistType
 }
 
+// Request to the playback controller to initiate playback for a particular track/group
 struct PlaybackRequest: RequestMessage {
     
     let messageType: MessageType = .playbackRequest
     
+    // Type indicates whether the request parameter is an index, track, or group. This is used to initialize the new playback sequence.
     let type: PlaybackRequestType
     
     // Only one of these 3 fields will be non-nil, depending on the request type
@@ -261,22 +263,26 @@ struct PlaybackRequest: RequestMessage {
     var track: Track? = nil
     var group: Group? = nil
 
+    // Initialize the request with a track index. This will be done from the Tracks playlist.
     init(index: Int) {
         self.index = index
         self.type = .index
     }
     
+    // Initialize the request with a track. This will be done from a grouping/hierarchical playlist.
     init(track: Track) {
         self.track = track
         self.type = .track
     }
     
+    // Initialize the request with a group. This will be done from a grouping/hierarchical playlist.
     init(group: Group) {
         self.group = group
         self.type = .group
     }
 }
 
+// Enumerates all the possible playback request types. See PlaybackRequest.
 enum PlaybackRequestType {
     
     case index

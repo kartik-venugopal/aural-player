@@ -1,33 +1,44 @@
 import Foundation
 
-class HistoryDelegate: AsyncMessageSubscriber {
+/*
+    Concrete implementation of HistoryDelegateProtocol
+ */
+class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber {
     
-    private let history: History
+    // The actual underlying History model object
+    private let history: HistoryProtocol
+    
+    // Delegate used to perform CRUD on the playlist
     private let playlist: PlaylistDelegateProtocol
+    
+    // Delegate used to perform playback
     private let player: PlaybackDelegateProtocol
     
-    init(_ history: History, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol, _ historyState: HistoryState) {
+    init(_ history: HistoryProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol, _ historyState: HistoryState) {
         
         self.history = history
         self.playlist = playlist
         self.player = player
         
+        // Subscribe to message notifications
         AsyncMessenger.subscribe([.trackPlayed, .itemsAdded], subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.background))
         
-        history.addAddedItems(historyState.recentlyAdded.reversed())
-        historyState.recentlyPlayed.reversed().forEach({history.addPlayedItem($0)})
+        // Restore the history model object from persistent state
+        
+        history.addRecentlyAddedItems(historyState.recentlyAdded.reversed())
+        historyState.recentlyPlayed.reversed().forEach({history.addRecentlyPlayedItem($0)})
         historyState.favorites.reversed().forEach({history.addFavorite($0)})
     }
     
-    func allAddedItems() -> [AddedItem] {
-        return history.allAddedItems()
+    func allRecentlyAddedItems() -> [AddedItem] {
+        return history.allRecentlyAddedItems()
     }
     
-    func allPlayedItems() -> [HistoryItem] {
-        return history.allPlayedItems()
+    func allRecentlyPlayedItems() -> [PlayedItem] {
+        return history.allRecentlyPlayedItems()
     }
     
-    func allFavorites() -> [HistoryItem] {
+    func allFavorites() -> [FavoritesItem] {
         return history.allFavorites()
     }
     
@@ -35,13 +46,15 @@ class HistoryDelegate: AsyncMessageSubscriber {
         playlist.addFiles([item])
     }
     
-    func playItem(_ item: URL, _ playlistType: PlaylistType) throws {
+    func playItem(_ item: URL, _ playlistType: PlaylistType) {
         
         let oldTrack = player.getPlayingTrack()
         
         do {
-            
+            // First, find or add the given file
             let newTrack = try playlist.findOrAddFile(item)
+            
+            // Try playing it
             try _ = player.play(newTrack.track, playlistType)
             
             // Notify the UI that a track has started playing
@@ -71,19 +84,21 @@ class HistoryDelegate: AsyncMessageSubscriber {
         
         let state = HistoryState()
         
-        allAddedItems().forEach({state.recentlyAdded.append($0.file)})
+        allRecentlyAddedItems().forEach({state.recentlyAdded.append($0.file)})
+        allRecentlyPlayedItems().forEach({state.recentlyPlayed.append($0.file)})
         allFavorites().forEach({state.favorites.append($0.file)})
-        allPlayedItems().forEach({state.recentlyPlayed.append($0.file)})
         
         return state
     }
     
+    // Whenever a track is played by the player, add an entry in the "Recently played" list
     private func trackPlayed(_ message: TrackPlayedAsyncMessage) {
-        history.addPlayedItem(message.track)
+        history.addRecentlyPlayedItem(message.track)
     }
     
+    // Whenever items are added to the playlist, add entries to the "Recently added" list
     private func itemsAdded(_ message: ItemsAddedAsyncMessage) {
-        history.addAddedItems(message.files)
+        history.addRecentlyAddedItems(message.files)
     }
     
     // MARK: Message handling

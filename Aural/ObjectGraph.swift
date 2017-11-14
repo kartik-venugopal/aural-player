@@ -84,6 +84,7 @@ class ObjectGraph {
         recorder = Recorder(audioGraph!)
         recorderDelegate = RecorderDelegate(recorder!)
         
+        // History (and delegate)
         history = History()
         historyDelegate = HistoryDelegate(history!, playlistDelegate!, playbackDelegate!, appState!.historyState)
     }
@@ -130,7 +131,7 @@ class ObjectGraph {
         return recorderDelegate!
     }
     
-    static func getHistoryDelegate() -> HistoryDelegate {
+    static func getHistoryDelegate() -> HistoryDelegateProtocol {
         return historyDelegate!
     }
     

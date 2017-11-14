@@ -1,7 +1,7 @@
 import Cocoa
 
 /*
-    Provides actions for the Aural menu
+    Provides actions for the main app menu (Aural)
  */
 class AuralMenuController: NSObject {
     
@@ -14,10 +14,12 @@ class AuralMenuController: NSObject {
         preferencesDialog.showDialog()
     }
     
+    // Hides the app
     @IBAction func hideAction(_ sender: AnyObject) {
         app.hide(self)
     }
     
+    // Quits the app
     @IBAction func quitAction(_ sender: AnyObject) {
         app.terminate(self)
     }

@@ -24,6 +24,7 @@ protocol PlaylistMutatorDelegateProtocol {
      */
     func addFiles(_ files: [URL])
     
+    // Searches for a track by file. If it is found, its information is returned. If not, it is first added and then its information is returned. Throws an error if the file does not exist on the filesystem.
     func findOrAddFile(_ file: URL) throws -> IndexedTrack
     
     /*

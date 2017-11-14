@@ -557,19 +557,19 @@ CQ
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="  Dock Playlist" id="S2A-E2-dfO">
                                     <items>
-                                        <menuItem title="On the left" image="DockLeft-Small" id="3ni-vP-4WM">
+                                        <menuItem title=" On the left" image="DockLeft-Small" id="3ni-vP-4WM">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="dockPlaylistLeftAction:" target="xzd-WN-BuR" id="oGY-sB-MV0"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="On the bottom" image="DockBottom-Small" id="5xt-05-361">
+                                        <menuItem title=" On the bottom" image="DockBottom-Small" id="5xt-05-361">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="dockPlaylistBottomAction:" target="xzd-WN-BuR" id="pQh-RR-ctY"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="On the right" image="DockRight-Small" id="CKo-pZ-cY4">
+                                        <menuItem title=" On the right" image="DockRight-Small" id="CKo-pZ-cY4">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="dockPlaylistRightAction:" target="xzd-WN-BuR" id="qY7-oJ-IdW"/>
@@ -582,19 +582,19 @@ CQ
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="  Maximize Playlist" id="DdJ-Ly-yuE">
                                     <items>
-                                        <menuItem title="Horizontally and vertically" image="Maximize-Small" id="q3Q-K9-Y23">
+                                        <menuItem title=" Horizontally and vertically" image="Maximize-Small" id="q3Q-K9-Y23">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="maximizePlaylistAction:" target="xzd-WN-BuR" id="uGv-Yr-8eI"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Horizontally" image="MaximizeHorizontal-Small" id="1o3-gI-3AQ">
+                                        <menuItem title=" Horizontally" image="MaximizeHorizontal-Small" id="1o3-gI-3AQ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="maximizePlaylistHorizontalAction:" target="xzd-WN-BuR" id="F6L-1t-jhp"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Vertically" image="MaximizeVertical-Small" id="B8c-Jh-6Le">
+                                        <menuItem title=" Vertically" image="MaximizeVertical-Small" id="B8c-Jh-6Le">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="maximizePlaylistVerticalAction:" target="xzd-WN-BuR" id="4ec-YD-GAi"/>
@@ -614,13 +614,13 @@ CQ
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" id="0bT-cg-D9L">
                         <items>
-                            <menuItem title="User guide (pdf)" id="h2e-53-n5z" userLabel="User Guide (pdf)">
+                            <menuItem title=" User guide (pdf)" image="UserGuide" id="h2e-53-n5z" userLabel="User Guide (pdf)">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="pdfUserGuideAction:" target="bac-wa-rgm" id="1j2-bU-bbV"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="User guide (online, HTML)" id="LrL-UZ-eQ3" userLabel="User Guide (online HTML)">
+                            <menuItem title=" User guide (online, HTML)" image="UserGuide" id="LrL-UZ-eQ3" userLabel="User Guide (online HTML)">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="onlineUserGuideAction:" target="bac-wa-rgm" id="mKE-56-BAr"/>
@@ -638,6 +638,11 @@ CQ
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="playOrPauseAction:" target="29W-IU-ITu" id="3I0-ka-dGb"/>
+                    </connections>
+                </menuItem>
+                <menuItem title=" Replay current track" image="Replay" keyEquivalent="r" id="xaX-37-oif" userLabel="Replay current track">
+                    <connections>
+                        <action selector="replayTrackAction:" target="29W-IU-ITu" id="maR-Bc-sWa"/>
                     </connections>
                 </menuItem>
                 <menuItem title="Previous track" image="PreviousTrack-Small" keyEquivalent="" id="p99-Ng-Iu1" userLabel="Previous track">
@@ -778,6 +783,7 @@ CQ
         <image name="ToggleEffectsView-Small" width="14" height="14"/>
         <image name="TogglePlaylistView-Small" width="14" height="12"/>
         <image name="Up-Small" width="10" height="14"/>
+        <image name="UserGuide" width="1200" height="19836"/>
         <image name="VolumeHigh-Small" width="14" height="14"/>
         <image name="VolumeLow-Small" width="14" height="14"/>
     </resources>

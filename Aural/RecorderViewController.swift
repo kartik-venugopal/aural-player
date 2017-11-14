@@ -28,10 +28,12 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     override func viewDidLoad() {
         
         recorderTimer = RepeatingTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingInfo()}, queue: DispatchQueue.main)
-        
+     
+        // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
     }
     
+    // Starts/stops recording
     @IBAction func recorderAction(_ sender: Any) {
         
         if (recorder.isRecording()) {
@@ -41,15 +43,18 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         }
     }
     
+    // Starts a new recording
     private func startRecording() {
         
         let format = RecordingFormat.formatForDescription((formatMenu.selectedItem?.title)!)
         
         recorder.startRecording(format)
         
+        // Start the recording
         btnRecord.image = Images.imgRecorderStop
         recorderTimer?.startOrResume()
         
+        // Update the UI to display current recording information
         lblRecorderDuration.stringValue = UIConstants.zeroDurationString
         lblRecorderFileSize.stringValue = Size.ZERO.toString()
         recordingInfoBox.isHidden = false
@@ -59,6 +64,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         recorderTabViewButton.needsDisplay = true
     }
     
+    // Stops the current recording
     private func stopRecording() {
         
         recorder.stopRecording()
@@ -74,6 +80,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         recordingInfoBox.isHidden = true
     }
     
+    // Prompts the user to save the new recording
     private func saveRecording(_ format: RecordingFormat) {
         
         let dialog = DialogsAndAlerts.saveRecordingPanel(format.fileExtension)
@@ -88,6 +95,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         }
     }
     
+    // Updates current recording information
     private func updateRecordingInfo() {
         
         recordingInfo = recorder.getRecordingInfo()
@@ -129,6 +137,8 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         // No ongoing recording, proceed with exit
         return AppExitResponse.okToExit
     }
+    
+    // MARK: Message handling
     
     func consumeNotification(_ notification: NotificationMessage) {
     }

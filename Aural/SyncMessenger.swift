@@ -6,6 +6,7 @@ import Cocoa
 class SyncMessenger {
     
     // Keeps track of subscribers. For each message type, stores a list of subscribers
+    
     private static var messageSubscriberRegistry: [MessageType: [MessageSubscriber]] = [MessageType: [MessageSubscriber]]()
     
     private static var actionMessageSubscriberRegistry: [ActionType: [ActionMessageSubscriber]] = [ActionType: [ActionMessageSubscriber]]()
@@ -26,6 +27,7 @@ class SyncMessenger {
         })
     }
     
+    // Called by a subscriber who is interested in a certain type of message
     static func subscribe(actionTypes: [ActionType], subscriber: ActionMessageSubscriber) {
         
         actionTypes.forEach({

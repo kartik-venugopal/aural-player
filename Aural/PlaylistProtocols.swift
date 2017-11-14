@@ -15,6 +15,7 @@ protocol PlaylistAccessorProtocol {
     */
     func indexOfTrack(_ track: Track) -> Int?
     
+    // Tries to finds a track by its filesystem file. Returns nil if not found.
     func findTrackByFile(_ file: URL) -> IndexedTrack?
     
     /*
