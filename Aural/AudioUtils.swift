@@ -20,7 +20,7 @@ class AudioUtils {
         
         // Check if the asset has any audio tracks
         if (assetTracks?.count == 0) {
-            return NoAudioTracksError(track.file)
+            return NoAudioTracksError(track)
         }
         
         // Find out if track is playable
@@ -28,13 +28,13 @@ class AudioUtils {
         
         // TODO: What does isPlayable actually mean ?
         if (!(assetTrack?.isPlayable)!) {
-            return TrackNotPlayableError(track.file)
+            return TrackNotPlayableError(track)
         }
         
         // Determine the format to find out if it is supported
         let format = getFormat(assetTrack!)
         if (!AppConstants.supportedAudioFileFormats.contains(format)) {
-            return UnsupportedFormatError(track.file, format)
+            return UnsupportedFormatError(track, format)
         }
         
         return nil

@@ -24,7 +24,7 @@
             <rect key="frame" x="0.0" y="0.0" width="450" height="52"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button toolTip="Repeat" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ghu-Et-yHG" userLabel="Repeat Button">
+                <button toolTip="Repeat" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ghu-Et-yHG" userLabel="Repeat Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="7" y="12" width="23" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RepeatOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="n1e-Vs-jAv">
@@ -35,7 +35,7 @@
                         <action selector="repeatAction:" target="-2" id="Mzh-ck-ovP"/>
                     </connections>
                 </button>
-                <button toolTip="Shuffle" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5iY-Bb-qE7" userLabel="Shuffle Button">
+                <button toolTip="Shuffle" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5iY-Bb-qE7" userLabel="Shuffle Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="32" y="15" width="23" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShuffleOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ibb-Eg-Yea">
@@ -46,7 +46,7 @@
                         <action selector="shuffleAction:" target="-2" id="bzg-Iw-fvN"/>
                     </connections>
                 </button>
-                <button toolTip="Play / Pause" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dc4-GM-vmb">
+                <button toolTip="Play / Pause" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dc4-GM-vmb" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="217" y="18" width="18" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Play" imagePosition="overlaps" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="AJf-TF-0fk">

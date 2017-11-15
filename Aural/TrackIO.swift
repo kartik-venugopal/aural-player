@@ -45,7 +45,7 @@ class TrackIO {
         } else {
             
             // If track couldn't be prepared, mark it as not playable
-            lazyLoadInfo.preparationFailed(TrackNotPlayableError(track.file))
+            lazyLoadInfo.preparationFailed(TrackNotPlayableError(track))
         }
     }
     
