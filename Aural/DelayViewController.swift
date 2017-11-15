@@ -1,9 +1,12 @@
 import Cocoa
 
+/*
+    View controller for the Delay effects unit
+ */
 class DelayViewController: NSViewController {
     
     // Delay controls
-    @IBOutlet weak var btnDelayBypass: NSButton!
+    @IBOutlet weak var btnDelayBypass: EffectsUnitBypassButton!
     @IBOutlet weak var delayTimeSlider: NSSlider!
     @IBOutlet weak var delayAmountSlider: NSSlider!
     @IBOutlet weak var delayCutoffSlider: NSSlider!
@@ -22,12 +25,12 @@ class DelayViewController: NSViewController {
     }
     
     override func viewDidLoad() {
-        initDelay(ObjectGraph.getUIAppState())
+        initControls(ObjectGraph.getUIAppState())
     }
 
-    private func initDelay(_ appState: UIAppState) {
+    private func initControls(_ appState: UIAppState) {
         
-        btnDelayBypass.image = appState.delayBypass ? Images.imgSwitchOff : Images.imgSwitchOn
+        btnDelayBypass.setBypassState(appState.delayBypass)
         
         delayAmountSlider.floatValue = appState.delayAmount
         lblDelayAmountValue.stringValue = appState.formattedDelayAmount
@@ -44,11 +47,8 @@ class DelayViewController: NSViewController {
 
     // Activates/deactivates the Delay effects unit
     @IBAction func delayBypassAction(_ sender: AnyObject) {
-        
-        let newBypassState = graph.toggleDelayBypass()
-        btnDelayBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
-        
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay, !newBypassState))
+        btnDelayBypass.toggle()
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay, !graph.toggleDelayBypass()))
     }
     
     // Updates the Delay amount parameter

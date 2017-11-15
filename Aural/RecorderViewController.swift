@@ -1,13 +1,12 @@
+import Cocoa
+
 /*
     View controller for the Recorder unit
  */
-
-import Cocoa
-
 class RecorderViewController: NSViewController, MessageSubscriber {
     
     // Recorder controls
-    @IBOutlet weak var btnRecord: NSButton!
+    @IBOutlet weak var btnRecord: OnOffImageButton!
     @IBOutlet weak var lblRecorderDuration: NSTextField!
     @IBOutlet weak var lblRecorderFileSize: NSTextField!
     @IBOutlet weak var recordingInfoBox: NSBox!
@@ -29,10 +28,18 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     
     override func viewDidLoad() {
         
-        recorderTimer = RepeatingTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingInfo()}, queue: DispatchQueue.main)
-     
+        initControls()
+        
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
+    }
+    
+    private func initControls() {
+        
+        btnRecord.offStateImage = Images.imgRecorderStart
+        btnRecord.onStateImage = Images.imgRecorderStop
+        
+        recorderTimer = RepeatingTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingInfo()}, queue: DispatchQueue.main)
     }
     
     // Starts/stops recording
@@ -53,7 +60,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         recorder.startRecording(format)
         
         // Start the recording
-        btnRecord.image = Images.imgRecorderStop
+        btnRecord.on()
         recorderTimer?.startOrResume()
         
         // Update the UI to display current recording information
@@ -69,7 +76,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         
         recorder.stopRecording()
         
-        btnRecord.image = Images.imgRecorderStart
+        btnRecord.off()
         recorderTimer?.pause()
         
         saveRecording(recordingInfo!.format)

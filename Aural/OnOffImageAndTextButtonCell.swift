@@ -51,10 +51,10 @@ class OnOffImageAndTextButtonCell: NSButtonCell {
         let sx: CGFloat = 22
         let sy = cellFrame.height - size.height - 5
         
-        // Draw title
+        // Draw title (adjacent to image)
         self.title.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: attrs)
         
-        // Draw image
+        // Draw image (left aligned)
         let rectWidth: CGFloat = cellFrame.width, rectHeight: CGFloat = cellFrame.height
         
         let xInset = (rectWidth - imgWidth) / 2

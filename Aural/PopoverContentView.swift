@@ -1,5 +1,5 @@
 /*
-    Custom view for popovers. This is needed in order to set its background color.
+    Custom view for popovers. This is needed in order to set their background color.
  */
 
 import Cocoa

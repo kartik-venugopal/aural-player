@@ -1,9 +1,12 @@
 import Cocoa
 
+/*
+    View controller for the Filter effects unit
+ */
 class FilterViewController: NSViewController {
     
     // Filter controls
-    @IBOutlet weak var btnFilterBypass: NSButton!
+    @IBOutlet weak var btnFilterBypass: EffectsUnitBypassButton!
     @IBOutlet weak var filterBassSlider: RangeSlider!
     @IBOutlet weak var filterMidSlider: RangeSlider!
     @IBOutlet weak var filterTrebleSlider: RangeSlider!
@@ -20,12 +23,12 @@ class FilterViewController: NSViewController {
     }
     
     override func viewDidLoad() {
-        initFilter(ObjectGraph.getUIAppState())
+        initControls(ObjectGraph.getUIAppState())
     }
  
-    private func initFilter(_ appState: UIAppState) {
+    private func initControls(_ appState: UIAppState) {
         
-        btnFilterBypass.image = appState.filterBypass ? Images.imgSwitchOff : Images.imgSwitchOn
+        btnFilterBypass.setBypassState(appState.filterBypass)
         
         filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, appState.filterBassMin, appState.filterBassMax, {
             (slider: RangeSlider) -> Void in
@@ -49,10 +52,8 @@ class FilterViewController: NSViewController {
     
     // Activates/deactivates the Filter effects unit
     @IBAction func filterBypassAction(_ sender: AnyObject) {
-        let newBypassState = graph.toggleFilterBypass()
-        btnFilterBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
-        
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter, !newBypassState))
+        btnFilterBypass.toggle()
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter, !graph.toggleFilterBypass()))
     }
     
     // Action function for the Filter unit's bass slider. Updates the Filter bass band.

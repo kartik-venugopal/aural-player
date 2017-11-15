@@ -1,9 +1,12 @@
 import Cocoa
 
+/*
+    View controller for the Time effects unit
+ */
 class TimeViewController: NSViewController, ActionMessageSubscriber {
     
     // Time controls
-    @IBOutlet weak var btnTimeBypass: NSButton!
+    @IBOutlet weak var btnTimeBypass: EffectsUnitBypassButton!
     @IBOutlet weak var timeSlider: NSSlider!
     @IBOutlet weak var timeOverlapSlider: NSSlider!
     @IBOutlet weak var lblTimeStretchRateValue: NSTextField!
@@ -18,14 +21,15 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
     
     override func viewDidLoad() {
         
-        initTime(ObjectGraph.getUIAppState())
+        initControls(ObjectGraph.getUIAppState())
         
+        // Subscribe to message notifications
         SyncMessenger.subscribe(actionTypes: [.increaseRate, .decreaseRate, .setRate], subscriber: self)
     }
     
-    private func initTime(_ appState: UIAppState) {
+    private func initControls(_ appState: UIAppState) {
         
-        btnTimeBypass.image = appState.timeBypass ? Images.imgSwitchOff : Images.imgSwitchOn
+        btnTimeBypass.setBypassState(appState.timeBypass)
         
         timeSlider.floatValue = appState.timeStretchRate
         lblTimeStretchRateValue.stringValue = appState.formattedTimeStretchRate
@@ -39,7 +43,7 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
         
         let newBypassState = graph.toggleTimeBypass()
         
-        btnTimeBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
+        btnTimeBypass.toggle()
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time, !newBypassState))
         
         let newRate = newBypassState ? 1 : timeSlider.floatValue
@@ -68,12 +72,12 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
         // Ensure unit is activated
         if graph.isTimeBypass() {
             _ = graph.toggleTimeBypass()
+            btnTimeBypass.on()
             SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time, true))
         }
         
         lblTimeStretchRateValue.stringValue = graph.setTimeStretchRate(rate)
         timeSlider.floatValue = rate
-        btnTimeBypass.image = Images.imgSwitchOn
         
         showTimeTab()
         
@@ -97,7 +101,7 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
         
         timeSlider.floatValue = rateInfo.rate
         lblTimeStretchRateValue.stringValue = rateInfo.rateString
-        btnTimeBypass.image = Images.imgSwitchOn
+        btnTimeBypass.on()
         
         showTimeTab()
         

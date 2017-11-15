@@ -1,8 +1,10 @@
 import Cocoa
 
+/*
+    View controller for the EQ (Equalizer) effects unit
+ */
 class EQViewController: NSViewController, ActionMessageSubscriber {
     
-    // Parametric equalizer controls
     @IBOutlet weak var eqGlobalGainSlider: NSSlider!
     @IBOutlet weak var eqSlider1k: NSSlider!
     @IBOutlet weak var eqSlider64: NSSlider!
@@ -14,9 +16,11 @@ class EQViewController: NSViewController, ActionMessageSubscriber {
     @IBOutlet weak var eqSlider512: NSSlider!
     @IBOutlet weak var eqSlider256: NSSlider!
     @IBOutlet weak var eqSlider128: NSSlider!
-    @IBOutlet weak var eqPresets: NSPopUpButton!
     
     private var eqSliders: [NSSlider] = []
+    
+    // Presets menu
+    @IBOutlet weak var eqPresets: NSPopUpButton!
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
@@ -26,11 +30,14 @@ class EQViewController: NSViewController, ActionMessageSubscriber {
     }
     
     override func viewDidLoad() {
-        initEQ(ObjectGraph.getUIAppState())
+        
+        initControls(ObjectGraph.getUIAppState())
+        
+        // Subscribe to message notifications
         SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble], subscriber: self)
     }
     
-    private func initEQ(_ appState: UIAppState) {
+    private func initControls(_ appState: UIAppState) {
         
         eqSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
         

@@ -1,9 +1,12 @@
 import Cocoa
 
+/*
+    View controller for the Pitch effects unit
+ */
 class PitchViewController: NSViewController, ActionMessageSubscriber {
     
     // Pitch controls
-    @IBOutlet weak var btnPitchBypass: NSButton!
+    @IBOutlet weak var btnPitchBypass: EffectsUnitBypassButton!
     @IBOutlet weak var pitchSlider: NSSlider!
     @IBOutlet weak var pitchOverlapSlider: NSSlider!
     @IBOutlet weak var lblPitchValue: NSTextField!
@@ -18,13 +21,15 @@ class PitchViewController: NSViewController, ActionMessageSubscriber {
     
     override func viewDidLoad() {
         
-        initPitch(ObjectGraph.getUIAppState())
+        initControls(ObjectGraph.getUIAppState())
+        
+        // Subscribe to message notifications
         SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch], subscriber: self)
     }
     
-    private func initPitch(_ appState: UIAppState) {
+    private func initControls(_ appState: UIAppState) {
         
-        btnPitchBypass.image = appState.pitchBypass ? Images.imgSwitchOff : Images.imgSwitchOn
+        btnPitchBypass.setBypassState(appState.pitchBypass)
         
         pitchSlider.floatValue = appState.pitch
         lblPitchValue.stringValue = appState.formattedPitch
@@ -35,11 +40,8 @@ class PitchViewController: NSViewController, ActionMessageSubscriber {
     
     // Activates/deactivates the Pitch effects unit
     @IBAction func pitchBypassAction(_ sender: AnyObject) {
-        
-        let newBypassState = graph.togglePitchBypass()
-        btnPitchBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
-        
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch, !newBypassState))
+        btnPitchBypass.toggle()
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch, !graph.togglePitchBypass()))
     }
     
     // Updates the pitch
@@ -56,12 +58,12 @@ class PitchViewController: NSViewController, ActionMessageSubscriber {
         
         if graph.isPitchBypass() {
             _ = graph.togglePitchBypass()
+            btnPitchBypass.on()
             SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch, true))
         }
         
         lblPitchValue.stringValue = graph.setPitch(pitch)
         pitchSlider.floatValue = pitch
-        btnPitchBypass.image = Images.imgSwitchOn
         
         // Show the Pitch tab
         showPitchTab()
@@ -89,7 +91,7 @@ class PitchViewController: NSViewController, ActionMessageSubscriber {
         
         pitchSlider.floatValue = pitchInfo.pitch
         lblPitchValue.stringValue = pitchInfo.pitchString
-        btnPitchBypass.image = Images.imgSwitchOn
+        btnPitchBypass.on()
         
         // Show the Pitch tab if the Effects panel is shown
         showPitchTab()
