@@ -135,7 +135,7 @@
                         <action selector="showPlayingTrackAction:" target="-2" id="Jfa-WY-Nm2"/>
                     </connections>
                 </button>
-                <button hidden="YES" toolTip="Add this track to your Favorites" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dN5-Zv-Pet" userLabel="Favorites Button">
+                <button hidden="YES" toolTip="Add this track to your Favorites" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dN5-Zv-Pet" userLabel="Favorites Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="429" y="38" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Favorites-Off" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="7El-PZ-rVW">

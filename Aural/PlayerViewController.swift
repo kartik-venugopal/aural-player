@@ -8,10 +8,15 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // Volume/pan controls
     @IBOutlet weak var btnVolume: NSButton!
     @IBOutlet weak var volumeSlider: NSSlider!
-    @IBOutlet weak var lblVolume: NSTextField!
-    
     @IBOutlet weak var panSlider: NSSlider!
+    
+    // These are feedback labels that are shown briefly and automatically hidden
+    @IBOutlet weak var lblVolume: NSTextField!
     @IBOutlet weak var lblPan: NSTextField!
+    
+    // Wrappers around the feedback labels that automatically hide them after showing them for a brief interval
+    private var autoHidingVolumeLabel: AutoHidingView!
+    private var autoHidingPanLabel: AutoHidingView!
     
     // Playback control fields
     @IBOutlet weak var btnPlayPause: NSButton!
@@ -25,10 +30,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     // Delegate that conveys all volume/pan adjustments to the audio graph
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
-    
-    // Feedback label hiding timers
-    private var volumeLabelHidingTimer: Timer?
-    private var panLabelHidingTimer: Timer?
     
     convenience init() {
         self.init(nibName: "Player", bundle: Bundle.main)!
@@ -53,6 +54,9 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         volumeSlider.floatValue = appState.volume
         setVolumeImage(appState.muted)
         panSlider.floatValue = appState.balance
+        
+        autoHidingVolumeLabel = AutoHidingView(lblVolume, UIConstants.feedbackLabelAutoHideIntervalSeconds)
+        autoHidingPanLabel = AutoHidingView(lblPan, UIConstants.feedbackLabelAutoHideIntervalSeconds)
     }
     
     // Updates the volume
@@ -82,6 +86,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         showAndAutoHideVolumeLabel()
     }
     
+    // Shows and automatically hides the volume label after a preset time interval
+    private func showAndAutoHideVolumeLabel() {
+        
+        // Format the text and show the feedback label
+        lblVolume.stringValue = ValueFormatter.formatVolume(volumeSlider.floatValue)
+        autoHidingVolumeLabel.showView()
+    }
+    
     private func setVolumeImage(_ muted: Bool) {
         
         if (muted) {
@@ -103,23 +115,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         }
     }
     
-    private func showAndAutoHideVolumeLabel() {
-        
-        // Format the text and show the feedback label
-        lblVolume.stringValue = ValueFormatter.formatVolume(volumeSlider.floatValue)
-        lblVolume.isHidden = false
-        
-        // Invalidate previously activated timer
-        volumeLabelHidingTimer?.invalidate()
-        
-        // Activate a new timer task to auto-hide the label
-        volumeLabelHidingTimer = Timer.scheduledTimer(timeInterval: UIConstants.feedbackLabelAutoHideIntervalSeconds, target: self, selector: #selector(self.hideVolumeLabel), userInfo: nil, repeats: false)
-    }
-    
-    func hideVolumeLabel() {
-        lblVolume.isHidden = true
-    }
-    
     // Updates the stereo pan
     @IBAction func panAction(_ sender: AnyObject) {
         audioGraph.setBalance(panSlider.floatValue)
@@ -138,21 +133,12 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         showAndAutoHidePanLabel()
     }
     
+    // Shows and automatically hides the pan label after a preset time interval
     private func showAndAutoHidePanLabel() {
         
         // Format the text and show the feedback label
         lblPan.stringValue = ValueFormatter.formatPan(panSlider.floatValue)
-        lblPan.isHidden = false
-        
-        // Invalidate previously activated timer
-        panLabelHidingTimer?.invalidate()
-        
-        // Activate a new timer task to auto-hide the label
-        panLabelHidingTimer = Timer.scheduledTimer(timeInterval: UIConstants.feedbackLabelAutoHideIntervalSeconds, target: self, selector: #selector(self.hidePanLabel), userInfo: nil, repeats: false)
-    }
-    
-    func hidePanLabel() {
-        lblPan.isHidden = true
+        autoHidingPanLabel.showView()
     }
     
     // Plays, pauses, or resumes playback

@@ -117,7 +117,7 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
     
     // Helper function that updates the look of a button in response to a unit becoming active or inactive
     private func updateButtonState(_ button: OnOffImageAndTextButton, _ active: Bool) {
-        active ? button.on() : button.off()
+        button.onIf(active)
     }
     
     private func initTabGroup() {
