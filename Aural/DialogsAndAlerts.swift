@@ -1,7 +1,7 @@
 import Cocoa
 
 /*
-    Container for definitions of reusable UI components
+    Container for definitions of reusable UI dialogs and alerts
 */
 struct DialogsAndAlerts {
     

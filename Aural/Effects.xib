@@ -26,16 +26,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="mzx-sm-9xD" userLabel="Tab Buttons Box">
-                    <rect key="frame" x="4" y="152" width="440" height="27"/>
+                    <rect key="frame" x="4" y="152" width="439" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="JTD-eu-EaR">
-                        <rect key="frame" x="1" y="1" width="438" height="25"/>
+                        <rect key="frame" x="1" y="1" width="437" height="25"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OcZ-kj-y8A" userLabel="EQ button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="2" y="0.0" width="47" height="25"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OcZ-kj-y8A" userLabel="EQ button" customClass="OnOffImageAndTextButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="1" y="0.0" width="47" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" title="EQ" bezelStyle="shadowlessSquare" image="EQTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sLU-Pi-4YO" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                <buttonCell key="cell" type="square" title="EQ" bezelStyle="shadowlessSquare" image="EQTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sLU-Pi-4YO" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -48,10 +48,10 @@
                                     <action selector="tabViewAction:" target="-2" id="67l-nc-3k8"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="oYg-Jj-s2K" userLabel="Pitch button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="51" y="0.0" width="56" height="25"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="oYg-Jj-s2K" userLabel="Pitch button" customClass="OnOffImageAndTextButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="50" y="0.0" width="56" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" title="Pitch" bezelStyle="shadowlessSquare" image="PitchTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lDe-G3-Muo" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                <buttonCell key="cell" type="square" title="Pitch" bezelStyle="shadowlessSquare" image="PitchTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lDe-G3-Muo" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -64,10 +64,10 @@
                                     <action selector="tabViewAction:" target="-2" id="PRR-tB-25I"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="Zpe-RF-YEg" userLabel="Time button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="109" y="0.0" width="57" height="25"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="Zpe-RF-YEg" userLabel="Time button" customClass="OnOffImageAndTextButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="108" y="0.0" width="57" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" title="Time" bezelStyle="shadowlessSquare" image="TimeTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Yxc-6b-BUY" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                <buttonCell key="cell" type="square" title="Time" bezelStyle="shadowlessSquare" image="TimeTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Yxc-6b-BUY" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -80,10 +80,10 @@
                                     <action selector="tabViewAction:" target="-2" id="GDn-lp-APD"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="b7e-Sl-RPP" userLabel="Reverb button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="168" y="0.0" width="67" height="25"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="b7e-Sl-RPP" userLabel="Reverb button" customClass="OnOffImageAndTextButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="167" y="0.0" width="67" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" title="Reverb" bezelStyle="shadowlessSquare" image="ReverbTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1Pw-oH-NvD" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                <buttonCell key="cell" type="square" title="Reverb" bezelStyle="shadowlessSquare" image="ReverbTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1Pw-oH-NvD" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -96,10 +96,10 @@
                                     <action selector="tabViewAction:" target="-2" id="lKW-mb-tM6"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="5qB-Lz-yhR" userLabel="Delay button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="237" y="0.0" width="60" height="25"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="5qB-Lz-yhR" userLabel="Delay button" customClass="OnOffImageAndTextButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="236" y="0.0" width="60" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" title="Delay" bezelStyle="shadowlessSquare" image="DelayTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ozA-j1-Khz" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                <buttonCell key="cell" type="square" title="Delay" bezelStyle="shadowlessSquare" image="DelayTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ozA-j1-Khz" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -112,10 +112,10 @@
                                     <action selector="tabViewAction:" target="-2" id="Iyo-2x-s2N"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="OVJ-F7-4OB" userLabel="Filter button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="299" y="0.0" width="58" height="25"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="OVJ-F7-4OB" userLabel="Filter button" customClass="OnOffImageAndTextButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="298" y="0.0" width="58" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" title="Filter" bezelStyle="shadowlessSquare" image="FilterTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ttp-L5-t6S" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                <buttonCell key="cell" type="square" title="Filter" bezelStyle="shadowlessSquare" image="FilterTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ttp-L5-t6S" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -128,10 +128,10 @@
                                     <action selector="tabViewAction:" target="-2" id="xB9-31-1he"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="6" translatesAutoresizingMaskIntoConstraints="NO" id="AxV-xh-ZXl" userLabel="Recorder button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="359" y="0.0" width="78" height="25"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="6" translatesAutoresizingMaskIntoConstraints="NO" id="AxV-xh-ZXl" userLabel="Recorder button" customClass="OnOffImageAndTextButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="358" y="0.0" width="78" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" title="Recorder" bezelStyle="shadowlessSquare" image="RecorderTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="A0D-1A-dLd" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                <buttonCell key="cell" type="square" title="Recorder" bezelStyle="shadowlessSquare" image="RecorderTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="A0D-1A-dLd" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -155,8 +155,8 @@
                     <font key="font" size="11" name="GillSans"/>
                     <tabViewItems>
                         <tabViewItem label="EQ" identifier="1" id="blZ-W2-GyO" userLabel="EQ">
-                            <view key="view" id="7hc-7q-cCz">
-                                <rect key="frame" x="10" y="7" width="0.0" height="335"/>
+                            <view key="view" ambiguous="YES" id="7hc-7q-cCz">
+                                <rect key="frame" x="10" y="7" width="484" height="140"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
@@ -191,7 +191,7 @@
                             </view>
                         </tabViewItem>
                         <tabViewItem label="Recorder" identifier="" id="08n-es-nC3">
-                            <view key="view" ambiguous="YES" id="yTl-qH-xMw">
+                            <view key="view" id="yTl-qH-xMw">
                                 <rect key="frame" x="10" y="7" width="484" height="140"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>

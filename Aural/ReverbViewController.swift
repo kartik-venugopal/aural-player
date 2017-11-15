@@ -1,9 +1,12 @@
 import Cocoa
 
+/*
+    View controller for the Reverb effects unit
+ */
 class ReverbViewController: NSViewController {
     
     // Reverb controls
-    @IBOutlet weak var btnReverbBypass: NSButton!
+    @IBOutlet weak var btnReverbBypass: EffectsUnitBypassButton!
     @IBOutlet weak var reverbMenu: NSPopUpButton!
     @IBOutlet weak var reverbSlider: NSSlider!
     @IBOutlet weak var lblReverbAmountValue: NSTextField!
@@ -16,12 +19,12 @@ class ReverbViewController: NSViewController {
     }
     
     override func viewDidLoad() {
-        initReverb(ObjectGraph.getUIAppState())
+        initControls(ObjectGraph.getUIAppState())
     }
     
-    private func initReverb(_ appState: UIAppState) {
+    private func initControls(_ appState: UIAppState) {
         
-        btnReverbBypass.image = appState.reverbBypass ? Images.imgSwitchOff : Images.imgSwitchOn
+        btnReverbBypass.setBypassState(appState.reverbBypass)
         reverbMenu.select(reverbMenu.item(withTitle: appState.reverbPreset))
         
         reverbSlider.floatValue = appState.reverbAmount
@@ -30,11 +33,8 @@ class ReverbViewController: NSViewController {
 
     // Activates/deactivates the Reverb effects unit
     @IBAction func reverbBypassAction(_ sender: AnyObject) {
-        
-        let newBypassState = graph.toggleReverbBypass()
-        btnReverbBypass.image = newBypassState ? Images.imgSwitchOff : Images.imgSwitchOn
-        
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb, !newBypassState))
+        btnReverbBypass.toggle()
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb, !graph.toggleReverbBypass()))
     }
 
     // Updates the Reverb preset
