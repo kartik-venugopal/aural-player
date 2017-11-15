@@ -11,18 +11,31 @@ class OnOffImageButton: NSButton {
     // The image displayed when the button is in an "On" state
     var onStateImage: NSImage?
     
+    // The button's tooltip when the button is in an "Off" state
+    var offStateTooltip: String?
+    
+    // The button's tooltip when the button is in an "On" state
+    var onStateTooltip: String?
+    
     private var _isOn: Bool = false
     
     // Sets the button state to be "Off"
     func off() {
         self.image = offStateImage
+        self.toolTip = offStateTooltip
         _isOn = false
     }
     
     // Sets the button state to be "On"
     func on() {
         self.image = onStateImage
+        self.toolTip = onStateTooltip
         _isOn = true
+    }
+    
+    // Convenience function to set the button to "On" if the specified condition is true, and "Off" if not.
+    func onIf(_ condition: Bool) {
+        condition ? on() : off()
     }
     
     // Toggles the On/Off state
@@ -58,6 +71,27 @@ class EffectsUnitBypassButton: OnOffImageButton {
         }
         
         // Image should never change, so don't allow a setter
+        set {}
+    }
+    
+    override var offStateTooltip: String? {
+        
+        get {
+            return "Activate this effects unit"
+        }
+        
+        // Tool tip should never change, so don't allow a setter
+        set {}
+    }
+    
+    // The button's tooltip when the button is in an "On" state
+    override var onStateTooltip: String? {
+        
+        get {
+            return "Deactivate this effects unit"
+        }
+        
+        // Tool tip should never change, so don't allow a setter
         set {}
     }
     

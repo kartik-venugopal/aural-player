@@ -30,7 +30,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Button to show the currently playing track within the playlist
     @IBOutlet weak var btnShowPlayingTrackInPlaylist: NSButton!
 
-    @IBOutlet weak var btnFavorite: NSButton!
+    @IBOutlet weak var btnFavorite: OnOffImageButton!
     
     // Delegate that conveys all seek and playback info requests to the player
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
@@ -57,15 +57,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     override func viewDidLoad() {
         
-        // Retrieve persistent app state, to determine the initial state of the view
-        let appState = ObjectGraph.getUIAppState()
-        
-        // Timer interval depends on whether time stretch unit is active
-        seekTimer = RepeatingTaskExecutor(intervalMillis: appState.seekTimerInterval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
-        
-        // Set up the art view and the default animation
-        artView.canDrawSubviewsIntoLayer = true
-        artView.image = Images.imgPlayingArt
+        // Use persistent app state to determine the initial state of the view
+        initControls(ObjectGraph.getUIAppState())
         
         // Subscribe to various notifications
         
@@ -74,6 +67,22 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.moreInfo], subscriber: self)
+    }
+    
+    private func initControls(_ appState: UIAppState) {
+        
+        // Timer interval depends on whether time stretch unit is active
+        seekTimer = RepeatingTaskExecutor(intervalMillis: appState.seekTimerInterval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
+        
+        // Set up the art view and the default animation
+        artView.canDrawSubviewsIntoLayer = true
+        artView.image = Images.imgPlayingArt
+        
+        btnFavorite.offStateImage = Images.imgFavoritesOff
+        btnFavorite.onStateImage = Images.imgFavoritesOn
+        
+        btnFavorite.offStateTooltip = "Add this track to your Favorites"
+        btnFavorite.onStateTooltip = "Remove this track from your Favorites"
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -91,7 +100,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
             
             // TODO: This should be done through a delegate (TrackDelegate ???)
             playingTrack!.track.loadDetailedInfo()
-            
             popoverView.toggle()
         }
     }
@@ -104,24 +112,19 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Adds/removes the currently playing track to/from the "Favorites" list
     @IBAction func favoriteAction(_ sender: Any) {
         
-        // Toggle the button image per state
-        btnFavorite.image = btnFavorite.image == Images.imgFavoritesOn ? Images.imgFavoritesOff : Images.imgFavoritesOn
+        // Toggle the button state
+        btnFavorite.toggle()
         
         // Assume there is a track playing (this function cannot be invoked otherwise)
         let playingTrack = (player.getPlayingTrack()?.track)!
         
         // Publish an action message to add/remove the item to/from Favorites
-        if btnFavorite.image == Images.imgFavoritesOn {
-            
+        if btnFavorite.isOn() {
             SyncMessenger.publishActionMessage(FavoritesActionMessage(.addFavorite, playingTrack))
             favoritesPopup.showAddedMessage()
-            btnFavorite.toolTip = "Remove this track from your Favorites"
-            
         } else {
-            
             SyncMessenger.publishActionMessage(FavoritesActionMessage(.removeFavorite, playingTrack))
             favoritesPopup.showRemovedMessage()
-            btnFavorite.toolTip = "Add this track to your Favorites"
         }
     }
     
@@ -176,9 +179,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         resetSeekPosition(track)
         showPlaybackScope()
         
-        let hasFav = history.hasFavorite(track)
-        btnFavorite.image = hasFav ? Images.imgFavoritesOn : Images.imgFavoritesOff
-        btnFavorite.toolTip = hasFav ? "Remove this track from your Favorites" : "Add this track to your Favorites"
+        btnFavorite.onIf(history.hasFavorite(track))
     }
     
     /* 
