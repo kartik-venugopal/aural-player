@@ -208,6 +208,13 @@ enum ActionType {
     case removeFavorite
 }
 
+enum ActionModifier {
+    
+    case discrete
+    
+    case continuous
+}
+
 // A message sent to one of the playlist view controllers, either from another playlist view controller or from another app component, to perform some action on the playlist.
 struct PlaylistActionMessage: ActionMessage {
     
@@ -226,9 +233,11 @@ struct PlaylistActionMessage: ActionMessage {
 struct PlaybackActionMessage: ActionMessage {
     
     var actionType: ActionType
+    var actionModifier: ActionModifier
     
-    init(_ actionType: ActionType) {
+    init(_ actionType: ActionType, _ actionModifier: ActionModifier = .discrete) {
         self.actionType = actionType
+        self.actionModifier = actionModifier
     }
 }
 
@@ -236,12 +245,14 @@ struct PlaybackActionMessage: ActionMessage {
 struct AudioGraphActionMessage: ActionMessage {
     
     var actionType: ActionType
+    var actionModifier: ActionModifier
     
     // A generic numerical parameter value whose meaning depends on the action type. Example, if actionType = setRate, this value represents the desired playback rate.
     var value: Float?
     
-    init(_ actionType: ActionType, _ value: Float? = nil) {
+    init(_ actionType: ActionType, _ actionModifier: ActionModifier = .discrete, _ value: Float? = nil) {
         self.actionType = actionType
+        self.actionModifier = actionModifier
         self.value = value
     }
 }

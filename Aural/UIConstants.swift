@@ -59,4 +59,7 @@ struct UIConstants {
     // Time intervals for which feedback labels or views that are to be auto-hidden are displayed, before being hidden
     static let feedbackLabelAutoHideIntervalSeconds: TimeInterval = 1
     static let favoritesPopupAutoHideIntervalSeconds: TimeInterval = 1.5
+    
+    // Maximum time gap between scroll events for them to be considered as being part of the same scroll session
+    static let scrollSessionMaxTimeGapSeconds: TimeInterval = (1/3)
 }

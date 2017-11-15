@@ -130,7 +130,7 @@ class SoundMenuController: NSObject {
     @IBAction func setPitchAction(_ sender: SoundParameterMenuItem) {
         
         // Menu item's "paramValue" specifies the pitch shift value associated with the menu item (in octaves)
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.setPitch, sender.paramValue))
+        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.setPitch, .discrete, sender.paramValue))
     }
     
     // Decreases the playback rate by a certain preset decrement
@@ -147,7 +147,7 @@ class SoundMenuController: NSObject {
     @IBAction func setRateAction(_ sender: SoundParameterMenuItem) {
         
         // Menu item's "paramValue" specifies the playback rate value associated with the menu item
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.setRate, sender.paramValue))
+        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.setRate, .discrete, sender.paramValue))
     }
 }
 
