@@ -179,9 +179,10 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     func increasePitch() -> (pitch: Float, pitchString: String) {
         
+        // If the pitch unit is currently inactive, start at default pitch offset, before the increase
         if graph.isPitchBypass() {
             _ = graph.togglePitchBypass()
-            graph.setPitch(0)
+            graph.setPitch(AppDefaults.pitch)
         }
         
         let newPitch = min(2400, graph.getPitch() + 100)
@@ -195,9 +196,10 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     func decreasePitch() -> (pitch: Float, pitchString: String) {
         
+        // If the pitch unit is currently inactive, start at default pitch offset, before the decrease
         if graph.isPitchBypass() {
             _ = graph.togglePitchBypass()
-            graph.setPitch(0)
+            graph.setPitch(AppDefaults.pitch)
         }
         
         let newPitch = max(-2400, graph.getPitch() - 100)
@@ -224,9 +226,10 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     func increaseRate() -> (rate: Float, rateString: String) {
         
+        // If the time unit is currently inactive, start at default playback rate, before the increase
         if graph.isTimeBypass() {
             _ = graph.toggleTimeBypass()
-            graph.setTimeStretchRate(1)
+            graph.setTimeStretchRate(AppDefaults.timeStretchRate)
         }
         
         // Volume is increased by an amount set in the user preferences
@@ -240,9 +243,10 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     func decreaseRate() -> (rate: Float, rateString: String) {
         
+        // If the time unit is currently inactive, start at default playback rate, before the decrease
         if graph.isTimeBypass() {
             _ = graph.toggleTimeBypass()
-            graph.setTimeStretchRate(1)
+            graph.setTimeStretchRate(AppDefaults.timeStretchRate)
         }
         
         // Volume is increased by an amount set in the user preferences

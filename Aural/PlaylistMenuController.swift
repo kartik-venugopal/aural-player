@@ -7,6 +7,9 @@ import Cocoa
  */
 class PlaylistMenuController: NSObject {
     
+    // Delegate that retrieves current playback info
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist
     @IBAction func addFilesAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.addTracks, nil))
@@ -15,6 +18,7 @@ class PlaylistMenuController: NSObject {
     // Removes any selected playlist items from the playlist
     @IBAction func removeSelectedItemsAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.removeTracks, PlaylistViewState.current))
+        sequenceChanged()
     }
     
     // Invokes the Save file dialog, to allow the user to save all playlist items to a playlist file
@@ -30,11 +34,13 @@ class PlaylistMenuController: NSObject {
     // Moves any selected playlist items up one row in the playlist
     @IBAction func moveItemsUpAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksUp, PlaylistViewState.current))
+        sequenceChanged()
     }
     
     // Moves any selected playlist items down one row in the playlist
     @IBAction func moveItemsDownAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current))
+        sequenceChanged()
     }
     
     // Presents the search modal dialog to allow the user to search for playlist tracks
@@ -65,5 +71,12 @@ class PlaylistMenuController: NSObject {
     // Scrolls the current playlist view to the very bottom
     @IBAction func scrollToBottomAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.scrollToBottom, nil))
+    }
+ 
+    // Publishes a notification that the playback sequence may have changed, so that interested UI observers may update their views if necessary
+    private func sequenceChanged() {
+        if (playbackInfo.getPlayingTrack() != nil) {
+            SyncMessenger.publishNotification(SequenceChangedNotification.instance)
+        }
     }
 }

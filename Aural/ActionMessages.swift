@@ -126,11 +126,17 @@ enum ActionType {
     // Mute or unmute the player
     case muteOrUnmute
     
+    // Sets the volume to a specific value
+    case setVolume
+    
     // Increases the volume by a certain preset increment
     case increaseVolume
     
     // Decreases the volume by a certain preset decrement
     case decreaseVolume
+    
+    // Sets the stereo pan to a specific value
+    case setPan
     
     // Pans the sound towards the left channel, by a certain preset value
     case panLeft
@@ -173,6 +179,11 @@ enum ActionType {
     
     // Sets the playback rate to a specific value
     case setRate
+    
+    // MARK: Effects view actions
+    
+    // Switches the Effects panel tab group to a specfic tab
+    case showEffectsUnitTab
     
     // MARK: View actions
     
@@ -250,5 +261,19 @@ struct FavoritesActionMessage: ActionMessage {
     init(_ actionType: ActionType, _ track: Track) {
         self.actionType = actionType
         self.track = track
+    }
+}
+
+// A message sent to the effects view controller to perform a function related to the effects view (e.g. switch to a certain effects unit tab)
+struct EffectsViewActionMessage: ActionMessage {
+    
+    var actionType: ActionType
+ 
+    // The effects unit that is the sender of this message
+    let effectsUnit: EffectsUnit
+    
+    init(_ actionType: ActionType, _ effectsUnit: EffectsUnit) {
+        self.actionType = actionType
+        self.effectsUnit = effectsUnit
     }
 }
