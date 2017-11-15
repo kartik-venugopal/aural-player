@@ -63,6 +63,12 @@ enum ActionType {
     // Scroll to the bottom of the playlist
     case scrollToBottom
     
+    // Switch to the previous playlist view (in the tab group)
+    case previousPlaylistView
+    
+    // Switch to the next playlist view (in the tab group)
+    case nextPlaylistView
+    
     // MARK: Playlist window actions
     
     // Dock playlist to the left of the main window

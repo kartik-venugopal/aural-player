@@ -49,6 +49,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         
         self.mainWindow = self.window!
         WindowState.window = self.mainWindow
+        WindowState.playlistWindow = self.playlistWindow
         [mainWindow, playlistWindow].forEach({$0?.isMovableByWindowBackground = true})
         
         mainWindow.makeKeyAndOrderFront(self)
@@ -59,6 +60,14 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         nowPlayingBox.addSubview(nowPlayingView)
         playerBox.addSubview(playerView)
         effectsBox.addSubview(effectsView)
+        
+        // Register a handler for trackpad/MagicMouse gestures
+        
+        let gestureHandler = GestureHandler()
+        NSEvent.addLocalMonitorForEvents(matching: [.swipe, .scrollWheel], handler: {(event: NSEvent!) -> NSEvent in
+            gestureHandler.handle(event)
+            return event;
+        });
         
         // Subscribe to various messages
         SyncMessenger.subscribe(actionTypes: [.dockLeft, .dockRight, .dockBottom, .maximize, .maximizeHorizontal, .maximizeVertical, .togglePlaylist, .toggleEffects], subscriber: self)

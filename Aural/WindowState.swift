@@ -3,7 +3,9 @@ import Cocoa
 // Provides convenient access to the state of the main and playlist windows, across the view layer of the app
 class WindowState {
     
-    static var window: NSWindow?
+    static var window: NSWindow!
+    static var playlistWindow: NSWindow!
+    
     static var showingPlaylist: Bool = AppDefaults.showPlaylist
     static var showingEffects: Bool = AppDefaults.showEffects
     static var playlistLocation: PlaylistLocations = AppDefaults.playlistLocation
@@ -38,7 +40,7 @@ class WindowState {
     }
     
     static func location() -> NSPoint {
-        return window!.frame.origin
+        return window.frame.origin
     }
     
     // The app is considered to be in the foreground if it is active, it is not hidden, and it is not minimized.
@@ -50,9 +52,8 @@ class WindowState {
         
         let uiState = UIState()
         
-        let windowOrigin = window!.frame.origin
-        uiState.windowLocationX = Float(windowOrigin.x)
-        uiState.windowLocationY = Float(windowOrigin.y)
+        uiState.windowLocationX = Float(window.x)
+        uiState.windowLocationY = Float(window.y)
         
         uiState.showEffects = showingEffects
         uiState.showPlaylist = showingPlaylist
