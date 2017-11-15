@@ -51,6 +51,7 @@
 		3E24ED431FBB28700023F9F9 /* TimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E24ED421FBB28700023F9F9 /* TimeViewController.swift */; };
 		3E24ED451FBB2B430023F9F9 /* ReverbViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E24ED441FBB2B430023F9F9 /* ReverbViewController.swift */; };
 		3E26B92B1FBC177F00FA3274 /* AutoHidingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B92A1FBC177F00FA3274 /* AutoHidingView.swift */; };
+		3E26B92D1FBC207C00FA3274 /* MultiStateImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B92C1FBC207C00FA3274 /* MultiStateImageButton.swift */; };
 		3E2BDC4D1F0DE1C00099FDB7 /* BufferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BDC4C1F0DE1C00099FDB7 /* BufferManager.swift */; };
 		3E309B741FB70BB800C61E72 /* FavoritesPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E309B731FB70BB800C61E72 /* FavoritesPopup.xib */; };
 		3E309B781FB70D1F00C61E72 /* FavoritesPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E309B771FB70D1F00C61E72 /* FavoritesPopupViewController.swift */; };
@@ -226,6 +227,7 @@
 		3E24ED421FBB28700023F9F9 /* TimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeViewController.swift; sourceTree = "<group>"; };
 		3E24ED441FBB2B430023F9F9 /* ReverbViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverbViewController.swift; sourceTree = "<group>"; };
 		3E26B92A1FBC177F00FA3274 /* AutoHidingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoHidingView.swift; sourceTree = "<group>"; };
+		3E26B92C1FBC207C00FA3274 /* MultiStateImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiStateImageButton.swift; sourceTree = "<group>"; };
 		3E2BDC4C1F0DE1C00099FDB7 /* BufferManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferManager.swift; sourceTree = "<group>"; };
 		3E309B731FB70BB800C61E72 /* FavoritesPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesPopup.xib; sourceTree = "<group>"; };
 		3E309B771FB70D1F00C61E72 /* FavoritesPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesPopupViewController.swift; sourceTree = "<group>"; };
@@ -530,6 +532,7 @@
 			isa = PBXGroup;
 			children = (
 				3E0F947E1FBBDC3300B6E1B3 /* OnOffImageButtons.swift */,
+				3E26B92C1FBC207C00FA3274 /* MultiStateImageButton.swift */,
 				3ED100881FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift */,
 				3E9463961F29960F00A9019C /* TabGroupButtonCells.swift */,
 				3E46F55D1F2A8003007CD384 /* ModalDialogButtonCells.swift */,
@@ -1003,6 +1006,7 @@
 				3E4BBA5C1F030E5B0025F371 /* UIConstants.swift in Sources */,
 				3E309B781FB70D1F00C61E72 /* FavoritesPopupViewController.swift in Sources */,
 				3E33B49E1F3E70F4005EF359 /* FileSystemUtils.swift in Sources */,
+				3E26B92D1FBC207C00FA3274 /* MultiStateImageButton.swift in Sources */,
 				3E80E66F1F04FA60007480CC /* Size.swift in Sources */,
 				3ED100891FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift in Sources */,
 				3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */,

@@ -18,12 +18,10 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private var autoHidingVolumeLabel: AutoHidingView!
     private var autoHidingPanLabel: AutoHidingView!
     
-    // Playback control fields
-    @IBOutlet weak var btnPlayPause: NSButton!
-    
     // Toggle buttons (their images change)
-    @IBOutlet weak var btnShuffle: NSButton!
-    @IBOutlet weak var btnRepeat: NSButton!
+    @IBOutlet weak var btnPlayPause: MultiStateImageButton!
+    @IBOutlet weak var btnShuffle: MultiStateImageButton!
+    @IBOutlet weak var btnRepeat: MultiStateImageButton!
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
@@ -39,7 +37,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         let appState = ObjectGraph.getUIAppState()
         initVolumeAndPan(appState)
-        updateRepeatAndShuffleControls(appState.repeatMode, appState.shuffleMode)
+        initToggleButtons(appState)
         
         // Subscribe to message notifications
         AsyncMessenger.subscribe([.trackNotPlayed,.trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
@@ -57,6 +55,20 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         autoHidingVolumeLabel = AutoHidingView(lblVolume, UIConstants.feedbackLabelAutoHideIntervalSeconds)
         autoHidingPanLabel = AutoHidingView(lblPan, UIConstants.feedbackLabelAutoHideIntervalSeconds)
+    }
+
+    private func initToggleButtons(_ appState: UIAppState) {
+        
+        // Initialize image/state mappings for toggle buttons
+        
+        btnPlayPause.stateImageMappings = [(PlaybackState.noTrack, Images.imgPlay), (PlaybackState.paused, Images.imgPlay), (PlaybackState.playing, Images.imgPause)]
+        btnPlayPause.switchState(PlaybackState.noTrack)
+        
+        btnRepeat.stateImageMappings = [(RepeatMode.off, Images.imgRepeatOff), (RepeatMode.one, Images.imgRepeatOne), (RepeatMode.all, Images.imgRepeatAll)]
+        
+        btnShuffle.stateImageMappings = [(ShuffleMode.off, Images.imgShuffleOff), (ShuffleMode.on, Images.imgShuffleOn)]
+        
+        updateRepeatAndShuffleControls(appState.repeatMode, appState.shuffleMode)
     }
     
     // Updates the volume
@@ -150,12 +162,12 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
             let playbackInfo = try player.togglePlayPause()
             let playbackState = playbackInfo.playbackState
+            btnPlayPause.switchState(playbackState)
             
             switch playbackState {
                 
             case .noTrack, .paused:
                 
-                setPlayPauseImage(Images.imgPlay)
                 SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
                 
             case .playing:
@@ -164,7 +176,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
                     trackChanged(oldTrack, playbackInfo.playingTrack)
                 } else {
                     // Resumed the same track
-                    setPlayPauseImage(Images.imgPause)
                     SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
                 }
             }
@@ -341,51 +352,15 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     private func updateRepeatAndShuffleControls(_ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
         
-        btnShuffle.image = shuffleMode == .off ? Images.imgShuffleOff : Images.imgShuffleOn
-        
-        switch repeatMode {
-            
-        case .off:
-            
-            btnRepeat.image = Images.imgRepeatOff
-            
-        case .one:
-            
-            btnRepeat.image = Images.imgRepeatOne
-
-        case .all:
-            
-            btnRepeat.image = Images.imgRepeatAll
-        }
+        btnShuffle.switchState(shuffleMode)
+        btnRepeat.switchState(repeatMode)
     }
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     private func trackChanged(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
-        if (newTrack != nil) {
-            
-            if (!errorState) {
-                
-                // No error, track is playing
-                setPlayPauseImage(Images.imgPause)
-                
-            } else {
-                
-                // Error state
-                setPlayPauseImage(Images.imgPlay)
-            }
-            
-        } else {
-            
-            // No track playing
-            setPlayPauseImage(Images.imgPlay)
-        }
-        
+        btnPlayPause.switchState(player.getPlaybackState())
         SyncMessenger.publishNotification(TrackChangedNotification(oldTrack, newTrack, errorState))
-    }
-    
-    private func setPlayPauseImage(_ image: NSImage) {
-        btnPlayPause.image = image
     }
     
     private func trackChanged(_ message: TrackChangedAsyncMessage) {
@@ -414,14 +389,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // This needs to be done async. Otherwise, other open dialogs could hang.
         DispatchQueue.main.async {
             
-            let playingTrack = self.player.getPlayingTrack()
-            self.trackChanged(oldTrack, playingTrack, true)
+            let errorTrack = error.track
+            self.trackChanged(oldTrack, nil, true)
             
             // Position and display an alert with error info
             _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(error))
             
             // Remove the bad track from the playlist and update the UI
-            _ = SyncMessenger.publishRequest(RemoveTrackRequest(playingTrack!.index))
+            _ = SyncMessenger.publishRequest(RemoveTrackRequest(errorTrack))
         }
     }
     

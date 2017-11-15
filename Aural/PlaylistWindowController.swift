@@ -154,7 +154,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Handles a request to remove a single track from the playlist
     private func removeTrack(_ request: RemoveTrackRequest) {
         
-        playlist.removeTracks([request.index])
+        let indexedTrack = playlist.indexOfTrack(request.track)
+        playlist.removeTracks([indexedTrack!.index])
         
         sequenceChanged()
         updatePlaylistSummary()

@@ -181,9 +181,9 @@ struct TracksNotAddedAsyncMessage: AsyncMessage {
     let messageType: AsyncMessageType = .tracksNotAdded
     
     // An array of error objects containing detailed information such as the track file and the root cause
-    let errors: [InvalidTrackError]
+    let errors: [DisplayableError]
     
-    init(_ errors: [InvalidTrackError]) {
+    init(_ errors: [DisplayableError]) {
         self.errors = errors
     }
 }

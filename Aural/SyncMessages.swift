@@ -159,11 +159,11 @@ struct RemoveTrackRequest: RequestMessage {
     
     let messageType: MessageType = .removeTrackRequest
     
-    // Index of the track that needs to be removed
-    let index: Int
+    // Track that needs to be removed
+    let track: Track
     
-    init(_ index: Int) {
-        self.index = index
+    init(_ track: Track) {
+        self.track = track
     }
 }
 

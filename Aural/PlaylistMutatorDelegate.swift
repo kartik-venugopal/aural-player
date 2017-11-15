@@ -386,10 +386,10 @@ class TrackAddOperationProgress {
     var tracksAdded: Int
     var totalTracks: Int
     var addResults: [TrackAddResult]
-    var errors: [InvalidTrackError]
+    var errors: [DisplayableError]
     var autoplayed: Bool
 
-    init(_ tracksAdded: Int, _ totalTracks: Int, _ addResults: [TrackAddResult], _ errors: [InvalidTrackError], _ autoplayed: Bool) {
+    init(_ tracksAdded: Int, _ totalTracks: Int, _ addResults: [TrackAddResult], _ errors: [DisplayableError], _ autoplayed: Bool) {
         
         self.tracksAdded = tracksAdded
         self.totalTracks = totalTracks

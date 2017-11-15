@@ -25,7 +25,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view id="zTt-IY-Dad">
-            <rect key="frame" x="0.0" y="0.0" width="484" height="140"/>
+            <rect key="frame" x="0.0" y="0.0" width="450" height="140"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w8t-jq-40L" userLabel="Frequencies">
