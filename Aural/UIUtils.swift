@@ -1,5 +1,5 @@
 /*
-    Utilities for manipulating UI elements
+    Utilities for manipulating UI elements or performing computations
  */
 
 import Cocoa
@@ -128,5 +128,74 @@ class UIUtils {
         }
         
         return NSPoint(x: x, y: y)
+    }
+    
+    // Calculates the direction of a swipe gesture
+    static func determineSwipeDirection(_ event: NSEvent) -> GestureDirection? {
+        
+        if (event.type != .swipe) {
+            return nil
+        }
+        
+        // Offset
+        let deltaX = event.deltaX, deltaY = event.deltaY
+        
+        // No offset data, no direction
+        if (deltaX == 0 && deltaY == 0) {
+            return nil
+        }
+        
+        // Determine absolute offset values along both axes
+        let absX = abs(deltaX), absY = abs(deltaY)
+        
+        // Check along which axis greater movement occurred
+        if (absX > absY) {
+            
+            // This is a horizontal swipe (left/right)
+            return deltaX < 0 ? .right : .left
+            
+        } else {
+            
+            // This is a vertical swipe (up/down)
+            return deltaY < 0 ? .down : .up
+        }
+    }
+    
+    // Calculates the direction and magnitude of a scroll gesture
+    static func determineScrollVector(_ event: NSEvent) -> (direction: GestureDirection, movement: CGFloat)? {
+        
+        if (event.type != .scrollWheel) {
+            return nil
+        }
+        
+        // Offset
+        let deltaX = event.deltaX, deltaY = event.deltaY
+        
+        // No offset data, no direction
+        if (deltaX == 0 && deltaY == 0) {
+            return nil
+        }
+        
+        // Determine absolute offset values along both axes
+        let absX = abs(deltaX), absY = abs(deltaY)
+        
+        var direction: GestureDirection
+        var movement: CGFloat
+        
+        // Check along which axis greater movement occurred
+        if (absX > absY) {
+            
+            // This is a horizontal swipe (left/right)
+            direction = deltaX < 0 ? .right : .left
+            movement = absX
+            
+        } else {
+            
+            // This is a vertical swipe (up/down)
+            direction = deltaY < 0 ? .down : .up
+            movement = absY
+        }
+        
+        return (direction, movement)
     }
 }

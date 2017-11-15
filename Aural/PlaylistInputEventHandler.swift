@@ -1,10 +1,10 @@
 /*
-    Forwards key press events (keyDown) to the Playlist table view. This is required because the app's main window does not have a title bar. Hence, keyDown events are not forwarded to the playlist table view.
+    Handles input events (key presses and trackpad/MagicMouse gestures) for certain playlist functions like type selection and scrolling.
 */
 
 import Cocoa
 
-class PlaylistKeyPressHandler {
+class PlaylistInputEventHandler {
     
     // A mapping of playlist type to the corresponding view that displays it
     private let playlistViews: [PlaylistType: NSTableView]
@@ -13,13 +13,58 @@ class PlaylistKeyPressHandler {
         self.playlistViews = playlistViews
     }
     
-    // Handles a single key press event
+    // Handles a single event
     func handle(_ event: NSEvent) {
         
         if (NSApp.modalWindow != nil) {
             // Modal dialog open, don't do anything
             return
         }
+        
+        // Delegate to an appropriate handler function based on event type
+        switch event.type {
+            
+        case .keyDown: handleKeyDown(event)
+            
+        case .swipe: handleSwipe(event)
+            
+        default: return
+            
+        }
+    }
+    
+    // Handles a single swipe event
+    private func handleSwipe(_ event: NSEvent) {
+        
+        // Ignore any swipe events that weren't performed over the playlist window (they trigger other functions if performed over the main window)
+        if event.window != WindowState.playlistWindow {
+            return
+        }
+        
+        // Used to indicate a playlist action triggered by the swipe
+        var actionType: ActionType
+        
+        if let swipeDirection = UIUtils.determineSwipeDirection(event) {
+            
+            switch swipeDirection {
+                
+            case .left: actionType = .previousPlaylistView
+                
+            case .right: actionType = .nextPlaylistView
+                
+            case .up: actionType = .scrollToTop
+                
+            case .down: actionType = .scrollToBottom
+                
+            }
+            
+            // Publish the action message
+            SyncMessenger.publishActionMessage(PlaylistActionMessage(actionType, nil))
+        }
+    }
+    
+    // Handles a single key press event
+    private func handleKeyDown(_ event: NSEvent) {
         
         // Indicate whether or not Shift/Command/Option were pressed
         let isShift: Bool = event.modifierFlags.contains(NSEventModifierFlags.shift)

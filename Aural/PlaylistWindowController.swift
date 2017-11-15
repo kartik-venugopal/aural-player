@@ -48,7 +48,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     override func windowDidLoad() {
         
         // Enable drag n drop into the playlist views
-        [tracksView, artistsView, albumsView, genresView].forEach({$0.register(forDraggedTypes: [String(kUTTypeFileURL), "public.data"])})
+        [tracksView, artistsView, albumsView, genresView].forEach({
+            $0?.register(forDraggedTypes: [String(kUTTypeFileURL), "public.data"])
+        })
         
         // Register self as a subscriber to various AsyncMessage notifications
         AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.main)
@@ -56,15 +58,14 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.removeTrackRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .scrollToTop, .scrollToBottom], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .scrollToTop, .scrollToBottom, .nextPlaylistView, .previousPlaylistView], subscriber: self)
         
-        // Set up key press handler to enable natural scrolling of the playlist view with arrow keys and expansion/collapsing of track groups.
-        
+        // Set up an input handler to handle scrolling and type selection with key events and gestures
         let viewMappings: [PlaylistType: NSTableView] = [PlaylistType.tracks: tracksView, PlaylistType.artists: artistsView, PlaylistType.albums: albumsView, PlaylistType.genres: genresView]
         
-        let playlistKeyPressHandler = PlaylistKeyPressHandler(viewMappings)
-        NSEvent.addLocalMonitorForEvents(matching: NSEventMask.keyDown, handler: {(event: NSEvent!) -> NSEvent in
-            playlistKeyPressHandler.handle(event)
+        let playlistInputEventHandler = PlaylistInputEventHandler(viewMappings)
+        NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .swipe], handler: {(event: NSEvent!) -> NSEvent in
+            playlistInputEventHandler.handle(event)
             return event;
         });
         
@@ -314,7 +315,12 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     }
     
     // Cycles between playlist tab group tabs
-    func shiftTab() {
+    private func shiftTab() {
+        nextPlaylistView()
+    }
+    
+    // TODO: Write a state machine ?
+    private func nextPlaylistView() {
         
         switch PlaylistViewState.current {
             
@@ -325,6 +331,22 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         case .albums: genresTabViewAction(self)
             
         case .genres: tracksTabViewAction(self)
+            
+        }
+    }
+    
+    // TODO: Write a state machine ?
+    private func previousPlaylistView() {
+        
+        switch PlaylistViewState.current {
+            
+        case .tracks: genresTabViewAction(self)
+            
+        case .artists: tracksTabViewAction(self)
+            
+        case .albums: artistsTabViewAction(self)
+            
+        case .genres: albumsTabViewAction(self)
             
         }
     }
@@ -445,6 +467,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         case .scrollToTop: scrollToTopAction(self)
             
         case .scrollToBottom: scrollToBottomAction(self)
+            
+        case .nextPlaylistView: nextPlaylistView()
+            
+        case .previousPlaylistView: previousPlaylistView()
             
         default: return
             
