@@ -32,9 +32,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
 
     @IBOutlet weak var btnFavorite: NSButton!
     
-    // Delegate that retrieves information about the player and the currently playing track
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    // Delegate that conveys all seek and playback info requests to the player
+    private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
     
+    // Delegate that provides access to History information
     private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
     
     // The view that displays detailed track information, when requested by the user
@@ -49,6 +50,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     // Timer that periodically updates the seek position slider and label
     private var seekTimer: RepeatingTaskExecutor?
+    
+    convenience init() {
+        self.init(nibName: "NowPlaying", bundle: Bundle.main)!
+    }
     
     override func viewDidLoad() {
         
@@ -71,10 +76,15 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         SyncMessenger.subscribe(actionTypes: [.moreInfo], subscriber: self)
     }
     
+    // Moving the seek slider results in seeking the track to the new slider position
+    @IBAction func seekSliderAction(_ sender: AnyObject) {
+        player.seekToPercentage(seekSlider.doubleValue)
+    }
+    
     // Shows a popover with detailed information for the currently playing track, if there is one
     @IBAction func moreInfoAction(_ sender: AnyObject) {
         
-        let playingTrack = playbackInfo.getPlayingTrack()
+        let playingTrack = player.getPlayingTrack()
         
         // If there is a track currently playing, load detailed track info and toggle the popover view
         if (playingTrack != nil) {
@@ -98,7 +108,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         btnFavorite.image = btnFavorite.image == Images.imgFavoritesOn ? Images.imgFavoritesOff : Images.imgFavoritesOn
         
         // Assume there is a track playing (this function cannot be invoked otherwise)
-        let playingTrack = (playbackInfo.getPlayingTrack()?.track)!
+        let playingTrack = (player.getPlayingTrack()?.track)!
         
         // Publish an action message to add/remove the item to/from Favorites
         if btnFavorite.image == Images.imgFavoritesOn {
@@ -176,7 +186,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
      */
     private func showPlaybackScope() {
         
-        let sequence = playbackInfo.getPlaybackSequenceInfo()
+        let sequence = player.getPlaybackSequenceInfo()
         let scope = sequence.scope
         
         // Description and image for playback scope
@@ -248,9 +258,9 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Updates the seek slider and time elapsed/remaining labels as playback proceeds
     private func updateSeekPosition() {
         
-        if (playbackInfo.getPlaybackState() == .playing) {
+        if (player.getPlaybackState() == .playing) {
             
-            let seekPosn = playbackInfo.getSeekPosition()
+            let seekPosn = player.getSeekPosition()
             
             let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration)
             
@@ -298,7 +308,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
                 
                 if (popoverView.isShown()) {
                     
-                    playbackInfo.getPlayingTrack()?.track.loadDetailedInfo()
+                    player.getPlayingTrack()?.track.loadDetailedInfo()
                     popoverView.refresh()
                 }
                 
@@ -318,7 +328,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Whenever the playback sequence changes (without the playing track changing), the sequence progress might have changed. For example, when the playing track is moved up one row, its progress will change from "4/10" to "3/10". The display fields need to be updated accordingly.
     private func sequenceChanged() {
         
-        let sequence = playbackInfo.getPlaybackSequenceInfo()
+        let sequence = player.getPlaybackSequenceInfo()
         lblSequenceProgress.stringValue = String(format: "%d / %d", sequence.trackIndex, sequence.totalTracks)
     }
     
@@ -332,7 +342,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
             seekTimer?.stop()
             seekTimer = RepeatingTaskExecutor(intervalMillis: interval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
             
-            let playbackState = playbackInfo.getPlaybackState()
+            let playbackState = player.getPlaybackState()
             setSeekTimerState(playbackState == .playing)
         }
     }
@@ -351,7 +361,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     // When track info for the playing track changes, display fields need to be updated
     private func playingTrackInfoUpdated(_ notification: PlayingTrackInfoUpdatedNotification) {
-        showNowPlayingInfo(playbackInfo.getPlayingTrack()!.track)
+        showNowPlayingInfo(player.getPlayingTrack()!.track)
     }
     
     private func appInBackground() {
@@ -366,7 +376,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     private func shouldAnimate() -> Bool {
         
         // Animation enabled only if 1 - the appropriate playlist view is currently shown, 2 - a track is currently playing (not paused), and 3 - the app window is currently in the foreground
-        return (playbackInfo.getPlaybackState() == .playing) && WindowState.isInForeground()
+        return (player.getPlaybackState() == .playing) && WindowState.isInForeground()
     }
     
     // MARK: Message handlers

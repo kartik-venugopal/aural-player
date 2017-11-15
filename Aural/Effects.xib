@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="EffectsViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="delayTabViewButton" destination="5qB-Lz-yhR" id="mTl-zT-TK3"/>
+                <outlet property="eqTabViewButton" destination="OcZ-kj-y8A" id="wHf-Qo-BFC"/>
+                <outlet property="filterTabViewButton" destination="OVJ-F7-4OB" id="aIM-pJ-B86"/>
+                <outlet property="fxTabView" destination="NlZ-fW-xJ5" id="rjm-ZZ-dV8"/>
+                <outlet property="pitchTabViewButton" destination="oYg-Jj-s2K" id="V1X-zR-HtN"/>
+                <outlet property="recorderTabViewButton" destination="AxV-xh-ZXl" id="EUf-cP-XJj"/>
+                <outlet property="reverbTabViewButton" destination="b7e-Sl-RPP" id="LNJ-Ng-rqr"/>
+                <outlet property="timeTabViewButton" destination="Zpe-RF-YEg" id="u2U-UW-n8f"/>
+                <outlet property="view" destination="ikH-JN-GAV" id="XZv-9h-IIm"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view id="ikH-JN-GAV">
+            <rect key="frame" x="0.0" y="0.0" width="450" height="178"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="mzx-sm-9xD" userLabel="Tab Buttons Box">
+                    <rect key="frame" x="4" y="152" width="440" height="27"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" ambiguous="YES" id="JTD-eu-EaR">
+                        <rect key="frame" x="1" y="1" width="438" height="25"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OcZ-kj-y8A" userLabel="EQ button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="2" y="0.0" width="47" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" title="EQ" bezelStyle="shadowlessSquare" image="EQTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sLU-Pi-4YO" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="tabViewAction:" target="-2" id="67l-nc-3k8"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="oYg-Jj-s2K" userLabel="Pitch button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="51" y="0.0" width="56" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" title="Pitch" bezelStyle="shadowlessSquare" image="PitchTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lDe-G3-Muo" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="tabViewAction:" target="-2" id="PRR-tB-25I"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="Zpe-RF-YEg" userLabel="Time button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="109" y="0.0" width="57" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" title="Time" bezelStyle="shadowlessSquare" image="TimeTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Yxc-6b-BUY" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="tabViewAction:" target="-2" id="GDn-lp-APD"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="b7e-Sl-RPP" userLabel="Reverb button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="168" y="0.0" width="67" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" title="Reverb" bezelStyle="shadowlessSquare" image="ReverbTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1Pw-oH-NvD" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="tabViewAction:" target="-2" id="lKW-mb-tM6"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="5qB-Lz-yhR" userLabel="Delay button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="237" y="0.0" width="60" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" title="Delay" bezelStyle="shadowlessSquare" image="DelayTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ozA-j1-Khz" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="tabViewAction:" target="-2" id="Iyo-2x-s2N"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="OVJ-F7-4OB" userLabel="Filter button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="299" y="0.0" width="58" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" title="Filter" bezelStyle="shadowlessSquare" image="FilterTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ttp-L5-t6S" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="tabViewAction:" target="-2" id="xB9-31-1he"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="6" translatesAutoresizingMaskIntoConstraints="NO" id="AxV-xh-ZXl" userLabel="Recorder button" customClass="MultiImageButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="359" y="0.0" width="78" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" title="Recorder" bezelStyle="shadowlessSquare" image="RecorderTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="A0D-1A-dLd" customClass="EffectsUnitButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="tabViewAction:" target="-2" id="Y2c-5S-MVw"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                    <color key="borderColor" white="0.15444672770000001" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                </box>
+                <tabView fixedFrame="YES" drawsBackground="NO" type="rightTabsBezelBorder" initialItem="blZ-W2-GyO" translatesAutoresizingMaskIntoConstraints="NO" id="NlZ-fW-xJ5" userLabel="Tab Group">
+                    <rect key="frame" x="-7" y="-9" width="525" height="160"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <font key="font" size="11" name="GillSans"/>
+                    <tabViewItems>
+                        <tabViewItem label="EQ" identifier="1" id="blZ-W2-GyO" userLabel="EQ">
+                            <view key="view" id="7hc-7q-cCz">
+                                <rect key="frame" x="10" y="7" width="0.0" height="335"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Pitch" identifier="2" id="9Ai-hw-s5g" userLabel="Pitch">
+                            <view key="view" id="Ad3-GR-LWC">
+                                <rect key="frame" x="10" y="7" width="484" height="140"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Time" identifier="" id="YFG-DC-wfH" userLabel="Time">
+                            <view key="view" id="fp1-dA-sIf">
+                                <rect key="frame" x="10" y="7" width="484" height="140"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Reverb" identifier="" id="EYr-qH-isU" userLabel="Reverb">
+                            <view key="view" id="K0K-LF-nFu">
+                                <rect key="frame" x="10" y="7" width="484" height="140"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Delay" identifier="" id="EXf-7w-F3p">
+                            <view key="view" id="ZLj-FB-pYw">
+                                <rect key="frame" x="10" y="7" width="484" height="140"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Filter" identifier="" id="5Jx-L8-ay3">
+                            <view key="view" id="N45-W8-3iy">
+                                <rect key="frame" x="10" y="7" width="484" height="140"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Recorder" identifier="" id="08n-es-nC3">
+                            <view key="view" ambiguous="YES" id="yTl-qH-xMw">
+                                <rect key="frame" x="10" y="7" width="484" height="140"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                    </tabViewItems>
+                </tabView>
+            </subviews>
+        </view>
+    </objects>
+    <resources>
+        <image name="DelayTab" width="153" height="146"/>
+        <image name="EQTab" width="419" height="422"/>
+        <image name="FilterTab" width="512" height="512"/>
+        <image name="PitchTab" width="17" height="13"/>
+        <image name="RecorderTab" width="384" height="384"/>
+        <image name="ReverbTab" width="211" height="211"/>
+        <image name="TimeTab" width="12" height="12"/>
+    </resources>
+</document>

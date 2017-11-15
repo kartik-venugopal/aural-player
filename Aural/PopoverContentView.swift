@@ -24,10 +24,32 @@ class PopoverContentView: NSView {
     }
 }
 
+// Sets the background color for the popover
 class PopoverBackgroundView: NSView {
     
     override func draw(_ dirtyRect: NSRect) {
         Colors.popoverBackgroundColor.setFill()
         NSRectFill(self.bounds)
     }
+}
+
+/*
+    Exposes high-level operations performed on the popover view, and is used to provide abstraction.
+ */
+protocol PopoverViewDelegate {
+    
+    // Shows the popover view
+    func show()
+    
+    // Checks if the popover view is shown
+    func isShown() -> Bool
+    
+    // Closes the popover view
+    func close()
+    
+    // Toggles the popover view (show/close)
+    func toggle()
+    
+    // Refreshes the track info in the popover view
+    func refresh()
 }

@@ -30,10 +30,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
     
     // Search dialog
-    private lazy var playlistSearchDialog: ModalDialogDelegate = WindowManager.getPlaylistSearchDialog()
+    private lazy var playlistSearchDialog: ModalDialogDelegate = WindowFactory.getPlaylistSearchDialog()
     
     // Sort dialog
-    private lazy var playlistSortDialog: ModalDialogDelegate = WindowManager.getPlaylistSortDialog()
+    private lazy var playlistSortDialog: ModalDialogDelegate = WindowFactory.getPlaylistSortDialog()
     
     // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()

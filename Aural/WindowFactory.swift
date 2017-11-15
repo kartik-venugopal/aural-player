@@ -1,44 +1,53 @@
 import Cocoa
 
 /*
-    Handles instantiation of all application windows and exposes them through protocols so as to provide abstraction
+    Factory for instantiating windows/dialogs from XIBs
  */
-class WindowManager {
+class WindowFactory {
     
     private static var mainWindowController: MainWindowController = MainWindowController()
     
     private static var playlistWindowController: PlaylistWindowController = PlaylistWindowController()
     
-    // Preferences dialog
     private static var preferencesWindowController: PreferencesWindowController = PreferencesWindowController()
     
-    // Playlist search dialog
     private static var playlistSearchWindowController: PlaylistSearchWindowController = PlaylistSearchWindowController()
     
-    // Playlist sort dialog
     private static var playlistSortWindowController : PlaylistSortWindowController = PlaylistSortWindowController()
     
+    // MARK: Accessor functions for the different windows/dialogs
+    
+    // Shows the main application window
     static func showMainWindow() {
         mainWindowController.showWindow(NSApplication.shared().delegate)
     }
     
-    static func getMainWindow() -> NSWindow {
-        return mainWindowController.window!
-    }
-    
+    // Returns the playlist window
     static func getPlaylistWindow() -> NSWindow {
         return playlistWindowController.window!
     }
     
+    // Returns the preferences modal dialog
     static func getPreferencesDialog() -> ModalDialogDelegate {
         return preferencesWindowController
     }
     
+    // Returns the playlist search dialog
     static func getPlaylistSearchDialog() -> ModalDialogDelegate {
         return playlistSearchWindowController
     }
     
+    // Returns the playlist sort dialog
     static func getPlaylistSortDialog() -> ModalDialogDelegate {
         return playlistSortWindowController
     }
+}
+
+/*
+    Protocol to be implemented by all NSWindowController classes that control modal dialogs. This is intended to provide abstraction, so that NSWindowController classes are not entirely exposed to callers unnecessarily.
+ */
+protocol ModalDialogDelegate {
+    
+    // Initialize and present the dialog modally
+    func showDialog()
 }

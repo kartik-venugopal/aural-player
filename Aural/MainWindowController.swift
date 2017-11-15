@@ -9,14 +9,23 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
     private var mainWindow: NSWindow!
     
     // Detachable/movable/resizable window that contains the playlist view. Child of the main window.
-    private let playlistWindow: NSWindow = WindowManager.getPlaylistWindow()
+    private let playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
     
     // Buttons to toggle the playlist/effects views
     @IBOutlet weak var btnToggleEffects: NSButton!
     @IBOutlet weak var btnTogglePlaylist: NSButton!
     
-    // The box that encloses the effects panel
-    @IBOutlet weak var fxBox: NSBox!
+    // The box that encloses the Now Playing info section
+    @IBOutlet weak var nowPlayingBox: NSBox!
+    private lazy var nowPlayingView: NSView = ViewFactory.getNowPlayingView()
+    
+    // The box that encloses the player controls
+    @IBOutlet weak var playerBox: NSBox!
+    private lazy var playerView: NSView = ViewFactory.getPlayerView()
+    
+    // The box that encloses the Effects panel
+    @IBOutlet weak var effectsBox: NSBox!
+    private lazy var effectsView: NSView = ViewFactory.getEffectsView()
     
     // Remembers if/where the playlist window has been docked with the main window
     private var playlistDockState: PlaylistDockState = .bottom
@@ -24,7 +33,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
     // Flag to indicate that a window move/resize operation was initiated by the app (as opposed to by the user)
     private var automatedPlaylistMoveOrResize: Bool = false
     
-    private var visibleFrame: NSRect = {
+    private lazy var visibleFrame: NSRect = {
         return NSScreen.main()!.visibleFrame
     }()
     
@@ -40,11 +49,16 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         
         self.mainWindow = self.window!
         WindowState.window = self.mainWindow
-        
         [mainWindow, playlistWindow].forEach({$0?.isMovableByWindowBackground = true})
         
         mainWindow.makeKeyAndOrderFront(self)
         playlistWindow.delegate = self
+        
+        // Add the sub-views
+        
+        nowPlayingBox.addSubview(nowPlayingView)
+        playerBox.addSubview(playerView)
+        effectsBox.addSubview(effectsView)
         
         // Subscribe to various messages
         SyncMessenger.subscribe(actionTypes: [.dockLeft, .dockRight, .dockBottom, .maximize, .maximizeHorizontal, .maximizeVertical, .togglePlaylist, .toggleEffects], subscriber: self)
@@ -397,7 +411,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
             // Show effects view and update UI controls
             
             resizeMainWindow(playlistWindow.isVisible && playlistDockState == .bottom, true, animate)
-            fxBox.isHidden = false
+            effectsBox.isHidden = false
             btnToggleEffects.state = 1
             btnToggleEffects.image = Images.imgEffectsOn
             WindowState.showingEffects = true
@@ -408,7 +422,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
             
             // Hide effects view and update UI controls
             
-            fxBox.isHidden = true
+            effectsBox.isHidden = true
             resizeMainWindow(playlistWindow.isVisible && playlistDockState == .bottom, false, animate)
             btnToggleEffects.state = 0
             btnToggleEffects.image = Images.imgEffectsOff

@@ -44,6 +44,8 @@ enum MessageType {
     
     case sequenceChangedNotification
     
+    case effectsUnitStateChangedNotification
+    
     case playingTrackInfoUpdatedNotification
     
     case removeTrackRequest
@@ -351,4 +353,21 @@ struct AppInForegroundNotification: NotificationMessage {
     
     // Singleton
     static let instance: AppInForegroundNotification = AppInForegroundNotification()
+}
+
+// Notification indicating that one of the effects units has either become active or inactive. The Effects panel tab group may use this information to update its view.
+struct EffectsUnitStateChangedNotification: NotificationMessage {
+    
+    let messageType: MessageType = .effectsUnitStateChangedNotification
+    
+    // The effects unit whose state has changed
+    let effectsUnit: EffectsUnit
+    
+    // The new state of the effects unit
+    let active: Bool
+    
+    init(_ effectsUnit: EffectsUnit, _ active: Bool) {
+        self.effectsUnit = effectsUnit
+        self.active = active
+    }
 }

@@ -1,13 +1,19 @@
 /*
-    View controller for the playback controls (play/pause, prev/next track, seeking, repeat/shuffle)
+    View controller for the player controls (volume, pan, play/pause, prev/next track, seeking, repeat/shuffle)
  */
 import Cocoa
 
-class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
+class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
+    
+    // Volume/pan controls
+    @IBOutlet weak var btnVolume: NSButton!
+    @IBOutlet weak var volumeSlider: NSSlider!
+    @IBOutlet weak var lblVolume: NSTextField!
+    
+    @IBOutlet weak var panSlider: NSSlider!
+    @IBOutlet weak var lblPan: NSTextField!
     
     // Playback control fields
-    
-    @IBOutlet weak var seekSlider: NSSlider!
     @IBOutlet weak var btnPlayPause: NSButton!
     
     // Toggle buttons (their images change)
@@ -17,9 +23,21 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
     
+    // Delegate that conveys all volume/pan adjustments to the audio graph
+    private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    
+    // Feedback label hiding timers
+    private var volumeLabelHidingTimer: Timer?
+    private var panLabelHidingTimer: Timer?
+    
+    convenience init() {
+        self.init(nibName: "Player", bundle: Bundle.main)!
+    }
+    
     override func viewDidLoad() {
         
         let appState = ObjectGraph.getUIAppState()
+        initVolumeAndPan(appState)
         updateRepeatAndShuffleControls(appState.repeatMode, appState.shuffleMode)
         
         // Subscribe to message notifications
@@ -27,7 +45,114 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.playOrPause, .replayTrack, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+    }
+    
+    private func initVolumeAndPan(_ appState: UIAppState) {
+        
+        volumeSlider.floatValue = appState.volume
+        setVolumeImage(appState.muted)
+        panSlider.floatValue = appState.balance
+    }
+    
+    // Updates the volume
+    @IBAction func volumeAction(_ sender: AnyObject) {
+        
+        audioGraph.setVolume(volumeSlider.floatValue)
+        setVolumeImage(audioGraph.isMuted())
+        showAndAutoHideVolumeLabel()
+    }
+    
+    // Mutes or unmutes the player
+    @IBAction func muteOrUnmuteAction(_ sender: AnyObject) {
+        setVolumeImage(audioGraph.toggleMute())
+    }
+    
+    // Decreases the volume by a certain preset decrement
+    private func decreaseVolume() {
+        volumeSlider.floatValue = audioGraph.decreaseVolume()
+        setVolumeImage(audioGraph.isMuted())
+        showAndAutoHideVolumeLabel()
+    }
+    
+    // Increases the volume by a certain preset increment
+    private func increaseVolume() {
+        volumeSlider.floatValue = audioGraph.increaseVolume()
+        setVolumeImage(audioGraph.isMuted())
+        showAndAutoHideVolumeLabel()
+    }
+    
+    private func setVolumeImage(_ muted: Bool) {
+        
+        if (muted) {
+            btnVolume.image = Images.imgMute
+        } else {
+            
+            let volume = audioGraph.getVolume()
+            
+            // Zero / Low / Medium / High (different images)
+            if (volume > 200/3) {
+                btnVolume.image = Images.imgVolumeHigh
+            } else if (volume > 100/3) {
+                btnVolume.image = Images.imgVolumeMedium
+            } else if (volume > 0) {
+                btnVolume.image = Images.imgVolumeLow
+            } else {
+                btnVolume.image = Images.imgVolumeZero
+            }
+        }
+    }
+    
+    private func showAndAutoHideVolumeLabel() {
+        
+        // Format the text and show the feedback label
+        lblVolume.stringValue = ValueFormatter.formatVolume(volumeSlider.floatValue)
+        lblVolume.isHidden = false
+        
+        // Invalidate previously activated timer
+        volumeLabelHidingTimer?.invalidate()
+        
+        // Activate a new timer task to auto-hide the label
+        volumeLabelHidingTimer = Timer.scheduledTimer(timeInterval: UIConstants.feedbackLabelAutoHideIntervalSeconds, target: self, selector: #selector(self.hideVolumeLabel), userInfo: nil, repeats: false)
+    }
+    
+    func hideVolumeLabel() {
+        lblVolume.isHidden = true
+    }
+    
+    // Updates the stereo pan
+    @IBAction func panAction(_ sender: AnyObject) {
+        audioGraph.setBalance(panSlider.floatValue)
+        showAndAutoHidePanLabel()
+    }
+    
+    // Pans the sound towards the left channel, by a certain preset value
+    private func panLeft() {
+        panSlider.floatValue = audioGraph.panLeft()
+        showAndAutoHidePanLabel()
+    }
+    
+    // Pans the sound towards the right channel, by a certain preset value
+    private func panRight() {
+        panSlider.floatValue = audioGraph.panRight()
+        showAndAutoHidePanLabel()
+    }
+    
+    private func showAndAutoHidePanLabel() {
+        
+        // Format the text and show the feedback label
+        lblPan.stringValue = ValueFormatter.formatPan(panSlider.floatValue)
+        lblPan.isHidden = false
+        
+        // Invalidate previously activated timer
+        panLabelHidingTimer?.invalidate()
+        
+        // Activate a new timer task to auto-hide the label
+        panLabelHidingTimer = Timer.scheduledTimer(timeInterval: UIConstants.feedbackLabelAutoHideIntervalSeconds, target: self, selector: #selector(self.hidePanLabel), userInfo: nil, repeats: false)
+    }
+    
+    func hidePanLabel() {
+        lblPan.isHidden = true
     }
     
     // Plays, pauses, or resumes playback
@@ -125,13 +250,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     @IBAction func seekForwardAction(_ sender: AnyObject) {
         
         player.seekForward()
-        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
-    }
-    
-    // Moving the seek slider results in seeking the track to the new slider position
-    @IBAction func seekSliderAction(_ sender: AnyObject) {
-        
-        player.seekToPercentage(seekSlider.doubleValue)
         SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
     }
     
@@ -364,6 +482,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         switch message.actionType {
             
+        // Player functions
+            
         case .playOrPause: playPauseAction(self)
             
         case .replayTrack: replayTrack()
@@ -376,6 +496,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
         case .seekForward: seekForwardAction(self)
             
+        // Repeat and Shuffle
+            
         case .repeatOff: repeatOff()
             
         case .repeatOne: repeatOne()
@@ -385,6 +507,18 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         case .shuffleOff: shuffleOff()
             
         case .shuffleOn: shuffleOn()
+            
+        // Volume and Pan
+            
+        case .muteOrUnmute: muteOrUnmuteAction(self)
+            
+        case .decreaseVolume: decreaseVolume()
+            
+        case .increaseVolume: increaseVolume()
+            
+        case .panLeft: panLeft()
+            
+        case .panRight: panRight()
             
         default: return
             

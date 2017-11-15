@@ -6,8 +6,6 @@ import Cocoa
 
 class RecorderViewController: NSViewController, MessageSubscriber {
     
-    @IBOutlet weak var recorderTabViewButton: MultiImageButton!
-    
     // Recorder controls
     @IBOutlet weak var btnRecord: NSButton!
     @IBOutlet weak var lblRecorderDuration: NSTextField!
@@ -24,6 +22,10 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     
     // Cached recording info (used to determine recording format when saving a recording)
     private var recordingInfo: RecordingInfo?
+    
+    convenience init() {
+        self.init(nibName: "Recorder", bundle: Bundle.main)!
+    }
     
     override func viewDidLoad() {
         
@@ -59,9 +61,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         lblRecorderFileSize.stringValue = Size.ZERO.toString()
         recordingInfoBox.isHidden = false
         
-        (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = true
-        recorderTabViewButton.image = recorderTabViewButton.onStateImage
-        recorderTabViewButton.needsDisplay = true
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.recorder, true))
     }
     
     // Stops the current recording
@@ -72,12 +72,10 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         btnRecord.image = Images.imgRecorderStart
         recorderTimer?.pause()
         
-        (recorderTabViewButton.cell as! EffectsUnitButtonCell).shouldHighlight = false
-        recorderTabViewButton.image = recorderTabViewButton.offStateImage
-        recorderTabViewButton.needsDisplay = true
-        
         saveRecording(recordingInfo!.format)
         recordingInfoBox.isHidden = true
+        
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.recorder, false))
     }
     
     // Prompts the user to save the new recording
