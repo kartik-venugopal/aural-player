@@ -104,5 +104,5 @@ fileprivate class KeyCodeConstants {
     static let LEFT_ARROW: UInt16 = 123
     static let RIGHT_ARROW: UInt16 = 124
     
-    static let arrows = [KeyCodeConstants.UP_ARROW, KeyCodeConstants.DOWN_ARROW, KeyCodeConstants.LEFT_ARROW, KeyCodeConstants.RIGHT_ARROW]
+    static let arrows = [UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW]
 }
