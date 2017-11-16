@@ -54,7 +54,7 @@ Wanna try it out ? The latest app bundle can be found in the disk image file [Au
 
 ## Recent updates
 
-11/16/2017: **Gesture recognition (trackpad/MagicMouse users)** - Users with a trackpad or MagicMouse can now trigger essential player/playlist controls like track selection, seeking, volume control, and playlist scrolling (top/bottom), with gestures like 3-finger swipes or two-finger scrolls.
+11/16/2017: **Gesture recognition (trackpad/MagicMouse users)** - Users with a trackpad or MagicMouse can now perform essential player/playlist functions like track selection, seeking, volume control, and playlist scrolling (top/bottom), with simple and familiar gestures like 3-finger swipes or two-finger scrolls.
 
 11/14/2017: **History: Favorites list and recent items lists** - The app now manages a Favorites list to which users can add/remove tracks. It also maintains historical usage in terms of 2 lists: recently added files/folders, and recently played tracks. The lists are displayed in menus, and users can select items from these lists with one single click to either play or add an item to the playlist.
 
