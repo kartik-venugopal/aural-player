@@ -7,14 +7,14 @@ import Cocoa
 class PlaylistInputEventHandler {
     
     // A mapping of playlist type to the corresponding view that displays it
-    private let playlistViews: [PlaylistType: NSTableView]
+    private static var playlistViews: [PlaylistType: NSTableView] = [:]
     
-    init(_ playlistViews: [PlaylistType: NSTableView]) {
-        self.playlistViews = playlistViews
+    static func registerViewForPlaylistType(_ playlistType: PlaylistType, _ playlistView: NSTableView) {
+        playlistViews[playlistType] = playlistView
     }
     
     // Handles a single event
-    func handle(_ event: NSEvent) {
+    static func handle(_ event: NSEvent) {
         
         if (NSApp.modalWindow != nil) {
             // Modal dialog open, don't do anything
@@ -34,7 +34,7 @@ class PlaylistInputEventHandler {
     }
     
     // Handles a single swipe event
-    private func handleSwipe(_ event: NSEvent) {
+    private static func handleSwipe(_ event: NSEvent) {
         
         // Ignore any swipe events that weren't performed over the playlist window (they trigger other functions if performed over the main window)
         if event.window != WindowState.playlistWindow {
@@ -64,7 +64,7 @@ class PlaylistInputEventHandler {
     }
     
     // Handles a single key press event
-    private func handleKeyDown(_ event: NSEvent) {
+    private static func handleKeyDown(_ event: NSEvent) {
         
         // Indicate whether or not Shift/Command/Option were pressed
         let isShift: Bool = event.modifierFlags.contains(NSEventModifierFlags.shift)

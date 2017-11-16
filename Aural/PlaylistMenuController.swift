@@ -65,12 +65,12 @@ class PlaylistMenuController: NSObject {
     
     // Scrolls the current playlist view to the very top
     @IBAction func scrollToTopAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.scrollToTop, nil))
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.scrollToTop, PlaylistViewState.current))
     }
     
     // Scrolls the current playlist view to the very bottom
     @IBAction func scrollToBottomAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.scrollToBottom, nil))
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.scrollToBottom, PlaylistViewState.current))
     }
  
     // Publishes a notification that the playback sequence may have changed, so that interested UI observers may update their views if necessary

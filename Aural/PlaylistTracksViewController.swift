@@ -16,14 +16,24 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
     // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
     private let playlistUpdateQueue = OperationQueue()
     
+    convenience init() {
+        self.init(nibName: "Tracks", bundle: Bundle.main)!
+    }
+    
     override func viewDidLoad() {
+        
+        // Enable drag n drop
+        playlistView.register(forDraggedTypes: [String(kUTTypeFileURL), "public.data"])
+        
+        // Register for key press and gesture events
+        PlaylistInputEventHandler.registerViewForPlaylistType(.tracks, self.playlistView)
         
         // Register as a subscriber to various message notifications
         AsyncMessenger.subscribe([.trackAdded, .tracksRemoved, .trackInfoUpdated], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .refresh, .showPlayingTrack, .playSelectedItem], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -115,6 +125,22 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
             
             moveItems(playlist.moveTracksDown(selRows))
             playlistView.scrollRowToVisible(selRows.min()!)
+        }
+    }
+    
+    // Scrolls the playlist view to the very top
+    private func scrollToTop() {
+        
+        if (playlistView.numberOfRows > 0) {
+            playlistView.scrollRowToVisible(0)
+        }
+    }
+    
+    // Scrolls the playlist view to the very bottom
+    private func scrollToBottom() {
+        
+        if (playlistView.numberOfRows > 0) {
+            playlistView.scrollRowToVisible(playlistView.numberOfRows - 1)
         }
     }
     
@@ -280,6 +306,14 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         case .moveTracksDown:
             
             moveTracksDown()
+            
+        case .scrollToTop:
+            
+            scrollToTop()
+            
+        case .scrollToBottom:
+            
+            scrollToBottom()
             
         default: return
             

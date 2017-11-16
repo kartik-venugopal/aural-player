@@ -31,6 +31,12 @@ struct ViewFactory {
         fileprivate static var recorderViewController: RecorderViewController = RecorderViewController()
     }
     
+    // Sub-views for the different individual playlist views displayed in the playlist window's tab group
+    fileprivate struct PlaylistViews {
+        
+        fileprivate static var tracksViewController: PlaylistTracksViewController = PlaylistTracksViewController()
+    }
+    
     // MARK: Accessor functions for the different views
     
     // Returns the view that displays the Now Playing information section
@@ -81,5 +87,10 @@ struct ViewFactory {
     // Returns the view that displays the Recorder unit
     static func getRecorderView() -> NSView {
         return EffectsViews.recorderViewController.view
+    }
+    
+    // Returns the "Tracks" playlist view
+    static func getTracksView() -> NSView {
+        return PlaylistViews.tracksViewController.view
     }
 }
