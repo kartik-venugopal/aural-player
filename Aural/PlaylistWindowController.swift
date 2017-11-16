@@ -6,7 +6,7 @@ import Cocoa
 class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber {
     
     // The different playlist views
-    @IBOutlet weak var tracksView: NSTableView!
+    private lazy var tracksView: NSView = ViewFactory.getTracksView()
     @IBOutlet weak var artistsView: NSOutlineView!
     @IBOutlet weak var albumsView: NSOutlineView!
     @IBOutlet weak var genresView: NSOutlineView!
@@ -48,7 +48,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     override func windowDidLoad() {
         
         // Enable drag n drop into the playlist views
-        [tracksView, artistsView, albumsView, genresView].forEach({
+        [artistsView, albumsView, genresView].forEach({
             $0?.register(forDraggedTypes: [String(kUTTypeFileURL), "public.data"])
         })
         
@@ -61,11 +61,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .scrollToTop, .scrollToBottom, .nextPlaylistView, .previousPlaylistView], subscriber: self)
         
         // Set up an input handler to handle scrolling and type selection with key events and gestures
-        let viewMappings: [PlaylistType: NSTableView] = [PlaylistType.tracks: tracksView, PlaylistType.artists: artistsView, PlaylistType.albums: albumsView, PlaylistType.genres: genresView]
-        
-        let playlistInputEventHandler = PlaylistInputEventHandler(viewMappings)
         NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .swipe], handler: {(event: NSEvent!) -> NSEvent in
-            playlistInputEventHandler.handle(event)
+            PlaylistInputEventHandler.handle(event)
             return event;
         });
         
@@ -76,6 +73,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         artistsTabViewAction(self)
         albumsTabViewAction(self)
         genresTabViewAction(self)
+        
+        tabGroup.tabViewItem(at: 0).view?.addSubview(tracksView)
         
         // Default view is the Tracks view
         tracksTabViewAction(self)
@@ -266,7 +265,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         switch PlaylistViewState.current {
             
-        case .tracks: return tracksView
+        case .tracks: return artistsView
             
         case .artists: return artistsView
             

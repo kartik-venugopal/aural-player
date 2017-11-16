@@ -19,17 +19,11 @@
                 <outlet property="lblTracksSummary" destination="VLw-7p-b04" id="3rg-1b-OfJ"/>
                 <outlet property="playlistWorkSpinner" destination="TgI-fO-gfa" id="myn-qC-H9K"/>
                 <outlet property="tabGroup" destination="WTT-JW-9R7" id="cOV-IK-RgA"/>
-                <outlet property="tracksView" destination="OQk-bh-16f" id="m92-n4-kzf"/>
                 <outlet property="window" destination="mIO-7n-iVB" id="3DX-9q-bwT"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customObject id="oJe-yI-DST" userLabel="Tracks Data Source" customClass="TracksPlaylistDataSource" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="playlistView" destination="OQk-bh-16f" id="YET-Ew-Kk4"/>
-            </connections>
-        </customObject>
         <customObject id="dqM-Xy-Baa" userLabel="Artists Data Source" customClass="ArtistsPlaylistDataSource" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playlistView" destination="5K0-oY-MI4" id="gJs-Gi-w1Z"/>
@@ -45,12 +39,6 @@
                 <outlet property="playlistView" destination="xCD-hf-Vph" id="0wa-8T-Qa2"/>
             </connections>
         </customObject>
-        <viewController id="GCB-cG-ZJn" userLabel="Tracks View Controller" customClass="PlaylistTracksViewController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="playlistView" destination="OQk-bh-16f" id="V8B-5H-hVL"/>
-                <outlet property="view" destination="OQk-bh-16f" id="l4W-Hj-qcS"/>
-            </connections>
-        </viewController>
         <viewController id="DjS-HJ-s7v" userLabel="Artists View Controller" customClass="PlaylistArtistsViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playlistView" destination="5K0-oY-MI4" id="itA-p8-7Tv"/>
@@ -410,177 +398,6 @@
                                             <view key="view" id="R3K-O5-tIq">
                                                 <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69k-8N-I2Y" userLabel="Playlist Tracks View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                        <clipView key="contentView" copiesOnScroll="NO" id="qZW-zb-taN">
-                                                            <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                            <subviews>
-                                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" id="OQk-bh-16f" userLabel="Playlist Tracks View">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
-                                                                    <autoresizingMask key="autoresizingMask"/>
-                                                                    <size key="intercellSpacing" width="3" height="4"/>
-                                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
-                                                                    <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                    <tableColumns>
-                                                                        <tableColumn identifier="cid_Index" width="30" minWidth="25" maxWidth="40" id="moF-ek-vbg" userLabel="Index">
-                                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
-                                                                                <font key="font" metaFont="smallSystem"/>
-                                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                                                            </tableHeaderCell>
-                                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="right" title="Text Cell" id="bdN-pU-s4v">
-                                                                                <font key="font" metaFont="system"/>
-                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                            </textFieldCell>
-                                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
-                                                                            <prototypeCellViews>
-                                                                                <tableCellView id="OU4-0O-BcN" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
-                                                                                    <rect key="frame" x="1" y="2" width="30" height="20"/>
-                                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                                    <subviews>
-                                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3F1-5p-iYy" userLabel="Index">
-                                                                                            <rect key="frame" x="-2" y="0.0" width="34" height="20"/>
-                                                                                            <constraints>
-                                                                                                <constraint firstAttribute="height" constant="20" id="u1E-xn-nFw"/>
-                                                                                            </constraints>
-                                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Table View Cell" id="g7u-22-Axj">
-                                                                                                <font key="font" size="13" name="GillSans-Light"/>
-                                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                                            </textFieldCell>
-                                                                                        </textField>
-                                                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4ee-e0-ogn">
-                                                                                            <rect key="frame" x="5" y="3" width="20" height="17"/>
-                                                                                            <constraints>
-                                                                                                <constraint firstAttribute="height" constant="17" id="DHK-5c-oY4"/>
-                                                                                                <constraint firstAttribute="width" constant="20" id="Ivx-Fx-L1Y"/>
-                                                                                            </constraints>
-                                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" id="xZQ-8S-qEm"/>
-                                                                                        </imageView>
-                                                                                    </subviews>
-                                                                                    <constraints>
-                                                                                        <constraint firstItem="3F1-5p-iYy" firstAttribute="leading" secondItem="OU4-0O-BcN" secondAttribute="leading" id="9B9-6C-opu"/>
-                                                                                        <constraint firstItem="3F1-5p-iYy" firstAttribute="trailing" secondItem="OU4-0O-BcN" secondAttribute="trailing" id="9eK-Jk-g4R"/>
-                                                                                        <constraint firstItem="4ee-e0-ogn" firstAttribute="centerX" secondItem="3F1-5p-iYy" secondAttribute="centerX" id="BTn-dg-8YU"/>
-                                                                                        <constraint firstItem="4ee-e0-ogn" firstAttribute="top" secondItem="OU4-0O-BcN" secondAttribute="top" id="jXS-TW-UXx"/>
-                                                                                        <constraint firstItem="3F1-5p-iYy" firstAttribute="top" secondItem="OU4-0O-BcN" secondAttribute="top" id="oP4-ta-uZE"/>
-                                                                                    </constraints>
-                                                                                    <connections>
-                                                                                        <outlet property="imageView" destination="4ee-e0-ogn" id="9B6-LO-Kjp"/>
-                                                                                        <outlet property="textField" destination="3F1-5p-iYy" id="8cf-UL-Vqu"/>
-                                                                                    </connections>
-                                                                                </tableCellView>
-                                                                            </prototypeCellViews>
-                                                                        </tableColumn>
-                                                                        <tableColumn identifier="cid_Name" width="344" minWidth="304" maxWidth="10000" id="XOJ-Ds-Ted" userLabel="Track Name">
-                                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Track">
-                                                                                <font key="font" metaFont="smallSystem"/>
-                                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                                                            </tableHeaderCell>
-                                                                            <textFieldCell key="dataCell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" title="Text Cell" id="WdW-df-aXE">
-                                                                                <font key="font" metaFont="system"/>
-                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                            </textFieldCell>
-                                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
-                                                                            <prototypeCellViews>
-                                                                                <tableCellView id="aDk-CD-9fl" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
-                                                                                    <rect key="frame" x="34" y="2" width="344" height="22"/>
-                                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                                    <subviews>
-                                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LSG-A0-J8k" userLabel="Track Name">
-                                                                                            <rect key="frame" x="-2" y="-8" width="346" height="30"/>
-                                                                                            <constraints>
-                                                                                                <constraint firstAttribute="height" constant="30" id="6ef-dL-v4c"/>
-                                                                                            </constraints>
-                                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="pgA-2k-7gL">
-                                                                                                <font key="font" size="13" name="GillSans-Light"/>
-                                                                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                            </textFieldCell>
-                                                                                        </textField>
-                                                                                    </subviews>
-                                                                                    <constraints>
-                                                                                        <constraint firstItem="LSG-A0-J8k" firstAttribute="leading" secondItem="aDk-CD-9fl" secondAttribute="leading" id="9iP-wB-c1F"/>
-                                                                                        <constraint firstItem="LSG-A0-J8k" firstAttribute="top" secondItem="aDk-CD-9fl" secondAttribute="top" id="K6r-H2-gqe"/>
-                                                                                        <constraint firstItem="LSG-A0-J8k" firstAttribute="trailing" secondItem="aDk-CD-9fl" secondAttribute="trailing" constant="-2" id="lbw-PR-oxV"/>
-                                                                                    </constraints>
-                                                                                    <connections>
-                                                                                        <outlet property="textField" destination="LSG-A0-J8k" id="V1p-cD-d0E"/>
-                                                                                    </connections>
-                                                                                </tableCellView>
-                                                                            </prototypeCellViews>
-                                                                        </tableColumn>
-                                                                        <tableColumn identifier="cid_Duration" width="65" minWidth="45" maxWidth="65" id="B0v-hj-Nxg">
-                                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
-                                                                                <font key="font" metaFont="smallSystem"/>
-                                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                                                            </tableHeaderCell>
-                                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="right" title="Text Cell" id="HB0-r1-sWM">
-                                                                                <font key="font" metaFont="system"/>
-                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                            </textFieldCell>
-                                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
-                                                                            <prototypeCellViews>
-                                                                                <tableCellView id="4bZ-8E-5R6" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
-                                                                                    <rect key="frame" x="381" y="2" width="65" height="22"/>
-                                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                                    <subviews>
-                                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwd-ws-oYQ" userLabel="Duration">
-                                                                                            <rect key="frame" x="-2" y="-8" width="65" height="30"/>
-                                                                                            <constraints>
-                                                                                                <constraint firstAttribute="height" constant="30" id="PSM-an-trK"/>
-                                                                                            </constraints>
-                                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="Fty-v7-c0e">
-                                                                                                <font key="font" size="13" name="GillSans-Light"/>
-                                                                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                            </textFieldCell>
-                                                                                        </textField>
-                                                                                    </subviews>
-                                                                                    <constraints>
-                                                                                        <constraint firstAttribute="trailing" secondItem="Jwd-ws-oYQ" secondAttribute="trailing" constant="4" id="dcD-Dm-G15"/>
-                                                                                        <constraint firstItem="Jwd-ws-oYQ" firstAttribute="top" secondItem="4bZ-8E-5R6" secondAttribute="top" id="f0Z-5x-nwW"/>
-                                                                                        <constraint firstItem="Jwd-ws-oYQ" firstAttribute="leading" secondItem="4bZ-8E-5R6" secondAttribute="leading" id="hYM-aE-wID"/>
-                                                                                    </constraints>
-                                                                                    <connections>
-                                                                                        <outlet property="textField" destination="Jwd-ws-oYQ" id="9i2-b5-F3R"/>
-                                                                                    </connections>
-                                                                                </tableCellView>
-                                                                            </prototypeCellViews>
-                                                                        </tableColumn>
-                                                                    </tableColumns>
-                                                                    <connections>
-                                                                        <action trigger="doubleAction" selector="playSelectedTrackAction:" target="GCB-cG-ZJn" id="5ep-xa-XlS"/>
-                                                                        <outlet property="dataSource" destination="oJe-yI-DST" id="Z0Y-o1-nCS"/>
-                                                                        <outlet property="delegate" destination="oJe-yI-DST" id="QK9-9W-53e"/>
-                                                                    </connections>
-                                                                </tableView>
-                                                            </subviews>
-                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
-                                                        </clipView>
-                                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Gar-CT-B2w">
-                                                            <rect key="frame" x="-100" y="-100" width="383" height="16"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                        </scroller>
-                                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="5gb-tc-kWi">
-                                                            <rect key="frame" x="224" y="17" width="15" height="102"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                        </scroller>
-                                                    </scrollView>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="69k-8N-I2Y" firstAttribute="leading" secondItem="R3K-O5-tIq" secondAttribute="leading" id="077-db-0kS"/>
-                                                    <constraint firstItem="69k-8N-I2Y" firstAttribute="top" secondItem="R3K-O5-tIq" secondAttribute="top" id="1R9-nt-u6D"/>
-                                                    <constraint firstAttribute="trailing" secondItem="69k-8N-I2Y" secondAttribute="trailing" id="MlK-hn-W7V"/>
-                                                    <constraint firstAttribute="bottom" secondItem="69k-8N-I2Y" secondAttribute="bottom" id="Yrq-5u-yK5"/>
-                                                </constraints>
                                             </view>
                                         </tabViewItem>
                                         <tabViewItem label="Artists" identifier="2" id="VBU-uP-ocD" userLabel="Artists Tab">
