@@ -57,10 +57,18 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     // Plays (and returns) the previous track, if there is one. Throws an error if the previous track cannot be played back
     func previousTrack() throws -> IndexedTrack?
     
-    // Seeks forward a few seconds, within the current track
+    /*
+        Seeks forward by a preset time interval, within the current track.
+     
+        The "actionMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The action mode will affect the time interval of the seek.
+     */
     func seekForward(_ actionMode: ActionMode)
     
-    // Seeks backward a few seconds, within the current track
+    /*
+        Seeks backward by a preset time interval, within the current track.
+     
+        The "actionMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The action mode will affect the time interval of the seek.
+     */
     func seekBackward(_ actionMode: ActionMode)
     
     // Seeks to a specific percentage of the track duration, within the current track

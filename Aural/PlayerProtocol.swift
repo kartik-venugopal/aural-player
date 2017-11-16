@@ -17,7 +17,7 @@ protocol PlayerProtocol {
     // Stops playback of the currently playing track
     func stop()
     
-    // Seeks to a certain time in the track
+    // Seeks to a certain time within the currently playing track
     func seekToTime(_ track: Track, _ seconds: Double)
     
     // Gets the playback position (in seconds) of the currently playing track

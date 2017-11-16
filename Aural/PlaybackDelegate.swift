@@ -239,19 +239,20 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         let playingTrack = getPlayingTrack()
         let trackDuration = playingTrack!.track.duration
 
+        // The seek length depends on the action mode
         let increment = actionMode == .discrete ? Double(preferences.seekLength_discrete) : Double(preferences.seekLength_continuous)
         let newPosn = min(trackDuration, curPosn + increment)
         
         // If this seek takes the track to its end, stop playback and proceed to the next track
         if (newPosn < trackDuration) {
-            doSeek(playingTrack!.track, newPosn)
+            player.seekToTime(playingTrack!.track, newPosn)
         } else {
             trackPlaybackCompleted()
         }
     }
     
     private func doSeek(_ track: Track, _ position: Double) {
-        player.seekToTime(track, position)
+        
     }
     
     func seekBackward(_ actionMode: ActionMode = .discrete) {
@@ -262,10 +263,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         // Calculate the new start position
         let curPosn = player.getSeekPosition()
+        
+        // The seek length depends on the action mode
         let decrement = actionMode == .discrete ? Double(preferences.seekLength_discrete) : Double(preferences.seekLength_continuous)
         let newPosn = max(0, curPosn - decrement)
-        
-        // TODO: Check if the action is discrete or continuous, and adjust the seek interval accordingly
         
         let playingTrack = getPlayingTrack()
         player.seekToTime(playingTrack!.track, newPosn)
