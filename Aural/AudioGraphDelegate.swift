@@ -6,7 +6,10 @@ import Foundation
 
 class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
+    // The actual underlying audio graph
     private let graph: AudioGraphProtocol
+    
+    // User preferences
     private let preferences: Preferences
     
     init(_ graph: AudioGraphProtocol, _ preferences: Preferences) {
@@ -22,13 +25,13 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     func getVolume() -> Float {
         
-        // Convert from {-1,1} to percentage
+        // Convert from {0,1} to percentage
         return round(graph.getVolume() * AppConstants.volumeConversion_audioGraphToUI)
     }
     
     func setVolume(_ volumePercentage: Float) {
         
-        // Convert from percentage to {-1,1}
+        // Convert from percentage to {0,1}
         graph.setVolume(volumePercentage * AppConstants.volumeConversion_UIToAudioGraph)
     }
     
@@ -36,12 +39,13 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         // Volume is increased by an amount set in the user preferences
         
+        // The volume increment will depend on the action mode
         let volumeDelta = actionMode == .discrete ? preferences.volumeDelta_discrete : preferences.volumeDelta_continuous
         
         let newVolume = min(1, graph.getVolume() + volumeDelta)
         graph.setVolume(newVolume)
         
-        // Convert from {-1,1} to percentage
+        // Convert from {0,1} to percentage
         return round(newVolume * AppConstants.volumeConversion_audioGraphToUI)
     }
     
@@ -49,12 +53,13 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         
         // Volume is decreased by an amount set in the user preferences
         
+        // The volume decrement will depend on the action mode
         let volumeDelta = actionMode == .discrete ? preferences.volumeDelta_discrete : preferences.volumeDelta_continuous
         
         let newVolume = max(0, graph.getVolume() - volumeDelta)
         graph.setVolume(newVolume)
         
-        // Convert from {-1,1} to percentage
+        // Convert from {0,1} to percentage
         return round(newVolume * AppConstants.volumeConversion_audioGraphToUI)
     }
     
