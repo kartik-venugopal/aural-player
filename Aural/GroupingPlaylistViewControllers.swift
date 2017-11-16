@@ -26,12 +26,18 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     override func viewDidLoad() {
         
+        // Enable drag n drop
+        playlistView.register(forDraggedTypes: [String(kUTTypeFileURL), "public.data"])
+        
+        // Register for key press and gesture events
+        PlaylistInputEventHandler.registerViewForPlaylistType(self.playlistType, playlistView)
+        
         // Register self as a subscriber to various message notifications
         AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackAddedNotification, .trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .refresh, .showPlayingTrack, .playSelectedItem], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -206,6 +212,22 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         // Scroll to make the first selected row visible
         playlistView.scrollRowToVisible(playlistView.selectedRow)
+    }
+    
+    // Scrolls the playlist view to the very top
+    private func scrollToTop() {
+        
+        if (playlistView.numberOfRows > 0) {
+            playlistView.scrollRowToVisible(0)
+        }
+    }
+    
+    // Scrolls the playlist view to the very bottom
+    private func scrollToBottom() {
+        
+        if (playlistView.numberOfRows > 0) {
+            playlistView.scrollRowToVisible(playlistView.numberOfRows - 1)
+        }
     }
     
     // Selects the currently playing track, within the playlist view
@@ -383,6 +405,14 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
             moveTracksDown()
             
+        case .scrollToTop:
+            
+            scrollToTop()
+            
+        case .scrollToBottom:
+            
+            scrollToBottom()
+            
         default: return
             
         }
@@ -395,15 +425,6 @@ extension IndexSet {
     func toArray() -> [Int] {
         return self.filter({$0 >= 0})
     }
-}
-
-/*
-    View controller for the "Artists" playlist view
- */
-class PlaylistArtistsViewController: GroupingPlaylistViewController {
-    
-    override internal var groupType: GroupType {return .artist}
-    override internal var playlistType: PlaylistType {return .artists}
 }
 
 /*

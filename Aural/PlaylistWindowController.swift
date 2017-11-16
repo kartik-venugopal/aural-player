@@ -7,7 +7,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     // The different playlist views
     private lazy var tracksView: NSView = ViewFactory.getTracksView()
-    @IBOutlet weak var artistsView: NSOutlineView!
+    private lazy var artistsView: NSView = ViewFactory.getArtistsView()
+    
     @IBOutlet weak var albumsView: NSOutlineView!
     @IBOutlet weak var genresView: NSOutlineView!
     
@@ -48,7 +49,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     override func windowDidLoad() {
         
         // Enable drag n drop into the playlist views
-        [artistsView, albumsView, genresView].forEach({
+        [albumsView, genresView].forEach({
             $0?.register(forDraggedTypes: [String(kUTTypeFileURL), "public.data"])
         })
         
@@ -75,6 +76,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         genresTabViewAction(self)
         
         tabGroup.tabViewItem(at: 0).view?.addSubview(tracksView)
+        tabGroup.tabViewItem(at: 1).view?.addSubview(artistsView)
         
         // Default view is the Tracks view
         tracksTabViewAction(self)
@@ -265,9 +267,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         switch PlaylistViewState.current {
             
-        case .tracks: return artistsView
+        case .tracks: return albumsView
             
-        case .artists: return artistsView
+        case .artists: return albumsView
             
         case .albums: return albumsView
             
