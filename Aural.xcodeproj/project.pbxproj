@@ -175,6 +175,10 @@
 		3EF5E5B41FBDA3DB004270A4 /* Tracks.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF5E5B31FBDA3DB004270A4 /* Tracks.xib */; };
 		3EF5E5B71FBDAED9004270A4 /* Artists.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF5E5B61FBDAED9004270A4 /* Artists.xib */; };
 		3EF5E5B91FBDAF0B004270A4 /* ArtistsPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E5B81FBDAF0B004270A4 /* ArtistsPlaylistViewController.swift */; };
+		3EF5E5BC1FBDB38E004270A4 /* AlbumsPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E5BB1FBDB38E004270A4 /* AlbumsPlaylistViewController.swift */; };
+		3EF5E5BE1FBDB3F8004270A4 /* Albums.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF5E5BD1FBDB3F8004270A4 /* Albums.xib */; };
+		3EF5E5C11FBDB637004270A4 /* Genres.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF5E5C01FBDB637004270A4 /* Genres.xib */; };
+		3EF5E5C31FBDB64F004270A4 /* GenresPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E5C21FBDB64F004270A4 /* GenresPlaylistViewController.swift */; };
 		3EF6A0021FA313120050F0D2 /* Sorts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6A0011FA313120050F0D2 /* Sorts.swift */; };
 		3EF855B21FACFD6300FA8843 /* TracksPlaylistDragDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF855B11FACFD6300FA8843 /* TracksPlaylistDragDropDelegate.swift */; };
 		3EFB19291FB81C9A00690C60 /* WindowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB19281FB81C9A00690C60 /* WindowState.swift */; };
@@ -359,6 +363,10 @@
 		3EF5E5B31FBDA3DB004270A4 /* Tracks.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Tracks.xib; sourceTree = "<group>"; };
 		3EF5E5B61FBDAED9004270A4 /* Artists.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Artists.xib; sourceTree = "<group>"; };
 		3EF5E5B81FBDAF0B004270A4 /* ArtistsPlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistsPlaylistViewController.swift; sourceTree = "<group>"; };
+		3EF5E5BB1FBDB38E004270A4 /* AlbumsPlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumsPlaylistViewController.swift; sourceTree = "<group>"; };
+		3EF5E5BD1FBDB3F8004270A4 /* Albums.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Albums.xib; sourceTree = "<group>"; };
+		3EF5E5C01FBDB637004270A4 /* Genres.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Genres.xib; sourceTree = "<group>"; };
+		3EF5E5C21FBDB64F004270A4 /* GenresPlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenresPlaylistViewController.swift; sourceTree = "<group>"; };
 		3EF6A0011FA313120050F0D2 /* Sorts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sorts.swift; sourceTree = "<group>"; };
 		3EF855B11FACFD6300FA8843 /* TracksPlaylistDragDropDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracksPlaylistDragDropDelegate.swift; sourceTree = "<group>"; };
 		3EFB19281FB81C9A00690C60 /* WindowState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowState.swift; sourceTree = "<group>"; };
@@ -688,6 +696,8 @@
 				3E3ADC5C1FA85E46000E83B5 /* GroupingPlaylistDragDropDelegate.swift */,
 				3EF5E5B21FBDA374004270A4 /* Tracks */,
 				3EF5E5B51FBDAEA1004270A4 /* Artists */,
+				3EF5E5BA1FBDB36D004270A4 /* Albums */,
+				3EF5E5BF1FBDB622004270A4 /* Genres */,
 			);
 			name = Playlist;
 			sourceTree = "<group>";
@@ -923,6 +933,24 @@
 			name = Artists;
 			sourceTree = "<group>";
 		};
+		3EF5E5BA1FBDB36D004270A4 /* Albums */ = {
+			isa = PBXGroup;
+			children = (
+				3EF5E5BD1FBDB3F8004270A4 /* Albums.xib */,
+				3EF5E5BB1FBDB38E004270A4 /* AlbumsPlaylistViewController.swift */,
+			);
+			name = Albums;
+			sourceTree = "<group>";
+		};
+		3EF5E5BF1FBDB622004270A4 /* Genres */ = {
+			isa = PBXGroup;
+			children = (
+				3EF5E5C01FBDB637004270A4 /* Genres.xib */,
+				3EF5E5C21FBDB64F004270A4 /* GenresPlaylistViewController.swift */,
+			);
+			name = Genres;
+			sourceTree = "<group>";
+		};
 		3EFFE6BC1F0373B7003728BD /* IO */ = {
 			isa = PBXGroup;
 			children = (
@@ -1014,10 +1042,12 @@
 				3E0ED6AC1FBB1961008268B3 /* Effects.xib in Resources */,
 				3E0ED6A61FBB05FF008268B3 /* Player.xib in Resources */,
 				3E821AF01F953253006F8E97 /* playingTrack.gif in Resources */,
+				3EF5E5C11FBDB637004270A4 /* Genres.xib in Resources */,
 				3E0ED6BF1FBB1CFE008268B3 /* Filter.xib in Resources */,
 				3E0ED6AF1FBB1AB8008268B3 /* EQ.xib in Resources */,
 				3E0ED6C11FBB1D21008268B3 /* Recorder.xib in Resources */,
 				3E309B741FB70BB800C61E72 /* FavoritesPopup.xib in Resources */,
+				3EF5E5BE1FBDB3F8004270A4 /* Albums.xib in Resources */,
 				3E850D601FB459230017CD02 /* Playlist.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1137,6 +1167,7 @@
 				3E24ED431FBB28700023F9F9 /* TimeViewController.swift in Sources */,
 				3E9871A21F418CB1009AE9E6 /* UIUtils.swift in Sources */,
 				3E631F771F9A00C20068FD6A /* ConcurrencyUtils.swift in Sources */,
+				3EF5E5C31FBDB64F004270A4 /* GenresPlaylistViewController.swift in Sources */,
 				3E4E599B1F74E78800C18182 /* Main.swift in Sources */,
 				3EF855B21FACFD6300FA8843 /* TracksPlaylistDragDropDelegate.swift in Sources */,
 				3E09C6B71F2F25A7007BB489 /* ShuffleSequence.swift in Sources */,
@@ -1181,6 +1212,7 @@
 				3E26B92B1FBC177F00FA3274 /* AutoHidingView.swift in Sources */,
 				3E9796811F00BA3000690DA2 /* RepeatAndShuffleModes.swift in Sources */,
 				3EB2A7E81F043BBE001DF748 /* TickedSliderCells.swift in Sources */,
+				3EF5E5BC1FBDB38E004270A4 /* AlbumsPlaylistViewController.swift in Sources */,
 				3EFFE6BB1F0372B3003728BD /* TrackIO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
