@@ -38,7 +38,7 @@ Wanna try it out ? The latest app bundle can be found in the disk image file [Au
 
 ## Documentation
 
-### NOTE - Aural Player has recently undergone a lot of new feature development and UI refinement, so the following documentation is a bit outdated at this point. However, most information contained within it is still valid and useful to users.
+#### NOTE - Aural Player has recently undergone a lot of new feature development and UI refinement, so the following documentation is a bit outdated at this point. However, most information contained within it is still valid and useful to users.
 
 [User Guide (pdf)](https://github.com/maculateConception/aural-player/blob/master/Documentation/UserGuide.pdf?raw=true)
 
