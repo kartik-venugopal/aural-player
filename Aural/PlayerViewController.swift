@@ -40,7 +40,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         initToggleButtons(appState)
         
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.trackNotPlayed,.trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackNotPlayed, .trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest], subscriber: self)
         
@@ -415,6 +415,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         switch message.messageType {
             
         case .trackChanged:
+            
+            print("PVC got trCh !")
             
             trackChanged(message as! TrackChangedAsyncMessage)
             

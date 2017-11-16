@@ -62,4 +62,8 @@ struct UIConstants {
     
     // Maximum time gap between scroll events for them to be considered as being part of the same scroll session
     static let scrollSessionMaxTimeGapSeconds: TimeInterval = (1/3)
+ 
+    // Captions for buttons/menu items that let the user add/remove items to/from the Favorites list
+    static let favoritesAddCaption: String = "Add playing track to Favorites"
+    static let favoritesRemoveCaption: String = "Remove playing track from Favorites"
 }

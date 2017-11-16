@@ -62,7 +62,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         // Subscribe to various notifications
         
-        AsyncMessenger.subscribe([.tracksRemoved], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
         
@@ -81,8 +81,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         btnFavorite.offStateImage = Images.imgFavoritesOff
         btnFavorite.onStateImage = Images.imgFavoritesOn
         
-        btnFavorite.offStateTooltip = "Add this track to your Favorites"
-        btnFavorite.onStateTooltip = "Remove this track from your Favorites"
+        btnFavorite.offStateTooltip = UIConstants.favoritesAddCaption
+        btnFavorite.onStateTooltip = UIConstants.favoritesRemoveCaption
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -119,11 +119,18 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         let playingTrack = (player.getPlayingTrack()?.track)!
         
         // Publish an action message to add/remove the item to/from Favorites
-        if btnFavorite.isOn() {
-            SyncMessenger.publishActionMessage(FavoritesActionMessage(.addFavorite, playingTrack))
+        let action: ActionType = btnFavorite.isOn() ? .addFavorite : .removeFavorite
+        SyncMessenger.publishActionMessage(FavoritesActionMessage(action, playingTrack))
+    }
+    
+    // Responds to a notification that the playing track has been added to / removed from the Favorites list, by updating the UI to reflect the new state
+    private func favoritesUpdated(_ message: FavoritesUpdatedAsyncMessage) {
+        
+        if (message.messageType == .addedToFavorites) {
+            btnFavorite.on()
             favoritesPopup.showAddedMessage()
         } else {
-            SyncMessenger.publishActionMessage(FavoritesActionMessage(.removeFavorite, playingTrack))
+            btnFavorite.off()
             favoritesPopup.showRemovedMessage()
         }
     }
@@ -439,6 +446,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         case .tracksRemoved:
             
             tracksRemoved(message as! TracksRemovedAsyncMessage)
+            
+        case .addedToFavorites, .removedFromFavorites:
+            
+            favoritesUpdated(message as! FavoritesUpdatedAsyncMessage)
             
         default: return
         
