@@ -32,24 +32,26 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         graph.setVolume(volumePercentage * AppConstants.volumeConversion_UIToAudioGraph)
     }
     
-    func increaseVolume() -> Float {
+    func increaseVolume(_ actionMode: ActionMode) -> Float {
         
         // Volume is increased by an amount set in the user preferences
         
-        let curVolume = graph.getVolume()
-        let newVolume = min(1, curVolume + preferences.volumeDelta)
+        let volumeDelta = actionMode == .discrete ? preferences.volumeDelta_discrete : preferences.volumeDelta_continuous
+        
+        let newVolume = min(1, graph.getVolume() + volumeDelta)
         graph.setVolume(newVolume)
         
         // Convert from {-1,1} to percentage
         return round(newVolume * AppConstants.volumeConversion_audioGraphToUI)
     }
     
-    func decreaseVolume() -> Float {
+    func decreaseVolume(_ actionMode: ActionMode) -> Float {
         
         // Volume is decreased by an amount set in the user preferences
         
-        let curVolume = graph.getVolume()
-        let newVolume = max(0, curVolume - preferences.volumeDelta)
+        let volumeDelta = actionMode == .discrete ? preferences.volumeDelta_discrete : preferences.volumeDelta_continuous
+        
+        let newVolume = max(0, graph.getVolume() - volumeDelta)
         graph.setVolume(newVolume)
         
         // Convert from {-1,1} to percentage

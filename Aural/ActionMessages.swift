@@ -208,7 +208,7 @@ enum ActionType {
     case removeFavorite
 }
 
-enum ActionModifier {
+enum ActionMode {
     
     case discrete
     
@@ -233,11 +233,11 @@ struct PlaylistActionMessage: ActionMessage {
 struct PlaybackActionMessage: ActionMessage {
     
     var actionType: ActionType
-    var actionModifier: ActionModifier
+    var actionMode: ActionMode
     
-    init(_ actionType: ActionType, _ actionModifier: ActionModifier = .discrete) {
+    init(_ actionType: ActionType, _ actionMode: ActionMode = .discrete) {
         self.actionType = actionType
-        self.actionModifier = actionModifier
+        self.actionMode = actionMode
     }
 }
 
@@ -245,14 +245,14 @@ struct PlaybackActionMessage: ActionMessage {
 struct AudioGraphActionMessage: ActionMessage {
     
     var actionType: ActionType
-    var actionModifier: ActionModifier
+    var actionMode: ActionMode
     
     // A generic numerical parameter value whose meaning depends on the action type. Example, if actionType = setRate, this value represents the desired playback rate.
     var value: Float?
     
-    init(_ actionType: ActionType, _ actionModifier: ActionModifier = .discrete, _ value: Float? = nil) {
+    init(_ actionType: ActionType, _ actionMode: ActionMode = .discrete, _ value: Float? = nil) {
         self.actionType = actionType
-        self.actionModifier = actionModifier
+        self.actionMode = actionMode
         self.value = value
     }
 }

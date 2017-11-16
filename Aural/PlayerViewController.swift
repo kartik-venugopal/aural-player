@@ -85,15 +85,15 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     }
     
     // Decreases the volume by a certain preset decrement
-    private func decreaseVolume() {
-        volumeSlider.floatValue = audioGraph.decreaseVolume()
+    private func decreaseVolume(_ actionMode: ActionMode) {
+        volumeSlider.floatValue = audioGraph.decreaseVolume(actionMode)
         setVolumeImage(audioGraph.isMuted())
         showAndAutoHideVolumeLabel()
     }
     
     // Increases the volume by a certain preset increment
-    private func increaseVolume() {
-        volumeSlider.floatValue = audioGraph.increaseVolume()
+    private func increaseVolume(_ actionMode: ActionMode) {
+        volumeSlider.floatValue = audioGraph.increaseVolume(actionMode)
         setVolumeImage(audioGraph.isMuted())
         showAndAutoHideVolumeLabel()
     }
@@ -238,15 +238,23 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     // Seeks backward within the currently playing track
     @IBAction func seekBackwardAction(_ sender: AnyObject) {
-        
-        player.seekBackward()
-        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
+        seekBackward(.discrete)
     }
     
     // Seeks forward within the currently playing track
     @IBAction func seekForwardAction(_ sender: AnyObject) {
+        seekForward(.discrete)
+    }
+    
+    private func seekForward(_ actionMode: ActionMode) {
         
-        player.seekForward()
+        player.seekForward(actionMode)
+        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
+    }
+    
+    private func seekBackward(_ actionMode: ActionMode) {
+        
+        player.seekBackward(actionMode)
         SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
     }
     
@@ -453,9 +461,15 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
         case .nextTrack: nextTrackAction(self)
             
-        case .seekBackward: seekBackwardAction(self)
+        case .seekBackward:
             
-        case .seekForward: seekForwardAction(self)
+            let msg = message as! PlaybackActionMessage
+            seekBackward(msg.actionMode)
+            
+        case .seekForward:
+            
+            let msg = message as! PlaybackActionMessage
+            seekForward(msg.actionMode)
             
         // Repeat and Shuffle
             
@@ -473,9 +487,15 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
         case .muteOrUnmute: muteOrUnmuteAction(self)
             
-        case .decreaseVolume: decreaseVolume()
+        case .decreaseVolume:
             
-        case .increaseVolume: increaseVolume()
+            let msg = message as! AudioGraphActionMessage
+            decreaseVolume(msg.actionMode)
+            
+        case .increaseVolume:
+            
+            let msg = message as! AudioGraphActionMessage
+            increaseVolume(msg.actionMode)
             
         case .panLeft: panLeft()
             

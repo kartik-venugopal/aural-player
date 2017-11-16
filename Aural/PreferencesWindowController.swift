@@ -106,11 +106,11 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
     
     private func resetPlayerPrefs() {
         
-        let seekLength = preferences.seekLength
+        let seekLength = preferences.seekLength_discrete
         seekLengthSlider.integerValue = seekLength
         lblSeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(seekLength)
         
-        let volumeDelta = Int(round(preferences.volumeDelta * AppConstants.volumeConversion_audioGraphToUI))
+        let volumeDelta = Int(round(preferences.volumeDelta_discrete * AppConstants.volumeConversion_audioGraphToUI))
         volumeDeltaStepper.integerValue = volumeDelta
         volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
         
@@ -184,9 +184,9 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
         
         // Player prefs
         
-        preferences.seekLength = seekLengthSlider.integerValue
+        preferences.seekLength_discrete = seekLengthSlider.integerValue
         
-        preferences.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.volumeConversion_UIToAudioGraph
+        preferences.volumeDelta_discrete = volumeDeltaStepper.floatValue * AppConstants.volumeConversion_UIToAudioGraph
         
         preferences.volumeOnStartup = btnRememberVolume.state == 1 ? .rememberFromLastAppLaunch : .specific
         preferences.startupVolumeValue = Float(startupVolumeSlider.integerValue) * AppConstants.volumeConversion_UIToAudioGraph

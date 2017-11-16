@@ -14,8 +14,10 @@ class Preferences {
     // Defaults values to use if saved preferences are unavailable
     
     // The (cached) user preferences. Values are held in these variables during app execution, and persisted upon exiting.
-    var seekLength: Int
-    var volumeDelta: Float
+    var seekLength_discrete: Int
+    var seekLength_continuous: Int
+    var volumeDelta_discrete: Float
+    var volumeDelta_continuous: Float
     var volumeOnStartup: VolumeStartupOptions
     var startupVolumeValue: Float
     var panDelta: Float
@@ -35,9 +37,11 @@ class Preferences {
         
         // Player prefs
         
-        seekLength = prefs["seekLength"] as? Int ?? PreferencesDefaults.seekLength
+        seekLength_discrete = prefs["seekLength_discrete"] as? Int ?? PreferencesDefaults.seekLength_discrete
+        seekLength_continuous = prefs["seekLength_continuous"] as? Int ?? PreferencesDefaults.seekLength_continuous
         
-        volumeDelta = prefs["volumeDelta"] as? Float ?? PreferencesDefaults.volumeDelta
+        volumeDelta_discrete = prefs["volumeDelta_discrete"] as? Float ?? PreferencesDefaults.volumeDelta_discrete
+        volumeDelta_continuous = prefs["volumeDelta_continuous"] as? Float ?? PreferencesDefaults.volumeDelta_continuous
         
         if let volumeOnStartupStr = prefs["volumeOnStartup"] as? String {
             volumeOnStartup = VolumeStartupOptions(rawValue: volumeOnStartupStr)!
@@ -107,12 +111,17 @@ class Preferences {
     // Saves the preferences to disk (copies the values from the cache to UserDefaults)
     static func persist(_ prefs: Preferences) {
         
-        defaults.set(prefs.seekLength, forKey: "seekLength")
-        defaults.set(prefs.volumeDelta, forKey: "volumeDelta")
+        defaults.set(prefs.seekLength_discrete, forKey: "seekLength_discrete")
+        defaults.set(prefs.seekLength_continuous, forKey: "seekLength_continuous")
+        
+        defaults.set(prefs.volumeDelta_discrete, forKey: "volumeDelta_discrete")
+        defaults.set(prefs.volumeDelta_continuous, forKey: "volumeDelta_continuous")
+        
         defaults.set(prefs.volumeOnStartup.rawValue, forKey: "volumeOnStartup")
         defaults.set(prefs.startupVolumeValue, forKey: "startupVolumeValue")
         
         defaults.set(prefs.panDelta, forKey: "panDelta")
+        
         defaults.set(prefs.autoplayOnStartup, forKey: "autoplayOnStartup")
         defaults.set(prefs.autoplayAfterAddingTracks, forKey: "autoplayAfterAddingTracks")
         defaults.set(prefs.autoplayAfterAddingOption.rawValue, forKey: "autoplayAfterAddingTracks.option")
@@ -136,11 +145,17 @@ class Preferences {
 class PreferencesDefaults {
     
     // Player prefs
-    static let seekLength: Int = 5
-    static let volumeDelta: Float = 0.05
+    static let seekLength_discrete: Int = 5
+    static let seekLength_continuous: Int = 3
+    
+    static let volumeDelta_discrete: Float = 0.05
+    static let volumeDelta_continuous: Float = 0.025
+    
     static let volumeOnStartup: VolumeStartupOptions = .rememberFromLastAppLaunch
     static let startupVolumeValue: Float = 0.5
+    
     static let panDelta: Float = 0.1
+    
     static let autoplayOnStartup: Bool = false
     static let autoplayAfterAddingTracks: Bool = false
     static let autoplayAfterAddingOption: AutoplayAfterAddingOptions = .ifNotPlaying

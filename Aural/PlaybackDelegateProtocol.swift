@@ -58,10 +58,10 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     func previousTrack() throws -> IndexedTrack?
     
     // Seeks forward a few seconds, within the current track
-    func seekForward()
+    func seekForward(_ actionMode: ActionMode)
     
     // Seeks backward a few seconds, within the current track
-    func seekBackward()
+    func seekBackward(_ actionMode: ActionMode)
     
     // Seeks to a specific percentage of the track duration, within the current track
     func seekToPercentage(_ percentage: Double)
