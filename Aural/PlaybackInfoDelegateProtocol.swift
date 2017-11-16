@@ -30,4 +30,11 @@ protocol PlaybackInfoDelegateProtocol {
     
     // Returns the current repeat and shuffle modes
     func getRepeatAndShuffleModes() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)
+    
+    /*
+        Returns a TimeInterval indicating when the currently playing track began playing. Returns nil if no track is playing.
+     
+        The TimeInterval is relative to the last system start time, i.e. it is the systemUpTime. See ProcessInfo.processInfo.systemUpTime
+    */
+    func getPlayingTrackStartTime() -> TimeInterval?
 }

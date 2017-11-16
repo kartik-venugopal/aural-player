@@ -75,7 +75,9 @@ class Player: PlayerProtocol {
     
     func seekToTime(_ track: Track, _ seconds: Double) {
         
-        let session = PlaybackSession.start(track)
+        let timestamp = PlaybackSession.currentSession!.timestamp
+        
+        let session = PlaybackSession.start(track, timestamp)
         startFrame = bufferManager.seekToTime(session, seconds)
     }
     
@@ -102,6 +104,10 @@ class Player: PlayerProtocol {
     
     func getPlaybackState() -> PlaybackState {
         return playbackState
+    }
+    
+    func getPlayingTrackStartTime() -> TimeInterval? {
+        return PlaybackSession.currentSession?.timestamp
     }
 }
 

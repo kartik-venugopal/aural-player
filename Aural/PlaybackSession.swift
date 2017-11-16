@@ -40,16 +40,33 @@ class PlaybackSession {
     // The track associated with this session
     let track: Track
     
+    // Time interval since last boot (i.e. system uptime), at start of track playback (i.e. 0 seconds elapsed). Used to determine when track began playing.
+    let timestamp: TimeInterval
+    
     var schedulingCompleted: Bool = false
     var playbackCompleted: Bool = false
     
     private init(_ track: Track) {
+        
+        self.timestamp = ProcessInfo.processInfo.systemUptime
         self.track = track
     }
     
-    // Start a new session, implicitly invalidating the old one (if there was one), and returns it
+    private init(_ track: Track, _ timestamp: TimeInterval) {
+        
+        self.timestamp = timestamp
+        self.track = track
+    }
+    
+    // Start a new session, implicitly invalidating the old one (if there was one), and returns it. This function should be called when beginning playback of a track.
     static func start(_ track: Track) -> PlaybackSession {
         currentSession = PlaybackSession(track)
+        return currentSession!
+    }
+    
+    // Start a new session, implicitly invalidating the old one (if there was one), and returns it. The timestamp argument indicates when playback for this track began (0 seconds elapsed). This function should be called when seeking within an already playing track.
+    static func start(_ track: Track, _ timestamp: TimeInterval) -> PlaybackSession {
+        currentSession = PlaybackSession(track, timestamp)
         return currentSession!
     }
     
@@ -61,5 +78,10 @@ class PlaybackSession {
     // Compares the current session to a given session for equality
     static func isCurrent(_ session: PlaybackSession) -> Bool {
         return currentSession != nil && (session === currentSession)
+    }
+    
+    // Returns the current session. Returns nil is there is no current session.
+    static func getCurrentSession() -> PlaybackSession? {
+        return currentSession
     }
 }

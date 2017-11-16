@@ -376,6 +376,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return track
     }
     
+    func getPlayingTrackStartTime() -> TimeInterval? {
+        return player.getPlayingTrackStartTime()
+    }
+    
     // ------------------- PlaylistChangeListenerProtocol methods ---------------------
     // Whenever the playlist is modified, the track prep task needs to be executed, to ensure optimal playback responsiveness.
     

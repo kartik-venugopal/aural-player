@@ -416,8 +416,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
         case .trackChanged:
             
-            print("PVC got trCh !")
-            
             trackChanged(message as! TrackChangedAsyncMessage)
             
         case .trackNotPlayed:

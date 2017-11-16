@@ -4,7 +4,10 @@ import Cocoa
     Handles trackpad/MagicMouse gestures performed over the main window, for convenient access to essential player functions
  */
 class GestureHandler {
- 
+    
+    // Retrieves current playing track info
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    
     // Handles a single event
     func handle(_ event: NSEvent) {
         
@@ -61,36 +64,96 @@ class GestureHandler {
             return
         }
         
-        // TODO: Detect scroll "sessions", and don't allow different scroll direction during session. Ex - If scrolling left, and a scroll up comes along, ignore it. Use time between events to bound session.
-        
-        // Used to indicate a player action triggered by the swipe
-        var actionType: ActionType
-        
+        // Calculate the direction and magnitude of the scroll (nil if there is no direction information)
         if let scrollVector = UIUtils.determineScrollVector(event) {
             
-            if (ScrollSession.validateEvent(scrollVector.direction)) {
-            
+            if (validateScroll(event, scrollVector.direction)) {
+                
                 switch scrollVector.direction {
                     
-                case .up: actionType = .increaseVolume
+                case .up:
                     
-                case .down: actionType = .decreaseVolume
+                    // Increase volume
                     
-                case .left: actionType = .seekBackward
+                    SyncMessenger.publishActionMessage(AudioGraphActionMessage(.increaseVolume, .continuous, Float(scrollVector.movement)))
                     
-                case .right: actionType = .seekForward
+                case .down:
                     
-                }
-                
-                // Publish the action message
-                
-                if (actionType == .seekBackward || actionType == .seekForward) {
-                    SyncMessenger.publishActionMessage(PlaybackActionMessage(actionType, .continuous))
-                } else {
-                    SyncMessenger.publishActionMessage(AudioGraphActionMessage(actionType, .continuous, Float(scrollVector.movement)))
+                    // Decrease volume
+                    
+                    SyncMessenger.publishActionMessage(AudioGraphActionMessage(.decreaseVolume, .continuous, Float(scrollVector.movement)))
+                    
+                case .left:
+                    
+                    // Seek backward
+                    
+                    SyncMessenger.publishActionMessage(PlaybackActionMessage(.seekBackward, .continuous))
+                    
+                case .right:
+                    
+                    // Seek forward
+                    
+                    SyncMessenger.publishActionMessage(PlaybackActionMessage(.seekForward, .continuous))
                 }
             }
         }
+    }
+    
+    /*
+        Performs all necessary validation on a scroll event.
+     
+        Returns true if the scroll event is valid and needs to be processed, and false otherwise.
+     */
+    private func validateScroll(_ event: NSEvent, _ direction: GestureDirection) -> Bool {
+        
+        // Horizontal scroll (seeking)
+        if (direction == .left || direction == .right) {
+            
+            // If no track is playing, seeking cannot be performed
+            if (playbackInfo.getPlaybackState() == .noTrack) {
+                return false
+            }
+            
+            // Seeking forward (do not allow residual scroll)
+            if (direction == .right && isResidualScroll(event)) {
+                return false
+            }
+        }
+        
+        return ScrollSession.validateEvent(event, direction)
+    }
+    
+    /*
+        "Residual scrolling" occurs when seeking forward to the end of a playing track (scrolling right), resulting in the next track playing while the scroll is still occurring. Inertia (i.e. the momentum phase of the scroll) can cause scrolling, and hence seeking, to continue after the new track has begun playing. This is undesirable behavior. The scrolling should stop when the new track begins playing.
+     
+        To prevent residual scrolling, we need to take into account the following variables:
+        - the time when the scroll session began
+        - the time when the new track began playing
+        - the time interval between this event and the last event
+     
+        Returns a value indicating whether or not this event constitutes residual scroll.
+     */
+    private func isResidualScroll(_ event: NSEvent) -> Bool {
+    
+        // If the scroll session began before the currently playing track began playing, then it is now invalid and all its future events should be ignored.
+        let playingTrackStartTime = playbackInfo.getPlayingTrackStartTime()!
+        let scrollSessionStartTime = ScrollSession.getSessionStartTime()
+        let scrollSessionInvalid = scrollSessionStartTime != nil && scrollSessionStartTime! < playingTrackStartTime
+        
+        // If the time interval between this event and the last one in the scroll session is within the maximum allowed gap between events, it is a part of the previous scroll session
+        let lastEventTime = ScrollSession.getLastEventTime() ?? 0
+        let thisEventPartOfOldSession = (event.timestamp - lastEventTime) < UIConstants.scrollSessionMaxTimeGapSeconds
+        
+        // If the session is invalid and this event is part of that invalid session, that indicates residual scroll, and the event should not be processed
+        if (scrollSessionInvalid && thisEventPartOfOldSession) {
+            
+            // Mark the timestamp of this event (for future events), but do not process it
+            ScrollSession.updateLastEventTime(event)
+            return true
+        }
+        
+        // Not residual scroll
+        return false
     }
 }
 
@@ -105,19 +168,37 @@ fileprivate class ScrollSession {
     
     // State variables that keep track of the current session
     
+    // Time when the current scroll session began (nil initially)
+    // TimeInterval represents systemUpTime. See ProcessInfo.processInfo.systemUpTime.
+    private static var sessionStartTime: TimeInterval?
+    
     // Time when last event was triggered (nil if no session currently active)
-    private static var lastEventTime: Date?
+    // TimeInterval represents systemUpTime. See ProcessInfo.processInfo.systemUpTime.
+    private static var lastEventTime: TimeInterval?
     
     // Map of counts of events in different scroll directions. Used to determine the intended scroll direction for a session.
     private static var events: [GestureDirection: Int] = [.up: 0, .down: 0, .left: 0, .right: 0]
+    
+    // Accessor for the sessionStartTime field
+    static func getSessionStartTime() -> TimeInterval? {
+        return sessionStartTime
+    }
+    
+    // Accessor for the lastEventTime field
+    static func getLastEventTime() -> TimeInterval? {
+        return lastEventTime
+    }
+    
+    // Updates the lastEventTime field with the timestamp of a new event. This function is called when it is determined that the event is not to be processed, and the lastEventTime needs to be updated merely for comparison with future invalid events.
+    static func updateLastEventTime(_ event: NSEvent) {
+        lastEventTime = event.timestamp
+    }
    
     // Validates a single scroll event with the given direction, within the context of the current scroll session. Returns true if the event is valid, and false otherwise.
-    static func validateEvent(_ eventDir: GestureDirection) -> Bool {
-        
-        let now = Date()
+    static func validateEvent(_ event: NSEvent, _ eventDir: GestureDirection) -> Bool {
         
         // Check if this event belongs to the current scroll session (based on time since last event)
-        if timeSinceLastEvent() < UIConstants.scrollSessionMaxTimeGapSeconds {
+        if timeSinceLastEvent(event) < UIConstants.scrollSessionMaxTimeGapSeconds {
             
             // There is an ongoing (current) scroll session. Check if the direction for this event matches the intended scroll direction.
             
@@ -133,7 +214,7 @@ fileprivate class ScrollSession {
         }
         
         // Mark the time for this event
-        lastEventTime = now
+        lastEventTime = event.timestamp
         
         // Increment the count for events with this direction
         events[eventDir] = events[eventDir]! + 1
@@ -165,13 +246,14 @@ fileprivate class ScrollSession {
     // Resets the scroll session to mark a new session
     private static func reset() {
         
+        sessionStartTime = ProcessInfo.processInfo.systemUptime
         lastEventTime = nil
         events = [.up: 0, .down: 0, .left: 0, .right: 0]
     }
     
     // Calculates the time since the last event in the current session, in seconds. If there is no current session (i.e. lastEventTime is nil), a large value is returned, so as to indicate that the max time gap between sessions has been exceeded and that a new session should be started.
-    private static func timeSinceLastEvent() -> TimeInterval {
-        return lastEventTime == nil ? 10 : Date().timeIntervalSince(lastEventTime!)
+    private static func timeSinceLastEvent(_ event: NSEvent) -> TimeInterval {
+        return lastEventTime == nil ? 10 : (event.timestamp - lastEventTime!)
     }
 }
 
