@@ -18,11 +18,30 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var shuffleOffMenuItem: NSMenuItem!
     @IBOutlet weak var shuffleOnMenuItem: NSMenuItem!
     
+    // Favorites menu item (needs to be toggled)
+    @IBOutlet weak var favoritesMenuItem: ToggleMenuItem!
+    
     private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
-    // When the menu is about to open, update the menu item states per the current playback modes
+    // Delegate that provides access to History information
+    private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
+    
+    // One-time setup
+    override func awakeFromNib() {
+        
+        favoritesMenuItem.offStateTitle = UIConstants.favoritesAddCaption
+        favoritesMenuItem.onStateTitle = UIConstants.favoritesRemoveCaption
+    }
+    
+    // When the menu is about to open, update the menu item states
     func menuWillOpen(_ menu: NSMenu) {
+        
         updateRepeatAndShuffleMenuItemStates()
+        
+        // Update Favorites menu item
+        if let playingTrack = playbackInfo.getPlayingTrack()?.track {
+            favoritesMenuItem.onIf(history.hasFavorite(playingTrack))
+        }
     }
     
     // Plays, pauses or resumes playback
@@ -88,6 +107,21 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Shows (selects) the currently playing track, within the playlist, if there is one
     @IBAction func showPlayingTrackAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.showPlayingTrack, PlaylistViewState.current))
+    }
+    
+    // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
+    @IBAction func favoritesAction(_ sender: Any) {
+        
+        // Check if there is a track playing (this function cannot be invoked otherwise)
+        if let playingTrack = (playbackInfo.getPlayingTrack()?.track) {
+            
+            // Toggle the menu item
+            favoritesMenuItem.toggle()
+        
+            // Publish an action message to add/remove the item to/from Favorites
+            let action: ActionType = favoritesMenuItem.isOn() ? .addFavorite : .removeFavorite
+            SyncMessenger.publishActionMessage(FavoritesActionMessage(action, playingTrack))
+        }
     }
     
     // Updates the menu item states per the current playback modes

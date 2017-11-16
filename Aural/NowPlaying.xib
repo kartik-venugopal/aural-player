@@ -113,7 +113,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="asw-MU-vDh"/>
                 </imageView>
-                <button hidden="YES" toolTip="More information about this track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d6y-wj-Yri" userLabel="More Info Button">
+                <button hidden="YES" toolTip="Detailed information about playing track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d6y-wj-Yri" userLabel="More Info Button">
                     <rect key="frame" x="430" y="76" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MoreInfo" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="T25-Ql-rkq">
@@ -124,7 +124,7 @@
                         <action selector="moreInfoAction:" target="-2" id="s61-2R-8Lo"/>
                     </connections>
                 </button>
-                <button hidden="YES" toolTip="Show this track within the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BL3-VR-Ng2" userLabel="Show Playing Track Button">
+                <button hidden="YES" toolTip="Show playing track within the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BL3-VR-Ng2" userLabel="Show Playing Track Button">
                     <rect key="frame" x="429" y="57" width="14" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShowPlayingTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="G9f-A6-ERF">

@@ -18,6 +18,9 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
     @IBOutlet weak var shuffleOffMenuItem: NSMenuItem!
     @IBOutlet weak var shuffleOnMenuItem: NSMenuItem!
     
+    // Favorites menu item (needs to be toggled)
+    @IBOutlet weak var favoritesMenuItem: ToggleMenuItem!
+    
     // Sub-menu that displays recently played tracks. Clicking on any of these items will result in the track being played.
     @IBOutlet weak var recentlyPlayedMenu: NSMenu!
     
@@ -38,10 +41,34 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         
         updateRepeatAndShuffleMenuItemStates()
         
+        favoritesMenuItem.isEnabled = false
+        favoritesMenuItem.offStateTitle = UIConstants.favoritesAddCaption
+        favoritesMenuItem.onStateTitle = UIConstants.favoritesRemoveCaption
+        
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.historyUpdated], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.historyUpdated, .addedToFavorites, .removedFromFavorites, .trackPlayed], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         recreateHistoryMenus()
+    }
+    
+    // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
+    @IBAction func favoritesAction(_ sender: Any) {
+        
+        // Check if there is a track playing (this function cannot be invoked otherwise)
+        if let playingTrack = (playbackInfo.getPlayingTrack()?.track) {
+            
+            // Toggle the menu item
+            favoritesMenuItem.toggle()
+            
+            // Publish an action message to add/remove the item to/from Favorites
+            let action: ActionType = favoritesMenuItem.isOn() ? .addFavorite : .removeFavorite
+            SyncMessenger.publishActionMessage(FavoritesActionMessage(action, playingTrack))
+        }
+    }
+    
+    // Responds to a notification that a track has either been added to, or removed from, the Favorites list, by updating the Favorites menu item
+    private func favoritesUpdated(_ message: FavoritesUpdatedAsyncMessage) {
+        favoritesMenuItem.onIf(message.messageType == .addedToFavorites)
     }
     
     // When a "Recently played" or "Favorites" menu item is clicked, the item is played
@@ -175,6 +202,11 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         return menuItem
     }
     
+    // Responds to a track being played, by updating the Favorites menu item
+    private func trackPlayed(_ message: TrackPlayedAsyncMessage) {
+        favoritesMenuItem.onIf(history.hasFavorite(message.track))
+    }
+    
     // MARK: Message handling
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
@@ -182,6 +214,14 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         switch message.messageType {
             
         case .historyUpdated: recreateHistoryMenus()
+            
+        case .addedToFavorites, .removedFromFavorites:
+            
+            favoritesUpdated(message as! FavoritesUpdatedAsyncMessage)
+            
+        case .trackPlayed:
+            
+            trackPlayed(message as! TrackPlayedAsyncMessage)
  
         default: return
             

@@ -39,6 +39,10 @@ enum AsyncMessageType {
     case doneAddingTracks
     
     case historyUpdated
+    
+    case addedToFavorites
+    
+    case removedFromFavorites
 }
 
 // AsyncMessage indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
@@ -227,4 +231,18 @@ struct HistoryUpdatedAsyncMessage: AsyncMessage {
     
     // Singleton
     static let instance: HistoryUpdatedAsyncMessage = HistoryUpdatedAsyncMessage()
+}
+
+// Indicates that the playing track has either been added to, or removed from, the Favorites list
+struct FavoritesUpdatedAsyncMessage: AsyncMessage {
+    
+    let messageType: AsyncMessageType
+    
+    // The track that was added to or removed from Favorites
+    let track: Track
+    
+    init(_ messageType: AsyncMessageType, _ track: Track) {
+        self.messageType = messageType
+        self.track = track
+    }
 }
