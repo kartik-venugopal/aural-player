@@ -14,10 +14,10 @@ protocol AudioGraphDelegateProtocol {
     func setVolume(_ volumePercentage: Float)
     
     // Increases the player volume by a small increment. Returns the new player volume.
-    func increaseVolume() -> Float
+    func increaseVolume(_ actionMode: ActionMode) -> Float
     
     // Decreases the player volume by a small decrement. Returns the new player volume.
-    func decreaseVolume() -> Float
+    func decreaseVolume(_ actionMode: ActionMode) -> Float
     
     // Toggles mute between on/off. Returns true if muted after method execution, false otherwise
     func toggleMute() -> Bool
