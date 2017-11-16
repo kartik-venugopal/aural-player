@@ -1,7 +1,7 @@
 import Cocoa
 
 /*
-    A menu item that is capable of switching between any finite number of states, and displays a preset image/title corresponding to each state (example - add/remove favorites menu item)
+    A menu item that is capable of switching (or "toggling") between two states, and displays a preset image/title corresponding to each state (example - add/remove favorites menu item)
  */
 class ToggleMenuItem: NSMenuItem {
     
