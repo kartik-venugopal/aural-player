@@ -426,21 +426,3 @@ extension IndexSet {
         return self.filter({$0 >= 0})
     }
 }
-
-/*
-    View controller for the "Albums" playlist view
- */
-class PlaylistAlbumsViewController: GroupingPlaylistViewController {
-    
-    override internal var groupType: GroupType {return .album}
-    override internal var playlistType: PlaylistType {return .albums}
-}
-
-/*
-    View controller for the "Genres" playlist view
- */
-class PlaylistGenresViewController: GroupingPlaylistViewController {
-    
-    override internal var groupType: GroupType {return .genre}
-    override internal var playlistType: PlaylistType {return .genres}
-}

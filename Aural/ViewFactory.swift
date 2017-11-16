@@ -37,6 +37,10 @@ struct ViewFactory {
         fileprivate static var tracksViewController: PlaylistTracksViewController = PlaylistTracksViewController()
         
         fileprivate static var artistsViewController: ArtistsPlaylistViewController = ArtistsPlaylistViewController()
+        
+        fileprivate static var albumsViewController: AlbumsPlaylistViewController = AlbumsPlaylistViewController()
+        
+        fileprivate static var genresViewController: GenresPlaylistViewController = GenresPlaylistViewController()
     }
     
     // MARK: Accessor functions for the different views
@@ -99,5 +103,15 @@ struct ViewFactory {
     // Returns the "Artists" playlist view
     static func getArtistsView() -> NSView {
         return PlaylistViews.artistsViewController.view
+    }
+    
+    // Returns the "Albums" playlist view
+    static func getAlbumsView() -> NSView {
+        return PlaylistViews.albumsViewController.view
+    }
+    
+    // Returns the "Genres" playlist view
+    static func getGenresView() -> NSView {
+        return PlaylistViews.genresViewController.view
     }
 }

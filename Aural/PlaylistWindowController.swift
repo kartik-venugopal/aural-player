@@ -8,9 +8,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // The different playlist views
     private lazy var tracksView: NSView = ViewFactory.getTracksView()
     private lazy var artistsView: NSView = ViewFactory.getArtistsView()
-    
-    @IBOutlet weak var albumsView: NSOutlineView!
-    @IBOutlet weak var genresView: NSOutlineView!
+    private lazy var albumsView: NSView = ViewFactory.getAlbumsView()
+    private lazy var genresView: NSView = ViewFactory.getGenresView()
     
     // The tab group that switches between the 4 playlist views
     @IBOutlet weak var tabGroup: NSTabView!
@@ -48,18 +47,13 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     override func windowDidLoad() {
         
-        // Enable drag n drop into the playlist views
-        [albumsView, genresView].forEach({
-            $0?.register(forDraggedTypes: [String(kUTTypeFileURL), "public.data"])
-        })
-        
         // Register self as a subscriber to various AsyncMessage notifications
         AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.subscribe(messageTypes: [.removeTrackRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .scrollToTop, .scrollToBottom, .nextPlaylistView, .previousPlaylistView], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .nextPlaylistView, .previousPlaylistView], subscriber: self)
         
         // Set up an input handler to handle scrolling and type selection with key events and gestures
         NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .swipe], handler: {(event: NSEvent!) -> NSEvent in
@@ -77,6 +71,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         tabGroup.tabViewItem(at: 0).view?.addSubview(tracksView)
         tabGroup.tabViewItem(at: 1).view?.addSubview(artistsView)
+        tabGroup.tabViewItem(at: 2).view?.addSubview(albumsView)
+        tabGroup.tabViewItem(at: 3).view?.addSubview(genresView)
         
         // Default view is the Tracks view
         tracksTabViewAction(self)
@@ -240,42 +236,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current))
         sequenceChanged()
-    }
-    
-    // Scrolls the current playlist view to the very top
-    @IBAction func scrollToTopAction(_ sender: AnyObject) {
-        
-        let playlistView = playlistViewForViewType()
-        
-        if (playlistView.numberOfRows > 0) {
-            playlistView.scrollRowToVisible(0)
-        }
-    }
-    
-    // Scrolls the current playlist view to the very bottom
-    @IBAction func scrollToBottomAction(_ sender: AnyObject) {
-        
-        let playlistView = playlistViewForViewType()
-        
-        if (playlistView.numberOfRows > 0) {
-            playlistView.scrollRowToVisible(playlistView.numberOfRows - 1)
-        }
-    }
-    
-    // Maps the current playlist view type to the corresponding playlist view
-    private func playlistViewForViewType() -> NSTableView {
-        
-        switch PlaylistViewState.current {
-            
-        case .tracks: return albumsView
-            
-        case .artists: return albumsView
-            
-        case .albums: return albumsView
-            
-        case .genres: return genresView
-            
-        }
     }
     
     // Shows the currently playing track, within the current playlist view. Delegates the action to the appropriate playlist view, because this operation depends on which playlist view is currently shown.
@@ -464,10 +424,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         case .sort: sortAction(self)
             
         case .shiftTab: shiftTab()
-            
-        case .scrollToTop: scrollToTopAction(self)
-            
-        case .scrollToBottom: scrollToBottomAction(self)
             
         case .nextPlaylistView: nextPlaylistView()
             
