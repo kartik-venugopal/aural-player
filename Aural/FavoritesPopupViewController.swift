@@ -7,14 +7,10 @@ import Cocoa
 class FavoritesPopupViewController: NSViewController {
     
     // The actual popover that is shown
-    private var popover: NSPopover?
-    
-    // The view relative to which the popover is shown
-    private var relativeToView: NSView?
+    private var popover: NSPopover!
     
     // Popover positioning parameters
     private let positioningRect = NSZeroRect
-    private let preferredEdge = NSRectEdge.maxX
     
     // The labels that display the informational messages (only one will be shown at a time)
     
@@ -26,42 +22,44 @@ class FavoritesPopupViewController: NSViewController {
     
     // Timer used to auto-hide the popover once it is shown
     private var viewHidingTimer: Timer?
-
-    // Factory method to create an instance of this class
-    static func create(_ relativeToView: NSView) -> FavoritesPopupViewController {
+    
+    convenience init() {
+        self.init(nibName: "FavoritesPopup", bundle: Bundle.main)!
+    }
+    
+    static func create() -> FavoritesPopupViewController {
         
-        let controller = FavoritesPopupViewController(nibName: "FavoritesPopup", bundle: Bundle.main)
+        let controller = FavoritesPopupViewController()
         
         let popover = NSPopover()
         popover.behavior = .semitransient
-        popover.contentViewController = controller!
+        popover.contentViewController = controller
         
-        controller!.popover = popover
-        controller!.relativeToView = relativeToView
+        controller.popover = popover
         
-        return controller!
+        return controller
     }
     
     // Shows a message that a track has been added to Favorites
-    func showAddedMessage() {
+    func showAddedMessage(_ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
         
-        showAndAutoHide()
+        showAndAutoHide(relativeToView, preferredEdge)
         lblAdded.isHidden = false
         lblRemoved.isHidden = true
     }
     
     // Shows a message that a track has been removed from Favorites
-    func showRemovedMessage() {
+    func showRemovedMessage(_ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
         
-        showAndAutoHide()
+        showAndAutoHide(relativeToView, preferredEdge)
         lblAdded.isHidden = true
         lblRemoved.isHidden = false
     }
     
     // Shows the popover and initiates a timer to auto-hide the popover after a preset time interval
-    private func showAndAutoHide() {
+    private func showAndAutoHide(_ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
         
-        show()
+        show(relativeToView, preferredEdge)
         
         // Invalidate previously activated timer, if there is one
         viewHidingTimer?.invalidate()
@@ -71,18 +69,18 @@ class FavoritesPopupViewController: NSViewController {
     }
     
     // Shows the popover
-    private func show() {
+    private func show(_ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
         
-        if (!popover!.isShown) {
-            popover!.show(relativeTo: positioningRect, of: relativeToView!, preferredEdge: preferredEdge)
+        if (!popover.isShown) {
+            popover.show(relativeTo: positioningRect, of: relativeToView, preferredEdge: preferredEdge)
         }
     }
     
     // Closes the popover
     func close() {
         
-        if (popover!.isShown) {
-            popover!.performClose(self)
+        if (popover.isShown) {
+            popover.performClose(self)
         }
     }
 }

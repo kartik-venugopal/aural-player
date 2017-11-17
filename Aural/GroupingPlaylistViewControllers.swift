@@ -5,7 +5,9 @@ import Cocoa
  */
 class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, MessageSubscriber, ActionMessageSubscriber {
     
-    @IBOutlet weak var playlistView: NSOutlineView!
+    @IBOutlet weak var playlistView: AuralPlaylistOutlineView!
+    
+    private lazy var contextMenu: NSMenu! = WindowFactory.getPlaylistContextMenu()
     
     // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
@@ -29,6 +31,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         // Enable drag n drop
         playlistView.register(forDraggedTypes: [String(kUTTypeFileURL), "public.data"])
         
+        playlistView.menu = contextMenu
+        
         // Register for key press and gesture events
         PlaylistInputEventHandler.registerViewForPlaylistType(self.playlistType, playlistView)
         
@@ -47,8 +51,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     // Plays the track/group selected within the playlist, if there is one. If multiple items are selected, the first one will be chosen.
     @IBAction func playSelectedItemAction(_ sender: AnyObject) {
-        
         let selRow = playlistView.selectedRow
+        
         if (selRow >= 0) {
             
             let item = playlistView.item(atRow: selRow)
@@ -65,10 +69,9 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 playlistView.expandItem(group)
             }
             
-            // Clear the selection and reload those rows
-            let selIndexes = playlistView.selectedRowIndexes
+            // Clear the selection and reload the row
             playlistView.deselectAll(self)
-            playlistView.reloadData(forRowIndexes: selIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            playlistView.reloadData(forRowIndexes: IndexSet(integer: selRow), columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
         }
     }
     
@@ -104,6 +107,12 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         let tracksAndGroups = collectTracksAndGroups()
         let tracks = tracksAndGroups.tracks
         let groups = tracksAndGroups.groups
+        
+        if (groups.isEmpty && tracks.isEmpty) {
+            
+            // Nothing selected, nothing to do
+            return
+        }
         
         // If all groups are selected, this is the same as clearing the playlist
         if (groups.count == playlist.numberOfGroups(self.groupType)) {

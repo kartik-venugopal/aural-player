@@ -64,7 +64,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         recorderTimer?.startOrResume()
         
         // Update the UI to display current recording information
-        lblRecorderDuration.stringValue = UIConstants.zeroDurationString
+        lblRecorderDuration.stringValue = Strings.zeroDurationString
         lblRecorderFileSize.stringValue = Size.ZERO.toString()
         recordingInfoBox.isHidden = false
         

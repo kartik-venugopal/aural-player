@@ -29,8 +29,8 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // One-time setup
     override func awakeFromNib() {
         
-        favoritesMenuItem.offStateTitle = UIConstants.favoritesAddCaption
-        favoritesMenuItem.onStateTitle = UIConstants.favoritesRemoveCaption
+        favoritesMenuItem.offStateTitle = Strings.favoritesAddCaption
+        favoritesMenuItem.onStateTitle = Strings.favoritesRemoveCaption
     }
     
     // When the menu is about to open, update the menu item states

@@ -3,9 +3,11 @@ import Cocoa
 /*
     View controller for the flat ("Tracks") playlist view
  */
-class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber, ActionMessageSubscriber {
+class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var playlistView: NSTableView!
+    private lazy var contextMenu: NSMenu! = WindowFactory.getPlaylistContextMenu()
+    private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.getDetailedTrackInfoPopover()
     
     // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
@@ -39,19 +41,21 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistUpdateQueue.maxConcurrentOperationCount = 1
         playlistUpdateQueue.underlyingQueue = DispatchQueue.main
         playlistUpdateQueue.qualityOfService = .background
+        
+        playlistView.menu = contextMenu
     }
     
     // Plays the track selected within the playlist, if there is one. If multiple tracks are selected, the first one will be chosen.
     @IBAction func playSelectedTrackAction(_ sender: AnyObject) {
-       
+        
         let selRow = playlistView.selectedRow
+    
         if (selRow >= 0) {
             _ = SyncMessenger.publishRequest(PlaybackRequest(index: selRow))
             
-            // Clear the selection and reload those rows
-            let selIndexes = playlistView.selectedRowIndexes
+            // Clear the selection and reload the row
             playlistView.deselectAll(self)
-            playlistView.reloadData(forRowIndexes: selIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            playlistView.reloadData(forRowIndexes: IndexSet(integer: selRow), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         }
     }
     
@@ -158,6 +162,14 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
     // Shows the currently playing track, within the playlist view
     private func showPlayingTrack() {
         selectTrack(playbackInfo.getPlayingTrack()?.index)
+    }
+    
+    private func showSelectedTrackInfo() {
+        
+        let track = playlist.trackAtIndex(playlistView.selectedRow)!.track
+        track.loadDetailedInfo()
+        
+        
     }
     
     private func trackAdded(_ message: TrackAddedAsyncMessage) {
@@ -314,6 +326,10 @@ class PlaylistTracksViewController: NSViewController, MessageSubscriber, AsyncMe
         case .scrollToBottom:
             
             scrollToBottom()
+            
+        case .selectedTrackInfo:
+            
+            showSelectedTrackInfo()
             
         default: return
             

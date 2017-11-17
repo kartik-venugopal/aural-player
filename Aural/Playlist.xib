@@ -12,6 +12,7 @@
                 <outlet property="btnArtistsView" destination="Gd5-Z1-IPv" id="Zka-2x-Dd0"/>
                 <outlet property="btnGenresView" destination="WM5-oc-eXx" id="YAd-Bo-Wld"/>
                 <outlet property="btnTracksView" destination="HRy-40-ayp" id="YD1-tj-GCy"/>
+                <outlet property="contextMenu" destination="5mK-N5-S6w" id="MXz-2o-VC4"/>
                 <outlet property="lblDurationSummary" destination="QXQ-hF-zKn" id="WZd-Es-pDr"/>
                 <outlet property="lblTracksSummary" destination="VLw-7p-b04" id="3rg-1b-OfJ"/>
                 <outlet property="playlistWorkSpinner" destination="TgI-fO-gfa" id="myn-qC-H9K"/>
@@ -506,6 +507,62 @@
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="90" y="478.5"/>
         </window>
+        <customObject id="TnB-Sk-yOp" customClass="PlaylistContextMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="contextMenu" destination="5mK-N5-S6w" id="XLe-Qz-S8X"/>
+                <outlet property="detailedInfoMenuItem" destination="ZQe-wb-b1B" id="F4Z-c5-f3b"/>
+                <outlet property="favoritesMenuItem" destination="CHV-5l-G4d" id="YIy-BC-xYi"/>
+                <outlet property="moveDownMenuItem" destination="k3z-qH-RxK" id="zUo-ON-2KN"/>
+                <outlet property="moveUpMenuItem" destination="uV5-jg-pxc" id="zh7-Gu-EPy"/>
+                <outlet property="playMenuItem" destination="s9W-FB-XJa" id="Os0-CX-oZF"/>
+                <outlet property="removeMenuItem" destination="RCk-oA-gLU" id="fUw-PV-a3d"/>
+            </connections>
+        </customObject>
+        <menu autoenablesItems="NO" id="5mK-N5-S6w" userLabel="Playlist context menu">
+            <items>
+                <menuItem title=" Play this track" image="Play-Padded-Small" id="s9W-FB-XJa">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="playSelectedItemAction:" target="TnB-Sk-yOp" id="jRU-hm-HZh"/>
+                    </connections>
+                </menuItem>
+                <menuItem title=" Add track to favorites" image="Favorites" id="CHV-5l-G4d" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="favoritesAction:" target="TnB-Sk-yOp" id="b2g-2H-jbW"/>
+                    </connections>
+                </menuItem>
+                <menuItem title=" Get detailed track info" image="MoreInfo-Padded-Small" id="ZQe-wb-b1B">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="moreInfoAction:" target="TnB-Sk-yOp" id="5Dw-se-FC1"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="ptR-ch-WUH"/>
+                <menuItem title="  Remove this track" image="Remove-Small" id="RCk-oA-gLU">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="removeSelectedItemsAction:" target="TnB-Sk-yOp" id="9GP-MR-ET4"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="  Move this track up" image="Up-Small" id="uV5-jg-pxc">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="moveItemsUpAction:" target="TnB-Sk-yOp" id="kwO-Od-Mrm"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="  Move this track down" image="Down-Small" id="k3z-qH-RxK">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="moveItemsDownAction:" target="TnB-Sk-yOp" id="V35-m2-QpN"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="TnB-Sk-yOp" id="QBL-nZ-sex"/>
+            </connections>
+            <point key="canvasLocation" x="-352" y="13.5"/>
+        </menu>
     </objects>
     <resources>
         <image name="Add" width="134" height="134"/>
@@ -514,15 +571,21 @@
         <image name="DockLeft" width="700" height="600"/>
         <image name="DockRight" width="700" height="600"/>
         <image name="Down" width="92" height="128"/>
+        <image name="Down-Small" width="10" height="14"/>
+        <image name="Favorites" width="15" height="15"/>
         <image name="Maximize" width="700" height="600"/>
         <image name="MaximizeHorizontal" width="700" height="600"/>
         <image name="MaximizeVertical" width="700" height="600"/>
+        <image name="MoreInfo-Padded-Small" width="15" height="15"/>
+        <image name="Play-Padded-Small" width="15" height="15"/>
         <image name="Remove" width="134" height="134"/>
+        <image name="Remove-Small" width="10" height="10"/>
         <image name="Save" width="128" height="128"/>
         <image name="ScrollToBottom" width="269" height="266"/>
         <image name="ScrollToTop" width="269" height="266"/>
         <image name="Search" width="128" height="128"/>
         <image name="Sort" width="464" height="386"/>
         <image name="Up" width="92" height="128"/>
+        <image name="Up-Small" width="10" height="14"/>
     </resources>
 </document>

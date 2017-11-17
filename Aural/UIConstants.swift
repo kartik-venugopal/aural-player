@@ -28,9 +28,6 @@ struct UIConstants {
     static let flatPlaylistViewColumnIndexes: IndexSet = IndexSet([0, 1, 2])
     static let groupingPlaylistViewColumnIndexes: IndexSet = IndexSet([0, 1])
     
-    // Default value for the label that shows a track's seek position
-    static let zeroDurationString: String = "0:00"
-    
     // Values used to determine the row height of table rows in the detailed track info popover view
     static let trackInfoKeyColumnWidth: CGFloat = 125
     static let trackInfoValueColumnWidth: CGFloat = 315
@@ -62,8 +59,4 @@ struct UIConstants {
     
     // Maximum time gap between scroll events for them to be considered as being part of the same scroll session
     static let scrollSessionMaxTimeGapSeconds: TimeInterval = (1/6)
- 
-    // Captions for buttons/menu items that let the user add/remove items to/from the Favorites list
-    static let favoritesAddCaption: String = "Add playing track to Favorites"
-    static let favoritesRemoveCaption: String = "Remove playing track from Favorites"
 }

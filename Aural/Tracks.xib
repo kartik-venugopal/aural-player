@@ -5,7 +5,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="PlaylistTracksViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="TracksPlaylistViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playlistView" destination="yfe-8c-y7Q" id="TvH-l8-2RB"/>
                 <outlet property="view" destination="bnY-X4-HPZ" id="67h-Q5-R0r"/>
@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" id="yfe-8c-y7Q" userLabel="Playlist Tracks View">
+                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" id="yfe-8c-y7Q" userLabel="Playlist Tracks View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="4"/>
@@ -43,7 +43,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="Nr9-vb-v1E" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
+                                            <tableCellView focusRingType="none" id="Nr9-vb-v1E" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="1" y="2" width="30" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -94,7 +94,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="vGa-UF-cAf" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
+                                            <tableCellView focusRingType="none" id="vGa-UF-cAf" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="34" y="2" width="344" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -134,7 +134,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="Nxn-ZH-ZX3" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
+                                            <tableCellView focusRingType="none" id="Nxn-ZH-ZX3" customClass="PlaylistCellView" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="381" y="2" width="65" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>

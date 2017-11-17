@@ -38,18 +38,13 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Delegate that provides access to History information
     private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
     
-    // The view that displays detailed track information, when requested by the user
-    private lazy var popoverView: PopoverViewDelegate = {
-        return DetailedTrackInfoViewController.create(self.btnMoreInfo as NSView)
-    }()
-    
-    // The view that displays a brief info message when a track is added to or removed from Favorites
-    private lazy var favoritesPopup: FavoritesPopupViewController = {
-        return FavoritesPopupViewController.create(self.btnFavorite as NSView)
-    }()
-    
     // Timer that periodically updates the seek position slider and label
     private var seekTimer: RepeatingTaskExecutor?
+    
+    private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.getDetailedTrackInfoPopover()
+    
+    // TODO: Expose through protocol
+    private lazy var favoritesPopup: FavoritesPopupViewController = ViewFactory.getFavoritesPopup()
     
     convenience init() {
         self.init(nibName: "NowPlaying", bundle: Bundle.main)!
@@ -81,8 +76,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         btnFavorite.offStateImage = Images.imgFavoritesOff
         btnFavorite.onStateImage = Images.imgFavoritesOn
         
-        btnFavorite.offStateTooltip = UIConstants.favoritesAddCaption
-        btnFavorite.onStateTooltip = UIConstants.favoritesRemoveCaption
+        btnFavorite.offStateTooltip = Strings.favoritesAddCaption
+        btnFavorite.onStateTooltip = Strings.favoritesRemoveCaption
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -100,7 +95,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
             
             // TODO: This should be done through a delegate (TrackDelegate ???)
             playingTrack!.track.loadDetailedInfo()
-            popoverView.toggle()
+            detailedInfoPopover.toggle(playingTrack!.track, btnMoreInfo, NSRectEdge.maxX)
         }
     }
     
@@ -128,10 +123,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         if (message.messageType == .addedToFavorites) {
             btnFavorite.on()
-            favoritesPopup.showAddedMessage()
+            favoritesPopup.showAddedMessage(btnFavorite, NSRectEdge.maxX)
         } else {
             btnFavorite.off()
-            favoritesPopup.showRemovedMessage()
+            favoritesPopup.showRemovedMessage(btnFavorite, NSRectEdge.maxX)
         }
     }
     
@@ -243,7 +238,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         setSeekTimerState(false)
         
         togglePlayingTrackButtons(false)
-        popoverView.close()
+        detailedInfoPopover.close()
     }
     
     // When the playing track changes (or there is none), certain functions may or may not be available, so their corresponding UI controls need to be shown/enabled or hidden/disabled.
@@ -282,7 +277,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
     private func resetSeekPosition(_ track: Track) {
         
-        lblTimeElapsed.stringValue = UIConstants.zeroDurationString
+        lblTimeElapsed.stringValue = Strings.zeroDurationString
         lblTimeRemaining.stringValue = StringUtils.formatSecondsToHMS(track.duration, true)
         
         lblTimeElapsed.isHidden = false
@@ -314,10 +309,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
                 setSeekTimerState(true)
                 togglePlayingTrackButtons(true)
                 
-                if (popoverView.isShown()) {
+                if (detailedInfoPopover.isShown()) {
                     
-                    player.getPlayingTrack()?.track.loadDetailedInfo()
-                    popoverView.refresh()
+                    player.getPlayingTrack()!.track.loadDetailedInfo()
+                    detailedInfoPopover.refresh(player.getPlayingTrack()!.track)
                 }
                 
             } else {
