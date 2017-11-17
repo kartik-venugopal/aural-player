@@ -1,9 +1,9 @@
 import Cocoa
 
 /*
-    Data source and view delegate for the NSTableView that displays the "Tracks" (flat) playlist view.
+    Delegate for the NSTableView that displays the "Tracks" (flat) playlist view.
  */
-class TracksPlaylistDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate, MessageSubscriber {
+class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscriber {
     
     @IBOutlet weak var playlistView: NSTableView!
     
@@ -12,9 +12,6 @@ class TracksPlaylistDataSource: NSObject, NSTableViewDataSource, NSTableViewDele
     
     // Used to determine the currently playing track
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
-    
-    // Handles all drag/drop operations
-    private let dragDropDelegate: TracksPlaylistDragDropDelegate = TracksPlaylistDragDropDelegate()
     
     // Stores the cell containing the playing track animation, for convenient access when pausing/resuming the animation
     private var animationCell: PlaylistCellView?
@@ -27,15 +24,6 @@ class TracksPlaylistDataSource: NSObject, NSTableViewDataSource, NSTableViewDele
         // Store the NSTableView in a variable for convenient subsequent access
         TableViewHolder.instance = playlistView
     }
-    
-    // MARK: Data Source
-    
-    // Returns the total number of playlist rows
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return playlist.size()
-    }
-    
-    // MARK: View Delegate
     
     // Returns a view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
@@ -105,7 +93,7 @@ class TracksPlaylistDataSource: NSObject, NSTableViewDataSource, NSTableViewDele
             // Hide the image view and show the text view
             cell.imageView?.isHidden = true
             cell.textField?.isHidden = false
-
+            
             cell.row = row
             
             return cell
@@ -139,32 +127,13 @@ class TracksPlaylistDataSource: NSObject, NSTableViewDataSource, NSTableViewDele
     
     // Helper function that determines whether or not the playing track animation should be shown animated or static
     private func shouldAnimate() -> Bool {
-    
+        
         // Animation enabled only if 1 - the appropriate playlist view is currently shown, 2 - a track is currently playing (not paused), and 3 - the app window is currently in the foreground
         
         let playing = playbackInfo.getPlaybackState() == .playing
         let showingThisPlaylistView = PlaylistViewState.current == .tracks
         
         return playing && WindowState.isInForeground() && showingThisPlaylistView
-    }
-    
-    // MARK: Drag n drop
-    
-    // Drag n drop - writes source information to the pasteboard
-    func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
-        return dragDropDelegate.tableView(tableView, writeRowsWith: rowIndexes, to: pboard)
-    }
-    
-    // Drag n drop - determines the drag/drop operation
-    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
-        
-        return dragDropDelegate.tableView(tableView, validateDrop: info, proposedRow: row, proposedDropOperation: dropOperation)
-    }
-    
-    // Drag n drop - accepts and performs the drop
-    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
-        
-        return dragDropDelegate.tableView(tableView, acceptDrop: info, row: row, dropOperation: dropOperation)
     }
     
     // MARK: Message handling
@@ -252,7 +221,7 @@ class PlaylistCellView: NSTableCellView {
     
     // The table view row that this cell is contained in. Used to determine whether or not this cell is selected.
     var row: Int = -1
-
+    
     // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
     override var backgroundStyle: NSBackgroundStyle {
         
