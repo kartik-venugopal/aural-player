@@ -1,41 +1,29 @@
 import Cocoa
 
 /*
-    Data source and view delegate base class for the NSOutlineView instances that display the "Artists", "Albums", and "Genres" (hierarchical/grouping) playlist views.
+    Data source base class for the NSOutlineView instances that display the "Artists", "Albums", and "Genres" (hierarchical/grouping) playlist views.
  */
-class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource, NSOutlineViewDelegate, MessageSubscriber {
+class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
     
     @IBOutlet weak var playlistView: NSOutlineView!
     
-    // Delegate that relays accessor operations to the playlist
-    private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.getPlaylistAccessorDelegate()
+    // Delegate that relays CRUD operations to the playlist
+    private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
-    // Used to determine the currently playing track
+    // Used to determine if a track is currently playing
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     // Indicates the type of groups displayed by this NSOutlineView (intended to be overridden by subclasses)
-    fileprivate var groupType: GroupType {return .artist}
-    fileprivate var playlistType: PlaylistType {return .artists}
-
-    // Stores the cell containing the playing track animation, for convenient access when pausing/resuming the animation
-    private var animationCell: GroupedTrackCellView?
+    fileprivate var playlistType: PlaylistType
+    fileprivate var groupType: GroupType
     
-    // Handles all drag/drop operations
-    private var dragDropDelegate: GroupingPlaylistDragDropDelegate = GroupingPlaylistDragDropDelegate()
+    // Signifies an invalid drag/drop operation
+    private let invalidDragOperation: NSDragOperation = []
     
-    override func awakeFromNib() {
-        
-        // The drag n drop delegate needs to know the group type
-        dragDropDelegate.setGrouping(self.groupType)
-        
-        // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.playbackStateChangedNotification, .playlistTypeChangedNotification, .appInForegroundNotification, .appInBackgroundNotification], subscriber: self)
-        
-        // Store the NSOutlineView in a variable for convenient subsequent access
-        OutlineViewHolder.instances[self.playlistType] = playlistView
+    init(_ playlistType: PlaylistType, _ groupType: GroupType) {
+        self.playlistType = playlistType
+        self.groupType = groupType
     }
-    
-    // MARK: Data Source
     
     // Returns the number of children for a given item
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
@@ -80,259 +68,229 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource, NSOutlineVi
         return item is Group
     }
     
-    // MARK: View Delegate
-    
-    // Returns a view for a single row
-    func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
-        return GroupingPlaylistRowView()
-    }
-    
-    // Determines the height of a single row
-    func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        
-        // Group rows are taller than track rows
-        return item is Group ? 26 : 22
-    }
-    
-    // Returns a view for a single column
-    func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
-        
-        switch tableColumn!.identifier {
-            
-        case UIConstants.playlistNameColumnID:
-            
-            // Name
-            
-            if let group = item as? Group {
-                
-                let cell = createImageAndTextCell(outlineView, tableColumn!.identifier, true, String(format: "%@ (%d)", group.name, group.size()), Images.imgGroup)
-                cell?.item = group
-                cell?.playlistType = self.playlistType
-                return cell
-                
-            } else {
-                
-                let track = item as! Track
-                
-                let isPlayingTrack = track == playbackInfo.getPlayingTrack()?.track
-                let image = isPlayingTrack ? Images.imgPlayingTrack : track.displayInfo.art
-                
-                let cell = createImageAndTextCell(outlineView, tableColumn!.identifier, false, playlist.displayNameForTrack(playlistType, track), image, isPlayingTrack)
-                cell?.item = track
-                cell?.playlistType = self.playlistType
-                return cell
-            }
-            
-        case UIConstants.playlistDurationColumnID:
-            
-            // Duration
-            
-            if let group = item as? Group {
-                
-                let cell = createTextCell(outlineView, UIConstants.playlistDurationColumnID, true, StringUtils.formatSecondsToHMS(group.duration))
-                cell?.item = group
-                cell?.playlistType = self.playlistType
-                return cell
-                
-            } else {
-                
-                let track = item as! Track
-                
-                let cell = createTextCell(outlineView, UIConstants.playlistDurationColumnID, false, StringUtils.formatSecondsToHMS(track.duration))
-                cell?.item = track
-                cell?.playlistType = self.playlistType
-                return cell
-            }
-            
-        default: return nil
-            
-        }
-    }
-    
-    // Creates a cell view containing text and an image. If the row containing the cell represents the playing track, the image will be the playing track animation.
-    private func createImageAndTextCell(_ outlineView: NSOutlineView, _ id: String, _ isGroup: Bool, _ text: String, _ image: NSImage?, _ isPlayingTrack: Bool = false) -> GroupedTrackCellView? {
-        
-        if let cell = outlineView.make(withIdentifier: id, owner: nil) as? GroupedTrackCellView {
-            
-            cell.textField?.stringValue = text
-            cell.imageView?.image = image
-            cell.isGroup = isGroup
-            
-            if (isPlayingTrack) {
-                
-                // Configure and show the image view
-                let imgView = cell.imageView!
-                
-                imgView.canDrawSubviewsIntoLayer = true
-                imgView.imageScaling = .scaleProportionallyDown
-                imgView.animates = shouldAnimate()
-                
-                // Mark this cell for later
-                animationCell = cell
-            }
-            
-            return cell
-        }
-        
-        return nil
-    }
-
-    // Creates a cell view containing only text
-    private func createTextCell(_ outlineView: NSOutlineView, _ id: String, _ isGroup: Bool, _ text: String) -> GroupedTrackCellView? {
-        
-        if let cell = outlineView.make(withIdentifier: id, owner: nil) as? GroupedTrackCellView {
-            
-            cell.textField?.stringValue = text
-            cell.isGroup = isGroup
-            return cell
-        }
-        
-        return nil
-    }
-    
     // MARK: Drag n Drop
     
-    // Drag n drop - writes source information to the pasteboard
+    // Writes source information to the pasteboard
     func outlineView(_ outlineView: NSOutlineView, writeItems items: [Any], to pasteboard: NSPasteboard) -> Bool {
-        return dragDropDelegate.outlineView(outlineView, writeItems: items, to: pasteboard)
+        
+        var srcRows = [Int]()
+        items.forEach({srcRows.append(outlineView.row(forItem: $0))})
+        
+        let data = NSKeyedArchiver.archivedData(withRootObject: IndexSet(srcRows))
+        let item = NSPasteboardItem()
+        item.setData(data, forType: "public.data")
+        pasteboard.writeObjects([item])
+        
+        return true
     }
     
-    // Drag n drop - determines the drag/drop operation
+    // Helper function to retrieve source indexes from the NSDraggingInfo pasteboard
+    private func getSourceIndexes(_ draggingInfo: NSDraggingInfo) -> IndexSet? {
+        
+        let pasteboard = draggingInfo.draggingPasteboard()
+        
+        if let data = pasteboard.pasteboardItems?.first?.data(forType: "public.data"),
+            let sourceIndexSet = NSKeyedUnarchiver.unarchiveObject(with: data) as? IndexSet
+        {
+            return sourceIndexSet
+        }
+        
+        return nil
+    }
+    
+    // Validates the drag/drop operation
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
         
-        return dragDropDelegate.outlineView(outlineView, validateDrop: info, proposedItem: item, proposedChildIndex: index)
-    }
-    
-    // Drag n drop - accepts and performs the drop
-    func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
-        
-        return dragDropDelegate.outlineView(outlineView, acceptDrop: info, item: item, childIndex: index)
-    }
-    
-    // Whenever the playing track is paused/resumed, the animation needs to be paused/resumed.
-    private func playbackStateChanged(_ message: PlaybackStateChangedNotification) {
-        
-        animationCell?.imageView?.animates = shouldAnimate()
-        
-        switch (message.newPlaybackState) {
+        // If the source is the outlineView, that means playlist tracks/groups are being reordered
+        if (info.draggingSource() is NSOutlineView) {
             
-        case .noTrack:
-            
-            // The track is no longer playing
-            animationCell = nil
-            
-        default: return
-            
-        }
-    }
-    
-    // MARK: Message handling
-    
-    // When the current playlist view changes, the animation state might need to change
-    private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
-        animationCell?.imageView?.animates = shouldAnimate()
-    }
-    
-    // When the app moves to the background, the animation should be disabled
-    private func appInBackground() {
-        animationCell?.imageView?.animates = false
-    }
-    
-    // When the app moves to the foreground, the animation might need to be enabled
-    private func appInForeground() {
-        animationCell?.imageView?.animates = shouldAnimate()
-    }
-    
-    // Helper function that determines whether or not the playing track animation should be shown animated
-    private func shouldAnimate() -> Bool {
-        
-        // Animation enabled only if 1 - the appropriate playlist view is currently shown, 2 - a track is currently playing (not paused), and 3 - the app window is currently in the foreground
-        
-        let playing = playbackInfo.getPlaybackState() == .playing
-        let showingThisPlaylistView = PlaylistViewState.current == self.groupType.toPlaylistType()
-        
-        return playing && WindowState.isInForeground() && showingThisPlaylistView
-    }
-    
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        switch notification.messageType {
-            
-        case .playbackStateChangedNotification:
-            
-            playbackStateChanged(notification as! PlaybackStateChangedNotification)
-            
-        case .playlistTypeChangedNotification:
-            
-            playlistTypeChanged(notification as! PlaylistTypeChangedNotification)
-            
-        case .appInBackgroundNotification:
-            
-            appInBackground()
-            
-        case .appInForegroundNotification:
-            
-            appInForeground()
-            
-        default: return
-            
-        }
-    }
-    
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        return EmptyResponse.instance
-    }
-}
-
-/*
-    Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
- */
-class GroupedTrackCellView: NSTableCellView {
-    
-    // Whether or not this cell is contained within a row that represents a group (as opposed to a track)
-    var isGroup: Bool = false
-    
-    // This is used to determine which NSOutlineView contains this cell
-    var playlistType: PlaylistType = .artists
-    
-    // The item represented by the row containing this cell
-    var item: PlaylistItem?
-    
-    // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
-    override var backgroundStyle: NSBackgroundStyle {
-        
-        didSet {
-            
-            // Check if this row is selected
-            let outlineView = OutlineViewHolder.instances[self.playlistType]!
-            let isSelRow = outlineView.selectedRowIndexes.contains(outlineView.row(forItem: item))
-            
-            if let textField = self.textField {
+            if let sourceIndexSet = getSourceIndexes(info) {
                 
-                textField.textColor = isSelRow ? (isGroup ? Colors.playlistGroupNameSelectedTextColor : Colors.playlistGroupItemSelectedTextColor) : (isGroup ? Colors.playlistGroupNameTextColor : Colors.playlistGroupItemTextColor)
+                if validateReorderOperation(outlineView, sourceIndexSet, item, index) {
+                    return .move
+                }
+            }
+            
+            return invalidDragOperation
+        }
+        
+        // TODO: What about items added from apps other than Finder ??? From VOX or other audio players ???
+        
+        // Otherwise, files are being dragged in from outside the app (e.g. tracks/playlists from Finder)
+        return .copy
+    }
+    
+    // Given a destination parent and child index, determines if the drop is a valid reorder operation (depending on the bounds of the playlist, and the source and destination items)
+    private func validateReorderOperation(_ outlineView: NSOutlineView, _ srcIndexes: IndexSet, _ parent: Any?, _ childIndex: Int) -> Bool {
+        
+        // All items selected
+        if srcIndexes.count == outlineView.numberOfRows {
+            return false
+        }
+        
+        // Determine which tracks/groups are being reordered
+        let tracksAndGroups = collectTracksAndGroups(outlineView, srcIndexes)
+        let tracks = tracksAndGroups.tracks
+        let groups = tracksAndGroups.groups
+        
+        let movingTracks = !tracks.isEmpty
+        let movingGroups = !movingTracks
+        
+        // Cannot move both groups and tracks
+        if (movingTracks && movingGroups) {
+            return false
+        }
+        
+        if (movingTracks) {
+            
+            // Find out which group these tracks belong to, and categorize them
+            var parentGroups: Set<Group> = Set<Group>()
+            
+            // Categorize tracks by group
+            for track in tracks {
                 
-                textField.font = isSelRow ? (isGroup ? Fonts.playlistGroupNameSelectedTextFont : Fonts.playlistGroupItemSelectedTextFont) : (isGroup ? Fonts.playlistGroupNameTextFont : Fonts.playlistGroupItemTextFont)
+                let group = outlineView.parent(forItem: track) as! Group
+                parentGroups.insert(group)
+            }
+            
+            // Cannot move tracks from different groups (all tracks being moved must belong to the same group)
+            if (parentGroups.count > 1) {
+                return false
+            }
+            
+            let group = parentGroups.first!
+            
+            // All tracks within group selected
+            if tracks.count == group.size() {
+                return false
+            }
+            
+            // Validate parent group and child index
+            if (parent == nil || (!(parent is Group)) || ((parent! as! Group) !== group) || childIndex < 0 || childIndex > group.size()) {
+                return false
+            }
+            
+            // Dropping on a selected track is not allowed
+            if childIndex < group.size(), let parentGroup = parent as? Group {
+                
+                let dropTrack = parentGroup.trackAtIndex(childIndex)
+                if tracks.contains(dropTrack) {
+                    return false
+                }
+            }
+            
+        } else {
+            
+            // If all groups are selected, they cannot be moved
+            if (groups.count == playlist.numberOfGroups(self.groupType)) {
+                return false
+            }
+            
+            // Validate parent group and child index
+            let numGroups = playlist.numberOfGroups(self.groupType)
+            if (parent != nil || childIndex < 0 || childIndex > numGroups) {
+                return false
+            }
+            
+            // Dropping on a selected group is not allowed
+            if (childIndex < numGroups) {
+                
+                let dropGroup = playlist.groupAtIndex(self.groupType, childIndex)
+                if (groups.contains(dropGroup)) {
+                    return false
+                }
             }
         }
-    }
-}
-
-/*
-    Custom view for a NSTableView row that displays a single playlist track or group. Customizes the selection look and feel.
- */
-class GroupingPlaylistRowView: NSTableRowView {
-    
-    // Draws a fancy rounded rectangle around the selected track in the playlist view
-    override func drawSelection(in dirtyRect: NSRect) {
         
-        if self.selectionHighlightStyle != NSTableViewSelectionHighlightStyle.none {
+        // Doesn't match any of the invalid cases, it's a valid operation
+        return true
+    }
+    
+    // Performs the drop
+    func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
+        
+        if (info.draggingSource() is NSOutlineView) {
             
-            let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
-            let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
+            if let sourceIndexSet = getSourceIndexes(info) {
+                
+                // Collect the information needed to perform the reordering
+                let tracksAndGroups = collectTracksAndGroups(outlineView, sourceIndexSet)
+                let parentAsGroup: Group? = item as? Group ?? nil
+                
+                // Perform the reordering
+                let results = playlist.dropTracksAndGroups(tracksAndGroups.tracks, tracksAndGroups.groups, self.groupType, parentAsGroup, index)
+                
+                // Given the results of the reordering, refresh the playlist view
+                refreshView(outlineView, results)
+                
+                // The playback sequence may have changed and the UI may need to be updated
+                if (playbackInfo.getPlayingTrack() != nil) {
+                    SyncMessenger.publishNotification(SequenceChangedNotification.instance)
+                }
+                
+                return true
+            }
+        } else {
             
-            Colors.playlistSelectionBoxColor.setFill()
-            selectionPath.fill()
+            // Files added from Finder, add them to the playlist as URLs
+            let objects = info.draggingPasteboard().readObjects(forClasses: [NSURL.self], options: nil)
+            playlist.addFiles(objects! as! [URL])
+            
+            return true
         }
+        
+        return false
+    }
+    
+    // Helper function that gathers all selected playlist items as tracks and groups
+    private func collectTracksAndGroups(_ outlineView: NSOutlineView, _ sourceIndexes: IndexSet) -> (tracks: [Track], groups: [Group]) {
+        
+        var tracks = [Track]()
+        var groups = [Group]()
+        
+        sourceIndexes.forEach({
+            
+            let item = outlineView.item(atRow: $0)
+            
+            if let track = item as? Track {
+                
+                // Track
+                tracks.append(track)
+                
+            } else {
+                
+                // Group
+                groups.append(item as! Group)
+            }
+        })
+        
+        return (tracks, groups)
+    }
+    
+    // Given the results of a reorder operation, rearranges playlist view items to reflect the new playlist order
+    private func refreshView(_ outlineView: NSOutlineView, _ results: ItemMoveResults) {
+        
+        // First, sort all the move operations, so that they do not interfere with each other (all downward moves in descending order, followed by all upward moves in ascending order)
+        
+        var sortedMoves = [ItemMoveResult]()
+        sortedMoves.append(contentsOf: results.results.filter({$0.movedDown}).sorted(by: {r1, r2 -> Bool in r1.sortIndex > r2.sortIndex}))
+        sortedMoves.append(contentsOf: results.results.filter({$0.movedUp}).sorted(by: {r1, r2 -> Bool in r1.sortIndex < r2.sortIndex}))
+        
+        // Then, move the relevant items within the playlist view
+        sortedMoves.forEach({
+            
+            if let trackMoveResult = $0 as? TrackMoveResult {
+                
+                // Move track from the old source index within its parent group to its new destination index
+                outlineView.moveItem(at: trackMoveResult.oldTrackIndex, inParent: trackMoveResult.parentGroup!, to: trackMoveResult.newTrackIndex, inParent: trackMoveResult.parentGroup!)
+            } else {
+                
+                let groupMoveResult = $0 as! GroupMoveResult
+                
+                // Move group from the old source index within its parent (root) to its new destination index
+                outlineView.moveItem(at: groupMoveResult.oldGroupIndex, inParent: nil, to: groupMoveResult.newGroupIndex, inParent: nil)
+            }
+        })
     }
 }
 
@@ -341,8 +299,9 @@ class GroupingPlaylistRowView: NSTableRowView {
  */
 class ArtistsPlaylistDataSource: GroupingPlaylistDataSource {
     
-    override var groupType: GroupType {return .artist}
-    override var playlistType: PlaylistType {return .artists}
+    init() {
+        super.init(.artists, .artist)
+    }
 }
 
 /*
@@ -350,8 +309,9 @@ class ArtistsPlaylistDataSource: GroupingPlaylistDataSource {
  */
 class AlbumsPlaylistDataSource: GroupingPlaylistDataSource {
     
-    override var groupType: GroupType {return .album}
-    override var playlistType: PlaylistType {return .albums}
+    init() {
+        super.init(.albums, .album)
+    }
 }
 
 /*
@@ -359,13 +319,7 @@ class AlbumsPlaylistDataSource: GroupingPlaylistDataSource {
  */
 class GenresPlaylistDataSource: GroupingPlaylistDataSource {
     
-    override var groupType: GroupType {return .genre}
-    override var playlistType: PlaylistType {return .genres}
-}
-
-// Utility class to hold NSOutlineView instances for convenient access
-class OutlineViewHolder {
-    
-    // Mapping of playlist types to their corresponding outline views
-    static var instances = [PlaylistType: NSOutlineView]()
+    init() {
+        super.init(.genres, .genre)
+    }
 }

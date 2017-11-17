@@ -13,7 +13,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customObject id="UpC-cd-CvY" userLabel="Genres Data Source" customClass="GenresPlaylistDataSource" customModule="Aural" customModuleProvider="target">
+        <customObject id="UpC-cd-CvY" userLabel="Data Source" customClass="GenresPlaylistDataSource" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playlistView" destination="Qtd-u6-247" id="vJ2-3a-hHy"/>
             </connections>
@@ -130,7 +130,7 @@
                                 <connections>
                                     <action trigger="doubleAction" selector="playSelectedItemAction:" target="-2" id="CNF-RW-OTu"/>
                                     <outlet property="dataSource" destination="UpC-cd-CvY" id="PGI-8u-QhD"/>
-                                    <outlet property="delegate" destination="UpC-cd-CvY" id="2z7-3O-yVt"/>
+                                    <outlet property="delegate" destination="h4x-jt-yfz" id="N3X-by-kLy"/>
                                 </connections>
                             </outlineView>
                         </subviews>
@@ -153,5 +153,10 @@
                 <constraint firstAttribute="trailing" secondItem="7Ht-SU-dHw" secondAttribute="trailing" id="sy0-YI-94Z"/>
             </constraints>
         </view>
+        <customObject id="h4x-jt-yfz" userLabel="Delegate" customClass="GenresPlaylistViewDelegate" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="playlistView" destination="Qtd-u6-247" id="psv-Wt-NCB"/>
+            </connections>
+        </customObject>
     </objects>
 </document>
