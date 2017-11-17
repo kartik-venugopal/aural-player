@@ -8,6 +8,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate {
     // The actual popover that is shown
     private var popover: NSPopover!
     
+    @IBOutlet weak var artView: NSImageView!
     static var shownTrack: Track?
     
     // Popover positioning parameters
@@ -17,7 +18,6 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate {
     @IBOutlet weak var trackInfoView: NSTableView!
     
     convenience init() {
-        Swift.print("Init DTIC")
         self.init(nibName: "DetailedTrackInfo", bundle: Bundle.main)!
     }
     
@@ -34,18 +34,14 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate {
         return controller
     }
     
-//    override func viewWillAppear() {
-//        refresh()
-//    }
-    
     // Called each time the popover is shown ... refreshes the data in the table view depending on which track is currently playing
     func refresh(_ track: Track) {
         
         DetailedTrackInfoViewController.shownTrack = track
         
         // Don't bother refreshing if not shown
-            trackInfoView?.reloadData()
-            trackInfoView?.scrollRowToVisible(0)
+        trackInfoView?.reloadData()
+        trackInfoView?.scrollRowToVisible(0)
     }
     
     func show(_ track: Track, _ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
@@ -55,6 +51,8 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate {
         if (!popover.isShown) {
             popover.show(relativeTo: positioningRect, of: relativeToView, preferredEdge: preferredEdge)
         }
+        
+        artView.image = track.displayInfo.art ?? nil
     }
     
     func isShown() -> Bool {
