@@ -11,6 +11,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     private lazy var albumsView: NSView = ViewFactory.getAlbumsView()
     private lazy var genresView: NSView = ViewFactory.getGenresView()
     
+    @IBOutlet weak var contextMenu: NSMenu!
+    
     // The tab group that switches between the 4 playlist views
     @IBOutlet weak var tabGroup: NSTabView!
     
@@ -46,6 +48,36 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     }
     
     override func windowDidLoad() {
+        setUpTabGroup()
+        registerForInputAndMessages()
+    }
+    
+    private func setUpTabGroup() {
+        
+        tabGroupButtons = [btnTracksView, btnArtistsView, btnAlbumsView, btnGenresView]
+        
+        // Add sub-views to the tab group tabs
+        tabGroup.tabViewItem(at: 0).view?.addSubview(tracksView)
+        tabGroup.tabViewItem(at: 1).view?.addSubview(artistsView)
+        tabGroup.tabViewItem(at: 2).view?.addSubview(albumsView)
+        tabGroup.tabViewItem(at: 3).view?.addSubview(genresView)
+        
+        // Initialize all the tab views
+        artistsTabViewAction(self)
+        albumsTabViewAction(self)
+        genresTabViewAction(self)
+        
+        // Default view is the Tracks view
+        tracksTabViewAction(self)
+    }
+    
+    private func registerForInputAndMessages() {
+        
+        // Set up an input handler to handle scrolling and type selection with key events and gestures
+        NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .swipe], handler: {(event: NSEvent!) -> NSEvent in
+            PlaylistInputEventHandler.handle(event)
+            return event;
+        });
         
         // Register self as a subscriber to various AsyncMessage notifications
         AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.main)
@@ -54,28 +86,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         SyncMessenger.subscribe(messageTypes: [.removeTrackRequest], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .nextPlaylistView, .previousPlaylistView], subscriber: self)
-        
-        // Set up an input handler to handle scrolling and type selection with key events and gestures
-        NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .swipe], handler: {(event: NSEvent!) -> NSEvent in
-            PlaylistInputEventHandler.handle(event)
-            return event;
-        });
-        
-        tabGroupButtons = [btnTracksView, btnArtistsView, btnAlbumsView, btnGenresView]
-        
-        // Set up tab group
-        
-        artistsTabViewAction(self)
-        albumsTabViewAction(self)
-        genresTabViewAction(self)
-        
-        tabGroup.tabViewItem(at: 0).view?.addSubview(tracksView)
-        tabGroup.tabViewItem(at: 1).view?.addSubview(artistsView)
-        tabGroup.tabViewItem(at: 2).view?.addSubview(albumsView)
-        tabGroup.tabViewItem(at: 3).view?.addSubview(genresView)
-        
-        // Default view is the Tracks view
-        tracksTabViewAction(self)
     }
     
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist

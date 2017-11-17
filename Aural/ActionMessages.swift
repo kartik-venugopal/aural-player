@@ -69,6 +69,9 @@ enum ActionType {
     // Switch to the next playlist view (in the tab group)
     case nextPlaylistView
     
+    // Display detailed track info popover for the selected playlist track
+    case selectedTrackInfo
+    
     // MARK: Playlist window actions
     
     // Dock playlist to the left of the main window

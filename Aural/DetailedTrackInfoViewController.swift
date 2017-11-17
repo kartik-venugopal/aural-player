@@ -6,71 +6,74 @@ import Cocoa
 class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate {
     
     // The actual popover that is shown
-    private var popover: NSPopover?
+    private var popover: NSPopover!
     
-    // The view relative to which the popover is shown
-    private var relativeToView: NSView?
+    static var shownTrack: Track?
     
     // Popover positioning parameters
     private let positioningRect = NSZeroRect
-    private let preferredEdge = NSRectEdge.maxX
     
     // The table view that displays the track info
     @IBOutlet weak var trackInfoView: NSTableView!
     
-    // Factory method to create an instance of this class, exposed as an instance of PopoverViewDelegate
-    static func create(_ relativeToView: NSView) -> PopoverViewDelegate {
+    convenience init() {
+        Swift.print("Init DTIC")
+        self.init(nibName: "DetailedTrackInfo", bundle: Bundle.main)!
+    }
+    
+    static func create() -> DetailedTrackInfoViewController {
         
-        let controller = DetailedTrackInfoViewController(nibName: "DetailedTrackInfo", bundle: Bundle.main)
+        let controller = DetailedTrackInfoViewController()
         
         let popover = NSPopover()
         popover.behavior = .semitransient
-        popover.contentViewController = controller!
+        popover.contentViewController = controller
         
-        controller!.popover = popover
-        controller!.relativeToView = relativeToView
+        controller.popover = popover
         
-        return controller!
+        return controller
     }
     
-    override func viewWillAppear() {
-        refresh()
-    }
+//    override func viewWillAppear() {
+//        refresh()
+//    }
     
     // Called each time the popover is shown ... refreshes the data in the table view depending on which track is currently playing
-    func refresh() {
+    func refresh(_ track: Track) {
+        
+        DetailedTrackInfoViewController.shownTrack = track
         
         // Don't bother refreshing if not shown
-        if (isShown()) {
-            trackInfoView.reloadData()
-            trackInfoView.scrollRowToVisible(0)
-        }
+            trackInfoView?.reloadData()
+            trackInfoView?.scrollRowToVisible(0)
     }
     
-    func show() {
+    func show(_ track: Track, _ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
         
-        if (!popover!.isShown) {
-            popover!.show(relativeTo: positioningRect, of: relativeToView!, preferredEdge: preferredEdge)
+        refresh(track)
+        
+        if (!popover.isShown) {
+            popover.show(relativeTo: positioningRect, of: relativeToView, preferredEdge: preferredEdge)
         }
     }
     
     func isShown() -> Bool {
-        return popover!.isShown
+        return popover.isShown
     }
     
     func close() {
         
-        if (popover!.isShown) {
-            popover!.performClose(self)
+        if (popover.isShown) {
+            popover.performClose(self)
         }
     }
     
-    func toggle() {
+    func toggle(_ track: Track, _ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
         
-        if (popover!.isShown) {
+        if (popover.isShown) {
             close()
         } else {
-            show()
+            show(track, relativeToView, preferredEdge)
         }
     }
     

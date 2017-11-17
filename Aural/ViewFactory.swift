@@ -34,13 +34,29 @@ struct ViewFactory {
     // Sub-views for the different individual playlist views displayed in the playlist window's tab group
     fileprivate struct PlaylistViews {
         
-        fileprivate static var tracksViewController: PlaylistTracksViewController = PlaylistTracksViewController()
+        fileprivate static var tracksViewController: TracksPlaylistViewController = TracksPlaylistViewController()
         
         fileprivate static var artistsViewController: ArtistsPlaylistViewController = ArtistsPlaylistViewController()
         
         fileprivate static var albumsViewController: AlbumsPlaylistViewController = AlbumsPlaylistViewController()
         
         fileprivate static var genresViewController: GenresPlaylistViewController = GenresPlaylistViewController()
+        
+        fileprivate static var contextMenuController: PlaylistContextMenuController = PlaylistContextMenuController()
+    }
+    
+    fileprivate struct PopoverViews {
+        
+        
+        // The view that displays detailed track information, when requested by the user
+        fileprivate static var detailedTrackInfoPopover: PopoverViewDelegate = {
+            return DetailedTrackInfoViewController.create()
+        }()
+        
+        // The view that displays a brief info message when a track is added to or removed from Favorites
+        fileprivate static var favoritesPopup: FavoritesPopupViewController = {
+            return FavoritesPopupViewController.create()
+        }()
     }
     
     // MARK: Accessor functions for the different views
@@ -113,5 +129,17 @@ struct ViewFactory {
     // Returns the "Genres" playlist view
     static func getGenresView() -> NSView {
         return PlaylistViews.genresViewController.view
+    }
+    
+    static func getContextMenu() -> NSMenu {
+        return PlaylistViews.contextMenuController.contextMenu
+    }
+    
+    static func getDetailedTrackInfoPopover() -> PopoverViewDelegate {
+        return PopoverViews.detailedTrackInfoPopover
+    }
+    
+    static func getFavoritesPopup() -> FavoritesPopupViewController {
+        return PopoverViews.favoritesPopup
     }
 }

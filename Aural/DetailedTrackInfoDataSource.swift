@@ -38,7 +38,7 @@ class DetailedTrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewD
         
         // If no track is playing, no rows to display
         
-        let _track = playbackInfoDelegate.getPlayingTrack()?.track
+        let _track = DetailedTrackInfoViewController.shownTrack
         if (_track == nil) {
             return 0
         }

@@ -145,7 +145,7 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="ZbT-B5-jLK"/>
-                            <menuItem title=" Play selected item" image="Play-Small" id="afl-Xm-nI9" userLabel="Play selected track/group">
+                            <menuItem title="  Play selected item" image="Play-Small" id="afl-Xm-nI9" userLabel="Play selected track/group">
                                 <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
@@ -154,19 +154,19 @@ DQ
                                     <action selector="playSelectedItemAction:" target="sXT-Pr-clR" id="6ty-nb-ja1"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Move selected items up" image="Up-Small" keyEquivalent="" id="f3c-TG-M9r">
+                            <menuItem title="  Move selected items up" image="Up-Small" keyEquivalent="" id="f3c-TG-M9r">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
                                 <connections>
                                     <action selector="moveItemsUpAction:" target="sXT-Pr-clR" id="NJB-lG-6X3"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Move selected items down" image="Down-Small" keyEquivalent="" id="F5x-Nm-ust">
+                            <menuItem title="  Move selected items down" image="Down-Small" keyEquivalent="" id="F5x-Nm-ust">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
                                 <connections>
                                     <action selector="moveItemsDownAction:" target="sXT-Pr-clR" id="Vpf-ou-Z2h"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Remove selected items" image="Remove-Small" id="20j-6Y-sbB" userLabel="Remove selected track">
+                            <menuItem title="  Remove selected items" image="Remove-Small" id="20j-6Y-sbB" userLabel="Remove selected track">
                                 <string key="keyEquivalent" base64-UTF8="YES">
 CA
 </string>
@@ -321,8 +321,7 @@ CQ
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Sound" id="7VF-JM-uEm">
                         <items>
-                            <menuItem title=" Mute / Unmute" image="Mute-Small" keyEquivalent="" id="zih-cf-fPv" userLabel="Mute/Unmute">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                            <menuItem title=" Mute / Unmute" image="Mute-Small" keyEquivalent="m" id="zih-cf-fPv" userLabel="Mute/Unmute">
                                 <connections>
                                     <action selector="muteOrUnmuteAction:" target="YGo-hN-fxr" id="fkK-Xo-nrT"/>
                                 </connections>

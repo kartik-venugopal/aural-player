@@ -27,6 +27,10 @@ class WindowFactory {
         return playlistWindowController.window!
     }
     
+    static func getPlaylistContextMenu() -> NSMenu {
+        return playlistWindowController.contextMenu
+    }
+    
     // Returns the preferences modal dialog
     static func getPreferencesDialog() -> ModalDialogDelegate {
         return preferencesWindowController

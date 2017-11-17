@@ -39,7 +39,7 @@ class PopoverBackgroundView: NSView {
 protocol PopoverViewDelegate {
     
     // Shows the popover view
-    func show()
+    func show(_ track: Track, _ relativeToView: NSView, _ preferredEdge: NSRectEdge)
     
     // Checks if the popover view is shown
     func isShown() -> Bool
@@ -48,8 +48,8 @@ protocol PopoverViewDelegate {
     func close()
     
     // Toggles the popover view (show/close)
-    func toggle()
+    func toggle(_ track: Track, _ relativeToView: NSView, _ preferredEdge: NSRectEdge)
     
     // Refreshes the track info in the popover view
-    func refresh()
+    func refresh(_ track: Track)
 }
