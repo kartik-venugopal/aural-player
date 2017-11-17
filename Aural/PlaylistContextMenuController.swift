@@ -90,6 +90,16 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Shows a popover with detailed information for the currently playing track, if there is one
     @IBAction func moreInfoAction(_ sender: AnyObject) {
         
+        let clickedItem = PlaylistViewContext.getClickedItem()
+        let track = clickedItem.type == .index ? playlist.trackAtIndex(clickedItem.index!)!.track : clickedItem.track!
+        track.loadDetailedInfo()
+        
+        let plView = PlaylistViewContext.clickedView!
+        let row = plView.selectedRow
+        let view = plView.view(atColumn: 1, row: row, makeIfNecessary: false)!
+        
+        detailedInfoPopover.show(track, view, NSRectEdge.maxY)
+        WindowState.window.makeKeyAndOrderFront(self)
     }
  
     // Removes any selected playlist items from the playlist

@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="DetailedTrackInfoViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="artView" destination="S7P-5I-7H0" id="zW0-cW-G5d"/>
                 <outlet property="trackInfoView" destination="FNS-yf-Iy0" id="2DV-HS-UnX"/>
                 <outlet property="view" destination="c22-O7-iKe" id="yFm-1D-SYW"/>
             </connections>
@@ -17,15 +18,20 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="341"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="202" horizontalPageScroll="10" verticalLineScroll="202" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCi-21-MRa">
-                    <rect key="frame" x="12" y="19" width="455" height="282"/>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S7P-5I-7H0" userLabel="Artwork">
+                    <rect key="frame" x="12" y="287" width="40" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="4tG-Jk-wDf"/>
+                </imageView>
+                <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="202" horizontalPageScroll="10" verticalLineScroll="202" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCi-21-MRa" userLabel="Track Info Table">
+                    <rect key="frame" x="12" y="19" width="455" height="260"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="hYB-5h-Z23">
-                        <rect key="frame" x="0.0" y="0.0" width="455" height="282"/>
+                        <rect key="frame" x="0.0" y="0.0" width="455" height="260"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="200" rowSizeStyle="automatic" viewBased="YES" id="FNS-yf-Iy0">
-                                <rect key="frame" x="0.0" y="0.0" width="455" height="282"/>
+                                <rect key="frame" x="0.0" y="0.0" width="455" height="260"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -115,7 +121,7 @@
                     </scroller>
                 </scrollView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qb8-5A-XiD">
-                    <rect key="frame" x="147" y="314" width="186" height="23"/>
+                    <rect key="frame" x="147" y="304" width="186" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Detailed Track Information" id="xMW-ml-rIT">
                         <font key="font" size="16" name="GillSans"/>

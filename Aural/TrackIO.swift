@@ -56,6 +56,10 @@ class TrackIO {
             return
         }
         
+        if (!track.lazyLoadingInfo.preparedForPlayback) {
+            prepareForPlayback(track)
+        }
+        
         // Audio info
         AudioUtils.loadAudioInfo(track)
         
