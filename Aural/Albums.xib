@@ -125,7 +125,7 @@
                                 <connections>
                                     <action trigger="doubleAction" selector="playSelectedItemAction:" target="-2" id="Qvc-vW-8gE"/>
                                     <outlet property="dataSource" destination="iJj-aD-bEy" id="MwM-Ae-0dj"/>
-                                    <outlet property="delegate" destination="iJj-aD-bEy" id="9V3-6w-nqk"/>
+                                    <outlet property="delegate" destination="Xtt-So-uZm" id="8ep-ml-ojq"/>
                                 </connections>
                             </outlineView>
                         </subviews>
@@ -148,9 +148,14 @@
                 <constraint firstItem="K58-n2-zaU" firstAttribute="top" secondItem="Oyc-CU-03C" secondAttribute="top" id="wd7-aU-LKj"/>
             </constraints>
         </view>
-        <customObject id="iJj-aD-bEy" userLabel="Albums Data Source" customClass="AlbumsPlaylistDataSource" customModule="Aural" customModuleProvider="target">
+        <customObject id="iJj-aD-bEy" userLabel="Data Source" customClass="AlbumsPlaylistDataSource" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playlistView" destination="zOt-gt-mXm" id="ab7-6v-FkH"/>
+            </connections>
+        </customObject>
+        <customObject id="Xtt-So-uZm" userLabel="Delegate" customClass="AlbumsPlaylistViewDelegate" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="playlistView" destination="zOt-gt-mXm" id="0IL-bc-xxx"/>
             </connections>
         </customObject>
     </objects>
