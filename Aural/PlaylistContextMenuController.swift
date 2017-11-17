@@ -71,8 +71,10 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         let plView = PlaylistViewContext.clickedView!
         let row = plView.selectedRow
-        let view = plView.view(atColumn: 2, row: row, makeIfNecessary: false)!
         
+        let view = plView.view(atColumn: plView.numberOfColumns - 1, row: row, makeIfNecessary: false)!
+        
+        // TODO: Need to send out notification (for now playing star button ?) ? Maybe. Maybe HistDelegate already does send it out.
         if favoritesMenuItem.isOn() {
             
             history.removeFavorite(track)
@@ -96,7 +98,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         let plView = PlaylistViewContext.clickedView!
         let row = plView.selectedRow
-        let view = plView.view(atColumn: 1, row: row, makeIfNecessary: false)!
+        let view = plView.view(atColumn: plView.numberOfColumns - 2, row: row, makeIfNecessary: false)!
         
         detailedInfoPopover.show(track, view, NSRectEdge.maxY)
         WindowState.window.makeKeyAndOrderFront(self)
