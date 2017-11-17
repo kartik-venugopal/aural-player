@@ -164,8 +164,8 @@
                                 </tableColumns>
                                 <connections>
                                     <action trigger="doubleAction" selector="playSelectedTrackAction:" target="-2" id="kEj-HT-bsP"/>
-                                    <outlet property="dataSource" destination="vH7-ho-Ykd" id="ngR-0G-efg"/>
-                                    <outlet property="delegate" destination="vH7-ho-Ykd" id="PDf-An-cld"/>
+                                    <outlet property="dataSource" destination="vH7-ho-Ykd" id="rfp-o9-RCK"/>
+                                    <outlet property="delegate" destination="fxO-kG-Bir" id="JYQ-SW-wPL"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -188,9 +188,14 @@
                 <constraint firstAttribute="bottom" secondItem="gzJ-2a-yOb" secondAttribute="bottom" id="puf-Ss-CM4"/>
             </constraints>
         </view>
-        <customObject id="vH7-ho-Ykd" customClass="TracksPlaylistDataSource" customModule="Aural" customModuleProvider="target">
+        <customObject id="vH7-ho-Ykd" userLabel="Data Source" customClass="TracksPlaylistViewDataSource" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playlistView" destination="yfe-8c-y7Q" id="6WQ-6l-GO9"/>
+            </connections>
+        </customObject>
+        <customObject id="fxO-kG-Bir" userLabel="Delegate" customClass="TracksPlaylistViewDelegate" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="playlistView" destination="yfe-8c-y7Q" id="MkS-vP-S7Z"/>
             </connections>
         </customObject>
     </objects>

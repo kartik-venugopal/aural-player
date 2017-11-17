@@ -1,12 +1,11 @@
 import Cocoa
-import AVFoundation
 
 /*
-    Performs drag n drop operations for the Tracks playlist view
+    Data source for the NSTableView that displays the "Tracks" (flat) playlist view.
  */
-class TracksPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
+class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     
-    // Delegate that relays CRUD operations to the playlist
+    // Delegate that relays accessor operations to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
     // Used to determine if a track is currently playing
@@ -14,6 +13,13 @@ class TracksPlaylistDragDropDelegate: NSObject, NSOutlineViewDelegate {
     
     // Signifies an invalid drag/drop operation
     private let invalidDragOperation: NSDragOperation = []
+    
+    // Returns the total number of playlist rows
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return playlist.size()
+    }
+    
+    // MARK: Drag n drop
     
     // Writes source information to the pasteboard
     func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
