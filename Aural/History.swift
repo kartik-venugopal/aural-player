@@ -1,4 +1,5 @@
 import Cocoa
+
 /*
     Model object that manages all historical information, in chronological order:
  
@@ -10,13 +11,20 @@ import Cocoa
 class History: HistoryProtocol {
     
     // Recently added items
-    var recentlyAddedItems: LRUArray<AddedItem> = LRUArray<AddedItem>(25)
+    var recentlyAddedItems: LRUArray<AddedItem>
     
     // Recently played items
-    var recentlyPlayedItems: LRUArray<PlayedItem> = LRUArray<PlayedItem>(25)
+    var recentlyPlayedItems: LRUArray<PlayedItem>
     
     // Favorites items
-    var favorites: LRUArray<FavoritesItem> = LRUArray<FavoritesItem>(25)
+    var favorites: LRUArray<FavoritesItem>
+    
+    init(_ preferences: HistoryPreferences) {
+        
+        recentlyAddedItems = LRUArray<AddedItem>(preferences.recentlyAddedListSize)
+        recentlyPlayedItems = LRUArray<PlayedItem>(preferences.recentlyPlayedListSize)
+        favorites = LRUArray<FavoritesItem>(preferences.favoritesListSize)
+    }
     
     func addRecentlyAddedItems(_ items: [URL]) {
         
@@ -65,5 +73,12 @@ class History: HistoryProtocol {
         
         // Reverse the array for chronological order (most recent items first)
         return favorites.toArray().reversed()
+    }
+    
+    func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int, _ favoritesListSize: Int) {
+        
+        recentlyAddedItems.resize(recentlyAddedListSize)
+        recentlyPlayedItems.resize(recentlyPlayedListSize)
+        favorites.resize(favoritesListSize)
     }
 }

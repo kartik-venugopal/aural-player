@@ -17,8 +17,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         self.graph = graph
         self.preferences = preferences
         
-        if (preferences.volumeOnStartup == .specific) {
-            graph.setVolume(preferences.startupVolumeValue)
+        if (preferences.soundPreferences.volumeOnStartup == .specific) {
+            graph.setVolume(preferences.soundPreferences.startupVolumeValue)
             graph.unmute()
         }
     }
@@ -40,7 +40,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         // Volume is increased by an amount set in the user preferences
         
         // The volume increment will depend on the action mode
-        let volumeDelta = actionMode == .discrete ? preferences.volumeDelta_discrete : preferences.volumeDelta_continuous
+        let volumeDelta = actionMode == .discrete ? preferences.soundPreferences.volumeDelta_discrete : preferences.soundPreferences.volumeDelta_continuous
         
         let newVolume = min(1, graph.getVolume() + volumeDelta)
         graph.setVolume(newVolume)
@@ -54,7 +54,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         // Volume is decreased by an amount set in the user preferences
         
         // The volume decrement will depend on the action mode
-        let volumeDelta = actionMode == .discrete ? preferences.volumeDelta_discrete : preferences.volumeDelta_continuous
+        let volumeDelta = actionMode == .discrete ? preferences.soundPreferences.volumeDelta_discrete : preferences.soundPreferences.volumeDelta_continuous
         
         let newVolume = max(0, graph.getVolume() - volumeDelta)
         graph.setVolume(newVolume)
@@ -96,7 +96,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         // Pan is shifted left by an amount set in the user preferences
         
         let curBalance = graph.getBalance()
-        var newBalance = max(-1, curBalance - preferences.panDelta)
+        var newBalance = max(-1, curBalance - preferences.soundPreferences.panDelta)
         
         // Snap to center
         if (curBalance > 0 && newBalance < 0) {
@@ -114,7 +114,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         // Pan is shifted right by an amount set in the user preferences
         
         let curBalance = graph.getBalance()
-        var newBalance = min(1, curBalance + preferences.panDelta)
+        var newBalance = min(1, curBalance + preferences.soundPreferences.panDelta)
         
         // Snap to center
         if (curBalance < 0 && newBalance > 0) {

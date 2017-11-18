@@ -85,7 +85,7 @@ class ObjectGraph {
         recorderDelegate = RecorderDelegate(recorder!)
         
         // History (and delegate)
-        history = History()
+        history = History(preferences!.historyPreferences)
         historyDelegate = HistoryDelegate(history!, playlistDelegate!, playbackDelegate!, appState!.historyState)
     }
     

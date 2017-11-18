@@ -46,6 +46,17 @@ enum ViewTypes: String {
         }
     }
     
+    static func fromDescription(_ description: String) -> ViewTypes {
+        
+        for value in allValues {
+            if value.description == description {
+                return value
+            }
+        }
+        
+        return defaultView
+    }
+    
     static let allValues: [ViewTypes] = [defaultView, playlistOnly, effectsOnly, compact]
 }
 

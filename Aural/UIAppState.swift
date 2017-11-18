@@ -70,30 +70,30 @@ class UIAppState {
     
     init(_ appState: AppState, _ preferences: Preferences) {
         
-        if (preferences.viewOnStartup.option == .rememberFromLastAppLaunch) {
+        if (preferences.viewPreferences.viewOnStartup.option == .rememberFromLastAppLaunch) {
             
             self.hidePlaylist = !appState.uiState.showPlaylist
             self.hideEffects = !appState.uiState.showEffects
             
         } else {
             
-            let viewType = preferences.viewOnStartup.viewType
+            let viewType = preferences.viewPreferences.viewOnStartup.viewType
             self.hidePlaylist = viewType == .effectsOnly || viewType == .compact
             self.hideEffects = viewType == .playlistOnly || viewType == .compact
         }
         
-        if (preferences.playlistLocationOnStartup.option == .rememberFromLastAppLaunch) {
+        if (preferences.viewPreferences.playlistLocationOnStartup.option == .rememberFromLastAppLaunch) {
             
             self.playlistLocation = appState.uiState.playlistLocation
             
         } else {
             
-            self.playlistLocation = preferences.playlistLocationOnStartup.playlistLocation
+            self.playlistLocation = preferences.viewPreferences.playlistLocationOnStartup.playlistLocation
         }
         
-        self.windowLocationOnStartup = preferences.windowLocationOnStartup
+        self.windowLocationOnStartup = preferences.viewPreferences.windowLocationOnStartup
         
-        if (preferences.windowLocationOnStartup.option == .rememberFromLastAppLaunch) {
+        if (preferences.viewPreferences.windowLocationOnStartup.option == .rememberFromLastAppLaunch) {
             
             self.windowLocationXY = NSPoint(x: CGFloat(appState.uiState.windowLocationX), y: CGFloat(appState.uiState.windowLocationY))
         }
@@ -103,11 +103,11 @@ class UIAppState {
         
         let playerState = appState.audioGraphState
         
-        if (preferences.volumeOnStartup == .rememberFromLastAppLaunch) {
+        if (preferences.soundPreferences.volumeOnStartup == .rememberFromLastAppLaunch) {
             self.volume = round(playerState.volume * AppConstants.volumeConversion_audioGraphToUI)
             self.muted = playerState.muted
         } else {
-            self.volume = round(preferences.startupVolumeValue * AppConstants.volumeConversion_audioGraphToUI)
+            self.volume = round(preferences.soundPreferences.startupVolumeValue * AppConstants.volumeConversion_audioGraphToUI)
             self.muted = false
         }
         

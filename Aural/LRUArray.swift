@@ -6,7 +6,7 @@ import Cocoa
 struct LRUArray<T: EquatableHistoryItem> {
     
     private var array: [T] = [T]()
-    private let size: Int
+    private var size: Int
     
     init(_ size: Int) {
         self.size = size
@@ -59,5 +59,18 @@ struct LRUArray<T: EquatableHistoryItem> {
         
         // Invoke EquatableHistoryItem.equals() to check for element equality
         return array.contains(where: { $0.equals(element) })
+    }
+    
+    mutating func resize(_ newSize: Int) {
+        
+        if newSize != self.size {
+            self.size = newSize
+        }
+        
+        if newSize < array.count {
+            
+            // Shrink the array (remove the n oldest items where n = the difference between current array size and the new maximum array size)
+            array.removeFirst(array.count - newSize)
+        }
     }
 }
