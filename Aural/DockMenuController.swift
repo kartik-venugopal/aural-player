@@ -3,7 +3,12 @@ import Cocoa
 /*
     Provides actions for the dock menu. These are a handful of simple essential functions that would typically be performed by a user running the app in the background.
  
-    NOTE - No actions are directly handled by this class. Action messages are published to other app components that are responsible for these functions.
+    NOTE:
+ 
+        - No actions are directly handled by this class. Action messages are published to other app components that are responsible for these functions.
+ 
+        - Since the dock menu runs outside the Aural Player process, it does not respond to menu delegate callbacks. For this reason, it needs to listen for model updates and be updated eagerly. It cannot be updated lazily, just in time, as the menu is about to open.
+ 
  */
 class DockMenuController: NSObject, AsyncMessageSubscriber {
     
