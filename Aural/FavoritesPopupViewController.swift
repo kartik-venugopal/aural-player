@@ -4,7 +4,7 @@
 import Cocoa
 
 // TODO: Can this be a general info popup ? "Tracks are being added ... (progress)" ?
-class FavoritesPopupViewController: NSViewController {
+class FavoritesPopupViewController: NSViewController, FavoritesPopupProtocol {
     
     // The actual popover that is shown
     private var popover: NSPopover!

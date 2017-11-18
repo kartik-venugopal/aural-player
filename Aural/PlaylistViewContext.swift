@@ -1,50 +1,66 @@
 import Cocoa
 
+/*
+    Utility that holds information about the currently displayed playlist view and about its current selection state when presenting a contextual menu. This is required in order to expose an NSTableView outside the scope of its owning ViewController.
+ 
+    TODO: Merge this with PlaylistViewState
+ */
 class PlaylistViewContext {
     
-    static var clickedView: NSTableView!
+    // The playlist view that was clicked. Will be nil initially.
+    private static var _clickedView: NSTableView!
     
-    static func getClickedItem() -> ClickedItem {
+    // The playlist item that was clicked. Will be nil initially.
+    private static var _clickedItem: ClickedItem!
+    
+    // Exposed to outside callers (should never be nil). Should only be accessed subsequent to calling noteViewClicked().
+    static var clickedView: NSTableView {
+        return _clickedView!
+    }
+    
+    // Exposed to outside callers (should never be nil). Should only be accessed subsequent to calling noteViewClicked().
+    static var clickedItem: ClickedItem {
+        return _clickedItem!
+    }
+    
+    /*
+        When a playlist view is clicked, notes and keeps track of which view was clicked, and which row in that view was clicked.
+     
+        NOTE - This function should only be called when the playlist is non-empty (i.e. has at least one row). This is assumed by the code inside this function.
+     */
+    static func noteViewClicked(_ view: NSTableView) {
         
-        if let outlineView = clickedView as? AuralPlaylistOutlineView {
+        _clickedView = view
+        
+        // Determine which item was clicked, and what kind of item it is
+        if let outlineView = _clickedView as? AuralPlaylistOutlineView {
             
             // Grouping view
             let item = outlineView.item(atRow: outlineView.selectedRow)
             
             if let group = item as? Group {
-                return ClickedItem(group: group)
+                _clickedItem = ClickedItem(group: group)
             } else {
                 // Track
-                return ClickedItem(track: item as! Track)
+                _clickedItem = ClickedItem(track: item as! Track)
             }
         } else {
             
             // Tracks view
-            return ClickedItem(index: clickedView.selectedRow)
+            _clickedItem = ClickedItem(index: _clickedView.selectedRow)
         }
     }
 }
 
+// Encapsulates information about a playlist item that was clicked
 struct ClickedItem {
     
     var type: ClickedItemType
     
+    // Only one of these will be non-nil, depending on the type of item
     var index: Int?
     var track: Track?
     var group: Group?
-    
-    var description: String {
-        
-        switch self.type {
-            
-        case .index: return "Index: " + String(index!)
-            
-        case .track: return "Track: " + track!.conciseDisplayName
-            
-        case .group: return "Group: " + group!.name
-            
-        }
-    }
     
     // Initialize the object with a track index. This represents an item from the Tracks playlist.
     init(index: Int) {
@@ -65,6 +81,7 @@ struct ClickedItem {
     }
 }
 
+// Enumerates the different types of playlist items (in terms of their location within the playlist)
 enum ClickedItemType {
     
     case index

@@ -139,7 +139,7 @@ struct ViewFactory {
         return PopoverViews.detailedTrackInfoPopover
     }
     
-    static func getFavoritesPopup() -> FavoritesPopupViewController {
+    static func getFavoritesPopup() -> FavoritesPopupProtocol {
         return PopoverViews.favoritesPopup
     }
 }

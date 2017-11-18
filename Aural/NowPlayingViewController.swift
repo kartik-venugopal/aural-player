@@ -30,6 +30,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Button to show the currently playing track within the playlist
     @IBOutlet weak var btnShowPlayingTrackInPlaylist: NSButton!
 
+    // Button to add/remove the currently playing track to/from the Favorites list
     @IBOutlet weak var btnFavorite: OnOffImageButton!
     
     // Delegate that conveys all seek and playback info requests to the player
@@ -41,10 +42,11 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Timer that periodically updates the seek position slider and label
     private var seekTimer: RepeatingTaskExecutor?
     
+    // Popover view that displays detailed info for the currently playing track
     private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.getDetailedTrackInfoPopover()
     
-    // TODO: Expose through protocol
-    private lazy var favoritesPopup: FavoritesPopupViewController = ViewFactory.getFavoritesPopup()
+    // Popup view that displays a brief notification when the currently playing track is added/removed to/from the Favorites list
+    private lazy var favoritesPopup: FavoritesPopupProtocol = ViewFactory.getFavoritesPopup()
     
     convenience init() {
         self.init(nibName: "NowPlaying", bundle: Bundle.main)!
