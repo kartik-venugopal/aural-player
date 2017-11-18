@@ -50,7 +50,9 @@ Wanna try it out ? The latest app bundle can be found in the disk image file [Au
 
 ## Planned updates
 
-**Swift 4 migration**: A new Swift4 branch will be created, with all Swift code written in Swift v4. This will become the master branch in the future.
+**Playlist contextual menu*** - When a playlist item is right/control-clicked, it will display a contextual menu with functions applicable to the clicked item. Certain functions that could only be performed on the playing track will now be able to be performed on any playlist track.
+
+**Swift 4 migration** - A new Swift4 branch will be created, with all Swift code written in Swift v4. This will become the master branch in the future.
 
 ## Recent updates
 
