@@ -114,12 +114,9 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         // Check if there is a track playing (this function cannot be invoked otherwise)
         if let playingTrack = (playbackInfo.getPlayingTrack()?.track) {
-            
-            // Toggle the menu item
-            favoritesMenuItem.toggle()
         
             // Publish an action message to add/remove the item to/from Favorites
-            let action: ActionType = favoritesMenuItem.isOn() ? .addFavorite : .removeFavorite
+            let action: ActionType = history.hasFavorite(playingTrack) ? .removeFavorite : .addFavorite
             SyncMessenger.publishActionMessage(FavoritesActionMessage(action, playingTrack))
         }
     }
