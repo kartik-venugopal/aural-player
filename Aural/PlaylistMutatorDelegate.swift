@@ -41,8 +41,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     func addFiles(_ files: [URL]) {
         
-        let autoplay: Bool = self.preferences.autoplayAfterAddingTracks
-        let interruptPlayback: Bool = self.preferences.autoplayAfterAddingOption == .always
+        let autoplay: Bool = preferences.playbackPreferences.autoplayAfterAddingTracks
+        let interruptPlayback: Bool = preferences.playbackPreferences.autoplayAfterAddingOption == .always
         
         addFiles_async(files, AutoplayOptions(autoplay, interruptPlayback))
         AsyncMessenger.publishMessage(ItemsAddedAsyncMessage(files: files))
@@ -341,10 +341,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
                 addFiles_async(filesToOpen, AutoplayOptions(true, true))
                 
-            } else if (preferences.playlistOnStartup == .rememberFromLastAppLaunch) {
+            } else if (preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch) {
                 
                 // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
-                addFiles_async(playlistState.tracks, AutoplayOptions(preferences.autoplayOnStartup, true))
+                addFiles_async(playlistState.tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true))
             }
             
             return

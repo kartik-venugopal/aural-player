@@ -561,10 +561,22 @@
                         <action selector="moveItemUpAction:" target="TnB-Sk-yOp" id="axi-a3-lIi"/>
                     </connections>
                 </menuItem>
+                <menuItem title="  Move this track to the top" image="Up-Small" hidden="YES" id="QUe-xD-qff" userLabel="Move track top">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="moveItemUpAction:" target="TnB-Sk-yOp" id="FFy-VX-OEM"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="  Move this track down" image="Down-Small" id="k3z-qH-RxK" userLabel="Move track down">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="moveItemDownAction:" target="TnB-Sk-yOp" id="Jjq-1a-OiX"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="  Move this track to the bottom" image="Down-Small" hidden="YES" id="HDD-rc-j4w" userLabel="Move track bottom">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="moveItemDownAction:" target="TnB-Sk-yOp" id="Af7-Yz-t96"/>
                     </connections>
                 </menuItem>
                 <menuItem title="  Remove this group" image="Remove-Small" id="kVv-1O-nHY">
@@ -585,6 +597,7 @@
                         <action selector="moveItemDownAction:" target="TnB-Sk-yOp" id="zzV-RP-NYT"/>
                     </connections>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="pT2-gB-uk0"/>
             </items>
             <connections>
                 <outlet property="delegate" destination="TnB-Sk-yOp" id="QBL-nZ-sex"/>

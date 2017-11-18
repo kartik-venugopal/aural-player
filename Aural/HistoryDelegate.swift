@@ -86,6 +86,10 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.removedFromFavorites, track))
     }
     
+    func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int, _ favoritesListSize: Int) {
+        history.resizeLists(recentlyAddedListSize, recentlyPlayedListSize, favoritesListSize)
+    }
+    
     func persistentState() -> PersistentState {
         
         let state = HistoryState()

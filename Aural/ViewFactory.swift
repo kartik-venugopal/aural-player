@@ -45,6 +45,20 @@ struct ViewFactory {
         fileprivate static var contextMenuController: PlaylistContextMenuController = PlaylistContextMenuController()
     }
     
+    // Sub-views for the different individual playlist views displayed in the playlist window's tab group
+    fileprivate struct PreferencesViews {
+        
+        fileprivate static var playlistPreferencesViewController: PlaylistPreferencesViewController = PlaylistPreferencesViewController()
+        
+        fileprivate static var playbackPreferencesViewController: PlaybackPreferencesViewController = PlaybackPreferencesViewController()
+        
+        fileprivate static var soundPreferencesViewController: SoundPreferencesViewController = SoundPreferencesViewController()
+        
+        fileprivate static var viewPreferencesViewController: ViewPreferencesViewController = ViewPreferencesViewController()
+        
+        fileprivate static var historyPreferencesViewController: HistoryPreferencesViewController = HistoryPreferencesViewController()
+    }
+    
     fileprivate struct PopoverViews {
         
         
@@ -141,5 +155,25 @@ struct ViewFactory {
     
     static func getFavoritesPopup() -> FavoritesPopupProtocol {
         return PopoverViews.favoritesPopup
+    }
+    
+    static func getPlaylistPreferencesView() -> PreferencesViewProtocol {
+        return PreferencesViews.playlistPreferencesViewController
+    }
+    
+    static func getPlaybackPreferencesView() -> PreferencesViewProtocol {
+        return PreferencesViews.playbackPreferencesViewController
+    }
+    
+    static func getSoundPreferencesView() -> PreferencesViewProtocol {
+        return PreferencesViews.soundPreferencesViewController
+    }
+    
+    static func getViewPreferencesView() -> PreferencesViewProtocol {
+        return PreferencesViews.viewPreferencesViewController
+    }
+    
+    static func getHistoryPreferencesView() -> PreferencesViewProtocol {
+        return PreferencesViews.historyPreferencesViewController
     }
 }
