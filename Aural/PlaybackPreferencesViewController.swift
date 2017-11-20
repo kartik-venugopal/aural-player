@@ -23,7 +23,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let playbackPrefs = preferences.playbackPreferences
         
-        let seekLength = playbackPrefs.seekLength_discrete
+        let seekLength = playbackPrefs.seekLength
         seekLengthSlider.integerValue = seekLength
         lblSeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(seekLength)
         
@@ -71,7 +71,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let playbackPrefs = preferences.playbackPreferences
         
-        playbackPrefs.seekLength_discrete = seekLengthSlider.integerValue
+        playbackPrefs.seekLength = seekLengthSlider.integerValue
         
         playbackPrefs.autoplayOnStartup = Bool(btnAutoplayOnStartup.state)
         

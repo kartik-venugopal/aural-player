@@ -26,7 +26,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         let soundPrefs = preferences.soundPreferences
         
-        let volumeDelta = Int(round(soundPrefs.volumeDelta_discrete * AppConstants.volumeConversion_audioGraphToUI))
+        let volumeDelta = Int(round(soundPrefs.volumeDelta * AppConstants.volumeConversion_audioGraphToUI))
         volumeDeltaStepper.integerValue = volumeDelta
         volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
         
@@ -65,7 +65,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         let soundPrefs = preferences.soundPreferences
         
-        soundPrefs.volumeDelta_discrete = volumeDeltaStepper.floatValue * AppConstants.volumeConversion_UIToAudioGraph
+        soundPrefs.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.volumeConversion_UIToAudioGraph
         
         soundPrefs.volumeOnStartup = btnRememberVolume.state == 1 ? .rememberFromLastAppLaunch : .specific
         soundPrefs.startupVolumeValue = Float(startupVolumeSlider.integerValue) * AppConstants.volumeConversion_UIToAudioGraph

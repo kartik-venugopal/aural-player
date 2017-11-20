@@ -9,6 +9,8 @@ class PlaylistInputEventHandler {
     // A mapping of playlist type to the corresponding view that displays it
     private static var playlistViews: [PlaylistType: NSTableView] = [:]
     
+    private static let preferences: ControlsPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().controlsPreferences
+    
     static func registerViewForPlaylistType(_ playlistType: PlaylistType, _ playlistView: NSTableView) {
         playlistViews[playlistType] = playlistView
     }
@@ -41,25 +43,27 @@ class PlaylistInputEventHandler {
             return
         }
         
-        // Used to indicate a playlist action triggered by the swipe
-        var actionType: ActionType
-        
         if let swipeDirection = UIUtils.determineSwipeDirection(event) {
             
-            switch swipeDirection {
-                
-            case .left: actionType = .previousPlaylistView
-                
-            case .right: actionType = .nextPlaylistView
-                
-            case .up: actionType = .scrollToTop
-                
-            case .down: actionType = .scrollToBottom
-                
-            }
+            swipeDirection.isHorizontal() ? handlePlaylistTabToggle(event, swipeDirection) : handlePlaylistNavigation(event, swipeDirection)
+        }
+    }
+    
+    private static func handlePlaylistNavigation(_ event: NSEvent, _ swipeDirection: GestureDirection) {
+        
+        if preferences.allowPlaylistNavigation {
+        
+            // Publish the action message
+            SyncMessenger.publishActionMessage(PlaylistActionMessage(swipeDirection == .up ? .scrollToTop : .scrollToBottom, nil))
+        }
+    }
+    
+    private static func handlePlaylistTabToggle(_ event: NSEvent, _ swipeDirection: GestureDirection) {
+        
+        if preferences.allowPlaylistTabToggle {
             
             // Publish the action message
-            SyncMessenger.publishActionMessage(PlaylistActionMessage(actionType, nil))
+            SyncMessenger.publishActionMessage(PlaylistActionMessage(swipeDirection == .left ? .previousPlaylistView : .nextPlaylistView, nil))
         }
     }
     

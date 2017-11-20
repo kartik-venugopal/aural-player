@@ -151,3 +151,10 @@ enum PlaylistLocations: String {
         return PlaylistLocations(rawValue: description.lowercased()) ?? .bottom
     }
 }
+
+enum ScrollSensitivity: String {
+    
+    case low
+    case medium
+    case high
+}

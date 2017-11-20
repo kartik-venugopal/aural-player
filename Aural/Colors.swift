@@ -91,8 +91,15 @@ struct Colors {
     // Fill color of box drawn around selected tab view item
     static let tabViewSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.25, alpha: 1)
     
-    // Fill color of modal dialog buttons
-    static let modalDialogButtonColor: NSColor = NSColor.black
+    // Text color of modal dialog buttons
+    static let modalDialogButtonTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
+    
+    static let modalDialogButtonGradient: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.5, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.2, alpha: 1.0)
+        return NSGradient(starting: backgroundStart, ending: backgroundEnd)!
+    }()
     
     // Fill color of modal dialog navigation buttons (search)
     static let modalDialogNavButtonColor: NSColor = NSColor(calibratedWhite: 0.45, alpha: 1)
