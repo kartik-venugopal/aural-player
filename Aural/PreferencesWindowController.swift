@@ -14,6 +14,7 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
     @IBOutlet weak var btnSoundPrefs: NSButton!
     @IBOutlet weak var btnViewPrefs: NSButton!
     @IBOutlet weak var btnHistoryPrefs: NSButton!
+    @IBOutlet weak var btnControlsPrefs: NSButton!
     
     private var tabViewButtons: [NSButton] = []
     
@@ -24,6 +25,7 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
     private lazy var soundPrefsView: PreferencesViewProtocol = ViewFactory.getSoundPreferencesView()
     private lazy var viewPrefsView: PreferencesViewProtocol = ViewFactory.getViewPreferencesView()
     private lazy var historyPrefsView: PreferencesViewProtocol = ViewFactory.getHistoryPreferencesView()
+    private lazy var controlsPrefsView: PreferencesViewProtocol = ViewFactory.getControlsPreferencesView()
     
     private var subViews: [PreferencesViewProtocol] = []
     
@@ -42,14 +44,17 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
         window?.titlebarAppearsTransparent = true
         window?.isMovableByWindowBackground = true
         
-        tabViewButtons = [btnPlaybackPrefs, btnPlaylistPrefs, btnSoundPrefs, btnViewPrefs, btnHistoryPrefs]
-        subViews = [playlistPrefsView, playbackPrefsView, soundPrefsView, viewPrefsView, historyPrefsView]
+        tabViewButtons = [btnPlaybackPrefs, btnPlaylistPrefs, btnSoundPrefs, btnViewPrefs, btnHistoryPrefs, btnControlsPrefs]
+        subViews = [playlistPrefsView, playbackPrefsView, soundPrefsView, viewPrefsView, historyPrefsView, controlsPrefsView]
         
         tabView.tabViewItem(at: 0).view?.addSubview(playlistPrefsView.getView())
         tabView.tabViewItem(at: 1).view?.addSubview(playbackPrefsView.getView())
         tabView.tabViewItem(at: 2).view?.addSubview(soundPrefsView.getView())
         tabView.tabViewItem(at: 3).view?.addSubview(viewPrefsView.getView())
         tabView.tabViewItem(at: 4).view?.addSubview(historyPrefsView.getView())
+        tabView.tabViewItem(at: 5).view?.addSubview(controlsPrefsView.getView())
+        
+        tabView.tabViewItems.forEach({$0.view?.subviews.first?.setFrameOrigin(NSPoint.zero)})
         
         super.windowDidLoad()
     }
@@ -85,6 +90,7 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
         
         subViews.forEach({$0.save(preferences)})
         delegate.savePreferences(preferences)
+        
         UIUtils.dismissModalDialog()
     }
     

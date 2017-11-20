@@ -51,7 +51,7 @@ class ObjectGraph {
         
         // Audio Graph (and delegate)
         audioGraph = AudioGraph(appState!.audioGraphState)
-        audioGraphDelegate = AudioGraphDelegate(audioGraph!, preferences!)
+        audioGraphDelegate = AudioGraphDelegate(audioGraph!, preferences!.soundPreferences)
         
         // Player
         player = Player(audioGraph!)
@@ -70,7 +70,7 @@ class ObjectGraph {
         playbackSequencer = PlaybackSequencer(playlist!, repeatMode, shuffleMode)
         
         // Playback Delegate
-        playbackDelegate = PlaybackDelegate(player!, playbackSequencer!, playlist!, preferences!)
+        playbackDelegate = PlaybackDelegate(player!, playbackSequencer!, playlist!, preferences!.playbackPreferences)
 
         // Playlist Delegate
         let accessor = PlaylistAccessorDelegate(playlist!)

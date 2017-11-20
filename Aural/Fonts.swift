@@ -6,6 +6,8 @@ import Cocoa
 
 struct Fonts {
     
+    private static let gillSans11Font: NSFont = NSFont(name: "Gill Sans", size: 11)!
+    
     private static let gillSans12LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 12)!
     private static let gillSans12Font: NSFont = NSFont(name: "Gill Sans", size: 12)!
     private static let gillSans12SemiBoldFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
@@ -30,6 +32,9 @@ struct Fonts {
     
     // Font used by modal dialog buttons
     static let modalDialogButtonFont: NSFont = gillSans12Font
+    
+    // Font used by modal dialog control buttons
+    static let modalDialogControlButtonFont: NSFont = gillSans11Font
     
     // Font used by the search modal dialog navigation buttons
     static let modalDialogNavButtonFont: NSFont = gillSans12BoldFont

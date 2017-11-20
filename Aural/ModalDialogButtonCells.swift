@@ -10,12 +10,10 @@ class ModalDialogButtonCell: NSButtonCell {
     var cellInsetX: CGFloat {return 0}
     var cellInsetY: CGFloat {return 0}
     
-    var backgroundFillColor: NSColor {return Colors.modalDialogButtonColor}
-    var borderRadius: CGFloat {return 1}
-    var borderLineWidth: CGFloat {return 1}
-    var borderStrokeColor: NSColor {return Colors.modalDialogButtonOutlineColor}
+    var backgroundFillGradient: NSGradient {return Colors.modalDialogButtonGradient}
+    var borderRadius: CGFloat {return 2}
     
-    var textColor: NSColor {return Colors.boxTextColor}
+    var textColor: NSColor {return Colors.modalDialogButtonTextColor}
     var textFont: NSFont {return Fonts.modalDialogButtonFont}
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
@@ -23,14 +21,8 @@ class ModalDialogButtonCell: NSButtonCell {
         let drawRect = cellFrame.insetBy(dx: cellInsetX, dy: cellInsetY)
         
         // Background
-        backgroundFillColor.setFill()
         let borderPath = NSBezierPath.init(roundedRect: drawRect, xRadius: borderRadius, yRadius: borderRadius)
-        borderPath.fill()
-        
-        // Border
-        borderStrokeColor.setStroke()
-        borderPath.lineWidth = borderLineWidth
-        borderPath.stroke()
+        backgroundFillGradient.draw(in: borderPath, angle: -UIConstants.verticalGradientDegrees)
         
         // Title
         GraphicsUtils.drawCenteredTextInRect(cellFrame, title, textColor, textFont)
@@ -43,8 +35,16 @@ class ModalDialogResponseButtonCell: ModalDialogButtonCell {
     override var cellInsetX: CGFloat {return 1}
     override var cellInsetY: CGFloat {return 1}
     
-    override var borderRadius: CGFloat {return 2}
-    override var borderLineWidth: CGFloat {return 0.5}
+    override var borderRadius: CGFloat {return 2.5}
+}
+
+// Cell for all response buttons (Save/Cancel, etc)
+class ModalDialogControlButtonCell: ModalDialogButtonCell {
+    
+    override var cellInsetX: CGFloat {return 1}
+    override var cellInsetY: CGFloat {return 2}
+    
+    override var textFont: NSFont {return Fonts.modalDialogControlButtonFont}
 }
 
 // Cell for search results navigation buttons (next/previous)
@@ -53,10 +53,7 @@ class ColoredNavigationButtonCell: ModalDialogButtonCell {
     override var cellInsetX: CGFloat {return 1}
     override var cellInsetY: CGFloat {return 1}
     
-    override var backgroundFillColor: NSColor {return Colors.modalDialogNavButtonColor}
-    
     override var borderRadius: CGFloat {return 3}
-    override var borderLineWidth: CGFloat {return 1.5}
     
     override var textColor: NSColor {return Colors.modalDialogNavButtonTextColor}
     override var textFont: NSFont {return Fonts.modalDialogNavButtonFont}

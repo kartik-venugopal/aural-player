@@ -4,6 +4,14 @@
 import Foundation
 import Cocoa
 
+// Contract for a persistent preferences object
+fileprivate protocol PersistentPreferencesProtocol {
+    
+    init(_ defaultsDictionary: [String: Any])
+    
+    func persist(defaults: UserDefaults)
+}
+
 class Preferences: PersistentPreferencesProtocol {
     
     private static let singleton: Preferences = Preferences(Preferences.defaultsDict)
@@ -18,18 +26,21 @@ class Preferences: PersistentPreferencesProtocol {
     var playlistPreferences: PlaylistPreferences
     var viewPreferences: ViewPreferences
     var historyPreferences: HistoryPreferences
+    var controlsPreferences: ControlsPreferences
     
     private var allPreferences: [PersistentPreferencesProtocol] = []
     
     internal required init(_ defaultsDictionary: [String: Any]) {
         
-        playbackPreferences = PlaybackPreferences(defaultsDictionary)
-        soundPreferences = SoundPreferences(defaultsDictionary)
+        controlsPreferences = ControlsPreferences(defaultsDictionary)
+        playbackPreferences = PlaybackPreferences(defaultsDictionary, controlsPreferences)
+        soundPreferences = SoundPreferences(defaultsDictionary, controlsPreferences)
+        
         playlistPreferences = PlaylistPreferences(defaultsDictionary)
         viewPreferences = ViewPreferences(defaultsDictionary)
         historyPreferences = HistoryPreferences(defaultsDictionary)
         
-        allPreferences = [playbackPreferences, soundPreferences, playlistPreferences, viewPreferences, historyPreferences]
+        allPreferences = [playbackPreferences, soundPreferences, playlistPreferences, viewPreferences, historyPreferences, controlsPreferences]
     }
     
     func persist(defaults: UserDefaults) {
@@ -46,27 +57,29 @@ class Preferences: PersistentPreferencesProtocol {
     }
 }
 
-// Contract for a persistent preferences object
-fileprivate protocol PersistentPreferencesProtocol {
-    
-    init(_ defaultsDictionary: [String: Any])
-    
-    func persist(defaults: UserDefaults)
-}
-
 class PlaybackPreferences: PersistentPreferencesProtocol {
     
-    var seekLength_discrete: Int
-    var seekLength_continuous: Int
+    var seekLength: Int
+    
+    private let scrollSensitiveSeekLengths: [ScrollSensitivity: Double] = [.low: 2.5, .medium: 5, .high: 10]
+    var seekLength_continuous: Double {
+        return scrollSensitiveSeekLengths[controlsPreferences.seekSensitivity]!
+    }
+    
+    private var controlsPreferences: ControlsPreferences!
     
     var autoplayOnStartup: Bool
     var autoplayAfterAddingTracks: Bool
     var autoplayAfterAddingOption: AutoplayAfterAddingOptions
     
+    fileprivate convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: ControlsPreferences) {
+        self.init(defaultsDictionary)
+        self.controlsPreferences = controlsPreferences
+    }
+    
     internal required init(_ defaultsDictionary: [String: Any]) {
     
-        seekLength_discrete = defaultsDictionary["playback.seekLength_discrete"] as? Int ?? PreferencesDefaults.Playback.seekLength_discrete
-        seekLength_continuous = defaultsDictionary["playback.seekLength_continuous"] as? Int ?? PreferencesDefaults.Playback.seekLength_continuous
+        seekLength = defaultsDictionary["playback.seekLength"] as? Int ?? PreferencesDefaults.Playback.seekLength
         
         autoplayOnStartup = defaultsDictionary["playback.autoplayOnStartup"] as? Bool ?? PreferencesDefaults.Playback.autoplayOnStartup
         
@@ -81,8 +94,7 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     
     func persist(defaults: UserDefaults) {
         
-        defaults.set(seekLength_discrete, forKey: "playback.seekLength_discrete")
-        defaults.set(seekLength_continuous, forKey: "playback.seekLength_continuous")
+        defaults.set(seekLength, forKey: "playback.seekLength")
         
         defaults.set(autoplayOnStartup, forKey: "playback.autoplayOnStartup")
         defaults.set(autoplayAfterAddingTracks, forKey: "playback.autoplayAfterAddingTracks")
@@ -93,18 +105,29 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
 
 class SoundPreferences: PersistentPreferencesProtocol {
     
-    var volumeDelta_discrete: Float
-    var volumeDelta_continuous: Float
+    var volumeDelta: Float
+    
+    private let scrollSensitiveVolumeDeltas: [ScrollSensitivity: Float] = [.low: 0.025, .medium: 0.05, .high: 0.1]
+    var volumeDelta_continuous: Float {
+        return scrollSensitiveVolumeDeltas[controlsPreferences.volumeControlSensitivity]!
+    }
+    
     var volumeOnStartup: VolumeStartupOptions
     var startupVolumeValue: Float
     var panDelta: Float
+    
+    private var controlsPreferences: ControlsPreferences!
+    
+    fileprivate convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: ControlsPreferences) {
+        self.init(defaultsDictionary)
+        self.controlsPreferences = controlsPreferences
+    }
     
     internal required init(_ defaultsDictionary: [String: Any]) {
         
         let defaultsDictionary = Preferences.defaultsDict
         
-        volumeDelta_discrete = defaultsDictionary["sound.volumeDelta_discrete"] as? Float ?? PreferencesDefaults.Sound.volumeDelta_discrete
-        volumeDelta_continuous = defaultsDictionary["sound.volumeDelta_continuous"] as? Float ?? PreferencesDefaults.Sound.volumeDelta_continuous
+        volumeDelta = defaultsDictionary["sound.volumeDelta"] as? Float ?? PreferencesDefaults.Sound.volumeDelta
         
         if let volumeOnStartupStr = defaultsDictionary["sound.volumeOnStartup"] as? String {
             volumeOnStartup = VolumeStartupOptions(rawValue: volumeOnStartupStr)!
@@ -120,21 +143,13 @@ class SoundPreferences: PersistentPreferencesProtocol {
     func persist(defaults: UserDefaults) {
         
         
-        defaults.set(volumeDelta_discrete, forKey: "sound.volumeDelta_discrete")
-        defaults.set(volumeDelta_continuous, forKey: "sound.volumeDelta_continuous")
+        defaults.set(volumeDelta, forKey: "sound.volumeDelta")
         
         defaults.set(volumeOnStartup.rawValue, forKey: "sound.volumeOnStartup")
         defaults.set(startupVolumeValue, forKey: "sound.startupVolumeValue")
         
         defaults.set(panDelta, forKey: "sound.panDelta")
     }
-}
-
-enum ScrollSensitivity {
-    
-    case low
-    case medium
-    case high
 }
 
 class PlaylistPreferences: PersistentPreferencesProtocol {
@@ -230,6 +245,59 @@ class HistoryPreferences: PersistentPreferencesProtocol {
     }
 }
 
+class ControlsPreferences: PersistentPreferencesProtocol {
+    
+    var allowVolumeControl: Bool
+    var allowSeeking: Bool
+    var allowTrackChange: Bool
+    
+    var allowPlaylistNavigation: Bool
+    var allowPlaylistTabToggle: Bool
+    
+    var volumeControlSensitivity: ScrollSensitivity
+    var seekSensitivity: ScrollSensitivity
+    
+    internal required init(_ defaultsDictionary: [String: Any]) {
+        
+        let defaultsDictionary = Preferences.defaultsDict
+        
+        allowVolumeControl = defaultsDictionary["controls.allowVolumeControl"] as? Bool ?? PreferencesDefaults.Controls.allowVolumeControl
+        
+        allowSeeking = defaultsDictionary["controls.allowSeeking"] as? Bool ?? PreferencesDefaults.Controls.allowSeeking
+        
+        allowTrackChange = defaultsDictionary["controls.allowTrackChange"] as? Bool ?? PreferencesDefaults.Controls.allowTrackChange
+        
+        allowPlaylistNavigation = defaultsDictionary["controls.allowPlaylistNavigation"] as? Bool ?? PreferencesDefaults.Controls.allowPlaylistNavigation
+        
+        allowPlaylistTabToggle = defaultsDictionary["controls.allowPlaylistTabToggle"] as? Bool ?? PreferencesDefaults.Controls.allowPlaylistTabToggle
+        
+        if let volumeControlSensitivityStr = defaultsDictionary["controls.volumeControlSensitivity"] as? String {
+            volumeControlSensitivity = ScrollSensitivity(rawValue: volumeControlSensitivityStr)!
+        } else {
+            volumeControlSensitivity = PreferencesDefaults.Controls.volumeControlSensitivity
+        }
+        
+        if let seekSensitivityStr = defaultsDictionary["controls.seekSensitivity"] as? String {
+            seekSensitivity = ScrollSensitivity(rawValue: seekSensitivityStr)!
+        } else {
+            seekSensitivity = PreferencesDefaults.Controls.seekSensitivity
+        }
+    }
+    
+    func persist(defaults: UserDefaults) {
+        
+        defaults.set(allowVolumeControl, forKey: "controls.allowVolumeControl")
+        defaults.set(allowSeeking, forKey: "controls.allowSeeking")
+        defaults.set(allowTrackChange, forKey: "controls.allowTrackChange")
+        
+        defaults.set(allowPlaylistNavigation, forKey: "controls.allowPlaylistNavigation")
+        defaults.set(allowPlaylistTabToggle, forKey: "controls.allowPlaylistTabToggle")
+        
+        defaults.set(volumeControlSensitivity.rawValue, forKey: "controls.volumeControlSensitivity")
+        defaults.set(seekSensitivity.rawValue, forKey: "controls.seekSensitivity")
+    }
+}
+
 /*
     Container for default values for user preferences
  */
@@ -237,8 +305,7 @@ fileprivate struct PreferencesDefaults {
     
     struct Playback {
         
-        static let seekLength_discrete: Int = 5
-        static let seekLength_continuous: Int = 3
+        static let seekLength: Int = 5
         static let autoplayOnStartup: Bool = false
         static let autoplayAfterAddingTracks: Bool = false
         static let autoplayAfterAddingOption: AutoplayAfterAddingOptions = .ifNotPlaying
@@ -246,8 +313,7 @@ fileprivate struct PreferencesDefaults {
     
     struct Sound {
         
-        static let volumeDelta_discrete: Float = 0.05
-        static let volumeDelta_continuous: Float = 0.025
+        static let volumeDelta: Float = 0.05
         
         static let volumeOnStartup: VolumeStartupOptions = .rememberFromLastAppLaunch
         static let startupVolumeValue: Float = 0.5
@@ -272,5 +338,18 @@ fileprivate struct PreferencesDefaults {
         static let recentlyAddedListSize: Int = 25
         static let recentlyPlayedListSize: Int = 25
         static let favoritesListSize: Int = 25
+    }
+    
+    struct Controls {
+        
+        static let allowVolumeControl: Bool = true
+        static let allowSeeking: Bool = true
+        static let allowTrackChange: Bool = true
+        
+        static let allowPlaylistNavigation: Bool = true
+        static let allowPlaylistTabToggle: Bool = true
+        
+        static let volumeControlSensitivity: ScrollSensitivity = .medium
+        static let seekSensitivity: ScrollSensitivity = .medium
     }
 }

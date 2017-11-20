@@ -8,11 +8,14 @@ class GestureHandler {
     // Retrieves current playing track info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
+    private let preferences: ControlsPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().controlsPreferences
+    
     // Handles a single event
     func handle(_ event: NSEvent) {
         
-        if (NSApp.modalWindow != nil) {
-            // Modal dialog open, don't do anything
+        // If a modal dialog is open, don't do anything
+        // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
+        if (NSApp.modalWindow != nil || event.window != WindowState.window) {
             return
         }
         
@@ -28,99 +31,66 @@ class GestureHandler {
         }
     }
     
-    // Handles a single (three finger) swipe event
+    // Handles a single swipe event
     private func handleSwipe(_ event: NSEvent) {
-        
-        // Ignore any swipe events that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
-        if event.window != WindowState.window {
-            return
-        }
-        
-        // Used to indicate a playback action triggered by the swipe
-        var actionType: ActionType
         
         if let swipeDirection = UIUtils.determineSwipeDirection(event) {
             
-            switch swipeDirection {
-                
-            case .left: actionType = .previousTrack
-                
-            case .right: actionType = .nextTrack
-                
-            default: return
-                
+            if swipeDirection.isHorizontal() {
+                handleTrackChange(swipeDirection)
             }
-            
-            // Publish the action message
-            SyncMessenger.publishActionMessage(PlaybackActionMessage(actionType))
         }
     }
     
-    // Handles a single (two finger) scroll event
-    private func handleScroll(_ event: NSEvent) {
+    private func handleTrackChange(_ swipeDirection: GestureDirection) {
         
-        // Ignore any scroll events that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
-        if event.window != WindowState.window {
-            return
+        if preferences.allowTrackChange {
+            
+            // Publish the action message
+            SyncMessenger.publishActionMessage(PlaybackActionMessage(swipeDirection == .left ? .previousTrack : .nextTrack))
         }
+    }
+    
+    // Handles a single scroll event
+    private func handleScroll(_ event: NSEvent) {
         
         // Calculate the direction and magnitude of the scroll (nil if there is no direction information)
         if let scrollVector = UIUtils.determineScrollVector(event) {
             
-            if (validateScroll(event, scrollVector.direction)) {
-                
-                switch scrollVector.direction {
-                    
-                case .up:
-                    
-                    // Increase volume
-                    
-                    SyncMessenger.publishActionMessage(AudioGraphActionMessage(.increaseVolume, .continuous, Float(scrollVector.movement)))
-                    
-                case .down:
-                    
-                    // Decrease volume
-                    
-                    SyncMessenger.publishActionMessage(AudioGraphActionMessage(.decreaseVolume, .continuous, Float(scrollVector.movement)))
-                    
-                case .left:
-                    
-                    // Seek backward
-                    
-                    SyncMessenger.publishActionMessage(PlaybackActionMessage(.seekBackward, .continuous))
-                    
-                case .right:
-                    
-                    // Seek forward
-                    
-                    SyncMessenger.publishActionMessage(PlaybackActionMessage(.seekForward, .continuous))
-                }
-            }
+            // Vertical scroll = volume control, horizontal scroll = seeking
+            scrollVector.direction.isVertical() ? handleVolumeControl(event, scrollVector.direction) : handleSeek(event, scrollVector.direction)
         }
     }
     
-    /*
-        Performs all necessary validation on a scroll event.
-     
-        Returns true if the scroll event is valid and needs to be processed, and false otherwise.
-     */
-    private func validateScroll(_ event: NSEvent, _ direction: GestureDirection) -> Bool {
+    private func handleVolumeControl(_ event: NSEvent, _ scrollDirection: GestureDirection) {
         
-        // Horizontal scroll (seeking)
-        if (direction == .left || direction == .right) {
+        if preferences.allowVolumeControl && ScrollSession.validateEvent(event, scrollDirection) {
+        
+            // Scroll up = increase volume, scroll down = decrease volume
+            SyncMessenger.publishActionMessage(AudioGraphActionMessage(scrollDirection == .up ? .increaseVolume : .decreaseVolume, .continuous))
+        }
+    }
+    
+    private func handleSeek(_ event: NSEvent, _ scrollDirection: GestureDirection) {
+        
+        if preferences.allowSeeking {
             
             // If no track is playing, seeking cannot be performed
             if (playbackInfo.getPlaybackState() == .noTrack) {
-                return false
+                return
             }
             
             // Seeking forward (do not allow residual scroll)
-            if (direction == .right && isResidualScroll(event)) {
-                return false
+            if (scrollDirection == .right && isResidualScroll(event)) {
+                return
+            }
+            
+            if ScrollSession.validateEvent(event, scrollDirection) {
+        
+                // Scroll left = seek backward, scroll right = seek forward
+                SyncMessenger.publishActionMessage(PlaybackActionMessage(scrollDirection == .left ? .seekBackward : .seekForward, .continuous))
             }
         }
-        
-        return ScrollSession.validateEvent(event, direction)
     }
     
     /*
@@ -264,4 +234,12 @@ enum GestureDirection: String {
     case right
     case down
     case up
+    
+    func isHorizontal() -> Bool {
+        return self == .left || self == .right
+    }
+    
+    func isVertical() -> Bool {
+        return self == .up || self == .down
+    }
 }

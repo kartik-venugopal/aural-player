@@ -15,12 +15,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     private let playlist: PlaylistAccessorProtocol
     
     // User preferences
-    private let preferences: Preferences
+    private let preferences: PlaybackPreferences
     
     // Serial queue for track prep tasks (to prevent concurrent prepping of the same track which could cause contention)
     private var trackPrepQueue: OperationQueue
     
-    init(_ player: PlayerProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ playlist: PlaylistAccessorProtocol, _ preferences: Preferences) {
+    init(_ player: PlayerProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ playlist: PlaylistAccessorProtocol, _ preferences: PlaybackPreferences) {
         
         self.player = player
         self.playbackSequencer = playbackSequencer
@@ -240,7 +240,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         let trackDuration = playingTrack!.track.duration
 
         // The seek length depends on the action mode
-        let increment = actionMode == .discrete ? Double(preferences.playbackPreferences.seekLength_discrete) : Double(preferences.playbackPreferences.seekLength_continuous)
+        let increment = actionMode == .discrete ? Double(preferences.seekLength) : preferences.seekLength_continuous
         let newPosn = min(trackDuration, curPosn + increment)
         
         // If this seek takes the track to its end, stop playback and proceed to the next track
@@ -265,7 +265,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         let curPosn = player.getSeekPosition()
         
         // The seek length depends on the action mode
-        let decrement = actionMode == .discrete ? Double(preferences.playbackPreferences.seekLength_discrete) : Double(preferences.playbackPreferences.seekLength_continuous)
+        let decrement = actionMode == .discrete ? Double(preferences.seekLength) : preferences.seekLength_continuous
         let newPosn = max(0, curPosn - decrement)
         
         let playingTrack = getPlayingTrack()

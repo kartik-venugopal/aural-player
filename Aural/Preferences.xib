@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PreferencesWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnControlsPrefs" destination="NIW-GO-LI8" id="xxv-yS-n0s"/>
                 <outlet property="btnHistoryPrefs" destination="6Mp-rG-06r" id="Kjk-BK-EvL"/>
                 <outlet property="btnPlaybackPrefs" destination="yYf-cg-2Vs" id="qAh-e1-Wfl"/>
                 <outlet property="btnPlaylistPrefs" destination="9As-Pf-t9V" id="vES-cD-x91"/>
@@ -22,34 +23,34 @@
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="cPc-w0-G6G" userLabel="Preferences Dialog" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="120" y="65" width="418" height="359"/>
+            <rect key="contentRect" x="120" y="65" width="424" height="350"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="fR8-8f-93h">
-                <rect key="frame" x="0.0" y="0.0" width="418" height="359"/>
+                <rect key="frame" x="0.0" y="0.0" width="424" height="350"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box hidden="YES" fixedFrame="YES" boxType="custom" borderWidth="2" cornerRadius="3" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="5E6-rc-rG3" userLabel="Container">
-                        <rect key="frame" x="0.0" y="0.0" width="418" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="424" height="350"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" ambiguous="YES" id="3Ar-FX-Gbp">
-                            <rect key="frame" x="2" y="2" width="414" height="371"/>
+                            <rect key="frame" x="2" y="2" width="420" height="346"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                         <color key="borderColor" white="0.57961697048611116" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="E58-7v-r1V" userLabel="Prefs Box">
-                        <rect key="frame" x="13" y="44" width="391" height="269"/>
+                        <rect key="frame" x="12" y="39" width="400" height="275"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" ambiguous="YES" id="JmK-hG-e3d">
-                            <rect key="frame" x="1" y="1" width="389" height="267"/>
+                            <rect key="frame" x="1" y="1" width="398" height="273"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9As-Pf-t9V" userLabel="Playlist tab button">
-                        <rect key="frame" x="12" y="324" width="65" height="22"/>
+                        <rect key="frame" x="12" y="320" width="58" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" title="Playlist" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="qEi-qz-Vo2" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="square" title="Playlist" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="qEi-qz-Vo2" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="GillSans"/>
                         </buttonCell>
@@ -58,9 +59,9 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="yYf-cg-2Vs" userLabel="Playback tab button">
-                        <rect key="frame" x="92" y="324" width="65" height="22"/>
+                        <rect key="frame" x="82" y="320" width="65" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" title="Playback" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="Xrz-Gd-6J9" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="square" title="Playback" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="Xrz-Gd-6J9" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="GillSans"/>
                         </buttonCell>
@@ -69,9 +70,9 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="l0q-I3-BN2" userLabel="Sound tab button">
-                        <rect key="frame" x="182" y="324" width="55" height="22"/>
+                        <rect key="frame" x="157" y="320" width="55" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" title="Sound" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="X7j-MR-Tzg" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="square" title="Sound" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="X7j-MR-Tzg" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="GillSans"/>
                         </buttonCell>
@@ -80,9 +81,9 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="1P8-qO-PAI" userLabel="View tab button">
-                        <rect key="frame" x="266" y="324" width="50" height="22"/>
+                        <rect key="frame" x="218" y="320" width="50" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" title="View" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" tag="3" imageScaling="proportionallyDown" inset="2" id="VLG-MA-szg" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="square" title="View" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="3" imageScaling="proportionallyDown" inset="2" id="VLG-MA-szg" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="GillSans"/>
                         </buttonCell>
@@ -91,9 +92,9 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="6Mp-rG-06r" userLabel="History tab button">
-                        <rect key="frame" x="342" y="324" width="60" height="22"/>
+                        <rect key="frame" x="280" y="320" width="60" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" title="History" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" tag="4" imageScaling="proportionallyDown" inset="2" id="doM-yi-aDb" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="square" title="History" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="4" imageScaling="proportionallyDown" inset="2" id="doM-yi-aDb" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="GillSans"/>
                         </buttonCell>
@@ -101,48 +102,66 @@
                             <action selector="tabViewAction:" target="-2" id="raH-nD-yYY"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="NIW-GO-LI8" userLabel="Controls tab button">
+                        <rect key="frame" x="351" y="320" width="60" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" title="Controls" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="4" imageScaling="proportionallyDown" inset="2" id="3KF-l1-pco" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="13" name="GillSans"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="tabViewAction:" target="-2" id="Ih8-M8-Tnf"/>
+                        </connections>
+                    </button>
                     <tabView fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="MZg-sd-sfB" userLabel="Preferences TabView">
-                        <rect key="frame" x="13" y="44" width="391" height="264"/>
+                        <rect key="frame" x="12" y="39" width="400" height="275"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
-                            <tabViewItem label="Playlist" identifier="1" id="k4S-mC-mT3" userLabel="Playlist Prefs">
+                            <tabViewItem label="Playlist" identifier="0" id="k4S-mC-mT3" userLabel="Playlist Prefs">
                                 <view key="view" ambiguous="YES" id="Mhb-Lu-Gfp">
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="275"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="Playback" identifier="2" id="yO3-Pa-ViJ" userLabel="Playback Prefs">
+                            <tabViewItem label="Playback" identifier="1" id="yO3-Pa-ViJ" userLabel="Playback Prefs">
                                 <view key="view" id="Wby-5h-gau">
-                                    <rect key="frame" x="0.0" y="0.0" width="391" height="264"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="275"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="Sound" identifier="3" id="Jsa-7o-57W" userLabel="Sound Prefs">
+                            <tabViewItem label="Sound" identifier="2" id="Jsa-7o-57W" userLabel="Sound Prefs">
                                 <view key="view" id="M5T-uH-Pe9">
-                                    <rect key="frame" x="0.0" y="0.0" width="391" height="264"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="275"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="View" identifier="4" id="Y71-kL-xHE" userLabel="View Prefs">
+                            <tabViewItem label="View" identifier="3" id="Y71-kL-xHE" userLabel="View Prefs">
                                 <view key="view" id="8Mf-Mz-VyS">
-                                    <rect key="frame" x="0.0" y="0.0" width="391" height="264"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="275"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="History" identifier="5" id="8MX-CS-NgA" userLabel="History Prefs">
+                            <tabViewItem label="History" identifier="4" id="8MX-CS-NgA" userLabel="History Prefs">
                                 <view key="view" id="VU4-J3-GvZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="391" height="264"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="275"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Controls" identifier="5" id="3TW-yq-t8Z" userLabel="Controls Prefs">
+                                <view key="view" id="2UQ-Br-8L8">
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="275"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
                         </tabViewItems>
                     </tabView>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xZn-wk-Yzb" userLabel="Save button">
-                        <rect key="frame" x="254" y="10" width="73" height="19"/>
+                        <rect key="frame" x="286" y="7" width="55" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="recessed" title="Save" bezelStyle="recessed" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="g9T-gO-tSc">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                            <font key="font" size="13" name="GillSans-SemiBold"/>
+                        <buttonCell key="cell" type="roundRect" title="Save" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="g9T-gO-tSc" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
                             <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
@@ -152,11 +171,11 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sD2-kU-JBa" userLabel="Cancel button">
-                        <rect key="frame" x="331" y="10" width="73" height="19"/>
+                        <rect key="frame" x="348" y="7" width="63" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="recessed" title="Cancel" bezelStyle="recessed" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fNg-0f-sEm">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                            <font key="font" size="13" name="GillSans-SemiBold"/>
+                        <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fNg-0f-sEm" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
                             <string key="keyEquivalent" base64-UTF8="YES">
 Gw
 </string>
@@ -175,7 +194,7 @@ Gw
             <connections>
                 <outlet property="delegate" destination="-2" id="XFG-Q7-hzn"/>
             </connections>
-            <point key="canvasLocation" x="-801" y="685"/>
+            <point key="canvasLocation" x="-881" y="695"/>
         </window>
     </objects>
 </document>

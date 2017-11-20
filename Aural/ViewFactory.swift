@@ -57,6 +57,8 @@ struct ViewFactory {
         fileprivate static var viewPreferencesViewController: ViewPreferencesViewController = ViewPreferencesViewController()
         
         fileprivate static var historyPreferencesViewController: HistoryPreferencesViewController = HistoryPreferencesViewController()
+        
+        fileprivate static var controlsPreferencesViewController: ControlsPreferencesViewController = ControlsPreferencesViewController()
     }
     
     fileprivate struct PopoverViews {
@@ -175,5 +177,9 @@ struct ViewFactory {
     
     static func getHistoryPreferencesView() -> PreferencesViewProtocol {
         return PreferencesViews.historyPreferencesViewController
+    }
+    
+    static func getControlsPreferencesView() -> PreferencesViewProtocol {
+        return PreferencesViews.controlsPreferencesViewController
     }
 }
