@@ -50,11 +50,11 @@ Wanna try it out ? The latest app bundle can be found in the disk image file [Au
 
 ## Planned updates
 
-**Playlist contextual menu** - When a playlist item is right/control-clicked, it will display a contextual menu with functions applicable to the clicked item. Certain functions that could only be performed on the playing track will now be able to be performed on any playlist track.
-
 **Swift 4 migration** - A new Swift4 branch will be created, with all Swift code written in Swift v4. This will become the master branch in the future.
 
 ## Recent updates
+
+11/20/2017: **Playlist contextual menu** - When a playlist item is right/control-clicked, the app will now display a contextual menu with functions applicable to the clicked item. Certain functions that could only be performed on the playing track will now be able to be performed on any playlist track - adding/removing a track to/from Favorites list, getting detailed track info.
 
 11/16/2017: **Gesture recognition (trackpad/MagicMouse users)** - Users with a trackpad or MagicMouse can now perform essential player/playlist functions like track selection, seeking, volume control, and playlist scrolling (top/bottom), with simple and familiar gestures like 3-finger swipes or two-finger scrolls.
 
