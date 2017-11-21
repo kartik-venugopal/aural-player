@@ -12,8 +12,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
     private let playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
     
     // Buttons to toggle the playlist/effects views
-    @IBOutlet weak var btnToggleEffects: NSButton!
-    @IBOutlet weak var btnTogglePlaylist: NSButton!
+    @IBOutlet weak var btnToggleEffects: OnOffImageButton!
+    @IBOutlet weak var btnTogglePlaylist: OnOffImageButton!
     
     // The box that encloses the Now Playing info section
     @IBOutlet weak var nowPlayingBox: NSBox!
@@ -60,6 +60,13 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         nowPlayingBox.addSubview(nowPlayingView)
         playerBox.addSubview(playerView)
         effectsBox.addSubview(effectsView)
+        
+        // Set up the toggle button images
+        btnTogglePlaylist.offStateImage = Images.imgPlaylistOff
+        btnTogglePlaylist.onStateImage = Images.imgPlaylistOn
+        
+        btnToggleEffects.offStateImage = Images.imgEffectsOff
+        btnToggleEffects.onStateImage = Images.imgEffectsOn
         
         // Register a handler for trackpad/MagicMouse gestures
         
@@ -329,8 +336,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         
         mainWindow.addChildWindow(playlistWindow, ordered: NSWindowOrderingMode.below)
         playlistWindow.setIsVisible(true)
-        btnTogglePlaylist.state = 1
-        btnTogglePlaylist.image = Images.imgPlaylistOn
+        btnTogglePlaylist.on()
         WindowState.showingPlaylist = true
         
         // Re-dock the playlist window, as per the previous dock state
@@ -360,8 +366,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         // Hide playlist window and update UI controls
         
         playlistWindow.setIsVisible(false)
-        btnTogglePlaylist.state = 0
-        btnTogglePlaylist.image = Images.imgPlaylistOff
+        btnTogglePlaylist.off()
         WindowState.showingPlaylist = false
     }
     
@@ -379,8 +384,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
             
             resizeMainWindow(playlistWindow.isVisible && playlistDockState == .bottom, true)
             effectsBox.isHidden = false
-            btnToggleEffects.state = 1
-            btnToggleEffects.image = Images.imgEffectsOn
+            btnToggleEffects.on()
             WindowState.showingEffects = true
             
         } else {
@@ -389,8 +393,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
             
             effectsBox.isHidden = true
             resizeMainWindow(playlistWindow.isVisible && playlistDockState == .bottom, false)
-            btnToggleEffects.state = 0
-            btnToggleEffects.image = Images.imgEffectsOff
+            btnToggleEffects.off()
             WindowState.showingEffects = false
         }
         
