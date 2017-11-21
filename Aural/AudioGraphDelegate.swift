@@ -127,6 +127,10 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return round(newBalance * AppConstants.panConversion_audioGraphToUI)
     }
     
+    func toggleEQBypass() -> Bool {
+        return graph.toggleEQBypass()
+    }
+    
     func setEQGlobalGain(_ gain: Float) {
         graph.setEQGlobalGain(gain)
     }

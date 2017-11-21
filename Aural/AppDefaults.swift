@@ -21,6 +21,7 @@ class AppDefaults {
     static let balance: Float = 0
     static let muted: Bool = false
     
+    static let eqBypass: Bool = true
     static let eqGlobalGain: Float = 0
     static let eqBandGain: Float = 0
     

@@ -55,6 +55,7 @@ struct Images {
     
     // On/off state images for different tabs of the Effects panel
     
+    static let imgEQOff: NSImage = NSImage(named: "EQTab")!
     static let imgPitchOff: NSImage = NSImage(named: "PitchTab")!
     static let imgTimeOff: NSImage = NSImage(named: "TimeTab")!
     static let imgReverbOff: NSImage = NSImage(named: "ReverbTab")!
@@ -62,6 +63,7 @@ struct Images {
     static let imgFilterOff: NSImage = NSImage(named: "FilterTab")!
     static let imgRecorderOff: NSImage = NSImage(named: "RecorderTab")!
     
+    static let imgEQOn: NSImage = NSImage(named: "EQTab-On")!
     static let imgPitchOn: NSImage = NSImage(named: "PitchTab-On")!
     static let imgTimeOn: NSImage = NSImage(named: "TimeTab-On")!
     static let imgReverbOn: NSImage = NSImage(named: "ReverbTab-On")!

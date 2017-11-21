@@ -27,6 +27,9 @@ protocol AudioGraphProtocol {
     // Determines whether the player is currently muted
     func isMuted() -> Bool
     
+    // Toggles the bypass state of the Equalizer audio effect unit, and returns its new bypass state
+    func toggleEQBypass() -> Bool
+    
     // Sets global gain (or preamp) for the equalizer
     func setEQGlobalGain(_ gain: Float)
     
