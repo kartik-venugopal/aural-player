@@ -82,7 +82,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         let appState = ObjectGraph.getUIAppState()
         
         if (appState.hideEffects) {
-            toggleEffects(false)
+            toggleEffects()
         }
         
         // If a specific position is specified, use it
@@ -96,7 +96,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         // Show and dock the playlist, if needed
         playlistDockState = appState.playlistLocation.toPlaylistDockState()
         if (!appState.hidePlaylist) {
-            showPlaylist(false)
+            showPlaylist()
         }
     }
     
@@ -572,7 +572,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
             if (playlistDockState == .none) {
                 
                 // Add the bottom edge to the main window, if it is not already present
-                resizeMainWindow(false, WindowState.showingEffects, false)
+                resizeMainWindow(false, WindowState.showingEffects)
             }
         }
     }
