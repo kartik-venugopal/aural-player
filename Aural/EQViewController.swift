@@ -5,6 +5,8 @@ import Cocoa
  */
 class EQViewController: NSViewController, ActionMessageSubscriber {
     
+    @IBOutlet weak var btnEQBypass: EffectsUnitBypassButton!
+    
     @IBOutlet weak var eqGlobalGainSlider: NSSlider!
     @IBOutlet weak var eqSlider1k: NSSlider!
     @IBOutlet weak var eqSlider64: NSSlider!
@@ -39,6 +41,8 @@ class EQViewController: NSViewController, ActionMessageSubscriber {
     
     private func initControls(_ appState: UIAppState) {
         
+        btnEQBypass.onIf(!appState.eqBypass)
+        
         eqSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
         
         eqGlobalGainSlider.floatValue = appState.eqGlobalGain
@@ -46,6 +50,12 @@ class EQViewController: NSViewController, ActionMessageSubscriber {
         
         // Don't select any items from the EQ presets menu
         eqPresets.selectItem(at: -1)
+    }
+    
+    // Updates the global gain value of the Equalizer
+    @IBAction func eqBypassAction(_ sender: AnyObject) {
+        btnEQBypass.toggle()
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq, !graph.toggleEQBypass()))
     }
     
     // Updates the global gain value of the Equalizer

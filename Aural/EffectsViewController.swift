@@ -61,17 +61,15 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
     private func initEQUnit(_ appState: UIAppState) {
         
         fxTabView.tabViewItem(at: 0).view?.addSubview(eqView)
-        setButtonStateImages(eqTabViewButton, eqTabViewButton.image!, eqTabViewButton.image!)
-        
-        // EQ unit is always on
-        eqTabViewButton.on()
+        setButtonStateImages(eqTabViewButton, Images.imgEQOff, Images.imgEQOn)
+        eqTabViewButton.onIf(!appState.eqBypass)
     }
     
     private func initPitchUnit(_ appState: UIAppState) {
         
         fxTabView.tabViewItem(at: 1).view?.addSubview(pitchView)
         setButtonStateImages(pitchTabViewButton, Images.imgPitchOff, Images.imgPitchOn)
-        updateButtonState(pitchTabViewButton, !appState.pitchBypass)
+        pitchTabViewButton.onIf(!appState.pitchBypass)
     }
     
     private func initTimeUnit(_ appState: UIAppState) {
@@ -79,27 +77,28 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
         fxTabView.tabViewItem(at: 2).view?.addSubview(timeView)
         setButtonStateImages(timeTabViewButton, Images.imgTimeOff, Images.imgTimeOn)
         updateButtonState(timeTabViewButton, !appState.timeBypass)
+        timeTabViewButton.onIf(!appState.timeBypass)
     }
     
     private func initReverbUnit(_ appState: UIAppState) {
         
         fxTabView.tabViewItem(at: 3).view?.addSubview(reverbView)
         setButtonStateImages(reverbTabViewButton, Images.imgReverbOff, Images.imgReverbOn)
-        updateButtonState(reverbTabViewButton, !appState.reverbBypass)
+        reverbTabViewButton.onIf(!appState.reverbBypass)
     }
     
     private func initDelayUnit(_ appState: UIAppState) {
         
         fxTabView.tabViewItem(at: 4).view?.addSubview(delayView)
         setButtonStateImages(delayTabViewButton, Images.imgDelayOff, Images.imgDelayOn)
-        updateButtonState(delayTabViewButton, !appState.delayBypass)
+        delayTabViewButton.onIf(!appState.delayBypass)
     }
     
     private func initFilterUnit(_ appState: UIAppState) {
         
         fxTabView.tabViewItem(at: 5).view?.addSubview(filterView)
         setButtonStateImages(filterTabViewButton, Images.imgFilterOff, Images.imgFilterOn)
-        updateButtonState(filterTabViewButton, !appState.filterBypass)
+        filterTabViewButton.onIf(!appState.filterBypass)
     }
     
     private func initRecorder() {
@@ -154,6 +153,8 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
             
             // Update the corresponding tab button's state
             switch message.effectsUnit {
+                
+            case .eq:    updateButtonState(eqTabViewButton, message.active)
                 
             case .pitch:    updateButtonState(pitchTabViewButton, message.active)
                 

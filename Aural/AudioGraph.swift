@@ -63,6 +63,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         playerNode.pan = state.balance
         
         // EQ
+        eqNode.bypass = state.eqBypass
         eqNode.setBands(state.eqBands)
         eqNode.globalGain = state.eqGlobalGain
         
@@ -132,6 +133,12 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     
     func setBalance(_ balance: Float) {
         playerNode.pan = balance
+    }
+    
+    func toggleEQBypass() -> Bool {
+        let newState = !eqNode.bypass
+        eqNode.bypass = newState
+        return newState
     }
     
     func setEQGlobalGain(_ gain: Float) {
@@ -294,6 +301,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.balance = playerNode.pan
         
         // EQ
+        state.eqBypass = eqNode.bypass
         state.eqBands = eqNode.allBands()
         state.eqGlobalGain = eqNode.globalGain
         

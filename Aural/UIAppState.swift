@@ -20,6 +20,7 @@ class UIAppState {
     var muted: Bool
     var balance: Float
     
+    var eqBypass: Bool
     var eqGlobalGain: Float
     var eqBands: [Int: Float] = [Int: Float]()
     
@@ -101,66 +102,67 @@ class UIAppState {
         self.repeatMode = appState.playbackSequenceState.repeatMode
         self.shuffleMode = appState.playbackSequenceState.shuffleMode
         
-        let playerState = appState.audioGraphState
+        let audioGraphState = appState.audioGraphState
         
         if (preferences.soundPreferences.volumeOnStartup == .rememberFromLastAppLaunch) {
-            self.volume = round(playerState.volume * AppConstants.volumeConversion_audioGraphToUI)
-            self.muted = playerState.muted
+            self.volume = round(audioGraphState.volume * AppConstants.volumeConversion_audioGraphToUI)
+            self.muted = audioGraphState.muted
         } else {
             self.volume = round(preferences.soundPreferences.startupVolumeValue * AppConstants.volumeConversion_audioGraphToUI)
             self.muted = false
         }
         
-        self.balance = round(playerState.balance * AppConstants.panConversion_audioGraphToUI)
+        self.balance = round(audioGraphState.balance * AppConstants.panConversion_audioGraphToUI)
         
-        self.eqGlobalGain = playerState.eqGlobalGain
-        for (freq,gain) in playerState.eqBands {
+        self.eqBypass = audioGraphState.eqBypass
+        self.eqGlobalGain = audioGraphState.eqGlobalGain
+        for (freq,gain) in audioGraphState.eqBands {
             self.eqBands[freq] = gain
         }
         
-        self.pitchBypass = playerState.pitchBypass
-        self.pitch = playerState.pitch * AppConstants.pitchConversion_audioGraphToUI
-        self.pitchOverlap = playerState.pitchOverlap
+        self.pitchBypass = audioGraphState.pitchBypass
+        self.pitch = audioGraphState.pitch * AppConstants.pitchConversion_audioGraphToUI
+        self.pitchOverlap = audioGraphState.pitchOverlap
         
         self.formattedPitch = ValueFormatter.formatPitch(self.pitch)
-        self.formattedPitchOverlap = ValueFormatter.formatOverlap(playerState.pitchOverlap)
+        self.formattedPitchOverlap = ValueFormatter.formatOverlap(audioGraphState.pitchOverlap)
         
-        self.timeBypass = playerState.timeBypass
-        self.timeStretchRate = playerState.timeStretchRate
-        self.timeOverlap = playerState.timeOverlap
+        self.timeBypass = audioGraphState.timeBypass
+        self.timeStretchRate = audioGraphState.timeStretchRate
+        self.timeOverlap = audioGraphState.timeOverlap
         
-        self.formattedTimeStretchRate = ValueFormatter.formatTimeStretchRate(playerState.timeStretchRate)
-        self.formattedTimeOverlap = ValueFormatter.formatOverlap(playerState.timeOverlap)
+        self.formattedTimeStretchRate = ValueFormatter.formatTimeStretchRate(audioGraphState.timeStretchRate)
+        self.formattedTimeOverlap = ValueFormatter.formatOverlap(audioGraphState.timeOverlap)
         
-        self.seekTimerInterval = playerState.timeBypass ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * playerState.timeStretchRate))
+        self.seekTimerInterval = audioGraphState.timeBypass ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * audioGraphState.timeStretchRate))
         
-        self.reverbBypass = playerState.reverbBypass
-        self.reverbPreset = playerState.reverbPreset.description
-        self.reverbAmount = playerState.reverbAmount
+        self.reverbBypass = audioGraphState.reverbBypass
+        self.reverbPreset = audioGraphState.reverbPreset.description
+        self.reverbAmount = audioGraphState.reverbAmount
         
-        self.formattedReverbAmount = ValueFormatter.formatReverbAmount(playerState.reverbAmount)
+        self.formattedReverbAmount = ValueFormatter.formatReverbAmount(audioGraphState.reverbAmount)
         
-        self.delayBypass = playerState.delayBypass
-        self.delayTime = playerState.delayTime
-        self.delayAmount = playerState.delayAmount
-        self.delayFeedback = playerState.delayFeedback
-        self.delayLowPassCutoff = playerState.delayLowPassCutoff
+        self.delayBypass = audioGraphState.delayBypass
+        self.delayTime = audioGraphState.delayTime
+        self.delayAmount = audioGraphState.delayAmount
+        self.delayFeedback = audioGraphState.delayFeedback
+        self.delayLowPassCutoff = audioGraphState.delayLowPassCutoff
         
-        self.formattedDelayTime = ValueFormatter.formatDelayTime(playerState.delayTime)
-        self.formattedDelayAmount = ValueFormatter.formatDelayAmount(playerState.delayAmount)
-        self.formattedDelayFeedback = ValueFormatter.formatDelayFeedback(playerState.delayFeedback)
-        self.formattedDelayLowPassCutoff = ValueFormatter.formatDelayLowPassCutoff(playerState.delayLowPassCutoff)
+        self.formattedDelayTime = ValueFormatter.formatDelayTime(audioGraphState.delayTime)
+        self.formattedDelayAmount = ValueFormatter.formatDelayAmount(audioGraphState.delayAmount)
+        self.formattedDelayFeedback = ValueFormatter.formatDelayFeedback(audioGraphState.delayFeedback)
+        self.formattedDelayLowPassCutoff = ValueFormatter.formatDelayLowPassCutoff(audioGraphState.delayLowPassCutoff)
          
-        self.filterBypass = playerState.filterBypass
-        self.filterBassMin = Double(playerState.filterBassMin)
-        self.filterBassMax = Double(playerState.filterBassMax)
-        self.filterMidMin = Double(playerState.filterMidMin)
-        self.filterMidMax = Double(playerState.filterMidMax)
-        self.filterTrebleMin = Double(playerState.filterTrebleMin)
-        self.filterTrebleMax = Double(playerState.filterTrebleMax)
+        self.filterBypass = audioGraphState.filterBypass
+        self.filterBassMin = Double(audioGraphState.filterBassMin)
+        self.filterBassMax = Double(audioGraphState.filterBassMax)
+        self.filterMidMin = Double(audioGraphState.filterMidMin)
+        self.filterMidMax = Double(audioGraphState.filterMidMax)
+        self.filterTrebleMin = Double(audioGraphState.filterTrebleMin)
+        self.filterTrebleMax = Double(audioGraphState.filterTrebleMax)
         
-        self.formattedFilterBassRange = ValueFormatter.formatFilterFrequencyRange(playerState.filterBassMin, playerState.filterBassMax)
-        self.formattedFilterMidRange = ValueFormatter.formatFilterFrequencyRange(playerState.filterMidMin, playerState.filterMidMax)
-        self.formattedFilterTrebleRange = ValueFormatter.formatFilterFrequencyRange(playerState.filterTrebleMin, playerState.filterTrebleMax)
+        self.formattedFilterBassRange = ValueFormatter.formatFilterFrequencyRange(audioGraphState.filterBassMin, audioGraphState.filterBassMax)
+        self.formattedFilterMidRange = ValueFormatter.formatFilterFrequencyRange(audioGraphState.filterMidMin, audioGraphState.filterMidMax)
+        self.formattedFilterTrebleRange = ValueFormatter.formatFilterFrequencyRange(audioGraphState.filterTrebleMin, audioGraphState.filterTrebleMax)
     }
 }

@@ -84,6 +84,7 @@ class AudioGraphState: PersistentState {
     var muted: Bool = AppDefaults.muted
     var balance: Float = AppDefaults.balance
     
+    var eqBypass: Bool = AppDefaults.eqBypass
     var eqGlobalGain: Float = AppDefaults.eqGlobalGain
     var eqBands: [Int: Float] = [Int: Float]() // Index -> Gain
     
@@ -122,6 +123,7 @@ class AudioGraphState: PersistentState {
         map["balance"] = balance as NSNumber
         
         var eqDict = [NSString: AnyObject]()
+        eqDict["bypass"] = eqBypass as AnyObject
         eqDict["globalGain"] = eqGlobalGain as NSNumber
         
         var eqBandsDict = [NSString: NSNumber]()
@@ -193,6 +195,10 @@ class AudioGraphState: PersistentState {
         }
         
         if let eqDict = (map["eq"] as? NSDictionary) {
+            
+            if let bypass = eqDict["bypass"] as? Bool {
+                audioGraphState.eqBypass = bypass
+            }
             
             if let globalGain = eqDict["globalGain"] as? NSNumber {
                 audioGraphState.eqGlobalGain = globalGain.floatValue
@@ -391,43 +397,82 @@ class PlaybackSequenceState: PersistentState {
 
 class HistoryState: PersistentState {
     
-    var recentlyAdded: [URL] = [URL]()
-    var recentlyPlayed: [URL] = [URL]()
-    var favorites: [URL] = [URL]()
+    var recentlyAdded: [(file: URL, time: Date)] = [(file: URL, time: Date)]()
+    var recentlyPlayed: [(file: URL, time: Date)] = [(file: URL, time: Date)]()
+    var favorites: [(file: URL, time: Date)] = [(file: URL, time: Date)]()
     
     func toSerializableMap() -> NSDictionary {
         
         var map = [NSString: AnyObject]()
         
-        var recentlyAddedArr = [String]()
-        recentlyAdded.forEach({recentlyAddedArr.append($0.path)})
+        var recentlyAddedArr = [NSDictionary]()
+        recentlyAdded.forEach({
+            recentlyAddedArr.append(self.itemToMap($0))
+        })
         map["recentlyAdded"] = NSArray(array: recentlyAddedArr)
         
-        var recentlyPlayedArr = [String]()
-        recentlyPlayed.forEach({recentlyPlayedArr.append($0.path)})
+        var recentlyPlayedArr = [NSDictionary]()
+        recentlyPlayed.forEach({
+            recentlyPlayedArr.append(self.itemToMap($0))
+        })
         map["recentlyPlayed"] = NSArray(array: recentlyPlayedArr)
         
-        var favoritesArr = [String]()
-        favorites.forEach({favoritesArr.append($0.path)})
+        var favoritesArr = [NSDictionary]()
+        favorites.forEach({
+            favoritesArr.append(self.itemToMap($0))
+        })
         map["favorites"] = NSArray(array: favoritesArr)
         
         return map as NSDictionary
+    }
+    
+    private func itemToMap(_ item: (file: URL, time: Date)) -> NSDictionary {
+        
+        var itemMap = [NSString: AnyObject]()
+        itemMap["path"] = item.file.path as AnyObject
+        itemMap["timestamp"] = item.time.serializableString() as AnyObject
+        
+        return itemMap as NSDictionary
     }
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = HistoryState()
         
-        if let recentlyAdded = map["recentlyAdded"] as? [String] {
-            recentlyAdded.forEach({state.recentlyAdded.append(URL(fileURLWithPath: $0))})
+        if let recentlyAdded = map["recentlyAdded"] as? [NSDictionary] {
+            
+            recentlyAdded.forEach({
+                
+                if let file = $0.value(forKey: "path") as? String,
+                    let timestamp = $0.value(forKey: "timestamp") as? String {
+                    
+                    state.recentlyAdded.append((URL(fileURLWithPath: file), Date.fromString(timestamp)))
+                }
+            })
         }
         
-        if let recentlyPlayed = map["recentlyPlayed"] as? [String] {
-            recentlyPlayed.forEach({state.recentlyPlayed.append(URL(fileURLWithPath: $0))})
+        if let recentlyPlayed = map["recentlyPlayed"] as? [NSDictionary] {
+            
+            recentlyPlayed.forEach({
+                
+                if let file = $0.value(forKey: "path") as? String,
+                    let timestamp = $0.value(forKey: "timestamp") as? String {
+                    
+                    state.recentlyPlayed.append((URL(fileURLWithPath: file), Date.fromString(timestamp)))
+                }
+            })
         }
         
-        if let favorites = map["favorites"] as? [String] {
-            favorites.forEach({state.favorites.append(URL(fileURLWithPath: $0))})
+        if let favorites = map["favorites"] as? [NSDictionary] {
+            
+            favorites.forEach({
+                
+                if let file = $0.value(forKey: "path") as? String,
+                    let timestamp = $0.value(forKey: "timestamp") as? String {
+                    
+                    state.recentlyPlayed.append((URL(fileURLWithPath: file), Date.fromString(timestamp)))
+                }
+            })
         }
         
         return state
@@ -507,5 +552,37 @@ class AppState {
         }
         
         return state
+    }
+}
+
+extension Date {
+    
+    // YYYY_MM_DD_hh_mm
+    func serializableString() -> String {
+        
+        let calendar = Calendar.current
+        
+        let year = calendar.component(.year, from: self)
+        let month = calendar.component(.month, from: self)
+        let day = calendar.component(.day, from: self)
+        let hour = calendar.component(.hour, from: self)
+        let minute = calendar.component(.minute, from: self)
+        
+        return String(format: "%d_%d_%d_%d_%d", year, month, day, hour, minute)
+    }
+    
+    static func fromString(_ string: String) -> Date {
+        
+        let strComponents = string.components(separatedBy: "_")
+        let year = Int(strComponents[0])!
+        let month = Int(strComponents[1])!
+        let day = Int(strComponents[2])!
+        let hour = Int(strComponents[3])!
+        let minute = Int(strComponents[4])!
+        
+        var calendar = Calendar(identifier: .gregorian)
+        let components = DateComponents(year: year, month: month, day: day, hour: hour, minute: minute, second: 0)
+        
+        return calendar.date(from: components)!
     }
 }
