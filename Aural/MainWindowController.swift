@@ -95,9 +95,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         
         // Show and dock the playlist, if needed
         playlistDockState = appState.playlistLocation.toPlaylistDockState()
-        if (!appState.hidePlaylist) {
-            showPlaylist()
-        }
+        appState.hidePlaylist ? hidePlaylist() : showPlaylist()
     }
     
     // Positions the main app window relative to screen, per user preference. For example, "Top Left" or "Bottom Center"
@@ -125,6 +123,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         resizeMainWindow(true, WindowState.showingEffects)
         
         playlistDockState = .bottom
+        WindowState.playlistLocation = .bottom
         let playlistHeight = min(playlistWindow.height, mainWindow.remainingHeight)
         
         dock(mainWindow.origin
@@ -137,6 +136,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         resizeMainWindow(false, WindowState.showingEffects)
         
         playlistDockState = .left
+        WindowState.playlistLocation = .left
         let playlistWidth = min(mainWindow.remainingWidth, playlistWindow.width)
         
         dock(mainWindow.frame.origin
@@ -149,6 +149,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         resizeMainWindow(false, WindowState.showingEffects)
         
         playlistDockState = .right
+        WindowState.playlistLocation = .right
         let playlistWidth = min(mainWindow.remainingWidth, playlistWindow.width)
         
         dock(mainWindow.frame.origin
@@ -165,51 +166,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         automatedPlaylistMoveOrResize = true
         
         playlistWindow.setFrame(playlistFrame, display: true)
-        ensurePlaylistVisible()
         
         automatedPlaylistMoveOrResize = false
-    }
-    
-    // Moves both windows, if necessary, to ensure that they are both entirely visible on screen
-    private func ensurePlaylistVisible() {
-        
-        // NOTE - This function, because of the playlist window's size constraints, will also automatically ensure that the main window is entirely visible
-        
-        switch playlistDockState {
-            
-        case .bottom:
-            
-            // Move windows up
-            if playlistWindow.y < visibleFrame.minY {
-                moveWindows(0, visibleFrame.minY - playlistWindow.y)
-            }
-            
-        case .left:
-            
-            // Move windows to the right
-            if playlistWindow.x < visibleFrame.minX {
-                moveWindows(visibleFrame.minX - playlistWindow.x, 0)
-            }
-            
-        case .right:
-            
-            // Move windows to the left
-            if playlistWindow.maxX > visibleFrame.maxX {
-                moveWindows(-(playlistWindow.maxX - visibleFrame.maxX), 0)
-            }
-            
-        // Impossible
-        default: return
-            
-        }
-    }
-    
-    // Moves both windows a given number of pixels along the X and Y axes
-    private func moveWindows(_ dx: CGFloat, _ dy: CGFloat) {
-        
-        [mainWindow, playlistWindow].forEach({
-            $0.setFrameOrigin($0.origin.applying(CGAffineTransform.init(translationX: dx, y: dy)))
-        })
     }
     
     // MARK: Playlist maximize functions
@@ -425,8 +383,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
             btnToggleEffects.image = Images.imgEffectsOn
             WindowState.showingEffects = true
             
-            ensureMainWindowVisible()
-            
         } else {
             
             // Hide effects view and update UI controls
@@ -453,24 +409,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         let playlistSize = NSMakeSize(playlistWindow.width, playlistHeight)
         
         dock(playlistOrigin, playlistSize)
-    }
-    
-    // Moves both windows, if necessary, to ensure that they are both entirely visible on screen
-    private func ensureMainWindowVisible() {
-        
-        // Check vertical position
-        if mainWindow.y < visibleFrame.minY {
-            moveWindows(0, visibleFrame.minY - mainWindow.y)
-        } else if mainWindow.maxY > visibleFrame.maxY {
-            moveWindows(0, -(mainWindow.maxY - visibleFrame.maxY))
-        }
-        
-        // Check horizontal position
-        if mainWindow.x < visibleFrame.minX {
-            moveWindows(visibleFrame.minX - mainWindow.x, 0)
-        } else if mainWindow.maxX > visibleFrame.maxX {
-            moveWindows(-(mainWindow.maxX - visibleFrame.maxX), 0)
-        }
     }
     
     /*
