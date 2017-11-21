@@ -67,7 +67,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <button toolTip="Show/hide playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-bp-Vzd" userLabel="Toggle Playlist Button">
+                                <button toolTip="Show/hide playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-bp-Vzd" userLabel="Toggle Playlist Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="427" y="394" width="17" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlaylistView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yEP-qA-m8Z">
@@ -78,7 +78,7 @@
                                         <action selector="togglePlaylistAction:" target="-2" id="Oro-eR-EYP"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Show/hide effects panel" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1Y-N5-RBQ" userLabel="Toggle Effects Button">
+                                <button toolTip="Show/hide effects panel" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1Y-N5-RBQ" userLabel="Toggle Effects Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="449" y="394" width="17" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EffectsView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ayS-P6-02f">
