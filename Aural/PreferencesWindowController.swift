@@ -5,18 +5,7 @@ import Cocoa
  */
 class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDialogDelegate {
     
-    @IBOutlet weak var tabView: NSTabView!
-    
-    // Tab view buttons
-    
-    @IBOutlet weak var btnPlaybackPrefs: NSButton!
-    @IBOutlet weak var btnPlaylistPrefs: NSButton!
-    @IBOutlet weak var btnSoundPrefs: NSButton!
-    @IBOutlet weak var btnViewPrefs: NSButton!
-    @IBOutlet weak var btnHistoryPrefs: NSButton!
-    @IBOutlet weak var btnControlsPrefs: NSButton!
-    
-    private var tabViewButtons: [NSButton] = []
+    @IBOutlet weak var tabView: AuralTabView!
     
     // Sub views
     
@@ -44,17 +33,9 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
         window?.titlebarAppearsTransparent = true
         window?.isMovableByWindowBackground = true
         
-        tabViewButtons = [btnPlaybackPrefs, btnPlaylistPrefs, btnSoundPrefs, btnViewPrefs, btnHistoryPrefs, btnControlsPrefs]
         subViews = [playlistPrefsView, playbackPrefsView, soundPrefsView, viewPrefsView, historyPrefsView, controlsPrefsView]
         
-        tabView.tabViewItem(at: 0).view?.addSubview(playlistPrefsView.getView())
-        tabView.tabViewItem(at: 1).view?.addSubview(playbackPrefsView.getView())
-        tabView.tabViewItem(at: 2).view?.addSubview(soundPrefsView.getView())
-        tabView.tabViewItem(at: 3).view?.addSubview(viewPrefsView.getView())
-        tabView.tabViewItem(at: 4).view?.addSubview(historyPrefsView.getView())
-        tabView.tabViewItem(at: 5).view?.addSubview(controlsPrefsView.getView())
-        
-        tabView.tabViewItems.forEach({$0.view?.subviews.first?.setFrameOrigin(NSPoint.zero)})
+        tabView.addViewsForTabs([playlistPrefsView.getView(), playbackPrefsView.getView(), soundPrefsView.getView(), viewPrefsView.getView(), historyPrefsView.getView(), controlsPrefsView.getView()])
         
         super.windowDidLoad()
     }
@@ -69,7 +50,7 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
         resetPreferencesFields()
         
         // Select the playlist prefs tab
-        tabViewAction(btnPlaylistPrefs)
+        tabView.selectTabViewItem(at: 0)
         
         UIUtils.showModalDialog(window!)
     }
@@ -78,14 +59,6 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
         subViews.forEach({$0.resetFields(preferences)})
     }
     
-    @IBAction func tabViewAction(_ sender: NSButton) {
-        
-        tabViewButtons.forEach({$0.state = 0})
-        
-        sender.state = 1
-        tabView.selectTabViewItem(at: sender.tag)
-    }
-        
     @IBAction func savePreferencesAction(_ sender: Any) {
         
         subViews.forEach({$0.save(preferences)})
