@@ -45,6 +45,15 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.menu = contextMenu
     }
     
+    override func viewDidAppear() {
+        
+        // When this view appears, the playlist type (tab) has changed. Update state and notify observers.
+        
+        PlaylistViewState.current = .tracks
+        PlaylistViewState.currentView = playlistView
+        SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: .tracks))
+    }
+    
     // Plays the track selected within the playlist, if there is one. If multiple tracks are selected, the first one will be chosen.
     @IBAction func playSelectedTrackAction(_ sender: AnyObject) {
         

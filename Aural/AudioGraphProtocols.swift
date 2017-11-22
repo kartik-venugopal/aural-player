@@ -27,7 +27,10 @@ protocol AudioGraphProtocol {
     // Determines whether the player is currently muted
     func isMuted() -> Bool
     
-    // Toggles the bypass state of the Equalizer audio effect unit, and returns its new bypass state
+    // Returns the current bypass state of the Equalizer audio effects unit
+    func isEQBypass() -> Bool
+    
+    // Toggles the bypass state of the Equalizer audio effects unit, and returns its new bypass state
     func toggleEQBypass() -> Bool
     
     // Sets global gain (or preamp) for the equalizer
@@ -58,10 +61,10 @@ protocol AudioGraphProtocol {
     // Decreases the equalizer treble band gains by a small decrement. Returns the new treble band gain values, mapped by index.
     func decreaseTreble() -> [Int: Float]
     
-    // Toggles the bypass state of the pitch shift audio effect unit, and returns its new bypass state
+    // Toggles the bypass state of the pitch shift audio effects unit, and returns its new bypass state
     func togglePitchBypass() -> Bool
     
-    // Returns the current bypass state of the pitch shift audio effect unit
+    // Returns the current bypass state of the pitch shift audio effects unit
     func isPitchBypass() -> Bool
     
     func getPitch() -> Float
@@ -72,10 +75,10 @@ protocol AudioGraphProtocol {
     // Sets the amount of overlap between segments of the input audio signal into the pitch effects unit, specified as a value between 3 and 32
     func setPitchOverlap(_ overlap: Float)
     
-    // Toggles the bypass state of the time audio effect unit, and returns its new bypass state
+    // Toggles the bypass state of the time audio effects unit, and returns its new bypass state
     func toggleTimeBypass() -> Bool
     
-    // Returns the current bypass state of the time audio effect unit
+    // Returns the current bypass state of the time audio effects unit
     func isTimeBypass() -> Bool
     
     func getTimeStretchRate() -> Float
@@ -86,7 +89,7 @@ protocol AudioGraphProtocol {
     // Sets the amount of overlap between segments of the input audio signal into the time effects unit, specified as a value between 3 and 32
     func setTimeOverlap(_ overlap: Float)
     
-    // Toggles the bypass state of the reverb audio effect unit, and returns its new bypass state
+    // Toggles the bypass state of the reverb audio effects unit, and returns its new bypass state
     func toggleReverbBypass() -> Bool
     
     // Sets the reverb preset. See ReverbPresets for more details.
@@ -95,7 +98,7 @@ protocol AudioGraphProtocol {
     // Sets the reverb amount, specified as a value between 0 (dry) and 100 (wet)
     func setReverbAmount(_ amount: Float)
     
-    // Toggles the bypass state of the delay audio effect unit, and returns its new bypass state
+    // Toggles the bypass state of the delay audio effects unit, and returns its new bypass state
     func toggleDelayBypass() -> Bool
     
     // Sets the delay (echo) amount, specified as a value between 0 (dry) and 100 (wet)
@@ -110,7 +113,7 @@ protocol AudioGraphProtocol {
     // Sets the delay low pass cutoff frequency, in Hz, specified as a value between 10 and 20k
     func setDelayLowPassCutoff(_ cutoff: Float)
     
-    // Toggles the bypass state of the filter audio effect unit, and returns its new bypass state
+    // Toggles the bypass state of the filter audio effects unit, and returns its new bypass state
     func toggleFilterBypass() -> Bool
     
     // Sets the bass band of the filter to the specified frequency range

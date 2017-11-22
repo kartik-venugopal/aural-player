@@ -79,7 +79,7 @@
                         <action selector="nextTrackAction:" target="-2" id="Wrn-xR-hBt"/>
                     </connections>
                 </button>
-                <button toolTip="Seek bacward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VxM-1M-6tI" userLabel="Seek Bwd Button">
+                <button toolTip="Seek backward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VxM-1M-6tI" userLabel="Seek Bwd Button">
                     <rect key="frame" x="157" y="21" width="17" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekBackward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="mLy-s0-mRb">
