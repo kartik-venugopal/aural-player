@@ -168,8 +168,6 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
                 
             case .recorder:    updateButtonState(recorderTabViewButton, message.active)
                 
-            default: return
-                
             }
         }
     }
