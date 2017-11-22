@@ -49,6 +49,15 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistUpdateQueue.qualityOfService = .background
     }
     
+    override func viewDidAppear() {
+        
+        // When this view appears, the playlist type (tab) has changed. Update state and notify observers.
+        
+        PlaylistViewState.current = self.playlistType
+        PlaylistViewState.currentView = playlistView
+        SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: self.playlistType))
+    }
+    
     // Plays the track/group selected within the playlist, if there is one. If multiple items are selected, the first one will be chosen.
     @IBAction func playSelectedItemAction(_ sender: AnyObject) {
         let selRow = playlistView.selectedRow

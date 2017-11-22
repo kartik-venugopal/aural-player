@@ -21,13 +21,36 @@
                 <outlet property="recentlyPlayedMenu" destination="7KE-9e-wni" id="Phj-0T-PKd"/>
             </connections>
         </customObject>
-        <customObject id="sXT-Pr-clR" customClass="PlaylistMenuController" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="sXT-Pr-clR" customClass="PlaylistMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="clearPlaylistMenuItem" destination="ec2-Jm-I4M" id="EHN-Pi-SW4"/>
+                <outlet property="moveItemsDownMenuItem" destination="F5x-Nm-ust" id="cAv-w8-JMV"/>
+                <outlet property="moveItemsUpMenuItem" destination="f3c-TG-M9r" id="tFc-fV-deZ"/>
+                <outlet property="playSelectedItemMenuItem" destination="afl-Xm-nI9" id="RnQ-Qj-phc"/>
+                <outlet property="removeSelectedItemsMenuItem" destination="20j-6Y-sbB" id="1Tx-Bh-Msu"/>
+                <outlet property="savePlaylistMenuItem" destination="Cvk-m8-oAg" id="G6F-eB-XFB"/>
+                <outlet property="scrollToBottomMenuItem" destination="c6s-9I-Btt" id="o2i-bn-R36"/>
+                <outlet property="scrollToTopMenuItem" destination="rnZ-aQ-jrV" id="txi-nc-ex8"/>
+                <outlet property="searchPlaylistMenuItem" destination="Pxd-7C-8tq" id="UMb-jh-SpH"/>
+                <outlet property="shiftTabMenuItem" destination="JAN-jg-Zs1" id="FPw-yl-HpG"/>
+                <outlet property="sortPlaylistMenuItem" destination="ttf-Ix-LHp" id="GfN-A8-04n"/>
+            </connections>
+        </customObject>
         <customObject id="IvK-xG-TCa" customClass="PlaybackMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="addToFavoritesMenuItem" destination="iMK-0g-xI0" id="RlA-jU-nBo"/>
+                <outlet property="detailedInfoMenuItem" destination="GCy-Rj-Mv5" id="FTi-Dg-C0L"/>
                 <outlet property="favoritesMenuItem" destination="iMK-0g-xI0" id="IAc-qX-PvW"/>
+                <outlet property="nextTrackMenuItem" destination="z7s-9y-10c" id="6nk-AZ-Jyu"/>
+                <outlet property="playOrPauseMenuItem" destination="T9r-Uq-EPf" id="IlZ-pC-w2Y"/>
+                <outlet property="previousTrackMenuItem" destination="yq3-HU-6rh" id="zSF-vu-IF2"/>
                 <outlet property="repeatAllMenuItem" destination="l9m-G6-uAk" id="7qX-Uv-a29"/>
                 <outlet property="repeatOffMenuItem" destination="OBr-fe-z4t" id="6I4-nq-jlV"/>
                 <outlet property="repeatOneMenuItem" destination="DMc-0q-KZE" id="8RL-EJ-BFH"/>
+                <outlet property="replayTrackMenuItem" destination="aLr-jT-ZjJ" id="JhP-Wo-e4V"/>
+                <outlet property="seekBackwardMenuItem" destination="h8T-Of-b8S" id="8By-d9-WHo"/>
+                <outlet property="seekForwardMenuItem" destination="dge-IA-2p7" id="Q7D-f8-ZK1"/>
+                <outlet property="showInPlaylistMenuItem" destination="XjT-hE-GHo" id="SCJ-zc-OlZ"/>
                 <outlet property="shuffleOffMenuItem" destination="UVB-LH-JI0" id="fZe-NT-Fqk"/>
                 <outlet property="shuffleOnMenuItem" destination="A9x-31-Cvm" id="cQ4-NA-2ye"/>
             </connections>
@@ -124,7 +147,7 @@
                 </menuItem>
                 <menuItem title="Playlist" id="nzT-Bj-81Y">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Playlist" id="OTj-Uh-IWl">
+                    <menu key="submenu" title="Playlist" autoenablesItems="NO" id="OTj-Uh-IWl">
                         <items>
                             <menuItem title=" Add files" image="Add-Small" keyEquivalent="o" id="Ysv-Pf-k88">
                                 <connections>
@@ -211,11 +234,14 @@ CQ
                                 </connections>
                             </menuItem>
                         </items>
+                        <connections>
+                            <outlet property="delegate" destination="sXT-Pr-clR" id="f9A-Ji-QwQ"/>
+                        </connections>
                     </menu>
                 </menuItem>
                 <menuItem title="Playback" id="voC-QS-eVy" userLabel="Playback">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Playback" id="4gC-cq-kT9">
+                    <menu key="submenu" title="Playback" autoenablesItems="NO" id="4gC-cq-kT9">
                         <items>
                             <menuItem title=" Play / pause" image="PlayPause-Small" keyEquivalent=" " id="T9r-Uq-EPf">
                                 <modifierMask key="keyEquivalentModifierMask"/>

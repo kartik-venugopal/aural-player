@@ -9,6 +9,17 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // Menu items whose states are toggled when they (or others) are clicked
     
+    @IBOutlet weak var playOrPauseMenuItem: NSMenuItem!
+    @IBOutlet weak var replayTrackMenuItem: NSMenuItem!
+    @IBOutlet weak var previousTrackMenuItem: NSMenuItem!
+    @IBOutlet weak var nextTrackMenuItem: NSMenuItem!
+    @IBOutlet weak var seekForwardMenuItem: NSMenuItem!
+    @IBOutlet weak var seekBackwardMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var detailedInfoMenuItem: NSMenuItem!
+    @IBOutlet weak var showInPlaylistMenuItem: NSMenuItem!
+    @IBOutlet weak var addToFavoritesMenuItem: NSMenuItem!
+    
     // Playback repeat modes
     @IBOutlet weak var repeatOffMenuItem: NSMenuItem!
     @IBOutlet weak var repeatOneMenuItem: NSMenuItem!
@@ -23,6 +34,8 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
+    private lazy var playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.getPlaylistAccessorDelegate()
+    
     // Delegate that provides access to History information
     private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
     
@@ -34,7 +47,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     }
     
     // When the menu is about to open, update the menu item states
-    func menuWillOpen(_ menu: NSMenu) {
+    func menuNeedsUpdate(_ menu: NSMenu) {
         
         updateRepeatAndShuffleMenuItemStates()
         
@@ -42,6 +55,12 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         if let playingTrack = playbackInfo.getPlayingTrack()?.track {
             favoritesMenuItem.onIf(history.hasFavorite(playingTrack))
         }
+        
+        // Play/pause enabled if at least one track available
+        playOrPauseMenuItem.isEnabled = playlist.size() > 0
+        
+        // These menu item actions are only available when a track is currently playing
+        [replayTrackMenuItem, previousTrackMenuItem, nextTrackMenuItem, seekForwardMenuItem, seekBackwardMenuItem, detailedInfoMenuItem, showInPlaylistMenuItem, addToFavoritesMenuItem].forEach({$0.isEnabled = playbackInfo.getPlaybackState() != .noTrack})
     }
     
     // Plays, pauses or resumes playback

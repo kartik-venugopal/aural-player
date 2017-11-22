@@ -5,10 +5,41 @@ import Cocoa
  
     NOTE - No actions are directly handled by this class. Action messages are published to another app component that is responsible for these functions.
  */
-class PlaylistMenuController: NSObject {
+class PlaylistMenuController: NSObject, NSMenuDelegate {
+    
+    @IBOutlet weak var playSelectedItemMenuItem: NSMenuItem!
+    @IBOutlet weak var moveItemsUpMenuItem: NSMenuItem!
+    @IBOutlet weak var moveItemsDownMenuItem: NSMenuItem!
+    @IBOutlet weak var removeSelectedItemsMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var savePlaylistMenuItem: NSMenuItem!
+    @IBOutlet weak var clearPlaylistMenuItem: NSMenuItem!
+    @IBOutlet weak var searchPlaylistMenuItem: NSMenuItem!
+    @IBOutlet weak var sortPlaylistMenuItem: NSMenuItem!
+    @IBOutlet weak var scrollToTopMenuItem: NSMenuItem!
+    @IBOutlet weak var scrollToBottomMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var shiftTabMenuItem: NSMenuItem!
+    
+    private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.getPlaylistAccessorDelegate()
     
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        // These menu items require 1 - the playlist to be visible, and 2 - at least one playlist item to be selected
+        [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsDownMenuItem, removeSelectedItemsMenuItem].forEach({$0?.isEnabled = WindowState.showingPlaylist && PlaylistViewState.currentView.selectedRow >= 0})
+        
+        // These menu items require 1 - the playlist to be visible, and 2 - at least one track in the playlist
+        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem].forEach({$0?.isEnabled = WindowState.showingPlaylist && playlist.size() > 0})
+        
+        // These menu items require at least one track in the playlist
+        [savePlaylistMenuItem, clearPlaylistMenuItem].forEach({$0?.isEnabled = playlist.size() > 0})
+        
+        // This menu item requires the playlist to be visible
+        shiftTabMenuItem.isEnabled = WindowState.showingPlaylist
+    }
     
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist
     @IBAction func addFilesAction(_ sender: Any) {

@@ -135,6 +135,10 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         playerNode.pan = balance
     }
     
+    func isEQBypass() -> Bool {
+        return eqNode.bypass
+    }
+    
     func toggleEQBypass() -> Bool {
         let newState = !eqNode.bypass
         eqNode.bypass = newState

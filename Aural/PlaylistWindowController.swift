@@ -66,7 +66,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
-        SyncMessenger.subscribe(messageTypes: [.removeTrackRequest], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .nextPlaylistView, .previousPlaylistView], subscriber: self)
     }
@@ -291,14 +291,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.maximizeHorizontal, nil))
     }
     
-    // MARK: Tab view delegate functions
-    
-    // Performs state updates in response to the tab view's selected tab changing
-    func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
-        
-        PlaylistViewState.updateStateForIndex(tabGroup.indexOfTabViewItem(tabViewItem!))
+    // Updates the summary in response to a change in the tab group selected tab
+    private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
         updatePlaylistSummary()
-        SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: PlaylistViewState.current))
     }
     
     // MARK: Message handling
@@ -337,7 +332,16 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     }
     
     func consumeNotification(_ message: NotificationMessage) {
-        // This class does not consume synchronous notification messages
+        
+        switch message.messageType {
+        
+        case .playlistTypeChangedNotification:
+        
+            playlistTypeChanged(message as! PlaylistTypeChangedNotification)
+            
+        default: return
+            
+        }
     }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
@@ -388,6 +392,9 @@ class PlaylistViewState {
     // The current playlist view type displayed within the playlist tab group
     static var current: PlaylistType = .tracks
     
+    // The current playlist view displayed within the playlist tab group
+    static var currentView: NSTableView!
+    
     // The group type corresponding to the current playlist view type
     static var groupType: GroupType? {
         
@@ -401,23 +408,6 @@ class PlaylistViewState {
             
         // Group type is not applicable to playlist type .tracks
         default: return nil
-            
-        }
-    }
-    
-    static func updateStateForIndex(_ index: Int) {
-        
-        switch index {
-            
-        case 0: current = .tracks
-            
-        case 1: current = .artists
-            
-        case 2: current = .albums
-            
-        case 3: current = .genres
-            
-        default: return
             
         }
     }
