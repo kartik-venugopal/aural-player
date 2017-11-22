@@ -8,12 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PreferencesWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnControlsPrefs" destination="NIW-GO-LI8" id="xxv-yS-n0s"/>
-                <outlet property="btnHistoryPrefs" destination="6Mp-rG-06r" id="Kjk-BK-EvL"/>
-                <outlet property="btnPlaybackPrefs" destination="yYf-cg-2Vs" id="qAh-e1-Wfl"/>
-                <outlet property="btnPlaylistPrefs" destination="9As-Pf-t9V" id="vES-cD-x91"/>
-                <outlet property="btnSoundPrefs" destination="l0q-I3-BN2" id="EwY-aV-WJy"/>
-                <outlet property="btnViewPrefs" destination="1P8-qO-PAI" id="QOp-tD-mVa"/>
                 <outlet property="tabView" destination="MZg-sd-sfB" id="NtK-DT-vhA"/>
                 <outlet property="window" destination="cPc-w0-G6G" id="aFk-2J-IDF"/>
             </connections>
@@ -24,7 +18,7 @@
             <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="120" y="65" width="424" height="350"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <view key="contentView" id="fR8-8f-93h">
                 <rect key="frame" x="0.0" y="0.0" width="424" height="350"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -54,9 +48,6 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="GillSans"/>
                         </buttonCell>
-                        <connections>
-                            <action selector="tabViewAction:" target="-2" id="PQr-Hu-2oj"/>
-                        </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="yYf-cg-2Vs" userLabel="Playback tab button">
                         <rect key="frame" x="82" y="320" width="65" height="22"/>
@@ -65,9 +56,6 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="GillSans"/>
                         </buttonCell>
-                        <connections>
-                            <action selector="tabViewAction:" target="-2" id="Ec0-io-Td9"/>
-                        </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="l0q-I3-BN2" userLabel="Sound tab button">
                         <rect key="frame" x="157" y="320" width="55" height="22"/>
@@ -76,9 +64,6 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="GillSans"/>
                         </buttonCell>
-                        <connections>
-                            <action selector="tabViewAction:" target="-2" id="Ehf-A4-ABv"/>
-                        </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="1P8-qO-PAI" userLabel="View tab button">
                         <rect key="frame" x="218" y="320" width="50" height="22"/>
@@ -87,9 +72,6 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="GillSans"/>
                         </buttonCell>
-                        <connections>
-                            <action selector="tabViewAction:" target="-2" id="1Pm-FC-3BP"/>
-                        </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="6Mp-rG-06r" userLabel="History tab button">
                         <rect key="frame" x="280" y="320" width="60" height="22"/>
@@ -98,9 +80,6 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="GillSans"/>
                         </buttonCell>
-                        <connections>
-                            <action selector="tabViewAction:" target="-2" id="raH-nD-yYY"/>
-                        </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="NIW-GO-LI8" userLabel="Controls tab button">
                         <rect key="frame" x="351" y="320" width="60" height="22"/>
@@ -109,50 +88,65 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="GillSans"/>
                         </buttonCell>
-                        <connections>
-                            <action selector="tabViewAction:" target="-2" id="Ih8-M8-Tnf"/>
-                        </connections>
                     </button>
-                    <tabView fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="MZg-sd-sfB" userLabel="Preferences TabView">
+                    <tabView fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="MZg-sd-sfB" userLabel="Preferences TabView" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="12" y="39" width="400" height="275"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
-                            <tabViewItem label="Playlist" identifier="0" id="k4S-mC-mT3" userLabel="Playlist Prefs">
+                            <tabViewItem label="Playlist" identifier="0" id="k4S-mC-mT3" userLabel="Playlist Prefs" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" ambiguous="YES" id="Mhb-Lu-Gfp">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="275"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
+                                <connections>
+                                    <outlet property="tabButton" destination="9As-Pf-t9V" id="kO0-M4-Pm3"/>
+                                </connections>
                             </tabViewItem>
-                            <tabViewItem label="Playback" identifier="1" id="yO3-Pa-ViJ" userLabel="Playback Prefs">
+                            <tabViewItem label="Playback" identifier="1" id="yO3-Pa-ViJ" userLabel="Playback Prefs" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="Wby-5h-gau">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="275"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
+                                <connections>
+                                    <outlet property="tabButton" destination="yYf-cg-2Vs" id="Hqd-BI-ZOG"/>
+                                </connections>
                             </tabViewItem>
-                            <tabViewItem label="Sound" identifier="2" id="Jsa-7o-57W" userLabel="Sound Prefs">
+                            <tabViewItem label="Sound" identifier="2" id="Jsa-7o-57W" userLabel="Sound Prefs" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="M5T-uH-Pe9">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="275"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
+                                <connections>
+                                    <outlet property="tabButton" destination="l0q-I3-BN2" id="07f-vq-GU7"/>
+                                </connections>
                             </tabViewItem>
-                            <tabViewItem label="View" identifier="3" id="Y71-kL-xHE" userLabel="View Prefs">
+                            <tabViewItem label="View" identifier="3" id="Y71-kL-xHE" userLabel="View Prefs" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="8Mf-Mz-VyS">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="275"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
+                                <connections>
+                                    <outlet property="tabButton" destination="1P8-qO-PAI" id="ewA-2q-T9H"/>
+                                </connections>
                             </tabViewItem>
-                            <tabViewItem label="History" identifier="4" id="8MX-CS-NgA" userLabel="History Prefs">
+                            <tabViewItem label="History" identifier="4" id="8MX-CS-NgA" userLabel="History Prefs" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="VU4-J3-GvZ">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="275"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
+                                <connections>
+                                    <outlet property="tabButton" destination="6Mp-rG-06r" id="fDf-AW-kFD"/>
+                                </connections>
                             </tabViewItem>
-                            <tabViewItem label="Controls" identifier="5" id="3TW-yq-t8Z" userLabel="Controls Prefs">
+                            <tabViewItem label="Controls" identifier="5" id="3TW-yq-t8Z" userLabel="Controls Prefs" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="2UQ-Br-8L8">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="275"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
+                                <connections>
+                                    <outlet property="tabButton" destination="NIW-GO-LI8" id="bW1-R5-Gm6"/>
+                                </connections>
                             </tabViewItem>
                         </tabViewItems>
                     </tabView>

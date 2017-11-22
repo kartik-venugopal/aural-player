@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the playlist window.
  */
-class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber {
+class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber, NSTabViewDelegate {
     
     // The different playlist views
     private lazy var tracksView: NSView = ViewFactory.getTracksView()
@@ -14,15 +14,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     @IBOutlet weak var contextMenu: NSMenu!
     
     // The tab group that switches between the 4 playlist views
-    @IBOutlet weak var tabGroup: NSTabView!
-    
-    // Tab group buttons
-    @IBOutlet weak var btnTracksView: NSButton!
-    @IBOutlet weak var btnArtistsView: NSButton!
-    @IBOutlet weak var btnAlbumsView: NSButton!
-    @IBOutlet weak var btnGenresView: NSButton!
-    
-    private var tabGroupButtons: [NSButton]?
+    @IBOutlet weak var tabGroup: AuralTabView!
     
     // Fields that display playlist summary info
     @IBOutlet weak var lblTracksSummary: NSTextField!
@@ -42,7 +34,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
-    
+
     convenience init() {
         self.init(windowNibName: "Playlist")
     }
@@ -54,21 +46,12 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private func setUpTabGroup() {
         
-        tabGroupButtons = [btnTracksView, btnArtistsView, btnAlbumsView, btnGenresView]
+        tabGroup.addViewsForTabs([tracksView, artistsView, albumsView, genresView])
+
+        // Initialize all the tab views (and select the first one to be shown)
+        [1, 2, 3, 0].forEach({tabGroup.selectTabViewItem(at: $0)})
         
-        // Add sub-views to the tab group tabs
-        tabGroup.tabViewItem(at: 0).view?.addSubview(tracksView)
-        tabGroup.tabViewItem(at: 1).view?.addSubview(artistsView)
-        tabGroup.tabViewItem(at: 2).view?.addSubview(albumsView)
-        tabGroup.tabViewItem(at: 3).view?.addSubview(genresView)
-        
-        // Initialize all the tab views
-        artistsTabViewAction(self)
-        albumsTabViewAction(self)
-        genresTabViewAction(self)
-        
-        // Default view is the Tracks view
-        tracksTabViewAction(self)
+        tabGroup.delegate = self
     }
     
     private func registerForInputAndMessages() {
@@ -253,73 +236,17 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.showPlayingTrack, PlaylistViewState.current))
     }
     
-    // Switches the tab group to the Tracks view
-    @IBAction func tracksTabViewAction(_ sender: AnyObject) {
-        tabViewAction(btnTracksView, 0, .tracks)
-    }
-    
-    // Switches the tab group to the Artists view
-    @IBAction func artistsTabViewAction(_ sender: AnyObject) {
-        tabViewAction(btnArtistsView, 1, .artists)
-    }
-    
-    // Switches the tab group to the Albums view
-    @IBAction func albumsTabViewAction(_ sender: AnyObject) {
-        tabViewAction(btnAlbumsView, 2, .albums)
-    }
-    
-    // Switches the tab group to the Genres view
-    @IBAction func genresTabViewAction(_ sender: AnyObject) {
-        tabViewAction(btnGenresView, 3, .genres)
-    }
-    
-    // Helper function to switch the tab group to a particular view
-    private func tabViewAction(_ selectedButton: NSButton, _ tabIndex: Int, _ playlistType: PlaylistType) {
-        
-        tabGroupButtons!.forEach({$0.state = 0})
-        selectedButton.state = 1
-        tabGroup.selectTabViewItem(at: tabIndex)
-        
-        PlaylistViewState.current = playlistType
-        updatePlaylistSummary()
-        SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: playlistType))
-    }
-    
     // Cycles between playlist tab group tabs
     private func shiftTab() {
         nextPlaylistView()
     }
     
-    // TODO: Write a state machine ?
     private func nextPlaylistView() {
-        
-        switch PlaylistViewState.current {
-            
-        case .tracks: artistsTabViewAction(self)
-            
-        case .artists: albumsTabViewAction(self)
-            
-        case .albums: genresTabViewAction(self)
-            
-        case .genres: tracksTabViewAction(self)
-            
-        }
+        PlaylistViewState.current == .genres ? tabGroup.selectTabViewItem(at: 0) : tabGroup.selectNextTabViewItem(self)
     }
     
-    // TODO: Write a state machine ?
     private func previousPlaylistView() {
-        
-        switch PlaylistViewState.current {
-            
-        case .tracks: genresTabViewAction(self)
-            
-        case .artists: tracksTabViewAction(self)
-            
-        case .albums: artistsTabViewAction(self)
-            
-        case .genres: albumsTabViewAction(self)
-            
-        }
+        PlaylistViewState.current == .tracks ? tabGroup.selectTabViewItem(at: 3) : tabGroup.selectPreviousTabViewItem(self)
     }
     
     // Presents the search modal dialog to allow the user to search for playlist tracks
@@ -362,6 +289,16 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Maximizes the playlist window horizontally
     @IBAction func maximizeHorizontalAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.maximizeHorizontal, nil))
+    }
+    
+    // MARK: Tab view delegate functions
+    
+    // Performs state updates in response to the tab view's selected tab changing
+    func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
+        
+        PlaylistViewState.updateStateForIndex(tabGroup.indexOfTabViewItem(tabViewItem!))
+        updatePlaylistSummary()
+        SyncMessenger.publishNotification(PlaylistTypeChangedNotification(newPlaylistType: PlaylistViewState.current))
     }
     
     // MARK: Message handling
@@ -464,6 +401,23 @@ class PlaylistViewState {
             
         // Group type is not applicable to playlist type .tracks
         default: return nil
+            
+        }
+    }
+    
+    static func updateStateForIndex(_ index: Int) {
+        
+        switch index {
+            
+        case 0: current = .tracks
+            
+        case 1: current = .artists
+            
+        case 2: current = .albums
+            
+        case 3: current = .genres
+            
+        default: return
             
         }
     }

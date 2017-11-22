@@ -8,10 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PlaylistWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnAlbumsView" destination="Icf-Se-Yie" id="NTm-EG-ehf"/>
-                <outlet property="btnArtistsView" destination="Gd5-Z1-IPv" id="Zka-2x-Dd0"/>
-                <outlet property="btnGenresView" destination="WM5-oc-eXx" id="YAd-Bo-Wld"/>
-                <outlet property="btnTracksView" destination="HRy-40-ayp" id="YD1-tj-GCy"/>
                 <outlet property="contextMenu" destination="5mK-N5-S6w" id="MXz-2o-VC4"/>
                 <outlet property="lblDurationSummary" destination="QXQ-hF-zKn" id="WZd-Es-pDr"/>
                 <outlet property="lblTracksSummary" destination="VLw-7p-b04" id="3rg-1b-OfJ"/>
@@ -27,7 +23,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="109" y="132" width="480" height="277"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <value key="minSize" type="size" width="480" height="180"/>
             <view key="contentView" wantsLayer="YES" id="eVi-5y-Ide">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
@@ -101,11 +97,8 @@
                                             <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="tracksTabViewAction:" target="-2" id="8GJ-sf-ih3"/>
-                                    </connections>
                                 </button>
-                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gd5-Z1-IPv" userLabel="Artists Button">
+                                <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Gd5-Z1-IPv" userLabel="Artists Button">
                                     <rect key="frame" x="55" y="1" width="50" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" title="Artists" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ji9-rd-q2F" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
@@ -117,11 +110,8 @@
                                             <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="artistsTabViewAction:" target="-2" id="Td3-W5-yq9"/>
-                                    </connections>
                                 </button>
-                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Icf-Se-Yie" userLabel="Albums Button">
+                                <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="Icf-Se-Yie" userLabel="Albums Button">
                                     <rect key="frame" x="108" y="1" width="55" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" title="Albums" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OyZ-cR-V6J" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
@@ -133,11 +123,8 @@
                                             <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="albumsTabViewAction:" target="-2" id="AsT-h7-HUj"/>
-                                    </connections>
                                 </button>
-                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WM5-oc-eXx" userLabel="Genres Button">
+                                <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="WM5-oc-eXx" userLabel="Genres Button">
                                     <rect key="frame" x="166" y="1" width="55" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" title="Genres" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YnV-Ql-KcB" customClass="PlaylistViewsButtonCell" customModule="Aural" customModuleProvider="target">
@@ -149,9 +136,6 @@
                                             <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="genresTabViewAction:" target="-2" id="xgF-QH-P9N"/>
-                                    </connections>
                                 </button>
                             </subviews>
                         </view>
@@ -355,33 +339,45 @@
                             <rect key="frame" x="1" y="1" width="448" height="205"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tabView type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WTT-JW-9R7" userLabel="Playlist Views Tab Group">
+                                <tabView type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WTT-JW-9R7" userLabel="Playlist Views Tab Group" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="27" width="448" height="178"/>
                                     <font key="font" metaFont="system"/>
                                     <tabViewItems>
-                                        <tabViewItem label="Tracks" identifier="1" id="AVY-Y2-lG8" userLabel="Tracks Tab">
+                                        <tabViewItem label="Tracks" identifier="1" id="AVY-Y2-lG8" userLabel="Tracks Tab" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                             <view key="view" id="R3K-O5-tIq">
                                                 <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
+                                            <connections>
+                                                <outlet property="tabButton" destination="HRy-40-ayp" id="1JM-kX-lIH"/>
+                                            </connections>
                                         </tabViewItem>
-                                        <tabViewItem label="Artists" identifier="2" id="VBU-uP-ocD" userLabel="Artists Tab">
+                                        <tabViewItem label="Artists" identifier="2" id="VBU-uP-ocD" userLabel="Artists Tab" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                             <view key="view" id="AUC-AF-EPa">
                                                 <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
+                                            <connections>
+                                                <outlet property="tabButton" destination="Gd5-Z1-IPv" id="fsg-uY-8tL"/>
+                                            </connections>
                                         </tabViewItem>
-                                        <tabViewItem label="Albums" identifier="" id="4Fq-vE-T4h" userLabel="Albums Tab">
+                                        <tabViewItem label="Albums" identifier="" id="4Fq-vE-T4h" userLabel="Albums Tab" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                             <view key="view" id="J1H-q9-Gxc">
                                                 <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
+                                            <connections>
+                                                <outlet property="tabButton" destination="Icf-Se-Yie" id="IRa-Bw-bPH"/>
+                                            </connections>
                                         </tabViewItem>
-                                        <tabViewItem label="Genres" identifier="" id="NvB-Mp-ZyB" userLabel="Genres Tab">
+                                        <tabViewItem label="Genres" identifier="" id="NvB-Mp-ZyB" userLabel="Genres Tab" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                             <view key="view" id="dBa-xP-gyx">
                                                 <rect key="frame" x="0.0" y="0.0" width="448" height="178"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
+                                            <connections>
+                                                <outlet property="tabButton" destination="WM5-oc-eXx" id="Hir-vp-aOd"/>
+                                            </connections>
                                         </tabViewItem>
                                     </tabViewItems>
                                 </tabView>
