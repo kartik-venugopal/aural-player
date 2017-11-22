@@ -26,10 +26,10 @@ class History: HistoryProtocol {
         favorites = LRUArray<FavoritesItem>(preferences.favoritesListSize)
     }
     
-    func addRecentlyAddedItems(_ items: [URL]) {
+    func addRecentlyAddedItems(_ items: [(file: URL, time: Date)]) {
         
         var recentlyAddedItemsArr: [AddedItem] = []
-        items.forEach({recentlyAddedItemsArr.append(AddedItem($0))})
+        items.forEach({recentlyAddedItemsArr.append(AddedItem($0.file, $0.time))})
         recentlyAddedItems.addAll(recentlyAddedItemsArr)
     }
     
@@ -39,12 +39,12 @@ class History: HistoryProtocol {
         return recentlyAddedItems.toArray().reversed()
     }
     
-    func addRecentlyPlayedItem(_ item: Track) {
-        recentlyPlayedItems.add(PlayedItem(item.file, item))
+    func addRecentlyPlayedItem(_ item: Track, _ time: Date) {
+        recentlyPlayedItems.add(PlayedItem(item.file, time, item))
     }
     
-    func addRecentlyPlayedItem(_ item: URL) {
-        recentlyPlayedItems.add(PlayedItem(item, nil))
+    func addRecentlyPlayedItem(_ file: URL, _ time: Date) {
+        recentlyPlayedItems.add(PlayedItem(file, time, nil))
     }
     
     func allRecentlyPlayedItems() -> [PlayedItem] {
@@ -54,19 +54,19 @@ class History: HistoryProtocol {
     }
     
     func hasFavorite(_ track: Track) -> Bool {
-        return favorites.contains(FavoritesItem(track.file, nil))
+        return favorites.contains(FavoritesItem(track.file, Date(), nil))
     }
     
-    func addFavorite(_ item: Track) {
-        favorites.add(FavoritesItem(item.file, item))
+    func addFavorite(_ item: Track, _ time: Date) {
+        favorites.add(FavoritesItem(item.file, time, item))
     }
     
-    func addFavorite(_ item: URL) {
-        favorites.add(FavoritesItem(item, nil))
+    func addFavorite(_ file: URL, _ time: Date) {
+        favorites.add(FavoritesItem(file, time, nil))
     }
     
     func removeFavorite(_ item: Track) {
-        favorites.remove(FavoritesItem(item.file, item))
+        favorites.remove(FavoritesItem(item.file, Date(), item))
     }
     
     func allFavorites() -> [FavoritesItem] {

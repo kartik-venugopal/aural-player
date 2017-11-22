@@ -554,35 +554,3 @@ class AppState {
         return state
     }
 }
-
-extension Date {
-    
-    // YYYY_MM_DD_hh_mm
-    func serializableString() -> String {
-        
-        let calendar = Calendar.current
-        
-        let year = calendar.component(.year, from: self)
-        let month = calendar.component(.month, from: self)
-        let day = calendar.component(.day, from: self)
-        let hour = calendar.component(.hour, from: self)
-        let minute = calendar.component(.minute, from: self)
-        
-        return String(format: "%d_%d_%d_%d_%d", year, month, day, hour, minute)
-    }
-    
-    static func fromString(_ string: String) -> Date {
-        
-        let strComponents = string.components(separatedBy: "_")
-        let year = Int(strComponents[0])!
-        let month = Int(strComponents[1])!
-        let day = Int(strComponents[2])!
-        let hour = Int(strComponents[3])!
-        let minute = Int(strComponents[4])!
-        
-        var calendar = Calendar(identifier: .gregorian)
-        let components = DateComponents(year: year, month: month, day: day, hour: hour, minute: minute, second: 0)
-        
-        return calendar.date(from: components)!
-    }
-}

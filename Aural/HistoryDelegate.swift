@@ -26,8 +26,8 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         // Restore the history model object from persistent state
         
         history.addRecentlyAddedItems(historyState.recentlyAdded.reversed())
-        historyState.recentlyPlayed.reversed().forEach({history.addRecentlyPlayedItem($0)})
-        historyState.favorites.reversed().forEach({history.addFavorite($0)})
+        historyState.recentlyPlayed.reversed().forEach({history.addRecentlyPlayedItem($0.file, $0.time)})
+        historyState.favorites.reversed().forEach({history.addFavorite($0.file, $0.time)})
         
         AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
     }
@@ -75,7 +75,7 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
     }
     
     func addFavorite(_ track: Track) {
-        history.addFavorite(track)
+        history.addFavorite(track, Date())
         AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
         AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.addedToFavorites, track))
     }
@@ -94,22 +94,27 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         
         let state = HistoryState()
         
-        allRecentlyAddedItems().forEach({state.recentlyAdded.append($0.file)})
-        allRecentlyPlayedItems().forEach({state.recentlyPlayed.append($0.file)})
-        allFavorites().forEach({state.favorites.append($0.file)})
+        allRecentlyAddedItems().forEach({state.recentlyAdded.append(($0.file, $0.time))})
+        allRecentlyPlayedItems().forEach({state.recentlyPlayed.append(($0.file, $0.time))})
+        allFavorites().forEach({state.favorites.append(($0.file, $0.time))})
         
         return state
     }
     
     // Whenever a track is played by the player, add an entry in the "Recently played" list
     private func trackPlayed(_ message: TrackPlayedAsyncMessage) {
-        history.addRecentlyPlayedItem(message.track)
+        history.addRecentlyPlayedItem(message.track, Date())
         AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
     }
     
     // Whenever items are added to the playlist, add entries to the "Recently added" list
     private func itemsAdded(_ message: ItemsAddedAsyncMessage) {
-        history.addRecentlyAddedItems(message.files)
+        
+        let now = Date()
+        var itemsToAdd = [(URL, Date)]()
+        message.files.forEach({itemsToAdd.append(($0, now))})
+        
+        history.addRecentlyAddedItems(itemsToAdd)
         AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
     }
     
