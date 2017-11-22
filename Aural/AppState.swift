@@ -467,10 +467,12 @@ class HistoryState: PersistentState {
             
             favorites.forEach({
                 
+                
+                
                 if let file = $0.value(forKey: "path") as? String,
                     let timestamp = $0.value(forKey: "timestamp") as? String {
                     
-                    state.recentlyPlayed.append((URL(fileURLWithPath: file), Date.fromString(timestamp)))
+                    state.favorites.append((URL(fileURLWithPath: file), Date.fromString(timestamp)))
                 }
             })
         }
