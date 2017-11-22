@@ -19,9 +19,6 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
     // Delegate that performs CRUD on the history model
     private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
     
-    // Stores a mapping of menu items to their corresponding model objects. This is useful when the items are clicked and track/file information for the item is to be retrieved.
-    private var itemsMap: [NSMenuItem: HistoryItem] = [:]
-    
     // One-time setup, when the menu loads
     override func awakeFromNib() {
         
@@ -30,45 +27,78 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
     }
     
     // Before the menu opens, re-create the menu items from the model
-    func menuWillOpen(_ menu: NSMenu) {
+    func menuNeedsUpdate(_ menu: NSMenu) {
         
         // Clear the menus
         recentlyAddedMenu.removeAllItems()
         recentlyPlayedMenu.removeAllItems()
         favoritesMenu.removeAllItems()
-        itemsMap.removeAll()
         
         // Retrieve the model and re-create all sub-menu items
-        history.allRecentlyAddedItems().forEach({recentlyAddedMenu.addItem(createMenuItem($0))})
-        history.allRecentlyPlayedItems().forEach({recentlyPlayedMenu.addItem(createMenuItem($0))})
-        history.allFavorites().forEach({favoritesMenu.addItem(createMenuItem($0))})
+        createChronologicalMenu(history.allRecentlyAddedItems(), recentlyAddedMenu)
+        createChronologicalMenu(history.allRecentlyPlayedItems(), recentlyPlayedMenu)
+        history.allFavorites().forEach({favoritesMenu.addItem(createHistoryMenuItem($0))})
     }
     
-    // Factory method to create a single menu item, given a model object (HistoryItem)
-    private func createMenuItem(_ item: HistoryItem) -> NSMenuItem {
+    // Populates the given menu with items corresponding to the given historical item info, grouped by timestamp into categories like "Past 24 hours", "Past 7 days", etc.
+    private func createChronologicalMenu(_ items: [HistoryItem], _ menu: NSMenu) {
+        
+        // Keeps track of which time categories have already been created
+        var timeCategories = Set<TimeElapsed>()
+        
+        items.forEach({
+            
+            let menuItem = createHistoryMenuItem($0)
+            
+            // Figure out how old this item is
+            let timeElapsed = DateUtils.timeElapsedSinceDate($0.time)
+            
+            // If this category doesn't already exist, create it
+            if !timeCategories.contains(timeElapsed) {
+                
+                timeCategories.insert(timeElapsed)
+                
+                // Add a descriptor menu item that describes the time category, between 2 separators
+                menu.addItem(NSMenuItem.separator())
+                menu.addItem(createDescriptor(timeElapsed))
+                menu.addItem(NSMenuItem.separator())
+            }
+            
+            // Add the history menu item to the menu
+            menu.addItem(menuItem)
+        })
+    }
+    
+    // Creates a menu item that describes a time category like "Past hour". The item will have no action.
+    private func createDescriptor(_ timeElapsed: TimeElapsed) -> NSMenuItem {
+        return NSMenuItem(title: timeElapsed.rawValue, action: nil, keyEquivalent: "")
+    }
+    
+    // Factory method to create a single history menu item, given a model object (HistoryItem)
+    private func createHistoryMenuItem(_ item: HistoryItem) -> NSMenuItem {
         
         // The action for the menu item will depend on whether it is a playable item
         let action = item is PlayableHistoryItem ? #selector(self.playSelectedItemAction(_:)) : #selector(self.addSelectedItemAction(_:))
         
-        let menuItem = NSMenuItem(title: "  " + item.displayName, action: action, keyEquivalent: "")
+        let menuItem = HistoryMenuItem(title: "  " + item.displayName, action: action, keyEquivalent: "")
         menuItem.target = self
         
         menuItem.image = item.art
         menuItem.image?.size = Images.historyMenuItemImageSize
         
-        itemsMap[menuItem] = item
+        menuItem.historyItem = item
         
         return menuItem
     }
     
     // When a "Recently added" menu item is clicked, the item is added to the playlist
-    @IBAction func addSelectedItemAction(_ sender: NSMenuItem) {
-        history.addItem(itemsMap[sender]!.file)
+    @IBAction fileprivate func addSelectedItemAction(_ sender: HistoryMenuItem) {
+        history.addItem(sender.historyItem.file)
     }
     
     // When a "Recently played" or "Favorites" menu item is clicked, the item is played
-    @IBAction func playSelectedItemAction(_ sender: NSMenuItem) {
-        history.playItem(itemsMap[sender]!.file, PlaylistViewState.current)
+    @IBAction fileprivate func playSelectedItemAction(_ sender: HistoryMenuItem) {
+        history.playItem(sender.historyItem.file, PlaylistViewState.current)
     }
     
     // Adds a track to the "Favorites" list
@@ -101,4 +131,10 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
             
         }
     }
+}
+
+// A menu item that stores an associated history item (used when executing the menu item action)
+fileprivate class HistoryMenuItem: NSMenuItem {
+    
+    var historyItem: HistoryItem!
 }

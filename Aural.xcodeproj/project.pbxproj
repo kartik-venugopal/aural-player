@@ -140,6 +140,7 @@
 		3E9847911F5D0512001A2D28 /* AudioGraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9847901F5D0512001A2D28 /* AudioGraphDelegate.swift */; };
 		3E9871A21F418CB1009AE9E6 /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9871A11F418CB1009AE9E6 /* UIUtils.swift */; };
 		3E9A575E1F21F778007546A2 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9A575D1F21F778007546A2 /* Recorder.swift */; };
+		3EA0074F1FC4E21E00AC7612 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0074E1FC4E21E00AC7612 /* DateUtils.swift */; };
 		3EA074AC1F3DBBB0005F8966 /* SavedPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */; };
 		3EA19C211FC16A3C0072929E /* ControlsPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA19C201FC16A3C0072929E /* ControlsPreferencesViewController.swift */; };
 		3EA19C231FC174A30072929E /* ControlsPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EA19C221FC174A30072929E /* ControlsPreferences.xib */; };
@@ -348,6 +349,7 @@
 		3E9847901F5D0512001A2D28 /* AudioGraphDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphDelegate.swift; sourceTree = "<group>"; };
 		3E9871A11F418CB1009AE9E6 /* UIUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
 		3E9A575D1F21F778007546A2 /* Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
+		3EA0074E1FC4E21E00AC7612 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		3EA074AB1F3DBBB0005F8966 /* SavedPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedPlaylist.swift; sourceTree = "<group>"; };
 		3EA19C201FC16A3C0072929E /* ControlsPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlsPreferencesViewController.swift; sourceTree = "<group>"; };
 		3EA19C221FC174A30072929E /* ControlsPreferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlsPreferences.xib; sourceTree = "<group>"; };
@@ -935,6 +937,7 @@
 				3E582E7A1F6A5B440040A092 /* MetadataReader.swift */,
 				3EDAE69E1F7613C800D6F808 /* AudioUtils.swift */,
 				3EBA52F61FC2E6A2007F902F /* StateMachine.swift */,
+				3EA0074E1FC4E21E00AC7612 /* DateUtils.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1236,6 +1239,7 @@
 				3EFFE6BE1F0381FA003728BD /* EQPresets.swift in Sources */,
 				3E06C0311FB6CA2A003EE9AB /* HistoryDelegate.swift in Sources */,
 				3E84F8411F5FBE8F0010BCDA /* PlaylistAccessorDelegate.swift in Sources */,
+				3EA0074F1FC4E21E00AC7612 /* DateUtils.swift in Sources */,
 				3EAFE3C71FB40DD400B4A327 /* PreferencesWindowController.swift in Sources */,
 				3E822B381F21DCF20006CDBC /* RecordingFormat.swift in Sources */,
 				3E0ED6C31FBB1E18008268B3 /* EQViewController.swift in Sources */,

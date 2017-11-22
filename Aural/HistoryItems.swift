@@ -13,12 +13,20 @@ protocol PlayableHistoryItem {}
 // An abstract base class for all history items
 class HistoryItem: EquatableHistoryItem {
     
+    // The filesystem location of the item
     var file: URL
+    
+    // A timestamp used in comparisons with other items, to maintain chronological order
+    var time: Date
+    
+    // Display information used in menu items
     var displayName: String
     var art: NSImage = Images.imgPlayedTrack
     
-    init(_ file: URL) {
+    init(_ file: URL, _ time: Date) {
+        
         self.file = file
+        self.time = time
         
         // Default the displayName to file name (intended to be replaced later)
         self.displayName = file.lastPathComponent
@@ -51,9 +59,9 @@ class HistoryItem: EquatableHistoryItem {
 // Either a folder, audio file, or playlist file
 class AddedItem: HistoryItem {
     
-    override init(_ file: URL) {
+    override init(_ file: URL, _ time: Date) {
         
-        super.init(file)
+        super.init(file, time)
         loadDisplayInfoFromFile()
     }
     
@@ -98,10 +106,10 @@ class PlayedItem: HistoryItem, PlayableHistoryItem {
     // Optional track information. If the track was added to the Recently played list during the current app execution, this will be non-nil because a corresponding Track instance exists. Otherwise, this item will be loaded from disk as a file object (URL) upon app startup, and this Track object will be nil.
     let track: Track?
     
-    init(_ file: URL, _ track: Track? = nil) {
+    init(_ file: URL, _ time: Date, _ track: Track? = nil) {
         
         self.track = track
-        super.init(file)
+        super.init(file, time)
         
         // If track info is available, load display info from it
         if (track != nil) {
