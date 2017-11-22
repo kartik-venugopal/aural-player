@@ -25,7 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Configuration and initialization
         
-        configureLogging()
+//        configureLogging()
         ObjectGraph.initialize()
     }
     
