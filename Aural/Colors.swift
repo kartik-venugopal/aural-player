@@ -82,6 +82,24 @@ struct Colors {
         return barBackgroundGradient!
     }()
     
+    static let seekBarPlainGradient: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.3, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.3, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
+    static let seekBarColoredGradient: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.65, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.5, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
     // Color of the ticks/notches on sliders
     static let sliderNotchColor: NSColor = NSColor(calibratedWhite: 0.2, alpha: 1)
     

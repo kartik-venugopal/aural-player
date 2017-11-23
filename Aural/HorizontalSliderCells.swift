@@ -10,6 +10,7 @@ class HorizontalSliderCell: NSSliderCell {
     var barRadius: CGFloat {return 1}
     var barPlainGradient: NSGradient {return Colors.sliderBarPlainGradient}
     var barColoredGradient: NSGradient {return Colors.sliderBarColoredGradient}
+    var gradientDegrees: CGFloat {return UIConstants.horizontalGradientDegrees}
     var barInsetX: CGFloat {return 0}
     var barInsetY: CGFloat {return 0}
     
@@ -26,12 +27,12 @@ class HorizontalSliderCell: NSSliderCell {
         let leftRect = NSRect(x: aRect.minX, y: aRect.minY, width: max(halfKnobWidth, knobFrame.minX + halfKnobWidth), height: aRect.height)
 
         var drawPath = NSBezierPath.init(roundedRect: leftRect, xRadius: barRadius, yRadius: barRadius)
-        barColoredGradient.draw(in: drawPath, angle: UIConstants.horizontalGradientDegrees)
+        barColoredGradient.draw(in: drawPath, angle: gradientDegrees)
         
         let rightRect = NSRect(x: knobFrame.maxX - halfKnobWidth, y: aRect.minY, width: aRect.width - (knobFrame.maxX - halfKnobWidth), height: aRect.height)
         
         drawPath = NSBezierPath.init(roundedRect: rightRect, xRadius: barRadius, yRadius: barRadius)
-        barPlainGradient.draw(in: drawPath, angle: UIConstants.horizontalGradientDegrees)
+        barPlainGradient.draw(in: drawPath, angle: gradientDegrees)
     }
     
     override internal func drawKnob(_ knobRect: NSRect) {
@@ -65,15 +66,15 @@ class VolumeSliderCell: HorizontalSliderCell {
 // Cell for seek position slider
 class SeekSliderCell: HorizontalSliderCell {
     
-    override var barRadius: CGFloat {return 0.5}
-    override var barInsetY: CGFloat {return 0.5}
-    override var knobRadius: CGFloat {return 0.5}
+    override var barRadius: CGFloat {return 1}
+    override var barInsetY: CGFloat {return 1.5}
+    override var knobRadius: CGFloat {return 0}
+    override var knobColor: NSColor {return NSColor.white}
+    override var knobWidth: CGFloat {return 7}
+    override var knobHeightOutsideBar: CGFloat {return 1}
     
-    override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
-        
-        let drawPath = NSBezierPath.init(roundedRect: aRect, xRadius: barRadius, yRadius: barRadius)
-        barPlainGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
-    }
+    override var barPlainGradient: NSGradient {return Colors.seekBarPlainGradient}
+    override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
 }
 
 // Cell for sliders on the Preferences panel
