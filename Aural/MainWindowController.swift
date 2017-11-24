@@ -190,16 +190,16 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
     // Ensures that both the main and playlist windows are entirely visible on-screen. Moves windows if necessary.
     private func ensureWindowsVisible() {
         
+        // Calculate offset of playlist window from main window
+        let offsetX = playlistWindow.x - mainWindow.x
+        let offsetY = playlistWindow.y - mainWindow.y
+        
         let mainWindowVisisble = checkIfWindowVisible(mainWindow)
         if (!mainWindowVisisble.visible) {
             moveMainWindow(mainWindowVisisble.dx, mainWindowVisisble.dy)
         }
         
         if (WindowState.showingPlaylist) {
-            
-            // Calculate offset of playlist window from main window
-            let offsetX = playlistWindow.x - mainWindow.x
-            let offsetY = playlistWindow.y - mainWindow.y
             
             if (!mainWindowVisisble.visible) {
                 reattachPlaylistWithOffset(offsetX, offsetY)
