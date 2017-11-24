@@ -23,7 +23,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="109" y="132" width="480" height="277"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <value key="minSize" type="size" width="480" height="180"/>
             <view key="contentView" wantsLayer="YES" id="eVi-5y-Ide">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
@@ -532,8 +532,12 @@
                         <action selector="playSelectedItemAction:" target="TnB-Sk-yOp" id="BOn-Ox-BlV"/>
                     </connections>
                 </menuItem>
-                <menuItem title=" Add track to favorites" image="Favorites" id="CHV-5l-G4d" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                <menuItem image="Favorites" id="CHV-5l-G4d" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value=" Add this track to Favorites"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value=" Remove this track from Favorites"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="favoritesAction:" target="TnB-Sk-yOp" id="b2g-2H-jbW"/>
                     </connections>

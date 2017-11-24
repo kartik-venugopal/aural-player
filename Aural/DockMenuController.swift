@@ -46,9 +46,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         
         updateRepeatAndShuffleMenuItemStates()
         
-        favoritesMenuItem.isEnabled = false
-        favoritesMenuItem.offStateTitle = Strings.favoritesAddCaption
-        favoritesMenuItem.onStateTitle = Strings.favoritesRemoveCaption
+        favoritesMenuItem.off()
         
         // Subscribe to message notifications
         AsyncMessenger.subscribe([.historyUpdated, .addedToFavorites, .removedFromFavorites, .trackPlayed], subscriber: self, dispatchQueue: DispatchQueue.main)

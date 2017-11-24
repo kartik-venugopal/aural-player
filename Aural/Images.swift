@@ -15,9 +15,6 @@ struct Images {
     static let imgPlay: NSImage = NSImage(named: "Play")!
     static let imgPause: NSImage = NSImage(named: "Pause")!
     
-    static let imgRecorderStart: NSImage = NSImage(named: "Record")!
-    static let imgRecorderStop: NSImage = NSImage(named: "RecorderStop")!
-    
     static let imgVolumeZero: NSImage = NSImage(named: "VolumeZero")!
     static let imgVolumeLow: NSImage = NSImage(named: "VolumeLow")!
     static let imgVolumeMedium: NSImage = NSImage(named: "VolumeMedium")!
@@ -36,8 +33,6 @@ struct Images {
     
     static let imgPlaylistOn: NSImage = NSImage(named: "PlaylistView-On")!
     static let imgPlaylistOff: NSImage = NSImage(named: "PlaylistView-Off")!
-    static let imgEffectsOn: NSImage = NSImage(named: "EffectsView-On")!
-    static let imgEffectsOff: NSImage = NSImage(named: "EffectsView-Off")!
     
     // Displayed in the playlist view
     static let imgGroup: NSImage = NSImage(named: "Group")!
@@ -48,26 +43,5 @@ struct Images {
     
     static let imgPlayedTrack: NSImage = NSImage(named: "PlayedTrack")!
     
-    static let imgFavoritesOff: NSImage = NSImage(named: "Favorites-Off")!
-    static let imgFavoritesOn: NSImage = NSImage(named: "Favorites-On")!
-    
     static let historyMenuItemImageSize: NSSize = NSSize(width: 25, height: 25)
-    
-    // On/off state images for different tabs of the Effects panel
-    
-    static let imgEQOff: NSImage = NSImage(named: "EQTab")!
-    static let imgPitchOff: NSImage = NSImage(named: "PitchTab")!
-    static let imgTimeOff: NSImage = NSImage(named: "TimeTab")!
-    static let imgReverbOff: NSImage = NSImage(named: "ReverbTab")!
-    static let imgDelayOff: NSImage = NSImage(named: "DelayTab")!
-    static let imgFilterOff: NSImage = NSImage(named: "FilterTab")!
-    static let imgRecorderOff: NSImage = NSImage(named: "RecorderTab")!
-    
-    static let imgEQOn: NSImage = NSImage(named: "EQTab-On")!
-    static let imgPitchOn: NSImage = NSImage(named: "PitchTab-On")!
-    static let imgTimeOn: NSImage = NSImage(named: "TimeTab-On")!
-    static let imgReverbOn: NSImage = NSImage(named: "ReverbTab-On")!
-    static let imgDelayOn: NSImage = NSImage(named: "DelayTab-On")!
-    static let imgFilterOn: NSImage = NSImage(named: "FilterTab-On")!
-    static let imgRecorderOn: NSImage = NSImage(named: "RecorderTab-On")!
 }

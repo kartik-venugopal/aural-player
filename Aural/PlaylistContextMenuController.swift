@@ -55,8 +55,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         // Set up the two possible captions for the favorites menu item
         
-        favoritesMenuItem.offStateTitle = Strings.favoritesAddCaption_contextMenu
-        favoritesMenuItem.onStateTitle = Strings.favoritesRemoveCaption_contextMenu
+        favoritesMenuItem.off()
     }
     
     // Sets up the menu items that need to be displayed, depending on what type of playlist item was clicked, and the current state of that item

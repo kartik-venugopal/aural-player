@@ -18,7 +18,6 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var detailedInfoMenuItem: NSMenuItem!
     @IBOutlet weak var showInPlaylistMenuItem: NSMenuItem!
-    @IBOutlet weak var addToFavoritesMenuItem: NSMenuItem!
     
     // Playback repeat modes
     @IBOutlet weak var repeatOffMenuItem: NSMenuItem!
@@ -42,8 +41,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // One-time setup
     override func awakeFromNib() {
         
-        favoritesMenuItem.offStateTitle = Strings.favoritesAddCaption
-        favoritesMenuItem.onStateTitle = Strings.favoritesRemoveCaption
+        favoritesMenuItem.off()
     }
     
     // When the menu is about to open, update the menu item states
@@ -54,13 +52,15 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         // Update Favorites menu item
         if let playingTrack = playbackInfo.getPlayingTrack()?.track {
             favoritesMenuItem.onIf(history.hasFavorite(playingTrack))
+        } else {
+            favoritesMenuItem.off()
         }
         
         // Play/pause enabled if at least one track available
         playOrPauseMenuItem.isEnabled = playlist.size() > 0
         
         // These menu item actions are only available when a track is currently playing
-        [replayTrackMenuItem, previousTrackMenuItem, nextTrackMenuItem, seekForwardMenuItem, seekBackwardMenuItem, detailedInfoMenuItem, showInPlaylistMenuItem, addToFavoritesMenuItem].forEach({$0.isEnabled = playbackInfo.getPlaybackState() != .noTrack})
+        [replayTrackMenuItem, previousTrackMenuItem, nextTrackMenuItem, seekForwardMenuItem, seekBackwardMenuItem, detailedInfoMenuItem, showInPlaylistMenuItem, favoritesMenuItem].forEach({$0.isEnabled = playbackInfo.getPlaybackState() != .noTrack})
     }
     
     // Plays, pauses or resumes playback

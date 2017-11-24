@@ -50,10 +50,6 @@ struct Colors {
     // Color of the displayed text in popup menus
     static let popupMenuTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
     
-    // Colors used to highlight text in tab view buttons for active effect units
-    static let tabViewEffectsButtonHighlightColor: NSColor = NSColor.green
-    static let tabViewRecorderButtonHighlightColor: NSColor = NSColor.red
-    
     static let sliderBarGradient: NSGradient = {
         
         let backgroundStart = NSColor(white: 0.7, alpha: 1.0)
