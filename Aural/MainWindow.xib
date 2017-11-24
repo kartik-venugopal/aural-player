@@ -23,7 +23,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="335" y="100" width="480" height="420"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <value key="minSize" type="size" width="480" height="218"/>
             <value key="maxSize" type="size" width="480" height="420"/>
             <view key="contentView" wantsLayer="YES" id="W7v-UI-tl4">
