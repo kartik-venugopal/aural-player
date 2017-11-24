@@ -71,7 +71,7 @@ class SeekSliderCell: HorizontalSliderCell {
     override var barInsetY: CGFloat {return 1.5}
     
     override var knobRadius: CGFloat {return 0}
-    override var knobColor: NSColor {return NSColor(white: 0.575, alpha: 1.0)}
+    override var knobColor: NSColor {return NSColor(white: 0.8, alpha: 1.0)}
     override var knobWidth: CGFloat {return 7}
     override var knobHeightOutsideBar: CGFloat {return 2}
     
