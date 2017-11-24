@@ -333,6 +333,10 @@ CQ
                                 </connections>
                             </menuItem>
                             <menuItem title=" Add playing track to Favorites" image="Favorites" enabled="NO" keyEquivalent="F" id="iMK-0g-xI0" userLabel="Add track to favorites" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Add playing track to Favorites"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="Remove playing track from Favorites"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="favoritesAction:" target="IvK-xG-TCa" id="SnF-o7-gcw"/>
                                 </connections>
@@ -678,6 +682,10 @@ CQ
                 </menuItem>
                 <menuItem title="Add playing track to Favorites" image="Favorites" id="I89-DR-v3r" userLabel="Add track to favorites" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Add playing track to Favorites"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="Remove playing track from Favorites"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="favoritesAction:" target="29W-IU-ITu" id="CDH-ow-dfV"/>
                     </connections>

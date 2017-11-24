@@ -116,15 +116,21 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         SyncMessenger.publishActionMessage(FavoritesActionMessage(action, playingTrack))
     }
     
-    // Responds to a notification that the playing track has been added to / removed from the Favorites list, by updating the UI to reflect the new state
+    // Responds to a notification that a track has been added to / removed from the Favorites list, by updating the UI to reflect the new state
     private func favoritesUpdated(_ message: FavoritesUpdatedAsyncMessage) {
         
-        if (message.messageType == .addedToFavorites) {
-            btnFavorite.on()
-            favoritesPopup.showAddedMessage(btnFavorite, NSRectEdge.maxX)
-        } else {
-            btnFavorite.off()
-            favoritesPopup.showRemovedMessage(btnFavorite, NSRectEdge.maxX)
+        let playingTrack = player.getPlayingTrack()?.track
+        
+        // Do this only if the track in the message is the playing track
+        if message.track == playingTrack {
+            
+            if (message.messageType == .addedToFavorites) {
+                btnFavorite.on()
+                favoritesPopup.showAddedMessage(btnFavorite, NSRectEdge.maxX)
+            } else {
+                btnFavorite.off()
+                favoritesPopup.showRemovedMessage(btnFavorite, NSRectEdge.maxX)
+            }
         }
     }
     
