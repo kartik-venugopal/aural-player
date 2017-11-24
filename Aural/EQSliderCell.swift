@@ -1,13 +1,13 @@
 /*
-    Customizes the look and feel of the parametric EQ sliders
+ Customizes the look and feel of the parametric EQ sliders
  */
 
 import Cocoa
 
 class EQSliderCell: NSSliderCell {
     
-    let barRadius: CGFloat = 0.5
-    let barInsetX: CGFloat = 0.35
+    let barRadius: CGFloat = 0.75
+    let barInsetX: CGFloat = 0.25
     let barInsetY: CGFloat = 0
     
     let knobHeight: CGFloat = 10
