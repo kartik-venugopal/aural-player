@@ -45,21 +45,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
     
     override func windowDidLoad() {
         
-        // Set window properties
-        
-        self.mainWindow = self.window!
-        WindowState.window = self.mainWindow
-        WindowState.playlistWindow = self.playlistWindow
-        [mainWindow, playlistWindow].forEach({$0?.isMovableByWindowBackground = true})
-        
-        mainWindow.makeKeyAndOrderFront(self)
-        playlistWindow.delegate = self
-        
-        // Add the sub-views
-        
-        nowPlayingBox.addSubview(nowPlayingView)
-        playerBox.addSubview(playerView)
-        effectsBox.addSubview(effectsView)
+        initWindows()
+        addSubViews()
         
         // Set up the toggle button images
         btnTogglePlaylist.offStateImage = Images.imgPlaylistOff
@@ -81,6 +68,26 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         
         // Lay out the windows
         initialWindowLayout()
+    }
+    
+    // Set window properties
+    private func initWindows() {
+        
+        self.mainWindow = self.window!
+        WindowState.window = self.mainWindow
+        WindowState.playlistWindow = self.playlistWindow
+        [mainWindow, playlistWindow].forEach({$0?.isMovableByWindowBackground = true})
+        
+        mainWindow.makeKeyAndOrderFront(self)
+        playlistWindow.delegate = self
+    }
+    
+    // Add the sub-views that make up the main window
+    private func addSubViews() {
+        
+        nowPlayingBox.addSubview(nowPlayingView)
+        playerBox.addSubview(playerView)
+        effectsBox.addSubview(effectsView)
     }
     
     // One-time seutp. Lays out both windows per user preferences and saved app state.
