@@ -83,7 +83,7 @@ class SeekSliderCell: HorizontalSliderCell {
 class PreferencesSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 1.5}
-    override var barInsetY: CGFloat {return -1}
+    override var barInsetY: CGFloat {return 0.5}
 }
 
 // Cell for sliders on the effects panel

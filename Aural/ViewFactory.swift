@@ -63,7 +63,6 @@ struct ViewFactory {
     
     fileprivate struct PopoverViews {
         
-        
         // The view that displays detailed track information, when requested by the user
         fileprivate static var detailedTrackInfoPopover: PopoverViewDelegate = {
             return DetailedTrackInfoViewController.create()

@@ -4,7 +4,7 @@
 
 import Foundation
 
-class RecordingInfo {
+struct RecordingInfo {
     
     // Audio format of the recording
     let format: RecordingFormat

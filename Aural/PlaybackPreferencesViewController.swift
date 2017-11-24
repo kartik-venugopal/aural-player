@@ -11,9 +11,11 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnAutoplayIfNotPlaying: NSButton!
     @IBOutlet weak var btnAutoplayAlways: NSButton!
     
-    convenience init() {
-        self.init(nibName: "PlaybackPreferences", bundle: Bundle.main)!
-    }
+    override var nibName: String? {return "PlaybackPreferences"}
+    
+//    convenience init() {
+//        self.init(nibName: "PlaybackPreferences", bundle: Bundle.main)!
+//    }
     
     func getView() -> NSView {
         return self.view
