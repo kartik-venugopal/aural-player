@@ -38,11 +38,18 @@
                                 <buttonCell key="cell" type="square" title="EQ" bezelStyle="shadowlessSquare" image="EQTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sLU-Pi-4YO" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
+                                            <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </buttonCell>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                                         <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="EQTab"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="EQTab-On"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="tabViewAction:" target="-2" id="67l-nc-3k8"/>
@@ -54,11 +61,18 @@
                                 <buttonCell key="cell" type="square" title="Pitch" bezelStyle="shadowlessSquare" image="PitchTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lDe-G3-Muo" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
+                                            <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </buttonCell>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                                         <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="PitchTab"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="PitchTab-On"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="tabViewAction:" target="-2" id="PRR-tB-25I"/>
@@ -70,11 +84,18 @@
                                 <buttonCell key="cell" type="square" title="Time" bezelStyle="shadowlessSquare" image="TimeTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Yxc-6b-BUY" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
+                                            <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </buttonCell>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                                         <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="TimeTab"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="TimeTab-On"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="tabViewAction:" target="-2" id="GDn-lp-APD"/>
@@ -86,11 +107,18 @@
                                 <buttonCell key="cell" type="square" title="Reverb" bezelStyle="shadowlessSquare" image="ReverbTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1Pw-oH-NvD" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
+                                            <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </buttonCell>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                                         <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="ReverbTab"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="ReverbTab-On"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="tabViewAction:" target="-2" id="lKW-mb-tM6"/>
@@ -102,11 +130,18 @@
                                 <buttonCell key="cell" type="square" title="Delay" bezelStyle="shadowlessSquare" image="DelayTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ozA-j1-Khz" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
+                                            <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </buttonCell>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                                         <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="DelayTab"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="DelayTab-On"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="tabViewAction:" target="-2" id="Iyo-2x-s2N"/>
@@ -118,11 +153,18 @@
                                 <buttonCell key="cell" type="square" title="Filter" bezelStyle="shadowlessSquare" image="FilterTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ttp-L5-t6S" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
+                                            <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </buttonCell>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                                         <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="FilterTab"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="FilterTab-On"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="tabViewAction:" target="-2" id="xB9-31-1he"/>
@@ -134,11 +176,18 @@
                                 <buttonCell key="cell" type="square" title="Recorder" bezelStyle="shadowlessSquare" image="RecorderTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="A0D-1A-dLd" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
+                                            <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </buttonCell>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                                         <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="RecorderTab"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="RecorderTab-On"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="tabViewAction:" target="-2" id="Y2c-5S-MVw"/>
@@ -203,11 +252,18 @@
     </objects>
     <resources>
         <image name="DelayTab" width="153" height="146"/>
+        <image name="DelayTab-On" width="153" height="146"/>
         <image name="EQTab" width="419" height="422"/>
+        <image name="EQTab-On" width="419" height="422"/>
         <image name="FilterTab" width="512" height="512"/>
+        <image name="FilterTab-On" width="512" height="512"/>
         <image name="PitchTab" width="17" height="13"/>
+        <image name="PitchTab-On" width="17" height="13"/>
         <image name="RecorderTab" width="384" height="384"/>
+        <image name="RecorderTab-On" width="384" height="384"/>
         <image name="ReverbTab" width="211" height="211"/>
+        <image name="ReverbTab-On" width="211" height="211"/>
         <image name="TimeTab" width="12" height="12"/>
+        <image name="TimeTab-On" width="512" height="512"/>
     </resources>
 </document>

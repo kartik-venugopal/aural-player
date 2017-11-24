@@ -75,11 +75,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         artView.canDrawSubviewsIntoLayer = true
         artView.image = Images.imgPlayingArt
         
-        btnFavorite.offStateImage = Images.imgFavoritesOff
-        btnFavorite.onStateImage = Images.imgFavoritesOn
-        
-        btnFavorite.offStateTooltip = Strings.favoritesAddCaption
-        btnFavorite.onStateTooltip = Strings.favoritesRemoveCaption
+        btnFavorite.off()
     }
     
     // Moving the seek slider results in seeking the track to the new slider position

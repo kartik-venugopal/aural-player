@@ -48,13 +48,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         initWindows()
         addSubViews()
         
-        // Set up the toggle button images
-        btnTogglePlaylist.offStateImage = Images.imgPlaylistOff
-        btnTogglePlaylist.onStateImage = Images.imgPlaylistOn
-        
-        btnToggleEffects.offStateImage = Images.imgEffectsOff
-        btnToggleEffects.onStateImage = Images.imgEffectsOn
-        
         // Register a handler for trackpad/MagicMouse gestures
         
         let gestureHandler = GestureHandler()
@@ -95,9 +88,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         
         let appState = ObjectGraph.getUIAppState()
         
-        if (appState.hideEffects) {
-            toggleEffects()
-        }
+        appState.hideEffects ? toggleEffects() : btnToggleEffects.on()
         
         // If a specific position is specified, use it
         if let mainWindowOrigin = appState.windowLocationXY {
@@ -109,8 +100,9 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         
         // Show and dock the playlist, if needed
         playlistDockState = appState.playlistLocation.toPlaylistDockState()
+        
+        // If the playlist isn't docked to the bottom, it needs to be resized
         if (playlistDockState == .left || playlistDockState == .right) {
-            // Resize playlist
             var playlistFrame = playlistWindow.frame
             playlistFrame.size = NSMakeSize(playlistWindow.width, mainWindow.height)
             automatedPlaylistMoveOrResize = true
