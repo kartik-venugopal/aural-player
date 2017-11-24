@@ -58,22 +58,22 @@ protocol AudioGraphDelegateProtocol {
     // The bands parameter is a mapping of index -> gain
     func setEQBands(_ bands: [Int: Float])
     
-    // Increases the equalizer bass band gains by a small increment. Returns the new bass band gain values, mapped by index.
+    // Increases the equalizer bass band gains by a small increment, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
     func increaseBass() -> [Int: Float]
     
-    // Decreases the equalizer bass band gains by a small decrement. Returns the new bass band gain values, mapped by index.
+    // Decreases the equalizer bass band gains by a small decrement, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
     func decreaseBass() -> [Int: Float]
     
-    // Increases the equalizer mid-frequency band gains by a small increment. Returns the new mid-frequency band gain values, mapped by index.
+    // Increases the equalizer mid-frequency band gains by a small increment, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
     func increaseMids() -> [Int: Float]
     
-    // Decreases the equalizer mid-frequency band gains by a small decrement. Returns the new mid-frequency band gain values, mapped by index.
+    // Decreases the equalizer mid-frequency band gains by a small decrement, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
     func decreaseMids() -> [Int: Float]
     
-    // Increases the equalizer treble band gains by a small increment. Returns the new treble band gain values, mapped by index.
+    // Increases the equalizer treble band gains by a small increment, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
     func increaseTreble() -> [Int: Float]
     
-    // Decreases the equalizer treble band gains by a small decrement. Returns the new treble band gain values, mapped by index.
+    // Decreases the equalizer treble band gains by a small decrement, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
     func decreaseTreble() -> [Int: Float]
     
     // Toggles the bypass state of the pitch shift audio effect unit, and returns its new bypass state

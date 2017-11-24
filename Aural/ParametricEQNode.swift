@@ -37,27 +37,34 @@ class ParametricEQNode: AVAudioUnitEQ {
     }
     
     func increaseBass() -> [Int: Float] {
-        return increaseBandGains(bassBandIndexes)
+        
+        let _ = increaseBandGains(bassBandIndexes)
+        return allBands()
     }
     
     func decreaseBass() -> [Int: Float] {
-        return decreaseBandGains(bassBandIndexes)
+        let _ = decreaseBandGains(bassBandIndexes)
+        return allBands()
     }
     
     func increaseMids() -> [Int: Float] {
-        return increaseBandGains(midBandIndexes)
+        let _ = increaseBandGains(midBandIndexes)
+        return allBands()
     }
     
     func decreaseMids() -> [Int: Float] {
-        return decreaseBandGains(midBandIndexes)
+        let _ = decreaseBandGains(midBandIndexes)
+        return allBands()
     }
     
     func increaseTreble() -> [Int: Float] {
-        return increaseBandGains(trebleBandIndexes)
+        let _ = increaseBandGains(trebleBandIndexes)
+        return allBands()
     }
     
     func decreaseTreble() -> [Int: Float] {
-        return decreaseBandGains(trebleBandIndexes)
+        let _ = decreaseBandGains(trebleBandIndexes)
+        return allBands()
     }
     
     private func increaseBandGains(_ bandIndexes: [Int]) -> [Int: Float] {

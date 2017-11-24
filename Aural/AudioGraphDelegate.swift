@@ -179,11 +179,15 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return graph.decreaseTreble()
     }
     
+    // Activates and resets the EQ unit if it is inactive
     private func ensureEQActive() {
         
         // If the EQ unit is currently inactive, activate it
         if graph.isEQBypass() {
             _ = graph.toggleEQBypass()
+            
+            // Reset to "flat" preset (because it is equivalent to an inactive EQ)
+            graph.setEQBands(EQPresets.flat.bands)
         }
     }
     
