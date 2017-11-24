@@ -53,11 +53,14 @@ class TickedSliderCell: HorizontalSliderCell {
 // Cell for pan slider
 class PanTickedSliderCell: TickedSliderCell {
     
+    override var barInsetY: CGFloat {return 0.25}
     override var barRadius: CGFloat {return 1}
-    override var knobWidth: CGFloat {return 7}
-    override var knobRadius: CGFloat {return 0.5}
-    override var knobHeightOutsideBar: CGFloat {return 1}
     
+    override var knobWidth: CGFloat {return 6}
+    override var knobRadius: CGFloat {return 0.5}
+    override var knobHeightOutsideBar: CGFloat {return 0.5}
+    
+    // Draw entire bar with single gradient
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
         let drawPath = NSBezierPath.init(roundedRect: aRect, xRadius: barRadius, yRadius: barRadius)
@@ -71,10 +74,12 @@ class PanTickedSliderCell: TickedSliderCell {
 class EffectsTickedSliderCell: TickedSliderCell {
     
     override var barRadius: CGFloat {return 1.5}
-    override var barInsetY: CGFloat {return -1}
+    override var barInsetY: CGFloat {return 0.5}
+    
+    override var knobWidth: CGFloat {return 8}
     override var knobRadius: CGFloat {return 1}
     override var knobHeightOutsideBar: CGFloat {return 1}
     
-    override var tickVerticalSpacing: CGFloat {return 1.5}
-    override var tickWidth: CGFloat {return 1.5}
+    override var tickVerticalSpacing: CGFloat {return 1}
+    override var tickColor: NSColor {return NSColor.black}
 }
