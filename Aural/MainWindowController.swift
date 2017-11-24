@@ -134,7 +134,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         let playlistHeight = min(playlistWindow.height, mainWindow.remainingHeight)
         
         dock(mainWindow.origin
-            .applying(CGAffineTransform.init(translationX: 0, y: -playlistHeight)), NSMakeSize(mainWindow.width, playlistHeight))
+            .applying(CGAffineTransform.init(translationX: 0, y: -playlistHeight)), NSMakeSize(playlistWindow.width, playlistHeight))
     }
     
     // Docks the playlist to the left of the main window
@@ -147,7 +147,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         let playlistWidth = min(mainWindow.remainingWidth, playlistWindow.width)
         
         dock(mainWindow.frame.origin
-            .applying(CGAffineTransform.init(translationX: -playlistWidth, y: 0)), NSMakeSize(playlistWidth, mainWindow.height))
+            .applying(CGAffineTransform.init(translationX: -playlistWidth, y: mainWindow.height - playlistWindow.height)), NSMakeSize(playlistWidth, playlistWindow.height))
     }
     
     // Docks the playlist to the right of the main window
@@ -160,12 +160,12 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         let playlistWidth = min(mainWindow.remainingWidth, playlistWindow.width)
         
         dock(mainWindow.frame.origin
-            .applying(CGAffineTransform.init(translationX: mainWindow.width, y: 0)), NSMakeSize(playlistWidth, mainWindow.height))
+            .applying(CGAffineTransform.init(translationX: mainWindow.width, y: mainWindow.height - playlistWindow.height)), NSMakeSize(playlistWidth, playlistWindow.height))
     }
     
     // Docks the playlist with the main window, at a given location and size, and ensures that the entire playlist is visible after the dock
     private func dock(_ playlistWindowOrigin: NSPoint, _ playlistWindowSize: NSSize) {
-        
+         
         var playlistFrame = playlistWindow.frame
         playlistFrame.origin = playlistWindowOrigin
         playlistFrame.size = playlistWindowSize
@@ -174,7 +174,67 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         
         playlistWindow.setFrame(playlistFrame, display: true)
         
+        ensureWindowsVisible()
+        
         automatedPlaylistMoveOrResize = false
+    }
+    
+    // Ensures that both the main and playlist windows are entirely visible on-screen. Moves windows if necessary.
+    private func ensureWindowsVisible() {
+        
+        let mainWindowVisisble = checkIfWindowVisible(mainWindow)
+        if (!mainWindowVisisble.visible) {
+            moveMainWindow(mainWindowVisisble.dx, mainWindowVisisble.dy)
+        }
+        
+        if (WindowState.showingPlaylist) {
+            
+            // Calculate offset of playlist window from main window
+            let offsetX = playlistWindow.x - mainWindow.x
+            let offsetY = playlistWindow.y - mainWindow.y
+            
+            if (!mainWindowVisisble.visible) {
+                reattachPlaylistWithOffset(offsetX, offsetY)
+            }
+            
+            let childWindowVisisble = checkIfWindowVisible(playlistWindow)
+            if (!childWindowVisisble.visible) {
+                
+                moveMainWindow(childWindowVisisble.dx, childWindowVisisble.dy)
+                reattachPlaylistWithOffset(offsetX, offsetY)
+            }
+        }
+    }
+    
+    // Re-attaches the playlist window to the main window, with a given offset
+    private func reattachPlaylistWithOffset(_ offsetX: CGFloat, _ offsetY: CGFloat) {
+        
+        playlistWindow.setFrameOrigin(mainWindow.origin.applying(CGAffineTransform.init(translationX: offsetX, y: offsetY)))
+    }
+    
+    // Checks if a single window is entirely on-screen (i.e. visible). Returns the offset (i.e. how much the window would have to be moved to make it entirely visible), and whether or not it is visible.
+    private func checkIfWindowVisible(_ window: NSWindow) -> (visible: Bool, dx: CGFloat, dy: CGFloat) {
+        
+        var dx: CGFloat = 0, dy: CGFloat = 0
+        
+        if (window.x < visibleFrame.minX) {
+            dx = visibleFrame.minX - window.x
+        } else if (window.maxX > visibleFrame.maxX) {
+            dx = -(window.maxX - visibleFrame.maxX)
+        }
+        
+        if (window.y < visibleFrame.minY) {
+            dy = visibleFrame.minY - window.y
+        } else if (window.maxY > visibleFrame.maxY) {
+            dy = -(window.maxY - visibleFrame.maxY)
+        }
+        
+        return (dx == 0 && dy == 0, dx, dy)
+    }
+    
+    // Moves (transforms) the main window by a given offset
+    private func moveMainWindow(_ dx: CGFloat, _ dy: CGFloat) {
+        mainWindow.setFrameOrigin(mainWindow.origin.applying(CGAffineTransform.init(translationX: dx, y: dy)))
     }
     
     // MARK: Playlist maximize functions
@@ -400,6 +460,12 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         // Move the playlist window, if necessary
         if (WindowState.showingPlaylist && playlistDockState == .bottom) {
             repositionPlaylistBottom()
+        } else {
+            
+            // Ensure that both windows are visible
+            automatedPlaylistMoveOrResize = true
+            ensureWindowsVisible()
+            automatedPlaylistMoveOrResize = false
         }
     }
     
@@ -556,21 +622,5 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
                 WindowState.playlistLocation = AppDefaults.playlistLocation
             }
         }
-    }
-}
-
-/*
-    Responds to main window events, and uses the notifications to trigger actions to optimize app performance and resource usage.
- */
-class MainWindowDelegate: NSObject, NSWindowDelegate {
-
-    // When the window is minimized, the app can be considered to be in the "background". Certain UI features can be disabled, because the window is not visible to the end user.
-    func windowDidMiniaturize(_ notification: Notification) {
-        WindowState.setMinimized(true)
-    }
-
-    // When the window is restored, the app can be considered to be in the "foreground" (if it is also in focus). The UI features that are disabled to reduce system resources usage, can be re-enabled, because the window is now visible to the end user.
-    func windowDidDeminiaturize(_ notification: Notification) {
-        WindowState.setMinimized(false)
     }
 }
