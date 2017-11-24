@@ -23,7 +23,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="335" y="100" width="480" height="420"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <value key="minSize" type="size" width="480" height="218"/>
             <value key="maxSize" type="size" width="480" height="420"/>
             <view key="contentView" wantsLayer="YES" id="W7v-UI-tl4">
@@ -74,17 +74,29 @@
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="PlaylistView-Off"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="PlaylistView-On"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Show the playlist"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Hide the playlist"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="togglePlaylistAction:" target="-2" id="Oro-eR-EYP"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Show/hide effects panel" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1Y-N5-RBQ" userLabel="Toggle Effects Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1Y-N5-RBQ" userLabel="Toggle Effects Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="449" y="394" width="17" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EffectsView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ayS-P6-02f">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Show the Effects panel"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Hide the Effects panel"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="EffectsView-Off"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="EffectsView-On"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="toggleEffectsAction:" target="-2" id="maE-Ym-EeP"/>
                                     </connections>
@@ -146,8 +158,10 @@
     </objects>
     <resources>
         <image name="Close" width="80" height="80"/>
+        <image name="EffectsView-Off" width="419" height="422"/>
         <image name="EffectsView-On" width="419" height="422"/>
         <image name="Hide" width="94" height="94"/>
+        <image name="PlaylistView-Off" width="185" height="161"/>
         <image name="PlaylistView-On" width="185" height="161"/>
     </resources>
 </document>

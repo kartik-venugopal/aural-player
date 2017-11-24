@@ -135,13 +135,19 @@
                         <action selector="showPlayingTrackAction:" target="-2" id="Jfa-WY-Nm2"/>
                     </connections>
                 </button>
-                <button hidden="YES" toolTip="Add this track to your Favorites" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dN5-Zv-Pet" userLabel="Favorites Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dN5-Zv-Pet" userLabel="Favorites Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="429" y="38" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Favorites-Off" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="7El-PZ-rVW">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="Favorites-Off"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="Favorites-On"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Remove playing track from Favorites"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Add playing track to Favorites"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="favoriteAction:" target="-2" id="2E1-66-tDL"/>
                     </connections>
@@ -151,6 +157,7 @@
     </objects>
     <resources>
         <image name="Favorites-Off" width="256" height="256"/>
+        <image name="Favorites-On" width="256" height="256"/>
         <image name="MoreInfo" width="457" height="453"/>
         <image name="ShowPlayingTrack" width="102" height="102"/>
     </resources>

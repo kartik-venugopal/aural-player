@@ -4,11 +4,12 @@
 
 import Cocoa
 
+@IBDesignable
 class OnOffImageAndTextButtonCell: NSButtonCell {
     
     // Highlighting colors the button text to indicate that the effects unit represented by this button is currently active
     var shouldHighlight: Bool = false
-    var highlightColor: NSColor = Colors.tabViewButtonTextColor
+    @IBInspectable var highlightColor: NSColor = Colors.tabViewButtonTextColor
     
     private let backgroundFillColor: NSColor = Colors.tabViewButtonBackgroundColor
     private let borderInsetX: CGFloat = 1
@@ -63,10 +64,4 @@ class OnOffImageAndTextButtonCell: NSButtonCell {
         let imgRect = cellFrame.insetBy(dx: xInset, dy: yInset).offsetBy(dx: -(rectWidth / 2) + 12, dy: 0)
         self.image?.draw(in: imgRect)
     }
-}
-
-class MultiImageButton: NSButton {
-    
-    var offStateImage: NSImage?
-    var onStateImage: NSImage?
 }

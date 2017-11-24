@@ -3,19 +3,20 @@ import Cocoa
 /*
     An image button that can be toggled On/Off and displays different images depending on its state
  */
+@IBDesignable
 class OnOffImageButton: NSButton {
     
     // The image displayed when the button is in an "Off" state
-    var offStateImage: NSImage?
+    @IBInspectable var offStateImage: NSImage?
     
     // The image displayed when the button is in an "On" state
-    var onStateImage: NSImage?
+    @IBInspectable var onStateImage: NSImage?
     
     // The button's tooltip when the button is in an "Off" state
-    var offStateTooltip: String?
+    @IBInspectable var offStateTooltip: String?
     
     // The button's tooltip when the button is in an "On" state
-    var onStateTooltip: String?
+    @IBInspectable var onStateTooltip: String?
     
     private var _isOn: Bool = false
     
@@ -106,6 +107,7 @@ class EffectsUnitBypassButton: OnOffImageButton {
  
     NOTE - This button class is intended to be used in collaboration with OnOffImageAndTextButtonCell for the button cell
  */
+@IBDesignable
 class OnOffImageAndTextButton: OnOffImageButton {
     
     func setHighlightColor(_ color: NSColor) {

@@ -38,13 +38,19 @@
                         <rect key="frame" x="1" y="1" width="353" height="82"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button toolTip="Start / Stop recording" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-Td-HFB" userLabel="Record Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-Td-HFB" userLabel="Record Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="65" y="28" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Record" imagePosition="overlaps" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="xy8-DU-p88">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="Record"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="RecorderStop"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Start recording"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Stop recording"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="recorderAction:" target="-2" id="lqt-3F-lfN"/>
                                 </connections>
@@ -148,5 +154,6 @@
     </objects>
     <resources>
         <image name="Record" width="256" height="256"/>
+        <image name="RecorderStop" width="256" height="256"/>
     </resources>
 </document>

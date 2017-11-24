@@ -36,10 +36,9 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     
     private func initControls() {
         
-        btnRecord.offStateImage = Images.imgRecorderStart
-        btnRecord.onStateImage = Images.imgRecorderStop
-        
         recorderTimer = RepeatingTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingInfo()}, queue: DispatchQueue.main)
+        
+        btnRecord.off()
     }
     
     // Starts/stops recording

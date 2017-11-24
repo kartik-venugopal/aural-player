@@ -61,57 +61,43 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
     private func initEQUnit(_ appState: UIAppState) {
         
         fxTabView.tabViewItem(at: 0).view?.addSubview(eqView)
-        setButtonStateImages(eqTabViewButton, Images.imgEQOff, Images.imgEQOn)
         eqTabViewButton.onIf(!appState.eqBypass)
     }
     
     private func initPitchUnit(_ appState: UIAppState) {
         
         fxTabView.tabViewItem(at: 1).view?.addSubview(pitchView)
-        setButtonStateImages(pitchTabViewButton, Images.imgPitchOff, Images.imgPitchOn)
         pitchTabViewButton.onIf(!appState.pitchBypass)
     }
     
     private func initTimeUnit(_ appState: UIAppState) {
         
         fxTabView.tabViewItem(at: 2).view?.addSubview(timeView)
-        setButtonStateImages(timeTabViewButton, Images.imgTimeOff, Images.imgTimeOn)
-        updateButtonState(timeTabViewButton, !appState.timeBypass)
         timeTabViewButton.onIf(!appState.timeBypass)
     }
     
     private func initReverbUnit(_ appState: UIAppState) {
         
         fxTabView.tabViewItem(at: 3).view?.addSubview(reverbView)
-        setButtonStateImages(reverbTabViewButton, Images.imgReverbOff, Images.imgReverbOn)
         reverbTabViewButton.onIf(!appState.reverbBypass)
     }
     
     private func initDelayUnit(_ appState: UIAppState) {
         
         fxTabView.tabViewItem(at: 4).view?.addSubview(delayView)
-        setButtonStateImages(delayTabViewButton, Images.imgDelayOff, Images.imgDelayOn)
         delayTabViewButton.onIf(!appState.delayBypass)
     }
     
     private func initFilterUnit(_ appState: UIAppState) {
         
         fxTabView.tabViewItem(at: 5).view?.addSubview(filterView)
-        setButtonStateImages(filterTabViewButton, Images.imgFilterOff, Images.imgFilterOn)
         filterTabViewButton.onIf(!appState.filterBypass)
     }
     
     private func initRecorder() {
         
         fxTabView.tabViewItem(at: 6).view?.addSubview(recorderView)
-        setButtonStateImages(recorderTabViewButton, Images.imgRecorderOff, Images.imgRecorderOn)
-        updateButtonState(recorderTabViewButton, false)
-    }
-    
-    private func setButtonStateImages(_ button: OnOffImageAndTextButton, _ offStateImage: NSImage, _ onStateImage: NSImage) {
-        
-        button.offStateImage = offStateImage
-        button.onStateImage = onStateImage
+        recorderTabViewButton.off()
     }
     
     // Helper function that updates the look of a button in response to a unit becoming active or inactive
@@ -122,12 +108,6 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
     private func initTabGroup() {
         
         fxTabViewButtons = [eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton]
-        
-        // Set tab view button highlight colors
-        
-        for button in fxTabViewButtons! {
-            button.setHighlightColor(button === recorderTabViewButton ? Colors.tabViewRecorderButtonHighlightColor : Colors.tabViewEffectsButtonHighlightColor)
-        }
         
         // Select EQ tab view by default
         tabViewAction(eqTabViewButton)
