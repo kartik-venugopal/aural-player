@@ -140,3 +140,19 @@ extension PlaylistLocations {
         }
     }
 }
+
+/*
+    Responds to main window events, and uses the notifications to trigger actions to optimize app performance and resource usage.
+ */
+class MainWindowDelegate: NSObject, NSWindowDelegate {
+    
+    // When the window is minimized, the app can be considered to be in the "background". Certain UI features can be disabled, because the window is not visible to the end user.
+    func windowDidMiniaturize(_ notification: Notification) {
+        WindowState.setMinimized(true)
+    }
+    
+    // When the window is restored, the app can be considered to be in the "foreground" (if it is also in focus). The UI features that are disabled to reduce system resources usage, can be re-enabled, because the window is now visible to the end user.
+    func windowDidDeminiaturize(_ notification: Notification) {
+        WindowState.setMinimized(false)
+    }
+}
