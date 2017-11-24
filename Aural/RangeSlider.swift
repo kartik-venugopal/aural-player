@@ -211,8 +211,8 @@ class RangeSlider: NSView {
     
     //MARK: - UI Sizing -
     
-    private let sliderWidth: CGFloat = 10
-    private let sliderHeight: CGFloat = 7
+    private let sliderWidth: CGFloat = 8
+    private let sliderHeight: CGFloat = 4.5
     
     private let minSliderX: CGFloat = 0
     private var maxSliderX: CGFloat { return NSWidth(bounds) - sliderWidth - barTrailingMargin }
@@ -315,7 +315,7 @@ class RangeSlider: NSView {
         let width = NSWidth(bounds) - barTrailingMargin
         let height = NSHeight(bounds)
         
-        let barHeight: CGFloat = 7
+        let barHeight: CGFloat = 4
         let barY = floor((height - barHeight) / 2.0)
         
         let startSliderFrame = frameForStartSlider()

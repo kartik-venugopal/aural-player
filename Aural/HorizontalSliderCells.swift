@@ -58,9 +58,10 @@ class HorizontalSliderCell: NSSliderCell {
 // Cell for volume slider
 class VolumeSliderCell: HorizontalSliderCell {
     
-    override var knobWidth: CGFloat {return 7}
+    override var barInsetY: CGFloat {return 0.25}
+    override var knobWidth: CGFloat {return 6}
     override var knobRadius: CGFloat {return 0.5}
-    override var knobHeightOutsideBar: CGFloat {return 1}
+    override var knobHeightOutsideBar: CGFloat {return 0.5}
 }
 
 // Cell for seek position slider
@@ -68,10 +69,11 @@ class SeekSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 1}
     override var barInsetY: CGFloat {return 1.5}
+    
     override var knobRadius: CGFloat {return 0}
-    override var knobColor: NSColor {return NSColor.white}
+    override var knobColor: NSColor {return NSColor(white: 0.575, alpha: 1.0)}
     override var knobWidth: CGFloat {return 7}
-    override var knobHeightOutsideBar: CGFloat {return 1}
+    override var knobHeightOutsideBar: CGFloat {return 2}
     
     override var barPlainGradient: NSGradient {return Colors.seekBarPlainGradient}
     override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
@@ -86,9 +88,11 @@ class PreferencesSliderCell: HorizontalSliderCell {
 
 // Cell for sliders on the effects panel
 class EffectsSliderCell: HorizontalSliderCell {
-    
+
     override var barRadius: CGFloat {return 1.5}
-    override var barInsetY: CGFloat {return -1}
+    override var barInsetY: CGFloat {return 0.5}
+    
+    override var knobWidth: CGFloat {return 8}
     override var knobRadius: CGFloat {return 1}
     override var knobHeightOutsideBar: CGFloat {return 1}
 }
