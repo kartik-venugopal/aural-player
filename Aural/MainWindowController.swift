@@ -102,6 +102,14 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         
         // Show and dock the playlist, if needed
         playlistDockState = appState.playlistLocation.toPlaylistDockState()
+        if (playlistDockState == .left || playlistDockState == .right) {
+            // Resize playlist
+            var playlistFrame = playlistWindow.frame
+            playlistFrame.size = NSMakeSize(playlistWindow.width, mainWindow.height)
+            automatedPlaylistMoveOrResize = true
+            playlistWindow.setFrame(playlistFrame, display: true)
+            automatedPlaylistMoveOrResize = false
+        }
         appState.hidePlaylist ? hidePlaylist() : showPlaylist()
     }
     
