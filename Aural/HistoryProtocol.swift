@@ -35,5 +35,6 @@ protocol HistoryProtocol {
     // Removes a given track from the Favorites list
     func removeFavorite(_ item: Track)
     
+    // Resizes all history lists with the given sizes
     func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int, _ favoritesListSize: Int)
 }

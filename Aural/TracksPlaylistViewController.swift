@@ -7,7 +7,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     @IBOutlet weak var playlistView: NSTableView!
     private lazy var contextMenu: NSMenu! = WindowFactory.getPlaylistContextMenu()
-    private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.getDetailedTrackInfoPopover()
     
     // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
