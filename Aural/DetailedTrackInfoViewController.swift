@@ -1,5 +1,5 @@
 /*
-    View controller for the "Track Info" popover
+    View controller for the "Detailed Track Info" popover
 */
 import Cocoa
 
@@ -8,14 +8,17 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate {
     // The actual popover that is shown
     private var popover: NSPopover!
     
+    // Displays track artwork
     @IBOutlet weak var artView: NSImageView!
+    
+    // The table view that displays the track info
+    @IBOutlet weak var trackInfoView: NSTableView!
+    
+    // Temporary holder for the currently shown track
     static var shownTrack: Track?
     
     // Popover positioning parameters
     private let positioningRect = NSZeroRect
-    
-    // The table view that displays the track info
-    @IBOutlet weak var trackInfoView: NSTableView!
     
     override var nibName: String? {return "DetailedTrackInfo"}
     
