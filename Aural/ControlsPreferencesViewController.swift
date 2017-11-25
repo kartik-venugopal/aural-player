@@ -16,9 +16,7 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var volumeControlSensitivityMenu: NSPopUpButton!
     @IBOutlet weak var seekSensitivityMenu: NSPopUpButton!
     
-    convenience init() {
-        self.init(nibName: "ControlsPreferences", bundle: Bundle.main)!
-    }
+    override var nibName: String? {return "ControlsPreferences"}
     
     override func viewDidLoad() {
         

@@ -8,7 +8,5 @@ class GenresPlaylistViewController: GroupingPlaylistViewController {
     override internal var groupType: GroupType {return .genre}
     override internal var playlistType: PlaylistType {return .genres}
 
-    convenience init() {
-        self.init(nibName: "Genres", bundle: Bundle.main)!
-    }
+    override var nibName: String? {return "Genres"}
 }

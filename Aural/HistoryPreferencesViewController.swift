@@ -8,9 +8,7 @@ class HistoryPreferencesViewController: NSViewController, PreferencesViewProtoco
     
     private lazy var history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
     
-    convenience init() {
-        self.init(nibName: "HistoryPreferences", bundle: Bundle.main)!
-    }
+    override var nibName: String? {return "HistoryPreferences"}
     
     func getView() -> NSView {
         return self.view

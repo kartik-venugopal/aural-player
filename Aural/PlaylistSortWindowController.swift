@@ -5,10 +5,6 @@ import Cocoa
  */
 class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
     
-    convenience init() {
-        self.init(windowNibName: "PlaylistSort")
-    }
-    
     // Playlist sort modal dialog fields
     
     @IBOutlet weak var sortPanel: NSPanel!
@@ -26,6 +22,8 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
     
     // Delegate that retrieves current playback information
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    
+    override var windowNibName: String? {return "PlaylistSort"}
     
     override func windowDidLoad() {
         

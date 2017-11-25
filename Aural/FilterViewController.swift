@@ -18,9 +18,7 @@ class FilterViewController: NSViewController {
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
-    convenience init() {
-        self.init(nibName: "Filter", bundle: Bundle.main)!
-    }
+    override var nibName: String? {return "Filter"}
     
     override func viewDidLoad() {
         initControls(ObjectGraph.getUIAppState())

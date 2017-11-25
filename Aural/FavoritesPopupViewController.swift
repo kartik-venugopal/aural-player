@@ -23,9 +23,7 @@ class FavoritesPopupViewController: NSViewController, FavoritesPopupProtocol {
     // Timer used to auto-hide the popover once it is shown
     private var viewHidingTimer: Timer?
     
-    convenience init() {
-        self.init(nibName: "FavoritesPopup", bundle: Bundle.main)!
-    }
+    override var nibName: String? {return "FavoritesPopup"}
     
     static func create() -> FavoritesPopupViewController {
         

@@ -29,9 +29,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // Delegate that conveys all volume/pan adjustments to the audio graph
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
-    convenience init() {
-        self.init(nibName: "Player", bundle: Bundle.main)!
-    }
+    override var nibName: String? {return "Player"}
     
     override func viewDidLoad() {
         

@@ -17,6 +17,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
     private let playlistUpdateQueue = OperationQueue()
     
+    override var nibName: String? {return "Tracks"}
+    
     convenience init() {
         self.init(nibName: "Tracks", bundle: Bundle.main)!
     }

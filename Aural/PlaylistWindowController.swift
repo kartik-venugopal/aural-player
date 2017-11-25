@@ -34,11 +34,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
-
-    convenience init() {
-        self.init(windowNibName: "Playlist")
-    }
     
+    override var windowNibName: String? {return "Playlist"}
+
     override func windowDidLoad() {
         setUpTabGroup()
         registerForInputAndMessages()

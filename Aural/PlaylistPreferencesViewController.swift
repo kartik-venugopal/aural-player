@@ -5,9 +5,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnEmptyPlaylist: NSButton!
     @IBOutlet weak var btnRememberPlaylist: NSButton!
     
-    convenience init() {
-        self.init(nibName: "PlaylistPreferences", bundle: Bundle.main)!
-    }
+    override var nibName: String? {return "PlaylistPreferences"}
     
     func getView() -> NSView {
         return self.view

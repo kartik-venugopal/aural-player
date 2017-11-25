@@ -48,9 +48,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Popup view that displays a brief notification when the currently playing track is added/removed to/from the Favorites list
     private lazy var favoritesPopup: FavoritesPopupProtocol = ViewFactory.getFavoritesPopup()
     
-    convenience init() {
-        self.init(nibName: "NowPlaying", bundle: Bundle.main)!
-    }
+    override var nibName: String? {return "NowPlaying"}
     
     override func viewDidLoad() {
         
