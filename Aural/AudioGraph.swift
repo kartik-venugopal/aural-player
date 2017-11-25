@@ -16,7 +16,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     private let reverbNode: AVAudioUnitReverb
     private let filterNode: MultiBandStopFilterNode
     private let delayNode: AVAudioUnitDelay
-    private let timeNode: AVAudioUnitTimePitch
+    private let timeNode: VariableRateNode
     private let auxMixer: AVAudioMixerNode  // Used for conversions of sample rates / channel counts
     
     // Helper
@@ -41,13 +41,14 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         reverbNode = AVAudioUnitReverb()
         delayNode = AVAudioUnitDelay()
         filterNode = MultiBandStopFilterNode()
-        timeNode = AVAudioUnitTimePitch()
+        timeNode = VariableRateNode()
         auxMixer = AVAudioMixerNode()
         nodeForRecorderTap = mainMixer
         
         audioEngineHelper = AudioEngineHelper(engine: audioEngine)
         
-        audioEngineHelper.addNodes([playerNode, auxMixer, eqNode, filterNode, pitchNode, reverbNode, delayNode, timeNode])
+        audioEngineHelper.addNodes([playerNode, auxMixer, eqNode, filterNode, pitchNode, reverbNode, delayNode, timeNode.timePitchNode, timeNode.variNode])
+        
         audioEngineHelper.connectNodes()
         audioEngineHelper.prepareAndStart()
         
@@ -75,6 +76,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         // Time
         timeNode.bypass = state.timeBypass
         timeNode.rate = state.timeStretchRate
+        timeNode.shiftPitch = state.timeShiftPitch
         timeNode.overlap = state.timeOverlap
         
         // Reverb
@@ -204,8 +206,17 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     }
     
     func toggleTimeBypass() -> Bool {
+        
         let newState = !timeNode.bypass
         timeNode.bypass = newState
+        
+        return newState
+    }
+    
+    func toggleTimePitchShift() -> Bool {
+        
+        let newState = !timeNode.shiftPitch
+        timeNode.shiftPitch = newState
         return newState
     }
     
@@ -215,6 +226,10 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     
     func getTimeStretchRate() -> Float {
         return timeNode.rate
+    }
+    
+    func getTimePitchShift() -> Float {
+        return timeNode.pitch
     }
     
     func setTimeStretchRate(_ rate: Float) {
@@ -317,6 +332,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         // Time
         state.timeBypass = timeNode.bypass
         state.timeStretchRate = timeNode.rate
+        state.timeShiftPitch = timeNode.shiftPitch
         state.timeOverlap = timeNode.overlap
         
         // Reverb

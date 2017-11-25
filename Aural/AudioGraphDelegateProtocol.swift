@@ -5,7 +5,7 @@ import Cocoa
 
 protocol AudioGraphDelegateProtocol {
     
-    // NOTE - All setter functions that return String values return user-friendly text representations of the value being set, for display in the UI. For instance, setDelayLowPassCutoff(64) might return a value like "64 Hz"
+    // NOTE - All functions that return String values return user-friendly text representations of the value being get/set, for display in the UI. For instance, setDelayLowPassCutoff(64) might return a value like "64 Hz"
     
     // Retrieves the current player volume
     func getVolume() -> Float
@@ -96,6 +96,12 @@ protocol AudioGraphDelegateProtocol {
     
     // Toggles the bypass state of the time audio effect unit, and returns its new bypass state
     func toggleTimeBypass() -> Bool
+    
+    // Toggles the pitch shift option of the time audio effects unit, and returns its new state
+    func toggleTimePitchShift() -> Bool
+    
+    // Returns the pitch offset of the time audio effects unit, as a user-friendly string. If the pitch shift option of the unit is enabled, this value will range between -2 and +2 octaves. It will be 0 otherwise (i.e. pitch unaltered).
+    func getTimePitchShift() -> String
     
     // Returns the current bypass state of the time audio effect unit
     func isTimeBypass() -> Bool

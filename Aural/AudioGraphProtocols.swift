@@ -78,6 +78,12 @@ protocol AudioGraphProtocol {
     // Toggles the bypass state of the time audio effects unit, and returns its new bypass state
     func toggleTimeBypass() -> Bool
     
+    // Toggles the pitch shift option of the time audio effects unit, and returns its new state
+    func toggleTimePitchShift() -> Bool
+    
+    // Returns the pitch offset of the time audio effects unit. If the pitch shift option of the unit is enabled, this value will range between -2400 and +2400 cents. It will be 0 otherwise (i.e. pitch unaltered).
+    func getTimePitchShift() -> Float
+    
     // Returns the current bypass state of the time audio effects unit
     func isTimeBypass() -> Bool
     

@@ -250,6 +250,14 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return graph.toggleTimeBypass()
     }
     
+    func toggleTimePitchShift() -> Bool {
+        return graph.toggleTimePitchShift()
+    }
+    
+    func getTimePitchShift() -> String {
+        return ValueFormatter.formatPitch(graph.getTimePitchShift() * AppConstants.pitchConversion_audioGraphToUI)
+    }
+    
     func isTimeBypass() -> Bool {
         return graph.isTimeBypass()
     }
