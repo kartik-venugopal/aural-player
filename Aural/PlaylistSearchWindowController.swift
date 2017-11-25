@@ -35,9 +35,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
     // Current playlist search results
     private var searchResults: SearchResults?
     
-    convenience init() {
-        self.init(windowNibName: "PlaylistSearch")
-    }
+    override var windowNibName: String? {return "PlaylistSearch"}
     
     override func windowDidLoad() {
         

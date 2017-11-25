@@ -22,9 +22,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     // Cached recording info (used to determine recording format when saving a recording)
     private var recordingInfo: RecordingInfo?
     
-    convenience init() {
-        self.init(nibName: "Recorder", bundle: Bundle.main)!
-    }
+    override var nibName: String? {return "Recorder"}
     
     override func viewDidLoad() {
         

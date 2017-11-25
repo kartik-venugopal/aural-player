@@ -20,9 +20,7 @@ class DelayViewController: NSViewController {
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
-    convenience init() {
-        self.init(nibName: "Delay", bundle: Bundle.main)!
-    }
+    override var nibName: String? {return "Delay"}
     
     override func viewDidLoad() {
         initControls(ObjectGraph.getUIAppState())

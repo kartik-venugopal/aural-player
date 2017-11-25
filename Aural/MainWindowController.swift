@@ -37,9 +37,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         return NSScreen.main()!.visibleFrame
     }()
     
-    convenience init() {
-        self.init(windowNibName: "MainWindow")
-    }
+    override var windowNibName: String? {return "MainWindow"}
     
     // MARK: Setup
     

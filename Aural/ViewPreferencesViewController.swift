@@ -14,9 +14,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     @IBOutlet weak var btnStartAtPlaylistLocation: NSButton!
     @IBOutlet weak var startPlaylistLocationMenu: NSPopUpButton!
     
-    convenience init() {
-        self.init(nibName: "ViewPreferences", bundle: Bundle.main)!
-    }
+    override var nibName: String? {return "ViewPreferences"}
     
     func getView() -> NSView {
         return self.view

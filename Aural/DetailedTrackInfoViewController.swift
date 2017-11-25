@@ -17,9 +17,7 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate {
     // The table view that displays the track info
     @IBOutlet weak var trackInfoView: NSTableView!
     
-    convenience init() {
-        self.init(nibName: "DetailedTrackInfo", bundle: Bundle.main)!
-    }
+    override var nibName: String? {return "DetailedTrackInfo"}
     
     static func create() -> DetailedTrackInfoViewController {
         
@@ -39,7 +37,6 @@ class DetailedTrackInfoViewController: NSViewController, PopoverViewDelegate {
         
         DetailedTrackInfoViewController.shownTrack = track
         
-        // Don't bother refreshing if not shown
         trackInfoView?.reloadData()
         trackInfoView?.scrollRowToVisible(0)
     }

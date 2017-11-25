@@ -33,9 +33,7 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
-    convenience init() {
-        self.init(nibName: "Effects", bundle: Bundle.main)!
-    }
+    override var nibName: String? {return "Effects"}
     
     override func viewDidLoad() {
         

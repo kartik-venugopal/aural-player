@@ -14,9 +14,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     @IBOutlet weak var lblPanDelta: NSTextField!
     @IBOutlet weak var panDeltaStepper: NSStepper!
     
-    convenience init() {
-        self.init(nibName: "SoundPreferences", bundle: Bundle.main)!
-    }
+    override var nibName: String? {return "SoundPreferences"}
     
     func getView() -> NSView {
         return self.view

@@ -24,9 +24,7 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
     // Cached preferences instance
     private var preferences: Preferences = ObjectGraph.getPreferencesDelegate().getPreferences()
     
-    convenience init() {
-        self.init(windowNibName: "Preferences")
-    }
+    override var windowNibName: String? {return "Preferences"}
     
     override func windowDidLoad() {
         
