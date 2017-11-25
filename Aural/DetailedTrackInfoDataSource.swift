@@ -1,5 +1,8 @@
 import Cocoa
 
+/*
+    Data source and delegate for the Detailed Track Info popover view
+ */
 class DetailedTrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
     // The table view that displays the track info
@@ -17,6 +20,12 @@ class DetailedTrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewD
     
     // Delegate that retrieves playing track info
     private let playbackInfoDelegate: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    
+    // Constants used to calculate row height
+    
+    private let keyColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), UIConstants.trackInfoKeyColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
+    
+    private let valueColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), UIConstants.trackInfoValueColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
     
     override func awakeFromNib() {
         
@@ -64,12 +73,12 @@ class DetailedTrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewD
         info.append((key: "Format", value: audioInfo.format!))
         info.append((key: "Duration", value: StringUtils.formatSecondsToHMS(track.duration)))
         
-        if (track.displayInfo.artist != nil) {
-            info.append((key: "Artist", value: track.displayInfo.artist!))
+        if let artist = track.displayInfo.artist {
+            info.append((key: "Artist", value: artist))
         }
         
-        if (track.displayInfo.title != nil) {
-            info.append((key: "Title", value: track.displayInfo.title!))
+        if let title = track.displayInfo.title {
+            info.append((key: "Title", value: title))
         }
         
         for (key, entry) in track.metadata {
@@ -104,9 +113,8 @@ class DetailedTrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewD
         virtualValueField.stringValue = valueText
         
         // And then compute row height from their cell sizes
-        let keyHeight = virtualKeyField.cell!.cellSize(forBounds: NSMakeRect(CGFloat(0.0), CGFloat(0.0), UIConstants.trackInfoKeyColumnWidth, CGFloat(Float.greatestFiniteMagnitude))).height
-        
-        let valueHeight = virtualValueField.cell!.cellSize(forBounds: NSMakeRect(CGFloat(0.0), CGFloat(0.0), UIConstants.trackInfoValueColumnWidth, CGFloat(Float.greatestFiniteMagnitude))).height
+        let keyHeight = virtualKeyField.cell!.cellSize(forBounds: keyColumnBounds).height
+        let valueHeight = virtualValueField.cell!.cellSize(forBounds: valueColumnBounds).height
         
         // The desired row height is the maximum of the two heights, plus some padding
         return max(keyHeight, valueHeight) + 5
@@ -118,7 +126,7 @@ class DetailedTrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewD
     }
 }
 
-// Place to hold a reference to the trackInfoView object (used in TrackInfoView class)
+// Place to hold a reference to the trackInfoView object (used in DetailedTrackInfoRowView class)
 class TrackInfoViewHolder {
     
     static var trackInfoView: NSTableView?

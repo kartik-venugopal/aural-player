@@ -87,13 +87,6 @@ class EQViewController: NSViewController, ActionMessageSubscriber {
         })
     }
     
-    private func updateEQSliders(_ eqBands: [Int: Float]) {
-        // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
-        for (index, gain) in eqBands {
-            eqSliders[index].floatValue = gain
-        }
-    }
-    
     private func showEQTab() {
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.showEffectsUnitTab, .eq))
     }
@@ -131,7 +124,7 @@ class EQViewController: NSViewController, ActionMessageSubscriber {
     private func bandsUpdated(_ bands: [Int: Float]) {
         
         btnEQBypass.on()
-        updateEQSliders(bands)
+        updateAllEQSliders(bands)
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq, true))
         showEQTab()
