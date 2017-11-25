@@ -6,7 +6,7 @@ import Cocoa
 
 struct Fonts {
     
-    private static let gillSans11Font: NSFont = NSFont(name: "Gill Sans", size: 11)!
+    static let gillSans11Font: NSFont = NSFont(name: "Gill Sans", size: 11)!
     
     private static let gillSans12LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 12)!
     private static let gillSans12Font: NSFont = NSFont(name: "Gill Sans", size: 12)!

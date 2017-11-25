@@ -32,6 +32,7 @@ class UIAppState {
     var formattedPitchOverlap: String
     
     var timeBypass: Bool
+    var timeShiftPitch: Bool
     var timeStretchRate: Float
     var timeOverlap: Float
     
@@ -129,6 +130,7 @@ class UIAppState {
         
         self.timeBypass = audioGraphState.timeBypass
         self.timeStretchRate = audioGraphState.timeStretchRate
+        self.timeShiftPitch = audioGraphState.timeShiftPitch
         self.timeOverlap = audioGraphState.timeOverlap
         
         self.formattedTimeStretchRate = ValueFormatter.formatTimeStretchRate(audioGraphState.timeStretchRate)

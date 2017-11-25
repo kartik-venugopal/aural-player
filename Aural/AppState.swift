@@ -94,6 +94,7 @@ class AudioGraphState: PersistentState {
     
     var timeBypass: Bool = AppDefaults.timeBypass
     var timeStretchRate: Float = AppDefaults.timeStretchRate
+    var timeShiftPitch: Bool = AppDefaults.timeShiftPitch
     var timeOverlap: Float = AppDefaults.timeOverlap
     
     var reverbBypass: Bool = AppDefaults.reverbBypass
@@ -144,6 +145,7 @@ class AudioGraphState: PersistentState {
         var timeDict = [NSString: AnyObject]()
         timeDict["bypass"] = timeBypass as AnyObject
         timeDict["rate"] = timeStretchRate as NSNumber
+        timeDict["shiftPitch"] = timeShiftPitch as AnyObject
         timeDict["overlap"] = timeOverlap as NSNumber
         
         map["time"] = timeDict as AnyObject
@@ -244,6 +246,10 @@ class AudioGraphState: PersistentState {
             
             if let rate = timeDict["rate"] as? NSNumber {
                 audioGraphState.timeStretchRate = rate.floatValue
+            }
+            
+            if let shiftPitch = timeDict["shiftPitch"] as? Bool {
+                audioGraphState.timeShiftPitch = shiftPitch
             }
             
             if let timeOverlap = timeDict["overlap"] as? NSNumber {

@@ -7,17 +7,18 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
     
     // Time controls
     @IBOutlet weak var btnTimeBypass: EffectsUnitBypassButton!
+    @IBOutlet weak var btnShiftPitch: NSButton!
     @IBOutlet weak var timeSlider: NSSlider!
     @IBOutlet weak var timeOverlapSlider: NSSlider!
+    
     @IBOutlet weak var lblTimeStretchRateValue: NSTextField!
+    @IBOutlet weak var lblPitchShiftValue: NSTextField!
     @IBOutlet weak var lblTimeOverlapValue: NSTextField!
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
-    convenience init() {
-        self.init(nibName: "Time", bundle: Bundle.main)!
-    }
+    override var nibName: String? {return "Time"}
     
     override func viewDidLoad() {
         
@@ -30,6 +31,8 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
     private func initControls(_ appState: UIAppState) {
         
         btnTimeBypass.setBypassState(appState.timeBypass)
+        btnShiftPitch.state = appState.timeShiftPitch ? 1 : 0
+        updatePitchShift()
         
         timeSlider.floatValue = appState.timeStretchRate
         lblTimeStretchRateValue.stringValue = appState.formattedTimeStretchRate
@@ -51,10 +54,17 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
         SyncMessenger.publishNotification(playbackRateChangedMsg)
     }
     
+    // Toggles the "pitch shift" option of the Time stretch effects unit
+    @IBAction func shiftPitchAction(_ sender: AnyObject) {
+        _ = graph.toggleTimePitchShift()
+        updatePitchShift()
+    }
+    
     // Updates the playback rate value
     @IBAction func timeStretchAction(_ sender: AnyObject) {
         
         lblTimeStretchRateValue.stringValue = graph.setTimeStretchRate(timeSlider.floatValue)
+        updatePitchShift()
         
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if (!graph.isTimeBypass()) {
@@ -78,6 +88,7 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
         
         lblTimeStretchRateValue.stringValue = graph.setTimeStretchRate(rate)
         timeSlider.floatValue = rate
+        updatePitchShift()
         
         showTimeTab()
         
@@ -101,6 +112,7 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
         
         timeSlider.floatValue = rateInfo.rate
         lblTimeStretchRateValue.stringValue = rateInfo.rateString
+        updatePitchShift()
         btnTimeBypass.on()
         
         showTimeTab()
@@ -111,6 +123,11 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
     // Updates the Overlap parameter of the Time stretch effects unit
     @IBAction func timeOverlapAction(_ sender: Any) {
         lblTimeOverlapValue.stringValue = graph.setTimeOverlap(timeOverlapSlider.floatValue)
+    }
+    
+    // Updates the label that displays the pitch shift value
+    private func updatePitchShift() {
+        lblPitchShiftValue.stringValue = graph.getTimePitchShift()
     }
 
     // MARK: Message handling

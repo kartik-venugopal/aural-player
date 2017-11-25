@@ -8,7 +8,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TimeViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnShiftPitch" destination="5TX-uq-BeN" id="wNA-UJ-CVh"/>
                 <outlet property="btnTimeBypass" destination="0b3-aI-4fr" id="9e8-5X-poD"/>
+                <outlet property="lblPitchShiftValue" destination="CIZ-jM-pHe" id="mdR-eU-xUh"/>
+                <outlet property="lblRateKey" destination="HwE-S8-0Xn" id="sgR-PS-OqR"/>
                 <outlet property="lblTimeOverlapValue" destination="DcH-Hf-ey4" id="HMZ-kc-mAr"/>
                 <outlet property="lblTimeStretchRateValue" destination="4Bh-R6-0a8" id="sCc-Jv-Z5n"/>
                 <outlet property="timeOverlapSlider" destination="Lrx-h1-AHh" id="fQE-xW-zuN"/>
@@ -43,14 +46,14 @@
                     </connections>
                 </button>
                 <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="cgm-Fs-HA3" userLabel="Controls Box">
-                    <rect key="frame" x="67" y="5" width="355" height="68"/>
+                    <rect key="frame" x="67" y="5" width="355" height="84"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <view key="contentView" ambiguous="YES" id="qyk-i5-HuE">
-                        <rect key="frame" x="1" y="1" width="353" height="66"/>
+                        <rect key="frame" x="1" y="1" width="353" height="82"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HwE-S8-0Xn" userLabel="Rate">
-                                <rect key="frame" x="6" y="38" width="38" height="18"/>
+                                <rect key="frame" x="6" y="54" width="38" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Rate" id="NLo-xJ-PCU">
                                     <font key="font" size="11" name="GillSans"/>
@@ -59,7 +62,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekr-9J-FCS" userLabel="1/4 Rate">
-                                <rect key="frame" x="41" y="38" width="25" height="15"/>
+                                <rect key="frame" x="41" y="54" width="25" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="1/4" id="w5h-Un-KsL">
                                     <font key="font" size="10" name="GillSans"/>
@@ -68,7 +71,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eR7-mH-xUl" userLabel="4 Rate">
-                                <rect key="frame" x="300" y="38" width="25" height="15"/>
+                                <rect key="frame" x="300" y="54" width="25" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="4" id="nCz-HB-bAk">
                                     <font key="font" size="10" name="GillSans"/>
@@ -77,7 +80,7 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CJC-Zn-SHV" userLabel="Time Slider">
-                                <rect key="frame" x="68" y="34" width="230" height="18"/>
+                                <rect key="frame" x="68" y="50" width="230" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <shadow key="shadow" blurRadius="1">
                                     <size key="offset" width="2" height="-2"/>
@@ -89,7 +92,7 @@
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Bh-R6-0a8" userLabel="Lbl Rate Value">
-                                <rect key="frame" x="318" y="38" width="30" height="15"/>
+                                <rect key="frame" x="318" y="54" width="30" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="N13-cM-C5v">
                                     <font key="font" size="10" name="GillSans"/>
@@ -98,7 +101,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRX-9a-HoT" userLabel="Overlap">
-                                <rect key="frame" x="6" y="9" width="71" height="18"/>
+                                <rect key="frame" x="6" y="5" width="71" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Overlap" id="mtS-He-s5z">
                                     <font key="font" size="11" name="GillSans"/>
@@ -107,7 +110,7 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lrx-h1-AHh" userLabel="Overlap Slider">
-                                <rect key="frame" x="68" y="5" width="230" height="18"/>
+                                <rect key="frame" x="68" y="1" width="230" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <shadow key="shadow" blurRadius="1">
                                     <size key="offset" width="2" height="-2"/>
@@ -119,7 +122,7 @@
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hP4-KG-UsN" userLabel="3 Overlap values">
-                                <rect key="frame" x="41" y="9" width="25" height="15"/>
+                                <rect key="frame" x="41" y="5" width="25" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="3" id="nh2-Ri-PxB">
                                     <font key="font" size="10" name="GillSans"/>
@@ -128,7 +131,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4B5-Py-9rf" userLabel="32 Overlap values">
-                                <rect key="frame" x="300" y="9" width="25" height="15"/>
+                                <rect key="frame" x="300" y="5" width="25" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="32" id="MUi-qs-0Sq">
                                     <font key="font" size="10" name="GillSans"/>
@@ -137,9 +140,29 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DcH-Hf-ey4" userLabel="Lbl Overlap Value">
-                                <rect key="frame" x="318" y="9" width="30" height="15"/>
+                                <rect key="frame" x="318" y="5" width="30" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="lCq-w4-lTU">
+                                    <font key="font" size="10" name="GillSans"/>
+                                    <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5TX-uq-BeN" userLabel="Shift Pitch">
+                                <rect key="frame" x="5" y="25" width="121" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Shift pitch" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="7do-B3-QuC" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="11" name="GillSans"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="shiftPitchAction:" target="-2" id="Eoo-df-Pwg"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CIZ-jM-pHe" userLabel="Pitch shift value">
+                                <rect key="frame" x="310" y="30" width="38" height="15"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="Fln-HO-qwq">
                                     <font key="font" size="10" name="GillSans"/>
                                     <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

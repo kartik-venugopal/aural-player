@@ -45,7 +45,8 @@ class AudioEngineHelper {
             }
         }
         
-        audioEngine.connect(nodes[nodes.count - 1], to: audioEngine.mainMixerNode, format: nil)
+        // Connect last node to main mixer
+        audioEngine.connect(nodes.last!, to: audioEngine.mainMixerNode, format: nil)
     }
     
     // Reconnects two nodes with the given audio format (required when a track change occurs)

@@ -89,7 +89,12 @@ class ValueFormatter {
         
         numberFormatter.maximumFractionDigits = decimalDigits
         
-        let numStr = numberFormatter.string(from: value)!
+        var numStr = numberFormatter.string(from: value)!
+        
+        if (numStr == "-0") {
+            numStr = "0"
+        }
+        
         return includeSpace ? String(format: "%@ %@", numStr, unit) : String(format: "%@%@", numStr, unit)
     }
     
