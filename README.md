@@ -15,7 +15,7 @@ Aural Player is a free and open source audio player application for the macOS pl
 - Sound effects: Graphic equalizer, Pitch shift, Time stretch, Reverb, Delay, Filter
 - Recording of clips in AAC/ALAC/AIFF formats
 - Display of ID3 and iTunes metadata, including artwork (when available)
-- Grouping of tracks by artist/album/genre for convenient playlist browsing **(NEW!)**
+- Grouping of tracks by artist/album/genre for convenient playlist browsing
 - Favorites list and recent items lists for added convenience **(NEW!)**
 - Searching and sorting of playlist
 - Multiple compact and flexible view options - playlist docking/maximizing and collapsible views
@@ -67,12 +67,6 @@ Wanna try it out ? The latest app bundle can be found in the disk image file [Au
 11/3/2017: **New playlist views with track groups** - In addition to the current flat view, new views have been added to the playlist, which group tracks by album, artist, genre, etc. This allows for convenient playlist browsing.
 
 11/3/2018: **UI refresh** - A lot of UI elements have been redone, for a sleeker appearance. Window corners, background colors, slider controls, playlist summary, etc.
-
-10/15/2017: **Multiple selection, type selection, and drag/drop reordering in playlist** - The playlist now allows selection of multiple items at once, and type selection to find tracks quickly by typing their name. Also, it now allows reordering by dragging and dropping. This makes reordering, and/or removal of multiple playlist tracks much less tedious, and provides a quick way to search for tracks by name. (Full-fledged search is still available)
-
-10/12/2017: **New playlist navigation functions** - New functions have been added for more convenient playlist navigation. These include: 1 - Show playing track within playlist, 2 - Scroll to top of playlist, and 3 - Scroll to bottom of playlist.
-
-10/12/2017: **Resizable, detachable, and movable playlist** - The playlist is now resizable, detachable, and movable, with buttons to conveniently snap/attach the playlist to the main app window, in different relative locations (bottom, right, left, etc), and smart maximizing.
 
 ## Third party code attribution
 
