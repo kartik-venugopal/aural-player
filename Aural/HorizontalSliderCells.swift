@@ -79,6 +79,21 @@ class SeekSliderCell: HorizontalSliderCell {
     override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
 }
 
+class BarModeSeekSliderCell: HorizontalSliderCell {
+    
+    override var barRadius: CGFloat {return 1}
+    override var barInsetY: CGFloat {return 0.5}
+    
+    override var knobRadius: CGFloat {return 0}
+    override var knobColor: NSColor {return NSColor(white: 0.8, alpha: 1.0)}
+    override var knobWidth: CGFloat {return 5}
+    override var knobHeightOutsideBar: CGFloat {return 1}
+    
+    override var barPlainGradient: NSGradient {return Colors.seekBarPlainGradient}
+    override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
+}
+
+
 // Cell for sliders on the Preferences panel
 class PreferencesSliderCell: HorizontalSliderCell {
     
