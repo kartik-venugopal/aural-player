@@ -6,25 +6,14 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
     @IBOutlet weak var lblTrackName: NSTextField!
     @IBOutlet weak var artView: NSImageView!
     
-    // Fields that display/control seek position within the playing track
-    @IBOutlet weak var lblTimeElapsed: NSTextField!
-    @IBOutlet weak var lblTimeRemaining: NSTextField!
-    
-    // Fields that display information about the current playback scope
-    @IBOutlet weak var lblSequenceProgress: NSTextField!
-    
     // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
     @IBOutlet weak var seekSlider: NSSlider!
     
     // Timer that periodically updates the seek position slider and label
     private var seekTimer: RepeatingTaskExecutor?
     
-    @IBOutlet weak var volumeMenuItem: NSMenuItem!
-//    @IBOutlet weak var btnVolume: NSButton!
-    @IBOutlet weak var volumeMenu: NSMenu!
-    
-    // Volume/pan controls
     @IBOutlet weak var volumeSlider: NSSlider!
+    @IBOutlet weak var btnVolume: NSButton!
     
     // Toggle buttons (their images change)
     @IBOutlet weak var btnPlayPause: MultiStateImageButton!
@@ -54,11 +43,11 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         
         AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites, .trackNotPlayed, .trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .trackChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
         
-        self.window?.level = Int(CGWindowLevelForKey(.floatingWindow))
+//        self.window?.level = Int(CGWindowLevelForKey(.floatingWindow))
     }
     
     private func initControls(_ appState: UIAppState) {
@@ -96,9 +85,9 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         player.seekToPercentage(seekSlider.doubleValue)
     }
     
-//    @IBAction func volumeBtnAction(_ sender: Any) {
-//        volumeMenu.popUp(positioning: volumeMenuItem, at: NSPoint(x: btnVolume.frame.width, y: 0), in: btnVolume)
-//    }
+    @IBAction func volumeBtnAction(_ sender: Any) {
+        // TODO
+    }
     
     private func showNowPlayingInfo(_ track: Track) {
         
@@ -114,30 +103,15 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         }
         
         resetSeekPosition(track)
-        showPlaybackScope()
-    }
-    
-    /*
-     Displays information about the current playback scope (i.e. the set of tracks that make up the current playback sequence - for ex. a specific artist group, or all tracks), and progress within that sequence - for ex. 5/67 (5th track playing out of a total of 67 tracks).
-     */
-    private func showPlaybackScope() {
-        
-        // Sequence progress. For example, "5 / 10" (tracks)
-        let sequence = player.getPlaybackSequenceInfo()
-        let trackIndex = sequence.trackIndex
-        let totalTracks = sequence.totalTracks
-        lblSequenceProgress.stringValue = String(format: "%d / %d", trackIndex, totalTracks)
     }
     
     private func clearNowPlayingInfo() {
         
-        [lblTrackName, lblSequenceProgress].forEach({$0?.stringValue = ""})
+        lblTrackName.stringValue = ""
         artView.image = Images.imgPlayingArt
         artView.animates = false
         
         seekSlider.floatValue = 0
-        lblTimeElapsed.isHidden = true
-        lblTimeRemaining.isHidden = true
         setSeekTimerState(false)
     }
     
@@ -156,27 +130,12 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
     private func updateSeekPosition() {
         
         if (player.getPlaybackState() == .playing) {
-            
-            let seekPosn = player.getSeekPosition()
-            
-            let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration)
-            
-            lblTimeElapsed.stringValue = trackTimes.elapsed
-            lblTimeRemaining.stringValue = trackTimes.remaining
-            
-            seekSlider.doubleValue = seekPosn.percentageElapsed
+            seekSlider.doubleValue = player.getSeekPosition().percentageElapsed
         }
     }
     
     // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
     private func resetSeekPosition(_ track: Track) {
-        
-        lblTimeElapsed.stringValue = Strings.zeroDurationString
-        lblTimeRemaining.stringValue = StringUtils.formatSecondsToHMS(track.duration, true)
-        
-        lblTimeElapsed.isHidden = false
-        lblTimeRemaining.isHidden = false
-        
         seekSlider.floatValue = 0
     }
     
@@ -213,13 +172,6 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
             // No track playing, clear the info fields
             clearNowPlayingInfo()
         }
-    }
-    
-    // Whenever the playback sequence changes (without the playing track changing), the sequence progress might have changed. For example, when the playing track is moved up one row, its progress will change from "4/10" to "3/10". The display fields need to be updated accordingly.
-    private func sequenceChanged() {
-        
-        let sequence = player.getPlaybackSequenceInfo()
-        lblSequenceProgress.stringValue = String(format: "%d / %d", sequence.trackIndex, sequence.totalTracks)
     }
     
     // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
@@ -295,23 +247,23 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
     
     private func setVolumeImage(_ muted: Bool) {
         
-//        if (muted) {
-//            btnVolume.image = Images.imgMute
-//        } else {
-//            
-//            let volume = audioGraph.getVolume()
-//            
-//            // Zero / Low / Medium / High (different images)
-//            if (volume > 200/3) {
-//                btnVolume.image = Images.imgVolumeHigh
-//            } else if (volume > 100/3) {
-//                btnVolume.image = Images.imgVolumeMedium
-//            } else if (volume > 0) {
-//                btnVolume.image = Images.imgVolumeLow
-//            } else {
-//                btnVolume.image = Images.imgVolumeZero
-//            }
-//        }
+        if (muted) {
+            btnVolume.image = Images.imgMute
+        } else {
+            
+            let volume = audioGraph.getVolume()
+            
+            // Zero / Low / Medium / High (different images)
+            if (volume > 200/3) {
+                btnVolume.image = Images.imgVolumeHigh
+            } else if (volume > 100/3) {
+                btnVolume.image = Images.imgVolumeMedium
+            } else if (volume > 0) {
+                btnVolume.image = Images.imgVolumeLow
+            } else {
+                btnVolume.image = Images.imgVolumeZero
+            }
+        }
     }
     
     // Pans the sound towards the left channel, by a certain preset value
@@ -590,10 +542,6 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
             
             trackChanged(notification as! TrackChangedNotification)
             
-        case .sequenceChangedNotification:
-            
-            sequenceChanged()
-            
         case .playbackRateChangedNotification:
             
             playbackRateChanged(notification as! PlaybackRateChangedNotification)
@@ -639,14 +587,6 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         case .trackNotPlayed:
             
             trackNotPlayed(message as! TrackNotPlayedAsyncMessage)
-            
-        default: return
-            
-        }
-        
-        switch message.messageType {
-            
-        
             
         default: return
             
