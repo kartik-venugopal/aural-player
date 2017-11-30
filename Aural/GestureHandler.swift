@@ -5,6 +5,13 @@ import Cocoa
  */
 class GestureHandler {
     
+    // The window for which gestures are to be handled
+    private var window: NSWindow?
+    
+    init(_ window: NSWindow?) {
+        self.window = window
+    }
+    
     // Retrieves current playing track info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
@@ -15,7 +22,7 @@ class GestureHandler {
         
         // If a modal dialog is open, don't do anything
         // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
-        if (NSApp.modalWindow != nil || event.window != WindowState.window) {
+        if (NSApp.modalWindow != nil || event.window != self.window) {
             return
         }
         

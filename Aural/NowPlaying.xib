@@ -25,10 +25,15 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <view id="tiV-de-XiJ">
+        <view wantsLayer="YES" id="tiV-de-XiJ">
             <rect key="frame" x="0.0" y="0.0" width="450" height="106"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g8e-0B-ilR">
+                    <rect key="frame" x="7" y="17" width="70" height="70"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="asw-MU-vDh"/>
+                </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ic4-td-93d" userLabel="Track Artist">
                     <rect key="frame" x="85" y="54" width="340" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -108,13 +113,8 @@
                         <color key="backgroundColor" white="0.63127055919999997" alpha="1" colorSpace="calibratedWhite"/>
                     </textFieldCell>
                 </textField>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g8e-0B-ilR">
-                    <rect key="frame" x="7" y="17" width="70" height="70"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="asw-MU-vDh"/>
-                </imageView>
                 <button hidden="YES" toolTip="Detailed information about playing track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d6y-wj-Yri" userLabel="More Info Button">
-                    <rect key="frame" x="430" y="76" width="15" height="15"/>
+                    <rect key="frame" x="430" y="76" width="14" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MoreInfo" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="T25-Ql-rkq">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

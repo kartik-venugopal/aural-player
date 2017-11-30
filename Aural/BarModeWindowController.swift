@@ -47,7 +47,7 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         
         SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
         
-//        self.window?.level = Int(CGWindowLevelForKey(.floatingWindow))
+        self.window?.level = Int(CGWindowLevelForKey(.floatingWindow))
     }
     
     private func initControls(_ appState: UIAppState) {

@@ -70,6 +70,8 @@ enum MessageType {
     
     case appInForegroundNotification
     
+    case appResignedActiveNotification
+    
     case playbackRequest
     
     case appExitRequest
@@ -342,6 +344,16 @@ struct AppInBackgroundNotification: NotificationMessage {
     
     // Singleton
     static let instance: AppInBackgroundNotification = AppInBackgroundNotification()
+}
+
+struct AppResignedActiveNotification: NotificationMessage {
+    
+    let messageType: MessageType = .appResignedActiveNotification
+    
+    private init() {}
+    
+    // Singleton
+    static let instance: AppResignedActiveNotification = AppResignedActiveNotification()
 }
 
 // Notification indicating that the application has moved to the foreground and is both visible and in focus.
