@@ -11,7 +11,6 @@
                 <outlet property="btnShiftPitch" destination="5TX-uq-BeN" id="wNA-UJ-CVh"/>
                 <outlet property="btnTimeBypass" destination="0b3-aI-4fr" id="9e8-5X-poD"/>
                 <outlet property="lblPitchShiftValue" destination="CIZ-jM-pHe" id="mdR-eU-xUh"/>
-                <outlet property="lblRateKey" destination="HwE-S8-0Xn" id="sgR-PS-OqR"/>
                 <outlet property="lblTimeOverlapValue" destination="DcH-Hf-ey4" id="HMZ-kc-mAr"/>
                 <outlet property="lblTimeStretchRateValue" destination="4Bh-R6-0a8" id="sCc-Jv-Z5n"/>
                 <outlet property="timeOverlapSlider" destination="Lrx-h1-AHh" id="fQE-xW-zuN"/>
@@ -149,9 +148,9 @@
                                 </textFieldCell>
                             </textField>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5TX-uq-BeN" userLabel="Shift Pitch">
-                                <rect key="frame" x="5" y="2" width="121" height="25"/>
+                                <rect key="frame" x="5" y="2" width="337" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Shift pitch" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="7do-B3-QuC" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                <buttonCell key="cell" type="check" title="Shift pitch (both rate and pitch will be altered simultaneously)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="7do-B3-QuC" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="11" name="GillSans"/>
                                 </buttonCell>

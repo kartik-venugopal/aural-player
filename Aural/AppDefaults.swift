@@ -6,6 +6,8 @@ import AVFoundation
 */
 class AppDefaults {
     
+    static let appMode: AppMode = .regular
+    
     static let showPlaylist: Bool = true
     static let showEffects: Bool = true
     

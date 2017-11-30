@@ -1,0 +1,200 @@
+/*
+ View controller for the popover that displays a brief information message when a track is added to or removed from the Favorites list
+ */
+import Cocoa
+
+// TODO: Can this be a general info popup ? "Tracks are being added ... (progress)" ?
+class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, MessageSubscriber {
+    
+    var statusItem: NSStatusItem!
+    
+    // The actual popover that is shown
+    private var popover: NSPopover!
+    
+    // Popover positioning parameters
+    private let positioningRect = NSZeroRect
+    
+    // The box that encloses the Now Playing info section
+    @IBOutlet weak var nowPlayingBox: NSBox!
+    private lazy var nowPlayingView: NSView = ViewFactory.getNowPlayingView()
+    
+    // The box that encloses the player controls
+    @IBOutlet weak var playerBox: NSBox!
+    private lazy var playerView: NSView = ViewFactory.getPlayerView()
+    
+    override var nibName: String? {return "StatusBarPopover"}
+    
+    private var globalMouseClickMonitor: GlobalMouseClickMonitor!
+    
+    // Factory method
+    static func create() -> StatusBarPopoverViewController {
+        
+        let controller = StatusBarPopoverViewController()
+        
+        let popover = NSPopover()
+        popover.behavior = .transient
+        popover.contentViewController = controller
+        popover.delegate = controller
+        
+        controller.popover = popover
+        
+        return controller
+    }
+    
+    override func viewDidLoad() {
+        
+        nowPlayingBox.addSubview(nowPlayingView)
+        playerBox.addSubview(playerView)
+        
+        let gestureHandler = GestureHandler(nil)
+        NSEvent.addLocalMonitorForEvents(matching: [.swipe, .scrollWheel], handler: {(event: NSEvent!) -> NSEvent in
+            gestureHandler.handle(event)
+            return event;
+        });
+        
+        globalMouseClickMonitor = GlobalMouseClickMonitor([.leftMouseDown, .rightMouseDown], {(event: NSEvent!) -> Void in
+            
+            // If window is non-nil, it means it's the popover window (first time after launching)
+            if event.window == nil {
+                self.close()
+            }
+        })
+        
+//        let autoHideHandler = AutoHideHandler(self.view, self.popover)
+//        NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved], handler: {(event: NSEvent!) -> NSEvent in
+//            autoHideHandler.handle(event)
+//            return event;
+//        });
+        
+        SyncMessenger.subscribe(messageTypes: [.appResignedActiveNotification], subscriber: self)
+        
+        NSApp.unhide(self)
+    }
+    
+    @IBAction func statusBarButtonAction(_ sender: AnyObject) {
+        toggle(statusItem.button!, NSRectEdge.minY)
+    }
+    
+    func toggle(_ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
+        
+        if (popover.isShown) {
+            close()
+        } else {
+            show(relativeToView, preferredEdge)
+        }
+    }
+    
+    func show() {
+        
+        statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
+        if let btn = statusItem.button {
+            
+            btn.image = NSImage(named: "AppIcon-StatusBar")
+            btn.action = #selector(self.statusBarButtonAction(_:))
+            btn.target = self
+        }
+        
+        if (nowPlayingBox != nil) {
+            nowPlayingBox.addSubview(nowPlayingView)
+            playerBox.addSubview(playerView)
+        }
+        
+        show(statusItem.button!, NSRectEdge.minY)
+    }
+    
+    // Shows the popover
+    private func show(_ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
+        
+        if (!popover.isShown) {
+            popover.show(relativeTo: positioningRect, of: relativeToView, preferredEdge: preferredEdge)
+        }
+    }
+    
+    // Closes the popover
+    func close() {
+        
+        if (popover.isShown) {
+            popover.performClose(self)
+        }
+    }
+    
+    @IBAction func regularModeAction(_ sender: AnyObject) {
+        self.close()
+        NSStatusBar.system().removeStatusItem(statusItem)
+        
+        NSApp.setActivationPolicy(.regular)
+//        WindowFactory.showWindows()
+    }
+    
+    @IBAction func quitAction(_ sender: AnyObject) {
+        NSApp.terminate(self)
+    }
+    
+    private func appInactive() {
+        close()
+    }
+    
+    func popoverDidShow(_ notification: Notification) {
+        
+        NSApp.activate(ignoringOtherApps: true)
+        globalMouseClickMonitor.start()
+    }
+    
+    func popoverDidClose(_ notification: Notification) {
+        globalMouseClickMonitor.stop()
+    }
+    
+    // MARK: Message handlers
+    
+    // Consume synchronous notification messages
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        switch notification.messageType {
+            
+        case .appResignedActiveNotification:
+            
+            appInactive()
+            
+        default: return
+            
+        }
+    }
+    
+    // Process synchronous request messages
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        // This class does not process any requests
+        return EmptyResponse.instance
+    }
+}
+
+fileprivate class GlobalMouseClickMonitor {
+    
+    private var monitor: Any?
+    private let mask: NSEventMask
+    private let handler: (NSEvent!) -> Void
+    
+    public init(_ mask: NSEventMask, _ handler: @escaping (NSEvent!) -> Void) {
+        self.mask = mask
+        self.handler = handler
+    }
+    
+    deinit {
+        stop()
+    }
+    
+    public func start() {
+        
+        if (monitor == nil) {
+            monitor = NSEvent.addGlobalMonitorForEvents(matching: mask, handler: handler)
+        }
+    }
+    
+    public func stop() {
+        
+        if monitor != nil {
+            NSEvent.removeMonitor(monitor!)
+            monitor = nil
+        }
+    }
+}

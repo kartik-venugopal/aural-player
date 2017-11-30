@@ -8,8 +8,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MainWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnToggleEffects" destination="W1Y-N5-RBQ" id="Jfd-0J-XBN"/>
-                <outlet property="btnTogglePlaylist" destination="Br1-bp-Vzd" id="zL4-dK-Q5D"/>
+                <outlet property="btnToggleEffects" destination="W1Y-N5-RBQ" id="U8N-rP-qpZ"/>
+                <outlet property="btnTogglePlaylist" destination="Br1-bp-Vzd" id="Cye-Wt-34K"/>
                 <outlet property="effectsBox" destination="8FQ-tu-oTm" id="pt8-oQ-Bdg"/>
                 <outlet property="nowPlayingBox" destination="zwp-2y-nBe" id="zAh-6S-sE5"/>
                 <outlet property="playerBox" destination="wJm-gK-OsL" id="VAc-7N-kQ8"/>
@@ -36,7 +36,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="480" height="420"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zFi-Se-R21" userLabel="Close Button">
+                                <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zFi-Se-R21" userLabel="Quit Button">
                                     <rect key="frame" x="12" y="394" width="12" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8cf-gd-eOH">
@@ -44,10 +44,10 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="closeAction:" target="-2" id="mPg-7F-kkT"/>
+                                        <action selector="quitAction:" target="-2" id="te0-r8-B0U"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Hide window" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4p-3A-TgZ" userLabel="Minimize Button">
+                                <button toolTip="Minimize window" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4p-3A-TgZ" userLabel="Minimize Button">
                                     <rect key="frame" x="27" y="394" width="12" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Hide" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="vzp-6D-Pbu">
@@ -58,11 +58,33 @@
                                         <action selector="minimizeAction:" target="-2" id="67L-qB-Vyv"/>
                                     </connections>
                                 </button>
+                                <button toolTip="Switch to status bar mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NPW-vm-gJR" userLabel="Status Bar Mode">
+                                    <rect key="frame" x="44" y="394" width="12" height="12"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="StatusBarMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="bzK-F7-0td">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="statusBarModeAction:" target="-2" id="PSI-K6-Rha"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Switch to floating bar mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B4O-bJ-1lS" userLabel="Floating Bar Mode">
+                                    <rect key="frame" x="59" y="394" width="12" height="12"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FloatingBarMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="G2y-w9-3j2">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="floatingBarModeAction:" target="-2" id="LmE-tS-Fhe"/>
+                                    </connections>
+                                </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fE-EF-YEC">
-                                    <rect key="frame" x="203" y="388" width="75" height="25"/>
+                                    <rect key="frame" x="203" y="387" width="75" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="AURAL" id="uY5-TU-vN1">
-                                        <font key="font" size="18" name="Courier"/>
+                                        <font key="font" size="16" name="Courier"/>
                                         <color key="textColor" white="0.7480848524" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
@@ -109,7 +131,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
                                     <color key="borderColor" white="0.103108724" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="0.70347281679999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </box>
                                 <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="wJm-gK-OsL" userLabel="Player Box">
                                     <rect key="frame" x="14" y="205" width="452" height="54"/>
@@ -119,7 +141,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
                                     <color key="borderColor" white="0.099066840279999999" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="fillColor" white="0.0" alpha="0.70347281679999996" colorSpace="calibratedWhite"/>
+                                    <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </box>
                                 <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="8FQ-tu-oTm" userLabel="Effects Box">
                                     <rect key="frame" x="14" y="13" width="452" height="180"/>
@@ -129,12 +151,12 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
                                     <color key="borderColor" white="0.13582356770000001" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="fillColor" white="0.0" alpha="0.70347281679999996" colorSpace="calibratedWhite"/>
+                                    <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </box>
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.74750963179999996" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.896484375" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.90079195205479456" colorSpace="calibratedWhite"/>
                     </box>
                 </subviews>
                 <constraints>
@@ -160,8 +182,10 @@
         <image name="Close" width="80" height="80"/>
         <image name="EffectsView-Off" width="419" height="422"/>
         <image name="EffectsView-On" width="419" height="422"/>
+        <image name="FloatingBarMode" width="512" height="512"/>
         <image name="Hide" width="94" height="94"/>
         <image name="PlaylistView-Off" width="185" height="161"/>
         <image name="PlaylistView-On" width="185" height="161"/>
+        <image name="StatusBarMode" width="512" height="512"/>
     </resources>
 </document>

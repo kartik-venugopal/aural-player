@@ -25,7 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Configuration and initialization
         
-        configureLogging()
+//        configureLogging()
         ObjectGraph.initialize()
     }
     
@@ -74,7 +74,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-        WindowFactory.showMainWindow()
+        AppModeManager.load()
+//        WindowFactory.showMainWindow()
+//        WindowFactory.showBarModeWindow()
         
         // Update the appLaunched flag
         appLaunched = true
@@ -106,15 +108,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ObjectGraph.tearDown()
     }
     
-    
-     // MARK: App focus event handlers. Respond to these events by triggering actions to optimize app performance and resource usage (certain UI features can be disabled when the app is not visible or in focus).
+    // MARK: App focus event handlers. Respond to these events by triggering actions to optimize app performance and resource usage (certain UI features can be disabled when the app is not visible or in focus).
     
     func applicationDidBecomeActive(_ notification: Notification) {
         WindowState.setActive(true)
     }
     
     func applicationDidResignActive(_ notification: Notification) {
+
         WindowState.setActive(false)
+        SyncMessenger.publishNotification(AppResignedActiveNotification.instance)
     }
     
     func applicationDidHide(_ notification: Notification) {

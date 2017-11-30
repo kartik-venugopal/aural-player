@@ -9,6 +9,8 @@ class WindowFactory {
     
     private static var playlistWindowController: PlaylistWindowController = PlaylistWindowController()
     
+    private static var barModeWindowController: BarModeWindowController = BarModeWindowController()
+    
     private static var preferencesWindowController: PreferencesWindowController = PreferencesWindowController()
     
     private static var playlistSearchWindowController: PlaylistSearchWindowController = PlaylistSearchWindowController()
@@ -17,9 +19,8 @@ class WindowFactory {
     
     // MARK: Accessor functions for the different windows/dialogs
     
-    // Shows the main application window
-    static func showMainWindow() {
-        mainWindowController.showWindow(NSApplication.shared().delegate)
+    static func getMainWindow() -> NSWindow {
+        return mainWindowController.window!
     }
     
     // Returns the playlist window

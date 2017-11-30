@@ -38,7 +38,6 @@
         </customObject>
         <customObject id="IvK-xG-TCa" customClass="PlaybackMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="addToFavoritesMenuItem" destination="iMK-0g-xI0" id="RlA-jU-nBo"/>
                 <outlet property="detailedInfoMenuItem" destination="GCy-Rj-Mv5" id="FTi-Dg-C0L"/>
                 <outlet property="favoritesMenuItem" destination="iMK-0g-xI0" id="IAc-qX-PvW"/>
                 <outlet property="nextTrackMenuItem" destination="z7s-9y-10c" id="6nk-AZ-Jyu"/>

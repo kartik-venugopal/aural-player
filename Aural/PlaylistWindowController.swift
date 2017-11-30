@@ -5,6 +5,10 @@ import Cocoa
  */
 class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber, NSTabViewDelegate {
     
+    private var theWindow: NSWindow {
+        return self.window!
+    }
+    
     // The different playlist views
     private lazy var tracksView: NSView = ViewFactory.getTracksView()
     private lazy var artistsView: NSView = ViewFactory.getArtistsView()
@@ -38,6 +42,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     override var windowNibName: String? {return "Playlist"}
 
     override func windowDidLoad() {
+        
+        theWindow.isMovableByWindowBackground = true
+        
         setUpTabGroup()
         registerForInputAndMessages()
     }
