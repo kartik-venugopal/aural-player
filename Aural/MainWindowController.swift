@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the main window, but also controls the positioning and sizing of the playlist window. Performs any and all display (or hiding), positioning, alignment, resizing, etc. of both the main window and playlist window.
  */
-class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageSubscriber {
+class MainWindowController: NSWindowController, ActionMessageSubscriber {
     
     // Main application window. Contains the Now Playing info box, player controls, and effects panel. Not manually resizable. Changes size when toggling effects view.
     private var theWindow: NSWindow {
@@ -70,12 +70,14 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         effectsBox.addSubview(effectsView)
     }
     
-    // Shows/hides the playlist window
+    // Shows/hides the playlist window (by delegating)
     @IBAction func togglePlaylistAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.togglePlaylist))
     }
     
     private func togglePlaylist() {
+        
+        // This class does not actually show/hide the playlist view
         btnTogglePlaylist.toggle()
     }
     
@@ -100,10 +102,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
             return
         }
         
-        let shrinking: Bool = newHeight < oldHeight
-        
         wFrame.size = NSMakeSize(theWindow.width, newHeight)
-        wFrame.origin = NSMakePoint(oldOrigin.x, shrinking ? oldOrigin.y + (oldHeight - newHeight) : oldOrigin.y - (newHeight - oldHeight))
+        wFrame.origin = oldOrigin.applying(CGAffineTransform.init(translationX: 0, y: oldHeight - newHeight))
         
         theWindow.setFrame(wFrame, display: true)
     }
@@ -114,12 +114,12 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
     @IBAction func floatingBarModeAction(_ sender: AnyObject) {
     }
     
-    // Closes the window, and quits the app
+    // Quits the app
     @IBAction func quitAction(_ sender: AnyObject) {
         NSApp.terminate(self)
     }
     
-    // Minimizes the app
+    // Minimizes the window (and any child windows)
     @IBAction func minimizeAction(_ sender: AnyObject) {
         theWindow.miniaturize(self)
     }

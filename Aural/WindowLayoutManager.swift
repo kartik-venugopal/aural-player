@@ -1,27 +1,34 @@
 import Cocoa
 
+/*
+    Handles positioning of main window and playlist window (docking/maximizing)
+ */
 class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
     
     private lazy var mainWindow: NSWindow = WindowFactory.getMainWindow()
     private lazy var playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
     
-    // Remembers if/where the playlist window has been docked with the main window
+    // The current (computed) dock location of the playlist window relative to the main window
     private var playlistDockState: PlaylistDockState {
         
-        // Check if playlist window's top edge is adjacent to main window's bottom edge
         if (playlistWindow.maxY == mainWindow.y) {
+            // Playlist window's top edge is adjacent to main window's bottom edge
             return .bottom
             
         } else if (mainWindow.maxX == playlistWindow.x) {
+            // Playlist window's left edge is adjacent to main window's right edge
             return .right
             
         } else if (playlistWindow.maxX == mainWindow.x) {
+            // Playlist window's right edge is adjacent to main window's left edge
             return .left
         }
         
+        // Playlist is not docked
         return .none
     }
     
+    // The last definite dock location of the playlist window
     private var lastDockState: PlaylistDockState!
     
     private lazy var visibleFrame: NSRect = {
@@ -32,6 +39,8 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
         
         super.init()
         
+        mainWindow.delegate = self
+        
         SyncMessenger.subscribe(actionTypes: [.dockLeft, .dockRight, .dockBottom, .maximize, .maximizeHorizontal, .maximizeVertical, .togglePlaylist], subscriber: self)
     }
     
@@ -41,7 +50,6 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
         let appState = ObjectGraph.getUIAppState()
         
         mainWindow.setIsVisible(true)
-        mainWindow.delegate = self
         
         // If a specific position is specified, use it
         if let mainWindowOrigin = appState.windowLocationXY {
@@ -328,8 +336,7 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
     // Shows the playlist window
     private func showPlaylist() {
         
-        // Show playlist window and update UI controls
-        
+        // Show playlist window
         mainWindow.addChildWindow(playlistWindow, ordered: NSWindowOrderingMode.below)
         playlistWindow.setIsVisible(true)
         WindowState.showingPlaylist = true
@@ -356,9 +363,6 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
     private func hidePlaylist() {
         
         lastDockState = playlistDockState
-        
-        // Hide playlist window and update UI controls
-        
         playlistWindow.setIsVisible(false)
         WindowState.showingPlaylist = false
     }
@@ -399,6 +403,8 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
         }
     }
     
+    // MARK: Window delegate functions
+    
     // When the window is minimized, the app can be considered to be in the "background". Certain UI features can be disabled, because the window is not visible to the end user.
     func windowDidMiniaturize(_ notification: Notification) {
         WindowState.setMinimized(true)
@@ -409,6 +415,7 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
         WindowState.setMinimized(false)
     }
     
+    // When the main window is resized, the playlist window needs to be repositioned, and need to ensure that both windows are visible
     func windowDidResize(_ notification: Notification) {
  
         // Move the playlist window, if necessary
