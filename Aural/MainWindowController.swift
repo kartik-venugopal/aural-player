@@ -28,6 +28,8 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
     
     private var eventMonitor: Any?
     
+    private var gestureHandler: GestureHandler!
+    
     override var windowNibName: String? {return "MainWindow"}
     
     // MARK: Setup
@@ -35,18 +37,18 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
     override func windowDidLoad() {
         
         initWindow()
-        addSubViews()
         
         // Register a handler for trackpad/MagicMouse gestures
         
-        let gestureHandler = GestureHandler(self.window!)
-        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.swipe, .scrollWheel], handler: {(event: NSEvent!) -> NSEvent in
-            gestureHandler.handle(event)
-            return event;
-        });
+        gestureHandler = GestureHandler(self.window!)
         
         // Subscribe to various messages
         SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist], subscriber: self)
+    }
+    
+    func reset() {
+        addSubViews()
+        activateGestureHandler()
     }
     
     // Set window properties
@@ -68,6 +70,15 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
         nowPlayingBox.addSubview(nowPlayingView)
         playerBox.addSubview(playerView)
         effectsBox.addSubview(effectsView)
+    }
+    
+    private func activateGestureHandler() {
+        
+        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.swipe, .scrollWheel], handler: {(event: NSEvent!) -> NSEvent in
+            
+            self.gestureHandler.handle(event)
+            return event;
+        });
     }
     
     // Shows/hides the playlist window (by delegating)
@@ -92,23 +103,23 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
         // Resize window
         
         var wFrame = theWindow.frame
-        let oldOrigin = wFrame.origin
-        let oldHeight = wFrame.height
         
         let newHeight: CGFloat = WindowState.showingEffects ? UIConstants.windowHeight_effectsOnly : UIConstants.windowHeight_compact
-        
-        // If no change in height is necessary, do nothing
-        if (oldHeight == newHeight) {
-            return
-        }
-        
+
         wFrame.size = NSMakeSize(theWindow.width, newHeight)
-        wFrame.origin = oldOrigin.applying(CGAffineTransform.init(translationX: 0, y: oldHeight - newHeight))
+        wFrame.origin = wFrame.origin.applying(CGAffineTransform.init(translationX: 0, y: wFrame.height - newHeight))
         
         theWindow.setFrame(wFrame, display: true)
     }
     
     @IBAction func statusBarModeAction(_ sender: AnyObject) {
+        
+        if eventMonitor != nil {
+            NSEvent.removeMonitor(eventMonitor!)
+            eventMonitor = nil
+        }
+        
+        SyncMessenger.publishActionMessage(AppModeActionMessage(.statusBarAppMode))
     }
     
     @IBAction func floatingBarModeAction(_ sender: AnyObject) {

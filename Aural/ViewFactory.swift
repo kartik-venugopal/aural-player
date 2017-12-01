@@ -72,6 +72,10 @@ struct ViewFactory {
         fileprivate static var favoritesPopup: FavoritesPopupViewController = {
             return FavoritesPopupViewController.create()
         }()
+        
+        fileprivate static var statusBarPopover: StatusBarPopoverViewController = {
+            return StatusBarPopoverViewController.create()
+        }()
     }
     
     // MARK: Accessor functions for the different views
@@ -180,5 +184,9 @@ struct ViewFactory {
     
     static func getControlsPreferencesView() -> PreferencesViewProtocol {
         return PreferencesViews.controlsPreferencesViewController
+    }
+    
+    static func getStatusBarPopover() -> StatusBarPopoverViewController {
+        return PopoverViews.statusBarPopover
     }
 }

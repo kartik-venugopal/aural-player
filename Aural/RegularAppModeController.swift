@@ -6,6 +6,7 @@ class RegularAppModeController: AppModeController {
     private lazy var layoutManager: WindowLayoutManager = WindowLayoutManager()
     
     func presentMode() {
+        NSApp.setActivationPolicy(.regular)
         layoutManager.initialWindowLayout()
     }
     

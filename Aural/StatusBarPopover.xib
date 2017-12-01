@@ -8,6 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="StatusBarPopoverViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnToggleEffects" destination="2zT-ks-cdJ" id="BIZ-WE-seM"/>
+                <outlet property="btnTogglePlaylist" destination="eXz-em-A14" id="ZtD-KB-DTF"/>
+                <outlet property="effectsBox" destination="Vv6-LN-H0C" id="hW8-cg-H4A"/>
                 <outlet property="nowPlayingBox" destination="HQR-7O-1Ju" id="xyu-CE-uZ6"/>
                 <outlet property="playerBox" destination="y3R-PE-ACX" id="zBy-hS-Alj"/>
                 <outlet property="view" destination="A8P-gF-rZh" id="pAb-gy-04U"/>
@@ -16,18 +19,18 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view appearanceType="aqua" id="A8P-gF-rZh" customClass="PopoverContentView" customModule="Aural" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="218"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="398"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <box fixedFrame="YES" boxType="custom" borderWidth="0.0" cornerRadius="5" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="hz1-j3-RsD" userLabel="Root Container">
-                    <rect key="frame" x="0.0" y="0.0" width="480" height="218"/>
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="398"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="xi8-6M-MoP">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="218"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="398"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Flh-87-Bxm" userLabel="Close Button">
-                                <rect key="frame" x="12" y="194" width="12" height="12"/>
+                                <rect key="frame" x="14" y="374" width="12" height="12"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="tWL-ES-iqu">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -38,7 +41,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Switch to regular mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ep1-47-vpz" userLabel="Regular Mode button">
-                                <rect key="frame" x="28" y="194" width="12" height="12"/>
+                                <rect key="frame" x="30" y="374" width="12" height="12"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RegularMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="dUb-fK-lgq">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -49,16 +52,47 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DAA-Bo-DCO">
-                                <rect key="frame" x="203" y="188" width="75" height="25"/>
+                                <rect key="frame" x="203" y="368" width="75" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="AURAL" id="kvc-xh-oPF">
-                                    <font key="font" size="18" name="Courier"/>
+                                    <font key="font" size="16" name="Courier"/>
                                     <color key="textColor" white="0.7480848524" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="bezel" cornerRadius="5" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="HQR-7O-1Ju" userLabel="Now Playing Box">
-                                <rect key="frame" x="14" y="78" width="452" height="108"/>
+                            <button toolTip="Show/hide playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eXz-em-A14" userLabel="Toggle Playlist Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="427" y="375" width="17" height="12"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlaylistView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="mps-rC-Bgm">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="PlaylistView-Off"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="PlaylistView-On"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Show the playlist"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Hide the playlist"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2zT-ks-cdJ" userLabel="Toggle Effects Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="449" y="375" width="17" height="12"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EffectsView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="BPY-qb-ILg">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Show the Effects panel"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Hide the Effects panel"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="EffectsView-Off"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="EffectsView-On"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="toggleEffectsAction:" target="-2" id="NWa-ol-WOz"/>
+                                </connections>
+                            </button>
+                            <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="bezel" cornerRadius="8" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="HQR-7O-1Ju" userLabel="Now Playing Box">
+                                <rect key="frame" x="14" y="258" width="452" height="108"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="AVb-2A-TMK">
                                     <rect key="frame" x="1" y="1" width="450" height="106"/>
@@ -67,14 +101,24 @@
                                 <color key="borderColor" white="0.103108724" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </box>
-                            <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="y3R-PE-ACX" userLabel="Player Box">
-                                <rect key="frame" x="14" y="12" width="452" height="54"/>
+                            <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="8" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="y3R-PE-ACX" userLabel="Player Box">
+                                <rect key="frame" x="14" y="197" width="452" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="iap-wj-ccU">
                                     <rect key="frame" x="1" y="1" width="450" height="52"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <color key="borderColor" white="0.099066840279999999" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </box>
+                            <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="8" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Vv6-LN-H0C" userLabel="Effects Box">
+                                <rect key="frame" x="14" y="10" width="452" height="180"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" ambiguous="YES" id="mwz-jb-mcp">
+                                    <rect key="frame" x="1" y="1" width="450" height="178"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <color key="borderColor" white="0.1031358507" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </box>
                         </subviews>
@@ -88,6 +132,10 @@
     </objects>
     <resources>
         <image name="Close" width="80" height="80"/>
+        <image name="EffectsView-Off" width="419" height="422"/>
+        <image name="EffectsView-On" width="419" height="422"/>
+        <image name="PlaylistView-Off" width="185" height="161"/>
+        <image name="PlaylistView-On" width="185" height="161"/>
         <image name="RegularMode" width="512" height="512"/>
     </resources>
 </document>

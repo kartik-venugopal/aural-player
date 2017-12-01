@@ -22,9 +22,18 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
     @IBOutlet weak var playerBox: NSBox!
     private lazy var playerView: NSView = ViewFactory.getPlayerView()
     
+    @IBOutlet weak var effectsBox: NSBox!
+    private lazy var effectsView: NSView = ViewFactory.getEffectsView()
+    
+    // Buttons to toggle the playlist/effects views
+    @IBOutlet weak var btnToggleEffects: OnOffImageButton!
+    @IBOutlet weak var btnTogglePlaylist: OnOffImageButton!
+    
     override var nibName: String? {return "StatusBarPopover"}
     
     private var globalMouseClickMonitor: GlobalMouseClickMonitor!
+    
+    private var gestureHandler: GestureHandler?
     
     // Factory method
     static func create() -> StatusBarPopoverViewController {
@@ -45,12 +54,7 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
         
         nowPlayingBox.addSubview(nowPlayingView)
         playerBox.addSubview(playerView)
-        
-        let gestureHandler = GestureHandler(nil)
-        NSEvent.addLocalMonitorForEvents(matching: [.swipe, .scrollWheel], handler: {(event: NSEvent!) -> NSEvent in
-            gestureHandler.handle(event)
-            return event;
-        });
+        effectsBox.addSubview(effectsView)
         
         globalMouseClickMonitor = GlobalMouseClickMonitor([.leftMouseDown, .rightMouseDown], {(event: NSEvent!) -> Void in
             
@@ -71,7 +75,20 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
         NSApp.unhide(self)
     }
     
-    @IBAction func statusBarButtonAction(_ sender: AnyObject) {
+    override func viewDidAppear() {
+    
+        // Need to put this code here (and not in viewDidLoad()) because self.view.window is nil there
+        if (gestureHandler == nil) {
+            
+            gestureHandler = GestureHandler(self.view.window!)
+            NSEvent.addLocalMonitorForEvents(matching: [.swipe, .scrollWheel], handler: {(event: NSEvent!) -> NSEvent in
+                self.gestureHandler!.handle(event)
+                return event;
+            });
+        }
+    }
+    
+    func statusBarButtonAction(_ sender: AnyObject) {
         toggle(statusItem.button!, NSRectEdge.minY)
     }
     
@@ -118,12 +135,26 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
         }
     }
     
-    @IBAction func regularModeAction(_ sender: AnyObject) {
-        self.close()
-        NSStatusBar.system().removeStatusItem(statusItem)
+    func dismiss() {
         
-        NSApp.setActivationPolicy(.regular)
-//        WindowFactory.showWindows()
+        close()
+        NSStatusBar.system().removeStatusItem(statusItem)
+    }
+    
+    @IBAction func toggleEffectsAction(_ sender: AnyObject) {
+        
+        btnToggleEffects.toggle()
+        effectsBox.isHidden = !effectsBox.isHidden
+        
+        let newHeight: CGFloat = effectsBox.isHidden ? 211 : 398
+        popover.contentSize = NSMakeSize(popover.contentSize.width, newHeight)
+    }
+    
+    @IBAction func regularModeAction(_ sender: AnyObject) {
+        
+        globalMouseClickMonitor.stop()
+        
+        SyncMessenger.publishActionMessage(AppModeActionMessage(.regularAppMode))
     }
     
     @IBAction func quitAction(_ sender: AnyObject) {

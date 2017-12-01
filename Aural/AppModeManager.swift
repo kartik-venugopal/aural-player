@@ -1,60 +1,76 @@
 import Cocoa
 
-class AppModeManager {
+class AppModeManager: ActionMessageSubscriber {
+    
+    private static let subscriber: AppModeManager = AppModeManager()
     
     static var mode: AppMode = AppDefaults.appMode
     
-//    private static var mainWindow: NSWindow!
-//    private static var playlistWindow: NSWindow!
+    private static var regularMode: RegularAppModeController = RegularAppModeController()
     
-//    private static var barModeWindowController: NSWindow!
-//    
-//    private static var statusBarView: StatusBarPopoverViewController!
+    private static var statusBarMode: StatusBarAppModeController = StatusBarAppModeController()
     
-    private static var regMode: RegularAppModeController!
+    static func initialize() {
+        
+        SyncMessenger.subscribe(actionTypes: [.regularAppMode, .statusBarAppMode, .miniBarAppMode], subscriber: subscriber)
+    }
+    
+    static func presentMode(_ newMode: AppMode) {
+        
+        mode = newMode
+        
+        switch mode {
+            
+        case .regular:  presentRegularMode()
+        
+        case .miniBar: presentMiniBarMode()
+        
+        case .statusBar: presentStatusBarMode()
+        
+        }
+    }
     
     static func switchToMode(_ newMode: AppMode) {
-        mode = newMode
+        
+        switch mode {
+            
+        case .regular:  regularMode.dismissMode()
+            
+        case .miniBar: print("")
+            
+        case .statusBar: statusBarMode.dismissMode()
+            
+        }
+        
+        presentMode(newMode)
     }
     
-    static func load() {
-        regMode = RegularAppModeController()
-        regMode.presentMode()
+    private static func presentRegularMode() {
+        regularMode.presentMode()
     }
     
-    // Shows the main application window
-//    static func showMainWindow() {
-//        mainWindowController.showWindow(NSApp.delegate)
-//    }
-//    
-//    static func showWindows() {
-//        mainWindowController.showWindows()
-//    }
-//    
-//    static func showBarModeWindow() {
-//        barModeWindowController.showWindow(NSApp.delegate)
-//    }
-//    
-//    private static func regularMode() {
-//        
-//    }
-//    
-//    private static func statusBarMode() {
-//        
-//        [mainWindow, playlistWindow].forEach({$0.close()})
-//        
-//        NSApp.setActivationPolicy(.accessory)
-//        
-//        if (statusBarView == nil) {
-//            statusBarView = StatusBarPopoverViewController.create()
-//        }
-//        statusBarView.show()
-//        
-//        if eventMonitor != nil {
-//            NSEvent.removeMonitor(eventMonitor!)
-//            eventMonitor = nil
-//        }
-//    }
+    private static func presentMiniBarMode() {
+        
+    }
+    
+    private static func presentStatusBarMode() {
+        statusBarMode.presentMode()
+    }
+    
+    func consumeMessage(_ message: ActionMessage) {
+        
+        switch message.actionType {
+            
+        case .regularAppMode:   AppModeManager.switchToMode(.regular)
+            
+        case .statusBarAppMode: AppModeManager.switchToMode(.statusBar)
+            
+        case .miniBarAppMode:   AppModeManager.switchToMode(.miniBar)
+            
+        default: return
+            
+        }
+    }
 }
 
 enum AppMode: String {

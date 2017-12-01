@@ -209,6 +209,14 @@ enum ActionType {
     
     // Remove a track from the Favorites list
     case removeFavorite
+    
+    // MARK: App mode actions
+    
+    case regularAppMode
+    
+    case statusBarAppMode
+    
+    case miniBarAppMode
 }
 
 enum ActionMode {
@@ -295,5 +303,14 @@ struct EffectsViewActionMessage: ActionMessage {
     init(_ actionType: ActionType, _ effectsUnit: EffectsUnit) {
         self.actionType = actionType
         self.effectsUnit = effectsUnit
+    }
+}
+
+struct AppModeActionMessage: ActionMessage {
+    
+    var actionType: ActionType
+    
+    init(_ actionType: ActionType) {
+        self.actionType = actionType
     }
 }
