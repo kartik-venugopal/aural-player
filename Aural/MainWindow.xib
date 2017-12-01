@@ -150,13 +150,13 @@
                                         <rect key="frame" x="1" y="1" width="450" height="178"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
-                                    <color key="borderColor" white="0.13582356770000001" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="borderColor" white="0.10313585068611111" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </box>
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.74750963179999996" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.90079195205479456" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.90103274828767121" colorSpace="calibratedWhite"/>
                     </box>
                 </subviews>
                 <constraints>
@@ -171,12 +171,8 @@
                     <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <connections>
-                <outlet property="delegate" destination="PuN-Wx-mLJ" id="TYc-UO-Adz"/>
-            </connections>
             <point key="canvasLocation" x="156" y="34"/>
         </window>
-        <customObject id="PuN-Wx-mLJ" customClass="MainWindowDelegate" customModule="Aural" customModuleProvider="target"/>
     </objects>
     <resources>
         <image name="Close" width="80" height="80"/>

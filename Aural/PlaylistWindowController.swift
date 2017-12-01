@@ -43,6 +43,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
 
     override func windowDidLoad() {
         
+        WindowState.playlistWindow = theWindow
         theWindow.isMovableByWindowBackground = true
         
         setUpTabGroup()

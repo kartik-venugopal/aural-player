@@ -72,13 +72,40 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
     
     // Shows/hides the playlist window
     @IBAction func togglePlaylistAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(ViewActionMessage(.togglePlaylist))
+    }
+    
+    private func togglePlaylist() {
         btnTogglePlaylist.toggle()
     }
     
     // Shows/hides the effects panel on the main window
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
+        
         btnToggleEffects.toggle()
         effectsBox.isHidden = !effectsBox.isHidden
+        
+        WindowState.showingEffects = !WindowState.showingEffects
+        
+        // Resize window
+        
+        var wFrame = theWindow.frame
+        let oldOrigin = wFrame.origin
+        let oldHeight = wFrame.height
+        
+        let newHeight: CGFloat = WindowState.showingEffects ? UIConstants.windowHeight_effectsOnly : UIConstants.windowHeight_compact
+        
+        // If no change in height is necessary, do nothing
+        if (oldHeight == newHeight) {
+            return
+        }
+        
+        let shrinking: Bool = newHeight < oldHeight
+        
+        wFrame.size = NSMakeSize(theWindow.width, newHeight)
+        wFrame.origin = NSMakePoint(oldOrigin.x, shrinking ? oldOrigin.y + (oldHeight - newHeight) : oldOrigin.y - (newHeight - oldHeight))
+        
+        theWindow.setFrame(wFrame, display: true)
     }
     
     @IBAction func statusBarModeAction(_ sender: AnyObject) {
@@ -86,7 +113,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
     
     @IBAction func floatingBarModeAction(_ sender: AnyObject) {
     }
-    
     
     // Closes the window, and quits the app
     @IBAction func quitAction(_ sender: AnyObject) {
@@ -106,7 +132,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
             
         case .toggleEffects: toggleEffectsAction(self)
             
-        case .togglePlaylist: togglePlaylistAction(self)
+        case .togglePlaylist: togglePlaylist()
             
         default: return
             
