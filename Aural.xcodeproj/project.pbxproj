@@ -155,6 +155,7 @@
 		3EA19C231FC174A30072929E /* ControlsPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EA19C221FC174A30072929E /* ControlsPreferences.xib */; };
 		3EA29AD51F0B470600DA239E /* AsyncMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA29AD41F0B470600DA239E /* AsyncMessenger.swift */; };
 		3EA5C7A31F458EB400556669 /* UserGuide.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 3EA5C7A21F458EB400556669 /* UserGuide.pdf */; };
+		3EAF29D11FD14AFC00EBB35A /* StatusBarAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAF29D01FD14AFC00EBB35A /* StatusBarAppModeController.swift */; };
 		3EAFE3C51FB40D0000B4A327 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EAFE3C41FB40D0000B4A327 /* Preferences.xib */; };
 		3EAFE3C71FB40DD400B4A327 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFE3C61FB40DD400B4A327 /* PreferencesWindowController.swift */; };
 		3EB029121FB55EEF00A2D920 /* DockMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB029111FB55EEF00A2D920 /* DockMenuController.swift */; };
@@ -375,6 +376,7 @@
 		3EA19C221FC174A30072929E /* ControlsPreferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlsPreferences.xib; sourceTree = "<group>"; };
 		3EA29AD41F0B470600DA239E /* AsyncMessenger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncMessenger.swift; sourceTree = "<group>"; };
 		3EA5C7A21F458EB400556669 /* UserGuide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = UserGuide.pdf; sourceTree = "<group>"; };
+		3EAF29D01FD14AFC00EBB35A /* StatusBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarAppModeController.swift; sourceTree = "<group>"; };
 		3EAFE3C41FB40D0000B4A327 /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
 		3EAFE3C61FB40DD400B4A327 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 		3EB029111FB55EEF00A2D920 /* DockMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DockMenuController.swift; sourceTree = "<group>"; };
@@ -753,7 +755,6 @@
 				3E3F82831FCD4C9100DC9D11 /* BarMode */,
 				3E06C0251FB6AF2B003EE9AB /* CustomControls */,
 				3E850D511FB441800017CD02 /* WindowFactory.swift */,
-				3EB9EB6B1FCFB98A00287F53 /* AppModeManager.swift */,
 				3E0F94781FBB9A2100B6E1B3 /* ViewFactory.swift */,
 				3E46F5651F2ABA57007CD384 /* PopoverContentView.swift */,
 				3E3C20A51F0A687400AF5A62 /* DialogsAndAlerts.swift */,
@@ -1065,7 +1066,9 @@
 		3EE429AA1FCFCEB600E81C15 /* Modes */ = {
 			isa = PBXGroup;
 			children = (
+				3EB9EB6B1FCFB98A00287F53 /* AppModeManager.swift */,
 				3EE429AD1FCFD10D00E81C15 /* RegularAppModeController.swift */,
+				3EAF29D01FD14AFC00EBB35A /* StatusBarAppModeController.swift */,
 			);
 			name = Modes;
 			sourceTree = "<group>";
@@ -1403,6 +1406,7 @@
 				3E7C70001F5F45F00035AEF2 /* PlayerViewController.swift in Sources */,
 				3E3C20A61F0A687400AF5A62 /* DialogsAndAlerts.swift in Sources */,
 				3E40A9851F0617BC00A66856 /* RepeatingTaskExecutor.swift in Sources */,
+				3EAF29D11FD14AFC00EBB35A /* StatusBarAppModeController.swift in Sources */,
 				3E23D6591F32887E00DBF426 /* RecordingInfo.swift in Sources */,
 				3E46F55C1F2A7A36007CD384 /* CheckRadioButtonCell.swift in Sources */,
 				3E582E7B1F6A5B440040A092 /* MetadataReader.swift in Sources */,

@@ -27,6 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
 //        configureLogging()
         ObjectGraph.initialize()
+        AppModeManager.initialize()
     }
     
     // Make sure all logging is done to the app's log file
@@ -74,9 +75,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-        AppModeManager.load()
-//        WindowFactory.showMainWindow()
-//        WindowFactory.showBarModeWindow()
+        AppModeManager.presentMode(.regular)
         
         // Update the appLaunched flag
         appLaunched = true

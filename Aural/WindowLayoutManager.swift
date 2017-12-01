@@ -5,6 +5,7 @@ import Cocoa
  */
 class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
     
+    private lazy var mainWindowController: MainWindowController = WindowFactory.getMainWindowController()
     private lazy var mainWindow: NSWindow = WindowFactory.getMainWindow()
     private lazy var playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
     
@@ -47,10 +48,10 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
     // One-time seutp. Lays out both windows per user preferences and saved app state.
     func initialWindowLayout() {
         
-        let appState = ObjectGraph.getUIAppState()
-        
+        mainWindowController.reset()
         mainWindow.setIsVisible(true)
         
+        let appState = ObjectGraph.getUIAppState()
         // If a specific position is specified, use it
         if let mainWindowOrigin = appState.windowLocationXY {
             mainWindow.setFrameOrigin(mainWindowOrigin)

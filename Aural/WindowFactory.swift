@@ -23,6 +23,10 @@ class WindowFactory {
         return mainWindowController.window!
     }
     
+    static func getMainWindowController() -> MainWindowController {
+        return mainWindowController
+    }
+    
     // Returns the playlist window
     static func getPlaylistWindow() -> NSWindow {
         return playlistWindowController.window!
