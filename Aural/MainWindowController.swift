@@ -46,9 +46,21 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
         SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist], subscriber: self)
     }
     
-    func reset() {
+    override func showWindow(_ sender: Any?) {
+        
         addSubViews()
         activateGestureHandler()
+        
+        let appState = ObjectGraph.getUIAppState()
+        
+        if (appState.hideEffects) {
+            hideEffects()
+        }
+        
+        btnToggleEffects.onIf(!appState.hideEffects)
+        btnTogglePlaylist.onIf(!appState.hidePlaylist)
+        
+        super.showWindow(sender)
     }
     
     // Set window properties
@@ -57,11 +69,6 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
         WindowState.window = theWindow
         theWindow.isMovableByWindowBackground = true
         theWindow.makeKeyAndOrderFront(self)
-        
-        // Init toggle buttons
-        let appState = ObjectGraph.getUIAppState()
-        btnToggleEffects.onIf(!appState.hideEffects)
-        btnTogglePlaylist.onIf(!appState.hidePlaylist)
     }
     
     // Add the sub-views that make up the main window
@@ -106,10 +113,18 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
         
         let newHeight: CGFloat = WindowState.showingEffects ? UIConstants.windowHeight_effectsOnly : UIConstants.windowHeight_compact
 
+        let oldHeight = wFrame.height
         wFrame.size = NSMakeSize(theWindow.width, newHeight)
-        wFrame.origin = wFrame.origin.applying(CGAffineTransform.init(translationX: 0, y: wFrame.height - newHeight))
+        wFrame.origin = wFrame.origin.applying(CGAffineTransform.init(translationX: 0, y: oldHeight - newHeight))
         
         theWindow.setFrame(wFrame, display: true)
+    }
+    
+    private func hideEffects() {
+        
+        if (!effectsBox.isHidden) {
+            toggleEffectsAction(self)
+        }
     }
     
     @IBAction func statusBarModeAction(_ sender: AnyObject) {
@@ -123,6 +138,13 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
     }
     
     @IBAction func floatingBarModeAction(_ sender: AnyObject) {
+        
+        if eventMonitor != nil {
+            NSEvent.removeMonitor(eventMonitor!)
+            eventMonitor = nil
+        }
+        
+        SyncMessenger.publishActionMessage(AppModeActionMessage(.miniBarAppMode))
     }
     
     // Quits the app

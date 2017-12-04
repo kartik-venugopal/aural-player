@@ -85,10 +85,6 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         player.seekToPercentage(seekSlider.doubleValue)
     }
     
-    @IBAction func volumeBtnAction(_ sender: Any) {
-        // TODO
-    }
-    
     private func showNowPlayingInfo(_ track: Track) {
         
         lblTrackName.stringValue = track.conciseDisplayName
@@ -485,6 +481,16 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         
         btnShuffle.switchState(shuffleMode)
         btnRepeat.switchState(repeatMode)
+    }
+    
+    // Quits the app
+    @IBAction func quitAction(_ sender: AnyObject) {
+        NSApp.terminate(self)
+    }
+    
+    @IBAction func regularModeAction(_ sender: AnyObject) {
+        
+        SyncMessenger.publishActionMessage(AppModeActionMessage(.regularAppMode))
     }
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
