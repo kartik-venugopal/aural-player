@@ -59,7 +59,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.moreInfo], subscriber: self)
     }
@@ -79,6 +79,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Moving the seek slider results in seeking the track to the new slider position
     @IBAction func seekSliderAction(_ sender: AnyObject) {
         player.seekToPercentage(seekSlider.doubleValue)
+        updateSeekPosition()
     }
     
     // Shows a popover with detailed information for the currently playing track, if there is one
@@ -364,6 +365,26 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         artView.animates = shouldAnimate()
     }
     
+    private func playbackLoopChanged() {
+        
+        let loop = player.getPlaybackLoop()
+        
+        if (loop != nil) {
+            
+            let duration = (player.getPlayingTrack()?.track.duration)!
+        
+            let startPerc = loop!.startTime * 100 / duration
+            let endPerc = loop!.endTime != nil ? loop!.endTime! * 100 / duration : nil
+            (seekSlider.cell as! SeekSliderCell).loop = PlaybackLoopRange(start: Float(startPerc), end: endPerc == nil ? nil : Float(endPerc!))
+            
+        } else {
+            (seekSlider.cell as! SeekSliderCell).loop = nil
+        }
+        
+        // Force a redraw of the seek slider
+        seekSlider.doubleValue = player.getSeekPosition().percentageElapsed
+    }
+    
     // When track info for the playing track changes, display fields need to be updated
     private func playingTrackInfoUpdated(_ notification: PlayingTrackInfoUpdatedNotification) {
         showNowPlayingInfo(player.getPlayingTrack()!.track)
@@ -406,6 +427,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         case .playbackStateChangedNotification:
             
             playbackStateChanged(notification as! PlaybackStateChangedNotification)
+            
+        case .playbackLoopChangedNotification:
+            
+            playbackLoopChanged()
             
         case .seekPositionChangedNotification:
             

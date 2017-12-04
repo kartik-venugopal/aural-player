@@ -236,11 +236,31 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         // Calculate the new start position
         let curPosn = player.getSeekPosition()
         
-        let playingTrack = getPlayingTrack()
-        let trackDuration = playingTrack!.track.duration
-
-        // The seek length depends on the action mode
         let increment = actionMode == .discrete ? Double(preferences.seekLength) : preferences.seekLength_continuous
+        
+        let playingTrack = getPlayingTrack()
+        
+        if let loop = getPlaybackLoop() {
+            
+            if let loopEnd = loop.endTime {
+            
+                // The seek length depends on the action mode
+                
+                let newPosn = min(loopEnd, curPosn + increment)
+                
+                if (newPosn < loopEnd) {
+                    player.seekToTime(playingTrack!.track, newPosn)
+                } else {
+                    // Restart loop
+                    player.seekToTime(playingTrack!.track, loop.startTime)
+                }
+                
+                return
+            }
+        }
+        
+        let trackDuration = playingTrack!.track.duration
+        
         let newPosn = min(trackDuration, curPosn + increment)
         
         // If this seek takes the track to its end, stop playback and proceed to the next track
@@ -251,24 +271,30 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         }
     }
     
-    private func doSeek(_ track: Track, _ position: Double) {
-        
-    }
-    
     func seekBackward(_ actionMode: ActionMode = .discrete) {
         
         if (player.getPlaybackState() != .playing) {
             return
         }
         
+        let playingTrack = getPlayingTrack()
         // Calculate the new start position
         let curPosn = player.getSeekPosition()
         
         // The seek length depends on the action mode
         let decrement = actionMode == .discrete ? Double(preferences.seekLength) : preferences.seekLength_continuous
-        let newPosn = max(0, curPosn - decrement)
         
-        let playingTrack = getPlayingTrack()
+        if let loop = getPlaybackLoop() {
+            
+            let loopStart = loop.startTime
+            
+            let newPosn = max(loopStart, curPosn - decrement)
+            player.seekToTime(playingTrack!.track, newPosn)
+            
+            return
+        }
+        
+        let newPosn = max(0, curPosn - decrement)
         player.seekToTime(playingTrack!.track, newPosn)
     }
     
@@ -283,6 +309,23 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         let trackDuration = playingTrack!.track.duration
         
         let newPosn = percentage * trackDuration / 100
+        
+        // If there's a loop, check where the seek occurred relative to the loop
+        if let loop = getPlaybackLoop() {
+            
+            if let loopEnd = loop.endTime {
+                
+                // If outside loop, remove loop
+                if newPosn < loop.startTime || newPosn > loopEnd {
+                    removeLoop()
+                    SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
+                }
+                
+            } else if newPosn < loop.startTime {
+                removeLoop()
+                SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
+            }
+        }
         
         // If this seek takes the track to its end, stop playback and proceed to the next track
         if (newPosn < trackDuration) {
@@ -376,8 +419,20 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return track
     }
     
+    func toggleLoop() -> PlaybackLoop? {
+        return player.toggleLoop()
+    }
+    
+    func removeLoop() {
+        player.removeLoop()
+    }
+    
     func getPlayingTrackStartTime() -> TimeInterval? {
         return player.getPlayingTrackStartTime()
+    }
+    
+    func getPlaybackLoop() -> PlaybackLoop? {
+        return player.getPlaybackLoop()
     }
     
     // ------------------- PlaylistChangeListenerProtocol methods ---------------------
