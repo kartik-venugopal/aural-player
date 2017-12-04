@@ -50,17 +50,23 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="quitAction:" target="-2" id="obJ-BZ-lxx"/>
+                        </connections>
                     </button>
-                    <button toolTip="Hide window" translatesAutoresizingMaskIntoConstraints="NO" id="Koo-12-h7i" userLabel="Status Bar Mode">
+                    <button toolTip="Hide window" translatesAutoresizingMaskIntoConstraints="NO" id="Koo-12-h7i" userLabel="Regular Mode">
                         <rect key="frame" x="4" y="6" width="9" height="9"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="9" id="ky1-Pe-Y8j"/>
                             <constraint firstAttribute="height" constant="9" id="rBo-lS-Try"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="StatusBarMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="JTN-Pf-REV">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RegularMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="JTN-Pf-REV">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="regularModeAction:" target="-2" id="6Kr-Ct-oMF"/>
+                        </connections>
                     </button>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EA7-Pw-SZQ" userLabel="Art view">
                         <rect key="frame" x="20" y="5" width="25" height="25"/>
@@ -286,11 +292,11 @@
         <image name="NextTrack" width="162" height="88"/>
         <image name="Play" width="127" height="146"/>
         <image name="PreviousTrack" width="162" height="88"/>
+        <image name="RegularMode" width="512" height="512"/>
         <image name="RepeatOff" width="256" height="256"/>
         <image name="SeekBackward" width="155" height="88"/>
         <image name="SeekForward" width="155" height="88"/>
         <image name="ShuffleOff" width="256" height="256"/>
-        <image name="StatusBarMode" width="512" height="512"/>
         <image name="VolumeMedium" width="256" height="256"/>
     </resources>
 </document>

@@ -10,6 +10,8 @@ class AppModeManager: ActionMessageSubscriber {
     
     private static var statusBarMode: StatusBarAppModeController = StatusBarAppModeController()
     
+    private static var miniBarMode: MiniBarAppModeController = MiniBarAppModeController()
+    
     static func initialize() {
         
         SyncMessenger.subscribe(actionTypes: [.regularAppMode, .statusBarAppMode, .miniBarAppMode], subscriber: subscriber)
@@ -36,7 +38,7 @@ class AppModeManager: ActionMessageSubscriber {
             
         case .regular:  regularMode.dismissMode()
             
-        case .miniBar: print("")
+        case .miniBar: miniBarMode.dismissMode()
             
         case .statusBar: statusBarMode.dismissMode()
             
@@ -50,7 +52,7 @@ class AppModeManager: ActionMessageSubscriber {
     }
     
     private static func presentMiniBarMode() {
-        
+        miniBarMode.presentMode()
     }
     
     private static func presentStatusBarMode() {
