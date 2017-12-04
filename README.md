@@ -50,7 +50,7 @@ Wanna try it out ? The latest app bundle can be found in the disk image file [Au
 
 ## Planned updates
 
-**A->B Playback looping** - The user will now be able to repeat a segment of a file by defining arbitrary loop points.
+**A->B Playback looping** - The user will now be able to repeat a track segment by defining two arbitrary loop points with an easy keyboard shortcut.
 
 **New app views** - There will be a status bar view that will be accessible through the macOS status bar and an ultra-compact floating "mini bar" view that provides essential controls and always remains on top for easy access when running the app in the "background".
 
