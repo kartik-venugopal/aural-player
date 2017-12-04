@@ -37,4 +37,6 @@ protocol PlaybackInfoDelegateProtocol {
         The TimeInterval is relative to the last system start time, i.e. it is the systemUpTime. See ProcessInfo.processInfo.systemUpTime
     */
     func getPlayingTrackStartTime() -> TimeInterval?
+    
+    func getPlaybackLoop() -> PlaybackLoop?
 }

@@ -30,7 +30,7 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
     }
     
     // The last definite dock location of the playlist window
-    private var lastDockState: PlaylistDockState!
+    private var lastDockState: PlaylistDockState = .bottom
     
     private lazy var visibleFrame: NSRect = {
         return NSScreen.main()!.visibleFrame
@@ -48,10 +48,14 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
     // One-time seutp. Lays out both windows per user preferences and saved app state.
     func initialWindowLayout() {
         
-        mainWindowController.reset()
-        mainWindow.setIsVisible(true)
+        mainWindowController.showWindow(self)
         
         let appState = ObjectGraph.getUIAppState()
+        
+//        if (appState.hideEffects) {
+//            toggleEffects()
+//        }
+        
         // If a specific position is specified, use it
         if let mainWindowOrigin = appState.windowLocationXY {
             mainWindow.setFrameOrigin(mainWindowOrigin)
@@ -349,7 +353,7 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
     // Docks the playlist window per its current dock state
     private func reDockPlaylist() {
         
-        switch lastDockState! {
+        switch lastDockState {
             
         case .bottom, .none:    dockBottom()
             

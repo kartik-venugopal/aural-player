@@ -54,6 +54,8 @@ enum MessageType {
     
     case playbackRateChangedNotification
     
+    case playbackLoopChangedNotification
+    
     case seekPositionChangedNotification
     
     case searchTextChangedNotification
@@ -382,4 +384,14 @@ struct EffectsUnitStateChangedNotification: NotificationMessage {
         self.effectsUnit = effectsUnit
         self.active = active
     }
+}
+
+struct PlaybackLoopChangedNotification: NotificationMessage {
+    
+    let messageType: MessageType = .playbackLoopChangedNotification
+    
+    private init() {}
+    
+    // Singleton
+    static let instance: PlaybackLoopChangedNotification = PlaybackLoopChangedNotification()
 }

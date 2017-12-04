@@ -42,7 +42,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
     private func initVolumeAndPan(_ appState: UIAppState) {
@@ -192,6 +192,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         if let _ = player.getPlayingTrack() {
             player.seekToPercentage(0)
             SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
+        }
+    }
+    
+    private func toggleLoop() {
+        
+        if let _ = player.getPlayingTrack() {
+            _ = player.toggleLoop()
+            SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
         }
     }
     
@@ -454,6 +462,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         case .playOrPause: playPauseAction(self)
             
         case .replayTrack: replayTrack()
+            
+        case .toggleLoop: toggleLoop()
             
         case .previousTrack: previousTrackAction(self)
             

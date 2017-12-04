@@ -15,9 +15,6 @@ class Player: PlayerProtocol {
     // Helper used for buffer allocation and playback
     private let bufferManager: BufferManager
     
-    // The start frame for the current playback session (used to calculate seek position). Represents the point in the track at which playback began.
-    private var startFrame: AVAudioFramePosition?
-    
     private var playbackState: PlaybackState = .noTrack
     
     init(_ graph: PlayerGraphProtocol) {
@@ -39,10 +36,9 @@ class Player: PlayerProtocol {
     func play(_ track: Track) {
         
         let session = PlaybackSession.start(track)
-        startFrame = BufferManager.FRAME_ZERO
         
         initPlayer(track)
-        bufferManager.play(session)
+        bufferManager.playTrack(session)
         
         playbackState = .playing
     }
@@ -69,37 +65,23 @@ class Player: PlayerProtocol {
         playerNode.reset()
         graph.clearSoundTails()
         
-        startFrame = nil
         playbackState = .noTrack
     }
     
     func seekToTime(_ track: Track, _ seconds: Double) {
         
         let timestamp = PlaybackSession.currentSession!.timestamp
+        let loop = PlaybackSession.currentSession!.loop
         
         let session = PlaybackSession.start(track, timestamp)
-        startFrame = bufferManager.seekToTime(session, seconds)
+        session.loop = loop
+        
+        bufferManager.seekToTime(session, seconds)
     }
     
     func getSeekPosition() -> Double {
         
-        let nodeTime: AVAudioTime? = playerNode.lastRenderTime
-        
-        if (nodeTime != nil) {
-            
-            let playerTime: AVAudioTime? = playerNode.playerTime(forNodeTime: nodeTime!)
-            
-            if (playerTime != nil) {
-                
-                let lastFrame = (playerTime?.sampleTime)!
-                let seconds: Double = Double(startFrame! + lastFrame) / (playerTime?.sampleRate)!
-                
-                return seconds
-            }
-        }
-        
-        // This should never happen (player is not playing)
-        return 0
+        return playbackState == .noTrack ? 0 : bufferManager.getSeekPosition()
     }
     
     func getPlaybackState() -> PlaybackState {
@@ -108,6 +90,52 @@ class Player: PlayerProtocol {
     
     func getPlayingTrackStartTime() -> TimeInterval? {
         return PlaybackSession.currentSession?.timestamp
+    }
+    
+    func toggleLoop() -> PlaybackLoop? {
+        
+        let currentTrackTimeElapsed = getSeekPosition()
+        
+        let curSession = PlaybackSession.currentSession!
+        
+        if let curLoop = curSession.loop {
+            
+            if curLoop.endTime != nil {
+                
+                // Remove loop
+                PlaybackSession.removeLoop()
+                
+            } else {
+                
+                // Mark end
+                PlaybackSession.endLoop(currentTrackTimeElapsed)
+                
+                // Seek to loop start
+                let track = PlaybackSession.currentSession!.track
+                let timestamp = PlaybackSession.currentSession!.timestamp
+                let loop = PlaybackSession.currentSession!.loop
+                
+                let session = PlaybackSession.start(track, timestamp)
+                session.loop = loop
+                
+                bufferManager.playLoop(session)
+            }
+            
+        } else {
+            
+            // Mark start
+            PlaybackSession.beginLoop(currentTrackTimeElapsed)
+        }
+        
+        return PlaybackSession.getCurrentLoop()
+    }
+    
+    func removeLoop() {
+        PlaybackSession.removeLoop()
+    }
+    
+    func getPlaybackLoop() -> PlaybackLoop? {
+        return PlaybackSession.getCurrentLoop()
     }
 }
 

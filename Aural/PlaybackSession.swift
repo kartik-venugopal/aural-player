@@ -40,6 +40,9 @@ class PlaybackSession {
     // The track associated with this session
     let track: Track
     
+    // A->B playback loop, if there is one
+    var loop: PlaybackLoop?
+    
     // Time interval since last boot (i.e. system uptime), at start of track playback (i.e. 0 seconds elapsed). Used to determine when track began playing.
     let timestamp: TimeInterval
     
@@ -56,6 +59,10 @@ class PlaybackSession {
         
         self.timestamp = timestamp
         self.track = track
+    }
+    
+    func hasCompleteLoop() -> Bool {
+        return loop != nil && loop!.endTime != nil
     }
     
     // Start a new session, implicitly invalidating the old one (if there was one), and returns it. This function should be called when beginning playback of a track.
@@ -83,5 +90,44 @@ class PlaybackSession {
     // Returns the current session. Returns nil is there is no current session.
     static func getCurrentSession() -> PlaybackSession? {
         return currentSession
+    }
+    
+    static func beginLoop(_ loopStartTime: Double) {
+        
+        if let currentSession = currentSession {
+            currentSession.loop = PlaybackLoop(loopStartTime)
+        }
+    }
+    
+    static func endLoop(_ loopEndTime: Double) {
+        
+        if let currentSession = currentSession {
+            currentSession.loop?.endTime = loopEndTime
+        }
+    }
+    
+    static func removeLoop() {
+        
+        if let currentSession = currentSession {
+            currentSession.loop = nil
+        }
+    }
+    
+    static func getCurrentLoop() -> PlaybackLoop? {
+        return currentSession?.loop
+    }
+}
+
+// A->B playback loop
+struct PlaybackLoop {
+    
+    // Starting point for the playback loop, expressed in seconds relative to the start of a track
+    let startTime: Double
+    
+    // End point for the playback loop, expressed in seconds relative to the start of a track
+    var endTime: Double?
+    
+    init(_ startTime: Double) {
+        self.startTime = startTime
     }
 }

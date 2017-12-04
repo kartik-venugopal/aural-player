@@ -253,6 +253,12 @@ CQ
                                     <action selector="replayTrackAction:" target="IvK-xG-TCa" id="Cze-vX-d1I"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title=" Toggle A-&gt;B loop" image="Replay" keyEquivalent="l" id="TzA-UC-Ox0" userLabel="Toggle A-&gt;B loop">
+                                <connections>
+                                    <action selector="toggleLoopAction:" target="IvK-xG-TCa" id="Rre-UU-RNW"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="O1F-Wz-nQ9"/>
                             <menuItem title=" Previous track" image="PreviousTrack-Small" keyEquivalent="" id="yq3-HU-6rh">
                                 <connections>
                                     <action selector="previousTrackAction:" target="IvK-xG-TCa" id="D8O-D4-jyH"/>
@@ -275,7 +281,7 @@ CQ
                                     <action selector="seekForwardAction:" target="IvK-xG-TCa" id="pWy-SE-bo4"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="O1F-Wz-nQ9"/>
+                            <menuItem isSeparatorItem="YES" id="qNh-j6-Ufh"/>
                             <menuItem title=" Repeat Mode" image="RepeatMode-Small" id="EsD-fI-URV" userLabel="Repeat Mode">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title=" Repeat Mode" id="5hN-Xu-czo">

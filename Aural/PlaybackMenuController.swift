@@ -73,6 +73,11 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.replayTrack))
     }
     
+    // Toggles A->B playback loop
+    @IBAction func toggleLoopAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaybackActionMessage(.toggleLoop))
+    }
+    
     // Plays the previous track in the current playback sequence
     @IBAction func previousTrackAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.previousTrack))
