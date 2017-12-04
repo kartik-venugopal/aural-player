@@ -50,7 +50,9 @@ Wanna try it out ? The latest app bundle can be found in the disk image file [Au
 
 ## Planned updates
 
-**Swift 4 migration** - A new Swift4 branch will be created, with all Swift code written in Swift v4. This will become the master branch in the future.
+**A->B Playback looping** - The user will now be able to repeat a segment of a file by defining arbitrary loop points.
+
+**New app views** - There will be a status bar view that will be accessible through the macOS status bar and an ultra-compact floating "mini bar" view that provides essential controls and always remains on top for easy access when running the app in the "background".
 
 ## Recent updates
 
