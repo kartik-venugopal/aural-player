@@ -66,10 +66,10 @@ class VolumeSliderCell: HorizontalSliderCell {
 
 struct PlaybackLoopRange {
     
-    // Both in percentages (0 - 100)
+    // Both are X co-ordinates
     
-    var start: Float
-    var end: Float?
+    var start: CGFloat
+    var end: CGFloat?
 }
 
 // Cell for seek position slider
@@ -88,7 +88,24 @@ class SeekSliderCell: HorizontalSliderCell {
     
     var loop: PlaybackLoopRange?
     
-    private let pli = ObjectGraph.getPlaybackInfoDelegate()
+    // Returns the center of the current knob frame
+    func knobCenter() -> CGFloat {
+        return knobRect(flipped: false).centerX
+    }
+    
+    // start: center of knob at loop start point
+    func markLoopStart(_ start: CGFloat) {
+        self.loop = PlaybackLoopRange(start: start, end: nil)
+    }
+    
+    // end: center of knob at loop end point
+    func markLoopEnd(_ end: CGFloat) {
+        self.loop?.end = end
+    }
+    
+    func removeLoop() {
+        self.loop = nil
+    }
     
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
@@ -106,35 +123,29 @@ class SeekSliderCell: HorizontalSliderCell {
         barPlainGradient.draw(in: drawPath, angle: gradientDegrees)
         
         if let loop = self.loop {
+
+            let startX = loop.start
+            let endX = loop.end ?? max(startX + 1, knobFrame.minX + halfKnobWidth)
             
-            let posn = pli.getSeekPosition()
-//            print("\nPosn:", posn.timeElapsed, posn.trackDuration, posn.percentageElapsed)
-//            print("ARect:", aRect)
-//            print("Knob", knobFrame, halfKnobWidth)
-            
-            let start: CGFloat = CGFloat(loop.start)
-            let end: CGFloat? = loop.end != nil ? CGFloat(loop.end!) : nil
-            
-//            print("St:", start, "End:", end)
-            
-            let sx = aRect.minX + (start * (aRect.maxX - aRect.minX) / 100)
-            let ex = end != nil ? aRect.minX + (end! * (aRect.maxX - aRect.minX) / 100) : max(sx + 1, knobFrame.minX + halfKnobWidth)
-            
-//            print("StX:", sx, "EX:", ex)
-            
-            let loopRect = NSRect(x: sx, y: aRect.minY, width: (ex - sx), height: aRect.height)
-            
+            // Loop bar
+            let loopRect = NSRect(x: startX, y: aRect.minY, width: (endX - startX + 1), height: aRect.height)
             var drawPath = NSBezierPath.init(roundedRect: loopRect, xRadius: barRadius, yRadius: barRadius)
             Colors.playbackLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
             
-            let loopStartMarker = NSRect(x: sx - 1, y: aRect.minY - 3.5, width: 2, height: 5)
-            drawPath = NSBezierPath.init(roundedRect: loopStartMarker, xRadius: 1, yRadius: 1)
+            let markerMinY = barRect(flipped: false).minY - 2
+            let markerHeight: CGFloat = aRect.height + 3
+            let markerRadius: CGFloat = 0
+            
+            // Loop start marker
+            let loopStartMarker = NSRect(x: startX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight)
+            drawPath = NSBezierPath.init(roundedRect: loopStartMarker, xRadius: markerRadius, yRadius: markerRadius)
             Colors.playbackLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
             
-            if (end != nil) {
+            // Loop end marker
+            if (loop.end != nil) {
             
-                let loopEndMarker = NSRect(x: ex - 2.5, y: aRect.minY - 3.5, width: 2, height: 5)
-                drawPath = NSBezierPath.init(roundedRect: loopEndMarker, xRadius: 1, yRadius: 1)
+                let loopEndMarker = NSRect(x: endX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight)
+                drawPath = NSBezierPath.init(roundedRect: loopEndMarker, xRadius: markerRadius, yRadius: markerRadius)
                 Colors.playbackLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
             }
         }
@@ -172,4 +183,11 @@ class EffectsSliderCell: HorizontalSliderCell {
     override var knobWidth: CGFloat {return 8}
     override var knobRadius: CGFloat {return 1}
     override var knobHeightOutsideBar: CGFloat {return 1}
+}
+
+extension NSRect {
+    
+    var centerX: CGFloat {
+        return self.minX + (self.width / 2)
+    }
 }

@@ -23,6 +23,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
     @IBOutlet weak var seekSlider: NSSlider!
+    private var seekSliderCell: SeekSliderCell!
+    @IBOutlet weak var seekSliderClone: NSSlider!
     
     // Button to display more details about the playing track
     @IBOutlet weak var btnMoreInfo: NSButton!
@@ -68,6 +70,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         // Timer interval depends on whether time stretch unit is active
         seekTimer = RepeatingTaskExecutor(intervalMillis: appState.seekTimerInterval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
+        seekSliderCell = seekSlider.cell as! SeekSliderCell
         
         // Set up the art view and the default animation
         artView.canDrawSubviewsIntoLayer = true
@@ -304,6 +307,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     private func trackChanged(_ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
+        seekSliderCell.removeLoop()
+        
         if (newTrack != nil) {
             
             showNowPlayingInfo(newTrack!.track)
@@ -365,6 +370,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         artView.animates = shouldAnimate()
     }
     
+    // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
     private func playbackLoopChanged() {
         
         let loop = player.getPlaybackLoop()
@@ -372,13 +378,21 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         if (loop != nil) {
             
             let duration = (player.getPlayingTrack()?.track.duration)!
-        
-            let startPerc = loop!.startTime * 100 / duration
-            let endPerc = loop!.endTime != nil ? loop!.endTime! * 100 / duration : nil
-            (seekSlider.cell as! SeekSliderCell).loop = PlaybackLoopRange(start: Float(startPerc), end: endPerc == nil ? nil : Float(endPerc!))
+            let cloneSliderCell = seekSliderClone.cell as! SeekSliderCell
+            
+            if (loop!.isComplete()) {
+                
+                seekSliderClone.doubleValue = loop!.endTime! * 100 / duration
+                seekSliderCell.markLoopEnd(cloneSliderCell.knobCenter())
+                
+            } else {
+                
+                seekSliderClone.doubleValue = loop!.startTime * 100 / duration
+                seekSliderCell.markLoopStart(cloneSliderCell.knobCenter())
+            }
             
         } else {
-            (seekSlider.cell as! SeekSliderCell).loop = nil
+            seekSliderCell.removeLoop()
         }
         
         // Force a redraw of the seek slider

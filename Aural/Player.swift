@@ -5,7 +5,7 @@
 import Cocoa
 import AVFoundation
 
-// TODO: Move PlaybackSession code to BufferManager
+// TODO: Move PlaybackSession code to BufferManager ???
 class Player: PlayerProtocol {
     
     // The underlying audio graph used to perform playback
@@ -104,6 +104,7 @@ class Player: PlayerProtocol {
                 
                 // Remove loop
                 PlaybackSession.removeLoop()
+                bufferManager.endLoopScheduling(curSession)
                 
             } else {
                 

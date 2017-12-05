@@ -20,6 +20,7 @@
                 <outlet property="lblTrackName" destination="3Ap-RX-Hj2" id="1Xk-qG-zor"/>
                 <outlet property="lblTrackTitle" destination="2m3-ds-GGr" id="gHi-uH-Jg0"/>
                 <outlet property="seekSlider" destination="9fK-HM-M9o" id="bXu-cl-0WR"/>
+                <outlet property="seekSliderClone" destination="iEN-Sg-plp" id="lB7-sQ-Vgm"/>
                 <outlet property="view" destination="tiV-de-XiJ" id="7kM-aq-xUQ"/>
             </connections>
         </customObject>
@@ -154,6 +155,14 @@
                 </button>
             </subviews>
         </view>
+        <slider hidden="YES" verticalHuggingPriority="750" id="iEN-Sg-plp" userLabel="Seek Slider clone">
+            <rect key="frame" x="0.0" y="0.0" width="352" height="15"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <shadow key="shadow" blurRadius="1">
+                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            </shadow>
+            <sliderCell key="cell" controlSize="small" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="LQ2-3e-Dfz" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
+        </slider>
     </objects>
     <resources>
         <image name="Favorites-Off" width="256" height="256"/>
