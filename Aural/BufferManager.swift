@@ -26,7 +26,7 @@ class BufferManager {
     // The start frame for the current playback session (used to calculate seek position). Represents the point in the track at which playback began.
     private var startFrame: AVAudioFramePosition?
     
-    // Cached seekPosn (used when looping, to remember last seek posn and avoid displaying 0 when player is temporarily stopped)
+    // Cached seek position (used when looping, to remember last seek position and avoid displaying 0 when player is temporarily stopped at the end of a loop)
     private var lastSeekPosn: Double = 0
     
     init(_ playerNode: AVAudioPlayerNode) {
@@ -114,6 +114,8 @@ class BufferManager {
         }
     }
     
+    // MARK: Playback loop scheduling/playback
+    
     func playLoop(_ playbackSession: PlaybackSession) {
         
         stop()
@@ -123,26 +125,7 @@ class BufferManager {
         startLoopFromFrame(playbackSession, loopStart)
     }
     
-    func getSeekPosition() -> Double {
-        
-        let nodeTime: AVAudioTime? = playerNode.lastRenderTime
-        
-        if (nodeTime != nil) {
-            
-            let playerTime: AVAudioTime? = playerNode.playerTime(forNodeTime: nodeTime!)
-            
-            if (playerTime != nil) {
-                
-                let lastFrame = (playerTime?.sampleTime)!
-                lastSeekPosn = Double(startFrame! + lastFrame) / (playerTime?.sampleRate)!
-            }
-        }
-
-        // Default to last remembered position when nodeTime is nil
-        return lastSeekPosn
-    }
-    
-    // Starts track playback from a given frame position. The playbackSesssion parameter is used to ensure that no buffers are scheduled on the player for an old playback session.
+    // Starts loop playback from a given frame position. The playbackSesssion parameter is used to ensure that no buffers are scheduled on the player for an old playback session.
     private func startLoopFromFrame(_ playbackSession: PlaybackSession, _ frame: AVAudioFramePosition) {
         
         // Can assume that audioFile is non-nil, because track has been prepared for playback
@@ -164,23 +147,24 @@ class BufferManager {
         }
     }
     
+    // When a playback loop is removed, scheduling should resume normally
+    func endLoopScheduling(_ playbackSession: PlaybackSession) {
+        
+        playbackSession.playbackCompleted = false
+        playbackSession.schedulingCompleted = false
+        
+        // Resume normal scheduling (as opposed to loop scheduling)
+        queue.addOperation({self.scheduleNextBuffer(playbackSession, BufferManager.BUFFER_SIZE_INITIAL)})
+        if (!playbackSession.schedulingCompleted) {
+            queue.addOperation({self.scheduleNextBuffer(playbackSession)})
+        }
+    }
+    
     // Upon the completion of playback of a buffer, checks if more buffers are needed for the playback session, and if so, schedules one for playback. The playbackSession argument indicates which playback session this task was initiated for.
     private func loopBufferCompletionHandler(_ playbackSession: PlaybackSession) {
         
-        if (PlaybackSession.isCurrent(playbackSession)) {
-            
-            if (!playbackSession.hasCompleteLoop()) {
-                
-                // Loop removed
-                
-                playbackSession.playbackCompleted = false
-                playbackSession.schedulingCompleted = false
-                
-                // Resume normal scheduling & playback
-                queue.addOperation({self.scheduleNextBuffer(playbackSession)})
-                
-                return
-            }
+        // Need to make sure loop still exists
+        if (PlaybackSession.isCurrent(playbackSession) && playbackSession.hasCompleteLoop()) {
             
             if (playbackSession.playbackCompleted) {
                 
@@ -188,13 +172,12 @@ class BufferManager {
                 playbackSession.schedulingCompleted = false
                 
                 // Replay loop
-                _ = playLoop(playbackSession)
+                playLoop(playbackSession)
                 
             } else if (!playbackSession.schedulingCompleted) {
                 
                 // Continue scheduling more buffers
                 queue.addOperation({self.scheduleNextLoopBuffer(playbackSession)})
-                
             }
         }
     }
@@ -205,22 +188,19 @@ class BufferManager {
         // Can assume that track.playbackInfo is non-nil, because track has been prepared for playback
         let playingFile: AVAudioFile = playbackSession.track.playbackInfo!.audioFile!
         let sampleRate = playbackSession.track.playbackInfo!.sampleRate!
-        let length: AVAudioFramePosition = Int64(playbackSession.loop!.endTime! * sampleRate)
+        let loopEndTime = playbackSession.loop!.endTime!
+        let loopEndFrame: AVAudioFramePosition = Int64(loopEndTime * sampleRate)
         
-        var audioRead: (buffer: AVAudioPCMBuffer, eof: Bool)
-        
-            // TODO: BufferMath (util class)
-            
-        let totalFrames = Int64(playbackSession.loop!.endTime! * sampleRate) - playingFile.framePosition
+        let totalFrames = AVAudioFrameCount(loopEndFrame - playingFile.framePosition)
         let maxFrames = AVAudioFrameCount(Double(bufferSize) * sampleRate)
-        let frames = min(totalFrames, Int64(maxFrames))
+        let framesToRead = min(totalFrames, maxFrames)
         
-        audioRead = AudioIO.readAudio(AVAudioFrameCount(frames), playingFile, length)
+        let audioRead: (buffer: AVAudioPCMBuffer, eof: Bool) = AudioIO.readAudio(AVAudioFrameCount(framesToRead), playingFile, loopEndFrame)
         
         let buffer = audioRead.buffer
         let reachedEOF = audioRead.eof
         
-        if (reachedEOF) {
+        if (reachedEOF && playbackSession.hasCompleteLoop()) {
             playbackSession.schedulingCompleted = true
         }
         
@@ -229,7 +209,8 @@ class BufferManager {
             
             playerNode.scheduleBuffer(buffer, at: nil, options: AVAudioPlayerNodeBufferOptions(), completionHandler: {
                 
-                if (reachedEOF) {
+                // Need to make sure the loop is still active
+                if (reachedEOF && playbackSession.hasCompleteLoop()) {
                     playbackSession.playbackCompleted = true
                 }
                 
@@ -251,7 +232,6 @@ class BufferManager {
         
         if (playbackSession.hasCompleteLoop()) {
             startLoopFromFrame(playbackSession, firstFrame)
-            
         } else {
             startPlaybackFromFrame(playbackSession, firstFrame)
         }
@@ -261,7 +241,6 @@ class BufferManager {
     func stop() {
         
         // Stop playback without clearing the player queue (and triggering the completion handlers)
-        // WARNING - This might be causing problems
         playerNode.pause()
         
         // Let the operation queue finish all tasks ... this may result in a stray buffer (if a task is currently executing) getting put on the player's schedule, but will be cleared by the following stop() call on playerNode
@@ -270,7 +249,19 @@ class BufferManager {
         
         // Flush out all player scheduled buffers and let their completion handlers execute (harmlessly)
         playerNode.stop()
+    }
+    
+    // Retrieves the current seek position, in seconds
+    func getSeekPosition() -> Double {
         
-//        startFrame = nil
+        if let nodeTime = playerNode.lastRenderTime {
+            
+            if let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
+                lastSeekPosn = Double(startFrame! + playerTime.sampleTime) / playerTime.sampleRate
+            }
+        }
+        
+        // Default to last remembered position when nodeTime is nil
+        return lastSeekPosn
     }
 }

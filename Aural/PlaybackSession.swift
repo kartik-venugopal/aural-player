@@ -62,7 +62,7 @@ class PlaybackSession {
     }
     
     func hasCompleteLoop() -> Bool {
-        return loop != nil && loop!.endTime != nil
+        return loop != nil && loop!.isComplete()
     }
     
     // Start a new session, implicitly invalidating the old one (if there was one), and returns it. This function should be called when beginning playback of a track.
@@ -129,5 +129,9 @@ struct PlaybackLoop {
     
     init(_ startTime: Double) {
         self.startTime = startTime
+    }
+    
+    func isComplete() -> Bool {
+        return endTime != nil
     }
 }
