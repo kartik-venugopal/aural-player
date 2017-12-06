@@ -22,6 +22,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     @IBOutlet weak var btnPlayPause: MultiStateImageButton!
     @IBOutlet weak var btnShuffle: MultiStateImageButton!
     @IBOutlet weak var btnRepeat: MultiStateImageButton!
+    @IBOutlet weak var btnLoop: MultiStateImageButton!
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
@@ -40,7 +41,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // Subscribe to message notifications
         AsyncMessenger.subscribe([.trackNotPlayed, .trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.playbackRequest], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
@@ -63,6 +64,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         btnPlayPause.switchState(PlaybackState.noTrack)
         
         btnRepeat.stateImageMappings = [(RepeatMode.off, Images.imgRepeatOff), (RepeatMode.one, Images.imgRepeatOne), (RepeatMode.all, Images.imgRepeatAll)]
+        
+        btnLoop.stateImageMappings = [(LoopState.none, Images.imgLoopOff), (LoopState.started, Images.imgLoopStarted), (LoopState.complete, Images.imgLoopComplete)]
         
         btnShuffle.stateImageMappings = [(ShuffleMode.off, Images.imgShuffleOff), (ShuffleMode.on, Images.imgShuffleOn)]
         
@@ -198,12 +201,29 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     }
     
     // Toggles the state of the segment playback loop for the currently playing track
+    @IBAction func toggleLoopAction(_ sender: AnyObject) {
+        toggleLoop()
+    }
+    
     private func toggleLoop() {
         
-        if let _ = player.getPlayingTrack() {
-            _ = player.toggleLoop()
-            SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
+        if player.getPlaybackState() == .playing {
+        
+            if let _ = player.getPlayingTrack() {
+                
+                _ = player.toggleLoop()
+                SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
+            }
         }
+    }
+    
+    private func playbackLoopChanged() {
+        
+        let loop = player.getPlaybackLoop()
+        
+        // Update loop button image
+        let loopState: LoopState = loop == nil ? .none : (loop!.isComplete() ? .complete: .started)
+        btnLoop.switchState(loopState)
     }
     
     // Plays the previous track in the current playback sequence
@@ -378,6 +398,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         btnPlayPause.switchState(player.getPlaybackState())
         SyncMessenger.publishNotification(TrackChangedNotification(oldTrack, newTrack, errorState))
+        btnLoop.switchState(LoopState.none)
     }
     
     private func trackChanged(_ message: TrackChangedAsyncMessage) {
@@ -437,7 +458,16 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     }
     
     func consumeNotification(_ notification: NotificationMessage) {
-        // This class does not consume any notifications
+        
+        switch notification.messageType {
+            
+        case .playbackLoopChangedNotification:
+            
+            playbackLoopChanged()
+            
+        default: return
+            
+        }
     }
     
     func processRequest(_ request: RequestMessage) -> ResponseMessage {

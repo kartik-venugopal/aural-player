@@ -28,6 +28,10 @@ struct Images {
     static let imgShuffleOff: NSImage = NSImage(named: "ShuffleOff")!
     static let imgShuffleOn: NSImage = NSImage(named: "ShuffleOn")!
     
+    static let imgLoopOff: NSImage = NSImage(named: "LoopOff")!
+    static let imgLoopStarted: NSImage = NSImage(named: "LoopStarted")!
+    static let imgLoopComplete: NSImage = NSImage(named: "LoopComplete")!
+    
     static let imgSwitchOff: NSImage = NSImage(named: "SwitchOff")!
     static let imgSwitchOn: NSImage = NSImage(named: "SwitchOn")!
     

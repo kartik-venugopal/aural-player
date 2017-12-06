@@ -40,6 +40,7 @@
             <connections>
                 <outlet property="detailedInfoMenuItem" destination="GCy-Rj-Mv5" id="FTi-Dg-C0L"/>
                 <outlet property="favoritesMenuItem" destination="iMK-0g-xI0" id="IAc-qX-PvW"/>
+                <outlet property="loopMenuItem" destination="TzA-UC-Ox0" id="ceJ-FL-dwd"/>
                 <outlet property="nextTrackMenuItem" destination="z7s-9y-10c" id="6nk-AZ-Jyu"/>
                 <outlet property="playOrPauseMenuItem" destination="T9r-Uq-EPf" id="IlZ-pC-w2Y"/>
                 <outlet property="previousTrackMenuItem" destination="yq3-HU-6rh" id="zSF-vu-IF2"/>
@@ -253,7 +254,7 @@ CQ
                                     <action selector="replayTrackAction:" target="IvK-xG-TCa" id="Cze-vX-d1I"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Toggle A-&gt;B loop" image="Replay" keyEquivalent="l" id="TzA-UC-Ox0" userLabel="Toggle A-&gt;B loop">
+                            <menuItem title=" Toggle A-&gt;B segment loop" image="LoopOff-Small" keyEquivalent="l" id="TzA-UC-Ox0" userLabel="Toggle A-&gt;B loop">
                                 <connections>
                                     <action selector="toggleLoopAction:" target="IvK-xG-TCa" id="Rre-UU-RNW"/>
                                 </connections>
@@ -818,6 +819,7 @@ CQ
         <image name="Down-Small" width="10" height="14"/>
         <image name="EQ" width="14" height="14"/>
         <image name="Favorites" width="15" height="15"/>
+        <image name="LoopOff-Small" width="0.23999999463558197" height="0.20800000429153442"/>
         <image name="Maximize-Small" width="12" height="10"/>
         <image name="MaximizeHorizontal-Small" width="12" height="10"/>
         <image name="MaximizeVertical-Small" width="12" height="10"/>
