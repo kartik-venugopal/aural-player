@@ -190,11 +190,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func replayTrack() {
         
         if let _ = player.getPlayingTrack() {
+            
+            // TODO: Move this to a new delegate function replayTrack()
             player.seekToPercentage(0)
             SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
         }
     }
     
+    // Toggles the state of the segment playback loop for the currently playing track
     private func toggleLoop() {
         
         if let _ = player.getPlayingTrack() {

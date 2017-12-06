@@ -423,7 +423,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return player.toggleLoop()
     }
     
-    func removeLoop() {
+    private func removeLoop() {
         player.removeLoop()
     }
     

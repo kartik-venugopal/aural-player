@@ -100,7 +100,7 @@ class Player: PlayerProtocol {
         
         if let curLoop = curSession.loop {
             
-            if curLoop.endTime != nil {
+            if curLoop.isComplete() {
                 
                 // Remove loop
                 PlaybackSession.removeLoop()
@@ -124,11 +124,11 @@ class Player: PlayerProtocol {
             
         } else {
             
-            // Mark start
+            // Loop is currently undefined, mark start
             PlaybackSession.beginLoop(currentTrackTimeElapsed)
         }
         
-        return PlaybackSession.getCurrentLoop()
+        return curSession.loop
     }
     
     func removeLoop() {

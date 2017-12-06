@@ -96,8 +96,6 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
         Returns the definition of the current loop, if one is currently defined.
      */
     func toggleLoop() -> PlaybackLoop?
-    
-    func removeLoop()
 }
 
 // A contract for basic playback operations. Used for autoplay

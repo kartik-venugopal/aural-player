@@ -100,7 +100,7 @@ enum ActionType {
     // Replay the currently playing track from the beginning, if there is one
     case replayTrack
     
-    // Toggle A->B playback loop
+    // Toggle A->B segment playback loop
     case toggleLoop
     
     // Play the previous track in the current playback sequence
