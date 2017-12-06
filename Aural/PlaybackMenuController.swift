@@ -28,6 +28,9 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var shuffleOffMenuItem: NSMenuItem!
     @IBOutlet weak var shuffleOnMenuItem: NSMenuItem!
     
+    // Segment playback loop toggling
+    @IBOutlet weak var loopMenuItem: NSMenuItem!
+    
     // Favorites menu item (needs to be toggled)
     @IBOutlet weak var favoritesMenuItem: ToggleMenuItem!
     
@@ -60,7 +63,9 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         playOrPauseMenuItem.isEnabled = playlist.size() > 0
         
         // These menu item actions are only available when a track is currently playing
-        [replayTrackMenuItem, previousTrackMenuItem, nextTrackMenuItem, seekForwardMenuItem, seekBackwardMenuItem, detailedInfoMenuItem, showInPlaylistMenuItem, favoritesMenuItem].forEach({$0.isEnabled = playbackInfo.getPlaybackState() != .noTrack})
+        [replayTrackMenuItem, previousTrackMenuItem, nextTrackMenuItem, detailedInfoMenuItem, showInPlaylistMenuItem, favoritesMenuItem].forEach({$0.isEnabled = playbackInfo.getPlaybackState() != .noTrack})
+        
+        [loopMenuItem, seekForwardMenuItem, seekBackwardMenuItem].forEach({$0.isEnabled = playbackInfo.getPlaybackState() == .playing})
     }
     
     // Plays, pauses or resumes playback

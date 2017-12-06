@@ -22,3 +22,11 @@ enum ShuffleMode: String {
     // Don't shuffle
     case off
 }
+
+// Enumeration of all possible states of an A->B segment playback loop
+enum LoopState: String {
+    
+    case none
+    case started
+    case complete
+}

@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PlayerViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnLoop" destination="8CO-uA-28Y" id="GWw-9r-F5H"/>
                 <outlet property="btnPlayPause" destination="Dc4-GM-vmb" id="BVV-v2-5ul"/>
                 <outlet property="btnRepeat" destination="Ghu-Et-yHG" id="cG7-ao-d0a"/>
                 <outlet property="btnShuffle" destination="5iY-Bb-qE7" id="k6z-Gd-J0g"/>
@@ -33,6 +34,17 @@
                     </buttonCell>
                     <connections>
                         <action selector="repeatAction:" target="-2" id="Mzh-ck-ovP"/>
+                    </connections>
+                </button>
+                <button toolTip="A-&gt;B Segment loop" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8CO-uA-28Y" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="58" y="18" width="21" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="LoopOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="PVi-ZF-Siy">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="toggleLoopAction:" target="-2" id="Vad-Xl-N6B"/>
                     </connections>
                 </button>
                 <button toolTip="Shuffle" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5iY-Bb-qE7" userLabel="Shuffle Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
@@ -169,6 +181,7 @@ G1BhbiBTbGlkZXI
         </view>
     </objects>
     <resources>
+        <image name="LoopOff" width="2.5120000839233398" height="2.1119999885559082"/>
         <image name="NextTrack" width="162" height="88"/>
         <image name="Play" width="127" height="146"/>
         <image name="PreviousTrack" width="162" height="88"/>
