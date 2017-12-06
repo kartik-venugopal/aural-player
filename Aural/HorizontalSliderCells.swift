@@ -64,6 +64,7 @@ class VolumeSliderCell: HorizontalSliderCell {
     override var knobHeightOutsideBar: CGFloat {return 0.5}
 }
 
+// Defines the range (start and end points) used to render a track segment playback loop
 struct PlaybackLoopRange {
     
     // Both are X co-ordinates
@@ -89,20 +90,21 @@ class SeekSliderCell: HorizontalSliderCell {
     var loop: PlaybackLoopRange?
     
     // Returns the center of the current knob frame
-    func knobCenter() -> CGFloat {
+    var knobCenter: CGFloat {
         return knobRect(flipped: false).centerX
     }
     
-    // start: center of knob at loop start point
+    // Marks the rendering start point for a segment playback loop. The start argument is the X co-ordinate of the center of the knob frame at the loop start point
     func markLoopStart(_ start: CGFloat) {
         self.loop = PlaybackLoopRange(start: start, end: nil)
     }
     
-    // end: center of knob at loop end point
+    // Marks the rendering end point for a segment playback loop. The end argument is the X co-ordinate of the center of the knob frame at the loop end point
     func markLoopEnd(_ end: CGFloat) {
         self.loop?.end = end
     }
     
+    // Invalidates the track segment playback loop
     func removeLoop() {
         self.loop = nil
     }
@@ -121,9 +123,11 @@ class SeekSliderCell: HorizontalSliderCell {
         
         drawPath = NSBezierPath.init(roundedRect: rightRect, xRadius: barRadius, yRadius: barRadius)
         barPlainGradient.draw(in: drawPath, angle: gradientDegrees)
-        
+
+        // Render segment playback loop, if one is defined
         if let loop = self.loop {
 
+            // Start and end points for the loop
             let startX = loop.start
             let endX = loop.end ?? max(startX + 1, knobFrame.minX + halfKnobWidth)
             

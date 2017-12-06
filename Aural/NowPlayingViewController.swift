@@ -23,8 +23,11 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
     @IBOutlet weak var seekSlider: NSSlider!
-    private var seekSliderCell: SeekSliderCell!
+    @IBOutlet weak var seekSliderCell: SeekSliderCell!
+    
+    // A clone of the seek slider, used to render the segment playback loop
     @IBOutlet weak var seekSliderClone: NSSlider!
+    @IBOutlet weak var seekSliderCloneCell: SeekSliderCell!
     
     // Button to display more details about the playing track
     @IBOutlet weak var btnMoreInfo: NSButton!
@@ -70,7 +73,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         // Timer interval depends on whether time stretch unit is active
         seekTimer = RepeatingTaskExecutor(intervalMillis: appState.seekTimerInterval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
-        seekSliderCell = seekSlider.cell as! SeekSliderCell
         
         // Set up the art view and the default animation
         artView.canDrawSubviewsIntoLayer = true
@@ -373,22 +375,20 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
     private func playbackLoopChanged() {
         
-        let loop = player.getPlaybackLoop()
+        if let loop = player.getPlaybackLoop() {
         
-        if (loop != nil) {
-            
             let duration = (player.getPlayingTrack()?.track.duration)!
-            let cloneSliderCell = seekSliderClone.cell as! SeekSliderCell
             
-            if (loop!.isComplete()) {
+            // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
+            if (loop.isComplete()) {
                 
-                seekSliderClone.doubleValue = loop!.endTime! * 100 / duration
-                seekSliderCell.markLoopEnd(cloneSliderCell.knobCenter())
+                seekSliderClone.doubleValue = loop.endTime! * 100 / duration
+                seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
                 
             } else {
                 
-                seekSliderClone.doubleValue = loop!.startTime * 100 / duration
-                seekSliderCell.markLoopStart(cloneSliderCell.knobCenter())
+                seekSliderClone.doubleValue = loop.startTime * 100 / duration
+                seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
             }
             
         } else {

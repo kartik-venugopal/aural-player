@@ -36,7 +36,7 @@ protocol PlayerProtocol {
     // MARK: Loop functions
     
     /*
-        Toggles the state of an A->B playback loop for the currently playing track. There are 3 possible states:
+        Toggles the state of an A->B segment playback loop for the currently playing track. There are 3 possible states:
      
         1 - loop started: the start of the loop has been marked
         2 - loop ended: the end (and start) of the loop has been marked, completing the definition of the playback loop. Any subsequent playback will now proceed within the scope of the loop, i.e. between the 2 loop points: start and end
@@ -46,7 +46,9 @@ protocol PlayerProtocol {
      */
     func toggleLoop() -> PlaybackLoop?
     
+    // Removes the segment playback loop for the currently playing track, if there is one
     func removeLoop()
     
+    // Retrieves information about the playback loop defined on a segment of the currently playing track, if there is a playing track and a loop for it
     func getPlaybackLoop() -> PlaybackLoop?
 }

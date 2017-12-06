@@ -215,7 +215,6 @@
 		3EF5E5D21FBF0373004270A4 /* TracksPlaylistViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E5D11FBF0373004270A4 /* TracksPlaylistViewDelegate.swift */; };
 		3EF5E5D51FBF104D004270A4 /* GroupingPlaylistViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E5D41FBF104D004270A4 /* GroupingPlaylistViewDelegates.swift */; };
 		3EF6A0021FA313120050F0D2 /* Sorts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6A0011FA313120050F0D2 /* Sorts.swift */; };
-		3EFA34821FD40BD300BBA1D8 /* SeekSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA34811FD40BD300BBA1D8 /* SeekSlider.swift */; };
 		3EFB19291FB81C9A00690C60 /* WindowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB19281FB81C9A00690C60 /* WindowState.swift */; };
 		3EFB192B1FB8268700690C60 /* DetailedTrackInfoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB192A1FB8268700690C60 /* DetailedTrackInfoDataSource.swift */; };
 		3EFC506B1F607B530032BE21 /* PlaylistDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFC506A1F607B530032BE21 /* PlaylistDelegate.swift */; };
@@ -438,7 +437,6 @@
 		3EF5E5D11FBF0373004270A4 /* TracksPlaylistViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracksPlaylistViewDelegate.swift; sourceTree = "<group>"; };
 		3EF5E5D41FBF104D004270A4 /* GroupingPlaylistViewDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistViewDelegates.swift; sourceTree = "<group>"; };
 		3EF6A0011FA313120050F0D2 /* Sorts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sorts.swift; sourceTree = "<group>"; };
-		3EFA34811FD40BD300BBA1D8 /* SeekSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeekSlider.swift; sourceTree = "<group>"; };
 		3EFB19281FB81C9A00690C60 /* WindowState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowState.swift; sourceTree = "<group>"; };
 		3EFB192A1FB8268700690C60 /* DetailedTrackInfoDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailedTrackInfoDataSource.swift; sourceTree = "<group>"; };
 		3EFC506A1F607B530032BE21 /* PlaylistDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistDelegate.swift; sourceTree = "<group>"; };
@@ -1096,7 +1094,6 @@
 				3EB2A7E31F0436D5001DF748 /* EQSliderCell.swift */,
 				3EB2A7E51F043989001DF748 /* HorizontalSliderCells.swift */,
 				3EB2A7E71F043BBE001DF748 /* TickedSliderCells.swift */,
-				3EFA34811FD40BD300BBA1D8 /* SeekSlider.swift */,
 			);
 			name = Sliders;
 			sourceTree = "<group>";
@@ -1334,7 +1331,6 @@
 				3EBD20081F6C6EC300E1354C /* MetadataSpec.swift in Sources */,
 				3E357B521F9C79E900C8F7B1 /* GroupingPlaylistProtocols.swift in Sources */,
 				3E6D75F81EFF79E0007F22A3 /* PlaylistInputEventHandler.swift in Sources */,
-				3EFA34821FD40BD300BBA1D8 /* SeekSlider.swift in Sources */,
 				3E426F7E1EFDD9CF002F5F18 /* Player.swift in Sources */,
 				3E26B9311FBC53A700FA3274 /* GestureHandler.swift in Sources */,
 				3E3DCD251F0F913800E09ADC /* AsyncMessages.swift in Sources */,

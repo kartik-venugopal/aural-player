@@ -116,12 +116,14 @@ class BufferManager {
     
     // MARK: Playback loop scheduling/playback
     
+    // Start segment loop playback from the loop's start point
     func playLoop(_ playbackSession: PlaybackSession) {
         
         stop()
         
         let sampleRate = playbackSession.track.playbackInfo!.sampleRate!
         let loopStart = Int64(playbackSession.loop!.startTime * sampleRate)
+        
         startLoopFromFrame(playbackSession, loopStart)
     }
     

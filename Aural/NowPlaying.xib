@@ -20,7 +20,9 @@
                 <outlet property="lblTrackName" destination="3Ap-RX-Hj2" id="1Xk-qG-zor"/>
                 <outlet property="lblTrackTitle" destination="2m3-ds-GGr" id="gHi-uH-Jg0"/>
                 <outlet property="seekSlider" destination="9fK-HM-M9o" id="bXu-cl-0WR"/>
+                <outlet property="seekSliderCell" destination="ol4-Ik-RVN" id="uRQ-1S-cgb"/>
                 <outlet property="seekSliderClone" destination="iEN-Sg-plp" id="lB7-sQ-Vgm"/>
+                <outlet property="seekSliderCloneCell" destination="LQ2-3e-Dfz" id="H8g-S2-Knu"/>
                 <outlet property="view" destination="tiV-de-XiJ" id="7kM-aq-xUQ"/>
             </connections>
         </customObject>
