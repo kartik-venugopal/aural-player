@@ -52,10 +52,6 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
         
         let appState = ObjectGraph.getUIAppState()
         
-//        if (appState.hideEffects) {
-//            toggleEffects()
-//        }
-        
         // If a specific position is specified, use it
         if let mainWindowOrigin = appState.windowLocationXY {
             mainWindow.setFrameOrigin(mainWindowOrigin)
