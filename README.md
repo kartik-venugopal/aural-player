@@ -50,11 +50,11 @@ Wanna try it out ? The latest app bundle can be found in the disk image file [Au
 
 ## Planned updates
 
-**A->B Playback looping** - The user will now be able to repeat a track segment by defining two arbitrary loop points with an easy keyboard shortcut.
-
 **New app views** - There will be a status bar view that will be accessible through the macOS status bar and an ultra-compact floating "mini bar" view that provides essential controls and always remains on top for easy access when running the app in the "background".
 
 ## Recent updates
+
+12/06/2017: **A->B Track segment looping** - The user can now define and indefinitely loop a track segment of choice by defining two arbitrary loop points - start and end.
 
 11/17/2017: **Playlist contextual menu** - When a playlist item is right/control-clicked, the app will now display a contextual menu with functions applicable to the clicked item. Certain functions that could only be performed on the playing track will now be able to be performed on any playlist track - adding/removing a track to/from Favorites list, getting detailed track info.
 
