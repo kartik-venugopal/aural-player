@@ -23,9 +23,9 @@ class DetailedTrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewD
     
     // Constants used to calculate row height
     
-    private let keyColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), UIConstants.trackInfoKeyColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
+    private let keyColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), Dimensions.trackInfoKeyColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
     
-    private let valueColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), UIConstants.trackInfoValueColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
+    private let valueColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), Dimensions.trackInfoValueColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
     
     override func awakeFromNib() {
         

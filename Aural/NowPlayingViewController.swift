@@ -161,11 +161,11 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
             
             // The Y co-ordinate is a pre-determined constant
             var origin = lblTrackName.frame.origin
-            origin.y = numLines == 1 ? UIConstants.trackNameLabelLocationY_oneLine : UIConstants.trackNameLabelLocationY_twoLines
+            origin.y = numLines == 1 ? Dimensions.trackNameLabelLocationY_oneLine : Dimensions.trackNameLabelLocationY_twoLines
             
             // The height is a pre-determined constant
             var lblFrameSize = lblTrackName.frame.size
-            lblFrameSize.height = numLines == 1 ? UIConstants.trackNameLabelHeight_oneLine : UIConstants.trackNameLabelHeight_twoLines
+            lblFrameSize.height = numLines == 1 ? Dimensions.trackNameLabelHeight_oneLine : Dimensions.trackNameLabelHeight_twoLines
             
             // Resize the label
             lblTrackName.setFrameSize(lblFrameSize)
@@ -230,7 +230,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         // Position the scope image a few pixels to the left of the scope string
         let margin = (lblWidth - textWidth) / 2
         let newImgX = lblPlaybackScope.frame.origin.x + margin - imgScope.frame.width - 4
-        imgScope.frame.origin.x = max(UIConstants.minImgScopeLocationX, newImgX)
+        imgScope.frame.origin.x = max(Dimensions.minImgScopeLocationX, newImgX)
     }
     
     private func clearNowPlayingInfo() {
@@ -273,12 +273,12 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
             
             let seekPosn = player.getSeekPosition()
             
+            seekSlider.doubleValue = seekPosn.percentageElapsed
+            
             let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration)
             
             lblTimeElapsed.stringValue = trackTimes.elapsed
             lblTimeRemaining.stringValue = trackTimes.remaining
-            
-            seekSlider.doubleValue = seekPosn.percentageElapsed
         }
     }
     
@@ -396,7 +396,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         }
         
         // Force a redraw of the seek slider
-        seekSlider.doubleValue = player.getSeekPosition().percentageElapsed
+        updateSeekPosition()
     }
     
     // When track info for the playing track changes, display fields need to be updated
