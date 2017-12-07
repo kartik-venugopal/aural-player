@@ -84,8 +84,6 @@
 		3E426F7E1EFDD9CF002F5F18 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7D1EFDD9CF002F5F18 /* Player.swift */; };
 		3E426F801EFDDDEE002F5F18 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E426F7F1EFDDDEE002F5F18 /* StringUtils.swift */; };
 		3E44DDCB1FD8A71D00C6566C /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E44DDCA1FD8A71D00C6566C /* Dimensions.swift */; };
-		3E44DDCE1FD8E31800C6566C /* EQUserPresetsPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E44DDCD1FD8E31800C6566C /* EQUserPresetsPopover.xib */; };
-		3E44DDD01FD8E4F400C6566C /* EQUserPresetsPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E44DDCF1FD8E4F400C6566C /* EQUserPresetsPopoverViewController.swift */; };
 		3E46F55C1F2A7A36007CD384 /* CheckRadioButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F55B1F2A7A36007CD384 /* CheckRadioButtonCell.swift */; };
 		3E46F55E1F2A8003007CD384 /* ModalDialogButtonCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F55D1F2A8003007CD384 /* ModalDialogButtonCells.swift */; };
 		3E46F5641F2A918B007CD384 /* ColoredCursorSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F5631F2A918B007CD384 /* ColoredCursorSearchField.swift */; };
@@ -305,8 +303,6 @@
 		3E426F7D1EFDD9CF002F5F18 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		3E426F7F1EFDDDEE002F5F18 /* StringUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		3E44DDCA1FD8A71D00C6566C /* Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimensions.swift; sourceTree = "<group>"; };
-		3E44DDCD1FD8E31800C6566C /* EQUserPresetsPopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EQUserPresetsPopover.xib; sourceTree = "<group>"; };
-		3E44DDCF1FD8E4F400C6566C /* EQUserPresetsPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EQUserPresetsPopoverViewController.swift; sourceTree = "<group>"; };
 		3E46F55B1F2A7A36007CD384 /* CheckRadioButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckRadioButtonCell.swift; sourceTree = "<group>"; };
 		3E46F55D1F2A8003007CD384 /* ModalDialogButtonCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalDialogButtonCells.swift; sourceTree = "<group>"; };
 		3E46F5631F2A918B007CD384 /* ColoredCursorSearchField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColoredCursorSearchField.swift; sourceTree = "<group>"; };
@@ -530,7 +526,6 @@
 			children = (
 				3E0ED6AE1FBB1AB8008268B3 /* EQ.xib */,
 				3E0ED6C21FBB1E18008268B3 /* EQViewController.swift */,
-				3E44DDCC1FD8E2FA00C6566C /* UserPresetsPopover */,
 			);
 			name = EQ;
 			sourceTree = "<group>";
@@ -741,15 +736,6 @@
 				3EFC506A1F607B530032BE21 /* PlaylistDelegate.swift */,
 			);
 			name = Delegates;
-			sourceTree = "<group>";
-		};
-		3E44DDCC1FD8E2FA00C6566C /* UserPresetsPopover */ = {
-			isa = PBXGroup;
-			children = (
-				3E44DDCD1FD8E31800C6566C /* EQUserPresetsPopover.xib */,
-				3E44DDCF1FD8E4F400C6566C /* EQUserPresetsPopoverViewController.swift */,
-			);
-			name = UserPresetsPopover;
 			sourceTree = "<group>";
 		};
 		3E4F9FD31FC9156600FA4096 /* CustomNodes */ = {
@@ -1263,7 +1249,6 @@
 				3E36E85F1FC00E2A0005C62E /* PlaybackPreferences.xib in Resources */,
 				3E821AF01F953253006F8E97 /* playingTrack.gif in Resources */,
 				3EF5E5C11FBDB637004270A4 /* Genres.xib in Resources */,
-				3E44DDCE1FD8E31800C6566C /* EQUserPresetsPopover.xib in Resources */,
 				3E0ED6BF1FBB1CFE008268B3 /* Filter.xib in Resources */,
 				3E36E8681FC00F450005C62E /* ViewPreferences.xib in Resources */,
 				3E0ED6AF1FBB1AB8008268B3 /* EQ.xib in Resources */,
@@ -1459,7 +1444,6 @@
 				3EFB192B1FB8268700690C60 /* DetailedTrackInfoDataSource.swift in Sources */,
 				3EB2A7EE1F04697E001DF748 /* GraphicsUtils.swift in Sources */,
 				3E26B92B1FBC177F00FA3274 /* AutoHidingView.swift in Sources */,
-				3E44DDD01FD8E4F400C6566C /* EQUserPresetsPopoverViewController.swift in Sources */,
 				3E8036C11FD2840C00674934 /* MiniBarAppModeController.swift in Sources */,
 				3E9796811F00BA3000690DA2 /* RepeatAndShuffleModes.swift in Sources */,
 				3EB2A7E81F043BBE001DF748 /* TickedSliderCells.swift in Sources */,
