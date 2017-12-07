@@ -30,7 +30,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
     // Delegate that relays search requests to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
-    private var searchQuery: SearchQuery = SearchQuery(text: "")
+    private var searchQuery: SearchQuery = SearchQuery()
     
     // Current playlist search results
     private var searchResults: SearchResults?

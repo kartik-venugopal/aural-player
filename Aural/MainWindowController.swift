@@ -111,7 +111,7 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
         
         var wFrame = theWindow.frame
         
-        let newHeight: CGFloat = WindowState.showingEffects ? UIConstants.windowHeight_effectsOnly : UIConstants.windowHeight_compact
+        let newHeight: CGFloat = WindowState.showingEffects ? Dimensions.windowHeight_effectsOnly : Dimensions.windowHeight_compact
 
         let oldHeight = wFrame.height
         wFrame.size = NSMakeSize(theWindow.width, newHeight)

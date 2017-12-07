@@ -3,14 +3,10 @@ import Cocoa
 // Encapsulates the options/criteria of a playlist search
 class SearchQuery {
     
-    var text: String
+    var text: String = ""
     var type: SearchType = .contains
     var fields: SearchFields = SearchFields()
     var options: SearchOptions = SearchOptions()
-    
-    init(text: String) {
-        self.text = text
-    }
 }
 
 // Indicates which track fields are to be compared, in the search
