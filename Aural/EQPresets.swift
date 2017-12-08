@@ -1,31 +1,82 @@
 import Foundation
 
+class EQPresets {
+    
+    private static var presets: [String: EQPreset] = {
+        
+        var map = [String: EQPreset]()
+        SystemDefinedEQPresets.allValues.forEach({
+            map[$0.rawValue] = EQPreset(name: $0.rawValue, bands: $0.bands, systemDefined: true)
+        })
+        
+        return map
+    }()
+    
+    static var userDefinedPresets: [EQPreset] {
+        return presets.values.filter({$0.systemDefined == false})
+    }
+    
+    static var systemDefinedPresets: [EQPreset] {
+        return presets.values.filter({$0.systemDefined == true})
+    }
+    
+    static var defaultPreset: EQPreset {
+        return presetByName(SystemDefinedEQPresets.flat.rawValue)
+    }
+    
+    static func presetByName(_ name: String) -> EQPreset {
+        return presets[name] ?? defaultPreset
+    }
+    
+    static func loadUserDefinedPresets(_ userDefinedPresets: [EQPreset]) {
+        userDefinedPresets.forEach({presets[$0.name] = $0})
+    }
+    
+    // Assume preset with this name doesn't already exist
+    static func addUserDefinedPreset(_ name: String, _ bands: [Int: Float]) {
+        presets[name] = EQPreset(name: name, bands: bands, systemDefined: false)
+    }
+    
+    static func presetWithNameExists(_ name: String) -> Bool {
+        return presets[name] != nil
+    }
+}
+
+struct EQPreset {
+    
+    let name: String
+    let bands: [Int: Float]
+    let systemDefined: Bool
+}
+
 /*
     An enumeration of Equalizer presets the user can choose from
  */
-enum EQPresets: String {
+fileprivate enum SystemDefinedEQPresets: String {
     
-    case flat // default
-    case highBassAndTreble
+    case flat = "Flat" // default
+    case highBassAndTreble = "High bass and treble"
     
-    case dance
-    case electronic
-    case hipHop
-    case jazz
-    case latin
-    case lounge
-    case piano
-    case pop
-    case rAndB
-    case rock
+    case dance = "Dance"
+    case electronic = "Electronic"
+    case hipHop = "Hip Hop"
+    case jazz = "Jazz"
+    case latin = "Latin"
+    case lounge = "Lounge"
+    case piano = "Piano"
+    case pop = "Pop"
+    case rAndB = "R&B"
+    case rock = "Rock"
     
-    case soft
-    case karaoke
-    case vocal
+    case soft = "Soft"
+    case karaoke = "Karaoke"
+    case vocal = "Vocal"
     
-    // Converts a user-friendly description to an instance of EQPresets
-    static func fromDescription(_ description: String) -> EQPresets {
-        return description == "R&B" ? .rAndB : EQPresets(rawValue: StringUtils.camelCase(description)) ?? .flat
+    static var allValues: [SystemDefinedEQPresets] = [.flat, .highBassAndTreble, .dance, .electronic, .hipHop, .jazz, .latin, .lounge, .piano, .pop, .rAndB, .rock, .soft, .karaoke, .vocal]
+    
+    // Converts a user-friendly display name to an instance of EQPresets
+    static func fromDisplayName(_ displayName: String) -> SystemDefinedEQPresets {
+        return SystemDefinedEQPresets(rawValue: displayName) ?? .flat
     }
     
     // Returns the frequency->gain mappings for each of the frequency bands, for this preset
@@ -56,7 +107,7 @@ enum EQPresets: String {
 }
 
 // Container for specific frequency->gain mappings for different EQ presets
-fileprivate class EQPresetsBands {
+fileprivate struct EQPresetsBands {
     
     static let flatBands: [Int: Float] = {
         
@@ -80,7 +131,7 @@ fileprivate class EQPresetsBands {
     }()
     
     static let electronicBands: [Int: Float] = {
-    
+        
         return EQBands([7, 6.5, 0,
                         -2, -5, 0, 0,
                         0, 6.5, 7]).bands
@@ -164,7 +215,7 @@ fileprivate class EQPresetsBands {
     }()
 }
 
-class EQBands {
+struct EQBands {
     
     var bands = [Int: Float]()
     

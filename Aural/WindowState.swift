@@ -15,6 +15,9 @@ class WindowState {
     static var appHidden: Bool = false
     static var minimized: Bool = false
     
+    // Flag that indicates whether the app is displaying an input receiving popover view (used to block input from being received by other views on the window)
+    static var showingPopover: Bool = false
+    
     static func setActive(_ isActive: Bool) {
         
         appActive = isActive

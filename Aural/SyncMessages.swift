@@ -1,7 +1,7 @@
 import Foundation
 
 /*
-    Contract for all subscribers of synchronous messages
+ Contract for all subscribers of synchronous messages
  */
 protocol MessageSubscriber {
     
@@ -13,7 +13,7 @@ protocol MessageSubscriber {
 }
 
 /*
-    Defines a synchronous message. SyncMessage objects could be either 1 - notifications, indicating that some change has occurred (e.g. the playlist has been cleared), OR 2 - requests for the execution of a function (e.g. track playback) that may return a response to the caller.
+ Defines a synchronous message. SyncMessage objects could be either 1 - notifications, indicating that some change has occurred (e.g. the playlist has been cleared), OR 2 - requests for the execution of a function (e.g. track playback) that may return a response to the caller.
  */
 protocol SyncMessage {
     var messageType: MessageType {get}
@@ -81,6 +81,8 @@ enum MessageType {
     case appExitResponse
     
     case emptyResponse
+    
+    case saveEQUserPreset
 }
 
 // Notification indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
@@ -141,7 +143,7 @@ struct PlayingTrackInfoUpdatedNotification: NotificationMessage {
     let messageType: MessageType = .playingTrackInfoUpdatedNotification
     
     private init() {}
-
+    
     // Singleton
     static let instance: PlayingTrackInfoUpdatedNotification = PlayingTrackInfoUpdatedNotification()
 }
@@ -268,7 +270,7 @@ struct PlaybackRequest: RequestMessage {
     var index: Int? = nil
     var track: Track? = nil
     var group: Group? = nil
-
+    
     // Initialize the request with a track index. This will be done from the Tracks playlist.
     init(index: Int) {
         self.index = index
@@ -339,7 +341,7 @@ struct EmptyResponse: ResponseMessage {
 
 // Notification indicating that the application has moved to the background and is no longer both visible and in focus.
 struct AppInBackgroundNotification: NotificationMessage {
- 
+    
     let messageType: MessageType = .appInBackgroundNotification
     
     private init() {}
@@ -395,4 +397,17 @@ struct PlaybackLoopChangedNotification: NotificationMessage {
     
     // Singleton
     static let instance: PlaybackLoopChangedNotification = PlaybackLoopChangedNotification()
+}
+
+// Request from the EQ User Presets popover to the EQ effects unit controller to save a user-defined EQ preset with a given name
+struct SaveEQUserPresetRequest: RequestMessage {
+    
+    let messageType: MessageType = .saveEQUserPreset
+    
+    // Name of the new EQ preset being saved
+    let presetName: String
+    
+    init(_ presetName: String) {
+        self.presetName = presetName
+    }
 }

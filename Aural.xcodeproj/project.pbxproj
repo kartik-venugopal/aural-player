@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3E00122A1F26A5100059B2D0 /* SearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0012291F26A5100059B2D0 /* SearchQuery.swift */; };
+		3E02739D1FD91B46000F0844 /* EQUserPresetsPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E02739B1FD91B46000F0844 /* EQUserPresetsPopover.xib */; };
+		3E02739E1FD91B46000F0844 /* EQUserPresetsPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E02739C1FD91B46000F0844 /* EQUserPresetsPopoverViewController.swift */; };
 		3E047B0E1F01436700ADE0F1 /* ReverbPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E047B0D1F01436700ADE0F1 /* ReverbPresets.swift */; };
 		3E06C0271FB6B0BF003EE9AB /* HistoryMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06C0261FB6B0BF003EE9AB /* HistoryMenuController.swift */; };
 		3E06C02A1FB6B120003EE9AB /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06C0291FB6B120003EE9AB /* History.swift */; };
@@ -86,7 +88,7 @@
 		3E44DDCB1FD8A71D00C6566C /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E44DDCA1FD8A71D00C6566C /* Dimensions.swift */; };
 		3E46F55C1F2A7A36007CD384 /* CheckRadioButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F55B1F2A7A36007CD384 /* CheckRadioButtonCell.swift */; };
 		3E46F55E1F2A8003007CD384 /* ModalDialogButtonCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F55D1F2A8003007CD384 /* ModalDialogButtonCells.swift */; };
-		3E46F5641F2A918B007CD384 /* ColoredCursorSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F5631F2A918B007CD384 /* ColoredCursorSearchField.swift */; };
+		3E46F5641F2A918B007CD384 /* ColoredCursorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F5631F2A918B007CD384 /* ColoredCursorTextField.swift */; };
 		3E46F5661F2ABA57007CD384 /* PopoverContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E46F5651F2ABA57007CD384 /* PopoverContentView.swift */; };
 		3E4BBA5C1F030E5B0025F371 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4BBA5B1F030E5B0025F371 /* UIConstants.swift */; };
 		3E4CCBA81FD1204500FB5353 /* WindowLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4CCBA71FD1204500FB5353 /* WindowLayoutManager.swift */; };
@@ -227,6 +229,8 @@
 
 /* Begin PBXFileReference section */
 		3E0012291F26A5100059B2D0 /* SearchQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchQuery.swift; sourceTree = "<group>"; };
+		3E02739B1FD91B46000F0844 /* EQUserPresetsPopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EQUserPresetsPopover.xib; sourceTree = "<group>"; };
+		3E02739C1FD91B46000F0844 /* EQUserPresetsPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EQUserPresetsPopoverViewController.swift; sourceTree = "<group>"; };
 		3E047B0D1F01436700ADE0F1 /* ReverbPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverbPresets.swift; sourceTree = "<group>"; };
 		3E06C0261FB6B0BF003EE9AB /* HistoryMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryMenuController.swift; sourceTree = "<group>"; };
 		3E06C0291FB6B120003EE9AB /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
@@ -305,7 +309,7 @@
 		3E44DDCA1FD8A71D00C6566C /* Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimensions.swift; sourceTree = "<group>"; };
 		3E46F55B1F2A7A36007CD384 /* CheckRadioButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckRadioButtonCell.swift; sourceTree = "<group>"; };
 		3E46F55D1F2A8003007CD384 /* ModalDialogButtonCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalDialogButtonCells.swift; sourceTree = "<group>"; };
-		3E46F5631F2A918B007CD384 /* ColoredCursorSearchField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColoredCursorSearchField.swift; sourceTree = "<group>"; };
+		3E46F5631F2A918B007CD384 /* ColoredCursorTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColoredCursorTextField.swift; sourceTree = "<group>"; };
 		3E46F5651F2ABA57007CD384 /* PopoverContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverContentView.swift; sourceTree = "<group>"; };
 		3E4BBA5B1F030E5B0025F371 /* UIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		3E4CCBA71FD1204500FB5353 /* WindowLayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowLayoutManager.swift; sourceTree = "<group>"; };
@@ -459,6 +463,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E02739A1FD91B28000F0844 /* UserPresetsPopover */ = {
+			isa = PBXGroup;
+			children = (
+				3E02739B1FD91B46000F0844 /* EQUserPresetsPopover.xib */,
+				3E02739C1FD91B46000F0844 /* EQUserPresetsPopoverViewController.swift */,
+			);
+			name = UserPresetsPopover;
+			sourceTree = "<group>";
+		};
 		3E06C0251FB6AF2B003EE9AB /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
@@ -466,7 +479,7 @@
 				3E2D9E441F664C000020B99E /* Buttons */,
 				3EF4F86B1F2079F000C45840 /* Sliders */,
 				3EBA52F81FC2EB09007F902F /* TabView */,
-				3E46F5631F2A918B007CD384 /* ColoredCursorSearchField.swift */,
+				3E46F5631F2A918B007CD384 /* ColoredCursorTextField.swift */,
 				3E26B92A1FBC177F00FA3274 /* AutoHidingView.swift */,
 			);
 			name = CustomControls;
@@ -526,6 +539,7 @@
 			children = (
 				3E0ED6AE1FBB1AB8008268B3 /* EQ.xib */,
 				3E0ED6C21FBB1E18008268B3 /* EQViewController.swift */,
+				3E02739A1FD91B28000F0844 /* UserPresetsPopover */,
 			);
 			name = EQ;
 			sourceTree = "<group>";
@@ -1249,6 +1263,7 @@
 				3E36E85F1FC00E2A0005C62E /* PlaybackPreferences.xib in Resources */,
 				3E821AF01F953253006F8E97 /* playingTrack.gif in Resources */,
 				3EF5E5C11FBDB637004270A4 /* Genres.xib in Resources */,
+				3E02739D1FD91B46000F0844 /* EQUserPresetsPopover.xib in Resources */,
 				3E0ED6BF1FBB1CFE008268B3 /* Filter.xib in Resources */,
 				3E36E8681FC00F450005C62E /* ViewPreferences.xib in Resources */,
 				3E0ED6AF1FBB1AB8008268B3 /* EQ.xib in Resources */,
@@ -1354,7 +1369,7 @@
 				3EDFFA091FC026EE00158177 /* SoundPreferencesViewController.swift in Sources */,
 				3E850D521FB441800017CD02 /* WindowFactory.swift in Sources */,
 				3E3AD5461F5D2BD1006123E9 /* SyncMessenger.swift in Sources */,
-				3E46F5641F2A918B007CD384 /* ColoredCursorSearchField.swift in Sources */,
+				3E46F5641F2A918B007CD384 /* ColoredCursorTextField.swift in Sources */,
 				3E1DAAA41FAEB561002BB405 /* CRUDOperationResults.swift in Sources */,
 				3E58CC291F02759D00C36DC1 /* Timer.swift in Sources */,
 				3E1E97111FA44833006C8629 /* PlaybackSequencer.swift in Sources */,
@@ -1444,6 +1459,7 @@
 				3EFB192B1FB8268700690C60 /* DetailedTrackInfoDataSource.swift in Sources */,
 				3EB2A7EE1F04697E001DF748 /* GraphicsUtils.swift in Sources */,
 				3E26B92B1FBC177F00FA3274 /* AutoHidingView.swift in Sources */,
+				3E02739E1FD91B46000F0844 /* EQUserPresetsPopoverViewController.swift in Sources */,
 				3E8036C11FD2840C00674934 /* MiniBarAppModeController.swift in Sources */,
 				3E9796811F00BA3000690DA2 /* RepeatAndShuffleModes.swift in Sources */,
 				3EB2A7E81F043BBE001DF748 /* TickedSliderCells.swift in Sources */,

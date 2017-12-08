@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="EQViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnEQBypass" destination="ltF-GM-eRb" id="lzf-7s-0ld"/>
+                <outlet property="btnSavePreset" destination="TNd-kH-8D2" id="8TS-It-t9i"/>
                 <outlet property="eqGlobalGainSlider" destination="IIo-B2-5Oj" id="Iou-gU-48k"/>
                 <outlet property="eqPresets" destination="8zK-a2-vh7" id="eAX-oF-Tnw"/>
                 <outlet property="eqSlider128" destination="q1N-vR-jab" id="ibk-1w-QOR"/>
@@ -165,7 +166,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NHf-8D-FRB">
-                    <rect key="frame" x="312" y="1" width="40" height="18"/>
+                    <rect key="frame" x="300" y="1" width="40" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Presets" id="S16-eV-J7D">
                         <font key="font" size="11" name="GillSans"/>
@@ -174,20 +175,21 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8zK-a2-vh7" userLabel="EQ Presets Menu">
-                    <rect key="frame" x="342" y="-1" width="34" height="18"/>
+                    <rect key="frame" x="330" y="-1" width="34" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="disclosure" title="Flat" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="MPo-81-Yt8" id="i0D-n0-cRD" customClass="EQPresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="PNI-u4-6k4" id="i0D-n0-cRD" customClass="EQPresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="11" name="GillSans"/>
                         <menu key="menu" showsStateColumn="NO" id="YSf-S9-yth">
                             <items>
+                                <menuItem isSeparatorItem="YES" id="PNI-u4-6k4"/>
                                 <menuItem title="Flat" id="MPo-81-Yt8">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                                 <menuItem title="High bass and treble" id="0bF-hu-we6">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem isSeparatorItem="YES" id="PNI-u4-6k4"/>
+                                <menuItem isSeparatorItem="YES" id="M8U-3F-agp"/>
                                 <menuItem title="Dance" id="XsP-1X-oMP">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
@@ -235,7 +237,21 @@
                         <action selector="eqPresetsAction:" target="-2" id="bta-Pr-Z7U"/>
                     </connections>
                 </popUpButton>
+                <button toolTip="Save current playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TNd-kH-8D2" userLabel="Save">
+                    <rect key="frame" x="356" y="3" width="11" height="11"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="6Yh-iO-dz1">
+                        <behavior key="behavior" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="savePresetAction:" target="-2" id="hai-DL-fsF"/>
+                    </connections>
+                </button>
             </subviews>
         </view>
     </objects>
+    <resources>
+        <image name="SaveEQPreset" width="128" height="128"/>
+    </resources>
 </document>

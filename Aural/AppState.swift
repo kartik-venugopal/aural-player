@@ -9,7 +9,7 @@ protocol PersistentModelObject {
 
 // Marks an object as being suitable for persistence, i.e. it is serializable/deserializable
 protocol PersistentState {
-
+    
     // Produces a serialiable representation of this state object
     func toSerializableMap() -> NSDictionary
     
@@ -18,7 +18,7 @@ protocol PersistentState {
 }
 
 /*
-    Encapsulates UI state
+ Encapsulates UI state
  */
 class UIState: PersistentState {
     
@@ -48,7 +48,7 @@ class UIState: PersistentState {
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let uiState = UIState()
-
+        
         if let showPlaylist = map["showPlaylist"] as? Bool {
             uiState.showPlaylist = showPlaylist
         }
@@ -76,7 +76,7 @@ class UIState: PersistentState {
 }
 
 /*
-    Encapsulates audio graph state
+ Encapsulates audio graph state
  */
 class AudioGraphState: PersistentState {
     
@@ -87,6 +87,7 @@ class AudioGraphState: PersistentState {
     var eqBypass: Bool = AppDefaults.eqBypass
     var eqGlobalGain: Float = AppDefaults.eqGlobalGain
     var eqBands: [Int: Float] = [Int: Float]() // Index -> Gain
+    var eqUserPresets: [EQPreset] = [EQPreset]()
     
     var pitchBypass: Bool = AppDefaults.pitchBypass
     var pitch: Float = AppDefaults.pitch
@@ -132,6 +133,22 @@ class AudioGraphState: PersistentState {
             eqBandsDict[String(index) as NSString] = gain as NSNumber
         }
         eqDict["bands"] = eqBandsDict as AnyObject
+        
+        var userPresetsArr = [[NSString: AnyObject]]()
+        for preset in eqUserPresets {
+            
+            var presetDict = [NSString: AnyObject]()
+            presetDict["name"] = preset.name as AnyObject
+            
+            var presetBandsDict = [NSString: NSNumber]()
+            for (index, gain) in preset.bands {
+                presetBandsDict[String(index) as NSString] = gain as NSNumber
+            }
+            presetDict["bands"] = presetBandsDict as AnyObject
+            
+            userPresetsArr.append(presetDict)
+        }
+        eqDict["userPresets"] = NSArray(array: userPresetsArr)
         
         map["eq"] = eqDict as AnyObject
         
@@ -181,7 +198,7 @@ class AudioGraphState: PersistentState {
     }
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
-     
+        
         let audioGraphState = AudioGraphState()
         
         if let volume = map["volume"] as? NSNumber {
@@ -220,6 +237,42 @@ class AudioGraphState: PersistentState {
                         }
                     }
                 }
+            }
+            
+            // User presets
+            if let userPresets = eqDict["userPresets"] as? [NSDictionary] {
+                
+                userPresets.forEach({
+                    
+                    var presetName: String?
+                    
+                    if let name = $0["name"] as? String {
+                        presetName = name
+                    }
+                    
+                    var presetBands: [Int: Float] = [Int: Float]()
+                    
+                    if let presetBandsDict: NSDictionary = $0["bands"] as? NSDictionary {
+                        
+                        for (index, gain) in presetBandsDict {
+                            
+                            if let indexStr = index as? String {
+                                
+                                if let indexInt = Int(indexStr) {
+                                    
+                                    if let gainNum = gain as? NSNumber {
+                                        presetBands[indexInt] = gainNum.floatValue
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Preset must have a name
+                    if let presetName = presetName {
+                        audioGraphState.eqUserPresets.append(EQPreset(name: presetName, bands: presetBands, systemDefined: false))
+                    }
+                })
             }
         }
         
@@ -333,7 +386,7 @@ class AudioGraphState: PersistentState {
 }
 
 /*
-    Encapsulates playlist state
+ Encapsulates playlist state
  */
 class PlaylistState: PersistentState {
     
@@ -364,7 +417,7 @@ class PlaylistState: PersistentState {
 }
 
 /*
-    Encapsulates playback sequence state
+ Encapsulates playback sequence state
  */
 class PlaybackSequenceState: PersistentState {
     
@@ -384,7 +437,7 @@ class PlaybackSequenceState: PersistentState {
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = PlaybackSequenceState()
-
+        
         if let repeatModeStr = map["repeatMode"] as? String {
             if let repeatMode = RepeatMode(rawValue: repeatModeStr) {
                 state.repeatMode = repeatMode
@@ -488,9 +541,9 @@ class HistoryState: PersistentState {
 }
 
 /*
-    Encapsulates all application state. It is persisted to disk upon exit and loaded into the application upon startup.
+ Encapsulates all application state. It is persisted to disk upon exit and loaded into the application upon startup.
  
-    TODO: Make this class conform to different protocols for access/mutation
+ TODO: Make this class conform to different protocols for access/mutation
  */
 class AppState {
     
