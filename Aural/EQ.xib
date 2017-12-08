@@ -237,7 +237,7 @@
                         <action selector="eqPresetsAction:" target="-2" id="bta-Pr-Z7U"/>
                     </connections>
                 </popUpButton>
-                <button toolTip="Save current playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TNd-kH-8D2" userLabel="Save">
+                <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TNd-kH-8D2" userLabel="Save">
                     <rect key="frame" x="356" y="3" width="11" height="11"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="6Yh-iO-dz1">
