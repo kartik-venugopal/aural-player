@@ -55,7 +55,7 @@ Wanna try it out ? The latest app bundle can be found in the disk image file [Au
 
 ## Recent updates
 
-12/07/2017: **Equalizer (EQ) user-defined presets** - The user can now save (and subsequently load) Equalizer presets.
+12/07/2017: **User-defined Equalizer (EQ) presets** - The user can now save (and subsequently load) Equalizer presets.
 
 12/06/2017: **A->B Track segment looping** - The user can now define and indefinitely loop a track segment of choice by defining two arbitrary loop points - start and end.
 
