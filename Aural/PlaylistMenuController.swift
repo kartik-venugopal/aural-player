@@ -1,9 +1,9 @@
 import Cocoa
 
 /*
-    Provides actions for the Playlist menu that perform various CRUD (model) operations and view navigation operations on the playlist.
+ Provides actions for the Playlist menu that perform various CRUD (model) operations and view navigation operations on the playlist.
  
-    NOTE - No actions are directly handled by this class. Action messages are published to another app component that is responsible for these functions.
+ NOTE - No actions are directly handled by this class. Action messages are published to another app component that is responsible for these functions.
  */
 class PlaylistMenuController: NSObject, NSMenuDelegate {
     
@@ -29,16 +29,16 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         // These menu items require 1 - the playlist to be visible, and 2 - at least one playlist item to be selected
-//        [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsDownMenuItem, removeSelectedItemsMenuItem].forEach({$0?.isEnabled = WindowState.showingPlaylist && PlaylistViewState.currentView.selectedRow >= 0})
-//        
-//        // These menu items require 1 - the playlist to be visible, and 2 - at least one track in the playlist
-//        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem].forEach({$0?.isEnabled = WindowState.showingPlaylist && playlist.size() > 0})
-//        
-//        // These menu items require at least one track in the playlist
-//        [savePlaylistMenuItem, clearPlaylistMenuItem].forEach({$0?.isEnabled = playlist.size() > 0})
-//        
-//        // This menu item requires the playlist to be visible
-//        shiftTabMenuItem.isEnabled = WindowState.showingPlaylist
+        [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsDownMenuItem, removeSelectedItemsMenuItem].forEach({$0?.isEnabled = WindowState.showingPlaylist && PlaylistViewState.currentView.selectedRow >= 0})
+        
+        // These menu items require 1 - the playlist to be visible, and 2 - at least one track in the playlist
+        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem].forEach({$0?.isEnabled = WindowState.showingPlaylist && playlist.size() > 0})
+        
+        // These menu items require at least one track in the playlist
+        [savePlaylistMenuItem, clearPlaylistMenuItem].forEach({$0?.isEnabled = playlist.size() > 0})
+        
+        // This menu item requires the playlist to be visible
+        shiftTabMenuItem.isEnabled = WindowState.showingPlaylist
     }
     
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist
@@ -83,7 +83,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func playlistSortAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.sort, nil))
     }
-
+    
     // Switches the current playlist tab to the next one in the playlist tab group. Example: Tracks -> Artists or Albums -> Genres, Genres -> Tracks
     @IBAction func shiftTabAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.shiftTab, nil))
@@ -103,7 +103,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func scrollToBottomAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.scrollToBottom, PlaylistViewState.current))
     }
- 
+    
     // Publishes a notification that the playback sequence may have changed, so that interested UI observers may update their views if necessary
     private func sequenceChanged() {
         if (playbackInfo.getPlayingTrack() != nil) {
