@@ -60,27 +60,34 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     // Plays the track/group selected within the playlist, if there is one. If multiple items are selected, the first one will be chosen.
     @IBAction func playSelectedItemAction(_ sender: AnyObject) {
-        let selRow = playlistView.selectedRow
         
-        if (selRow >= 0) {
+        let selRowIndexes = playlistView.selectedRowIndexes
+        
+        if (!selRowIndexes.isEmpty) {
             
-            let item = playlistView.item(atRow: selRow)
+            let item = playlistView.item(atRow: selRowIndexes.min()!)
             
             // The selected item is either a track or a group
             if let track = item as? Track {
+                
                 _ = SyncMessenger.publishRequest(PlaybackRequest(track: track))
+                
+                // Clear the selection and reload the row
+                playlistView.deselectAll(self)
+                playlistView.reloadData(forRowIndexes: selRowIndexes, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
+                
             } else {
                 
                 let group = item as! Group
                 _ = SyncMessenger.publishRequest(PlaybackRequest(group: group))
                 
+                // Clear the selection and reload the row
+                playlistView.deselectAll(self)
+                playlistView.reloadData(forRowIndexes: selRowIndexes, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
+                
                 // Expand the group to show the new playing track under the group
                 playlistView.expandItem(group)
             }
-            
-            // Clear the selection and reload the row
-            playlistView.deselectAll(self)
-            playlistView.reloadData(forRowIndexes: IndexSet(integer: selRow), columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
         }
     }
     
