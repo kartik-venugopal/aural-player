@@ -74,6 +74,8 @@ enum MessageType {
     
     case appResignedActiveNotification
     
+    case mainWindowResizingNotification
+    
     case playbackRequest
     
     case appExitRequest
@@ -410,4 +412,15 @@ struct SaveEQUserPresetRequest: RequestMessage {
     init(_ presetName: String) {
         self.presetName = presetName
     }
+}
+
+// Notification that the main window is about to be resized
+struct MainWindowResizingNotification: NotificationMessage {
+ 
+    let messageType: MessageType = .mainWindowResizingNotification
+    
+    private init() {}
+    
+    // Singleton
+    static let instance: MainWindowResizingNotification = MainWindowResizingNotification()
 }

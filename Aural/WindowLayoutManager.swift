@@ -3,7 +3,7 @@ import Cocoa
 /*
     Handles positioning of main window and playlist window (docking/maximizing)
  */
-class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
+class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber, MessageSubscriber {
     
     private lazy var mainWindowController: MainWindowController = WindowFactory.getMainWindowController()
     private lazy var mainWindow: NSWindow = WindowFactory.getMainWindow()
@@ -43,6 +43,8 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
         mainWindow.delegate = self
         
         SyncMessenger.subscribe(actionTypes: [.dockLeft, .dockRight, .dockBottom, .maximize, .maximizeHorizontal, .maximizeVertical, .togglePlaylist], subscriber: self)
+        
+        SyncMessenger.subscribe(messageTypes: [.mainWindowResizingNotification], subscriber: self)
     }
     
     // One-time seutp. Lays out both windows per user preferences and saved app state.
@@ -402,6 +404,26 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
         default: return
             
         }
+    }
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        switch notification.messageType {
+            
+        case .mainWindowResizingNotification: mainWindowResizing()
+            
+        default: return
+            
+        }
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        return EmptyResponse.instance
+    }
+    
+    private func mainWindowResizing() {
+        // Note down the playlist window's dock state before the main window is resized/moved
+        lastDockState = playlistDockState
     }
     
     // MARK: Window delegate functions
