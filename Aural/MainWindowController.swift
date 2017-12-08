@@ -109,6 +109,8 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
         
         // Resize window
         
+        SyncMessenger.publishNotification(MainWindowResizingNotification.instance)
+        
         var wFrame = theWindow.frame
         
         let newHeight: CGFloat = WindowState.showingEffects ? Dimensions.windowHeight_effectsOnly : Dimensions.windowHeight_compact
