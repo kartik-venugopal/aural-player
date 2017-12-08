@@ -55,6 +55,8 @@ Wanna try it out ? The latest app bundle can be found in the disk image file [Au
 
 ## Recent updates
 
+12/07/2017: **Equalizer (EQ) user-defined presets** - The user can now save (and subsequently load) Equalizer presets.
+
 12/06/2017: **A->B Track segment looping** - The user can now define and indefinitely loop a track segment of choice by defining two arbitrary loop points - start and end.
 
 11/17/2017: **Playlist contextual menu** - When a playlist item is right/control-clicked, the app will now display a contextual menu with functions applicable to the clicked item. Certain functions that could only be performed on the playing track will now be able to be performed on any playlist track - adding/removing a track to/from Favorites list, getting detailed track info.
