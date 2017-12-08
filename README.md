@@ -109,6 +109,6 @@ Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant co
 
 ![Filter](/Documentation/Screenshots/Filter.png?raw=true "Filter")
 
-### Delay unit
+### Delay effects unit
 
 ![Recorder](/Documentation/Screenshots/Delay.png?raw=true "Delay")
