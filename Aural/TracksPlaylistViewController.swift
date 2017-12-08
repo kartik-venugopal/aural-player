@@ -58,14 +58,15 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     // Plays the track selected within the playlist, if there is one. If multiple tracks are selected, the first one will be chosen.
     @IBAction func playSelectedTrackAction(_ sender: AnyObject) {
         
-        let selRow = playlistView.selectedRow
+        let selRowIndexes = playlistView.selectedRowIndexes
     
-        if (selRow >= 0) {
-            _ = SyncMessenger.publishRequest(PlaybackRequest(index: selRow))
+        if (!selRowIndexes.isEmpty) {
             
-            // Clear the selection and reload the row
+            _ = SyncMessenger.publishRequest(PlaybackRequest(index: selRowIndexes.min()!))
+            
+            // Clear the selection and reload the rows
             playlistView.deselectAll(self)
-            playlistView.reloadData(forRowIndexes: IndexSet(integer: selRow), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            playlistView.reloadData(forRowIndexes: selRowIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         }
     }
     
