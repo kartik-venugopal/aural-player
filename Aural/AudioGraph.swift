@@ -67,6 +67,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         eqNode.bypass = state.eqBypass
         eqNode.setBands(state.eqBands)
         eqNode.globalGain = state.eqGlobalGain
+        EQPresets.loadUserDefinedPresets(state.eqUserPresets)
         
         // Pitch
         pitchNode.bypass = state.pitchBypass
@@ -323,6 +324,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.eqBypass = eqNode.bypass
         state.eqBands = eqNode.allBands()
         state.eqGlobalGain = eqNode.globalGain
+        state.eqUserPresets = EQPresets.userDefinedPresets
         
         // Pitch
         state.pitchBypass = pitchNode.bypass

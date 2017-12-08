@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the EQ (Equalizer) effects unit
  */
-class EQViewController: NSViewController, ActionMessageSubscriber {
+class EQViewController: NSViewController, ActionMessageSubscriber, MessageSubscriber {
     
     @IBOutlet weak var btnEQBypass: EffectsUnitBypassButton!
     
@@ -23,18 +23,22 @@ class EQViewController: NSViewController, ActionMessageSubscriber {
     
     // Presets menu
     @IBOutlet weak var eqPresets: NSPopUpButton!
+    @IBOutlet weak var btnSavePreset: NSButton!
+    
+    private lazy var userPresetsPopover: EQUserPresetsPopoverViewController = EQUserPresetsPopoverViewController.create()
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
     override var nibName: String? {return "EQ"}
- 
+    
     override func viewDidLoad() {
         
         initControls(ObjectGraph.getUIAppState())
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.saveEQUserPreset], subscriber: self)
     }
     
     private func initControls(_ appState: UIAppState) {
@@ -45,6 +49,9 @@ class EQViewController: NSViewController, ActionMessageSubscriber {
         
         eqGlobalGainSlider.floatValue = appState.eqGlobalGain
         updateAllEQSliders(appState.eqBands)
+        
+        // Initialize the menu with user-defined presets
+        EQPresets.userDefinedPresets.forEach({eqPresets.insertItem(withTitle: $0.name, at: 0)})
         
         // Don't select any items from the EQ presets menu
         eqPresets.selectItem(at: -1)
@@ -70,14 +77,20 @@ class EQViewController: NSViewController, ActionMessageSubscriber {
     // Applies a built-in preset to the Equalizer
     @IBAction func eqPresetsAction(_ sender: AnyObject) {
         
-        let preset = EQPresets.fromDescription((eqPresets.selectedItem?.title)!)
+        // Check if the preset is user-defined (tag == -1) or built-in
         
-        let eqBands: [Int: Float] = preset.bands
-        graph.setEQBands(eqBands)
-        updateAllEQSliders(eqBands)
+        let preset = EQPresets.presetByName(eqPresets.titleOfSelectedItem!)
+        
+        graph.setEQBands(preset.bands)
+        updateAllEQSliders(preset.bands)
         
         // Don't select any of the items
         eqPresets.selectItem(at: -1)
+    }
+    
+    // Displays a popover to allow the user to name the new custom preset
+    @IBAction func savePresetAction(_ sender: AnyObject) {
+        userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
     }
     
     private func updateAllEQSliders(_ eqBands: [Int: Float]) {
@@ -130,6 +143,22 @@ class EQViewController: NSViewController, ActionMessageSubscriber {
         showEQTab()
     }
     
+    // Actually saves the new user-defined preset
+    private func saveUserPreset(_ request: SaveEQUserPresetRequest) {
+        
+        EQPresets.addUserDefinedPreset(request.presetName, getAllBands())
+        
+        // Add a menu item for the new preset, at the top of the menu
+        eqPresets.insertItem(withTitle: request.presetName, at: 0)
+    }
+    
+    private func getAllBands() -> [Int: Float] {
+        
+        var allBands: [Int: Float] = [Int: Float]()
+        eqSliders.forEach({allBands[$0.tag] = $0.floatValue})
+        return allBands
+    }
+    
     // MARK: Message handling
     
     func consumeMessage(_ message: ActionMessage) {
@@ -153,5 +182,21 @@ class EQViewController: NSViewController, ActionMessageSubscriber {
         default: return
             
         }
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        switch request.messageType {
+            
+        case .saveEQUserPreset: saveUserPreset(request as! SaveEQUserPresetRequest)
+            
+        default: return EmptyResponse.instance
+            
+        }
+        
+        return EmptyResponse.instance
+    }
+    
+    func consumeNotification(_ notification: NotificationMessage) {
     }
 }

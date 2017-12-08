@@ -130,8 +130,8 @@ struct Colors {
     // Fill color of text in modal dialog navigation buttons (search)
     static let modalDialogNavButtonTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
     
-    // Color of cursor inside playlist search field
-    static let searchFieldCursorColor: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
+    // Color of cursor inside text fields
+    static let textFieldCursorColor: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
     
     // Background color of the popover view
     static let popoverBackgroundColor: NSColor = NSColor(calibratedWhite: 0.1, alpha: 1)

@@ -437,7 +437,7 @@
                         <shadow key="shadow" blurRadius="5">
                             <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </shadow>
-                        <color key="borderColor" white="0.13663736979999999" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="borderColor" white="0.10313585070277778" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
                     </box>
                     <button toolTip="Scroll to top of playlist" translatesAutoresizingMaskIntoConstraints="NO" id="hbJ-4L-vUS" userLabel="Scroll To Top Button">

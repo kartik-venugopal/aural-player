@@ -18,7 +18,7 @@ class PlaylistInputEventHandler {
     // Handles a single event
     static func handle(_ event: NSEvent) {
         
-        if (NSApp.modalWindow != nil) {
+        if (NSApp.modalWindow != nil || WindowState.showingPopover) {
             // Modal dialog open, don't do anything
             return
         }

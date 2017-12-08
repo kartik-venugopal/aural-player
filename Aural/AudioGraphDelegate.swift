@@ -187,7 +187,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
             _ = graph.toggleEQBypass()
             
             // Reset to "flat" preset (because it is equivalent to an inactive EQ)
-            graph.setEQBands(EQPresets.flat.bands)
+            graph.setEQBands(EQPresets.defaultPreset.bands)
         }
     }
     
