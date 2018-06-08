@@ -61,6 +61,10 @@ Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant co
 
 ![App screenshot](/Documentation/Screenshots/Default.png?raw=true "App screenshot")
 
+### Track segment loop playback (red segment on seek bar)
+
+![App screenshot](/Documentation/Screenshots/SegmentLoop.png?raw=true "Track segment loop playback")
+
 ### Playlist-only view w/ detailed track info popover view
 
 ![App screenshot w/ more info view](/Documentation/Screenshots/DetailedInfo.png?raw=true "More Info")
