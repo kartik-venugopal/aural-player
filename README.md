@@ -37,18 +37,6 @@ Aural Player was written by an audio enthusiast learning to program on OS X, com
 
 Wanna try it out ? The latest app bundle can be found in the disk image file [Aural.dmg](https://github.com/maculateConception/aural-player/blob/master/Aural.dmg?raw=true). Just download the file, mount it, and run the app !
 
-## Recent updates
-
-12/07/2017: **User-defined Equalizer (EQ) presets** - The user can now save (and subsequently load) Equalizer presets.
-
-12/06/2017: **A->B Track segment looping** - The user can now define and indefinitely loop a track segment of choice by defining two arbitrary loop points - start and end.
-
-11/17/2017: **Playlist contextual menu** - When a playlist item is right/control-clicked, the app will now display a contextual menu with functions applicable to the clicked item. Certain functions that could only be performed on the playing track will now be able to be performed on any playlist track - adding/removing a track to/from Favorites list, getting detailed track info.
-
-11/16/2017: **Gesture recognition (trackpad/MagicMouse users)** - Users with a trackpad or MagicMouse can now perform essential player/playlist functions like track selection, seeking, volume control, and playlist scrolling (top/bottom), with simple and familiar gestures like 3-finger swipes or two-finger scrolls.
-
-11/14/2017: **History: Favorites list and recent items lists** - The app now manages a Favorites list to which users can add/remove tracks. It also maintains historical usage in terms of 2 lists: recently added files/folders, and recently played tracks. The lists are displayed in menus, and users can select items from these lists with one single click to either play or add an item to the playlist.
-
 ## Third party code and contributor attributions
 
 Aural Player makes use of (a modified version of) a reusable UI control called [RangeSlider](https://github.com/matthewreagan/RangeSlider).
