@@ -15,7 +15,7 @@ Aural Player is a free and open source audio player application for the macOS pl
 - Sound effects: Graphic equalizer, Pitch shift, Time stretch, Reverb, Delay, Filter
 - Recording of clips in AAC/ALAC/AIFF formats
 - Track segment looping
-- Autoplay (upon app startup and/or when tracks are added)
+- Configurable autoplay (on app startup and/or when tracks are added)
 - Display of ID3 and iTunes metadata, including artwork (when available)
 - Grouping of tracks by artist/album/genre for convenient playlist browsing
 - Favorites list and recent items lists for added convenience
@@ -81,4 +81,18 @@ Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant co
 
 ### Delay effects unit
 
-![Recorder](/Documentation/Screenshots/Delay.png?raw=true "Delay")
+![Delay](/Documentation/Screenshots/Delay.png?raw=true "Delay")
+
+### Playlist search
+
+![Playlist search](/Documentation/Screenshots/Search.png?raw=true "Delay")
+
+### Playlist sort
+
+![Playlist sort](/Documentation/Screenshots/Sort.png?raw=true "Delay")
+
+### Preferences (Playback tab selected)
+
+![Preferences](/Documentation/Screenshots/Preferences-Playback.png?raw=true "Delay")
+
+
