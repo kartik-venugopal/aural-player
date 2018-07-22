@@ -14,7 +14,7 @@ Aural Player is a free and open source audio player application for the macOS pl
 - Supports M3U/M3U8 playlists
 - Sound effects: Graphic equalizer, Pitch shift, Time stretch, Reverb, Delay, Filter
 - Recording of clips in AAC/ALAC/AIFF formats
-- Track segment looping
+- Track segment looping, to allow users to loop their favorite parts of a track
 - Configurable autoplay (on app startup and/or when tracks are added)
 - Display of ID3 and iTunes metadata, including artwork (when available)
 - Grouping of tracks by artist/album/genre for convenient playlist browsing
