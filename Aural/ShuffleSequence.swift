@@ -1,5 +1,5 @@
 /*
-    Encapsulates a pre-computed shuffle sequence to be used to determines the order in which shuffled tracks will be played.
+    Encapsulates a pre-computed shuffle sequence to be used to determine the order in which shuffled tracks will be played.
  */
 
 import Foundation

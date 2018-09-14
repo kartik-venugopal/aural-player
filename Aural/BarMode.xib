@@ -13,7 +13,7 @@
                 <outlet property="btnRepeat" destination="0KD-m9-964" id="giS-Bm-5So"/>
                 <outlet property="btnShuffle" destination="2gQ-f7-Z69" id="ysT-Vo-N2s"/>
                 <outlet property="btnVolume" destination="V0p-NE-lB9" id="rZw-u0-NE7"/>
-                <outlet property="lblTrackName" destination="aEI-pb-mFQ" id="5Eh-JH-FKp"/>
+                <outlet property="lblTrackName" destination="PI3-Z0-Fhx" id="Jse-zZ-9H3"/>
                 <outlet property="seekSlider" destination="Dib-qm-cTK" id="h2i-uG-4bm"/>
                 <outlet property="volumeSlider" destination="xr3-Da-Ypq" id="Qyb-gs-JZQ"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="0UZ-o8-zfX"/>
@@ -22,22 +22,26 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
-            <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="510" height="35"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <value key="minSize" type="size" width="510" height="35"/>
-            <value key="maxSize" type="size" width="1000" height="35"/>
+            <value key="maxSize" type="size" width="510" height="35"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="510" height="35"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="OVD-uy-3Y9" userLabel="Container box">
+                    <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="OVD-uy-3Y9" userLabel="Container box">
                         <rect key="frame" x="0.0" y="0.0" width="510" height="35"/>
                         <view key="contentView" id="BgU-DV-deF">
-                            <rect key="frame" x="1" y="1" width="508" height="33"/>
+                            <rect key="frame" x="0.0" y="0.0" width="510" height="35"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="Dyj-yX-kv9"/>
+                            <constraint firstAttribute="width" constant="510" id="THl-s2-ywO"/>
+                        </constraints>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <button toolTip="Quit application" translatesAutoresizingMaskIntoConstraints="NO" id="cuf-q6-1gq" userLabel="Close Button">
@@ -76,17 +80,20 @@
                         </constraints>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="HxQ-g4-V3b"/>
                     </imageView>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEI-pb-mFQ" userLabel="Track label">
-                        <rect key="frame" x="50" y="11" width="250" height="20"/>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="PI3-Z0-Fhx" userLabel="Track Label" customClass="BannerLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="52" y="16" width="246" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="DmI-6g-cfR"/>
+                            <constraint firstAttribute="height" constant="15" id="8y2-8p-DiY"/>
                         </constraints>
-                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="Dyf-th-b2S">
-                            <font key="font" size="10" name="GillSans-SemiBold"/>
-                            <color key="textColor" white="0.70274522569444442" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                <color key="value" white="0.67664930555555558" alpha="1" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </customView>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dib-qm-cTK">
                         <rect key="frame" x="52" y="3" width="246" height="13"/>
                         <constraints>
@@ -242,13 +249,15 @@
                     <constraint firstAttribute="bottom" secondItem="Dib-qm-cTK" secondAttribute="bottom" constant="4" id="11f-gX-D6S"/>
                     <constraint firstItem="lPi-bp-V2S" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="11" id="4dL-vU-SdS"/>
                     <constraint firstItem="V0p-NE-lB9" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="11" id="5Qk-cn-MOH"/>
+                    <constraint firstItem="PI3-Z0-Fhx" firstAttribute="leading" secondItem="EA7-Pw-SZQ" secondAttribute="trailing" constant="7" id="6JH-EJ-HFu"/>
                     <constraint firstItem="B5F-Bo-qT9" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="11" id="80Z-ik-mZ7"/>
+                    <constraint firstItem="Dib-qm-cTK" firstAttribute="top" secondItem="PI3-Z0-Fhx" secondAttribute="bottom" id="AC6-j5-ndR"/>
                     <constraint firstItem="OVD-uy-3Y9" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="DQx-Oy-hHt"/>
                     <constraint firstItem="lPi-bp-V2S" firstAttribute="leading" secondItem="2gQ-f7-Z69" secondAttribute="trailing" constant="11" id="EYj-AT-Hyf"/>
                     <constraint firstItem="2gQ-f7-Z69" firstAttribute="leading" secondItem="0KD-m9-964" secondAttribute="trailing" constant="1" id="G3y-gQ-QvG"/>
                     <constraint firstItem="V0p-NE-lB9" firstAttribute="leading" secondItem="2GG-Ks-yTZ" secondAttribute="trailing" constant="13" id="GOA-Al-xLb"/>
                     <constraint firstItem="OVD-uy-3Y9" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="HT9-Y4-s6a"/>
-                    <constraint firstItem="aEI-pb-mFQ" firstAttribute="leading" secondItem="EA7-Pw-SZQ" secondAttribute="trailing" constant="7" id="IO1-HL-fev"/>
+                    <constraint firstItem="PI3-Z0-Fhx" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="4" id="IAU-4k-tFX"/>
                     <constraint firstItem="ugs-TH-ReA" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="10" id="M32-nn-KyE"/>
                     <constraint firstItem="2GG-Ks-yTZ" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="11" id="NO6-43-LcB"/>
                     <constraint firstItem="0KD-m9-964" firstAttribute="leading" secondItem="XAU-4m-pNl" secondAttribute="trailing" constant="3" id="Qzw-c3-Bis"/>
@@ -259,7 +268,7 @@
                     <constraint firstItem="Dib-qm-cTK" firstAttribute="leading" secondItem="EA7-Pw-SZQ" secondAttribute="trailing" constant="7" id="cOv-sY-O5m"/>
                     <constraint firstItem="ugs-TH-ReA" firstAttribute="leading" secondItem="B5F-Bo-qT9" secondAttribute="trailing" constant="5" id="ce3-18-zCU"/>
                     <constraint firstItem="cuf-q6-1gq" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="5" id="eqF-DB-6zY"/>
-                    <constraint firstItem="0KD-m9-964" firstAttribute="leading" secondItem="aEI-pb-mFQ" secondAttribute="trailing" constant="12" id="kaQ-Jo-9St"/>
+                    <constraint firstItem="XAU-4m-pNl" firstAttribute="leading" secondItem="PI3-Z0-Fhx" secondAttribute="trailing" constant="8" id="fcU-le-zuB"/>
                     <constraint firstItem="2gQ-f7-Z69" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="10" id="mCe-2D-dYA"/>
                     <constraint firstItem="VK7-AE-2TX" firstAttribute="leading" secondItem="ugs-TH-ReA" secondAttribute="trailing" constant="4" id="p9G-bd-KHN"/>
                     <constraint firstItem="EA7-Pw-SZQ" firstAttribute="leading" secondItem="Koo-12-h7i" secondAttribute="trailing" constant="7" id="pVl-FV-Vp2"/>
@@ -268,20 +277,17 @@
                     <constraint firstItem="xr3-Da-Ypq" firstAttribute="leading" secondItem="V0p-NE-lB9" secondAttribute="trailing" constant="2" id="rWR-ee-xBO"/>
                     <constraint firstItem="0KD-m9-964" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="12" id="s4C-xF-ZJH"/>
                     <constraint firstAttribute="bottom" secondItem="Koo-12-h7i" secondAttribute="bottom" constant="6" id="u3w-3x-9Iu"/>
-                    <constraint firstItem="Dib-qm-cTK" firstAttribute="trailing" secondItem="aEI-pb-mFQ" secondAttribute="trailing" id="u8V-xq-6je"/>
                     <constraint firstItem="Dib-qm-cTK" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="19" id="uf9-Se-YVb"/>
                     <constraint firstItem="0KD-m9-964" firstAttribute="leading" secondItem="Dib-qm-cTK" secondAttribute="trailing" constant="12" id="uqG-kv-eYg"/>
-                    <constraint firstItem="aEI-pb-mFQ" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="4" id="vCw-5B-hgI"/>
                     <constraint firstItem="xr3-Da-Ypq" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="11" id="xSB-oU-gLO"/>
                     <constraint firstItem="Koo-12-h7i" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="4" id="xpI-Nu-Wxb"/>
                     <constraint firstItem="2GG-Ks-yTZ" firstAttribute="leading" secondItem="VK7-AE-2TX" secondAttribute="trailing" constant="5" id="xrB-SR-747"/>
-                    <constraint firstItem="Dib-qm-cTK" firstAttribute="leading" secondItem="aEI-pb-mFQ" secondAttribute="leading" id="zdq-F0-hyY"/>
                     <constraint firstAttribute="bottom" secondItem="OVD-uy-3Y9" secondAttribute="bottom" id="zzZ-du-USx"/>
                 </constraints>
             </view>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                    <color key="value" white="0.53426106770833337" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="value" white="0.53426106770833337" alpha="0.0" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="139" y="-11305.5"/>

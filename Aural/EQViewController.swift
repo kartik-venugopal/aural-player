@@ -57,7 +57,6 @@ class EQViewController: NSViewController, ActionMessageSubscriber, MessageSubscr
         eqPresets.selectItem(at: -1)
     }
     
-    // Updates the global gain value of the Equalizer
     @IBAction func eqBypassAction(_ sender: AnyObject) {
         btnEQBypass.toggle()
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq, !graph.toggleEQBypass()))

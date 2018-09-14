@@ -278,6 +278,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         }
         
         let playingTrack = getPlayingTrack()
+        
         // Calculate the new start position
         let curPosn = player.getSeekPosition()
         
