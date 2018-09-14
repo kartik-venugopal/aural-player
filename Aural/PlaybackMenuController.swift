@@ -50,6 +50,10 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // When the menu is about to open, update the menu item states
     func menuNeedsUpdate(_ menu: NSMenu) {
         
+        if AppModeManager.mode != .regular {
+            return
+        }
+        
         updateRepeatAndShuffleMenuItemStates()
         
         // Update Favorites menu item

@@ -14,6 +14,10 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuNeedsUpdate(_ menu: NSMenu) {
         
+        if AppModeManager.mode != .regular {
+            return
+        }
+        
         togglePlaylistMenuItem.state = WindowState.showingPlaylist ? 1 : 0
         toggleEffectsMenuItem.state = WindowState.showingEffects ? 1 : 0
     }

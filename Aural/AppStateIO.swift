@@ -41,7 +41,7 @@ class AppStateIO {
                 return AppState.deserialize(data as! NSDictionary)
                 
             } catch let error as NSError {
-                NSLog("Error loading player state config file: %@", error.description)
+                NSLog("Error loading app state config file: %@", error.description)
             }
         }
         

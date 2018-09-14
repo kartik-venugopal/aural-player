@@ -105,6 +105,8 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber, 
         
         dock(mainWindow.origin
             .applying(CGAffineTransform.init(translationX: 0, y: -playlistHeight)), NSMakeSize(playlistWindow.width, playlistHeight))
+        
+        WindowState.playlistLocation = .bottom
     }
     
     // Docks the playlist to the left of the main window
@@ -115,6 +117,8 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber, 
         
         dock(mainWindow.frame.origin
             .applying(CGAffineTransform.init(translationX: -playlistWidth, y: mainWindow.height - playlistWindow.height)), NSMakeSize(playlistWidth, playlistWindow.height))
+        
+        WindowState.playlistLocation = .left
     }
     
     // Docks the playlist to the right of the main window
@@ -125,6 +129,8 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber, 
         
         dock(mainWindow.frame.origin
             .applying(CGAffineTransform.init(translationX: mainWindow.width, y: mainWindow.height - playlistWindow.height)), NSMakeSize(playlistWidth, playlistWindow.height))
+        
+        WindowState.playlistLocation = .right
     }
     
     // Docks the playlist with the main window, at a given location and size, and ensures that the entire playlist is visible after the dock

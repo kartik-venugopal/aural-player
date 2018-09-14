@@ -28,6 +28,10 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
+        if AppModeManager.mode != .regular {
+            return
+        }
+        
         // These menu items require 1 - the playlist to be visible, and 2 - at least one playlist item to be selected
         [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsDownMenuItem, removeSelectedItemsMenuItem].forEach({$0?.isEnabled = WindowState.showingPlaylist && PlaylistViewState.currentView.selectedRow >= 0})
         

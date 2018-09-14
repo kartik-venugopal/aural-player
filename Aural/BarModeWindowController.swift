@@ -3,7 +3,7 @@ import Cocoa
 class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessageSubscriber, ActionMessageSubscriber {
     
     // Fields that display playing track info
-    @IBOutlet weak var lblTrackName: NSTextField!
+    @IBOutlet weak var lblTrackName: BannerLabel!
     @IBOutlet weak var artView: NSImageView!
     
     // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
@@ -58,6 +58,9 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         // Set up the art view and the default animation
         artView.canDrawSubviewsIntoLayer = true
         artView.image = Images.imgPlayingArt
+        
+        lblTrackName.font = Fonts.barModePlayingTrackTextFont
+        lblTrackName.alignment = NSTextAlignment.center
     }
     
     private func initVolumeAndPan(_ appState: UIAppState) {
@@ -87,7 +90,7 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
     
     private func showNowPlayingInfo(_ track: Track) {
         
-        lblTrackName.stringValue = track.conciseDisplayName
+        lblTrackName.text = track.conciseDisplayName
         
         if (track.displayInfo.art != nil) {
             artView.image = track.displayInfo.art!
@@ -103,7 +106,7 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
     
     private func clearNowPlayingInfo() {
         
-        lblTrackName.stringValue = ""
+        lblTrackName.text = ""
         artView.image = Images.imgPlayingArt
         artView.animates = false
         
