@@ -17,6 +17,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var removeTrackMenuItem: NSMenuItem!
     @IBOutlet weak var moveTrackUpMenuItem: NSMenuItem!
     @IBOutlet weak var moveTrackDownMenuItem: NSMenuItem!
+    @IBOutlet weak var showTrackInFinderMenuItem: NSMenuItem!
     
     private var trackMenuItems: [NSMenuItem] = []
     
@@ -49,7 +50,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         // Store all track-specific and group-specific menu items in separate arrays for convenient access when setting up the menu prior to display
         
-        trackMenuItems = [playTrackMenuItem, favoritesMenuItem, detailedInfoMenuItem, removeTrackMenuItem, moveTrackUpMenuItem, moveTrackDownMenuItem]
+        trackMenuItems = [playTrackMenuItem, favoritesMenuItem, detailedInfoMenuItem, removeTrackMenuItem, moveTrackUpMenuItem, moveTrackDownMenuItem, showTrackInFinderMenuItem]
         
         groupMenuItems = [playGroupMenuItem, removeGroupMenuItem, moveGroupUpMenuItem, moveGroupDownMenuItem]
         
@@ -154,6 +155,10 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemDownAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current))
         sequenceChanged()
+    }
+    
+    @IBAction func showTrackInFinderAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.showTrackInFinder, PlaylistViewState.current))
     }
     
     // Publishes a notification that the playback sequence may have changed, so that interested UI observers may update their views if necessary

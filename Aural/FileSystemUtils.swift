@@ -1,7 +1,7 @@
 /*
     A collection of useful utilities for file system operations
  */
-import Foundation
+import Cocoa
 
 class FileSystemUtils {
     
@@ -179,5 +179,10 @@ class FileSystemUtils {
         }
         
         return path
+    }
+
+    // Opens a Finder window, with the given file selected within it
+    static func showFileInFinder(_ file: URL) {
+        NSWorkspace.shared().activateFileViewerSelecting([file])
     }
 }

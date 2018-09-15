@@ -48,6 +48,9 @@ enum ActionType {
     // Move selected items down one row within playlist
     case moveTracksDown
     
+    // Show the selected track in Finder
+    case showTrackInFinder
+    
     // Switch playlist tabs to switch between playlist views
     case shiftTab
     
