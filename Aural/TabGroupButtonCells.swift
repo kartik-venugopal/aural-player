@@ -55,7 +55,7 @@ class TabGroupButtonCell: NSButtonCell {
 class PlaylistViewsButtonCell: TabGroupButtonCell {
     
     override var borderRadius: CGFloat {return 2}
-    override var selectionBoxColor: NSColor {return NSColor(calibratedWhite: 0.25, alpha: 1)}
+    override var selectionBoxColor: NSColor {return NSColor(calibratedWhite: 0.135, alpha: 1)}
 }
 
 // Cell for the Preferences tab group

@@ -13,7 +13,7 @@ class OnOffImageAndTextButtonCell: NSButtonCell {
     
     private let backgroundFillColor: NSColor = Colors.tabViewButtonBackgroundColor
     private let borderInsetX: CGFloat = 1
-    private let borderInsetY: CGFloat = 1
+    private let borderInsetY: CGFloat = 2
     private let borderRadius: CGFloat = 2
     private let borderLineWidth: CGFloat = 1.5
     private let borderStrokeColor: NSColor = Colors.tabViewButtonOutlineColor
