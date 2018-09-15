@@ -52,7 +52,7 @@
                         </connections>
                     </button>
                     <button toolTip="Maximize playlist vertically" translatesAutoresizingMaskIntoConstraints="NO" id="8C3-ek-u6k" userLabel="Maximize Vertical Button">
-                        <rect key="frame" x="31" y="253" width="12" height="11"/>
+                        <rect key="frame" x="30" y="253" width="12" height="11"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="11" id="B9o-4v-FdA"/>
                             <constraint firstAttribute="width" constant="12" id="JNm-fQ-IXw"/>
@@ -66,7 +66,7 @@
                         </connections>
                     </button>
                     <button toolTip="Maximize playlist horizontally" translatesAutoresizingMaskIntoConstraints="NO" id="Aky-lm-R5Z" userLabel="Maximize Horizontal Button">
-                        <rect key="frame" x="47" y="253" width="12" height="11"/>
+                        <rect key="frame" x="45" y="253" width="12" height="11"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="Bss-H8-Ngi"/>
                             <constraint firstAttribute="height" constant="11" id="VXU-mE-4k8"/>
@@ -147,7 +147,7 @@
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <button toolTip="Dock playlist on the left" translatesAutoresizingMaskIntoConstraints="NO" id="caY-mP-Ml1" userLabel="Dock Left Button">
-                        <rect key="frame" x="421" y="253" width="12" height="11"/>
+                        <rect key="frame" x="423" y="253" width="12" height="11"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="YON-hk-wL8"/>
                             <constraint firstAttribute="height" constant="11" id="m7u-Mc-Ezp"/>
@@ -175,7 +175,7 @@
                         </connections>
                     </button>
                     <button toolTip="Dock playlist on the bottom" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="o7l-0n-iUv" userLabel="Dock Bottom Button">
-                        <rect key="frame" x="437" y="253" width="12" height="11"/>
+                        <rect key="frame" x="438" y="253" width="12" height="11"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="2G7-hF-zG6"/>
                             <constraint firstAttribute="height" constant="11" id="Oqc-vt-UgO"/>
@@ -474,7 +474,7 @@
                     <constraint firstAttribute="bottom" secondItem="B7I-KW-j8r" secondAttribute="bottom" constant="65" id="F9w-fj-3f1"/>
                     <constraint firstItem="4ZZ-7d-wdS" firstAttribute="leading" secondItem="eVi-5y-Ide" secondAttribute="leading" constant="15" id="LNU-o8-puj"/>
                     <constraint firstItem="o7l-0n-iUv" firstAttribute="top" secondItem="caY-mP-Ml1" secondAttribute="top" id="LQf-xH-Y6K"/>
-                    <constraint firstItem="Aky-lm-R5Z" firstAttribute="leading" secondItem="8C3-ek-u6k" secondAttribute="trailing" constant="4" id="Lsa-En-sfk"/>
+                    <constraint firstItem="Aky-lm-R5Z" firstAttribute="leading" secondItem="8C3-ek-u6k" secondAttribute="trailing" constant="3" id="Lsa-En-sfk"/>
                     <constraint firstItem="2Bk-G6-skT" firstAttribute="top" secondItem="eVi-5y-Ide" secondAttribute="top" id="NBY-k6-E0H"/>
                     <constraint firstItem="Syt-ea-ETd" firstAttribute="top" secondItem="rbs-L2-HsW" secondAttribute="bottom" constant="10" id="PZe-f0-XGl"/>
                     <constraint firstItem="OZu-cx-rp4" firstAttribute="top" secondItem="caY-mP-Ml1" secondAttribute="top" id="Q1x-dc-8W2"/>
@@ -488,11 +488,11 @@
                     <constraint firstItem="4ZZ-7d-wdS" firstAttribute="top" secondItem="Syt-ea-ETd" secondAttribute="bottom" constant="1" id="gpM-dE-1sO"/>
                     <constraint firstItem="rbs-L2-HsW" firstAttribute="centerY" secondItem="5cl-4B-qVy" secondAttribute="centerY" constant="0.5" id="hqL-Ky-6s9"/>
                     <constraint firstItem="B7I-KW-j8r" firstAttribute="leading" secondItem="hbJ-4L-vUS" secondAttribute="leading" id="mAg-TE-e1x"/>
-                    <constraint firstItem="8C3-ek-u6k" firstAttribute="leading" secondItem="5cl-4B-qVy" secondAttribute="trailing" constant="4" id="mCg-gh-KHL"/>
+                    <constraint firstItem="8C3-ek-u6k" firstAttribute="leading" secondItem="5cl-4B-qVy" secondAttribute="trailing" constant="3" id="mCg-gh-KHL"/>
                     <constraint firstItem="2Bk-G6-skT" firstAttribute="leading" secondItem="eVi-5y-Ide" secondAttribute="leading" id="nMo-Fj-gnF"/>
                     <constraint firstAttribute="bottom" secondItem="2Bk-G6-skT" secondAttribute="bottom" id="qrM-m4-Lt5"/>
-                    <constraint firstItem="o7l-0n-iUv" firstAttribute="leading" secondItem="caY-mP-Ml1" secondAttribute="trailing" constant="4" id="rFm-jx-rMt"/>
-                    <constraint firstItem="OZu-cx-rp4" firstAttribute="leading" secondItem="o7l-0n-iUv" secondAttribute="trailing" constant="4" id="rPQ-ez-HF3"/>
+                    <constraint firstItem="o7l-0n-iUv" firstAttribute="leading" secondItem="caY-mP-Ml1" secondAttribute="trailing" constant="3" id="rFm-jx-rMt"/>
+                    <constraint firstItem="OZu-cx-rp4" firstAttribute="leading" secondItem="o7l-0n-iUv" secondAttribute="trailing" constant="3" id="rPQ-ez-HF3"/>
                     <constraint firstItem="Syt-ea-ETd" firstAttribute="bottom" secondItem="eVi-5y-Ide" secondAttribute="bottom" constant="-28" id="z8f-8g-mSh"/>
                 </constraints>
             </view>
@@ -615,7 +615,7 @@
     <resources>
         <image name="Add" width="134" height="134"/>
         <image name="Clear" width="34.599998474121094" height="40"/>
-        <image name="DockBottom" width="700" height="600"/>
+        <image name="DockBottom" width="473" height="405"/>
         <image name="DockLeft" width="700" height="600"/>
         <image name="DockRight" width="700" height="600"/>
         <image name="Down" width="92" height="128"/>
