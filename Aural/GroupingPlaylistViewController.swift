@@ -41,7 +41,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.subscribe(messageTypes: [.trackAddedNotification, .trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -343,6 +343,14 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         }
     }
     
+    // Show the selected track in Finder
+    private func showTrackInFinder() {
+        
+        // This is a safe typecast, because the context menu will prevent this function from being executed on groups. In other words, the selected item will always be a track.
+        let selTrack = playlistView.item(atRow: playlistView.selectedRow) as! Track
+        FileSystemUtils.showFileInFinder(selTrack.file)
+    }
+    
     // MARK: Message handlers
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
@@ -437,6 +445,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         case .scrollToBottom:
             
             scrollToBottom()
+            
+        case .showTrackInFinder:
+            
+            showTrackInFinder()
             
         default: return
             

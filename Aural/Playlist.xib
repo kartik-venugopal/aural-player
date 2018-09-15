@@ -516,6 +516,7 @@
                 <outlet property="playTrackMenuItem" destination="s9W-FB-XJa" id="1ar-9p-zIl"/>
                 <outlet property="removeGroupMenuItem" destination="kVv-1O-nHY" id="LIn-q0-Xpf"/>
                 <outlet property="removeTrackMenuItem" destination="RCk-oA-gLU" id="aCt-Zm-jgZ"/>
+                <outlet property="showTrackInFinderMenuItem" destination="6Oh-bN-HCq" id="CK5-Py-mQU"/>
             </connections>
         </customObject>
         <menu autoenablesItems="NO" id="5mK-N5-S6w" userLabel="Playlist context menu">
@@ -546,6 +547,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="moreInfoAction:" target="TnB-Sk-yOp" id="5Dw-se-FC1"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="  Show track in Finder" image="ShowInFinder" id="6Oh-bN-HCq" userLabel="Show track in Finder">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showTrackInFinderAction:" target="TnB-Sk-yOp" id="06W-8k-6gu"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="ptR-ch-WUH"/>
@@ -625,6 +632,7 @@
         <image name="ScrollToBottom" width="269" height="266"/>
         <image name="ScrollToTop" width="269" height="266"/>
         <image name="Search" width="128" height="128"/>
+        <image name="ShowInFinder" width="11.25" height="11.25"/>
         <image name="Sort" width="464" height="386"/>
         <image name="Up" width="92" height="128"/>
         <image name="Up-Small" width="10" height="14"/>

@@ -36,7 +36,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -243,6 +243,13 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         }
     }
     
+    // Show the selected track in Finder
+    private func showTrackInFinder() {
+        
+        let selTrack = playlist.trackAtIndex(playlistView.selectedRow)
+        FileSystemUtils.showFileInFinder((selTrack?.track.file)!)
+    }
+    
     // MARK: Message handlers
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
@@ -341,6 +348,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         case .selectedTrackInfo:
             
             showSelectedTrackInfo()
+            
+        case .showTrackInFinder:
+            
+            showTrackInFinder()
             
         default: return
             
