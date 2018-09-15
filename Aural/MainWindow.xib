@@ -84,7 +84,7 @@
                                     <rect key="frame" x="203" y="387" width="75" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="AURAL" id="uY5-TU-vN1">
-                                        <font key="font" size="16" name="Courier"/>
+                                        <font key="font" size="12" name="CopperplateGothic-Bold"/>
                                         <color key="textColor" white="0.7480848524" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
@@ -123,31 +123,31 @@
                                         <action selector="toggleEffectsAction:" target="-2" id="maE-Ym-EeP"/>
                                     </connections>
                                 </button>
-                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="bezel" cornerRadius="5" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="zwp-2y-nBe" userLabel="Now Playing Box">
+                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="zwp-2y-nBe" userLabel="Now Playing Box">
                                     <rect key="frame" x="14" y="271" width="452" height="108"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" id="r5T-L7-Nu3">
-                                        <rect key="frame" x="1" y="1" width="450" height="106"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="452" height="108"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
                                     <color key="borderColor" white="0.103108724" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </box>
-                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="wJm-gK-OsL" userLabel="Player Box">
+                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="wJm-gK-OsL" userLabel="Player Box">
                                     <rect key="frame" x="14" y="205" width="452" height="54"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" id="0EX-XC-OYa">
-                                        <rect key="frame" x="1" y="1" width="450" height="52"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="452" height="54"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
                                     <color key="borderColor" white="0.099066840279999999" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </box>
-                                <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="8FQ-tu-oTm" userLabel="Effects Box">
+                                <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="8FQ-tu-oTm" userLabel="Effects Box">
                                     <rect key="frame" x="14" y="13" width="452" height="180"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" ambiguous="YES" id="mDn-2i-9fW">
-                                        <rect key="frame" x="1" y="1" width="450" height="178"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="452" height="180"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
                                     <color key="borderColor" white="0.10313585068611111" alpha="1" colorSpace="calibratedWhite"/>
