@@ -5,7 +5,14 @@ import Cocoa
  
     NOTE - No actions are directly handled by this class. Action messages are published to another app component that is responsible for these functions.
  */
-class SoundMenuController: NSObject {
+class SoundMenuController: NSObject, NSMenuDelegate {
+    
+    // Menu items that are not always accessible
+    @IBOutlet weak var panLeftMenuItem: NSMenuItem!
+    @IBOutlet weak var panRightMenuItem: NSMenuItem!
+    @IBOutlet weak var eqMenu: NSMenuItem!
+    @IBOutlet weak var pitchMenu: NSMenuItem!
+    @IBOutlet weak var timeMenu: NSMenuItem!
     
     // Menu items that hold specific associated values
     
@@ -59,6 +66,13 @@ class SoundMenuController: NSObject {
         rate2MenuItem.paramValue = 2
         rate3MenuItem.paramValue = 3
         rate4MenuItem.paramValue = 4
+    }
+    
+    // When the menu is about to open, update the menu item states
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        let isRegularMode = AppModeManager.mode == .regular
+        [panLeftMenuItem, panRightMenuItem, eqMenu, pitchMenu, timeMenu].forEach({$0?.isEnabled = isRegularMode})
     }
     
     // Mutes or unmutes the player
