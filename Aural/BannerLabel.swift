@@ -71,7 +71,7 @@ class BannerLabel: NSView {
     
     private func textChanged() {
         
-        NSLog("Text changed to: %@ %@", text, String(describing: self.layer))
+//        NSLog("Text changed to: %@ %@", text, String(describing: self.layer))
         
 //        self.layer?.removeAllAnimations()
 //        self.layer?.presentation()?.removeAllAnimations()
@@ -92,18 +92,18 @@ class BannerLabel: NSView {
     
     private func doBeginAnimation(_ animatedText: String) {
         
-        Swift.print("\n")
-        NSLog("Begin anim %@ %.0f", text, textWidth)
+//        Swift.print("\n")
+//        NSLog("Begin anim %@ %.0f", text, textWidth)
         
         let distanceToMove = self.frame.width - label.frame.width
         
-        NSLog("Dist=%f", distanceToMove)
+//        NSLog("Dist=%f", distanceToMove)
         
         NSAnimationContext.runAnimationGroup({_ in
 //            
             // Duration at least 2 seconds
             let dur = max(Double(abs(distanceToMove)) / 30, 2)
-            NSLog("Dur=%lf", dur)
+//            NSLog("Dur=%lf", dur)
             
             NSAnimationContext.current().duration = dur
             
@@ -113,16 +113,16 @@ class BannerLabel: NSView {
             let xDest = label.frame.origin.x == 0 ? distanceToMove: 0
             label.animator().setFrameOrigin(NSPoint(x: xDest, y: 0))
             
-            NSLog("\tRunning anim %@ %.0f", text, textWidth)
+//            NSLog("\tRunning anim %@ %.0f", text, textWidth)
             
         }, completionHandler: {
             
-            Swift.print("Anim ended:", animatedText)
+//            Swift.print("Anim ended:", animatedText)
     
             if animatedText == self.text && self.viewLoaded {
                 
                 // Loop indefinitely
-                NSLog("\tRestarting anim %@ %.0f", self.text, self.textWidth)
+//                NSLog("\tRestarting anim %@ %.0f", self.text, self.textWidth)
                 self.doBeginAnimation(animatedText)
             }
         })

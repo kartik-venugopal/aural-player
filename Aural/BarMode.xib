@@ -16,6 +16,9 @@
                 <outlet property="btnVolume" destination="V0p-NE-lB9" id="rZw-u0-NE7"/>
                 <outlet property="lblTrackName" destination="PI3-Z0-Fhx" id="Jse-zZ-9H3"/>
                 <outlet property="seekSlider" destination="Dib-qm-cTK" id="h2i-uG-4bm"/>
+                <outlet property="seekSliderCell" destination="Sss-iV-neM" id="naI-S6-0sp"/>
+                <outlet property="seekSliderClone" destination="GCi-FR-Jzi" id="cCg-95-IKY"/>
+                <outlet property="seekSliderCloneCell" destination="EeS-v5-2a4" id="Ek2-Z7-iPh"/>
                 <outlet property="volumeSlider" destination="xr3-Da-Ypq" id="Qyb-gs-JZQ"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="0UZ-o8-zfX"/>
             </connections>
@@ -309,6 +312,19 @@
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="142.5" y="-11305.5"/>
         </window>
+        <slider hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GCi-FR-Jzi" userLabel="Seek Slider Clone">
+            <rect key="frame" x="0.0" y="0.0" width="240" height="13"/>
+            <constraints>
+                <constraint firstAttribute="height" constant="12" id="Qd2-AX-wIP"/>
+            </constraints>
+            <shadow key="shadow" blurRadius="1">
+                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            </shadow>
+            <sliderCell key="cell" controlSize="mini" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="EeS-v5-2a4" userLabel="Seek Slider Clone Cell" customClass="BarModeSeekSliderCell" customModule="Aural" customModuleProvider="target"/>
+            <connections>
+                <action selector="seekSliderAction:" target="-2" id="zG3-as-7LY"/>
+            </connections>
+        </slider>
     </objects>
     <resources>
         <image name="Close" width="80" height="80"/>
