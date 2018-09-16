@@ -3,7 +3,16 @@ import Cocoa
 @IBDesignable
 class BannerLabel: NSView {
     
-    private var viewLoaded: Bool = false
+    private var viewLoaded: Bool = false {
+        
+        didSet {
+            
+            label?.stringValue = text
+            if viewLoaded {
+                textChanged()
+            }
+        }
+    }
     
     @IBInspectable var text: String! = "" {
         
@@ -56,18 +65,16 @@ class BannerLabel: NSView {
         label.setFrameSize(self.frame.size)
         label.setFrameOrigin(NSPoint.zero)
         
-        viewLoaded = true
         self.wantsLayer = true
-        
-        textChanged()
+        viewLoaded = true
     }
     
     private func textChanged() {
         
         NSLog("Text changed to: %@ %@", text, String(describing: self.layer))
         
-        self.layer?.removeAllAnimations()
-        self.layer?.presentation()?.removeAllAnimations()
+//        self.layer?.removeAllAnimations()
+//        self.layer?.presentation()?.removeAllAnimations()
         label.setFrameOrigin(NSPoint.zero)
         
         if self.font != nil {
@@ -77,23 +84,28 @@ class BannerLabel: NSView {
             
             label?.setFrameSize(NSSize(width: max(textWidth + 10, self.frame.width), height: label.frame.height))
             
-            if textWidth >= self.frame.width {
-                beginAnimation(self.text)
+            if textWidth >= self.frame.width && self.viewLoaded {
+                doBeginAnimation(self.text)
             }
         }
     }
     
-    private func beginAnimation(_ animatedText: String) {
+    private func doBeginAnimation(_ animatedText: String) {
         
         Swift.print("\n")
         NSLog("Begin anim %@ %.0f", text, textWidth)
         
         let distanceToMove = self.frame.width - label.frame.width
         
+        NSLog("Dist=%f", distanceToMove)
+        
         NSAnimationContext.runAnimationGroup({_ in
 //            
             // Duration at least 2 seconds
-            NSAnimationContext.current().duration = max(Double(abs(distanceToMove)) / 30, 2)
+            let dur = max(Double(abs(distanceToMove)) / 30, 2)
+            NSLog("Dur=%lf", dur)
+            
+            NSAnimationContext.current().duration = dur
             
             NSAnimationContext.current().timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
             
@@ -107,13 +119,21 @@ class BannerLabel: NSView {
             
             Swift.print("Anim ended:", animatedText)
     
-            if animatedText == self.text {
+            if animatedText == self.text && self.viewLoaded {
                 
                 // Loop indefinitely
                 NSLog("\tRestarting anim %@ %.0f", self.text, self.textWidth)
-                self.beginAnimation(animatedText)
+                self.doBeginAnimation(animatedText)
             }
         })
+    }
+    
+    func beginAnimation() {
+        viewLoaded = true
+    }
+    
+    func endAnimation() {
+        viewLoaded = false
     }
 }
 

@@ -10,6 +10,10 @@ protocol MessageSubscriber {
     
     // Every message subscriber must implement this method to process a type of request it serves
     func processRequest(_ request: RequestMessage) -> ResponseMessage
+    
+    func getOperationalAppMode() -> AppMode?
+    
+    func getID() -> String
 }
 
 /*
@@ -63,6 +67,8 @@ enum MessageType {
     case appLoadedNotification
     
     case appReopenedNotification
+    
+    case appModeChangedNotification
     
     case playlistTypeChangedNotification
     
@@ -250,6 +256,17 @@ struct AppReopenedNotification: NotificationMessage {
     init(_ filesToOpen: [URL], _ isDuplicateNotification: Bool) {
         self.filesToOpen = filesToOpen
         self.isDuplicateNotification = isDuplicateNotification
+    }
+}
+
+struct AppModeChangedNotification: NotificationMessage {
+    
+    let messageType: MessageType = .appModeChangedNotification
+    
+    let newMode: AppMode
+    
+    init(_ newMode: AppMode) {
+        self.newMode = newMode
     }
 }
 

@@ -302,6 +302,14 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         updatePlaylistSummary()
     }
     
+    func getOperationalAppMode() -> AppMode? {
+        return .regular
+    }
+    
+    func getID() -> String {
+        return self.className
+    }
+    
     // MARK: Message handling
     
     func consumeAsyncMessage(_ message: AsyncMessage) {

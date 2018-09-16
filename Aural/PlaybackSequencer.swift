@@ -467,6 +467,14 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         return sequence.getRepeatAndShuffleModes()
     }
     
+    func getOperationalAppMode() -> AppMode? {
+        return nil
+    }
+    
+    func getID() -> String {
+        return "PlaybackSequencer"
+    }
+    
     // MARK: Message handling
     
     // When the selected playlist view type changes in the UI (i.e. the selected playlist tab changes), this notification is sent out. Here, we make note of the new playlist type, so that the playback scope may be determined from it.

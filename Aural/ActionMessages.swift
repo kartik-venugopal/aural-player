@@ -5,6 +5,8 @@ protocol ActionMessageSubscriber {
     
     // Every message subscriber must implement this method to consume the type of message it is interested in
     func consumeMessage(_ message: ActionMessage)
+    
+    func getID() -> String
 }
 
 /*

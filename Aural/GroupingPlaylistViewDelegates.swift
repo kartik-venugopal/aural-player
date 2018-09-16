@@ -156,6 +156,14 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
         }
     }
     
+    func getOperationalAppMode() -> AppMode? {
+        return .regular
+    }
+    
+    func getID() -> String {
+        return String(format: "%@-%@", self.className, String(describing: self.playlistType))
+    }
+    
     // MARK: Message handling
     
     // When the current playlist view changes, the animation state might need to change

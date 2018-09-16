@@ -250,6 +250,14 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         FileSystemUtils.showFileInFinder((selTrack?.track.file)!)
     }
     
+    func getOperationalAppMode() -> AppMode? {
+        return .regular
+    }
+    
+    func getID() -> String {
+        return self.className
+    }
+    
     // MARK: Message handlers
     
     func consumeAsyncMessage(_ message: AsyncMessage) {

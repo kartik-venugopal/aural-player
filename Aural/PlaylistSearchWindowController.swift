@@ -192,6 +192,16 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
         updateSearch()
     }
     
+    func getOperationalAppMode() -> AppMode? {
+        return .regular
+    }
+    
+    func getID() -> String {
+        return self.className
+    }
+    
+    // MARK: Message handling
+    
     func consumeNotification(_ notification: NotificationMessage) {
         
         if (notification is SearchTextChangedNotification) {

@@ -210,6 +210,10 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         favoritesMenuItem.onIf(history.hasFavorite(message.track))
     }
     
+    func getID() -> String {
+        return self.className
+    }
+    
     // MARK: Message handling
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
