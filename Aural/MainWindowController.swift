@@ -40,7 +40,7 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
         
         // Register a handler for trackpad/MagicMouse gestures
         
-        gestureHandler = GestureHandler(self.window!)
+        gestureHandler = GestureHandler(theWindow)
         
         // Subscribe to various messages
         SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist], subscriber: self)

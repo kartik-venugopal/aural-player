@@ -7,6 +7,8 @@ import Cocoa
  */
 class PlaylistMenuController: NSObject, NSMenuDelegate {
     
+    @IBOutlet weak var theMenu: NSMenuItem!
+    
     @IBOutlet weak var playSelectedItemMenuItem: NSMenuItem!
     @IBOutlet weak var moveItemsUpMenuItem: NSMenuItem!
     @IBOutlet weak var moveItemsDownMenuItem: NSMenuItem!
@@ -28,7 +30,9 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        if AppModeManager.mode != .regular {
+        theMenu.isEnabled = AppModeManager.mode == .regular
+        
+        if (AppModeManager.mode != .regular) {
             return
         }
         

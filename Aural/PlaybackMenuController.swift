@@ -43,16 +43,11 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // One-time setup
     override func awakeFromNib() {
-        
         favoritesMenuItem.off()
     }
     
     // When the menu is about to open, update the menu item states
     func menuNeedsUpdate(_ menu: NSMenu) {
-        
-        if AppModeManager.mode != .regular {
-            return
-        }
         
         updateRepeatAndShuffleMenuItemStates()
         
@@ -63,13 +58,20 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
             favoritesMenuItem.off()
         }
         
+        let isRegularMode = AppModeManager.mode == .regular
+        let isPlayingOrPaused = playbackInfo.getPlaybackState() != .noTrack
+        let isPlaying = playbackInfo.getPlaybackState() == .playing
+        
         // Play/pause enabled if at least one track available
         playOrPauseMenuItem.isEnabled = playlist.size() > 0
         
-        // These menu item actions are only available when a track is currently playing
-        [replayTrackMenuItem, previousTrackMenuItem, nextTrackMenuItem, detailedInfoMenuItem, showInPlaylistMenuItem, favoritesMenuItem].forEach({$0.isEnabled = playbackInfo.getPlaybackState() != .noTrack})
+        // Enabled only in regular mode if playing/paused
+        [detailedInfoMenuItem, showInPlaylistMenuItem].forEach({$0.isEnabled = isRegularMode && isPlayingOrPaused})
         
-        [loopMenuItem, seekForwardMenuItem, seekBackwardMenuItem].forEach({$0.isEnabled = playbackInfo.getPlaybackState() == .playing})
+        // These menu item actions are only available when a track is currently playing/paused
+        [previousTrackMenuItem, nextTrackMenuItem, favoritesMenuItem].forEach({$0.isEnabled = isPlayingOrPaused})
+        
+        [replayTrackMenuItem, loopMenuItem, seekForwardMenuItem, seekBackwardMenuItem].forEach({$0.isEnabled = isPlaying})
     }
     
     // Plays, pauses or resumes playback

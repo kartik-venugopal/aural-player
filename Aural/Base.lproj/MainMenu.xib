@@ -17,7 +17,7 @@
         <customObject id="XfS-j8-3jQ" customClass="HistoryMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="favoritesMenu" destination="VRi-KX-T3V" id="ZSI-tZ-jWA"/>
-                <outlet property="recentlyAddedMenu" destination="wng-SO-Kcr" id="P4U-eQ-JPv"/>
+                <outlet property="recentlyAddedMenu" destination="wng-SO-Kcr" id="zxx-T1-qV1"/>
                 <outlet property="recentlyPlayedMenu" destination="7KE-9e-wni" id="Phj-0T-PKd"/>
             </connections>
         </customObject>
@@ -34,6 +34,7 @@
                 <outlet property="searchPlaylistMenuItem" destination="Pxd-7C-8tq" id="UMb-jh-SpH"/>
                 <outlet property="shiftTabMenuItem" destination="JAN-jg-Zs1" id="FPw-yl-HpG"/>
                 <outlet property="sortPlaylistMenuItem" destination="ttf-Ix-LHp" id="GfN-A8-04n"/>
+                <outlet property="theMenu" destination="nzT-Bj-81Y" id="L7C-0i-wdd"/>
             </connections>
         </customObject>
         <customObject id="IvK-xG-TCa" customClass="PlaybackMenuController" customModule="Aural" customModuleProvider="target">
@@ -57,10 +58,14 @@
         </customObject>
         <customObject id="YGo-hN-fxr" customClass="SoundMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="eqMenu" destination="9wV-eS-AMY" id="rmz-xV-44s"/>
                 <outlet property="halfOctaveAboveMenuItem" destination="oiI-Ft-yc5" id="2VO-d4-8QL"/>
                 <outlet property="halfOctaveBelowMenuItem" destination="Lm3-tW-hm0" id="Hx3-ya-ekH"/>
                 <outlet property="oneOctaveAboveMenuItem" destination="lYO-gE-kn8" id="cF3-jz-2Y3"/>
                 <outlet property="oneOctaveBelowMenuItem" destination="Wyn-lR-dym" id="cwk-rT-q61"/>
+                <outlet property="panLeftMenuItem" destination="Lke-5L-p5h" id="mq4-Ju-gMJ"/>
+                <outlet property="panRightMenuItem" destination="vBE-5e-9da" id="Lxm-jd-Iqg"/>
+                <outlet property="pitchMenu" destination="Cgu-bP-VJq" id="sBz-Uh-NRU"/>
                 <outlet property="rate0_25MenuItem" destination="G2L-vr-yl8" id="AEf-jk-STi"/>
                 <outlet property="rate0_5MenuItem" destination="fJT-vV-mCQ" id="58J-mV-01W"/>
                 <outlet property="rate0_75MenuItem" destination="yPd-aC-OhZ" id="PiW-z7-g5r"/>
@@ -73,12 +78,16 @@
                 <outlet property="sixthOctaveBelowMenuItem" destination="cYW-58-jBH" id="04l-XA-aLr"/>
                 <outlet property="thirdOctaveAboveMenuItem" destination="NHt-qJ-lNc" id="a2a-EQ-z9I"/>
                 <outlet property="thirdOctaveBelowMenuItem" destination="YNJ-sM-QkM" id="tm2-Qq-LrK"/>
+                <outlet property="timeMenu" destination="4bW-6o-06c" id="lOU-hM-JJd"/>
                 <outlet property="twoOctavesAboveMenuItem" destination="fN8-4T-8mm" id="7QK-92-U0N"/>
                 <outlet property="twoOctavesBelowMenuItem" destination="fVw-ks-nVV" id="FCS-vy-DvL"/>
             </connections>
         </customObject>
         <customObject id="xzd-WN-BuR" customClass="ViewMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="dockPlaylistMenuItem" destination="RWg-5h-jkO" id="d20-xc-maQ"/>
+                <outlet property="maximizePlaylistMenuItem" destination="Yge-Nz-rQX" id="jij-YN-cqO"/>
+                <outlet property="switchViewMenuItem" destination="Lhd-o1-irA" id="cBX-0N-n7w"/>
                 <outlet property="toggleEffectsMenuItem" destination="fK8-7g-oqx" id="xo8-0f-yDo"/>
                 <outlet property="togglePlaylistMenuItem" destination="af4-4E-1QV" id="PWt-uf-MOX"/>
             </connections>
@@ -123,11 +132,11 @@
                 </menuItem>
                 <menuItem title="History" id="UdL-af-j9j" userLabel="History">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="History" id="SEx-Pv-qTe">
+                    <menu key="submenu" title="History" autoenablesItems="NO" id="SEx-Pv-qTe">
                         <items>
                             <menuItem title="Recently added" image="RecentlyAdded" id="H40-WY-cfa" userLabel="Recently added">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Recently added" id="wng-SO-Kcr"/>
+                                <menu key="submenu" title="Recently added" autoenablesItems="NO" id="wng-SO-Kcr"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="4mR-wj-sZv"/>
                             <menuItem title="Recently played" image="RecentlyPlayed" id="pev-lN-gPb" userLabel="Recently played">
@@ -355,7 +364,7 @@ CQ
                 </menuItem>
                 <menuItem title="Sound" id="Kxo-JK-yBP" userLabel="Sound">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Sound" id="7VF-JM-uEm">
+                    <menu key="submenu" title="Sound" autoenablesItems="NO" id="7VF-JM-uEm">
                         <items>
                             <menuItem title=" Mute / Unmute" image="Mute-Small" keyEquivalent="m" id="zih-cf-fPv" userLabel="Mute/Unmute">
                                 <connections>
@@ -580,6 +589,9 @@ CQ
                                 </menu>
                             </menuItem>
                         </items>
+                        <connections>
+                            <outlet property="delegate" destination="YGo-hN-fxr" id="UYO-2w-Qh7"/>
+                        </connections>
                     </menu>
                 </menuItem>
                 <menuItem title="View" id="cu5-E6-xt6">
@@ -648,6 +660,16 @@ CQ
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="eo4-eB-OpN"/>
+                            <menuItem title="Switch to miniature view" image="FloatingBarMode-Small" keyEquivalent="v" id="Lhd-o1-irA" userLabel="Effects" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Switch to miniature view"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="Switch to regular view"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="switchViewAction:" target="xzd-WN-BuR" id="Cj6-y7-xEQ"/>
+                                </connections>
+                            </menuItem>
                         </items>
                         <connections>
                             <outlet property="delegate" destination="xzd-WN-BuR" id="QLh-8Z-4h6"/>
@@ -819,6 +841,7 @@ CQ
         <image name="Down-Small" width="10" height="14"/>
         <image name="EQ" width="14" height="14"/>
         <image name="Favorites" width="15" height="15"/>
+        <image name="FloatingBarMode-Small" width="15" height="15"/>
         <image name="LoopOff-Small" width="0.23999999463558197" height="0.20800000429153442"/>
         <image name="Maximize-Small" width="12" height="10"/>
         <image name="MaximizeHorizontal-Small" width="12" height="10"/>

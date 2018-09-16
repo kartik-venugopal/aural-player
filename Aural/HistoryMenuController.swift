@@ -3,7 +3,7 @@ import Cocoa
 /*
     Manages and provides actions for the History menu that displays historical information about the usage of the app.
  */
-class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
+class HistoryMenuController: NSObject, NSMenuDelegate, MessageSubscriber, ActionMessageSubscriber {
 
     // The sub-menus that categorize and display historical information
     
@@ -22,8 +22,11 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
     // One-time setup, when the menu loads
     override func awakeFromNib() {
         
+//        recentlyAddedMenu.autoenablesItems = false
+        
         // Subscribe to message notifications
         SyncMessenger.subscribe(actionTypes: [.addFavorite, .removeFavorite], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification], subscriber: self)
     }
     
     // Before the menu opens, re-create the menu items from the model
@@ -38,6 +41,10 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
         createChronologicalMenu(history.allRecentlyAddedItems(), recentlyAddedMenu)
         createChronologicalMenu(history.allRecentlyPlayedItems(), recentlyPlayedMenu)
         history.allFavorites().forEach({favoritesMenu.addItem(createHistoryMenuItem($0))})
+        
+        // Recently Added menu items are only accessible in "regular" mode
+        let enable = AppModeManager.mode == .regular
+        recentlyAddedMenu.items.forEach({$0.isEnabled = enable})
     }
     
     // Populates the given menu with items corresponding to the given historical item info, grouped by timestamp into categories like "Past 24 hours", "Past 7 days", etc.
@@ -134,6 +141,28 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
         default: return
             
         }
+    }
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        if notification.messageType == .appModeChangedNotification {
+//            
+//            print("History got it !")
+//            
+//            let msg = notification as! AppModeChangedNotification
+//            let enable = msg.newMode == .regular
+//            recentlyAddedMenu.items.forEach({$0.isEnabled = enable})
+//            print(recentlyAddedMenu.items.count)
+//            print(enable)
+        }
+    }
+    
+    func getOperationalAppMode() -> AppMode? {
+        return .regular
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        return EmptyResponse.instance
     }
 }
 

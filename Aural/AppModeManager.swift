@@ -30,6 +30,9 @@ class AppModeManager: ActionMessageSubscriber {
         case .statusBar: presentStatusBarMode()
         
         }
+        
+        // TODO: This will cause initSubscriptions to be called twice !
+        SyncMessenger.publishNotification(AppModeChangedNotification(newMode))
     }
     
     static func switchToMode(_ newMode: AppMode) {
@@ -45,7 +48,7 @@ class AppModeManager: ActionMessageSubscriber {
         }
         
         presentMode(newMode)
-        SyncMessenger.publishNotification(AppModeChangedNotification(newMode))
+//        SyncMessenger.publishNotification(AppModeChangedNotification(newMode))
     }
     
     private static func presentRegularMode() {
