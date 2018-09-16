@@ -7,10 +7,8 @@ class MiniBarAppModeController: AppModeController {
     private lazy var miniBarView: BarModeWindowController = BarModeWindowController()
     
     func presentMode() {
-        print("Presenting Mini Bar")
         NSApp.setActivationPolicy(.regular)
         miniBarView.showWindow(self)
-        print("Showing Window")
     }
     
     func dismissMode() {

@@ -8,6 +8,10 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
     
     // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
     @IBOutlet weak var seekSlider: NSSlider!
+    @IBOutlet weak var seekSliderCell: BarModeSeekSliderCell!
+    
+    @IBOutlet weak var seekSliderClone: NSSlider!
+    @IBOutlet weak var seekSliderCloneCell: BarModeSeekSliderCell!
     
     // Timer that periodically updates the seek position slider and label
     private var seekTimer: RepeatingTaskExecutor?
@@ -58,14 +62,14 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .trackChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .previousTrack, .nextTrack, .toggleLoop, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
         SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .trackChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification, .playbackLoopChangedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .previousTrack, .nextTrack, .toggleLoop, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
     private func initControls(_ appState: UIAppState) {
@@ -489,7 +493,6 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
             if let _ = player.getPlayingTrack() {
                 
                 _ = player.toggleLoop()
-                print("Player Toggled loop")
                 SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
             }
         }
@@ -499,48 +502,32 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         
         if let loop = player.getPlaybackLoop() {
             
-            print("Has loop")
-            
             // Update loop button image
             let loopState: LoopState = loop.isComplete() ? .complete: .started
             btnLoop.switchState(loopState)
             
-            print("Switched btn to " + String(describing: loopState))
-            
-//            let duration = (player.getPlayingTrack()?.track.duration)!
+            let duration = (player.getPlayingTrack()?.track.duration)!
             
             // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
             if (loop.isComplete()) {
                 
-                
-                
-//                seekSliderClone.doubleValue = loop.endTime! * 100 / duration
-//                seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
-                
-                print("Loop complete")
+                seekSliderClone.doubleValue = loop.endTime! * 100 / duration
+                seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
                 
             } else {
                 
-                
-                
-//                seekSliderClone.doubleValue = loop.startTime * 100 / duration
-//                seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
-                
-                print("Loop started")
+                seekSliderClone.doubleValue = loop.startTime * 100 / duration
+                seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
             }
             
         } else {
             
-//            seekSliderCell.removeLoop()
+            seekSliderCell.removeLoop()
             btnLoop.switchState(LoopState.none)
-            
-            print("Loop removed")
         }
         
         // Force a redraw of the seek slider
         updateSeekPosition()
-        
-        print("Updated seek position")
     }
     
     // Sets the repeat mode to "Off"
@@ -769,6 +756,8 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         case .previousTrack: previousTrackAction(self)
             
         case .nextTrack: nextTrackAction(self)
+            
+        case .toggleLoop:   toggleLoop()
             
         case .seekBackward:
             
