@@ -9,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="BarModeWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="artView" destination="EA7-Pw-SZQ" id="Hmm-dn-oDQ"/>
+                <outlet property="btnLoop" destination="DEc-ag-TxS" id="ZkG-aZ-tUF"/>
                 <outlet property="btnPlayPause" destination="ugs-TH-ReA" id="f54-AT-OxH"/>
                 <outlet property="btnRepeat" destination="0KD-m9-964" id="giS-Bm-5So"/>
                 <outlet property="btnShuffle" destination="2gQ-f7-Z69" id="ysT-Vo-N2s"/>
@@ -24,23 +25,23 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="510" height="35"/>
+            <rect key="contentRect" x="196" y="240" width="524" height="35"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
-            <value key="minSize" type="size" width="510" height="35"/>
-            <value key="maxSize" type="size" width="510" height="35"/>
+            <value key="minSize" type="size" width="524" height="35"/>
+            <value key="maxSize" type="size" width="524" height="35"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="510" height="35"/>
+                <rect key="frame" x="0.0" y="0.0" width="524" height="35"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="OVD-uy-3Y9" userLabel="Container box">
-                        <rect key="frame" x="0.0" y="0.0" width="510" height="35"/>
+                        <rect key="frame" x="0.0" y="0.0" width="524" height="35"/>
                         <view key="contentView" id="BgU-DV-deF">
-                            <rect key="frame" x="0.0" y="0.0" width="510" height="35"/>
+                            <rect key="frame" x="0.0" y="0.0" width="524" height="35"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                         <constraints>
                             <constraint firstAttribute="height" constant="35" id="Dyj-yX-kv9"/>
-                            <constraint firstAttribute="width" constant="510" id="THl-s2-ywO"/>
+                            <constraint firstAttribute="width" constant="524" id="THl-s2-ywO"/>
                         </constraints>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
@@ -81,7 +82,7 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="HxQ-g4-V3b"/>
                     </imageView>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="PI3-Z0-Fhx" userLabel="Track Label" customClass="BannerLabel" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="52" y="16" width="246" height="15"/>
+                        <rect key="frame" x="52" y="16" width="240" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="8y2-8p-DiY"/>
                         </constraints>
@@ -95,7 +96,7 @@
                         </userDefinedRuntimeAttributes>
                     </customView>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dib-qm-cTK">
-                        <rect key="frame" x="52" y="3" width="246" height="13"/>
+                        <rect key="frame" x="52" y="3" width="240" height="13"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="F4a-ka-Irz"/>
                         </constraints>
@@ -108,7 +109,7 @@
                         </connections>
                     </slider>
                     <button toolTip="Repeat" translatesAutoresizingMaskIntoConstraints="NO" id="0KD-m9-964" userLabel="Repeat Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="310" y="8" width="15" height="15"/>
+                        <rect key="frame" x="304" y="8" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="pZT-Io-AF5"/>
                             <constraint firstAttribute="height" constant="15" id="t6y-Rf-gVP"/>
@@ -122,7 +123,7 @@
                         </connections>
                     </button>
                     <button toolTip="Shuffle" translatesAutoresizingMaskIntoConstraints="NO" id="2gQ-f7-Z69" userLabel="Shuffle Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="326" y="10" width="15" height="15"/>
+                        <rect key="frame" x="320" y="10" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="XSV-fF-hyd"/>
                             <constraint firstAttribute="width" constant="15" id="aem-ed-GLX"/>
@@ -135,8 +136,22 @@
                             <action selector="shuffleAction:" target="-2" id="nh4-HJ-kX6"/>
                         </connections>
                     </button>
+                    <button toolTip="Shuffle" translatesAutoresizingMaskIntoConstraints="NO" id="DEc-ag-TxS" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="336" y="10" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="TIn-la-aV4"/>
+                            <constraint firstAttribute="width" constant="15" id="m84-TV-qXr"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="LoopOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="xE6-nQ-COk">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="loopAction:" target="-2" id="IQm-2A-ea3"/>
+                        </connections>
+                    </button>
                     <button toolTip="Seek forward" translatesAutoresizingMaskIntoConstraints="NO" id="2GG-Ks-yTZ" userLabel="Seek Fwd Button">
-                        <rect key="frame" x="425" y="12" width="14" height="12"/>
+                        <rect key="frame" x="439" y="12" width="14" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="JhV-Pe-8Zz"/>
                             <constraint firstAttribute="width" constant="14" id="bWI-gK-LWY"/>
@@ -150,7 +165,7 @@
                         </connections>
                     </button>
                     <button toolTip="Next track" translatesAutoresizingMaskIntoConstraints="NO" id="VK7-AE-2TX" userLabel="NextTrack Button">
-                        <rect key="frame" x="406" y="12" width="14" height="12"/>
+                        <rect key="frame" x="420" y="12" width="14" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="8bt-o0-68g"/>
                             <constraint firstAttribute="width" constant="14" id="d27-Tz-0ix"/>
@@ -164,7 +179,7 @@
                         </connections>
                     </button>
                     <button toolTip="Seek backward" translatesAutoresizingMaskIntoConstraints="NO" id="lPi-bp-V2S" userLabel="Seek Bwd Button">
-                        <rect key="frame" x="352" y="12" width="14" height="12"/>
+                        <rect key="frame" x="366" y="12" width="14" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="14" id="27T-zB-9gM"/>
                             <constraint firstAttribute="height" constant="12" id="Yyq-rO-5fY"/>
@@ -178,7 +193,7 @@
                         </connections>
                     </button>
                     <button toolTip="Previous track" translatesAutoresizingMaskIntoConstraints="NO" id="B5F-Bo-qT9" userLabel="PrevTrack Button">
-                        <rect key="frame" x="370" y="12" width="14" height="12"/>
+                        <rect key="frame" x="384" y="12" width="14" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="14" id="JDz-40-UP6"/>
                             <constraint firstAttribute="height" constant="12" id="oxe-ws-ruO"/>
@@ -192,7 +207,7 @@
                         </connections>
                     </button>
                     <button toolTip="Play / Pause" translatesAutoresizingMaskIntoConstraints="NO" id="ugs-TH-ReA" userLabel="Play Pause" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="389" y="12" width="13" height="13"/>
+                        <rect key="frame" x="403" y="12" width="13" height="13"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="13" id="T9r-Bj-6Rl"/>
                             <constraint firstAttribute="height" constant="13" id="uIC-AF-hfl"/>
@@ -206,7 +221,7 @@
                         </connections>
                     </button>
                     <button toolTip="Mute / Unmute" translatesAutoresizingMaskIntoConstraints="NO" id="V0p-NE-lB9" userLabel="Volume Button">
-                        <rect key="frame" x="452" y="12" width="12" height="12"/>
+                        <rect key="frame" x="466" y="12" width="12" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="E5b-oi-A04"/>
                             <constraint firstAttribute="height" constant="12" id="KDz-fd-Wt3"/>
@@ -220,7 +235,7 @@
                         </connections>
                     </button>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xr3-Da-Ypq" userLabel="Volume Slider">
-                        <rect key="frame" x="466" y="11" width="35" height="13"/>
+                        <rect key="frame" x="480" y="11" width="35" height="13"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="mAx-OA-A45"/>
                             <constraint firstAttribute="width" constant="35" id="wa9-Tq-Ndd"/>
@@ -231,7 +246,7 @@
                         </connections>
                     </slider>
                     <box boxType="custom" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="XAU-4m-pNl" userLabel="Separator">
-                        <rect key="frame" x="306" y="5" width="1" height="25"/>
+                        <rect key="frame" x="300" y="5" width="1" height="25"/>
                         <view key="contentView" id="Zz7-t8-hUc">
                             <rect key="frame" x="1" y="1" width="0.0" height="23"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -247,13 +262,14 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="OVD-uy-3Y9" secondAttribute="trailing" id="0Ep-B1-N2o"/>
                     <constraint firstAttribute="bottom" secondItem="Dib-qm-cTK" secondAttribute="bottom" constant="4" id="11f-gX-D6S"/>
+                    <constraint firstItem="lPi-bp-V2S" firstAttribute="leading" secondItem="DEc-ag-TxS" secondAttribute="trailing" constant="15" id="2dA-K0-tIz"/>
                     <constraint firstItem="lPi-bp-V2S" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="11" id="4dL-vU-SdS"/>
                     <constraint firstItem="V0p-NE-lB9" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="11" id="5Qk-cn-MOH"/>
                     <constraint firstItem="PI3-Z0-Fhx" firstAttribute="leading" secondItem="EA7-Pw-SZQ" secondAttribute="trailing" constant="7" id="6JH-EJ-HFu"/>
                     <constraint firstItem="B5F-Bo-qT9" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="11" id="80Z-ik-mZ7"/>
+                    <constraint firstItem="DEc-ag-TxS" firstAttribute="top" secondItem="2gQ-f7-Z69" secondAttribute="top" id="8t4-sL-Tum"/>
                     <constraint firstItem="Dib-qm-cTK" firstAttribute="top" secondItem="PI3-Z0-Fhx" secondAttribute="bottom" id="AC6-j5-ndR"/>
                     <constraint firstItem="OVD-uy-3Y9" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="DQx-Oy-hHt"/>
-                    <constraint firstItem="lPi-bp-V2S" firstAttribute="leading" secondItem="2gQ-f7-Z69" secondAttribute="trailing" constant="11" id="EYj-AT-Hyf"/>
                     <constraint firstItem="2gQ-f7-Z69" firstAttribute="leading" secondItem="0KD-m9-964" secondAttribute="trailing" constant="1" id="G3y-gQ-QvG"/>
                     <constraint firstItem="V0p-NE-lB9" firstAttribute="leading" secondItem="2GG-Ks-yTZ" secondAttribute="trailing" constant="13" id="GOA-Al-xLb"/>
                     <constraint firstItem="OVD-uy-3Y9" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="HT9-Y4-s6a"/>
@@ -264,6 +280,7 @@
                     <constraint firstItem="EA7-Pw-SZQ" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="5" id="RN0-OJ-y9e"/>
                     <constraint firstItem="B5F-Bo-qT9" firstAttribute="leading" secondItem="lPi-bp-V2S" secondAttribute="trailing" constant="4" id="Ri2-8B-CJW"/>
                     <constraint firstItem="XAU-4m-pNl" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="5" id="ZIy-qZ-ySs"/>
+                    <constraint firstItem="DEc-ag-TxS" firstAttribute="leading" secondItem="2gQ-f7-Z69" secondAttribute="trailing" constant="1" id="Zee-dY-zv4"/>
                     <constraint firstAttribute="trailing" secondItem="xr3-Da-Ypq" secondAttribute="trailing" constant="9" id="ahu-6t-wws"/>
                     <constraint firstItem="Dib-qm-cTK" firstAttribute="leading" secondItem="EA7-Pw-SZQ" secondAttribute="trailing" constant="7" id="cOv-sY-O5m"/>
                     <constraint firstItem="ugs-TH-ReA" firstAttribute="leading" secondItem="B5F-Bo-qT9" secondAttribute="trailing" constant="5" id="ce3-18-zCU"/>
@@ -290,11 +307,12 @@
                     <color key="value" white="0.53426106770833337" alpha="0.0" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="139" y="-11305.5"/>
+            <point key="canvasLocation" x="142.5" y="-11305.5"/>
         </window>
     </objects>
     <resources>
         <image name="Close" width="80" height="80"/>
+        <image name="LoopOff" width="2.5120000839233398" height="2.1119999885559082"/>
         <image name="NextTrack" width="162" height="88"/>
         <image name="Play" width="127" height="146"/>
         <image name="PreviousTrack" width="162" height="88"/>

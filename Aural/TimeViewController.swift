@@ -129,6 +129,10 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
     private func updatePitchShift() {
         lblPitchShiftValue.stringValue = graph.getTimePitchShift()
     }
+    
+    func getID() -> String {
+        return self.className
+    }
 
     // MARK: Message handling
     

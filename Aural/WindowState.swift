@@ -55,8 +55,8 @@ class WindowState {
         
         let uiState = UIState()
         
-        uiState.windowLocationX = Float(window.x)
-        uiState.windowLocationY = Float(window.y)
+//        uiState.windowLocationX = Float(window.x)
+//        uiState.windowLocationY = Float(window.y)
         
         uiState.showEffects = showingEffects
         uiState.showPlaylist = showingPlaylist

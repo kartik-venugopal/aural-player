@@ -41,9 +41,22 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // Subscribe to message notifications
         AsyncMessenger.subscribe([.trackNotPlayed, .trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
         
+        SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification], subscriber: self)
+        initSubscriptions()
+    }
+    
+    private func initSubscriptions() {
+        
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+    }
+    
+    private func removeSubscriptions() {
+        
+        SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification], subscriber: self)
+        
+        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
     private func initVolumeAndPan(_ appState: UIAppState) {
@@ -187,6 +200,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
                 handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
             }
         }
+        
+        print("Now " + String(describing: player.getPlaybackState()))
     }
     
     // Replays the currently playing track, from the beginning, if there is one
@@ -438,6 +453,35 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         }
     }
     
+    // When the mode has just been changed to "regular", the Player view will need to be refreshed
+    private func modeActive() {
+        
+        initSubscriptions()
+        
+        btnPlayPause.switchState(player.getPlaybackState())
+        
+        volumeSlider.floatValue = audioGraph.getVolume()
+        setVolumeImage(audioGraph.isMuted())
+        
+        let rsModes = player.getRepeatAndShuffleModes()
+        updateRepeatAndShuffleControls(rsModes.repeatMode, rsModes.shuffleMode)
+        
+        playbackLoopChanged()
+    }
+    
+    // When the mode has just been changed to "miniBar", subscriptions need to be removed so as to prevent this view from acting on notifications/requests
+    private func modeInactive() {
+        removeSubscriptions()
+    }
+    
+    func getOperationalAppMode() -> AppMode? {
+        return .regular
+    }
+    
+    func getID() -> String {
+        return self.className
+    }
+    
     // MARK: Message handling
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
@@ -464,6 +508,16 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         case .playbackLoopChangedNotification:
             
             playbackLoopChanged()
+            
+        case .appModeChangedNotification:
+            
+            let modeChgMsg = notification as! AppModeChangedNotification
+            
+            if (modeChgMsg.newMode == .regular) {
+                modeActive()
+            } else {
+                modeInactive()
+            }
             
         default: return
             

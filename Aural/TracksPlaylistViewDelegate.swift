@@ -136,6 +136,14 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
         return playing && WindowState.isInForeground() && showingThisPlaylistView
     }
     
+    func getOperationalAppMode() -> AppMode? {
+        return .regular
+    }
+    
+    func getID() -> String {
+        return self.className
+    }
+    
     // MARK: Message handling
     
     // Whenever the playing track is paused/resumed, the animation needs to be paused/resumed.

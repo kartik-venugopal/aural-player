@@ -95,6 +95,10 @@ class PitchViewController: NSViewController, ActionMessageSubscriber {
         showPitchTab()
     }
     
+    func getID() -> String {
+        return self.className
+    }
+    
     // MARK: Message handling
     
     func consumeMessage(_ message: ActionMessage) {

@@ -19,6 +19,7 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
     @IBOutlet weak var btnPlayPause: MultiStateImageButton!
     @IBOutlet weak var btnShuffle: MultiStateImageButton!
     @IBOutlet weak var btnRepeat: MultiStateImageButton!
+    @IBOutlet weak var btnLoop: MultiStateImageButton!
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
@@ -28,9 +29,13 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
     
     override var windowNibName: String? {return "BarMode"}
     
+    private var theWindow: NSWindow {
+        return self.window!
+    }
+    
     override func windowDidLoad() {
         
-        self.window!.isMovableByWindowBackground = true
+        theWindow.isMovableByWindowBackground = true
         
         // Use persistent app state to determine the initial state of the view
         initControls(ObjectGraph.getUIAppState())
@@ -43,11 +48,24 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         
         AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites, .trackNotPlayed, .trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .trackChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification], subscriber: self)
+        initSubscriptions()
+        
+        theWindow.level = Int(CGWindowLevelForKey(.floatingWindow))
+    }
+    
+    private func initSubscriptions() {
+        
+        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .trackChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+    }
+    
+    private func removeSubscriptions() {
         
-        self.window?.level = Int(CGWindowLevelForKey(.floatingWindow))
+        SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .trackChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification, .playbackLoopChangedNotification], subscriber: self)
+        
+        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
     private func initControls(_ appState: UIAppState) {
@@ -80,6 +98,8 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         
         btnShuffle.stateImageMappings = [(ShuffleMode.off, Images.imgShuffleOff), (ShuffleMode.on, Images.imgShuffleOn)]
         
+        btnLoop.stateImageMappings = [(LoopState.none, Images.imgLoopOff), (LoopState.started, Images.imgLoopStarted), (LoopState.complete, Images.imgLoopComplete)]
+        
         updateRepeatAndShuffleControls(appState.repeatMode, appState.shuffleMode)
     }
     
@@ -101,7 +121,8 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
             artView.animates = true
         }
         
-        resetSeekPosition(track)
+        initSeekPosition()
+        setSeekTimerState(true)
     }
     
     private func clearNowPlayingInfo() {
@@ -117,11 +138,18 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
     private func setSeekTimerState(_ timerOn: Bool) {
         
         if (timerOn) {
-            seekSlider.isEnabled = true
-            seekTimer?.startOrResume()
+            
+            if (!seekSlider.isEnabled) {
+                seekSlider.isEnabled = true
+                seekTimer?.startOrResume()
+            }
+            
         } else {
-            seekTimer?.pause()
-            seekSlider.isEnabled = false
+            
+            if (seekSlider.isEnabled) {
+                seekTimer?.pause()
+                seekSlider.isEnabled = false
+            }
         }
     }
     
@@ -133,8 +161,13 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         }
     }
     
+    // Regardless of playback state
+    private func initSeekPosition() {
+        seekSlider.doubleValue = player.getSeekPosition().percentageElapsed
+    }
+    
     // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
-    private func resetSeekPosition(_ track: Track) {
+    private func resetSeekPosition() {
         seekSlider.floatValue = 0
     }
     
@@ -445,6 +478,71 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
     }
     
+    @IBAction func loopAction(_ sender: Any) {
+        toggleLoop()
+    }
+    
+    private func toggleLoop() {
+        
+        if player.getPlaybackState() == .playing {
+            
+            if let _ = player.getPlayingTrack() {
+                
+                _ = player.toggleLoop()
+                print("Player Toggled loop")
+                SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
+            }
+        }
+    }
+    
+    private func playbackLoopChanged() {
+        
+        if let loop = player.getPlaybackLoop() {
+            
+            print("Has loop")
+            
+            // Update loop button image
+            let loopState: LoopState = loop.isComplete() ? .complete: .started
+            btnLoop.switchState(loopState)
+            
+            print("Switched btn to " + String(describing: loopState))
+            
+//            let duration = (player.getPlayingTrack()?.track.duration)!
+            
+            // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
+            if (loop.isComplete()) {
+                
+                
+                
+//                seekSliderClone.doubleValue = loop.endTime! * 100 / duration
+//                seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
+                
+                print("Loop complete")
+                
+            } else {
+                
+                
+                
+//                seekSliderClone.doubleValue = loop.startTime * 100 / duration
+//                seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
+                
+                print("Loop started")
+            }
+            
+        } else {
+            
+//            seekSliderCell.removeLoop()
+            btnLoop.switchState(LoopState.none)
+            
+            print("Loop removed")
+        }
+        
+        // Force a redraw of the seek slider
+        updateSeekPosition()
+        
+        print("Updated seek position")
+    }
+    
     // Sets the repeat mode to "Off"
     private func repeatOff() {
         
@@ -493,6 +591,7 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
     
     @IBAction func regularModeAction(_ sender: AnyObject) {
         
+        removeSubscriptions()
         SyncMessenger.publishActionMessage(AppModeActionMessage(.regularAppMode))
     }
     
@@ -540,6 +639,32 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         }
     }
     
+    private func modeActive() {
+        
+        initSubscriptions()
+        
+        volumeSlider.floatValue = audioGraph.getVolume()
+        setVolumeImage(audioGraph.isMuted())
+     
+        let rsModes = player.getRepeatAndShuffleModes()
+        updateRepeatAndShuffleControls(rsModes.repeatMode, rsModes.shuffleMode)
+        
+        btnPlayPause.switchState(player.getPlaybackState())
+        
+        if let plTrack = player.getPlayingTrack() {
+            showNowPlayingInfo(plTrack.track)
+        } else {
+            clearNowPlayingInfo()
+        }
+        
+        lblTrackName.beginAnimation()
+    }
+    
+    private func modeInactive() {
+        lblTrackName.endAnimation()
+        removeSubscriptions()
+    }
+    
     // MARK: Message handlers
     
     // Consume synchronous notification messages
@@ -559,6 +684,10 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
             
             playbackStateChanged(notification as! PlaybackStateChangedNotification)
             
+        case .playbackLoopChangedNotification:
+            
+            playbackLoopChanged()
+            
         case .seekPositionChangedNotification:
             
             updateSeekPosition()
@@ -574,6 +703,15 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         case .appInForegroundNotification:
             
             appInForeground()
+            
+        case .appModeChangedNotification:
+            
+            let ntf = notification as! AppModeChangedNotification
+            if (ntf.newMode == .miniBar) {
+                modeActive()
+            } else {
+                modeInactive()
+            }
             
         default: return
             
@@ -675,5 +813,13 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         default: return
             
         }
+    }
+    
+    func getOperationalAppMode() -> AppMode? {
+        return .miniBar
+    }
+    
+    func getID() -> String {
+        return self.className
     }
 }

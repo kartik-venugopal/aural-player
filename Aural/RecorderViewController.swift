@@ -140,6 +140,16 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         return AppExitResponse.okToExit
     }
     
+    // TODO: How is this going to work if a recording is ongoing but app is in bar mode ?
+    // Perhaps show a red dot indicator in bar mode ?
+    func getOperationalAppMode() -> AppMode? {
+        return nil
+    }
+    
+    func getID() -> String {
+        return self.className
+    }
+    
     // MARK: Message handling
     
     func consumeNotification(_ notification: NotificationMessage) {

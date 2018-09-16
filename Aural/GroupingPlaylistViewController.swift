@@ -351,6 +351,14 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         FileSystemUtils.showFileInFinder(selTrack.file)
     }
     
+    func getOperationalAppMode() -> AppMode? {
+        return .regular
+    }
+    
+    func getID() -> String {
+        return String(format: "%@-%@", self.className, String(describing: self.groupType))
+    }
+    
     // MARK: Message handlers
     
     func consumeAsyncMessage(_ message: AsyncMessage) {

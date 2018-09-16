@@ -111,6 +111,10 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
         history.removeFavorite(message.track)
     }
     
+    func getID() -> String {
+        return self.className
+    }
+    
     // MARK: Message handling
     
     func consumeMessage(_ message: ActionMessage) {

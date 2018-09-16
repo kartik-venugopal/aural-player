@@ -156,7 +156,7 @@ class SeekSliderCell: HorizontalSliderCell {
     }
 }
 
-class BarModeSeekSliderCell: HorizontalSliderCell {
+class BarModeSeekSliderCell: SeekSliderCell {
     
     override var barRadius: CGFloat {return 1}
     override var barInsetY: CGFloat {return 0.5}

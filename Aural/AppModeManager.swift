@@ -45,6 +45,7 @@ class AppModeManager: ActionMessageSubscriber {
         }
         
         presentMode(newMode)
+        SyncMessenger.publishNotification(AppModeChangedNotification(newMode))
     }
     
     private static func presentRegularMode() {
@@ -58,6 +59,12 @@ class AppModeManager: ActionMessageSubscriber {
     private static func presentStatusBarMode() {
         statusBarMode.presentMode()
     }
+    
+    func getID() -> String {
+        return "AppModeManager"
+    }
+    
+    // MARK: Message handling
     
     func consumeMessage(_ message: ActionMessage) {
         

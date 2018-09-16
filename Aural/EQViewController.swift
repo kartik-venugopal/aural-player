@@ -158,6 +158,14 @@ class EQViewController: NSViewController, ActionMessageSubscriber, MessageSubscr
         return allBands
     }
     
+    func getOperationalAppMode() -> AppMode? {
+        return .regular
+    }
+    
+    func getID() -> String {
+        return self.className
+    }
+    
     // MARK: Message handling
     
     func consumeMessage(_ message: ActionMessage) {

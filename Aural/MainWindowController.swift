@@ -159,6 +159,10 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
         theWindow.miniaturize(self)
     }
     
+    func getID() -> String {
+        return self.className
+    }
+    
     // MARK: Message handling
     
     func consumeMessage(_ message: ActionMessage) {

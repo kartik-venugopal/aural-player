@@ -175,6 +175,14 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
         globalMouseClickMonitor.stop()
     }
     
+    func getOperationalAppMode() -> AppMode? {
+        return .statusBar
+    }
+    
+    func getID() -> String {
+        return self.className
+    }
+    
     // MARK: Message handlers
     
     // Consume synchronous notification messages

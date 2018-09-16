@@ -59,7 +59,7 @@
                                     </connections>
                                 </button>
                                 <button hidden="YES" toolTip="Switch to status bar mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NPW-vm-gJR" userLabel="Status Bar Mode">
-                                    <rect key="frame" x="44" y="394" width="12" height="12"/>
+                                    <rect key="frame" x="79" y="394" width="12" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="StatusBarMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="bzK-F7-0td">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -70,7 +70,7 @@
                                     </connections>
                                 </button>
                                 <button hidden="YES" toolTip="Switch to floating bar mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B4O-bJ-1lS" userLabel="Floating Bar Mode">
-                                    <rect key="frame" x="59" y="394" width="12" height="12"/>
+                                    <rect key="frame" x="49" y="394" width="12" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FloatingBarMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="G2y-w9-3j2">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

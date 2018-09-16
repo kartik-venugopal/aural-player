@@ -64,15 +64,35 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites], subscriber: self, dispatchQueue: DispatchQueue.main)
         
+        SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification], subscriber: self)
+        
+        initSubscriptions()
+    }
+    
+    private func initSubscriptions() {
+        
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.moreInfo], subscriber: self)
     }
     
+    private func removeSubscriptions() {
+        
+        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
+        
+        SyncMessenger.unsubscribe(actionTypes: [.moreInfo], subscriber: self)
+    }
+    
     private func initControls(_ appState: UIAppState) {
         
         // Timer interval depends on whether time stretch unit is active
-        seekTimer = RepeatingTaskExecutor(intervalMillis: appState.seekTimerInterval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
+        seekTimer = RepeatingTaskExecutor(intervalMillis: appState.seekTimerInterval, task: {
+            
+            if (self.player.getPlaybackState() == .playing) {
+                self.updateSeekPosition()
+            }
+        
+        }, queue: DispatchQueue.main)
         
         // Set up the art view and the default animation
         artView.canDrawSubviewsIntoLayer = true
@@ -186,7 +206,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
             artView.animates = true
         }
         
-        resetSeekPosition(track)
+        initSeekPosition()
         showPlaybackScope()
         
         btnFavorite.onIf(history.hasFavorite(track))
@@ -269,17 +289,21 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Updates the seek slider and time elapsed/remaining labels as playback proceeds
     private func updateSeekPosition() {
         
-        if (player.getPlaybackState() == .playing) {
-            
-            let seekPosn = player.getSeekPosition()
-            
-            seekSlider.doubleValue = seekPosn.percentageElapsed
-            
-            let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration)
-            
-            lblTimeElapsed.stringValue = trackTimes.elapsed
-            lblTimeRemaining.stringValue = trackTimes.remaining
-        }
+        let seekPosn = player.getSeekPosition()
+        
+        seekSlider.doubleValue = seekPosn.percentageElapsed
+        
+        let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration)
+        
+        lblTimeElapsed.stringValue = trackTimes.elapsed
+        lblTimeRemaining.stringValue = trackTimes.remaining
+    }
+    
+    private func initSeekPosition() {
+        
+        lblTimeElapsed.isHidden = false
+        lblTimeRemaining.isHidden = false
+        updateSeekPosition()
     }
     
     // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
@@ -353,7 +377,12 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         if (interval != seekTimer?.getInterval()) {
             
             seekTimer?.stop()
-            seekTimer = RepeatingTaskExecutor(intervalMillis: interval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
+            seekTimer = RepeatingTaskExecutor(intervalMillis: interval, task: {
+                
+                if (self.player.getPlaybackState() == .playing) {
+                    self.updateSeekPosition()
+                }
+                }, queue: DispatchQueue.main)
             
             let playbackState = player.getPlaybackState()
             setSeekTimerState(playbackState == .playing)
@@ -419,6 +448,38 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         return (player.getPlaybackState() == .playing) && WindowState.isInForeground()
     }
     
+    // When the mode has just been changed to "regular", the Now Playing view will need to be refreshed
+    private func modeActive() {
+        
+        initSubscriptions()
+        
+        let newTrack = player.getPlayingTrack()
+        
+        if (newTrack != nil) {
+            
+            showNowPlayingInfo(newTrack!.track)
+            setSeekTimerState(true)
+            togglePlayingTrackButtons(true)
+            
+        } else {
+            
+            // No track playing, clear the info fields
+            clearNowPlayingInfo()
+        }
+    }
+    
+    private func modeInactive() {
+        removeSubscriptions()
+    }
+    
+    func getOperationalAppMode() -> AppMode? {
+        return .regular
+    }
+    
+    func getID() -> String {
+        return self.className
+    }
+    
     // MARK: Message handlers
     
     // Consume synchronous notification messages
@@ -461,6 +522,15 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         case .appInForegroundNotification:
             
             appInForeground()
+            
+        case .appModeChangedNotification:
+            
+            let modeChgMsg = notification as! AppModeChangedNotification
+            if (modeChgMsg.newMode == .regular) {
+                modeActive()
+            } else {
+                modeInactive()
+            }
             
         default: return
             

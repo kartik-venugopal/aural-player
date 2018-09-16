@@ -387,6 +387,14 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber, 
         dock(playlistOrigin, playlistSize)
     }
     
+    func getOperationalAppMode() -> AppMode? {
+        return .regular
+    }
+    
+    func getID() -> String {
+        return self.className
+    }
+    
     // MARK: Message handling
     
     func consumeMessage(_ message: ActionMessage) {

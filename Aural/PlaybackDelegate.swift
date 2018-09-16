@@ -237,7 +237,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         let curPosn = player.getSeekPosition()
         
         let increment = actionMode == .discrete ? Double(preferences.seekLength) : preferences.seekLength_continuous
-        
+
         let playingTrack = getPlayingTrack()
         
         if let loop = getPlaybackLoop() {
