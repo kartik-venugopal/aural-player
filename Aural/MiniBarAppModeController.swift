@@ -14,4 +14,8 @@ class MiniBarAppModeController: AppModeController {
     func dismissMode() {
         miniBarView.window?.close()
     }
+    
+    func registerConstituentView(_ view: ConstituentView) {
+        
+    }
 }

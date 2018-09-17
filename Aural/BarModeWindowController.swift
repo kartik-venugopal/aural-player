@@ -77,9 +77,6 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
             return "Next track"
         }
         
-        // Subscribe to various notifications
-        AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites, .trackNotPlayed, .trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
-        
         SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification], subscriber: self)
         initSubscriptions()
         
@@ -88,12 +85,17 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
     
     private func initSubscriptions() {
         
+        // Subscribe to various notifications
+        AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites, .trackNotPlayed, .trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
+        
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .trackChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .previousTrack, .nextTrack, .toggleLoop, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
     private func removeSubscriptions() {
+        
+        AsyncMessenger.unsubscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites, .trackNotPlayed, .trackChanged], subscriber: self)
         
         SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .trackChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification, .playbackLoopChangedNotification], subscriber: self)
         
@@ -861,10 +863,6 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         default: return
             
         }
-    }
-    
-    func getOperationalAppMode() -> AppMode? {
-        return .miniBar
     }
     
     func getID() -> String {

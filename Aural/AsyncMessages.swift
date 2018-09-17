@@ -11,6 +11,8 @@ protocol AsyncMessageSubscriber {
     
     // Consume/process the given async message
     func consumeAsyncMessage(_ message: AsyncMessage)
+    
+    func getID() -> String
 }
 
 // An enumeration of all AsyncMessage types

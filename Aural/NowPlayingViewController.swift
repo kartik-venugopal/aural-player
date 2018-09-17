@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
+class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber, ConstituentView {
     
     // Fields that display playing track info
     @IBOutlet weak var lblTrackArtist: NSTextField!
@@ -57,30 +57,24 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     override func viewDidLoad() {
         
+        print("NPVC - viewDidLoad")
+        
         // Use persistent app state to determine the initial state of the view
         initControls(ObjectGraph.getUIAppState())
         
-        // Subscribe to various notifications
-        
-        AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites], subscriber: self, dispatchQueue: DispatchQueue.main)
-        
-        SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification], subscriber: self)
+//        SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification], subscriber: self)
         
         initSubscriptions()
+        
+        AppModeManager.registerConstituentView(.regular, self)
     }
     
-    private func initSubscriptions() {
-        
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
-        
-        SyncMessenger.subscribe(actionTypes: [.moreInfo], subscriber: self)
+    override func viewDidDisappear() {
+        print("NPVC - disappeared")
     }
     
-    private func removeSubscriptions() {
-        
-        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
-        
-        SyncMessenger.unsubscribe(actionTypes: [.moreInfo], subscriber: self)
+    override func viewDidAppear() {
+        print("NPVC - appeared")
     }
     
     private func initControls(_ appState: UIAppState) {
@@ -99,6 +93,26 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         artView.image = Images.imgPlayingArt
         
         btnFavorite.off()
+    }
+    
+    private func initSubscriptions() {
+        
+        // Subscribe to various notifications
+        
+        AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites], subscriber: self, dispatchQueue: DispatchQueue.main)
+        
+        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
+        
+        SyncMessenger.subscribe(actionTypes: [.moreInfo], subscriber: self)
+    }
+    
+    private func removeSubscriptions() {
+        
+        AsyncMessenger.unsubscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites], subscriber: self)
+        
+        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
+        
+        SyncMessenger.unsubscribe(actionTypes: [.moreInfo], subscriber: self)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -499,12 +513,16 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         removeSubscriptions()
     }
     
-    func getOperationalAppMode() -> AppMode? {
-        return .regular
-    }
-    
     func getID() -> String {
         return self.className
+    }
+    
+    func activate() {
+        
+    }
+    
+    func deactivate() {
+        print("\nMuthusami deactivated !!!")
     }
     
     // MARK: Message handlers

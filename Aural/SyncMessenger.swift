@@ -24,8 +24,8 @@ class SyncMessenger {
             }
             
             // Only add if it doesn't already exist
-            if subscribers?.index(where: {$0.getID() == subscriber.getID()}) == nil {
-                messageSubscriberRegistry[messageType]?.append(subscriber)
+            if messageSubscriberRegistry[messageType]!.index(where: {$0.getID() == subscriber.getID()}) == nil {
+                messageSubscriberRegistry[messageType]!.append(subscriber)
             }
         })
     }
@@ -38,12 +38,10 @@ class SyncMessenger {
             let messageType = $0
             
             // Find subscribers for this message type
-            let subscribers = messageSubscriberRegistry[messageType]
+            if let subscribers = messageSubscriberRegistry[messageType] {
             
-            if (subscribers != nil) {
-                
                 // Find and remove the subscriber from the registry
-                if let subIndex = subscribers?.index(where: { $0.getID() == subscriber.getID() }) {
+                if let subIndex = subscribers.index(where: { $0.getID() == subscriber.getID() }) {
                     (messageSubscriberRegistry[messageType])!.remove(at: subIndex)
                 }
             }
@@ -62,8 +60,8 @@ class SyncMessenger {
                 actionMessageSubscriberRegistry[actionType] = [ActionMessageSubscriber]()
             }
             
-            if subscribers?.index(where: {$0.getID() == subscriber.getID()}) == nil {
-                actionMessageSubscriberRegistry[actionType]?.append(subscriber)
+            if actionMessageSubscriberRegistry[actionType]!.index(where: {$0.getID() == subscriber.getID()}) == nil {
+                actionMessageSubscriberRegistry[actionType]!.append(subscriber)
             }
         })
     }
@@ -75,12 +73,10 @@ class SyncMessenger {
             
             let actionType = $0
             
-            let subscribers = actionMessageSubscriberRegistry[actionType]
+            if let subscribers = actionMessageSubscriberRegistry[actionType] {
             
-            if (subscribers != nil) {
-                
                 // Find and remove the subscriber from the registry
-                if let subIndex = subscribers?.index(where: { $0.getID() == subscriber.getID() }) {
+                if let subIndex = subscribers.index(where: { $0.getID() == subscriber.getID() }) {
                     (actionMessageSubscriberRegistry[actionType])!.remove(at: subIndex)
                 }
             }

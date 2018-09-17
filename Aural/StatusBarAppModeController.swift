@@ -14,4 +14,8 @@ class StatusBarAppModeController: AppModeController {
     func dismissMode() {
         statusBarView.dismiss()
     }
+    
+    func registerConstituentView(_ view: ConstituentView) {
+        
+    }
 }

@@ -45,9 +45,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         initVolumeAndPan(appState)
         initToggleButtons(appState)
         
-        // Subscribe to message notifications
-        AsyncMessenger.subscribe([.trackNotPlayed, .trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
-        
         SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification], subscriber: self)
         initSubscriptions()
         
@@ -75,12 +72,17 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     private func initSubscriptions() {
         
+        // Subscribe to message notifications
+        AsyncMessenger.subscribe([.trackNotPlayed, .trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
+        
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
     private func removeSubscriptions() {
+        
+        AsyncMessenger.unsubscribe([.trackNotPlayed, .trackChanged], subscriber: self)
         
         SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification], subscriber: self)
         
@@ -512,10 +514,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // When the mode has just been changed to "miniBar", subscriptions need to be removed so as to prevent this view from acting on notifications/requests
     private func modeInactive() {
         removeSubscriptions()
-    }
-    
-    func getOperationalAppMode() -> AppMode? {
-        return .regular
     }
     
     func getID() -> String {
