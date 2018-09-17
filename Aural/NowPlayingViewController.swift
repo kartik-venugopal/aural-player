@@ -57,24 +57,36 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     override func viewDidLoad() {
         
-        print("NPVC - viewDidLoad")
-        
         // Use persistent app state to determine the initial state of the view
         initControls(ObjectGraph.getUIAppState())
-        
-//        SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification], subscriber: self)
-        
-        initSubscriptions()
-        
         AppModeManager.registerConstituentView(.regular, self)
     }
     
-    override func viewDidDisappear() {
-        print("NPVC - disappeared")
+    func activate() {
+        
+        initSubscriptions()
+        
+        let newTrack = player.getPlayingTrack()
+        
+        if (newTrack != nil) {
+            
+            showNowPlayingInfo(newTrack!.track)
+            renderLoop()
+            setSeekTimerState(true)
+            togglePlayingTrackButtons(true)
+            
+        } else {
+            
+            // No track playing, clear the info fields
+            clearNowPlayingInfo()
+        }
+        
+        print("NPVC activated")
     }
     
-    override func viewDidAppear() {
-        print("NPVC - appeared")
+    func deactivate() {
+        print("\nNPVC deactivated !!!")
+        removeSubscriptions()
     }
     
     private func initControls(_ appState: UIAppState) {
@@ -491,38 +503,15 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // When the mode has just been changed to "regular", the Now Playing view will need to be refreshed
     private func modeActive() {
         
-        initSubscriptions()
         
-        let newTrack = player.getPlayingTrack()
-        
-        if (newTrack != nil) {
-            
-            showNowPlayingInfo(newTrack!.track)
-            renderLoop()
-            setSeekTimerState(true)
-            togglePlayingTrackButtons(true)
-            
-        } else {
-            
-            // No track playing, clear the info fields
-            clearNowPlayingInfo()
-        }
     }
     
     private func modeInactive() {
-        removeSubscriptions()
+        
     }
     
     func getID() -> String {
         return self.className
-    }
-    
-    func activate() {
-        
-    }
-    
-    func deactivate() {
-        print("\nMuthusami deactivated !!!")
     }
     
     // MARK: Message handlers
