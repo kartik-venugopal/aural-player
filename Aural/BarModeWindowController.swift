@@ -10,6 +10,7 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
     @IBOutlet weak var seekSlider: NSSlider!
     @IBOutlet weak var seekSliderCell: BarModeSeekSliderCell!
     
+    // Used to render playback loops
     @IBOutlet weak var seekSliderClone: NSSlider!
     @IBOutlet weak var seekSliderCloneCell: BarModeSeekSliderCell!
     
@@ -525,6 +526,36 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         }
     }
     
+    private func renderLoop() {
+        
+        if let loop = player.getPlaybackLoop() {
+            
+            // Update loop button image
+            let loopState: LoopState = loop.isComplete() ? .complete: .started
+            btnLoop.switchState(loopState)
+            
+            let duration = (player.getPlayingTrack()?.track.duration)!
+            
+            seekSliderClone.doubleValue = loop.startTime * 100 / duration
+            seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
+            
+            // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
+            if (loop.isComplete()) {
+                
+                seekSliderClone.doubleValue = loop.endTime! * 100 / duration
+                seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
+            }
+            
+        } else {
+            
+            seekSliderCell.removeLoop()
+            btnLoop.switchState(LoopState.none)
+        }
+        
+        // Force a redraw of the seek slider
+        updateSeekPosition()
+    }
+    
     private func playbackLoopChanged() {
         
         if let loop = player.getPlaybackLoop() {
@@ -667,6 +698,7 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         
         if let plTrack = player.getPlayingTrack() {
             showNowPlayingInfo(plTrack.track)
+            renderLoop()
         } else {
             clearNowPlayingInfo()
         }

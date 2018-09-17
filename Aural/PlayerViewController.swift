@@ -267,6 +267,20 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         btnLoop.switchState(loopState)
     }
     
+    private func renderLoop() {
+        
+        if let loop = player.getPlaybackLoop() {
+            
+            // Update loop button image
+            let loopState: LoopState = loop.isComplete() ? .complete: .started
+            btnLoop.switchState(loopState)
+            
+        } else {
+            
+            btnLoop.switchState(LoopState.none)
+        }
+    }
+    
     // Plays the previous track in the current playback sequence
     @IBAction func previousTrackAction(_ sender: AnyObject) {
         
