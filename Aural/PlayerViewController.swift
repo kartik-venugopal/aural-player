@@ -41,12 +41,16 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     override func viewDidLoad() {
         
-        let appState = ObjectGraph.getUIAppState()
-        initVolumeAndPan(appState)
-        initToggleButtons(appState)
+        autoHidingVolumeLabel = AutoHidingView(lblVolume, UIConstants.feedbackLabelAutoHideIntervalSeconds)
+        autoHidingPanLabel = AutoHidingView(lblPan, UIConstants.feedbackLabelAutoHideIntervalSeconds)
         
-//        SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification], subscriber: self)
-        initSubscriptions()
+        btnPlayPause.stateImageMappings = [(PlaybackState.noTrack, Images.imgPlay), (PlaybackState.paused, Images.imgPlay), (PlaybackState.playing, Images.imgPause)]
+        
+        btnRepeat.stateImageMappings = [(RepeatMode.off, Images.imgRepeatOff), (RepeatMode.one, Images.imgRepeatOne), (RepeatMode.all, Images.imgRepeatAll)]
+        
+        btnLoop.stateImageMappings = [(LoopState.none, Images.imgLoopOff), (LoopState.started, Images.imgLoopStarted), (LoopState.complete, Images.imgLoopComplete)]
+        
+        btnShuffle.stateImageMappings = [(ShuffleMode.off, Images.imgShuffleOff), (ShuffleMode.on, Images.imgShuffleOn)]
         
         // Button tool tips
         btnPreviousTrack.toolTipFunction = {
@@ -72,6 +76,24 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         AppModeManager.registerConstituentView(.regular, self)
     }
     
+    func activate() {
+        
+        initVolumeAndPan()
+        btnPlayPause.switchState(player.getPlaybackState())
+        
+        let rsModes = player.getRepeatAndShuffleModes()
+        updateRepeatAndShuffleControls(rsModes.repeatMode, rsModes.shuffleMode)
+        
+        playbackLoopChanged()
+        
+        initSubscriptions()
+    }
+    
+    func deactivate() {
+        print("Player - deact")
+        removeSubscriptions()
+    }
+    
     private func initSubscriptions() {
         
         // Subscribe to message notifications
@@ -91,32 +113,13 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
-    private func initVolumeAndPan(_ appState: UIAppState) {
+    private func initVolumeAndPan() {
         
-        volumeSlider.floatValue = appState.volume
-        setVolumeImage(appState.muted)
-        panSlider.floatValue = appState.balance
-        
-        autoHidingVolumeLabel = AutoHidingView(lblVolume, UIConstants.feedbackLabelAutoHideIntervalSeconds)
-        autoHidingPanLabel = AutoHidingView(lblPan, UIConstants.feedbackLabelAutoHideIntervalSeconds)
+        volumeSlider.floatValue = audioGraph.getVolume()
+        setVolumeImage(audioGraph.isMuted())
+        panSlider.floatValue = audioGraph.getBalance()
     }
 
-    private func initToggleButtons(_ appState: UIAppState) {
-        
-        // Initialize image/state mappings for toggle buttons
-        
-        btnPlayPause.stateImageMappings = [(PlaybackState.noTrack, Images.imgPlay), (PlaybackState.paused, Images.imgPlay), (PlaybackState.playing, Images.imgPause)]
-        btnPlayPause.switchState(PlaybackState.noTrack)
-        
-        btnRepeat.stateImageMappings = [(RepeatMode.off, Images.imgRepeatOff), (RepeatMode.one, Images.imgRepeatOne), (RepeatMode.all, Images.imgRepeatAll)]
-        
-        btnLoop.stateImageMappings = [(LoopState.none, Images.imgLoopOff), (LoopState.started, Images.imgLoopStarted), (LoopState.complete, Images.imgLoopComplete)]
-        
-        btnShuffle.stateImageMappings = [(ShuffleMode.off, Images.imgShuffleOff), (ShuffleMode.on, Images.imgShuffleOn)]
-        
-        updateRepeatAndShuffleControls(appState.repeatMode, appState.shuffleMode)
-    }
-    
     // Updates the volume
     @IBAction func volumeAction(_ sender: AnyObject) {
         
@@ -269,20 +272,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // Update loop button image
         let loopState: LoopState = loop == nil ? .none : (loop!.isComplete() ? .complete: .started)
         btnLoop.switchState(loopState)
-    }
-    
-    private func renderLoop() {
-        
-        if let loop = player.getPlaybackLoop() {
-            
-            // Update loop button image
-            let loopState: LoopState = loop.isComplete() ? .complete: .started
-            btnLoop.switchState(loopState)
-            
-        } else {
-            
-            btnLoop.switchState(LoopState.none)
-        }
     }
     
     // Plays the previous track in the current playback sequence
@@ -497,37 +486,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         }
     }
     
-    // When the mode has just been changed to "regular", the Player view will need to be refreshed
-    private func modeActive() {
-        
-        
-    }
-    
-    private func modeInactive() {
-        
-    }
-    
-    func activate() {
-        initSubscriptions()
-        
-        btnPlayPause.switchState(player.getPlaybackState())
-        
-        volumeSlider.floatValue = audioGraph.getVolume()
-        setVolumeImage(audioGraph.isMuted())
-        
-        let rsModes = player.getRepeatAndShuffleModes()
-        updateRepeatAndShuffleControls(rsModes.repeatMode, rsModes.shuffleMode)
-        
-        playbackLoopChanged()
-        
-        print("PVC activated")
-    }
-    
-    func deactivate() {
-        print("Player - deact")
-        removeSubscriptions()
-    }
-    
     func getID() -> String {
         return self.className
     }
@@ -558,16 +516,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         case .playbackLoopChangedNotification:
             
             playbackLoopChanged()
-            
-        case .appModeChangedNotification:
-            
-            let modeChgMsg = notification as! AppModeChangedNotification
-            
-            if (modeChgMsg.newMode == .regular) {
-                modeActive()
-            } else {
-                modeInactive()
-            }
             
         default: return
             

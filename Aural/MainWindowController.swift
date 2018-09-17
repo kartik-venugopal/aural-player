@@ -50,8 +50,6 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber, Constit
         activateGestureHandler()
         initSubscriptions()
         
-        print("MWC activated")
-        
         // TODO: Restore remembered window location and views (effects/playlist)
     }
     

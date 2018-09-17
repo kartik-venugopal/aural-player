@@ -9,7 +9,6 @@ class RegularAppModeController: AppModeController {
     func presentMode() {
         NSApp.setActivationPolicy(.regular)
         layoutManager.initialWindowLayout()
-        print("After presenting, views=" + String(describing: constituentViews.count))
         constituentViews.forEach({$0.activate()})
     }
     

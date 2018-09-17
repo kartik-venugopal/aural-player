@@ -80,11 +80,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
             // No track playing, clear the info fields
             clearNowPlayingInfo()
         }
-        
-        print("NPVC activated")
     }
     
     func deactivate() {
+        
         print("\nNPVC deactivated !!!")
         removeSubscriptions()
     }
@@ -102,9 +101,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         // Set up the art view and the default animation
         artView.canDrawSubviewsIntoLayer = true
-        artView.image = Images.imgPlayingArt
-        
-        btnFavorite.off()
     }
     
     private func initSubscriptions() {
@@ -500,16 +496,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         return (player.getPlaybackState() == .playing) && WindowState.isInForeground()
     }
     
-    // When the mode has just been changed to "regular", the Now Playing view will need to be refreshed
-    private func modeActive() {
-        
-        
-    }
-    
-    private func modeInactive() {
-        
-    }
-    
     func getID() -> String {
         return self.className
     }
@@ -556,15 +542,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         case .appInForegroundNotification:
             
             appInForeground()
-            
-        case .appModeChangedNotification:
-            
-            let modeChgMsg = notification as! AppModeChangedNotification
-            if (modeChgMsg.newMode == .regular) {
-                modeActive()
-            } else {
-                modeInactive()
-            }
             
         default: return
             
