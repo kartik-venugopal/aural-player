@@ -23,24 +23,28 @@ class DelayViewController: NSViewController {
     override var nibName: String? {return "Delay"}
     
     override func viewDidLoad() {
-        initControls(ObjectGraph.getUIAppState())
+        initControls()
     }
 
-    private func initControls(_ appState: UIAppState) {
+    private func initControls() {
         
-        btnDelayBypass.setBypassState(appState.delayBypass)
+        btnDelayBypass.setBypassState(graph.isDelayBypass())
         
-        delayAmountSlider.floatValue = appState.delayAmount
-        lblDelayAmountValue.stringValue = appState.formattedDelayAmount
+        let amount = graph.getDelayAmount()
+        delayAmountSlider.floatValue = amount.amount
+        lblDelayAmountValue.stringValue = amount.amountString
         
-        delayTimeSlider.doubleValue = appState.delayTime
-        lblDelayTimeValue.stringValue = appState.formattedDelayTime
+        let time = graph.getDelayTime()
+        delayTimeSlider.doubleValue = time.time
+        lblDelayTimeValue.stringValue = time.timeString
         
-        delayFeedbackSlider.floatValue = appState.delayFeedback
-        lblDelayFeedbackValue.stringValue = appState.formattedDelayFeedback
+        let feedback = graph.getDelayFeedback()
+        delayFeedbackSlider.floatValue = feedback.percent
+        lblDelayFeedbackValue.stringValue = feedback.percentString
         
-        delayCutoffSlider.floatValue = appState.delayLowPassCutoff
-        lblDelayLowPassCutoffValue.stringValue = appState.formattedDelayLowPassCutoff
+        let cutoff = graph.getDelayLowPassCutoff()
+        delayCutoffSlider.floatValue = cutoff.cutoff
+        lblDelayLowPassCutoffValue.stringValue = cutoff.cutoffString
     }
 
     // Activates/deactivates the Delay effects unit

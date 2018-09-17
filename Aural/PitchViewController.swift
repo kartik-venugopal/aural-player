@@ -19,21 +19,23 @@ class PitchViewController: NSViewController, ActionMessageSubscriber {
     
     override func viewDidLoad() {
         
-        initControls(ObjectGraph.getUIAppState())
+        initControls()
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch], subscriber: self)
     }
     
-    private func initControls(_ appState: UIAppState) {
+    private func initControls() {
         
         btnPitchBypass.setBypassState(graph.isPitchBypass())
         
-        pitchSlider.floatValue = appState.pitch
-        lblPitchValue.stringValue = appState.formattedPitch
+        let pitch = graph.getPitch()
+        pitchSlider.floatValue = pitch.pitch
+        lblPitchValue.stringValue = pitch.pitchString
         
-        pitchOverlapSlider.floatValue = appState.pitchOverlap
-        lblPitchOverlapValue.stringValue = appState.formattedPitchOverlap
+        let overlap = graph.getPitchOverlap()
+        pitchOverlapSlider.floatValue = overlap.overlap
+        lblPitchOverlapValue.stringValue = overlap.overlapString
     }
     
     // Activates/deactivates the Pitch effects unit

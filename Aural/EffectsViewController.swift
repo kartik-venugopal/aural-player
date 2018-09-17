@@ -53,7 +53,6 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
     
     func activate() {
         initSubscriptions()
-        print("FX activated")
     }
     
     func deactivate() {

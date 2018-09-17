@@ -21,31 +21,34 @@ class FilterViewController: NSViewController {
     override var nibName: String? {return "Filter"}
     
     override func viewDidLoad() {
-        initControls(ObjectGraph.getUIAppState())
+        initControls()
     }
  
-    private func initControls(_ appState: UIAppState) {
+    private func initControls() {
         
-        btnFilterBypass.setBypassState(appState.filterBypass)
+        btnFilterBypass.setBypassState(graph.isFilterBypass())
         
-        filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, appState.filterBassMin, appState.filterBassMax, {
+        let bassBand = graph.getFilterBassBand()
+        filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, Double(bassBand.min), Double(bassBand.max), {
             (slider: RangeSlider) -> Void in
             self.filterBassChanged()
         })
         
-        filterMidSlider.initialize(AppConstants.mid_min, AppConstants.mid_max, appState.filterMidMin, appState.filterMidMax, {
+        let midBand = graph.getFilterMidBand()
+        filterMidSlider.initialize(AppConstants.mid_min, AppConstants.mid_max, Double(midBand.min), Double(midBand.max), {
             (slider: RangeSlider) -> Void in
             self.filterMidChanged()
         })
         
-        filterTrebleSlider.initialize(AppConstants.treble_min, AppConstants.treble_max, appState.filterTrebleMin, appState.filterTrebleMax, {
+        let trebleBand = graph.getFilterTrebleBand()
+        filterTrebleSlider.initialize(AppConstants.treble_min, AppConstants.treble_max, Double(trebleBand.min), Double(trebleBand.max), {
             (slider: RangeSlider) -> Void in
             self.filterTrebleChanged()
         })
         
-        lblFilterBassRange.stringValue = appState.formattedFilterBassRange
-        lblFilterMidRange.stringValue = appState.formattedFilterMidRange
-        lblFilterTrebleRange.stringValue = appState.formattedFilterTrebleRange
+        lblFilterBassRange.stringValue = bassBand.rangeString
+        lblFilterMidRange.stringValue = midBand.rangeString
+        lblFilterTrebleRange.stringValue = trebleBand.rangeString
     }
     
     // Activates/deactivates the Filter effects unit

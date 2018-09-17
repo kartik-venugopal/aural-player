@@ -17,16 +17,17 @@ class ReverbViewController: NSViewController {
     override var nibName: String? {return "Reverb"}
     
     override func viewDidLoad() {
-        initControls(ObjectGraph.getUIAppState())
+        initControls()
     }
     
-    private func initControls(_ appState: UIAppState) {
+    private func initControls() {
         
-        btnReverbBypass.setBypassState(appState.reverbBypass)
-        reverbMenu.select(reverbMenu.item(withTitle: appState.reverbPreset))
+        btnReverbBypass.setBypassState(graph.isReverbBypass())
+        reverbMenu.select(reverbMenu.item(withTitle: graph.getReverbPreset()))
         
-        reverbSlider.floatValue = appState.reverbAmount
-        lblReverbAmountValue.stringValue = appState.formattedReverbAmount
+        let amount = graph.getReverbAmount()
+        reverbSlider.floatValue = amount.amount
+        lblReverbAmountValue.stringValue = amount.amountString
     }
 
     // Activates/deactivates the Reverb effects unit
