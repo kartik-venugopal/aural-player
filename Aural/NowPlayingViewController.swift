@@ -428,6 +428,32 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         updateSeekPosition()
     }
     
+    private func renderLoop() {
+        
+        if let loop = player.getPlaybackLoop() {
+            
+            let duration = (player.getPlayingTrack()?.track.duration)!
+            
+            // Mark start
+            seekSliderClone.doubleValue = loop.startTime * 100 / duration
+            seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
+            
+            // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
+            if (loop.isComplete()) {
+                
+                seekSliderClone.doubleValue = loop.endTime! * 100 / duration
+                seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
+            }
+            
+        } else {
+            
+            seekSliderCell.removeLoop()
+        }
+        
+        // Force a redraw of the seek slider
+        updateSeekPosition()
+    }
+    
     // When track info for the playing track changes, display fields need to be updated
     private func playingTrackInfoUpdated(_ notification: PlayingTrackInfoUpdatedNotification) {
         showNowPlayingInfo(player.getPlayingTrack()!.track)
@@ -458,6 +484,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         if (newTrack != nil) {
             
             showNowPlayingInfo(newTrack!.track)
+            renderLoop()
             setSeekTimerState(true)
             togglePlayingTrackButtons(true)
             
