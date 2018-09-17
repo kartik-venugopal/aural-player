@@ -127,8 +127,22 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return round(newBalance * AppConstants.panConversion_audioGraphToUI)
     }
     
+    // MARK: EQ unit functions
+    
+    func isEQBypass() -> Bool {
+        return graph.isEQBypass()
+    }
+    
     func toggleEQBypass() -> Bool {
         return graph.toggleEQBypass()
+    }
+    
+    func getEQGlobalGain() -> Float {
+        return graph.getEQGlobalGain()
+    }
+    
+    func getEQBands() -> [Int: Float] {
+        return graph.getEQBands()
     }
     
     func setEQGlobalGain(_ gain: Float) {
@@ -191,12 +205,20 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         }
     }
     
+    // MARK: Pitch shift unit functions
+    
+    func isPitchBypass() -> Bool {
+        return graph.isPitchBypass()
+    }
+    
     func togglePitchBypass() -> Bool {
         return graph.togglePitchBypass()
     }
     
-    func isPitchBypass() -> Bool {
-        return graph.isPitchBypass()
+    func getPitch() -> (pitch: Float, pitchString: String) {
+        
+        let pitch = graph.getPitch() * AppConstants.pitchConversion_audioGraphToUI
+        return (pitch, ValueFormatter.formatPitch(pitch))
     }
     
     func setPitch(_ pitch: Float) -> String {
@@ -205,6 +227,11 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         graph.setPitch(pitch * AppConstants.pitchConversion_UIToAudioGraph)
         
         return ValueFormatter.formatPitch(pitch)
+    }
+    
+    func getPitchOverlap() -> (overlap: Float, overlapString: String) {
+        let overlap = graph.getPitchOverlap()
+        return (overlap, ValueFormatter.formatOverlap(overlap))
     }
     
     func setPitchOverlap(_ overlap: Float) -> String {
@@ -246,20 +273,31 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return (convPitch, ValueFormatter.formatPitch(convPitch))
     }
     
+    // MARK: Time stretch unit functions
+    
+    func isTimeBypass() -> Bool {
+        return graph.isTimeBypass()
+    }
+    
     func toggleTimeBypass() -> Bool {
         return graph.toggleTimeBypass()
+    }
+   
+    func getTimePitchShift() -> String {
+        return ValueFormatter.formatPitch(graph.getTimePitchShift() * AppConstants.pitchConversion_audioGraphToUI)
+    }
+    
+    func isTimePitchShift() -> Bool {
+        return graph.isTimePitchShift()
     }
     
     func toggleTimePitchShift() -> Bool {
         return graph.toggleTimePitchShift()
     }
-    
-    func getTimePitchShift() -> String {
-        return ValueFormatter.formatPitch(graph.getTimePitchShift() * AppConstants.pitchConversion_audioGraphToUI)
-    }
-    
-    func isTimeBypass() -> Bool {
-        return graph.isTimeBypass()
+   
+    func getTimeRate() -> (rate: Float, rateString: String) {
+        let rate = graph.getTimeStretchRate()
+        return (rate, ValueFormatter.formatTimeStretchRate(rate))
     }
     
     func setTimeStretchRate(_ rate: Float) -> String {
@@ -301,17 +339,37 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return (newRate, ValueFormatter.formatTimeStretchRate(newRate))
     }
     
+    func getTimeOverlap() -> (overlap: Float, overlapString: String) {
+        let overlap = graph.getTimeOverlap()
+        return (overlap, ValueFormatter.formatOverlap(overlap))
+    }
+    
     func setTimeOverlap(_ overlap: Float) -> String {
         graph.setTimeOverlap(overlap)
         return ValueFormatter.formatOverlap(overlap)
+    }
+    
+    // MARK: Reverb unit functions
+    
+    func isReverbBypass() -> Bool {
+        return graph.isReverbBypass()
     }
     
     func toggleReverbBypass() -> Bool {
         return graph.toggleReverbBypass()
     }
     
+    func getReverbPreset() -> String {
+        return graph.getReverbPreset().description
+    }
+    
     func setReverb(_ preset: ReverbPresets) {
         graph.setReverb(preset)
+    }
+    
+    func getReverbAmount() -> (amount: Float, amountString: String) {
+        let amount = graph.getReverbAmount()
+        return (amount, ValueFormatter.formatReverbAmount(amount))
     }
     
     func setReverbAmount(_ amount: Float) -> String {
@@ -319,8 +377,19 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return ValueFormatter.formatReverbAmount(amount)
     }
     
+    // MARK: Delay unit functions
+    
+    func isDelayBypass() -> Bool {
+        return graph.isDelayBypass()
+    }
+    
     func toggleDelayBypass() -> Bool {
         return graph.toggleDelayBypass()
+    }
+    
+    func getDelayAmount() -> (amount: Float, amountString: String) {
+        let amount = graph.getDelayAmount()
+        return (amount, ValueFormatter.formatDelayAmount(amount))
     }
     
     func setDelayAmount(_ amount: Float) -> String {
@@ -328,9 +397,19 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return ValueFormatter.formatDelayAmount(amount)
     }
     
+    func getDelayTime() -> (time: Double, timeString: String) {
+        let time = graph.getDelayTime()
+        return (time, ValueFormatter.formatDelayTime(time))
+    }
+    
     func setDelayTime(_ time: Double) -> String {
         graph.setDelayTime(time)
         return ValueFormatter.formatDelayTime(time)
+    }
+    
+    func getDelayFeedback() -> (percent: Float, percentString: String) {
+        let feedback = graph.getDelayFeedback()
+        return (feedback, ValueFormatter.formatDelayFeedback(feedback))
     }
     
     func setDelayFeedback(_ percent: Float) -> String {
@@ -338,13 +417,29 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return ValueFormatter.formatDelayFeedback(percent)
     }
     
+    func getDelayLowPassCutoff() -> (cutoff: Float, cutoffString: String) {
+        let cutoff = graph.getDelayLowPassCutoff()
+        return (cutoff, ValueFormatter.formatDelayLowPassCutoff(cutoff))
+    }
+    
     func setDelayLowPassCutoff(_ cutoff: Float) -> String {
         graph.setDelayLowPassCutoff(cutoff)
         return ValueFormatter.formatDelayLowPassCutoff(cutoff)
     }
     
+    // MARK: Filter unit functions
+    
+    func isFilterBypass() -> Bool {
+        return graph.isFilterBypass()
+    }
+    
     func toggleFilterBypass() -> Bool {
         return graph.toggleFilterBypass()
+    }
+    
+    func getFilterBassBand() -> (min: Float, max: Float, rangeString: String) {
+        let minMax = graph.getFilterBassBand()
+        return (minMax.min, minMax.max, ValueFormatter.formatFilterFrequencyRange(minMax.min, minMax.max))
     }
     
     func setFilterBassBand(_ min: Float, _ max: Float) -> String {
@@ -352,9 +447,19 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return ValueFormatter.formatFilterFrequencyRange(min, max)
     }
     
+    func getFilterMidBand() -> (min: Float, max: Float, rangeString: String) {
+        let minMax = graph.getFilterMidBand()
+        return (minMax.min, minMax.max, ValueFormatter.formatFilterFrequencyRange(minMax.min, minMax.max))
+    }
+    
     func setFilterMidBand(_ min: Float, _ max: Float) -> String {
         graph.setFilterMidBand(min, max)
         return ValueFormatter.formatFilterFrequencyRange(min, max)
+    }
+    
+    func getFilterTrebleBand() -> (min: Float, max: Float, rangeString: String) {
+        let minMax = graph.getFilterTrebleBand()
+        return (minMax.min, minMax.max, ValueFormatter.formatFilterFrequencyRange(minMax.min, minMax.max))
     }
     
     func setFilterTrebleBand(_ min: Float, _ max: Float) -> String {

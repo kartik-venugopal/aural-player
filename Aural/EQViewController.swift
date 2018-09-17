@@ -34,21 +34,21 @@ class EQViewController: NSViewController, ActionMessageSubscriber, MessageSubscr
     
     override func viewDidLoad() {
         
-        initControls(ObjectGraph.getUIAppState())
+        initControls()
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble], subscriber: self)
         SyncMessenger.subscribe(messageTypes: [.saveEQUserPreset], subscriber: self)
     }
     
-    private func initControls(_ appState: UIAppState) {
+    private func initControls() {
         
-        btnEQBypass.onIf(!appState.eqBypass)
+        btnEQBypass.onIf(!graph.isEQBypass())
         
         eqSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
         
-        eqGlobalGainSlider.floatValue = appState.eqGlobalGain
-        updateAllEQSliders(appState.eqBands)
+        eqGlobalGainSlider.floatValue = graph.getEQGlobalGain()
+        updateAllEQSliders(graph.getEQBands())
         
         // Initialize the menu with user-defined presets
         EQPresets.userDefinedPresets.forEach({eqPresets.insertItem(withTitle: $0.name, at: 0)})

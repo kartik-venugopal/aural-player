@@ -27,7 +27,7 @@ class PitchViewController: NSViewController, ActionMessageSubscriber {
     
     private func initControls(_ appState: UIAppState) {
         
-        btnPitchBypass.setBypassState(appState.pitchBypass)
+        btnPitchBypass.setBypassState(graph.isPitchBypass())
         
         pitchSlider.floatValue = appState.pitch
         lblPitchValue.stringValue = appState.formattedPitch
