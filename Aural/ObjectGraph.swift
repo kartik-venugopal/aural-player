@@ -20,6 +20,7 @@ class ObjectGraph {
     
     private static var player: Player?
     private static var playbackSequencer: PlaybackSequencer?
+    private static var playbackSequencerInfoDelegate: PlaybackSequencerInfoDelegate?
     private static var playbackDelegate: PlaybackDelegate?
     
     private static var recorder: Recorder?
@@ -64,10 +65,12 @@ class ObjectGraph {
         
         playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
         
-        // Playback Sequencer
+        // Playback Sequencer and delegate
         let repeatMode = appState!.playbackSequenceState.repeatMode
         let shuffleMode = appState!.playbackSequenceState.shuffleMode
         playbackSequencer = PlaybackSequencer(playlist!, repeatMode, shuffleMode)
+        
+        playbackSequencerInfoDelegate = PlaybackSequencerInfoDelegate(playbackSequencer!)
         
         // Playback Delegate
         playbackDelegate = PlaybackDelegate(player!, playbackSequencer!, playlist!, preferences!.playbackPreferences)
@@ -125,6 +128,10 @@ class ObjectGraph {
     
     static func getPlaybackInfoDelegate() -> PlaybackInfoDelegateProtocol {
         return getPlaybackDelegate()
+    }
+    
+    static func getPlaybackSequencerInfoDelegate() -> PlaybackSequencerInfoDelegateProtocol {
+        return playbackSequencerInfoDelegate!
     }
     
     static func getRecorderDelegate() -> RecorderDelegateProtocol {

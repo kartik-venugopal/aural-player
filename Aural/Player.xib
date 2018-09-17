@@ -8,7 +8,9 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PlayerViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnLoop" destination="8CO-uA-28Y" id="GWw-9r-F5H"/>
+                <outlet property="btnNextTrack" destination="hPb-lv-92X" id="jNb-b4-xMm"/>
                 <outlet property="btnPlayPause" destination="Dc4-GM-vmb" id="BVV-v2-5ul"/>
+                <outlet property="btnPreviousTrack" destination="YI0-Vg-EQs" id="mum-hy-zga"/>
                 <outlet property="btnRepeat" destination="Ghu-Et-yHG" id="cG7-ao-d0a"/>
                 <outlet property="btnShuffle" destination="5iY-Bb-qE7" id="k6z-Gd-J0g"/>
                 <outlet property="btnVolume" destination="C1N-8X-NEN" id="f9i-pE-iXS"/>
@@ -69,7 +71,7 @@
                         <action selector="playPauseAction:" target="-2" id="kbY-rZ-hrA"/>
                     </connections>
                 </button>
-                <button toolTip="Previous track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YI0-Vg-EQs" userLabel="PrevTrack Button">
+                <button toolTip="Previous track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YI0-Vg-EQs" userLabel="PrevTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="186" y="20" width="18" height="13"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PreviousTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="PQL-Ns-yQn">
@@ -80,7 +82,7 @@
                         <action selector="previousTrackAction:" target="-2" id="e3W-a3-wor"/>
                     </connections>
                 </button>
-                <button toolTip="Next track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPb-lv-92X" userLabel="NextTrack Button">
+                <button toolTip="Next track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPb-lv-92X" userLabel="NextTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="245" y="20" width="18" height="13"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NextTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="GgN-ux-evh">

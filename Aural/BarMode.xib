@@ -10,7 +10,9 @@
             <connections>
                 <outlet property="artView" destination="EA7-Pw-SZQ" id="Hmm-dn-oDQ"/>
                 <outlet property="btnLoop" destination="DEc-ag-TxS" id="ZkG-aZ-tUF"/>
+                <outlet property="btnNextTrack" destination="VK7-AE-2TX" id="gQd-79-OL4"/>
                 <outlet property="btnPlayPause" destination="ugs-TH-ReA" id="f54-AT-OxH"/>
+                <outlet property="btnPreviousTrack" destination="B5F-Bo-qT9" id="7pr-rb-dOs"/>
                 <outlet property="btnRepeat" destination="0KD-m9-964" id="giS-Bm-5So"/>
                 <outlet property="btnShuffle" destination="2gQ-f7-Z69" id="ysT-Vo-N2s"/>
                 <outlet property="btnVolume" destination="V0p-NE-lB9" id="rZw-u0-NE7"/>
@@ -62,7 +64,7 @@
                             <action selector="quitAction:" target="-2" id="obJ-BZ-lxx"/>
                         </connections>
                     </button>
-                    <button toolTip="Hide window" translatesAutoresizingMaskIntoConstraints="NO" id="Koo-12-h7i" userLabel="Regular Mode">
+                    <button toolTip="Switch to regular view" translatesAutoresizingMaskIntoConstraints="NO" id="Koo-12-h7i" userLabel="Regular Mode">
                         <rect key="frame" x="4" y="6" width="9" height="9"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="9" id="ky1-Pe-Y8j"/>
@@ -167,7 +169,7 @@
                             <action selector="seekForwardAction:" target="-2" id="lOR-hk-NhD"/>
                         </connections>
                     </button>
-                    <button toolTip="Next track" translatesAutoresizingMaskIntoConstraints="NO" id="VK7-AE-2TX" userLabel="NextTrack Button">
+                    <button toolTip="Next track" translatesAutoresizingMaskIntoConstraints="NO" id="VK7-AE-2TX" userLabel="NextTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="420" y="12" width="14" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="8bt-o0-68g"/>
@@ -195,7 +197,7 @@
                             <action selector="seekBackwardAction:" target="-2" id="tXu-jc-Ex9"/>
                         </connections>
                     </button>
-                    <button toolTip="Previous track" translatesAutoresizingMaskIntoConstraints="NO" id="B5F-Bo-qT9" userLabel="PrevTrack Button">
+                    <button toolTip="Previous track" translatesAutoresizingMaskIntoConstraints="NO" id="B5F-Bo-qT9" userLabel="PrevTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="384" y="12" width="14" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="14" id="JDz-40-UP6"/>

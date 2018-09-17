@@ -25,7 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Configuration and initialization
         
-//        configureLogging()
+        configureLogging()
         ObjectGraph.initialize()
         AppModeManager.initialize()
     }
@@ -75,8 +75,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-//        AppModeManager.presentMode(.regular)
-        AppModeManager.presentMode(.miniBar)
+        AppModeManager.presentMode(.regular)
+//        AppModeManager.presentMode(.miniBar)
         
         // Update the appLaunched flag
         appLaunched = true

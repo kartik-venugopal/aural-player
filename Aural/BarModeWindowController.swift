@@ -25,8 +25,15 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
     @IBOutlet weak var btnRepeat: MultiStateImageButton!
     @IBOutlet weak var btnLoop: MultiStateImageButton!
     
+    // Buttons whose tool tips may change
+    @IBOutlet weak var btnPreviousTrack: TrackPeekingButton!
+    @IBOutlet weak var btnNextTrack: TrackPeekingButton!
+    
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
+    
+    // Delegate that retrieves playback sequencing info (previous/next track)
+    private let playbackSequence: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.getPlaybackSequencerInfoDelegate()
     
     // Delegate that conveys all volume/pan adjustments to the audio graph
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
@@ -48,8 +55,28 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, AsyncMessa
         initVolumeAndPan(appState)
         initToggleButtons(appState)
         
-        // Subscribe to various notifications
+        // Button tool tips
+        btnPreviousTrack.toolTipFunction = {
+            () -> String in
+            
+            if let prevTrack = self.playbackSequence.peekPrevious() {
+                return String(format: "Previous track: '%@'", prevTrack.track.conciseDisplayName)
+            }
+            
+            return "Previous track"
+        }
         
+        btnNextTrack.toolTipFunction = {
+            () -> String in
+            
+            if let nextTrack = self.playbackSequence.peekNext() {
+                return String(format: "Next track: '%@'", nextTrack.track.conciseDisplayName)
+            }
+            
+            return "Next track"
+        }
+        
+        // Subscribe to various notifications
         AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites, .trackNotPlayed, .trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification], subscriber: self)

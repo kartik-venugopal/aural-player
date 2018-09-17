@@ -24,8 +24,15 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     @IBOutlet weak var btnRepeat: MultiStateImageButton!
     @IBOutlet weak var btnLoop: MultiStateImageButton!
     
+    // Buttons whose tool tips may change
+    @IBOutlet weak var btnPreviousTrack: TrackPeekingButton!
+    @IBOutlet weak var btnNextTrack: TrackPeekingButton!
+    
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
+    
+    // Delegate that retrieves playback sequencing info (previous/next track)
+    private let playbackSequence: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.getPlaybackSequencerInfoDelegate()
     
     // Delegate that conveys all volume/pan adjustments to the audio graph
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
@@ -43,6 +50,27 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification], subscriber: self)
         initSubscriptions()
+        
+        // Button tool tips
+        btnPreviousTrack.toolTipFunction = {
+            () -> String in
+            
+            if let prevTrack = self.playbackSequence.peekPrevious() {
+                return String(format: "Previous track: '%@'", prevTrack.track.conciseDisplayName)
+            }
+            
+            return "Previous track"
+        }
+        
+        btnNextTrack.toolTipFunction = {
+            () -> String in
+            
+            if let nextTrack = self.playbackSequence.peekNext() {
+                return String(format: "Next track: '%@'", nextTrack.track.conciseDisplayName)
+            }
+            
+            return "Next track"
+        }
     }
     
     private func initSubscriptions() {
@@ -200,8 +228,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
                 handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
             }
         }
-        
-        print("Now " + String(describing: player.getPlaybackState()))
     }
     
     // Replays the currently playing track, from the beginning, if there is one
