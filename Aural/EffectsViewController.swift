@@ -38,26 +38,54 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
     override func viewDidLoad() {
 
         // Initialize all sub-views
-        
-        initEQUnit()
-        initPitchUnit()
-        initTimeUnit()
-        initReverbUnit()
-        initDelayUnit()
-        initFilterUnit()
-        initRecorder()
-        initTabGroup()
+        addSubViews()
         
         AppModeManager.registerConstituentView(.regular, self)
     }
     
+    private func addSubViews() {
+        
+        fxTabView.tabViewItem(at: 0).view?.addSubview(eqView)
+        fxTabView.tabViewItem(at: 1).view?.addSubview(pitchView)
+        fxTabView.tabViewItem(at: 2).view?.addSubview(timeView)
+        fxTabView.tabViewItem(at: 3).view?.addSubview(reverbView)
+        fxTabView.tabViewItem(at: 4).view?.addSubview(delayView)
+        fxTabView.tabViewItem(at: 5).view?.addSubview(filterView)
+        fxTabView.tabViewItem(at: 6).view?.addSubview(recorderView)
+        
+        fxTabViewButtons = [eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton]
+    }
+    
     func activate() {
+        
+        initUnits()
+        initTabGroup()
         initSubscriptions()
     }
     
     func deactivate() {
+        
         print("FX - deact")
         removeSubscriptions()
+    }
+    
+    private func initUnits() {
+        
+        eqTabViewButton.onIf(!graph.isEQBypass())
+        pitchTabViewButton.onIf(!graph.isPitchBypass())
+        timeTabViewButton.onIf(!graph.isTimeBypass())
+        reverbTabViewButton.onIf(!graph.isReverbBypass())
+        delayTabViewButton.onIf(!graph.isDelayBypass())
+        filterTabViewButton.onIf(!graph.isFilterBypass())
+        
+        // TODO: This will not always be off (only on app startup)
+        recorderTabViewButton.off()
+    }
+    
+    private func initTabGroup() {
+        
+        // Select EQ tab view by default
+        tabViewAction(eqTabViewButton)
     }
     
     private func initSubscriptions() {
@@ -70,61 +98,6 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
         
         SyncMessenger.unsubscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
         SyncMessenger.unsubscribe(actionTypes: [.showEffectsUnitTab], subscriber: self)
-    }
-    
-    private func initEQUnit() {
-        
-        fxTabView.tabViewItem(at: 0).view?.addSubview(eqView)
-        eqTabViewButton.onIf(!graph.isEQBypass())
-    }
-    
-    private func initPitchUnit() {
-        
-        fxTabView.tabViewItem(at: 1).view?.addSubview(pitchView)
-        pitchTabViewButton.onIf(!graph.isPitchBypass())
-    }
-    
-    private func initTimeUnit() {
-        
-        fxTabView.tabViewItem(at: 2).view?.addSubview(timeView)
-        timeTabViewButton.onIf(!graph.isTimeBypass())
-    }
-    
-    private func initReverbUnit() {
-        
-        fxTabView.tabViewItem(at: 3).view?.addSubview(reverbView)
-        reverbTabViewButton.onIf(!graph.isReverbBypass())
-    }
-    
-    private func initDelayUnit() {
-        
-        fxTabView.tabViewItem(at: 4).view?.addSubview(delayView)
-        delayTabViewButton.onIf(!graph.isDelayBypass())
-    }
-    
-    private func initFilterUnit() {
-        
-        fxTabView.tabViewItem(at: 5).view?.addSubview(filterView)
-        filterTabViewButton.onIf(!graph.isFilterBypass())
-    }
-    
-    private func initRecorder() {
-        
-        fxTabView.tabViewItem(at: 6).view?.addSubview(recorderView)
-        recorderTabViewButton.off()
-    }
-    
-    // Helper function that updates the look of a button in response to a unit becoming active or inactive
-    private func updateButtonState(_ button: OnOffImageAndTextButton, _ active: Bool) {
-        button.onIf(active)
-    }
-    
-    private func initTabGroup() {
-        
-        fxTabViewButtons = [eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton]
-        
-        // Select EQ tab view by default
-        tabViewAction(eqTabViewButton)
     }
     
     // Switches the tab group to a particular tab
@@ -152,20 +125,33 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
             // Update the corresponding tab button's state
             switch message.effectsUnit {
                 
-            case .eq:    updateButtonState(eqTabViewButton, message.active)
+            case .eq:
                 
-            case .pitch:    updateButtonState(pitchTabViewButton, message.active)
+                eqTabViewButton.onIf(message.active)
                 
-            case .time:    updateButtonState(timeTabViewButton, message.active)
+            case .pitch:
                 
-            case .reverb:    updateButtonState(reverbTabViewButton, message.active)
+                pitchTabViewButton.onIf(message.active)
                 
-            case .delay:    updateButtonState(delayTabViewButton, message.active)
+            case .time:
                 
-            case .filter:    updateButtonState(filterTabViewButton, message.active)
+                timeTabViewButton.onIf(message.active)
                 
-            case .recorder:    updateButtonState(recorderTabViewButton, message.active)
+            case .reverb:
                 
+                reverbTabViewButton.onIf(message.active)
+                
+            case .delay:
+                
+                delayTabViewButton.onIf(message.active)
+                
+            case .filter:
+                
+                filterTabViewButton.onIf(message.active)
+                
+            case .recorder:
+                
+                recorderTabViewButton.onIf(message.active)
             }
         }
     }
