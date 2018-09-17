@@ -24,6 +24,10 @@ Aural Player is a free and open source audio player application for the macOS pl
 - Extensive set of keyboard shortcuts and menu items for quick and convenient access to functionality
 - Extensive set of preferences to allow user to customize functionality (e.g. seek/volume/pan increment, enabling/disabling and mouse sensitivity for gestures, remembered/default volume on startup, remembered/default view on startup, etc.)
 
+## Download
+
+Download the disk image file [Aural.dmg](https://github.com/maculateConception/aural-player/blob/master/Aural.dmg?raw=true). Just mount it and run the app !
+
 ### Compatibility
 
 **User**: Running Aural Player requires OS X 10.10 (Yosemite) or later macOS versions.
@@ -40,10 +44,6 @@ Aural Player was written by an audio enthusiast learning to program on OS X, com
 - **9/14/2018: Playlist docking bug fix -** Fixed a bug that caused the playlist's docking location to not be rememebered across app launches.
 - **9/14/2018: Show track in Finder -** Implemented a new function to allow users to show a track in Finder from the playlist's context menu (i.e. the right-click menu).
 - **9/16/2018: Dynamic button tool tips -** Previous/Next track control buttons now show dynamic tool tips with the name of the previous/next track, if applicable.
-
-## Download
-
-Download the disk image file [Aural.dmg](https://github.com/maculateConception/aural-player/blob/master/Aural.dmg?raw=true). Just mount it and run the app !
 
 ## Third party code and contributor attributions
 
