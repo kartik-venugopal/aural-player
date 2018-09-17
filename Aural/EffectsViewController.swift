@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
+class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
     
     // The constituent sub-views, one for each effects unit
     
@@ -50,10 +50,29 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
         initRecorder()
         initTabGroup()
         
-        // Subscribe to message notifications
+        AppModeManager.registerConstituentView(.regular, self)
+    }
+    
+    func activate() {
+        initSubscriptions()
+        print("FX activated")
+    }
+    
+    func deactivate() {
+        print("FX - deact")
+        removeSubscriptions()
+    }
+    
+    private func initSubscriptions() {
         
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab], subscriber: self)
+    }
+    
+    private func removeSubscriptions() {
+        
+        SyncMessenger.unsubscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.showEffectsUnitTab], subscriber: self)
     }
     
     private func initEQUnit(_ appState: UIAppState) {

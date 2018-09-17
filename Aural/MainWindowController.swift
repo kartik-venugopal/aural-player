@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the main window, but also controls the positioning and sizing of the playlist window. Performs any and all display (or hiding), positioning, alignment, resizing, etc. of both the main window and playlist window.
  */
-class MainWindowController: NSWindowController, ActionMessageSubscriber {
+class MainWindowController: NSWindowController, ActionMessageSubscriber, ConstituentView {
     
     // Main application window. Contains the Now Playing info box, player controls, and effects panel. Not manually resizable. Changes size when toggling effects view.
     private var theWindow: NSWindow {
@@ -42,14 +42,35 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
         // Register a handler for trackpad/MagicMouse gestures
         gestureHandler = GestureHandler(theWindow)
         
-        // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist], subscriber: self)
+        AppModeManager.registerConstituentView(.regular, self)
     }
     
-    override func showWindow(_ sender: Any?) {
+    func activate() {
+        
+        activateGestureHandler()
+        initSubscriptions()
+        
+        print("MWC activated")
+        
+        // TODO: Restore remembered window location and views (effects/playlist)
+    }
+    
+    func deactivate() {
+        
+        deactivateGestureHandler()
+        removeSubscriptions()
+        
+        // TODO: Save window location and views (effects/playlist)
+    }
+    
+    // Set window properties
+    private func initWindow() {
+        
+        WindowState.window = theWindow
+        theWindow.isMovableByWindowBackground = true
+        theWindow.makeKeyAndOrderFront(self)
         
         addSubViews()
-        activateGestureHandler()
         
         let appState = ObjectGraph.getUIAppState()
         
@@ -59,16 +80,6 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
         
         btnToggleEffects.onIf(!appState.hideEffects)
         btnTogglePlaylist.onIf(!appState.hidePlaylist)
-        
-        super.showWindow(sender)
-    }
-    
-    // Set window properties
-    private func initWindow() {
-        
-        WindowState.window = theWindow
-        theWindow.isMovableByWindowBackground = true
-        theWindow.makeKeyAndOrderFront(self)
     }
     
     // Add the sub-views that make up the main window
@@ -86,6 +97,25 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
             self.gestureHandler.handle(event)
             return event;
         });
+    }
+    
+    private func deactivateGestureHandler() {
+        
+        if eventMonitor != nil {
+            NSEvent.removeMonitor(eventMonitor!)
+            eventMonitor = nil
+        }
+    }
+    
+    private func initSubscriptions() {
+        
+        // Subscribe to various messages
+        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist], subscriber: self)
+    }
+    
+    private func removeSubscriptions() {
+        
+        SyncMessenger.unsubscribe(actionTypes: [.toggleEffects, .togglePlaylist], subscriber: self)
     }
     
     // Shows/hides the playlist window (by delegating)
@@ -140,12 +170,6 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
     }
     
     @IBAction func floatingBarModeAction(_ sender: AnyObject) {
-        
-        if eventMonitor != nil {
-            NSEvent.removeMonitor(eventMonitor!)
-            eventMonitor = nil
-        }
-        
         SyncMessenger.publishActionMessage(AppModeActionMessage(.miniBarAppMode))
     }
     

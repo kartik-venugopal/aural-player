@@ -3,7 +3,7 @@
  */
 import Cocoa
 
-class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
+class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber, ConstituentView {
     
     // Volume/pan controls
     @IBOutlet weak var btnVolume: NSButton!
@@ -45,7 +45,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         initVolumeAndPan(appState)
         initToggleButtons(appState)
         
-        SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification], subscriber: self)
+//        SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification], subscriber: self)
         initSubscriptions()
         
         // Button tool tips
@@ -68,6 +68,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
             return "Next track"
         }
+        
+        AppModeManager.registerConstituentView(.regular, self)
     }
     
     private func initSubscriptions() {
@@ -498,6 +500,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // When the mode has just been changed to "regular", the Player view will need to be refreshed
     private func modeActive() {
         
+        
+    }
+    
+    private func modeInactive() {
+        
+    }
+    
+    func activate() {
         initSubscriptions()
         
         btnPlayPause.switchState(player.getPlaybackState())
@@ -509,10 +519,12 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         updateRepeatAndShuffleControls(rsModes.repeatMode, rsModes.shuffleMode)
         
         playbackLoopChanged()
+        
+        print("PVC activated")
     }
     
-    // When the mode has just been changed to "miniBar", subscriptions need to be removed so as to prevent this view from acting on notifications/requests
-    private func modeInactive() {
+    func deactivate() {
+        print("Player - deact")
         removeSubscriptions()
     }
     
