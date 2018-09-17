@@ -34,12 +34,12 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber {
     
     // MARK: Setup
     
+    // One-time setup
     override func windowDidLoad() {
         
         initWindow()
         
         // Register a handler for trackpad/MagicMouse gestures
-        
         gestureHandler = GestureHandler(theWindow)
         
         // Subscribe to various messages

@@ -156,10 +156,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
         }
     }
     
-    func getOperationalAppMode() -> AppMode? {
-        return .regular
-    }
-    
     func getID() -> String {
         return String(format: "%@-%@", self.className, String(describing: self.playlistType))
     }

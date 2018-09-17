@@ -33,8 +33,19 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         playlistView.menu = contextMenu
         
+        initSubscriptions()
+        SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification], subscriber: self)
+        
         // Register for key press and gesture events
         PlaylistInputEventHandler.registerViewForPlaylistType(self.playlistType, playlistView)
+        
+        // Set up the serial operation queue for playlist view updates
+        playlistUpdateQueue.maxConcurrentOperationCount = 1
+        playlistUpdateQueue.underlyingQueue = DispatchQueue.main
+        playlistUpdateQueue.qualityOfService = .background
+    }
+    
+    private func initSubscriptions() {
         
         // Register self as a subscriber to various message notifications
         AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded], subscriber: self, dispatchQueue: DispatchQueue.main)
@@ -42,11 +53,15 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         SyncMessenger.subscribe(messageTypes: [.trackAddedNotification, .trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder], subscriber: self)
+    }
+    
+    private func removeSubscriptions() {
         
-        // Set up the serial operation queue for playlist view updates
-        playlistUpdateQueue.maxConcurrentOperationCount = 1
-        playlistUpdateQueue.underlyingQueue = DispatchQueue.main
-        playlistUpdateQueue.qualityOfService = .background
+        AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded], subscriber: self)
+        
+        SyncMessenger.unsubscribe(messageTypes: [.trackAddedNotification, .trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
+        
+        SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -349,10 +364,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         // This is a safe typecast, because the context menu will prevent this function from being executed on groups. In other words, the selected item will always be a track.
         let selTrack = playlistView.item(atRow: playlistView.selectedRow) as! Track
         FileSystemUtils.showFileInFinder(selTrack.file)
-    }
-    
-    func getOperationalAppMode() -> AppMode? {
-        return .regular
     }
     
     func getID() -> String {

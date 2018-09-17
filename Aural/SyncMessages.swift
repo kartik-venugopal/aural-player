@@ -11,8 +11,6 @@ protocol MessageSubscriber {
     // Every message subscriber must implement this method to process a type of request it serves
     func processRequest(_ request: RequestMessage) -> ResponseMessage
     
-    func getOperationalAppMode() -> AppMode?
-    
     func getID() -> String
 }
 

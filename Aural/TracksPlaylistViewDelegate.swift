@@ -136,10 +136,6 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
         return playing && WindowState.isInForeground() && showingThisPlaylistView
     }
     
-    func getOperationalAppMode() -> AppMode? {
-        return .regular
-    }
-    
     func getID() -> String {
         return self.className
     }

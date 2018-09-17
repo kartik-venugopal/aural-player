@@ -33,6 +33,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Sort dialog
     private lazy var playlistSortDialog: ModalDialogDelegate = WindowFactory.getPlaylistSortDialog()
     
+    // For gesture handling
+    private var eventMonitor: Any?
+    
     // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
@@ -47,7 +50,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         theWindow.isMovableByWindowBackground = true
         
         setUpTabGroup()
-        registerForInputAndMessages()
+        initSubscriptions()
     }
     
     private func setUpTabGroup() {
@@ -60,10 +63,10 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         tabGroup.delegate = self
     }
     
-    private func registerForInputAndMessages() {
+    private func initSubscriptions() {
         
         // Set up an input handler to handle scrolling and type selection with key events and gestures
-        NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .swipe], handler: {(event: NSEvent!) -> NSEvent in
+        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .swipe], handler: {(event: NSEvent!) -> NSEvent in
             PlaylistInputEventHandler.handle(event)
             return event;
         });
@@ -75,6 +78,22 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         SyncMessenger.subscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .nextPlaylistView, .previousPlaylistView], subscriber: self)
+    }
+    
+    private func removeSubscriptions() {
+        
+        if eventMonitor != nil {
+            NSEvent.removeMonitor(eventMonitor!)
+            eventMonitor = nil
+        }
+        
+        // Register self as a subscriber to various AsyncMessage notifications
+        AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self)
+        
+        // Register self as a subscriber to various synchronous message notifications
+        SyncMessenger.unsubscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
+        
+        SyncMessenger.unsubscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .nextPlaylistView, .previousPlaylistView], subscriber: self)
     }
     
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist
@@ -300,10 +319,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Updates the summary in response to a change in the tab group selected tab
     private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
         updatePlaylistSummary()
-    }
-    
-    func getOperationalAppMode() -> AppMode? {
-        return .regular
     }
     
     func getID() -> String {

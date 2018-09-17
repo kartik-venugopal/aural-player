@@ -467,10 +467,6 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
         return sequence.getRepeatAndShuffleModes()
     }
     
-    func getOperationalAppMode() -> AppMode? {
-        return nil
-    }
-    
     func getID() -> String {
         return "PlaybackSequencer"
     }

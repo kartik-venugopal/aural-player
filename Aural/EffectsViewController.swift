@@ -122,10 +122,6 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
         fxTabView.selectTabViewItem(at: sender.tag)
     }
     
-    func getOperationalAppMode() -> AppMode? {
-        return .regular
-    }
-    
     func getID() -> String {
         return self.className
     }

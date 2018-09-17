@@ -51,6 +51,19 @@ class AppModeManager: ActionMessageSubscriber {
 //        SyncMessenger.publishNotification(AppModeChangedNotification(newMode))
     }
     
+    static func registerConstituentView(_ appMode: AppMode, _ view: ConstituentView) {
+        
+        switch appMode {
+            
+        case .regular: regularMode.registerConstituentView(view)
+            
+        case .miniBar:  miniBarMode.registerConstituentView(view)
+            
+        case .statusBar:    statusBarMode.registerConstituentView(view)
+            
+        }
+    }
+    
     private static func presentRegularMode() {
         regularMode.presentMode()
     }
@@ -99,4 +112,6 @@ protocol AppModeController {
     func presentMode()
     
     func dismissMode()
+    
+    func registerConstituentView(_ view: ConstituentView)
 }

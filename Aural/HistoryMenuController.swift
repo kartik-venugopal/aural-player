@@ -157,10 +157,6 @@ class HistoryMenuController: NSObject, NSMenuDelegate, MessageSubscriber, Action
         }
     }
     
-    func getOperationalAppMode() -> AppMode? {
-        return .regular
-    }
-    
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
         return EmptyResponse.instance
     }

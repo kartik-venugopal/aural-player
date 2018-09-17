@@ -23,7 +23,25 @@ class AsyncMessenger {
                 subscriberRegistry[messageType] = [(AsyncMessageSubscriber, DispatchQueue)]()
             }
             
-            subscriberRegistry[messageType]?.append(subscriber, dispatchQueue)
+            // Only add if it doesn't already exist
+            if subscriberRegistry[messageType]!.index(where: {$0.0.getID() == subscriber.getID()}) == nil {
+                subscriberRegistry[messageType]!.append(subscriber, dispatchQueue)
+            }
+        })
+    }
+    
+    static func unsubscribe(_ messageTypes: [AsyncMessageType], subscriber: AsyncMessageSubscriber) {
+
+        messageTypes.forEach({
+            
+            let messageType = $0
+            
+            if let subscribers = subscriberRegistry[messageType] {
+                
+                if let subIndex = subscribers.index(where: { $0.0.getID() == subscriber.getID() }) {
+                    (subscriberRegistry[messageType])!.remove(at: subIndex)
+                }
+            }
         })
     }
     

@@ -192,10 +192,6 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
         updateSearch()
     }
     
-    func getOperationalAppMode() -> AppMode? {
-        return .regular
-    }
-    
     func getID() -> String {
         return self.className
     }
