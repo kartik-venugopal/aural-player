@@ -138,6 +138,8 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         playerNode.pan = balance
     }
     
+    // MARK: EQ unit functions
+    
     func isEQBypass() -> Bool {
         return eqNode.bypass
     }
@@ -146,6 +148,14 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         let newState = !eqNode.bypass
         eqNode.bypass = newState
         return newState
+    }
+    
+    func getEQGlobalGain() -> Float {
+        return eqNode.globalGain
+    }
+    
+    func getEQBands() -> [Int: Float] {
+        return eqNode.allBands()
     }
     
     func setEQGlobalGain(_ gain: Float) {
@@ -184,6 +194,8 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         return eqNode.decreaseTreble()
     }
     
+    // MARK: Pitch shift unit functions
+    
     func togglePitchBypass() -> Bool {
         let newState = !pitchNode.bypass
         pitchNode.bypass = newState
@@ -202,8 +214,18 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         pitchNode.pitch = pitch
     }
     
+    func getPitchOverlap() -> Float {
+        return pitchNode.overlap
+    }
+    
     func setPitchOverlap(_ overlap: Float) {
         pitchNode.overlap = overlap
+    }
+    
+    // MARK: Time stretch unit functions
+    
+    func isTimeBypass() -> Bool {
+        return timeNode.bypass
     }
     
     func toggleTimeBypass() -> Bool {
@@ -214,15 +236,15 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         return newState
     }
     
+    func isTimePitchShift() -> Bool {
+        return timeNode.shiftPitch
+    }
+    
     func toggleTimePitchShift() -> Bool {
         
         let newState = !timeNode.shiftPitch
         timeNode.shiftPitch = newState
         return newState
-    }
-    
-    func isTimeBypass() -> Bool {
-        return timeNode.bypass
     }
     
     func getTimeStretchRate() -> Float {
@@ -237,14 +259,28 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         timeNode.rate = rate
     }
     
+    func getTimeOverlap() -> Float {
+        return timeNode.overlap
+    }
+    
     func setTimeOverlap(_ overlap: Float) {
         timeNode.overlap = overlap
+    }
+    
+    // MARK: Reverb unit functions
+    
+    func isReverbBypass() -> Bool {
+        return reverbNode.bypass
     }
     
     func toggleReverbBypass() -> Bool {
         let newState = !reverbNode.bypass
         reverbNode.bypass = newState
         return newState
+    }
+    
+    func getReverbPreset() -> ReverbPresets {
+        return ReverbPresets.mapFromAVPreset(reverbPreset)
     }
     
     func setReverb(_ preset: ReverbPresets) {
@@ -254,8 +290,18 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         reverbNode.loadFactoryPreset(reverbPreset)
     }
     
+    func getReverbAmount() -> Float {
+        return reverbNode.wetDryMix
+    }
+    
     func setReverbAmount(_ amount: Float) {
         reverbNode.wetDryMix = amount
+    }
+    
+    // MARK: Delay unit functions
+    
+    func isDelayBypass() -> Bool {
+        return delayNode.bypass
     }
     
     func toggleDelayBypass() -> Bool {
@@ -264,20 +310,42 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         return newState
     }
     
+    func getDelayAmount() -> Float {
+        return delayNode.wetDryMix
+    }
+    
     func setDelayAmount(_ amount: Float) {
         delayNode.wetDryMix = amount
+    }
+    
+    func getDelayTime() -> Double {
+        return delayNode.delayTime
     }
     
     func setDelayTime(_ time: Double) {
         delayNode.delayTime = time
     }
     
+    func getDelayFeedback() -> Float {
+        return delayNode.feedback
+    }
+    
     func setDelayFeedback(_ percent: Float) {
         delayNode.feedback = percent
     }
     
+    func getDelayLowPassCutoff() -> Float {
+        return delayNode.lowPassCutoff
+    }
+    
     func setDelayLowPassCutoff(_ cutoff: Float) {
         delayNode.lowPassCutoff = cutoff
+    }
+    
+    // MARK: Filter unit functions
+    
+    func isFilterBypass() -> Bool {
+        return filterNode.bypass
     }
     
     func toggleFilterBypass() -> Bool {
@@ -286,17 +354,31 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         return newState
     }
     
+    func getFilterBassBand() -> (min: Float, max: Float) {
+        return filterNode.getBands().bass
+    }
+    
     func setFilterBassBand(_ min: Float, _ max: Float) {
         filterNode.setFilterBassBand(min, max)
+    }
+    
+    func getFilterMidBand() -> (min: Float, max: Float) {
+        return filterNode.getBands().mid
     }
     
     func setFilterMidBand(_ min: Float, _ max: Float) {
         filterNode.setFilterMidBand(min, max)
     }
     
+    func getFilterTrebleBand() -> (min: Float, max: Float) {
+        return filterNode.getBands().treble
+    }
+    
     func setFilterTrebleBand(_ min: Float, _ max: Float) {
         filterNode.setFilterTrebleBand(min, max)
     }
+    
+    // MARK: Miscellaneous functions
     
     func clearSoundTails() {
         

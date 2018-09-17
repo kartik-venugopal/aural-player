@@ -36,17 +36,15 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
     override var nibName: String? {return "Effects"}
     
     override func viewDidLoad() {
-        
-        let appState = ObjectGraph.getUIAppState()
 
         // Initialize all sub-views
         
-        initEQUnit(appState)
-        initPitchUnit(appState)
-        initTimeUnit(appState)
-        initReverbUnit(appState)
-        initDelayUnit(appState)
-        initFilterUnit(appState)
+        initEQUnit()
+        initPitchUnit()
+        initTimeUnit()
+        initReverbUnit()
+        initDelayUnit()
+        initFilterUnit()
         initRecorder()
         initTabGroup()
         
@@ -75,40 +73,40 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
         SyncMessenger.unsubscribe(actionTypes: [.showEffectsUnitTab], subscriber: self)
     }
     
-    private func initEQUnit(_ appState: UIAppState) {
+    private func initEQUnit() {
         
         fxTabView.tabViewItem(at: 0).view?.addSubview(eqView)
-        eqTabViewButton.onIf(!appState.eqBypass)
+        eqTabViewButton.onIf(!graph.isEQBypass())
     }
     
-    private func initPitchUnit(_ appState: UIAppState) {
+    private func initPitchUnit() {
         
         fxTabView.tabViewItem(at: 1).view?.addSubview(pitchView)
-        pitchTabViewButton.onIf(!appState.pitchBypass)
+        pitchTabViewButton.onIf(!graph.isPitchBypass())
     }
     
-    private func initTimeUnit(_ appState: UIAppState) {
+    private func initTimeUnit() {
         
         fxTabView.tabViewItem(at: 2).view?.addSubview(timeView)
-        timeTabViewButton.onIf(!appState.timeBypass)
+        timeTabViewButton.onIf(!graph.isTimeBypass())
     }
     
-    private func initReverbUnit(_ appState: UIAppState) {
+    private func initReverbUnit() {
         
         fxTabView.tabViewItem(at: 3).view?.addSubview(reverbView)
-        reverbTabViewButton.onIf(!appState.reverbBypass)
+        reverbTabViewButton.onIf(!graph.isReverbBypass())
     }
     
-    private func initDelayUnit(_ appState: UIAppState) {
+    private func initDelayUnit() {
         
         fxTabView.tabViewItem(at: 4).view?.addSubview(delayView)
-        delayTabViewButton.onIf(!appState.delayBypass)
+        delayTabViewButton.onIf(!graph.isDelayBypass())
     }
     
-    private func initFilterUnit(_ appState: UIAppState) {
+    private func initFilterUnit() {
         
         fxTabView.tabViewItem(at: 5).view?.addSubview(filterView)
-        filterTabViewButton.onIf(!appState.filterBypass)
+        filterTabViewButton.onIf(!graph.isFilterBypass())
     }
     
     private func initRecorder() {
