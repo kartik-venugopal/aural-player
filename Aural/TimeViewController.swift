@@ -22,23 +22,25 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
     
     override func viewDidLoad() {
         
-        initControls(ObjectGraph.getUIAppState())
+        initControls()
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(actionTypes: [.increaseRate, .decreaseRate, .setRate], subscriber: self)
     }
     
-    private func initControls(_ appState: UIAppState) {
+    private func initControls() {
         
-        btnTimeBypass.setBypassState(appState.timeBypass)
-        btnShiftPitch.state = appState.timeShiftPitch ? 1 : 0
+        btnTimeBypass.setBypassState(graph.isTimeBypass())
+        btnShiftPitch.state = graph.isTimePitchShift() ? 1 : 0
         updatePitchShift()
         
-        timeSlider.floatValue = appState.timeStretchRate
-        lblTimeStretchRateValue.stringValue = appState.formattedTimeStretchRate
+        let rate = graph.getTimeRate()
+        timeSlider.floatValue = rate.rate
+        lblTimeStretchRateValue.stringValue = rate.rateString
         
-        timeOverlapSlider.floatValue = appState.timeOverlap
-        lblTimeOverlapValue.stringValue = appState.formattedTimeOverlap
+        let overlap = graph.getTimeOverlap()
+        timeOverlapSlider.floatValue = overlap.overlap
+        lblTimeOverlapValue.stringValue = overlap.overlapString
     }
     
     // Activates/deactivates the Time stretch effects unit
