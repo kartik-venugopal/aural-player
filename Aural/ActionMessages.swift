@@ -225,6 +225,13 @@ enum ActionType {
     case statusBarAppMode
     
     case miniBarAppMode
+    
+    // MARK: Mini bar actions
+    
+    case dockTopLeft
+    case dockTopRight
+    case dockBottomLeft
+    case dockBottomRight
 }
 
 enum ActionMode {
@@ -245,6 +252,15 @@ struct PlaylistActionMessage: ActionMessage {
     init(_ actionType: ActionType, _ playlistType: PlaylistType?) {
         self.actionType = actionType
         self.playlistType = playlistType
+    }
+}
+
+struct MiniBarActionMessage: ActionMessage {
+    
+    var actionType: ActionType
+    
+    init(_ actionType: ActionType) {
+        self.actionType = actionType
     }
 }
 

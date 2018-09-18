@@ -1,6 +1,6 @@
 import Cocoa
 
-class BarModeWindowController: NSWindowController {
+class BarModeWindowController: NSWindowController, ActionMessageSubscriber {
     
     // The box that encloses the Now Playing info section
     @IBOutlet weak var nowPlayingBox: NSBox!
@@ -26,6 +26,8 @@ class BarModeWindowController: NSWindowController {
         
         theWindow.isMovableByWindowBackground = true
         theWindow.level = Int(CGWindowLevelForKey(.floatingWindow))
+        
+        SyncMessenger.subscribe(actionTypes: [.dockTopLeft, .dockTopRight, .dockBottomLeft, .dockBottomRight], subscriber: self)
     }
     
     private func addSubViews() {
@@ -43,7 +45,7 @@ class BarModeWindowController: NSWindowController {
         SyncMessenger.publishActionMessage(AppModeActionMessage(.regularAppMode))
     }
     
-    @IBAction func dockTopLeft(_ sender: AnyObject) {
+    @IBAction func dockTopLeftAction(_ sender: AnyObject) {
         
         let x = visibleFrame.minX
         let y = visibleFrame.maxY - theWindow.height
@@ -51,7 +53,7 @@ class BarModeWindowController: NSWindowController {
         theWindow.setFrameOrigin(NSPoint(x: x, y: y))
     }
     
-    @IBAction func dockTopRight(_ sender: AnyObject) {
+    @IBAction func dockTopRightAction(_ sender: AnyObject) {
         
         let x = visibleFrame.maxX - theWindow.width
         let y = visibleFrame.maxY - theWindow.height
@@ -59,7 +61,7 @@ class BarModeWindowController: NSWindowController {
         theWindow.setFrameOrigin(NSPoint(x: x, y: y))
     }
     
-    @IBAction func dockBottomLeft(_ sender: AnyObject) {
+    @IBAction func dockBottomLeftAction(_ sender: AnyObject) {
         
         let x = visibleFrame.minX
         let y = visibleFrame.minY
@@ -67,11 +69,32 @@ class BarModeWindowController: NSWindowController {
         theWindow.setFrameOrigin(NSPoint(x: x, y: y))
     }
     
-    @IBAction func dockBottomRight(_ sender: AnyObject) {
+    @IBAction func dockBottomRightAction(_ sender: AnyObject) {
         
         let x = visibleFrame.maxX - theWindow.width
         let y = visibleFrame.minY
         
         theWindow.setFrameOrigin(NSPoint(x: x, y: y))
+    }
+    
+    func getID() -> String {
+        return self.className
+    }
+    
+    func consumeMessage(_ message: ActionMessage) {
+        
+        switch message.actionType {
+            
+        case .dockTopLeft: dockTopLeftAction(self)
+            
+        case .dockTopRight: dockTopRightAction(self)
+            
+        case .dockBottomLeft: dockBottomLeftAction(self)
+            
+        case .dockBottomRight: dockBottomRightAction(self)
+            
+        default: return
+            
+        }
     }
 }

@@ -74,7 +74,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="dockTopLeft:" target="-2" id="NuU-Dx-Lyx"/>
+                            <action selector="dockTopLeftAction:" target="-2" id="amP-hJ-x2f"/>
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GFc-4Z-KSk" userLabel="Dock Bottom Left">
@@ -85,7 +85,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="dockBottomLeft:" target="-2" id="Ocw-iR-uno"/>
+                            <action selector="dockBottomLeftAction:" target="-2" id="0Sk-Ib-3ag"/>
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AgF-AL-Cm0" userLabel="Dock Bottom Right">
@@ -96,7 +96,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="dockBottomRight:" target="-2" id="wck-Ca-Cp6"/>
+                            <action selector="dockBottomRightAction:" target="-2" id="BWh-DD-27k"/>
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HUz-KF-1Gt" userLabel="Dock Top Right">
@@ -107,7 +107,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="dockTopRight:" target="-2" id="USJ-c6-xBm"/>
+                            <action selector="dockTopRightAction:" target="-2" id="ZMC-3G-RHi"/>
                         </connections>
                     </button>
                     <box boxType="custom" borderType="none" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Ufr-34-a3g" userLabel="Now Playing Box">
