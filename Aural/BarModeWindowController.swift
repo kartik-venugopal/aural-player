@@ -16,6 +16,10 @@ class BarModeWindowController: NSWindowController {
         return self.window!
     }
     
+    private lazy var visibleFrame: NSRect = {
+        return NSScreen.main()!.visibleFrame
+    }()
+    
     override func windowDidLoad() {
         
         addSubViews()
@@ -37,5 +41,37 @@ class BarModeWindowController: NSWindowController {
     
     @IBAction func regularModeAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(AppModeActionMessage(.regularAppMode))
+    }
+    
+    @IBAction func dockTopLeft(_ sender: AnyObject) {
+        
+        let x = visibleFrame.minX
+        let y = visibleFrame.maxY - theWindow.height
+        
+        theWindow.setFrameOrigin(NSPoint(x: x, y: y))
+    }
+    
+    @IBAction func dockTopRight(_ sender: AnyObject) {
+        
+        let x = visibleFrame.maxX - theWindow.width
+        let y = visibleFrame.maxY - theWindow.height
+        
+        theWindow.setFrameOrigin(NSPoint(x: x, y: y))
+    }
+    
+    @IBAction func dockBottomLeft(_ sender: AnyObject) {
+        
+        let x = visibleFrame.minX
+        let y = visibleFrame.minY
+        
+        theWindow.setFrameOrigin(NSPoint(x: x, y: y))
+    }
+    
+    @IBAction func dockBottomRight(_ sender: AnyObject) {
+        
+        let x = visibleFrame.maxX - theWindow.width
+        let y = visibleFrame.minY
+        
+        theWindow.setFrameOrigin(NSPoint(x: x, y: y))
     }
 }
