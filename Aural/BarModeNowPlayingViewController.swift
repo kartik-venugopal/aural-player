@@ -35,6 +35,8 @@ class BarModeNowPlayingViewController: NSViewController, MessageSubscriber, Asyn
     
     func activate() {
         
+        lblTrackName.beginAnimation()
+        
         if let plTrack = player.getPlayingTrack() {
             showNowPlayingInfo(plTrack.track)
             renderLoop()
@@ -42,7 +44,6 @@ class BarModeNowPlayingViewController: NSViewController, MessageSubscriber, Asyn
             clearNowPlayingInfo()
         }
         
-        lblTrackName.beginAnimation()
         initSubscriptions()
     }
     
@@ -59,7 +60,7 @@ class BarModeNowPlayingViewController: NSViewController, MessageSubscriber, Asyn
         // Timer interval depends on whether time stretch unit is active
         seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
         
-        // Set up the art view and the default animation
+        // Set up the art view
         artView.canDrawSubviewsIntoLayer = true
         
         lblTrackName.font = Fonts.barModePlayingTrackTextFont
