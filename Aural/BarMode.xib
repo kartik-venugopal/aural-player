@@ -18,23 +18,23 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="392" y="535" width="524" height="35"/>
+            <rect key="contentRect" x="392" y="535" width="530" height="35"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
-            <value key="minSize" type="size" width="524" height="35"/>
-            <value key="maxSize" type="size" width="524" height="35"/>
+            <value key="minSize" type="size" width="530" height="35"/>
+            <value key="maxSize" type="size" width="530" height="35"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="524" height="35"/>
+                <rect key="frame" x="0.0" y="0.0" width="530" height="35"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="OVD-uy-3Y9" userLabel="Container box">
-                        <rect key="frame" x="0.0" y="0.0" width="524" height="35"/>
+                        <rect key="frame" x="0.0" y="0.0" width="530" height="35"/>
                         <view key="contentView" id="BgU-DV-deF">
-                            <rect key="frame" x="0.0" y="0.0" width="524" height="35"/>
+                            <rect key="frame" x="0.0" y="0.0" width="530" height="35"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                         <constraints>
                             <constraint firstAttribute="height" constant="35" id="Dyj-yX-kv9"/>
-                            <constraint firstAttribute="width" constant="524" id="THl-s2-ywO"/>
+                            <constraint firstAttribute="width" constant="530" id="THl-s2-ywO"/>
                         </constraints>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
@@ -67,7 +67,7 @@
                         </connections>
                     </button>
                     <box boxType="custom" borderType="none" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Ufr-34-a3g" userLabel="Now Playing Box">
-                        <rect key="frame" x="15" y="0.0" width="280" height="35"/>
+                        <rect key="frame" x="20" y="0.0" width="280" height="35"/>
                         <view key="contentView" id="n5N-9p-Xuf">
                             <rect key="frame" x="0.0" y="0.0" width="280" height="35"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -78,7 +78,7 @@
                         </constraints>
                     </box>
                     <box boxType="custom" borderType="none" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Ihv-n1-e07" userLabel="Player Box">
-                        <rect key="frame" x="306" y="0.0" width="212" height="35"/>
+                        <rect key="frame" x="311" y="0.0" width="212" height="35"/>
                         <view key="contentView" id="aUB-9U-51Z">
                             <rect key="frame" x="0.0" y="0.0" width="212" height="35"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -89,7 +89,7 @@
                         </constraints>
                     </box>
                     <box boxType="custom" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="XAU-4m-pNl" userLabel="Separator">
-                        <rect key="frame" x="300" y="5" width="1" height="25"/>
+                        <rect key="frame" x="305" y="5" width="1" height="25"/>
                         <view key="contentView" id="Zz7-t8-hUc">
                             <rect key="frame" x="1" y="1" width="0.0" height="23"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -117,8 +117,8 @@
                     <constraint firstItem="cuf-q6-1gq" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="4" id="qlR-uI-yhU"/>
                     <constraint firstItem="XAU-4m-pNl" firstAttribute="leading" secondItem="Ufr-34-a3g" secondAttribute="trailing" constant="5" id="qtM-I8-426"/>
                     <constraint firstAttribute="bottom" secondItem="Koo-12-h7i" secondAttribute="bottom" constant="6" id="u3w-3x-9Iu"/>
-                    <constraint firstItem="Ufr-34-a3g" firstAttribute="leading" secondItem="Koo-12-h7i" secondAttribute="trailing" constant="2" id="wDK-zS-PhW"/>
-                    <constraint firstAttribute="trailing" secondItem="Ihv-n1-e07" secondAttribute="trailing" constant="6" id="x1f-Vl-wa8"/>
+                    <constraint firstItem="Ufr-34-a3g" firstAttribute="leading" secondItem="Koo-12-h7i" secondAttribute="trailing" constant="7" id="wDK-zS-PhW"/>
+                    <constraint firstAttribute="trailing" secondItem="Ihv-n1-e07" secondAttribute="trailing" constant="7" id="x1f-Vl-wa8"/>
                     <constraint firstItem="Koo-12-h7i" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="4" id="xpI-Nu-Wxb"/>
                     <constraint firstAttribute="bottom" secondItem="OVD-uy-3Y9" secondAttribute="bottom" id="zzZ-du-USx"/>
                 </constraints>
