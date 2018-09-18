@@ -41,6 +41,9 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Delegate that conveys all seek and playback info requests to the player
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
     
+    // Delegate that retrieves Time Stretch information
+    private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    
     // Delegate that provides access to History information
     private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
     
@@ -58,7 +61,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     override func viewDidLoad() {
         
         // Use persistent app state to determine the initial state of the view
-        initControls(ObjectGraph.getUIAppState())
+        initControls()
         AppModeManager.registerConstituentView(.regular, self)
     }
     
@@ -88,10 +91,12 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         removeSubscriptions()
     }
     
-    private func initControls(_ appState: UIAppState) {
+    private func initControls() {
+        
+        let seekTimerInterval = audioGraph.isTimeBypass() ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * audioGraph.getTimeRate().rate))
         
         // Timer interval depends on whether time stretch unit is active
-        seekTimer = RepeatingTaskExecutor(intervalMillis: appState.seekTimerInterval, task: {
+        seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval, task: {
             
             if (self.player.getPlaybackState() == .playing) {
                 self.updateSeekPosition()

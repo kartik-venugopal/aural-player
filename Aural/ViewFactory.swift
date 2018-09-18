@@ -13,6 +13,10 @@ struct ViewFactory {
     
     private static var effectsViewController: EffectsViewController = EffectsViewController()
     
+    private static var barModeNowPlayingViewController: BarModeNowPlayingViewController = BarModeNowPlayingViewController()
+    
+    private static var barModePlayerViewController: BarModePlayerViewController = BarModePlayerViewController()
+    
     // Sub-views for the different individual effects units displayed on the Effects panel
     fileprivate struct EffectsViews {
         
@@ -188,5 +192,16 @@ struct ViewFactory {
     
     static func getStatusBarPopover() -> StatusBarPopoverViewController {
         return PopoverViews.statusBarPopover
+    }
+    
+    // MARK: Accessors for Bar mode
+    
+    static func getBarModeNowPlayingView() -> NSView {
+        return barModeNowPlayingViewController.view
+    }
+    
+    // Returns the view that displays the player
+    static func getBarModePlayerView() -> NSView {
+        return barModePlayerViewController.view
     }
 }
