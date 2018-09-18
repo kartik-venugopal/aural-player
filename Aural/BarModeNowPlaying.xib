@@ -46,7 +46,7 @@
                     </userDefinedRuntimeAttributes>
                 </customView>
                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jls-JT-bvW">
-                    <rect key="frame" x="34" y="3" width="240" height="13"/>
+                    <rect key="frame" x="34" y="2" width="240" height="13"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="12" id="9zA-KR-eKN"/>
                         <constraint firstAttribute="width" constant="240" id="WYy-BP-Wge"/>
@@ -61,13 +61,13 @@
                 </slider>
             </subviews>
             <constraints>
-                <constraint firstItem="jls-JT-bvW" firstAttribute="top" secondItem="MMX-qv-MdZ" secondAttribute="bottom" id="2sW-6w-N9Y"/>
+                <constraint firstItem="jls-JT-bvW" firstAttribute="top" secondItem="MMX-qv-MdZ" secondAttribute="bottom" constant="1" id="2sW-6w-N9Y"/>
                 <constraint firstItem="MMX-qv-MdZ" firstAttribute="leading" secondItem="679-96-S50" secondAttribute="trailing" constant="7" id="4gn-7t-9FF"/>
                 <constraint firstItem="jls-JT-bvW" firstAttribute="leading" secondItem="679-96-S50" secondAttribute="trailing" constant="7" id="BmF-7I-lTr"/>
                 <constraint firstItem="MMX-qv-MdZ" firstAttribute="top" secondItem="679-96-S50" secondAttribute="top" constant="-1" id="QUU-0B-ROg"/>
                 <constraint firstItem="679-96-S50" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="2" id="WWi-Tf-6Wm"/>
                 <constraint firstItem="679-96-S50" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="5" id="c9h-uJ-Fms"/>
-                <constraint firstItem="jls-JT-bvW" firstAttribute="top" secondItem="MMX-qv-MdZ" secondAttribute="bottom" id="cvE-vA-iCx"/>
+                <constraint firstItem="jls-JT-bvW" firstAttribute="top" secondItem="MMX-qv-MdZ" secondAttribute="bottom" constant="1" id="cvE-vA-iCx"/>
                 <constraint firstItem="MMX-qv-MdZ" firstAttribute="leading" secondItem="679-96-S50" secondAttribute="trailing" constant="7" id="jIb-hv-mnU"/>
             </constraints>
         </customView>
