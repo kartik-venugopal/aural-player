@@ -65,7 +65,6 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
     
     func deactivate() {
         
-        print("FX - deact")
         removeSubscriptions()
     }
     

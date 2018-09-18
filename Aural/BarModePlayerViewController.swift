@@ -1,22 +1,9 @@
-/*
-    View controller for the player controls (volume, pan, play/pause, prev/next track, seeking, repeat/shuffle)
- */
 import Cocoa
 
-class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber, ConstituentView {
-    
-    // Volume/pan controls
-    @IBOutlet weak var btnVolume: NSButton!
+class BarModePlayerViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber, ActionMessageSubscriber, ConstituentView {
+ 
     @IBOutlet weak var volumeSlider: NSSlider!
-    @IBOutlet weak var panSlider: NSSlider!
-    
-    // These are feedback labels that are shown briefly and automatically hidden
-    @IBOutlet weak var lblVolume: NSTextField!
-    @IBOutlet weak var lblPan: NSTextField!
-    
-    // Wrappers around the feedback labels that automatically hide them after showing them for a brief interval
-    private var autoHidingVolumeLabel: AutoHidingView!
-    private var autoHidingPanLabel: AutoHidingView!
+    @IBOutlet weak var btnVolume: NSButton!
     
     // Toggle buttons (their images change)
     @IBOutlet weak var btnPlayPause: MultiStateImageButton!
@@ -37,20 +24,11 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // Delegate that conveys all volume/pan adjustments to the audio graph
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
-    override var nibName: String? {return "Player"}
+    override var nibName: String? {return "BarModePlayer"}
     
     override func viewDidLoad() {
         
-        autoHidingVolumeLabel = AutoHidingView(lblVolume, UIConstants.feedbackLabelAutoHideIntervalSeconds)
-        autoHidingPanLabel = AutoHidingView(lblPan, UIConstants.feedbackLabelAutoHideIntervalSeconds)
-        
-        btnPlayPause.stateImageMappings = [(PlaybackState.noTrack, Images.imgPlay), (PlaybackState.paused, Images.imgPlay), (PlaybackState.playing, Images.imgPause)]
-        
-        btnRepeat.stateImageMappings = [(RepeatMode.off, Images.imgRepeatOff), (RepeatMode.one, Images.imgRepeatOne), (RepeatMode.all, Images.imgRepeatAll)]
-        
-        btnLoop.stateImageMappings = [(LoopState.none, Images.imgLoopOff), (LoopState.started, Images.imgLoopStarted), (LoopState.complete, Images.imgLoopComplete)]
-        
-        btnShuffle.stateImageMappings = [(ShuffleMode.off, Images.imgShuffleOff), (ShuffleMode.on, Images.imgShuffleOn)]
+        initToggleButtons()
         
         // Button tool tips
         btnPreviousTrack.toolTipFunction = {
@@ -73,25 +51,42 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             return "Next track"
         }
         
-        AppModeManager.registerConstituentView(.regular, self)
+        AppModeManager.registerConstituentView(.miniBar, self)
+    }
+    
+    private func initToggleButtons() {
+        
+        // Initialize image/state mappings for toggle buttons
+        
+        btnPlayPause.stateImageMappings = [(PlaybackState.noTrack, Images.imgPlay), (PlaybackState.paused, Images.imgPlay), (PlaybackState.playing, Images.imgPause)]
+        btnPlayPause.switchState(PlaybackState.noTrack)
+        
+        btnRepeat.stateImageMappings = [(RepeatMode.off, Images.imgRepeatOff), (RepeatMode.one, Images.imgRepeatOne), (RepeatMode.all, Images.imgRepeatAll)]
+        
+        btnShuffle.stateImageMappings = [(ShuffleMode.off, Images.imgShuffleOff), (ShuffleMode.on, Images.imgShuffleOn)]
+        
+        btnLoop.stateImageMappings = [(LoopState.none, Images.imgLoopOff), (LoopState.started, Images.imgLoopStarted), (LoopState.complete, Images.imgLoopComplete)]
     }
     
     func activate() {
         
-        initVolumeAndPan()
-        btnPlayPause.switchState(player.getPlaybackState())
-        
-        let rsModes = player.getRepeatAndShuffleModes()
-        updateRepeatAndShuffleControls(rsModes.repeatMode, rsModes.shuffleMode)
-        
-        playbackLoopChanged()
-        
+        initControls()
         initSubscriptions()
     }
     
     func deactivate() {
-
         removeSubscriptions()
+    }
+    
+    private func initControls() {
+        
+        volumeSlider.floatValue = audioGraph.getVolume()
+        setVolumeImage(audioGraph.isMuted())
+        
+        let rsModes = player.getRepeatAndShuffleModes()
+        updateRepeatAndShuffleControls(rsModes.repeatMode, rsModes.shuffleMode)
+        
+        btnPlayPause.switchState(player.getPlaybackState())
     }
     
     private func initSubscriptions() {
@@ -101,31 +96,24 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .playOrPause, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
+        // Subscribe to message notifications
         AsyncMessenger.unsubscribe([.trackNotPlayed, .trackChanged], subscriber: self)
         
         SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .playOrPause, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
-    private func initVolumeAndPan() {
-        
-        volumeSlider.floatValue = audioGraph.getVolume()
-        setVolumeImage(audioGraph.isMuted())
-        panSlider.floatValue = audioGraph.getBalance()
-    }
-
     // Updates the volume
     @IBAction func volumeAction(_ sender: AnyObject) {
         
         audioGraph.setVolume(volumeSlider.floatValue)
         setVolumeImage(audioGraph.isMuted())
-        showAndAutoHideVolumeLabel()
     }
     
     // Mutes or unmutes the player
@@ -137,22 +125,12 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func decreaseVolume(_ actionMode: ActionMode) {
         volumeSlider.floatValue = audioGraph.decreaseVolume(actionMode)
         setVolumeImage(audioGraph.isMuted())
-        showAndAutoHideVolumeLabel()
     }
     
     // Increases the volume by a certain preset increment
     private func increaseVolume(_ actionMode: ActionMode) {
         volumeSlider.floatValue = audioGraph.increaseVolume(actionMode)
         setVolumeImage(audioGraph.isMuted())
-        showAndAutoHideVolumeLabel()
-    }
-    
-    // Shows and automatically hides the volume label after a preset time interval
-    private func showAndAutoHideVolumeLabel() {
-        
-        // Format the text and show the feedback label
-        lblVolume.stringValue = ValueFormatter.formatVolume(volumeSlider.floatValue)
-        autoHidingVolumeLabel.showView()
     }
     
     private func setVolumeImage(_ muted: Bool) {
@@ -176,30 +154,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         }
     }
     
-    // Updates the stereo pan
-    @IBAction func panAction(_ sender: AnyObject) {
-        audioGraph.setBalance(panSlider.floatValue)
-        showAndAutoHidePanLabel()
-    }
-    
     // Pans the sound towards the left channel, by a certain preset value
     private func panLeft() {
-        panSlider.floatValue = audioGraph.panLeft()
-        showAndAutoHidePanLabel()
+        _ = audioGraph.panLeft()
     }
     
     // Pans the sound towards the right channel, by a certain preset value
     private func panRight() {
-        panSlider.floatValue = audioGraph.panRight()
-        showAndAutoHidePanLabel()
-    }
-    
-    // Shows and automatically hides the pan label after a preset time interval
-    private func showAndAutoHidePanLabel() {
-        
-        // Format the text and show the feedback label
-        lblPan.stringValue = ValueFormatter.formatPan(panSlider.floatValue)
-        autoHidingPanLabel.showView()
+        _ = audioGraph.panRight()
     }
     
     // Plays, pauses, or resumes playback
@@ -241,37 +203,9 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func replayTrack() {
         
         if let _ = player.getPlayingTrack() {
-            
-            // TODO: Move this to a new delegate function replayTrack()
             player.seekToPercentage(0)
             SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
         }
-    }
-    
-    // Toggles the state of the segment playback loop for the currently playing track
-    @IBAction func toggleLoopAction(_ sender: AnyObject) {
-        toggleLoop()
-    }
-    
-    private func toggleLoop() {
-        
-        if player.getPlaybackState() == .playing {
-        
-            if let _ = player.getPlayingTrack() {
-                
-                _ = player.toggleLoop()
-                SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
-            }
-        }
-    }
-    
-    private func playbackLoopChanged() {
-        
-        let loop = player.getPlaybackLoop()
-        
-        // Update loop button image
-        let loopState: LoopState = loop == nil ? .none : (loop!.isComplete() ? .complete: .started)
-        btnLoop.switchState(loopState)
     }
     
     // Plays the previous track in the current playback sequence
@@ -351,7 +285,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             }
         }
     }
-
+    
     private func playTrack(_ track: Track) {
         
         let oldTrack = player.getPlayingTrack()
@@ -385,7 +319,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             }
         }
     }
-
+    
     // Toggles the repeat mode
     @IBAction func repeatAction(_ sender: AnyObject) {
         
@@ -398,6 +332,31 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         let modes = player.toggleShuffleMode()
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
+    }
+    
+    @IBAction func loopAction(_ sender: Any) {
+        toggleLoop()
+    }
+    
+    private func toggleLoop() {
+        
+        if player.getPlaybackState() == .playing {
+            
+            if let _ = player.getPlayingTrack() {
+                
+                _ = player.toggleLoop()
+                SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
+            }
+        }
+    }
+    
+    private func playbackLoopChanged() {
+        
+        let loop = player.getPlaybackLoop()
+        
+        // Update loop button image
+        let loopState: LoopState = loop == nil ? .none : (loop!.isComplete() ? .complete: .started)
+        btnLoop.switchState(loopState)
     }
     
     // Sets the repeat mode to "Off"
@@ -486,12 +445,23 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         }
     }
     
-    func getID() -> String {
-        return self.className
+    // MARK: Message handlers
+    
+    // Consume synchronous notification messages
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        switch notification.messageType {
+            
+        case .playbackLoopChangedNotification:
+            
+            playbackLoopChanged()
+            
+        default: return
+            
+        }
     }
     
-    // MARK: Message handling
-    
+    // Consume asynchronous messages
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {
@@ -503,19 +473,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         case .trackNotPlayed:
             
             trackNotPlayed(message as! TrackNotPlayedAsyncMessage)
-            
-        default: return
-            
-        }
-    }
-    
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        switch notification.messageType {
-            
-        case .playbackLoopChangedNotification:
-            
-            playbackLoopChanged()
             
         default: return
             
@@ -542,17 +499,17 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         switch message.actionType {
             
-        // Player functions
+            // Player functions
             
         case .playOrPause: playPauseAction(self)
             
         case .replayTrack: replayTrack()
             
-        case .toggleLoop: toggleLoop()
-            
         case .previousTrack: previousTrackAction(self)
             
         case .nextTrack: nextTrackAction(self)
+            
+        case .toggleLoop:   toggleLoop()
             
         case .seekBackward:
             
@@ -564,7 +521,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             let msg = message as! PlaybackActionMessage
             seekForward(msg.actionMode)
             
-        // Repeat and Shuffle
+            // Repeat and Shuffle
             
         case .repeatOff: repeatOff()
             
@@ -576,7 +533,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
         case .shuffleOn: shuffleOn()
             
-        // Volume and Pan
+            // Volume and Pan
             
         case .muteOrUnmute: muteOrUnmuteAction(self)
             
@@ -590,12 +547,12 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             let msg = message as! AudioGraphActionMessage
             increaseVolume(msg.actionMode)
             
-        case .panLeft: panLeft()
-            
-        case .panRight: panRight()
-            
         default: return
             
         }
+    }
+    
+    func getID() -> String {
+        return self.className
     }
 }

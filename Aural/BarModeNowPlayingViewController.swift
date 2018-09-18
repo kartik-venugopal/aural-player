@@ -84,6 +84,7 @@ class BarModeNowPlayingViewController: NSViewController, MessageSubscriber, Asyn
     // Moving the seek slider results in seeking the track to the new slider position
     @IBAction func seekSliderAction(_ sender: AnyObject) {
         player.seekToPercentage(seekSlider.doubleValue)
+        updateSeekPosition()
     }
     
     private func showNowPlayingInfo(_ track: Track) {
@@ -163,6 +164,8 @@ class BarModeNowPlayingViewController: NSViewController, MessageSubscriber, Asyn
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     private func trackChanged(_ newTrack: IndexedTrack?, _ errorState: Bool = false) {
+        
+        seekSliderCell.removeLoop()
         
         if (newTrack != nil) {
             

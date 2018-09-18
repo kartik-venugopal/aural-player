@@ -87,7 +87,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     func deactivate() {
         
-        print("\nNPVC deactivated !!!")
         removeSubscriptions()
     }
     
