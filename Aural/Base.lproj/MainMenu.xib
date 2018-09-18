@@ -85,6 +85,7 @@
         </customObject>
         <customObject id="xzd-WN-BuR" customClass="ViewMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="dockMiniBarMenu" destination="oKL-M2-XnE" id="2vw-Y1-mIc"/>
                 <outlet property="dockPlaylistMenuItem" destination="RWg-5h-jkO" id="d20-xc-maQ"/>
                 <outlet property="maximizePlaylistMenuItem" destination="Yge-Nz-rQX" id="jij-YN-cqO"/>
                 <outlet property="switchViewMenuItem" destination="Lhd-o1-irA" id="cBX-0N-n7w"/>
@@ -629,6 +630,37 @@ CQ
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="dockPlaylistRightAction:" target="xzd-WN-BuR" id="qY7-oJ-IdW"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="  Dock Miniature Player" image="DockBottom-Small" hidden="YES" id="oKL-M2-XnE" userLabel="Dock Miniature Player">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="  Dock Miniature Player" id="Uys-LW-fQW">
+                                    <items>
+                                        <menuItem title=" Top left corner" image="DockLeft-Small" id="uSW-IR-fNF" userLabel="Top left corner">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="dockMiniBarTopLeftAction:" target="xzd-WN-BuR" id="Keg-9S-10t"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title=" Top right corner" image="DockBottom-Small" id="ANr-Yx-VfM" userLabel="Top right corner">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="dockMiniBarTopRightAction:" target="xzd-WN-BuR" id="zmb-eh-iMD"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title=" Bottom left corner" image="DockRight-Small" id="Emj-Gd-W3g" userLabel="Bottom left corner">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="dockMiniBarBottomLeftAction:" target="xzd-WN-BuR" id="rXN-Cx-4zA"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title=" Bottom right corner" image="DockRight-Small" id="87O-Fh-SW5" userLabel="Bottom right corner">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="dockMiniBarBottomRightAction:" target="xzd-WN-BuR" id="Jz2-i5-tbq"/>
                                             </connections>
                                         </menuItem>
                                     </items>

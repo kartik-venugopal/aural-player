@@ -9,6 +9,8 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var theMenu: NSMenuItem!
     
+    @IBOutlet weak var dockMiniBarMenu: NSMenuItem!
+    
     @IBOutlet weak var dockPlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var maximizePlaylistMenuItem: NSMenuItem!
     
@@ -26,6 +28,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         switchViewMenuItem.onIf(AppModeManager.mode != .regular)
+        dockMiniBarMenu.isHidden = AppModeManager.mode == .regular
         
         if (AppModeManager.mode == .regular) {
             
@@ -83,4 +86,32 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     @IBAction func switchViewAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(AppModeActionMessage(AppModeManager.mode == .regular ? .miniBarAppMode : .regularAppMode))
     }
+    
+    @IBAction func dockMiniBarTopLeftAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(MiniBarActionMessage(.dockTopLeft))
+    }
+    
+    @IBAction func dockMiniBarTopRightAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(MiniBarActionMessage(.dockTopRight))
+    }
+    
+    @IBAction func dockMiniBarBottomLeftAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(MiniBarActionMessage(.dockBottomLeft))
+    }
+    
+    @IBAction func dockMiniBarBottomRightAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(MiniBarActionMessage(.dockBottomRight))
+    }
+    
+//    @IBAction func dockPlaylistLeftAction(_ sender: AnyObject) {
+//        SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockLeft, nil))
+//    }
+//    
+//    @IBAction func dockPlaylistLeftAction(_ sender: AnyObject) {
+//        SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockLeft, nil))
+//    }
+//    
+//    @IBAction func dockPlaylistLeftAction(_ sender: AnyObject) {
+//        SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockLeft, nil))
+//    }
 }
