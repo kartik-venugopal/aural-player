@@ -497,7 +497,6 @@
 				3EBA52F81FC2EB09007F902F /* TabView */,
 				3E46F5631F2A918B007CD384 /* ColoredCursorTextField.swift */,
 				3E26B92A1FBC177F00FA3274 /* AutoHidingView.swift */,
-				3EAEBCAB1FDCD644000FBC04 /* BannerLabel.swift */,
 			);
 			name = CustomControls;
 			sourceTree = "<group>";
@@ -756,6 +755,7 @@
 				3EF7EFC72150757D00E582CB /* BarModeNowPlayingViewController.swift */,
 				3EF7EFCD215075F500E582CB /* BarModePlayer.xib */,
 				3EF7EFC9215075A400E582CB /* BarModePlayerViewController.swift */,
+				3EAEBCAB1FDCD644000FBC04 /* BannerLabel.swift */,
 			);
 			name = BarMode;
 			sourceTree = "<group>";

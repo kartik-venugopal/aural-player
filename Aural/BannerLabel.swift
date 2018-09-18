@@ -3,23 +3,14 @@ import Cocoa
 @IBDesignable
 class BannerLabel: NSView {
     
-    private var viewLoaded: Bool = false {
-        
-        didSet {
-            
-            label?.stringValue = text
-            if viewLoaded {
-                textChanged()
-            }
-        }
-    }
+    private var allowAnimation: Bool = false
     
     @IBInspectable var text: String! = "" {
         
         didSet {
             
             label?.stringValue = text
-            if viewLoaded {
+            if (text != "" && allowAnimation) {
                 textChanged()
             }
         }
@@ -66,74 +57,77 @@ class BannerLabel: NSView {
         label.setFrameOrigin(NSPoint.zero)
         
         self.wantsLayer = true
-        viewLoaded = true
+        allowAnimation = true
     }
     
     private func textChanged() {
         
-//        NSLog("Text changed to: %@ %@", text, String(describing: self.layer))
-        
-//        self.layer?.removeAllAnimations()
-//        self.layer?.presentation()?.removeAllAnimations()
-        label.setFrameOrigin(NSPoint.zero)
-        
-        if self.font != nil {
-        
-            let size: CGSize = (self.text as NSString).size(withAttributes: [NSFontAttributeName: label.font!])
-            textWidth = size.width
+        NSAnimationContext.runAnimationGroup({_ in
             
-            label?.setFrameSize(NSSize(width: max(textWidth + 10, self.frame.width), height: label.frame.height))
+            // Kill any existing animation
+            NSAnimationContext.current().duration = 0.01
+            self.label.animator().setFrameOrigin(NSPoint(x: 0.1, y: 0))
+
+        }, completionHandler: {
             
-            if textWidth >= self.frame.width && self.viewLoaded {
-                doBeginAnimation(self.text)
+            // Begin a new animation
+            if self.font != nil {
+                
+                let size: CGSize = (self.text as NSString).size(withAttributes: [NSFontAttributeName: self.label.font!])
+                self.textWidth = size.width
+                
+                self.label?.setFrameSize(NSSize(width: max(self.textWidth + 10, self.frame.width), height: self.label.frame.height))
+                
+                if self.textWidth >= self.frame.width && self.allowAnimation {
+                    self.doBeginAnimation(self.text)
+                }
             }
-        }
+        })
+    }
+    
+    private func killAnimation() {
+        
+        NSAnimationContext.beginGrouping()
+        NSAnimationContext.current().duration = 0.01
+        self.label.animator().setFrameOrigin(NSPoint(x: 0.1, y: 0))
+        NSAnimationContext.endGrouping()
     }
     
     private func doBeginAnimation(_ animatedText: String) {
         
-//        Swift.print("\n")
-//        NSLog("Begin anim %@ %.0f", text, textWidth)
-        
         let distanceToMove = self.frame.width - label.frame.width
-        
-//        NSLog("Dist=%f", distanceToMove)
-        
+
         NSAnimationContext.runAnimationGroup({_ in
-//            
+            
             // Duration at least 2 seconds
             let dur = max(Double(abs(distanceToMove)) / 30, 2)
-//            NSLog("Dur=%lf", dur)
             
             NSAnimationContext.current().duration = dur
             
             NSAnimationContext.current().timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
             
             // Move either left or right (alternate, creating a ping-pong effect)
-            let xDest = label.frame.origin.x == 0 ? distanceToMove: 0
-            label.animator().setFrameOrigin(NSPoint(x: xDest, y: 0))
-            
-//            NSLog("\tRunning anim %@ %.0f", text, textWidth)
+            let xDest = self.label.frame.origin.x == 0 ? distanceToMove: 0
+            self.label.animator().setFrameOrigin(NSPoint(x: xDest, y: 0))
             
         }, completionHandler: {
             
-//            Swift.print("Anim ended:", animatedText)
-    
-            if animatedText == self.text && self.viewLoaded {
+            // Ensure text is updated (and not the result of a stale recursive call with old text)
+            if animatedText == self.text && self.allowAnimation {
                 
                 // Loop indefinitely
-//                NSLog("\tRestarting anim %@ %.0f", self.text, self.textWidth)
                 self.doBeginAnimation(animatedText)
             }
         })
     }
     
     func beginAnimation() {
-        viewLoaded = true
+        allowAnimation = true
     }
     
     func endAnimation() {
-        viewLoaded = false
+        allowAnimation = false
+        killAnimation()
     }
 }
 
