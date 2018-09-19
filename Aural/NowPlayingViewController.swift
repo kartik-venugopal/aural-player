@@ -9,7 +9,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Fields that display playing track info
     @IBOutlet weak var lblTrackArtist: NSTextField!
     @IBOutlet weak var lblTrackTitle: NSTextField!
-//    @IBOutlet weak var lblTrackName: NSTextField!
     @IBOutlet weak var lblTrackName: BannerLabel!
     @IBOutlet weak var artView: NSImageView!
     
@@ -203,25 +202,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         } else {
             
             lblTrackName.text = track.conciseDisplayName
-            
-            // Re-position and resize the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
-            
-            // Determine how many lines the track name will occupy, within the label
-//            let numLines = StringUtils.numberOfLines(track.conciseDisplayName, lblTrackName.font!, lblTrackName.frame.width)
-//            
-//            // The Y co-ordinate is a pre-determined constant
-//            var origin = lblTrackName.frame.origin
-//            origin.y = numLines == 1 ? Dimensions.trackNameLabelLocationY_oneLine : Dimensions.trackNameLabelLocationY_twoLines
-//            
-//            // The height is a pre-determined constant
-//            var lblFrameSize = lblTrackName.frame.size
-//            lblFrameSize.height = numLines == 1 ? Dimensions.trackNameLabelHeight_oneLine : Dimensions.trackNameLabelHeight_twoLines
-            
-            // Resize the label
-//            lblTrackName.setFrameSize(lblFrameSize)
-            
-            // Re-position the label
-//            lblTrackName.setFrameOrigin(origin)
         }
         
         lblTrackName.isHidden = artistAndTitleAvailable
