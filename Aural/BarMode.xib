@@ -62,7 +62,7 @@
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9hA-4y-c3l" userLabel="Dock Top Left" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="534" y="18" width="10" height="9"/>
+                        <rect key="frame" x="533" y="18" width="10" height="9"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockTopLeft" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Gbr-dm-9X4">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -79,7 +79,7 @@
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GFc-4Z-KSk" userLabel="Dock Bottom Left" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="534" y="8" width="10" height="9"/>
+                        <rect key="frame" x="533" y="8" width="10" height="9"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockBottomLeft" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="KgN-oE-gJb">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -96,7 +96,7 @@
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AgF-AL-Cm0" userLabel="Dock Bottom Right" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="545" y="8" width="10" height="9"/>
+                        <rect key="frame" x="544" y="8" width="10" height="9"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockBottomRight" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Mmc-bM-G2r">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -113,7 +113,7 @@
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HUz-KF-1Gt" userLabel="Dock Top Right" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="545" y="18" width="10" height="9"/>
+                        <rect key="frame" x="544" y="18" width="10" height="9"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockTopRight" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="C5h-Kz-9B9">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

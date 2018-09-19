@@ -21,4 +21,13 @@ class TrackPeekingButton: NSButton {
     override func mouseEntered(with event: NSEvent) {
         self.toolTip = toolTipFunction?() ?? nil
     }
+    
+    override func mouseDown(with event: NSEvent) {
+        
+        // First, let the button action be performed normally
+        super.mouseDown(with: event)
+        
+        // Update tool tip
+        self.toolTip = toolTipFunction?() ?? nil
+    }
 }
