@@ -9,11 +9,14 @@ struct Images {
     static let imgPlayingTrack: NSImage = NSImage(byReferencing: URL(fileURLWithPath: Bundle.main.path(forResource: "playingTrack", ofType: "gif")!))
     
     // Animation displayed in the Now Playing art image view (for track artwork)
-    static let imgPlayingArt: NSImage = NSImage(byReferencing: URL(fileURLWithPath: Bundle.main.path(forResource: "playingArt", ofType: "gif")!))
+//    static let imgPlayingArt: NSImage = NSImage(byReferencing: URL(fileURLWithPath: Bundle.main.path(forResource: "playingArt", ofType: "png")!))
     
     // Toggled images
     static let imgPlay: NSImage = NSImage(named: "Play")!
     static let imgPause: NSImage = NSImage(named: "Pause")!
+    
+    static let imgPlayingArt: NSImage = NSImage(named: "PlayingArt")!
+    static let imgPausedArt: NSImage = NSImage(named: "PausedArt")!
     
     static let imgVolumeZero: NSImage = NSImage(named: "VolumeZero")!
     static let imgVolumeLow: NSImage = NSImage(named: "VolumeLow")!

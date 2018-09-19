@@ -60,9 +60,6 @@ class BarModeNowPlayingViewController: NSViewController, MessageSubscriber, Asyn
         // Timer interval depends on whether time stretch unit is active
         seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
         
-        // Set up the art view
-        artView.canDrawSubviewsIntoLayer = true
-        
         lblTrackName.font = Fonts.barModePlayingTrackTextFont
         lblTrackName.alignment = NSTextAlignment.center
     }
@@ -72,14 +69,14 @@ class BarModeNowPlayingViewController: NSViewController, MessageSubscriber, Asyn
         // Subscribe to various notifications
         AsyncMessenger.subscribe([.tracksRemoved], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .trackChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .trackChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
         AsyncMessenger.unsubscribe([.tracksRemoved], subscriber: self)
         
-        SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .trackChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification, .playbackLoopChangedNotification], subscriber: self)
+        SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .trackChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .playbackLoopChangedNotification], subscriber: self)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
@@ -96,9 +93,9 @@ class BarModeNowPlayingViewController: NSViewController, MessageSubscriber, Asyn
             artView.image = track.displayInfo.art!
         } else {
             
-            // Default artwork animation
-            artView.image = Images.imgPlayingArt
-            artView.animates = true
+            // Default artwork
+            let playing = player.getPlaybackState() == .playing
+            artView.image = playing ? Images.imgPlayingArt : Images.imgPausedArt
         }
         
         initSeekPosition()
@@ -108,8 +105,7 @@ class BarModeNowPlayingViewController: NSViewController, MessageSubscriber, Asyn
     private func clearNowPlayingInfo() {
         
         lblTrackName.text = ""
-        artView.image = Images.imgPlayingArt
-        artView.animates = false
+        artView.image = Images.imgPausedArt
         
         seekSlider.floatValue = 0
         setSeekTimerState(false)
@@ -211,28 +207,18 @@ class BarModeNowPlayingViewController: NSViewController, MessageSubscriber, Asyn
         // The seek timer can be disabled when not needed (e.g. when paused)
         setSeekTimerState(isPlaying)
         
-        // Pause/resume the art animation
-        artView.animates = shouldAnimate()
+        let track = (player.getPlayingTrack()?.track)!
+        if (track.displayInfo.art == nil) {
+            
+            // Default artwork
+            let playing = player.getPlaybackState() == .playing
+            artView.image = playing ? Images.imgPlayingArt : Images.imgPausedArt
+        }
     }
     
     // When track info for the playing track changes, display fields need to be updated
     private func playingTrackInfoUpdated(_ notification: PlayingTrackInfoUpdatedNotification) {
         showNowPlayingInfo(player.getPlayingTrack()!.track)
-    }
-    
-    private func appInBackground() {
-        artView.animates = false
-    }
-    
-    private func appInForeground() {
-        artView.animates = shouldAnimate()
-    }
-    
-    // Helper function that determines whether or not the playing track animation should be shown animated
-    private func shouldAnimate() -> Bool {
-        
-        // Animation enabled only if 1 - the appropriate playlist view is currently shown, 2 - a track is currently playing (not paused), and 3 - the app window is currently in the foreground
-        return (player.getPlaybackState() == .playing) && WindowState.isInForeground()
     }
     
     private func renderLoop() {
@@ -318,14 +304,6 @@ class BarModeNowPlayingViewController: NSViewController, MessageSubscriber, Asyn
         case .playingTrackInfoUpdatedNotification:
             
             playingTrackInfoUpdated(notification as! PlayingTrackInfoUpdatedNotification)
-            
-        case .appInBackgroundNotification:
-            
-            appInBackground()
-            
-        case .appInForegroundNotification:
-            
-            appInForeground()
 
         default: return
             

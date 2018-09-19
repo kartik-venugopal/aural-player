@@ -18,6 +18,8 @@ struct Fonts {
     
     static let barModePlayingTrackTextFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 10)!
     
+    static let regularModeTrackNameTextFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
+    
     // Fonts used by the playlist view
     static let playlistSelectedTextFont: NSFont = gillSans12Font
     static let playlistTextFont: NSFont = gillSans12LightFont
