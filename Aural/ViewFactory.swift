@@ -11,8 +11,6 @@ struct ViewFactory {
     
     private static var playerViewController: PlayerViewController = PlayerViewController()
     
-    private static var effectsViewController: EffectsViewController = EffectsViewController()
-    
     private static var barModeNowPlayingViewController: BarModeNowPlayingViewController = BarModeNowPlayingViewController()
     
     private static var barModePlayerViewController: BarModePlayerViewController = BarModePlayerViewController()
@@ -92,11 +90,6 @@ struct ViewFactory {
     // Returns the view that displays the player
     static func getPlayerView() -> NSView {
         return playerViewController.view
-    }
-    
-    // Returns the view that displays the Effects panel
-    static func getEffectsView() -> NSView {
-        return effectsViewController.view
     }
     
     // Returns the view that displays the Equalizer effects unit

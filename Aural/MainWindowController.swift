@@ -18,10 +18,6 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber, Constit
     @IBOutlet weak var playerBox: NSBox!
     private lazy var playerView: NSView = ViewFactory.getPlayerView()
     
-    // The box that encloses the Effects panel
-    @IBOutlet weak var effectsBox: NSBox!
-    private lazy var effectsView: NSView = ViewFactory.getEffectsView()
-    
     // Buttons to toggle the playlist/effects views
     @IBOutlet weak var btnToggleEffects: OnOffImageButton!
     @IBOutlet weak var btnTogglePlaylist: OnOffImageButton!
@@ -72,10 +68,6 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber, Constit
         
         let appState = ObjectGraph.getUIAppState()
         
-        if (appState.hideEffects) {
-            hideEffects()
-        }
-        
         btnToggleEffects.onIf(!appState.hideEffects)
         btnTogglePlaylist.onIf(!appState.hidePlaylist)
     }
@@ -85,7 +77,6 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber, Constit
         
         nowPlayingBox.addSubview(nowPlayingView)
         playerBox.addSubview(playerView)
-        effectsBox.addSubview(effectsView)
     }
     
     private func activateGestureHandler() {
@@ -129,42 +120,13 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber, Constit
     
     // Shows/hides the effects panel on the main window
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(ViewActionMessage(.toggleEffects))
+    }
+    
+    private func toggleEffects() {
         
+        // This class does not actually show/hide the effects view
         btnToggleEffects.toggle()
-        effectsBox.isHidden = !effectsBox.isHidden
-        
-        WindowState.showingEffects = !WindowState.showingEffects
-        
-        // Resize window
-        
-        SyncMessenger.publishNotification(MainWindowResizingNotification.instance)
-        
-        var wFrame = theWindow.frame
-        
-        let newHeight: CGFloat = WindowState.showingEffects ? Dimensions.windowHeight_effectsOnly : Dimensions.windowHeight_compact
-
-        let oldHeight = wFrame.height
-        wFrame.size = NSMakeSize(theWindow.width, newHeight)
-        wFrame.origin = wFrame.origin.applying(CGAffineTransform.init(translationX: 0, y: oldHeight - newHeight))
-        
-        theWindow.setFrame(wFrame, display: true)
-    }
-    
-    private func hideEffects() {
-        
-        if (!effectsBox.isHidden) {
-            toggleEffectsAction(self)
-        }
-    }
-    
-    @IBAction func statusBarModeAction(_ sender: AnyObject) {
-        
-        if eventMonitor != nil {
-            NSEvent.removeMonitor(eventMonitor!)
-            eventMonitor = nil
-        }
-        
-        SyncMessenger.publishActionMessage(AppModeActionMessage(.statusBarAppMode))
     }
     
     @IBAction func floatingBarModeAction(_ sender: AnyObject) {
@@ -191,7 +153,7 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber, Constit
         
         switch message.actionType {
             
-        case .toggleEffects: toggleEffectsAction(self)
+        case .toggleEffects: toggleEffects()
             
         case .togglePlaylist: togglePlaylist()
             

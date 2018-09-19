@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
+class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
     
     // The constituent sub-views, one for each effects unit
     
@@ -33,14 +33,19 @@ class EffectsViewController: NSViewController, MessageSubscriber, ActionMessageS
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
-    override var nibName: String? {return "Effects"}
+    private var theWindow: NSWindow {
+        return self.window!
+    }
     
-    override func viewDidLoad() {
+    override var windowNibName: String? {return "Effects"}
+    
+    override func windowDidLoad() {
 
         // Initialize all sub-views
         addSubViews()
         
         AppModeManager.registerConstituentView(.regular, self)
+        theWindow.isMovableByWindowBackground = true
     }
     
     private func addSubViews() {

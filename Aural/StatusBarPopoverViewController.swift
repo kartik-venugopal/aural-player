@@ -23,7 +23,7 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
     private lazy var playerView: NSView = ViewFactory.getPlayerView()
     
     @IBOutlet weak var effectsBox: NSBox!
-    private lazy var effectsView: NSView = ViewFactory.getEffectsView()
+//    private lazy var effectsView: NSView = ViewFactory.getEffectsView()
     
     // Buttons to toggle the playlist/effects views
     @IBOutlet weak var btnToggleEffects: OnOffImageButton!
@@ -54,7 +54,7 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
         
         nowPlayingBox.addSubview(nowPlayingView)
         playerBox.addSubview(playerView)
-        effectsBox.addSubview(effectsView)
+//        effectsBox.addSubview(effectsView)
         
         globalMouseClickMonitor = GlobalMouseClickMonitor([.leftMouseDown, .rightMouseDown], {(event: NSEvent!) -> Void in
             
