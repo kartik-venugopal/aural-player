@@ -19,7 +19,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
     override func awakeFromNib() {
         
         // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.playbackStateChangedNotification, .playlistTypeChangedNotification, .appInForegroundNotification, .appInBackgroundNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.playbackStateChangedNotification], subscriber: self)
         
         // Store the NSTableView in a variable for convenient subsequent access
         TableViewHolder.instance = playlistView
@@ -110,9 +110,6 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
             // Configure and show the image view
             let imgView = cell.imageView!
             
-            imgView.canDrawSubviewsIntoLayer = true
-            imgView.imageScaling = .scaleProportionallyDown
-            imgView.animates = shouldAnimate()
             imgView.image = Images.imgPlayingTrack
             imgView.isHidden = false
             
@@ -125,17 +122,6 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
         return nil
     }
     
-    // Helper function that determines whether or not the playing track animation should be shown animated or static
-    private func shouldAnimate() -> Bool {
-        
-        // Animation enabled only if 1 - the appropriate playlist view is currently shown, 2 - a track is currently playing (not paused), and 3 - the app window is currently in the foreground
-        
-        let playing = playbackInfo.getPlaybackState() == .playing
-        let showingThisPlaylistView = PlaylistViewState.current == .tracks
-        
-        return playing && WindowState.isInForeground() && showingThisPlaylistView
-    }
-    
     func getID() -> String {
         return self.className
     }
@@ -145,28 +131,18 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
     // Whenever the playing track is paused/resumed, the animation needs to be paused/resumed.
     private func playbackStateChanged(_ message: PlaybackStateChangedNotification) {
         
-        animationCell?.imageView?.animates = shouldAnimate()
-        
-        if message.newPlaybackState == .noTrack {
+        switch (message.newPlaybackState) {
+            
+        case .noTrack:
             
             // The track is no longer playing
             animationCell = nil
+            
+        case .playing, .paused:
+            
+            animationCell?.imageView?.image = Images.imgPlayingTrack
+            
         }
-    }
-    
-    // When the current playlist view changes, the animation state might need to change
-    private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
-        animationCell?.imageView?.animates = shouldAnimate()
-    }
-    
-    // When the app moves to the background, the animation should be disabled
-    private func appInBackground() {
-        animationCell?.imageView?.animates = false
-    }
-    
-    // When the app moves to the foreground, the animation might need to be enabled
-    private func appInForeground() {
-        animationCell?.imageView?.animates = shouldAnimate()
     }
     
     func consumeNotification(_ notification: NotificationMessage) {
@@ -176,18 +152,6 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
         case .playbackStateChangedNotification:
             
             playbackStateChanged(notification as! PlaybackStateChangedNotification)
-            
-        case .playlistTypeChangedNotification:
-            
-            playlistTypeChanged(notification as! PlaylistTypeChangedNotification)
-            
-        case .appInBackgroundNotification:
-            
-            appInBackground()
-            
-        case .appInForegroundNotification:
-            
-            appInForeground()
             
         default: return
             
