@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
+class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
     
     // The constituent sub-views, one for each effects unit
     
@@ -36,6 +36,8 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     private var theWindow: NSWindow {
         return self.window!
     }
+    
+    private lazy var mainWindow: NSWindow = WindowFactory.getMainWindow()
     
     override var windowNibName: String? {return "Effects"}
     
@@ -94,13 +96,13 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     
     private func initSubscriptions() {
         
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification, .windowDraggedNotification], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
-        SyncMessenger.unsubscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
+        SyncMessenger.unsubscribe(messageTypes: [.effectsUnitStateChangedNotification, .windowDraggedNotification], subscriber: self)
         SyncMessenger.unsubscribe(actionTypes: [.showEffectsUnitTab], subscriber: self)
     }
     
@@ -157,6 +159,10 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
                 
                 recorderTabViewButton.onIf(message.active)
             }
+            
+        } else if notification is WindowDraggedNotification {
+            
+            windowDragged()
         }
     }
     
@@ -197,6 +203,31 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
             }
         }
     }
+    
+    // MARK - Window delegate functions
+    
+    private func windowDragged() {
+        
+        // Snapping to main window
+        
+        
+        // Top edge of FX vs Bottom edge of main (i.e. below main window)
+        let fxTopEdge = theWindow.maxY
+        let mainBottomEdge = mainWindow.y
+        
+        if fabs(mainBottomEdge - fxTopEdge) < 10 {
+            print("Time to snap !")
+            print("FX window frame: " + String(describing: theWindow.frame))
+            print("Main window frame: " + String(describing: mainWindow.frame) + "\n\n")
+            
+            // Snap below main window
+            theWindow.setFrameOrigin(mainWindow.origin.applying(CGAffineTransform.init(translationX: 0, y: -theWindow.height)))
+            
+            theWindow.isMovable = false
+        }
+    }
+    
+    
 }
 
 // Enumeration of all the effects units
