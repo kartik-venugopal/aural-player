@@ -3,10 +3,11 @@ import Cocoa
 /*
     Handles positioning of main window and playlist window (docking/maximizing)
  */
-class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber, MessageSubscriber {
+class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
     
     private lazy var mainWindowController: MainWindowController = WindowFactory.getMainWindowController()
     private lazy var mainWindow: NSWindow = WindowFactory.getMainWindow()
+    private lazy var effectsWindow: NSWindow = WindowFactory.getEffectsWindow()
     private lazy var playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
     
     // The current (computed) dock location of the playlist window relative to the main window
@@ -42,9 +43,7 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber, 
         
         mainWindow.delegate = self
         
-        SyncMessenger.subscribe(actionTypes: [.dockLeft, .dockRight, .dockBottom, .maximize, .maximizeHorizontal, .maximizeVertical, .togglePlaylist], subscriber: self)
-        
-        SyncMessenger.subscribe(messageTypes: [.mainWindowResizingNotification], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.dockLeft, .dockRight, .dockBottom, .maximize, .maximizeHorizontal, .maximizeVertical, .toggleEffects, .togglePlaylist], subscriber: self)
     }
     
     // One-time seutp. Lays out both windows per user preferences and saved app state.
@@ -73,11 +72,12 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber, 
             playlistWindow.setFrame(playlistFrame, display: true)
         }
         
+        appState.hideEffects ? hideEffects() : showEffects()
         appState.hidePlaylist ? hidePlaylist() : showPlaylist()
     }
     
     func closeWindows() {
-        [mainWindow, playlistWindow].forEach({$0.close()})
+        [mainWindow, effectsWindow, playlistWindow].forEach({$0.close()})
     }
     
     // Positions the main app window relative to screen, per user preference. For example, "Top Left" or "Bottom Center"
@@ -388,6 +388,35 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber, 
         dock(playlistOrigin, playlistSize)
     }
     
+    // Shows/hides the effects window
+    func toggleEffects() {
+        
+        if (!WindowState.showingEffects) {
+            showEffects()
+        } else {
+            hideEffects()
+        }
+    }
+    
+    // Shows the effects window
+    private func showEffects() {
+        
+        // Show effects window
+        mainWindow.addChildWindow(effectsWindow, ordered: NSWindowOrderingMode.below)
+        effectsWindow.setIsVisible(true)
+        WindowState.showingEffects = true
+        
+        // re-dock ?
+    }
+    
+    // Hides the effects window
+    private func hideEffects() {
+        
+//        lastDockState = playlistDockState
+        effectsWindow.setIsVisible(false)
+        WindowState.showingEffects = false
+    }
+    
     func getID() -> String {
         return self.className
     }
@@ -412,29 +441,11 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber, 
             
         case .togglePlaylist: togglePlaylist()
             
-        default: return
-            
-        }
-    }
-    
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        switch notification.messageType {
-            
-        case .mainWindowResizingNotification: mainWindowResizing()
+        case .toggleEffects: toggleEffects()
             
         default: return
             
         }
-    }
-    
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        return EmptyResponse.instance
-    }
-    
-    private func mainWindowResizing() {
-        // Note down the playlist window's dock state before the main window is resized/moved
-        lastDockState = playlistDockState
     }
     
     // MARK: Window delegate functions

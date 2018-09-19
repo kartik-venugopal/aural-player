@@ -7,6 +7,8 @@ class WindowFactory {
     
     private static var mainWindowController: MainWindowController = MainWindowController()
     
+    private static var effectsWindowController: EffectsWindowController = EffectsWindowController()
+    
     private static var playlistWindowController: PlaylistWindowController = PlaylistWindowController()
     
     private static var barModeWindowController: BarModeWindowController = BarModeWindowController()
@@ -25,6 +27,10 @@ class WindowFactory {
     
     static func getMainWindowController() -> MainWindowController {
         return mainWindowController
+    }
+    
+    static func getEffectsWindow() -> NSWindow {
+        return effectsWindowController.window!
     }
     
     // Returns the playlist window

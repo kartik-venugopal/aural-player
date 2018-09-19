@@ -145,7 +145,7 @@
 		3E9847861F5CFCE3001A2D28 /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9847851F5CFCE3001A2D28 /* RecorderViewController.swift */; };
 		3E9847891F5CFD62001A2D28 /* RecorderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9847881F5CFD62001A2D28 /* RecorderDelegate.swift */; };
 		3E98478B1F5CFD87001A2D28 /* RecorderDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98478A1F5CFD87001A2D28 /* RecorderDelegateProtocol.swift */; };
-		3E98478D1F5D0419001A2D28 /* EffectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98478C1F5D0419001A2D28 /* EffectsViewController.swift */; };
+		3E98478D1F5D0419001A2D28 /* EffectsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98478C1F5D0419001A2D28 /* EffectsWindowController.swift */; };
 		3E98478F1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98478E1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift */; };
 		3E9847911F5D0512001A2D28 /* AudioGraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9847901F5D0512001A2D28 /* AudioGraphDelegate.swift */; };
 		3E9871A21F418CB1009AE9E6 /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9871A11F418CB1009AE9E6 /* UIUtils.swift */; };
@@ -376,7 +376,7 @@
 		3E9847851F5CFCE3001A2D28 /* RecorderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderViewController.swift; sourceTree = "<group>"; };
 		3E9847881F5CFD62001A2D28 /* RecorderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderDelegate.swift; sourceTree = "<group>"; };
 		3E98478A1F5CFD87001A2D28 /* RecorderDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderDelegateProtocol.swift; sourceTree = "<group>"; };
-		3E98478C1F5D0419001A2D28 /* EffectsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsViewController.swift; sourceTree = "<group>"; };
+		3E98478C1F5D0419001A2D28 /* EffectsWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsWindowController.swift; sourceTree = "<group>"; };
 		3E98478E1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E9847901F5D0512001A2D28 /* AudioGraphDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphDelegate.swift; sourceTree = "<group>"; };
 		3E9871A11F418CB1009AE9E6 /* UIUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
@@ -534,7 +534,7 @@
 			isa = PBXGroup;
 			children = (
 				3E0ED6AB1FBB1961008268B3 /* Effects.xib */,
-				3E98478C1F5D0419001A2D28 /* EffectsViewController.swift */,
+				3E98478C1F5D0419001A2D28 /* EffectsWindowController.swift */,
 				3E0ED6AD1FBB1AA2008268B3 /* EQ */,
 				3E0ED6B01FBB1AF1008268B3 /* Pitch */,
 				3E0ED6B31FBB1B55008268B3 /* Time */,
@@ -1416,7 +1416,7 @@
 				3EDAE69F1F7613C800D6F808 /* AudioUtils.swift in Sources */,
 				3EF5E5CE1FBE843D004270A4 /* Strings.swift in Sources */,
 				3E33B4A41F3F08B8005EF359 /* Preferences.swift in Sources */,
-				3E98478D1F5D0419001A2D28 /* EffectsViewController.swift in Sources */,
+				3E98478D1F5D0419001A2D28 /* EffectsWindowController.swift in Sources */,
 				3E9847911F5D0512001A2D28 /* AudioGraphDelegate.swift in Sources */,
 				3E84F83F1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift in Sources */,
 				3E3AEB121F9D3BA200E9BEDE /* GroupingPlaylistViewController.swift in Sources */,
