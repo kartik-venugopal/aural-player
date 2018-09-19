@@ -9,7 +9,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Fields that display playing track info
     @IBOutlet weak var lblTrackArtist: NSTextField!
     @IBOutlet weak var lblTrackTitle: NSTextField!
-    @IBOutlet weak var lblTrackName: NSTextField!
+//    @IBOutlet weak var lblTrackName: NSTextField!
+    @IBOutlet weak var lblTrackName: BannerLabel!
     @IBOutlet weak var artView: NSImageView!
     
     // Fields that display/control seek position within the playing track
@@ -69,6 +70,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         initSubscriptions()
         
+        lblTrackName.beginAnimation()
+        
         let newTrack = player.getPlayingTrack()
         
         if (newTrack != nil) {
@@ -87,6 +90,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     func deactivate() {
         
+        lblTrackName.endAnimation()
         removeSubscriptions()
     }
     
@@ -103,8 +107,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         }, queue: DispatchQueue.main)
         
-        // Set up the art view and the default animation
-        artView.canDrawSubviewsIntoLayer = true
+        lblTrackName.font = Fonts.regularModeTrackNameTextFont
+        lblTrackName.alignment = NSTextAlignment.center
     }
     
     private func initSubscriptions() {
@@ -113,7 +117,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.moreInfo], subscriber: self)
     }
@@ -122,7 +126,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         AsyncMessenger.unsubscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites], subscriber: self)
         
-        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification, .appInBackgroundNotification, .appInForegroundNotification], subscriber: self)
+        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
         SyncMessenger.unsubscribe(actionTypes: [.moreInfo], subscriber: self)
     }
@@ -198,26 +202,26 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
             
         } else {
             
-            lblTrackName.stringValue = track.conciseDisplayName
+            lblTrackName.text = track.conciseDisplayName
             
             // Re-position and resize the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
             
             // Determine how many lines the track name will occupy, within the label
-            let numLines = StringUtils.numberOfLines(track.conciseDisplayName, lblTrackName.font!, lblTrackName.frame.width)
-            
-            // The Y co-ordinate is a pre-determined constant
-            var origin = lblTrackName.frame.origin
-            origin.y = numLines == 1 ? Dimensions.trackNameLabelLocationY_oneLine : Dimensions.trackNameLabelLocationY_twoLines
-            
-            // The height is a pre-determined constant
-            var lblFrameSize = lblTrackName.frame.size
-            lblFrameSize.height = numLines == 1 ? Dimensions.trackNameLabelHeight_oneLine : Dimensions.trackNameLabelHeight_twoLines
+//            let numLines = StringUtils.numberOfLines(track.conciseDisplayName, lblTrackName.font!, lblTrackName.frame.width)
+//            
+//            // The Y co-ordinate is a pre-determined constant
+//            var origin = lblTrackName.frame.origin
+//            origin.y = numLines == 1 ? Dimensions.trackNameLabelLocationY_oneLine : Dimensions.trackNameLabelLocationY_twoLines
+//            
+//            // The height is a pre-determined constant
+//            var lblFrameSize = lblTrackName.frame.size
+//            lblFrameSize.height = numLines == 1 ? Dimensions.trackNameLabelHeight_oneLine : Dimensions.trackNameLabelHeight_twoLines
             
             // Resize the label
-            lblTrackName.setFrameSize(lblFrameSize)
+//            lblTrackName.setFrameSize(lblFrameSize)
             
             // Re-position the label
-            lblTrackName.setFrameOrigin(origin)
+//            lblTrackName.setFrameOrigin(origin)
         }
         
         lblTrackName.isHidden = artistAndTitleAvailable
@@ -227,9 +231,9 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
             artView.image = track.displayInfo.art!
         } else {
             
-            // Default artwork animation
-            artView.image = Images.imgPlayingArt
-            artView.animates = true
+            // Default artwork
+            let playing = player.getPlaybackState() == .playing
+            artView.image = playing ? Images.imgPlayingArt : Images.imgPausedArt
         }
         
         initSeekPosition()
@@ -281,9 +285,9 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     private func clearNowPlayingInfo() {
         
-        [lblTrackArtist, lblTrackTitle, lblTrackName, lblPlaybackScope, lblSequenceProgress].forEach({$0?.stringValue = ""})
-        artView.image = Images.imgPlayingArt
-        artView.animates = false
+        [lblTrackArtist, lblTrackTitle, lblPlaybackScope, lblSequenceProgress].forEach({$0?.stringValue = ""})
+        lblTrackName.text = ""
+        artView.image = Images.imgPausedArt
         imgScope.image = nil
         
         seekSlider.floatValue = 0
@@ -423,8 +427,13 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         // The seek timer can be disabled when not needed (e.g. when paused)
         setSeekTimerState(isPlaying)
         
-        // Pause/resume the art animation
-        artView.animates = shouldAnimate()
+        let track = (player.getPlayingTrack()?.track)!
+        if (track.displayInfo.art == nil) {
+        
+            // Default artwork
+            let playing = player.getPlaybackState() == .playing
+            artView.image = playing ? Images.imgPlayingArt : Images.imgPausedArt
+        }
     }
     
     // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
@@ -485,21 +494,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         showNowPlayingInfo(player.getPlayingTrack()!.track)
     }
     
-    private func appInBackground() {
-        artView.animates = false
-    }
-    
-    private func appInForeground() {
-        artView.animates = shouldAnimate()
-    }
-    
-    // Helper function that determines whether or not the playing track animation should be shown animated
-    private func shouldAnimate() -> Bool {
-        
-        // Animation enabled only if 1 - the appropriate playlist view is currently shown, 2 - a track is currently playing (not paused), and 3 - the app window is currently in the foreground
-        return (player.getPlaybackState() == .playing) && WindowState.isInForeground()
-    }
-    
     func getID() -> String {
         return self.className
     }
@@ -538,14 +532,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         case .playingTrackInfoUpdatedNotification:
             
             playingTrackInfoUpdated(notification as! PlayingTrackInfoUpdatedNotification)
-            
-        case .appInBackgroundNotification:
-            
-            appInBackground()
-            
-        case .appInForegroundNotification:
-            
-            appInForeground()
             
         default: return
             

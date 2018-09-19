@@ -17,7 +17,7 @@
                 <outlet property="lblTimeElapsed" destination="876-EM-3g4" id="jNq-Qy-9fP"/>
                 <outlet property="lblTimeRemaining" destination="sGu-eX-EOv" id="dTW-i0-k9p"/>
                 <outlet property="lblTrackArtist" destination="Ic4-td-93d" id="OMa-fz-AOs"/>
-                <outlet property="lblTrackName" destination="3Ap-RX-Hj2" id="1Xk-qG-zor"/>
+                <outlet property="lblTrackName" destination="TAg-yT-Umq" id="jkC-cY-6v9"/>
                 <outlet property="lblTrackTitle" destination="2m3-ds-GGr" id="gHi-uH-Jg0"/>
                 <outlet property="seekSlider" destination="9fK-HM-M9o" id="bXu-cl-0WR"/>
                 <outlet property="seekSliderCell" destination="ol4-Ik-RVN" id="uRQ-1S-cgb"/>
@@ -55,8 +55,8 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ap-RX-Hj2" userLabel="Track Name">
-                    <rect key="frame" x="85" y="58" width="340" height="45"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ap-RX-Hj2" userLabel="Track Name">
+                    <rect key="frame" x="85" y="178" width="340" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" id="td3-91-XND">
                         <font key="font" size="14" name="GillSans-SemiBold"/>
@@ -155,6 +155,18 @@
                         <action selector="favoriteAction:" target="-2" id="2E1-66-tDL"/>
                     </connections>
                 </button>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TAg-yT-Umq" userLabel="Track Name Banner" customClass="BannerLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="85" y="64" width="340" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                            <color key="value" white="0.68155924483611108" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                            <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </customView>
             </subviews>
         </view>
         <slider hidden="YES" verticalHuggingPriority="750" id="iEN-Sg-plp" userLabel="Seek Slider clone">
