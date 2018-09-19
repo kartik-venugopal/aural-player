@@ -125,7 +125,7 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, ActionMess
     
     @IBAction func dockTopLeftAction(_ sender: AnyObject) {
         
-        hidePlayer()
+        hidePlayer(reDockWindow: false)
         
         let x = visibleFrame.minX
         let y = visibleFrame.maxY - theWindow.height
@@ -142,7 +142,7 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, ActionMess
     
     @IBAction func dockTopRightAction(_ sender: AnyObject) {
         
-        hidePlayer()
+        hidePlayer(reDockWindow: false)
         doDockTopRight()
         dockState = .topRight
         
@@ -172,7 +172,7 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, ActionMess
     
     @IBAction func dockBottomLeftAction(_ sender: AnyObject) {
         
-        hidePlayer()
+        hidePlayer(reDockWindow: false)
         
         let x = visibleFrame.minX
         let y = visibleFrame.minY
@@ -189,7 +189,7 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, ActionMess
     
     @IBAction func dockBottomRightAction(_ sender: AnyObject) {
         
-        hidePlayer()
+        hidePlayer(reDockWindow: false)
         doDockBottomRight()
         
         dockState = .bottomRight
