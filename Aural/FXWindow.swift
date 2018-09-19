@@ -2,13 +2,19 @@ import Cocoa
 
 class FXWindow: NSWindow {
     
-    override func mouseDragged(with event: NSEvent) {
-        SyncMessenger.publishNotification(WindowDraggedNotification.instance)
-        super.mouseDragged(with: event)
-    }
-    
+    var snapped: Bool = false
+    var snapLocation: NSPoint?
+
     override func mouseUp(with event: NSEvent) {
-        self.isMovable = true
+        
+        if snapped {
+            
+            self.setFrameOrigin(snapLocation!)
+            
+            snapped = false
+            snapLocation = nil
+        }
+        
         super.mouseUp(with: event)
     }
 }

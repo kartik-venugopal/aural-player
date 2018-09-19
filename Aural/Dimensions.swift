@@ -18,4 +18,6 @@ struct Dimensions {
     static let windowHeight_playlistAndEffects: CGFloat = 408
     static let windowHeight_playlistOnly: CGFloat = 218
     static let windowHeight_effectsOnly: CGFloat = 420
+    
+    static let snapProximity: CGFloat = 15
 }
