@@ -31,15 +31,15 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Alf-cz-fUG" userLabel="Controls Box">
+                <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Alf-cz-fUG" userLabel="Controls Box">
                     <rect key="frame" x="65" y="27" width="355" height="84"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <view key="contentView" ambiguous="YES" id="xWN-nT-1rg">
-                        <rect key="frame" x="1" y="1" width="353" height="82"/>
+                        <rect key="frame" x="0.0" y="0.0" width="355" height="84"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-Td-HFB" userLabel="Record Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="65" y="28" width="20" height="20"/>
+                                <rect key="frame" x="65" y="30" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Record" imagePosition="overlaps" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="xy8-DU-p88">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -56,7 +56,7 @@
                                 </connections>
                             </button>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qaf-yf-lNI" userLabel="Format menu">
-                                <rect key="frame" x="67" y="53" width="190" height="22"/>
+                                <rect key="frame" x="67" y="55" width="190" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <shadow key="shadow">
                                     <size key="offset" width="2" height="-2"/>
@@ -81,7 +81,7 @@
                                 </popUpButtonCell>
                             </popUpButton>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksR-cg-XYl" userLabel="Start/Stop">
-                                <rect key="frame" x="6" y="30" width="57" height="18"/>
+                                <rect key="frame" x="6" y="32" width="57" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Start/Stop" id="rMX-Sc-wak">
                                     <font key="font" size="11" name="GillSans"/>
@@ -90,7 +90,7 @@
                                 </textFieldCell>
                             </textField>
                             <box hidden="YES" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Acc-ym-OC5" userLabel="Recording Info Box">
-                                <rect key="frame" x="0.0" y="0.0" width="272" height="25"/>
+                                <rect key="frame" x="0.0" y="2" width="272" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" ambiguous="YES" id="9HY-n5-qLY">
                                     <rect key="frame" x="0.0" y="0.0" width="272" height="25"/>
@@ -136,7 +136,7 @@
                                 </view>
                             </box>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVw-8f-3Id" userLabel="Format">
-                                <rect key="frame" x="6" y="57" width="39" height="18"/>
+                                <rect key="frame" x="6" y="59" width="39" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Format" id="8ot-0H-mnY">
                                     <font key="font" size="11" name="GillSans"/>
@@ -147,7 +147,7 @@
                         </subviews>
                     </view>
                     <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
-                    <color key="fillColor" white="0.19935257570000001" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
             </subviews>
         </view>
