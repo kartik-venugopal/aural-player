@@ -80,6 +80,10 @@ enum MessageType {
     
     case mainWindowResizingNotification
     
+    case barModeWindowMouseEntered
+    
+    case barModeWindowMouseExited
+    
     case playbackRequest
     
     case appExitRequest
@@ -438,4 +442,16 @@ struct MainWindowResizingNotification: NotificationMessage {
     
     // Singleton
     static let instance: MainWindowResizingNotification = MainWindowResizingNotification()
+}
+
+struct BarModeWindowMouseNotification: NotificationMessage {
+    
+    let messageType: MessageType
+    
+    init(_ messageType: MessageType) {
+        self.messageType = messageType
+    }
+    
+    static let mouseEntered = BarModeWindowMouseNotification(.barModeWindowMouseEntered)
+    static let mouseExited = BarModeWindowMouseNotification(.barModeWindowMouseExited)
 }

@@ -178,6 +178,7 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber, 
         playlistWindow.setFrameOrigin(mainWindow.origin.applying(CGAffineTransform.init(translationX: offsetX, y: offsetY)))
     }
     
+    // TODO: Move to UIUtils ???
     // Checks if a single window is entirely on-screen (i.e. visible). Returns the offset (i.e. how much the window would have to be moved to make it entirely visible), and whether or not it is visible.
     private func checkIfWindowVisible(_ window: NSWindow) -> (visible: Bool, dx: CGFloat, dy: CGFloat) {
         
