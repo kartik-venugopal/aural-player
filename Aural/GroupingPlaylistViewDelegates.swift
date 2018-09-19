@@ -26,7 +26,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
     override func awakeFromNib() {
         
         // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.playbackStateChangedNotification, .playlistTypeChangedNotification, .appInForegroundNotification, .appInBackgroundNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.playbackStateChangedNotification], subscriber: self)
         
         OutlineViewHolder.instances[self.playlistType] = playlistView
     }
@@ -109,13 +109,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
             
             if (isPlayingTrack) {
                 
-                // Configure and show the image view
-                let imgView = cell.imageView!
-                
-                imgView.canDrawSubviewsIntoLayer = true
-                imgView.imageScaling = .scaleProportionallyDown
-                imgView.animates = shouldAnimate()
-                
                 // Mark this cell for later
                 animationCell = cell
             }
@@ -142,8 +135,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
     // Whenever the playing track is paused/resumed, the animation needs to be paused/resumed.
     private func playbackStateChanged(_ message: PlaybackStateChangedNotification) {
         
-        animationCell?.imageView?.animates = shouldAnimate()
-        
         switch (message.newPlaybackState) {
             
         case .noTrack:
@@ -151,7 +142,9 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
             // The track is no longer playing
             animationCell = nil
             
-        default: return
+        case .playing, .paused:
+            
+            animationCell?.imageView?.image = Images.imgPlayingTrack
             
         }
     }
@@ -162,32 +155,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
     
     // MARK: Message handling
     
-    // When the current playlist view changes, the animation state might need to change
-    private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
-        animationCell?.imageView?.animates = shouldAnimate()
-    }
-    
-    // When the app moves to the background, the animation should be disabled
-    private func appInBackground() {
-        animationCell?.imageView?.animates = false
-    }
-    
-    // When the app moves to the foreground, the animation might need to be enabled
-    private func appInForeground() {
-        animationCell?.imageView?.animates = shouldAnimate()
-    }
-    
-    // Helper function that determines whether or not the playing track animation should be shown animated
-    private func shouldAnimate() -> Bool {
-        
-        // Animation enabled only if 1 - the appropriate playlist view is currently shown, 2 - a track is currently playing (not paused), and 3 - the app window is currently in the foreground
-        
-        let playing = playbackInfo.getPlaybackState() == .playing
-        let showingThisPlaylistView = PlaylistViewState.current == self.playlistType
-        
-        return playing && WindowState.isInForeground() && showingThisPlaylistView
-    }
-    
     func consumeNotification(_ notification: NotificationMessage) {
         
         switch notification.messageType {
@@ -195,18 +162,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
         case .playbackStateChangedNotification:
             
             playbackStateChanged(notification as! PlaybackStateChangedNotification)
-            
-        case .playlistTypeChangedNotification:
-            
-            playlistTypeChanged(notification as! PlaylistTypeChangedNotification)
-            
-        case .appInBackgroundNotification:
-            
-            appInBackground()
-            
-        case .appInForegroundNotification:
-            
-            appInForeground()
             
         default: return
             
