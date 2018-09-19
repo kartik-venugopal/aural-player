@@ -8,6 +8,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BarModeWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnDockBottomLeft" destination="GFc-4Z-KSk" id="0yY-0b-4tc"/>
+                <outlet property="btnDockBottomRight" destination="AgF-AL-Cm0" id="qNC-Nt-1QA"/>
+                <outlet property="btnDockTopLeft" destination="9hA-4y-c3l" id="ibX-DG-UQy"/>
+                <outlet property="btnDockTopRight" destination="HUz-KF-1Gt" id="KNf-7I-A8S"/>
                 <outlet property="nowPlayingBox" destination="Ufr-34-a3g" id="ab5-jF-tuq"/>
                 <outlet property="playerBox" destination="Ihv-n1-e07" id="puX-p9-5wS"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="0UZ-o8-zfX"/>
@@ -20,6 +24,8 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="392" y="535" width="306" height="35"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <value key="minSize" type="size" width="306" height="35"/>
+            <value key="maxSize" type="size" width="560" height="35"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ" customClass="MouseTrackingView" customModule="Aural" customModuleProvider="target">
                 <rect key="frame" x="0.0" y="0.0" width="306" height="35"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -55,46 +61,70 @@
                             <action selector="regularModeAction:" target="-2" id="6Kr-Ct-oMF"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9hA-4y-c3l" userLabel="Dock Top Left">
-                        <rect key="frame" x="534" y="20" width="10" height="9"/>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9hA-4y-c3l" userLabel="Dock Top Left" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="534" y="18" width="10" height="9"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockTopLeft" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Gbr-dm-9X4">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="DockTopLeft"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="DockTopLeft-Docked"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Dock to top left of screen"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Docked to top left of screen"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="dockTopLeftAction:" target="-2" id="amP-hJ-x2f"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GFc-4Z-KSk" userLabel="Dock Bottom Left">
-                        <rect key="frame" x="534" y="6" width="10" height="9"/>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GFc-4Z-KSk" userLabel="Dock Bottom Left" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="534" y="8" width="10" height="9"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockBottomLeft" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="KgN-oE-gJb">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="DockBottomLeft"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="DockBottomLeft-Docked"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Dock to bottom left of screen"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Docked to bottom left of screen"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="dockBottomLeftAction:" target="-2" id="0Sk-Ib-3ag"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AgF-AL-Cm0" userLabel="Dock Bottom Right">
-                        <rect key="frame" x="547" y="6" width="10" height="9"/>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AgF-AL-Cm0" userLabel="Dock Bottom Right" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="545" y="8" width="10" height="9"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockBottomRight" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Mmc-bM-G2r">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="DockBottomRight"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="DockBottomRight-Docked"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Dock to bottom right of screen"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Docked to bottom right of screen"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="dockBottomRightAction:" target="-2" id="BWh-DD-27k"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HUz-KF-1Gt" userLabel="Dock Top Right">
-                        <rect key="frame" x="547" y="20" width="10" height="9"/>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HUz-KF-1Gt" userLabel="Dock Top Right" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="545" y="18" width="10" height="9"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockTopRight" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="C5h-Kz-9B9">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="DockTopRight"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="DockTopRight-Docked"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Dock to top right of screen"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Docked to top right of screen"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="dockTopRightAction:" target="-2" id="ZMC-3G-RHi"/>
                         </connections>
@@ -126,7 +156,7 @@
                         <color key="fillColor" white="0.153076171875" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <box fixedFrame="YES" boxType="custom" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="gzH-gA-hSF" userLabel="Separator">
-                        <rect key="frame" x="528" y="5" width="1" height="25"/>
+                        <rect key="frame" x="527" y="5" width="1" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" ambiguous="YES" id="mqt-mw-0TK">
                             <rect key="frame" x="1" y="1" width="0.0" height="23"/>
@@ -142,15 +172,22 @@
                     <color key="value" white="0.53426106770833337" alpha="0.0" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="delegate" destination="-2" id="f9S-Dq-jgD"/>
+            </connections>
             <point key="canvasLocation" x="15" y="-11305.5"/>
         </window>
     </objects>
     <resources>
         <image name="Close" width="80" height="80"/>
         <image name="DockBottomLeft" width="473" height="405"/>
+        <image name="DockBottomLeft-Docked" width="473" height="405"/>
         <image name="DockBottomRight" width="473" height="405"/>
+        <image name="DockBottomRight-Docked" width="473" height="405"/>
         <image name="DockTopLeft" width="473" height="405"/>
+        <image name="DockTopLeft-Docked" width="473" height="405"/>
         <image name="DockTopRight" width="473" height="405"/>
+        <image name="DockTopRight-Docked" width="473" height="405"/>
         <image name="RegularMode" width="1200" height="1200"/>
     </resources>
 </document>
