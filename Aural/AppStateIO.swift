@@ -10,39 +10,29 @@ class AppStateIO {
     // Saves app state to default user documents directory
     static func save(_ state: AppState) {
         
-        if let dir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first {
-            
-            let path = URL(fileURLWithPath: dir).appendingPathComponent(AppConstants.stateFileName)
-            
-            let outputStream = OutputStream(url: path, append: false)
-            outputStream?.open()
-            
-            JSONSerialization.writeJSONObject(state.toSerializableMap(), to: outputStream!, options: JSONSerialization.WritingOptions.prettyPrinted, error: nil)
-            
-            outputStream?.close()
-        }
+        let outputStream = OutputStream(url: AppConstants.appStateFileURL, append: false)
+        outputStream?.open()
+        
+        JSONSerialization.writeJSONObject(state.toSerializableMap(), to: outputStream!, options: JSONSerialization.WritingOptions.prettyPrinted, error: nil)
+        
+        outputStream?.close()
     }
     
     // Loads app state from default user documents directory
     static func load() -> AppState? {
         
-        if let dir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first {
+        let inputStream = InputStream(url: AppConstants.appStateFileURL)
+        inputStream?.open()
+        
+        do {
+            let data = try JSONSerialization.jsonObject(with: inputStream!, options: JSONSerialization.ReadingOptions())
             
-            let path = URL(fileURLWithPath: dir).appendingPathComponent(AppConstants.stateFileName)
+            inputStream?.close()
             
-            let inputStream = InputStream(url: path)
-            inputStream?.open()
+            return AppState.deserialize(data as! NSDictionary)
             
-            do {
-                let data = try JSONSerialization.jsonObject(with: inputStream!, options: JSONSerialization.ReadingOptions())
-                
-                inputStream?.close()
-                
-                return AppState.deserialize(data as! NSDictionary)
-                
-            } catch let error as NSError {
-                NSLog("Error loading app state config file: %@", error.description)
-            }
+        } catch let error as NSError {
+            NSLog("Error loading app state config file: %@", error.description)
         }
         
         return nil

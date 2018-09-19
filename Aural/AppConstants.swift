@@ -60,6 +60,12 @@ class AppConstants {
     static let stateFileName = "auralPlayer-state.json"
     static let logFileName = "auralPlayer.log"
     
+    // Default user's documents directory (where app state and log are written to)
+    static let documentsDirURL: URL = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first!)
+    
+    static let appStateFileURL: URL = documentsDirURL.appendingPathComponent(stateFileName)
+    static let logFileURL: URL = documentsDirURL.appendingPathComponent(logFileName)
+    
     // Default user's music directory (default place to look in, when opening/saving files)
     static let musicDirURL: URL = FileSystemUtils.resolveTruePath(URL(fileURLWithPath: NSHomeDirectory() + "/Music")).resolvedURL
     

@@ -32,12 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // Make sure all logging is done to the app's log file
     private func configureLogging() {
-        
-        let allPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let documentsDirectory = allPaths.first!
-        let pathForLog = documentsDirectory + ("/" + AppConstants.logFileName)
-        
-        freopen(pathForLog.cString(using: String.Encoding.ascii)!, "a+", stderr)
+        freopen(AppConstants.logFileURL.path.cString(using: String.Encoding.ascii)!, "a+", stderr)
     }
 
     // Opens the application with a single file (audio file or playlist)
