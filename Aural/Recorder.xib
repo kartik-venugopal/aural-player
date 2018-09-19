@@ -19,11 +19,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view id="YQh-RY-zvC">
-            <rect key="frame" x="0.0" y="0.0" width="484" height="140"/>
+            <rect key="frame" x="0.0" y="0.0" width="484" height="160"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0UX-B8-M5x" userLabel="Recorder Desc">
-                    <rect key="frame" x="60" y="103" width="365" height="32"/>
+                    <rect key="frame" x="60" y="128" width="365" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Records what's playing (captures all effects)" id="zQO-oM-Xd9">
                         <font key="font" size="13" name="GillSans"/>
@@ -32,7 +32,7 @@
                     </textFieldCell>
                 </textField>
                 <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Alf-cz-fUG" userLabel="Controls Box">
-                    <rect key="frame" x="67" y="5" width="355" height="84"/>
+                    <rect key="frame" x="65" y="27" width="355" height="84"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <view key="contentView" ambiguous="YES" id="xWN-nT-1rg">
                         <rect key="frame" x="1" y="1" width="353" height="82"/>

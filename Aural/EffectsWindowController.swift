@@ -33,11 +33,23 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
-    private var theWindow: NSWindow {
-        return self.window!
+    private var theWindow: FXWindow {
+        return self.window! as! FXWindow
     }
     
     private lazy var mainWindow: NSWindow = WindowFactory.getMainWindow()
+    
+    private var snapBottomLocation: NSPoint {
+        return mainWindow.origin.applying(CGAffineTransform.init(translationX: 0, y: -theWindow.height))
+    }
+    
+    private var snapRightLocation: NSPoint {
+        return mainWindow.origin.applying(CGAffineTransform.init(translationX: mainWindow.width, y: mainWindow.height - theWindow.height))
+    }
+    
+    private var snapLeftLocation: NSPoint {
+        return mainWindow.origin.applying(CGAffineTransform.init(translationX: -theWindow.width, y: mainWindow.height - theWindow.height))
+    }
     
     override var windowNibName: String? {return "Effects"}
     
@@ -96,13 +108,13 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     
     private func initSubscriptions() {
         
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification, .windowDraggedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
-        SyncMessenger.unsubscribe(messageTypes: [.effectsUnitStateChangedNotification, .windowDraggedNotification], subscriber: self)
+        SyncMessenger.unsubscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
         SyncMessenger.unsubscribe(actionTypes: [.showEffectsUnitTab], subscriber: self)
     }
     
@@ -159,10 +171,6 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
                 
                 recorderTabViewButton.onIf(message.active)
             }
-            
-        } else if notification is WindowDraggedNotification {
-            
-            windowDragged()
         }
     }
     
@@ -206,28 +214,84 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     
     // MARK - Window delegate functions
     
-    private func windowDragged() {
+    func windowDidMove(_ notification: Notification) {
         
         // Snapping to main window
         
+        var snapped: Bool = checkForBottomSnap()
         
-        // Top edge of FX vs Bottom edge of main (i.e. below main window)
-        let fxTopEdge = theWindow.maxY
-        let mainBottomEdge = mainWindow.y
-        
-        if fabs(mainBottomEdge - fxTopEdge) < 10 {
-            print("Time to snap !")
-            print("FX window frame: " + String(describing: theWindow.frame))
-            print("Main window frame: " + String(describing: mainWindow.frame) + "\n\n")
+        if (snapped) {
             
-            // Snap below main window
-            theWindow.setFrameOrigin(mainWindow.origin.applying(CGAffineTransform.init(translationX: 0, y: -theWindow.height)))
+            theWindow.snapLocation = snapBottomLocation
             
-            theWindow.isMovable = false
+        } else {
+            
+            snapped = checkForRightSnap()
+            
+            if (snapped) {
+                
+                theWindow.snapLocation = snapRightLocation
+                
+            } else {
+                
+                snapped = checkForLeftSnap()
+                
+                if (snapped) {
+                    
+                    theWindow.snapLocation = snapLeftLocation
+                }
+            }
         }
+        
+        theWindow.snapped = snapped
     }
     
+    // Top edge of FX vs Bottom edge of main (i.e. below main window)
+    private func checkForBottomSnap() -> Bool {
+        
+        let snapMinX = mainWindow.x - Dimensions.snapProximity
+        let snapMaxX = mainWindow.x + Dimensions.snapProximity
+        let rangeX = snapMinX...snapMaxX
+        
+        let snapMinY = mainWindow.y - theWindow.height - Dimensions.snapProximity
+        let snapMaxY = mainWindow.y - theWindow.height + Dimensions.snapProximity
+        let rangeY = snapMinY...snapMaxY
+        
+        return rangeX.contains(theWindow.x) && rangeY.contains(theWindow.y)
+    }
     
+    // Left edge of FX vs Right edge of main (i.e. to the right of the main window)
+    private func checkForRightSnap() -> Bool {
+        
+        let snapMinX = mainWindow.maxX - Dimensions.snapProximity
+        let snapMaxX = mainWindow.maxX + Dimensions.snapProximity
+        let rangeX = snapMinX...snapMaxX
+        
+        let snapMinY = mainWindow.y - Dimensions.snapProximity
+        let snapMaxY = mainWindow.y + Dimensions.snapProximity
+        let rangeY = snapMinY...snapMaxY
+        
+//        print("\n\nRangeX: " + String(describing: rangeX))
+//        print("RangeY: " + String(describing: rangeY))
+//        print("X: " + String(describing: theWindow.x))
+//        print("Y: " + String(describing: theWindow.y))
+        
+        return rangeX.contains(theWindow.x) && rangeY.contains(theWindow.y)
+    }
+    
+    // Right edge of FX vs Left edge of main (i.e. to the left of the main window)
+    private func checkForLeftSnap() -> Bool {
+        
+        let snapMinX = mainWindow.x - theWindow.width - Dimensions.snapProximity
+        let snapMaxX = mainWindow.x - theWindow.width + Dimensions.snapProximity
+        let rangeX = snapMinX...snapMaxX
+        
+        let snapMinY = mainWindow.y - Dimensions.snapProximity
+        let snapMaxY = mainWindow.y + Dimensions.snapProximity
+        let rangeY = snapMinY...snapMaxY
+        
+        return rangeX.contains(theWindow.x) && rangeY.contains(theWindow.y)
+    }
 }
 
 // Enumeration of all the effects units

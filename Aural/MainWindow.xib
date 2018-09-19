@@ -23,8 +23,8 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="335" y="100" width="480" height="230"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
-            <value key="minSize" type="size" width="480" height="218"/>
-            <value key="maxSize" type="size" width="480" height="420"/>
+            <value key="minSize" type="size" width="480" height="230"/>
+            <value key="maxSize" type="size" width="480" height="230"/>
             <view key="contentView" wantsLayer="YES" id="W7v-UI-tl4">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="230"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -112,7 +112,7 @@
                                     </connections>
                                 </button>
                                 <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="zwp-2y-nBe" userLabel="Now Playing Box">
-                                    <rect key="frame" x="14" y="81" width="452" height="108"/>
+                                    <rect key="frame" x="14" y="82" width="452" height="108"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" id="r5T-L7-Nu3">
                                         <rect key="frame" x="0.0" y="0.0" width="452" height="108"/>
@@ -122,7 +122,7 @@
                                     <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </box>
                                 <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="wJm-gK-OsL" userLabel="Player Box">
-                                    <rect key="frame" x="14" y="15" width="452" height="54"/>
+                                    <rect key="frame" x="14" y="14" width="452" height="54"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" id="0EX-XC-OYa">
                                         <rect key="frame" x="0.0" y="0.0" width="452" height="54"/>

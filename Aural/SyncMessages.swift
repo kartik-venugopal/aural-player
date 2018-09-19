@@ -80,8 +80,6 @@ enum MessageType {
     
     case mainWindowResizingNotification
     
-    case windowDraggedNotification
-    
     case barModeWindowMouseEntered
     
     case barModeWindowMouseExited
@@ -279,15 +277,6 @@ struct PlaylistTypeChangedNotification: NotificationMessage {
     
     let messageType: MessageType = .playlistTypeChangedNotification
     let newPlaylistType: PlaylistType
-}
-
-struct WindowDraggedNotification: NotificationMessage {
-    
-    let messageType: MessageType = .windowDraggedNotification
-    
-    private init() {}
-    
-    static let instance: WindowDraggedNotification = WindowDraggedNotification()
 }
 
 // Request to the playback controller to initiate playback for a particular track/group
