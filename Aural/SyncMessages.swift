@@ -106,6 +106,8 @@ enum MessageType {
     case saveEQUserPresetRequest
     
     case savePitchUserPresetRequest
+    
+    case saveTimeUserPresetRequest
 }
 
 // Notification indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information

@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Time effects unit
  */
-class TimeViewController: NSViewController, ActionMessageSubscriber {
+class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
     
     // Time controls
     @IBOutlet weak var btnTimeBypass: EffectsUnitBypassButton!
@@ -15,6 +15,12 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
     @IBOutlet weak var lblPitchShiftValue: NSTextField!
     @IBOutlet weak var lblTimeOverlapValue: NSTextField!
     
+    // Presets menu
+    @IBOutlet weak var presetsMenu: NSPopUpButton!
+    @IBOutlet weak var btnSavePreset: NSButton!
+    
+    private lazy var userPresetsPopover: EQUserPresetsPopoverViewController = EQUserPresetsPopoverViewController.create(.saveTimeUserPresetRequest)
+    
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
@@ -24,6 +30,8 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
         
         initControls()
         
+        SyncMessenger.subscribe(messageTypes: [.saveTimeUserPresetRequest], subscriber: self)
+        
         // Subscribe to message notifications
         SyncMessenger.subscribe(actionTypes: [.increaseRate, .decreaseRate, .setRate], subscriber: self)
     }
@@ -31,6 +39,7 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
     private func initControls() {
         
         btnTimeBypass.setBypassState(graph.isTimeBypass())
+        
         btnShiftPitch.state = graph.isTimePitchShift() ? 1 : 0
         updatePitchShift()
         
@@ -41,6 +50,12 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
         let overlap = graph.getTimeOverlap()
         timeOverlapSlider.floatValue = overlap.overlap
         lblTimeOverlapValue.stringValue = overlap.overlapString
+        
+        // Initialize the menu with user-defined presets
+        TimePresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        
+        // Don't select any items from the presets menu
+        presetsMenu.selectItem(at: -1)
     }
     
     // Activates/deactivates the Time stretch effects unit
@@ -72,6 +87,46 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
         if (!graph.isTimeBypass()) {
             SyncMessenger.publishNotification(PlaybackRateChangedNotification(timeSlider.floatValue))
         }
+    }
+    
+    // Applies a preset to the effects unit
+    @IBAction func timePresetsAction(_ sender: AnyObject) {
+        
+        // Get preset definition
+        let preset = TimePresets.presetByName(presetsMenu.titleOfSelectedItem!)
+        
+        lblTimeStretchRateValue.stringValue = graph.setTimeStretchRate(preset.rate)
+        timeSlider.floatValue = preset.rate
+        
+        lblTimeOverlapValue.stringValue = graph.setTimeOverlap(preset.overlap)
+        timeOverlapSlider.floatValue = preset.overlap
+        
+        btnShiftPitch.state = preset.pitchShift ? 1 : 0
+        if (preset.pitchShift != graph.isTimePitchShift()) {
+            graph.toggleTimePitchShift()
+        }
+        updatePitchShift()
+        
+        // Don't select any of the items
+        presetsMenu.selectItem(at: -1)
+    }
+    
+    // Displays a popover to allow the user to name the new custom preset
+    @IBAction func savePresetAction(_ sender: AnyObject) {
+        
+        userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
+        
+        // If this isn't done, the app windows are hidden when the popover is displayed
+        WindowState.window.orderFront(self)
+    }
+    
+    // Actually saves the new user-defined preset
+    private func saveUserPreset(_ request: SaveUserPresetRequest) {
+        
+        TimePresets.addUserDefinedPreset(request.presetName, timeSlider.floatValue, timeOverlapSlider.floatValue, btnShiftPitch.state == 1)
+        
+        // Add a menu item for the new preset, at the top of the menu
+        presetsMenu.insertItem(withTitle: request.presetName, at: 0)
     }
     
     private func showTimeTab() {
@@ -153,5 +208,18 @@ class TimeViewController: NSViewController, ActionMessageSubscriber {
         default: return
             
         }
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        switch request.messageType {
+            
+        case .saveTimeUserPresetRequest: saveUserPreset(request as! SaveUserPresetRequest)
+            
+        default: return EmptyResponse.instance
+            
+        }
+        
+        return EmptyResponse.instance
     }
 }
