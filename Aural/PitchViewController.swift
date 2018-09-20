@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Pitch effects unit
  */
-class PitchViewController: NSViewController, ActionMessageSubscriber {
+class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
     
     // Pitch controls
     @IBOutlet weak var btnPitchBypass: EffectsUnitBypassButton!
@@ -16,7 +16,7 @@ class PitchViewController: NSViewController, ActionMessageSubscriber {
     @IBOutlet weak var presetsMenu: NSPopUpButton!
     @IBOutlet weak var btnSavePreset: NSButton!
     
-    private lazy var userPresetsPopover: EQUserPresetsPopoverViewController = EQUserPresetsPopoverViewController.create()
+    private lazy var userPresetsPopover: EQUserPresetsPopoverViewController = EQUserPresetsPopoverViewController.create(.savePitchUserPresetRequest)
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
@@ -26,6 +26,8 @@ class PitchViewController: NSViewController, ActionMessageSubscriber {
     override func viewDidLoad() {
         
         initControls()
+        
+        SyncMessenger.subscribe(messageTypes: [.savePitchUserPresetRequest], subscriber: self)
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch], subscriber: self)
@@ -102,6 +104,24 @@ class PitchViewController: NSViewController, ActionMessageSubscriber {
         presetsMenu.selectItem(at: -1)
     }
     
+    // Displays a popover to allow the user to name the new custom preset
+    @IBAction func savePresetAction(_ sender: AnyObject) {
+        
+        userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
+        
+        // If this isn't done, the app windows are hidden when the popover is displayed
+        WindowState.window.orderFront(self)
+    }
+    
+    // Actually saves the new user-defined preset
+    private func saveUserPreset(_ request: SaveUserPresetRequest) {
+        
+        PitchPresets.addUserDefinedPreset(request.presetName, pitchSlider.floatValue, pitchOverlapSlider.floatValue)
+        
+        // Add a menu item for the new preset, at the top of the menu
+        presetsMenu.insertItem(withTitle: request.presetName, at: 0)
+    }
+    
     // Increases the overall pitch by a certain preset increment
     private func increasePitch() {
         pitchChange(graph.increasePitch())
@@ -146,5 +166,18 @@ class PitchViewController: NSViewController, ActionMessageSubscriber {
         default: return
             
         }
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        switch request.messageType {
+            
+        case .savePitchUserPresetRequest: saveUserPreset(request as! SaveUserPresetRequest)
+            
+        default: return EmptyResponse.instance
+            
+        }
+        
+        return EmptyResponse.instance
     }
 }

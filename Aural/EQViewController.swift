@@ -25,7 +25,7 @@ class EQViewController: NSViewController, ActionMessageSubscriber, MessageSubscr
     @IBOutlet weak var eqPresets: NSPopUpButton!
     @IBOutlet weak var btnSavePreset: NSButton!
     
-    private lazy var userPresetsPopover: EQUserPresetsPopoverViewController = EQUserPresetsPopoverViewController.create()
+    private lazy var userPresetsPopover: EQUserPresetsPopoverViewController = EQUserPresetsPopoverViewController.create(.saveEQUserPresetRequest)
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
@@ -38,7 +38,7 @@ class EQViewController: NSViewController, ActionMessageSubscriber, MessageSubscr
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble], subscriber: self)
-        SyncMessenger.subscribe(messageTypes: [.saveEQUserPreset], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.saveEQUserPresetRequest], subscriber: self)
     }
     
     private func initControls() {
@@ -89,7 +89,20 @@ class EQViewController: NSViewController, ActionMessageSubscriber, MessageSubscr
     
     // Displays a popover to allow the user to name the new custom preset
     @IBAction func savePresetAction(_ sender: AnyObject) {
+        
         userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
+        
+        // If this isn't done, the app windows are hidden when the popover is displayed
+        WindowState.window.orderFront(self)
+    }
+    
+    // Actually saves the new user-defined preset
+    private func saveUserPreset(_ request: SaveUserPresetRequest) {
+        
+        EQPresets.addUserDefinedPreset(request.presetName, getAllBands())
+        
+        // Add a menu item for the new preset, at the top of the menu
+        eqPresets.insertItem(withTitle: request.presetName, at: 0)
     }
     
     private func updateAllEQSliders(_ eqBands: [Int: Float]) {
@@ -100,6 +113,7 @@ class EQViewController: NSViewController, ActionMessageSubscriber, MessageSubscr
     }
     
     private func showEQTab() {
+    
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.showEffectsUnitTab, .eq))
     }
     
@@ -142,15 +156,6 @@ class EQViewController: NSViewController, ActionMessageSubscriber, MessageSubscr
         showEQTab()
     }
     
-    // Actually saves the new user-defined preset
-    private func saveUserPreset(_ request: SaveEQUserPresetRequest) {
-        
-        EQPresets.addUserDefinedPreset(request.presetName, getAllBands())
-        
-        // Add a menu item for the new preset, at the top of the menu
-        eqPresets.insertItem(withTitle: request.presetName, at: 0)
-    }
-    
     private func getAllBands() -> [Int: Float] {
         
         var allBands: [Int: Float] = [Int: Float]()
@@ -191,7 +196,7 @@ class EQViewController: NSViewController, ActionMessageSubscriber, MessageSubscr
         
         switch request.messageType {
             
-        case .saveEQUserPreset: saveUserPreset(request as! SaveEQUserPresetRequest)
+        case .saveEQUserPresetRequest: saveUserPreset(request as! SaveUserPresetRequest)
             
         default: return EmptyResponse.instance
             

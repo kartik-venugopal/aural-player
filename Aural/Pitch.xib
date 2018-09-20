@@ -215,6 +215,9 @@
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="savePresetAction:" target="-2" id="n17-c5-3Yt"/>
+                    </connections>
                 </button>
             </subviews>
         </view>
