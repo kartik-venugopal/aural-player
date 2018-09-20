@@ -29,7 +29,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <box boxType="custom" borderWidth="0.0" cornerRadius="5" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="2Bk-G6-skT" userLabel="Root Container">
+                    <box boxType="custom" borderWidth="0.0" cornerRadius="3" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="2Bk-G6-skT" userLabel="Root Container">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
                         <view key="contentView" id="ew4-md-MxP">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
