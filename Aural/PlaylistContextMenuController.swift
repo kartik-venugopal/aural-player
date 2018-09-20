@@ -101,7 +101,6 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             
             history.removeFavorite(track)
             favoritesPopup.showRemovedMessage(rowView, NSRectEdge.maxX)
-            WindowState.window.makeKeyAndOrderFront(self)
             
         } else {
             
@@ -109,8 +108,10 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             
             history.addFavorite(track)
             favoritesPopup.showAddedMessage(rowView, NSRectEdge.maxX)
-            WindowState.window.makeKeyAndOrderFront(self)
         }
+        
+        // If this isn't done, the app windows are hidden when the popover is displayed
+        WindowState.window.orderFront(self)
     }
     
     // Shows a popover with detailed information for the currently playing track, if there is one

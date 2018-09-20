@@ -103,7 +103,9 @@ enum MessageType {
     
     case emptyResponse
     
-    case saveEQUserPreset
+    case saveEQUserPresetRequest
+    
+    case savePitchUserPresetRequest
 }
 
 // Notification indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
@@ -431,15 +433,16 @@ struct PlaybackLoopChangedNotification: NotificationMessage {
     static let instance: PlaybackLoopChangedNotification = PlaybackLoopChangedNotification()
 }
 
-// Request from the EQ User Presets popover to the EQ effects unit controller to save a user-defined EQ preset with a given name
-struct SaveEQUserPresetRequest: RequestMessage {
+// Request from the User Presets popover to an effects unit controller to save a user-defined preset with a given name
+struct SaveUserPresetRequest: RequestMessage {
     
-    let messageType: MessageType = .saveEQUserPreset
+    let messageType: MessageType
     
-    // Name of the new EQ preset being saved
+    // Name of the new Pitch preset being saved
     let presetName: String
     
-    init(_ presetName: String) {
+    init(_ messageType: MessageType, _ presetName: String) {
+        self.messageType = messageType
         self.presetName = presetName
     }
 }

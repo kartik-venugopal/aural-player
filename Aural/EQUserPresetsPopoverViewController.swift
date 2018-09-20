@@ -18,9 +18,12 @@ class EQUserPresetsPopoverViewController: NSViewController, NSPopoverDelegate {
     
     override var nibName: String? {return "EQUserPresetsPopover"}
     
-    static func create() -> EQUserPresetsPopoverViewController {
+    private var callbackRequestType: MessageType!
+    
+    static func create(_ callbackRequestType: MessageType) -> EQUserPresetsPopoverViewController {
         
         let controller = EQUserPresetsPopoverViewController()
+        controller.callbackRequestType = callbackRequestType
         
         let popover = NSPopover()
         popover.behavior = .semitransient
@@ -60,7 +63,7 @@ class EQUserPresetsPopoverViewController: NSViewController, NSPopoverDelegate {
             
         } else {
         
-            _ = SyncMessenger.publishRequest(SaveEQUserPresetRequest(nameField.stringValue))
+            _ = SyncMessenger.publishRequest(SaveUserPresetRequest(callbackRequestType, nameField.stringValue))
             self.close()
         }
     }
