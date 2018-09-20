@@ -117,6 +117,7 @@ class AudioGraphState: PersistentState {
     var reverbBypass: Bool = AppDefaults.reverbBypass
     var reverbSpace: ReverbSpaces = AppDefaults.reverbSpace
     var reverbAmount: Float = AppDefaults.reverbAmount
+    var reverbUserPresets: [ReverbPreset] = [ReverbPreset]()
     
     var delayBypass: Bool = AppDefaults.delayBypass
     var delayAmount: Float = AppDefaults.delayAmount
@@ -212,6 +213,18 @@ class AudioGraphState: PersistentState {
         reverbDict["bypass"] = reverbBypass as AnyObject
         reverbDict["space"] = reverbSpace.rawValue as AnyObject
         reverbDict["amount"] = reverbAmount as NSNumber
+        
+        var reverbUserPresetsArr = [[NSString: AnyObject]]()
+        for preset in reverbUserPresets {
+            
+            var presetDict = [NSString: AnyObject]()
+            presetDict["name"] = preset.name as AnyObject
+            presetDict["space"] = preset.space.rawValue as AnyObject
+            presetDict["amount"] = preset.amount as NSNumber
+            
+            reverbUserPresetsArr.append(presetDict)
+        }
+        reverbDict["userPresets"] = NSArray(array: reverbUserPresetsArr)
         
         map["reverb"] = reverbDict as AnyObject
         
@@ -426,6 +439,35 @@ class AudioGraphState: PersistentState {
             
             if let amount = reverbDict["amount"] as? NSNumber {
                 audioGraphState.reverbAmount = amount.floatValue
+            }
+            
+            // Reverb user presets
+            if let userPresets = reverbDict["userPresets"] as? [NSDictionary] {
+                
+                userPresets.forEach({
+                    
+                    var presetName: String?
+                    var presetSpace: String?
+                    var presetAmount: Float?
+                    
+                    if let name = $0["name"] as? String {
+                        presetName = name
+                    }
+                    
+                    if let space = $0["space"] as? String {
+                        presetSpace = space
+                    }
+                    
+                    if let amount = $0["amount"] as? NSNumber {
+                        presetAmount = amount.floatValue
+                    }
+                    
+                    // Preset must have a name
+                    if let presetName = presetName {
+                        
+                        audioGraphState.reverbUserPresets.append(ReverbPreset(name: presetName, space: ReverbSpaces(rawValue: presetSpace!)!, amount: presetAmount!))
+                    }
+                })
             }
         }
         

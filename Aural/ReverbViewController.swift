@@ -8,7 +8,7 @@ class ReverbViewController: NSViewController, StringInputClient {
     // Reverb controls
     @IBOutlet weak var btnReverbBypass: EffectsUnitBypassButton!
     @IBOutlet weak var reverbSpaceMenu: NSPopUpButton!
-    @IBOutlet weak var reverbSlider: NSSlider!
+    @IBOutlet weak var reverbAmountSlider: NSSlider!
     @IBOutlet weak var lblReverbAmountValue: NSTextField!
     
     // Presets menu
@@ -32,8 +32,11 @@ class ReverbViewController: NSViewController, StringInputClient {
         reverbSpaceMenu.select(reverbSpaceMenu.item(withTitle: graph.getReverbSpace()))
         
         let amount = graph.getReverbAmount()
-        reverbSlider.floatValue = amount.amount
+        reverbAmountSlider.floatValue = amount.amount
         lblReverbAmountValue.stringValue = amount.amountString
+        
+        // Initialize the menu with user-defined presets
+        ReverbPresets.allPresets().forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
         
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
@@ -52,16 +55,21 @@ class ReverbViewController: NSViewController, StringInputClient {
 
     // Updates the Reverb amount parameter
     @IBAction func reverbAmountAction(_ sender: AnyObject) {
-        lblReverbAmountValue.stringValue = graph.setReverbAmount(reverbSlider.floatValue)
+        lblReverbAmountValue.stringValue = graph.setReverbAmount(reverbAmountSlider.floatValue)
     }
     
     // Applies a preset to the effects unit
     @IBAction func reverbPresetsAction(_ sender: AnyObject) {
         
         // Get preset definition
-//        let preset = PitchPresets.presetByName(presetsMenu.titleOfSelectedItem!)
+        if let preset = ReverbPresets.presetByName(presetsMenu.titleOfSelectedItem!) {
         
-        
+            graph.setReverbSpace(preset.space)
+            reverbSpaceMenu.selectItem(withTitle: preset.space.description)
+            
+            lblReverbAmountValue.stringValue = graph.setReverbAmount(preset.amount)
+            reverbAmountSlider.floatValue = preset.amount
+        }
         
         // Don't select any of the items
         presetsMenu.selectItem(at: -1)
@@ -88,19 +96,19 @@ class ReverbViewController: NSViewController, StringInputClient {
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-//        let valid = !PitchPresets.presetWithNameExists(string)
-//        
-//        if (!valid) {
-//            return (false, "Preset with this name already exists !")
-//        } else {
+        let valid = !ReverbPresets.presetWithNameExists(string)
+
+        if (!valid) {
+            return (false, "Preset with this name already exists !")
+        } else {
             return (true, nil)
-//        }
+        }
     }
     
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
         
-//        PitchPresets.addUserDefinedPreset(string, pitchSlider.floatValue, pitchOverlapSlider.floatValue)
+        ReverbPresets.addUserDefinedPreset(string, ReverbSpaces.fromDescription((reverbSpaceMenu.selectedItem?.title)!), reverbAmountSlider.floatValue)
         
         // Add a menu item for the new preset, at the top of the menu
         presetsMenu.insertItem(withTitle: string, at: 0)
