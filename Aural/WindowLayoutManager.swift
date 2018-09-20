@@ -53,13 +53,16 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
         
         let appState = ObjectGraph.getUIAppState()
         
-        // If a specific position is specified, use it
-        if let mainWindowOrigin = appState.windowLocationXY {
-            mainWindow.setFrameOrigin(mainWindowOrigin)
-        } else {
-            // Need to calculate position
-            positionMainWindowRelativeToScreen(appState.windowLocationOnStartup.windowLocation, appState.playlistLocation, !appState.hidePlaylist)
-        }
+//        // If a specific position is specified, use it
+//        if let mainWindowOrigin = appState.windowLocationXY {
+////            mainWindow.setFrameOrigin(mainWindowOrigin)
+//            mainWindow.setFrameOrigin(NSPoint(x: 400, y: 600))
+//        } else {
+//            // Need to calculate position
+//            positionMainWindowRelativeToScreen(appState.windowLocationOnStartup.windowLocation, appState.playlistLocation, !appState.hidePlaylist)
+//        }
+        
+        mainWindow.setFrameOrigin(NSPoint(x: 400, y: 600))
         
         // Show and dock the playlist, if needed
         lastDockState = appState.playlistLocation.toPlaylistDockState()

@@ -98,6 +98,7 @@ class AudioGraphState: PersistentState {
     var timeStretchRate: Float = AppDefaults.timeStretchRate
     var timeShiftPitch: Bool = AppDefaults.timeShiftPitch
     var timeOverlap: Float = AppDefaults.timeOverlap
+    var timeUserPresets: [TimePreset] = [TimePreset]()
     
     var reverbBypass: Bool = AppDefaults.reverbBypass
     var reverbPreset: ReverbPresets = AppDefaults.reverbPreset
@@ -177,6 +178,19 @@ class AudioGraphState: PersistentState {
         timeDict["rate"] = timeStretchRate as NSNumber
         timeDict["shiftPitch"] = timeShiftPitch as AnyObject
         timeDict["overlap"] = timeOverlap as NSNumber
+        
+        var timeUserPresetsArr = [[NSString: AnyObject]]()
+        for preset in timeUserPresets {
+            
+            var presetDict = [NSString: AnyObject]()
+            presetDict["name"] = preset.name as AnyObject
+            presetDict["rate"] = preset.rate as NSNumber
+            presetDict["overlap"] = preset.overlap as NSNumber
+            presetDict["shiftPitch"] = preset.pitchShift as AnyObject
+            
+            timeUserPresetsArr.append(presetDict)
+        }
+        timeDict["userPresets"] = NSArray(array: timeUserPresetsArr)
         
         map["time"] = timeDict as AnyObject
         
@@ -348,6 +362,39 @@ class AudioGraphState: PersistentState {
             
             if let timeOverlap = timeDict["overlap"] as? NSNumber {
                 audioGraphState.timeOverlap = timeOverlap.floatValue
+            }
+            
+            // Time user presets
+            if let userPresets = timeDict["userPresets"] as? [NSDictionary] {
+                
+                userPresets.forEach({
+                    
+                    var presetName: String?
+                    var presetRate: Float?
+                    var presetOverlap: Float?
+                    var presetPitchShift: Bool?
+                    
+                    if let name = $0["name"] as? String {
+                        presetName = name
+                    }
+                    
+                    if let rate = $0["rate"] as? NSNumber {
+                        presetRate = rate.floatValue
+                    }
+                    
+                    if let overlap = $0["overlap"] as? NSNumber {
+                        presetOverlap = overlap.floatValue
+                    }
+                    
+                    if let pitchShift = $0["shiftPitch"] as? Bool {
+                        presetPitchShift = pitchShift
+                    }
+                    
+                    // Preset must have a name
+                    if let presetName = presetName {
+                        audioGraphState.timeUserPresets.append(TimePreset(name: presetName, rate: presetRate!, overlap: presetOverlap!, pitchShift: presetPitchShift!, systemDefined: false))
+                    }
+                })
             }
         }
         

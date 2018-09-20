@@ -8,11 +8,13 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TimeViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnSavePreset" destination="Zcn-3u-MVb" id="RZL-Xa-E1E"/>
                 <outlet property="btnShiftPitch" destination="5TX-uq-BeN" id="wNA-UJ-CVh"/>
                 <outlet property="btnTimeBypass" destination="0b3-aI-4fr" id="9e8-5X-poD"/>
                 <outlet property="lblPitchShiftValue" destination="CIZ-jM-pHe" id="mdR-eU-xUh"/>
                 <outlet property="lblTimeOverlapValue" destination="DcH-Hf-ey4" id="HMZ-kc-mAr"/>
                 <outlet property="lblTimeStretchRateValue" destination="4Bh-R6-0a8" id="sCc-Jv-Z5n"/>
+                <outlet property="presetsMenu" destination="jID-iV-7XK" id="Z0Y-xG-h8D"/>
                 <outlet property="timeOverlapSlider" destination="Lrx-h1-AHh" id="fQE-xW-zuN"/>
                 <outlet property="timeSlider" destination="CJC-Zn-SHV" id="QNK-dO-l7H"/>
                 <outlet property="view" destination="cWd-Fu-GJN" id="02m-Ap-0Qq"/>
@@ -190,21 +192,46 @@
                         <menu key="menu" showsStateColumn="NO" id="MiX-x9-TFO">
                             <items>
                                 <menuItem isSeparatorItem="YES" id="Jn5-1x-Rbs"/>
-                                <menuItem title="+2 8ve" id="bAU-4f-RBh">
+                                <menuItem title="Too much coffee" id="UIe-OT-LhL">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="+1 8ve" id="vz3-Cd-whY">
+                                <menuItem title="Speedy Gonzales" id="bAU-4f-RBh">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="-1 8ve" id="Yxm-FW-Hvo">
+                                <menuItem title="Laid back" id="dZE-9n-Tdy">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="-2 8ve" id="XrQ-AZ-I3m">
+                                <menuItem title="Slow like molasses" id="rnZ-Jw-wRi">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem isSeparatorItem="YES" id="GjP-bB-Cyx"/>
+                                <menuItem title="0.25x" id="8NW-7e-gkp">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="0.5x" id="vz3-Cd-whY">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="0.75x" id="Yxm-FW-Hvo">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Normal (1x)" id="XrQ-AZ-I3m">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="2x" id="jaM-3t-Mkh">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="3x" id="Nnz-YE-kax">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="4x" id="Upd-0V-FX0">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <connections>
+                        <action selector="timePresetsAction:" target="-2" id="qvA-2E-J2V"/>
+                    </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zcn-3u-MVb" userLabel="Save">
                     <rect key="frame" x="401" y="6" width="11" height="11"/>
@@ -213,6 +240,9 @@
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="savePresetAction:" target="-2" id="v2v-uN-Tea"/>
+                    </connections>
                 </button>
             </subviews>
         </view>

@@ -80,6 +80,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         timeNode.rate = state.timeStretchRate
         timeNode.shiftPitch = state.timeShiftPitch
         timeNode.overlap = state.timeOverlap
+        TimePresets.loadUserDefinedPresets(state.timeUserPresets)
         
         // Reverb
         reverbNode.bypass = state.reverbBypass
@@ -420,6 +421,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.timeStretchRate = timeNode.rate
         state.timeShiftPitch = timeNode.shiftPitch
         state.timeOverlap = timeNode.overlap
+        state.timeUserPresets = TimePresets.userDefinedPresets
         
         // Reverb
         state.reverbBypass = reverbNode.bypass
