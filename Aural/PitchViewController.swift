@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Pitch effects unit
  */
-class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
+class PitchViewController: NSViewController, ActionMessageSubscriber, StringInputClient {
     
     // Pitch controls
     @IBOutlet weak var btnPitchBypass: EffectsUnitBypassButton!
@@ -16,7 +16,7 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
     @IBOutlet weak var presetsMenu: NSPopUpButton!
     @IBOutlet weak var btnSavePreset: NSButton!
     
-    private lazy var userPresetsPopover: EQUserPresetsPopoverViewController = EQUserPresetsPopoverViewController.create(.savePitchUserPresetRequest)
+    private lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
@@ -26,8 +26,6 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
     override func viewDidLoad() {
         
         initControls()
-        
-        SyncMessenger.subscribe(messageTypes: [.savePitchUserPresetRequest], subscriber: self)
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch], subscriber: self)
@@ -168,16 +166,33 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
         }
     }
     
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+    // MARK - StringInputClient functions
+    
+    func getInputPrompt() -> String {
+        return "Enter a new preset name:"
+    }
+    
+    func getDefaultValue() -> String? {
+        return "<New Pitch preset>"
+    }
+    
+    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        switch request.messageType {
-            
-        case .savePitchUserPresetRequest: saveUserPreset(request as! SaveUserPresetRequest)
-            
-        default: return EmptyResponse.instance
-            
+        let valid = !PitchPresets.presetWithNameExists(string)
+        
+        if (!valid) {
+            return (false, "Preset with this name already exists !")
+        } else {
+            return (true, nil)
         }
+    }
+    
+    // Receives a new EQ preset name and saves the new preset
+    func acceptInput(_ string: String) {
         
-        return EmptyResponse.instance
+        PitchPresets.addUserDefinedPreset(string, pitchSlider.floatValue, pitchOverlapSlider.floatValue)
+        
+        // Add a menu item for the new preset, at the top of the menu
+        presetsMenu.insertItem(withTitle: string, at: 0)
     }
 }
