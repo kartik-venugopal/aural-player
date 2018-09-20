@@ -27,7 +27,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     // Sound setting value holders
     private var playerVolume: Float
     private var muted: Bool
-    private var reverbPreset: AVAudioUnitReverbPreset
+    private var reverbSpace: AVAudioUnitReverbPreset
     
     // Sets up the audio engine
     init(_ state: AudioGraphState) {
@@ -84,9 +84,9 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         // Reverb
         reverbNode.bypass = state.reverbBypass
-        let avPreset: AVAudioUnitReverbPreset = state.reverbPreset.avPreset
-        reverbPreset = avPreset
-        reverbNode.loadFactoryPreset(reverbPreset)
+        let avPreset: AVAudioUnitReverbPreset = state.reverbSpace.avPreset
+        reverbSpace = avPreset
+        reverbNode.loadFactoryPreset(reverbSpace)
         reverbNode.wetDryMix = state.reverbAmount
         
         // Delay
@@ -281,15 +281,15 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         return newState
     }
     
-    func getReverbPreset() -> ReverbPresets {
-        return ReverbPresets.mapFromAVPreset(reverbPreset)
+    func getReverbSpace() -> ReverbSpaces {
+        return ReverbSpaces.mapFromAVPreset(reverbSpace)
     }
     
-    func setReverb(_ preset: ReverbPresets) {
+    func setReverbSpace(_ space: ReverbSpaces) {
         
-        let avPreset: AVAudioUnitReverbPreset = preset.avPreset
-        reverbPreset = avPreset
-        reverbNode.loadFactoryPreset(reverbPreset)
+        let avPreset: AVAudioUnitReverbPreset = space.avPreset
+        self.reverbSpace = avPreset
+        reverbNode.loadFactoryPreset(self.reverbSpace)
     }
     
     func getReverbAmount() -> Float {
@@ -425,7 +425,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         // Reverb
         state.reverbBypass = reverbNode.bypass
-        state.reverbPreset = ReverbPresets.mapFromAVPreset(reverbPreset)
+        state.reverbSpace = ReverbSpaces.mapFromAVPreset(reverbSpace)
         state.reverbAmount = reverbNode.wetDryMix
         
         // Delay

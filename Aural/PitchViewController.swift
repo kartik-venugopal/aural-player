@@ -111,15 +111,6 @@ class PitchViewController: NSViewController, ActionMessageSubscriber, StringInpu
         WindowState.window.orderFront(self)
     }
     
-    // Actually saves the new user-defined preset
-    private func saveUserPreset(_ request: SaveUserPresetRequest) {
-        
-        PitchPresets.addUserDefinedPreset(request.presetName, pitchSlider.floatValue, pitchOverlapSlider.floatValue)
-        
-        // Add a menu item for the new preset, at the top of the menu
-        presetsMenu.insertItem(withTitle: request.presetName, at: 0)
-    }
-    
     // Increases the overall pitch by a certain preset increment
     private func increasePitch() {
         pitchChange(graph.increasePitch())

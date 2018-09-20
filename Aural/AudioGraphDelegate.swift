@@ -359,12 +359,12 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return graph.toggleReverbBypass()
     }
     
-    func getReverbPreset() -> String {
-        return graph.getReverbPreset().description
+    func getReverbSpace() -> String {
+        return graph.getReverbSpace().description
     }
     
-    func setReverb(_ preset: ReverbPresets) {
-        graph.setReverb(preset)
+    func setReverbSpace(_ space: ReverbSpaces) {
+        graph.setReverbSpace(space)
     }
     
     func getReverbAmount() -> (amount: Float, amountString: String) {

@@ -4,7 +4,7 @@ import AVFoundation
 /*
     Enumeration of all possible reverb effect presets
  */
-enum ReverbPresets: String {
+enum ReverbSpaces: String {
     
     case smallRoom
     
@@ -24,7 +24,7 @@ enum ReverbPresets: String {
     
     case plate
     
-    // Maps a ReverbPresets to a AVAudioUnitReverbPreset
+    // Maps a ReverbSpaces to a AVAudioUnitReverbPreset
     var avPreset: AVAudioUnitReverbPreset {
         
         switch self {
@@ -46,7 +46,7 @@ enum ReverbPresets: String {
     }
     
     // Maps a AVAudioUnitReverbPreset to a ReverbPresets
-    static func mapFromAVPreset(_ preset: AVAudioUnitReverbPreset) -> ReverbPresets {
+    static func mapFromAVPreset(_ preset: AVAudioUnitReverbPreset) -> ReverbSpaces {
         
         switch preset {
             
@@ -64,7 +64,8 @@ enum ReverbPresets: String {
         case AVAudioUnitReverbPreset.plate: return .plate
             
         // This should never happen
-        default: return ReverbPresets.smallRoom
+        default: return ReverbSpaces.smallRoom
+            
         }
     }
     
@@ -74,7 +75,7 @@ enum ReverbPresets: String {
     }
  
     // Constructs a ReverPresets object from a description string
-    static func fromDescription(_ description: String) -> ReverbPresets {
-        return ReverbPresets(rawValue: StringUtils.camelCase(description)) ?? AppDefaults.reverbPreset
+    static func fromDescription(_ description: String) -> ReverbSpaces {
+        return ReverbSpaces(rawValue: StringUtils.camelCase(description)) ?? AppDefaults.reverbSpace
     }
 }

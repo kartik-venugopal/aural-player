@@ -133,10 +133,10 @@ protocol ReverbUnitProtocol {
     // Toggles the bypass state of the reverb audio effects unit, and returns its new bypass state
     func toggleReverbBypass() -> Bool
     
-    func getReverbPreset() -> ReverbPresets
+    func getReverbSpace() -> ReverbSpaces
     
-    // Sets the reverb preset. See ReverbPresets for more details.
-    func setReverb(_ preset: ReverbPresets)
+    // Sets the reverb space. See ReverbSpaces for more details.
+    func setReverbSpace(_ space: ReverbSpaces)
     
     func getReverbAmount() -> Float
     

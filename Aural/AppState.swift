@@ -115,7 +115,7 @@ class AudioGraphState: PersistentState {
     var timeUserPresets: [TimePreset] = [TimePreset]()
     
     var reverbBypass: Bool = AppDefaults.reverbBypass
-    var reverbPreset: ReverbPresets = AppDefaults.reverbPreset
+    var reverbSpace: ReverbSpaces = AppDefaults.reverbSpace
     var reverbAmount: Float = AppDefaults.reverbAmount
     
     var delayBypass: Bool = AppDefaults.delayBypass
@@ -210,7 +210,7 @@ class AudioGraphState: PersistentState {
         
         var reverbDict = [NSString: AnyObject]()
         reverbDict["bypass"] = reverbBypass as AnyObject
-        reverbDict["preset"] = reverbPreset.rawValue as AnyObject
+        reverbDict["space"] = reverbSpace.rawValue as AnyObject
         reverbDict["amount"] = reverbAmount as NSNumber
         
         map["reverb"] = reverbDict as AnyObject
@@ -418,9 +418,9 @@ class AudioGraphState: PersistentState {
                 audioGraphState.reverbBypass = bypass
             }
             
-            if let preset = reverbDict["preset"] as? String {
-                if let reverbPreset = ReverbPresets(rawValue: preset) {
-                    audioGraphState.reverbPreset = reverbPreset
+            if let space = reverbDict["space"] as? String {
+                if let reverbSpace = ReverbSpaces(rawValue: space) {
+                    audioGraphState.reverbSpace = reverbSpace
                 }
             }
             

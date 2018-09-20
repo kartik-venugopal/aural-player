@@ -37,7 +37,7 @@ class AppDefaults {
     static let timeOverlap: Float = 8
     
     static let reverbBypass: Bool = true
-    static let reverbPreset: ReverbPresets = .mediumHall
+    static let reverbSpace: ReverbSpaces = .mediumHall
     static let reverbAmount: Float = 50
     
     static let delayBypass: Bool = true
