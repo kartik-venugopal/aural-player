@@ -42,7 +42,7 @@ class UIAppState {
     var seekTimerInterval: Int
     
     var reverbBypass: Bool
-    var reverbPreset: String
+    var reverbSpace: String
     var reverbAmount: Float
     
     var formattedReverbAmount: String
@@ -139,7 +139,7 @@ class UIAppState {
         self.seekTimerInterval = audioGraphState.timeBypass ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * audioGraphState.timeStretchRate))
         
         self.reverbBypass = audioGraphState.reverbBypass
-        self.reverbPreset = audioGraphState.reverbPreset.description
+        self.reverbSpace = audioGraphState.reverbSpace.description
         self.reverbAmount = audioGraphState.reverbAmount
         
         self.formattedReverbAmount = ValueFormatter.formatReverbAmount(audioGraphState.reverbAmount)
