@@ -21,6 +21,11 @@
                 <outlet property="recentlyPlayedMenu" destination="7KE-9e-wni" id="Phj-0T-PKd"/>
             </connections>
         </customObject>
+        <customObject id="nnl-Fg-dA2" customClass="BookmarksMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theMenu" destination="6PU-OL-7xn" id="mTh-Bf-jxD"/>
+            </connections>
+        </customObject>
         <customObject id="sXT-Pr-clR" customClass="PlaylistMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="clearPlaylistMenuItem" destination="ec2-Jm-I4M" id="EHN-Pi-SW4"/>
@@ -152,6 +157,22 @@
                         </items>
                         <connections>
                             <outlet property="delegate" destination="XfS-j8-3jQ" id="zhe-eR-H6f"/>
+                        </connections>
+                    </menu>
+                </menuItem>
+                <menuItem title="Bookmarks" id="bXl-ck-EIb">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Bookmarks" autoenablesItems="NO" id="6PU-OL-7xn">
+                        <items>
+                            <menuItem title="Bookmark this track position" keyEquivalent="b" id="qCe-8O-8ky">
+                                <connections>
+                                    <action selector="bookmarkAction:" target="nnl-Fg-dA2" id="AVT-hc-yET"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="pCO-vY-1DM"/>
+                        </items>
+                        <connections>
+                            <outlet property="delegate" destination="nnl-Fg-dA2" id="DQe-BM-0tL"/>
                         </connections>
                     </menu>
                 </menuItem>

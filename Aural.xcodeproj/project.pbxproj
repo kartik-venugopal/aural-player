@@ -105,6 +105,12 @@
 		3E59A3771F9959C10087198C /* GroupingPlaylistDataSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59A3761F9959C10087198C /* GroupingPlaylistDataSources.swift */; };
 		3E5F00C121536CF000A76C23 /* PitchPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00C021536CF000A76C23 /* PitchPresets.swift */; };
 		3E5F00C3215386CA00A76C23 /* TimePresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00C2215386CA00A76C23 /* TimePresets.swift */; };
+		3E5F00C62153986700A76C23 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00C52153986700A76C23 /* Bookmark.swift */; };
+		3E5F00C82153993100A76C23 /* BookmarksDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00C72153993100A76C23 /* BookmarksDelegateProtocol.swift */; };
+		3E5F00CA21539B2200A76C23 /* BookmarksDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00C921539B2200A76C23 /* BookmarksDelegate.swift */; };
+		3E5F00CC21539B5C00A76C23 /* Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00CB21539B5C00A76C23 /* Bookmarks.swift */; };
+		3E5F00CE21539B7200A76C23 /* BookmarksProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00CD21539B7200A76C23 /* BookmarksProtocol.swift */; };
+		3E5F00D02153A09500A76C23 /* BookmarksMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00CF2153A09500A76C23 /* BookmarksMenuController.swift */; };
 		3E631F771F9A00C20068FD6A /* ConcurrencyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E631F761F9A00C20068FD6A /* ConcurrencyUtils.swift */; };
 		3E633C471F14C6530040ECBC /* MultiBandStopFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */; };
 		3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C481F14C9110040ECBC /* ParametricEQNode.swift */; };
@@ -335,6 +341,12 @@
 		3E59A3761F9959C10087198C /* GroupingPlaylistDataSources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistDataSources.swift; sourceTree = "<group>"; };
 		3E5F00C021536CF000A76C23 /* PitchPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PitchPresets.swift; sourceTree = "<group>"; };
 		3E5F00C2215386CA00A76C23 /* TimePresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePresets.swift; sourceTree = "<group>"; };
+		3E5F00C52153986700A76C23 /* Bookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
+		3E5F00C72153993100A76C23 /* BookmarksDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksDelegateProtocol.swift; sourceTree = "<group>"; };
+		3E5F00C921539B2200A76C23 /* BookmarksDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksDelegate.swift; sourceTree = "<group>"; };
+		3E5F00CB21539B5C00A76C23 /* Bookmarks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmarks.swift; sourceTree = "<group>"; };
+		3E5F00CD21539B7200A76C23 /* BookmarksProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksProtocol.swift; sourceTree = "<group>"; };
+		3E5F00CF2153A09500A76C23 /* BookmarksMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksMenuController.swift; sourceTree = "<group>"; };
 		3E631F761F9A00C20068FD6A /* ConcurrencyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrencyUtils.swift; sourceTree = "<group>"; };
 		3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiBandStopFilterNode.swift; sourceTree = "<group>"; };
 		3E633C481F14C9110040ECBC /* ParametricEQNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametricEQNode.swift; sourceTree = "<group>"; };
@@ -506,8 +518,8 @@
 		3E06C0281FB6B105003EE9AB /* History */ = {
 			isa = PBXGroup;
 			children = (
-				3E06C0301FB6CA2A003EE9AB /* HistoryDelegate.swift */,
 				3ED1008A1FBAD01B00D48688 /* HistoryDelegateProtocol.swift */,
+				3E06C0301FB6CA2A003EE9AB /* HistoryDelegate.swift */,
 				3ED1008C1FBAD54600D48688 /* HistoryProtocol.swift */,
 				3E06C0291FB6B120003EE9AB /* History.swift */,
 				3E06C02B1FB6B137003EE9AB /* HistoryItems.swift */,
@@ -808,6 +820,18 @@
 			name = Menus;
 			sourceTree = "<group>";
 		};
+		3E5F00C4215397D700A76C23 /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				3E5F00C52153986700A76C23 /* Bookmark.swift */,
+				3E5F00C72153993100A76C23 /* BookmarksDelegateProtocol.swift */,
+				3E5F00C921539B2200A76C23 /* BookmarksDelegate.swift */,
+				3E5F00CD21539B7200A76C23 /* BookmarksProtocol.swift */,
+				3E5F00CB21539B5C00A76C23 /* Bookmarks.swift */,
+			);
+			name = Bookmarks;
+			sourceTree = "<group>";
+		};
 		3E5FA43F1EFFF039001669C5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -952,6 +976,7 @@
 				3E3C20A41F0A3CE100AF5A62 /* AudioGraph */,
 				3E2D9E421F662BB90020B99E /* Recorder */,
 				3E06C0281FB6B105003EE9AB /* History */,
+				3E5F00C4215397D700A76C23 /* Bookmarks */,
 				3EA29AD61F0B473600DA239E /* Messaging */,
 				3ED2AF201F00E8B7000F702C /* AppState */,
 				3E2D9E431F664B860020B99E /* Preferences */,
@@ -1098,6 +1123,7 @@
 				3E85F25D1EFA78D6007BE830 /* MainMenu.xib */,
 				3E9847831F5CF3F6001A2D28 /* AuralMenuController.swift */,
 				3E06C0261FB6B0BF003EE9AB /* HistoryMenuController.swift */,
+				3E5F00CF2153A09500A76C23 /* BookmarksMenuController.swift */,
 				3E850D581FB446940017CD02 /* PlaylistMenuController.swift */,
 				3EDDF6AF1FB54AB800DF2E9A /* PlaybackMenuController.swift */,
 				3EB029131FB58CEC00A2D920 /* SoundMenuController.swift */,
@@ -1331,6 +1357,7 @@
 				3E33B49E1F3E70F4005EF359 /* FileSystemUtils.swift in Sources */,
 				3E26B92D1FBC207C00FA3274 /* MultiStateImageButton.swift in Sources */,
 				3EBA52F71FC2E6A2007F902F /* StateMachine.swift in Sources */,
+				3E5F00C62153986700A76C23 /* Bookmark.swift in Sources */,
 				3E80E66F1F04FA60007480CC /* Size.swift in Sources */,
 				3ED100891FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift in Sources */,
 				3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */,
@@ -1351,6 +1378,7 @@
 				3ED1008B1FBAD01B00D48688 /* HistoryDelegateProtocol.swift in Sources */,
 				3E850D5C1FB44DE70017CD02 /* PlaylistSearchWindowController.swift in Sources */,
 				3E0F947B1FBBA01500B6E1B3 /* DelayViewController.swift in Sources */,
+				3E5F00D02153A09500A76C23 /* BookmarksMenuController.swift in Sources */,
 				3ECB858F2152677300D974F5 /* SnappingWindow.swift in Sources */,
 				3E3F82851FCD4CBE00DC9D11 /* BarModeWindowController.swift in Sources */,
 				3E850D591FB446940017CD02 /* PlaylistMenuController.swift in Sources */,
@@ -1358,6 +1386,7 @@
 				3EB9EB6C1FCFB98A00287F53 /* AppModeManager.swift in Sources */,
 				3E0F947F1FBBDC3300B6E1B3 /* OnOffImageButtons.swift in Sources */,
 				3EF5E5B91FBDAF0B004270A4 /* ArtistsPlaylistViewController.swift in Sources */,
+				3E5F00CA21539B2200A76C23 /* BookmarksDelegate.swift in Sources */,
 				3EFFE6BE1F0381FA003728BD /* EQPresets.swift in Sources */,
 				3E06C0311FB6CA2A003EE9AB /* HistoryDelegate.swift in Sources */,
 				3E84F8411F5FBE8F0010BCDA /* PlaylistAccessorDelegate.swift in Sources */,
@@ -1404,6 +1433,7 @@
 				3E1DAAA41FAEB561002BB405 /* CRUDOperationResults.swift in Sources */,
 				3E58CC291F02759D00C36DC1 /* Timer.swift in Sources */,
 				3E1E97111FA44833006C8629 /* PlaybackSequencer.swift in Sources */,
+				3E5F00CE21539B7200A76C23 /* BookmarksProtocol.swift in Sources */,
 				3EDA1FBB214F305C003591FA /* PlaybackSequencerInfoDelegateProtocol.swift in Sources */,
 				3E46F55E1F2A8003007CD384 /* ModalDialogButtonCells.swift in Sources */,
 				3E9847861F5CFCE3001A2D28 /* RecorderViewController.swift in Sources */,
@@ -1445,6 +1475,7 @@
 				3E09C6B71F2F25A7007BB489 /* ShuffleSequence.swift in Sources */,
 				3EA074AC1F3DBBB0005F8966 /* SavedPlaylist.swift in Sources */,
 				3E98478B1F5CFD87001A2D28 /* RecorderDelegateProtocol.swift in Sources */,
+				3E5F00C82153993100A76C23 /* BookmarksDelegateProtocol.swift in Sources */,
 				3E7B61E61F31AB1800F269F0 /* ValueFormatter.swift in Sources */,
 				3E2BDC4D1F0DE1C00099FDB7 /* BufferManager.swift in Sources */,
 				3E06C02A1FB6B120003EE9AB /* History.swift in Sources */,
@@ -1490,6 +1521,7 @@
 				3EDFFA051FC0239F00158177 /* PlaybackPreferencesViewController.swift in Sources */,
 				3E5F00C121536CF000A76C23 /* PitchPresets.swift in Sources */,
 				3EDDF6B01FB54AB800DF2E9A /* PlaybackMenuController.swift in Sources */,
+				3E5F00CC21539B5C00A76C23 /* Bookmarks.swift in Sources */,
 				3E0F947D1FBBA33C00B6E1B3 /* FilterViewController.swift in Sources */,
 				3EFB192B1FB8268700690C60 /* DetailedTrackInfoDataSource.swift in Sources */,
 				3EB2A7EE1F04697E001DF748 /* GraphicsUtils.swift in Sources */,

@@ -86,13 +86,17 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     func play(_ index: Int) throws -> IndexedTrack {
+        return try play(index, 0)
+    }
+    
+    func play(_ index: Int, _ startPosition: Double = 0) throws -> IndexedTrack {
         let track = playbackSequencer.select(index)
-        try play(track)
+        try play(track, startPosition)
         return track
     }
     
     // Throws an error if playback fails
-    private func play(_ track: IndexedTrack?) throws {
+    private func play(_ track: IndexedTrack?, _ startPosition: Double = 0) throws {
         
         // Stop if currently playing
         haltPlayback()
@@ -110,7 +114,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
                 throw actualTrack.lazyLoadingInfo.preparationError!
             }
             
-            player.play(actualTrack)
+            player.play(actualTrack, startPosition)
             
             // Notify observers
             AsyncMessenger.publishMessage(TrackPlayedAsyncMessage(track: actualTrack))
@@ -340,6 +344,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         }
     }
     
+    func seekToTime(_ seconds: Double) {
+        
+        // Calculate the new start position
+        let playingTrack = getPlayingTrack()
+        let trackDuration = playingTrack!.track.duration
+        
+        let percentage = seconds * 100 / trackDuration
+        seekToPercentage(percentage)
+    }
+    
     func getPlayingTrack() -> IndexedTrack? {
         return playbackSequencer.getPlayingTrack()
     }
@@ -400,9 +414,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     func play(_ track: Track) throws -> IndexedTrack {
+        return try play(track, 0)
+    }
+    
+    func play(_ track: Track, _ startPosition: Double = 0) throws -> IndexedTrack {
         
         let indexedTrack = playbackSequencer.select(track)
-        try play(indexedTrack)
+        try play(indexedTrack, startPosition)
         return indexedTrack
     }
     
@@ -415,6 +433,17 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         }
         
         return try play(track)
+    }
+    
+    func play(_ track: Track, _ startPosition: Double, _ playlistType: PlaylistType) throws -> IndexedTrack {
+        
+        if (playlistType == .tracks) {
+            // Play by index
+            let index = playlist.indexOfTrack(track)
+            return try play(index!, startPosition)
+        }
+        
+        return try play(track, startPosition)
     }
     
     func play(_ group: Group) throws -> IndexedTrack {
