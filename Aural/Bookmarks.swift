@@ -17,4 +17,18 @@ class Bookmarks: BookmarksProtocol {
         let allBookmarks = bookmarks
         return allBookmarks
     }
+    
+    func bookmarkWithNameExists(_ name: String) -> Bool {
+        
+        var found: Bool = false
+        
+        bookmarks.forEach({
+            if $0.name == name {
+                found = true
+                return
+            }
+        })
+        
+        return found
+    }
 }

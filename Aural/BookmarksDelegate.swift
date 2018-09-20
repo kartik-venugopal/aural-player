@@ -23,18 +23,16 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
         })
     }
     
-    func addBookmark(_ name: String) -> Bookmark {
-        
-        let track = player.getPlayingTrack()!.track
-        let position = player.getSeekPosition().timeElapsed
-        
-        let theName = String(format: "%@ (%@)", track.conciseDisplayName, StringUtils.formatSecondsToHMS(position))
-        
-        return bookmarks.addBookmark(theName, track.file, position)
+    func addBookmark(_ name: String, _ file: URL, _ position: Double) -> Bookmark {
+        return bookmarks.addBookmark(name, file, position)
     }
     
     func getAllBookmarks() -> [Bookmark] {
         return bookmarks.getAllBookmarks()
+    }
+    
+    func bookmarkWithNameExists(_ name: String) -> Bool {
+        return bookmarks.bookmarkWithNameExists(name)
     }
     
     func playBookmark(_ bookmark: Bookmark) {
