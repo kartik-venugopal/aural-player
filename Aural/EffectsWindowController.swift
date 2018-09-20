@@ -218,9 +218,14 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     
     func windowDidMove(_ notification: Notification) {
         
+        // Check if movement was user-initiated (flag on window)
+        if !theWindow.userMovingWindow {
+            return
+        }
+        
         let snapped = UIUtils.checkForSnap(theWindow, mainWindow)
         
-        if !snapped {
+        if (!snapped) && WindowState.showingPlaylist {
             _ = UIUtils.checkForSnap(theWindow, playlistWindow)
         }
     }
