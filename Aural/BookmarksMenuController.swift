@@ -46,7 +46,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
         let menuItem = BookmarksMenuItem(title: "  " + bookmark.name, action: action, keyEquivalent: "")
         menuItem.target = self
         
-        menuItem.image = bookmark.track.displayInfo.art
+        menuItem.image = bookmark.art
         menuItem.image?.size = Images.historyMenuItemImageSize
         
         menuItem.bookmark = bookmark

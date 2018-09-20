@@ -171,6 +171,12 @@ class MetadataReader {
         
         return (displayName, getArtwork(asset))
     }
+    
+    // Loads art for a given file (used by bookmarks)
+    static func loadArtworkForFile(_ file: URL) -> NSImage? {
+        
+        return getArtwork(AVURLAsset(url: file, options: nil))
+    }
 }
 
 // Denotes the type (format) of a metadata entry

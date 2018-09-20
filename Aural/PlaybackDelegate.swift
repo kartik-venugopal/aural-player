@@ -17,20 +17,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     // User preferences
     private let preferences: PlaybackPreferences
     
-    // Serial queue for track prep tasks (to prevent concurrent prepping of the same track which could cause contention)
-    private var trackPrepQueue: OperationQueue
-    
     init(_ player: PlayerProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ playlist: PlaylistAccessorProtocol, _ preferences: PlaybackPreferences) {
         
         self.player = player
         self.playbackSequencer = playbackSequencer
         self.playlist = playlist
         self.preferences = preferences
-        
-        // Initialize the serial track prep queue
-        self.trackPrepQueue = OperationQueue()
-        trackPrepQueue.underlyingQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
-        trackPrepQueue.maxConcurrentOperationCount = 1
         
         // Subscribe to message notifications
         AsyncMessenger.subscribe([.playbackCompleted], subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive))
@@ -118,43 +110,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             
             // Notify observers
             AsyncMessenger.publishMessage(TrackPlayedAsyncMessage(track: actualTrack))
-            
-            // Prepare next possible tracks for playback
-            prepareNextTracksForPlayback()
-        }
-    }
-    
-    // Computes which tracks are likely to play next (based on the playback sequence and user actions), and eagerly loads metadata for those tracks in preparation for their future playback. This significantly speeds up playback start time when the track is actually played back.
-    private func prepareNextTracksForPlayback() {
-        
-        // Set of all tracks that need to be prepped
-        var prepTracksSet = Set<Track>()
-        
-        // The three possible tracks that could play next
-        let peekSubsequent = playbackSequencer.peekSubsequent()?.track
-        let peekNext = playbackSequencer.peekNext()?.track
-        let peekPrevious = playbackSequencer.peekPrevious()?.track
-        
-        let playingTrack = getPlayingTrack()?.track
-        
-        // Add each of the three tracks to the set of tracks to be prepped, as long as they're non-nil and not equal to the playing track (which has already been prepped, since it is playing)
-        [peekSubsequent, peekNext, peekPrevious].forEach({
-            if $0 != nil && $0 !== playingTrack {
-                prepTracksSet.insert($0!)
-            }
-        })
-        
-        if (prepTracksSet.count > 0) {
-            
-            for track in prepTracksSet {
-                
-                // If track has not already been prepped, add a serial async task (to avoid concurrent prepping of the same track by two threads) to the trackPrepQueue
-                
-                // Async execution is important here, because reading from disk could be expensive and this info is not needed immediately.
-                if (!track.lazyLoadingInfo.preparedForPlayback) {
-                    trackPrepQueue.addOperation({TrackIO.prepareForPlayback(track)})
-                }
-            }
         }
     }
     
@@ -368,27 +323,19 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        let modes = playbackSequencer.toggleRepeatMode()
-        prepareNextTracksForPlayback()
-        return modes
+        return playbackSequencer.toggleRepeatMode()
     }
     
     func setRepeatMode(_ repeatMode: RepeatMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        let modes = playbackSequencer.setRepeatMode(repeatMode)
-        prepareNextTracksForPlayback()
-        return modes
+        return playbackSequencer.setRepeatMode(repeatMode)
     }
     
     func toggleShuffleMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        let modes = playbackSequencer.toggleShuffleMode()
-        prepareNextTracksForPlayback()
-        return modes
+        return playbackSequencer.toggleShuffleMode()
     }
     
     func setShuffleMode(_ shuffleMode: ShuffleMode) -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        let modes = playbackSequencer.setShuffleMode(shuffleMode)
-        prepareNextTracksForPlayback()
-        return modes
+        return playbackSequencer.setShuffleMode(shuffleMode)
     }
     
     func getRepeatAndShuffleModes() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode){
@@ -470,11 +417,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     // ------------------- PlaylistChangeListenerProtocol methods ---------------------
-    // Whenever the playlist is modified, the track prep task needs to be executed, to ensure optimal playback responsiveness.
-    
-    func tracksAdded(_ addResults: [TrackAddResult]) {
-        prepareNextTracksForPlayback()
-    }
     
     func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool) {
         
@@ -482,18 +424,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             stop()
             AsyncMessenger.publishMessage(TrackChangedAsyncMessage(nil, nil))
         }
-        
-        if (playlist.size() > 0) {
-            prepareNextTracksForPlayback()
-        }
-    }
-    
-    func tracksReordered(_ playlistType: PlaylistType) {
-        prepareNextTracksForPlayback()
-    }
-    
-    func playlistReordered(_ playlistType: PlaylistType) {
-        prepareNextTracksForPlayback()
     }
     
     func playlistCleared() {

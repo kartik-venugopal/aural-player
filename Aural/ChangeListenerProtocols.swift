@@ -21,3 +21,17 @@ protocol PlaylistChangeListenerProtocol {
     // The entire playlist has been cleared
     func playlistCleared()
 }
+
+// Default function implementations
+extension PlaylistChangeListenerProtocol {
+    
+    func tracksAdded(_ addResults: [TrackAddResult]) {}
+    
+    func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool) {}
+    
+    func tracksReordered(_ playlistType: PlaylistType) {}
+    
+    func playlistReordered(_ playlistType: PlaylistType) {}
+    
+    func playlistCleared() {}
+}

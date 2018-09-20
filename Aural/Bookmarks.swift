@@ -4,9 +4,9 @@ class Bookmarks: BookmarksProtocol {
     
     private var bookmarks: [Bookmark] = [Bookmark]()
  
-    func addBookmark(_ name: String, _ track: Track, _ position: Double) -> Bookmark {
+    func addBookmark(_ name: String, _ file: URL, _ position: Double) -> Bookmark {
         
-        let bookmark = Bookmark(name, track, position)
+        let bookmark = Bookmark(name, file, position)
         bookmarks.append(bookmark)
         return bookmark
     }

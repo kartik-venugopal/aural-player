@@ -19,9 +19,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
         // Restore the bookmarks model object from persistent state
         state.bookmarks.forEach({
         
-            let track = Track($0.file)
-//            TrackIO.loadDisplayInfo(track)
-            _ = bookmarks.addBookmark($0.name, track, $0.position)
+            _ = bookmarks.addBookmark($0.name, $0.file, $0.position)
         })
     }
     
@@ -32,7 +30,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
         
         let theName = String(format: "%@ (%@)", track.conciseDisplayName, StringUtils.formatSecondsToHMS(position))
         
-        return bookmarks.addBookmark(theName, track, position)
+        return bookmarks.addBookmark(theName, track.file, position)
     }
     
     func getAllBookmarks() -> [Bookmark] {
@@ -45,7 +43,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
         
         do {
             // First, find or add the given file
-            let newTrack = try playlist.findOrAddFile(bookmark.track.file)
+            let newTrack = try playlist.findOrAddFile(bookmark.file)
             
             // Try playing it
             try _ = player.play(newTrack.track, bookmark.position, PlaylistViewState.current)
@@ -66,7 +64,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
         let state = BookmarksState()
         
         bookmarks.getAllBookmarks().forEach({
-            state.bookmarks.append(($0.name, $0.track.file, $0.position))
+            state.bookmarks.append(($0.name, $0.file, $0.position))
         })
         
         return state
