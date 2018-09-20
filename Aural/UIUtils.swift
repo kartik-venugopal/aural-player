@@ -184,4 +184,85 @@ class UIUtils {
         
         return (direction, movement)
     }
+    
+    static func checkForSnap(_ child: SnappingWindow, _ parent: NSWindow) -> Bool {
+        
+        var snapped: Bool = checkForBottomSnap(child, parent)
+        
+        if (snapped) {
+            
+            // Snap on the bottom
+            child.snapLocation = parent.origin.applying(CGAffineTransform.init(translationX: 0, y: -child.height))
+            
+        } else {
+            
+            snapped = checkForRightSnap(child, parent)
+            
+            if (snapped) {
+            
+                // Snap on the right
+                child.snapLocation = parent.origin.applying(CGAffineTransform.init(translationX: parent.width, y: parent.height - child.height))
+                
+            } else {
+                
+                snapped = checkForLeftSnap(child, parent)
+                
+                if (snapped) {
+                    
+                    // Snap on the left
+                    child.snapLocation = parent.origin.applying(CGAffineTransform.init(translationX: -child.width, y: parent.height - child.height))
+                }
+            }
+        }
+        
+        child.snapped = snapped
+        return snapped
+    }
+    
+    // Top edge of FX vs Bottom edge of main (i.e. below main window)
+    private static func checkForBottomSnap(_ child: SnappingWindow, _ parent: NSWindow) -> Bool {
+        
+        let snapMinX = parent.x - Dimensions.snapProximity
+        let snapMaxX = parent.x + Dimensions.snapProximity
+        let rangeX = snapMinX...snapMaxX
+        
+        let snapMinY = parent.y - child.height - Dimensions.snapProximity
+        let snapMaxY = parent.y - child.height + Dimensions.snapProximity
+        let rangeY = snapMinY...snapMaxY
+        
+        return rangeX.contains(child.x) && rangeY.contains(child.y)
+    }
+    
+    // Left edge of FX vs Right edge of main (i.e. to the right of the main window)
+    private static func checkForRightSnap(_ child: SnappingWindow, _ parent: NSWindow) -> Bool {
+        
+        let snapMinX = parent.maxX - Dimensions.snapProximity
+        let snapMaxX = parent.maxX + Dimensions.snapProximity
+        let rangeX = snapMinX...snapMaxX
+        
+        let snapMinY = parent.y - Dimensions.snapProximity
+        let snapMaxY = parent.y + Dimensions.snapProximity
+        let rangeY = snapMinY...snapMaxY
+        
+        //        print("\n\nRangeX: " + String(describing: rangeX))
+        //        print("RangeY: " + String(describing: rangeY))
+        //        print("X: " + String(describing: child.x))
+        //        print("Y: " + String(describing: child.y))
+        
+        return rangeX.contains(child.x) && rangeY.contains(child.y)
+    }
+    
+    // Right edge of FX vs Left edge of main (i.e. to the left of the main window)
+    private static func checkForLeftSnap(_ child: SnappingWindow, _ parent: NSWindow) -> Bool {
+        
+        let snapMinX = parent.x - child.width - Dimensions.snapProximity
+        let snapMaxX = parent.x - child.width + Dimensions.snapProximity
+        let rangeX = snapMinX...snapMaxX
+        
+        let snapMinY = parent.y - Dimensions.snapProximity
+        let snapMaxY = parent.y + Dimensions.snapProximity
+        let rangeY = snapMinY...snapMaxY
+        
+        return rangeX.contains(child.x) && rangeY.contains(child.y)
+    }
 }

@@ -3,11 +3,7 @@ import Cocoa
 /*
     Window controller for the playlist window.
  */
-class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber, NSTabViewDelegate {
-    
-    private var theWindow: NSWindow {
-        return self.window!
-    }
+class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber, NSTabViewDelegate, NSWindowDelegate {
     
     // The different playlist views
     private lazy var tracksView: NSView = ViewFactory.getTracksView()
@@ -41,6 +37,14 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    
+    private var theWindow: SnappingWindow {
+        return self.window! as! SnappingWindow
+    }
+    
+    private lazy var mainWindow: NSWindow = WindowFactory.getMainWindow()
+    
+    private lazy var effectsWindow: NSWindow = WindowFactory.getEffectsWindow()
     
     override var windowNibName: String? {return "Playlist"}
 
@@ -411,6 +415,17 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             
         default: return
             
+        }
+    }
+    
+    // MARK - Window delegate functions
+    
+    func windowDidMove(_ notification: Notification) {
+        
+        let snapped = UIUtils.checkForSnap(theWindow, mainWindow)
+        
+        if !snapped {
+            _ = UIUtils.checkForSnap(theWindow, effectsWindow)
         }
     }
 }
