@@ -33,11 +33,13 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
-    private var theWindow: FXWindow {
-        return self.window! as! FXWindow
+    private var theWindow: SnappingWindow {
+        return self.window! as! SnappingWindow
     }
     
     private lazy var mainWindow: NSWindow = WindowFactory.getMainWindow()
+    
+    private lazy var playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
     
     private var snapBottomLocation: NSPoint {
         return mainWindow.origin.applying(CGAffineTransform.init(translationX: 0, y: -theWindow.height))
@@ -216,81 +218,11 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     
     func windowDidMove(_ notification: Notification) {
         
-        // Snapping to main window
+        let snapped = UIUtils.checkForSnap(theWindow, mainWindow)
         
-        var snapped: Bool = checkForBottomSnap()
-        
-        if (snapped) {
-            
-            theWindow.snapLocation = snapBottomLocation
-            
-        } else {
-            
-            snapped = checkForRightSnap()
-            
-            if (snapped) {
-                
-                theWindow.snapLocation = snapRightLocation
-                
-            } else {
-                
-                snapped = checkForLeftSnap()
-                
-                if (snapped) {
-                    
-                    theWindow.snapLocation = snapLeftLocation
-                }
-            }
+        if !snapped {
+            _ = UIUtils.checkForSnap(theWindow, playlistWindow)
         }
-        
-        theWindow.snapped = snapped
-    }
-    
-    // Top edge of FX vs Bottom edge of main (i.e. below main window)
-    private func checkForBottomSnap() -> Bool {
-        
-        let snapMinX = mainWindow.x - Dimensions.snapProximity
-        let snapMaxX = mainWindow.x + Dimensions.snapProximity
-        let rangeX = snapMinX...snapMaxX
-        
-        let snapMinY = mainWindow.y - theWindow.height - Dimensions.snapProximity
-        let snapMaxY = mainWindow.y - theWindow.height + Dimensions.snapProximity
-        let rangeY = snapMinY...snapMaxY
-        
-        return rangeX.contains(theWindow.x) && rangeY.contains(theWindow.y)
-    }
-    
-    // Left edge of FX vs Right edge of main (i.e. to the right of the main window)
-    private func checkForRightSnap() -> Bool {
-        
-        let snapMinX = mainWindow.maxX - Dimensions.snapProximity
-        let snapMaxX = mainWindow.maxX + Dimensions.snapProximity
-        let rangeX = snapMinX...snapMaxX
-        
-        let snapMinY = mainWindow.y - Dimensions.snapProximity
-        let snapMaxY = mainWindow.y + Dimensions.snapProximity
-        let rangeY = snapMinY...snapMaxY
-        
-//        print("\n\nRangeX: " + String(describing: rangeX))
-//        print("RangeY: " + String(describing: rangeY))
-//        print("X: " + String(describing: theWindow.x))
-//        print("Y: " + String(describing: theWindow.y))
-        
-        return rangeX.contains(theWindow.x) && rangeY.contains(theWindow.y)
-    }
-    
-    // Right edge of FX vs Left edge of main (i.e. to the left of the main window)
-    private func checkForLeftSnap() -> Bool {
-        
-        let snapMinX = mainWindow.x - theWindow.width - Dimensions.snapProximity
-        let snapMaxX = mainWindow.x - theWindow.width + Dimensions.snapProximity
-        let rangeX = snapMinX...snapMaxX
-        
-        let snapMinY = mainWindow.y - Dimensions.snapProximity
-        let snapMaxY = mainWindow.y + Dimensions.snapProximity
-        let rangeY = snapMinY...snapMaxY
-        
-        return rangeX.contains(theWindow.x) && rangeY.contains(theWindow.y)
     }
 }
 

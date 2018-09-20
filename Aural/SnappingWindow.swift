@@ -1,6 +1,6 @@
 import Cocoa
 
-class FXWindow: NSWindow {
+class SnappingWindow: NSWindow {
     
     var snapped: Bool = false
     var snapLocation: NSPoint?

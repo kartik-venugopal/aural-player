@@ -21,7 +21,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="V8B-S9-0F8" customClass="FXWindow" customModule="Aural" customModuleProvider="target">
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="V8B-S9-0F8" customClass="SnappingWindow" customModule="Aural" customModuleProvider="target">
             <windowStyleMask key="styleMask" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="225" y="78" width="480" height="230"/>
@@ -52,8 +52,8 @@
                                                 <font key="font" size="11" name="GillSans"/>
                                                 <tabViewItems>
                                                     <tabViewItem label="EQ" identifier="1" id="B6G-Gp-TXz" userLabel="EQ">
-                                                        <view key="view" id="0rl-b1-pFS">
-                                                            <rect key="frame" x="10" y="7" width="484" height="160"/>
+                                                        <view key="view" ambiguous="YES" id="0rl-b1-pFS">
+                                                            <rect key="frame" x="10" y="7" width="0.0" height="335"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
                                                     </tabViewItem>
@@ -88,7 +88,7 @@
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Recorder" identifier="7" id="tVT-J9-Rve" userLabel="Recorder">
-                                                        <view key="view" ambiguous="YES" id="EoX-7O-C15">
+                                                        <view key="view" id="EoX-7O-C15">
                                                             <rect key="frame" x="10" y="7" width="484" height="160"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
