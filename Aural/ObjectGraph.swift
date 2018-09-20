@@ -95,7 +95,7 @@ class ObjectGraph {
         historyDelegate = HistoryDelegate(history!, playlistDelegate!, playbackDelegate!, appState!.historyState)
         
         bookmarks = Bookmarks()
-        bookmarksDelegate = BookmarksDelegate(bookmarks!, playlistDelegate!, playbackDelegate!)
+        bookmarksDelegate = BookmarksDelegate(bookmarks!, playlistDelegate!, playbackDelegate!, appState!.bookmarksState)
     }
     
     // MARK: Accessor methods to retrieve objects
@@ -165,6 +165,7 @@ class ObjectGraph {
         appState?.playbackSequenceState = playbackSequencer!.persistentState() as! PlaybackSequenceState
         appState?.uiState = WindowState.persistentState()
         appState?.historyState = historyDelegate!.persistentState() as! HistoryState
+        appState?.bookmarksState = bookmarksDelegate!.persistentState() as! BookmarksState
         
         // Persist app state to disk
         AppStateIO.save(appState!)

@@ -13,8 +13,22 @@ protocol PersistentState {
     // Produces a serialiable representation of this state object
     func toSerializableMap() -> NSDictionary
     
+    // Produces a serialiable representation of this state object
+    func toSerializableArray() -> NSArray
+    
     // Constructs an instance of this state object from the given map
     static func deserialize(_ map: NSDictionary) -> PersistentState
+}
+
+extension PersistentState {
+    
+    func toSerializableArray() -> NSArray {
+        return NSArray(array: [])
+    }
+    
+    func toSerializableMap() -> NSDictionary {
+        return [NSString: AnyObject]() as NSDictionary
+    }
 }
 
 /*
@@ -628,6 +642,53 @@ class HistoryState: PersistentState {
     }
 }
 
+class BookmarksState: PersistentState {
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        // NOT USED
+        return BookmarksState()
+    }
+
+    
+    var bookmarks: [(name: String, file: URL, position: Double)] = [(name: String, file: URL, position: Double)]()
+    
+    func toSerializableArray() -> NSArray {
+        
+        var bookmarksArr = [NSDictionary]()
+        bookmarks.forEach({
+            
+            var map = [NSString: AnyObject]()
+            map["name"] = $0.name as AnyObject
+            map["file"] = $0.file.path as AnyObject
+            map["position"] = $0.position as NSNumber
+            
+            bookmarksArr.append(map as NSDictionary)
+        })
+        
+        return NSArray(array: bookmarksArr)
+    }
+    
+    static func deserialize(_ arr: NSArray) -> PersistentState {
+        
+        let state = BookmarksState()
+        
+        arr.forEach({
+        
+            if let bookmarkMap = $0 as? NSDictionary {
+                
+                if let name = bookmarkMap.value(forKey: "name") as? String,
+                    let file = bookmarkMap.value(forKey: "file") as? String,
+                    let position = bookmarkMap.value(forKey: "position") as? NSNumber {
+                    
+                    state.bookmarks.append((name, URL(fileURLWithPath: file), position.doubleValue))
+                }
+            }
+        })
+        
+        return state
+    }
+}
+
 /*
  Encapsulates all application state. It is persisted to disk upon exit and loaded into the application upon startup.
  
@@ -640,6 +701,7 @@ class AppState {
     var playlistState: PlaylistState
     var playbackSequenceState: PlaybackSequenceState
     var historyState: HistoryState
+    var bookmarksState: BookmarksState
     
     static let defaults: AppState = AppState()
     
@@ -650,15 +712,17 @@ class AppState {
         self.playlistState = PlaylistState()
         self.playbackSequenceState = PlaybackSequenceState()
         self.historyState = HistoryState()
+        self.bookmarksState = BookmarksState()
     }
     
-    init(_ uiState: UIState, _ audioGraphState: AudioGraphState, _ playlistState: PlaylistState, _ playbackSequenceState: PlaybackSequenceState, _ historyState: HistoryState) {
+    init(_ uiState: UIState, _ audioGraphState: AudioGraphState, _ playlistState: PlaylistState, _ playbackSequenceState: PlaybackSequenceState, _ historyState: HistoryState, _ bookmarksState: BookmarksState) {
         
         self.uiState = uiState
         self.audioGraphState = audioGraphState
         self.playlistState = playlistState
         self.playbackSequenceState = playbackSequenceState
         self.historyState = historyState
+        self.bookmarksState = bookmarksState
     }
     
     // Produces an equivalent object suitable for serialization as JSON
@@ -671,6 +735,7 @@ class AppState {
         dict["playbackSequence"] = playbackSequenceState.toSerializableMap() as AnyObject
         dict["playlist"] = playlistState.toSerializableMap() as AnyObject
         dict["history"] = historyState.toSerializableMap() as AnyObject
+        dict["bookmarks"] = bookmarksState.toSerializableArray() as AnyObject
         
         return dict as NSDictionary
     }
@@ -698,6 +763,10 @@ class AppState {
         
         if let historyDict = (jsonObject["history"] as? NSDictionary) {
             state.historyState = HistoryState.deserialize(historyDict) as! HistoryState
+        }
+        
+        if let bookmarksArr = (jsonObject["bookmarks"] as? NSArray) {
+            state.bookmarksState = BookmarksState.deserialize(bookmarksArr) as! BookmarksState
         }
         
         return state
