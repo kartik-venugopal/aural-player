@@ -88,6 +88,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         reverbSpace = avPreset
         reverbNode.loadFactoryPreset(reverbSpace)
         reverbNode.wetDryMix = state.reverbAmount
+        ReverbPresets.loadPresets(state.reverbUserPresets)
         
         // Delay
         delayNode.bypass = state.delayBypass
@@ -427,6 +428,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.reverbBypass = reverbNode.bypass
         state.reverbSpace = ReverbSpaces.mapFromAVPreset(reverbSpace)
         state.reverbAmount = reverbNode.wetDryMix
+        state.reverbUserPresets = ReverbPresets.allPresets()
         
         // Delay
         state.delayBypass = delayNode.bypass

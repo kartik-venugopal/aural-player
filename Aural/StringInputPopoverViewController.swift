@@ -66,9 +66,9 @@ class StringInputPopoverViewController: NSViewController, NSPopoverDelegate {
     
     @IBAction func saveBtnAction(_ sender: Any) {
         
+        // Validate input by calling back to the client
         let validation = client.validate(inputField.stringValue)
         
-        // Validate new preset name
         if !validation.valid {
             
             lblError.stringValue = validation.errorMsg ?? ""

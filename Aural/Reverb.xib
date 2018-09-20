@@ -12,7 +12,7 @@
                 <outlet property="btnSavePreset" destination="p1b-kR-qyw" id="dn5-pA-b5E"/>
                 <outlet property="lblReverbAmountValue" destination="Mvj-B8-0Yw" id="qSh-Ve-Lwd"/>
                 <outlet property="presetsMenu" destination="zIT-2E-ecK" id="8Jn-Au-Shr"/>
-                <outlet property="reverbSlider" destination="flt-XK-mfg" id="gRk-X2-jVy"/>
+                <outlet property="reverbAmountSlider" destination="flt-XK-mfg" id="COb-em-s89"/>
                 <outlet property="reverbSpaceMenu" destination="grQ-Tl-H1t" id="VUr-HS-MSF"/>
                 <outlet property="view" destination="txu-mA-r9M" id="g6V-BI-hnN"/>
             </connections>
