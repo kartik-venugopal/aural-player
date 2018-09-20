@@ -3,7 +3,7 @@
  */
 import Cocoa
 
-class EQUserPresetsPopoverViewController: NSViewController, NSPopoverDelegate {
+class StringInputPopoverViewController: NSViewController, NSPopoverDelegate {
     
     // The actual popover that is shown
     private var popover: NSPopover!
@@ -11,19 +11,23 @@ class EQUserPresetsPopoverViewController: NSViewController, NSPopoverDelegate {
     // Popover positioning parameters
     private let positioningRect = NSZeroRect
     
-    @IBOutlet weak var nameField: ColoredCursorTextField!
+    // Input fields
+    @IBOutlet weak var lblPrompt: NSTextField!
+    @IBOutlet weak var inputField: ColoredCursorTextField!
     
-    // Message that track has been removed from Favorites
+    // Error message fields
     @IBOutlet weak var errorBox: NSBox!
+    @IBOutlet weak var lblError: NSTextField!
     
-    override var nibName: String? {return "EQUserPresetsPopover"}
+    // A callback object so that the string input can be validated without this class knowing the logic for doing so
+    private var client: StringInputClient!
     
-    private var callbackRequestType: MessageType!
+    override var nibName: String? {return "StringInputPopover"}
     
-    static func create(_ callbackRequestType: MessageType) -> EQUserPresetsPopoverViewController {
+    static func create(_ client: StringInputClient) -> StringInputPopoverViewController {
         
-        let controller = EQUserPresetsPopoverViewController()
-        controller.callbackRequestType = callbackRequestType
+        let controller = StringInputPopoverViewController()
+        controller.client = client
         
         let popover = NSPopover()
         popover.behavior = .semitransient
@@ -41,7 +45,13 @@ class EQUserPresetsPopoverViewController: NSViewController, NSPopoverDelegate {
         if (!popover.isShown) {
             
             popover.show(relativeTo: positioningRect, of: relativeToView, preferredEdge: preferredEdge)
-            nameField?.stringValue = ""
+            
+            // TODO: Resize/realign fields and popover per input text length !!!
+            
+            // Initialize the fields with information from the client
+            lblPrompt.stringValue = client.getInputPrompt()
+            inputField?.stringValue = client.getDefaultValue() ?? ""
+            
             errorBox.isHidden = true
         }
     }
@@ -56,14 +66,17 @@ class EQUserPresetsPopoverViewController: NSViewController, NSPopoverDelegate {
     
     @IBAction func saveBtnAction(_ sender: Any) {
         
+        let validation = client.validate(inputField.stringValue)
+        
         // Validate new preset name
-        if EQPresets.presetWithNameExists(nameField.stringValue) {
+        if !validation.valid {
             
+            lblError.stringValue = validation.errorMsg ?? ""
             errorBox.isHidden = false
             
         } else {
-        
-            _ = SyncMessenger.publishRequest(SaveUserPresetRequest(callbackRequestType, nameField.stringValue))
+            
+            client.acceptInput(inputField.stringValue)
             self.close()
         }
     }

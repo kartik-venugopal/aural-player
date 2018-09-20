@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Time effects unit
  */
-class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
+class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
     
     // Time controls
     @IBOutlet weak var btnTimeBypass: EffectsUnitBypassButton!
@@ -19,7 +19,7 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
     @IBOutlet weak var presetsMenu: NSPopUpButton!
     @IBOutlet weak var btnSavePreset: NSButton!
     
-    private lazy var userPresetsPopover: EQUserPresetsPopoverViewController = EQUserPresetsPopoverViewController.create(.saveTimeUserPresetRequest)
+    private lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
@@ -221,5 +221,35 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
         }
         
         return EmptyResponse.instance
+    }
+    
+    // MARK - StringInputClient functions
+    
+    func getInputPrompt() -> String {
+        return "Enter a new preset name:"
+    }
+    
+    func getDefaultValue() -> String? {
+        return "<New Time preset>"
+    }
+    
+    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
+        
+        let valid = !TimePresets.presetWithNameExists(string)
+        
+        if (!valid) {
+            return (false, "Preset with this name already exists !")
+        } else {
+            return (true, nil)
+        }
+    }
+    
+    // Receives a new EQ preset name and saves the new preset
+    func acceptInput(_ string: String) {
+        
+        TimePresets.addUserDefinedPreset(string, timeSlider.floatValue, timeOverlapSlider.floatValue, btnShiftPitch.state == 1)
+        
+        // Add a menu item for the new preset, at the top of the menu
+        presetsMenu.insertItem(withTitle: string, at: 0)
     }
 }
