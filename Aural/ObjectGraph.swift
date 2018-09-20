@@ -29,6 +29,9 @@ class ObjectGraph {
     private static var history: History?
     private static var historyDelegate: HistoryDelegate?
     
+    private static var bookmarks: Bookmarks?
+    private static var bookmarksDelegate: BookmarksDelegate?
+    
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
     
@@ -90,6 +93,9 @@ class ObjectGraph {
         // History (and delegate)
         history = History(preferences!.historyPreferences)
         historyDelegate = HistoryDelegate(history!, playlistDelegate!, playbackDelegate!, appState!.historyState)
+        
+        bookmarks = Bookmarks()
+        bookmarksDelegate = BookmarksDelegate(bookmarks!, playlistDelegate!, playbackDelegate!)
     }
     
     // MARK: Accessor methods to retrieve objects
@@ -140,6 +146,10 @@ class ObjectGraph {
     
     static func getHistoryDelegate() -> HistoryDelegateProtocol {
         return historyDelegate!
+    }
+    
+    static func getBookmarksDelegate() -> BookmarksDelegateProtocol {
+        return bookmarksDelegate!
     }
     
     // Called when app exits

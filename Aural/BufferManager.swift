@@ -44,6 +44,15 @@ class BufferManager {
         startPlaybackFromFrame(playbackSession, BufferManager.FRAME_ZERO)
     }
     
+    // Start track playback from a given position expressed in seconds
+    func playTrack(_ playbackSession: PlaybackSession, _ startPosition: Double) {
+        
+        let sampleRate = playbackSession.track.playbackInfo!.sampleRate!
+        let startFrame = Int64(startPosition * sampleRate)
+        
+        startPlaybackFromFrame(playbackSession, startFrame)
+    }
+    
     // Starts track playback from a given frame position. The playbackSesssion parameter is used to ensure that no buffers are scheduled on the player for an old playback session.
     private func startPlaybackFromFrame(_ playbackSession: PlaybackSession, _ frame: AVAudioFramePosition) {
         

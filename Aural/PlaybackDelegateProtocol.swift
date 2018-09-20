@@ -39,7 +39,9 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     */
     func play(_ track: Track, _ playlistType: PlaylistType) throws -> IndexedTrack
     
-    /* 
+    func play(_ track: Track, _ startPosition: Double, _ playlistType: PlaylistType) throws -> IndexedTrack
+    
+    /*
         Initiates playback of (tracks within) the given group. Returns complete track information for the track that is chosen to play first.
  
         Throws an error if the track that is chosen to play first within the given group cannot be played back
@@ -73,6 +75,9 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
     // Seeks to a specific percentage of the track duration, within the current track
     func seekToPercentage(_ percentage: Double)
+    
+    // Seeks to a specific time position, expressed in seconds, within the current track
+    func seekToTime(_ seconds: Double)
     
     // Toggles between repeat modes. See RepeatMode for more details. Returns the new repeat and shuffle mode after performing the toggle operation.
     func toggleRepeatMode() -> (repeatMode: RepeatMode, shuffleMode: ShuffleMode)

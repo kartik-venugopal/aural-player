@@ -34,11 +34,15 @@ class Player: PlayerProtocol {
     }
     
     func play(_ track: Track) {
+        play(track, 0)
+    }
+    
+    func play(_ track: Track, _ startPosition: Double) {
         
         let session = PlaybackSession.start(track)
         
         initPlayer(track)
-        bufferManager.playTrack(session)
+        bufferManager.playTrack(session, startPosition)
         
         playbackState = .playing
     }
