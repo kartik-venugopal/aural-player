@@ -103,6 +103,7 @@
 		3E58CC291F02759D00C36DC1 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58CC281F02759D00C36DC1 /* Timer.swift */; };
 		3E58CC2B1F0275B200C36DC1 /* TimerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E58CC2A1F0275B200C36DC1 /* TimerUtils.swift */; };
 		3E59A3771F9959C10087198C /* GroupingPlaylistDataSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59A3761F9959C10087198C /* GroupingPlaylistDataSources.swift */; };
+		3E5F00C121536CF000A76C23 /* PitchPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00C021536CF000A76C23 /* PitchPresets.swift */; };
 		3E631F771F9A00C20068FD6A /* ConcurrencyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E631F761F9A00C20068FD6A /* ConcurrencyUtils.swift */; };
 		3E633C471F14C6530040ECBC /* MultiBandStopFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */; };
 		3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C481F14C9110040ECBC /* ParametricEQNode.swift */; };
@@ -331,6 +332,7 @@
 		3E58CC281F02759D00C36DC1 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		3E58CC2A1F0275B200C36DC1 /* TimerUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerUtils.swift; sourceTree = "<group>"; };
 		3E59A3761F9959C10087198C /* GroupingPlaylistDataSources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistDataSources.swift; sourceTree = "<group>"; };
+		3E5F00C021536CF000A76C23 /* PitchPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PitchPresets.swift; sourceTree = "<group>"; };
 		3E631F761F9A00C20068FD6A /* ConcurrencyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrencyUtils.swift; sourceTree = "<group>"; };
 		3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiBandStopFilterNode.swift; sourceTree = "<group>"; };
 		3E633C481F14C9110040ECBC /* ParametricEQNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametricEQNode.swift; sourceTree = "<group>"; };
@@ -732,6 +734,7 @@
 				3E4F9FD31FC9156600FA4096 /* CustomNodes */,
 				3E551B861F10801100354DE2 /* AudioEngineHelper.swift */,
 				3EFFE6BD1F0381FA003728BD /* EQPresets.swift */,
+				3E5F00C021536CF000A76C23 /* PitchPresets.swift */,
 				3E047B0D1F01436700ADE0F1 /* ReverbPresets.swift */,
 			);
 			name = AudioGraph;
@@ -1481,6 +1484,7 @@
 				3EF7EFCA215075A400E582CB /* BarModePlayerViewController.swift in Sources */,
 				3EF5E5CC1FBE55D2004270A4 /* PlaylistViewContext.swift in Sources */,
 				3EDFFA051FC0239F00158177 /* PlaybackPreferencesViewController.swift in Sources */,
+				3E5F00C121536CF000A76C23 /* PitchPresets.swift in Sources */,
 				3EDDF6B01FB54AB800DF2E9A /* PlaybackMenuController.swift in Sources */,
 				3E0F947D1FBBA33C00B6E1B3 /* FilterViewController.swift in Sources */,
 				3EFB192B1FB8268700690C60 /* DetailedTrackInfoDataSource.swift in Sources */,

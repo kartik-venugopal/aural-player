@@ -105,7 +105,8 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     private func initTabGroup() {
         
         // Select EQ tab view by default
-        tabViewAction(eqTabViewButton)
+//        tabViewAction(eqTabViewButton)
+        tabViewAction(pitchTabViewButton)
     }
     
     private func initSubscriptions() {

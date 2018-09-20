@@ -12,6 +12,12 @@ class PitchViewController: NSViewController, ActionMessageSubscriber {
     @IBOutlet weak var lblPitchValue: NSTextField!
     @IBOutlet weak var lblPitchOverlapValue: NSTextField!
     
+    // Presets menu
+    @IBOutlet weak var presetsMenu: NSPopUpButton!
+    @IBOutlet weak var btnSavePreset: NSButton!
+    
+    private lazy var userPresetsPopover: EQUserPresetsPopoverViewController = EQUserPresetsPopoverViewController.create()
+    
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
@@ -36,6 +42,12 @@ class PitchViewController: NSViewController, ActionMessageSubscriber {
         let overlap = graph.getPitchOverlap()
         pitchOverlapSlider.floatValue = overlap.overlap
         lblPitchOverlapValue.stringValue = overlap.overlapString
+        
+        // Initialize the menu with user-defined presets
+        PitchPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        
+        // Don't select any items from the presets menu
+        presetsMenu.selectItem(at: -1)
     }
     
     // Activates/deactivates the Pitch effects unit
@@ -72,6 +84,22 @@ class PitchViewController: NSViewController, ActionMessageSubscriber {
     // Updates the Overlap parameter of the Pitch shift effects unit
     @IBAction func pitchOverlapAction(_ sender: AnyObject) {
         lblPitchOverlapValue.stringValue = graph.setPitchOverlap(pitchOverlapSlider.floatValue)
+    }
+    
+    // Applies a preset to the effects unit
+    @IBAction func pitchPresetsAction(_ sender: AnyObject) {
+        
+        // Get preset definition
+        let preset = PitchPresets.presetByName(presetsMenu.titleOfSelectedItem!)
+        
+        lblPitchValue.stringValue = graph.setPitch(preset.pitch)
+        pitchSlider.floatValue = preset.pitch
+        
+        lblPitchOverlapValue.stringValue = graph.setPitchOverlap(preset.overlap)
+        pitchOverlapSlider.floatValue = preset.overlap
+        
+        // Don't select any of the items
+        presetsMenu.selectItem(at: -1)
     }
     
     // Increases the overall pitch by a certain preset increment
