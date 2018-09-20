@@ -14,6 +14,17 @@ protocol MessageSubscriber {
     func getID() -> String
 }
 
+extension MessageSubscriber {
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+        // Do nothing
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        return EmptyResponse.instance
+    }
+}
+
 /*
  Defines a synchronous message. SyncMessage objects could be either 1 - notifications, indicating that some change has occurred (e.g. the playlist has been cleared), OR 2 - requests for the execution of a function (e.g. track playback) that may return a response to the caller.
  */

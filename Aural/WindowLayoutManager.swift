@@ -74,6 +74,8 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
         
         appState.hideEffects ? hideEffects() : showEffects()
         appState.hidePlaylist ? hidePlaylist() : showPlaylist()
+        
+        effectsWindow.setFrameOrigin(NSPoint(x: mainWindow.x, y: mainWindow.y - effectsWindow.height))
     }
     
     func closeWindows() {

@@ -9,10 +9,12 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PitchViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnPitchBypass" destination="0Wm-Yf-mhU" id="UQt-48-ZEB"/>
+                <outlet property="btnSavePreset" destination="TzI-w2-CP3" id="asl-Yn-CDX"/>
                 <outlet property="lblPitchOverlapValue" destination="dY7-MC-kOz" id="TZk-90-dK0"/>
                 <outlet property="lblPitchValue" destination="bTO-XK-qFj" id="Tbv-PX-Isu"/>
                 <outlet property="pitchOverlapSlider" destination="VNQ-VI-tw3" id="DZk-Oe-dz1"/>
                 <outlet property="pitchSlider" destination="h3Q-co-Bu9" id="NGW-qG-Zah"/>
+                <outlet property="presetsMenu" destination="Xsu-z4-oQ0" id="Fj2-KP-Tp2"/>
                 <outlet property="view" destination="rBN-FU-dcW" id="36W-5X-XyO"/>
             </connections>
         </customObject>
@@ -171,7 +173,23 @@
                         <menu key="menu" showsStateColumn="NO" id="WKs-Uz-tAh">
                             <items>
                                 <menuItem isSeparatorItem="YES" id="qaa-Gf-50w"/>
-                                <menuItem title="+2 8ve" id="zyg-zU-7Bh">
+                                <menuItem title="Normal" id="zyg-zU-7Bh">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Happy little girl" id="0fT-kf-pMU" userLabel="Happy little girl">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Chipmunk" id="wbP-i0-Un5">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="A bit deep" id="kf9-iG-K0L">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Robocop" id="sWj-ew-qaZ">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem isSeparatorItem="YES" id="HFE-2W-UgS"/>
+                                <menuItem title="+2 8ve" id="Sav-yc-gdl">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                                 <menuItem title="+1 8ve" id="jpB-c6-qNy">
@@ -186,6 +204,9 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <connections>
+                        <action selector="pitchPresetsAction:" target="-2" id="Wus-de-sGg"/>
+                    </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TzI-w2-CP3" userLabel="Save">
                     <rect key="frame" x="401" y="6" width="11" height="11"/>

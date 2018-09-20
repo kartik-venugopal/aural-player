@@ -199,7 +199,4 @@ class EQViewController: NSViewController, ActionMessageSubscriber, MessageSubscr
         
         return EmptyResponse.instance
     }
-    
-    func consumeNotification(_ notification: NotificationMessage) {
-    }
 }
