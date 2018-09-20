@@ -73,6 +73,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         pitchNode.bypass = state.pitchBypass
         pitchNode.pitch = state.pitch
         pitchNode.overlap = state.pitchOverlap
+        PitchPresets.loadUserDefinedPresets(state.pitchUserPresets)
         
         // Time
         timeNode.bypass = state.timeBypass
@@ -412,6 +413,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.pitchBypass = pitchNode.bypass
         state.pitch = pitchNode.pitch
         state.pitchOverlap = pitchNode.overlap
+        state.pitchUserPresets = PitchPresets.userDefinedPresets
         
         // Time
         state.timeBypass = timeNode.bypass
