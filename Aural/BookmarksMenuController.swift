@@ -3,7 +3,7 @@ import Cocoa
 /*
     Manages and provides actions for the Bookmarks menu that displays bookmarks that can be opened by the player.
  */
-class BookmarksMenuController: NSObject, NSMenuDelegate {
+class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     private var bookmarks: BookmarksDelegateProtocol = ObjectGraph.getBookmarksDelegate()
     
@@ -11,6 +11,15 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
     
     @IBOutlet weak var theMenu: NSMenu!
+    
+    @IBOutlet weak var addBookmarkMenuItem: NSMenuItem!
+    
+    // Changes whenever a bookmark is added
+    private var defaultBookmarkName: String?
+    private var bookmarkedTrack: Track?
+    private var bookmarkedTrackPosition: Double?
+    
+    private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
  
     // One-time setup, when the menu loads
     override func awakeFromNib() {
@@ -20,7 +29,10 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     // Before the menu opens, re-create the menu items from the model
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        // TODO: Clear the menu first (except the topmost item !!!)
+        // Can't add a bookmark if no track is playing
+        addBookmarkMenuItem.isEnabled = player.getPlaybackState() != .noTrack
+        
+        // Clear the menu first (except the topmost item)
         let items = menu.items
         items.forEach({
         
@@ -29,6 +41,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
             }
         })
         
+        // Recreate the bookmarks menu
         let allBookmarks = bookmarks.getAllBookmarks()
         allBookmarks.forEach({
         
@@ -57,17 +70,45 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     // When a bookmark menu item is clicked, the item is played
     @IBAction func bookmarkAction(_ sender: Any) {
         
-        // TODO: Move this logic to menuNeedsUpdate() to disable the menu item
-        if (player.getPlaybackState() == .noTrack) {
-            return
-        }
+        // Mark the playing track and position
+        bookmarkedTrack = player.getPlayingTrack()!.track
+        bookmarkedTrackPosition = player.getSeekPosition().timeElapsed
         
-        _ = bookmarks.addBookmark("")
+        defaultBookmarkName = String(format: "%@ (%@)", bookmarkedTrack!.conciseDisplayName, StringUtils.formatSecondsToHMS(bookmarkedTrackPosition!))
+        
+        // Show popover
+        bookmarkNamePopover.show(WindowState.window.contentView!, NSRectEdge.minX)
     }
     
     // When a bookmark menu item is clicked, the item is played
     @IBAction fileprivate func playSelectedItemAction(_ sender: BookmarksMenuItem) {
         bookmarks.playBookmark(sender.bookmark)
+    }
+    
+    // MARK - StringInputClient functions
+    
+    func getInputPrompt() -> String {
+        return "Enter a bookmark name:"
+    }
+    
+    func getDefaultValue() -> String? {
+        return defaultBookmarkName!
+    }
+    
+    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
+        
+        let valid = !bookmarks.bookmarkWithNameExists(string)
+        
+        if (!valid) {
+            return (false, "A bookmark with this name already exists !")
+        } else {
+            return (true, nil)
+        }
+    }
+    
+    // Receives a new EQ preset name and saves the new preset
+    func acceptInput(_ string: String) {
+        _ = bookmarks.addBookmark(string, bookmarkedTrack!.file, bookmarkedTrackPosition!)
     }
 }
 

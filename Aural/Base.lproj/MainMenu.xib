@@ -23,6 +23,7 @@
         </customObject>
         <customObject id="nnl-Fg-dA2" customClass="BookmarksMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="addBookmarkMenuItem" destination="qCe-8O-8ky" id="PI9-Lc-ocX"/>
                 <outlet property="theMenu" destination="6PU-OL-7xn" id="mTh-Bf-jxD"/>
             </connections>
         </customObject>
