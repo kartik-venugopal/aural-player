@@ -1,6 +1,6 @@
 import Foundation
 
-class BookmarksDelegate: BookmarksDelegateProtocol {
+class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
     
     private let bookmarks: BookmarksProtocol
     
@@ -10,14 +10,19 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     // Delegate used to perform playback
     private let player: PlaybackDelegateProtocol
     
-    init(_ bookmarks: BookmarksProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
+    init(_ bookmarks: BookmarksProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol, _ state: BookmarksState) {
         
         self.bookmarks = bookmarks
         self.playlist = playlist
         self.player = player
         
         // Restore the bookmarks model object from persistent state
+        state.bookmarks.forEach({
         
+            let track = Track($0.file)
+//            TrackIO.loadDisplayInfo(track)
+            _ = bookmarks.addBookmark($0.name, track, $0.position)
+        })
     }
     
     func addBookmark(_ name: String) -> Bookmark {
@@ -54,5 +59,16 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
                 AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(oldTrack, error as! InvalidTrackError))
             }
         }
+    }
+    
+    func persistentState() -> PersistentState {
+        
+        let state = BookmarksState()
+        
+        bookmarks.getAllBookmarks().forEach({
+            state.bookmarks.append(($0.name, $0.track.file, $0.position))
+        })
+        
+        return state
     }
 }
