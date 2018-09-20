@@ -92,6 +92,7 @@ class AudioGraphState: PersistentState {
     var pitchBypass: Bool = AppDefaults.pitchBypass
     var pitch: Float = AppDefaults.pitch
     var pitchOverlap: Float = AppDefaults.pitchOverlap
+    var pitchUserPresets: [PitchPreset] = [PitchPreset]()
     
     var timeBypass: Bool = AppDefaults.timeBypass
     var timeStretchRate: Float = AppDefaults.timeStretchRate
@@ -134,7 +135,7 @@ class AudioGraphState: PersistentState {
         }
         eqDict["bands"] = eqBandsDict as AnyObject
         
-        var userPresetsArr = [[NSString: AnyObject]]()
+        var eqUserPresetsArr = [[NSString: AnyObject]]()
         for preset in eqUserPresets {
             
             var presetDict = [NSString: AnyObject]()
@@ -146,9 +147,9 @@ class AudioGraphState: PersistentState {
             }
             presetDict["bands"] = presetBandsDict as AnyObject
             
-            userPresetsArr.append(presetDict)
+            eqUserPresetsArr.append(presetDict)
         }
-        eqDict["userPresets"] = NSArray(array: userPresetsArr)
+        eqDict["userPresets"] = NSArray(array: eqUserPresetsArr)
         
         map["eq"] = eqDict as AnyObject
         
@@ -156,6 +157,18 @@ class AudioGraphState: PersistentState {
         pitchDict["bypass"] = pitchBypass as AnyObject
         pitchDict["pitch"] = pitch as NSNumber
         pitchDict["overlap"] = pitchOverlap as NSNumber
+        
+        var pitchUserPresetsArr = [[NSString: AnyObject]]()
+        for preset in pitchUserPresets {
+            
+            var presetDict = [NSString: AnyObject]()
+            presetDict["name"] = preset.name as AnyObject
+            presetDict["pitch"] = preset.pitch as NSNumber
+            presetDict["overlap"] = preset.overlap as NSNumber
+            
+            pitchUserPresetsArr.append(presetDict)
+        }
+        pitchDict["userPresets"] = NSArray(array: pitchUserPresetsArr)
         
         map["pitch"] = pitchDict as AnyObject
         
@@ -239,7 +252,7 @@ class AudioGraphState: PersistentState {
                 }
             }
             
-            // User presets
+            // EQ User presets
             if let userPresets = eqDict["userPresets"] as? [NSDictionary] {
                 
                 userPresets.forEach({
@@ -288,6 +301,34 @@ class AudioGraphState: PersistentState {
             
             if let overlap = pitchDict["overlap"] as? NSNumber {
                 audioGraphState.pitchOverlap = overlap.floatValue
+            }
+            
+            // Pitch user presets
+            if let userPresets = pitchDict["userPresets"] as? [NSDictionary] {
+                
+                userPresets.forEach({
+                    
+                    var presetName: String?
+                    var presetPitch: Float?
+                    var presetOverlap: Float?
+                    
+                    if let name = $0["name"] as? String {
+                        presetName = name
+                    }
+                    
+                    if let pitch = $0["pitch"] as? NSNumber {
+                        presetPitch = pitch.floatValue
+                    }
+                    
+                    if let overlap = $0["overlap"] as? NSNumber {
+                        presetOverlap = overlap.floatValue
+                    }
+                    
+                    // Preset must have a name
+                    if let presetName = presetName {
+                        audioGraphState.pitchUserPresets.append(PitchPreset(name: presetName, pitch: presetPitch!, overlap: presetOverlap!, systemDefined: false))
+                    }
+                })
             }
         }
         
