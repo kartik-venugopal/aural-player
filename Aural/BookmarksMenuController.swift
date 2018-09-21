@@ -3,7 +3,7 @@ import Cocoa
 /*
     Manages and provides actions for the Bookmarks menu that displays bookmarks that can be opened by the player.
  */
-class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient {
+class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, ActionMessageSubscriber {
     
     private var bookmarks: BookmarksDelegateProtocol = ObjectGraph.getBookmarksDelegate()
     
@@ -23,14 +23,14 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient {
  
     // One-time setup, when the menu loads
     override func awakeFromNib() {
-        
+        SyncMessenger.subscribe(actionTypes: [.bookmark], subscriber: self)
     }
     
     // Before the menu opens, re-create the menu items from the model
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        // Can't add a bookmark if no track is playing
-        addBookmarkMenuItem.isEnabled = player.getPlaybackState() != .noTrack
+        // Can't add a bookmark if no track is playing or if the popover is currently being shown
+        addBookmarkMenuItem.isEnabled = player.getPlaybackState() != .noTrack && !bookmarkNamePopover.isShown()
         
         // Clear the menu first (except the topmost item)
         let items = menu.items
@@ -77,7 +77,8 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient {
         defaultBookmarkName = String(format: "%@ (%@)", bookmarkedTrack!.conciseDisplayName, StringUtils.formatSecondsToHMS(bookmarkedTrackPosition!))
         
         // Show popover
-        bookmarkNamePopover.show(WindowState.window.contentView!, NSRectEdge.minX)
+        let loc = ViewFactory.getLocationForBookmarkPrompt()
+        bookmarkNamePopover.show(loc.view, loc.edge)
     }
     
     // When a bookmark menu item is clicked, the item is played
@@ -109,6 +110,19 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient {
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
         _ = bookmarks.addBookmark(string, bookmarkedTrack!.file, bookmarkedTrackPosition!)
+    }
+    
+    // MARK - Message handling
+    
+    func getID() -> String {
+        return self.className
+    }
+    
+    func consumeMessage(_ message: ActionMessage) {
+        
+        if message.actionType == .bookmark {
+            bookmarkAction(self)
+        }
     }
 }
 

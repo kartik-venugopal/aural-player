@@ -29,6 +29,9 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     @IBOutlet weak var seekSliderClone: NSSlider!
     @IBOutlet weak var seekSliderCloneCell: SeekSliderCell!
     
+    // Used to display the bookmark name prompt popover
+    @IBOutlet weak var seekPositionMarker: NSView!
+    
     // Button to display more details about the playing track
     @IBOutlet weak var btnMoreInfo: NSButton!
     
@@ -37,6 +40,9 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
 
     // Button to add/remove the currently playing track to/from the Favorites list
     @IBOutlet weak var btnFavorite: OnOffImageButton!
+    
+    // Button to bookmark current track and position
+    @IBOutlet weak var btnBookmark: NSButton!
     
     // Delegate that conveys all seek and playback info requests to the player
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
@@ -169,6 +175,13 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         SyncMessenger.publishActionMessage(FavoritesActionMessage(action, playingTrack))
     }
     
+    // Adds/removes the currently playing track to/from the "Favorites" list
+    @IBAction func bookmarkAction(_ sender: Any) {
+        
+        // Publish an action message to add/remove the item to/from Favorites
+        SyncMessenger.publishActionMessage(BookmarkActionMessage.instance)
+    }
+    
     // Responds to a notification that a track has been added to / removed from the Favorites list, by updating the UI to reflect the new state
     private func favoritesUpdated(_ message: FavoritesUpdatedAsyncMessage) {
         
@@ -282,7 +295,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // When the playing track changes (or there is none), certain functions may or may not be available, so their corresponding UI controls need to be shown/enabled or hidden/disabled.
     private func togglePlayingTrackButtons(_ show: Bool) {
         
-        [btnMoreInfo, btnShowPlayingTrackInPlaylist, btnFavorite].forEach({$0.isHidden = !show})
+        [btnMoreInfo, btnShowPlayingTrackInPlaylist, btnFavorite, btnBookmark].forEach({$0.isHidden = !show})
     }
     
     private func setSeekTimerState(_ timerOn: Bool) {
@@ -552,5 +565,15 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         default: return
             
         }
+    }
+    
+    // Used to position the bookmark name popover relative to the seek slider cell
+    func getLocationForBookmarkPrompt() -> (view: NSView, edge: NSRectEdge) {
+ 
+        // Slider knob position
+        let knobRect = seekSliderCell.knobRect(flipped: false)
+        seekPositionMarker.setFrameOrigin(NSPoint(x: seekSlider.frame.origin.x + knobRect.minX + 4, y: seekSlider.frame.origin.y + knobRect.height / 2))
+        
+        return (seekPositionMarker, NSRectEdge.minY)
     }
 }

@@ -218,6 +218,8 @@ enum ActionType {
     // Remove a track from the Favorites list
     case removeFavorite
     
+    case bookmark
+    
     // MARK: App mode actions
     
     case regularAppMode
@@ -337,4 +339,13 @@ struct AppModeActionMessage: ActionMessage {
     init(_ actionType: ActionType) {
         self.actionType = actionType
     }
+}
+
+struct BookmarkActionMessage: ActionMessage {
+    
+    let actionType: ActionType = .bookmark
+    
+    private init() {}
+    
+    static let instance: BookmarkActionMessage = BookmarkActionMessage()
 }

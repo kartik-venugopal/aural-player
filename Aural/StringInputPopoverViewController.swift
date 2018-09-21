@@ -100,4 +100,8 @@ class StringInputPopoverViewController: NSViewController, NSPopoverDelegate {
     func popoverDidClose(_ notification: Notification) {
         WindowState.showingPopover = false
     }
+    
+    func isShown() -> Bool {
+        return popover.isShown
+    }
 }
