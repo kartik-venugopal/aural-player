@@ -103,6 +103,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         filterNode.setFilterBassBand(state.filterBassMin, state.filterBassMax)
         filterNode.setFilterMidBand(state.filterMidMin, state.filterMidMax)
         filterNode.setFilterTrebleBand(state.filterTrebleMin, state.filterTrebleMax)
+        FilterPresets.loadUserDefinedPresets(state.filterUserPresets)
     }
     
     func reconnectPlayerNodeWithFormat(_ format: AVAudioFormat) {
@@ -448,6 +449,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.filterMidMax = filterBands.mid.max
         state.filterTrebleMin = filterBands.treble.min
         state.filterTrebleMax = filterBands.treble.max
+        state.filterUserPresets = FilterPresets.userDefinedPresets
         
         return state
     }

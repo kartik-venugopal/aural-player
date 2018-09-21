@@ -133,6 +133,7 @@ class AudioGraphState: PersistentState {
     var filterMidMax: Float = AppDefaults.filterMidMax
     var filterTrebleMin: Float = AppDefaults.filterTrebleMin
     var filterTrebleMax: Float = AppDefaults.filterTrebleMax
+    var filterUserPresets: [FilterPreset] = [FilterPreset]()
     
     func toSerializableMap() -> NSDictionary {
         
@@ -260,6 +261,25 @@ class AudioGraphState: PersistentState {
         filterDict["midMax"] = filterMidMax as NSNumber
         filterDict["trebleMin"] = filterTrebleMin as NSNumber
         filterDict["trebleMax"] = filterTrebleMax as NSNumber
+        
+        var filterUserPresetsArr = [[NSString: AnyObject]]()
+        for preset in filterUserPresets {
+            
+            var presetDict = [NSString: AnyObject]()
+            presetDict["name"] = preset.name as AnyObject
+            
+            presetDict["bassMin"] = preset.bassBand.lowerBound as NSNumber
+            presetDict["bassMax"] = preset.bassBand.upperBound as NSNumber
+            
+            presetDict["midMin"] = preset.midBand.lowerBound as NSNumber
+            presetDict["midMax"] = preset.midBand.upperBound as NSNumber
+            
+            presetDict["trebleMin"] = preset.trebleBand.lowerBound as NSNumber
+            presetDict["trebleMax"] = preset.trebleBand.upperBound as NSNumber
+            
+            filterUserPresetsArr.append(presetDict)
+        }
+        filterDict["userPresets"] = NSArray(array: filterUserPresetsArr)
         
         map["filter"] = filterDict as AnyObject
         
@@ -576,6 +596,58 @@ class AudioGraphState: PersistentState {
             
             if let trebleMax = (filterDict["trebleMax"] as? NSNumber) {
                 audioGraphState.filterTrebleMax = trebleMax.floatValue
+            }
+            
+            // Filter user presets
+            if let userPresets = filterDict["userPresets"] as? [NSDictionary] {
+                
+                userPresets.forEach({
+                    
+                    var presetName: String?
+                    
+                    var presetBassMin: Double?
+                    var presetBassMax: Double?
+                    
+                    var presetMidMin: Double?
+                    var presetMidMax: Double?
+                    
+                    var presetTrebleMin: Double?
+                    var presetTrebleMax: Double?
+                    
+                    if let name = $0["name"] as? String {
+                        presetName = name
+                    }
+                    
+                    if let bassMin = $0["bassMin"] as? NSNumber {
+                        presetBassMin = bassMin.doubleValue
+                    }
+                    
+                    if let bassMax = $0["bassMax"] as? NSNumber {
+                        presetBassMax = bassMax.doubleValue
+                    }
+                    
+                    if let midMin = $0["midMin"] as? NSNumber {
+                        presetMidMin = midMin.doubleValue
+                    }
+                    
+                    if let midMax = $0["midMax"] as? NSNumber {
+                        presetMidMax = midMax.doubleValue
+                    }
+                    
+                    if let trebleMin = $0["trebleMin"] as? NSNumber {
+                        presetTrebleMin = trebleMin.doubleValue
+                    }
+                    
+                    if let trebleMax = $0["trebleMax"] as? NSNumber {
+                        presetTrebleMax = trebleMax.doubleValue
+                    }
+                    
+                    // Preset must have a name
+                    if let presetName = presetName {
+                        
+                        audioGraphState.filterUserPresets.append(FilterPreset(name: presetName, bassBand: presetBassMin!...presetBassMax!, midBand: presetMidMin!...presetMidMax!, trebleBand: presetTrebleMin!...presetTrebleMax!, systemDefined: false))
+                    }
+                })
             }
         }
         

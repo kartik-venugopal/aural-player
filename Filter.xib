@@ -9,12 +9,14 @@
         <customObject id="-2" userLabel="File's Owner" customClass="FilterViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnFilterBypass" destination="N6p-bI-VWV" id="yz2-gz-7FV"/>
+                <outlet property="btnSavePreset" destination="wvD-pf-0wI" id="dAC-QY-SQi"/>
                 <outlet property="filterBassSlider" destination="djM-yo-Ik3" id="DrX-UC-wR0"/>
                 <outlet property="filterMidSlider" destination="Tyy-So-QvP" id="lcZ-KL-tYA"/>
                 <outlet property="filterTrebleSlider" destination="GWL-OR-vwc" id="YDd-rb-Cuk"/>
                 <outlet property="lblFilterBassRange" destination="sWQ-ui-aMh" id="fHm-Uq-27H"/>
                 <outlet property="lblFilterMidRange" destination="byB-ht-YHX" id="M4h-HJ-FEk"/>
                 <outlet property="lblFilterTrebleRange" destination="3Jk-PA-Vti" id="7R6-hQ-ej3"/>
+                <outlet property="presetsMenu" destination="N3s-tf-ulh" id="OF3-Zy-sqe"/>
                 <outlet property="view" destination="e4i-Mp-MMA" id="wyk-QH-lgV"/>
             </connections>
         </customObject>
@@ -206,56 +208,27 @@
                         <menu key="menu" showsStateColumn="NO" id="ARD-aA-rFG">
                             <items>
                                 <menuItem isSeparatorItem="YES" id="hdX-T2-7oc"/>
-                                <menuItem title="Flat" id="ibC-gH-Rnx">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="High bass and treble" id="xHi-ll-VIL">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem isSeparatorItem="YES" id="qj6-wW-0UQ"/>
-                                <menuItem title="Dance" id="unX-JR-Fzi">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Electronic" id="f8E-Bh-VsE" userLabel="Electronic">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Hip Hop" id="236-IL-qxt" userLabel="Hip Hop">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Jazz" id="2ht-0H-7QM" userLabel="Jazz">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Latin" id="Hgt-ki-1zY" userLabel="Latin">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Lounge" id="LrW-tR-Mg0" userLabel="Lounge">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Piano" id="DGW-uY-h4p" userLabel="Piano">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Pop" id="31j-Kh-hZT" userLabel="Pop">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="R&amp;B" id="9cE-Tv-H8I" userLabel="R&amp;B">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Rock" id="uLc-8N-jQp" userLabel="Rock">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem isSeparatorItem="YES" id="HlH-Rf-GpJ"/>
-                                <menuItem title="Soft" id="Xm8-JG-dbU">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
                                 <menuItem title="Karaoke" id="Ann-rK-dI3">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Vocal" id="S2m-PK-PYb">
+                                <menuItem title="No bass" id="LPX-mD-kMa">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Nothing but bass" id="9mn-9t-KV9">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Pass through" id="mLH-Wo-tC8">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Emphasized vocals" id="S2m-PK-PYb">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <connections>
+                        <action selector="filterPresetsAction:" target="-2" id="0zK-KG-Bn8"/>
+                    </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wvD-pf-0wI" userLabel="Save">
                     <rect key="frame" x="401" y="6" width="11" height="11"/>
@@ -264,6 +237,9 @@
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="savePresetAction:" target="-2" id="6M3-Oa-JfU"/>
+                    </connections>
                 </button>
             </subviews>
         </view>
