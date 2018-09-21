@@ -154,9 +154,6 @@ class ObjectGraph {
     
     // Called when app exits
     static func tearDown() {
-    
-        // Tear down the audio engine
-        audioGraph?.tearDown()
         
         // Gather all pieces of app state into the appState object
         
@@ -169,5 +166,8 @@ class ObjectGraph {
         
         // Persist app state to disk
         AppStateIO.save(appState!)
+        
+        // Tear down the audio engine
+        audioGraph?.tearDown()
     }
 }

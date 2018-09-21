@@ -457,6 +457,9 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     func tearDown() {
         
         // Stop the player and release the audio engine resources
+        playerNode.stop()
+        playerNode.reset()
+        
         audioEngine.stop()
     }
 }
