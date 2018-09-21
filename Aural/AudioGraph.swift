@@ -96,6 +96,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         delayNode.delayTime = state.delayTime
         delayNode.feedback = state.delayFeedback
         delayNode.lowPassCutoff = state.delayLowPassCutoff
+        DelayPresets.loadUserDefinedPresets(state.delayUserPresets)
         
         // Filter
         filterNode.bypass = state.filterBypass
@@ -436,6 +437,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.delayTime = delayNode.delayTime
         state.delayFeedback = delayNode.feedback
         state.delayLowPassCutoff = delayNode.lowPassCutoff
+        state.delayUserPresets = DelayPresets.userDefinedPresets
         
         // Filter
         state.filterBypass = filterNode.bypass

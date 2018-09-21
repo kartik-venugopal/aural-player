@@ -62,7 +62,8 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
 //            positionMainWindowRelativeToScreen(appState.windowLocationOnStartup.windowLocation, appState.playlistLocation, !appState.hidePlaylist)
 //        }
         
-        mainWindow.setFrameOrigin(NSPoint(x: 400, y: 600))
+        // TODO: TEMPORARY
+        mainWindow.setFrameOrigin(NSPoint(x: 400, y: 400))
         
         // Show and dock the playlist, if needed
         lastDockState = appState.playlistLocation.toPlaylistDockState()
@@ -78,6 +79,7 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
         appState.hideEffects ? hideEffects() : showEffects()
         appState.hidePlaylist ? hidePlaylist() : showPlaylist()
         
+        // TODO: TEMPORARY
         effectsWindow.setFrameOrigin(NSPoint(x: mainWindow.x, y: mainWindow.y - effectsWindow.height))
     }
     
