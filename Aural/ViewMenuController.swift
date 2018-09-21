@@ -103,15 +103,12 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         SyncMessenger.publishActionMessage(MiniBarActionMessage(.dockBottomRight))
     }
     
-//    @IBAction func dockPlaylistLeftAction(_ sender: AnyObject) {
-//        SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockLeft, nil))
-//    }
-//    
-//    @IBAction func dockPlaylistLeftAction(_ sender: AnyObject) {
-//        SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockLeft, nil))
-//    }
-//    
-//    @IBAction func dockPlaylistLeftAction(_ sender: AnyObject) {
-//        SyncMessenger.publishActionMessage(PlaylistActionMessage(.dockLeft, nil))
-//    }
+    @IBAction func windowLayoutAction(_ sender: NSMenuItem) {
+        
+        let layout = WindowLayoutPresets.fromDisplayName(sender.title)
+        
+        // TODO: Accomplish this with action messages
+//        SyncMessenger.publishActionMessage(WindowLayoutActionMessage(layout))
+        LayoutManager.layout(layout)
+    }
 }

@@ -220,6 +220,8 @@ enum ActionType {
     
     case bookmark
     
+    case windowLayout
+    
     // MARK: App mode actions
     
     case regularAppMode
@@ -348,4 +350,15 @@ struct BookmarkActionMessage: ActionMessage {
     private init() {}
     
     static let instance: BookmarkActionMessage = BookmarkActionMessage()
+}
+
+struct WindowLayoutActionMessage: ActionMessage {
+    
+    let actionType: ActionType = .windowLayout
+    
+    let layout: WindowLayoutPresets
+    
+    init(_ layout: WindowLayoutPresets) {
+        self.layout = layout
+    }
 }

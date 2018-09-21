@@ -632,26 +632,57 @@ CQ
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="sUj-gu-cOk"/>
-                            <menuItem title="  Dock Playlist" image="DockBottom-Small" id="RWg-5h-jkO" userLabel="Dock Playlist">
+                            <menuItem title="  Window Layout" image="DockBottom-Small" id="RWg-5h-jkO" userLabel="Window Layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Dock Playlist" id="S2A-E2-dfO">
+                                <menu key="submenu" title="  Window Layout" id="S2A-E2-dfO">
                                     <items>
-                                        <menuItem title=" On the left" image="DockLeft-Small" id="3ni-vP-4WM">
+                                        <menuItem title="Vertical full stack" id="3ni-vP-4WM">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="dockPlaylistLeftAction:" target="xzd-WN-BuR" id="oGY-sB-MV0"/>
+                                                <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="pF1-u2-cwb"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title=" On the bottom" image="DockBottom-Small" id="5xt-05-361">
+                                        <menuItem title="Horizontal full stack" id="5xt-05-361">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="dockPlaylistBottomAction:" target="xzd-WN-BuR" id="pQh-RR-ctY"/>
+                                                <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="wWK-b1-F3u"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title=" On the right" image="DockRight-Small" id="CKo-pZ-cY4">
+                                        <menuItem title="Compact cornered" id="CKo-pZ-cY4">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="dockPlaylistRightAction:" target="xzd-WN-BuR" id="qY7-oJ-IdW"/>
+                                                <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="ucy-JE-xX9"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Big bottom playlist" id="9HZ-X6-YIg">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="QJr-Ao-Uw2"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="  Dock Playlist" image="DockBottom-Small" id="pRj-Q7-pVQ" userLabel="Dock Playlist">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="  Dock Playlist" id="G1h-af-dKa">
+                                    <items>
+                                        <menuItem title=" On the left" image="DockLeft-Small" id="Gwt-jS-t1A">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="dockPlaylistLeftAction:" target="xzd-WN-BuR" id="XBd-Bi-7t2"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title=" On the bottom" image="DockBottom-Small" id="pzb-V8-2VC">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="dockPlaylistBottomAction:" target="xzd-WN-BuR" id="hJv-Gh-2I3"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title=" On the right" image="DockRight-Small" id="40b-3l-NdN">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="dockPlaylistRightAction:" target="xzd-WN-BuR" id="d3S-bf-W71"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -714,7 +745,7 @@ CQ
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="eo4-eB-OpN"/>
-                            <menuItem title="Switch to miniature view" image="FloatingBarMode-Small" hidden="YES" enabled="NO" keyEquivalent="v" id="Lhd-o1-irA" userLabel="Effects" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                            <menuItem title="Switch to miniature view" image="FloatingBarMode-Small" hidden="YES" enabled="NO" keyEquivalent="v" id="Lhd-o1-irA" userLabel="Switch view" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Switch to miniature view"/>
