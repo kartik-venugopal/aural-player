@@ -147,6 +147,7 @@
 		3E911CEF1F441BE1009C1572 /* UIAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E911CEE1F441BE1009C1572 /* UIAppState.swift */; };
 		3E9463971F29960F00A9019C /* TabGroupButtonCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9463961F29960F00A9019C /* TabGroupButtonCells.swift */; };
 		3E94E85B21549A5800C57AD8 /* DelayPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E85A21549A5800C57AD8 /* DelayPresets.swift */; };
+		3E94E85D2154AB9300C57AD8 /* FilterPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E85C2154AB9300C57AD8 /* FilterPresets.swift */; };
 		3E97967D1F00286200690DA2 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E97967C1F00286200690DA2 /* Track.swift */; };
 		3E9796811F00BA3000690DA2 /* RepeatAndShuffleModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9796801F00BA3000690DA2 /* RepeatAndShuffleModes.swift */; };
 		3E981EA91F7A0C8A003DDA38 /* RecordingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E981EA81F7A0C8A003DDA38 /* RecordingSession.swift */; };
@@ -390,6 +391,7 @@
 		3E911CEE1F441BE1009C1572 /* UIAppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAppState.swift; sourceTree = "<group>"; };
 		3E9463961F29960F00A9019C /* TabGroupButtonCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabGroupButtonCells.swift; sourceTree = "<group>"; };
 		3E94E85A21549A5800C57AD8 /* DelayPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayPresets.swift; sourceTree = "<group>"; };
+		3E94E85C2154AB9300C57AD8 /* FilterPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterPresets.swift; sourceTree = "<group>"; };
 		3E97967C1F00286200690DA2 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		3E9796801F00BA3000690DA2 /* RepeatAndShuffleModes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatAndShuffleModes.swift; sourceTree = "<group>"; };
 		3E981EA81F7A0C8A003DDA38 /* RecordingSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingSession.swift; sourceTree = "<group>"; };
@@ -760,6 +762,7 @@
 				3E5F00D52154503E00A76C23 /* ReverbPresets.swift */,
 				3E5F00C2215386CA00A76C23 /* TimePresets.swift */,
 				3E94E85A21549A5800C57AD8 /* DelayPresets.swift */,
+				3E94E85C2154AB9300C57AD8 /* FilterPresets.swift */,
 			);
 			name = AudioGraph;
 			sourceTree = "<group>";
@@ -1367,6 +1370,7 @@
 				3E26B92D1FBC207C00FA3274 /* MultiStateImageButton.swift in Sources */,
 				3EBA52F71FC2E6A2007F902F /* StateMachine.swift in Sources */,
 				3E5F00C62153986700A76C23 /* Bookmark.swift in Sources */,
+				3E94E85D2154AB9300C57AD8 /* FilterPresets.swift in Sources */,
 				3E80E66F1F04FA60007480CC /* Size.swift in Sources */,
 				3ED100891FB98F1E00D48688 /* OnOffImageAndTextButtonCell.swift in Sources */,
 				3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */,
