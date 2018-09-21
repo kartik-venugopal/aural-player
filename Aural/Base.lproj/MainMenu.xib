@@ -714,7 +714,7 @@ CQ
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="eo4-eB-OpN"/>
-                            <menuItem title="Switch to miniature view" image="FloatingBarMode-Small" keyEquivalent="v" id="Lhd-o1-irA" userLabel="Effects" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                            <menuItem title="Switch to miniature view" image="FloatingBarMode-Small" hidden="YES" enabled="NO" keyEquivalent="v" id="Lhd-o1-irA" userLabel="Effects" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Switch to miniature view"/>
