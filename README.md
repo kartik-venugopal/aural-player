@@ -6,7 +6,11 @@
 
 Aural Player is a free and open source audio player application for the macOS platform. Inspired by the classic Winamp player for Windows, it is designed to be to-the-point and easy to use, with a variety of convenient and efficient controls, plus some additional sound tuning capabilities for audio enthusiasts who like to tweak sound.
 
-### Features
+## Download
+
+Download the disk image file [Aural.dmg](https://github.com/maculateConception/aural-player/blob/master/Aural.dmg?raw=true). Just mount it and run the app !
+
+## Features
 
 - Playback of MP3, AAC, AIFF/AIFC, WAV, and CAF audio files
 - Supports M3U/M3U8 playlists
@@ -24,10 +28,6 @@ Aural Player is a free and open source audio player application for the macOS pl
 - Extensive set of keyboard shortcuts and menu items for quick and convenient access to functionality
 - Extensive set of preferences to allow user to customize functionality (e.g. seek/volume/pan increment, enabling/disabling and mouse sensitivity for gestures, remembered/default volume on startup, remembered/default view on startup, etc.)
 
-## Download
-
-Download the disk image file [Aural.dmg](https://github.com/maculateConception/aural-player/blob/master/Aural.dmg?raw=true). Just mount it and run the app !
-
 ### Compatibility
 
 **User**: Running Aural Player requires OS X 10.10 (Yosemite) or later macOS versions.
@@ -40,12 +40,12 @@ Aural Player was written by an audio enthusiast learning to program on OS X, com
 
 ### Recent updates
 
+- **9/16/2018: Dynamic button tool tips -** Previous/Next track control buttons now show dynamic tool tips with the name of the previous/next track, if applicable.
 - **9/14/2018: Improved aesthetics -** Touched up the UI. Removed ugly panel borders, redid tab group button selection boxes, changed app title text font.
 - **9/14/2018: Playlist docking bug fix -** Fixed a bug that caused the playlist's docking location to not be rememebered across app launches.
 - **9/14/2018: Show track in Finder -** Implemented a new function to allow users to show a track in Finder from the playlist's context menu (i.e. the right-click menu).
-- **9/16/2018: Dynamic button tool tips -** Previous/Next track control buttons now show dynamic tool tips with the name of the previous/next track, if applicable.
 
-## Third party code and contributor attributions
+### Third party code and contributor attributions
 
 Aural Player makes use of (a modified version of) a reusable UI control called [RangeSlider](https://github.com/matthewreagan/RangeSlider).
 
