@@ -9,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="DelayViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnDelayBypass" destination="0Oi-jb-bmq" id="omJ-pP-Peb"/>
+                <outlet property="btnSavePreset" destination="RNY-r7-uAF" id="vu3-Em-haf"/>
                 <outlet property="delayAmountSlider" destination="82T-N1-PUx" id="Xjf-9K-OYh"/>
                 <outlet property="delayCutoffSlider" destination="ACj-TQ-Mnp" id="uHR-k6-jAw"/>
                 <outlet property="delayFeedbackSlider" destination="Exm-O9-toy" id="zDf-Ta-NKV"/>
@@ -17,6 +18,7 @@
                 <outlet property="lblDelayFeedbackValue" destination="t2I-Cj-ddy" id="cYm-bb-ick"/>
                 <outlet property="lblDelayLowPassCutoffValue" destination="4qK-Gy-L1x" id="Asv-4r-dD1"/>
                 <outlet property="lblDelayTimeValue" destination="L6J-K8-maZ" id="g8w-gN-PeJ"/>
+                <outlet property="presetsMenu" destination="diN-gY-3YR" id="f0D-zP-ZbY"/>
                 <outlet property="view" destination="eXu-49-wDq" id="ENz-f9-LMp"/>
             </connections>
         </customObject>
@@ -268,21 +270,28 @@
                         <menu key="menu" showsStateColumn="NO" id="g2A-vv-zIt">
                             <items>
                                 <menuItem isSeparatorItem="YES" id="MFJ-4v-8tn"/>
-                                <menuItem title="+2 8ve" id="L26-zb-V4w">
+                                <menuItem title="Slight echo" id="L26-zb-V4w">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="+1 8ve" id="bTp-96-JTB">
+                                <menuItem isSeparatorItem="YES" id="KKQ-5K-X3j"/>
+                                <menuItem title="1/4 second delay" id="bTp-96-JTB">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="-1 8ve" id="Gk1-TB-FsH">
+                                <menuItem title="1/2 second delay" id="Gk1-TB-FsH">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="-2 8ve" id="O09-Tt-LRN">
+                                <menuItem title="1 second delay" id="O09-Tt-LRN">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="2 seconds delay" id="63Y-Rh-6Nk">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <connections>
+                        <action selector="delayPresetsAction:" target="-2" id="ydD-AE-4K1"/>
+                    </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RNY-r7-uAF" userLabel="Save">
                     <rect key="frame" x="401" y="6" width="11" height="11"/>
@@ -291,6 +300,9 @@
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="savePresetAction:" target="-2" id="kbY-Zb-my8"/>
+                    </connections>
                 </button>
             </subviews>
         </view>

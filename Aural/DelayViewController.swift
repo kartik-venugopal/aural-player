@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Delay effects unit
  */
-class DelayViewController: NSViewController {
+class DelayViewController: NSViewController, StringInputClient {
     
     // Delay controls
     @IBOutlet weak var btnDelayBypass: EffectsUnitBypassButton!
@@ -16,6 +16,12 @@ class DelayViewController: NSViewController {
     @IBOutlet weak var lblDelayAmountValue: NSTextField!
     @IBOutlet weak var lblDelayFeedbackValue: NSTextField!
     @IBOutlet weak var lblDelayLowPassCutoffValue: NSTextField!
+    
+    // Presets menu
+    @IBOutlet weak var presetsMenu: NSPopUpButton!
+    @IBOutlet weak var btnSavePreset: NSButton!
+    
+    private lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
@@ -45,6 +51,12 @@ class DelayViewController: NSViewController {
         let cutoff = graph.getDelayLowPassCutoff()
         delayCutoffSlider.floatValue = cutoff.cutoff
         lblDelayLowPassCutoffValue.stringValue = cutoff.cutoffString
+        
+        // Initialize the menu with user-defined presets
+        DelayPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        
+        // Don't select any items from the presets menu
+        presetsMenu.selectItem(at: -1)
     }
 
     // Activates/deactivates the Delay effects unit
@@ -71,5 +83,66 @@ class DelayViewController: NSViewController {
     // Updates the Delay low pass cutoff parameter
     @IBAction func delayCutoffAction(_ sender: AnyObject) {
         lblDelayLowPassCutoffValue.stringValue = graph.setDelayLowPassCutoff(delayCutoffSlider.floatValue)
+    }
+    
+    // Applies a preset to the effects unit
+    @IBAction func delayPresetsAction(_ sender: AnyObject) {
+        
+        // Get preset definition
+        let preset = DelayPresets.presetByName(presetsMenu.titleOfSelectedItem!)
+        
+        lblDelayAmountValue.stringValue = graph.setDelayAmount(preset.amount)
+        delayAmountSlider.floatValue = preset.amount
+        
+        lblDelayTimeValue.stringValue = graph.setDelayTime(preset.time)
+        delayTimeSlider.doubleValue = preset.time
+        
+        lblDelayFeedbackValue.stringValue = graph.setDelayFeedback(preset.feedback)
+        delayFeedbackSlider.floatValue = preset.feedback
+        
+        lblDelayLowPassCutoffValue.stringValue = graph.setDelayLowPassCutoff(preset.cutoff)
+        delayCutoffSlider.floatValue = preset.cutoff
+        
+        // Don't select any of the items
+        presetsMenu.selectItem(at: -1)
+    }
+    
+    // Displays a popover to allow the user to name the new custom preset
+    @IBAction func savePresetAction(_ sender: AnyObject) {
+        
+        userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
+        
+        // If this isn't done, the app windows are hidden when the popover is displayed
+        WindowState.window.orderFront(self)
+    }
+    
+    // MARK - StringInputClient functions
+    
+    func getInputPrompt() -> String {
+        return "Enter a new preset name:"
+    }
+    
+    func getDefaultValue() -> String? {
+        return "<New Delay preset>"
+    }
+    
+    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
+        
+        let valid = !DelayPresets.presetWithNameExists(string)
+        
+        if (!valid) {
+            return (false, "Preset with this name already exists !")
+        } else {
+            return (true, nil)
+        }
+    }
+    
+    // Receives a new EQ preset name and saves the new preset
+    func acceptInput(_ string: String) {
+        
+        DelayPresets.addUserDefinedPreset(string, delayAmountSlider.floatValue, delayTimeSlider.doubleValue, delayFeedbackSlider.floatValue, delayCutoffSlider.floatValue)
+        
+        // Add a menu item for the new preset, at the top of the menu
+        presetsMenu.insertItem(withTitle: string, at: 0)
     }
 }

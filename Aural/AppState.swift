@@ -124,6 +124,7 @@ class AudioGraphState: PersistentState {
     var delayTime: Double = AppDefaults.delayTime
     var delayFeedback: Float = AppDefaults.delayFeedback
     var delayLowPassCutoff: Float = AppDefaults.delayLowPassCutoff
+    var delayUserPresets: [DelayPreset] = [DelayPreset]()
     
     var filterBypass: Bool = AppDefaults.filterBypass
     var filterBassMin: Float = AppDefaults.filterBassMin
@@ -234,6 +235,20 @@ class AudioGraphState: PersistentState {
         delayDict["time"] = delayTime as NSNumber
         delayDict["feedback"] = delayFeedback as NSNumber
         delayDict["lowPassCutoff"] = delayLowPassCutoff as NSNumber
+        
+        var delayUserPresetsArr = [[NSString: AnyObject]]()
+        for preset in delayUserPresets {
+            
+            var presetDict = [NSString: AnyObject]()
+            presetDict["name"] = preset.name as AnyObject
+            presetDict["amount"] = preset.amount as NSNumber
+            presetDict["time"] = preset.time as NSNumber
+            presetDict["feedback"] = preset.feedback as NSNumber
+            presetDict["lowPassCutoff"] = preset.cutoff as NSNumber
+            
+            delayUserPresetsArr.append(presetDict)
+        }
+        delayDict["userPresets"] = NSArray(array: delayUserPresetsArr)
         
         map["delay"] = delayDict as AnyObject
         
@@ -492,6 +507,45 @@ class AudioGraphState: PersistentState {
             if let cutoff = delayDict["lowPassCutoff"] as? NSNumber {
                 audioGraphState.delayLowPassCutoff = cutoff.floatValue
             }
+            
+            // Delay user presets
+            if let userPresets = delayDict["userPresets"] as? [NSDictionary] {
+                
+                userPresets.forEach({
+                    
+                    var presetName: String?
+                    var presetAmount: Float?
+                    var presetTime: Double?
+                    var presetFeedback: Float?
+                    var presetCutoff: Float?
+                    
+                    if let name = $0["name"] as? String {
+                        presetName = name
+                    }
+                    
+                    if let amount = $0["amount"] as? NSNumber {
+                        presetAmount = amount.floatValue
+                    }
+                    
+                    if let time = $0["time"] as? NSNumber {
+                        presetTime = time.doubleValue
+                    }
+                    
+                    if let feedback = $0["feedback"] as? NSNumber {
+                        presetFeedback = feedback.floatValue
+                    }
+                    
+                    if let cutoff = $0["lowPassCutoff"] as? NSNumber {
+                        presetCutoff = cutoff.floatValue
+                    }
+                    
+                    // Preset must have a name
+                    if let presetName = presetName {
+                        
+                        audioGraphState.delayUserPresets.append(DelayPreset(name: presetName, amount: presetAmount!, time: presetTime!, feedback: presetFeedback!, cutoff: presetCutoff!, systemDefined: false))
+                    }
+                })
+            }
         }
         
         if let filterDict = (map["filter"] as? NSDictionary) {
@@ -530,7 +584,7 @@ class AudioGraphState: PersistentState {
 }
 
 /*
- Encapsulates playlist state
+    Encapsulates playlist state
  */
 class PlaylistState: PersistentState {
     
