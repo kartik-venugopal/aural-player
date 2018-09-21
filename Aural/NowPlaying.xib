@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="NowPlayingViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="artView" destination="g8e-0B-ilR" id="56i-rL-zB9"/>
+                <outlet property="btnBookmark" destination="uYo-TV-sea" id="nuP-HI-K90"/>
                 <outlet property="btnFavorite" destination="dN5-Zv-Pet" id="ozS-Ye-sbf"/>
                 <outlet property="btnMoreInfo" destination="d6y-wj-Yri" id="MZa-vY-D6p"/>
                 <outlet property="btnShowPlayingTrackInPlaylist" destination="BL3-VR-Ng2" id="6Y6-J0-uv1"/>
@@ -19,6 +20,7 @@
                 <outlet property="lblTrackArtist" destination="Ic4-td-93d" id="OMa-fz-AOs"/>
                 <outlet property="lblTrackName" destination="TAg-yT-Umq" id="jkC-cY-6v9"/>
                 <outlet property="lblTrackTitle" destination="2m3-ds-GGr" id="gHi-uH-Jg0"/>
+                <outlet property="seekPositionMarker" destination="lnA-nV-1xB" id="17P-0e-eHV"/>
                 <outlet property="seekSlider" destination="9fK-HM-M9o" id="bXu-cl-0WR"/>
                 <outlet property="seekSliderCell" destination="ol4-Ik-RVN" id="uRQ-1S-cgb"/>
                 <outlet property="seekSliderClone" destination="iEN-Sg-plp" id="lB7-sQ-Vgm"/>
@@ -98,6 +100,15 @@
                         <action selector="seekSliderAction:" target="-2" id="fYj-ax-7Gb"/>
                     </connections>
                 </slider>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnA-nV-1xB" userLabel="SeekPositionMarker">
+                    <rect key="frame" x="221" y="51" width="7" height="4"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="UOp-Uv-7go">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="876-EM-3g4" userLabel="Lbl Time Elapsed">
                     <rect key="frame" x="90" y="0.0" width="50" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -117,7 +128,7 @@
                     </textFieldCell>
                 </textField>
                 <button hidden="YES" toolTip="Detailed information about playing track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d6y-wj-Yri" userLabel="More Info Button">
-                    <rect key="frame" x="430" y="76" width="14" height="14"/>
+                    <rect key="frame" x="430" y="86" width="13" height="13"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MoreInfo" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="T25-Ql-rkq">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -128,7 +139,7 @@
                     </connections>
                 </button>
                 <button hidden="YES" toolTip="Show playing track within the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BL3-VR-Ng2" userLabel="Show Playing Track Button">
-                    <rect key="frame" x="429" y="57" width="14" height="14"/>
+                    <rect key="frame" x="429" y="69" width="13" height="13"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShowPlayingTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="G9f-A6-ERF">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -139,7 +150,7 @@
                     </connections>
                 </button>
                 <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dN5-Zv-Pet" userLabel="Favorites Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="429" y="38" width="15" height="15"/>
+                    <rect key="frame" x="429" y="52" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Favorites-Off" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="7El-PZ-rVW">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -167,6 +178,17 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </customView>
+                <button hidden="YES" toolTip="Bookmark this track position" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uYo-TV-sea" userLabel="Bookmark Button">
+                    <rect key="frame" x="429" y="35" width="13" height="12"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Bookmark" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Hwn-sv-TtU">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="bookmarkAction:" target="-2" id="OVH-YU-9xd"/>
+                    </connections>
+                </button>
             </subviews>
         </view>
         <slider hidden="YES" verticalHuggingPriority="750" id="iEN-Sg-plp" userLabel="Seek Slider clone">
@@ -179,6 +201,7 @@
         </slider>
     </objects>
     <resources>
+        <image name="Bookmark" width="68" height="68"/>
         <image name="Favorites-Off" width="256" height="256"/>
         <image name="Favorites-On" width="256" height="256"/>
         <image name="MoreInfo" width="457" height="453"/>
