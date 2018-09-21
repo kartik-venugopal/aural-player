@@ -10,7 +10,7 @@ Aural Player is a free and open source audio player application for the macOS pl
 
 Download the disk image file [Aural.dmg](https://github.com/maculateConception/aural-player/blob/master/Aural.dmg?raw=true). Just mount it and run the app !
 
-### Features
+## Features
 
 - Playback of MP3, AAC, AIFF/AIFC, WAV, and CAF audio files
 - Supports M3U/M3U8 playlists
