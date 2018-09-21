@@ -55,6 +55,11 @@
 		3E26B92D1FBC207C00FA3274 /* MultiStateImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B92C1FBC207C00FA3274 /* MultiStateImageButton.swift */; };
 		3E26B9311FBC53A700FA3274 /* GestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B9301FBC53A700FA3274 /* GestureHandler.swift */; };
 		3E2BDC4D1F0DE1C00099FDB7 /* BufferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BDC4C1F0DE1C00099FDB7 /* BufferManager.swift */; };
+		3E2F1049215562DD0099FD06 /* EditorWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2F1048215562DD0099FD06 /* EditorWindow.xib */; };
+		3E2F104C215569D40099FD06 /* EditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F104B215569D40099FD06 /* EditorWindowController.swift */; };
+		3E2F104F21556A2D0099FD06 /* BookmarksEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2F104E21556A2D0099FD06 /* BookmarksEditor.xib */; };
+		3E2F105121556B860099FD06 /* BookmarksEditorViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F105021556B860099FD06 /* BookmarksEditorViewDelegate.swift */; };
+		3E2F10532155742E0099FD06 /* BookmarksEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F10522155742E0099FD06 /* BookmarksEditorViewController.swift */; };
 		3E309B741FB70BB800C61E72 /* FavoritesPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E309B731FB70BB800C61E72 /* FavoritesPopup.xib */; };
 		3E309B781FB70D1F00C61E72 /* FavoritesPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E309B771FB70D1F00C61E72 /* FavoritesPopupViewController.swift */; };
 		3E33B49E1F3E70F4005EF359 /* FileSystemUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33B49D1F3E70F4005EF359 /* FileSystemUtils.swift */; };
@@ -297,6 +302,11 @@
 		3E26B92C1FBC207C00FA3274 /* MultiStateImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiStateImageButton.swift; sourceTree = "<group>"; };
 		3E26B9301FBC53A700FA3274 /* GestureHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureHandler.swift; sourceTree = "<group>"; };
 		3E2BDC4C1F0DE1C00099FDB7 /* BufferManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferManager.swift; sourceTree = "<group>"; };
+		3E2F1048215562DD0099FD06 /* EditorWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditorWindow.xib; sourceTree = "<group>"; };
+		3E2F104B215569D40099FD06 /* EditorWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorWindowController.swift; sourceTree = "<group>"; };
+		3E2F104E21556A2D0099FD06 /* BookmarksEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookmarksEditor.xib; sourceTree = "<group>"; };
+		3E2F105021556B860099FD06 /* BookmarksEditorViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksEditorViewDelegate.swift; sourceTree = "<group>"; };
+		3E2F10522155742E0099FD06 /* BookmarksEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksEditorViewController.swift; sourceTree = "<group>"; };
 		3E309B731FB70BB800C61E72 /* FavoritesPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesPopup.xib; sourceTree = "<group>"; };
 		3E309B771FB70D1F00C61E72 /* FavoritesPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesPopupViewController.swift; sourceTree = "<group>"; };
 		3E33B49D1F3E70F4005EF359 /* FileSystemUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSystemUtils.swift; sourceTree = "<group>"; };
@@ -696,6 +706,34 @@
 			name = Buttons;
 			sourceTree = "<group>";
 		};
+		3E2F1047215562B50099FD06 /* Editors */ = {
+			isa = PBXGroup;
+			children = (
+				3E2F1048215562DD0099FD06 /* EditorWindow.xib */,
+				3E2F104B215569D40099FD06 /* EditorWindowController.swift */,
+				3E2F104A215569BD0099FD06 /* Bookmarks */,
+				3E2F104D215569DB0099FD06 /* Favorites */,
+			);
+			name = Editors;
+			sourceTree = "<group>";
+		};
+		3E2F104A215569BD0099FD06 /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				3E2F104E21556A2D0099FD06 /* BookmarksEditor.xib */,
+				3E2F10522155742E0099FD06 /* BookmarksEditorViewController.swift */,
+				3E2F105021556B860099FD06 /* BookmarksEditorViewDelegate.swift */,
+			);
+			name = Bookmarks;
+			sourceTree = "<group>";
+		};
+		3E2F104D215569DB0099FD06 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Favorites;
+			sourceTree = "<group>";
+		};
 		3E309B721FB70B7800C61E72 /* FavoritesPopup */ = {
 			isa = PBXGroup;
 			children = (
@@ -865,6 +903,7 @@
 				3E3F82831FCD4C9100DC9D11 /* BarMode */,
 				3E06C0251FB6AF2B003EE9AB /* CustomControls */,
 				3E02739A1FD91B28000F0844 /* StringInputPopover */,
+				3E2F1047215562B50099FD06 /* Editors */,
 				3E850D511FB441800017CD02 /* WindowFactory.swift */,
 				3E0F94781FBB9A2100B6E1B3 /* ViewFactory.swift */,
 				3E46F5651F2ABA57007CD384 /* PopoverContentView.swift */,
@@ -1326,6 +1365,7 @@
 				3EA5C7A31F458EB400556669 /* UserGuide.pdf in Resources */,
 				3EF5E5B71FBDAED9004270A4 /* Artists.xib in Resources */,
 				3E0ED6B51FBB1B64008268B3 /* Time.xib in Resources */,
+				3E2F104F21556A2D0099FD06 /* BookmarksEditor.xib in Resources */,
 				3E850D571FB4461E0017CD02 /* PlaylistSort.xib in Resources */,
 				3ECB8591215309C000D974F5 /* Filter.xib in Resources */,
 				3EF7EFCE215075F500E582CB /* BarModePlayer.xib in Resources */,
@@ -1337,6 +1377,7 @@
 				3EF7EFCC215075DD00E582CB /* BarModeNowPlaying.xib in Resources */,
 				3E0ED6B21FBB1B0B008268B3 /* Pitch.xib in Resources */,
 				3E36E86B1FC0108F0005C62E /* HistoryPreferences.xib in Resources */,
+				3E2F1049215562DD0099FD06 /* EditorWindow.xib in Resources */,
 				3E85F25F1EFA78D6007BE830 /* MainMenu.xib in Resources */,
 				3E0ED6BD1FBB1CB7008268B3 /* Delay.xib in Resources */,
 				3E0ED6AC1FBB1961008268B3 /* Effects.xib in Resources */,
@@ -1372,6 +1413,7 @@
 				3EF5E5D21FBF0373004270A4 /* TracksPlaylistViewDelegate.swift in Sources */,
 				3E58CC2B1F0275B200C36DC1 /* TimerUtils.swift in Sources */,
 				3E2188A81F0771390085BAB3 /* DetailedTrackInfoViewController.swift in Sources */,
+				3E2F10532155742E0099FD06 /* BookmarksEditorViewController.swift in Sources */,
 				3EF5A5501F403D2500C5A2D2 /* PreferencesOptions.swift in Sources */,
 				3E9847821F5CF23D001A2D28 /* HelpMenuController.swift in Sources */,
 				3E24ED451FBB2B430023F9F9 /* ReverbViewController.swift in Sources */,
@@ -1430,6 +1472,7 @@
 				3EF5E5D51FBF104D004270A4 /* GroupingPlaylistViewDelegates.swift in Sources */,
 				3E24ED411FBB246C0023F9F9 /* PitchViewController.swift in Sources */,
 				3E221FB81F98530700DA3AD8 /* Group.swift in Sources */,
+				3E2F104C215569D40099FD06 /* EditorWindowController.swift in Sources */,
 				3E3D489B1F464C02004C0F91 /* Errors.swift in Sources */,
 				3EBD20081F6C6EC300E1354C /* MetadataSpec.swift in Sources */,
 				3E357B521F9C79E900C8F7B1 /* GroupingPlaylistProtocols.swift in Sources */,
@@ -1457,6 +1500,7 @@
 				3E46F5661F2ABA57007CD384 /* PopoverContentView.swift in Sources */,
 				3EDFFA091FC026EE00158177 /* SoundPreferencesViewController.swift in Sources */,
 				3E850D521FB441800017CD02 /* WindowFactory.swift in Sources */,
+				3E2F105121556B860099FD06 /* BookmarksEditorViewDelegate.swift in Sources */,
 				3E3AD5461F5D2BD1006123E9 /* SyncMessenger.swift in Sources */,
 				3E46F5641F2A918B007CD384 /* ColoredCursorTextField.swift in Sources */,
 				3E1DAAA41FAEB561002BB405 /* CRUDOperationResults.swift in Sources */,

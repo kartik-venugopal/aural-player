@@ -13,11 +13,14 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, Acti
     @IBOutlet weak var theMenu: NSMenu!
     
     @IBOutlet weak var addBookmarkMenuItem: NSMenuItem!
+    @IBOutlet weak var manageBookmarksMenuItem: NSMenuItem!
     
     // Changes whenever a bookmark is added
     private var defaultBookmarkName: String?
     private var bookmarkedTrack: Track?
     private var bookmarkedTrackPosition: Double?
+    
+    private lazy var editorWindowController: NSWindowController = WindowFactory.getEditorWindowController()
     
     private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
  
@@ -31,6 +34,8 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, Acti
         
         // Can't add a bookmark if no track is playing or if the popover is currently being shown
         addBookmarkMenuItem.isEnabled = player.getPlaybackState() != .noTrack && !bookmarkNamePopover.isShown()
+        
+        manageBookmarksMenuItem.isEnabled = bookmarks.countBookmarks() > 0
         
         // Clear the menu first (except the topmost item)
         let items = menu.items
@@ -84,6 +89,10 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, Acti
     // When a bookmark menu item is clicked, the item is played
     @IBAction fileprivate func playSelectedItemAction(_ sender: BookmarksMenuItem) {
         bookmarks.playBookmark(sender.bookmark)
+    }
+    
+    @IBAction func manageBookmarksAction(_ sender: Any) {
+        editorWindowController.showWindow(self)
     }
     
     // MARK - StringInputClient functions

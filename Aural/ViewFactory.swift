@@ -15,6 +15,8 @@ struct ViewFactory {
     
     private static var barModePlayerViewController: BarModePlayerViewController = BarModePlayerViewController()
     
+    private static var bookmarksEditorViewController: BookmarksEditorViewController = BookmarksEditorViewController()
+    
     // Sub-views for the different individual effects units displayed on the Effects panel
     fileprivate struct EffectsViews {
         
@@ -201,5 +203,9 @@ struct ViewFactory {
     // Returns the view that displays the player
     static func getBarModePlayerView() -> NSView {
         return barModePlayerViewController.view
+    }
+    
+    static func getBookmarksEditorView() -> NSView {
+        return bookmarksEditorViewController.view
     }
 }

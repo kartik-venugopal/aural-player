@@ -72,7 +72,8 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         let isRegularMode = AppModeManager.mode == .regular
-        [panLeftMenuItem, panRightMenuItem, eqMenu, pitchMenu, timeMenu].forEach({$0?.isEnabled = isRegularMode})
+        [panLeftMenuItem, panRightMenuItem].forEach({$0?.isEnabled = isRegularMode && !WindowState.showingPopover})
+        [eqMenu, pitchMenu, timeMenu].forEach({$0?.isEnabled = isRegularMode})
     }
     
     // Mutes or unmutes the player

@@ -11,6 +11,8 @@ class WindowFactory {
     
     private static var playlistWindowController: PlaylistWindowController = PlaylistWindowController()
     
+    private static var editorWindowController: EditorWindowController = EditorWindowController()
+    
     private static var barModeWindowController: BarModeWindowController = BarModeWindowController()
     
     private static var preferencesWindowController: PreferencesWindowController = PreferencesWindowController()
@@ -40,6 +42,10 @@ class WindowFactory {
     
     static func getPlaylistContextMenu() -> NSMenu {
         return playlistWindowController.contextMenu
+    }
+    
+    static func getEditorWindowController() -> NSWindowController {
+        return editorWindowController
     }
     
     // Returns the preferences modal dialog

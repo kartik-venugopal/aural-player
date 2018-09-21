@@ -7,40 +7,43 @@
 
 \f0\fs28 \cf0 Release TODOs:\
 \
-****** FIX EXIT BUG \'85. LOOK AT ERROR STATE AND LOG FILES ********* AUDIO ENGINE EXCEPTION\
+***** TEST AURAL PLAYER ON DANITA'S MACBOOK AIR ********\
+\
+Editor to edit history/Favorites/bookmarks lists. Allow a way to clear lists through Preferences dialog !!!\
 - Revisit docking/snapping, fix window overlapping\
 - Add View menu options to set different window layouts (horiz stack, vert. stack, player + fx above playlist, etc)\
 \
 Release features:\
+- *** Exit Crash / state file corruption bug fix ***\
 - Bookmarks\
 - FX unit presets\
 - New window layout\
 \
 Show last modified and date created in more info\
 \
-Support for media buttons\
+Support for media keys\
 \
 ------------------\
 \
 TODOS:\
 \
-Auto-hide for player in main window ? (only in compact mode)\
+*** Option to remember sound settings per song (and restore them when song plays) ? Save this info along with history item info ?\
 \
-*** Allow saving presets for all FX units !!!\
+*** Display favorites and bookmarks in playlist as separate tabs ? Favs and BMs as separate playlists ? Or in sep dockable windows ?\
 \
 *** Color schemes (light, dark, brown, etc)\
+\
+Auto-hide for player in main window ? (only in compact mode)\
 \
 Online lyrics / album art lookup ?\
 \
 Dock menu: Can you have a slider for volume ?\
+\
 - Pref: Select and show playing track in playlist whenever track changes\
 \
-- Show tooltips for playlist tracks whose names have been truncated, when hovering over them\
+- Show tooltips for playlist tracks whose names have been truncated, when hovering over them (fixed by BannerLabel)\
 \
-Editor to edit history/Favorites lists ? Allow a way to clear lists through Preferences dialog !!!\
-\
-******* MAKE APP STATE I/O MORE RELIABLE ************* Look for design guidelines\
-> Maybe first write to a temp file ? If success, rename to state file ?\
+******* MAKE APP STATE I/O MORE RELIABLE (fixed with crash bug fix) ************* Look for design guidelines\
 \
 Update user guide\
 - Demos / Gallery\
@@ -59,6 +62,10 @@ Show context-sensitive tool tips for all controls (e.g. "Pitch value") on the FX
 Cleanup>\
 \
 *** ADD DEFAULT FUNCTION IMPLEMENTATIONS TO MESSAGE SUBSCRIBER PROTOCOLS AND CLEAN UP DUMMY IMPLEMENTATIONS IN SUBSCRIBER CLASSES *****\
+\
+*** Refactor XXXPresets and FXViewController structs/classes to create a hierarchy and reduce code duplication (presets code) ****\
+\
+*** Refactor ColoredCursorTextField (search field) to send notifications to an NSTextFieldDelegate.controlDidEndEditing() ***\
 \
 Icons and Assets\
 Dead code}

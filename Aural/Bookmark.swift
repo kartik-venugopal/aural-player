@@ -3,7 +3,7 @@ import Cocoa
 class Bookmark {
     
     // A name or description (e.g. "2nd chapter of audiobook")
-    let name: String
+    var name: String
     
     // The file of the track being bookmarked
     let file: URL

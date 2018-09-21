@@ -12,9 +12,12 @@ class LayoutManager: NSObject {
         
         effectsWindow.setIsVisible(preset.showEffects)
         playlistWindow.setIsVisible(preset.showPlaylist)
+        // TODO: buttons and menu items need to be updated ("toggle fx/playlist")
         
         mainWindow.setFrameOrigin(preset.mainWindowOrigin)
         effectsWindow.setFrameOrigin(preset.effectsWindowOrigin)
         playlistWindow.setFrame(preset.playlistWindowFrame, display: preset.showPlaylist)
+        
+        // TODO: Make sure both child windows are added as children of the main window
     }
 }
