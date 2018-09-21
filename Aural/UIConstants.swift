@@ -18,6 +18,10 @@ struct UIConstants {
     static let flatPlaylistViewColumnIndexes: IndexSet = IndexSet([0, 1, 2])
     static let groupingPlaylistViewColumnIndexes: IndexSet = IndexSet([0, 1])
     
+    static let bookmarkNameColumnID: String = "cid_BookmarkName"
+    static let bookmarkTrackColumnID: String = "cid_BookmarkTrack"
+    static let bookmarkPositionColumnID: String = "cid_BookmarkPosition"
+    
     // Angles used to fill gradients
     static let verticalGradientDegrees: CGFloat = -90.0
     static let horizontalGradientDegrees: CGFloat = -180.0

@@ -31,4 +31,38 @@ class Bookmarks: BookmarksProtocol {
         
         return found
     }
+    
+    func getBookmarkAtIndex(_ index: Int) -> Bookmark? {
+        return index >= bookmarks.count ? nil : bookmarks[index]
+    }
+    
+    func countBookmarks() -> Int {
+        return bookmarks.count
+    }
+    
+    func getBookmarkWithName(_ name: String) -> Bookmark? {
+        
+        var result: Bookmark? = nil
+        
+        bookmarks.forEach({
+            
+            if $0.name == name {
+                result = $0
+                return
+            }
+        })
+        
+        return result
+    }
+    
+    func deleteAllBookmarks() {
+        bookmarks.removeAll()
+    }
+    
+    func deleteBookmark(_ name: String) {
+        
+        if let index = bookmarks.index(where: {$0.name == name}) {
+            bookmarks.remove(at: index)
+        }
+    }
 }

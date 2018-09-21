@@ -31,6 +31,14 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
         return bookmarks.getAllBookmarks()
     }
     
+    func countBookmarks() -> Int {
+        return bookmarks.countBookmarks()
+    }
+    
+    func getBookmarkAtIndex(_ index: Int) -> Bookmark? {
+        return bookmarks.getBookmarkAtIndex(index)
+    }
+    
     func bookmarkWithNameExists(_ name: String) -> Bool {
         return bookmarks.bookmarkWithNameExists(name)
     }
@@ -55,6 +63,10 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
                 AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(oldTrack, error as! InvalidTrackError))
             }
         }
+    }
+    
+    func deleteBookmark(_ name: String) {
+        bookmarks.deleteBookmark(name)
     }
     
     func persistentState() -> PersistentState {

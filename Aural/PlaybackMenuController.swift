@@ -69,9 +69,12 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         [detailedInfoMenuItem, showInPlaylistMenuItem].forEach({$0.isEnabled = isRegularMode && isPlayingOrPaused})
         
         // These menu item actions are only available when a track is currently playing/paused
-        [previousTrackMenuItem, nextTrackMenuItem, favoritesMenuItem].forEach({$0.isEnabled = isPlayingOrPaused})
+        [previousTrackMenuItem, nextTrackMenuItem].forEach({$0.isEnabled = isPlayingOrPaused && !WindowState.showingPopover})
         
-        [replayTrackMenuItem, loopMenuItem, seekForwardMenuItem, seekBackwardMenuItem].forEach({$0.isEnabled = isPlaying})
+        favoritesMenuItem.isEnabled = isPlayingOrPaused
+        
+        [replayTrackMenuItem, loopMenuItem].forEach({$0.isEnabled = isPlaying})
+        [seekForwardMenuItem, seekBackwardMenuItem].forEach({$0.isEnabled = isPlaying && !WindowState.showingPopover})
     }
     
     // Plays, pauses or resumes playback
