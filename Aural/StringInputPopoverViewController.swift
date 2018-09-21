@@ -44,16 +44,22 @@ class StringInputPopoverViewController: NSViewController, NSPopoverDelegate {
         
         if (!popover.isShown) {
             
+            initFields()
             popover.show(relativeTo: positioningRect, of: relativeToView, preferredEdge: preferredEdge)
-            
-            // TODO: Resize/realign fields and popover per input text length !!!
-            
-            // Initialize the fields with information from the client
-            lblPrompt.stringValue = client.getInputPrompt()
-            inputField?.stringValue = client.getDefaultValue() ?? ""
+            initFields()
             
             errorBox.isHidden = true
         }
+    }
+    
+    private func initFields() {
+        
+        // TODO: Resize/realign fields and popover per input text length !!!
+        
+        // Initialize the fields with information from the client
+        lblPrompt?.stringValue = client.getInputPrompt()
+        inputField?.stringValue = client.getDefaultValue() ?? ""
+        inputField?.currentEditor()?.selectedRange = NSMakeRange(0, 0)
     }
     
     // Closes the popover
