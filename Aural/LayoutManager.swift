@@ -6,9 +6,9 @@ class LayoutManager {
     private let preferences: ViewPreferences
     
     // App windows
-    private let mainWindow: NSWindow = WindowFactory.getMainWindow()
-    private let effectsWindow: NSWindow = WindowFactory.getEffectsWindow()
-    private let playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
+    let mainWindow: NSWindow = WindowFactory.getMainWindow()
+    let effectsWindow: NSWindow = WindowFactory.getEffectsWindow()
+    let playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
     
     init(_ appState: UIState, _ preferences: ViewPreferences) {
         
@@ -92,5 +92,5 @@ class LayoutManager {
         uiState.userWindowLayouts = WindowLayouts.userDefinedLayouts
         
         return uiState
-    }
+    }   
 }

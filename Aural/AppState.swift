@@ -87,7 +87,7 @@ class UIState: PersistentState {
             
             if (layout.showPlaylist) {
                 layoutDict["playlistWindow_x"] = layout.playlistWindowFrame!.origin.x as NSNumber
-                layoutDict["playlistWindow_y"] = layout.playlistWindowFrame!.origin.x as NSNumber
+                layoutDict["playlistWindow_y"] = layout.playlistWindowFrame!.origin.y as NSNumber
                 layoutDict["playlistWindow_width"] = layout.playlistWindowFrame!.width as NSNumber
                 layoutDict["playlistWindow_height"] = layout.playlistWindowFrame!.height as NSNumber
             }
