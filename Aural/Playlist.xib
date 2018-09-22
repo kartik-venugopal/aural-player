@@ -38,13 +38,13 @@
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.89758133559999997" colorSpace="calibratedWhite"/>
                     </box>
-                    <button toolTip="Maximize playlist" translatesAutoresizingMaskIntoConstraints="NO" id="5cl-4B-qVy" userLabel="Maximize Button">
+                    <button hidden="YES" toolTip="Maximize playlist" translatesAutoresizingMaskIntoConstraints="NO" id="5cl-4B-qVy" userLabel="Maximize Button">
                         <rect key="frame" x="15" y="258" width="10" height="8"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="AR5-ZZ-IXv"/>
                             <constraint firstAttribute="height" constant="8" id="cX0-JT-4YU"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Maximize" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="xwR-NC-5EX">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Maximize" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyUpOrDown" inset="2" id="xwR-NC-5EX">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -52,13 +52,13 @@
                             <action selector="maximizeAction:" target="-2" id="NgT-Bn-LnR"/>
                         </connections>
                     </button>
-                    <button toolTip="Maximize playlist vertically" translatesAutoresizingMaskIntoConstraints="NO" id="8C3-ek-u6k" userLabel="Maximize Vertical Button">
+                    <button hidden="YES" toolTip="Maximize playlist vertically" translatesAutoresizingMaskIntoConstraints="NO" id="8C3-ek-u6k" userLabel="Maximize Vertical Button">
                         <rect key="frame" x="27" y="258" width="10" height="8"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="8" id="B9o-4v-FdA"/>
                             <constraint firstAttribute="width" constant="10" id="JNm-fQ-IXw"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MaximizeVertical" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ERZ-Vq-4Ym">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MaximizeVertical" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyUpOrDown" inset="2" id="ERZ-Vq-4Ym">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -66,13 +66,13 @@
                             <action selector="maximizeVerticalAction:" target="-2" id="Wto-9K-dOd"/>
                         </connections>
                     </button>
-                    <button toolTip="Maximize playlist horizontally" translatesAutoresizingMaskIntoConstraints="NO" id="Aky-lm-R5Z" userLabel="Maximize Horizontal Button">
+                    <button hidden="YES" toolTip="Maximize playlist horizontally" translatesAutoresizingMaskIntoConstraints="NO" id="Aky-lm-R5Z" userLabel="Maximize Horizontal Button">
                         <rect key="frame" x="39" y="258" width="10" height="8"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="Bss-H8-Ngi"/>
                             <constraint firstAttribute="height" constant="8" id="VXU-mE-4k8"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MaximizeHorizontal" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="svN-bo-jB0">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MaximizeHorizontal" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyUpOrDown" inset="2" id="svN-bo-jB0">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -147,13 +147,13 @@
                         <color key="borderColor" white="0.15444672770000001" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <button toolTip="Dock playlist on the left" translatesAutoresizingMaskIntoConstraints="NO" id="caY-mP-Ml1" userLabel="Dock Left Button">
+                    <button hidden="YES" toolTip="Dock playlist on the left" translatesAutoresizingMaskIntoConstraints="NO" id="caY-mP-Ml1" userLabel="Dock Left Button">
                         <rect key="frame" x="431" y="258" width="10" height="8"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="YON-hk-wL8"/>
                             <constraint firstAttribute="height" constant="8" id="m7u-Mc-Ezp"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockLeft" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="vZM-Kh-9hE">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockLeft" imagePosition="overlaps" alignment="center" enabled="NO" imageScaling="proportionallyUpOrDown" inset="2" id="vZM-Kh-9hE">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -161,13 +161,13 @@
                             <action selector="dockLeftAction:" target="-2" id="xwH-Bh-xqD"/>
                         </connections>
                     </button>
-                    <button toolTip="Dock playlist on the right" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OZu-cx-rp4" userLabel="Dock Right Button">
+                    <button hidden="YES" toolTip="Dock playlist on the right" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OZu-cx-rp4" userLabel="Dock Right Button">
                         <rect key="frame" x="455" y="258" width="10" height="8"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="6rh-hS-AJN"/>
                             <constraint firstAttribute="height" constant="8" id="rfK-u8-pcA"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockRight" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="WOo-hr-bRz">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockRight" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyUpOrDown" inset="2" id="WOo-hr-bRz">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -175,13 +175,13 @@
                             <action selector="dockRightAction:" target="-2" id="HZT-Lh-1Lv"/>
                         </connections>
                     </button>
-                    <button toolTip="Dock playlist on the bottom" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="o7l-0n-iUv" userLabel="Dock Bottom Button">
+                    <button hidden="YES" toolTip="Dock playlist on the bottom" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="o7l-0n-iUv" userLabel="Dock Bottom Button">
                         <rect key="frame" x="443" y="258" width="10" height="8"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="2G7-hF-zG6"/>
                             <constraint firstAttribute="height" constant="8" id="Oqc-vt-UgO"/>
                         </constraints>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockBottom" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Nag-eT-qDk">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="DockBottom" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyUpOrDown" inset="2" id="Nag-eT-qDk">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>

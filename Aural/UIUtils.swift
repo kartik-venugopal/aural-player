@@ -51,75 +51,7 @@ class UIUtils {
         dialog.setFrameOrigin(NSPoint(x: posX, y: posY))
         dialog.setIsVisible(true)
     }
-    
-//    // Computes a window position relative to the desired location on screen, e.g Top left or Bottom center, etc.
-//    static func windowPositionRelativeToScreen(_ windowWidth: CGFloat, _ windowHeight: CGFloat, _ locationOnScreen: WindowLocations) -> NSPoint {
-//        
-//        let screen = NSScreen.main()!
-//        
-//        let screenWidth = screen.frame.width
-//        let screenHeight = screen.frame.height
-//        
-//        let minX = screen.visibleFrame.minX
-//        let maxX = screen.visibleFrame.maxX
-//        
-//        let minY = screen.visibleFrame.minY
-//        let maxY = screen.visibleFrame.maxY
-//        
-//        var x: CGFloat, y: CGFloat
-//        
-//        switch locationOnScreen {
-//            
-//        case .center:
-//            
-//            x = (screenWidth / 2) - (windowWidth / 2)
-//            y = (screenHeight / 2) - (windowHeight / 2)
-//            
-//        case .topLeft:
-//            
-//            x = minX
-//            y = maxY - windowHeight
-//            
-//        case .topCenter:
-//            
-//            x = (screenWidth / 2) - (windowWidth / 2)
-//            y = maxY - windowHeight
-//            
-//        case .topRight:
-//            
-//            x = screenWidth - windowWidth
-//            y = maxY - windowHeight
-//            
-//        case .leftCenter:
-//            
-//            x = minX
-//            y = (screenHeight / 2) - (windowHeight / 2)
-//            
-//        case .rightCenter:
-//            
-//            x = maxX - windowWidth
-//            y = (screenHeight / 2) - (windowHeight / 2)
-//            
-//        case .bottomLeft:
-//            
-//            x = minX
-//            y = minY
-//            
-//        case .bottomCenter:
-//            
-//            x = (screenWidth / 2) - (windowWidth / 2)
-//            y = minY
-//            
-//        case .bottomRight:
-//            
-//            x = maxX - windowWidth
-//            y = minY
-//            
-//        }
-//        
-//        return NSPoint(x: x, y: y)
-//    }
-    
+        
     // Calculates the direction of a swipe gesture
     static func determineSwipeDirection(_ event: NSEvent) -> GestureDirection? {
         
@@ -309,25 +241,7 @@ class UIUtils {
     
     static func checkForSnapToVisibleFrame(_ window: SnappingWindow) {
         
-        var snap: SnapToVisibleFrameType = checkForSnapToVisibleFrame_leftEdge(window)
-        
-        if (snap.isValidSnap()) {
-            
-            window.snapLocation = snap.getLocation(window)
-            window.snapped = true
-            return
-        }
-        
-        snap = checkForSnapToVisibleFrame_topLeftCorner(window)
-        
-        if (snap.isValidSnap()) {
-            
-            window.snapLocation = snap.getLocation(window)
-            window.snapped = true
-            return
-        }
-        
-        snap = checkForSnapToVisibleFrame_topEdge(window)
+        var snap: SnapToVisibleFrameType = checkForSnapToVisibleFrame_topLeftCorner(window)
         
         if (snap.isValidSnap()) {
             
@@ -337,15 +251,6 @@ class UIUtils {
         }
         
         snap = checkForSnapToVisibleFrame_topRightCorner(window)
-        
-        if (snap.isValidSnap()) {
-            
-            window.snapLocation = snap.getLocation(window)
-            window.snapped = true
-            return
-        }
-        
-        snap = checkForSnapToVisibleFrame_rightEdge(window)
         
         if (snap.isValidSnap()) {
             
@@ -364,15 +269,6 @@ class UIUtils {
             return
         }
         
-        snap = checkForSnapToVisibleFrame_bottomEdge(window)
-        
-        if (snap.isValidSnap()) {
-            
-            window.snapLocation = snap.getLocation(window)
-            window.snapped = true
-            return
-        }
-        
         snap = checkForSnapToVisibleFrame_bottomLeftCorner(window)
         
         if (snap.isValidSnap()) {
@@ -382,35 +278,42 @@ class UIUtils {
             window.snapped = true
             return
         }
-    }
-    
-    private static func checkForSnapToVisibleFrame_leftEdge(_ window: SnappingWindow) -> SnapToVisibleFrameType {
         
-        let snapMinX = visibleFrame.minX
-        let snapMaxX = visibleFrame.minX + Dimensions.snapProximity
-        let rangeX = snapMinX...snapMaxX
+        snap = checkForSnapToVisibleFrame_leftEdge(window)
         
-        // Not a Y axis snap, X only (edge)
-        
-        // Check top corner
-        var snapMinY = visibleFrame.maxY - Dimensions.snapProximity
-        var snapMaxY = visibleFrame.maxY
-        var rangeY = snapMinY...snapMaxY
-        
-        let notInTopCorner = !rangeY.contains(window.maxY)
-        
-        // Check bottom corner
-        snapMinY = visibleFrame.minY
-        snapMaxY = visibleFrame.minY + Dimensions.snapProximity
-        rangeY = snapMinY...snapMaxY
-        
-        let notInBottomCorner = !rangeY.contains(window.y)
-        
-        if rangeX.contains(window.x) && notInTopCorner && notInBottomCorner {
-            return SnapToVisibleFrameType.leftEdge
+        if (snap.isValidSnap()) {
+            
+            window.snapLocation = snap.getLocation(window)
+            window.snapped = true
+            return
         }
         
-        return SnapToVisibleFrameType.none
+        snap = checkForSnapToVisibleFrame_rightEdge(window)
+        
+        if (snap.isValidSnap()) {
+            
+            window.snapLocation = snap.getLocation(window)
+            window.snapped = true
+            return
+        }
+        
+        snap = checkForSnapToVisibleFrame_topEdge(window)
+        
+        if (snap.isValidSnap()) {
+            
+            window.snapLocation = snap.getLocation(window)
+            window.snapped = true
+            return
+        }
+        
+        snap = checkForSnapToVisibleFrame_bottomEdge(window)
+        
+        if (snap.isValidSnap()) {
+            
+            window.snapLocation = snap.getLocation(window)
+            window.snapped = true
+            return
+        }
     }
     
     private static func checkForSnapToVisibleFrame_topLeftCorner(_ window: SnappingWindow) -> SnapToVisibleFrameType {
@@ -425,33 +328,6 @@ class UIUtils {
         
         if rangeX.contains(window.x) && rangeY.contains(window.maxY) {
             return SnapToVisibleFrameType.topLeftCorner
-        }
-        
-        return SnapToVisibleFrameType.none
-    }
-    
-    private static func checkForSnapToVisibleFrame_topEdge(_ window: SnappingWindow) -> SnapToVisibleFrameType {
-        
-        // Check left corner
-        var snapMinX = visibleFrame.minX
-        var snapMaxX = visibleFrame.minX + Dimensions.snapProximity
-        var rangeX = snapMinX...snapMaxX
-        
-        let notInLeftCorner = !rangeX.contains(window.x)
-        
-        // Check right corner
-        snapMinX = visibleFrame.maxX - Dimensions.snapProximity
-        snapMaxX = visibleFrame.maxX
-        rangeX = snapMinX...snapMaxX
-        
-        let notInRightCorner = !rangeX.contains(window.maxX)
-        
-        let snapMinY = visibleFrame.maxY - Dimensions.snapProximity
-        let snapMaxY = visibleFrame.maxY
-        let rangeY = snapMinY...snapMaxY
-        
-        if notInLeftCorner && notInRightCorner && rangeY.contains(window.maxY) {
-            return SnapToVisibleFrameType.topEdge
         }
         
         return SnapToVisibleFrameType.none
@@ -474,35 +350,6 @@ class UIUtils {
         return SnapToVisibleFrameType.none
     }
     
-    private static func checkForSnapToVisibleFrame_rightEdge(_ window: SnappingWindow) -> SnapToVisibleFrameType {
-        
-        let snapMinX = visibleFrame.maxX - Dimensions.snapProximity
-        let snapMaxX = visibleFrame.maxX
-        let rangeX = snapMinX...snapMaxX
-        
-        // Not a Y axis snap, X only (edge)
-        
-        // Check top corner
-        var snapMinY = visibleFrame.maxY - Dimensions.snapProximity
-        var snapMaxY = visibleFrame.maxY
-        var rangeY = snapMinY...snapMaxY
-        
-        let notInTopCorner = !rangeY.contains(window.maxY)
-        
-        // Check bottom corner
-        snapMinY = visibleFrame.minY
-        snapMaxY = visibleFrame.minY + Dimensions.snapProximity
-        rangeY = snapMinY...snapMaxY
-        
-        let notInBottomCorner = !rangeY.contains(window.y)
-        
-        if rangeX.contains(window.maxX) && notInTopCorner && notInBottomCorner {
-            return SnapToVisibleFrameType.rightEdge
-        }
-        
-        return SnapToVisibleFrameType.none
-    }
-    
     private static func checkForSnapToVisibleFrame_bottomRightCorner(_ window: SnappingWindow) -> SnapToVisibleFrameType {
         
         let snapMinX = visibleFrame.maxX - Dimensions.snapProximity
@@ -520,33 +367,6 @@ class UIUtils {
         return SnapToVisibleFrameType.none
     }
     
-    private static func checkForSnapToVisibleFrame_bottomEdge(_ window: SnappingWindow) -> SnapToVisibleFrameType {
-        
-        // Check left corner
-        var snapMinX = visibleFrame.minX
-        var snapMaxX = visibleFrame.minX + Dimensions.snapProximity
-        var rangeX = snapMinX...snapMaxX
-        
-        let notInLeftCorner = !rangeX.contains(window.x)
-        
-        // Check right corner
-        snapMinX = visibleFrame.maxX - Dimensions.snapProximity
-        snapMaxX = visibleFrame.maxX
-        rangeX = snapMinX...snapMaxX
-        
-        let notInRightCorner = !rangeX.contains(window.maxX)
-        
-        let snapMinY = visibleFrame.minY
-        let snapMaxY = visibleFrame.minY + Dimensions.snapProximity
-        let rangeY = snapMinY...snapMaxY
-        
-        if notInLeftCorner && notInRightCorner && rangeY.contains(window.y) {
-            return SnapToVisibleFrameType.bottomEdge
-        }
-        
-        return SnapToVisibleFrameType.none
-    }
-    
     private static func checkForSnapToVisibleFrame_bottomLeftCorner(_ window: SnappingWindow) -> SnapToVisibleFrameType {
         
         let snapMinX = visibleFrame.minX
@@ -559,6 +379,58 @@ class UIUtils {
         
         if rangeX.contains(window.x) && rangeY.contains(window.y) {
             return SnapToVisibleFrameType.bottomLeftCorner
+        }
+        
+        return SnapToVisibleFrameType.none
+    }
+    
+    private static func checkForSnapToVisibleFrame_leftEdge(_ window: SnappingWindow) -> SnapToVisibleFrameType {
+        
+        let snapMinX = visibleFrame.minX
+        let snapMaxX = visibleFrame.minX + Dimensions.snapProximity
+        let rangeX = snapMinX...snapMaxX
+        
+        if rangeX.contains(window.x) {
+            return SnapToVisibleFrameType.leftEdge
+        }
+        
+        return SnapToVisibleFrameType.none
+    }
+    
+    private static func checkForSnapToVisibleFrame_topEdge(_ window: SnappingWindow) -> SnapToVisibleFrameType {
+        
+        let snapMinY = visibleFrame.maxY - Dimensions.snapProximity
+        let snapMaxY = visibleFrame.maxY
+        let rangeY = snapMinY...snapMaxY
+        
+        if rangeY.contains(window.maxY) {
+            return SnapToVisibleFrameType.topEdge
+        }
+        
+        return SnapToVisibleFrameType.none
+    }
+    
+    private static func checkForSnapToVisibleFrame_rightEdge(_ window: SnappingWindow) -> SnapToVisibleFrameType {
+        
+        let snapMinX = visibleFrame.maxX - Dimensions.snapProximity
+        let snapMaxX = visibleFrame.maxX
+        let rangeX = snapMinX...snapMaxX
+        
+        if rangeX.contains(window.maxX) {
+            return SnapToVisibleFrameType.rightEdge
+        }
+        
+        return SnapToVisibleFrameType.none
+    }
+    
+    private static func checkForSnapToVisibleFrame_bottomEdge(_ window: SnappingWindow) -> SnapToVisibleFrameType {
+        
+        let snapMinY = visibleFrame.minY
+        let snapMaxY = visibleFrame.minY + Dimensions.snapProximity
+        let rangeY = snapMinY...snapMaxY
+        
+        if rangeY.contains(window.y) {
+            return SnapToVisibleFrameType.bottomEdge
         }
         
         return SnapToVisibleFrameType.none
@@ -656,8 +528,6 @@ enum SnapToVisibleFrameType {
             return NSPoint(x: visibleFrame.maxX - window.width, y: visibleFrame.maxY - window.height)
             
         case .rightEdge:
-            
-            print("Right edge: %f, %f", visibleFrame.maxX, window.width)
             
             return NSPoint(x: visibleFrame.maxX - window.width, y: window.y)
             

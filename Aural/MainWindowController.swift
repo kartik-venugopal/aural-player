@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the main window, but also controls the positioning and sizing of the playlist window. Performs any and all display (or hiding), positioning, alignment, resizing, etc. of both the main window and playlist window.
  */
-class MainWindowController: NSWindowController, NSWindowDelegate, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
+class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
     
     // Main application window. Contains the Now Playing info box, player controls, and effects panel. Not manually resizable. Changes size when toggling effects view.
     private var theWindow: SnappingWindow {
@@ -21,12 +21,14 @@ class MainWindowController: NSWindowController, NSWindowDelegate, MessageSubscri
     // Buttons to toggle the playlist/effects views
     @IBOutlet weak var btnToggleEffects: OnOffImageButton!
     @IBOutlet weak var btnTogglePlaylist: OnOffImageButton!
+    @IBOutlet weak var btnLayout: NSPopUpButton!
+    
+    private let preferences: ViewPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().viewPreferences
+    private lazy var layoutManager: LayoutManager = ObjectGraph.getLayoutManager()
     
     private var eventMonitor: Any?
     
     private var gestureHandler: GestureHandler!
-    
-    private let preferences: ViewPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().viewPreferences
     
     override var windowNibName: String? {return "MainWindow"}
     
@@ -49,6 +51,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, MessageSubscri
         
         activateGestureHandler()
         initSubscriptions()
+        initLayoutMenu()
         
         // TODO: Restore remembered window location and views (effects/playlist)
     }
@@ -74,6 +77,11 @@ class MainWindowController: NSWindowController, NSWindowDelegate, MessageSubscri
         
         btnToggleEffects.onIf(appState.showEffects)
         btnTogglePlaylist.onIf(appState.showPlaylist)
+    }
+    
+    private func initLayoutMenu() {
+        
+        
     }
     
     // Add the sub-views that make up the main window
@@ -135,6 +143,14 @@ class MainWindowController: NSWindowController, NSWindowDelegate, MessageSubscri
         btnToggleEffects.toggle()
     }
     
+    @IBAction private func layoutAction(_ sender: NSMenuItem) {
+        layoutManager.layout(sender.title)
+    }
+    
+    @IBAction func btnLayoutAction(_ sender: NSPopUpButton) {
+        layoutManager.layout(sender.titleOfSelectedItem!)
+    }
+    
     private func layoutChanged(_ message: LayoutChangedNotification) {
         
         btnToggleEffects.onIf(message.showingEffects)
@@ -167,6 +183,44 @@ class MainWindowController: NSWindowController, NSWindowDelegate, MessageSubscri
         if preferences.snapToScreen {
             UIUtils.checkForSnapToVisibleFrame(theWindow)
         }
+    }
+    
+    // MARK: Menu delegate
+    
+    // When the menu is about to open, set the menu item states according to the current window/view state
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        print("Updating layout menu ... !!!")
+        
+        // Recreate the custom layout items
+        let itemCount = btnLayout.itemArray.count
+        
+        let customLayoutCount = itemCount - 10  // 1 dummy item, 1 separator, 8 preset layouts
+        
+        if customLayoutCount > 0 {
+        
+            // Need to traverse in descending order because items are going to be removed
+            for index in (1...customLayoutCount).reversed() {
+                
+                let item = btnLayout.item(at: index)
+                
+                print("Removing " + item!.title)
+                btnLayout.removeItem(at: index)
+            }
+        }
+        
+        // Layout popup button menu
+        let action = #selector(self.layoutAction(_:))
+        WindowLayouts.userDefinedLayouts.forEach({
+            
+            // The action for the menu item will depend on whether it is a playable item
+            
+            self.btnLayout.insertItem(withTitle: $0.name, at: 1)
+            self.btnLayout.item(at: 1)?.action = action
+            self.btnLayout.item(at: 1)?.target = self
+        })
+        
+        btnLayout.selectItem(at: -1)
     }
     
     // MARK: Message handling
