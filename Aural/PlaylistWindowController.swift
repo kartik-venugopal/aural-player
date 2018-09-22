@@ -38,6 +38,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
+    private let preferences: ViewPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().viewPreferences
+    
     private var theWindow: SnappingWindow {
         return self.window! as! SnappingWindow
     }
@@ -427,16 +429,20 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             return
         }
         
-        // First check if window can be snapped to another app window
+        var snapped = false
         
-        var snapped = UIUtils.checkForSnap(theWindow, mainWindow)
-        
-        if (!snapped) && WindowState.showingEffects {
-            snapped = UIUtils.checkForSnap(theWindow, effectsWindow)
+        if preferences.snapToWindows {
+            
+            // First check if window can be snapped to another app window
+            snapped = UIUtils.checkForSnap(theWindow, mainWindow)
+            
+            if (!snapped) && WindowState.showingEffects {
+                snapped = UIUtils.checkForSnap(theWindow, effectsWindow)
+            }
         }
         
         // If window doesn't need to be snapped to another window, check if it needs to be snapped to the visible frame
-        if !snapped {
+        if preferences.snapToScreen && !snapped {
             UIUtils.checkForSnapToVisibleFrame(theWindow)
         }
     }

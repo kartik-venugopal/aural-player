@@ -6,6 +6,9 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     @IBOutlet weak var btnRememberLayout: NSButton!
     @IBOutlet weak var layoutMenu: NSPopUpButton!
     
+    @IBOutlet weak var btnSnapToWindows: NSButton!
+    @IBOutlet weak var btnSnapToScreen: NSButton!
+    
     override var nibName: String? {return "ViewPreferences"}
     
     func getView() -> NSView {
@@ -33,6 +36,9 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         
         layoutMenu.selectItem(withTitle: viewPrefs.layoutOnStartup.layoutName)
         layoutMenu.isEnabled = Bool(btnStartWithLayout.state)
+        
+        btnSnapToWindows.state = viewPrefs.snapToWindows ? 1 : 0
+        btnSnapToScreen.state = viewPrefs.snapToScreen ? 1 : 0
     }
     
     @IBAction func layoutOnStartupAction(_ sender: Any) {
@@ -45,5 +51,8 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         
         viewPrefs.layoutOnStartup.option = btnStartWithLayout.state == 1 ? .specific : .rememberFromLastAppLaunch
         viewPrefs.layoutOnStartup.layoutName = layoutMenu.selectedItem!.title
+        
+        viewPrefs.snapToWindows = Bool(btnSnapToWindows.state)
+        viewPrefs.snapToScreen = Bool(btnSnapToScreen.state)
     }
 }
