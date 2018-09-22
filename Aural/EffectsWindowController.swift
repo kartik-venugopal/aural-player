@@ -230,10 +230,10 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         if preferences.snapToWindows {
         
             // First check if window can be snapped to another app window
-            snapped = UIUtils.checkForSnap(theWindow, mainWindow)
+            snapped = UIUtils.checkForSnapToWindow(theWindow, mainWindow)
             
             if (!snapped) && WindowState.showingPlaylist {
-                snapped = UIUtils.checkForSnap(theWindow, playlistWindow)
+                snapped = UIUtils.checkForSnapToWindow(theWindow, playlistWindow)
             }
         }
         
