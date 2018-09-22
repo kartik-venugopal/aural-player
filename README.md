@@ -40,7 +40,6 @@ Aural Player was written by an audio enthusiast learning to program on OS X, com
 
 ### Recent updates
 
-- **9/16/2018: Dynamic button tool tips -** Previous/Next track control buttons now show dynamic tool tips with the name of the previous/next track, if applicable.
 - **9/14/2018: Improved aesthetics -** Touched up the UI. Removed ugly panel borders, redid tab group button selection boxes, changed app title text font.
 - **9/14/2018: Playlist docking bug fix -** Fixed a bug that caused the playlist's docking location to not be rememebered across app launches.
 - **9/14/2018: Show track in Finder -** Implemented a new function to allow users to show a track in Finder from the playlist's context menu (i.e. the right-click menu).
