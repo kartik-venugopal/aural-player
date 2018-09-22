@@ -23,7 +23,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     @IBOutlet weak var windowLayoutsMenu: NSMenu!
     
     // To save the name of a custom window layout
-    private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
+    private lazy var layoutNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     private lazy var layoutManager: LayoutManager = ObjectGraph.getLayoutManager()
     
@@ -135,15 +135,13 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     }
     
     @IBAction func saveWindowLayoutAction(_ sender: NSMenuItem) {
-        
-        let rand = Int(arc4random())
-        WindowLayouts.addUserDefinedLayout("Muthusami-" + String(describing: rand))
+        layoutNamePopover.show(layoutManager.mainWindow.contentView!, NSRectEdge.maxX)
     }
     
     // MARK - StringInputClient functions
     
     func getInputPrompt() -> String {
-        return "Enter a window layout name:"
+        return "Enter a layout name:"
     }
     
     func getDefaultValue() -> String? {
@@ -152,21 +150,18 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        // TODO
-        
-//        let valid = !bookmarks.bookmarkWithNameExists(string)
-//        
-//        if (!valid) {
-//            return (false, "A bookmark with this name already exists !")
-//        } else {
+        let valid = !WindowLayouts.layoutWithNameExists(string)
+
+        if (!valid) {
+            return (false, "A layout with this name already exists !")
+        } else {
             return (true, nil)
-//        }
+        }
     }
     
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
-        
-        
+        WindowLayouts.addUserDefinedLayout(string)
     }
 }
 
