@@ -111,7 +111,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         }
         
         // If this isn't done, the app windows are hidden when the popover is displayed
-        WindowState.window.orderFront(self)
+        WindowState.mainWindow.orderFront(self)
     }
     
     // Shows a popover with detailed information for the currently playing track, if there is one
@@ -123,7 +123,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         let rowView = getPlaylistSelectedRowView()
         
         detailedInfoPopover.show(track, rowView, NSRectEdge.maxY)
-        WindowState.window.makeKeyAndOrderFront(self)
+        WindowState.mainWindow.makeKeyAndOrderFront(self)
     }
     
     // Helper to determine the track represented by the clicked item

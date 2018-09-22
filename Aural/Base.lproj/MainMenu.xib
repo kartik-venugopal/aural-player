@@ -98,6 +98,7 @@
                 <outlet property="switchViewMenuItem" destination="Lhd-o1-irA" id="cBX-0N-n7w"/>
                 <outlet property="toggleEffectsMenuItem" destination="fK8-7g-oqx" id="xo8-0f-yDo"/>
                 <outlet property="togglePlaylistMenuItem" destination="af4-4E-1QV" id="PWt-uf-MOX"/>
+                <outlet property="windowLayoutsMenu" destination="S2A-E2-dfO" id="791-vR-GsR"/>
             </connections>
         </customObject>
         <customObject id="bac-wa-rgm" customClass="HelpMenuController" customModule="Aural" customModuleProvider="target"/>
@@ -777,14 +778,14 @@ CQ
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Save current layout" hidden="YES" enabled="NO" id="dpu-pH-cKT" userLabel="Save current layout">
+                            <menuItem title="Save current layout" id="dpu-pH-cKT" userLabel="Save current layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Switch to miniature view"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="Switch to regular view"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="switchViewAction:" target="xzd-WN-BuR" id="h5M-RF-1YU"/>
+                                    <action selector="saveWindowLayoutAction:" target="xzd-WN-BuR" id="Sam-A3-AUW"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="ZxC-b0-1FU"/>

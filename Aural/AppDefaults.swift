@@ -8,13 +8,7 @@ class AppDefaults {
     
     static let appMode: AppMode = .regular
     
-    static let showPlaylist: Bool = true
-    static let showEffects: Bool = true
-    
-    static let windowLocationX: Float = 0
-    static let windowLocationY: Float = 0
-    
-    static let playlistLocation: PlaylistLocations = .bottom
+    static let windowLayout: WindowLayoutPresets = .verticalFullStack
     
     static let repeatMode: RepeatMode = .off
     static let shuffleMode: ShuffleMode = .off

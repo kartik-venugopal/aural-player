@@ -30,7 +30,7 @@ class UIUtils {
     // Centers a dialog with respect to the main app window
     private static func centerDialog(_ dialog: NSWindow) {
         
-        let window = WindowState.window!
+        let window = WindowState.mainWindow!
         
         let windowX = window.frame.origin.x
         let windowY = window.frame.origin.y
