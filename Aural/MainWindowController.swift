@@ -3,11 +3,11 @@ import Cocoa
 /*
     Window controller for the main window, but also controls the positioning and sizing of the playlist window. Performs any and all display (or hiding), positioning, alignment, resizing, etc. of both the main window and playlist window.
  */
-class MainWindowController: NSWindowController, ActionMessageSubscriber, ConstituentView {
+class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageSubscriber, ConstituentView {
     
     // Main application window. Contains the Now Playing info box, player controls, and effects panel. Not manually resizable. Changes size when toggling effects view.
-    private var theWindow: NSWindow {
-        return self.window!
+    private var theWindow: SnappingWindow {
+        return self.window! as! SnappingWindow
     }
     
     // The box that encloses the Now Playing info section
@@ -145,8 +145,18 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber, Constit
         theWindow.miniaturize(self)
     }
     
-    func getID() -> String {
-        return self.className
+    // MARK: Window delegate
+    
+    func windowDidMove(_ notification: Notification) {
+        
+        // Check if movement was user-initiated (flag on window)
+        if !theWindow.userMovingWindow {
+            return
+        }
+        
+        // Give priority to window/window snaps, then come visible frame snaps
+        _ = UIUtils.checkForSnapToVisibleFrame(theWindow)
+        
     }
     
     // MARK: Message handling
@@ -162,5 +172,9 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber, Constit
         default: return
             
         }
+    }
+    
+    func getID() -> String {
+        return self.className
     }
 }

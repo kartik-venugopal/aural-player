@@ -223,10 +223,17 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
             return
         }
         
-        let snapped = UIUtils.checkForSnap(theWindow, mainWindow)
+        // First check if window can be snapped to another app window
+        
+        var snapped = UIUtils.checkForSnap(theWindow, mainWindow)
         
         if (!snapped) && WindowState.showingPlaylist {
-            _ = UIUtils.checkForSnap(theWindow, playlistWindow)
+            snapped = UIUtils.checkForSnap(theWindow, playlistWindow)
+        }
+        
+        // If window doesn't need to be snapped to another window, check if it needs to be snapped to the visible frame
+        if !snapped {
+            UIUtils.checkForSnapToVisibleFrame(theWindow)
         }
     }
 }
