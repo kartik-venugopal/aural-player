@@ -26,6 +26,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
     
     private var gestureHandler: GestureHandler!
     
+    private let preferences: ViewPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().viewPreferences
+    
     override var windowNibName: String? {return "MainWindow"}
     
     // MARK: Setup
@@ -154,9 +156,9 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
             return
         }
         
-        // Give priority to window/window snaps, then come visible frame snaps
-        _ = UIUtils.checkForSnapToVisibleFrame(theWindow)
-        
+        if preferences.snapToScreen {
+            UIUtils.checkForSnapToVisibleFrame(theWindow)
+        }
     }
     
     // MARK: Message handling

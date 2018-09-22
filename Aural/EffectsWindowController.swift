@@ -33,6 +33,8 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
+    private let preferences: ViewPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().viewPreferences
+    
     private var theWindow: SnappingWindow {
         return self.window! as! SnappingWindow
     }
@@ -223,16 +225,21 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
             return
         }
         
-        // First check if window can be snapped to another app window
+        var snapped = false
         
-        var snapped = UIUtils.checkForSnap(theWindow, mainWindow)
+        if preferences.snapToWindows {
         
-        if (!snapped) && WindowState.showingPlaylist {
-            snapped = UIUtils.checkForSnap(theWindow, playlistWindow)
+            // First check if window can be snapped to another app window
+            snapped = UIUtils.checkForSnap(theWindow, mainWindow)
+            
+            if (!snapped) && WindowState.showingPlaylist {
+                snapped = UIUtils.checkForSnap(theWindow, playlistWindow)
+            }
         }
         
-        // If window doesn't need to be snapped to another window, check if it needs to be snapped to the visible frame
-        if !snapped {
+        if preferences.snapToScreen && !snapped {
+            
+            // If window doesn't need to be snapped to another window, check if it needs to be snapped to the visible frame
             UIUtils.checkForSnapToVisibleFrame(theWindow)
         }
     }

@@ -173,10 +173,14 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
 class ViewPreferences: PersistentPreferencesProtocol {
  
     var layoutOnStartup: LayoutOnStartup
+    var snapToWindows: Bool
+    var snapToScreen: Bool
     
     internal required init(_ defaultsDictionary: [String: Any]) {
         
         layoutOnStartup = PreferencesDefaults.View.layoutOnStartup
+        snapToWindows = PreferencesDefaults.View.snapToWindows
+        snapToScreen = PreferencesDefaults.View.snapToScreen
         
         if let layoutOnStartupOptionStr = defaultsDictionary["view.layoutOnStartup.option"] as? String {
             layoutOnStartup.option = ViewStartupOptions(rawValue: layoutOnStartupOptionStr)!
@@ -185,12 +189,22 @@ class ViewPreferences: PersistentPreferencesProtocol {
         if let layoutStr = defaultsDictionary["view.layoutOnStartup.layout"] as? String {
             layoutOnStartup.layoutName = layoutStr
         }
+        
+        if let snap2Windows = defaultsDictionary["view.snap.toWindows"] as? Bool {
+            snapToWindows = snap2Windows
+        }
+        
+        if let snap2Screen = defaultsDictionary["view.snap.toScreen"] as? Bool {
+            snapToScreen = snap2Screen
+        }
     }
     
     func persist(defaults: UserDefaults) {
         
         defaults.set(layoutOnStartup.option.rawValue, forKey: "view.layoutOnStartup.option")
         defaults.set(layoutOnStartup.layoutName, forKey: "view.layoutOnStartup.layout")
+        defaults.set(snapToWindows, forKey: "view.snap.toWindows")
+        defaults.set(snapToScreen, forKey: "view.snap.toScreen")
     }
 }
 
@@ -301,6 +315,8 @@ fileprivate struct PreferencesDefaults {
     struct View {
         
         static let layoutOnStartup: LayoutOnStartup = LayoutOnStartup.defaultInstance
+        static let snapToWindows: Bool = true
+        static let snapToScreen: Bool = true
     }
     
     struct History {
