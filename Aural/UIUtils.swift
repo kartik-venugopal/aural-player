@@ -48,73 +48,73 @@ class UIUtils {
         dialog.setIsVisible(true)
     }
     
-    // Computes a window position relative to the desired location on screen, e.g Top left or Bottom center, etc.
-    static func windowPositionRelativeToScreen(_ windowWidth: CGFloat, _ windowHeight: CGFloat, _ locationOnScreen: WindowLocations) -> NSPoint {
-        
-        let screen = NSScreen.main()!
-        
-        let screenWidth = screen.frame.width
-        let screenHeight = screen.frame.height
-        
-        let minX = screen.visibleFrame.minX
-        let maxX = screen.visibleFrame.maxX
-        
-        let minY = screen.visibleFrame.minY
-        let maxY = screen.visibleFrame.maxY
-        
-        var x: CGFloat, y: CGFloat
-        
-        switch locationOnScreen {
-            
-        case .center:
-            
-            x = (screenWidth / 2) - (windowWidth / 2)
-            y = (screenHeight / 2) - (windowHeight / 2)
-            
-        case .topLeft:
-            
-            x = minX
-            y = maxY - windowHeight
-            
-        case .topCenter:
-            
-            x = (screenWidth / 2) - (windowWidth / 2)
-            y = maxY - windowHeight
-            
-        case .topRight:
-            
-            x = screenWidth - windowWidth
-            y = maxY - windowHeight
-            
-        case .leftCenter:
-            
-            x = minX
-            y = (screenHeight / 2) - (windowHeight / 2)
-            
-        case .rightCenter:
-            
-            x = maxX - windowWidth
-            y = (screenHeight / 2) - (windowHeight / 2)
-            
-        case .bottomLeft:
-            
-            x = minX
-            y = minY
-            
-        case .bottomCenter:
-            
-            x = (screenWidth / 2) - (windowWidth / 2)
-            y = minY
-            
-        case .bottomRight:
-            
-            x = maxX - windowWidth
-            y = minY
-            
-        }
-        
-        return NSPoint(x: x, y: y)
-    }
+//    // Computes a window position relative to the desired location on screen, e.g Top left or Bottom center, etc.
+//    static func windowPositionRelativeToScreen(_ windowWidth: CGFloat, _ windowHeight: CGFloat, _ locationOnScreen: WindowLocations) -> NSPoint {
+//        
+//        let screen = NSScreen.main()!
+//        
+//        let screenWidth = screen.frame.width
+//        let screenHeight = screen.frame.height
+//        
+//        let minX = screen.visibleFrame.minX
+//        let maxX = screen.visibleFrame.maxX
+//        
+//        let minY = screen.visibleFrame.minY
+//        let maxY = screen.visibleFrame.maxY
+//        
+//        var x: CGFloat, y: CGFloat
+//        
+//        switch locationOnScreen {
+//            
+//        case .center:
+//            
+//            x = (screenWidth / 2) - (windowWidth / 2)
+//            y = (screenHeight / 2) - (windowHeight / 2)
+//            
+//        case .topLeft:
+//            
+//            x = minX
+//            y = maxY - windowHeight
+//            
+//        case .topCenter:
+//            
+//            x = (screenWidth / 2) - (windowWidth / 2)
+//            y = maxY - windowHeight
+//            
+//        case .topRight:
+//            
+//            x = screenWidth - windowWidth
+//            y = maxY - windowHeight
+//            
+//        case .leftCenter:
+//            
+//            x = minX
+//            y = (screenHeight / 2) - (windowHeight / 2)
+//            
+//        case .rightCenter:
+//            
+//            x = maxX - windowWidth
+//            y = (screenHeight / 2) - (windowHeight / 2)
+//            
+//        case .bottomLeft:
+//            
+//            x = minX
+//            y = minY
+//            
+//        case .bottomCenter:
+//            
+//            x = (screenWidth / 2) - (windowWidth / 2)
+//            y = minY
+//            
+//        case .bottomRight:
+//            
+//            x = maxX - windowWidth
+//            y = minY
+//            
+//        }
+//        
+//        return NSPoint(x: x, y: y)
+//    }
     
     // Calculates the direction of a swipe gesture
     static func determineSwipeDirection(_ event: NSEvent) -> GestureDirection? {

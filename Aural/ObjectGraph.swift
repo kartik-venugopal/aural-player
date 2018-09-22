@@ -32,6 +32,8 @@ class ObjectGraph {
     private static var bookmarks: Bookmarks?
     private static var bookmarksDelegate: BookmarksDelegate?
     
+    private static var layoutManager: LayoutManager?
+    
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
     
@@ -98,6 +100,8 @@ class ObjectGraph {
         bookmarksDelegate = BookmarksDelegate(bookmarks!, playlistDelegate!, playbackDelegate!, appState!.bookmarksState)
         
         WindowLayouts.loadUserDefinedLayouts((appState?.uiState.userWindowLayouts)!)
+        
+        layoutManager = LayoutManager(appState!.uiState, preferences!.viewPreferences)
     }
     
     // MARK: Accessor methods to retrieve objects
@@ -154,6 +158,10 @@ class ObjectGraph {
         return bookmarksDelegate!
     }
     
+    static func getLayoutManager() -> LayoutManager {
+        return layoutManager!
+    }
+    
     // Called when app exits
     static func tearDown() {
         
@@ -162,7 +170,7 @@ class ObjectGraph {
         appState?.audioGraphState = audioGraph!.persistentState() as! AudioGraphState
         appState?.playlistState = playlist!.persistentState() as! PlaylistState
         appState?.playbackSequenceState = playbackSequencer!.persistentState() as! PlaybackSequenceState
-        appState?.uiState = WindowLayouts.persistentState()
+        appState?.uiState = layoutManager!.persistentState() as! UIState
         appState?.historyState = historyDelegate!.persistentState() as! HistoryState
         appState?.bookmarksState = bookmarksDelegate!.persistentState() as! BookmarksState
         

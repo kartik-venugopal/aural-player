@@ -25,6 +25,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     // To save the name of a custom window layout
     private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
+    private lazy var layoutManager: LayoutManager = ObjectGraph.getLayoutManager()
+    
     override func awakeFromNib() {
         switchViewMenuItem.off()
     }
@@ -129,7 +131,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     }
     
     @IBAction func windowLayoutAction(_ sender: NSMenuItem) {
-        LayoutManager.layout(sender.title)
+        layoutManager.layout(sender.title)
     }
     
     @IBAction func saveWindowLayoutAction(_ sender: NSMenuItem) {

@@ -131,20 +131,3 @@ extension NSWindow {
         return (NSScreen.main()!.visibleFrame.height - self.height)
     }
 }
-
-// Type mapping extension
-extension PlaylistLocations {
-    
-    func toPlaylistDockState() -> PlaylistDockState {
-        
-        switch self {
-            
-        case .left: return .left
-            
-        case .right: return .right
-            
-        case .bottom: return .bottom
-            
-        }
-    }
-}

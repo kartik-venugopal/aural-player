@@ -58,28 +58,6 @@ class WindowLayouts {
     static func layoutWithNameExists(_ name: String) -> Bool {
         return layouts[name] != nil
     }
-    
-    static func persistentState() -> UIState {
-        
-        let uiState = UIState()
-        
-        uiState.showEffects = effectsWindow.isVisible
-        uiState.showPlaylist = playlistWindow.isVisible
-        
-        uiState.mainWindowOrigin = mainWindow.origin
-        
-        if uiState.showEffects {
-            uiState.effectsWindowOrigin = effectsWindow.origin
-        }
-        
-        if uiState.showPlaylist {
-            uiState.playlistWindowFrame = playlistWindow.frame
-        }
-        
-        uiState.userWindowLayouts = WindowLayouts.userDefinedLayouts
-        
-        return uiState
-    }
 }
 
 struct WindowLayout {

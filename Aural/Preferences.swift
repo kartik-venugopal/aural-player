@@ -173,8 +173,6 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
 class ViewPreferences: PersistentPreferencesProtocol {
  
     var viewOnStartup: ViewOnStartup
-    var windowLocationOnStartup: WindowLocationOnStartup
-    var playlistLocationOnStartup: PlaylistLocationOnStartup
     
     internal required init(_ defaultsDictionary: [String: Any]) {
         
@@ -184,41 +182,15 @@ class ViewPreferences: PersistentPreferencesProtocol {
             viewOnStartup.option = ViewStartupOptions(rawValue: viewOnStartupOptionStr)!
         }
         
-        if let viewTypeStr = defaultsDictionary["view.viewOnStartup.viewType"] as? String {
-            viewOnStartup.viewType = ViewTypes(rawValue: viewTypeStr)!
-        }
-        
-        windowLocationOnStartup = PreferencesDefaults.View.windowLocationOnStartup
-        
-        if let windowLocationOnStartupOptionStr = defaultsDictionary["view.windowLocationOnStartup.option"] as? String {
-            windowLocationOnStartup.option = WindowLocationOptions(rawValue: windowLocationOnStartupOptionStr)!
-        }
-        
-        if let windowLocationStr = defaultsDictionary["view.windowLocationOnStartup.location"] as? String {
-            windowLocationOnStartup.windowLocation = WindowLocations(rawValue: windowLocationStr)!
-        }
-        
-        playlistLocationOnStartup = PreferencesDefaults.View.playlistLocationOnStartup
-        
-        if let playlistLocationOnStartupOptionStr = defaultsDictionary["view.playlistLocationOnStartup.option"] as? String {
-            playlistLocationOnStartup.option = PlaylistLocationOptions(rawValue: playlistLocationOnStartupOptionStr)!
-        }
-        
-        if let playlistLocationStr = defaultsDictionary["view.playlistLocationOnStartup.location"] as? String {
-            playlistLocationOnStartup.playlistLocation = PlaylistLocations(rawValue: playlistLocationStr)!
+        if let layoutStr = defaultsDictionary["view.viewOnStartup.layout"] as? String {
+            viewOnStartup.layoutName = layoutStr
         }
     }
     
     func persist(defaults: UserDefaults) {
         
         defaults.set(viewOnStartup.option.rawValue, forKey: "view.viewOnStartup.option")
-        defaults.set(viewOnStartup.viewType.rawValue, forKey: "view.viewOnStartup.viewType")
-        
-        defaults.set(windowLocationOnStartup.option.rawValue, forKey: "view.windowLocationOnStartup.option")
-        defaults.set(windowLocationOnStartup.windowLocation.rawValue, forKey: "view.windowLocationOnStartup.location")
-        
-        defaults.set(playlistLocationOnStartup.option.rawValue, forKey: "view.playlistLocationOnStartup.option")
-        defaults.set(playlistLocationOnStartup.playlistLocation.rawValue, forKey: "view.playlistLocationOnStartup.location")
+        defaults.set(viewOnStartup.layoutName, forKey: "view.viewOnStartup.layout")
     }
 }
 
@@ -329,8 +301,6 @@ fileprivate struct PreferencesDefaults {
     struct View {
         
         static let viewOnStartup: ViewOnStartup = ViewOnStartup.defaultInstance
-        static let windowLocationOnStartup: WindowLocationOnStartup = WindowLocationOnStartup.defaultInstance
-        static let playlistLocationOnStartup: PlaylistLocationOnStartup = PlaylistLocationOnStartup.defaultInstance
     }
     
     struct History {

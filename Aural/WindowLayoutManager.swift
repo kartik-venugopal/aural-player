@@ -88,21 +88,21 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
     }
     
     // Positions the main app window relative to screen, per user preference. For example, "Top Left" or "Bottom Center"
-    private func positionMainWindowRelativeToScreen(_ relativeLoc: WindowLocations, _ playlistLocation: PlaylistLocations, _ playlistShown: Bool) {
-        
-        // Calculate total width/height, taking both possible windows into account
-        let width: CGFloat = playlistShown && playlistLocation != .bottom ? mainWindow.width + playlistWindow.width : mainWindow.width
-        let height: CGFloat = playlistShown && playlistLocation == .bottom ? mainWindow.height + playlistWindow.height : mainWindow.height
-        
-        // Calculate location from the size and relative screen location
-        let location = UIUtils.windowPositionRelativeToScreen(width, height, relativeLoc)
-        
-        let mainWindowX = playlistShown && playlistLocation == .left ? location.x + playlistWindow.width : location.x
-        let mainWindowY = playlistShown && playlistLocation == .bottom ? location.y + playlistWindow.height : location.y
-        
-        // Reposition the main window
-        mainWindow.setFrameOrigin(NSPoint(x: mainWindowX, y: mainWindowY))
-    }
+//    private func positionMainWindowRelativeToScreen(_ relativeLoc: WindowLocations, _ playlistLocation: PlaylistLocations, _ playlistShown: Bool) {
+//        
+//        // Calculate total width/height, taking both possible windows into account
+//        let width: CGFloat = playlistShown && playlistLocation != .bottom ? mainWindow.width + playlistWindow.width : mainWindow.width
+//        let height: CGFloat = playlistShown && playlistLocation == .bottom ? mainWindow.height + playlistWindow.height : mainWindow.height
+//        
+//        // Calculate location from the size and relative screen location
+//        let location = UIUtils.windowPositionRelativeToScreen(width, height, relativeLoc)
+//        
+//        let mainWindowX = playlistShown && playlistLocation == .left ? location.x + playlistWindow.width : location.x
+//        let mainWindowY = playlistShown && playlistLocation == .bottom ? location.y + playlistWindow.height : location.y
+//        
+//        // Reposition the main window
+//        mainWindow.setFrameOrigin(NSPoint(x: mainWindowX, y: mainWindowY))
+//    }
     
     // Docks the playlist below the main window
     func dockBottom() {
