@@ -172,7 +172,7 @@
                                     <action selector="bookmarkAction:" target="nnl-Fg-dA2" id="AVT-hc-yET"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Manage bookmarks" id="rFK-no-hcx" userLabel="Manage Bookmarks">
+                            <menuItem title="Manage bookmarks" hidden="YES" enabled="NO" id="rFK-no-hcx" userLabel="Manage Bookmarks">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="manageBookmarksAction:" target="nnl-Fg-dA2" id="iWC-1Z-7Jn"/>
@@ -722,9 +722,9 @@ CQ
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="eo4-eB-OpN"/>
-                            <menuItem title="  Window Layout" image="WindowLayout" id="RWg-5h-jkO" userLabel="Window Layout">
+                            <menuItem title=" Window Layout" image="WindowLayout" id="RWg-5h-jkO" userLabel="Window Layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Window Layout" id="S2A-E2-dfO">
+                                <menu key="submenu" title=" Window Layout" id="S2A-E2-dfO">
                                     <items>
                                         <menuItem isSeparatorItem="YES" id="Xs7-ex-obP"/>
                                         <menuItem title="Vertical full stack" image="WindowLayout-VerticalStack" id="3ni-vP-4WM">
@@ -778,7 +778,7 @@ CQ
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Save current layout" id="dpu-pH-cKT" userLabel="Save current layout">
+                            <menuItem title="      Save current layout" id="dpu-pH-cKT" userLabel="Save current layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Switch to miniature view"/>

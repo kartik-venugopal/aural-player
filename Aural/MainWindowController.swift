@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the main window, but also controls the positioning and sizing of the playlist window. Performs any and all display (or hiding), positioning, alignment, resizing, etc. of both the main window and playlist window.
  */
-class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageSubscriber, ConstituentView {
+class MainWindowController: NSWindowController, NSWindowDelegate, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
     
     // Main application window. Contains the Now Playing info box, player controls, and effects panel. Not manually resizable. Changes size when toggling effects view.
     private var theWindow: SnappingWindow {
@@ -104,11 +104,13 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         
         // Subscribe to various messages
         SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
         SyncMessenger.unsubscribe(actionTypes: [.toggleEffects, .togglePlaylist], subscriber: self)
+        SyncMessenger.unsubscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
     
     // Shows/hides the playlist window (by delegating)
@@ -131,6 +133,12 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
         
         // This class does not actually show/hide the effects view
         btnToggleEffects.toggle()
+    }
+    
+    private func layoutChanged(_ message: LayoutChangedNotification) {
+        
+        btnToggleEffects.onIf(message.showingEffects)
+        btnTogglePlaylist.onIf(message.showingPlaylist)
     }
     
     @IBAction func floatingBarModeAction(_ sender: AnyObject) {
@@ -162,6 +170,19 @@ class MainWindowController: NSWindowController, NSWindowDelegate, ActionMessageS
     }
     
     // MARK: Message handling
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        switch notification.messageType {
+            
+        case .layoutChangedNotification:
+            
+            layoutChanged(notification as! LayoutChangedNotification)
+            
+        default: return
+            
+        }
+    }
     
     func consumeMessage(_ message: ActionMessage) {
         

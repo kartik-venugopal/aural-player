@@ -225,6 +225,7 @@
 		3EE429AE1FCFD10D00E81C15 /* RegularAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE429AD1FCFD10D00E81C15 /* RegularAppModeController.swift */; };
 		3EEACA061F5E8615003A2140 /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEACA051F5E8615003A2140 /* NowPlayingViewController.swift */; };
 		3EF043A51F9D5ED8000EE7ED /* ActionMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */; };
+		3EF08DCB2156D65D000C7F11 /* LayoutManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF08DCA2156D65D000C7F11 /* LayoutManagerProtocol.swift */; };
 		3EF5A5501F403D2500C5A2D2 /* PreferencesOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5A54F1F403D2500C5A2D2 /* PreferencesOptions.swift */; };
 		3EF5E5B41FBDA3DB004270A4 /* Tracks.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF5E5B31FBDA3DB004270A4 /* Tracks.xib */; };
 		3EF5E5B71FBDAED9004270A4 /* Artists.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF5E5B61FBDAED9004270A4 /* Artists.xib */; };
@@ -476,6 +477,7 @@
 		3EE429AD1FCFD10D00E81C15 /* RegularAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularAppModeController.swift; sourceTree = "<group>"; };
 		3EEACA051F5E8615003A2140 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 		3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionMessages.swift; sourceTree = "<group>"; };
+		3EF08DCA2156D65D000C7F11 /* LayoutManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutManagerProtocol.swift; sourceTree = "<group>"; };
 		3EF5A54F1F403D2500C5A2D2 /* PreferencesOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesOptions.swift; sourceTree = "<group>"; };
 		3EF5E5B31FBDA3DB004270A4 /* Tracks.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Tracks.xib; sourceTree = "<group>"; };
 		3EF5E5B61FBDAED9004270A4 /* Artists.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Artists.xib; sourceTree = "<group>"; };
@@ -1051,6 +1053,7 @@
 			children = (
 				3E94E85F2154CA2E00C57AD8 /* WindowLayouts.swift */,
 				3E94E8612154D69000C57AD8 /* LayoutManager.swift */,
+				3EF08DCA2156D65D000C7F11 /* LayoutManagerProtocol.swift */,
 			);
 			name = WindowLayout;
 			sourceTree = "<group>";
@@ -1420,6 +1423,7 @@
 				3E4BBA5C1F030E5B0025F371 /* UIConstants.swift in Sources */,
 				3EDFFA0B1FC0283F00158177 /* ViewPreferencesViewController.swift in Sources */,
 				3E309B781FB70D1F00C61E72 /* FavoritesPopupViewController.swift in Sources */,
+				3EF08DCB2156D65D000C7F11 /* LayoutManagerProtocol.swift in Sources */,
 				3EDFFA071FC0263E00158177 /* PlaylistPreferencesViewController.swift in Sources */,
 				3EBA52FA1FC2EB1E007F902F /* AuralTabView.swift in Sources */,
 				3E33B49E1F3E70F4005EF359 /* FileSystemUtils.swift in Sources */,
