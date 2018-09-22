@@ -739,28 +739,22 @@ CQ
                                                 <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="wWK-b1-F3u"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Compact cornered" id="CKo-pZ-cY4">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="ucy-JE-xX9"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Big bottom playlist" id="9HZ-X6-YIg">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="QJr-Ao-Uw2"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Big left playlist" id="rCl-Tl-NEv">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="kGN-ai-AhP"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Big right playlist" id="ifi-YP-VSF">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="q23-PX-vyq"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Big left playlist" id="rCl-Tl-NEv">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="kGN-ai-AhP"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Vertical player and playlist" id="Awm-hh-oYW">
@@ -773,6 +767,12 @@ CQ
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="pti-3J-Yex"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Compact cornered" id="CKo-pZ-cY4">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="ucy-JE-xX9"/>
                                             </connections>
                                         </menuItem>
                                     </items>

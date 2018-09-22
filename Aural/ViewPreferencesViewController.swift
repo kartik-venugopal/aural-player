@@ -20,6 +20,15 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         return self.view
     }
     
+    override func viewDidLoad() {
+        
+        // Add all user layouts to the menu
+        WindowLayouts.userDefinedLayouts.forEach({
+        
+            startWithViewMenu.insertItem(withTitle: $0.name, at: 0)
+        })
+    }
+    
     func resetFields(_ preferences: Preferences) {
         
         let viewPrefs = preferences.viewPreferences
@@ -30,20 +39,8 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
             btnRememberView.state = 1
         }
         
-        startWithViewMenu.selectItem(withTitle: viewPrefs.viewOnStartup.viewType.description)
+        startWithViewMenu.selectItem(withTitle: viewPrefs.viewOnStartup.layoutName)
         startWithViewMenu.isEnabled = Bool(btnStartWithView.state)
-        
-        btnRememberWindowLocation.state = viewPrefs.windowLocationOnStartup.option == .rememberFromLastAppLaunch ? 1 : 0
-        btnStartAtWindowLocation.state = viewPrefs.windowLocationOnStartup.option == .specific ? 1 : 0
-        
-        startWindowLocationMenu.isEnabled = Bool(btnStartAtWindowLocation.state)
-        startWindowLocationMenu.selectItem(withTitle: viewPrefs.windowLocationOnStartup.windowLocation.description)
-        
-        btnRememberPlaylistLocation.state = viewPrefs.playlistLocationOnStartup.option == .rememberFromLastAppLaunch ? 1 : 0
-        btnStartAtPlaylistLocation.state = viewPrefs.playlistLocationOnStartup.option == .specific ? 1 : 0
-        
-        startPlaylistLocationMenu.isEnabled = Bool(btnStartAtPlaylistLocation.state)
-        startPlaylistLocationMenu.selectItem(withTitle: viewPrefs.playlistLocationOnStartup.playlistLocation.description)
     }
     
     @IBAction func viewOnStartupAction(_ sender: Any) {
@@ -63,12 +60,6 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         let viewPrefs = preferences.viewPreferences
         
         viewPrefs.viewOnStartup.option = btnStartWithView.state == 1 ? .specific : .rememberFromLastAppLaunch
-        viewPrefs.viewOnStartup.viewType = ViewTypes.fromDescription(startWithViewMenu.selectedItem!.title)
-        
-        viewPrefs.windowLocationOnStartup.option = btnRememberWindowLocation.state == 1 ? .rememberFromLastAppLaunch : .specific
-        viewPrefs.windowLocationOnStartup.windowLocation = WindowLocations.fromDescription(startWindowLocationMenu.selectedItem!.title)
-        
-        viewPrefs.playlistLocationOnStartup.option = btnRememberPlaylistLocation.state == 1 ? .rememberFromLastAppLaunch : .specific
-        viewPrefs.playlistLocationOnStartup.playlistLocation = PlaylistLocations.fromDescription(startPlaylistLocationMenu.selectedItem!.title)
+        viewPrefs.viewOnStartup.layoutName = startWithViewMenu.selectedItem!.title
     }
 }
