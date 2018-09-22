@@ -91,6 +91,8 @@ enum MessageType {
     
     case mainWindowResizingNotification
     
+    case layoutChangedNotification
+    
     case barModeWindowMouseEntered
     
     case barModeWindowMouseExited
@@ -458,6 +460,19 @@ struct MainWindowResizingNotification: NotificationMessage {
     
     // Singleton
     static let instance: MainWindowResizingNotification = MainWindowResizingNotification()
+}
+
+// Notification that the layout manager has changed the window layout
+struct LayoutChangedNotification: NotificationMessage {
+    
+    let messageType: MessageType = .layoutChangedNotification
+    let showingEffects: Bool
+    let showingPlaylist: Bool
+    
+    init(_ showingEffects: Bool, _ showingPlaylist: Bool) {
+        self.showingEffects = showingEffects
+        self.showingPlaylist = showingPlaylist
+    }
 }
 
 struct BarModeWindowMouseNotification: NotificationMessage {

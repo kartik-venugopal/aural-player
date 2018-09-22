@@ -322,6 +322,16 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.maximizeHorizontal, nil))
     }
     
+    // Scrolls the playlist view to the top
+    @IBAction func scrollToTopAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.scrollToTop, PlaylistViewState.current))
+    }
+    
+    // Scrolls the playlist view to the bottom
+    @IBAction func scrollToBottomAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.scrollToBottom, PlaylistViewState.current))
+    }
+    
     // Updates the summary in response to a change in the tab group selected tab
     private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
         updatePlaylistSummary()

@@ -34,7 +34,12 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
             btnRememberLayout.state = 1
         }
         
-        layoutMenu.selectItem(withTitle: viewPrefs.layoutOnStartup.layoutName)
+        if let item = layoutMenu.item(withTitle: viewPrefs.layoutOnStartup.layoutName) {
+            layoutMenu.select(item)
+        } else {
+            // Default
+            layoutMenu.select(layoutMenu.item(withTitle: WindowLayouts.defaultLayout.name))
+        }
         layoutMenu.isEnabled = Bool(btnStartWithLayout.state)
         
         btnSnapToWindows.state = viewPrefs.snapToWindows ? 1 : 0
