@@ -167,7 +167,7 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Bookmarks" autoenablesItems="NO" id="6PU-OL-7xn">
                         <items>
-                            <menuItem title="Bookmark this track position" keyEquivalent="b" id="qCe-8O-8ky">
+                            <menuItem title="Bookmark this track position" image="Bookmark-Dark" keyEquivalent="b" id="qCe-8O-8ky">
                                 <connections>
                                     <action selector="bookmarkAction:" target="nnl-Fg-dA2" id="AVT-hc-yET"/>
                                 </connections>
@@ -963,6 +963,7 @@ CQ
     </objects>
     <resources>
         <image name="Add-Small" width="12" height="12"/>
+        <image name="Bookmark-Dark" width="15" height="15"/>
         <image name="Clear-Small" width="2.5999999046325684" height="3"/>
         <image name="DockBottom-Small" width="12" height="10"/>
         <image name="DockLeft-Small" width="12" height="10"/>
