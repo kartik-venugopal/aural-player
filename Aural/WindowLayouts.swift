@@ -238,11 +238,13 @@ enum WindowLayoutPresets: String {
     
     var playlistWidth: CGFloat {
         
+        let minWidth = playlistWindow.minSize.width
+        
         switch self {
             
         case .verticalFullStack, .verticalPlayerAndPlaylistStack:    return mainWindow.width
             
-        case .horizontalFullStack:    return visibleFrame.width - (mainWindow.width + effectsWindow.width)
+        case .horizontalFullStack:    return max(visibleFrame.width - (mainWindow.width + effectsWindow.width), minWidth)
             
         case .bigBottomPlaylist:    return mainWindow.width + effectsWindow.width
             

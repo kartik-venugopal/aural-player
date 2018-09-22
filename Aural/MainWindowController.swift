@@ -190,21 +190,15 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        print("Updating layout menu ... !!!")
-        
         // Recreate the custom layout items
         let itemCount = btnLayout.itemArray.count
         
-        let customLayoutCount = itemCount - 10  // 1 dummy item, 1 separator, 8 preset layouts
+        let customLayoutCount = itemCount - 10  // 1 dummy item, 1 separator, 8 presets
         
         if customLayoutCount > 0 {
         
             // Need to traverse in descending order because items are going to be removed
             for index in (1...customLayoutCount).reversed() {
-                
-                let item = btnLayout.item(at: index)
-                
-                print("Removing " + item!.title)
                 btnLayout.removeItem(at: index)
             }
         }
