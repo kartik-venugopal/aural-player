@@ -108,7 +108,7 @@ class PitchViewController: NSViewController, ActionMessageSubscriber, StringInpu
         userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
         
         // If this isn't done, the app windows are hidden when the popover is displayed
-        WindowState.window.orderFront(self)
+        WindowState.mainWindow.orderFront(self)
     }
     
     // Increases the overall pitch by a certain preset increment

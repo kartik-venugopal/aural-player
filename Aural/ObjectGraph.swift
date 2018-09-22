@@ -96,6 +96,8 @@ class ObjectGraph {
         
         bookmarks = Bookmarks()
         bookmarksDelegate = BookmarksDelegate(bookmarks!, playlistDelegate!, playbackDelegate!, appState!.bookmarksState)
+        
+        WindowLayouts.loadUserDefinedLayouts((appState?.uiState.userWindowLayouts)!)
     }
     
     // MARK: Accessor methods to retrieve objects
@@ -160,7 +162,7 @@ class ObjectGraph {
         appState?.audioGraphState = audioGraph!.persistentState() as! AudioGraphState
         appState?.playlistState = playlist!.persistentState() as! PlaylistState
         appState?.playbackSequenceState = playbackSequencer!.persistentState() as! PlaybackSequenceState
-        appState?.uiState = WindowState.persistentState()
+        appState?.uiState = WindowLayouts.persistentState()
         appState?.historyState = historyDelegate!.persistentState() as! HistoryState
         appState?.bookmarksState = bookmarksDelegate!.persistentState() as! BookmarksState
         

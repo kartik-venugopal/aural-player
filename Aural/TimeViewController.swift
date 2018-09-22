@@ -117,7 +117,7 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
         userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
         
         // If this isn't done, the app windows are hidden when the popover is displayed
-        WindowState.window.orderFront(self)
+        WindowState.mainWindow.orderFront(self)
     }
     
     // Actually saves the new user-defined preset

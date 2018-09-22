@@ -5,7 +5,7 @@ import Cocoa
  
     NOTE - No actions are directly handled by this class. Action messages are published to another app component that is responsible for these functions.
  */
-class ViewMenuController: NSObject, NSMenuDelegate {
+class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     @IBOutlet weak var theMenu: NSMenuItem!
     
@@ -19,6 +19,11 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     // Menu items whose states are toggled when they (or others) are clicked
     @IBOutlet weak var togglePlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var toggleEffectsMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var windowLayoutsMenu: NSMenu!
+    
+    // To save the name of a custom window layout
+    private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     override func awakeFromNib() {
         switchViewMenuItem.off()
@@ -41,6 +46,26 @@ class ViewMenuController: NSObject, NSMenuDelegate {
             
             [togglePlaylistMenuItem, toggleEffectsMenuItem, dockPlaylistMenuItem, maximizePlaylistMenuItem].forEach({$0?.isHidden = true})
         }
+        
+        // Recreate the custom layout items
+        self.windowLayoutsMenu.items.forEach({
+        
+            if $0 is CustomLayoutMenuItem {
+                 windowLayoutsMenu.removeItem($0)
+            }
+        })
+        
+        // Add custom window layouts
+        WindowLayouts.userDefinedLayouts.forEach({
+        
+            // The action for the menu item will depend on whether it is a playable item
+            let action = #selector(self.windowLayoutAction(_:))
+            
+            let menuItem = CustomLayoutMenuItem(title: $0.name, action: action, keyEquivalent: "")
+            menuItem.target = self
+            
+            self.windowLayoutsMenu.insertItem(menuItem, at: 0)
+        })
     }
  
     // Docks the playlist window to the left of the main window
@@ -104,11 +129,43 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func windowLayoutAction(_ sender: NSMenuItem) {
+        LayoutManager.layout(sender.title)
+    }
+    
+    @IBAction func saveWindowLayoutAction(_ sender: NSMenuItem) {
         
-        let layout = WindowLayoutPresets.fromDisplayName(sender.title)
+        let rand = Int(arc4random())
+        WindowLayouts.addUserDefinedLayout("Muthusami-" + String(describing: rand))
+    }
+    
+    // MARK - StringInputClient functions
+    
+    func getInputPrompt() -> String {
+        return "Enter a window layout name:"
+    }
+    
+    func getDefaultValue() -> String? {
+        return "<My custom layout>"
+    }
+    
+    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        // TODO: Accomplish this with action messages
-//        SyncMessenger.publishActionMessage(WindowLayoutActionMessage(layout))
-        LayoutManager.layout(layout)
+        // TODO
+        
+//        let valid = !bookmarks.bookmarkWithNameExists(string)
+//        
+//        if (!valid) {
+//            return (false, "A bookmark with this name already exists !")
+//        } else {
+            return (true, nil)
+//        }
+    }
+    
+    // Receives a new EQ preset name and saves the new preset
+    func acceptInput(_ string: String) {
+        
+        
     }
 }
+
+fileprivate class CustomLayoutMenuItem: NSMenuItem {}

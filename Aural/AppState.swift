@@ -32,17 +32,18 @@ extension PersistentState {
 }
 
 /*
- Encapsulates UI state
+    Encapsulates UI state
  */
 class UIState: PersistentState {
     
-    var windowLocationX: Float = AppDefaults.windowLocationX
-    var windowLocationY: Float = AppDefaults.windowLocationY
+    var showEffects: Bool = true
+    var showPlaylist: Bool = true
     
-    var showPlaylist: Bool = AppDefaults.showPlaylist
-    var showEffects: Bool = AppDefaults.showEffects
+    var mainWindowOrigin: NSPoint = NSPoint.zero
+    var effectsWindowOrigin: NSPoint? = nil
+    var playlistWindowFrame: NSRect? = nil
     
-    var playlistLocation: PlaylistLocations = AppDefaults.playlistLocation
+    var userWindowLayouts: [WindowLayout] = [WindowLayout]()
     
     func toSerializableMap() -> NSDictionary {
         
@@ -51,10 +52,50 @@ class UIState: PersistentState {
         map["showPlaylist"] = showPlaylist as AnyObject
         map["showEffects"] = showEffects as AnyObject
         
-        map["windowLocationX"] = windowLocationX as NSNumber
-        map["windowLocationY"] = windowLocationY as NSNumber
+        map["mainWindow_x"] = mainWindowOrigin.x as NSNumber
+        map["mainWindow_y"] = mainWindowOrigin.y as NSNumber
         
-        map["playlistLocation"] = playlistLocation.rawValue as AnyObject
+        if (showEffects) {
+            map["effectsWindow_x"] = effectsWindowOrigin!.x as NSNumber
+            map["effectsWindow_y"] = effectsWindowOrigin!.y as NSNumber
+        }
+        
+        if (showPlaylist) {
+            map["playlistWindow_x"] = playlistWindowFrame!.origin.x as NSNumber
+            map["playlistWindow_y"] = playlistWindowFrame!.origin.y as NSNumber
+            map["playlistWindow_width"] = playlistWindowFrame!.width as NSNumber
+            map["playlistWindow_height"] = playlistWindowFrame!.height as NSNumber
+        }
+        
+        var userWindowLayoutsArr = [[NSString: AnyObject]]()
+        for layout in userWindowLayouts {
+            
+            var layoutDict = [NSString: AnyObject]()
+            
+            layoutDict["name"] = layout.name as AnyObject
+            
+            layoutDict["showPlaylist"] = layout.showPlaylist as AnyObject
+            layoutDict["showEffects"] = layout.showEffects as AnyObject
+            
+            layoutDict["mainWindow_x"] = layout.mainWindowOrigin.x as NSNumber
+            layoutDict["mainWindow_y"] = layout.mainWindowOrigin.y as NSNumber
+            
+            if (layout.showEffects) {
+                layoutDict["effectsWindow_x"] = layout.effectsWindowOrigin!.x as NSNumber
+                layoutDict["effectsWindow_y"] = layout.effectsWindowOrigin!.y as NSNumber
+            }
+            
+            if (layout.showPlaylist) {
+                layoutDict["playlistWindow_x"] = layout.playlistWindowFrame!.origin.x as NSNumber
+                layoutDict["playlistWindow_y"] = layout.playlistWindowFrame!.origin.x as NSNumber
+                layoutDict["playlistWindow_width"] = layout.playlistWindowFrame!.width as NSNumber
+                layoutDict["playlistWindow_height"] = layout.playlistWindowFrame!.height as NSNumber
+            }
+            
+            userWindowLayoutsArr.append(layoutDict)
+        }
+        
+        map["userLayouts"] = NSArray(array: userWindowLayoutsArr)
         
         return map as NSDictionary
     }
@@ -71,18 +112,127 @@ class UIState: PersistentState {
             uiState.showEffects = showEffects
         }
         
-        if let locX = map["windowLocationX"] as? NSNumber {
-            uiState.windowLocationX = locX.floatValue
-        }
-        
-        if let locY = map["windowLocationY"] as? NSNumber {
-            uiState.windowLocationY = locY.floatValue
-        }
-        
-        if let playlistLocationStr = map["playlistLocation"] as? String {
-            if let playlistLocation = PlaylistLocations(rawValue: playlistLocationStr) {
-                uiState.playlistLocation = playlistLocation
+        if let mainWindowX = map["mainWindow_x"] as? NSNumber {
+            
+            if let mainWindowY = map["mainWindow_y"] as? NSNumber {
+                uiState.mainWindowOrigin = NSPoint(x: CGFloat(mainWindowX.floatValue), y: CGFloat(mainWindowY.floatValue))
             }
+        }
+
+        if uiState.showEffects {
+            
+            if let effectsWindowX = map["effectsWindow_x"] as? NSNumber {
+                
+                if let effectsWindowY = map["effectsWindow_y"] as? NSNumber {
+                    
+                    uiState.effectsWindowOrigin = NSPoint(x: CGFloat(effectsWindowX.floatValue), y: CGFloat(effectsWindowY.floatValue))
+                }
+            }
+        }
+        
+        if uiState.showPlaylist {
+            
+            if let playlistWindowX = map["playlistWindow_x"] as? NSNumber {
+                
+                if let playlistWindowY = map["playlistWindow_y"] as? NSNumber {
+                    
+                    let origin  = NSPoint(x: CGFloat(playlistWindowX.floatValue), y: CGFloat(playlistWindowY.floatValue))
+                    
+                    if let playlistWindowWidth = map["playlistWindow_width"] as? NSNumber {
+                        
+                        if let playlistWindowHeight = map["playlistWindow_height"] as? NSNumber {
+                            
+                            uiState.playlistWindowFrame = NSRect(x: origin.x, y: origin.y, width: CGFloat(playlistWindowWidth.floatValue), height: CGFloat(playlistWindowHeight.floatValue))
+                        }
+                    }
+                }
+            }
+        }
+        
+        if let userLayouts = map["userLayouts"] as? [NSDictionary] {
+            
+            userLayouts.forEach({
+                
+                let layout = $0
+                
+                var layoutName: String?
+                
+                var layoutShowEffects: Bool?
+                var layoutShowPlaylist: Bool?
+                
+                var layoutMainWindowOrigin: NSPoint?
+                var layoutEffectsWindowOrigin: NSPoint?
+                var layoutPlaylistWindowFrame: NSRect?
+                
+                if let name = layout["name"] as? String {
+                    layoutName = name
+                }
+                
+                if let showPlaylist = layout["showPlaylist"] as? Bool {
+                    layoutShowPlaylist = showPlaylist
+                }
+                
+                if let showEffects = layout["showEffects"] as? Bool {
+                    layoutShowEffects = showEffects
+                }
+                
+                if let mainWindowX = layout["mainWindow_x"] as? NSNumber {
+                    
+                    if let mainWindowY = layout["mainWindow_y"] as? NSNumber {
+                        layoutMainWindowOrigin = NSPoint(x: CGFloat(mainWindowX.floatValue), y: CGFloat(mainWindowY.floatValue))
+                    }
+                }
+                
+                if let showingEffects = layoutShowEffects {
+                    
+                    if showingEffects {
+                        
+                        if let effectsWindowX = layout["effectsWindow_x"] as? NSNumber {
+                            
+                            if let effectsWindowY = layout["effectsWindow_y"] as? NSNumber {
+                                
+                                layoutEffectsWindowOrigin = NSPoint(x: CGFloat(effectsWindowX.floatValue), y: CGFloat(effectsWindowY.floatValue))
+                            }
+                        }
+                    }
+                }
+                
+                if let showingPlaylist = layoutShowPlaylist {
+                    
+                    if showingPlaylist {
+                        
+                        if let playlistWindowX = layout["playlistWindow_x"] as? NSNumber {
+                            
+                            if let playlistWindowY = layout["playlistWindow_y"] as? NSNumber {
+                                
+                                let origin  = NSPoint(x: CGFloat(playlistWindowX.floatValue), y: CGFloat(playlistWindowY.floatValue))
+                                
+                                if let playlistWindowWidth = layout["playlistWindow_width"] as? NSNumber {
+                                    
+                                    if let playlistWindowHeight = layout["playlistWindow_height"] as? NSNumber {
+                                        
+                                        layoutPlaylistWindowFrame = NSRect(x: origin.x, y: origin.y, width: CGFloat(playlistWindowWidth.floatValue), height: CGFloat(playlistWindowHeight.floatValue))
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                // Make sure you have all the required info
+                if layoutName != nil && layoutShowEffects != nil && layoutShowPlaylist != nil && layoutMainWindowOrigin != nil {
+                    
+                    if ((layoutShowEffects! && layoutEffectsWindowOrigin != nil) || !layoutShowEffects!) {
+                        
+                        if ((layoutShowPlaylist! && layoutPlaylistWindowFrame != nil) || !layoutShowPlaylist!) {
+                            
+                            let newLayout = WindowLayout(name: layoutName!, showEffects: layoutShowEffects!, showPlaylist: layoutShowPlaylist!, mainWindowOrigin: layoutMainWindowOrigin!, effectsWindowOrigin: layoutEffectsWindowOrigin, playlistWindowFrame: layoutPlaylistWindowFrame, systemDefined: false)
+                            
+                            uiState.userWindowLayouts.append(newLayout)
+                        }
+                    }
+                }
+            })
         }
         
         return uiState

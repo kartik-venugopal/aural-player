@@ -60,16 +60,16 @@ class MainWindowController: NSWindowController, ActionMessageSubscriber, Constit
     // Set window properties
     private func initWindow() {
         
-        WindowState.window = theWindow
+        WindowState.mainWindow = theWindow
         theWindow.isMovableByWindowBackground = true
         theWindow.makeKeyAndOrderFront(self)
         
         addSubViews()
         
-        let appState = ObjectGraph.getUIAppState()
+        let appState = ObjectGraph.getAppState().uiState
         
-        btnToggleEffects.onIf(!appState.hideEffects)
-        btnTogglePlaylist.onIf(!appState.hidePlaylist)
+        btnToggleEffects.onIf(appState.showEffects)
+        btnTogglePlaylist.onIf(appState.showPlaylist)
     }
     
     // Add the sub-views that make up the main window

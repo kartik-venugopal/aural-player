@@ -8,16 +8,26 @@ class LayoutManager: NSObject {
     
     static let playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
     
-    static func layout(_ preset: WindowLayoutPresets) {
+    static func layout(_ name: String) {
         
-        effectsWindow.setIsVisible(preset.showEffects)
-        playlistWindow.setIsVisible(preset.showPlaylist)
+        let layout = WindowLayouts.layoutByName(name)
+        
         // TODO: buttons and menu items need to be updated ("toggle fx/playlist")
+        mainWindow.setFrameOrigin(layout.mainWindowOrigin)
         
-        mainWindow.setFrameOrigin(preset.mainWindowOrigin)
-        effectsWindow.setFrameOrigin(preset.effectsWindowOrigin)
-        playlistWindow.setFrame(preset.playlistWindowFrame, display: preset.showPlaylist)
+        if layout.showEffects {
+            
+            mainWindow.addChildWindow(effectsWindow, ordered: NSWindowOrderingMode.below)
+            effectsWindow.setFrameOrigin(layout.effectsWindowOrigin!)
+        }
         
-        // TODO: Make sure both child windows are added as children of the main window
+        if layout.showPlaylist {
+            
+            mainWindow.addChildWindow(playlistWindow, ordered: NSWindowOrderingMode.below)
+            playlistWindow.setFrame(layout.playlistWindowFrame!, display: true)
+        }
+        
+        effectsWindow.setIsVisible(layout.showEffects)
+        playlistWindow.setIsVisible(layout.showPlaylist)
     }
 }
