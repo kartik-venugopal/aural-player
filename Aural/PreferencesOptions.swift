@@ -31,7 +31,7 @@ enum ViewStartupOptions: String {
 }
 
 // View on startup preference
-class ViewOnStartup {
+class LayoutOnStartup {
     
     var option: ViewStartupOptions = .specific
     
@@ -40,7 +40,7 @@ class ViewOnStartup {
     // Can I do this with WindowLayoutPresets.verticalFullStack.rawValue ? Dependency problem ?
     
     // NOTE: This is mutable. Potentially unsafe
-    static let defaultInstance: ViewOnStartup = ViewOnStartup()
+    static let defaultInstance: LayoutOnStartup = LayoutOnStartup()
 }
 
 enum ScrollSensitivity: String {

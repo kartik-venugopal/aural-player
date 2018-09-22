@@ -19,9 +19,9 @@ class LayoutManager {
     
     func initialLayout() {
         
-        if preferences.viewOnStartup.option == .specific {
+        if preferences.layoutOnStartup.option == .specific {
             
-            layout(preferences.viewOnStartup.layoutName)
+            layout(preferences.layoutOnStartup.layoutName)
             
         } else {
             

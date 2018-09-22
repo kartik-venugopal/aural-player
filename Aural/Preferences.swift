@@ -172,25 +172,25 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
 
 class ViewPreferences: PersistentPreferencesProtocol {
  
-    var viewOnStartup: ViewOnStartup
+    var layoutOnStartup: LayoutOnStartup
     
     internal required init(_ defaultsDictionary: [String: Any]) {
         
-        viewOnStartup = PreferencesDefaults.View.viewOnStartup
+        layoutOnStartup = PreferencesDefaults.View.layoutOnStartup
         
-        if let viewOnStartupOptionStr = defaultsDictionary["view.viewOnStartup.option"] as? String {
-            viewOnStartup.option = ViewStartupOptions(rawValue: viewOnStartupOptionStr)!
+        if let layoutOnStartupOptionStr = defaultsDictionary["view.layoutOnStartup.option"] as? String {
+            layoutOnStartup.option = ViewStartupOptions(rawValue: layoutOnStartupOptionStr)!
         }
         
-        if let layoutStr = defaultsDictionary["view.viewOnStartup.layout"] as? String {
-            viewOnStartup.layoutName = layoutStr
+        if let layoutStr = defaultsDictionary["view.layoutOnStartup.layout"] as? String {
+            layoutOnStartup.layoutName = layoutStr
         }
     }
     
     func persist(defaults: UserDefaults) {
         
-        defaults.set(viewOnStartup.option.rawValue, forKey: "view.viewOnStartup.option")
-        defaults.set(viewOnStartup.layoutName, forKey: "view.viewOnStartup.layout")
+        defaults.set(layoutOnStartup.option.rawValue, forKey: "view.layoutOnStartup.option")
+        defaults.set(layoutOnStartup.layoutName, forKey: "view.layoutOnStartup.layout")
     }
 }
 
@@ -300,7 +300,7 @@ fileprivate struct PreferencesDefaults {
     
     struct View {
         
-        static let viewOnStartup: ViewOnStartup = ViewOnStartup.defaultInstance
+        static let layoutOnStartup: LayoutOnStartup = LayoutOnStartup.defaultInstance
     }
     
     struct History {

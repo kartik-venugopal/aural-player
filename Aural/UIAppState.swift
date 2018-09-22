@@ -14,14 +14,14 @@ class UIAppState {
     
     init(_ appState: AppState, _ preferences: Preferences) {
         
-//        if (preferences.viewPreferences.viewOnStartup.option == .rememberFromLastAppLaunch) {
+//        if (preferences.viewPreferences.layoutOnStartup.option == .rememberFromLastAppLaunch) {
 //            
 //            self.showPlaylist = appState.uiState.showPlaylist
 //            self.showEffects = appState.uiState.showEffects
 //            
 //        } else {
 //            
-//            let viewType = preferences.viewPreferences.viewOnStartup.viewType
+//            let viewType = preferences.viewPreferences.layoutOnStartup.viewType
 //            self.showPlaylist = viewType == .effectsOnly || viewType == .compact
 //            self.hideEffects = viewType == .playlistOnly || viewType == .compact
 //        }
