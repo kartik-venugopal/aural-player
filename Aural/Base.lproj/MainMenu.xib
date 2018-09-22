@@ -722,54 +722,54 @@ CQ
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="eo4-eB-OpN"/>
-                            <menuItem title="  Window Layout" image="DockBottom-Small" id="RWg-5h-jkO" userLabel="Window Layout">
+                            <menuItem title="  Window Layout" image="WindowLayout" id="RWg-5h-jkO" userLabel="Window Layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="  Window Layout" id="S2A-E2-dfO">
                                     <items>
                                         <menuItem isSeparatorItem="YES" id="Xs7-ex-obP"/>
-                                        <menuItem title="Vertical full stack" id="3ni-vP-4WM">
+                                        <menuItem title="Vertical full stack" image="WindowLayout-VerticalStack" id="3ni-vP-4WM">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="pF1-u2-cwb"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Horizontal full stack" id="5xt-05-361">
+                                        <menuItem title="Horizontal full stack" image="WindowLayout-HorizontalStack" id="5xt-05-361">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="wWK-b1-F3u"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Big bottom playlist" id="9HZ-X6-YIg">
+                                        <menuItem title="Big bottom playlist" image="WindowLayout-BigBottomPlaylist" id="9HZ-X6-YIg">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="QJr-Ao-Uw2"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Big right playlist" id="ifi-YP-VSF">
+                                        <menuItem title="Big right playlist" image="WindowLayout-BigRightPlaylist" id="ifi-YP-VSF">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="q23-PX-vyq"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Big left playlist" id="rCl-Tl-NEv">
+                                        <menuItem title="Big left playlist" image="WindowLayout-BigLeftPlaylist" id="rCl-Tl-NEv">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="kGN-ai-AhP"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Vertical player and playlist" id="Awm-hh-oYW">
+                                        <menuItem title="Vertical player and playlist" image="WindowLayout-VerticalPlayerAndPlaylist" id="Awm-hh-oYW">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="ZZT-9X-fGG"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Horizontal player and playlist" id="ijY-bz-H83">
+                                        <menuItem title="Horizontal player and playlist" image="WindowLayout-HorizontalPlayerAndPlaylist" id="ijY-bz-H83">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="pti-3J-Yex"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Compact cornered" id="CKo-pZ-cY4">
+                                        <menuItem title="Compact cornered" image="WindowLayout-CompactCornered" id="CKo-pZ-cY4">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="ucy-JE-xX9"/>
@@ -1007,5 +1007,14 @@ CQ
         <image name="UserGuide" width="1200" height="19836"/>
         <image name="VolumeHigh-Small" width="14" height="14"/>
         <image name="VolumeLow-Small" width="14" height="14"/>
+        <image name="WindowLayout" width="15" height="15"/>
+        <image name="WindowLayout-BigBottomPlaylist" width="30" height="20"/>
+        <image name="WindowLayout-BigLeftPlaylist" width="30" height="20"/>
+        <image name="WindowLayout-BigRightPlaylist" width="30" height="20"/>
+        <image name="WindowLayout-CompactCornered" width="30" height="20"/>
+        <image name="WindowLayout-HorizontalPlayerAndPlaylist" width="30" height="20"/>
+        <image name="WindowLayout-HorizontalStack" width="30" height="20"/>
+        <image name="WindowLayout-VerticalPlayerAndPlaylist" width="30" height="20"/>
+        <image name="WindowLayout-VerticalStack" width="30" height="20"/>
     </resources>
 </document>
