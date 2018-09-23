@@ -60,21 +60,20 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         let isRegularMode = AppModeManager.mode == .regular
         let isPlayingOrPaused = playbackInfo.getPlaybackState() != .noTrack
-        let isPlaying = playbackInfo.getPlaybackState() == .playing
         
         // Play/pause enabled if at least one track available
         playOrPauseMenuItem.isEnabled = playlist.size() > 0
         
         // Enabled only in regular mode if playing/paused
-        [detailedInfoMenuItem, showInPlaylistMenuItem].forEach({$0.isEnabled = isRegularMode && isPlayingOrPaused})
+        
+        // TODO: Show in playlist only available when playlist is visible
+        [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem, showInPlaylistMenuItem].forEach({$0.isEnabled = isRegularMode && isPlayingOrPaused})
         
         // These menu item actions are only available when a track is currently playing/paused
-        [previousTrackMenuItem, nextTrackMenuItem].forEach({$0.isEnabled = isPlayingOrPaused && !WindowState.showingPopover})
-        
         favoritesMenuItem.isEnabled = isPlayingOrPaused
         
-        [replayTrackMenuItem, loopMenuItem].forEach({$0.isEnabled = isPlaying})
-        [seekForwardMenuItem, seekBackwardMenuItem].forEach({$0.isEnabled = isPlayingOrPaused && !WindowState.showingPopover})
+        // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)
+        [previousTrackMenuItem, nextTrackMenuItem, seekForwardMenuItem, seekBackwardMenuItem].forEach({$0.isEnabled = isPlayingOrPaused && !WindowState.showingPopover})
     }
     
     // Plays, pauses or resumes playback
