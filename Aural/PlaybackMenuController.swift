@@ -9,7 +9,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // Menu items whose states are toggled when they (or others) are clicked
     
-    @IBOutlet weak var playOrPauseMenuItem: NSMenuItem!
+    @IBOutlet weak var playOrPauseMenuItem: ToggleMenuItem!     // Needs to be toggled
     @IBOutlet weak var replayTrackMenuItem: NSMenuItem!
     @IBOutlet weak var previousTrackMenuItem: NSMenuItem!
     @IBOutlet weak var nextTrackMenuItem: NSMenuItem!
@@ -43,6 +43,8 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // One-time setup
     override func awakeFromNib() {
+        
+        playOrPauseMenuItem.off()
         favoritesMenuItem.off()
     }
     
@@ -63,6 +65,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         // Play/pause enabled if at least one track available
         playOrPauseMenuItem.isEnabled = playlist.size() > 0
+        playOrPauseMenuItem.onIf(playbackInfo.getPlaybackState() == .playing)
         
         // Enabled only in regular mode if playing/paused
         
