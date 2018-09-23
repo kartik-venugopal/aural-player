@@ -41,7 +41,7 @@ class BufferManager {
     
     // Start track playback from the beginning
     func playTrack(_ playbackSession: PlaybackSession) {
-        startPlaybackFromFrame(playbackSession, BufferManager.FRAME_ZERO)
+        startSchedulingFromFrame(playbackSession, BufferManager.FRAME_ZERO, true)
     }
     
     // Start track playback from a given position expressed in seconds
@@ -50,11 +50,11 @@ class BufferManager {
         let sampleRate = playbackSession.track.playbackInfo!.sampleRate!
         let startFrame = Int64(startPosition * sampleRate)
         
-        startPlaybackFromFrame(playbackSession, startFrame)
+        startSchedulingFromFrame(playbackSession, startFrame, true)
     }
     
     // Starts track playback from a given frame position. The playbackSesssion parameter is used to ensure that no buffers are scheduled on the player for an old playback session.
-    private func startPlaybackFromFrame(_ playbackSession: PlaybackSession, _ frame: AVAudioFramePosition) {
+    private func startSchedulingFromFrame(_ playbackSession: PlaybackSession, _ frame: AVAudioFramePosition, _ beginPlayback: Bool) {
         
         // Can assume that audioFile is non-nil, because track has been prepared for playback
         let playingFile: AVAudioFile = playbackSession.track.playbackInfo!.audioFile!
@@ -66,8 +66,10 @@ class BufferManager {
         // Schedule one buffer for immediate playback
         scheduleNextBuffer(playbackSession, BufferManager.BUFFER_SIZE_INITIAL)
         
-        // Start playing the file
-        playerNode.play()
+        if beginPlayback {
+            // Start playing the file
+            playerNode.play()
+        }
         
         // Schedule one more ("look ahead") buffer
         if (!playbackSession.schedulingCompleted) {
@@ -231,7 +233,7 @@ class BufferManager {
     }
     
     // Seeks to a certain position (seconds) in the specified track. Returns the calculated start frame.
-    func seekToTime(_ playbackSession: PlaybackSession, _ seconds: Double) {
+    func seekToTime(_ playbackSession: PlaybackSession, _ seconds: Double, _ beginPlayback: Bool) {
         
         stop()
         
@@ -244,7 +246,7 @@ class BufferManager {
         if (playbackSession.hasCompleteLoop()) {
             startLoopFromFrame(playbackSession, firstFrame)
         } else {
-            startPlaybackFromFrame(playbackSession, firstFrame)
+            startSchedulingFromFrame(playbackSession, firstFrame, beginPlayback)
         }
     }
     

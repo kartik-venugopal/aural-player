@@ -355,8 +355,6 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             } else if (preferences.playlistPreferences.playlistOnStartup == .loadFile) {
                 
                 if let playlistFile: URL = preferences.playlistPreferences.playlistFile {
-                    
-                    print("\nLoading playlist: %@", playlistFile.path)
                     addFiles_async([playlistFile], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true))
                 }
             }

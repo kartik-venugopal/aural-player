@@ -172,6 +172,13 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
         } else {
             playlistFile = PreferencesDefaults.Playlist.playlistFile
         }
+        
+        // If .loadFile selected but no file available to load from, revert back to defaults
+        if (playlistOnStartup == .loadFile && playlistFile == nil) {
+            
+            playlistOnStartup = PreferencesDefaults.Playlist.playlistOnStartup
+            playlistFile = PreferencesDefaults.Playlist.playlistFile
+        }
     }
     
     func persist(defaults: UserDefaults) {

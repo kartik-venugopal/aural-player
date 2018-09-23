@@ -192,7 +192,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func seekForward(_ actionMode: ActionMode = .discrete) {
         
-        if (player.getPlaybackState() != .playing) {
+        if (player.getPlaybackState() == .noTrack) {
             return
         }
         
@@ -236,7 +236,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func seekBackward(_ actionMode: ActionMode = .discrete) {
         
-        if (player.getPlaybackState() != .playing) {
+        if (player.getPlaybackState() == .noTrack) {
             return
         }
         
@@ -264,7 +264,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func seekToPercentage(_ percentage: Double) {
         
-        if (player.getPlaybackState() != .playing) {
+        if (player.getPlaybackState() == .noTrack) {
             return
         }
         

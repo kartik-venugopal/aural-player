@@ -13,6 +13,7 @@
                 <outlet property="btnRememberPlaylist" destination="11g-RD-mFQ" id="Jvo-mq-jSV"/>
                 <outlet property="errorIcon" destination="1jP-hB-Fpl" id="V61-pK-Y8v"/>
                 <outlet property="lblPlaylistFile" destination="8OE-My-Cyn" id="dsl-Y4-5sy"/>
+                <outlet property="lblPlaylistFileCell" destination="1T9-ny-RtV" id="b87-RR-nF1"/>
                 <outlet property="view" destination="zze-eD-Eei" id="ldu-Q2-8Jq"/>
             </connections>
         </customObject>
@@ -53,7 +54,7 @@
                         <action selector="startupPlaylistPrefAction:" target="-2" id="Git-bs-9rv"/>
                     </connections>
                 </button>
-                <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-Nd-jp7">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-Nd-jp7">
                     <rect key="frame" x="29" y="162" width="130" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Load playlist from file:" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="jeQ-w2-omU" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
@@ -64,7 +65,7 @@
                         <action selector="startupPlaylistPrefAction:" target="-2" id="dyM-HN-Brs"/>
                     </connections>
                 </button>
-                <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VWX-kR-DXZ" userLabel="Btn Browse">
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VWX-kR-DXZ" userLabel="Btn Browse">
                     <rect key="frame" x="161" y="162" width="50" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Browse" bezelStyle="roundedRect" alignment="center" controlSize="mini" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2nI-oE-df4" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
@@ -83,7 +84,7 @@ DQ
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Error" id="VX8-Wb-T9Q"/>
                 </imageView>
-                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8OE-My-Cyn">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8OE-My-Cyn">
                     <rect key="frame" x="52" y="134" width="333" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="border" alignment="left" id="1T9-ny-RtV" customClass="ValidatedLabelCell" customModule="Aural" customModuleProvider="target">

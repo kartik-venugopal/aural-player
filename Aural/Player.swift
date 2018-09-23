@@ -80,7 +80,7 @@ class Player: PlayerProtocol {
         let session = PlaybackSession.start(track, timestamp)
         session.loop = loop
         
-        bufferManager.seekToTime(session, seconds)
+        bufferManager.seekToTime(session, seconds, playbackState == .playing)
     }
     
     func getSeekPosition() -> Double {

@@ -1,5 +1,5 @@
 /*
-    Custom error types for error handling around adding/playing tracks
+    Custom error types for error handling
  */
 import Foundation
 
@@ -59,4 +59,18 @@ class UnsupportedFormatError: InvalidTrackError {
         super.init(track)
         self.message = String(format: "Track format '%@' is not supported.", format)
     }
+}
+
+// Indicates invalid user input
+class InvalidInputError: Error, DisplayableError {
+    
+    let message: String
+    
+    init(_ message: String) {
+        self.message = message
+    }
+}
+
+// Marker class indicating that an option to load a playlist file has been selected but no playlist file specified
+class PlaylistFileNotSpecifiedError: InvalidInputError {
 }
