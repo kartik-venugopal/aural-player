@@ -1,6 +1,6 @@
 import Cocoa
 
-class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
+class ViewPreferencesViewController: NSViewController, NSMenuDelegate, PreferencesViewProtocol {
     
     @IBOutlet weak var btnStartWithLayout: NSButton!
     @IBOutlet weak var btnRememberLayout: NSButton!
@@ -13,15 +13,6 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
     func getView() -> NSView {
         return self.view
-    }
-    
-    override func viewDidLoad() {
-        
-        // Add all user layouts to the menu
-        WindowLayouts.userDefinedLayouts.forEach({
-        
-            layoutMenu.insertItem(withTitle: $0.name, at: 0)
-        })
     }
     
     func resetFields(_ preferences: Preferences) {
@@ -59,5 +50,29 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         
         viewPrefs.snapToWindows = Bool(btnSnapToWindows.state)
         viewPrefs.snapToScreen = Bool(btnSnapToScreen.state)
+    }
+    
+    // MARK: Menu delegate
+    
+    // When the menu is about to open, set the menu item states according to the current window/view state
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        // Recreate the custom layout items
+        let itemCount = layoutMenu.itemArray.count
+        
+        let customLayoutCount = itemCount - 9  // 1 separator, 8 presets
+        
+        if customLayoutCount > 0 {
+            
+            // Need to traverse in descending order because items are going to be removed
+            for index in (0..<customLayoutCount).reversed() {
+                layoutMenu.removeItem(at: index)
+            }
+        }
+        
+        // Layout popup button menu
+        WindowLayouts.userDefinedLayouts.forEach({
+            self.layoutMenu.insertItem(withTitle: $0.name, at: 0)
+        })
     }
 }

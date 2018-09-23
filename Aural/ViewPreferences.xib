@@ -62,7 +62,7 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wN2-oO-Gzv" userLabel="Layout menu">
-                    <rect key="frame" x="137" y="180" width="145" height="26"/>
+                    <rect key="frame" x="137" y="180" width="187" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Vertical full stack" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Lj0-KC-S5W" id="yjs-vf-m0v" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -95,6 +95,9 @@
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
+                            <connections>
+                                <outlet property="delegate" destination="-2" id="7po-Z7-wkd"/>
+                            </connections>
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>

@@ -130,7 +130,9 @@ enum WindowLayoutPresets: String {
         case .horizontalFullStack:
             
             let xPadding = visibleFrame.width - (mainWindow.width + effectsWindow.width + playlistWidth)
-            x = visibleFrame.minX + (xPadding / 2)
+            
+            // Sometimes, xPadding is negative, never go to the left of minX
+            x = max(visibleFrame.minX + (xPadding / 2), visibleFrame.minX)
             
             let yPadding = visibleFrame.height - mainWindow.height
             y = visibleFrame.minY + (yPadding / 2)
