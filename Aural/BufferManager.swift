@@ -129,14 +129,20 @@ class BufferManager {
     // MARK: Playback loop scheduling/playback
     
     // Start segment loop playback from the loop's start point
-    func playLoop(_ playbackSession: PlaybackSession) {
+    func startLoop(_ playbackSession: PlaybackSession, _ beginPlayback: Bool) {
         
         stop()
         
         let sampleRate = playbackSession.track.playbackInfo!.sampleRate!
         let loopStart = Int64(playbackSession.loop!.startTime * sampleRate)
         
-        startLoopFromFrame(playbackSession, loopStart, true)
+        if !beginPlayback {
+            
+            // Advance the last seek position to the new position (player is paused)
+            lastSeekPosn = playbackSession.loop!.startTime
+        }
+        
+        startLoopFromFrame(playbackSession, loopStart, beginPlayback)
     }
     
     // Starts loop playback from a given frame position. The playbackSesssion parameter is used to ensure that no buffers are scheduled on the player for an old playback session.
@@ -189,7 +195,7 @@ class BufferManager {
                 playbackSession.schedulingCompleted = false
                 
                 // Replay loop
-                playLoop(playbackSession)
+                startLoop(playbackSession, true)
                 
             } else if (!playbackSession.schedulingCompleted) {
                 

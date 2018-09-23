@@ -244,6 +244,12 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
             // TODO: Move this to a new delegate function replayTrack()
             player.seekToPercentage(0)
+            
+            // If paused, play
+            if (player.getPlaybackState() == .paused) {
+                playPauseAction(self)
+            }
+            
             SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
         }
     }
@@ -255,7 +261,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     private func toggleLoop() {
         
-        if player.getPlaybackState() == .playing {
+        if player.getPlaybackState() != .noTrack {
         
             if let _ = player.getPlayingTrack() {
                 

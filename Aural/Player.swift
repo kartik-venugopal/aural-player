@@ -115,15 +115,17 @@ class Player: PlayerProtocol {
                 // Mark end
                 PlaybackSession.endLoop(currentTrackTimeElapsed)
                 
+                let oldSession = PlaybackSession.currentSession!
+                
                 // Seek to loop start
-                let track = PlaybackSession.currentSession!.track
-                let timestamp = PlaybackSession.currentSession!.timestamp
-                let loop = PlaybackSession.currentSession!.loop
+                let track = oldSession.track
+                let timestamp = oldSession.timestamp
+                let loop = oldSession.loop
                 
                 let session = PlaybackSession.start(track, timestamp)
                 session.loop = loop
                 
-                bufferManager.playLoop(session)
+                bufferManager.startLoop(session, playbackState == .playing)
             }
             
         } else {
