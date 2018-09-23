@@ -59,7 +59,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
     }
     
-    func save(_ preferences: Preferences) {
+    func save(_ preferences: Preferences) throws {
         
         let soundPrefs = preferences.soundPreferences
         

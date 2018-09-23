@@ -7,6 +7,7 @@ import Cocoa
 struct Fonts {
     
     static let gillSans11Font: NSFont = NSFont(name: "Gill Sans", size: 11)!
+    static let gillSans10Font: NSFont = NSFont(name: "Gill Sans", size: 10)!
     
     private static let gillSans12LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 12)!
     private static let gillSans12Font: NSFont = NSFont(name: "Gill Sans", size: 12)!
@@ -51,5 +52,5 @@ struct Fonts {
     static let popoverValueFont: NSFont = gillSans13LightFont
     
     // Font used by the popup menus
-    static let popupMenuFont: NSFont = NSFont(name: "Gill Sans", size: 10)!
+    static let popupMenuFont: NSFont = gillSans10Font
 }

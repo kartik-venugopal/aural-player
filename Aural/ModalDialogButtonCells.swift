@@ -47,6 +47,14 @@ class ModalDialogControlButtonCell: ModalDialogButtonCell {
     override var textFont: NSFont {return Fonts.modalDialogControlButtonFont}
 }
 
+class ModalDialogSmallControlButtonCell: ModalDialogButtonCell {
+    
+    override var cellInsetX: CGFloat {return 1}
+    override var cellInsetY: CGFloat {return 2}
+    
+    override var textFont: NSFont {return Fonts.gillSans10Font}
+}
+
 // Cell for search results navigation buttons (next/previous)
 class ColoredNavigationButtonCell: ModalDialogButtonCell {
     

@@ -227,6 +227,7 @@
 		3EF043A51F9D5ED8000EE7ED /* ActionMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */; };
 		3EF08DCB2156D65D000C7F11 /* LayoutManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF08DCA2156D65D000C7F11 /* LayoutManagerProtocol.swift */; };
 		3EF08DCD21571BD8000C7F11 /* ReleaseNotes.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3EF08DCC21571BD8000C7F11 /* ReleaseNotes.rtf */; };
+		3EF08DCF21578CFD000C7F11 /* ValidatedLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF08DCE21578CFD000C7F11 /* ValidatedLabelCell.swift */; };
 		3EF5A5501F403D2500C5A2D2 /* PreferencesOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5A54F1F403D2500C5A2D2 /* PreferencesOptions.swift */; };
 		3EF5E5B41FBDA3DB004270A4 /* Tracks.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF5E5B31FBDA3DB004270A4 /* Tracks.xib */; };
 		3EF5E5B71FBDAED9004270A4 /* Artists.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF5E5B61FBDAED9004270A4 /* Artists.xib */; };
@@ -480,6 +481,7 @@
 		3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionMessages.swift; sourceTree = "<group>"; };
 		3EF08DCA2156D65D000C7F11 /* LayoutManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutManagerProtocol.swift; sourceTree = "<group>"; };
 		3EF08DCC21571BD8000C7F11 /* ReleaseNotes.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = ReleaseNotes.rtf; sourceTree = "<group>"; };
+		3EF08DCE21578CFD000C7F11 /* ValidatedLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatedLabelCell.swift; sourceTree = "<group>"; };
 		3EF5A54F1F403D2500C5A2D2 /* PreferencesOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesOptions.swift; sourceTree = "<group>"; };
 		3EF5E5B31FBDA3DB004270A4 /* Tracks.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Tracks.xib; sourceTree = "<group>"; };
 		3EF5E5B61FBDAED9004270A4 /* Artists.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Artists.xib; sourceTree = "<group>"; };
@@ -540,6 +542,7 @@
 				3ECB858E2152677300D974F5 /* SnappingWindow.swift */,
 				3E26B92A1FBC177F00FA3274 /* AutoHidingView.swift */,
 				3EAEBCAB1FDCD644000FBC04 /* BannerLabel.swift */,
+				3EF08DCE21578CFD000C7F11 /* ValidatedLabelCell.swift */,
 			);
 			name = CustomControls;
 			sourceTree = "<group>";
@@ -1490,6 +1493,7 @@
 				3EDA1FB9214F278C003591FA /* TrackPeekingButton.swift in Sources */,
 				3E426F7E1EFDD9CF002F5F18 /* Player.swift in Sources */,
 				3E26B9311FBC53A700FA3274 /* GestureHandler.swift in Sources */,
+				3EF08DCF21578CFD000C7F11 /* ValidatedLabelCell.swift in Sources */,
 				3E3DCD251F0F913800E09ADC /* AsyncMessages.swift in Sources */,
 				3E98478F1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift in Sources */,
 				3E3BAF241F274771008F090E /* Sort.swift in Sources */,
