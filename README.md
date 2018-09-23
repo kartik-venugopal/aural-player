@@ -40,10 +40,10 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 
 - **9/22/2018: New release with lots of updates:**
   * New features:
-    * Bookmarking: The user can now mark a specific position in a track, and it will be saved with a name/description the user can provide. The user can then return to that track position later with one click. This is great when listening to long files like audiobooks or podcasts.
-    * New window layouts and user-defined layouts: The way windows are laid out has been simplified and made easier for the user. The user can choose from multiple built-in window layouts, or lay out the windows per his preference and save the layout as a preset for later use. Window snapping, to other app windows, and to screen corners and edges for added convenience.
-    * FX unit presets: Each effects unit now allows the saving of settings as a preset, so the user can save all his sound settings as presets for later use with just one click.
-    * Dynamic tool tips: The previous/next track buttons of the player controls now show the name of the previous/next track, as tool tips, so the user can know, before clicking the button, which track will play as a result.
+    * **Bookmarking**: The user can now mark a specific position in a track, and it will be saved with a name/description the user can provide. The user can then return to that track position later with one click. This is great when listening to long files like audiobooks or podcasts.
+    * **New window layouts and user-defined layouts**: The way windows are laid out has been simplified and made easier for the user. The user can choose from multiple built-in window layouts, or lay out the windows per his preference and save the layout as a preset for later use. **Window snapping**, to other app windows, and to screen corners and edges for added convenience.
+    * **FX unit presets**: Each effects unit now allows the saving of settings as a preset, so the user can save all his sound settings as presets for later use with just one click.
+    * **Dynamic tool tips**: The previous/next track buttons of the player controls now show the name of the previous/next track, as tool tips, so the user can know, before clicking the button, which track will play as a result.
     
   * The following bugs have been fixed:
     * Audio engine crash upon app exit, causing corruption of app state file, resulting in loss of all saved settings and user presets/data.
