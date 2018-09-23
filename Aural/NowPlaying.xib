@@ -95,7 +95,7 @@
                     <shadow key="shadow" blurRadius="1">
                         <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </shadow>
-                    <sliderCell key="cell" controlSize="small" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="ol4-Ik-RVN" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
+                    <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="ol4-Ik-RVN" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
                     <connections>
                         <action selector="seekSliderAction:" target="-2" id="fYj-ax-7Gb"/>
                     </connections>

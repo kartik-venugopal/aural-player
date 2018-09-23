@@ -84,6 +84,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
             showNowPlayingInfo(newTrack!.track)
             renderLoop()
             setSeekTimerState(true)
+            seekSlider.isEnabled = true
             togglePlayingTrackButtons(true)
             
         } else {
@@ -287,6 +288,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         lblTimeElapsed.isHidden = true
         lblTimeRemaining.isHidden = true
         setSeekTimerState(false)
+        seekSlider.isEnabled = false
         
         togglePlayingTrackButtons(false)
         detailedInfoPopover.close()
@@ -299,14 +301,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     }
     
     private func setSeekTimerState(_ timerOn: Bool) {
-        
-        if (timerOn) {
-            seekSlider.isEnabled = true
-            seekTimer?.startOrResume()
-        } else {
-            seekTimer?.pause()
-            seekSlider.isEnabled = false
-        }
+        timerOn ? seekTimer?.startOrResume() : seekTimer?.pause()
     }
     
     // Updates the seek slider and time elapsed/remaining labels as playback proceeds
@@ -364,6 +359,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
             
             if (!errorState) {
                 setSeekTimerState(true)
+                seekSlider.isEnabled = true
                 togglePlayingTrackButtons(true)
                 
                 if (detailedInfoPopover.isShown()) {
@@ -376,6 +372,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
                 
                 // Error state
                 setSeekTimerState(false)
+                seekSlider.isEnabled = false
             }
             
         } else {

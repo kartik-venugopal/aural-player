@@ -67,6 +67,7 @@ class BufferManager {
         scheduleNextBuffer(playbackSession, BufferManager.BUFFER_SIZE_INITIAL)
         
         if beginPlayback {
+            
             // Start playing the file
             playerNode.play()
         }
@@ -135,11 +136,11 @@ class BufferManager {
         let sampleRate = playbackSession.track.playbackInfo!.sampleRate!
         let loopStart = Int64(playbackSession.loop!.startTime * sampleRate)
         
-        startLoopFromFrame(playbackSession, loopStart)
+        startLoopFromFrame(playbackSession, loopStart, true)
     }
     
     // Starts loop playback from a given frame position. The playbackSesssion parameter is used to ensure that no buffers are scheduled on the player for an old playback session.
-    private func startLoopFromFrame(_ playbackSession: PlaybackSession, _ frame: AVAudioFramePosition) {
+    private func startLoopFromFrame(_ playbackSession: PlaybackSession, _ frame: AVAudioFramePosition, _ beginPlayback: Bool) {
         
         // Can assume that audioFile is non-nil, because track has been prepared for playback
         let playingFile: AVAudioFile = playbackSession.track.playbackInfo!.audioFile!
@@ -151,8 +152,11 @@ class BufferManager {
         // Schedule one buffer for immediate playback
         scheduleNextLoopBuffer(playbackSession, BufferManager.BUFFER_SIZE_INITIAL)
         
-        // Start playing the file
-        playerNode.play()
+        if beginPlayback {
+            
+            // Start playing the file
+            playerNode.play()
+        }
         
         // Schedule one more ("look ahead") buffer
         if (!playbackSession.schedulingCompleted) {
@@ -243,11 +247,24 @@ class BufferManager {
         //  Multiply sample rate by the new time in seconds. This will give the exact start frame.
         let firstFrame = Int64(seconds * sampleRate)
         
+        if !beginPlayback {
+            
+            // Advance the last seek position to the new position (player is paused)
+            lastSeekPosn = seconds
+        }
+        
         if (playbackSession.hasCompleteLoop()) {
-            startLoopFromFrame(playbackSession, firstFrame)
+            startLoopFromFrame(playbackSession, firstFrame, beginPlayback)
         } else {
             startSchedulingFromFrame(playbackSession, firstFrame, beginPlayback)
         }
+    }
+    
+    func pause() {
+        
+        // Update lastSeekPosn before pausing
+        _ = getSeekPosition()
+        playerNode.pause()
     }
     
     // Stops the scheduling of audio buffers, in response to a request to stop playback (or when seeking to a new position). Waits till all previously scheduled buffers are cleared. After execution of this method, code can assume no scheduled buffers. Marks the end of a "playback session".

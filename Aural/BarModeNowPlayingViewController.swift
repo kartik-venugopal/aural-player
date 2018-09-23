@@ -109,6 +109,7 @@ class BarModeNowPlayingViewController: NSViewController, MessageSubscriber, Asyn
         
         seekSlider.floatValue = 0
         setSeekTimerState(false)
+        seekSlider.isEnabled = false
     }
     
     private func setSeekTimerState(_ timerOn: Bool) {

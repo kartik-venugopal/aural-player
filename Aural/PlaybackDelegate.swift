@@ -198,9 +198,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         // Calculate the new start position
         let curPosn = player.getSeekPosition()
-        
         let increment = actionMode == .discrete ? Double(preferences.seekLength) : preferences.seekLength_continuous
-
+        
         let playingTrack = getPlayingTrack()
         
         if let loop = getPlaybackLoop() {
@@ -223,14 +222,24 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         }
         
         let trackDuration = playingTrack!.track.duration
-        
         let newPosn = min(trackDuration, curPosn + increment)
         
         // If this seek takes the track to its end, stop playback and proceed to the next track
-        if (newPosn < trackDuration) {
-            player.seekToTime(playingTrack!.track, newPosn)
+        
+        if (player.getPlaybackState() == .playing) {
+            
+            if (newPosn < trackDuration) {
+                player.seekToTime(playingTrack!.track, newPosn)
+            } else {
+                
+                // Don't do this if paused
+                trackPlaybackCompleted()
+            }
+            
         } else {
-            trackPlaybackCompleted()
+            
+            // Paused
+            player.seekToTime(playingTrack!.track, min(newPosn, trackDuration))
         }
     }
     
@@ -277,6 +286,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         // If there's a loop, check where the seek occurred relative to the loop
         if let loop = getPlaybackLoop() {
             
+            // Check if the loop is complete
             if let loopEnd = loop.endTime {
                 
                 // If outside loop, remove loop
@@ -292,10 +302,19 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         }
         
         // If this seek takes the track to its end, stop playback and proceed to the next track
-        if (newPosn < trackDuration) {
-            player.seekToTime(playingTrack!.track, newPosn)
+        
+        if (player.getPlaybackState() == .playing) {
+            
+            if (newPosn < trackDuration) {
+                player.seekToTime(playingTrack!.track, newPosn)
+            } else {
+                trackPlaybackCompleted()
+            }
+            
         } else {
-            trackPlaybackCompleted()
+            
+            // Paused
+            player.seekToTime(playingTrack!.track, min(newPosn, trackDuration))
         }
     }
     

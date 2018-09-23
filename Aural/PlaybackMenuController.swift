@@ -74,7 +74,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         favoritesMenuItem.isEnabled = isPlayingOrPaused
         
         [replayTrackMenuItem, loopMenuItem].forEach({$0.isEnabled = isPlaying})
-        [seekForwardMenuItem, seekBackwardMenuItem].forEach({$0.isEnabled = isPlaying && !WindowState.showingPopover})
+        [seekForwardMenuItem, seekBackwardMenuItem].forEach({$0.isEnabled = isPlayingOrPaused && !WindowState.showingPopover})
     }
     
     // Plays, pauses or resumes playback
