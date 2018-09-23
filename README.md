@@ -66,6 +66,15 @@ Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant co
 
 ![App screenshot w/ more info view](/Documentation/Screenshots/DetailedInfo.png?raw=true "More Info")
 
+### Bookmarking
+
+![App screenshot w/ more info view](/Documentation/Screenshots/Bookmarking.png?raw=true "Bookmarking")
+
+### Saving an effects unit preset
+
+![App screenshot w/ more info view](/Documentation/Screenshots/FXPreset.png?raw=true "Saving an effects preset")
+
+
 ### "Big bottom playlist" window layout
 
 ![App screenshot2](/Documentation/Screenshots/BigBottomPlaylist.png?raw=true "Big bottom playlist window layout")
