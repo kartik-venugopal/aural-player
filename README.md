@@ -4,7 +4,7 @@
 
 ## Overview
 
-Aural Player is a free and open source audio player application for the macOS platform. Inspired by the classic Winamp player for Windows, it is designed to be to-the-point and easy to use, with a variety of convenient and efficient controls, plus some additional sound tuning capabilities for audio enthusiasts who like to tweak sound.
+Aural Player is a free and open source audio player application for the macOS platform. Inspired by the classic Winamp player for Windows, it is designed to be to-the-point, easy to use, and highly customizable, plus some sound tuning capabilities for audio enthusiasts.
 
 ## Download
 
@@ -15,18 +15,20 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 - Playback of MP3, AAC, AIFF/AIFC, WAV, and CAF audio files
 - Supports M3U/M3U8 playlists
 - Sound effects: Graphic equalizer, Pitch shift, Time stretch, Reverb, Delay, Filter
-- Track segment looping, to allow users to loop their favorite parts of a track
+- Effects units let you save your settings as presets, so you can use them later without having to remember them **(New!)**
+- Track segment looping, to allow you to loop your favorite parts of a track
 - Display of ID3 and iTunes metadata, including artwork (when available)
+- Bookmarking, so you can mark a specific position within a track, and come back to it later, which is great for long tracks like audiobooks **(New!)**
 - Recording of clips in AAC/ALAC/AIFF formats
 - Configurable autoplay (on app startup and/or when tracks are added)
 - Grouping of tracks by artist/album/genre for convenient playlist browsing
 - Searching and sorting of playlist
 - Playlist type selection: Just start typing the name of a track to try to find it within the playlist
 - Favorites list and recent items lists for added convenience
-- Multiple compact and flexible view options - playlist docking/maximizing and collapsible views
+- Multiple compact and flexible view options - several built-in window layout presets, window snapping, collapsible views. Plus, you can save your customized window layouts as presets so you can use them again at any time. **(New!)**
 - Gesture recognition for essential player/playlist controls (trackpad/MagicMouse)
 - Extensive set of keyboard shortcuts and menu items for quick and convenient access to functionality
-- Extensive set of preferences to allow user to customize functionality (e.g. seek/volume/pan increment, enabling/disabling and mouse sensitivity for gestures, remembered/default volume on startup, remembered/default view on startup, etc.)
+- Numerous preferences to allow user to highly customize functionality (e.g. seek/volume/pan increment, enabling/disabling and mouse sensitivity for gestures, configurable window layout and snapping behavior, remembered/default volume on startup, etc.)
 
 ### Compatibility
 
