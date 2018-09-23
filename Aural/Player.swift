@@ -49,7 +49,7 @@ class Player: PlayerProtocol {
     
     func pause() {
         
-        playerNode.pause()
+        bufferManager.pause()
         graph.clearSoundTails()
         
         playbackState = .paused
