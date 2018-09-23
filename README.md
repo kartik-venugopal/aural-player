@@ -92,7 +92,7 @@ Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant co
 
 ![App screenshot2](/Documentation/Screenshots/BigBottomPlaylist.png?raw=true "Big bottom playlist window layout")
 
-### Custom window layout
+### Choosing a window layout with one click
 
 ![App screenshot2](/Documentation/Screenshots/CustomLayout.png?raw=true "Big bottom playlist window layout")
 
