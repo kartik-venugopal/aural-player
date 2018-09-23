@@ -6,6 +6,12 @@ import Cocoa
 @IBDesignable
 class ToggleMenuItem: NSMenuItem {
     
+    // The image displayed when the button is in an "Off" state
+    @IBInspectable var offImage: NSImage?
+    
+    // The image displayed when the button is in an "On" state
+    @IBInspectable var onImage: NSImage?
+    
     // The menu item's title when it is in an "Off" state
     @IBInspectable var offStateTitle: String!
     
@@ -17,12 +23,14 @@ class ToggleMenuItem: NSMenuItem {
     // Sets the item state to be "Off"
     func off() {
         self.title = offStateTitle
+        self.image = offImage
         _isOn = false
     }
     
     // Sets the item state to be "On"
     func on() {
         self.title = onStateTitle
+        self.image = onImage
         _isOn = true
     }
     

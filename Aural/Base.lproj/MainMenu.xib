@@ -283,8 +283,14 @@ CQ
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Playback" autoenablesItems="NO" id="4gC-cq-kT9">
                         <items>
-                            <menuItem title=" Play / pause" image="PlayPause-Small" keyEquivalent=" " id="T9r-Uq-EPf">
+                            <menuItem title=" Play" image="Play-Small" keyEquivalent=" " id="T9r-Uq-EPf" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="  Play"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value=" Pause"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="Play-Small"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="Pause-Small"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="playOrPauseAction:" target="IvK-xG-TCa" id="RJp-Hs-lxk"/>
                                 </connections>
@@ -981,6 +987,7 @@ CQ
         <image name="NextTrack-Small" width="14" height="8"/>
         <image name="PanL-Small" width="12" height="12"/>
         <image name="PanR-Small" width="12" height="12"/>
+        <image name="Pause-Small" width="14" height="14"/>
         <image name="Pitch" width="17" height="13"/>
         <image name="Play-Small" width="9" height="11"/>
         <image name="PlayPause-Small" width="14" height="14"/>
