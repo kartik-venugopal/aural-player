@@ -51,7 +51,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         
         activateGestureHandler()
         initSubscriptions()
-        initLayoutMenu()
         
         // TODO: Restore remembered window location and views (effects/playlist)
     }
@@ -77,11 +76,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         
         btnToggleEffects.onIf(appState.showEffects)
         btnTogglePlaylist.onIf(appState.showPlaylist)
-    }
-    
-    private func initLayoutMenu() {
-        
-        
     }
     
     // Add the sub-views that make up the main window
