@@ -28,25 +28,24 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
+    private lazy var layoutManager: LayoutManager = ObjectGraph.getLayoutManager()
+    
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        theMenu.isEnabled = AppModeManager.mode == .regular
+        theMenu.isEnabled = AppModeManager.mode == .regular && layoutManager.isShowingPlaylist()
         
         if (AppModeManager.mode != .regular) {
             return
         }
         
-//        // These menu items require 1 - the playlist to be visible, and 2 - at least one playlist item to be selected
-//        [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsDownMenuItem, removeSelectedItemsMenuItem].forEach({$0?.isEnabled = WindowState.showingPlaylist && PlaylistViewState.currentView.selectedRow >= 0})
-//        
-//        // These menu items require 1 - the playlist to be visible, and 2 - at least one track in the playlist
-//        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem].forEach({$0?.isEnabled = WindowState.showingPlaylist && playlist.size() > 0})
-//        
-//        // These menu items require at least one track in the playlist
-//        [savePlaylistMenuItem, clearPlaylistMenuItem].forEach({$0?.isEnabled = playlist.size() > 0})
-//        
-//        // This menu item requires the playlist to be visible
-//        shiftTabMenuItem.isEnabled = WindowState.showingPlaylist
+        // These menu items require 1 - the playlist to be visible, and 2 - at least one playlist item to be selected
+        [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsDownMenuItem, removeSelectedItemsMenuItem].forEach({$0?.isEnabled = layoutManager.isShowingPlaylist() && PlaylistViewState.currentView.selectedRow >= 0})
+        
+        // These menu items require 1 - the playlist to be visible, and 2 - at least one track in the playlist
+        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem].forEach({$0?.isEnabled = layoutManager.isShowingPlaylist() && playlist.size() > 0})
+        
+        // This menu item requires the playlist to be visible
+        shiftTabMenuItem.isEnabled = layoutManager.isShowingPlaylist()
     }
     
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist

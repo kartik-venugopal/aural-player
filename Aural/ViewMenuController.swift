@@ -39,14 +39,14 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         
         if (AppModeManager.mode == .regular) {
             
-            [togglePlaylistMenuItem, toggleEffectsMenuItem, dockPlaylistMenuItem, maximizePlaylistMenuItem].forEach({$0?.isHidden = false})
+            [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.isHidden = false})
             
-            togglePlaylistMenuItem.state = WindowState.showingPlaylist ? 1 : 0
-            toggleEffectsMenuItem.state = WindowState.showingEffects ? 1 : 0
+            togglePlaylistMenuItem.state = layoutManager.isShowingPlaylist() ? 1 : 0
+            toggleEffectsMenuItem.state = layoutManager.isShowingEffects() ? 1 : 0
             
         } else {
             
-            [togglePlaylistMenuItem, toggleEffectsMenuItem, dockPlaylistMenuItem, maximizePlaylistMenuItem].forEach({$0?.isHidden = true})
+            [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.isHidden = true})
         }
         
         // Recreate the custom layout items
