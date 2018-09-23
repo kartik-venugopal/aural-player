@@ -59,20 +59,27 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
     
     @IBAction func savePreferencesAction(_ sender: Any) {
         
-        var fuck: Bool = false
+        var saveFailed: Bool = false
         
         subViews.forEach({
             
             do {
+                
                 try $0.save(preferences)
-            } catch let error as NSError {
-                print("Error saving prefs: %@", error.description)
-                fuck = true
+                
+            } catch let _ {
+                
+                saveFailed = true
+                
+                // Switch to the tab with the offending view
+                tabView.showView($0.getView())
+                
                 return
             }
         })
         
-        if (!fuck) {
+        if (!saveFailed) {
+            
             delegate.savePreferences(preferences)
             UIUtils.dismissModalDialog()
         }

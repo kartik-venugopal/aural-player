@@ -10,6 +10,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var errorIcon: NSImageView!
     
     @IBOutlet weak var lblPlaylistFile: NSTextField!
+    @IBOutlet weak var lblPlaylistFileCell: ValidatedLabelCell!
     
     override var nibName: String? {return "PlaylistPreferences"}
     
@@ -45,12 +46,11 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
             $0.isEnabled = Bool(btnLoadPlaylist.state)
         })
         
-        if (!errorIcon.isHidden) {
+        if (btnLoadPlaylist.state == 0 && !errorIcon.isHidden) {
             hideError()
         }
     
         if btnLoadPlaylist.state == 1 && StringUtils.isStringEmpty(lblPlaylistFile.stringValue) {
-            
             choosePlaylistFileAction(sender)
         }
     }
@@ -69,13 +69,16 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
             
             preferences.playlistPreferences.playlistOnStartup = .loadFile
             
-            if !StringUtils.isStringEmpty(lblPlaylistFile.stringValue) {
+            // Make sure 1 - label is not empty, and 2 - no previous error message is shown
+            if !StringUtils.isStringEmpty(lblPlaylistFile.stringValue) && errorIcon.isHidden {
+                
                 preferences.playlistPreferences.playlistFile = URL(fileURLWithPath: lblPlaylistFile.stringValue)
+                
             } else {
                 
                 // Error
                 showError()
-                throw NSError(domain: "Muthusami", code: 1, userInfo: nil)
+                throw PlaylistFileNotSpecifiedError("No playlist file specified for loading upon app startup")
             }
         }
     }
@@ -87,6 +90,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         let modalResponse = dialog.runModal()
         
         if (modalResponse == NSModalResponseOK) {
+            
             let playlistFile = dialog.urls[0]
             
             hideError()
@@ -96,20 +100,14 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     private func showError() {
         
-        let cell = (lblPlaylistFile.cell as! ValidatedLabelCell)
-        cell.markError()
-        
-        lblPlaylistFile.stringValue = "Please choose a playlist file!"
-        
+        lblPlaylistFileCell.markError("  Please choose a playlist file!")
         lblPlaylistFile.setNeedsDisplay()
         errorIcon.isHidden = false
     }
     
     private func hideError() {
         
-        lblPlaylistFile.stringValue = ""
-        let cell = (lblPlaylistFile.cell as! ValidatedLabelCell)
-        cell.clearError()
+        lblPlaylistFileCell.clearError()
         lblPlaylistFile.setNeedsDisplay()
         errorIcon.isHidden = true
     }

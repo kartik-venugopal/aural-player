@@ -12,6 +12,8 @@ import Cocoa
  */
 class AuralTabView: NSTabView {
     
+    private var indexedViews: [NSView: Int] = [NSView: Int]()
+    
     // The tab view items cast to AuralTabViewItem
     var items: [AuralTabViewItem] {
         return self.tabViewItems as! [AuralTabViewItem]
@@ -33,12 +35,17 @@ class AuralTabView: NSTabView {
         
         for i in 0..<views.count {
             self.tabViewItem(at: i).view?.addSubview(views[i])
+            indexedViews[views[i]] = i
         }
     }
     
     // Action function for custom tab buttons. The button's tag value is interpreted as the index of the tab to be selected.
     func selectTab(_ sender: NSButton) {
         self.selectTabViewItem(at: sender.tag)
+    }
+    
+    func showView(_ view: NSView) {
+        selectTabViewItem(at: indexedViews[view]!)
     }
     
     // Updates tab button states
