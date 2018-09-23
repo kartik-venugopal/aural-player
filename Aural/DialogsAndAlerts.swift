@@ -8,6 +8,9 @@ struct DialogsAndAlerts {
     // Used to add tracks/playlists
     static let openDialog: NSOpenPanel = DialogsAndAlerts.createOpenDialog()
     
+    // Used to load a single playlist file (on startup)
+    static let openPlaylistDialog: NSOpenPanel = DialogsAndAlerts.createOpenPlaylistDialog()
+    
     // Used to save current playlist to a file
     static let savePlaylistDialog: NSSavePanel = DialogsAndAlerts.createSavePlaylistDialog()
     
@@ -34,7 +37,7 @@ struct DialogsAndAlerts {
         
         dialog.canChooseDirectories    = true
         
-        dialog.canCreateDirectories    = true
+        dialog.canCreateDirectories    = false
         dialog.allowsMultipleSelection = true
         dialog.allowedFileTypes        = AppConstants.supportedFileTypes_open
         
@@ -55,6 +58,28 @@ struct DialogsAndAlerts {
         
         dialog.canCreateDirectories    = true
         dialog.allowedFileTypes        = [AppConstants.m3u]
+        
+        dialog.directoryURL = AppConstants.musicDirURL
+        
+        return dialog
+    }
+    
+    private static func createOpenPlaylistDialog() -> NSOpenPanel {
+        
+        let dialog = NSOpenPanel()
+        
+        dialog.message = String(format: "Choose a (.%@/.%@) playlist file", AppConstants.m3u, AppConstants.m3u8)
+        
+        dialog.showsResizeIndicator    = true
+        dialog.showsHiddenFiles        = true
+        
+        dialog.canChooseDirectories    = false
+        
+        dialog.canCreateDirectories    = false
+        dialog.allowsMultipleSelection = false
+        dialog.allowedFileTypes        = [AppConstants.m3u, AppConstants.m3u8]
+        
+        dialog.resolvesAliases = true;
         
         dialog.directoryURL = AppConstants.musicDirURL
         

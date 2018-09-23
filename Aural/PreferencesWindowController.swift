@@ -59,10 +59,23 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
     
     @IBAction func savePreferencesAction(_ sender: Any) {
         
-        subViews.forEach({$0.save(preferences)})
-        delegate.savePreferences(preferences)
+        var fuck: Bool = false
         
-        UIUtils.dismissModalDialog()
+        subViews.forEach({
+            
+            do {
+                try $0.save(preferences)
+            } catch let error as NSError {
+                print("Error saving prefs: %@", error.description)
+                fuck = true
+                return
+            }
+        })
+        
+        if (!fuck) {
+            delegate.savePreferences(preferences)
+            UIUtils.dismissModalDialog()
+        }
     }
     
     @IBAction func cancelPreferencesAction(_ sender: Any) {
@@ -76,7 +89,8 @@ protocol PreferencesViewProtocol {
     
     func resetFields(_ preferences: Preferences)
     
-    func save(_ preferences: Preferences)
+    // Throws an exception if the input provided is invalid
+    func save(_ preferences: Preferences) throws
 }
 
 // Int to Bool conversion

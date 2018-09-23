@@ -351,6 +351,14 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 
                 // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
                 addFiles_async(playlistState.tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true))
+                
+            } else if (preferences.playlistPreferences.playlistOnStartup == .loadFile) {
+                
+                if let playlistFile: URL = preferences.playlistPreferences.playlistFile {
+                    
+                    print("\nLoading playlist: %@", playlistFile.path)
+                    addFiles_async([playlistFile], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true))
+                }
             }
             
             return

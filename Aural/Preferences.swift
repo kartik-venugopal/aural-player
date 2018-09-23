@@ -156,6 +156,9 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
     
     var playlistOnStartup: PlaylistStartupOptions
     
+    // This will be used only when playlistOnStartup == PlaylistStartupOptions.loadFile
+    var playlistFile: URL?
+    
     internal required init(_ defaultsDictionary: [String: Any]) {
         
         if let playlistOnStartupStr = defaultsDictionary["playlist.playlistOnStartup"] as? String {
@@ -163,10 +166,18 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
         } else {
             playlistOnStartup = PreferencesDefaults.Playlist.playlistOnStartup
         }
+        
+        if let playlistFileStr = defaultsDictionary["playlist.playlistOnStartup.playlistFile"] as? String {
+            playlistFile = URL(fileURLWithPath: playlistFileStr)
+        } else {
+            playlistFile = PreferencesDefaults.Playlist.playlistFile
+        }
     }
     
     func persist(defaults: UserDefaults) {
+        
         defaults.set(playlistOnStartup.rawValue, forKey: "playlist.playlistOnStartup")
+        defaults.set(playlistFile?.path, forKey: "playlist.playlistOnStartup.playlistFile")
     }
 }
 
@@ -310,6 +321,7 @@ fileprivate struct PreferencesDefaults {
     struct Playlist {
         
         static let playlistOnStartup: PlaylistStartupOptions = .rememberFromLastAppLaunch
+        static let playlistFile: URL? = nil
     }
     
     struct View {

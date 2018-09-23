@@ -31,7 +31,7 @@ class HistoryPreferencesViewController: NSViewController, PreferencesViewProtoco
         list.selectItem(withTag: tag)
     }
     
-    func save(_ preferences: Preferences) {
+    func save(_ preferences: Preferences) throws {
         
         let historyPrefs = preferences.historyPreferences
         

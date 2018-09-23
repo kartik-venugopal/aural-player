@@ -41,7 +41,7 @@ class ViewPreferencesViewController: NSViewController, NSMenuDelegate, Preferenc
         layoutMenu.isEnabled = Bool(btnStartWithLayout.state)
     }
 
-    func save(_ preferences: Preferences) {
+    func save(_ preferences: Preferences) throws {
         
         let viewPrefs = preferences.viewPreferences
         

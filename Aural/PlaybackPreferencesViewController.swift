@@ -65,7 +65,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Needed for radio button group
     }
     
-    func save(_ preferences: Preferences) {
+    func save(_ preferences: Preferences) throws {
         
         let playbackPrefs = preferences.playbackPreferences
         

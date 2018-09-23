@@ -63,7 +63,7 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
         [volumeControlSensitivityMenu, seekSensitivityMenu].forEach({$0.isEnabled = false})
     }
     
-    func save(_ preferences: Preferences) {
+    func save(_ preferences: Preferences) throws {
         
         let controlsPrefs = preferences.controlsPreferences
         
