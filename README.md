@@ -64,13 +64,13 @@ Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant co
 
 ![App screenshot w/ more info view](/Documentation/Screenshots/DetailedInfo.png?raw=true "More Info")
 
-### Playlist docked to the left
+### "Big bottom playlist" window layout
 
-![App screenshot2](/Documentation/Screenshots/DockedLeft.png?raw=true "App screenshot2")
+![App screenshot2](/Documentation/Screenshots/BigBottomPlaylist.png?raw=true "Big bottom playlist window layout")
 
-### Detached playlist
+### Custom window layout
 
-![App screenshot3](/Documentation/Screenshots/DetachedPlaylist.png?raw=true "App screenshot3")
+![App screenshot2](/Documentation/Screenshots/CustomLayout.png?raw=true "Big bottom playlist window layout")
 
 ### Compact view
 
