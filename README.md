@@ -47,7 +47,7 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
     
   * The following bugs have been fixed:
     * Audio engine crash upon app exit, causing corruption of app state file, resulting in loss of all saved settings and user presets/data.
-    * When playing a track from Favorites/Recently played list, the first 5 seconds of the track would play twice in a row, because of a race condition in the code that performed preparation for track playback.
+    * When playing a track from Favorites/Recently played list, the first 5 seconds of the track would sometimes play twice in a row, because of a race condition in the code that performed preparation for track playback.
     * The playlist scroll buttons stopped working at some point.
 
 
