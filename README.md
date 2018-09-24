@@ -100,14 +100,13 @@ Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant co
 
 ![App screenshot w/ more info view](/Documentation/Screenshots/FXPreset.png?raw=true "Saving an effects preset")
 
-
 ### "Big bottom playlist" window layout
 
 ![App screenshot2](/Documentation/Screenshots/BigBottomPlaylist.png?raw=true "Big bottom playlist window layout")
 
-### Choosing a window layout with one click
+### Changing the window layout with one click
 
-![App screenshot2](/Documentation/Screenshots/CustomLayout.png?raw=true "Big bottom playlist window layout")
+![App screenshot2](/Documentation/Demos/WindowLayout.gif?raw=true "Choosing a window layout")
 
 ### Compact view
 
