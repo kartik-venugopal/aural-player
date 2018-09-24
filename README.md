@@ -94,7 +94,7 @@ Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant co
 
 #### Managing bookmarks
 
-![App screenshot w/ more info view](/Documentation/Screenshots/BookmarksEditor.png?raw=true "Bookmarks Editor")
+![App screenshot w/ more info view](/Documentation/Screenshots/BookmarksEditorWindow.png?raw=true "Bookmarks Editor")
 
 ### Saving an effects unit preset
 
