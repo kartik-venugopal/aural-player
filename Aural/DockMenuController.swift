@@ -49,7 +49,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         favoritesMenuItem.off()
         
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.historyUpdated, .addedToFavorites, .removedFromFavorites, .trackPlayed], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.historyUpdated, .addedToFavorites, .removedFromFavorites, .favoritesListResized, .trackPlayed], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         recreateHistoryMenus()
     }
@@ -65,13 +65,35 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
             
             // Publish an action message to add/remove the item to/from Favorites
             let action: ActionType = favoritesMenuItem.isOn() ? .addFavorite : .removeFavorite
+            
+            // TODO: Can't we just use HistoryDelegate here ? to add() or remove() ???
             SyncMessenger.publishActionMessage(FavoritesActionMessage(action, playingTrack))
         }
     }
     
     // Responds to a notification that a track has either been added to, or removed from, the Favorites list, by updating the Favorites menu item
     private func favoritesUpdated(_ message: FavoritesUpdatedAsyncMessage) {
-        favoritesMenuItem.onIf(message.messageType == .addedToFavorites)
+        
+        if let plTrack = playbackInfo.getPlayingTrack()?.track {
+            
+            if plTrack.file.path == message.file.path {
+                favoritesMenuItem.onIf(message.messageType == .addedToFavorites)
+            }
+        }
+    }
+    
+    private func favoritesListResized() {
+        
+        if let playingTrack = playbackInfo.getPlayingTrack()?.track {
+            
+            // Record current state of button, then check favs list
+            let wasFavorite: Bool = favoritesMenuItem.isOn()
+            
+            // Was a favorite, but now removed
+            if (wasFavorite && !history.hasFavorite(playingTrack)) {
+                favoritesMenuItem.off()
+            }
+        }
     }
     
     // When a "Recently played" or "Favorites" menu item is clicked, the item is played
@@ -225,6 +247,10 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         case .addedToFavorites, .removedFromFavorites:
             
             favoritesUpdated(message as! FavoritesUpdatedAsyncMessage)
+            
+        case .favoritesListResized:
+            
+            favoritesListResized()
             
         case .trackPlayed:
             

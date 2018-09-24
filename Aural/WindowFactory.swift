@@ -44,7 +44,7 @@ class WindowFactory {
         return playlistWindowController.contextMenu
     }
     
-    static func getEditorWindowController() -> NSWindowController {
+    static func getEditorWindowController() -> EditorWindowController {
         return editorWindowController
     }
     

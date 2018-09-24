@@ -193,7 +193,9 @@
 		3EBA52F71FC2E6A2007F902F /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA52F61FC2E6A2007F902F /* StateMachine.swift */; };
 		3EBA52FA1FC2EB1E007F902F /* AuralTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA52F91FC2EB1E007F902F /* AuralTabView.swift */; };
 		3EBD20081F6C6EC300E1354C /* MetadataSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD20071F6C6EC300E1354C /* MetadataSpec.swift */; };
-		3EBF7EF2215873E8007869EC /* AuralTableHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF7EF1215873E8007869EC /* AuralTableHeaderCell.swift */; };
+		3EBF7EF2215873E8007869EC /* CustomEditorViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF7EF1215873E8007869EC /* CustomEditorViews.swift */; };
+		3EBF7EF521589DC9007869EC /* FavoritesEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF7EF421589DC9007869EC /* FavoritesEditorViewController.swift */; };
+		3EBF7EF721589E54007869EC /* FavoritesEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EBF7EF621589E54007869EC /* FavoritesEditor.xib */; };
 		3EC593981F28A0C600153D34 /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC593971F28A0C600153D34 /* RangeSlider.swift */; };
 		3EC947AD1F5DDEA400FDBE25 /* PlaybackSequenceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC947AC1F5DDEA400FDBE25 /* PlaybackSequenceProtocol.swift */; };
 		3EC947AF1F5DDEB100FDBE25 /* PlaylistProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC947AE1F5DDEB100FDBE25 /* PlaylistProtocols.swift */; };
@@ -447,7 +449,9 @@
 		3EBA52F61FC2E6A2007F902F /* StateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
 		3EBA52F91FC2EB1E007F902F /* AuralTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuralTabView.swift; sourceTree = "<group>"; };
 		3EBD20071F6C6EC300E1354C /* MetadataSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataSpec.swift; sourceTree = "<group>"; };
-		3EBF7EF1215873E8007869EC /* AuralTableHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuralTableHeaderCell.swift; sourceTree = "<group>"; };
+		3EBF7EF1215873E8007869EC /* CustomEditorViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomEditorViews.swift; sourceTree = "<group>"; };
+		3EBF7EF421589DC9007869EC /* FavoritesEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesEditorViewController.swift; sourceTree = "<group>"; };
+		3EBF7EF621589E54007869EC /* FavoritesEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesEditor.xib; sourceTree = "<group>"; };
 		3EC593971F28A0C600153D34 /* RangeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
 		3EC947AC1F5DDEA400FDBE25 /* PlaybackSequenceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSequenceProtocol.swift; sourceTree = "<group>"; };
 		3EC947AE1F5DDEB100FDBE25 /* PlaylistProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistProtocols.swift; sourceTree = "<group>"; };
@@ -718,6 +722,7 @@
 			children = (
 				3E2F1048215562DD0099FD06 /* EditorWindow.xib */,
 				3E2F104B215569D40099FD06 /* EditorWindowController.swift */,
+				3EBF7EF1215873E8007869EC /* CustomEditorViews.swift */,
 				3E2F104A215569BD0099FD06 /* Bookmarks */,
 				3E2F104D215569DB0099FD06 /* Favorites */,
 			);
@@ -729,7 +734,6 @@
 			children = (
 				3E2F104E21556A2D0099FD06 /* BookmarksEditor.xib */,
 				3E2F10522155742E0099FD06 /* BookmarksEditorViewController.swift */,
-				3EBF7EF1215873E8007869EC /* AuralTableHeaderCell.swift */,
 			);
 			name = Bookmarks;
 			sourceTree = "<group>";
@@ -737,6 +741,8 @@
 		3E2F104D215569DB0099FD06 /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
+				3EBF7EF621589E54007869EC /* FavoritesEditor.xib */,
+				3EBF7EF421589DC9007869EC /* FavoritesEditorViewController.swift */,
 			);
 			name = Favorites;
 			sourceTree = "<group>";
@@ -1379,6 +1385,7 @@
 				3ECB8591215309C000D974F5 /* Filter.xib in Resources */,
 				3EF7EFCE215075F500E582CB /* BarModePlayer.xib in Resources */,
 				3E0ED6A91FBB1378008268B3 /* NowPlaying.xib in Resources */,
+				3EBF7EF721589E54007869EC /* FavoritesEditor.xib in Resources */,
 				3E850D5E1FB44DF30017CD02 /* PlaylistSearch.xib in Resources */,
 				3E2188AC1F0781970085BAB3 /* DetailedTrackInfo.xib in Resources */,
 				3EA19C231FC174A30072929E /* ControlsPreferences.xib in Resources */,
@@ -1432,7 +1439,7 @@
 				3E309B781FB70D1F00C61E72 /* FavoritesPopupViewController.swift in Sources */,
 				3EF08DCB2156D65D000C7F11 /* LayoutManagerProtocol.swift in Sources */,
 				3EDFFA071FC0263E00158177 /* PlaylistPreferencesViewController.swift in Sources */,
-				3EBF7EF2215873E8007869EC /* AuralTableHeaderCell.swift in Sources */,
+				3EBF7EF2215873E8007869EC /* CustomEditorViews.swift in Sources */,
 				3EBA52FA1FC2EB1E007F902F /* AuralTabView.swift in Sources */,
 				3E33B49E1F3E70F4005EF359 /* FileSystemUtils.swift in Sources */,
 				3E26B92D1FBC207C00FA3274 /* MultiStateImageButton.swift in Sources */,
@@ -1618,6 +1625,7 @@
 				3E02739E1FD91B46000F0844 /* StringInputPopoverViewController.swift in Sources */,
 				3E8036C11FD2840C00674934 /* MiniBarAppModeController.swift in Sources */,
 				3E9796811F00BA3000690DA2 /* RepeatAndShuffleModes.swift in Sources */,
+				3EBF7EF521589DC9007869EC /* FavoritesEditorViewController.swift in Sources */,
 				3EB2A7E81F043BBE001DF748 /* TickedSliderCells.swift in Sources */,
 				3EF5E5BC1FBDB38E004270A4 /* AlbumsPlaylistViewController.swift in Sources */,
 				3EE429AE1FCFD10D00E81C15 /* RegularAppModeController.swift in Sources */,

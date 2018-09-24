@@ -3,6 +3,8 @@ import Foundation
 class Bookmarks: BookmarksProtocol {
     
     private var bookmarks: [Bookmark] = [Bookmark]()
+    
+    // TODO: Store a map of bookmarks by name for quicker lookups
  
     func addBookmark(_ name: String, _ file: URL, _ position: Double) -> Bookmark {
         

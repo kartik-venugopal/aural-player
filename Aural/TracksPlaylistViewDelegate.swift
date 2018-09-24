@@ -27,7 +27,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
     
     // Returns a view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return FlatPlaylistRowView()
+        return AuralTableRowView()
     }
     
     // Enables type selection, allowing the user to conveniently and efficiently find a playlist track by typing its display name, which results in the track, if found, being selected within the playlist
@@ -166,7 +166,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
 /*
     Custom view for a NSTableView row that displays a single playlist track. Customizes the selection look and feel.
  */
-class FlatPlaylistRowView: NSTableRowView {
+class AuralTableRowView: NSTableRowView {
     
     // Draws a fancy rounded rectangle around the selected track in the playlist view
     override func drawSelection(in dirtyRect: NSRect) {

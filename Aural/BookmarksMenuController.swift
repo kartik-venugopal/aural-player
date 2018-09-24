@@ -20,17 +20,13 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, Acti
     private var bookmarkedTrack: Track?
     private var bookmarkedTrackPosition: Double?
     
-    private lazy var editorWindowController: NSWindowController = WindowFactory.getEditorWindowController()
+    private lazy var editorWindowController: EditorWindowController = WindowFactory.getEditorWindowController()
     
     private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
  
     // One-time setup, when the menu loads
     override func awakeFromNib() {
         SyncMessenger.subscribe(actionTypes: [.bookmark], subscriber: self)
-        
-        // TODO: Temporary
-        editorWindowController.showWindow(self)
-        editorWindowController.window!.orderFront(self)
     }
     
     // Before the menu opens, re-create the menu items from the model
@@ -96,7 +92,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, Acti
     }
     
     @IBAction func manageBookmarksAction(_ sender: Any) {
-        editorWindowController.showWindow(self)
+        editorWindowController.showBookmarksEditor()
     }
     
     // MARK - StringInputClient functions

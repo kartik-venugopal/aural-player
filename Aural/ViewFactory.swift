@@ -17,6 +17,8 @@ struct ViewFactory {
     
     private static var bookmarksEditorViewController: BookmarksEditorViewController = BookmarksEditorViewController()
     
+    private static var favoritesEditorViewController: FavoritesEditorViewController = FavoritesEditorViewController()
+    
     // Sub-views for the different individual effects units displayed on the Effects panel
     fileprivate struct EffectsViews {
         
@@ -207,5 +209,9 @@ struct ViewFactory {
     
     static func getBookmarksEditorView() -> NSView {
         return bookmarksEditorViewController.view
+    }
+    
+    static func getFavoritesEditorView() -> NSView {
+        return favoritesEditorViewController.view
     }
 }
