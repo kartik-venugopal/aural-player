@@ -58,7 +58,6 @@
 		3E2F1049215562DD0099FD06 /* EditorWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2F1048215562DD0099FD06 /* EditorWindow.xib */; };
 		3E2F104C215569D40099FD06 /* EditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F104B215569D40099FD06 /* EditorWindowController.swift */; };
 		3E2F104F21556A2D0099FD06 /* BookmarksEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2F104E21556A2D0099FD06 /* BookmarksEditor.xib */; };
-		3E2F105121556B860099FD06 /* BookmarksEditorViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F105021556B860099FD06 /* BookmarksEditorViewDelegate.swift */; };
 		3E2F10532155742E0099FD06 /* BookmarksEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F10522155742E0099FD06 /* BookmarksEditorViewController.swift */; };
 		3E309B741FB70BB800C61E72 /* FavoritesPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E309B731FB70BB800C61E72 /* FavoritesPopup.xib */; };
 		3E309B781FB70D1F00C61E72 /* FavoritesPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E309B771FB70D1F00C61E72 /* FavoritesPopupViewController.swift */; };
@@ -194,6 +193,7 @@
 		3EBA52F71FC2E6A2007F902F /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA52F61FC2E6A2007F902F /* StateMachine.swift */; };
 		3EBA52FA1FC2EB1E007F902F /* AuralTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA52F91FC2EB1E007F902F /* AuralTabView.swift */; };
 		3EBD20081F6C6EC300E1354C /* MetadataSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD20071F6C6EC300E1354C /* MetadataSpec.swift */; };
+		3EBF7EF2215873E8007869EC /* AuralTableHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF7EF1215873E8007869EC /* AuralTableHeaderCell.swift */; };
 		3EC593981F28A0C600153D34 /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC593971F28A0C600153D34 /* RangeSlider.swift */; };
 		3EC947AD1F5DDEA400FDBE25 /* PlaybackSequenceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC947AC1F5DDEA400FDBE25 /* PlaybackSequenceProtocol.swift */; };
 		3EC947AF1F5DDEB100FDBE25 /* PlaylistProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC947AE1F5DDEB100FDBE25 /* PlaylistProtocols.swift */; };
@@ -308,7 +308,6 @@
 		3E2F1048215562DD0099FD06 /* EditorWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditorWindow.xib; sourceTree = "<group>"; };
 		3E2F104B215569D40099FD06 /* EditorWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorWindowController.swift; sourceTree = "<group>"; };
 		3E2F104E21556A2D0099FD06 /* BookmarksEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookmarksEditor.xib; sourceTree = "<group>"; };
-		3E2F105021556B860099FD06 /* BookmarksEditorViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksEditorViewDelegate.swift; sourceTree = "<group>"; };
 		3E2F10522155742E0099FD06 /* BookmarksEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksEditorViewController.swift; sourceTree = "<group>"; };
 		3E309B731FB70BB800C61E72 /* FavoritesPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesPopup.xib; sourceTree = "<group>"; };
 		3E309B771FB70D1F00C61E72 /* FavoritesPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesPopupViewController.swift; sourceTree = "<group>"; };
@@ -448,6 +447,7 @@
 		3EBA52F61FC2E6A2007F902F /* StateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
 		3EBA52F91FC2EB1E007F902F /* AuralTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuralTabView.swift; sourceTree = "<group>"; };
 		3EBD20071F6C6EC300E1354C /* MetadataSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataSpec.swift; sourceTree = "<group>"; };
+		3EBF7EF1215873E8007869EC /* AuralTableHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuralTableHeaderCell.swift; sourceTree = "<group>"; };
 		3EC593971F28A0C600153D34 /* RangeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
 		3EC947AC1F5DDEA400FDBE25 /* PlaybackSequenceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSequenceProtocol.swift; sourceTree = "<group>"; };
 		3EC947AE1F5DDEB100FDBE25 /* PlaylistProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistProtocols.swift; sourceTree = "<group>"; };
@@ -729,7 +729,7 @@
 			children = (
 				3E2F104E21556A2D0099FD06 /* BookmarksEditor.xib */,
 				3E2F10522155742E0099FD06 /* BookmarksEditorViewController.swift */,
-				3E2F105021556B860099FD06 /* BookmarksEditorViewDelegate.swift */,
+				3EBF7EF1215873E8007869EC /* AuralTableHeaderCell.swift */,
 			);
 			name = Bookmarks;
 			sourceTree = "<group>";
@@ -1432,6 +1432,7 @@
 				3E309B781FB70D1F00C61E72 /* FavoritesPopupViewController.swift in Sources */,
 				3EF08DCB2156D65D000C7F11 /* LayoutManagerProtocol.swift in Sources */,
 				3EDFFA071FC0263E00158177 /* PlaylistPreferencesViewController.swift in Sources */,
+				3EBF7EF2215873E8007869EC /* AuralTableHeaderCell.swift in Sources */,
 				3EBA52FA1FC2EB1E007F902F /* AuralTabView.swift in Sources */,
 				3E33B49E1F3E70F4005EF359 /* FileSystemUtils.swift in Sources */,
 				3E26B92D1FBC207C00FA3274 /* MultiStateImageButton.swift in Sources */,
@@ -1512,7 +1513,6 @@
 				3E46F5661F2ABA57007CD384 /* PopoverContentView.swift in Sources */,
 				3EDFFA091FC026EE00158177 /* SoundPreferencesViewController.swift in Sources */,
 				3E850D521FB441800017CD02 /* WindowFactory.swift in Sources */,
-				3E2F105121556B860099FD06 /* BookmarksEditorViewDelegate.swift in Sources */,
 				3E3AD5461F5D2BD1006123E9 /* SyncMessenger.swift in Sources */,
 				3E46F5641F2A918B007CD384 /* ColoredCursorTextField.swift in Sources */,
 				3E1DAAA41FAEB561002BB405 /* CRUDOperationResults.swift in Sources */,

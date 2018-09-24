@@ -27,6 +27,10 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, Acti
     // One-time setup, when the menu loads
     override func awakeFromNib() {
         SyncMessenger.subscribe(actionTypes: [.bookmark], subscriber: self)
+        
+        // TODO: Temporary
+        editorWindowController.showWindow(self)
+        editorWindowController.window!.orderFront(self)
     }
     
     // Before the menu opens, re-create the menu items from the model

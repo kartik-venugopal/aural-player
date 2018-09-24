@@ -1,16 +1,85 @@
 import Cocoa
 
-class BookmarksEditorViewController: NSViewController {
-    
+class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  NSTableViewDelegate, NSTextFieldDelegate {
+
+    @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var editorView: NSTableView!
+    @IBOutlet weak var editorViewHeader: NSTableHeaderView!
+    
+    @IBOutlet weak var btnDelete: NSButton!
+    @IBOutlet weak var btnPlay: NSButton!
     
     // Delegate that relays accessor operations to the bookmarks model
     private let bookmarks: BookmarksDelegateProtocol = ObjectGraph.getBookmarksDelegate()
     
     override var nibName: String? {return "BookmarksEditor"}
     
+    private func headerHeight() {
+        
+        scrollView.subviews.forEach({
+        
+            let subView = $0
+            subView.subviews.forEach({
+            
+                let subSubView = $0
+                
+                if subView.className == "NSClipView" && subSubView.className == "NSTableHeaderView" {
+                    
+                    subSubView.setFrameSize(NSMakeSize(subSubView.frame.size.width, subSubView.frame.size.height + 10))
+                    
+                    subView.setFrameSize(NSMakeSize(subView.frame.size.width, subView.frame.size.height + 10))
+                }
+            })
+            
+            if subView.className == "NSCornerView" {
+                
+                subView.setFrameSize(NSMakeSize(subView.frame.size.width, subView.frame.size.height + 10))
+            }
+        })
+        
+//        for(NSView * subview in [topScrollView subviews])
+//        {
+//            for(NSView * subSubView in [subview subviews])
+//            {
+//                if([[subSubView  className] isEqualToString:@"NSTableHeaderView"] &&  [[subview className] isEqualToString:@"NSClipView"])
+//                {
+//                    [subSubView setFrameSize:NSMakeSize(subSubView.frame.size.width, subSubView.frame.size.height+5)];//HeaderView Frame
+//                    [subview setFrameSize:NSMakeSize(subview.frame.size.width, subview.frame.size.height+5)];//ClipView Frame
+//                }
+//                
+//            }
+//            if ([[subview className] isEqualToString:@"_NSCornerView"])
+//            {
+//                [subview setFrameSize:NSMakeSize(subview.frame.size.width, subview.frame.size.height+5)]; //CornerView Frame
+//            }
+//        }
+        
+    }
+    
     override func viewDidAppear() {
+        
+        headerHeight()
         editorView.reloadData()
+        
+        [btnDelete, btnPlay].forEach({$0.isEnabled = false})
+        
+        editorView.headerView?.wantsLayer = true
+        editorView.headerView?.layer?.backgroundColor = NSColor.black.cgColor
+        
+        editorView.tableColumns.forEach({
+        
+            let col = $0
+            let attrs: [String: AnyObject] = [
+                NSFontAttributeName: Fonts.editorHeaderTextFont,
+                NSForegroundColorAttributeName: NSColor.black]
+            
+            let header = AuralTableHeaderCell()
+            
+            header.attributedStringValue = NSAttributedString(string: col.title, attributes: attrs)
+            header.isBordered = false
+            
+            col.headerCell = header
+        })
     }
     
     @IBAction func deleteSelectedBookmarksAction(_ sender: AnyObject) {
@@ -28,7 +97,134 @@ class BookmarksEditorViewController: NSViewController {
         editorView.reloadData()
     }
     
+    @IBAction func playSelectedBookmarkAction(_ sender: AnyObject) {
+        
+        if editorView.selectedRowIndexes.count == 1 {
+            bookmarks.playBookmark(bookmarks.getBookmarkAtIndex(editorView.selectedRow)!)
+        }
+    }
+    
     @IBAction func doneAction(_ sender: AnyObject) {
         self.view.window?.close()
+    }
+    
+    // MARK: View delegate functions
+    
+    // Returns the total number of playlist rows
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return bookmarks.countBookmarks()
+    }
+    
+    // Enables type selection, allowing the user to conveniently and efficiently find a playlist track by typing its display name, which results in the track, if found, being selected within the playlist
+    func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
+        
+        // Only the bookmark name column is used for type selection
+        if (tableColumn?.identifier != UIConstants.bookmarkNameColumnID) {
+            return nil
+        }
+        
+        return bookmarks.getBookmarkAtIndex(row)?.name
+    }
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        
+        let selRows: Int = editorView.selectedRowIndexes.count
+        
+        btnDelete.isEnabled = selRows > 0
+        btnPlay.isEnabled = selRows == 1
+    }
+    
+    // Returns a view for a single row
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        return FlatPlaylistRowView()
+    }
+    
+    // Returns a view for a single column
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        
+        if let bookmark = bookmarks.getBookmarkAtIndex(row) {
+            
+            switch tableColumn!.identifier {
+                
+            case UIConstants.bookmarkNameColumnID:
+                
+                return createTextCell(tableView, tableColumn!, row, bookmark.name, true)
+                
+            case UIConstants.bookmarkTrackColumnID:
+                
+                return createTextCell(tableView, tableColumn!, row, bookmark.file.path, false)
+                
+            case UIConstants.bookmarkPositionColumnID:
+                
+                let formattedPosition = StringUtils.formatSecondsToHMS(bookmark.position)
+                return createTextCell(tableView, tableColumn!, row, formattedPosition, false)
+                
+            default:    return nil
+                
+            }
+        }
+        
+        return nil
+    }
+    
+    // Creates a cell view containing text
+    private func createTextCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, _ text: String, _ editable: Bool) -> EditorTableCellView? {
+        
+        if let cell = tableView.make(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
+            
+            cell.isSelectedFunction = {
+                
+                (row: Int) -> Bool in
+                
+                return self.editorView.selectedRowIndexes.contains(row)
+            }
+            
+            cell.textField?.stringValue = text
+            cell.row = row
+            
+            // TODO: Doesn't update tool tips when columns are resized
+            // Set tool tip on name/track only if text wider than column width
+            let font = cell.textField!.font!
+            if StringUtils.numberOfLines(text, font, column.width) > 1 {
+                cell.toolTip = text
+            }
+            
+            // Name column is editable
+            if editable {
+                cell.textField?.isEditable = true
+                cell.textField?.delegate = self
+            }
+            
+            return cell
+        }
+        
+        return nil
+    }
+    
+    override func controlTextDidEndEditing(_ obj: Notification) {
+        
+        let rowIndex = editorView.selectedRow
+        
+        // Get the row containing the text field that was edited
+        
+        let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
+        
+        // Name column is at index 0
+        let editedTextField = (rowView?.view(atColumn: 0) as! NSTableCellView).textField!
+        
+        // TODO: Validate the new value (e.g. can't be empty string or too long)
+        
+        let bookmark = bookmarks.getBookmarkAtIndex(rowIndex)!
+        
+        let newBookmarkName = editedTextField.stringValue
+        
+        if (StringUtils.isStringEmpty(newBookmarkName)) {
+            editedTextField.stringValue = bookmark.name
+            
+        } else {
+            
+            // Update the bookmark name
+            bookmark.name = newBookmarkName
+        }
     }
 }

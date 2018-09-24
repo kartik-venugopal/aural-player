@@ -172,8 +172,7 @@
                                     <action selector="bookmarkAction:" target="nnl-Fg-dA2" id="AVT-hc-yET"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Manage bookmarks" hidden="YES" enabled="NO" id="rFK-no-hcx" userLabel="Manage Bookmarks">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Manage bookmarks" keyEquivalent="e" id="rFK-no-hcx" userLabel="Manage Bookmarks">
                                 <connections>
                                     <action selector="manageBookmarksAction:" target="nnl-Fg-dA2" id="iWC-1Z-7Jn"/>
                                 </connections>
