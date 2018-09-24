@@ -29,7 +29,7 @@ class AuralTableHeaderCell: NSTableHeaderCell {
 }
 
 /*
- Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
+    Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
  */
 class EditorTableCellView: NSTableCellView {
     

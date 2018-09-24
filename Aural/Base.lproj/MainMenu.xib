@@ -157,8 +157,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title=" Favorites" id="VRi-KX-T3V"/>
                             </menuItem>
-                            <menuItem title="Manage favorites" id="5uA-43-NAM" userLabel="Manage Favorites">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Manage favorites" keyEquivalent="e" id="5uA-43-NAM" userLabel="Manage Favorites">
                                 <connections>
                                     <action selector="manageFavoritesAction:" target="XfS-j8-3jQ" id="ULx-y2-pMC"/>
                                 </connections>
@@ -178,7 +177,8 @@
                                     <action selector="bookmarkAction:" target="nnl-Fg-dA2" id="AVT-hc-yET"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Manage bookmarks" keyEquivalent="e" id="rFK-no-hcx" userLabel="Manage Bookmarks">
+                            <menuItem title="Manage bookmarks" id="rFK-no-hcx" userLabel="Manage Bookmarks">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="manageBookmarksAction:" target="nnl-Fg-dA2" id="iWC-1Z-7Jn"/>
                                 </connections>

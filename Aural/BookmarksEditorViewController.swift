@@ -76,6 +76,8 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         })
         
         editorView.reloadData()
+        editorView.deselectAll(self)
+        updateButtonStates()
     }
     
     @IBAction func playSelectedBookmarkAction(_ sender: AnyObject) {
@@ -119,6 +121,10 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
+        updateButtonStates()
+    }
+    
+    private func updateButtonStates() {
         
         let selRows: Int = editorView.selectedRowIndexes.count
         
