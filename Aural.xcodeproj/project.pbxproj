@@ -193,6 +193,7 @@
 		3EBA52F71FC2E6A2007F902F /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA52F61FC2E6A2007F902F /* StateMachine.swift */; };
 		3EBA52FA1FC2EB1E007F902F /* AuralTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA52F91FC2EB1E007F902F /* AuralTabView.swift */; };
 		3EBD20081F6C6EC300E1354C /* MetadataSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD20071F6C6EC300E1354C /* MetadataSpec.swift */; };
+		3EBD557D21590B9A00286439 /* Master.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EBD557C21590B9A00286439 /* Master.xib */; };
 		3EBF7EF2215873E8007869EC /* CustomEditorViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF7EF1215873E8007869EC /* CustomEditorViews.swift */; };
 		3EBF7EF521589DC9007869EC /* FavoritesEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF7EF421589DC9007869EC /* FavoritesEditorViewController.swift */; };
 		3EBF7EF721589E54007869EC /* FavoritesEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EBF7EF621589E54007869EC /* FavoritesEditor.xib */; };
@@ -449,6 +450,7 @@
 		3EBA52F61FC2E6A2007F902F /* StateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
 		3EBA52F91FC2EB1E007F902F /* AuralTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuralTabView.swift; sourceTree = "<group>"; };
 		3EBD20071F6C6EC300E1354C /* MetadataSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataSpec.swift; sourceTree = "<group>"; };
+		3EBD557C21590B9A00286439 /* Master.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Master.xib; sourceTree = "<group>"; };
 		3EBF7EF1215873E8007869EC /* CustomEditorViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomEditorViews.swift; sourceTree = "<group>"; };
 		3EBF7EF421589DC9007869EC /* FavoritesEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesEditorViewController.swift; sourceTree = "<group>"; };
 		3EBF7EF621589E54007869EC /* FavoritesEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesEditor.xib; sourceTree = "<group>"; };
@@ -589,6 +591,7 @@
 			children = (
 				3E0ED6AB1FBB1961008268B3 /* Effects.xib */,
 				3E98478C1F5D0419001A2D28 /* EffectsWindowController.swift */,
+				3EBD557B21590B8300286439 /* Master */,
 				3E0ED6AD1FBB1AA2008268B3 /* EQ */,
 				3E0ED6B01FBB1AF1008268B3 /* Pitch */,
 				3E0ED6B31FBB1B55008268B3 /* Time */,
@@ -1157,6 +1160,14 @@
 			name = TabView;
 			sourceTree = "<group>";
 		};
+		3EBD557B21590B8300286439 /* Master */ = {
+			isa = PBXGroup;
+			children = (
+				3EBD557C21590B9A00286439 /* Master.xib */,
+			);
+			name = Master;
+			sourceTree = "<group>";
+		};
 		3ECD17451F6BBF0F00492F56 /* MetadataSpecs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1410,6 +1421,7 @@
 				3E309B741FB70BB800C61E72 /* FavoritesPopup.xib in Resources */,
 				3EF5E5BE1FBDB3F8004270A4 /* Albums.xib in Resources */,
 				3E850D601FB459230017CD02 /* Playlist.xib in Resources */,
+				3EBD557D21590B9A00286439 /* Master.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

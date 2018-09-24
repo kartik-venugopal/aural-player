@@ -181,7 +181,6 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
             cell.textField?.textColor = Colors.playlistTextColor
             cell.row = row
             
-            // TODO: Doesn't update tool tips when columns are resized/renamed
             // Set tool tip on name/track only if text wider than column width
             let font = cell.textField!.font!
             if StringUtils.numberOfLines(text, font, column.width) > 1 {
@@ -200,19 +199,47 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         return nil
     }
     
+    func tableViewColumnDidResize(_ notification: Notification) {
+     
+        // Update tool tips as some may no longer be needed or some new ones may be needed
+        
+        if let column = notification.userInfo?["NSTableColumn"] as? NSTableColumn {
+        
+            let count = bookmarks.countBookmarks()
+            if count > 0 {
+                
+                for index in 0..<count {
+                    
+                    let cell = tableView(editorView, viewFor: column, row: index) as! NSTableCellView
+                    
+                    let text = cell.textField!.stringValue
+                    let font = cell.textField!.font!
+                    
+                    if StringUtils.numberOfLines(text, font, column.width) > 1 {
+                        cell.toolTip = text
+                    } else {
+                        cell.toolTip = nil
+                    }
+                }
+            }
+        }
+    }
+    
     override func controlTextDidEndEditing(_ obj: Notification) {
         
         let rowIndex = editorView.selectedRow
         let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
-        let editedTextField = (rowView?.view(atColumn: 0) as! NSTableCellView).textField!
-        
-        // TODO: Validate the new value (e.g. can't be empty string or too long)
+        let cell = rowView?.view(atColumn: 0) as! NSTableCellView
+        let editedTextField = cell.textField!
         
         let bookmark = bookmarks.getBookmarkAtIndex(rowIndex)!
         let newBookmarkName = editedTextField.stringValue
         
         editedTextField.textColor = Colors.playlistSelectedTextColor
         
+        // TODO: What if the string is too long ?
+        
+        // Empty string is invalid, revert to old value
         if (StringUtils.isStringEmpty(newBookmarkName)) {
             editedTextField.stringValue = bookmark.name
             
@@ -222,6 +249,15 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
             bookmark.name = newBookmarkName
         }
         
-        // TODO: Update the tool tip
+        // Update the tool tip
+
+        let font = cell.textField!.font!
+        let nameColumn = editorView.tableColumns[0]
+        
+        if StringUtils.numberOfLines(newBookmarkName, font, nameColumn.width) > 1 {
+            cell.toolTip = newBookmarkName
+        } else {
+            cell.toolTip = nil
+        }
     }
 }
