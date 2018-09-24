@@ -26,6 +26,8 @@ struct Colors {
     // Fill color of box drawn around selected playlist item
     static let playlistSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.15, alpha: 1)
     
+    static let editorSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.55, alpha: 1)
+    
     // Fill color of all slider knobs
     static let sliderKnobColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
     

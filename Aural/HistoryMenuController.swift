@@ -19,6 +19,8 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
     // Delegate that performs CRUD on the history model
     private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
     
+    private lazy var editorWindowController: EditorWindowController = WindowFactory.getEditorWindowController()
+    
     // One-time setup, when the menu loads
     override func awakeFromNib() {
         
@@ -115,11 +117,16 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
         history.removeFavorite(message.track)
     }
     
-    func getID() -> String {
-        return self.className
+    // When a "Recently played" or "Favorites" menu item is clicked, the item is played
+    @IBAction func manageFavoritesAction(_ sender: Any) {
+        editorWindowController.showFavoritesEditor()
     }
     
     // MARK: Message handling
+    
+    func getID() -> String {
+        return self.className
+    }
     
     func consumeMessage(_ message: ActionMessage) {
         

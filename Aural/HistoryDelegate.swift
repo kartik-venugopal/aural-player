@@ -81,17 +81,28 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
     func addFavorite(_ track: Track) {
         history.addFavorite(track, Date())
         AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
-        AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.addedToFavorites, track))
+        AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.addedToFavorites, track.file))
     }
     
     func removeFavorite(_ track: Track) {
+        
         history.removeFavorite(track)
         AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
-        AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.removedFromFavorites, track))
+        AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.removedFromFavorites, track.file))
+    }
+    
+    func removeFavorite(_ file: URL) {
+        
+        history.removeFavorite(file)
+        AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
+        AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.removedFromFavorites, file))
     }
     
     func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int, _ favoritesListSize: Int) {
+        
         history.resizeLists(recentlyAddedListSize, recentlyPlayedListSize, favoritesListSize)
+        AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
+        AsyncMessenger.publishMessage(FavoritesListResizedAsyncMessage.instance)
     }
     
     func persistentState() -> PersistentState {

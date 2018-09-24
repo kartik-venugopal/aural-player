@@ -54,3 +54,18 @@ class EditorTableCellView: NSTableCellView {
         }
     }
 }
+
+// Used to change text field selection cursor and text color
+class EditorTextField: NSTextField {
+    
+    override func becomeFirstResponder() -> Bool {
+        
+        self.textColor = NSColor.black
+        
+        // Cursor color
+        let fieldEditor = self.window!.fieldEditor(true, for: self) as! NSTextView
+        fieldEditor.insertionPointColor = NSColor.black
+        
+        return super.becomeFirstResponder()
+    }
+}

@@ -8,6 +8,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     
     @IBOutlet weak var btnDelete: NSButton!
     @IBOutlet weak var btnPlay: NSButton!
+    @IBOutlet weak var btnRename: NSButton!
     
     // Delegate that relays accessor operations to the bookmarks model
     private let bookmarks: BookmarksDelegateProtocol = ObjectGraph.getBookmarksDelegate()
@@ -23,13 +24,9 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         editorView.tableColumns.forEach({
             
             let col = $0
-            let attrs: [String: AnyObject] = [
-                NSFontAttributeName: Fonts.editorHeaderTextFont,
-                NSForegroundColorAttributeName: NSColor.black]
-            
             let header = AuralTableHeaderCell()
             
-            header.attributedStringValue = NSAttributedString(string: col.title, attributes: attrs)
+            header.stringValue = col.headerCell.stringValue
             header.isBordered = false
             
             col.headerCell = header
@@ -48,13 +45,11 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
                 if subView.className == "NSClipView" && subSubView.className == "NSTableHeaderView" {
                     
                     subSubView.setFrameSize(NSMakeSize(subSubView.frame.size.width, subSubView.frame.size.height + 10))
-                    
                     subView.setFrameSize(NSMakeSize(subView.frame.size.width, subView.frame.size.height + 10))
                 }
             })
             
             if subView.className == "NSCornerView" {
-                
                 subView.setFrameSize(NSMakeSize(subView.frame.size.width, subView.frame.size.height + 10))
             }
         })
@@ -65,7 +60,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        [btnDelete, btnPlay].forEach({$0.isEnabled = false})
+        [btnDelete, btnPlay, btnRename].forEach({$0.isEnabled = false})
     }
     
     @IBAction func deleteSelectedBookmarksAction(_ sender: AnyObject) {
@@ -90,8 +85,19 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         }
     }
     
+    @IBAction func renameBookmarkAction(_ sender: AnyObject) {
+        
+        let rowIndex = editorView.selectedRow
+        let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
+        let editedTextField = (rowView?.view(atColumn: 0) as! NSTableCellView).textField!
+        
+        self.view.window?.makeFirstResponder(editedTextField)
+    }
+    
     @IBAction func doneAction(_ sender: AnyObject) {
-        self.view.window?.close()
+        
+        WindowState.showingPopover = false
+        UIUtils.dismissModalDialog()
     }
     
     // MARK: View delegate functions
@@ -117,12 +123,12 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         let selRows: Int = editorView.selectedRowIndexes.count
         
         btnDelete.isEnabled = selRows > 0
-        btnPlay.isEnabled = selRows == 1
+        [btnPlay, btnRename].forEach({$0.isEnabled = selRows == 1})
     }
     
     // Returns a view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return FlatPlaylistRowView()
+        return AuralTableRowView()
     }
     
     // Returns a view for a single column
@@ -166,9 +172,10 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
             }
             
             cell.textField?.stringValue = text
+            cell.textField?.textColor = Colors.playlistTextColor
             cell.row = row
             
-            // TODO: Doesn't update tool tips when columns are resized
+            // TODO: Doesn't update tool tips when columns are resized/renamed
             // Set tool tip on name/track only if text wider than column width
             let font = cell.textField!.font!
             if StringUtils.numberOfLines(text, font, column.width) > 1 {
@@ -190,19 +197,15 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     override func controlTextDidEndEditing(_ obj: Notification) {
         
         let rowIndex = editorView.selectedRow
-        
-        // Get the row containing the text field that was edited
-        
         let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
-        
-        // Name column is at index 0
         let editedTextField = (rowView?.view(atColumn: 0) as! NSTableCellView).textField!
         
         // TODO: Validate the new value (e.g. can't be empty string or too long)
         
         let bookmark = bookmarks.getBookmarkAtIndex(rowIndex)!
-        
         let newBookmarkName = editedTextField.stringValue
+        
+        editedTextField.textColor = Colors.playlistSelectedTextColor
         
         if (StringUtils.isStringEmpty(newBookmarkName)) {
             editedTextField.stringValue = bookmark.name
@@ -212,5 +215,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
             // Update the bookmark name
             bookmark.name = newBookmarkName
         }
+        
+        // TODO: Update the tool tip
     }
 }

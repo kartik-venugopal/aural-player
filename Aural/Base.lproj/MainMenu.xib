@@ -157,6 +157,12 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title=" Favorites" id="VRi-KX-T3V"/>
                             </menuItem>
+                            <menuItem title="Manage favorites" id="5uA-43-NAM" userLabel="Manage Favorites">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="manageFavoritesAction:" target="XfS-j8-3jQ" id="ULx-y2-pMC"/>
+                                </connections>
+                            </menuItem>
                         </items>
                         <connections>
                             <outlet property="delegate" destination="XfS-j8-3jQ" id="zhe-eR-H6f"/>

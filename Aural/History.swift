@@ -18,6 +18,7 @@ class History: HistoryProtocol {
     
     // Favorites items
     var favorites: LRUArray<FavoritesItem>
+    var favoritesByFile: [URL: FavoritesItem] = [URL: FavoritesItem]()
     
     init(_ preferences: HistoryPreferences) {
         
@@ -54,19 +55,33 @@ class History: HistoryProtocol {
     }
     
     func hasFavorite(_ track: Track) -> Bool {
-        return favorites.contains(FavoritesItem(track.file, Date(), nil))
+        return favoritesByFile[track.file] != nil
     }
     
     func addFavorite(_ item: Track, _ time: Date) {
-        favorites.add(FavoritesItem(item.file, time, item))
+        
+        let fav = FavoritesItem(item.file, time, item)
+        favorites.add(fav)
+        favoritesByFile[item.file] = fav
     }
     
     func addFavorite(_ file: URL, _ time: Date) {
-        favorites.add(FavoritesItem(file, time, nil))
+        
+        let fav = FavoritesItem(file, time, nil)
+        favorites.add(fav)
+        favoritesByFile[file] = fav
     }
     
     func removeFavorite(_ item: Track) {
+        
         favorites.remove(FavoritesItem(item.file, Date(), item))
+        favoritesByFile.removeValue(forKey: item.file)
+    }
+    
+    func removeFavorite(_ file: URL) {
+        
+        favorites.remove(FavoritesItem(file, Date(), nil))
+        favoritesByFile.removeValue(forKey: file)
     }
     
     func allFavorites() -> [FavoritesItem] {
@@ -80,5 +95,9 @@ class History: HistoryProtocol {
         recentlyAddedItems.resize(recentlyAddedListSize)
         recentlyPlayedItems.resize(recentlyPlayedListSize)
         favorites.resize(favoritesListSize)
+        
+        // Recreate the map
+        favoritesByFile.removeAll()
+        favorites.toArray().forEach({ favoritesByFile[$0.file] = $0 })
     }
 }

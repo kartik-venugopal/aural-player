@@ -23,6 +23,9 @@ protocol HistoryDelegateProtocol {
     // Removes a given track from the Favorites list
     func removeFavorite(_ track: Track)
     
+    // Removes a given track from the Favorites list
+    func removeFavorite(_ file: URL)
+    
     // Adds a given item (file/folder) to the playlist
     func addItem(_ item: URL)
     
