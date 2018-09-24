@@ -47,9 +47,8 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {
-//        self.view.window?.close()
-        UIUtils.dismissModalDialog()
         WindowState.showingPopover = false
+        UIUtils.dismissModalDialog()
     }
     
     // MARK: View delegate functions

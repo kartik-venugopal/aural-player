@@ -31,8 +31,6 @@ class EditorWindowController: NSWindowController {
         bookmarksEditorView.isHidden = false
         
         WindowState.showingPopover = true
-        
-//        showWindow(self)
         UIUtils.showModalDialog(theWindow)
     }
     
@@ -41,7 +39,6 @@ class EditorWindowController: NSWindowController {
         bookmarksEditorView.isHidden = true
         favoritesEditorView.isHidden = false
         
-//        showWindow(self)
         WindowState.showingPopover = true
         UIUtils.showModalDialog(theWindow)
     }
