@@ -106,4 +106,9 @@ class ValueFormatter {
         
         return numberFormatter.string(from: value)!
     }
+    
+    static func formatPixels(_ value: Float) -> String {
+        
+        return formatValueWithUnits(NSNumber(value: value), 0, AppConstants.screenRealEstatePixelUnit, false)
+    }
 }

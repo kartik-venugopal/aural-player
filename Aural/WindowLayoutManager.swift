@@ -41,8 +41,6 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
         
         super.init()
         
-        print("WLM here !")
-        
         mainWindow.delegate = self
         
         SyncMessenger.subscribe(actionTypes: [.dockLeft, .dockRight, .dockBottom, .maximize, .maximizeHorizontal, .maximizeVertical, .toggleEffects, .togglePlaylist], subscriber: self)
