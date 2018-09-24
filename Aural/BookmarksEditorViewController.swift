@@ -14,6 +14,28 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     
     override var nibName: String? {return "BookmarksEditor"}
     
+    override func viewDidLoad() {
+        
+        headerHeight()
+        editorView.headerView?.wantsLayer = true
+        editorView.headerView?.layer?.backgroundColor = NSColor.black.cgColor
+        
+        editorView.tableColumns.forEach({
+            
+            let col = $0
+            let attrs: [String: AnyObject] = [
+                NSFontAttributeName: Fonts.editorHeaderTextFont,
+                NSForegroundColorAttributeName: NSColor.black]
+            
+            let header = AuralTableHeaderCell()
+            
+            header.attributedStringValue = NSAttributedString(string: col.title, attributes: attrs)
+            header.isBordered = false
+            
+            col.headerCell = header
+        })
+    }
+    
     private func headerHeight() {
         
         scrollView.subviews.forEach({
@@ -36,50 +58,14 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
                 subView.setFrameSize(NSMakeSize(subView.frame.size.width, subView.frame.size.height + 10))
             }
         })
-        
-//        for(NSView * subview in [topScrollView subviews])
-//        {
-//            for(NSView * subSubView in [subview subviews])
-//            {
-//                if([[subSubView  className] isEqualToString:@"NSTableHeaderView"] &&  [[subview className] isEqualToString:@"NSClipView"])
-//                {
-//                    [subSubView setFrameSize:NSMakeSize(subSubView.frame.size.width, subSubView.frame.size.height+5)];//HeaderView Frame
-//                    [subview setFrameSize:NSMakeSize(subview.frame.size.width, subview.frame.size.height+5)];//ClipView Frame
-//                }
-//                
-//            }
-//            if ([[subview className] isEqualToString:@"_NSCornerView"])
-//            {
-//                [subview setFrameSize:NSMakeSize(subview.frame.size.width, subview.frame.size.height+5)]; //CornerView Frame
-//            }
-//        }
-        
     }
     
     override func viewDidAppear() {
         
-        headerHeight()
         editorView.reloadData()
+        editorView.deselectAll(self)
         
         [btnDelete, btnPlay].forEach({$0.isEnabled = false})
-        
-        editorView.headerView?.wantsLayer = true
-        editorView.headerView?.layer?.backgroundColor = NSColor.black.cgColor
-        
-        editorView.tableColumns.forEach({
-        
-            let col = $0
-            let attrs: [String: AnyObject] = [
-                NSFontAttributeName: Fonts.editorHeaderTextFont,
-                NSForegroundColorAttributeName: NSColor.black]
-            
-            let header = AuralTableHeaderCell()
-            
-            header.attributedStringValue = NSAttributedString(string: col.title, attributes: attrs)
-            header.isBordered = false
-            
-            col.headerCell = header
-        })
     }
     
     @IBAction func deleteSelectedBookmarksAction(_ sender: AnyObject) {

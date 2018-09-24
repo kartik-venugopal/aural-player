@@ -126,6 +126,16 @@ struct Colors {
         return NSGradient(starting: backgroundStart, ending: backgroundEnd)!
     }()
     
+    // Text color of modal dialog buttons
+    static let modalDialogButtonTextColor_disabled: NSColor = NSColor(calibratedWhite: 0.5, alpha: 1)
+    
+    static let modalDialogButtonGradient_disabled: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.25, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.1, alpha: 1.0)
+        return NSGradient(starting: backgroundStart, ending: backgroundEnd)!
+    }()
+    
     // Fill color of modal dialog navigation buttons (search)
     static let modalDialogNavButtonColor: NSColor = NSColor(calibratedWhite: 0.45, alpha: 1)
     

@@ -14,5 +14,7 @@ class EditorWindowController: NSWindowController {
         
         // TODO: Need to decide which view to add: bookmarks or favorites editor view
         theWindow.contentView?.addSubview(bookmarksEditorView)
+        
+        theWindow.isMovableByWindowBackground = true
     }
 }

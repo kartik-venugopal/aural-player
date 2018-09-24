@@ -11,9 +11,12 @@ class ModalDialogButtonCell: NSButtonCell {
     var cellInsetY: CGFloat {return 0}
     
     var backgroundFillGradient: NSGradient {return Colors.modalDialogButtonGradient}
+    var backgroundFillGradient_disabled: NSGradient {return Colors.modalDialogButtonGradient_disabled}
     var borderRadius: CGFloat {return 2}
     
     var textColor: NSColor {return Colors.modalDialogButtonTextColor}
+    var textColor_disabled: NSColor {return Colors.modalDialogButtonTextColor_disabled}
+    
     var textFont: NSFont {return Fonts.modalDialogButtonFont}
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
@@ -22,10 +25,15 @@ class ModalDialogButtonCell: NSButtonCell {
         
         // Background
         let borderPath = NSBezierPath.init(roundedRect: drawRect, xRadius: borderRadius, yRadius: borderRadius)
-        backgroundFillGradient.draw(in: borderPath, angle: -UIConstants.verticalGradientDegrees)
+        
+        if isEnabled {
+            backgroundFillGradient.draw(in: borderPath, angle: -UIConstants.verticalGradientDegrees)
+        } else {
+            backgroundFillGradient_disabled.draw(in: borderPath, angle: -UIConstants.verticalGradientDegrees)
+        }
         
         // Title
-        GraphicsUtils.drawCenteredTextInRect(cellFrame, title, textColor, textFont)
+        GraphicsUtils.drawCenteredTextInRect(cellFrame, title, isEnabled ? textColor : textColor_disabled, textFont)
     }
 }
 
