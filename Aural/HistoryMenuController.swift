@@ -15,6 +15,7 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
     
     // Sub-menu that displays tracks marked "favorites". Clicking on any of these items will result in the track being  played.
     @IBOutlet weak var favoritesMenu: NSMenu!
+    @IBOutlet weak var manageFavoritesMenuItem: NSMenuItem!
     
     // Delegate that performs CRUD on the history model
     private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
@@ -44,6 +45,8 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
         // Recently Added menu items are only accessible in "regular" mode
         let enable = AppModeManager.mode == .regular
         recentlyAddedMenu.items.forEach({$0.isEnabled = enable})
+        
+        manageFavoritesMenuItem.isEnabled = favoritesMenu.items.count > 0
     }
     
     // Populates the given menu with items corresponding to the given historical item info, grouped by timestamp into categories like "Past 24 hours", "Past 7 days", etc.

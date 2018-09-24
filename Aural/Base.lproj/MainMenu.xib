@@ -17,6 +17,7 @@
         <customObject id="XfS-j8-3jQ" customClass="HistoryMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="favoritesMenu" destination="VRi-KX-T3V" id="ZSI-tZ-jWA"/>
+                <outlet property="manageFavoritesMenuItem" destination="5uA-43-NAM" id="HSL-0E-RLA"/>
                 <outlet property="recentlyAddedMenu" destination="wng-SO-Kcr" id="zxx-T1-qV1"/>
                 <outlet property="recentlyPlayedMenu" destination="7KE-9e-wni" id="Phj-0T-PKd"/>
             </connections>
