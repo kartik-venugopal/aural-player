@@ -33,6 +33,16 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
         })
         
         editorView.reloadData()
+        editorView.deselectAll(self)
+        updateButtonStates()
+    }
+    
+    private func updateButtonStates() {
+        
+        let selRows: Int = editorView.selectedRowIndexes.count
+        
+        btnDelete.isEnabled = selRows > 0
+        btnPlay.isEnabled = selRows == 1
     }
     
     @IBAction func playSelectedFavoriteAction(_ sender: AnyObject) {
@@ -47,6 +57,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {
+        
         WindowState.showingPopover = false
         UIUtils.dismissModalDialog()
     }
@@ -58,23 +69,8 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
         return favorites.allFavorites().count
     }
     
-    // Enables type selection, allowing the user to conveniently and efficiently find a playlist track by typing its display name, which results in the track, if found, being selected within the playlist
-//    func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
-//        
-//        // Only the bookmark name column is used for type selection
-//        if (tableColumn?.identifier != UIConstants.favoriteNameColumnID) {
-//            return nil
-//        }
-//        
-//        return favorites.allFavorites()[row].displayName
-//    }
-    
     func tableViewSelectionDidChange(_ notification: Notification) {
-        
-        let selRows: Int = editorView.selectedRowIndexes.count
-        
-        btnDelete.isEnabled = selRows > 0
-        btnPlay.isEnabled = selRows == 1
+        updateButtonStates()
     }
     
     // Returns a view for a single row
