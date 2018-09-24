@@ -7,6 +7,9 @@ class ViewPreferencesViewController: NSViewController, NSMenuDelegate, Preferenc
     @IBOutlet weak var layoutMenu: NSPopUpButton!
     
     @IBOutlet weak var btnSnapToWindows: NSButton!
+    @IBOutlet weak var lblWindowGap: NSTextField!
+    @IBOutlet weak var gapStepper: NSStepper!
+    
     @IBOutlet weak var btnSnapToScreen: NSButton!
     
     override var nibName: String? {return "ViewPreferences"}
@@ -34,11 +37,23 @@ class ViewPreferencesViewController: NSViewController, NSMenuDelegate, Preferenc
         layoutMenu.isEnabled = Bool(btnStartWithLayout.state)
         
         btnSnapToWindows.state = viewPrefs.snapToWindows ? 1 : 0
+        gapStepper.floatValue = viewPrefs.windowGap
+        lblWindowGap.stringValue = ValueFormatter.formatPixels(gapStepper.floatValue)
+        [lblWindowGap, gapStepper].forEach({$0.isEnabled = Bool(btnSnapToWindows.state)})
+        
         btnSnapToScreen.state = viewPrefs.snapToScreen ? 1 : 0
     }
     
     @IBAction func layoutOnStartupAction(_ sender: Any) {
         layoutMenu.isEnabled = Bool(btnStartWithLayout.state)
+    }
+    
+    @IBAction func snapToWindowsAction(_ sender: Any) {
+        [lblWindowGap, gapStepper].forEach({$0.isEnabled = Bool(btnSnapToWindows.state)})
+    }
+    
+    @IBAction func gapStepperAction(_ sender: Any) {
+        lblWindowGap.stringValue = ValueFormatter.formatPixels(gapStepper.floatValue)
     }
 
     func save(_ preferences: Preferences) throws {
@@ -49,6 +64,17 @@ class ViewPreferencesViewController: NSViewController, NSMenuDelegate, Preferenc
         viewPrefs.layoutOnStartup.layoutName = layoutMenu.selectedItem!.title
         
         viewPrefs.snapToWindows = Bool(btnSnapToWindows.state)
+        
+        let oldWindowGap = viewPrefs.windowGap
+        viewPrefs.windowGap = gapStepper.floatValue
+        
+        // Check if window gap was changed
+        if (viewPrefs.windowGap != oldWindowGap) {
+            
+            // Recompute system-defined layouts based on new gap between windows
+            WindowLayouts.recomputeSystemDefinedLayouts()
+        }
+        
         viewPrefs.snapToScreen = Bool(btnSnapToScreen.state)
     }
     

@@ -45,6 +45,8 @@ class AppConstants {
     static let frequencyHzUnit: String = "Hz"
     static let frequencyKHzUnit: String = "KHz"
     
+    static let screenRealEstatePixelUnit = "px"
+    
     // Value conversion constants used when passing values across layers of the app (e.g. the UI uses a range of 0-100 for volume, while the audio graph uses a volume range of 0-1)
     
     static let volumeConversion_UIToAudioGraph: Float = (1/100) // Divide by 100

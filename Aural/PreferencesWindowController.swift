@@ -67,7 +67,7 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
                 
                 try $0.save(preferences)
                 
-            } catch let _ {
+            } catch {
                 
                 saveFailed = true
                 

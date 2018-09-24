@@ -10,6 +10,8 @@ private var visibleFrame: NSRect = {
 
 class UIUtils {
     
+    private static var preferences: ViewPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().viewPreferences
+    
     // Dismisses the currently displayed modal dialog
     static func dismissModalDialog() {
         NSApp.stopModal()
@@ -123,11 +125,13 @@ class UIUtils {
     
     static func checkForSnapToWindow(_ child: SnappingWindow, _ parent: NSWindow) -> Bool {
         
+        let gap = preferences.windowGap
+        
         var snap: SnapToWindowType = checkForSnapToWindow_bottom(child, parent)
         
         if (snap.isValidSnap()) {
             
-            child.snapLocation = snap.getLocation(child, parent)
+            child.snapLocation = snap.getLocation(child, parent, gap)
             child.snapped = true
             return true
         }
@@ -136,7 +140,7 @@ class UIUtils {
         
         if (snap.isValidSnap()) {
             
-            child.snapLocation = snap.getLocation(child, parent)
+            child.snapLocation = snap.getLocation(child, parent, gap)
             child.snapped = true
             return true
         }
@@ -145,7 +149,7 @@ class UIUtils {
         
         if (snap.isValidSnap()) {
             
-            child.snapLocation = snap.getLocation(child, parent)
+            child.snapLocation = snap.getLocation(child, parent, gap)
             child.snapped = true
             return true
         }
@@ -154,7 +158,7 @@ class UIUtils {
         
         if (snap.isValidSnap()) {
             
-            child.snapLocation = snap.getLocation(child, parent)
+            child.snapLocation = snap.getLocation(child, parent, gap)
             child.snapped = true
             return true
         }
@@ -492,41 +496,43 @@ enum SnapToWindowType {
         return self != .none
     }
     
-    func getLocation(_ child: NSWindow, _ parent: NSWindow) -> NSPoint {
+    func getLocation(_ child: NSWindow, _ parent: NSWindow, _ gapFloat: Float) -> NSPoint {
+        
+        let gap = CGFloat(gapFloat)
         
         switch self {
          
         case .bottom_leftEdges:
             
-            return parent.origin.applying(CGAffineTransform.init(translationX: 0, y: -child.height))
+            return parent.origin.applying(CGAffineTransform.init(translationX: 0, y: -(child.height + gap)))
             
         case .bottom_rightEdges:
             
-            return parent.origin.applying(CGAffineTransform.init(translationX: parent.width - child.width, y: -child.height))
+            return parent.origin.applying(CGAffineTransform.init(translationX: parent.width - child.width, y: -(child.height + gap)))
             
         case .top_leftEdges:
             
-            return parent.origin.applying(CGAffineTransform.init(translationX: 0, y: parent.height))
+            return parent.origin.applying(CGAffineTransform.init(translationX: 0, y: parent.height + gap))
             
         case .top_rightEdges:
             
-            return parent.origin.applying(CGAffineTransform.init(translationX: parent.width - child.width, y: parent.height))
+            return parent.origin.applying(CGAffineTransform.init(translationX: parent.width - child.width, y: parent.height + gap))
             
         case .right_bottomEdges:
             
-            return parent.origin.applying(CGAffineTransform.init(translationX: parent.width, y: 0))
+            return parent.origin.applying(CGAffineTransform.init(translationX: parent.width + gap, y: 0))
             
         case .right_topEdges:
             
-            return parent.origin.applying(CGAffineTransform.init(translationX: parent.width, y: parent.height - child.height))
+            return parent.origin.applying(CGAffineTransform.init(translationX: parent.width + gap, y: parent.height - child.height))
             
         case .left_bottomEdges:
             
-            return parent.origin.applying(CGAffineTransform.init(translationX: -child.width, y: 0))
+            return parent.origin.applying(CGAffineTransform.init(translationX: -(child.width + gap), y: 0))
             
         case .left_topEdges:
             
-            return parent.origin.applying(CGAffineTransform.init(translationX: -child.width, y: parent.height - child.height))
+            return parent.origin.applying(CGAffineTransform.init(translationX: -(child.width + gap), y: parent.height - child.height))
             
         default:    return NSPoint.zero     // Impossible
             

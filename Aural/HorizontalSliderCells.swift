@@ -48,8 +48,6 @@ class HorizontalSliderCell: NSSliderCell {
         let knobPath = NSBezierPath(roundedRect: rect, xRadius: knobRadius, yRadius: knobRadius)
         knobColor.setFill()
         knobPath.fill()
-        
-//        Swift.print("Knob: " + String(describing: rect))
     }
     
     override func barRect(flipped: Bool) -> NSRect {

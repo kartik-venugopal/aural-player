@@ -226,7 +226,7 @@ class UIState: PersistentState {
                         
                         if ((layoutShowPlaylist! && layoutPlaylistWindowFrame != nil) || !layoutShowPlaylist!) {
                             
-                            let newLayout = WindowLayout(name: layoutName!, showEffects: layoutShowEffects!, showPlaylist: layoutShowPlaylist!, mainWindowOrigin: layoutMainWindowOrigin!, effectsWindowOrigin: layoutEffectsWindowOrigin, playlistWindowFrame: layoutPlaylistWindowFrame, systemDefined: false)
+                            let newLayout = WindowLayout(layoutName!, layoutShowEffects!, layoutShowPlaylist!, layoutMainWindowOrigin!, layoutEffectsWindowOrigin, layoutPlaylistWindowFrame, false)
                             
                             uiState.userWindowLayouts.append(newLayout)
                         }
