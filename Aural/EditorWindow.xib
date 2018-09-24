@@ -24,11 +24,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="550" height="378"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box fixedFrame="YES" boxType="custom" cornerRadius="8" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="IrP-ay-qjM">
+                    <box fixedFrame="YES" boxType="custom" borderWidth="0.0" cornerRadius="8" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="IrP-ay-qjM">
                         <rect key="frame" x="0.0" y="0.0" width="550" height="378"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="contentView" ambiguous="YES" id="Ytc-Dy-gX0">
-                            <rect key="frame" x="1" y="1" width="548" height="376"/>
+                            <rect key="frame" x="0.0" y="0.0" width="550" height="378"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                         <color key="fillColor" white="0.15923394097222221" alpha="1" colorSpace="calibratedWhite"/>
@@ -37,7 +37,7 @@
             </view>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                    <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="value" white="0.156982421875" alpha="1" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="93" y="146"/>

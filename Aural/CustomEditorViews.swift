@@ -8,7 +8,7 @@ class AuralTableHeaderCell: NSTableHeaderCell {
             NSFontAttributeName: Fonts.editorHeaderTextFont,
             NSForegroundColorAttributeName: Colors.editorHeaderTextColor]
         
-        stringValue.draw(in: cellFrame.insetBy(dx: 5, dy: 0), withAttributes: attrs)
+        stringValue.draw(in: cellFrame.insetBy(dx: 5, dy: 3), withAttributes: attrs)
         
         // Bottom line
         let drawRect = cellFrame.insetBy(dx: 0, dy: 16).offsetBy(dx: 0, dy: 10)

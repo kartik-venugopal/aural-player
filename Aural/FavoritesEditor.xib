@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMA-Ty-1Q0">
-                    <rect key="frame" x="190" y="349" width="170" height="23"/>
+                    <rect key="frame" x="190" y="355" width="170" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Favorites" id="EN0-qU-5yO">
                         <font key="font" size="12" name="GillSans-SemiBold"/>
@@ -30,14 +30,14 @@
                     </textFieldCell>
                 </textField>
                 <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="27" horizontalPageScroll="10" verticalLineScroll="27" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PNR-3L-FpA" userLabel="Favorites Table">
-                    <rect key="frame" x="14" y="45" width="523" height="292"/>
+                    <rect key="frame" x="14" y="42" width="523" height="305"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" ambiguous="YES" copiesOnScroll="NO" id="auU-U1-QGz">
-                        <rect key="frame" x="0.0" y="0.0" width="523" height="292"/>
+                        <rect key="frame" x="0.0" y="0.0" width="523" height="305"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="25" rowSizeStyle="automatic" viewBased="YES" id="fkE-tG-QQj" userLabel="Favorites Table View">
-                                <rect key="frame" x="0.0" y="0.0" width="523" height="287"/>
+                                <rect key="frame" x="0.0" y="0.0" width="523" height="300"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -88,7 +88,7 @@
                     </clipView>
                     <edgeInsets key="contentInsets" left="0.0" right="0.0" top="5" bottom="0.0"/>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="6PU-lm-gwk">
-                        <rect key="frame" x="0.0" y="276" width="523" height="16"/>
+                        <rect key="frame" x="0.0" y="-16" width="0.0" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="WfI-lJ-sex">
