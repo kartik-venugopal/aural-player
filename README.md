@@ -38,13 +38,14 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 
 ### Recent updates
 
-- **9/24/2018: New release:
+- **9/24/2018: New release:**
   * New features:
-   * **Bookmarks editor and Favorites editor**: The user can now manage bookmarks (rename and/or delete them) and favorites (delete unwanted ones) with a new editor window.
-   * **Playlist file on startup**: The user can now specify a preference that, on app startup, the playlist should load tracks from a specific (M3U/M3U8) playlist file. This option can be found in the Playlist tab of the Preferences dialog.
-   * **Seeking/looping/replaying tracks when paused**: Previously, seeking, looping, and replaying tracks could only be done while the player was playing (as opposed to paused). This limitation no longer exists.
+    * **Bookmarks editor and Favorites editor**: The user can now manage bookmarks (rename and/or delete them) and favorites (delete unwanted ones) with a new editor window.
+    * **Playlist file on startup**: The user can now specify a preference that, on app startup, the playlist should load tracks from a specific (M3U/M3U8) playlist file. This option can be found in the Playlist tab of the Preferences dialog.
+    * **Seeking/looping/replaying tracks when paused**: Previously, seeking, looping, and replaying tracks could only be done while the player was playing (as opposed to paused). This limitation no longer exists.
+    
   * Bug fixes:
-   * **History/Favorites bug**: When history/favorites lists are resized, menus and other UI elements need to be updated. They weren't always being updated, resulting in weird UI states.
+    * **History/Favorites bug**: When history/favorites lists are resized, menus and other UI elements need to be updated. They weren't always being updated, resulting in weird UI states.
 
 - **9/22/2018: New release with lots of updates:**
   * New features:
