@@ -24,6 +24,8 @@ struct ViewFactory {
     // Sub-views for the different individual effects units displayed on the Effects panel
     fileprivate struct EffectsViews {
         
+        fileprivate static var masterViewController: MasterViewController = MasterViewController()
+        
         fileprivate static var eqViewController: EQViewController = EQViewController()
         
         fileprivate static var pitchViewController: PitchViewController = PitchViewController()
@@ -101,6 +103,11 @@ struct ViewFactory {
     // Returns the view that displays the player
     static func getPlayerView() -> NSView {
         return playerViewController.view
+    }
+    
+    // Returns the view that displays the Equalizer effects unit
+    static func getMasterView() -> NSView {
+        return EffectsViews.masterViewController.view
     }
     
     // Returns the view that displays the Equalizer effects unit
