@@ -25,7 +25,7 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 - Searching and sorting of playlist
 - Playlist type selection: Just start typing the name of a track to try to find it within the playlist
 - Favorites list and recent items lists for added convenience
-- Multiple compact and flexible view options - several built-in window layout presets, window snapping, collapsible views. Plus, you can save your customized window layouts as presets so you can use them again at any time. **(New!)**
+- Multiple compact and flexible view options - several built-in window layout presets, window snapping with configurable spacing, collapsible views. Plus, you can save your customized window layouts as presets so you can use them again at any time. **(New!)**
 - Gesture recognition for essential player/playlist controls (trackpad/MagicMouse). e.g. two finger vertical scroll for volume control, horizontal scroll for seeking, three finger horizontal swipe to change tracks
 - Extensive set of keyboard shortcuts and menu items for quick and convenient access to functionality
 - Numerous preferences to allow user to highly customize functionality (e.g. seek/volume/pan increment, enabling/disabling and mouse sensitivity for gestures, configurable window layout and snapping behavior, remembered/default volume on startup, etc.)
