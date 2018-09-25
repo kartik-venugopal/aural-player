@@ -794,20 +794,12 @@ CQ
                             </menuItem>
                             <menuItem title="      Save current layout" id="dpu-pH-cKT" userLabel="Save current layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Switch to miniature view"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="Switch to regular view"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="saveWindowLayoutAction:" target="xzd-WN-BuR" id="Sam-A3-AUW"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="      Manage layouts" id="ly6-5K-P4A" userLabel="Save current layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Switch to miniature view"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="Switch to regular view"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="manageLayoutsAction:" target="xzd-WN-BuR" id="n1z-gf-sj8"/>
                                 </connections>
