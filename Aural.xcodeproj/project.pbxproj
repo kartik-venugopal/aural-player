@@ -82,6 +82,9 @@
 		3E3C20A81F0A697800AF5A62 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C20A71F0A697800AF5A62 /* AppConstants.swift */; };
 		3E3D489B1F464C02004C0F91 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D489A1F464C02004C0F91 /* Errors.swift */; };
 		3E3DCD251F0F913800E09ADC /* AsyncMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DCD241F0F913800E09ADC /* AsyncMessages.swift */; };
+		3E3F29632159B69900581EFE /* LayoutsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3F29622159B69900581EFE /* LayoutsEditor.xib */; };
+		3E3F29652159B7E800581EFE /* LayoutsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3F29642159B7E800581EFE /* LayoutsEditorViewController.swift */; };
+		3E3F29672159FAFB00581EFE /* LayoutPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3F29662159FAFB00581EFE /* LayoutPreviewView.swift */; };
 		3E3F82851FCD4CBE00DC9D11 /* BarModeWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3F82841FCD4CBE00DC9D11 /* BarModeWindowController.swift */; };
 		3E3F82871FCD4CD800DC9D11 /* BarMode.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3F82861FCD4CD800DC9D11 /* BarMode.xib */; };
 		3E40A9851F0617BC00A66856 /* RepeatingTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E40A9841F0617BC00A66856 /* RepeatingTaskExecutor.swift */; };
@@ -335,6 +338,9 @@
 		3E3C20A71F0A697800AF5A62 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		3E3D489A1F464C02004C0F91 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		3E3DCD241F0F913800E09ADC /* AsyncMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncMessages.swift; sourceTree = "<group>"; };
+		3E3F29622159B69900581EFE /* LayoutsEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LayoutsEditor.xib; sourceTree = "<group>"; };
+		3E3F29642159B7E800581EFE /* LayoutsEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutsEditorViewController.swift; sourceTree = "<group>"; };
+		3E3F29662159FAFB00581EFE /* LayoutPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutPreviewView.swift; sourceTree = "<group>"; };
 		3E3F82841FCD4CBE00DC9D11 /* BarModeWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarModeWindowController.swift; sourceTree = "<group>"; };
 		3E3F82861FCD4CD800DC9D11 /* BarMode.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BarMode.xib; sourceTree = "<group>"; };
 		3E40A9841F0617BC00A66856 /* RepeatingTaskExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingTaskExecutor.swift; sourceTree = "<group>"; };
@@ -728,6 +734,7 @@
 				3EBF7EF1215873E8007869EC /* CustomEditorViews.swift */,
 				3E2F104A215569BD0099FD06 /* Bookmarks */,
 				3E2F104D215569DB0099FD06 /* Favorites */,
+				3E3F29612159B66F00581EFE /* Layouts */,
 			);
 			name = Editors;
 			sourceTree = "<group>";
@@ -831,6 +838,16 @@
 				3E3D489A1F464C02004C0F91 /* Errors.swift */,
 			);
 			name = Errors;
+			sourceTree = "<group>";
+		};
+		3E3F29612159B66F00581EFE /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				3E3F29622159B69900581EFE /* LayoutsEditor.xib */,
+				3E3F29642159B7E800581EFE /* LayoutsEditorViewController.swift */,
+				3E3F29662159FAFB00581EFE /* LayoutPreviewView.swift */,
+			);
+			name = Layouts;
 			sourceTree = "<group>";
 		};
 		3E3F82831FCD4C9100DC9D11 /* BarMode */ = {
@@ -1412,6 +1429,7 @@
 				3E0ED6A61FBB05FF008268B3 /* Player.xib in Resources */,
 				3E36E85F1FC00E2A0005C62E /* PlaybackPreferences.xib in Resources */,
 				3EF5E5C11FBDB637004270A4 /* Genres.xib in Resources */,
+				3E3F29632159B69900581EFE /* LayoutsEditor.xib in Resources */,
 				3E02739D1FD91B46000F0844 /* StringInputPopover.xib in Resources */,
 				3E36E8681FC00F450005C62E /* ViewPreferences.xib in Resources */,
 				3E0ED6AF1FBB1AB8008268B3 /* EQ.xib in Resources */,
@@ -1595,6 +1613,7 @@
 				3EFC506D1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift in Sources */,
 				3E7C70001F5F45F00035AEF2 /* PlayerViewController.swift in Sources */,
 				3E3C20A61F0A687400AF5A62 /* DialogsAndAlerts.swift in Sources */,
+				3E3F29652159B7E800581EFE /* LayoutsEditorViewController.swift in Sources */,
 				3E40A9851F0617BC00A66856 /* RepeatingTaskExecutor.swift in Sources */,
 				3EAF29D11FD14AFC00EBB35A /* StatusBarAppModeController.swift in Sources */,
 				3E23D6591F32887E00DBF426 /* RecordingInfo.swift in Sources */,
@@ -1612,6 +1631,7 @@
 				3E5F00C3215386CA00A76C23 /* TimePresets.swift in Sources */,
 				3E1D93521F626BF9008AC59E /* Playlist.swift in Sources */,
 				3E00122A1F26A5100059B2D0 /* SearchQuery.swift in Sources */,
+				3E3F29672159FAFB00581EFE /* LayoutPreviewView.swift in Sources */,
 				3E65F6351FCC031F0058B7D4 /* AutoHideHandler.swift in Sources */,
 				3EDDF6A91FB4FAA600DF2E9A /* ViewMenuController.swift in Sources */,
 				3ECFE5531F5FD8F100D96BE2 /* PlaylistMutatorDelegate.swift in Sources */,

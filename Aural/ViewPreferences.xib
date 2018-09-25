@@ -127,9 +127,6 @@
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
-                            <connections>
-                                <outlet property="delegate" destination="-2" id="7po-Z7-wkd"/>
-                            </connections>
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>

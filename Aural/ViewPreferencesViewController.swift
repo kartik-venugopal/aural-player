@@ -1,6 +1,6 @@
 import Cocoa
 
-class ViewPreferencesViewController: NSViewController, NSMenuDelegate, PreferencesViewProtocol {
+class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
     @IBOutlet weak var btnStartWithLayout: NSButton!
     @IBOutlet weak var btnRememberLayout: NSButton!
@@ -28,6 +28,8 @@ class ViewPreferencesViewController: NSViewController, NSMenuDelegate, Preferenc
             btnRememberLayout.state = 1
         }
         
+        updateLayoutMenu()
+        
         if let item = layoutMenu.item(withTitle: viewPrefs.layoutOnStartup.layoutName) {
             layoutMenu.select(item)
         } else {
@@ -42,6 +44,28 @@ class ViewPreferencesViewController: NSViewController, NSMenuDelegate, Preferenc
         [lblWindowGap, gapStepper].forEach({$0.isEnabled = Bool(btnSnapToWindows.state)})
         
         btnSnapToScreen.state = viewPrefs.snapToScreen ? 1 : 0
+    }
+    
+    // Update the layout menu with custom layouts
+    private func updateLayoutMenu() {
+        
+        // Recreate the custom layout items
+        let itemCount = layoutMenu.itemArray.count
+        
+        let customLayoutCount = itemCount - 9  // 1 separator, 8 presets
+        
+        if customLayoutCount > 0 {
+            
+            // Need to traverse in descending order because items are going to be removed
+            for index in (0..<customLayoutCount).reversed() {
+                layoutMenu.removeItem(at: index)
+            }
+        }
+        
+        // Reinsert the custom layouts
+        WindowLayouts.userDefinedLayouts.forEach({
+            self.layoutMenu.insertItem(withTitle: $0.name, at: 0)
+        })
     }
     
     @IBAction func layoutOnStartupAction(_ sender: Any) {
@@ -76,29 +100,5 @@ class ViewPreferencesViewController: NSViewController, NSMenuDelegate, Preferenc
         }
         
         viewPrefs.snapToScreen = Bool(btnSnapToScreen.state)
-    }
-    
-    // MARK: Menu delegate
-    
-    // When the menu is about to open, set the menu item states according to the current window/view state
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        
-        // Recreate the custom layout items
-        let itemCount = layoutMenu.itemArray.count
-        
-        let customLayoutCount = itemCount - 9  // 1 separator, 8 presets
-        
-        if customLayoutCount > 0 {
-            
-            // Need to traverse in descending order because items are going to be removed
-            for index in (0..<customLayoutCount).reversed() {
-                layoutMenu.removeItem(at: index)
-            }
-        }
-        
-        // Layout popup button menu
-        WindowLayouts.userDefinedLayouts.forEach({
-            self.layoutMenu.insertItem(withTitle: $0.name, at: 0)
-        })
     }
 }

@@ -33,11 +33,32 @@ class WindowLayouts {
     }
     
     static var defaultLayout: WindowLayout {
-        return layoutByName(WindowLayoutPresets.verticalFullStack.rawValue)
+        return layoutByName(WindowLayoutPresets.verticalFullStack.rawValue)!
     }
     
-    static func layoutByName(_ name: String) -> WindowLayout {
-        return layouts[name] ?? defaultLayout
+    static func layoutByName(_ name: String, _ acceptDefault: Bool = true) -> WindowLayout? {
+        return layouts[name] ?? (acceptDefault ? defaultLayout : nil)
+    }
+    
+    static func deleteLayout(_ name: String) {
+        
+        if let layout = layoutByName(name) {
+            
+            // User cannot modify/delete system-defined layouts
+            if !layout.systemDefined {
+                layouts.removeValue(forKey: name)
+            }
+        }
+    }
+    
+    static func renameLayout(_ oldName: String, _ newName: String) {
+        
+        if let layout = layoutByName(oldName, false) {
+            
+            layouts.removeValue(forKey: oldName)
+            layout.name = newName
+            layouts[newName] = layout
+        }
     }
     
     static func loadUserDefinedLayouts(_ userDefinedLayouts: [WindowLayout]) {
