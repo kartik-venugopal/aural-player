@@ -47,4 +47,7 @@ struct Images {
     static let imgPlayedTrack: NSImage = NSImage(named: "PlayedTrack")!
     
     static let historyMenuItemImageSize: NSSize = NSSize(width: 25, height: 25)
+    
+    static let imgPlayerPreview: NSImage = NSImage(named: "PlayerPreview")!
+    static let imgEffectsPreview: NSImage = NSImage(named: "EffectsView-On")!
 }

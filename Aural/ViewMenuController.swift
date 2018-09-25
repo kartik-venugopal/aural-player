@@ -21,11 +21,14 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     @IBOutlet weak var toggleEffectsMenuItem: NSMenuItem!
     
     @IBOutlet weak var windowLayoutsMenu: NSMenu!
+    @IBOutlet weak var manageLayoutsMenuItem: NSMenuItem!
     
     // To save the name of a custom window layout
     private lazy var layoutNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     private lazy var layoutManager: LayoutManager = ObjectGraph.getLayoutManager()
+    
+    private lazy var editorWindowController: EditorWindowController = WindowFactory.getEditorWindowController()
     
     override func awakeFromNib() {
         switchViewMenuItem.off()
@@ -58,7 +61,9 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         })
         
         // Add custom window layouts
-        WindowLayouts.userDefinedLayouts.forEach({
+        let customLayouts = WindowLayouts.userDefinedLayouts
+            
+        customLayouts.forEach({
         
             // The action for the menu item will depend on whether it is a playable item
             let action = #selector(self.windowLayoutAction(_:))
@@ -68,6 +73,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
             
             self.windowLayoutsMenu.insertItem(menuItem, at: 0)
         })
+    
+        manageLayoutsMenuItem.isEnabled = !customLayouts.isEmpty
     }
  
     // Docks the playlist window to the left of the main window
@@ -136,6 +143,10 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     @IBAction func saveWindowLayoutAction(_ sender: NSMenuItem) {
         layoutNamePopover.show(layoutManager.mainWindow.contentView!, NSRectEdge.maxX)
+    }
+    
+    @IBAction func manageLayoutsAction(_ sender: Any) {
+        editorWindowController.showLayoutsEditor()
     }
     
     // MARK - StringInputClient functions

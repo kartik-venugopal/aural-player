@@ -9,4 +9,10 @@ protocol LayoutManagerProtocol {
     func layout(_ layout: WindowLayout)
     
     func layout(_ name: String)
+    
+    func getMainWindowFrame() -> NSRect
+    
+    func getEffectsWindowFrame() -> NSRect
+    
+    func getPlaylistWindowFrame() -> NSRect
 }

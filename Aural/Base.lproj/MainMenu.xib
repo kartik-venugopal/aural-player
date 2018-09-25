@@ -95,6 +95,7 @@
             <connections>
                 <outlet property="dockMiniBarMenu" destination="oKL-M2-XnE" id="2vw-Y1-mIc"/>
                 <outlet property="dockPlaylistMenuItem" destination="RWg-5h-jkO" id="d20-xc-maQ"/>
+                <outlet property="manageLayoutsMenuItem" destination="ly6-5K-P4A" id="Sjk-TY-Kfh"/>
                 <outlet property="maximizePlaylistMenuItem" destination="Yge-Nz-rQX" id="jij-YN-cqO"/>
                 <outlet property="switchViewMenuItem" destination="Lhd-o1-irA" id="cBX-0N-n7w"/>
                 <outlet property="toggleEffectsMenuItem" destination="fK8-7g-oqx" id="xo8-0f-yDo"/>
@@ -640,7 +641,7 @@ CQ
                 </menuItem>
                 <menuItem title="View" id="cu5-E6-xt6">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="View" id="Fd0-9b-tm8">
+                    <menu key="submenu" title="View" autoenablesItems="NO" id="Fd0-9b-tm8">
                         <items>
                             <menuItem title=" Playlist" state="on" image="TogglePlaylistView-Small" keyEquivalent="1" id="af4-4E-1QV" userLabel="Playlist">
                                 <connections>
@@ -799,6 +800,15 @@ CQ
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="saveWindowLayoutAction:" target="xzd-WN-BuR" id="Sam-A3-AUW"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="      Manage layouts" keyEquivalent="e" id="ly6-5K-P4A" userLabel="Save current layout">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Switch to miniature view"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="Switch to regular view"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="manageLayoutsAction:" target="xzd-WN-BuR" id="n1z-gf-sj8"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="ZxC-b0-1FU"/>

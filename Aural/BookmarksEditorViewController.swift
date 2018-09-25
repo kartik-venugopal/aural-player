@@ -189,7 +189,6 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
             
             // Name column is editable
             if editable {
-                cell.textField?.isEditable = true
                 cell.textField?.delegate = self
             }
             

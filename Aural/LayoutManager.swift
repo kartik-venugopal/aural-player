@@ -80,7 +80,7 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     }
     
     func layout(_ name: String) {
-        layout(WindowLayouts.layoutByName(name))
+        layout(WindowLayouts.layoutByName(name)!)
     }
     
     func isShowingEffects() -> Bool {
@@ -89,6 +89,18 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     
     func isShowingPlaylist() -> Bool {
         return playlistWindow.isVisible
+    }
+    
+    func getMainWindowFrame() -> NSRect {
+        return mainWindow.frame
+    }
+    
+    func getEffectsWindowFrame() -> NSRect {
+        return effectsWindow.frame
+    }
+    
+    func getPlaylistWindowFrame() -> NSRect {
+        return playlistWindow.frame
     }
     
     // MARK ----------- View toggling code ----------------------------------------------------

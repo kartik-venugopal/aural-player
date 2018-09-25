@@ -6,6 +6,8 @@ class EditorWindowController: NSWindowController {
     
     private lazy var favoritesEditorView: NSView = ViewFactory.getFavoritesEditorView()
     
+    private lazy var layoutsEditorView: NSView = ViewFactory.getLayoutsEditorView()
+    
     override var windowNibName: String? {return "EditorWindow"}
     
     private var theWindow: NSWindow {
@@ -14,21 +16,19 @@ class EditorWindowController: NSWindowController {
     
     override func windowDidLoad() {
         
-        // TODO: Need to decide which view to add: bookmarks or favorites editor view
         theWindow.contentView?.addSubview(bookmarksEditorView)
         theWindow.contentView?.addSubview(favoritesEditorView)
+        theWindow.contentView?.addSubview(layoutsEditorView)
         
         theWindow.isMovableByWindowBackground = true
     }
     
     func showBookmarksEditor() {
         
-        if (!self.isWindowLoaded) {
-            _ = self.window!
-        }
+        bookmarksEditorView.isHidden = false
         
         favoritesEditorView.isHidden = true
-        bookmarksEditorView.isHidden = false
+        layoutsEditorView.isHidden = true
         
         WindowState.showingPopover = true
         UIUtils.showModalDialog(theWindow)
@@ -36,8 +36,21 @@ class EditorWindowController: NSWindowController {
     
     func showFavoritesEditor() {
         
-        bookmarksEditorView.isHidden = true
         favoritesEditorView.isHidden = false
+        
+        bookmarksEditorView.isHidden = true
+        layoutsEditorView.isHidden = true
+        
+        WindowState.showingPopover = true
+        UIUtils.showModalDialog(theWindow)
+    }
+    
+    func showLayoutsEditor() {
+        
+        layoutsEditorView.isHidden = false
+        
+        favoritesEditorView.isHidden = true
+        bookmarksEditorView.isHidden = true
         
         WindowState.showingPopover = true
         UIUtils.showModalDialog(theWindow)

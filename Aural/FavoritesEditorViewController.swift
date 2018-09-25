@@ -2,7 +2,6 @@ import Cocoa
 
 class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  NSTableViewDelegate {
     
-    @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var editorView: NSTableView!
     
     @IBOutlet weak var btnDelete: NSButton!
