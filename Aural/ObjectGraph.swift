@@ -18,7 +18,7 @@ class ObjectGraph {
     private static var audioGraph: AudioGraph?
     private static var audioGraphDelegate: AudioGraphDelegate?
     
-    private static var player: Player?
+    private static var player: PlayerProtocol?
     private static var playbackSequencer: PlaybackSequencer?
     private static var playbackSequencerInfoDelegate: PlaybackSequencerInfoDelegate?
     private static var playbackDelegate: PlaybackDelegate?
@@ -170,7 +170,7 @@ class ObjectGraph {
         appState?.audioGraphState = audioGraph!.persistentState() as! AudioGraphState
         appState?.playlistState = playlist!.persistentState() as! PlaylistState
         appState?.playbackSequenceState = playbackSequencer!.persistentState() as! PlaybackSequenceState
-        appState?.uiState = layoutManager!.persistentState() as! UIState
+        appState?.uiState = layoutManager!.persistentState()
         appState?.historyState = historyDelegate!.persistentState() as! HistoryState
         appState?.bookmarksState = bookmarksDelegate!.persistentState() as! BookmarksState
         
