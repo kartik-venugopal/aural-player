@@ -19,13 +19,13 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 - Track segment looping, to allow you to loop your favorite parts of a track
 - Display of ID3 and iTunes metadata, including artwork (when available)
 - Bookmarking, so you can mark a specific position within a track, and come back to it later, which is great for long tracks like audiobooks **(New!)**
-- Recording of clips in AAC/ALAC/AIFF formats
+- Recording of clips in AAC/ALAC/AIFF formats, so you can capture your applied sound effects and create a customized version of your track.
 - Configurable autoplay (on app startup and/or when tracks are added)
 - Grouping of tracks by artist/album/genre for convenient playlist browsing
 - Searching and sorting of playlist
 - Playlist type selection: Just start typing the name of a track to try to find it within the playlist
 - Favorites list and recent items lists for added convenience
-- Multiple compact and flexible view options - several built-in window layout presets, window snapping, collapsible views. Plus, you can save your customized window layouts as presets so you can use them again at any time. **(New!)**
+- Multiple compact and flexible view options - several built-in window layout presets, window snapping with configurable spacing, collapsible views. Plus, you can save your customized window layouts as presets so you can use them again at any time. **(New!)**
 - Gesture recognition for essential player/playlist controls (trackpad/MagicMouse). e.g. two finger vertical scroll for volume control, horizontal scroll for seeking, three finger horizontal swipe to change tracks
 - Extensive set of keyboard shortcuts and menu items for quick and convenient access to functionality
 - Numerous preferences to allow user to highly customize functionality (e.g. seek/volume/pan increment, enabling/disabling and mouse sensitivity for gestures, configurable window layout and snapping behavior, remembered/default volume on startup, etc.)
