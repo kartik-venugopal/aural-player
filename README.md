@@ -19,7 +19,7 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 - Track segment looping, to allow you to loop your favorite parts of a track
 - Display of ID3 and iTunes metadata, including artwork (when available)
 - Bookmarking, so you can mark a specific position within a track, and come back to it later, which is great for long tracks like audiobooks **(New!)**
-- Recording of clips in AAC/ALAC/AIFF formats
+- Recording of clips in AAC/ALAC/AIFF formats, so you can capture your applied sound effects and create a customized version of your track.
 - Configurable autoplay (on app startup and/or when tracks are added)
 - Grouping of tracks by artist/album/genre for convenient playlist browsing
 - Searching and sorting of playlist
