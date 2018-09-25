@@ -38,6 +38,11 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 
 ### Recent updates
 
+- **9/25/2018: New release:**
+  * New features:
+    * **Configurable window spacing**: The user can now configure the spacing between windows when windows are snapped together. The user can specify a value between 0 and 25 pixels, as per his visual preference.
+    * **Layouts editor**: The user can now manage user-defined window layouts (preview, rename, and/or delete them) within a new editor window.
+
 - **9/24/2018: New release:**
   * New features:
     * **Bookmarks editor and Favorites editor**: The user can now manage bookmarks (rename and/or delete them) and favorites (delete unwanted ones) with a new editor window.
@@ -94,7 +99,7 @@ Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant co
 
 #### Managing bookmarks
 
-![App screenshot w/ more info view](/Documentation/Screenshots/BookmarksEditorWindow.png?raw=true "Bookmarks Editor")
+![App screenshot w/ more info view](/Documentation/Screenshots/BookmarksEditor.png?raw=true "Bookmarks Editor")
 
 ### Saving an effects unit preset
 
@@ -107,6 +112,10 @@ Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant co
 ### Changing the window layout with one click
 
 ![App screenshot2](/Documentation/Demos/WindowLayout.gif?raw=true "Choosing a window layout")
+
+### Managing window layouts
+
+![App screenshot2](/Documentation/Screenshots/LayoutsEditor.png?raw=true "Managing window layouts")
 
 ### Compact view
 
