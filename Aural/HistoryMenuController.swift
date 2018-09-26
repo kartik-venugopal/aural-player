@@ -90,7 +90,23 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
     
     // When a "Recently played" or "Favorites" menu item is clicked, the item is played
     @IBAction fileprivate func playSelectedItemAction(_ sender: HistoryMenuItem) {
-        history.playItem(sender.historyItem.file, PlaylistViewState.current)
+        
+//        let item = sender.historyItem!
+//        
+//        if item.validateFile() {
+        
+            history.playItem(sender.historyItem!.file, PlaylistViewState.current)
+            
+//        } else {
+//            
+//            // Display an error alert
+//            
+//            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(FileNotFoundError(item.file), "Ok"))
+//            
+//            // TODO: Remove from Recently Played list (add function to HistoryDelegate)
+//            
+//            // TODO: Offer more options like "Point to the new location of the file". See RecorderViewController for reference.
+//        }
     }
 }
 

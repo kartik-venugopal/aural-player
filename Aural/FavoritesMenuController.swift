@@ -60,7 +60,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         // The action for the menu item will depend on whether it is a playable item
         let action = #selector(self.playSelectedItemAction(_:))
         
-        let menuItem = FavoritesMenuItem(title: "  " + item.displayName, action: action, keyEquivalent: "")
+        let menuItem = FavoritesMenuItem(title: "  " + item.name, action: action, keyEquivalent: "")
         menuItem.target = self
         
         menuItem.image = item.art
@@ -88,7 +88,23 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     
     // When a "Favorites" menu item is clicked, the item is played
     @IBAction fileprivate func playSelectedItemAction(_ sender: FavoritesMenuItem) {
-        favorites.playFavorite(sender.favorite)
+        
+//        let fav = sender.favorite!
+//        
+//        if fav.validateFile() {
+        
+            favorites.playFavorite(sender.favorite!)
+            
+//        } else {
+//            
+//            // Display an error alert
+//            
+//            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(FileNotFoundError(fav.file), "Remove track from Favorites list"))
+//            
+//            favorites.deleteFavoriteWithFile(fav.file)
+//            
+//            // TODO: Offer more options like "Point to the new location of the file". See RecorderViewController for reference.
+//        }
     }
     
     // Opens the editor to manage favorites

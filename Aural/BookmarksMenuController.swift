@@ -49,7 +49,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, Acti
         // Recreate the bookmarks menu
         let allBookmarks = bookmarks.getAllBookmarks()
         allBookmarks.forEach({
-        
+            
             let item = createBookmarkMenuItem($0)
             theMenu.addItem(item)
         })
@@ -88,7 +88,22 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, Acti
     
     // When a bookmark menu item is clicked, the item is played
     @IBAction fileprivate func playSelectedItemAction(_ sender: BookmarksMenuItem) {
-        bookmarks.playBookmark(sender.bookmark)
+        
+//        let bookmark = sender.bookmark!
+//        
+//        if bookmark.validateFile() {
+        
+            bookmarks.playBookmark(sender.bookmark!)
+            
+//        } else {
+//            
+//            // Display an error alert
+//            
+//            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(FileNotFoundError(bookmark.file), "Remove bookmark"))
+//            bookmarks.deleteBookmarkWithName(bookmark.name)
+//            
+//            // TODO: Offer more options like "Point to the new location of the file". See RecorderViewController for reference.
+//        }
     }
     
     @IBAction func manageBookmarksAction(_ sender: Any) {

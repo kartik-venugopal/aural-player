@@ -35,4 +35,8 @@ class Bookmark: StringKeyedItem, PlayableItem {
             }
         }
     }
+    
+    func validateFile() -> Bool {
+        return FileSystemUtils.fileExists(file)
+    }
 }

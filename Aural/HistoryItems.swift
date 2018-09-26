@@ -54,6 +54,10 @@ class HistoryItem: EquatableHistoryItem {
             }
         }
     }
+    
+    func validateFile() -> Bool {
+        return FileSystemUtils.fileExists(file)
+    }
 }
 
 // Either a folder, audio file, or playlist file
