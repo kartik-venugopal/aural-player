@@ -4,7 +4,6 @@ class HistoryPreferencesViewController: NSViewController, PreferencesViewProtoco
     
     @IBOutlet weak var recentlyAddedListSizeMenu: NSPopUpButton!
     @IBOutlet weak var recentlyPlayedListSizeMenu: NSPopUpButton!
-    @IBOutlet weak var favoritesListSizeMenu: NSPopUpButton!
     
     private lazy var history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
     
@@ -20,11 +19,9 @@ class HistoryPreferencesViewController: NSViewController, PreferencesViewProtoco
         
         let recentlyAddedListSize = historyPrefs.recentlyAddedListSize
         let recentlyPlayedListSize = historyPrefs.recentlyPlayedListSize
-        let favoritesListSize = historyPrefs.favoritesListSize
         
         selectItemWithTag(recentlyAddedListSizeMenu, recentlyAddedListSize)
         selectItemWithTag(recentlyPlayedListSizeMenu, recentlyPlayedListSize)
-        selectItemWithTag(favoritesListSizeMenu, favoritesListSize)
     }
     
     private func selectItemWithTag(_ list: NSPopUpButton, _ tag: Int) {
@@ -37,8 +34,7 @@ class HistoryPreferencesViewController: NSViewController, PreferencesViewProtoco
         
         historyPrefs.recentlyAddedListSize = recentlyAddedListSizeMenu.selectedTag()
         historyPrefs.recentlyPlayedListSize = recentlyPlayedListSizeMenu.selectedTag()
-        historyPrefs.favoritesListSize = favoritesListSizeMenu.selectedTag()
         
-        history.resizeLists(historyPrefs.recentlyAddedListSize, historyPrefs.recentlyPlayedListSize, historyPrefs.favoritesListSize)
+        history.resizeLists(historyPrefs.recentlyAddedListSize, historyPrefs.recentlyPlayedListSize)
     }
 }

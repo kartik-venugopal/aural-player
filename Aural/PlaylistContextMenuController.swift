@@ -43,7 +43,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     // Delegate that provides access to History information
-    private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
+    private let favorites: FavoritesDelegateProtocol = ObjectGraph.getFavoritesDelegate()
     
     // One-time setup
     override func awakeFromNib() {
@@ -74,7 +74,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             
             // Update the state of the favorites menu item (based on if the clicked track is already in the favorites list or not)
             let track = clickedItem.type == .index ? playlist.trackAtIndex(clickedItem.index!)!.track : clickedItem.track!
-            favoritesMenuItem.onIf(history.hasFavorite(track))
+            favoritesMenuItem.onIf(favorites.favoriteWithFileExists(track.file))
             
         case .group:
             
@@ -98,15 +98,13 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         if favoritesMenuItem.isOn() {
         
             // Remove from Favorites list and display notification
-            
-            history.removeFavorite(track)
+            favorites.deleteFavoriteWithFile(track.file)
             favoritesPopup.showRemovedMessage(rowView, NSRectEdge.maxX)
             
         } else {
             
             // Add to Favorites list and display notification
-            
-            history.addFavorite(track)
+            _ = favorites.addFavorite(track)
             favoritesPopup.showAddedMessage(rowView, NSRectEdge.maxX)
         }
         

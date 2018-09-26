@@ -37,9 +37,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
     
     // Delegate that performs CRUD on the history model
     private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
-    
-    // Stores a mapping of menu items to their corresponding model objects. This is useful when the items are clicked and track/file information for the item is to be retrieved.
-    private var historyItemsMap: [NSMenuItem: HistoryItem] = [:]
+    private let favorites: FavoritesDelegateProtocol = ObjectGraph.getFavoritesDelegate()
     
     // One-time setup. When the menu is loaded for the first time, update the menu item states per the current playback modes
     override func awakeFromNib() {
@@ -49,9 +47,18 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         favoritesMenuItem.off()
         
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.historyUpdated, .addedToFavorites, .removedFromFavorites, .favoritesListResized, .trackPlayed], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.historyUpdated, .addedToFavorites, .removedFromFavorites, .trackPlayed, .trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         recreateHistoryMenus()
+        
+        // Fav menu
+        favorites.getAllFavorites().forEach({
+            
+            let item = FavoritesMenuItem(title: $0.displayName, action: #selector(self.playSelectedFavoriteAction(_:)), keyEquivalent: "")
+            item.target = self
+            item.favorite = $0
+            favoritesMenu.addItem(item)
+        })
     }
     
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
@@ -64,41 +71,62 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
             favoritesMenuItem.toggle()
             
             // Publish an action message to add/remove the item to/from Favorites
-            let action: ActionType = favoritesMenuItem.isOn() ? .addFavorite : .removeFavorite
-            
-            // TODO: Can't we just use HistoryDelegate here ? to add() or remove() ???
-            SyncMessenger.publishActionMessage(FavoritesActionMessage(action, playingTrack))
-        }
-    }
-    
-    // Responds to a notification that a track has either been added to, or removed from, the Favorites list, by updating the Favorites menu item
-    private func favoritesUpdated(_ message: FavoritesUpdatedAsyncMessage) {
-        
-        if let plTrack = playbackInfo.getPlayingTrack()?.track {
-            
-            if plTrack.file.path == message.file.path {
-                favoritesMenuItem.onIf(message.messageType == .addedToFavorites)
+            if favoritesMenuItem.isOn() {
+                _ = favorites.addFavorite(playingTrack)
+            } else {
+                favorites.deleteFavoriteWithFile(playingTrack.file)
             }
         }
     }
     
-    private func favoritesListResized() {
+    // Responds to a notification that a track has either been added to, or removed from, the Favorites list, by updating the Favorites menu
+    private func favoritesUpdated(_ message: FavoritesUpdatedAsyncMessage) {
         
-        if let playingTrack = playbackInfo.getPlayingTrack()?.track {
+        if (message.messageType == .addedToFavorites) {
             
-            // Record current state of button, then check favs list
-            let wasFavorite: Bool = favoritesMenuItem.isOn()
+            // Assume it exists, because it has been added to Favorites
+            let fav = favorites.getFavoriteWithFile(message.file)!
             
-            // Was a favorite, but now removed
-            if (wasFavorite && !history.hasFavorite(playingTrack)) {
-                favoritesMenuItem.off()
+            // Add it to the menu
+            let item = FavoritesMenuItem(title: fav.displayName, action: #selector(self.playSelectedFavoriteAction(_:)), keyEquivalent: "")
+            item.target = self
+            item.favorite = fav
+            favoritesMenu.addItem(item)
+            
+            // Update the toggle menu item
+            if let plTrack = playbackInfo.getPlayingTrack()?.track {
+                favoritesMenuItem.onIf(plTrack.file.path == message.file.path)
+            }
+            
+        } else {
+            
+            // Remove it from the menu
+            favoritesMenu.items.forEach({
+                
+                let favItem = $0 as! FavoritesMenuItem
+                if favItem.favorite.file.path == message.file.path {
+                    
+                    favoritesMenu.removeItem($0)
+                    return
+                }
+            })
+            
+            // Update the toggle menu item
+            if let plTrack = playbackInfo.getPlayingTrack()?.track {
+                if (plTrack.file.path == message.file.path) {
+                    favoritesMenuItem.off()
+                }
             }
         }
     }
     
     // When a "Recently played" or "Favorites" menu item is clicked, the item is played
-    @IBAction func playSelectedItemAction(_ sender: NSMenuItem) {
-        history.playItem(historyItemsMap[sender]!.file, PlaylistViewState.current)
+    @IBAction func playSelectedHistoryItemAction(_ sender: HistoryMenuItem) {
+        history.playItem(sender.historyItem.file, PlaylistViewState.current)
+    }
+    
+    @IBAction func playSelectedFavoriteAction(_ sender: FavoritesMenuItem) {
+        favorites.playFavorite(sender.favorite)
     }
     
     // Pauses or resumes playback
@@ -208,28 +236,37 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         
         // Clear the menus
         recentlyPlayedMenu.removeAllItems()
-        favoritesMenu.removeAllItems()
-        historyItemsMap.removeAll()
         
         // Retrieve the model and re-create all sub-menu items
-        history.allRecentlyPlayedItems().forEach({recentlyPlayedMenu.addItem(createMenuItem($0))})
-        history.allFavorites().forEach({favoritesMenu.addItem(createMenuItem($0))})
+        history.allRecentlyPlayedItems().forEach({recentlyPlayedMenu.addItem(createHistoryMenuItem($0))})
     }
     
     // Factory method to create a single menu item, given a model object (HistoryItem)
-    private func createMenuItem(_ item: HistoryItem) -> NSMenuItem {
+    private func createHistoryMenuItem(_ item: HistoryItem) -> NSMenuItem {
         
-        let menuItem = NSMenuItem(title: "  " + item.displayName, action: #selector(self.playSelectedItemAction(_:)), keyEquivalent: "")
+        let menuItem = HistoryMenuItem(title: "  " + item.displayName, action: #selector(self.playSelectedHistoryItemAction(_:)), keyEquivalent: "")
         menuItem.target = self
-        
-        historyItemsMap[menuItem] = item
+        menuItem.historyItem = item
         
         return menuItem
     }
     
     // Responds to a track being played, by updating the Favorites menu item
     private func trackPlayed(_ message: TrackPlayedAsyncMessage) {
-        favoritesMenuItem.onIf(history.hasFavorite(message.track))
+        favoritesMenuItem.onIf(favorites.favoriteWithFileExists(message.track.file))
+    }
+    
+    private func trackChanged(_ msg: TrackChangedAsyncMessage) {
+        
+        if let trackFile = msg.newTrack?.track.file {
+            
+            favoritesMenuItem.onIf(favorites.favoriteWithFileExists(trackFile))
+            
+        } else {
+            
+            // No track playing
+            favoritesMenuItem.off()
+        }
     }
     
     func getID() -> String {
@@ -237,6 +274,8 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
     }
     
     // MARK: Message handling
+    
+    // TODO: REspond to track changed and remove the add/remove favorite menu item when no track is playing
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
@@ -248,13 +287,13 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
             
             favoritesUpdated(message as! FavoritesUpdatedAsyncMessage)
             
-        case .favoritesListResized:
-            
-            favoritesListResized()
-            
         case .trackPlayed:
             
             trackPlayed(message as! TrackPlayedAsyncMessage)
+            
+        case .trackChanged:
+            
+            trackChanged(message as! TrackChangedAsyncMessage)
  
         default: return
             

@@ -51,7 +51,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
     // Delegate that provides access to History information
-    private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
+//    private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
+    private let favorites: FavoritesDelegateProtocol = ObjectGraph.getFavoritesDelegate()
     
     // Timer that periodically updates the seek position slider and label
     private var seekTimer: RepeatingTaskExecutor?
@@ -121,7 +122,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         // Subscribe to various notifications
         
-        AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites, .favoritesListResized], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
@@ -130,7 +131,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     private func removeSubscriptions() {
         
-        AsyncMessenger.unsubscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites, .favoritesListResized], subscriber: self)
+        AsyncMessenger.unsubscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites], subscriber: self)
         
         SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
@@ -172,8 +173,11 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         let playingTrack = (player.getPlayingTrack()?.track)!
         
         // Publish an action message to add/remove the item to/from Favorites
-        let action: ActionType = btnFavorite.isOn() ? .addFavorite : .removeFavorite
-        SyncMessenger.publishActionMessage(FavoritesActionMessage(action, playingTrack))
+        if btnFavorite.isOn() {
+            _ = favorites.addFavorite(playingTrack)
+        } else {
+            favorites.deleteFavoriteWithFile(playingTrack.file)
+        }
     }
     
     // Adds/removes the currently playing track to/from the "Favorites" list
@@ -198,21 +202,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
                     btnFavorite.off()
                     favoritesPopup.showRemovedMessage(btnFavorite, NSRectEdge.maxX)
                 }
-            }
-        }
-    }
-    
-    private func favoritesListResized() {
-        
-        if let playingTrack = player.getPlayingTrack()?.track {
-            
-            // Record current state of button, then check favs list
-            let wasFavorite: Bool = btnFavorite.isOn()
-            
-            // Was a favorite, but now removed
-            if (wasFavorite && !history.hasFavorite(playingTrack)) {
-                btnFavorite.off()
-                favoritesPopup.showRemovedMessage(btnFavorite, NSRectEdge.maxX)
             }
         }
     }
@@ -249,7 +238,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         initSeekPosition()
         showPlaybackScope()
         
-        btnFavorite.onIf(history.hasFavorite(track))
+        btnFavorite.onIf(favorites.favoriteWithFileExists(track.file))
     }
     
     /* 
@@ -563,10 +552,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         case .addedToFavorites, .removedFromFavorites:
             
             favoritesUpdated(message as! FavoritesUpdatedAsyncMessage)
-            
-        case .favoritesListResized:
-            
-            favoritesListResized()
             
         default: return
         

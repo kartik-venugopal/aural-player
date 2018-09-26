@@ -20,23 +20,6 @@ protocol HistoryProtocol {
     // Adds an item, as a filesystem file, to the Recently played list. The "time" argument represents the time the corresponding item was played.
     func addRecentlyPlayedItem(_ file: URL, _ time: Date)
     
-    // Retrieves all Favorites items
-    func allFavorites() -> [FavoritesItem]
-    
-    // Checks if the Favorites list has a given track
-    func hasFavorite(_ track: Track) -> Bool
-    
-    // Adds a given track to the Favorites list. The "time" argument represents the time the corresponding item was added to the Favorites list.
-    func addFavorite(_ item: Track, _ time: Date)
-    
-    // Adds a given track, as a filesystem file, to the Favorites list
-    func addFavorite(_ file: URL, _ time: Date)
-    
-    // Removes a given track from the Favorites list
-    func removeFavorite(_ item: Track)
-    
-    func removeFavorite(_ file: URL)
-    
     // Resizes all history lists with the given sizes
-    func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int, _ favoritesListSize: Int)
+    func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int)
 }

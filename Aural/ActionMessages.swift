@@ -210,14 +210,6 @@ enum ActionType {
     // Show/hide the Effects panel
     case toggleEffects
     
-    // MARK: History actions
-    
-    // Add a track to the Favorites list
-    case addFavorite
-    
-    // Remove a track from the Favorites list
-    case removeFavorite
-    
     case bookmark
     
     case windowLayout
@@ -303,20 +295,6 @@ struct ViewActionMessage: ActionMessage {
     
     init(_ actionType: ActionType) {
         self.actionType = actionType
-    }
-}
-
-// A message sent to the history menu controller to perform a function related to the Favorites list.
-struct FavoritesActionMessage: ActionMessage {
-    
-    var actionType: ActionType
-    
-    // The track being added to or removed from Favorites
-    let track: Track
-    
-    init(_ actionType: ActionType, _ track: Track) {
-        self.actionType = actionType
-        self.track = track
     }
 }
 

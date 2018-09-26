@@ -29,6 +29,9 @@ class ObjectGraph {
     private static var history: History?
     private static var historyDelegate: HistoryDelegate?
     
+    private static var favorites: Favorites?
+    private static var favoritesDelegate: FavoritesDelegate?
+    
     private static var bookmarks: Bookmarks?
     private static var bookmarksDelegate: BookmarksDelegate?
     
@@ -99,6 +102,9 @@ class ObjectGraph {
         bookmarks = Bookmarks()
         bookmarksDelegate = BookmarksDelegate(bookmarks!, playlistDelegate!, playbackDelegate!, appState!.bookmarksState)
         
+        favorites = Favorites()
+        favoritesDelegate = FavoritesDelegate(favorites!, playlistDelegate!, playbackDelegate!, appState!.favoritesState)
+        
         WindowLayouts.loadUserDefinedLayouts((appState?.uiState.userWindowLayouts)!)
         
         layoutManager = LayoutManager(appState!.uiState, preferences!.viewPreferences)
@@ -154,6 +160,10 @@ class ObjectGraph {
         return historyDelegate!
     }
     
+    static func getFavoritesDelegate() -> FavoritesDelegateProtocol {
+        return favoritesDelegate!
+    }
+    
     static func getBookmarksDelegate() -> BookmarksDelegateProtocol {
         return bookmarksDelegate!
     }
@@ -172,6 +182,7 @@ class ObjectGraph {
         appState?.playbackSequenceState = playbackSequencer!.persistentState() as! PlaybackSequenceState
         appState?.uiState = layoutManager!.persistentState()
         appState?.historyState = historyDelegate!.persistentState() as! HistoryState
+        appState?.favoritesState = favoritesDelegate!.persistentState() as! FavoritesState
         appState?.bookmarksState = bookmarksDelegate!.persistentState() as! BookmarksState
         
         // Persist app state to disk

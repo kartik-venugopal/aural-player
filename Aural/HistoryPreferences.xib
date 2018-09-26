@@ -7,7 +7,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="HistoryPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="favoritesListSizeMenu" destination="Szu-tf-lMO" id="R6v-fW-p3J"/>
                 <outlet property="recentlyAddedListSizeMenu" destination="YE6-qq-eO3" id="wpe-0i-bEe"/>
                 <outlet property="recentlyPlayedListSizeMenu" destination="IaC-hx-OQy" id="362-XW-aZH"/>
                 <outlet property="view" destination="R9F-WR-jFo" id="UjS-bb-vF7"/>
@@ -63,30 +62,6 @@
                                 <menuItem title="Remember last 10 items" tag="10" id="v9a-1f-5dd"/>
                                 <menuItem title="Remember last 25 items" state="on" tag="25" id="j8n-BZ-j2v"/>
                                 <menuItem title="Remember last 50 items" tag="50" id="ddE-w9-9dv"/>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                </popUpButton>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wyV-iO-q3p" userLabel="Recently played list size">
-                    <rect key="frame" x="17" y="155" width="188" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Favorites list" id="Ghw-Yd-r50">
-                        <font key="font" size="13" name="GillSans"/>
-                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Szu-tf-lMO" userLabel="Recently added list size menu">
-                    <rect key="frame" x="224" y="151" width="140" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Remember last 25 items" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="25" imageScaling="proportionallyDown" inset="2" selectedItem="xYv-G6-K0u" id="Ro9-7M-ZWQ" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="10" name="GillSans"/>
-                        <menu key="menu" id="wCS-zD-LPj">
-                            <items>
-                                <menuItem title="Remember last 10 items" tag="10" id="dFb-oK-yAD"/>
-                                <menuItem title="Remember last 25 items" state="on" tag="25" id="xYv-G6-K0u"/>
-                                <menuItem title="Remember last 50 items" tag="50" id="5kc-Us-yut"/>
                             </items>
                         </menu>
                     </popUpButtonCell>

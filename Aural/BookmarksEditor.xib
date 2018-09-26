@@ -10,8 +10,9 @@
                 <outlet property="btnDelete" destination="wGy-ls-4VO" id="aJa-Nj-6c0"/>
                 <outlet property="btnPlay" destination="CUz-2i-eYj" id="Ggv-gv-ZOn"/>
                 <outlet property="btnRename" destination="bQE-4x-Ygm" id="OQX-4e-rnm"/>
+                <outlet property="clipView" destination="KAU-bY-FSr" id="Ur5-AB-TcS"/>
                 <outlet property="editorView" destination="LsQ-Ag-buL" id="qEX-d8-LeL"/>
-                <outlet property="editorViewHeader" destination="zCC-CA-2wI" id="dVf-Mg-vhH"/>
+                <outlet property="header" destination="zCC-CA-2wI" id="Sur-3P-hhd"/>
                 <outlet property="scrollView" destination="zsE-z5-DED" id="sGy-yJ-zF4"/>
                 <outlet property="view" destination="c22-O7-iKe" id="RBb-de-nLh"/>
             </connections>
@@ -39,13 +40,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" autosaveColumns="NO" rowHeight="25" rowSizeStyle="automatic" headerView="zCC-CA-2wI" viewBased="YES" id="LsQ-Ag-buL" userLabel="Bookmarks Table View">
-                                <rect key="frame" x="0.0" y="0.0" width="670" height="272"/>
+                                <rect key="frame" x="0.0" y="0.0" width="671" height="272"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="gridColor" white="0.4299045138888889" alpha="1" colorSpace="calibratedWhite"/>
                                 <tableColumns>
-                                    <tableColumn identifier="cid_BookmarkName" width="250" minWidth="40" maxWidth="1000" id="Wvp-6Z-KPN">
+                                    <tableColumn identifier="cid_BookmarkName" width="250" minWidth="50" maxWidth="700" id="Wvp-6Z-KPN">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -81,7 +82,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="cid_BookmarkTrack" editable="NO" width="350" minWidth="40" maxWidth="1000" id="Yd4-Tl-bK8">
+                                    <tableColumn identifier="cid_BookmarkTrack" editable="NO" width="352" minWidth="100" maxWidth="700" id="Yd4-Tl-bK8">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Track">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -95,11 +96,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="BHv-VX-Nm4" customClass="EditorTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="254" y="1" width="350" height="25"/>
+                                                <rect key="frame" x="254" y="1" width="352" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SD0-MF-Kdn" customClass="EditorTextField" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="3" y="0.0" width="350" height="25"/>
+                                                        <rect key="frame" x="3" y="0.0" width="352" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" title="Table View Cell" id="PQX-1b-YgB">
                                                             <font key="font" metaFont="system"/>
@@ -128,7 +129,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="dle-tU-yyN" customClass="EditorTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="607" y="1" width="60" height="25"/>
+                                                <rect key="frame" x="609" y="1" width="60" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3nY-T2-nOG" customClass="EditorTextField" customModule="Aural" customModuleProvider="target">
@@ -158,8 +159,8 @@
                         <color key="backgroundColor" white="0.84627278645833337" alpha="1" colorSpace="calibratedWhite"/>
                         <edgeInsets key="contentInsets" left="0.0" right="0.0" top="33" bottom="0.0"/>
                     </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="dXr-hF-i6N">
-                        <rect key="frame" x="0.0" y="7" width="0.0" height="16"/>
+                    <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="dXr-hF-i6N">
+                        <rect key="frame" x="0.0" y="289" width="670" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="yOp-Nk-BtB">
@@ -167,7 +168,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <tableHeaderView key="headerView" id="zCC-CA-2wI">
-                        <rect key="frame" x="0.0" y="0.0" width="670" height="23"/>
+                        <rect key="frame" x="0.0" y="0.0" width="671" height="23"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>

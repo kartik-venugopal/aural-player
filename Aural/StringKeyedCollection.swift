@@ -10,13 +10,13 @@ class StringKeyedCollection<T: StringKeyedItem> {
         map[item.key] = item
     }
     
-//    func removeItem(_ item: T) {
-//        
-//        if let index = array.index(where: {$0.key == item.key}) {
-//            array.remove(at: index)
-//            map.removeValue(forKey: item.key)
-//        }
-//    }
+    func removeItemWithKey(_ key: String) {
+        
+        if let index = array.index(where: {$0.key == key}) {
+            array.remove(at: index)
+            map.removeValue(forKey: key)
+        }
+    }
     
     func removeItemAtIndex(_ index: Int) {
         

@@ -127,7 +127,3 @@ class PlayedItem: HistoryItem, PlayableHistoryItem {
         }
     }
 }
-
-// Item (track) that has been added to the Favorites list. Identical, in structure, to a PlayedItem.
-class FavoritesItem: PlayedItem {
-}

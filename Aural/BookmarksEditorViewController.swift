@@ -2,9 +2,12 @@ import Cocoa
 
 class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  NSTableViewDelegate, NSTextFieldDelegate {
 
-    @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var editorView: NSTableView!
-    @IBOutlet weak var editorViewHeader: NSTableHeaderView!
+    @IBOutlet weak var header: NSTableHeaderView!
+    
+    // Used to adjust the header height
+    @IBOutlet weak var scrollView: NSScrollView!
+    @IBOutlet weak var clipView: NSClipView!
     
     @IBOutlet weak var btnDelete: NSButton!
     @IBOutlet weak var btnPlay: NSButton!
@@ -18,8 +21,8 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     override func viewDidLoad() {
         
         headerHeight()
-        editorView.headerView?.wantsLayer = true
-        editorView.headerView?.layer?.backgroundColor = NSColor.black.cgColor
+        header.wantsLayer = true
+        header.layer?.backgroundColor = NSColor.black.cgColor
         
         editorView.tableColumns.forEach({
             
@@ -35,24 +38,8 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     
     private func headerHeight() {
         
-        scrollView.subviews.forEach({
-        
-            let subView = $0
-            subView.subviews.forEach({
-            
-                let subSubView = $0
-                
-                if subView.className == "NSClipView" && subSubView.className == "NSTableHeaderView" {
-                    
-                    subSubView.setFrameSize(NSMakeSize(subSubView.frame.size.width, subSubView.frame.size.height + 10))
-                    subView.setFrameSize(NSMakeSize(subView.frame.size.width, subView.frame.size.height + 10))
-                }
-            })
-            
-            if subView.className == "NSCornerView" {
-                subView.setFrameSize(NSMakeSize(subView.frame.size.width, subView.frame.size.height + 10))
-            }
-        })
+        header.setFrameSize(NSMakeSize(header.frame.size.width, header.frame.size.height + 10))
+        clipView.setFrameSize(NSMakeSize(clipView.frame.size.width, clipView.frame.size.height + 10))
     }
     
     override func viewDidAppear() {
