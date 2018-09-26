@@ -16,10 +16,15 @@
         <customObject id="8vj-V6-ug7" customClass="AuralMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="XfS-j8-3jQ" customClass="HistoryMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="favoritesMenu" destination="VRi-KX-T3V" id="ZSI-tZ-jWA"/>
-                <outlet property="manageFavoritesMenuItem" destination="5uA-43-NAM" id="HSL-0E-RLA"/>
                 <outlet property="recentlyAddedMenu" destination="wng-SO-Kcr" id="zxx-T1-qV1"/>
                 <outlet property="recentlyPlayedMenu" destination="7KE-9e-wni" id="Phj-0T-PKd"/>
+            </connections>
+        </customObject>
+        <customObject id="fgG-X5-zeR" userLabel="Favorites Menu Controller" customClass="FavoritesMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="addRemoveFavoritesMenuItem" destination="swM-MW-ToN" id="hP4-nc-hQI"/>
+                <outlet property="favoritesMenu" destination="Iwc-o7-oRH" id="hle-6B-djw"/>
+                <outlet property="manageFavoritesMenuItem" destination="bQl-7h-k7i" id="TxU-5Q-zh0"/>
             </connections>
         </customObject>
         <customObject id="nnl-Fg-dA2" customClass="BookmarksMenuController" customModule="Aural" customModuleProvider="target">
@@ -48,7 +53,6 @@
         <customObject id="IvK-xG-TCa" customClass="PlaybackMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="detailedInfoMenuItem" destination="GCy-Rj-Mv5" id="FTi-Dg-C0L"/>
-                <outlet property="favoritesMenuItem" destination="iMK-0g-xI0" id="IAc-qX-PvW"/>
                 <outlet property="loopMenuItem" destination="TzA-UC-Ox0" id="ceJ-FL-dwd"/>
                 <outlet property="nextTrackMenuItem" destination="z7s-9y-10c" id="6nk-AZ-Jyu"/>
                 <outlet property="playOrPauseMenuItem" destination="T9r-Uq-EPf" id="IlZ-pC-w2Y"/>
@@ -154,20 +158,37 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Recently played" id="7KE-9e-wni"/>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="xx7-97-3tr"/>
-                            <menuItem title=" Favorites" image="Favorites" id="AVl-Vq-R1O" userLabel="Favorites">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title=" Favorites" id="VRi-KX-T3V"/>
-                            </menuItem>
-                            <menuItem title="      Manage favorites" id="5uA-43-NAM" userLabel="Manage Favorites">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="manageFavoritesAction:" target="XfS-j8-3jQ" id="ULx-y2-pMC"/>
-                                </connections>
-                            </menuItem>
                         </items>
                         <connections>
                             <outlet property="delegate" destination="XfS-j8-3jQ" id="zhe-eR-H6f"/>
+                        </connections>
+                    </menu>
+                </menuItem>
+                <menuItem title="Favorites" id="kuW-oE-jwR">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Favorites" autoenablesItems="NO" id="Iwc-o7-oRH">
+                        <items>
+                            <menuItem title=" Add playing track to Favorites" enabled="NO" keyEquivalent="F" id="swM-MW-ToN" userLabel="Add track to favorites" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="  Add playing track to Favorites"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="  Remove playing track from Favorites"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="Favorites"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="Favorites"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="favoritesAction:" target="fgG-X5-zeR" id="BtZ-rx-LZF"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Manage favorites" image="Favorites-Editor" id="bQl-7h-k7i" userLabel="Manage Favorites">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="manageFavoritesAction:" target="fgG-X5-zeR" id="JjQ-aA-EWH"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="TUD-Vt-KO5"/>
+                        </items>
+                        <connections>
+                            <outlet property="delegate" destination="fgG-X5-zeR" id="kus-hu-5wd"/>
                         </connections>
                     </menu>
                 </menuItem>
@@ -175,12 +196,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Bookmarks" autoenablesItems="NO" id="6PU-OL-7xn">
                         <items>
-                            <menuItem title="Bookmark this track position" image="Bookmark-Dark" keyEquivalent="b" id="qCe-8O-8ky">
+                            <menuItem title="  Bookmark this track position" image="Bookmark-Dark" keyEquivalent="b" id="qCe-8O-8ky">
                                 <connections>
                                     <action selector="bookmarkAction:" target="nnl-Fg-dA2" id="AVT-hc-yET"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="     Manage bookmarks" id="rFK-no-hcx" userLabel="Manage Bookmarks">
+                            <menuItem title="  Manage bookmarks" image="Bookmarks-Editor" id="rFK-no-hcx" userLabel="Manage Bookmarks">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="manageBookmarksAction:" target="nnl-Fg-dA2" id="iWC-1Z-7Jn"/>
@@ -390,15 +411,6 @@ CQ
                             <menuItem title=" Show playing track in playlist" image="ShowPlayingTrack-Small" enabled="NO" keyEquivalent="p" id="XjT-hE-GHo" userLabel="Show track in playlist">
                                 <connections>
                                     <action selector="showPlayingTrackAction:" target="IvK-xG-TCa" id="Pew-OT-DKf"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title=" Add playing track to Favorites" image="Favorites" enabled="NO" keyEquivalent="F" id="iMK-0g-xI0" userLabel="Add track to favorites" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Add playing track to Favorites"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="Remove playing track from Favorites"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="favoritesAction:" target="IvK-xG-TCa" id="SnF-o7-gcw"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -792,13 +804,13 @@ CQ
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="      Save current layout" id="dpu-pH-cKT" userLabel="Save current layout">
+                            <menuItem title=" Save current layout" image="WindowLayout-Save" id="dpu-pH-cKT" userLabel="Save current layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="saveWindowLayoutAction:" target="xzd-WN-BuR" id="Sam-A3-AUW"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="      Manage layouts" id="ly6-5K-P4A" userLabel="Save current layout">
+                            <menuItem title=" Manage layouts" image="WindowLayout-Editor" id="ly6-5K-P4A" userLabel="Save current layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="manageLayoutsAction:" target="xzd-WN-BuR" id="n1z-gf-sj8"/>
@@ -980,6 +992,7 @@ CQ
     <resources>
         <image name="Add-Small" width="12" height="12"/>
         <image name="Bookmark-Dark" width="15" height="15"/>
+        <image name="Bookmarks-Editor" width="3" height="3"/>
         <image name="Clear-Small" width="2.5999999046325684" height="3"/>
         <image name="DockBottom-Small" width="12" height="10"/>
         <image name="DockLeft-Small" width="12" height="10"/>
@@ -987,6 +1000,7 @@ CQ
         <image name="Down-Small" width="10" height="14"/>
         <image name="EQ" width="14" height="14"/>
         <image name="Favorites" width="15" height="15"/>
+        <image name="Favorites-Editor" width="3" height="3"/>
         <image name="FloatingBarMode-Small" width="15" height="15"/>
         <image name="LoopOff-Small" width="0.23999999463558197" height="0.20800000429153442"/>
         <image name="Maximize-Small" width="12" height="10"/>
@@ -1030,8 +1044,10 @@ CQ
         <image name="WindowLayout-BigLeftPlaylist" width="30" height="20"/>
         <image name="WindowLayout-BigRightPlaylist" width="30" height="20"/>
         <image name="WindowLayout-CompactCornered" width="30" height="20"/>
+        <image name="WindowLayout-Editor" width="3" height="3"/>
         <image name="WindowLayout-HorizontalPlayerAndPlaylist" width="30" height="20"/>
         <image name="WindowLayout-HorizontalStack" width="30" height="20"/>
+        <image name="WindowLayout-Save" width="15" height="15"/>
         <image name="WindowLayout-VerticalPlayerAndPlaylist" width="30" height="20"/>
         <image name="WindowLayout-VerticalStack" width="30" height="20"/>
     </resources>

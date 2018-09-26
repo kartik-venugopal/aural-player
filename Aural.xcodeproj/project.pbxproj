@@ -35,6 +35,7 @@
 		3E0F947F1FBBDC3300B6E1B3 /* OnOffImageButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F947E1FBBDC3300B6E1B3 /* OnOffImageButtons.swift */; };
 		3E192392215AEE2E00E894B3 /* NewPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192391215AEE2E00E894B3 /* NewPlayer.swift */; };
 		3E192394215AEEB600E894B3 /* PlaybackScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */; };
+		3E192396215B0F1100E894B3 /* FavoritesMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */; };
 		3E1CF7ED1F5CBA2500613724 /* AudioGraphProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1CF7EC1F5CBA2500613724 /* AudioGraphProtocols.swift */; };
 		3E1CF7EF1F5CBA9300613724 /* PlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1CF7EE1F5CBA9300613724 /* PlayerProtocol.swift */; };
 		3E1CF7F11F5CBAA300613724 /* RecorderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1CF7F01F5CBAA300613724 /* RecorderProtocol.swift */; };
@@ -294,6 +295,7 @@
 		3E0F947E1FBBDC3300B6E1B3 /* OnOffImageButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnOffImageButtons.swift; sourceTree = "<group>"; };
 		3E192391215AEE2E00E894B3 /* NewPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPlayer.swift; sourceTree = "<group>"; };
 		3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackScheduler.swift; sourceTree = "<group>"; };
+		3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesMenuController.swift; sourceTree = "<group>"; };
 		3E1CF7EC1F5CBA2500613724 /* AudioGraphProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphProtocols.swift; sourceTree = "<group>"; };
 		3E1CF7EE1F5CBA9300613724 /* PlayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerProtocol.swift; sourceTree = "<group>"; };
 		3E1CF7F01F5CBAA300613724 /* RecorderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderProtocol.swift; sourceTree = "<group>"; };
@@ -1240,6 +1242,7 @@
 				3E85F25D1EFA78D6007BE830 /* MainMenu.xib */,
 				3E9847831F5CF3F6001A2D28 /* AuralMenuController.swift */,
 				3E06C0261FB6B0BF003EE9AB /* HistoryMenuController.swift */,
+				3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */,
 				3E5F00CF2153A09500A76C23 /* BookmarksMenuController.swift */,
 				3E850D581FB446940017CD02 /* PlaylistMenuController.swift */,
 				3EDDF6AF1FB54AB800DF2E9A /* PlaybackMenuController.swift */,
@@ -1511,6 +1514,7 @@
 				3E850D591FB446940017CD02 /* PlaylistMenuController.swift in Sources */,
 				3EB20B4B1EFF25EC008138A4 /* AppState.swift in Sources */,
 				3EB9EB6C1FCFB98A00287F53 /* AppModeManager.swift in Sources */,
+				3E192396215B0F1100E894B3 /* FavoritesMenuController.swift in Sources */,
 				3E0F947F1FBBDC3300B6E1B3 /* OnOffImageButtons.swift in Sources */,
 				3EF5E5B91FBDAF0B004270A4 /* ArtistsPlaylistViewController.swift in Sources */,
 				3E5F00CA21539B2200A76C23 /* BookmarksDelegate.swift in Sources */,

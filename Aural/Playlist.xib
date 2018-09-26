@@ -543,11 +543,13 @@
                         <action selector="playSelectedItemAction:" target="TnB-Sk-yOp" id="BOn-Ox-BlV"/>
                     </connections>
                 </menuItem>
-                <menuItem image="Favorites" id="CHV-5l-G4d" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                <menuItem id="CHV-5l-G4d" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value=" Add this track to Favorites"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value=" Remove this track from Favorites"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="Favorites"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="Favorites"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="favoritesAction:" target="TnB-Sk-yOp" id="b2g-2H-jbW"/>

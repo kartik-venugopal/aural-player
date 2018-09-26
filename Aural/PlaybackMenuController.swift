@@ -31,9 +31,6 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Segment playback loop toggling
     @IBOutlet weak var loopMenuItem: NSMenuItem!
     
-    // Favorites menu item (needs to be toggled)
-    @IBOutlet weak var favoritesMenuItem: ToggleMenuItem!
-    
     private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     private lazy var playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.getPlaylistAccessorDelegate()
@@ -45,20 +42,12 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     override func awakeFromNib() {
         
         playOrPauseMenuItem.off()
-        favoritesMenuItem.off()
     }
     
     // When the menu is about to open, update the menu item states
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         updateRepeatAndShuffleMenuItemStates()
-        
-        // Update Favorites menu item
-        if let playingTrack = playbackInfo.getPlayingTrack()?.track {
-            favoritesMenuItem.onIf(history.hasFavorite(playingTrack))
-        } else {
-            favoritesMenuItem.off()
-        }
         
         let isRegularMode = AppModeManager.mode == .regular
         let isPlayingOrPaused = playbackInfo.getPlaybackState() != .noTrack
@@ -71,9 +60,6 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         // TODO: Show in playlist only available when playlist is visible
         [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem, showInPlaylistMenuItem].forEach({$0.isEnabled = isRegularMode && isPlayingOrPaused})
-        
-        // These menu item actions are only available when a track is currently playing/paused
-        favoritesMenuItem.isEnabled = isPlayingOrPaused
         
         // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)
         [previousTrackMenuItem, nextTrackMenuItem, seekForwardMenuItem, seekBackwardMenuItem].forEach({$0.isEnabled = isPlayingOrPaused && !WindowState.showingPopover})
@@ -147,18 +133,6 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Shows (selects) the currently playing track, within the playlist, if there is one
     @IBAction func showPlayingTrackAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.showPlayingTrack, PlaylistViewState.current))
-    }
-    
-    // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
-    @IBAction func favoritesAction(_ sender: Any) {
-        
-        // Check if there is a track playing (this function cannot be invoked otherwise)
-        if let playingTrack = (playbackInfo.getPlayingTrack()?.track) {
-        
-            // Publish an action message to add/remove the item to/from Favorites
-            let action: ActionType = history.hasFavorite(playingTrack) ? .removeFavorite : .addFavorite
-            SyncMessenger.publishActionMessage(FavoritesActionMessage(action, playingTrack))
-        }
     }
     
     // Updates the menu item states per the current playback modes
