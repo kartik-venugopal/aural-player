@@ -1,6 +1,6 @@
 import Cocoa
 
-class Bookmark {
+class Bookmark: StringKeyedItem {
     
     // A name or description (e.g. "2nd chapter of audiobook")
     var name: String
@@ -13,6 +13,8 @@ class Bookmark {
     
     // Display information used in menu items
     var art: NSImage = Images.imgPlayedTrack
+    
+    var key: String {return name}
     
     init(_ name: String, _ file: URL, _ position: Double) {
         

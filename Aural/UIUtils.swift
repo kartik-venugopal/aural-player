@@ -4,6 +4,10 @@
 
 import Cocoa
 
+private var screen: NSRect = {
+    return NSScreen.main()!.frame
+}()
+
 private var visibleFrame: NSRect = {
     return NSScreen.main()!.visibleFrame
 }()
@@ -20,7 +24,7 @@ class UIUtils {
     // Centers a modal dialog with respect to the main app window, and shows it
     static func showModalDialog(_ dialog: NSWindow) {
         
-        centerDialog(dialog)
+        centerDialogWRTScreen(dialog)
         
         NSApp.runModal(for: dialog)
         dialog.close()
@@ -29,12 +33,22 @@ class UIUtils {
     // Centers an alert with respect to the main app window, and shows it. Returns the modal response from the alert.
     static func showAlert(_ alert: NSAlert) -> NSModalResponse {
         
-        centerDialog(alert.window)
+        centerDialogWRTScreen(alert.window)
         return alert.runModal()
     }
     
-    // Centers a dialog with respect to the main app window
-    private static func centerDialog(_ dialog: NSWindow) {
+    // Centers a dialog with respect to the screen
+    private static func centerDialogWRTScreen(_ dialog: NSWindow) {
+        
+        let xPadding = (screen.width - dialog.width) / 2
+        let yPadding = (screen.height - dialog.height) / 2
+        
+        dialog.setFrameOrigin(NSPoint(x: xPadding, y: yPadding))
+        dialog.setIsVisible(true)
+    }
+    
+    // Centers a dialog with respect to the main window
+    private static func centerDialogWRTMainWindow(_ dialog: NSWindow) {
         
         let window = WindowState.mainWindow!
         
