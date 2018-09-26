@@ -3,7 +3,7 @@ import Cocoa
 /*
     Manages and provides actions for the History menu that displays historical information about the usage of the app.
  */
-class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
+class HistoryMenuController: NSObject, NSMenuDelegate {
 
     // The sub-menus that categorize and display historical information
     
@@ -13,21 +13,8 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
     // Sub-menu that displays recently played tracks. Clicking on any of these items will result in the track being played.
     @IBOutlet weak var recentlyPlayedMenu: NSMenu!
     
-    // Sub-menu that displays tracks marked "favorites". Clicking on any of these items will result in the track being  played.
-    @IBOutlet weak var favoritesMenu: NSMenu!
-    @IBOutlet weak var manageFavoritesMenuItem: NSMenuItem!
-    
     // Delegate that performs CRUD on the history model
     private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
-    
-    private lazy var editorWindowController: EditorWindowController = WindowFactory.getEditorWindowController()
-    
-    // One-time setup, when the menu loads
-    override func awakeFromNib() {
-        
-        // Subscribe to message notifications
-        SyncMessenger.subscribe(actionTypes: [.addFavorite, .removeFavorite], subscriber: self)
-    }
     
     // Before the menu opens, re-create the menu items from the model
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -35,18 +22,14 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
         // Clear the menus
         recentlyAddedMenu.removeAllItems()
         recentlyPlayedMenu.removeAllItems()
-        favoritesMenu.removeAllItems()
         
         // Retrieve the model and re-create all sub-menu items
         createChronologicalMenu(history.allRecentlyAddedItems(), recentlyAddedMenu)
         createChronologicalMenu(history.allRecentlyPlayedItems(), recentlyPlayedMenu)
-        history.allFavorites().forEach({favoritesMenu.addItem(createHistoryMenuItem($0))})
         
         // Recently Added menu items are only accessible in "regular" mode
         let enable = AppModeManager.mode == .regular
         recentlyAddedMenu.items.forEach({$0.isEnabled = enable})
-        
-        manageFavoritesMenuItem.isEnabled = favoritesMenu.items.count > 0
     }
     
     // Populates the given menu with items corresponding to the given historical item info, grouped by timestamp into categories like "Past 24 hours", "Past 7 days", etc.
@@ -109,50 +92,10 @@ class HistoryMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
     @IBAction fileprivate func playSelectedItemAction(_ sender: HistoryMenuItem) {
         history.playItem(sender.historyItem.file, PlaylistViewState.current)
     }
-    
-    // Adds a track to the "Favorites" list
-    private func addFavorite(_ message: FavoritesActionMessage) {
-        history.addFavorite(message.track)
-    }
-    
-    // Removes a track from the "Favorites" list
-    private func removeFavorite(_ message: FavoritesActionMessage) {
-        history.removeFavorite(message.track)
-    }
-    
-    // When a "Recently played" or "Favorites" menu item is clicked, the item is played
-    @IBAction func manageFavoritesAction(_ sender: Any) {
-        editorWindowController.showFavoritesEditor()
-    }
-    
-    // MARK: Message handling
-    
-    func getID() -> String {
-        return self.className
-    }
-    
-    func consumeMessage(_ message: ActionMessage) {
-        
-        let message = message as! FavoritesActionMessage
-        
-        switch message.actionType {
-            
-        case .addFavorite:
-            
-            addFavorite(message)
-            
-        case .removeFavorite:
-            
-            removeFavorite(message)
-            
-        default: return
-            
-        }
-    }
 }
 
 // A menu item that stores an associated history item (used when executing the menu item action)
-fileprivate class HistoryMenuItem: NSMenuItem {
+class HistoryMenuItem: NSMenuItem {
     
     var historyItem: HistoryItem!
 }
