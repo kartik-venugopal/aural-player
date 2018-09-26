@@ -35,7 +35,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
         return bookmarks.countBookmarks()
     }
     
-    func getBookmarkAtIndex(_ index: Int) -> Bookmark? {
+    func getBookmarkAtIndex(_ index: Int) -> Bookmark {
         return bookmarks.getBookmarkAtIndex(index)
     }
     
@@ -65,8 +65,8 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
         }
     }
     
-    func deleteBookmark(_ name: String) {
-        bookmarks.deleteBookmark(name)
+    func deleteBookmarkAtIndex(_ index: Int) {
+        bookmarks.deleteBookmarkAtIndex(index)
     }
     
     func persistentState() -> PersistentState {

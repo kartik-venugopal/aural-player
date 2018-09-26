@@ -69,10 +69,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         let sortedSelection = editorView.selectedRowIndexes.sorted(by: {x, y -> Bool in x > y})
         
         sortedSelection.forEach({
-            
-            if let bookmark = bookmarks.getBookmarkAtIndex($0) {
-                bookmarks.deleteBookmark(bookmark.name)
-            }
+            bookmarks.deleteBookmarkAtIndex($0)
         })
         
         editorView.reloadData()
@@ -83,7 +80,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     @IBAction func playSelectedBookmarkAction(_ sender: AnyObject) {
         
         if editorView.selectedRowIndexes.count == 1 {
-            bookmarks.playBookmark(bookmarks.getBookmarkAtIndex(editorView.selectedRow)!)
+            bookmarks.playBookmark(bookmarks.getBookmarkAtIndex(editorView.selectedRow))
         }
     }
     
@@ -117,7 +114,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
             return nil
         }
         
-        return bookmarks.getBookmarkAtIndex(row)?.name
+        return bookmarks.getBookmarkAtIndex(row).name
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -140,29 +137,26 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        if let bookmark = bookmarks.getBookmarkAtIndex(row) {
-            
-            switch tableColumn!.identifier {
-                
-            case UIConstants.bookmarkNameColumnID:
-                
-                return createTextCell(tableView, tableColumn!, row, bookmark.name, true)
-                
-            case UIConstants.bookmarkTrackColumnID:
-                
-                return createTextCell(tableView, tableColumn!, row, bookmark.file.path, false)
-                
-            case UIConstants.bookmarkPositionColumnID:
-                
-                let formattedPosition = StringUtils.formatSecondsToHMS(bookmark.position)
-                return createTextCell(tableView, tableColumn!, row, formattedPosition, false)
-                
-            default:    return nil
-                
-            }
-        }
+        let bookmark = bookmarks.getBookmarkAtIndex(row)
         
-        return nil
+        switch tableColumn!.identifier {
+            
+        case UIConstants.bookmarkNameColumnID:
+            
+            return createTextCell(tableView, tableColumn!, row, bookmark.name, true)
+            
+        case UIConstants.bookmarkTrackColumnID:
+            
+            return createTextCell(tableView, tableColumn!, row, bookmark.file.path, false)
+            
+        case UIConstants.bookmarkPositionColumnID:
+            
+            let formattedPosition = StringUtils.formatSecondsToHMS(bookmark.position)
+            return createTextCell(tableView, tableColumn!, row, formattedPosition, false)
+            
+        default:    return nil
+            
+        }
     }
     
     // Creates a cell view containing text
@@ -231,7 +225,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         let cell = rowView?.view(atColumn: 0) as! NSTableCellView
         let editedTextField = cell.textField!
         
-        let bookmark = bookmarks.getBookmarkAtIndex(rowIndex)!
+        let bookmark = bookmarks.getBookmarkAtIndex(rowIndex)
         let newBookmarkName = editedTextField.stringValue
         
         editedTextField.textColor = Colors.playlistSelectedTextColor

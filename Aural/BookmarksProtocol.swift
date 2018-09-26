@@ -6,15 +6,15 @@ protocol BookmarksProtocol {
     
     func getAllBookmarks() -> [Bookmark]
     
-    func getBookmarkAtIndex(_ index: Int) -> Bookmark?
+    func getBookmarkAtIndex(_ index: Int) -> Bookmark
+    
+    func deleteBookmarkAtIndex(_ index: Int)
     
     func countBookmarks() -> Int
     
     func bookmarkWithNameExists(_ name: String) -> Bool
     
     func getBookmarkWithName(_ name: String) -> Bookmark?
-    
-    func deleteBookmark(_ name: String)
     
     func deleteAllBookmarks()
 }

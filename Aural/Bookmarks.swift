@@ -1,70 +1,41 @@
 import Foundation
 
 class Bookmarks: BookmarksProtocol {
+
+    private var bookmarks: StringKeyedCollection<Bookmark> = StringKeyedCollection<Bookmark>()
     
-    private var bookmarks: [Bookmark] = [Bookmark]()
-    
-    // TODO: Store a map of bookmarks by name for quicker lookups
- 
     func addBookmark(_ name: String, _ file: URL, _ position: Double) -> Bookmark {
         
         let bookmark = Bookmark(name, file, position)
-        bookmarks.append(bookmark)
+        bookmarks.addItem(bookmark)
         return bookmark
     }
     
     func getAllBookmarks() -> [Bookmark] {
-        
-        // Make a copy and return the copy
-        let allBookmarks = bookmarks
-        return allBookmarks
+        return bookmarks.getAllItems()
     }
     
     func bookmarkWithNameExists(_ name: String) -> Bool {
-        
-        var found: Bool = false
-        
-        bookmarks.forEach({
-            if $0.name == name {
-                found = true
-                return
-            }
-        })
-        
-        return found
+        return bookmarks.itemWithKeyExists(name)
     }
     
-    func getBookmarkAtIndex(_ index: Int) -> Bookmark? {
-        return index >= bookmarks.count ? nil : bookmarks[index]
+    func getBookmarkAtIndex(_ index: Int) -> Bookmark {
+        return bookmarks.itemAtIndex(index)
     }
     
     func countBookmarks() -> Int {
-        return bookmarks.count
+        return bookmarks.countItems()
     }
     
     func getBookmarkWithName(_ name: String) -> Bookmark? {
-        
-        var result: Bookmark? = nil
-        
-        bookmarks.forEach({
-            
-            if $0.name == name {
-                result = $0
-                return
-            }
-        })
-        
-        return result
+        return bookmarks.itemWithKey(name)
     }
     
     func deleteAllBookmarks() {
-        bookmarks.removeAll()
+        bookmarks.removeAllItems()
     }
     
-    func deleteBookmark(_ name: String) {
-        
-        if let index = bookmarks.index(where: {$0.name == name}) {
-            bookmarks.remove(at: index)
-        }
+    func deleteBookmarkAtIndex(_ index: Int) {
+        bookmarks.removeItemAtIndex(index)
     }
 }
