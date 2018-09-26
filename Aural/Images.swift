@@ -45,6 +45,7 @@ struct Images {
     static let imgError: NSImage = NSImage(named: "Error")!
     
     static let imgPlayedTrack: NSImage = NSImage(named: "PlayedTrack")!
+    static let imgPlayedTrackMissing: NSImage = NSImage(named: "PlayedTrack-Missing")!
     
     static let historyMenuItemImageSize: NSSize = NSSize(width: 25, height: 25)
     

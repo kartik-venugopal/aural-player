@@ -38,4 +38,8 @@ class Bookmarks: BookmarksProtocol {
     func deleteBookmarkAtIndex(_ index: Int) {
         bookmarks.removeItemAtIndex(index)
     }
+    
+    func deleteBookmarkWithName(_ name: String) {
+        bookmarks.removeItemWithKey(name)
+    }
 }

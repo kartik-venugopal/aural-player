@@ -106,7 +106,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
         
         if tableColumn?.identifier == UIConstants.favoriteNameColumnID {
             
-            return createTextCell(tableView, tableColumn!, row, favorite.displayName)
+            return createTextCell(tableView, tableColumn!, row, favorite.name)
             
         } else {
             

@@ -10,6 +10,8 @@ protocol BookmarksProtocol {
     
     func deleteBookmarkAtIndex(_ index: Int)
     
+    func deleteBookmarkWithName(_ name: String)
+    
     func countBookmarks() -> Int
     
     func bookmarkWithNameExists(_ name: String) -> Bool

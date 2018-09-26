@@ -54,7 +54,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         // Fav menu
         favorites.getAllFavorites().forEach({
             
-            let item = FavoritesMenuItem(title: $0.displayName, action: #selector(self.playSelectedFavoriteAction(_:)), keyEquivalent: "")
+            let item = FavoritesMenuItem(title: $0.name, action: #selector(self.playSelectedFavoriteAction(_:)), keyEquivalent: "")
             item.target = self
             item.favorite = $0
             favoritesMenu.addItem(item)
@@ -88,7 +88,7 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
             let fav = favorites.getFavoriteWithFile(message.file)!
             
             // Add it to the menu
-            let item = FavoritesMenuItem(title: fav.displayName, action: #selector(self.playSelectedFavoriteAction(_:)), keyEquivalent: "")
+            let item = FavoritesMenuItem(title: fav.name, action: #selector(self.playSelectedFavoriteAction(_:)), keyEquivalent: "")
             item.target = self
             item.favorite = fav
             favoritesMenu.addItem(item)

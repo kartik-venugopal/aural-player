@@ -149,6 +149,20 @@ struct DialogsAndAlerts {
         return alert
     }
     
+    static func trackNotPlayedAlertWithError(_ error: FileNotFoundError, _ actionMessage: String?) -> NSAlert {
+        
+        let alert = trackNotPlayedAlert
+        
+        alert.messageText = String(format: "The track '%@' cannot be played back !", error.file.lastPathComponent)
+        alert.informativeText = error.message
+        
+        if let msg = actionMessage {
+            alert.buttons[0].title = msg
+        }
+        
+        return alert
+    }
+    
     private static func createTracksNotAddedAlert() -> NSAlert {
         
         let alert = NSAlert()

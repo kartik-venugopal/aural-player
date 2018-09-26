@@ -70,6 +70,10 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
         bookmarks.deleteBookmarkAtIndex(index)
     }
     
+    func deleteBookmarkWithName(_ name: String) {
+        bookmarks.deleteBookmarkWithName(name)
+    }
+    
     func persistentState() -> PersistentState {
         
         let state = BookmarksState()

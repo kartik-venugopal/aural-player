@@ -6,7 +6,7 @@ class Favorite: StringKeyedItem, PlayableItem {
     let file: URL
     
     // Used by the UI (track.conciseDisplayName)
-    var displayName: String
+    var name: String
     
     // Display information used in menu items
     var art: NSImage = Images.imgPlayedTrack
@@ -16,7 +16,7 @@ class Favorite: StringKeyedItem, PlayableItem {
     init(_ track: Track) {
         
         self.file = track.file
-        self.displayName = track.conciseDisplayName
+        self.name = track.conciseDisplayName
         if let art = track.displayInfo.art {
             self.art = art
         }
@@ -25,7 +25,7 @@ class Favorite: StringKeyedItem, PlayableItem {
     init(_ file: URL) {
         
         self.file = file
-        self.displayName = file.lastPathComponent
+        self.name = file.lastPathComponent
         loadDisplayInfoFromFile()
     }
     
@@ -36,10 +36,14 @@ class Favorite: StringKeyedItem, PlayableItem {
         DispatchQueue.global(qos: .background).async {
             
             let displayInfo = MetadataReader.loadDisplayInfoForFile(self.file)
-            self.displayName = displayInfo.displayName
+            self.name = displayInfo.displayName
             if (displayInfo.art != nil) {
                 self.art = displayInfo.art!.copy() as! NSImage
             }
         }
+    }
+    
+    func validateFile() -> Bool {
+        return FileSystemUtils.fileExists(file)
     }
 }
