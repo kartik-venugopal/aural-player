@@ -16,15 +16,10 @@ class History: HistoryProtocol {
     // Recently played items
     var recentlyPlayedItems: LRUArray<PlayedItem>
     
-    // Favorites items
-    var favorites: LRUArray<FavoritesItem>
-    var favoritesByFile: [URL: FavoritesItem] = [URL: FavoritesItem]()
-    
     init(_ preferences: HistoryPreferences) {
         
         recentlyAddedItems = LRUArray<AddedItem>(preferences.recentlyAddedListSize)
         recentlyPlayedItems = LRUArray<PlayedItem>(preferences.recentlyPlayedListSize)
-        favorites = LRUArray<FavoritesItem>(preferences.favoritesListSize)
     }
     
     func addRecentlyAddedItems(_ items: [(file: URL, time: Date)]) {
@@ -54,50 +49,9 @@ class History: HistoryProtocol {
         return recentlyPlayedItems.toArray().reversed()
     }
     
-    func hasFavorite(_ track: Track) -> Bool {
-        return favoritesByFile[track.file] != nil
-    }
-    
-    func addFavorite(_ item: Track, _ time: Date) {
-        
-        let fav = FavoritesItem(item.file, time, item)
-        favorites.add(fav)
-        favoritesByFile[item.file] = fav
-    }
-    
-    func addFavorite(_ file: URL, _ time: Date) {
-        
-        let fav = FavoritesItem(file, time, nil)
-        favorites.add(fav)
-        favoritesByFile[file] = fav
-    }
-    
-    func removeFavorite(_ item: Track) {
-        
-        favorites.remove(FavoritesItem(item.file, Date(), item))
-        favoritesByFile.removeValue(forKey: item.file)
-    }
-    
-    func removeFavorite(_ file: URL) {
-        
-        favorites.remove(FavoritesItem(file, Date(), nil))
-        favoritesByFile.removeValue(forKey: file)
-    }
-    
-    func allFavorites() -> [FavoritesItem] {
-        
-        // Reverse the array for chronological order (most recent items first)
-        return favorites.toArray().reversed()
-    }
-    
-    func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int, _ favoritesListSize: Int) {
+    func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int) {
         
         recentlyAddedItems.resize(recentlyAddedListSize)
         recentlyPlayedItems.resize(recentlyPlayedListSize)
-        favorites.resize(favoritesListSize)
-        
-        // Recreate the map
-        favoritesByFile.removeAll()
-        favorites.toArray().forEach({ favoritesByFile[$0.file] = $0 })
     }
 }

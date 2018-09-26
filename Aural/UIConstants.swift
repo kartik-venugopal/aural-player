@@ -23,6 +23,7 @@ struct UIConstants {
     static let bookmarkPositionColumnID: String = "cid_BookmarkPosition"
     
     static let favoriteNameColumnID: String = "cid_FavoriteName"
+    static let favoriteTrackColumnID: String = "cid_FavoriteTrack"
     
     // Angles used to fill gradients
     static let verticalGradientDegrees: CGFloat = -90.0

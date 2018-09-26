@@ -239,7 +239,6 @@ class HistoryPreferences: PersistentPreferencesProtocol {
     
     var recentlyAddedListSize: Int
     var recentlyPlayedListSize: Int
-    var favoritesListSize: Int
     
     internal required init(_ defaultsDictionary: [String: Any]) {
         
@@ -247,14 +246,12 @@ class HistoryPreferences: PersistentPreferencesProtocol {
         
         recentlyAddedListSize = defaultsDictionary["history.recentlyAddedListSize"] as? Int ?? PreferencesDefaults.History.recentlyAddedListSize
         recentlyPlayedListSize = defaultsDictionary["history.recentlyPlayedListSize"] as? Int ?? PreferencesDefaults.History.recentlyPlayedListSize
-        favoritesListSize = defaultsDictionary["history.favoritesListSize"] as? Int ?? PreferencesDefaults.History.favoritesListSize
     }
     
     func persist(defaults: UserDefaults) {
         
         defaults.set(recentlyAddedListSize, forKey: "history.recentlyAddedListSize")
         defaults.set(recentlyPlayedListSize, forKey: "history.recentlyPlayedListSize")
-        defaults.set(favoritesListSize, forKey: "history.favoritesListSize")
     }
 }
 
@@ -352,7 +349,6 @@ fileprivate struct PreferencesDefaults {
         
         static let recentlyAddedListSize: Int = 25
         static let recentlyPlayedListSize: Int = 25
-        static let favoritesListSize: Int = 25
     }
     
     struct Controls {

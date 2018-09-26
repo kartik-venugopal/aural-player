@@ -1,6 +1,6 @@
 import Cocoa
 
-class FavoritesMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber {
+class FavoritesMenuController: NSObject, NSMenuDelegate {
     
     // Menu that displays tracks marked "favorites". Clicking on any of these items will result in the track being  played.
     @IBOutlet weak var favoritesMenu: NSMenu!
@@ -8,8 +8,8 @@ class FavoritesMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber
     @IBOutlet weak var addRemoveFavoritesMenuItem: ToggleMenuItem!
     @IBOutlet weak var manageFavoritesMenuItem: NSMenuItem!    
 
-    // Delegate that performs CRUD on the history model
-    private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
+    // Delegate that performs CRUD on the favorites model
+    private let favorites: FavoritesDelegateProtocol = ObjectGraph.getFavoritesDelegate()
     
     private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
@@ -17,11 +17,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber
     
     // One-time setup, when the menu loads
     override func awakeFromNib() {
-        
         addRemoveFavoritesMenuItem.off()
-        
-        // Subscribe to message notifications
-        SyncMessenger.subscribe(actionTypes: [.addFavorite, .removeFavorite], subscriber: self)
     }
     
     // Before the menu opens, re-create the menu items from the model
@@ -43,10 +39,10 @@ class FavoritesMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber
         }
         
         // Recreate the menu
-        history.allFavorites().forEach({favoritesMenu.addItem(createFavoritesMenuItem($0))})
+        favorites.getAllFavorites().forEach({favoritesMenu.addItem(createFavoritesMenuItem($0))})
         
-        if let playingTrack = playbackInfo.getPlayingTrack()?.track {
-            addRemoveFavoritesMenuItem.onIf(history.hasFavorite(playingTrack))
+        if let playingTrackFile = playbackInfo.getPlayingTrack()?.track.file {
+            addRemoveFavoritesMenuItem.onIf(favorites.favoriteWithFileExists(playingTrackFile))
         } else {
             addRemoveFavoritesMenuItem.off()
         }
@@ -54,22 +50,23 @@ class FavoritesMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber
         // These menu item actions are only available when a track is currently playing/paused
         addRemoveFavoritesMenuItem.isEnabled = playbackInfo.getPlaybackState() != .noTrack
         
-        manageFavoritesMenuItem.isEnabled = favoritesMenu.items.count > 0
+        // Menu has 3 static items
+        manageFavoritesMenuItem.isEnabled = favoritesMenu.items.count > 3
     }
     
     // Factory method to create a single Favorites menu item, given a model object (FavoritesItem)
-    private func createFavoritesMenuItem(_ item: FavoritesItem) -> NSMenuItem {
+    private func createFavoritesMenuItem(_ item: Favorite) -> NSMenuItem {
         
         // The action for the menu item will depend on whether it is a playable item
         let action = #selector(self.playSelectedItemAction(_:))
         
-        let menuItem = HistoryMenuItem(title: "  " + item.displayName, action: action, keyEquivalent: "")
+        let menuItem = FavoritesMenuItem(title: "  " + item.displayName, action: action, keyEquivalent: "")
         menuItem.target = self
         
         menuItem.image = item.art
         menuItem.image?.size = Images.historyMenuItemImageSize
         
-        menuItem.historyItem = item
+        menuItem.favorite = item
         
         return menuItem
     }
@@ -81,24 +78,17 @@ class FavoritesMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber
         if let playingTrack = (playbackInfo.getPlayingTrack()?.track) {
             
             // Publish an action message to add/remove the item to/from Favorites
-            let action: ActionType = history.hasFavorite(playingTrack) ? .removeFavorite : .addFavorite
-            SyncMessenger.publishActionMessage(FavoritesActionMessage(action, playingTrack))
+            if favorites.favoriteWithFileExists(playingTrack.file) {
+                favorites.deleteFavoriteWithFile(playingTrack.file)
+            } else {
+                _ = favorites.addFavorite(playingTrack)
+            }
         }
     }
     
     // When a "Favorites" menu item is clicked, the item is played
-    @IBAction fileprivate func playSelectedItemAction(_ sender: HistoryMenuItem) {
-        history.playItem(sender.historyItem.file, PlaylistViewState.current)
-    }
-    
-    // Adds a track to the "Favorites" list
-    private func addFavorite(_ message: FavoritesActionMessage) {
-        history.addFavorite(message.track)
-    }
-    
-    // Removes a track from the "Favorites" list
-    private func removeFavorite(_ message: FavoritesActionMessage) {
-        history.removeFavorite(message.track)
+    @IBAction fileprivate func playSelectedItemAction(_ sender: FavoritesMenuItem) {
+        favorites.playFavorite(sender.favorite)
     }
     
     // Opens the editor to manage favorites
@@ -111,23 +101,9 @@ class FavoritesMenuController: NSObject, NSMenuDelegate, ActionMessageSubscriber
     func getID() -> String {
         return self.className
     }
+}
+
+class FavoritesMenuItem: NSMenuItem {
     
-    func consumeMessage(_ message: ActionMessage) {
-        
-        let message = message as! FavoritesActionMessage
-        
-        switch message.actionType {
-            
-        case .addFavorite:
-            
-            addFavorite(message)
-            
-        case .removeFavorite:
-            
-            removeFavorite(message)
-            
-        default: return
-            
-        }
-    }
+    var favorite: Favorite!
 }

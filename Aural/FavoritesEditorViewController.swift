@@ -3,14 +3,43 @@ import Cocoa
 class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  NSTableViewDelegate {
     
     @IBOutlet weak var editorView: NSTableView!
+    @IBOutlet weak var header: NSTableHeaderView!
+    
+    // Used to adjust the header height
+    @IBOutlet weak var scrollView: NSScrollView!
+    @IBOutlet weak var clipView: NSClipView!
     
     @IBOutlet weak var btnDelete: NSButton!
     @IBOutlet weak var btnPlay: NSButton!
     
     // Delegate that relays accessor operations to the bookmarks model
-    private let favorites: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
+    private let favorites: FavoritesDelegateProtocol = ObjectGraph.getFavoritesDelegate()
     
     override var nibName: String? {return "FavoritesEditor"}
+    
+    override func viewDidLoad() {
+        
+        headerHeight()
+        header.wantsLayer = true
+        header.layer?.backgroundColor = NSColor.black.cgColor
+        
+        editorView.tableColumns.forEach({
+            
+            let col = $0
+            let header = AuralTableHeaderCell()
+            
+            header.stringValue = col.headerCell.stringValue
+            header.isBordered = false
+            
+            col.headerCell = header
+        })
+    }
+    
+    private func headerHeight() {
+
+        header.setFrameSize(NSMakeSize(header.frame.size.width, header.frame.size.height + 10))
+        clipView.setFrameSize(NSMakeSize(clipView.frame.size.width, clipView.frame.size.height + 10))
+    }
     
     override func viewDidAppear() {
         
@@ -24,12 +53,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
         
         // Descending order
         let sortedSelection = editorView.selectedRowIndexes.sorted(by: {x, y -> Bool in x > y})
-        let allFavs = favorites.allFavorites()
-        
-        sortedSelection.forEach({
-        
-            favorites.removeFavorite(allFavs[$0].file)
-        })
+        sortedSelection.forEach({favorites.deleteFavoriteAtIndex($0)})
         
         editorView.reloadData()
         editorView.deselectAll(self)
@@ -48,10 +72,8 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
         
         if editorView.selectedRowIndexes.count == 1 {
             
-            let allFavs = favorites.allFavorites()
-            let fav = allFavs[editorView.selectedRow]
-
-            favorites.playItem(fav.file, PlaylistViewState.current)
+            let fav = favorites.getFavoriteAtIndex(editorView.selectedRow)
+            favorites.playFavorite(fav)
         }
     }
     
@@ -65,7 +87,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return favorites.allFavorites().count
+        return favorites.countFavorites()
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -80,8 +102,18 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let favorite = favorites.allFavorites()[row]
-        return createTextCell(tableView, tableColumn!, row, favorite.displayName)     }
+        let favorite = favorites.getFavoriteAtIndex(row)
+        
+        if tableColumn?.identifier == UIConstants.favoriteNameColumnID {
+            
+            return createTextCell(tableView, tableColumn!, row, favorite.displayName)
+            
+        } else {
+            
+            // Track (file path)
+            return createTextCell(tableView, tableColumn!, row, favorite.file.path)
+        }
+    }
     
     // Creates a cell view containing text
     private func createTextCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, _ text: String) -> EditorTableCellView? {

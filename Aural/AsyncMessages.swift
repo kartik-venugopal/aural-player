@@ -45,8 +45,6 @@ enum AsyncMessageType {
     case addedToFavorites
     
     case removedFromFavorites
-    
-    case favoritesListResized
 }
 
 // AsyncMessage indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
@@ -250,13 +248,4 @@ struct FavoritesUpdatedAsyncMessage: AsyncMessage {
         self.messageType = messageType
         self.file = file
     }
-}
-
-struct FavoritesListResizedAsyncMessage: AsyncMessage {
-    
-    let messageType: AsyncMessageType = .favoritesListResized
-    
-    private init() {}
-    
-    static let instance: FavoritesListResizedAsyncMessage = FavoritesListResizedAsyncMessage()
 }

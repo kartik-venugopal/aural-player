@@ -878,7 +878,6 @@ class HistoryState: PersistentState {
     
     var recentlyAdded: [(file: URL, time: Date)] = [(file: URL, time: Date)]()
     var recentlyPlayed: [(file: URL, time: Date)] = [(file: URL, time: Date)]()
-    var favorites: [(file: URL, time: Date)] = [(file: URL, time: Date)]()
     
     func toSerializableMap() -> NSDictionary {
         
@@ -895,12 +894,6 @@ class HistoryState: PersistentState {
             recentlyPlayedArr.append(self.itemToMap($0))
         })
         map["recentlyPlayed"] = NSArray(array: recentlyPlayedArr)
-        
-        var favoritesArr = [NSDictionary]()
-        favorites.forEach({
-            favoritesArr.append(self.itemToMap($0))
-        })
-        map["favorites"] = NSArray(array: favoritesArr)
         
         return map as NSDictionary
     }
@@ -942,21 +935,48 @@ class HistoryState: PersistentState {
             })
         }
         
-        if let favorites = map["favorites"] as? [NSDictionary] {
+        return state
+    }
+}
+
+class FavoritesState: PersistentState {
+    
+    var favorites: [URL] = [URL]()
+    
+    func toSerializableArray() -> NSArray {
+        
+        var favoritesArr = [NSDictionary]()
+        favorites.forEach({
             
-            favorites.forEach({
+            var map = [NSString: AnyObject]()
+            map["file"] = $0.path as AnyObject
+            
+            favoritesArr.append(map as NSDictionary)
+        })
+        
+        return NSArray(array: favoritesArr)
+    }
+    
+    static func deserialize(_ array: NSArray) -> PersistentState {
+        
+        let state = FavoritesState()
+        
+        array.forEach({
+            
+            if let favoriteMap = $0 as? NSDictionary {
                 
-                
-                
-                if let file = $0.value(forKey: "path") as? String,
-                    let timestamp = $0.value(forKey: "timestamp") as? String {
-                    
-                    state.favorites.append((URL(fileURLWithPath: file), Date.fromString(timestamp)))
+                if let file = favoriteMap.value(forKey: "file") as? String {
+                    state.favorites.append(URL(fileURLWithPath: file))
                 }
-            })
-        }
+            }
+        })
         
         return state
+    }
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        // NOT USED
+        return FavoritesState()
     }
 }
 
@@ -966,7 +986,6 @@ class BookmarksState: PersistentState {
         // NOT USED
         return BookmarksState()
     }
-
     
     var bookmarks: [(name: String, file: URL, position: Double)] = [(name: String, file: URL, position: Double)]()
     
@@ -1019,6 +1038,7 @@ class AppState {
     var playlistState: PlaylistState
     var playbackSequenceState: PlaybackSequenceState
     var historyState: HistoryState
+    var favoritesState: FavoritesState
     var bookmarksState: BookmarksState
     
     static let defaults: AppState = AppState()
@@ -1030,16 +1050,18 @@ class AppState {
         self.playlistState = PlaylistState()
         self.playbackSequenceState = PlaybackSequenceState()
         self.historyState = HistoryState()
+        self.favoritesState = FavoritesState()
         self.bookmarksState = BookmarksState()
     }
     
-    init(_ uiState: UIState, _ audioGraphState: AudioGraphState, _ playlistState: PlaylistState, _ playbackSequenceState: PlaybackSequenceState, _ historyState: HistoryState, _ bookmarksState: BookmarksState) {
+    init(_ uiState: UIState, _ audioGraphState: AudioGraphState, _ playlistState: PlaylistState, _ playbackSequenceState: PlaybackSequenceState, _ historyState: HistoryState, _ favoritesState: FavoritesState, _ bookmarksState: BookmarksState) {
         
         self.uiState = uiState
         self.audioGraphState = audioGraphState
         self.playlistState = playlistState
         self.playbackSequenceState = playbackSequenceState
         self.historyState = historyState
+        self.favoritesState = favoritesState
         self.bookmarksState = bookmarksState
     }
     
@@ -1053,6 +1075,7 @@ class AppState {
         dict["playbackSequence"] = playbackSequenceState.toSerializableMap() as AnyObject
         dict["playlist"] = playlistState.toSerializableMap() as AnyObject
         dict["history"] = historyState.toSerializableMap() as AnyObject
+        dict["favorites"] = favoritesState.toSerializableArray() as AnyObject
         dict["bookmarks"] = bookmarksState.toSerializableArray() as AnyObject
         
         return dict as NSDictionary
@@ -1081,6 +1104,10 @@ class AppState {
         
         if let historyDict = (jsonObject["history"] as? NSDictionary) {
             state.historyState = HistoryState.deserialize(historyDict) as! HistoryState
+        }
+        
+        if let favoritesDict = (jsonObject["favorites"] as? NSArray) {
+            state.favoritesState = FavoritesState.deserialize(favoritesDict) as! FavoritesState
         }
         
         if let bookmarksArr = (jsonObject["bookmarks"] as? NSArray) {

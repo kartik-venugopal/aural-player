@@ -27,7 +27,6 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         
         history.addRecentlyAddedItems(historyState.recentlyAdded.reversed())
         historyState.recentlyPlayed.reversed().forEach({history.addRecentlyPlayedItem($0.file, $0.time)})
-        historyState.favorites.reversed().forEach({history.addFavorite($0.file, $0.time)})
         
         AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
     }
@@ -42,10 +41,6 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
     
     func allRecentlyPlayedItems() -> [PlayedItem] {
         return history.allRecentlyPlayedItems()
-    }
-    
-    func allFavorites() -> [FavoritesItem] {
-        return history.allFavorites()
     }
     
     func addItem(_ item: URL) {
@@ -74,35 +69,10 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         }
     }
     
-    func hasFavorite(_ track: Track) -> Bool {
-        return history.hasFavorite(track)
-    }
-    
-    func addFavorite(_ track: Track) {
-        history.addFavorite(track, Date())
-        AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
-        AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.addedToFavorites, track.file))
-    }
-    
-    func removeFavorite(_ track: Track) {
+    func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int) {
         
-        history.removeFavorite(track)
+        history.resizeLists(recentlyAddedListSize, recentlyPlayedListSize)
         AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
-        AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.removedFromFavorites, track.file))
-    }
-    
-    func removeFavorite(_ file: URL) {
-        
-        history.removeFavorite(file)
-        AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
-        AsyncMessenger.publishMessage(FavoritesUpdatedAsyncMessage(.removedFromFavorites, file))
-    }
-    
-    func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int, _ favoritesListSize: Int) {
-        
-        history.resizeLists(recentlyAddedListSize, recentlyPlayedListSize, favoritesListSize)
-        AsyncMessenger.publishMessage(HistoryUpdatedAsyncMessage.instance)
-        AsyncMessenger.publishMessage(FavoritesListResizedAsyncMessage.instance)
     }
     
     func persistentState() -> PersistentState {
@@ -111,7 +81,6 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         
         allRecentlyAddedItems().forEach({state.recentlyAdded.append(($0.file, $0.time))})
         allRecentlyPlayedItems().forEach({state.recentlyPlayed.append(($0.file, $0.time))})
-        allFavorites().forEach({state.favorites.append(($0.file, $0.time))})
         
         return state
     }
