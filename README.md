@@ -38,6 +38,8 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 
 ### Recent updates
 
+- **9/26/2018: New release:** Favorites items now have their own separate Favorites menu on the main menu bar, entirely separate from the History menu. Also, favorites lists are no longer restricted in size.
+
 - **9/25/2018: New release:**
   * New features:
     * **Configurable window spacing**: The user can now configure the spacing between windows when windows are snapped together. The user can specify a value between 0 and 25 pixels, as per his visual preference.
