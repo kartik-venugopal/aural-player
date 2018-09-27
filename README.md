@@ -59,6 +59,9 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
     * **FX unit presets**: Each effects unit now allows the saving of settings as a preset, so the user can save all his sound settings as presets for later use with just one click.
     * **Dynamic tool tips**: The previous/next track buttons of the player controls now show the name of the previous/next track, as tool tips, so the user can know, before clicking the button, which track will play as a result.
     
+  * Improvements:
+    * Performance improvement: No more GIF animations. Only static images are shown to indicate a playing track. This has reduced CPU usage by about 60%..
+    
   * The following bugs have been fixed:
     * Audio engine crash upon app exit, causing corruption of app state file, resulting in loss of all saved settings and user presets/data.
     * When playing a track from Favorites/Recently played list, the first 5 seconds of the track would sometimes play twice in a row, because of a race condition in the code that performed preparation for track playback.
