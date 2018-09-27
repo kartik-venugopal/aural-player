@@ -43,7 +43,7 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 - **9/25/2018: New release:**
   * New features:
     * **Configurable window spacing**: The user can now configure the spacing between windows when windows are snapped together. The user can specify a value between 0 and 25 pixels, as per his visual preference.
-    * **Layouts editor**: The user can now manage user-defined window layouts (preview, rename, and/or delete them) within a new editor window.
+    * **Layouts editor**: The user can now manage user-defined window layouts within a new editor window. In addition to being able to rename and delete layouts, the editor window will display an accurately scaled graphical preview of the layout.
 
 - **9/24/2018: New release:**
   * New features:
