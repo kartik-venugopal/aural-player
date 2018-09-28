@@ -29,6 +29,9 @@ class BufferManager {
     // Cached seek position (used when looping, to remember last seek position and avoid displaying 0 when player is temporarily stopped at the end of a loop)
     private var lastSeekPosn: Double = 0
     
+    // Used to restart a loop
+    private let loopCompletionQueue: DispatchQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
+    
     init(_ playerNode: AVAudioPlayerNode) {
         
         self.playerNode = playerNode
@@ -195,7 +198,10 @@ class BufferManager {
                 playbackSession.schedulingCompleted = false
                 
                 // Replay loop
-                startLoop(playbackSession, true)
+                // ****** High Sierra loop completion crash BUG FIX *****
+                loopCompletionQueue.async(execute: { () -> Void in
+                    self.startLoop(playbackSession, true)
+                })
                 
             } else if (!playbackSession.schedulingCompleted) {
                 
