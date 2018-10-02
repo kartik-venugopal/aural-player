@@ -40,9 +40,6 @@ class EffectsUnitTabButtonCell: NSButtonCell {
         case .suppressed: textColor = suppressedUnitTextColor ?? NSColor.yellow
             
         }
-        
-        // Check if selected, and adjust text font
-        textFont = state == 1 ? boldTextFont : regularTextFont
     }
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
@@ -58,6 +55,9 @@ class EffectsUnitTabButtonCell: NSButtonCell {
             selectionBoxColor.setFill()
             NSBezierPath.init(roundedRect: drawRect, xRadius: borderRadius, yRadius: borderRadius).fill()
         }
+        
+        // Check if selected, and adjust text font
+        textFont = state == 1 ? boldTextFont : regularTextFont
         
         // Title
         let attrs: [String: AnyObject] = [

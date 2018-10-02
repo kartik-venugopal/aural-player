@@ -27,20 +27,18 @@ class MasterViewController: NSViewController, MessageSubscriber {
     
     private func initControls() {
         
-        btnMasterBypass.onIf(!graph.isMasterBypass())
-        
         btnEQBypass.stateFunction = {
             () -> EffectsUnitState in
             
             return self.graph.getEQState()
         }
         
-//        btnPitchBypass.stateFunction = {
-//            () -> EffectsUnitState in
-//            
-//            return graph.getPitchState()
-//        }
-//        
+        btnPitchBypass.stateFunction = {
+            () -> EffectsUnitState in
+            
+            return self.graph.getPitchState()
+        }
+//
 //        btnTimeBypass.stateFunction = {
 //            () -> EffectsUnitState in
 //            
@@ -67,7 +65,7 @@ class MasterViewController: NSViewController, MessageSubscriber {
         
 //        [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass].forEach({$0?.updateState()})
         
-        btnEQBypass.updateState()
+        updateButtons()
         
         // Initialize the menu with user-defined presets
 //        MasterPresets.userDefinedPresets.forEach({eqPresets.insertItem(withTitle: $0.name, at: 0)})
@@ -79,22 +77,8 @@ class MasterViewController: NSViewController, MessageSubscriber {
     @IBAction func masterBypassAction(_ sender: AnyObject) {
         
         // Toggle the master bypass state (simple on/off)
-        let masterBypass = graph.toggleMasterBypass()
-        btnMasterBypass.onIf(!masterBypass)
-        
-        // Update the bypass buttons for the effects units
-        
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
-        
-//        [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass].forEach({$0?.updateState()})
-        
-        btnEQBypass.updateState()
+        _ = graph.toggleMasterBypass()
+        updateButtons()
     }
     
     @IBAction func masterPresetsAction(_ sender: AnyObject) {
@@ -111,14 +95,35 @@ class MasterViewController: NSViewController, MessageSubscriber {
     }
     
     @IBAction func eqBypassAction(_ sender: AnyObject) {
+        
         _ = graph.toggleEQState()
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
-        btnEQBypass.updateState()
+        updateButtons()
     }
     
     // Activates/deactivates the Pitch effects unit
     @IBAction func pitchBypassAction(_ sender: AnyObject) {
+        
+        _ = graph.togglePitchState()
+        updateButtons()
+    }
+    
+    private func updateButtons() {
+        
+        btnMasterBypass.onIf(!graph.isMasterBypass())
+        
+        // Update the bypass buttons for the effects units
+        
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
+        
+        //        [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass].forEach({$0?.updateState()})
+        
+        btnEQBypass.updateState()
         btnPitchBypass.updateState()
     }
     
@@ -165,11 +170,9 @@ class MasterViewController: NSViewController, MessageSubscriber {
             switch message.effectsUnit {
                 
             case .eq:   btnEQBypass.updateState()
-                        btnMasterBypass.onIf(!graph.isMasterBypass())
-                        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
                 
-//            case .pitch:   btnPitchBypass.updateState()
-//                
+            case .pitch:   btnPitchBypass.updateState()
+//
 //            case .time:   btnTimeBypass.updateState()
 //                
 //            case .reverb:   btnReverbBypass.updateState()
@@ -181,6 +184,9 @@ class MasterViewController: NSViewController, MessageSubscriber {
             default: return
                 
             }
+            
+            btnMasterBypass.onIf(!graph.isMasterBypass())
+            SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
         }
     }
 }

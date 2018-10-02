@@ -65,9 +65,16 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
     
     @IBAction func eqBypassAction(_ sender: AnyObject) {
         
-        graph.toggleEQState()
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
+        _ = graph.toggleEQState()
         btnEQBypass.updateState()
+        
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
     }
     
     // Updates the global gain value of the Equalizer

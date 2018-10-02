@@ -96,11 +96,11 @@ protocol EQUnitDelegateProtocol {
 
 protocol PitchShiftUnitDelegateProtocol {
     
-    // Toggles the bypass state of the pitch shift audio effect unit, and returns its new bypass state
-    func togglePitchBypass() -> Bool
+    // Returns the current state of the pitch shift audio effects unit
+    func getPitchState() -> EffectsUnitState
     
-    // Returns the current bypass state of the pitch shift audio effect unit
-    func isPitchBypass() -> Bool
+    // Toggles the state of the pitch shift audio effects unit, and returns its new state
+    func togglePitchState() -> EffectsUnitState
     
     // Retrieves the pitch shift value and a formatted string representation of it
     func getPitch() -> (pitch: Float, pitchString: String)
