@@ -147,7 +147,7 @@
                                                                         <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="suppressedUnitTextColor">
-                                                                        <color key="value" red="0.77764214409722221" green="0.68074544270833337" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="value" red="0.68801030177696076" green="0.5490196078431373" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </buttonCell>
@@ -173,6 +173,15 @@
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
                                                                         <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="activeUnitTextColor">
+                                                                        <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="bypassedUnitTextColor">
+                                                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="suppressedUnitTextColor">
+                                                                        <color key="value" red="0.68730500663807192" green="0.55078827103758177" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </buttonCell>
                                                             <userDefinedRuntimeAttributes>
@@ -181,6 +190,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="PitchTab"/>
                                                                 <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="PitchTab-On"/>
+                                                                <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="PitchTab-Mixed"/>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <action selector="tabViewAction:" target="-2" id="iZB-cZ-xHd"/>
@@ -338,6 +348,7 @@
         <image name="FilterTab" width="512" height="512"/>
         <image name="FilterTab-On" width="512" height="512"/>
         <image name="PitchTab" width="17" height="13"/>
+        <image name="PitchTab-Mixed" width="1.2489795684814453" height="1"/>
         <image name="PitchTab-On" width="17" height="13"/>
         <image name="RecorderTab" width="384" height="384"/>
         <image name="RecorderTab-On" width="384" height="384"/>

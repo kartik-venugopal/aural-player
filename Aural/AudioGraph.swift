@@ -289,6 +289,32 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         return masterBypass ? (pitchSuppressed ? .suppressed : .bypassed) : (pitchNode.bypass ? .bypassed : .active)
     }
     
+    // Toggles the state of the Equalizer audio effects unit, and returns its new state
+    func togglePitchState() -> EffectsUnitState {
+        
+        let curState = getPitchState()
+        let newState: EffectsUnitState
+        
+        switch curState {
+            
+        case .active:   newState = .bypassed
+            
+        case .bypassed: newState = .active
+                        if masterBypass {
+                            _ = toggleMasterBypass()
+                        }
+            
+        // Master unit is currently bypassed, activate it
+        case .suppressed:   newState = .active
+                            _ = toggleMasterBypass()
+            
+        }
+        
+        pitchNode.bypass = newState != .active
+        
+        return newState
+    }
+    
     func togglePitchBypass() -> Bool {
         let newState = !pitchNode.bypass
         pitchNode.bypass = newState

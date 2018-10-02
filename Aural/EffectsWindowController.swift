@@ -94,6 +94,12 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
             
             return self.graph.getEQState()
         }
+        
+        pitchTabViewButton.stateFunction = {
+            () -> EffectsUnitState in
+            
+            return self.graph.getPitchState()
+        }
     }
 
     func activate() {
@@ -111,9 +117,9 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     private func initUnits() {
 
         masterTabViewButton.updateState()
-        eqTabViewButton.updateState()
+        eqTabViewButton.updateState()        
+        pitchTabViewButton.updateState()
         
-        pitchTabViewButton.onIf(!graph.isPitchBypass())
         timeTabViewButton.onIf(!graph.isTimeBypass())
         reverbTabViewButton.onIf(!graph.isReverbBypass())
         delayTabViewButton.onIf(!graph.isDelayBypass())
@@ -174,9 +180,9 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
 
                 eqTabViewButton.updateState()
 
-//            case .pitch:
-//
-//                pitchTabViewButton.updateState()
+            case .pitch:
+
+                pitchTabViewButton.updateState()
 //
 //            case .time:
 //

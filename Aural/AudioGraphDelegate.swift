@@ -215,12 +215,14 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     // MARK: Pitch shift unit functions
     
-    func isPitchBypass() -> Bool {
-        return graph.isPitchBypass()
+    // Returns the current state of the pitch shift audio effects unit
+    func getPitchState() -> EffectsUnitState {
+        return graph.getPitchState()
     }
     
-    func togglePitchBypass() -> Bool {
-        return graph.togglePitchBypass()
+    // Toggles the state of the pitch shift audio effects unit, and returns its new state
+    func togglePitchState() -> EffectsUnitState {
+        return graph.togglePitchState()
     }
     
     func getPitch() -> (pitch: Float, pitchString: String) {
@@ -230,6 +232,12 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     }
     
     func setPitch(_ pitch: Float) -> String {
+        
+        // If the pitch unit is currently inactive, start at default pitch offset, before the increase
+        if graph.getPitchState() != .active {
+            
+            _ = graph.togglePitchState()
+        }
         
         // Convert from octaves (-2, 2) to cents (-2400, 2400)
         graph.setPitch(pitch * AppConstants.pitchConversion_UIToAudioGraph)
@@ -250,8 +258,9 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     func increasePitch() -> (pitch: Float, pitchString: String) {
         
         // If the pitch unit is currently inactive, start at default pitch offset, before the increase
-        if graph.isPitchBypass() {
-            _ = graph.togglePitchBypass()
+        if graph.getPitchState() != .active {
+            
+            _ = graph.togglePitchState()
             graph.setPitch(AppDefaults.pitch)
         }
         
@@ -267,8 +276,9 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     func decreasePitch() -> (pitch: Float, pitchString: String) {
         
         // If the pitch unit is currently inactive, start at default pitch offset, before the decrease
-        if graph.isPitchBypass() {
-            _ = graph.togglePitchBypass()
+        if graph.getPitchState() != .active {
+            
+            _ = graph.togglePitchState()
             graph.setPitch(AppDefaults.pitch)
         }
         
