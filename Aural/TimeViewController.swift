@@ -6,7 +6,7 @@ import Cocoa
 class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
     
     // Time controls
-    @IBOutlet weak var btnTimeBypass: EffectsUnitBypassButton!
+    @IBOutlet weak var btnTimeBypass: EffectsUnitTriStateBypassButton!
     @IBOutlet weak var btnShiftPitch: NSButton!
     @IBOutlet weak var timeSlider: NSSlider!
     @IBOutlet weak var timeOverlapSlider: NSSlider!
@@ -38,7 +38,12 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
     
     private func initControls() {
         
-        btnTimeBypass.setBypassState(graph.isTimeBypass())
+        btnTimeBypass.stateFunction = {
+            () -> EffectsUnitState in
+            
+            return self.graph.getTimeState()
+        }
+        btnTimeBypass.updateState()
         
         btnShiftPitch.state = graph.isTimePitchShift() ? 1 : 0
         updatePitchShift()
@@ -61,18 +66,25 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
     // Activates/deactivates the Time stretch effects unit
     @IBAction func timeBypassAction(_ sender: AnyObject) {
         
-        let newBypassState = graph.toggleTimeBypass()
-        
-        btnTimeBypass.toggle()
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
+        let newBypassState = graph.toggleTimeState() != .active
+        btnTimeBypass.updateState()
         
         let newRate = newBypassState ? 1 : timeSlider.floatValue
         let playbackRateChangedMsg = PlaybackRateChangedNotification(newRate)
         SyncMessenger.publishNotification(playbackRateChangedMsg)
+        
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
     }
     
     // Toggles the "pitch shift" option of the Time stretch effects unit
     @IBAction func shiftPitchAction(_ sender: AnyObject) {
+        
         _ = graph.toggleTimePitchShift()
         updatePitchShift()
     }
@@ -84,7 +96,7 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
         updatePitchShift()
         
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
-        if (!graph.isTimeBypass()) {
+        if (graph.getTimeState() == .active) {
             SyncMessenger.publishNotification(PlaybackRateChangedNotification(timeSlider.floatValue))
         }
     }
@@ -137,9 +149,10 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
     private func setRate(_ rate: Float) {
         
         // Ensure unit is activated
-        if graph.isTimeBypass() {
-            _ = graph.toggleTimeBypass()
-            btnTimeBypass.on()
+        if graph.getTimeState() != .active {
+            
+            _ = graph.toggleTimeState()
+            btnTimeBypass.updateState()
             SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
         }
         
@@ -198,7 +211,7 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
         if let message = notification as? EffectsUnitStateChangedNotification {
             
             if message.effectsUnit == .time {
-//                btnTimeBypass.onIf(message.active)
+                btnTimeBypass.updateState()
             }
         }
     }

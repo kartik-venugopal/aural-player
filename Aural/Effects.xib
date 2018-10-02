@@ -206,6 +206,15 @@
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
                                                                         <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="activeUnitTextColor">
+                                                                        <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="bypassedUnitTextColor">
+                                                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="suppressedUnitTextColor">
+                                                                        <color key="value" red="0.68503146701388884" green="0.55021158854166663" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </buttonCell>
                                                             <userDefinedRuntimeAttributes>
@@ -214,6 +223,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="TimeTab"/>
                                                                 <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="TimeTab-On"/>
+                                                                <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="TimeTab-Mixed"/>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <action selector="tabViewAction:" target="-2" id="JMw-kN-W9z"/>
@@ -348,13 +358,14 @@
         <image name="FilterTab" width="512" height="512"/>
         <image name="FilterTab-On" width="512" height="512"/>
         <image name="PitchTab" width="17" height="13"/>
-        <image name="PitchTab-Mixed" width="1.2489795684814453" height="1"/>
+        <image name="PitchTab-Mixed" width="17" height="13"/>
         <image name="PitchTab-On" width="17" height="13"/>
         <image name="RecorderTab" width="384" height="384"/>
         <image name="RecorderTab-On" width="384" height="384"/>
         <image name="ReverbTab" width="211" height="211"/>
         <image name="ReverbTab-On" width="211" height="211"/>
         <image name="TimeTab" width="12" height="12"/>
+        <image name="TimeTab-Mixed" width="12" height="12"/>
         <image name="TimeTab-On" width="512" height="512"/>
     </resources>
 </document>
