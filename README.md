@@ -10,6 +10,12 @@ Aural Player is a free and open source audio player application for the macOS pl
 
 Download the disk image file [Aural.dmg](https://github.com/maculateConception/aural-player/blob/master/Aural.dmg?raw=true). Just mount it and run the app !
 
+### Compatibility
+
+**User**: Running Aural Player requires OS X 10.10 (Yosemite) or later macOS versions.
+
+**Developer**: To develop Aural Player with Swift 3 (master branch) requires macOS 10.12 (Sierra) and XCode 8.x. To develop Aural Player with Swift 2 ("swift2" branch) requires OS X 10.10 (Yosemite) or later and XCode 7.x.
+
 ## Features
 
 - Playback of MP3, AAC, AIFF/AIFC, WAV, and CAF audio files
@@ -29,12 +35,6 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 - Gesture recognition for essential player/playlist controls (trackpad/MagicMouse). e.g. two finger vertical scroll for volume control, horizontal scroll for seeking, three finger horizontal swipe to change tracks
 - Extensive set of keyboard shortcuts and menu items for quick and convenient access to functionality
 - Numerous preferences to allow user to highly customize functionality (e.g. seek/volume/pan increment, enabling/disabling and mouse sensitivity for gestures, configurable window layout and snapping behavior, remembered/default playlist on startup, etc.)
-
-### Compatibility
-
-**User**: Running Aural Player requires OS X 10.10 (Yosemite) or later macOS versions.
-
-**Developer**: To develop Aural Player with Swift 3 (master branch) requires macOS 10.12 (Sierra) and XCode 8.x. To develop Aural Player with Swift 2 ("swift2" branch) requires OS X 10.10 (Yosemite) or later and XCode 7.x.
 
 ### Recent updates
 
