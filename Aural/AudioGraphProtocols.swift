@@ -8,6 +8,10 @@ import AVFoundation
  */
 protocol AudioGraphProtocol: EQUnitProtocol, PitchShiftUnitProtocol, TimeStretchUnitProtocol, ReverbUnitProtocol, DelayUnitProtocol, FilterUnitProtocol {
     
+    func toggleMasterBypass() -> Bool
+    
+    func isMasterBypass() -> Bool
+    
     // Retrieves the current player volume
     func getVolume() -> Float
     
@@ -35,11 +39,11 @@ protocol AudioGraphProtocol: EQUnitProtocol, PitchShiftUnitProtocol, TimeStretch
 
 protocol EQUnitProtocol {
     
-    // Returns the current bypass state of the Equalizer audio effects unit
-    func isEQBypass() -> Bool
+    // Returns the current state of the Equalizer audio effects unit
+    func getEQState() -> EffectsUnitState
     
-    // Toggles the bypass state of the Equalizer audio effects unit, and returns its new bypass state
-    func toggleEQBypass() -> Bool
+    // Toggles the state of the Equalizer audio effects unit, and returns its new state
+    func toggleEQState() -> EffectsUnitState
     
     // Retrieves the current gloabal gain value for the EQ
     func getEQGlobalGain() -> Float

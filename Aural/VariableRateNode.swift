@@ -64,7 +64,7 @@ class VariableRateNode {
         timePitchNode = AVAudioUnitTimePitch()
         variNode = AVAudioUnitVarispeed()
         
-        bypass = AppDefaults.timeBypass
+        bypass = AppDefaults.timeState != .active
         rate = AppDefaults.timeStretchRate
         shiftPitch = AppDefaults.timeShiftPitch
         overlap = AppDefaults.timeOverlap

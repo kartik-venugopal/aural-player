@@ -1,15 +1,7 @@
-/*
-    Customizes the look and feel of buttons that control the Effects tab group
- */
-
 import Cocoa
 
 @IBDesignable
-class OnOffImageAndTextButtonCell: NSButtonCell {
-    
-    // Highlighting colors the button text to indicate that the effects unit represented by this button is currently active
-    var shouldHighlight: Bool = false
-    @IBInspectable var highlightColor: NSColor = Colors.tabViewButtonTextColor
+class EffectsUnitTabButtonCell: NSButtonCell {
     
     private let borderInsetX: CGFloat = 0
     private let borderInsetY: CGFloat = 2
@@ -20,20 +12,44 @@ class OnOffImageAndTextButtonCell: NSButtonCell {
     
     private let unselectedTextColor: NSColor = Colors.tabViewButtonTextColor
     private let selectedTextColor: NSColor = Colors.playlistSelectedTextColor
-    private let textFont: NSFont = Fonts.tabViewButtonFont_small
+    
+    private let regularTextFont: NSFont = Fonts.tabViewButtonFont_small
     private let boldTextFont: NSFont = Fonts.tabViewButtonBoldFont_small
     
+    @IBInspectable var activeUnitTextColor: NSColor?
+    @IBInspectable var bypassedUnitTextColor: NSColor?
+    @IBInspectable var suppressedUnitTextColor: NSColor?
+    
+    var unitState: EffectsUnitState = .bypassed
+    var textColor: NSColor = Colors.tabViewButtonTextColor
+    var textFont: NSFont = Fonts.tabViewButtonFont_small
+    
     private let imgWidth: CGFloat = 11, imgHeight: CGFloat = 11
+    
+    func updateState(_ unitState: EffectsUnitState) {
+        
+        self.unitState = unitState
+        
+        // Change textColor based on state
+        switch unitState {
+            
+        case .active:   textColor = activeUnitTextColor ?? NSColor.green
+            
+        case .bypassed: textColor = bypassedUnitTextColor ?? NSColor.white
+            
+        case .suppressed: textColor = suppressedUnitTextColor ?? NSColor.yellow
+            
+        }
+        
+        // Check if selected, and adjust text font
+        textFont = state == 1 ? boldTextFont : regularTextFont
+    }
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         
         // Background
         backgroundFillColor.setFill()
         NSBezierPath.init(rect: cellFrame).fill()
-        
-//        if self.title == "Master" {
-//            Swift.print(self.title, String(describing: state), String(describing: shouldHighlight))
-//        }
         
         // Selection box
         if (state == 1) {
@@ -44,11 +60,8 @@ class OnOffImageAndTextButtonCell: NSButtonCell {
         }
         
         // Title
-        let textColor = shouldHighlight ? highlightColor : (state == 0 ? unselectedTextColor : selectedTextColor)
-        let font = state == 1 ? boldTextFont : textFont
-        
         let attrs: [String: AnyObject] = [
-            NSFontAttributeName: font,
+            NSFontAttributeName: textFont,
             NSForegroundColorAttributeName: textColor]
         
         // Draw image (left aligned)

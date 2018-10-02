@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,9 +10,12 @@
                 <outlet property="btnDelayBypass" destination="hGg-d2-PQ6" id="eDR-ag-1Fo"/>
                 <outlet property="btnEQBypass" destination="Yne-n1-YwI" id="9c3-O7-c5E"/>
                 <outlet property="btnFilterBypass" destination="s8e-4e-0d3" id="afu-s3-SEQ"/>
+                <outlet property="btnMasterBypass" destination="1bl-Og-Men" id="7Wk-La-TdU"/>
                 <outlet property="btnPitchBypass" destination="44n-oY-8vs" id="fDJ-4O-IwZ"/>
                 <outlet property="btnReverbBypass" destination="3Wt-Nm-aFs" id="2Uw-VG-7Wm"/>
+                <outlet property="btnSavePreset" destination="8or-Oa-uMa" id="X8Y-GB-CUL"/>
                 <outlet property="btnTimeBypass" destination="Glf-iV-e0N" id="r3F-T8-y8J"/>
+                <outlet property="masterPresets" destination="ryf-gT-ZGe" id="bPR-Og-a7n"/>
                 <outlet property="view" destination="0Bs-7g-5at" id="Vo0-Tr-kPb"/>
             </connections>
         </customObject>
@@ -23,6 +25,17 @@
             <rect key="frame" x="0.0" y="0.0" width="484" height="160"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1bl-Og-Men" userLabel="Bypass button" customClass="EffectsUnitBypassButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="10" y="133" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="juJ-of-YT0">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="masterBypassAction:" target="-2" id="A8T-ra-9Ki"/>
+                    </connections>
+                </button>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Irt-cZ-a6S" userLabel="Master Desc">
                     <rect key="frame" x="60" y="100" width="365" height="55"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -32,8 +45,8 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yne-n1-YwI" userLabel="EQ bypass" customClass="EffectsUnitBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="172" y="81" width="15" height="15"/>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yne-n1-YwI" userLabel="EQ bypass" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="181" y="82" width="17" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="zi2-RJ-QRY">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -43,8 +56,8 @@
                         <action selector="eqBypassAction:" target="-2" id="rME-m0-ZHm"/>
                     </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="44n-oY-8vs" userLabel="Pitch bypass" customClass="EffectsUnitBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="172" y="54" width="15" height="15"/>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="44n-oY-8vs" userLabel="Pitch bypass" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="181" y="54" width="17" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="sOO-aL-gJT">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -54,8 +67,8 @@
                         <action selector="pitchBypassAction:" target="-2" id="LZ6-Sy-Smt"/>
                     </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Wt-Nm-aFs" userLabel="Reverb bypass" customClass="EffectsUnitBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="172" y="27" width="15" height="15"/>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Wt-Nm-aFs" userLabel="Reverb bypass" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="181" y="26" width="17" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="bqc-Hf-awH">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -65,8 +78,8 @@
                         <action selector="reverbBypassAction:" target="-2" id="e0m-bl-k1l"/>
                     </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s8e-4e-0d3" userLabel="Filter bypass" customClass="EffectsUnitBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="246" y="81" width="15" height="15"/>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s8e-4e-0d3" userLabel="Filter bypass" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="255" y="82" width="17" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="iZw-9X-Wye">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -76,8 +89,8 @@
                         <action selector="filterBypassAction:" target="-2" id="uGX-58-YYI"/>
                     </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Glf-iV-e0N" userLabel="Time bypass" customClass="EffectsUnitBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="246" y="54" width="15" height="15"/>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Glf-iV-e0N" userLabel="Time bypass" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="255" y="54" width="17" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="lRZ-DN-nLd">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -87,8 +100,8 @@
                         <action selector="timeBypassAction:" target="-2" id="R3q-sm-V3C"/>
                     </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hGg-d2-PQ6" userLabel="Delay bypass" customClass="EffectsUnitBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="246" y="27" width="15" height="15"/>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hGg-d2-PQ6" userLabel="Delay bypass" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="255" y="26" width="17" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="nJe-Up-z4A">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -99,7 +112,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yqt-aM-Una">
-                    <rect key="frame" x="190" y="81" width="33" height="18"/>
+                    <rect key="frame" x="199" y="81" width="33" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="EQ" id="CNy-MX-p1u">
                         <font key="font" size="11" name="GillSans"/>
@@ -108,7 +121,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lP9-aB-WXZ">
-                    <rect key="frame" x="190" y="54" width="33" height="18"/>
+                    <rect key="frame" x="199" y="54" width="33" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Pitch" id="RHY-zQ-c6M">
                         <font key="font" size="11" name="GillSans"/>
@@ -117,7 +130,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MhW-kV-SE6" userLabel="Time">
-                    <rect key="frame" x="265" y="53" width="33" height="18"/>
+                    <rect key="frame" x="274" y="53" width="33" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Time" id="2cb-bk-gKi">
                         <font key="font" size="11" name="GillSans"/>
@@ -134,7 +147,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ryf-gT-ZGe" userLabel="Pitch Presets Menu">
+                <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ryf-gT-ZGe" userLabel="Master Presets Menu">
                     <rect key="frame" x="375" y="2" width="34" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="JAy-hY-PIg" id="yNQ-Bn-hHM" customClass="EQPresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
@@ -156,7 +169,7 @@
                     </buttonCell>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wmb-wY-F1a" userLabel="Filter">
-                    <rect key="frame" x="265" y="82" width="33" height="18"/>
+                    <rect key="frame" x="274" y="82" width="33" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Filter" id="inL-mc-Woh">
                         <font key="font" size="11" name="GillSans"/>
@@ -165,7 +178,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Jb-xR-4OU">
-                    <rect key="frame" x="265" y="26" width="33" height="18"/>
+                    <rect key="frame" x="274" y="26" width="33" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Delay" id="etj-TV-G6w">
                         <font key="font" size="11" name="GillSans"/>
@@ -174,7 +187,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wfq-hI-8oA">
-                    <rect key="frame" x="190" y="26" width="33" height="18"/>
+                    <rect key="frame" x="199" y="26" width="33" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Reverb" id="NvW-oo-N58">
                         <font key="font" size="11" name="GillSans"/>
@@ -184,273 +197,8 @@
                 </textField>
             </subviews>
         </view>
-        <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" title="Box" titlePosition="noTitle" id="7hP-WQ-bmY" userLabel="Root Container">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="230"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <view key="contentView" id="Gpo-RE-69B">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="230"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                <subviews>
-                    <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="7T0-g3-Ak4" userLabel="Effects Box">
-                        <rect key="frame" x="14" y="15" width="452" height="200"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView" ambiguous="YES" id="e4W-gf-CGw">
-                            <rect key="frame" x="0.0" y="0.0" width="452" height="200"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <tabView fixedFrame="YES" drawsBackground="NO" type="rightTabsBezelBorder" initialItem="0OT-cF-9E7" translatesAutoresizingMaskIntoConstraints="NO" id="hmb-KW-LTc" userLabel="Tab Group">
-                                    <rect key="frame" x="-7" y="-9" width="525" height="180"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <font key="font" size="11" name="GillSans"/>
-                                    <tabViewItems>
-                                        <tabViewItem label="Master" identifier="0" id="DHN-eY-McG" userLabel="Master">
-                                            <view key="view" id="QNf-4j-eDJ">
-                                                <rect key="frame" x="10" y="7" width="0.0" height="386"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </view>
-                                        </tabViewItem>
-                                        <tabViewItem label="EQ" identifier="1" id="0OT-cF-9E7" userLabel="EQ">
-                                            <view key="view" id="cIf-qK-lAD">
-                                                <rect key="frame" x="10" y="7" width="484" height="160"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </view>
-                                        </tabViewItem>
-                                        <tabViewItem label="Pitch" identifier="2" id="TTh-xW-KTR" userLabel="Pitch">
-                                            <view key="view" id="pF2-Eo-sGN">
-                                                <rect key="frame" x="10" y="7" width="484" height="160"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </view>
-                                        </tabViewItem>
-                                        <tabViewItem label="Time" identifier="3" id="xLt-eB-g3Z" userLabel="Time">
-                                            <view key="view" ambiguous="YES" id="F3x-qR-hD8">
-                                                <rect key="frame" x="10" y="7" width="484" height="160"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </view>
-                                        </tabViewItem>
-                                        <tabViewItem label="Reverb" identifier="4" id="fTR-45-GNJ" userLabel="Reverb">
-                                            <view key="view" id="A5l-Za-poM">
-                                                <rect key="frame" x="10" y="7" width="484" height="160"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </view>
-                                        </tabViewItem>
-                                        <tabViewItem label="Delay" identifier="5" id="rZC-JZ-7G6">
-                                            <view key="view" id="Azk-TN-Bf9">
-                                                <rect key="frame" x="10" y="7" width="484" height="160"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </view>
-                                        </tabViewItem>
-                                        <tabViewItem label="Filter" identifier="6" id="7Lm-gt-SVt">
-                                            <view key="view" id="pY0-Xh-rsq">
-                                                <rect key="frame" x="10" y="7" width="484" height="160"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </view>
-                                        </tabViewItem>
-                                        <tabViewItem label="Recorder" identifier="7" id="gPK-kX-Ep6" userLabel="Recorder">
-                                            <view key="view" id="2hv-xY-RqN">
-                                                <rect key="frame" x="10" y="7" width="484" height="160"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </view>
-                                        </tabViewItem>
-                                    </tabViewItems>
-                                </tabView>
-                                <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="WXa-D3-yyT" userLabel="Tab Buttons Box">
-                                    <rect key="frame" x="4" y="167" width="439" height="27"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <view key="contentView" ambiguous="YES" id="sh7-D1-oGR">
-                                        <rect key="frame" x="0.0" y="0.0" width="439" height="27"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <subviews>
-                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hHC-FA-Gag" userLabel="Master button" customClass="OnOffImageAndTextButton" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="2" width="58" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" title="Master" bezelStyle="shadowlessSquare" image="FilterTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2Ub-cr-AAx" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
-                                                            <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </buttonCell>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="FilterTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="FilterTab-On"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f41-r4-k1L" userLabel="EQ button" customClass="OnOffImageAndTextButton" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="60" y="2" width="41" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" title="EQ" bezelStyle="shadowlessSquare" image="EQTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Pp0-Ma-i51" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
-                                                            <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </buttonCell>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="EQTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="EQTab-On"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Bf6-cG-zw7" userLabel="Pitch button" customClass="OnOffImageAndTextButton" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="102" y="2" width="50" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" title="Pitch" bezelStyle="shadowlessSquare" image="PitchTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vlk-Ft-GbM" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
-                                                            <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </buttonCell>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="PitchTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="PitchTab-On"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="b11-V8-PTh" userLabel="Time button" customClass="OnOffImageAndTextButton" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="153" y="2" width="50" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" title="Time" bezelStyle="shadowlessSquare" image="TimeTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="O1w-j1-45x" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
-                                                            <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </buttonCell>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="TimeTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="TimeTab-On"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="OyJ-T5-wkV" userLabel="Reverb button" customClass="OnOffImageAndTextButton" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="204" y="2" width="59" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" title="Reverb" bezelStyle="shadowlessSquare" image="ReverbTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="s6O-mG-nCj" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
-                                                            <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </buttonCell>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="ReverbTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="ReverbTab-On"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="yGh-AE-djp" userLabel="Delay button" customClass="OnOffImageAndTextButton" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="264" y="2" width="53" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" title="Delay" bezelStyle="shadowlessSquare" image="DelayTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nKy-r2-xxN" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
-                                                            <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </buttonCell>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="DelayTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="DelayTab-On"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="LXd-GK-5gh" userLabel="Filter button" customClass="OnOffImageAndTextButton" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="318" y="2" width="50" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" title="Filter" bezelStyle="shadowlessSquare" image="FilterTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="x1h-eQ-YN6" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
-                                                            <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </buttonCell>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="FilterTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="FilterTab-On"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="6" translatesAutoresizingMaskIntoConstraints="NO" id="ZLJ-ds-vYn" userLabel="Recorder button" customClass="OnOffImageAndTextButton" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="369" y="2" width="69" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="square" title="Recorder" bezelStyle="shadowlessSquare" image="RecorderTab" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eZ4-cw-Eun" customClass="OnOffImageAndTextButtonCell" customModule="Aural" customModuleProvider="target">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
-                                                            <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </buttonCell>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="RecorderTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="RecorderTab-On"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                        </subviews>
-                                    </view>
-                                    <color key="borderColor" white="0.15444672770000001" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </box>
-                            </subviews>
-                        </view>
-                        <color key="borderColor" white="0.1031358507" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    </box>
-                </subviews>
-            </view>
-            <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-            <color key="fillColor" white="0.0" alpha="0.90103274830000002" colorSpace="calibratedWhite"/>
-        </box>
     </objects>
     <resources>
-        <image name="DelayTab" width="153" height="146"/>
-        <image name="DelayTab-On" width="153" height="146"/>
-        <image name="EQTab" width="419" height="422"/>
-        <image name="EQTab-On" width="419" height="422"/>
-        <image name="FilterTab" width="512" height="512"/>
-        <image name="FilterTab-On" width="512" height="512"/>
-        <image name="PitchTab" width="17" height="13"/>
-        <image name="PitchTab-On" width="17" height="13"/>
-        <image name="RecorderTab" width="384" height="384"/>
-        <image name="RecorderTab-On" width="384" height="384"/>
-        <image name="ReverbTab" width="211" height="211"/>
-        <image name="ReverbTab-On" width="211" height="211"/>
         <image name="SaveEQPreset" width="128" height="128"/>
-        <image name="TimeTab" width="12" height="12"/>
-        <image name="TimeTab-On" width="512" height="512"/>
     </resources>
 </document>

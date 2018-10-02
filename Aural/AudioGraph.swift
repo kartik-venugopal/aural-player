@@ -10,19 +10,34 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     private let mainMixer: AVAudioMixerNode
     
     // Audio graph nodes
+    
+    // Playback
     internal let playerNode: AVAudioPlayerNode
+    
+    // Effects
     private let eqNode: ParametricEQNode
     private let pitchNode: AVAudioUnitTimePitch
     private let reverbNode: AVAudioUnitReverb
     private let filterNode: MultiBandStopFilterNode
     private let delayNode: AVAudioUnitDelay
     private let timeNode: VariableRateNode
+    
     private let auxMixer: AVAudioMixerNode  // Used for conversions of sample rates / channel counts
     
     // Helper
     private let audioEngineHelper: AudioEngineHelper
     
     internal let nodeForRecorderTap: AVAudioNode
+    
+    // Temp variables to store individual node bypass states that can be saved/restored when master bypass is toggled
+    private var masterBypass: Bool
+    
+    private var eqSuppressed: Bool
+    private var pitchSuppressed: Bool
+    private var timeSuppressed: Bool
+    private var reverbSuppressed: Bool
+    private var delaySuppressed: Bool
+    private var filterSuppressed: Bool
     
     // Sound setting value holders
     private var playerVolume: Float
@@ -63,27 +78,33 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         playerNode.pan = state.balance
         
+        masterBypass = state.masterBypass
+        
         // EQ
-        eqNode.bypass = state.eqBypass
+        eqNode.bypass = state.eqState != .active
+        eqSuppressed = state.eqState == .suppressed
         eqNode.setBands(state.eqBands)
         eqNode.globalGain = state.eqGlobalGain
         EQPresets.loadUserDefinedPresets(state.eqUserPresets)
         
         // Pitch
-        pitchNode.bypass = state.pitchBypass
+        pitchNode.bypass = state.pitchState != .active
+        pitchSuppressed = state.pitchState == .suppressed
         pitchNode.pitch = state.pitch
         pitchNode.overlap = state.pitchOverlap
         PitchPresets.loadUserDefinedPresets(state.pitchUserPresets)
         
         // Time
-        timeNode.bypass = state.timeBypass
+        timeNode.bypass = state.timeState != .active
+        timeSuppressed = state.timeState == .suppressed
         timeNode.rate = state.timeStretchRate
         timeNode.shiftPitch = state.timeShiftPitch
         timeNode.overlap = state.timeOverlap
         TimePresets.loadUserDefinedPresets(state.timeUserPresets)
         
         // Reverb
-        reverbNode.bypass = state.reverbBypass
+        reverbNode.bypass = state.reverbState != .active
+        reverbSuppressed = state.reverbState == .suppressed
         let avPreset: AVAudioUnitReverbPreset = state.reverbSpace.avPreset
         reverbSpace = avPreset
         reverbNode.loadFactoryPreset(reverbSpace)
@@ -91,7 +112,8 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         ReverbPresets.loadPresets(state.reverbUserPresets)
         
         // Delay
-        delayNode.bypass = state.delayBypass
+        delayNode.bypass = state.delayState != .active
+        delaySuppressed = state.delayState == .suppressed
         delayNode.wetDryMix = state.delayAmount
         delayNode.delayTime = state.delayTime
         delayNode.feedback = state.delayFeedback
@@ -99,15 +121,58 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         DelayPresets.loadUserDefinedPresets(state.delayUserPresets)
         
         // Filter
-        filterNode.bypass = state.filterBypass
+        filterNode.bypass = state.filterState != .active
+        filterSuppressed = state.filterState == .suppressed
         filterNode.setFilterBassBand(state.filterBassMin, state.filterBassMax)
         filterNode.setFilterMidBand(state.filterMidMin, state.filterMidMax)
         filterNode.setFilterTrebleBand(state.filterTrebleMin, state.filterTrebleMax)
         FilterPresets.loadUserDefinedPresets(state.filterUserPresets)
     }
+
+    private func bypassAllUnits() {
+        
+        [eqNode, reverbNode, delayNode, filterNode].forEach({$0.bypass = true})
+        pitchNode.bypass = true
+        timeNode.bypass = true
+    }
     
     func reconnectPlayerNodeWithFormat(_ format: AVAudioFormat) {
         audioEngineHelper.reconnectNodes(playerNode, outputNode: auxMixer, format: format)
+    }
+    
+    func toggleMasterBypass() -> Bool {
+        
+        let newState = !masterBypass
+        masterBypass = newState
+     
+        if masterBypass {
+            
+            // If a unit was active (i.e. not bypassed), mark it as now being suppressed by the master bypass
+            
+            eqSuppressed = !eqNode.bypass
+            pitchSuppressed = !pitchNode.bypass
+            timeSuppressed = !timeNode.bypass
+            reverbSuppressed = !reverbNode.bypass
+            delaySuppressed = !delayNode.bypass
+            filterSuppressed = !filterNode.bypass
+            
+            bypassAllUnits()
+            
+        } else {
+            
+            eqNode.bypass = !eqSuppressed
+            pitchNode.bypass = !pitchSuppressed
+            timeNode.bypass = !timeSuppressed
+            reverbNode.bypass = !reverbSuppressed
+            delayNode.bypass = !delaySuppressed
+            filterNode.bypass = !filterSuppressed
+        }
+        
+        return newState
+    }
+    
+    func isMasterBypass() -> Bool {
+        return masterBypass
     }
     
     func getVolume() -> Float {
@@ -145,13 +210,32 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     
     // MARK: EQ unit functions
     
-    func isEQBypass() -> Bool {
-        return eqNode.bypass
+    func getEQState() -> EffectsUnitState {
+        return masterBypass ? (eqSuppressed ? .suppressed : .bypassed) : (eqNode.bypass ? .bypassed : .active)
     }
     
-    func toggleEQBypass() -> Bool {
-        let newState = !eqNode.bypass
-        eqNode.bypass = newState
+    // Toggles the state of the Equalizer audio effects unit, and returns its new state
+    func toggleEQState() -> EffectsUnitState {
+        
+        let curState = getEQState()
+        let newState: EffectsUnitState
+        
+        switch curState {
+            
+        case .active:   newState = .bypassed
+            
+        case .bypassed: newState = .active
+                        if masterBypass {
+                            _ = toggleMasterBypass()
+                        }
+            
+        // Master unit is currently bypassed, activate it
+        case .suppressed:   newState = .active
+                            _ = toggleMasterBypass()
+        }
+        
+        eqNode.bypass = newState != .active
+        
         return newState
     }
     
@@ -201,6 +285,10 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     
     // MARK: Pitch shift unit functions
     
+    func getPitchState() -> EffectsUnitState {
+        return masterBypass ? (pitchSuppressed ? .suppressed : .bypassed) : (pitchNode.bypass ? .bypassed : .active)
+    }
+    
     func togglePitchBypass() -> Bool {
         let newState = !pitchNode.bypass
         pitchNode.bypass = newState
@@ -228,6 +316,10 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     }
     
     // MARK: Time stretch unit functions
+    
+    func getTimeState() -> EffectsUnitState {
+        return masterBypass ? (timeSuppressed ? .suppressed : .bypassed) : (timeNode.bypass ? .bypassed : .active)
+    }
     
     func isTimeBypass() -> Bool {
         return timeNode.bypass
@@ -274,6 +366,10 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     
     // MARK: Reverb unit functions
     
+    func getReverbState() -> EffectsUnitState {
+        return masterBypass ? (reverbSuppressed ? .suppressed : .bypassed) : (reverbNode.bypass ? .bypassed : .active)
+    }
+    
     func isReverbBypass() -> Bool {
         return reverbNode.bypass
     }
@@ -304,6 +400,10 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     }
     
     // MARK: Delay unit functions
+    
+    func getDelayState() -> EffectsUnitState {
+        return masterBypass ? (delaySuppressed ? .suppressed : .bypassed) : (delayNode.bypass ? .bypassed : .active)
+    }
     
     func isDelayBypass() -> Bool {
         return delayNode.bypass
@@ -348,6 +448,10 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     }
     
     // MARK: Filter unit functions
+    
+    func getFilterState() -> EffectsUnitState {
+        return masterBypass ? (filterSuppressed ? .suppressed : .bypassed) : (filterNode.bypass ? .bypassed : .active)
+    }
     
     func isFilterBypass() -> Bool {
         return filterNode.bypass
@@ -407,33 +511,35 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.muted = muted
         state.balance = playerNode.pan
         
+        state.masterBypass = masterBypass
+        
         // EQ
-        state.eqBypass = eqNode.bypass
+        state.eqState = getEQState()
         state.eqBands = eqNode.allBands()
         state.eqGlobalGain = eqNode.globalGain
         state.eqUserPresets = EQPresets.userDefinedPresets
         
         // Pitch
-        state.pitchBypass = pitchNode.bypass
+        state.pitchState = getPitchState()
         state.pitch = pitchNode.pitch
         state.pitchOverlap = pitchNode.overlap
         state.pitchUserPresets = PitchPresets.userDefinedPresets
         
         // Time
-        state.timeBypass = timeNode.bypass
+        state.timeState = getTimeState()
         state.timeStretchRate = timeNode.rate
         state.timeShiftPitch = timeNode.shiftPitch
         state.timeOverlap = timeNode.overlap
         state.timeUserPresets = TimePresets.userDefinedPresets
         
         // Reverb
-        state.reverbBypass = reverbNode.bypass
+        state.reverbState = getReverbState()
         state.reverbSpace = ReverbSpaces.mapFromAVPreset(reverbSpace)
         state.reverbAmount = reverbNode.wetDryMix
         state.reverbUserPresets = ReverbPresets.allPresets()
         
         // Delay
-        state.delayBypass = delayNode.bypass
+        state.delayState = getDelayState()
         state.delayAmount = delayNode.wetDryMix
         state.delayTime = delayNode.delayTime
         state.delayFeedback = delayNode.feedback
@@ -441,7 +547,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.delayUserPresets = DelayPresets.userDefinedPresets
         
         // Filter
-        state.filterBypass = filterNode.bypass
+        state.filterState = getFilterState()
         let filterBands = filterNode.getBands()
         state.filterBassMin = filterBands.bass.min
         state.filterBassMax = filterBands.bass.max
@@ -462,4 +568,16 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         audioEngine.stop()
     }
+}
+
+enum EffectsUnitState: String {
+    
+    // Master unit on, and effects unit on
+    case active
+    
+    // Effects unit off
+    case bypassed
+    
+    // Master unit off, and effects unit on
+    case suppressed
 }

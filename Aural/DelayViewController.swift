@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Delay effects unit
  */
-class DelayViewController: NSViewController, StringInputClient {
+class DelayViewController: NSViewController, MessageSubscriber, StringInputClient {
     
     // Delay controls
     @IBOutlet weak var btnDelayBypass: EffectsUnitBypassButton!
@@ -30,6 +30,7 @@ class DelayViewController: NSViewController, StringInputClient {
     
     override func viewDidLoad() {
         initControls()
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
     }
 
     private func initControls() {
@@ -62,7 +63,8 @@ class DelayViewController: NSViewController, StringInputClient {
     // Activates/deactivates the Delay effects unit
     @IBAction func delayBypassAction(_ sender: AnyObject) {
         btnDelayBypass.toggle()
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay, !graph.toggleDelayBypass()))
+        graph.toggleDelayBypass()
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
     }
     
     // Updates the Delay amount parameter
@@ -144,5 +146,21 @@ class DelayViewController: NSViewController, StringInputClient {
         
         // Add a menu item for the new preset, at the top of the menu
         presetsMenu.insertItem(withTitle: string, at: 0)
+    }
+    
+    // MARK: Message handling
+    
+    func getID() -> String {
+        return self.className
+    }
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        if let message = notification as? EffectsUnitStateChangedNotification {
+            
+            if message.effectsUnit == .delay {
+//                btnDelayBypass.onIf(message.active)
+            }
+        }
     }
 }

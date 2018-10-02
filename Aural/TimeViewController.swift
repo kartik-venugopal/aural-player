@@ -30,7 +30,7 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
         
         initControls()
         
-        SyncMessenger.subscribe(messageTypes: [.saveTimeUserPresetRequest], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.saveTimeUserPresetRequest, .effectsUnitStateChangedNotification], subscriber: self)
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(actionTypes: [.increaseRate, .decreaseRate, .setRate], subscriber: self)
@@ -64,7 +64,7 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
         let newBypassState = graph.toggleTimeBypass()
         
         btnTimeBypass.toggle()
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time, !newBypassState))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
         
         let newRate = newBypassState ? 1 : timeSlider.floatValue
         let playbackRateChangedMsg = PlaybackRateChangedNotification(newRate)
@@ -140,7 +140,7 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
         if graph.isTimeBypass() {
             _ = graph.toggleTimeBypass()
             btnTimeBypass.on()
-            SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time, true))
+            SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
         }
         
         lblTimeStretchRateValue.stringValue = graph.setTimeStretchRate(rate)
@@ -165,7 +165,7 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
     // Changes the playback rate to a specific value
     private func rateChange(_ rateInfo: (rate: Float, rateString: String)) {
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time, true))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
         
         timeSlider.floatValue = rateInfo.rate
         lblTimeStretchRateValue.stringValue = rateInfo.rateString
@@ -192,6 +192,16 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
     }
 
     // MARK: Message handling
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        if let message = notification as? EffectsUnitStateChangedNotification {
+            
+            if message.effectsUnit == .time {
+//                btnTimeBypass.onIf(message.active)
+            }
+        }
+    }
     
     func consumeMessage(_ message: ActionMessage) {
         

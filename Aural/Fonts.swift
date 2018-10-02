@@ -18,7 +18,10 @@ struct Fonts {
     private static let gillSans13SemiBoldFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 13)!
     private static let gillSans13LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 13)!
     
-    static let barModePlayingTrackTextFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 10)!
+    private static let gillSansSemiBold10Font: NSFont = NSFont(name: "Gill Sans Semibold", size: 10)!
+    private static let gillSansSemiBold11Font: NSFont = NSFont(name: "Gill Sans Semibold", size: 11)!
+    
+    static let barModePlayingTrackTextFont: NSFont = gillSansSemiBold10Font
     
     static let regularModeTrackNameTextFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!
     
@@ -34,9 +37,13 @@ struct Fonts {
     static let playlistGroupItemSelectedTextFont: NSFont = gillSans12Font
     static let playlistGroupItemTextFont: NSFont = gillSans12LightFont
     
-    // Font used by the effects tab view buttons
+    // Font used by the playlist tab view buttons
     static let tabViewButtonFont: NSFont = gillSans12Font
     static let tabViewButtonBoldFont: NSFont = gillSans12SemiBoldFont
+    
+    // FX tab view buttons
+    static let tabViewButtonFont_small: NSFont = gillSans11Font
+    static let tabViewButtonBoldFont_small: NSFont = gillSansSemiBold11Font
     
     // Font used by modal dialog buttons
     static let modalDialogButtonFont: NSFont = gillSans12Font

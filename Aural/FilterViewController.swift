@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Filter effects unit
  */
-class FilterViewController: NSViewController, StringInputClient {
+class FilterViewController: NSViewController, MessageSubscriber, StringInputClient {
     
     // Filter controls
     @IBOutlet weak var btnFilterBypass: EffectsUnitBypassButton!
@@ -28,6 +28,7 @@ class FilterViewController: NSViewController, StringInputClient {
     
     override func viewDidLoad() {
         initControls()
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
     }
  
     private func initControls() {
@@ -66,7 +67,8 @@ class FilterViewController: NSViewController, StringInputClient {
     // Activates/deactivates the Filter effects unit
     @IBAction func filterBypassAction(_ sender: AnyObject) {
         btnFilterBypass.toggle()
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter, !graph.toggleFilterBypass()))
+        graph.toggleFilterBypass()
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
     }
     
     // Action function for the Filter unit's bass slider. Updates the Filter bass band.
@@ -147,5 +149,21 @@ class FilterViewController: NSViewController, StringInputClient {
         
         // Add a menu item for the new preset, at the top of the menu
         presetsMenu.insertItem(withTitle: string, at: 0)
+    }
+    
+    // MARK: Message handling
+    
+    func getID() -> String {
+        return self.className
+    }
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        if let message = notification as? EffectsUnitStateChangedNotification {
+            
+            if message.effectsUnit == .filter {
+//                btnFilterBypass.onIf(message.active)
+            }
+        }
     }
 }

@@ -33,6 +33,7 @@ struct Images {
     
     static let imgSwitchOff: NSImage = NSImage(named: "SwitchOff")!
     static let imgSwitchOn: NSImage = NSImage(named: "SwitchOn")!
+    static let imgSwitchMixed: NSImage = NSImage(named: "SwitchMixed")!
     
     static let imgPlaylistOn: NSImage = NSImage(named: "PlaylistView-On")!
     static let imgPlaylistOff: NSImage = NSImage(named: "PlaylistView-Off")!

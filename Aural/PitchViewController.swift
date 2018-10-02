@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Pitch effects unit
  */
-class PitchViewController: NSViewController, ActionMessageSubscriber, StringInputClient {
+class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
     
     // Pitch controls
     @IBOutlet weak var btnPitchBypass: EffectsUnitBypassButton!
@@ -26,8 +26,13 @@ class PitchViewController: NSViewController, ActionMessageSubscriber, StringInpu
     override func viewDidLoad() {
         
         initControls()
+        initSubscriptions()
+    }
+    
+    private func initSubscriptions() {
         
         // Subscribe to message notifications
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch], subscriber: self)
     }
     
@@ -53,7 +58,8 @@ class PitchViewController: NSViewController, ActionMessageSubscriber, StringInpu
     // Activates/deactivates the Pitch effects unit
     @IBAction func pitchBypassAction(_ sender: AnyObject) {
         btnPitchBypass.toggle()
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch, !graph.togglePitchBypass()))
+        graph.togglePitchBypass()
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
     }
     
     // Updates the pitch
@@ -71,7 +77,7 @@ class PitchViewController: NSViewController, ActionMessageSubscriber, StringInpu
         if graph.isPitchBypass() {
             _ = graph.togglePitchBypass()
             btnPitchBypass.on()
-            SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch, true))
+            SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
         }
         
         lblPitchValue.stringValue = graph.setPitch(pitch)
@@ -124,7 +130,7 @@ class PitchViewController: NSViewController, ActionMessageSubscriber, StringInpu
     // Changes the pitch to a specified value
     private func pitchChange(_ pitchInfo: (pitch: Float, pitchString: String)) {
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch, true))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
         
         pitchSlider.floatValue = pitchInfo.pitch
         lblPitchValue.stringValue = pitchInfo.pitchString
@@ -139,6 +145,16 @@ class PitchViewController: NSViewController, ActionMessageSubscriber, StringInpu
     }
     
     // MARK: Message handling
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        if let message = notification as? EffectsUnitStateChangedNotification {
+            
+            if message.effectsUnit == .pitch {
+//                btnPitchBypass.onIf(message.active)
+            }
+        }
+    }
     
     func consumeMessage(_ message: ActionMessage) {
         

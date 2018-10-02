@@ -6,6 +6,10 @@ import Cocoa
 // TODO: Separate into separate protocols per effects unit
 protocol AudioGraphDelegateProtocol: EQUnitDelegateProtocol, PitchShiftUnitDelegateProtocol, TimeStretchUnitDelegateProtocol, ReverbUnitDelegateProtocol, DelayUnitDelegateProtocol, FilterUnitDelegateProtocol {
     
+    func toggleMasterBypass() -> Bool
+    
+    func isMasterBypass() -> Bool
+    
     // NOTE - All functions that return String values return user-friendly text representations of the value being get/set, for display in the UI. For instance, setDelayLowPassCutoff(64) might return a value like "64 Hz"
     
     // Retrieves the current player volume
@@ -49,12 +53,11 @@ protocol AudioGraphDelegateProtocol: EQUnitDelegateProtocol, PitchShiftUnitDeleg
 
 protocol EQUnitDelegateProtocol {
     
+    // Returns the current state of the Equalizer audio effects unit
+    func getEQState() -> EffectsUnitState
     
-    // Returns the current bypass state of the Equalizer audio effects unit
-    func isEQBypass() -> Bool
-    
-    // Toggles the bypass state of the Equalizer audio effect unit, and returns its new bypass state
-    func toggleEQBypass() -> Bool
+    // Toggles the state of the Equalizer audio effects unit, and returns its new state
+    func toggleEQState() -> EffectsUnitState
     
     // Retrieves the current gloabal gain value for the EQ
     func getEQGlobalGain() -> Float
