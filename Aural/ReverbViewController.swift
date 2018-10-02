@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Reverb effects unit
  */
-class ReverbViewController: NSViewController, StringInputClient {
+class ReverbViewController: NSViewController, MessageSubscriber, StringInputClient {
     
     // Reverb controls
     @IBOutlet weak var btnReverbBypass: EffectsUnitBypassButton!
@@ -23,7 +23,9 @@ class ReverbViewController: NSViewController, StringInputClient {
     override var nibName: String? {return "Reverb"}
     
     override func viewDidLoad() {
+        
         initControls()
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
     }
     
     private func initControls() {
@@ -45,7 +47,8 @@ class ReverbViewController: NSViewController, StringInputClient {
     // Activates/deactivates the Reverb effects unit
     @IBAction func reverbBypassAction(_ sender: AnyObject) {
         btnReverbBypass.toggle()
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb, !graph.toggleReverbBypass()))
+        graph.toggleReverbBypass()
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb))
     }
 
     // Updates the Reverb preset
@@ -112,5 +115,21 @@ class ReverbViewController: NSViewController, StringInputClient {
         
         // Add a menu item for the new preset, at the top of the menu
         presetsMenu.insertItem(withTitle: string, at: 0)
+    }
+    
+    // MARK: Message handling
+    
+    func getID() -> String {
+        return self.className
+    }
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        if let message = notification as? EffectsUnitStateChangedNotification {
+            
+            if message.effectsUnit == .reverb {
+//                btnReverbBypass.onIf(message.active)
+            }
+        }
     }
 }

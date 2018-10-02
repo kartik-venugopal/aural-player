@@ -3,9 +3,9 @@ import Cocoa
 /*
     View controller for the EQ (Equalizer) effects unit
  */
-class EQViewController: NSViewController, ActionMessageSubscriber, StringInputClient {
+class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
     
-    @IBOutlet weak var btnEQBypass: EffectsUnitBypassButton!
+    @IBOutlet weak var btnEQBypass: EffectsUnitTriStateBypassButton!
     
     @IBOutlet weak var eqGlobalGainSlider: NSSlider!
     @IBOutlet weak var eqSlider1k: NSSlider!
@@ -37,12 +37,19 @@ class EQViewController: NSViewController, ActionMessageSubscriber, StringInputCl
         initControls()
         
         // Subscribe to message notifications
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble], subscriber: self)
     }
     
     private func initControls() {
         
-        btnEQBypass.onIf(!graph.isEQBypass())
+        btnEQBypass.stateFunction = {
+            () -> EffectsUnitState in
+            
+            return self.graph.getEQState()
+        }
+        
+        btnEQBypass.updateState()
         
         eqSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
         
@@ -57,8 +64,10 @@ class EQViewController: NSViewController, ActionMessageSubscriber, StringInputCl
     }
     
     @IBAction func eqBypassAction(_ sender: AnyObject) {
-        btnEQBypass.toggle()
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq, !graph.toggleEQBypass()))
+        
+        graph.toggleEQState()
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
+        btnEQBypass.updateState()
     }
     
     // Updates the global gain value of the Equalizer
@@ -142,7 +151,7 @@ class EQViewController: NSViewController, ActionMessageSubscriber, StringInputCl
         btnEQBypass.on()
         updateAllEQSliders(bands)
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq, true))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
         showEQTab()
     }
     
@@ -158,6 +167,16 @@ class EQViewController: NSViewController, ActionMessageSubscriber, StringInputCl
     }
     
     // MARK: Message handling
+    
+    func consumeNotification(_ notification: NotificationMessage) {
+        
+        if let message = notification as? EffectsUnitStateChangedNotification {
+            
+            if message.effectsUnit == .eq {
+                btnEQBypass.updateState()
+            }
+        }
+    }
     
     func consumeMessage(_ message: ActionMessage) {
         

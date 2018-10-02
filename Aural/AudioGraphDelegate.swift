@@ -23,6 +23,14 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         }
     }
     
+    func toggleMasterBypass() -> Bool {
+        return graph.toggleMasterBypass()
+    }
+    
+    func isMasterBypass() -> Bool {
+        return graph.isMasterBypass()
+    }
+    
     func getVolume() -> Float {
         
         // Convert from {0,1} to percentage
@@ -129,12 +137,12 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     // MARK: EQ unit functions
     
-    func isEQBypass() -> Bool {
-        return graph.isEQBypass()
+    func getEQState() -> EffectsUnitState {
+        return graph.getEQState()
     }
     
-    func toggleEQBypass() -> Bool {
-        return graph.toggleEQBypass()
+    func toggleEQState() -> EffectsUnitState {
+        return graph.toggleEQState()
     }
     
     func getEQGlobalGain() -> Float {
@@ -197,8 +205,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     private func ensureEQActive() {
         
         // If the EQ unit is currently inactive, activate it
-        if graph.isEQBypass() {
-            _ = graph.toggleEQBypass()
+        if graph.getEQState() != .active {
+            _ = graph.toggleEQState()
             
             // Reset to "flat" preset (because it is equivalent to an inactive EQ)
             graph.setEQBands(EQPresets.defaultPreset.bands)

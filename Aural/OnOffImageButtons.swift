@@ -103,6 +103,54 @@ class EffectsUnitBypassButton: OnOffImageButton {
 }
 
 /*
+ A special case On/Off image button used as a bypass switch for Effects units, with preset images
+ */
+class EffectsUnitTriStateBypassButton: EffectsUnitBypassButton {
+    
+    var stateFunction: (() -> EffectsUnitState)?
+    
+    var mixedStateImage: NSImage? {
+        
+        get {
+            return Images.imgSwitchMixed
+        }
+        
+        // Image should never change, so don't allow a setter
+        set {}
+    }
+    
+    var mixedStateTooltip: String? {
+        
+        get {
+            return offStateTooltip
+        }
+        
+        // Tool tip should never change, so don't allow a setter
+        set {}
+    }
+    
+    func updateState() {
+        
+        let newState = stateFunction!()
+        
+        switch newState {
+            
+        case .bypassed: off()
+            
+        case .active: on()
+            
+        case .suppressed: mixed()
+            
+        }
+    }
+    
+    func mixed() {
+        self.toolTip = mixedStateTooltip
+        self.image = mixedStateImage
+    }
+}
+
+/*
     An on/off image button that also displays text that can be highlighted
  
     NOTE - This button class is intended to be used in collaboration with OnOffImageAndTextButtonCell for the button cell
@@ -127,6 +175,7 @@ class OnOffImageAndTextButton: OnOffImageButton {
         // Set the highlight state of the cell, if it is a OnOffImageAndTextButtonCell
         if let onOffCell = self.cell as? OnOffImageAndTextButtonCell {
             onOffCell.shouldHighlight = false
+            self.setNeedsDisplay()
         }
     }
     
@@ -137,6 +186,66 @@ class OnOffImageAndTextButton: OnOffImageButton {
         // Set the highlight state of the cell, if it is a OnOffImageAndTextButtonCell
         if let onOffCell = self.cell as? OnOffImageAndTextButtonCell {
             onOffCell.shouldHighlight = true
+            self.setNeedsDisplay()
+        }
+    }
+}
+
+@IBDesignable
+class EffectsUnitTabButton: OnOffImageButton {
+    
+    var stateFunction: (() -> EffectsUnitState)?
+    
+    @IBInspectable var mixedStateImage: NSImage?
+    @IBInspectable var mixedStateTooltip: String?
+    
+    @IBInspectable var onStateTextColor: NSColor?
+    @IBInspectable var offStateTextColor: NSColor?
+    @IBInspectable var mixedStateTextColor: NSColor?
+    
+    override func off() {
+        
+        super.off()
+        
+        if let cell = self.cell as? EffectsUnitTabButtonCell {
+            cell.updateState(.bypassed)
+            self.setNeedsDisplay()
+        }
+    }
+    
+    override func on() {
+        
+        super.on()
+        
+        if let cell = self.cell as? EffectsUnitTabButtonCell {
+            cell.updateState(.active)
+            self.setNeedsDisplay()
+        }
+    }
+    
+    func mixed() {
+        
+        self.image = mixedStateImage
+        self.toolTip = mixedStateTooltip
+        
+        if let cell = self.cell as? EffectsUnitTabButtonCell {
+            cell.updateState(.suppressed)
+            self.setNeedsDisplay()
+        }
+    }
+    
+    func updateState() {
+        
+        let newState = stateFunction!()
+        
+        switch newState {
+            
+        case .bypassed: off()
+            
+        case .active: on()
+            
+        case .suppressed: mixed()
+            
         }
     }
 }

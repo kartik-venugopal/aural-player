@@ -417,12 +417,8 @@ struct EffectsUnitStateChangedNotification: NotificationMessage {
     // The effects unit whose state has changed
     let effectsUnit: EffectsUnit
     
-    // The new state of the effects unit
-    let active: Bool
-    
-    init(_ effectsUnit: EffectsUnit, _ active: Bool) {
+    init(_ effectsUnit: EffectsUnit) {
         self.effectsUnit = effectsUnit
-        self.active = active
     }
 }
 

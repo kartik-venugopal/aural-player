@@ -248,35 +248,37 @@ class AudioGraphState: PersistentState {
     var muted: Bool = AppDefaults.muted
     var balance: Float = AppDefaults.balance
     
-    var eqBypass: Bool = AppDefaults.eqBypass
+    var masterBypass: Bool = AppDefaults.masterBypass
+    
+    var eqState: EffectsUnitState = AppDefaults.eqState
     var eqGlobalGain: Float = AppDefaults.eqGlobalGain
     var eqBands: [Int: Float] = [Int: Float]() // Index -> Gain
     var eqUserPresets: [EQPreset] = [EQPreset]()
     
-    var pitchBypass: Bool = AppDefaults.pitchBypass
+    var pitchState: EffectsUnitState = AppDefaults.pitchState
     var pitch: Float = AppDefaults.pitch
     var pitchOverlap: Float = AppDefaults.pitchOverlap
     var pitchUserPresets: [PitchPreset] = [PitchPreset]()
     
-    var timeBypass: Bool = AppDefaults.timeBypass
+    var timeState: EffectsUnitState = AppDefaults.timeState
     var timeStretchRate: Float = AppDefaults.timeStretchRate
     var timeShiftPitch: Bool = AppDefaults.timeShiftPitch
     var timeOverlap: Float = AppDefaults.timeOverlap
     var timeUserPresets: [TimePreset] = [TimePreset]()
     
-    var reverbBypass: Bool = AppDefaults.reverbBypass
+    var reverbState: EffectsUnitState = AppDefaults.reverbState
     var reverbSpace: ReverbSpaces = AppDefaults.reverbSpace
     var reverbAmount: Float = AppDefaults.reverbAmount
     var reverbUserPresets: [ReverbPreset] = [ReverbPreset]()
     
-    var delayBypass: Bool = AppDefaults.delayBypass
+    var delayState: EffectsUnitState = AppDefaults.delayState
     var delayAmount: Float = AppDefaults.delayAmount
     var delayTime: Double = AppDefaults.delayTime
     var delayFeedback: Float = AppDefaults.delayFeedback
     var delayLowPassCutoff: Float = AppDefaults.delayLowPassCutoff
     var delayUserPresets: [DelayPreset] = [DelayPreset]()
     
-    var filterBypass: Bool = AppDefaults.filterBypass
+    var filterState: EffectsUnitState = AppDefaults.filterState
     var filterBassMin: Float = AppDefaults.filterBassMin
     var filterBassMax: Float = AppDefaults.filterBassMax
     var filterMidMin: Float = AppDefaults.filterMidMin
@@ -293,8 +295,10 @@ class AudioGraphState: PersistentState {
         map["muted"] = muted as AnyObject
         map["balance"] = balance as NSNumber
         
+        map["masterBypass"] = masterBypass as AnyObject
+        
         var eqDict = [NSString: AnyObject]()
-        eqDict["bypass"] = eqBypass as AnyObject
+        eqDict["state"] = eqState.rawValue as AnyObject
         eqDict["globalGain"] = eqGlobalGain as NSNumber
         
         var eqBandsDict = [NSString: NSNumber]()
@@ -322,7 +326,7 @@ class AudioGraphState: PersistentState {
         map["eq"] = eqDict as AnyObject
         
         var pitchDict = [NSString: AnyObject]()
-        pitchDict["bypass"] = pitchBypass as AnyObject
+        pitchDict["state"] = pitchState.rawValue as AnyObject
         pitchDict["pitch"] = pitch as NSNumber
         pitchDict["overlap"] = pitchOverlap as NSNumber
         
@@ -341,7 +345,7 @@ class AudioGraphState: PersistentState {
         map["pitch"] = pitchDict as AnyObject
         
         var timeDict = [NSString: AnyObject]()
-        timeDict["bypass"] = timeBypass as AnyObject
+        timeDict["state"] = timeState.rawValue as AnyObject
         timeDict["rate"] = timeStretchRate as NSNumber
         timeDict["shiftPitch"] = timeShiftPitch as AnyObject
         timeDict["overlap"] = timeOverlap as NSNumber
@@ -362,7 +366,7 @@ class AudioGraphState: PersistentState {
         map["time"] = timeDict as AnyObject
         
         var reverbDict = [NSString: AnyObject]()
-        reverbDict["bypass"] = reverbBypass as AnyObject
+        reverbDict["state"] = reverbState.rawValue as AnyObject
         reverbDict["space"] = reverbSpace.rawValue as AnyObject
         reverbDict["amount"] = reverbAmount as NSNumber
         
@@ -381,7 +385,7 @@ class AudioGraphState: PersistentState {
         map["reverb"] = reverbDict as AnyObject
         
         var delayDict = [NSString: AnyObject]()
-        delayDict["bypass"] = delayBypass as AnyObject
+        delayDict["state"] = delayState.rawValue as AnyObject
         delayDict["amount"] = delayAmount as NSNumber
         delayDict["time"] = delayTime as NSNumber
         delayDict["feedback"] = delayFeedback as NSNumber
@@ -404,7 +408,7 @@ class AudioGraphState: PersistentState {
         map["delay"] = delayDict as AnyObject
         
         var filterDict = [NSString: AnyObject]()
-        filterDict["bypass"] = filterBypass as AnyObject
+        filterDict["state"] = filterState.rawValue as AnyObject
         filterDict["bassMin"] = filterBassMin as NSNumber
         filterDict["bassMax"] = filterBassMax as NSNumber
         filterDict["midMin"] = filterMidMin as NSNumber
@@ -452,10 +456,16 @@ class AudioGraphState: PersistentState {
             audioGraphState.balance = balance.floatValue
         }
         
+        if let bypass = map["masterBypass"] as? Bool {
+            audioGraphState.masterBypass = bypass
+        }
+        
         if let eqDict = (map["eq"] as? NSDictionary) {
             
-            if let bypass = eqDict["bypass"] as? Bool {
-                audioGraphState.eqBypass = bypass
+            if let state = eqDict["state"] as? String {
+                if let eqState = EffectsUnitState(rawValue: state) {
+                    audioGraphState.eqState = eqState
+                }
             }
             
             if let globalGain = eqDict["globalGain"] as? NSNumber {
@@ -517,8 +527,10 @@ class AudioGraphState: PersistentState {
         
         if let pitchDict = (map["pitch"] as? NSDictionary) {
             
-            if let bypass = pitchDict["bypass"] as? Bool {
-                audioGraphState.pitchBypass = bypass
+            if let state = pitchDict["state"] as? String {
+                if let pitchState = EffectsUnitState(rawValue: state) {
+                    audioGraphState.pitchState = pitchState
+                }
             }
             
             if let pitch = pitchDict["pitch"] as? NSNumber {
@@ -560,8 +572,10 @@ class AudioGraphState: PersistentState {
         
         if let timeDict = (map["time"] as? NSDictionary) {
             
-            if let bypass = timeDict["bypass"] as? Bool {
-                audioGraphState.timeBypass = bypass
+            if let state = timeDict["state"] as? String {
+                if let timeState = EffectsUnitState(rawValue: state) {
+                    audioGraphState.timeState = timeState
+                }
             }
             
             if let rate = timeDict["rate"] as? NSNumber {
@@ -612,8 +626,10 @@ class AudioGraphState: PersistentState {
         
         if let reverbDict = (map["reverb"] as? NSDictionary) {
             
-            if let bypass = reverbDict["bypass"] as? Bool {
-                audioGraphState.reverbBypass = bypass
+            if let state = reverbDict["state"] as? String {
+                if let reverbState = EffectsUnitState(rawValue: state) {
+                    audioGraphState.reverbState = reverbState
+                }
             }
             
             if let space = reverbDict["space"] as? String {
@@ -658,8 +674,10 @@ class AudioGraphState: PersistentState {
         
         if let delayDict = (map["delay"] as? NSDictionary) {
             
-            if let bypass = delayDict["bypass"] as? Bool {
-                audioGraphState.delayBypass = bypass
+            if let state = delayDict["state"] as? String {
+                if let delayState = EffectsUnitState(rawValue: state) {
+                    audioGraphState.delayState = delayState
+                }
             }
             
             if let amount = delayDict["amount"] as? NSNumber {
@@ -720,8 +738,10 @@ class AudioGraphState: PersistentState {
         
         if let filterDict = (map["filter"] as? NSDictionary) {
             
-            if let bypass = filterDict["bypass"] as? Bool {
-                audioGraphState.filterBypass = bypass
+            if let state = filterDict["state"] as? String {
+                if let filterState = EffectsUnitState(rawValue: state) {
+                    audioGraphState.filterState = filterState
+                }
             }
             
             if let bassMin = (filterDict["bassMin"] as? NSNumber) {
