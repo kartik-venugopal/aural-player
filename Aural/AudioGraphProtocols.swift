@@ -105,11 +105,11 @@ protocol PitchShiftUnitProtocol {
 
 protocol TimeStretchUnitProtocol {
     
-    // Returns the current bypass state of the time audio effects unit
-    func isTimeBypass() -> Bool
+    // Returns the current state of the time audio effects unit
+    func getTimeState() -> EffectsUnitState
     
-    // Toggles the bypass state of the time audio effects unit, and returns its new bypass state
-    func toggleTimeBypass() -> Bool
+    // Toggles the state of the time audio effects unit, and returns its new state
+    func toggleTimeState() -> EffectsUnitState
     
     // Returns the current state of the pitch shift option of the time audio effects unit
     func isTimePitchShift() -> Bool

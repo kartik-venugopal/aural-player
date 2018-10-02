@@ -293,12 +293,12 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     // MARK: Time stretch unit functions
     
-    func isTimeBypass() -> Bool {
-        return graph.isTimeBypass()
+    func getTimeState() -> EffectsUnitState {
+        return graph.getTimeState()
     }
     
-    func toggleTimeBypass() -> Bool {
-        return graph.toggleTimeBypass()
+    func toggleTimeState() -> EffectsUnitState {
+        return graph.toggleTimeState()
     }
    
     func getTimePitchShift() -> String {
@@ -326,8 +326,9 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     func increaseRate() -> (rate: Float, rateString: String) {
         
         // If the time unit is currently inactive, start at default playback rate, before the increase
-        if graph.isTimeBypass() {
-            _ = graph.toggleTimeBypass()
+        if graph.getTimeState() != .active {
+            
+            _ = graph.toggleTimeState()
             graph.setTimeStretchRate(AppDefaults.timeStretchRate)
         }
         
@@ -343,8 +344,9 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     func decreaseRate() -> (rate: Float, rateString: String) {
         
         // If the time unit is currently inactive, start at default playback rate, before the decrease
-        if graph.isTimeBypass() {
-            _ = graph.toggleTimeBypass()
+        if graph.getTimeState() != .active {
+            
+            _ = graph.toggleTimeState()
             graph.setTimeStretchRate(AppDefaults.timeStretchRate)
         }
         

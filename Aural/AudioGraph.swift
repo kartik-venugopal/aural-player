@@ -347,14 +347,28 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         return masterBypass ? (timeSuppressed ? .suppressed : .bypassed) : (timeNode.bypass ? .bypassed : .active)
     }
     
-    func isTimeBypass() -> Bool {
-        return timeNode.bypass
-    }
-    
-    func toggleTimeBypass() -> Bool {
+    // Toggles the state of the Equalizer audio effects unit, and returns its new state
+    func toggleTimeState() -> EffectsUnitState {
         
-        let newState = !timeNode.bypass
-        timeNode.bypass = newState
+        let curState = getTimeState()
+        let newState: EffectsUnitState
+        
+        switch curState {
+            
+        case .active:   newState = .bypassed
+            
+        case .bypassed: newState = .active
+                        if masterBypass {
+                            _ = toggleMasterBypass()
+                        }
+            
+        // Master unit is currently bypassed, activate it
+        case .suppressed:   newState = .active
+                            _ = toggleMasterBypass()
+            
+        }
+        
+        timeNode.bypass = newState != .active
         
         return newState
     }

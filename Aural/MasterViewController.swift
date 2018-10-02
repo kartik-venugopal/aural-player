@@ -38,13 +38,13 @@ class MasterViewController: NSViewController, MessageSubscriber {
             
             return self.graph.getPitchState()
         }
+
+        btnTimeBypass.stateFunction = {
+            () -> EffectsUnitState in
+            
+            return self.graph.getTimeState()
+        }
 //
-//        btnTimeBypass.stateFunction = {
-//            () -> EffectsUnitState in
-//            
-//            return graph.getTimeSt
-//        }
-//        
 //        btnReverbBypass.stateFunction = {
 //            () -> EffectsButtonState in
 //            
@@ -130,13 +130,12 @@ class MasterViewController: NSViewController, MessageSubscriber {
     // Activates/deactivates the Time stretch effects unit
     @IBAction func timeBypassAction(_ sender: AnyObject) {
         
-        let newBypassState = graph.toggleTimeBypass()
-        
-        btnTimeBypass.updateState()
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
+        let newBypassState = graph.toggleTimeState() != .active
         
         let newRate = newBypassState ? 1 : graph.getTimeRate().rate
         SyncMessenger.publishNotification(PlaybackRateChangedNotification(newRate))
+        
+        updateButtons()
     }
     
     // Activates/deactivates the Reverb effects unit
@@ -172,9 +171,9 @@ class MasterViewController: NSViewController, MessageSubscriber {
             case .eq:   btnEQBypass.updateState()
                 
             case .pitch:   btnPitchBypass.updateState()
-//
-//            case .time:   btnTimeBypass.updateState()
-//                
+
+            case .time:   btnTimeBypass.updateState()
+                
 //            case .reverb:   btnReverbBypass.updateState()
 //                
 //            case .delay:   btnDelayBypass.updateState()

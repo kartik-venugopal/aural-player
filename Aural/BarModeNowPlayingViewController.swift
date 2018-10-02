@@ -55,7 +55,8 @@ class BarModeNowPlayingViewController: NSViewController, MessageSubscriber, Asyn
     
     private func oneTimeSetup() {
         
-        let seekTimerInterval = audioGraph.isTimeBypass() ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * audioGraph.getTimeRate().rate))
+        let timeBypassed = audioGraph.getTimeState() != .active
+        let seekTimerInterval = timeBypassed ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * audioGraph.getTimeRate().rate))
         
         // Timer interval depends on whether time stretch unit is active
         seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval, task: {self.updateSeekPosition()}, queue: DispatchQueue.main)
