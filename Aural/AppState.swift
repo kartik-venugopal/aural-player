@@ -787,6 +787,7 @@ class AudioGraphState: PersistentState {
                 userPresets.forEach({
                     
                     var presetName: String?
+                    let presetState: EffectsUnitState = .active
                     
                     var presetBassMin: Double?
                     var presetBassMax: Double?
@@ -828,7 +829,7 @@ class AudioGraphState: PersistentState {
                     // Preset must have a name
                     if let presetName = presetName {
                         
-                        audioGraphState.filterUserPresets.append(FilterPreset(name: presetName, bassBand: presetBassMin!...presetBassMax!, midBand: presetMidMin!...presetMidMax!, trebleBand: presetTrebleMin!...presetTrebleMax!, systemDefined: false))
+                        audioGraphState.filterUserPresets.append(FilterPreset(presetName, presetState, presetBassMin!...presetBassMax!, presetMidMin!...presetMidMax!, presetTrebleMin!...presetTrebleMax!, false))
                     }
                 })
             }

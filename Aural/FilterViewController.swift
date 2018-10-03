@@ -28,7 +28,7 @@ class FilterViewController: NSViewController, MessageSubscriber, StringInputClie
     
     override func viewDidLoad() {
         initControls()
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification, .applyFilterPreset], subscriber: self)
     }
  
     private func initControls() {
@@ -104,6 +104,10 @@ class FilterViewController: NSViewController, MessageSubscriber, StringInputClie
         
         // Get preset definition
         let preset = FilterPresets.presetByName(presetsMenu.titleOfSelectedItem!)
+        applyPreset(preset)
+    }
+    
+    private func applyPreset(_ preset: FilterPreset) {
         
         filterBassSlider.start = preset.bassBand.lowerBound
         filterBassSlider.end = preset.bassBand.upperBound
@@ -119,6 +123,11 @@ class FilterViewController: NSViewController, MessageSubscriber, StringInputClie
         
         // Don't select any of the items
         presetsMenu.selectItem(at: -1)
+        
+        // TODO: Revisit this
+        if (preset.state != graph.getFilterState()) {
+            filterBypassAction(self)
+        }
     }
     
     // Displays a popover to allow the user to name the new custom preset
@@ -158,7 +167,7 @@ class FilterViewController: NSViewController, MessageSubscriber, StringInputClie
         let midBand = filterMidSlider.start...filterMidSlider.end
         let trebleBand = filterTrebleSlider.start...filterTrebleSlider.end
         
-        FilterPresets.addUserDefinedPreset(string, bassBand, midBand, trebleBand)
+        FilterPresets.addUserDefinedPreset(string, graph.getFilterState(), bassBand, midBand, trebleBand)
         
         // Add a menu item for the new preset, at the top of the menu
         presetsMenu.insertItem(withTitle: string, at: 0)
@@ -178,5 +187,20 @@ class FilterViewController: NSViewController, MessageSubscriber, StringInputClie
                 btnFilterBypass.updateState()
             }
         }
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        if request.messageType == .applyFilterPreset {
+            
+            if let applyPresetRequest = request as? ApplyEffectsPresetRequest {
+                
+                if let filterState = applyPresetRequest.preset as? FilterPreset {
+                    applyPreset(filterState)
+                }
+            }
+        }
+        
+        return EmptyResponse.instance
     }
 }
