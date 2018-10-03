@@ -449,12 +449,12 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     // MARK: Filter unit functions
     
-    func isFilterBypass() -> Bool {
-        return graph.isFilterBypass()
+    func getFilterState() -> EffectsUnitState {
+        return graph.getFilterState()
     }
     
-    func toggleFilterBypass() -> Bool {
-        return graph.toggleFilterBypass()
+    func toggleFilterState() -> EffectsUnitState{
+        return graph.toggleFilterState()
     }
     
     func getFilterBassBand() -> (min: Float, max: Float, rangeString: String) {

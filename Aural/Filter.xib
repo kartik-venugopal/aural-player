@@ -26,7 +26,7 @@
             <rect key="frame" x="0.0" y="0.0" width="484" height="160"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N6p-bI-VWV" userLabel="Bypass button" customClass="EffectsUnitBypassButton" customModule="Aural" customModuleProvider="target">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N6p-bI-VWV" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="10" y="133" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="FVo-JD-Fe2">

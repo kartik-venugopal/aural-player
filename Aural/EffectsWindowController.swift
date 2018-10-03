@@ -118,6 +118,12 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
             
             return self.graph.getDelayState()
         }
+        
+        filterTabViewButton.stateFunction = {
+            () -> EffectsUnitState in
+            
+            return self.graph.getFilterState()
+        }
     }
 
     func activate() {
@@ -140,8 +146,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         timeTabViewButton.updateState()
         reverbTabViewButton.updateState()
         delayTabViewButton.updateState()
-        
-        filterTabViewButton.onIf(!graph.isFilterBypass())
+        filterTabViewButton.updateState()
 
         // TODO: This will not always be off (only on app startup)
         recorderTabViewButton.off()
@@ -213,10 +218,10 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
             case .delay:
 
                 delayTabViewButton.updateState()
-//
-//            case .filter:
-//
-//                filterTabViewButton.updateState()
+
+            case .filter:
+
+                filterTabViewButton.updateState()
 //
 //            case .recorder:
 //

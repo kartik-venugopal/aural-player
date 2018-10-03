@@ -207,11 +207,11 @@ protocol DelayUnitDelegateProtocol {
 
 protocol FilterUnitDelegateProtocol {
  
-    // Returns the current bypass state of the filter audio effects unit
-    func isFilterBypass() -> Bool
+    // Returns the current state of the filter audio effects unit
+    func getFilterState() -> EffectsUnitState
     
-    // Toggles the bypass state of the filter audio effect unit, and returns its new bypass state
-    func toggleFilterBypass() -> Bool
+    // Toggles the state of the filter audio effects unit, and returns its new state
+    func toggleFilterState() -> EffectsUnitState
     
     func getFilterBassBand() -> (min: Float, max: Float, rangeString: String)
     
