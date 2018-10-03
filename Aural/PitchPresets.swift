@@ -6,7 +6,7 @@ class PitchPresets {
         
         var map = [String: PitchPreset]()
         SystemDefinedPitchPresets.allValues.forEach({
-            map[$0.rawValue] = PitchPreset(name: $0.rawValue, pitch: $0.pitch, overlap: $0.overlap, systemDefined: true)
+            map[$0.rawValue] = PitchPreset($0.rawValue, $0.state, $0.pitch, $0.overlap,true)
         })
         
         return map
@@ -33,8 +33,8 @@ class PitchPresets {
     }
     
     // Assume preset with this name doesn't already exist
-    static func addUserDefinedPreset(_ name: String, _ pitch: Float, _ overlap: Float) {
-        presets[name] = PitchPreset(name: name, pitch: pitch, overlap: overlap, systemDefined: false)
+    static func addUserDefinedPreset(_ name: String, _ state: EffectsUnitState, _ pitch: Float, _ overlap: Float) {
+        presets[name] = PitchPreset(name, state, pitch, overlap, false)
     }
     
     static func presetWithNameExists(_ name: String) -> Bool {
@@ -42,13 +42,17 @@ class PitchPresets {
     }
 }
 
-// TODO: Make this a sibling of EQPreset with a protocol
-struct PitchPreset {
+class PitchPreset: EffectsUnitPreset {
     
-    let name: String
     let pitch: Float
     let overlap: Float
-    let systemDefined: Bool
+    
+    init(_ name: String, _ state: EffectsUnitState, _ pitch: Float, _ overlap: Float, _ systemDefined: Bool) {
+        
+        self.pitch = pitch
+        self.overlap = overlap
+        super.init(name, state, systemDefined)
+    }
 }
 
 /*
@@ -101,5 +105,9 @@ fileprivate enum SystemDefinedPitchPresets: String {
     
     var overlap: Float {
         return 8
+    }
+    
+    var state: EffectsUnitState {
+        return .active
     }
 }

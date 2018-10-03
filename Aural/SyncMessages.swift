@@ -110,6 +110,18 @@ enum MessageType {
     case savePitchUserPresetRequest
     
     case saveTimeUserPresetRequest
+    
+    case applyEQPreset
+    
+    case applyPitchPreset
+    
+    case applyTimePreset
+    
+    case applyReverbPreset
+    
+    case applyDelayPreset
+    
+    case applyFilterPreset
 }
 
 // Notification indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
@@ -481,4 +493,16 @@ struct BarModeWindowMouseNotification: NotificationMessage {
     
     static let mouseEntered = BarModeWindowMouseNotification(.barModeWindowMouseEntered)
     static let mouseExited = BarModeWindowMouseNotification(.barModeWindowMouseExited)
+}
+
+struct ApplyEffectsPresetRequest: RequestMessage {
+    
+    let messageType: MessageType
+    let preset: EffectsUnitPreset
+    
+    init(_ messageType: MessageType, _ preset: EffectsUnitPreset) {
+        
+        self.messageType = messageType
+        self.preset = preset
+    }
 }

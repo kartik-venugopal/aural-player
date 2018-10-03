@@ -379,8 +379,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return graph.toggleReverbState()
     }
     
-    func getReverbSpace() -> String {
-        return graph.getReverbSpace().description
+    func getReverbSpace() -> ReverbSpaces {
+        return graph.getReverbSpace()
     }
     
     func setReverbSpace(_ space: ReverbSpaces) {

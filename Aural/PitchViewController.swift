@@ -32,7 +32,7 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
     private func initSubscriptions() {
         
         // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification, .applyPitchPreset], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch], subscriber: self)
     }
     
@@ -107,12 +107,21 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
         
         // Get preset definition
         let preset = PitchPresets.presetByName(presetsMenu.titleOfSelectedItem!)
+        applyPreset(preset)
+    }
+    
+    private func applyPreset(_ preset: PitchPreset) {
         
         lblPitchValue.stringValue = graph.setPitch(preset.pitch)
         pitchSlider.floatValue = preset.pitch
         
         lblPitchOverlapValue.stringValue = graph.setPitchOverlap(preset.overlap)
         pitchOverlapSlider.floatValue = preset.overlap
+        
+        // TODO: Revisit this
+        if (preset.state != graph.getPitchState()) {
+            pitchBypassAction(self)
+        }
         
         // Don't select any of the items
         presetsMenu.selectItem(at: -1)
@@ -166,6 +175,23 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
         }
     }
     
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        if request.messageType == .applyPitchPreset {
+            
+            if let applyPresetRequest = request as? ApplyEffectsPresetRequest {
+                
+                if let pitchState = applyPresetRequest.preset as? PitchPreset {
+                    
+                    print("Applying Pitch preset: ", pitchState.name)
+                    applyPreset(pitchState)
+                }
+            }
+        }
+        
+        return EmptyResponse.instance
+    }
+    
     func consumeMessage(_ message: ActionMessage) {
         
         let message = message as! AudioGraphActionMessage
@@ -207,7 +233,7 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
         
-        PitchPresets.addUserDefinedPreset(string, pitchSlider.floatValue, pitchOverlapSlider.floatValue)
+        PitchPresets.addUserDefinedPreset(string, graph.getPitchState(), pitchSlider.floatValue, pitchOverlapSlider.floatValue)
         
         // Add a menu item for the new preset, at the top of the menu
         presetsMenu.insertItem(withTitle: string, at: 0)

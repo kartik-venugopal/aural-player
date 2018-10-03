@@ -188,6 +188,8 @@
 		3EA19C231FC174A30072929E /* ControlsPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EA19C221FC174A30072929E /* ControlsPreferences.xib */; };
 		3EA29AD51F0B470600DA239E /* AsyncMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA29AD41F0B470600DA239E /* AsyncMessenger.swift */; };
 		3EA5C7A31F458EB400556669 /* UserGuide.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 3EA5C7A21F458EB400556669 /* UserGuide.pdf */; };
+		3EAD098F216478440007D7DF /* MasterPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD098E216478440007D7DF /* MasterPresets.swift */; };
+		3EAD0991216482B60007D7DF /* EffectsUnitPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD0990216482B60007D7DF /* EffectsUnitPreset.swift */; };
 		3EAEBCAC1FDCD644000FBC04 /* BannerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAEBCAB1FDCD644000FBC04 /* BannerLabel.swift */; };
 		3EAF29D11FD14AFC00EBB35A /* StatusBarAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAF29D01FD14AFC00EBB35A /* StatusBarAppModeController.swift */; };
 		3EAFE3C51FB40D0000B4A327 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EAFE3C41FB40D0000B4A327 /* Preferences.xib */; };
@@ -460,6 +462,8 @@
 		3EA19C221FC174A30072929E /* ControlsPreferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlsPreferences.xib; sourceTree = "<group>"; };
 		3EA29AD41F0B470600DA239E /* AsyncMessenger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncMessenger.swift; sourceTree = "<group>"; };
 		3EA5C7A21F458EB400556669 /* UserGuide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = UserGuide.pdf; sourceTree = "<group>"; };
+		3EAD098E216478440007D7DF /* MasterPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterPresets.swift; sourceTree = "<group>"; };
+		3EAD0990216482B60007D7DF /* EffectsUnitPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsUnitPreset.swift; sourceTree = "<group>"; };
 		3EAEBCAB1FDCD644000FBC04 /* BannerLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerLabel.swift; sourceTree = "<group>"; };
 		3EAF29D01FD14AFC00EBB35A /* StatusBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarAppModeController.swift; sourceTree = "<group>"; };
 		3EAFE3C41FB40D0000B4A327 /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
@@ -856,6 +860,8 @@
 				3E94E85A21549A5800C57AD8 /* DelayPresets.swift */,
 				3E94E85C2154AB9300C57AD8 /* FilterPresets.swift */,
 				3E3F2968215A392E00581EFE /* ReverbPresets.swift */,
+				3EAD098E216478440007D7DF /* MasterPresets.swift */,
+				3EAD0990216482B60007D7DF /* EffectsUnitPreset.swift */,
 			);
 			name = AudioGraph;
 			sourceTree = "<group>";
@@ -1615,6 +1621,7 @@
 				3E46F5641F2A918B007CD384 /* ColoredCursorTextField.swift in Sources */,
 				3E1DAAA41FAEB561002BB405 /* CRUDOperationResults.swift in Sources */,
 				3E58CC291F02759D00C36DC1 /* Timer.swift in Sources */,
+				3EAD098F216478440007D7DF /* MasterPresets.swift in Sources */,
 				3E1E97111FA44833006C8629 /* PlaybackSequencer.swift in Sources */,
 				3E192392215AEE2E00E894B3 /* NewPlayer.swift in Sources */,
 				3E5F00CE21539B7200A76C23 /* BookmarksProtocol.swift in Sources */,
@@ -1690,6 +1697,7 @@
 				3E94E85B21549A5800C57AD8 /* DelayPresets.swift in Sources */,
 				3E1CF7F31F5CBAD500613724 /* AudioGraph.swift in Sources */,
 				3E864ADD1F25E289006A7626 /* SearchResults.swift in Sources */,
+				3EAD0991216482B60007D7DF /* EffectsUnitPreset.swift in Sources */,
 				3E9A575E1F21F778007546A2 /* Recorder.swift in Sources */,
 				3E5F00C3215386CA00A76C23 /* TimePresets.swift in Sources */,
 				3E1D93521F626BF9008AC59E /* Playlist.swift in Sources */,
