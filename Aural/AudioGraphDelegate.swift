@@ -399,12 +399,12 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     // MARK: Delay unit functions
     
-    func isDelayBypass() -> Bool {
-        return graph.isDelayBypass()
+    func getDelayState() -> EffectsUnitState {
+        return graph.getDelayState()
     }
     
-    func toggleDelayBypass() -> Bool {
-        return graph.toggleDelayBypass()
+    func toggleDelayState() -> EffectsUnitState {
+        return graph.toggleDelayState()
     }
     
     func getDelayAmount() -> (amount: Float, amountString: String) {
