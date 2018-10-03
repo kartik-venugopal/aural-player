@@ -178,11 +178,11 @@ protocol ReverbUnitDelegateProtocol {
 
 protocol DelayUnitDelegateProtocol {
     
-    // Returns the current bypass state of the delay audio effects unit
-    func isDelayBypass() -> Bool
+    // Returns the current state of the delay audio effects unit
+    func getDelayState() -> EffectsUnitState
     
-    // Toggles the bypass state of the delay audio effect unit, and returns its new bypass state
-    func toggleDelayBypass() -> Bool
+    // Toggles the state of the delay audio effects unit, and returns its new state
+    func toggleDelayState() -> EffectsUnitState
     
     func getDelayAmount() -> (amount: Float, amountString: String)
     

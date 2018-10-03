@@ -87,9 +87,6 @@ protocol PitchShiftUnitProtocol {
     
     // Toggles the state of the pitch shift audio effects unit, and returns its new state
     func togglePitchState() -> EffectsUnitState
- 
-    // Toggles the bypass state of the pitch shift audio effects unit, and returns its new bypass state
-    func togglePitchBypass() -> Bool
     
     func getPitch() -> Float
     
@@ -153,11 +150,11 @@ protocol ReverbUnitProtocol {
 
 protocol DelayUnitProtocol {
     
-    // Returns the current bypass state of the delay audio effects unit
-    func isDelayBypass() -> Bool
+    // Returns the current state of the delay audio effects unit
+    func getDelayState() -> EffectsUnitState
     
-    // Toggles the bypass state of the delay audio effects unit, and returns its new bypass state
-    func toggleDelayBypass() -> Bool
+    // Toggles the state of the delay audio effects unit, and returns its new state
+    func toggleDelayState() -> EffectsUnitState
     
     func getDelayAmount() -> Float
     

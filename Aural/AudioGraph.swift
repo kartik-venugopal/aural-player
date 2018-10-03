@@ -315,16 +315,6 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         return newState
     }
     
-    func togglePitchBypass() -> Bool {
-        let newState = !pitchNode.bypass
-        pitchNode.bypass = newState
-        return newState
-    }
-    
-    func isPitchBypass() -> Bool {
-        return pitchNode.bypass
-    }
-    
     func getPitch() -> Float {
         return pitchNode.pitch
     }
@@ -435,16 +425,6 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         return newState
     }
     
-    func isReverbBypass() -> Bool {
-        return reverbNode.bypass
-    }
-    
-    func toggleReverbBypass() -> Bool {
-        let newState = !reverbNode.bypass
-        reverbNode.bypass = newState
-        return newState
-    }
-    
     func getReverbSpace() -> ReverbSpaces {
         return ReverbSpaces.mapFromAVPreset(reverbSpace)
     }
@@ -470,13 +450,28 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         return masterBypass ? (delaySuppressed ? .suppressed : .bypassed) : (delayNode.bypass ? .bypassed : .active)
     }
     
-    func isDelayBypass() -> Bool {
-        return delayNode.bypass
-    }
-    
-    func toggleDelayBypass() -> Bool {
-        let newState = !delayNode.bypass
-        delayNode.bypass = newState
+    func toggleDelayState() -> EffectsUnitState {
+        
+        let curState = getDelayState()
+        let newState: EffectsUnitState
+        
+        switch curState {
+            
+        case .active:   newState = .bypassed
+            
+        case .bypassed: newState = .active
+                        if masterBypass {
+                            _ = toggleMasterBypass()
+                        }
+            
+        // Master unit is currently bypassed, activate it
+        case .suppressed:   newState = .active
+                            _ = toggleMasterBypass()
+            
+        }
+        
+        delayNode.bypass = newState != .active
+        
         return newState
     }
     

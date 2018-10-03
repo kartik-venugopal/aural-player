@@ -272,6 +272,15 @@
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
                                                                         <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="activeUnitTextColor">
+                                                                        <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="bypassedUnitTextColor">
+                                                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="suppressedUnitTextColor">
+                                                                        <color key="value" red="0.68565538194444442" green="0.54969618055555558" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </buttonCell>
                                                             <userDefinedRuntimeAttributes>
@@ -280,6 +289,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="DelayTab"/>
                                                                 <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="DelayTab-On"/>
+                                                                <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="DelayTab-Mixed"/>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <action selector="tabViewAction:" target="-2" id="qhc-9u-8Fk"/>
@@ -361,6 +371,7 @@
     </objects>
     <resources>
         <image name="DelayTab" width="153" height="146"/>
+        <image name="DelayTab-Mixed" width="153" height="146"/>
         <image name="DelayTab-On" width="153" height="146"/>
         <image name="EQTab" width="419" height="422"/>
         <image name="EQTab-Mixed" width="419" height="422"/>

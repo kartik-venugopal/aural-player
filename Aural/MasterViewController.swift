@@ -50,6 +50,12 @@ class MasterViewController: NSViewController, MessageSubscriber {
             
             return self.graph.getReverbState()
         }
+        
+        btnDelayBypass.stateFunction = {
+            () -> EffectsUnitState in
+            
+            return self.graph.getDelayState()
+        }
 
 //        btnDelayBypass.stateFunction = {
 //            () -> EffectsButtonState in
@@ -127,6 +133,7 @@ class MasterViewController: NSViewController, MessageSubscriber {
         btnPitchBypass.updateState()
         btnTimeBypass.updateState()
         btnReverbBypass.updateState()
+        btnDelayBypass.updateState()
     }
     
     // Activates/deactivates the Time stretch effects unit
@@ -149,12 +156,14 @@ class MasterViewController: NSViewController, MessageSubscriber {
     
     // Activates/deactivates the Delay effects unit
     @IBAction func delayBypassAction(_ sender: AnyObject) {
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
-        btnDelayBypass.updateState()
+        
+        _ = graph.toggleDelayState()
+        updateButtons()
     }
     
     // Activates/deactivates the Filter effects unit
     @IBAction func filterBypassAction(_ sender: AnyObject) {
+        
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
         btnFilterBypass.updateState()
     }
@@ -179,8 +188,8 @@ class MasterViewController: NSViewController, MessageSubscriber {
                 
             case .reverb:   btnReverbBypass.updateState()
 
-//            case .delay:   btnDelayBypass.updateState()
-//                
+            case .delay:   btnDelayBypass.updateState()
+//
 //            case .filter:   btnFilterBypass.updateState()
                 
             default: return

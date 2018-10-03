@@ -6,7 +6,7 @@ import Cocoa
 class DelayViewController: NSViewController, MessageSubscriber, StringInputClient {
     
     // Delay controls
-    @IBOutlet weak var btnDelayBypass: EffectsUnitBypassButton!
+    @IBOutlet weak var btnDelayBypass: EffectsUnitTriStateBypassButton!
     @IBOutlet weak var delayTimeSlider: NSSlider!
     @IBOutlet weak var delayAmountSlider: NSSlider!
     @IBOutlet weak var delayCutoffSlider: NSSlider!
@@ -35,7 +35,12 @@ class DelayViewController: NSViewController, MessageSubscriber, StringInputClien
 
     private func initControls() {
         
-        btnDelayBypass.setBypassState(graph.isDelayBypass())
+        btnDelayBypass.stateFunction = {
+            () -> EffectsUnitState in
+            
+            return self.graph.getDelayState()
+        }
+        btnDelayBypass.updateState()
         
         let amount = graph.getDelayAmount()
         delayAmountSlider.floatValue = amount.amount
@@ -62,9 +67,17 @@ class DelayViewController: NSViewController, MessageSubscriber, StringInputClien
 
     // Activates/deactivates the Delay effects unit
     @IBAction func delayBypassAction(_ sender: AnyObject) {
-        btnDelayBypass.toggle()
-        graph.toggleDelayBypass()
+        
+        _ = graph.toggleDelayState()
+        btnDelayBypass.updateState()
+        
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb))
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
     }
     
     // Updates the Delay amount parameter
@@ -159,7 +172,7 @@ class DelayViewController: NSViewController, MessageSubscriber, StringInputClien
         if let message = notification as? EffectsUnitStateChangedNotification {
             
             if message.effectsUnit == .delay {
-//                btnDelayBypass.onIf(message.active)
+                btnDelayBypass.updateState()
             }
         }
     }
