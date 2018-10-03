@@ -554,7 +554,244 @@ class AudioGraphState: PersistentState {
                 }
             }
             
-            // TODO: Master presets
+            audioGraphState.masterUserPresets = [MasterPreset]()
+            
+            if let userPresets = masterDict["userPresets"] as? [NSDictionary] {
+                
+                userPresets.forEach({
+                    
+                    var presetName: String?
+                    
+                    if let name = $0["name"] as? String {
+                        presetName = name
+                    }
+                    
+                    var eqPreset: EQPreset = EQPresets.defaultPreset
+                    
+                    // EQ preset
+                    if let eqDict = $0["eq"] as? NSDictionary {
+                        
+                        var eqPresetState: EffectsUnitState = .active
+                        var eqPresetGlobalGain: Float = 0
+                        var eqPresetBands: [Int: Float] = [Int: Float]()
+                     
+                        if let state = eqDict["state"] as? String {
+                            
+                            if let eqState = EffectsUnitState(rawValue: state) {
+                                eqPresetState = eqState
+                            }
+                        }
+                        
+                        if let globalGain = eqDict["globalGain"] as? NSNumber {
+                            eqPresetGlobalGain = globalGain.floatValue
+                        }
+                        
+                        if let eqBands: NSDictionary = eqDict["bands"] as? NSDictionary {
+                            
+                            for (index, gain) in eqBands {
+                                
+                                if let indexStr = index as? String {
+                                    
+                                    if let indexInt = Int(indexStr) {
+                                        
+                                        if let gainNum = gain as? NSNumber {
+                                            eqPresetBands[indexInt] = gainNum.floatValue
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                        eqPreset = EQPreset("", eqPresetState, eqPresetBands, eqPresetGlobalGain, false)
+                    }
+                    
+                    var pitchPreset: PitchPreset = PitchPresets.defaultPreset
+                    
+                    // Pitch preset
+                    
+                    if let pitchDict = $0["pitch"] as? NSDictionary {
+                        
+                        var pitchPresetState: EffectsUnitState = .active
+                        var pitchPresetPitch: Float = 0
+                        var pitchPresetOverlap: Float = 0
+                        
+                        if let state = pitchDict["state"] as? String {
+                            
+                            if let pitchState = EffectsUnitState(rawValue: state) {
+                                pitchPresetState = pitchState
+                            }
+                        }
+                        
+                        if let pitch = pitchDict["pitch"] as? NSNumber {
+                            pitchPresetPitch = pitch.floatValue
+                        }
+                        
+                        if let overlap = pitchDict["overlap"] as? NSNumber {
+                            pitchPresetOverlap = overlap.floatValue
+                        }
+                    
+                        pitchPreset = PitchPreset("", pitchPresetState, pitchPresetPitch, pitchPresetOverlap, false)
+                    }
+                    
+                    var timePreset: TimePreset = TimePresets.defaultPreset
+                    
+                    // Time preset
+                    
+                    if let timeDict = $0["time"] as? NSDictionary {
+                        
+                        var timePresetState: EffectsUnitState = .active
+                        var timePresetRate: Float = 0
+                        var timePresetOverlap: Float = 0
+                        var timePresetPitchShift: Bool = false
+                        
+                        if let state = timeDict["state"] as? String {
+                            
+                            if let timeState = EffectsUnitState(rawValue: state) {
+                                timePresetState = timeState
+                            }
+                        }
+                        
+                        if let rate = timeDict["rate"] as? NSNumber {
+                            timePresetRate = rate.floatValue
+                        }
+                        
+                        if let shiftPitch = timeDict["shiftPitch"] as? Bool {
+                            timePresetPitchShift = shiftPitch
+                        }
+                        
+                        if let timeOverlap = timeDict["overlap"] as? NSNumber {
+                            timePresetOverlap = timeOverlap.floatValue
+                        }
+                        
+                        timePreset = TimePreset("", timePresetState, timePresetRate, timePresetOverlap, timePresetPitchShift, false)
+                    }
+                    
+                    var reverbPreset: ReverbPreset = ReverbPreset("", AppDefaults.reverbState, AppDefaults.reverbSpace, AppDefaults.reverbAmount, false)
+                    
+                    // Reverb preset
+                    
+                    if let reverbDict = $0["reverb"] as? NSDictionary {
+                        
+                        var reverbPresetState: EffectsUnitState = .active
+                        var reverbPresetSpace: ReverbSpaces = AppDefaults.reverbSpace
+                        var reverbPresetAmount: Float = AppDefaults.reverbAmount
+                    
+                        if let state = reverbDict["state"] as? String {
+                            
+                            if let reverbState = EffectsUnitState(rawValue: state) {
+                                reverbPresetState = reverbState
+                            }
+                        }
+                        
+                        if let space = reverbDict["space"] as? String {
+                            
+                            if let reverbSpace = ReverbSpaces(rawValue: space) {
+                                reverbPresetSpace = reverbSpace
+                            }
+                        }
+                        
+                        if let amount = reverbDict["amount"] as? NSNumber {
+                            reverbPresetAmount = amount.floatValue
+                        }
+                        
+                        reverbPreset = ReverbPreset("", reverbPresetState, reverbPresetSpace, reverbPresetAmount, false)
+                    }
+                    
+                    var delayPreset: DelayPreset = DelayPresets.defaultPreset
+                    
+                    // Delay preset
+                    
+                    if let delayDict = $0["delay"] as? NSDictionary {
+                        
+                        var delayPresetState: EffectsUnitState = .active
+                        var delayPresetAmount: Float = AppDefaults.delayAmount
+                        var delayPresetTime: Double = AppDefaults.delayTime
+                        var delayPresetFeedback: Float = AppDefaults.delayFeedback
+                        var delayPresetCutoff: Float = AppDefaults.delayLowPassCutoff
+                        
+                        if let state = delayDict["state"] as? String {
+                            
+                            if let delayState = EffectsUnitState(rawValue: state) {
+                                delayPresetState = delayState
+                            }
+                        }
+                        
+                        if let amount = delayDict["amount"] as? NSNumber {
+                            delayPresetAmount = amount.floatValue
+                        }
+                        
+                        if let time = delayDict["time"] as? NSNumber {
+                            delayPresetTime = time.doubleValue
+                        }
+                        
+                        if let feedback = delayDict["feedback"] as? NSNumber {
+                            delayPresetFeedback = feedback.floatValue
+                        }
+                        
+                        if let cutoff = delayDict["lowPassCutoff"] as? NSNumber {
+                            delayPresetCutoff = cutoff.floatValue
+                        }
+                        
+                        delayPreset = DelayPreset("", delayPresetState, delayPresetAmount, delayPresetTime, delayPresetFeedback, delayPresetCutoff, false)
+                    }
+                    
+                    var filterPreset: FilterPreset = FilterPresets.defaultPreset
+                    
+                    // Filter preset
+                    
+                    if let filterDict = $0["filter"] as? NSDictionary {
+                        
+                        var filterPresetState: EffectsUnitState = .active
+                        
+                        var filterPresetBassMin: Double = Double(AppDefaults.filterBassMin)
+                        var filterPresetBassMax: Double = Double(AppDefaults.filterBassMax)
+                        
+                        var filterPresetMidMin: Double = Double(AppDefaults.filterMidMin)
+                        var filterPresetMidMax: Double = Double(AppDefaults.filterMidMax)
+                        
+                        var filterPresetTrebleMin: Double = Double(AppDefaults.filterTrebleMin)
+                        var filterPresetTrebleMax: Double = Double(AppDefaults.filterTrebleMax)
+                    
+                        if let state = filterDict["state"] as? String {
+                            
+                            if let filterState = EffectsUnitState(rawValue: state) {
+                                filterPresetState = filterState
+                            }
+                        }
+                        
+                        if let bassMin = (filterDict["bassMin"] as? NSNumber) {
+                            filterPresetBassMin = bassMin.doubleValue
+                        }
+                        
+                        if let bassMax = (filterDict["bassMax"] as? NSNumber) {
+                            filterPresetBassMax = bassMax.doubleValue
+                        }
+                        
+                        if let midMin = (filterDict["midMin"] as? NSNumber) {
+                            filterPresetMidMin = midMin.doubleValue
+                        }
+                        
+                        if let midMax = (filterDict["midMax"] as? NSNumber) {
+                            filterPresetMidMax = midMax.doubleValue
+                        }
+                        
+                        if let trebleMin = (filterDict["trebleMin"] as? NSNumber) {
+                            filterPresetTrebleMin = trebleMin.doubleValue
+                        }
+                        
+                        if let trebleMax = (filterDict["trebleMax"] as? NSNumber) {
+                            filterPresetTrebleMax = trebleMax.doubleValue
+                        }
+                        
+                        filterPreset = FilterPreset("", filterPresetState, filterPresetBassMin...filterPresetBassMax, filterPresetMidMin...filterPresetMidMax, filterPresetTrebleMin...filterPresetTrebleMax, false)
+                    }
+                    
+                    if let presetName = presetName {
+                    
+                        audioGraphState.masterUserPresets.append(MasterPreset(name: presetName, eq: eqPreset, pitch: pitchPreset, time: timePreset, reverb: reverbPreset, delay: delayPreset, filter: filterPreset, systemDefined: false))
+                    }
+                })
+            }
         }
         
         if let eqDict = (map["eq"] as? NSDictionary) {
@@ -591,7 +828,7 @@ class AudioGraphState: PersistentState {
                 userPresets.forEach({
                     
                     var presetName: String?
-                    var presetState: EffectsUnitState = .active
+                    let presetState: EffectsUnitState = .active
                     
                     // TODO: Get this from a default value constant
                     var presetGlobalGain: Float = 0
