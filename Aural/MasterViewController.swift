@@ -44,13 +44,13 @@ class MasterViewController: NSViewController, MessageSubscriber {
             
             return self.graph.getTimeState()
         }
-//
-//        btnReverbBypass.stateFunction = {
-//            () -> EffectsButtonState in
-//            
-//            return self.graph.isMasterBypass() ? (self.graph.isReverbBypass() ? .off : .mixed) : (self.graph.isReverbBypass() ? .off : .on)
-//        }
-//        
+        
+        btnReverbBypass.stateFunction = {
+            () -> EffectsUnitState in
+            
+            return self.graph.getReverbState()
+        }
+
 //        btnDelayBypass.stateFunction = {
 //            () -> EffectsButtonState in
 //            
@@ -125,6 +125,8 @@ class MasterViewController: NSViewController, MessageSubscriber {
         
         btnEQBypass.updateState()
         btnPitchBypass.updateState()
+        btnTimeBypass.updateState()
+        btnReverbBypass.updateState()
     }
     
     // Activates/deactivates the Time stretch effects unit
@@ -140,8 +142,9 @@ class MasterViewController: NSViewController, MessageSubscriber {
     
     // Activates/deactivates the Reverb effects unit
     @IBAction func reverbBypassAction(_ sender: AnyObject) {
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb))
-        btnReverbBypass.updateState()
+        
+        _ = graph.toggleReverbState()
+        updateButtons()
     }
     
     // Activates/deactivates the Delay effects unit
@@ -174,8 +177,8 @@ class MasterViewController: NSViewController, MessageSubscriber {
 
             case .time:   btnTimeBypass.updateState()
                 
-//            case .reverb:   btnReverbBypass.updateState()
-//                
+            case .reverb:   btnReverbBypass.updateState()
+
 //            case .delay:   btnDelayBypass.updateState()
 //                
 //            case .filter:   btnFilterBypass.updateState()

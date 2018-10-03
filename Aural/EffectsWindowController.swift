@@ -106,6 +106,12 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
             
             return self.graph.getTimeState()
         }
+        
+        reverbTabViewButton.stateFunction = {
+            () -> EffectsUnitState in
+            
+            return self.graph.getReverbState()
+        }
     }
 
     func activate() {
@@ -126,8 +132,8 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         eqTabViewButton.updateState()        
         pitchTabViewButton.updateState()
         timeTabViewButton.updateState()
+        reverbTabViewButton.updateState()
         
-        reverbTabViewButton.onIf(!graph.isReverbBypass())
         delayTabViewButton.onIf(!graph.isDelayBypass())
         filterTabViewButton.onIf(!graph.isFilterBypass())
 
@@ -193,11 +199,11 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
             case .time:
 
                 timeTabViewButton.updateState()
-//
-//            case .reverb:
-//
-//                reverbTabViewButton.updateState()
-//
+
+            case .reverb:
+
+                reverbTabViewButton.updateState()
+
 //            case .delay:
 //
 //                delayTabViewButton.updateState()

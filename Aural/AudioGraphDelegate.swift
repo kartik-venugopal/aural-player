@@ -371,12 +371,12 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     // MARK: Reverb unit functions
     
-    func isReverbBypass() -> Bool {
-        return graph.isReverbBypass()
+    func getReverbState() -> EffectsUnitState {
+        return graph.getReverbState()
     }
     
-    func toggleReverbBypass() -> Bool {
-        return graph.toggleReverbBypass()
+    func toggleReverbState() -> EffectsUnitState {
+        return graph.toggleReverbState()
     }
     
     func getReverbSpace() -> String {
