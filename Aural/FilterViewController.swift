@@ -6,7 +6,7 @@ import Cocoa
 class FilterViewController: NSViewController, MessageSubscriber, StringInputClient {
     
     // Filter controls
-    @IBOutlet weak var btnFilterBypass: EffectsUnitBypassButton!
+    @IBOutlet weak var btnFilterBypass: EffectsUnitTriStateBypassButton!
     @IBOutlet weak var filterBassSlider: RangeSlider!
     @IBOutlet weak var filterMidSlider: RangeSlider!
     @IBOutlet weak var filterTrebleSlider: RangeSlider!
@@ -33,7 +33,12 @@ class FilterViewController: NSViewController, MessageSubscriber, StringInputClie
  
     private func initControls() {
         
-        btnFilterBypass.setBypassState(graph.isFilterBypass())
+        btnFilterBypass.stateFunction = {
+            () -> EffectsUnitState in
+            
+            return self.graph.getFilterState()
+        }
+        btnFilterBypass.updateState()
         
         let bassBand = graph.getFilterBassBand()
         filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, Double(bassBand.min), Double(bassBand.max), {
@@ -66,8 +71,16 @@ class FilterViewController: NSViewController, MessageSubscriber, StringInputClie
     
     // Activates/deactivates the Filter effects unit
     @IBAction func filterBypassAction(_ sender: AnyObject) {
-        btnFilterBypass.toggle()
-        graph.toggleFilterBypass()
+        
+        _ = graph.toggleFilterState()
+        btnFilterBypass.updateState()
+        
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
     }
     
@@ -162,7 +175,7 @@ class FilterViewController: NSViewController, MessageSubscriber, StringInputClie
         if let message = notification as? EffectsUnitStateChangedNotification {
             
             if message.effectsUnit == .filter {
-//                btnFilterBypass.onIf(message.active)
+                btnFilterBypass.updateState()
             }
         }
     }

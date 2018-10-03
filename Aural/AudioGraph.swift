@@ -513,6 +513,31 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         return masterBypass ? (filterSuppressed ? .suppressed : .bypassed) : (filterNode.bypass ? .bypassed : .active)
     }
     
+    func toggleFilterState() -> EffectsUnitState {
+        
+        let curState = getFilterState()
+        let newState: EffectsUnitState
+        
+        switch curState {
+            
+        case .active:   newState = .bypassed
+            
+        case .bypassed: newState = .active
+                        if masterBypass {
+                            _ = toggleMasterBypass()
+                        }
+            
+        // Master unit is currently bypassed, activate it
+        case .suppressed:   newState = .active
+                            _ = toggleMasterBypass()
+            
+        }
+        
+        filterNode.bypass = newState != .active
+        
+        return newState
+    }
+    
     func isFilterBypass() -> Bool {
         return filterNode.bypass
     }

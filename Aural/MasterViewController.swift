@@ -56,21 +56,13 @@ class MasterViewController: NSViewController, MessageSubscriber {
             
             return self.graph.getDelayState()
         }
+        
+        btnFilterBypass.stateFunction = {
+            () -> EffectsUnitState in
+            
+            return self.graph.getFilterState()
+        }
 
-//        btnDelayBypass.stateFunction = {
-//            () -> EffectsButtonState in
-//            
-//            return self.graph.isMasterBypass() ? (self.graph.isDelayBypass() ? .off : .mixed) : (self.graph.isDelayBypass() ? .off : .on)
-//        }
-//        
-//        btnFilterBypass.stateFunction = {
-//            () -> EffectsButtonState in
-//            
-//            return self.graph.isMasterBypass() ? (self.graph.isFilterBypass() ? .off : .mixed) : (self.graph.isFilterBypass() ? .off : .on)
-//        }
-        
-//        [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass].forEach({$0?.updateState()})
-        
         updateButtons()
         
         // Initialize the menu with user-defined presets
@@ -134,6 +126,7 @@ class MasterViewController: NSViewController, MessageSubscriber {
         btnTimeBypass.updateState()
         btnReverbBypass.updateState()
         btnDelayBypass.updateState()
+        btnFilterBypass.updateState()
     }
     
     // Activates/deactivates the Time stretch effects unit
@@ -164,8 +157,8 @@ class MasterViewController: NSViewController, MessageSubscriber {
     // Activates/deactivates the Filter effects unit
     @IBAction func filterBypassAction(_ sender: AnyObject) {
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
-        btnFilterBypass.updateState()
+        _ = graph.toggleFilterState()
+        updateButtons()
     }
     
     // MARK: Message handling
@@ -189,8 +182,8 @@ class MasterViewController: NSViewController, MessageSubscriber {
             case .reverb:   btnReverbBypass.updateState()
 
             case .delay:   btnDelayBypass.updateState()
-//
-//            case .filter:   btnFilterBypass.updateState()
+
+            case .filter:   btnFilterBypass.updateState()
                 
             default: return
                 
