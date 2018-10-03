@@ -89,7 +89,7 @@ class MasterViewController: NSViewController, MessageSubscriber, StringInputClie
 
         _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyPitchPreset, preset.pitch))
         
-//        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyTimePreset, preset.time))
+        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyTimePreset, preset.time))
         
         _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyReverbPreset, preset.reverb))
         
@@ -259,7 +259,7 @@ class MasterViewController: NSViewController, MessageSubscriber, StringInputClie
         let timeOverlap = graph.getTimeOverlap().overlap
         let timePitchShift = graph.isTimePitchShift()
         
-        let timePreset = TimePreset(name: dummyPresetName, rate: rate, overlap: timeOverlap, pitchShift: timePitchShift, systemDefined: false)
+        let timePreset = TimePreset(dummyPresetName, timeState, rate, timeOverlap, timePitchShift, false)
         
         // Reverb state
         let reverbState = graph.getReverbState()

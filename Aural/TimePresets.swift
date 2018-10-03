@@ -6,7 +6,7 @@ class TimePresets {
         
         var map = [String: TimePreset]()
         SystemDefinedTimePresets.allValues.forEach({
-            map[$0.rawValue] = TimePreset(name: $0.rawValue, rate: $0.rate, overlap: $0.overlap, pitchShift: $0.pitchShift, systemDefined: true)
+            map[$0.rawValue] = TimePreset($0.rawValue, $0.state, $0.rate, $0.overlap, $0.pitchShift, true)
         })
         
         return map
@@ -33,8 +33,9 @@ class TimePresets {
     }
     
     // Assume preset with this name doesn't already exist
-    static func addUserDefinedPreset(_ name: String, _ rate: Float, _ overlap: Float, _ pitchShift: Bool) {
-        presets[name] = TimePreset(name: name, rate: rate, overlap: overlap, pitchShift: pitchShift, systemDefined: false)
+    static func addUserDefinedPreset(_ name: String, _ state: EffectsUnitState, _ rate: Float, _ overlap: Float, _ pitchShift: Bool) {
+        
+        presets[name] = TimePreset(name, state, rate, overlap, pitchShift, false)
     }
     
     static func presetWithNameExists(_ name: String) -> Bool {
@@ -42,14 +43,19 @@ class TimePresets {
     }
 }
 
-// TODO: Make this a sibling of EQPreset with a protocol
-struct TimePreset {
+class TimePreset: EffectsUnitPreset {
     
-    let name: String
     let rate: Float
     let overlap: Float
     let pitchShift: Bool
-    let systemDefined: Bool
+    
+    init(_ name: String, _ state: EffectsUnitState, _ rate: Float, _ overlap: Float, _ pitchShift: Bool, _ systemDefined: Bool) {
+        
+        self.rate = rate
+        self.overlap = overlap
+        self.pitchShift = pitchShift
+        super.init(name, state, systemDefined)
+    }
 }
 
 /*
@@ -114,5 +120,9 @@ fileprivate enum SystemDefinedTimePresets: String {
     
     var pitchShift: Bool {
         return true
+    }
+    
+    var state: EffectsUnitState {
+        return .active
     }
 }

@@ -605,6 +605,7 @@ class AudioGraphState: PersistentState {
                 userPresets.forEach({
                     
                     var presetName: String?
+                    let presetState: EffectsUnitState = .active
                     var presetRate: Float?
                     var presetOverlap: Float?
                     var presetPitchShift: Bool?
@@ -627,7 +628,7 @@ class AudioGraphState: PersistentState {
                     
                     // Preset must have a name
                     if let presetName = presetName {
-                        audioGraphState.timeUserPresets.append(TimePreset(name: presetName, rate: presetRate!, overlap: presetOverlap!, pitchShift: presetPitchShift!, systemDefined: false))
+                        audioGraphState.timeUserPresets.append(TimePreset(presetName, presetState, presetRate!,  presetOverlap!, presetPitchShift!, false))
                     }
                 })
             }
