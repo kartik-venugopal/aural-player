@@ -9,7 +9,7 @@ class FilterPresets {
         
         SystemDefinedFilterPresets.allValues.forEach({
             
-            map[$0.rawValue] = FilterPreset(name: $0.rawValue, bassBand: $0.bassBand, midBand: $0.midBand, trebleBand: $0.trebleBand, systemDefined: true)
+            map[$0.rawValue] = FilterPreset($0.rawValue, $0.state, $0.bassBand, $0.midBand, $0.trebleBand, true)
         })
         
         return map
@@ -36,9 +36,9 @@ class FilterPresets {
     }
     
     // Assume preset with this name doesn't already exist
-    static func addUserDefinedPreset(_ name: String, _ bassBand: ClosedRange<Double>, _ midBand: ClosedRange<Double>, _ trebleBand: ClosedRange<Double>) {
+    static func addUserDefinedPreset(_ name: String, _ state: EffectsUnitState, _ bassBand: ClosedRange<Double>, _ midBand: ClosedRange<Double>, _ trebleBand: ClosedRange<Double>) {
         
-        presets[name] = FilterPreset(name: name, bassBand: bassBand, midBand: midBand, trebleBand: trebleBand, systemDefined: false)
+        presets[name] = FilterPreset(name, state, bassBand, midBand, trebleBand, false)
     }
     
     static func presetWithNameExists(_ name: String) -> Bool {
@@ -46,16 +46,20 @@ class FilterPresets {
     }
 }
 
-// TODO: Make this a sibling of EQPreset with a protocol/superclass
-struct FilterPreset {
-    
-    let name: String
+class FilterPreset: EffectsUnitPreset {
     
     let bassBand: ClosedRange<Double>
     let midBand: ClosedRange<Double>
     let trebleBand: ClosedRange<Double>
     
-    let systemDefined: Bool
+    init(_ name: String, _ state: EffectsUnitState, _ bassBand: ClosedRange<Double>, _ midBand: ClosedRange<Double>, _ trebleBand: ClosedRange<Double>, _ systemDefined: Bool) {
+        
+        self.bassBand = bassBand
+        self.midBand = midBand
+        self.trebleBand = trebleBand
+        
+        super.init(name, state, systemDefined)
+    }
 }
 
 /*
@@ -113,5 +117,9 @@ fileprivate enum SystemDefinedFilterPresets: String {
         case .nothingButBass, .emphasizedVocals:   return AppConstants.treble_min...AppConstants.treble_max
             
         }
+    }
+    
+    var state: EffectsUnitState {
+        return .active
     }
 }

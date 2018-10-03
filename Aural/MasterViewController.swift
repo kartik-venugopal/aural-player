@@ -95,7 +95,7 @@ class MasterViewController: NSViewController, MessageSubscriber, StringInputClie
         
         _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyDelayPreset, preset.delay))
         
-//        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyFilterPreset, preset.filter))
+        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyFilterPreset, preset.filter))
         
         updateButtons()
         
@@ -139,14 +139,7 @@ class MasterViewController: NSViewController, MessageSubscriber, StringInputClie
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
         
-        //        [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass].forEach({$0?.updateState()})
-        
-        btnEQBypass.updateState()
-        btnPitchBypass.updateState()
-        btnTimeBypass.updateState()
-        btnReverbBypass.updateState()
-        btnDelayBypass.updateState()
-        btnFilterBypass.updateState()
+        [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass].forEach({$0?.updateState()})
     }
     
     // Activates/deactivates the Time stretch effects unit
@@ -284,7 +277,7 @@ class MasterViewController: NSViewController, MessageSubscriber, StringInputClie
         let midBand = graph.getFilterMidBand()
         let trebleBand = graph.getFilterTrebleBand()
         
-        let filterPreset = FilterPreset(name: dummyPresetName, bassBand: Double(bassBand.min)...Double(bassBand.max), midBand: Double(midBand.min)...Double(midBand.max), trebleBand: Double(trebleBand.min)...Double(trebleBand.max), systemDefined: false)
+        let filterPreset = FilterPreset(dummyPresetName, filterState, Double(bassBand.min)...Double(bassBand.max), Double(midBand.min)...Double(midBand.max), Double(trebleBand.min)...Double(trebleBand.max), false)
         
         // Save the new preset
         MasterPresets.addUserDefinedPreset(string, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset)
