@@ -73,6 +73,7 @@
                 <outlet property="eqMenu" destination="9wV-eS-AMY" id="rmz-xV-44s"/>
                 <outlet property="halfOctaveAboveMenuItem" destination="oiI-Ft-yc5" id="2VO-d4-8QL"/>
                 <outlet property="halfOctaveBelowMenuItem" destination="Lm3-tW-hm0" id="Hx3-ya-ekH"/>
+                <outlet property="masterBypassMenuItem" destination="RYd-AL-o42" id="CRo-uw-2LA"/>
                 <outlet property="oneOctaveAboveMenuItem" destination="lYO-gE-kn8" id="cF3-jz-2Y3"/>
                 <outlet property="oneOctaveBelowMenuItem" destination="Wyn-lR-dym" id="cwk-rT-q61"/>
                 <outlet property="panLeftMenuItem" destination="Lke-5L-p5h" id="mq4-Ju-gMJ"/>
@@ -452,6 +453,15 @@ CQ
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="ndN-AA-rLa"/>
+                            <menuItem title="Disable effects" keyEquivalent="e" id="RYd-AL-o42" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Disable effects"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="Enable effects"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="masterBypassAction:" target="YGo-hN-fxr" id="xp4-OH-Ba5"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="  EQ" image="EQ" id="9wV-eS-AMY" userLabel="EQ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="  EQ" id="Vmm-qB-jmV">

@@ -322,9 +322,13 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
             
         case .maximizeVertical: maximizeVertical()
             
-        case .toggleEffects:    toggleEffects()
+        case .toggleEffects:
+                                print("Toggling fx")
+                                toggleEffects()
             
-        case .togglePlaylist:   togglePlaylist()
+        case .togglePlaylist:
+                                print("Toggling playlist")
+                                togglePlaylist()
             
         default: return
             

@@ -75,13 +75,7 @@ class FilterViewController: NSViewController, MessageSubscriber, StringInputClie
         _ = graph.toggleFilterState()
         btnFilterBypass.updateState()
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
     
     // Action function for the Filter unit's bass slider. Updates the Filter bass band.
@@ -182,10 +176,7 @@ class FilterViewController: NSViewController, MessageSubscriber, StringInputClie
     func consumeNotification(_ notification: NotificationMessage) {
         
         if let message = notification as? EffectsUnitStateChangedNotification {
-            
-            if message.effectsUnit == .filter {
-                btnFilterBypass.updateState()
-            }
+            btnFilterBypass.updateState()
         }
     }
     

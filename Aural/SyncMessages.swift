@@ -426,12 +426,9 @@ struct EffectsUnitStateChangedNotification: NotificationMessage {
     
     let messageType: MessageType = .effectsUnitStateChangedNotification
     
-    // The effects unit whose state has changed
-    let effectsUnit: EffectsUnit
+    private init() {}
     
-    init(_ effectsUnit: EffectsUnit) {
-        self.effectsUnit = effectsUnit
-    }
+    static let instance: EffectsUnitStateChangedNotification = EffectsUnitStateChangedNotification()
 }
 
 // Notification that the state of the segment playback loop for the currently playing track has been changed and the UI may need to be updated as a result

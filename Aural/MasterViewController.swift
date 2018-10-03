@@ -1,6 +1,6 @@
 import Cocoa
 
-class MasterViewController: NSViewController, MessageSubscriber, StringInputClient {
+class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
     
     @IBOutlet weak var btnMasterBypass: EffectsUnitBypassButton!
     
@@ -25,6 +25,8 @@ class MasterViewController: NSViewController, MessageSubscriber, StringInputClie
         
         initControls()
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
+        
+        SyncMessenger.subscribe(actionTypes: [.enableEffects, .disableEffects], subscriber: self)
     }
     
     private func initControls() {
@@ -131,13 +133,7 @@ class MasterViewController: NSViewController, MessageSubscriber, StringInputClie
         
         // Update the bypass buttons for the effects units
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
         
         [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass].forEach({$0?.updateState()})
     }
@@ -182,28 +178,17 @@ class MasterViewController: NSViewController, MessageSubscriber, StringInputClie
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if let message = notification as? EffectsUnitStateChangedNotification {
-            
-            switch message.effectsUnit {
-                
-            case .eq:   btnEQBypass.updateState()
-                
-            case .pitch:   btnPitchBypass.updateState()
-
-            case .time:   btnTimeBypass.updateState()
-                
-            case .reverb:   btnReverbBypass.updateState()
-
-            case .delay:   btnDelayBypass.updateState()
-
-            case .filter:   btnFilterBypass.updateState()
-                
-            default: return
-                
-            }
+        if notification is EffectsUnitStateChangedNotification {
             
             btnMasterBypass.onIf(!graph.isMasterBypass())
-            SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
+            [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass].forEach({$0?.updateState()})
+        }
+    }
+    
+    func consumeMessage(_ message: ActionMessage) {
+        
+        if message is AudioGraphActionMessage {
+            masterBypassAction(self)
         }
     }
     

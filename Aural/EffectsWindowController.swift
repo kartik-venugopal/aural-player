@@ -47,18 +47,6 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
 
     private lazy var playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
 
-    private var snapBottomLocation: NSPoint {
-        return mainWindow.origin.applying(CGAffineTransform.init(translationX: 0, y: -theWindow.height))
-    }
-
-    private var snapRightLocation: NSPoint {
-        return mainWindow.origin.applying(CGAffineTransform.init(translationX: mainWindow.width, y: mainWindow.height - theWindow.height))
-    }
-
-    private var snapLeftLocation: NSPoint {
-        return mainWindow.origin.applying(CGAffineTransform.init(translationX: -theWindow.width, y: mainWindow.height - theWindow.height))
-    }
-
     override var windowNibName: String? {return "Effects"}
 
     override func windowDidLoad() {
@@ -140,13 +128,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
 
     private func initUnits() {
 
-        masterTabViewButton.updateState()
-        eqTabViewButton.updateState()        
-        pitchTabViewButton.updateState()
-        timeTabViewButton.updateState()
-        reverbTabViewButton.updateState()
-        delayTabViewButton.updateState()
-        filterTabViewButton.updateState()
+        [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton].forEach({$0?.updateState()})
 
         // TODO: This will not always be off (only on app startup)
         recorderTabViewButton.off()
@@ -190,46 +172,10 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     func consumeNotification(_ notification: NotificationMessage) {
 
         // Notification that an effect unit's state has changed (active/inactive)
-        if let message = notification as? EffectsUnitStateChangedNotification {
+        if notification is EffectsUnitStateChangedNotification {
 
             // Update the corresponding tab button's state
-            switch message.effectsUnit {
-                
-            case .master:
-                
-                masterTabViewButton.updateState()
-
-            case .eq:
-
-                eqTabViewButton.updateState()
-
-            case .pitch:
-
-                pitchTabViewButton.updateState()
-
-            case .time:
-
-                timeTabViewButton.updateState()
-
-            case .reverb:
-
-                reverbTabViewButton.updateState()
-
-            case .delay:
-
-                delayTabViewButton.updateState()
-
-            case .filter:
-
-                filterTabViewButton.updateState()
-//
-//            case .recorder:
-//
-//                recorderTabViewButton.updateState()
-                
-            default: return
-                
-            }
+            [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton].forEach({$0?.updateState()})
         }
     }
 
