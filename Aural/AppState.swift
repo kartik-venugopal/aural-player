@@ -494,6 +494,10 @@ class AudioGraphState: PersistentState {
                 userPresets.forEach({
                     
                     var presetName: String?
+                    var presetState: EffectsUnitState = .active
+                    
+                    // TODO: Get this from a default value constant
+                    var presetGlobalGain: Float = 0
                     
                     if let name = $0["name"] as? String {
                         presetName = name
@@ -517,9 +521,13 @@ class AudioGraphState: PersistentState {
                         }
                     }
                     
+                    if let globalGain = $0["globalGain"] as? NSNumber {
+                        presetGlobalGain = globalGain.floatValue
+                    }
+                    
                     // Preset must have a name
                     if let presetName = presetName {
-                        audioGraphState.eqUserPresets.append(EQPreset(name: presetName, bands: presetBands, systemDefined: false))
+                        audioGraphState.eqUserPresets.append(EQPreset(presetName, presetState, presetBands, presetGlobalGain, false))
                     }
                 })
             }
@@ -547,6 +555,7 @@ class AudioGraphState: PersistentState {
                 userPresets.forEach({
                     
                     var presetName: String?
+                    let presetState: EffectsUnitState = .active
                     var presetPitch: Float?
                     var presetOverlap: Float?
                     
@@ -564,7 +573,7 @@ class AudioGraphState: PersistentState {
                     
                     // Preset must have a name
                     if let presetName = presetName {
-                        audioGraphState.pitchUserPresets.append(PitchPreset(name: presetName, pitch: presetPitch!, overlap: presetOverlap!, systemDefined: false))
+                        audioGraphState.pitchUserPresets.append(PitchPreset(presetName, presetState, presetPitch!, presetOverlap!, false))
                     }
                 })
             }
@@ -666,7 +675,7 @@ class AudioGraphState: PersistentState {
                     // Preset must have a name
                     if let presetName = presetName {
                         
-                        audioGraphState.reverbUserPresets.append(ReverbPreset(name: presetName, space: ReverbSpaces(rawValue: presetSpace!)!, amount: presetAmount!))
+                        audioGraphState.reverbUserPresets.append(ReverbPreset(name: presetName, space: ReverbSpaces(rawValue: presetSpace!)!, amount: presetAmount!, systemDefined: false))
                     }
                 })
             }

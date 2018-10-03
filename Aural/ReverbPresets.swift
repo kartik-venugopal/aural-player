@@ -22,7 +22,7 @@ class ReverbPresets {
     
     // Assume preset with this name doesn't already exist
     static func addUserDefinedPreset(_ name: String, _ space: ReverbSpaces, _ amount: Float) {
-        presets[name] = ReverbPreset(name: name, space: space, amount: amount)
+        presets[name] = ReverbPreset(name: name, space: space, amount: amount, systemDefined: false)
     }
     
     static func presetWithNameExists(_ name: String) -> Bool {
@@ -36,4 +36,6 @@ struct ReverbPreset {
     let name: String
     let space: ReverbSpaces
     let amount: Float
+    
+    let systemDefined: Bool
 }

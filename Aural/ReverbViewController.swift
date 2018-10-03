@@ -37,7 +37,7 @@ class ReverbViewController: NSViewController, MessageSubscriber, StringInputClie
         }
         btnReverbBypass.updateState()
         
-        reverbSpaceMenu.select(reverbSpaceMenu.item(withTitle: graph.getReverbSpace()))
+        reverbSpaceMenu.select(reverbSpaceMenu.item(withTitle: graph.getReverbSpace().description))
         
         let amount = graph.getReverbAmount()
         reverbAmountSlider.floatValue = amount.amount

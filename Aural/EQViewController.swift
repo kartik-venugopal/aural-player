@@ -37,7 +37,7 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
         initControls()
         
         // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification, .applyEQPreset], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble], subscriber: self)
     }
     
@@ -53,8 +53,7 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
         
         eqSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
         
-        eqGlobalGainSlider.floatValue = graph.getEQGlobalGain()
-        updateAllEQSliders(graph.getEQBands())
+        updateAllEQSliders(graph.getEQBands(), graph.getEQGlobalGain())
         
         // Initialize the menu with user-defined presets
         EQPresets.userDefinedPresets.forEach({eqPresets.insertItem(withTitle: $0.name, at: 0)})
@@ -91,12 +90,19 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
     // Applies a built-in preset to the Equalizer
     @IBAction func eqPresetsAction(_ sender: AnyObject) {
         
-        // Check if the preset is user-defined (tag == -1) or built-in
-        
         let preset = EQPresets.presetByName(eqPresets.titleOfSelectedItem!)
+        applyPreset(preset)
+    }
+    
+    private func applyPreset(_ preset: EQPreset) {
         
         graph.setEQBands(preset.bands)
-        updateAllEQSliders(preset.bands)
+        updateAllEQSliders(preset.bands, preset.globalGain)
+        
+        // TODO: Revisit this
+        if (preset.state != graph.getEQState()) {
+            eqBypassAction(self)
+        }
         
         // Don't select any of the items
         eqPresets.selectItem(at: -1)
@@ -111,11 +117,13 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
         WindowState.mainWindow.orderFront(self)
     }
     
-    private func updateAllEQSliders(_ eqBands: [Int: Float]) {
+    private func updateAllEQSliders(_ eqBands: [Int: Float], _ globalGain: Float) {
         // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
         eqSliders.forEach({
             $0.floatValue = eqBands[$0.tag] ?? 0
         })
+        
+        eqGlobalGainSlider.floatValue = globalGain
     }
     
     private func showEQTab() {
@@ -156,7 +164,7 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
     private func bandsUpdated(_ bands: [Int: Float]) {
         
         btnEQBypass.on()
-        updateAllEQSliders(bands)
+        updateAllEQSliders(bands, graph.getEQGlobalGain())
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
         showEQTab()
@@ -183,6 +191,23 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
                 btnEQBypass.updateState()
             }
         }
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        if request.messageType == .applyEQPreset {
+            
+            if let applyPresetRequest = request as? ApplyEffectsPresetRequest {
+                
+                if let eqState = applyPresetRequest.preset as? EQPreset {
+                    
+                    print("Applying EQ preset: ", eqState.name)
+                    applyPreset(eqState)
+                }
+            }
+        }
+        
+        return EmptyResponse.instance
     }
     
     func consumeMessage(_ message: ActionMessage) {
@@ -232,7 +257,7 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
  
-        EQPresets.addUserDefinedPreset(string, getAllBands())
+        EQPresets.addUserDefinedPreset(string, graph.getEQState(), getAllBands(), eqGlobalGainSlider.floatValue)
         
         // Add a menu item for the new preset, at the top of the menu
         eqPresets.insertItem(withTitle: string, at: 0)

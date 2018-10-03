@@ -6,7 +6,7 @@ class EQPresets {
         
         var map = [String: EQPreset]()
         SystemDefinedEQPresets.allValues.forEach({
-            map[$0.rawValue] = EQPreset(name: $0.rawValue, bands: $0.bands, systemDefined: true)
+            map[$0.rawValue] = EQPreset($0.rawValue, $0.state, $0.bands, $0.globalGain, true)
         })
         
         return map
@@ -33,8 +33,8 @@ class EQPresets {
     }
     
     // Assume preset with this name doesn't already exist
-    static func addUserDefinedPreset(_ name: String, _ bands: [Int: Float]) {
-        presets[name] = EQPreset(name: name, bands: bands, systemDefined: false)
+    static func addUserDefinedPreset(_ name: String, _ state: EffectsUnitState, _ bands: [Int: Float], _ globalGain: Float) {
+        presets[name] = EQPreset(name, state, bands, globalGain, false)
     }
     
     static func presetWithNameExists(_ name: String) -> Bool {
@@ -42,11 +42,17 @@ class EQPresets {
     }
 }
 
-struct EQPreset {
+class EQPreset: EffectsUnitPreset {
     
-    let name: String
     let bands: [Int: Float]
-    let systemDefined: Bool
+    let globalGain: Float
+    
+    init(_ name: String, _ state: EffectsUnitState, _ bands: [Int: Float], _ globalGain: Float, _ systemDefined: Bool) {
+        
+        self.bands = bands
+        self.globalGain = globalGain
+        super.init(name, state, systemDefined)
+    }
 }
 
 /*
@@ -103,6 +109,14 @@ fileprivate enum SystemDefinedEQPresets: String {
         case .karaoke: return EQPresetsBands.karaokeBands
             
         }
+    }
+    
+    var globalGain: Float {
+        return 0
+    }
+    
+    var state: EffectsUnitState {
+        return .active
     }
 }
 

@@ -165,7 +165,7 @@ protocol ReverbUnitDelegateProtocol {
     // Toggles the state of the reverb audio effects unit, and returns its new state
     func toggleReverbState() -> EffectsUnitState
     
-    func getReverbSpace() -> String
+    func getReverbSpace() -> ReverbSpaces
     
     // Sets the reverb space. See ReverbSpaces for more details.
     func setReverbSpace(_ space: ReverbSpaces)
