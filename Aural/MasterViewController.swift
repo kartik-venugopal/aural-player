@@ -93,7 +93,8 @@ class MasterViewController: NSViewController, MessageSubscriber, StringInputClie
         
         _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyReverbPreset, preset.reverb))
         
-//        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyDelayPreset, preset.delay))
+        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyDelayPreset, preset.delay))
+        
 //        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyFilterPreset, preset.filter))
         
         updateButtons()
@@ -275,7 +276,7 @@ class MasterViewController: NSViewController, MessageSubscriber, StringInputClie
         let cutoff = graph.getDelayLowPassCutoff().cutoff
         let feedback = graph.getDelayFeedback().percent
         
-        let delayPreset = DelayPreset(name: dummyPresetName, amount: delayAmount, time: delayTime, feedback: feedback, cutoff: cutoff, systemDefined: false)
+        let delayPreset = DelayPreset(dummyPresetName, delayState, delayAmount, delayTime, feedback, cutoff, false)
         
         // Filter state
         let filterState = graph.getFilterState()

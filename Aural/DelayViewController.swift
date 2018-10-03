@@ -30,7 +30,7 @@ class DelayViewController: NSViewController, MessageSubscriber, StringInputClien
     
     override func viewDidLoad() {
         initControls()
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification, .applyDelayPreset], subscriber: self)
     }
 
     private func initControls() {
@@ -105,6 +105,10 @@ class DelayViewController: NSViewController, MessageSubscriber, StringInputClien
         
         // Get preset definition
         let preset = DelayPresets.presetByName(presetsMenu.titleOfSelectedItem!)
+        applyPreset(preset)
+    }
+    
+    private func applyPreset(_ preset: DelayPreset) {
         
         lblDelayAmountValue.stringValue = graph.setDelayAmount(preset.amount)
         delayAmountSlider.floatValue = preset.amount
@@ -120,6 +124,11 @@ class DelayViewController: NSViewController, MessageSubscriber, StringInputClien
         
         // Don't select any of the items
         presetsMenu.selectItem(at: -1)
+        
+        // TODO: Revisit this
+        if (preset.state != graph.getDelayState()) {
+            delayBypassAction(self)
+        }
     }
     
     // Displays a popover to allow the user to name the new custom preset
@@ -155,7 +164,7 @@ class DelayViewController: NSViewController, MessageSubscriber, StringInputClien
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
         
-        DelayPresets.addUserDefinedPreset(string, delayAmountSlider.floatValue, delayTimeSlider.doubleValue, delayFeedbackSlider.floatValue, delayCutoffSlider.floatValue)
+        DelayPresets.addUserDefinedPreset(string, graph.getDelayState(), delayAmountSlider.floatValue, delayTimeSlider.doubleValue, delayFeedbackSlider.floatValue, delayCutoffSlider.floatValue)
         
         // Add a menu item for the new preset, at the top of the menu
         presetsMenu.insertItem(withTitle: string, at: 0)
@@ -175,5 +184,20 @@ class DelayViewController: NSViewController, MessageSubscriber, StringInputClien
                 btnDelayBypass.updateState()
             }
         }
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        if request.messageType == .applyDelayPreset {
+            
+            if let applyPresetRequest = request as? ApplyEffectsPresetRequest {
+                
+                if let delayState = applyPresetRequest.preset as? DelayPreset {
+                    applyPreset(delayState)
+                }
+            }
+        }
+        
+        return EmptyResponse.instance
     }
 }

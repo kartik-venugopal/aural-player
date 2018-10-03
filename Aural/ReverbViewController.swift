@@ -163,8 +163,6 @@ class ReverbViewController: NSViewController, MessageSubscriber, StringInputClie
             if let applyPresetRequest = request as? ApplyEffectsPresetRequest {
                 
                 if let reverbState = applyPresetRequest.preset as? ReverbPreset {
-                    
-                    print("Applying Reverb preset: ", reverbState.name)
                     applyPreset(reverbState)
                 }
             }

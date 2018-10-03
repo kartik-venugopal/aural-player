@@ -182,8 +182,6 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
             if let applyPresetRequest = request as? ApplyEffectsPresetRequest {
                 
                 if let pitchState = applyPresetRequest.preset as? PitchPreset {
-                    
-                    print("Applying Pitch preset: ", pitchState.name)
                     applyPreset(pitchState)
                 }
             }

@@ -9,7 +9,7 @@ class DelayPresets {
         
         SystemDefinedDelayPresets.allValues.forEach({
             
-            map[$0.rawValue] = DelayPreset(name: $0.rawValue, amount: $0.amount, time: $0.time, feedback: $0.feedback, cutoff: $0.cutoff, systemDefined: true)
+            map[$0.rawValue] = DelayPreset($0.rawValue, $0.state, $0.amount, $0.time, $0.feedback, $0.cutoff, true)
         })
         
         return map
@@ -36,8 +36,9 @@ class DelayPresets {
     }
     
     // Assume preset with this name doesn't already exist
-    static func addUserDefinedPreset(_ name: String, _ amount: Float, _ time: Double, _ feedback: Float, _ cutoff: Float) {
-        presets[name] = DelayPreset(name: name, amount: amount, time: time, feedback: feedback, cutoff: cutoff, systemDefined: false)
+    static func addUserDefinedPreset(_ name: String, _ state: EffectsUnitState, _ amount: Float, _ time: Double, _ feedback: Float, _ cutoff: Float) {
+        
+        presets[name] = DelayPreset(name, state, amount, time, feedback, cutoff, false)
     }
     
     static func presetWithNameExists(_ name: String) -> Bool {
@@ -45,17 +46,22 @@ class DelayPresets {
     }
 }
 
-// TODO: Make this a sibling of EQPreset with a protocol/superclass
-struct DelayPreset {
-    
-    let name: String
+class DelayPreset: EffectsUnitPreset {
     
     let amount: Float
     let time: Double
     let feedback: Float
     let cutoff: Float
     
-    let systemDefined: Bool
+    init(_ name: String, _ state: EffectsUnitState, _ amount: Float, _ time: Double, _ feedback: Float, _ cutoff: Float, _ systemDefined: Bool) {
+        
+        self.amount = amount
+        self.time = time
+        self.feedback = feedback
+        self.cutoff = cutoff
+        
+        super.init(name, state, systemDefined)
+    }
 }
 
 /*
@@ -107,5 +113,9 @@ fileprivate enum SystemDefinedDelayPresets: String {
     
     var cutoff: Float {
         return 15000
+    }
+    
+    var state: EffectsUnitState {
+        return .active
     }
 }
