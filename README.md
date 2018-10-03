@@ -44,6 +44,7 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 - A new editor window to manage effects presets
 - The option to remember sound settings for a particular song and apply them automatically whenever that song is played
 - New color schemes
+- Port to Swift v4.2
 
 ### Recent updates
 
