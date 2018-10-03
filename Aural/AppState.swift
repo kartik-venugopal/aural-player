@@ -657,6 +657,7 @@ class AudioGraphState: PersistentState {
                 userPresets.forEach({
                     
                     var presetName: String?
+                    let presetState: EffectsUnitState = .active
                     var presetSpace: String?
                     var presetAmount: Float?
                     
@@ -675,7 +676,7 @@ class AudioGraphState: PersistentState {
                     // Preset must have a name
                     if let presetName = presetName {
                         
-                        audioGraphState.reverbUserPresets.append(ReverbPreset(name: presetName, space: ReverbSpaces(rawValue: presetSpace!)!, amount: presetAmount!, systemDefined: false))
+                        audioGraphState.reverbUserPresets.append(ReverbPreset(presetName, presetState, ReverbSpaces(rawValue: presetSpace!)!, presetAmount!, false))
                     }
                 })
             }

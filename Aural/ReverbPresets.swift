@@ -21,8 +21,8 @@ class ReverbPresets {
     }
     
     // Assume preset with this name doesn't already exist
-    static func addUserDefinedPreset(_ name: String, _ space: ReverbSpaces, _ amount: Float) {
-        presets[name] = ReverbPreset(name: name, space: space, amount: amount, systemDefined: false)
+    static func addUserDefinedPreset(_ name: String, _ state: EffectsUnitState, _ space: ReverbSpaces, _ amount: Float) {
+        presets[name] = ReverbPreset(name, state, space, amount, false)
     }
     
     static func presetWithNameExists(_ name: String) -> Bool {
@@ -30,12 +30,15 @@ class ReverbPresets {
     }
 }
 
-// TODO: Make this a sibling of EQPreset with a protocol
-struct ReverbPreset {
+class ReverbPreset: EffectsUnitPreset {
     
-    let name: String
     let space: ReverbSpaces
     let amount: Float
     
-    let systemDefined: Bool
+    init(_ name: String, _ state: EffectsUnitState, _ space: ReverbSpaces, _ amount: Float, _ systemDefined: Bool) {
+        
+        self.space = space
+        self.amount = amount
+        super.init(name, state, systemDefined)
+    }
 }
