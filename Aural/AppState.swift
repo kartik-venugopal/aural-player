@@ -248,7 +248,8 @@ class AudioGraphState: PersistentState {
     var muted: Bool = AppDefaults.muted
     var balance: Float = AppDefaults.balance
     
-    var masterBypass: Bool = AppDefaults.masterBypass
+    var masterState: EffectsUnitState = AppDefaults.masterState
+    var masterUserPresets: [MasterPreset] = [MasterPreset]()
     
     var eqState: EffectsUnitState = AppDefaults.eqState
     var eqGlobalGain: Float = AppDefaults.eqGlobalGain
@@ -295,7 +296,92 @@ class AudioGraphState: PersistentState {
         map["muted"] = muted as AnyObject
         map["balance"] = balance as NSNumber
         
-        map["masterBypass"] = masterBypass as AnyObject
+        var masterDict = [NSString: AnyObject]()
+        
+        masterDict["state"] = masterState.rawValue as AnyObject
+        
+        // Master presets
+        var masterUserPresetsArr = [[NSString: AnyObject]]()
+        
+        for preset in masterUserPresets {
+            
+            var presetDict = [NSString: AnyObject]()
+            presetDict["name"] = preset.name as AnyObject
+            
+            // EQ preset
+            var eqPresetDict = [NSString: AnyObject]()
+            eqPresetDict["state"] = preset.eq.state.rawValue as AnyObject
+            
+            eqPresetDict["globalGain"] = preset.eq.globalGain as NSNumber
+            
+            var presetBandsDict = [NSString: NSNumber]()
+            for (index, gain) in preset.eq.bands {
+                presetBandsDict[String(index) as NSString] = gain as NSNumber
+            }
+            eqPresetDict["bands"] = presetBandsDict as AnyObject
+            
+            presetDict["eq"] = eqPresetDict as AnyObject
+            
+            // Pitch preset
+            var pitchPresetDict = [NSString: AnyObject]()
+            pitchPresetDict["state"] = preset.pitch.state.rawValue as AnyObject
+            
+            pitchPresetDict["pitch"] = preset.pitch.pitch as NSNumber
+            pitchPresetDict["overlap"] = preset.pitch.overlap as NSNumber
+            
+            presetDict["pitch"] = pitchPresetDict as AnyObject
+            
+            // Time preset
+            var timePresetDict = [NSString: AnyObject]()
+            timePresetDict["state"] = preset.time.state.rawValue as AnyObject
+            
+            timePresetDict["rate"] = preset.time.rate as NSNumber
+            timePresetDict["overlap"] = preset.time.overlap as NSNumber
+            timePresetDict["shiftPitch"] = preset.time.pitchShift as AnyObject
+            
+            presetDict["time"] = timePresetDict as AnyObject
+            
+            // Reverb preset
+            var reverbPresetDict = [NSString: AnyObject]()
+            reverbPresetDict["state"] = preset.reverb.state.rawValue as AnyObject
+            
+            reverbPresetDict["space"] = preset.reverb.space.rawValue as AnyObject
+            reverbPresetDict["amount"] = preset.reverb.amount as NSNumber
+            
+            presetDict["reverb"] = reverbPresetDict as AnyObject
+            
+            // Delay preset
+            var delayPresetDict = [NSString: AnyObject]()
+            delayPresetDict["state"] = preset.delay.state.rawValue as AnyObject
+            
+            delayPresetDict["amount"] = preset.delay.amount as NSNumber
+            delayPresetDict["time"] = preset.delay.time as NSNumber
+            delayPresetDict["feedback"] = preset.delay.feedback as NSNumber
+            delayPresetDict["lowPassCutoff"] = preset.delay.cutoff as NSNumber
+            
+            presetDict["delay"] = delayPresetDict as AnyObject
+            
+            // Filter preset
+            var filterPresetDict = [NSString: AnyObject]()
+            filterPresetDict["state"] = preset.filter.state.rawValue as AnyObject
+            
+            filterPresetDict["bassMin"] = preset.filter.bassBand.lowerBound as NSNumber
+            filterPresetDict["bassMax"] = preset.filter.bassBand.upperBound as NSNumber
+            
+            filterPresetDict["midMin"] = preset.filter.midBand.lowerBound as NSNumber
+            filterPresetDict["midMax"] = preset.filter.midBand.upperBound as NSNumber
+            
+            filterPresetDict["trebleMin"] = preset.filter.trebleBand.lowerBound as NSNumber
+            filterPresetDict["trebleMax"] = preset.filter.trebleBand.upperBound as NSNumber
+            
+            presetDict["filter"] = filterPresetDict as AnyObject
+            
+            masterUserPresetsArr.append(presetDict)
+        }
+        
+        masterDict["userPresets"] = NSArray(array: masterUserPresetsArr)
+        
+        map["master"] = masterDict as AnyObject
         
         var eqDict = [NSString: AnyObject]()
         eqDict["state"] = eqState.rawValue as AnyObject
@@ -313,11 +399,14 @@ class AudioGraphState: PersistentState {
             var presetDict = [NSString: AnyObject]()
             presetDict["name"] = preset.name as AnyObject
             
+            presetDict["globalGain"] = preset.globalGain as NSNumber
+            
             var presetBandsDict = [NSString: NSNumber]()
             for (index, gain) in preset.bands {
                 presetBandsDict[String(index) as NSString] = gain as NSNumber
             }
             presetDict["bands"] = presetBandsDict as AnyObject
+            
             
             eqUserPresetsArr.append(presetDict)
         }
@@ -456,8 +545,16 @@ class AudioGraphState: PersistentState {
             audioGraphState.balance = balance.floatValue
         }
         
-        if let bypass = map["masterBypass"] as? Bool {
-            audioGraphState.masterBypass = bypass
+        if let masterDict = (map["master"] as? NSDictionary) {
+            
+            if let state = masterDict["state"] as? String {
+                
+                if let masterState = EffectsUnitState(rawValue: state) {
+                    audioGraphState.masterState = masterState
+                }
+            }
+            
+            // TODO: Master presets
         }
         
         if let eqDict = (map["eq"] as? NSDictionary) {
