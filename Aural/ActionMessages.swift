@@ -140,6 +140,10 @@ enum ActionType {
     
     // MARK: Audio graph actions
     
+    case enableEffects
+    
+    case disableEffects
+    
     // Mute or unmute the player
     case muteOrUnmute
     
@@ -282,6 +286,7 @@ struct AudioGraphActionMessage: ActionMessage {
     var value: Float?
     
     init(_ actionType: ActionType, _ actionMode: ActionMode = .discrete, _ value: Float? = nil) {
+        
         self.actionType = actionType
         self.actionMode = actionMode
         self.value = value

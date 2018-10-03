@@ -67,13 +67,7 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
         _ = graph.toggleEQState()
         btnEQBypass.updateState()
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
     
     // Updates the global gain value of the Equalizer
@@ -127,7 +121,6 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
     }
     
     private func showEQTab() {
-    
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.showEffectsUnitTab, .eq))
     }
     
@@ -166,7 +159,7 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
         btnEQBypass.on()
         updateAllEQSliders(bands, graph.getEQGlobalGain())
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
         showEQTab()
     }
     
@@ -186,10 +179,7 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
     func consumeNotification(_ notification: NotificationMessage) {
         
         if let message = notification as? EffectsUnitStateChangedNotification {
-            
-            if message.effectsUnit == .eq {
-                btnEQBypass.updateState()
-            }
+            btnEQBypass.updateState()
         }
     }
     

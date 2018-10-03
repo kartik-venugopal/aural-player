@@ -10,6 +10,9 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     // Menu items that are not always accessible
     @IBOutlet weak var panLeftMenuItem: NSMenuItem!
     @IBOutlet weak var panRightMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var masterBypassMenuItem: ToggleMenuItem!
+    
     @IBOutlet weak var eqMenu: NSMenuItem!
     @IBOutlet weak var pitchMenu: NSMenuItem!
     @IBOutlet weak var timeMenu: NSMenuItem!
@@ -38,6 +41,9 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var rate2MenuItem: SoundParameterMenuItem!
     @IBOutlet weak var rate3MenuItem: SoundParameterMenuItem!
     @IBOutlet weak var rate4MenuItem: SoundParameterMenuItem!
+    
+    // Delegate that alters the audio graph
+    private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
     // One-time setup.
     override func awakeFromNib() {
@@ -71,6 +77,8 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     // When the menu is about to open, update the menu item states
     func menuNeedsUpdate(_ menu: NSMenu) {
         
+        masterBypassMenuItem.onIf(graph.isMasterBypass())
+        
         let isRegularMode = AppModeManager.mode == .regular
         [panLeftMenuItem, panRightMenuItem].forEach({$0?.isEnabled = isRegularMode && !WindowState.showingPopover})
         [eqMenu, pitchMenu, timeMenu].forEach({$0?.isEnabled = isRegularMode})
@@ -99,6 +107,11 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     // Pans the sound towards the right channel, by a certain preset value
     @IBAction func panRightAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(AudioGraphActionMessage(.panRight))
+    }
+    
+    // Toggles the master bypass switch
+    @IBAction func masterBypassAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(AudioGraphActionMessage(graph.isMasterBypass() ? .enableEffects : .disableEffects))
     }
     
     // Decreases each of the EQ bass bands by a certain preset decrement

@@ -56,13 +56,7 @@ class ReverbViewController: NSViewController, MessageSubscriber, StringInputClie
         _ = graph.toggleReverbState()
         btnReverbBypass.updateState()
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
 
     // Updates the Reverb preset
@@ -149,10 +143,7 @@ class ReverbViewController: NSViewController, MessageSubscriber, StringInputClie
     func consumeNotification(_ notification: NotificationMessage) {
         
         if let message = notification as? EffectsUnitStateChangedNotification {
-            
-            if message.effectsUnit == .reverb {
-                btnReverbBypass.updateState()
-            }
+            btnReverbBypass.updateState()
         }
     }
     

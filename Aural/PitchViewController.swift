@@ -66,13 +66,7 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
         _ = graph.togglePitchState()
         btnPitchBypass.updateState()
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
     
     // Updates the pitch
@@ -91,7 +85,7 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
         btnPitchBypass.updateState()
         pitchSlider.floatValue = pitch
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
         
         // Show the Pitch tab
         showPitchTab()
@@ -149,7 +143,7 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
     // Changes the pitch to a specified value
     private func pitchChange(_ pitchInfo: (pitch: Float, pitchString: String)) {
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
         
         pitchSlider.floatValue = pitchInfo.pitch
         lblPitchValue.stringValue = pitchInfo.pitchString
@@ -167,11 +161,8 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if let message = notification as? EffectsUnitStateChangedNotification {
-            
-            if message.effectsUnit == .pitch {
-                btnPitchBypass.updateState()
-            }
+        if notification is EffectsUnitStateChangedNotification {
+            btnPitchBypass.updateState()
         }
     }
     

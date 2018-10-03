@@ -73,13 +73,7 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
         let playbackRateChangedMsg = PlaybackRateChangedNotification(newRate)
         SyncMessenger.publishNotification(playbackRateChangedMsg)
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
     
     // Toggles the "pitch shift" option of the Time stretch effects unit
@@ -162,7 +156,7 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
             
             _ = graph.toggleTimeState()
             btnTimeBypass.updateState()
-            SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
+            SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
         }
         
         lblTimeStretchRateValue.stringValue = graph.setTimeStretchRate(rate)
@@ -187,7 +181,7 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
     // Changes the playback rate to a specific value
     private func rateChange(_ rateInfo: (rate: Float, rateString: String)) {
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
         
         timeSlider.floatValue = rateInfo.rate
         lblTimeStretchRateValue.stringValue = rateInfo.rateString
@@ -217,11 +211,8 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if let message = notification as? EffectsUnitStateChangedNotification {
-            
-            if message.effectsUnit == .time {
-                btnTimeBypass.updateState()
-            }
+        if notification is EffectsUnitStateChangedNotification {
+            btnTimeBypass.updateState()
         }
     }
     

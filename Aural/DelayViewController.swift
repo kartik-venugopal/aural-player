@@ -71,13 +71,7 @@ class DelayViewController: NSViewController, MessageSubscriber, StringInputClien
         _ = graph.toggleDelayState()
         btnDelayBypass.updateState()
         
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
     
     // Updates the Delay amount parameter
@@ -179,10 +173,7 @@ class DelayViewController: NSViewController, MessageSubscriber, StringInputClien
     func consumeNotification(_ notification: NotificationMessage) {
         
         if let message = notification as? EffectsUnitStateChangedNotification {
-            
-            if message.effectsUnit == .delay {
-                btnDelayBypass.updateState()
-            }
+            btnDelayBypass.updateState()
         }
     }
     
