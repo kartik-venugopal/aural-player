@@ -78,7 +78,8 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         playerNode.pan = state.balance
         
-        masterBypass = state.masterBypass
+        masterBypass = state.masterState != .active
+        MasterPresets.loadPresets(state.masterUserPresets)
         
         // EQ
         eqNode.bypass = state.eqState != .active
@@ -596,7 +597,8 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.muted = muted
         state.balance = playerNode.pan
         
-        state.masterBypass = masterBypass
+        state.masterState = masterBypass ? .bypassed : .active
+        state.masterUserPresets = MasterPresets.userDefinedPresets
         
         // EQ
         state.eqState = getEQState()

@@ -17,7 +17,7 @@ class AppDefaults {
     static let balance: Float = 0
     static let muted: Bool = false
     
-    static let masterBypass: Bool = false
+    static let masterState: EffectsUnitState = .active
     
     static let eqState: EffectsUnitState = .bypassed
     static let eqGlobalGain: Float = 0
