@@ -134,11 +134,11 @@ protocol TimeStretchUnitProtocol {
 
 protocol ReverbUnitProtocol {
     
-    // Returns the current bypass state of the reverb audio effects unit
-    func isReverbBypass() -> Bool
+    // Returns the current state of the reverb audio effects unit
+    func getReverbState() -> EffectsUnitState
     
-    // Toggles the bypass state of the reverb audio effects unit, and returns its new bypass state
-    func toggleReverbBypass() -> Bool
+    // Toggles the state of the reverb audio effects unit, and returns its new state
+    func toggleReverbState() -> EffectsUnitState
     
     func getReverbSpace() -> ReverbSpaces
     

@@ -6,7 +6,7 @@ import Cocoa
 class ReverbViewController: NSViewController, MessageSubscriber, StringInputClient {
     
     // Reverb controls
-    @IBOutlet weak var btnReverbBypass: EffectsUnitBypassButton!
+    @IBOutlet weak var btnReverbBypass: EffectsUnitTriStateBypassButton!
     @IBOutlet weak var reverbSpaceMenu: NSPopUpButton!
     @IBOutlet weak var reverbAmountSlider: NSSlider!
     @IBOutlet weak var lblReverbAmountValue: NSTextField!
@@ -30,7 +30,13 @@ class ReverbViewController: NSViewController, MessageSubscriber, StringInputClie
     
     private func initControls() {
         
-        btnReverbBypass.setBypassState(graph.isReverbBypass())
+        btnReverbBypass.stateFunction = {
+            () -> EffectsUnitState in
+            
+            return self.graph.getReverbState()
+        }
+        btnReverbBypass.updateState()
+        
         reverbSpaceMenu.select(reverbSpaceMenu.item(withTitle: graph.getReverbSpace()))
         
         let amount = graph.getReverbAmount()
@@ -46,9 +52,17 @@ class ReverbViewController: NSViewController, MessageSubscriber, StringInputClie
 
     // Activates/deactivates the Reverb effects unit
     @IBAction func reverbBypassAction(_ sender: AnyObject) {
-        btnReverbBypass.toggle()
-        graph.toggleReverbBypass()
+        
+        _ = graph.toggleReverbState()
+        btnReverbBypass.updateState()
+        
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.master))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.eq))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.pitch))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.time))
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.reverb))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.delay))
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification(.filter))
     }
 
     // Updates the Reverb preset
@@ -128,7 +142,7 @@ class ReverbViewController: NSViewController, MessageSubscriber, StringInputClie
         if let message = notification as? EffectsUnitStateChangedNotification {
             
             if message.effectsUnit == .reverb {
-//                btnReverbBypass.onIf(message.active)
+                btnReverbBypass.updateState()
             }
         }
     }
