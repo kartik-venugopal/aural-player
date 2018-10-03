@@ -249,8 +249,6 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
             if let applyPresetRequest = request as? ApplyEffectsPresetRequest {
                 
                 if let timeState = applyPresetRequest.preset as? TimePreset {
-                    
-                    print("Applying Time preset: ", timeState.name)
                     applyPreset(timeState)
                 }
             }

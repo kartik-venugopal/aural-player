@@ -200,8 +200,6 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
             if let applyPresetRequest = request as? ApplyEffectsPresetRequest {
                 
                 if let eqState = applyPresetRequest.preset as? EQPreset {
-                    
-                    print("Applying EQ preset: ", eqState.name)
                     applyPreset(eqState)
                 }
             }

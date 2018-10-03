@@ -713,6 +713,7 @@ class AudioGraphState: PersistentState {
                 userPresets.forEach({
                     
                     var presetName: String?
+                    let presetState: EffectsUnitState = .active
                     var presetAmount: Float?
                     var presetTime: Double?
                     var presetFeedback: Float?
@@ -741,7 +742,7 @@ class AudioGraphState: PersistentState {
                     // Preset must have a name
                     if let presetName = presetName {
                         
-                        audioGraphState.delayUserPresets.append(DelayPreset(name: presetName, amount: presetAmount!, time: presetTime!, feedback: presetFeedback!, cutoff: presetCutoff!, systemDefined: false))
+                        audioGraphState.delayUserPresets.append(DelayPreset(presetName, presetState, presetAmount!, presetTime!, presetFeedback!, presetCutoff!, false))
                     }
                 })
             }
@@ -750,6 +751,7 @@ class AudioGraphState: PersistentState {
         if let filterDict = (map["filter"] as? NSDictionary) {
             
             if let state = filterDict["state"] as? String {
+                
                 if let filterState = EffectsUnitState(rawValue: state) {
                     audioGraphState.filterState = filterState
                 }
