@@ -86,16 +86,16 @@ class MasterViewController: NSViewController, MessageSubscriber, StringInputClie
         let preset = MasterPresets.presetByName(masterPresets.titleOfSelectedItem!)!
 
         _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyEQPreset, preset.eq))
-        updateButtons()
+
         _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyPitchPreset, preset.pitch))
-        updateButtons()
+        
 //        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyTimePreset, preset.time))
-//        updateButtons()
-//        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyReverbPreset, preset.reverb))
-//        updateButtons()
+        
+        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyReverbPreset, preset.reverb))
+        
 //        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyDelayPreset, preset.delay))
-//        updateButtons()
 //        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyFilterPreset, preset.filter))
+        
         updateButtons()
         
         // Don't select any of the items
@@ -266,7 +266,7 @@ class MasterViewController: NSViewController, MessageSubscriber, StringInputClie
         let space = graph.getReverbSpace()
         let reverbAmount = graph.getReverbAmount().amount
         
-        let reverbPreset = ReverbPreset(name: dummyPresetName, space: space, amount: reverbAmount, systemDefined: false)
+        let reverbPreset = ReverbPreset(dummyPresetName, reverbState, space, reverbAmount, false)
         
         // Delay state
         let delayState = graph.getDelayState()

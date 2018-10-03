@@ -25,7 +25,7 @@ class ReverbViewController: NSViewController, MessageSubscriber, StringInputClie
     override func viewDidLoad() {
         
         initControls()
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification, .applyReverbPreset], subscriber: self)
     }
     
     private func initControls() {
@@ -80,16 +80,25 @@ class ReverbViewController: NSViewController, MessageSubscriber, StringInputClie
         
         // Get preset definition
         if let preset = ReverbPresets.presetByName(presetsMenu.titleOfSelectedItem!) {
-        
-            graph.setReverbSpace(preset.space)
-            reverbSpaceMenu.selectItem(withTitle: preset.space.description)
-            
-            lblReverbAmountValue.stringValue = graph.setReverbAmount(preset.amount)
-            reverbAmountSlider.floatValue = preset.amount
+            applyPreset(preset)
         }
         
         // Don't select any of the items
         presetsMenu.selectItem(at: -1)
+    }
+    
+    private func applyPreset(_ preset: ReverbPreset) {
+        
+        graph.setReverbSpace(preset.space)
+        reverbSpaceMenu.selectItem(withTitle: preset.space.description)
+        
+        lblReverbAmountValue.stringValue = graph.setReverbAmount(preset.amount)
+        reverbAmountSlider.floatValue = preset.amount
+        
+        // TODO: Revisit this
+        if (preset.state != graph.getReverbState()) {
+            reverbBypassAction(self)
+        }
     }
     
     // Displays a popover to allow the user to name the new custom preset
@@ -125,7 +134,7 @@ class ReverbViewController: NSViewController, MessageSubscriber, StringInputClie
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
         
-        ReverbPresets.addUserDefinedPreset(string, ReverbSpaces.fromDescription((reverbSpaceMenu.selectedItem?.title)!), reverbAmountSlider.floatValue)
+        ReverbPresets.addUserDefinedPreset(string, graph.getReverbState(), ReverbSpaces.fromDescription((reverbSpaceMenu.selectedItem?.title)!), reverbAmountSlider.floatValue)
         
         // Add a menu item for the new preset, at the top of the menu
         presetsMenu.insertItem(withTitle: string, at: 0)
@@ -145,5 +154,22 @@ class ReverbViewController: NSViewController, MessageSubscriber, StringInputClie
                 btnReverbBypass.updateState()
             }
         }
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        if request.messageType == .applyReverbPreset {
+            
+            if let applyPresetRequest = request as? ApplyEffectsPresetRequest {
+                
+                if let reverbState = applyPresetRequest.preset as? ReverbPreset {
+                    
+                    print("Applying Reverb preset: ", reverbState.name)
+                    applyPreset(reverbState)
+                }
+            }
+        }
+        
+        return EmptyResponse.instance
     }
 }
