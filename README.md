@@ -36,6 +36,15 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 - Extensive set of keyboard shortcuts and menu items for quick and convenient access to functionality
 - Numerous preferences to allow user to highly customize functionality (e.g. seek/volume/pan increment, enabling/disabling and mouse sensitivity for gestures, configurable window layout and snapping behavior, remembered/default playlist on startup, etc.)
 
+### Planned updates
+
+- A new Master effects unit that lets the user enable/disable all effects units from one place and capture all effects settings in one single master preset (that can be applied later)
+- Ability to save track segment loops (similar to bookmarks)
+- A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
+- A new editor window to manage effects presets
+- The option to remember sound settings for a particular song and apply them automatically whenever that song is played
+- New color schemes
+
 ### Recent updates
 
 - **9/28/2018: New release:** Bug fix - On High Sierra systems, app crashed at the completion of an iteration of a playback loop. This issue has been fixed.
@@ -70,7 +79,6 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
     * Audio engine crash upon app exit, causing corruption of app state file, resulting in loss of all saved settings and user presets/data.
     * When playing a track from Favorites/Recently played list, the first 5 seconds of the track would sometimes play twice in a row, because of a race condition in the code that performed preparation for track playback.
     * The playlist scroll buttons stopped working at some point.
-
 
 - **9/14/2018: Improved aesthetics -** Touched up the UI. Removed ugly panel borders, redid tab group button selection boxes, changed app title text font.
 - **9/14/2018: Playlist docking bug fix -** Fixed a bug that caused the playlist's docking location to not be rememebered across app launches.
