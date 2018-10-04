@@ -113,7 +113,7 @@ protocol PitchShiftUnitDelegateProtocol {
     func getPitch() -> (pitch: Float, pitchString: String)
     
     // Sets the pitch shift value, in octaves, specified as a value between -2 and 2
-    func setPitch(_ pitch: Float) -> String
+    func setPitch(_ pitch: Float, _ ensureActive: Bool) -> String
     
     // Increases the pitch shift by a small increment. Returns the new pitch shift value.
     func increasePitch() -> (pitch: Float, pitchString: String)

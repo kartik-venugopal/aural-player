@@ -132,6 +132,7 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
     private func setRate(_ rate: Float) {
         
         // Ensure unit is activated
+        // TODO: Move this to AudioGraph ???
         if graph.getTimeState() != .active {
             
             _ = graph.toggleTimeState()
