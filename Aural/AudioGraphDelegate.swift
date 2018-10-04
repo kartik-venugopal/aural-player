@@ -31,6 +31,16 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return graph.isMasterBypass()
     }
     
+    func saveMasterPreset(_ presetName: String) {
+        graph.saveMasterPreset(presetName)
+    }
+    
+    func applyMasterPreset(_ presetName: String) {
+        
+        let preset = MasterPresets.presetByName(presetName)!
+        graph.applyMasterPreset(preset)
+    }
+    
     func getVolume() -> Float {
         
         // Convert from {0,1} to percentage
@@ -213,6 +223,16 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         }
     }
     
+    func saveEQPreset(_ presetName: String) {
+        graph.saveEQPreset(presetName)
+    }
+    
+    func applyEQPreset(_ presetName: String) {
+        
+        let preset = EQPresets.presetByName(presetName)
+        graph.applyEQPreset(preset)
+    }
+    
     // MARK: Pitch shift unit functions
     
     // Returns the current state of the pitch shift audio effects unit
@@ -289,6 +309,16 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         let convPitch = newPitch * AppConstants.pitchConversion_audioGraphToUI
         
         return (convPitch, ValueFormatter.formatPitch(convPitch))
+    }
+    
+    func savePitchPreset(_ presetName: String) {
+        graph.savePitchPreset(presetName)
+    }
+    
+    func applyPitchPreset(_ presetName: String) {
+        
+        let preset = PitchPresets.presetByName(presetName)
+        graph.applyPitchPreset(preset)
     }
     
     // MARK: Time stretch unit functions
@@ -369,6 +399,16 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return ValueFormatter.formatOverlap(overlap)
     }
     
+    func saveTimePreset(_ presetName: String) {
+        graph.saveTimePreset(presetName)
+    }
+    
+    func applyTimePreset(_ presetName: String) {
+        
+        let preset = TimePresets.presetByName(presetName)
+        graph.applyTimePreset(preset)
+    }
+    
     // MARK: Reverb unit functions
     
     func getReverbState() -> EffectsUnitState {
@@ -395,6 +435,16 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     func setReverbAmount(_ amount: Float) -> String {
         graph.setReverbAmount(amount)
         return ValueFormatter.formatReverbAmount(amount)
+    }
+    
+    func saveReverbPreset(_ presetName: String) {
+        graph.saveReverbPreset(presetName)
+    }
+    
+    func applyReverbPreset(_ presetName: String) {
+        
+        let preset = ReverbPresets.presetByName(presetName)!
+        graph.applyReverbPreset(preset)
     }
     
     // MARK: Delay unit functions
@@ -447,6 +497,16 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return ValueFormatter.formatDelayLowPassCutoff(cutoff)
     }
     
+    func saveDelayPreset(_ presetName: String) {
+        graph.saveDelayPreset(presetName)
+    }
+    
+    func applyDelayPreset(_ presetName: String) {
+        
+        let preset = DelayPresets.presetByName(presetName)
+        graph.applyDelayPreset(preset)
+    }
+    
     // MARK: Filter unit functions
     
     func getFilterState() -> EffectsUnitState {
@@ -485,5 +545,15 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     func setFilterTrebleBand(_ min: Float, _ max: Float) -> String {
         graph.setFilterTrebleBand(min, max)
         return ValueFormatter.formatFilterFrequencyRange(min, max)
+    }
+    
+    func saveFilterPreset(_ presetName: String) {
+        graph.saveFilterPreset(presetName)
+    }
+    
+    func applyFilterPreset(_ presetName: String) {
+        
+        let preset = FilterPresets.presetByName(presetName)
+        graph.applyFilterPreset(preset)
     }
 }

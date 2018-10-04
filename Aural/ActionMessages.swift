@@ -206,6 +206,8 @@ enum ActionType {
     // Switches the Effects panel tab group to a specfic tab
     case showEffectsUnitTab
     
+    case updateEffectsView
+    
     // MARK: View actions
     
     // Show/hide the playlist window

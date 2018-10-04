@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Filter effects unit
  */
-class FilterViewController: NSViewController, MessageSubscriber, StringInputClient {
+class FilterViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
     
     // Filter controls
     @IBOutlet weak var btnFilterBypass: EffectsUnitTriStateBypassButton!
@@ -27,43 +27,58 @@ class FilterViewController: NSViewController, MessageSubscriber, StringInputClie
     override var nibName: String? {return "Filter"}
     
     override func viewDidLoad() {
+        
+        oneTimeSetup()
         initControls()
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification, .applyFilterPreset], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.updateEffectsView], subscriber: self)
     }
- 
-    private func initControls() {
+    
+    private func oneTimeSetup() {
         
         btnFilterBypass.stateFunction = {
             () -> EffectsUnitState in
             
             return self.graph.getFilterState()
         }
-        btnFilterBypass.updateState()
         
-        let bassBand = graph.getFilterBassBand()
-        filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, Double(bassBand.min), Double(bassBand.max), {
+        filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, {
             (slider: RangeSlider) -> Void in
             self.filterBassChanged()
         })
         
-        let midBand = graph.getFilterMidBand()
-        filterMidSlider.initialize(AppConstants.mid_min, AppConstants.mid_max, Double(midBand.min), Double(midBand.max), {
+        filterMidSlider.initialize(AppConstants.mid_min, AppConstants.mid_max, {
             (slider: RangeSlider) -> Void in
             self.filterMidChanged()
         })
         
-        let trebleBand = graph.getFilterTrebleBand()
-        filterTrebleSlider.initialize(AppConstants.treble_min, AppConstants.treble_max, Double(trebleBand.min), Double(trebleBand.max), {
+        filterTrebleSlider.initialize(AppConstants.treble_min, AppConstants.treble_max, {
             (slider: RangeSlider) -> Void in
             self.filterTrebleChanged()
         })
         
-        lblFilterBassRange.stringValue = bassBand.rangeString
-        lblFilterMidRange.stringValue = midBand.rangeString
-        lblFilterTrebleRange.stringValue = trebleBand.rangeString
-        
         // Initialize the menu with user-defined presets
         FilterPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+    }
+ 
+    private func initControls() {
+        
+        btnFilterBypass.updateState()
+        
+        let bassBand = graph.getFilterBassBand()
+        filterBassSlider.start = Double(bassBand.min)
+        filterBassSlider.end = Double(bassBand.max)
+        lblFilterBassRange.stringValue = bassBand.rangeString
+        
+        let midBand = graph.getFilterMidBand()
+        filterMidSlider.start = Double(midBand.min)
+        filterMidSlider.end = Double(midBand.max)
+        lblFilterMidRange.stringValue = midBand.rangeString
+        
+        let trebleBand = graph.getFilterTrebleBand()
+        filterTrebleSlider.start = Double(trebleBand.min)
+        filterTrebleSlider.end = Double(trebleBand.max)
+        lblFilterTrebleRange.stringValue = trebleBand.rangeString
         
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
@@ -95,33 +110,8 @@ class FilterViewController: NSViewController, MessageSubscriber, StringInputClie
     
     // Applies a preset to the effects unit
     @IBAction func filterPresetsAction(_ sender: AnyObject) {
-        
-        // Get preset definition
-        let preset = FilterPresets.presetByName(presetsMenu.titleOfSelectedItem!)
-        applyPreset(preset)
-    }
-    
-    private func applyPreset(_ preset: FilterPreset) {
-        
-        filterBassSlider.start = preset.bassBand.lowerBound
-        filterBassSlider.end = preset.bassBand.upperBound
-        lblFilterBassRange.stringValue = graph.setFilterBassBand(Float(filterBassSlider.start), Float(filterBassSlider.end))
-        
-        filterMidSlider.start = preset.midBand.lowerBound
-        filterMidSlider.end = preset.midBand.upperBound
-        lblFilterMidRange.stringValue = graph.setFilterMidBand(Float(filterMidSlider.start), Float(filterMidSlider.end))
-        
-        filterTrebleSlider.start = preset.trebleBand.lowerBound
-        filterTrebleSlider.end = preset.trebleBand.upperBound
-        lblFilterTrebleRange.stringValue = graph.setFilterTrebleBand(Float(filterTrebleSlider.start), Float(filterTrebleSlider.end))
-        
-        // Don't select any of the items
-        presetsMenu.selectItem(at: -1)
-        
-        // TODO: Revisit this
-        if (preset.state != graph.getFilterState()) {
-            filterBypassAction(self)
-        }
+        graph.applyFilterPreset(presetsMenu.titleOfSelectedItem!)
+        initControls()
     }
     
     // Displays a popover to allow the user to name the new custom preset
@@ -157,11 +147,7 @@ class FilterViewController: NSViewController, MessageSubscriber, StringInputClie
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
         
-        let bassBand = filterBassSlider.start...filterBassSlider.end
-        let midBand = filterMidSlider.start...filterMidSlider.end
-        let trebleBand = filterTrebleSlider.start...filterTrebleSlider.end
-        
-        FilterPresets.addUserDefinedPreset(string, graph.getFilterState(), bassBand, midBand, trebleBand)
+        graph.saveFilterPreset(string)
         
         // Add a menu item for the new preset, at the top of the menu
         presetsMenu.insertItem(withTitle: string, at: 0)
@@ -175,23 +161,15 @@ class FilterViewController: NSViewController, MessageSubscriber, StringInputClie
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if let message = notification as? EffectsUnitStateChangedNotification {
+        if notification is EffectsUnitStateChangedNotification {
             btnFilterBypass.updateState()
         }
     }
     
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+    func consumeMessage(_ message: ActionMessage) {
         
-        if request.messageType == .applyFilterPreset {
-            
-            if let applyPresetRequest = request as? ApplyEffectsPresetRequest {
-                
-                if let filterState = applyPresetRequest.preset as? FilterPreset {
-                    applyPreset(filterState)
-                }
-            }
+        if message.actionType == .updateEffectsView {
+            initControls()
         }
-        
-        return EmptyResponse.instance
     }
 }

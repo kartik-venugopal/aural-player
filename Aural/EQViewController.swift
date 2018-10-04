@@ -34,14 +34,15 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
     
     override func viewDidLoad() {
         
+        oneTimeSetup()
         initControls()
         
         // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification, .applyEQPreset], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble, .updateEffectsView], subscriber: self)
     }
     
-    private func initControls() {
+    private func oneTimeSetup() {
         
         btnEQBypass.stateFunction = {
             () -> EffectsUnitState in
@@ -49,14 +50,17 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
             return self.graph.getEQState()
         }
         
-        btnEQBypass.updateState()
-        
         eqSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
-        
-        updateAllEQSliders(graph.getEQBands(), graph.getEQGlobalGain())
-        
+
         // Initialize the menu with user-defined presets
         EQPresets.userDefinedPresets.forEach({eqPresets.insertItem(withTitle: $0.name, at: 0)})
+    }
+    
+    private func initControls() {
+        
+        btnEQBypass.updateState()
+        
+        updateAllEQSliders(graph.getEQBands(), graph.getEQGlobalGain())
         
         // Don't select any items from the EQ presets menu
         eqPresets.selectItem(at: -1)
@@ -83,23 +87,8 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
     
     // Applies a built-in preset to the Equalizer
     @IBAction func eqPresetsAction(_ sender: AnyObject) {
-        
-        let preset = EQPresets.presetByName(eqPresets.titleOfSelectedItem!)
-        applyPreset(preset)
-    }
-    
-    private func applyPreset(_ preset: EQPreset) {
-        
-        graph.setEQBands(preset.bands)
-        updateAllEQSliders(preset.bands, preset.globalGain)
-        
-        // TODO: Revisit this
-        if (preset.state != graph.getEQState()) {
-            eqBypassAction(self)
-        }
-        
-        // Don't select any of the items
-        eqPresets.selectItem(at: -1)
+        graph.applyEQPreset(eqPresets.titleOfSelectedItem!)
+        initControls()
     }
     
     // Displays a popover to allow the user to name the new custom preset
@@ -183,41 +172,30 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
         }
     }
     
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        
-        if request.messageType == .applyEQPreset {
-            
-            if let applyPresetRequest = request as? ApplyEffectsPresetRequest {
-                
-                if let eqState = applyPresetRequest.preset as? EQPreset {
-                    applyPreset(eqState)
-                }
-            }
-        }
-        
-        return EmptyResponse.instance
-    }
-    
     func consumeMessage(_ message: ActionMessage) {
         
-        let message = message as! AudioGraphActionMessage
+        if let message = message as? AudioGraphActionMessage {
         
-        switch message.actionType {
+            switch message.actionType {
+                
+            case .increaseBass: increaseBass()
+                
+            case .decreaseBass: decreaseBass()
+                
+            case .increaseMids: increaseMids()
+                
+            case .decreaseMids: decreaseMids()
+                
+            case .increaseTreble: increaseTreble()
+                
+            case .decreaseTreble: decreaseTreble()
+                
+            default: return
+                
+            }
             
-        case .increaseBass: increaseBass()
-            
-        case .decreaseBass: decreaseBass()
-            
-        case .increaseMids: increaseMids()
-            
-        case .decreaseMids: decreaseMids()
-            
-        case .increaseTreble: increaseTreble()
-            
-        case .decreaseTreble: decreaseTreble()
-            
-        default: return
-            
+        } else if message.actionType == .updateEffectsView {
+            initControls()
         }
     }
     
@@ -245,7 +223,7 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
  
-        EQPresets.addUserDefinedPreset(string, graph.getEQState(), getAllBands(), eqGlobalGainSlider.floatValue)
+        graph.saveEQPreset(string)
         
         // Add a menu item for the new preset, at the top of the menu
         eqPresets.insertItem(withTitle: string, at: 0)

@@ -148,6 +148,8 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
      
         if masterBypass {
             
+            // Active -> Inactive
+            
             // If a unit was active (i.e. not bypassed), mark it as now being suppressed by the master bypass
             
             eqSuppressed = !eqNode.bypass
@@ -160,6 +162,8 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
             bypassAllUnits()
             
         } else {
+            
+            // Inactive -> Active
             
             eqNode.bypass = !eqSuppressed
             pitchNode.bypass = !pitchSuppressed
@@ -174,6 +178,84 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     
     func isMasterBypass() -> Bool {
         return masterBypass
+    }
+    
+    func saveMasterPreset(_ presetName: String) {
+        
+        let dummyPresetName = "masterPreset_" + presetName
+        
+        // EQ state
+        let eqState = getEQState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        let eqBands = eqNode.allBands()
+        let eqGlobalGain = eqNode.globalGain
+        
+        let eqPreset = EQPreset(dummyPresetName, eqState, eqBands, eqGlobalGain, false)
+        
+        // Pitch state
+        let pitchState = getPitchState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        let pitch = pitchNode.pitch
+        let pitchOverlap = pitchNode.overlap
+        
+        let pitchPreset = PitchPreset(dummyPresetName, pitchState, pitch, pitchOverlap, false)
+        
+        // Time state
+        let timeState = getTimeState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        let rate = timeNode.rate
+        let timeOverlap = timeNode.overlap
+        let timePitchShift = timeNode.shiftPitch
+        
+        let timePreset = TimePreset(dummyPresetName, timeState, rate, timeOverlap, timePitchShift, false)
+        
+        // Reverb state
+        let reverbState = getReverbState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        let space = getReverbSpace()
+        let reverbAmount = reverbNode.wetDryMix
+        
+        let reverbPreset = ReverbPreset(dummyPresetName, reverbState, space, reverbAmount, false)
+        
+        // Delay state
+        let delayState = getDelayState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        let delayTime = delayNode.delayTime
+        let delayAmount = delayNode.wetDryMix
+        let cutoff = delayNode.lowPassCutoff
+        let feedback = delayNode.feedback
+        
+        let delayPreset = DelayPreset(dummyPresetName, delayState, delayAmount, delayTime, feedback, cutoff, false)
+        
+        // Filter state
+        let filterState = getFilterState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        let bassBand = getFilterBassBand()
+        let midBand = getFilterMidBand()
+        let trebleBand = getFilterTrebleBand()
+        
+        let filterPreset = FilterPreset(dummyPresetName, filterState, Double(bassBand.min)...Double(bassBand.max), Double(midBand.min)...Double(midBand.max), Double(trebleBand.min)...Double(trebleBand.max), false)
+        
+        // Save the new preset
+        MasterPresets.addUserDefinedPreset(presetName, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset)
+    }
+    
+    func applyMasterPreset(_ preset: MasterPreset) {
+    
+        applyEQPreset(preset.eq)
+        applyPitchPreset(preset.pitch)
+        applyTimePreset(preset.time)
+        applyReverbPreset(preset.reverb)
+        applyDelayPreset(preset.delay)
+        applyFilterPreset(preset.filter)
+        
+        // Apply unit states and determine master state
+        eqNode.bypass = preset.eq.state != .active
+        pitchNode.bypass = preset.pitch.state != .active
+        timeNode.bypass = preset.time.state != .active
+        reverbNode.bypass = preset.reverb.state != .active
+        delayNode.bypass = preset.delay.state != .active
+        filterNode.bypass = preset.filter.state != .active
+        
+        let needMasterActive = !(eqNode.bypass && pitchNode.bypass && timeNode.bypass && reverbNode.bypass && delayNode.bypass && filterNode.bypass)
+        
+        if needMasterActive && masterBypass {
+            masterBypass = false
+        }
     }
     
     func getVolume() -> Float {
@@ -284,6 +366,18 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         return eqNode.decreaseTreble()
     }
     
+    func saveEQPreset(_ presetName: String) {
+     
+        let eqState = getEQState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        EQPresets.addUserDefinedPreset(presetName, eqState, eqNode.allBands(), eqNode.globalGain)
+    }
+    
+    func applyEQPreset(_ preset: EQPreset) {
+        
+        setEQBands(preset.bands)
+        setEQGlobalGain(preset.globalGain)
+    }
+    
     // MARK: Pitch shift unit functions
     
     func getPitchState() -> EffectsUnitState {
@@ -330,6 +424,18 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     
     func setPitchOverlap(_ overlap: Float) {
         pitchNode.overlap = overlap
+    }
+    
+    func savePitchPreset(_ presetName: String) {
+        
+        let pitchState = getPitchState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        PitchPresets.addUserDefinedPreset(presetName, pitchState, pitchNode.pitch, pitchNode.overlap)
+    }
+    
+    func applyPitchPreset(_ preset: PitchPreset) {
+        
+        setPitch(preset.pitch)
+        setPitchOverlap(preset.overlap)
     }
     
     // MARK: Time stretch unit functions
@@ -395,6 +501,19 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         timeNode.overlap = overlap
     }
     
+    func saveTimePreset(_ presetName: String) {
+        
+        let timeState = getTimeState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        TimePresets.addUserDefinedPreset(presetName, timeState, timeNode.rate, timeNode.overlap, timeNode.shiftPitch)
+    }
+    
+    func applyTimePreset(_ preset: TimePreset) {
+        
+        setTimeStretchRate(preset.rate)
+        setTimeOverlap(preset.overlap)
+        timeNode.shiftPitch = preset.pitchShift
+    }
+    
     // MARK: Reverb unit functions
     
     func getReverbState() -> EffectsUnitState {
@@ -443,6 +562,18 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     
     func setReverbAmount(_ amount: Float) {
         reverbNode.wetDryMix = amount
+    }
+    
+    func saveReverbPreset(_ presetName: String) {
+        
+        let reverbState = getReverbState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        ReverbPresets.addUserDefinedPreset(presetName, reverbState, getReverbSpace(), reverbNode.wetDryMix)
+    }
+    
+    func applyReverbPreset(_ preset: ReverbPreset) {
+        
+        setReverbSpace(preset.space)
+        setReverbAmount(preset.amount)
     }
     
     // MARK: Delay unit functions
@@ -508,6 +639,20 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         delayNode.lowPassCutoff = cutoff
     }
     
+    func saveDelayPreset(_ presetName: String) {
+        
+        let delayState = (getDelayState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed)
+        DelayPresets.addUserDefinedPreset(presetName, delayState, delayNode.wetDryMix, delayNode.delayTime, delayNode.feedback, delayNode.lowPassCutoff)
+    }
+    
+    func applyDelayPreset(_ preset: DelayPreset) {
+        
+        setDelayAmount(preset.amount)
+        setDelayTime(preset.time)
+        setDelayFeedback(preset.feedback)
+        setDelayLowPassCutoff(preset.cutoff)
+    }
+    
     // MARK: Filter unit functions
     
     func getFilterState() -> EffectsUnitState {
@@ -571,6 +716,23 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     
     func setFilterTrebleBand(_ min: Float, _ max: Float) {
         filterNode.setFilterTrebleBand(min, max)
+    }
+    
+    func saveFilterPreset(_ presetName: String) {
+        
+        let filterState = getFilterState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        let bassBand = getFilterBassBand()
+        let midBand = getFilterMidBand()
+        let trebleBand = getFilterTrebleBand()
+        
+        FilterPresets.addUserDefinedPreset(presetName, filterState, Double(bassBand.min)...Double(bassBand.max), Double(midBand.min)...Double(midBand.max), Double(trebleBand.min)...Double(trebleBand.max))
+    }
+    
+    func applyFilterPreset(_ preset: FilterPreset) {
+     
+        setFilterBassBand(Float(preset.bassBand.lowerBound), Float(preset.bassBand.upperBound))
+        setFilterMidBand(Float(preset.midBand.lowerBound), Float(preset.midBand.upperBound))
+        setFilterTrebleBand(Float(preset.trebleBand.lowerBound), Float(preset.trebleBand.upperBound))
     }
     
     // MARK: Miscellaneous functions

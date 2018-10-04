@@ -25,6 +25,7 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
     
     override func viewDidLoad() {
         
+        oneTimeSetup()
         initControls()
         initSubscriptions()
     }
@@ -32,17 +33,24 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
     private func initSubscriptions() {
         
         // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification, .applyPitchPreset], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch, .updateEffectsView], subscriber: self)
     }
     
-    private func initControls() {
+    private func oneTimeSetup() {
         
         btnPitchBypass.stateFunction = {
             () -> EffectsUnitState in
             
             return self.graph.getPitchState()
         }
+        
+        // Initialize the menu with user-defined presets
+        PitchPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+    }
+    
+    private func initControls() {
+        
         btnPitchBypass.updateState()
         
         let pitch = graph.getPitch()
@@ -52,9 +60,6 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
         let overlap = graph.getPitchOverlap()
         pitchOverlapSlider.floatValue = overlap.overlap
         lblPitchOverlapValue.stringValue = overlap.overlapString
-        
-        // Initialize the menu with user-defined presets
-        PitchPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
         
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
@@ -98,27 +103,8 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
     
     // Applies a preset to the effects unit
     @IBAction func pitchPresetsAction(_ sender: AnyObject) {
-        
-        // Get preset definition
-        let preset = PitchPresets.presetByName(presetsMenu.titleOfSelectedItem!)
-        applyPreset(preset)
-    }
-    
-    private func applyPreset(_ preset: PitchPreset) {
-        
-        lblPitchValue.stringValue = graph.setPitch(preset.pitch)
-        pitchSlider.floatValue = preset.pitch
-        
-        lblPitchOverlapValue.stringValue = graph.setPitchOverlap(preset.overlap)
-        pitchOverlapSlider.floatValue = preset.overlap
-        
-        // TODO: Revisit this
-        if (preset.state != graph.getPitchState()) {
-            pitchBypassAction(self)
-        }
-        
-        // Don't select any of the items
-        presetsMenu.selectItem(at: -1)
+        graph.applyPitchPreset(presetsMenu.titleOfSelectedItem!)
+        initControls()
     }
     
     // Displays a popover to allow the user to name the new custom preset
@@ -166,35 +152,24 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
         }
     }
     
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        
-        if request.messageType == .applyPitchPreset {
-            
-            if let applyPresetRequest = request as? ApplyEffectsPresetRequest {
-                
-                if let pitchState = applyPresetRequest.preset as? PitchPreset {
-                    applyPreset(pitchState)
-                }
-            }
-        }
-        
-        return EmptyResponse.instance
-    }
-    
     func consumeMessage(_ message: ActionMessage) {
         
-        let message = message as! AudioGraphActionMessage
+        if let message = message as? AudioGraphActionMessage {
         
-        switch message.actionType {
+            switch message.actionType {
+                
+            case .increasePitch: increasePitch()
+                
+            case .decreasePitch: decreasePitch()
+                
+            case .setPitch: setPitch(message.value!)
+                
+            default: return
+                
+            }
             
-        case .increasePitch: increasePitch()
-            
-        case .decreasePitch: decreasePitch()
-            
-        case .setPitch: setPitch(message.value!)
-            
-        default: return
-            
+        } else if message.actionType == .updateEffectsView {
+            initControls()
         }
     }
     
@@ -222,7 +197,7 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
         
-        PitchPresets.addUserDefinedPreset(string, graph.getPitchState(), pitchSlider.floatValue, pitchOverlapSlider.floatValue)
+        graph.savePitchPreset(string)
         
         // Add a menu item for the new preset, at the top of the menu
         presetsMenu.insertItem(withTitle: string, at: 0)
