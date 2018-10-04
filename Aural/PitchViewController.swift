@@ -76,7 +76,7 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
     
     // Updates the pitch
     @IBAction func pitchAction(_ sender: AnyObject) {
-        lblPitchValue.stringValue = graph.setPitch(pitchSlider.floatValue)
+        lblPitchValue.stringValue = graph.setPitch(pitchSlider.floatValue, false)
     }
     
     private func showPitchTab() {
@@ -86,7 +86,7 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
     // Sets the pitch to a specific value
     private func setPitch(_ pitch: Float) {
         
-        lblPitchValue.stringValue = graph.setPitch(pitch)
+        lblPitchValue.stringValue = graph.setPitch(pitch, true)
         btnPitchBypass.updateState()
         pitchSlider.floatValue = pitch
         

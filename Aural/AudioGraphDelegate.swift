@@ -251,10 +251,10 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return (pitch, ValueFormatter.formatPitch(pitch))
     }
     
-    func setPitch(_ pitch: Float) -> String {
+    func setPitch(_ pitch: Float, _ ensureActive: Bool = false) -> String {
         
         // If the pitch unit is currently inactive, start at default pitch offset, before the increase
-        if graph.getPitchState() != .active {
+        if ensureActive && graph.getPitchState() != .active {
             
             _ = graph.togglePitchState()
         }
@@ -349,6 +349,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     }
     
     func setTimeStretchRate(_ rate: Float) -> String {
+        
         graph.setTimeStretchRate(rate)
         return ValueFormatter.formatTimeStretchRate(rate)
     }
