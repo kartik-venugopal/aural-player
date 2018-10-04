@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="17G2307" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
         <capability name="box content view" minToolsVersion="7.0"/>
@@ -26,7 +26,7 @@
             <windowStyleMask key="styleMask" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="225" y="78" width="480" height="230"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <value key="minSize" type="size" width="480" height="230"/>
             <value key="maxSize" type="size" width="480" height="230"/>
             <view key="contentView" id="AK5-1a-Nc7">
@@ -125,6 +125,8 @@
                                                                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                                                                     <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="MasterTab"/>
+                                                                <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="MasterTab-On"/>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <action selector="tabViewAction:" target="-2" id="ZU5-Mz-yIo"/>
@@ -389,6 +391,8 @@
         <image name="FilterTab" width="512" height="512"/>
         <image name="FilterTab-Mixed" width="512" height="512"/>
         <image name="FilterTab-On" width="512" height="512"/>
+        <image name="MasterTab" width="25" height="24"/>
+        <image name="MasterTab-On" width="25" height="24"/>
         <image name="PitchTab" width="17" height="13"/>
         <image name="PitchTab-Mixed" width="17" height="13"/>
         <image name="PitchTab-On" width="17" height="13"/>
