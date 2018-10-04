@@ -1,8 +1,6 @@
 import Cocoa
 import AVFoundation
 
-// TODO: Separate into separate protocols per effects unit
-
 /*
     Contract for operations to alter the audio graph, i.e. tune the sound output - volume, panning, equalizer (EQ), and sound effects
  */
@@ -11,6 +9,10 @@ protocol AudioGraphProtocol: EQUnitProtocol, PitchShiftUnitProtocol, TimeStretch
     func toggleMasterBypass() -> Bool
     
     func isMasterBypass() -> Bool
+    
+    func saveMasterPreset(_ presetName: String)
+    
+    func applyMasterPreset(_ preset: MasterPreset)
     
     // Retrieves the current player volume
     func getVolume() -> Float
@@ -78,6 +80,10 @@ protocol EQUnitProtocol {
     
     // Decreases the equalizer treble band gains by a small decrement. Returns all EQ band gain values, mapped by index.
     func decreaseTreble() -> [Int: Float]
+    
+    func saveEQPreset(_ presetName: String)
+    
+    func applyEQPreset(_ preset: EQPreset)
 }
 
 protocol PitchShiftUnitProtocol {
@@ -98,6 +104,10 @@ protocol PitchShiftUnitProtocol {
     
     // Sets the amount of overlap between segments of the input audio signal into the pitch effects unit, specified as a value between 3 and 32
     func setPitchOverlap(_ overlap: Float)
+    
+    func savePitchPreset(_ presetName: String)
+    
+    func applyPitchPreset(_ preset: PitchPreset)
 }
 
 protocol TimeStretchUnitProtocol {
@@ -127,6 +137,10 @@ protocol TimeStretchUnitProtocol {
     
     // Sets the amount of overlap between segments of the input audio signal into the time effects unit, specified as a value between 3 and 32
     func setTimeOverlap(_ overlap: Float)
+    
+    func saveTimePreset(_ presetName: String)
+    
+    func applyTimePreset(_ preset: TimePreset)
 }
 
 protocol ReverbUnitProtocol {
@@ -146,6 +160,10 @@ protocol ReverbUnitProtocol {
     
     // Sets the reverb amount, specified as a value between 0 (dry) and 100 (wet)
     func setReverbAmount(_ amount: Float)
+    
+    func saveReverbPreset(_ presetName: String)
+    
+    func applyReverbPreset(_ preset: ReverbPreset)
 }
 
 protocol DelayUnitProtocol {
@@ -175,6 +193,10 @@ protocol DelayUnitProtocol {
     
     // Sets the delay low pass cutoff frequency, in Hz, specified as a value between 10 and 20k
     func setDelayLowPassCutoff(_ cutoff: Float)
+    
+    func saveDelayPreset(_ presetName: String)
+    
+    func applyDelayPreset(_ preset: DelayPreset)
 }
 
 protocol FilterUnitProtocol {
@@ -199,6 +221,10 @@ protocol FilterUnitProtocol {
     
     // Sets the treble band of the filter to the specified frequency range
     func setFilterTrebleBand(_ min: Float, _ max: Float)
+    
+    func saveFilterPreset(_ presetName: String)
+    
+    func applyFilterPreset(_ preset: FilterPreset)
 }
 
 /*

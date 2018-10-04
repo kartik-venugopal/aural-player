@@ -179,11 +179,9 @@ class RangeSlider: NSView {
         return Colors.sliderBarColoredGradient
     }
     
-    func initialize(_ min: Double, _ max: Double, _ start: Double, _ end: Double, _ changeHandler: ((RangeSlider) -> Void)?) {
+    func initialize(_ min: Double, _ max: Double, _ changeHandler: ((RangeSlider) -> Void)?) {
         self.minValue = min
         self.maxValue = max
-        self.start = start
-        self.end = end
         self.onControlChanged = changeHandler
     }
     

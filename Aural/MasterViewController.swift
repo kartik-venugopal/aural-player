@@ -25,7 +25,6 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         initControls()
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        
         SyncMessenger.subscribe(actionTypes: [.enableEffects, .disableEffects], subscriber: self)
     }
     
@@ -85,22 +84,11 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     @IBAction func masterPresetsAction(_ sender: AnyObject) {
         
-        let preset = MasterPresets.presetByName(masterPresets.titleOfSelectedItem!)!
+        graph.applyMasterPreset(masterPresets.titleOfSelectedItem!)
 
-        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyEQPreset, preset.eq))
-
-        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyPitchPreset, preset.pitch))
-        
-        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyTimePreset, preset.time))
-        
-        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyReverbPreset, preset.reverb))
-        
-        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyDelayPreset, preset.delay))
-        
-        _ = SyncMessenger.publishRequest(ApplyEffectsPresetRequest(.applyFilterPreset, preset.filter))
-        
         updateButtons()
-        
+        _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
+    
         // Don't select any of the items
         masterPresets.selectItem(at: -1)
     }
@@ -216,56 +204,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // Receives a new Master preset name and saves the new preset
     func acceptInput(_ string: String) {
         
-        let dummyPresetName = "masterPreset_" + string
-        
-        // EQ state
-        let eqState = graph.getEQState()
-        let eqBands = graph.getEQBands()
-        let eqGlobalGain = graph.getEQGlobalGain()
-        
-        let eqPreset = EQPreset(dummyPresetName, eqState, eqBands, eqGlobalGain, false)
-        
-        // Pitch state
-        let pitchState = graph.getPitchState()
-        let pitch = graph.getPitch().pitch
-        let pitchOverlap = graph.getPitchOverlap().overlap
-        
-        let pitchPreset = PitchPreset(dummyPresetName, pitchState, pitch, pitchOverlap, false)
-        
-        // Time state
-        let timeState = graph.getTimeState()
-        let rate = graph.getTimeRate().rate
-        let timeOverlap = graph.getTimeOverlap().overlap
-        let timePitchShift = graph.isTimePitchShift()
-        
-        let timePreset = TimePreset(dummyPresetName, timeState, rate, timeOverlap, timePitchShift, false)
-        
-        // Reverb state
-        let reverbState = graph.getReverbState()
-        let space = graph.getReverbSpace()
-        let reverbAmount = graph.getReverbAmount().amount
-        
-        let reverbPreset = ReverbPreset(dummyPresetName, reverbState, space, reverbAmount, false)
-        
-        // Delay state
-        let delayState = graph.getDelayState()
-        let delayTime = graph.getDelayTime().time
-        let delayAmount = graph.getDelayAmount().amount
-        let cutoff = graph.getDelayLowPassCutoff().cutoff
-        let feedback = graph.getDelayFeedback().percent
-        
-        let delayPreset = DelayPreset(dummyPresetName, delayState, delayAmount, delayTime, feedback, cutoff, false)
-        
-        // Filter state
-        let filterState = graph.getFilterState()
-        let bassBand = graph.getFilterBassBand()
-        let midBand = graph.getFilterMidBand()
-        let trebleBand = graph.getFilterTrebleBand()
-        
-        let filterPreset = FilterPreset(dummyPresetName, filterState, Double(bassBand.min)...Double(bassBand.max), Double(midBand.min)...Double(midBand.max), Double(trebleBand.min)...Double(trebleBand.max), false)
-        
-        // Save the new preset
-        MasterPresets.addUserDefinedPreset(string, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset)
+        graph.saveMasterPreset(string)
         
         // Add a menu item for the new preset, at the top of the menu
         masterPresets.insertItem(withTitle: string, at: 0)

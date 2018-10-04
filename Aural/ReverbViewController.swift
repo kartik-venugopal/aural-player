@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Reverb effects unit
  */
-class ReverbViewController: NSViewController, MessageSubscriber, StringInputClient {
+class ReverbViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
     
     // Reverb controls
     @IBOutlet weak var btnReverbBypass: EffectsUnitTriStateBypassButton!
@@ -24,17 +24,26 @@ class ReverbViewController: NSViewController, MessageSubscriber, StringInputClie
     
     override func viewDidLoad() {
         
+        oneTimeSetup()
         initControls()
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification, .applyReverbPreset], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.updateEffectsView], subscriber: self)
     }
     
-    private func initControls() {
+    private func oneTimeSetup() {
         
         btnReverbBypass.stateFunction = {
             () -> EffectsUnitState in
             
             return self.graph.getReverbState()
         }
+        
+        // Initialize the menu with user-defined presets
+        ReverbPresets.allPresets().forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+    }
+    
+    private func initControls() {
+        
         btnReverbBypass.updateState()
         
         reverbSpaceMenu.select(reverbSpaceMenu.item(withTitle: graph.getReverbSpace().description))
@@ -42,9 +51,6 @@ class ReverbViewController: NSViewController, MessageSubscriber, StringInputClie
         let amount = graph.getReverbAmount()
         reverbAmountSlider.floatValue = amount.amount
         lblReverbAmountValue.stringValue = amount.amountString
-        
-        // Initialize the menu with user-defined presets
-        ReverbPresets.allPresets().forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
         
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
@@ -71,28 +77,8 @@ class ReverbViewController: NSViewController, MessageSubscriber, StringInputClie
     
     // Applies a preset to the effects unit
     @IBAction func reverbPresetsAction(_ sender: AnyObject) {
-        
-        // Get preset definition
-        if let preset = ReverbPresets.presetByName(presetsMenu.titleOfSelectedItem!) {
-            applyPreset(preset)
-        }
-        
-        // Don't select any of the items
-        presetsMenu.selectItem(at: -1)
-    }
-    
-    private func applyPreset(_ preset: ReverbPreset) {
-        
-        graph.setReverbSpace(preset.space)
-        reverbSpaceMenu.selectItem(withTitle: preset.space.description)
-        
-        lblReverbAmountValue.stringValue = graph.setReverbAmount(preset.amount)
-        reverbAmountSlider.floatValue = preset.amount
-        
-        // TODO: Revisit this
-        if (preset.state != graph.getReverbState()) {
-            reverbBypassAction(self)
-        }
+        graph.applyReverbPreset(presetsMenu.titleOfSelectedItem!)
+        initControls()
     }
     
     // Displays a popover to allow the user to name the new custom preset
@@ -128,7 +114,7 @@ class ReverbViewController: NSViewController, MessageSubscriber, StringInputClie
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
         
-        ReverbPresets.addUserDefinedPreset(string, graph.getReverbState(), ReverbSpaces.fromDescription((reverbSpaceMenu.selectedItem?.title)!), reverbAmountSlider.floatValue)
+        graph.saveReverbPreset(string)
         
         // Add a menu item for the new preset, at the top of the menu
         presetsMenu.insertItem(withTitle: string, at: 0)
@@ -142,23 +128,15 @@ class ReverbViewController: NSViewController, MessageSubscriber, StringInputClie
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if let message = notification as? EffectsUnitStateChangedNotification {
+        if notification is EffectsUnitStateChangedNotification {
             btnReverbBypass.updateState()
         }
     }
     
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+    func consumeMessage(_ message: ActionMessage) {
         
-        if request.messageType == .applyReverbPreset {
-            
-            if let applyPresetRequest = request as? ApplyEffectsPresetRequest {
-                
-                if let reverbState = applyPresetRequest.preset as? ReverbPreset {
-                    applyPreset(reverbState)
-                }
-            }
+        if message.actionType == .updateEffectsView {
+            initControls()
         }
-        
-        return EmptyResponse.instance
     }
 }

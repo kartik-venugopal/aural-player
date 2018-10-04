@@ -28,21 +28,29 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
     
     override func viewDidLoad() {
         
+        oneTimeSetup()
         initControls()
         
-        SyncMessenger.subscribe(messageTypes: [.saveTimeUserPresetRequest, .effectsUnitStateChangedNotification, .applyTimePreset], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.saveTimeUserPresetRequest, .effectsUnitStateChangedNotification], subscriber: self)
         
         // Subscribe to message notifications
-        SyncMessenger.subscribe(actionTypes: [.increaseRate, .decreaseRate, .setRate], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.increaseRate, .decreaseRate, .setRate, .updateEffectsView], subscriber: self)
     }
     
-    private func initControls() {
+    private func oneTimeSetup() {
         
         btnTimeBypass.stateFunction = {
             () -> EffectsUnitState in
             
             return self.graph.getTimeState()
         }
+        
+        // Initialize the menu with user-defined presets
+        TimePresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+    }
+    
+    private func initControls() {
+        
         btnTimeBypass.updateState()
         
         btnShiftPitch.state = graph.isTimePitchShift() ? 1 : 0
@@ -55,9 +63,6 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
         let overlap = graph.getTimeOverlap()
         timeOverlapSlider.floatValue = overlap.overlap
         lblTimeOverlapValue.stringValue = overlap.overlapString
-        
-        // Initialize the menu with user-defined presets
-        TimePresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
         
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
@@ -97,33 +102,8 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
     
     // Applies a preset to the effects unit
     @IBAction func timePresetsAction(_ sender: AnyObject) {
-        
-        // Get preset definition
-        let preset = TimePresets.presetByName(presetsMenu.titleOfSelectedItem!)
-        applyPreset(preset)
-    }
-    
-    private func applyPreset(_ preset: TimePreset) {
-        
-        lblTimeStretchRateValue.stringValue = graph.setTimeStretchRate(preset.rate)
-        timeSlider.floatValue = preset.rate
-        
-        lblTimeOverlapValue.stringValue = graph.setTimeOverlap(preset.overlap)
-        timeOverlapSlider.floatValue = preset.overlap
-        
-        btnShiftPitch.state = preset.pitchShift ? 1 : 0
-        if (preset.pitchShift != graph.isTimePitchShift()) {
-            _ = graph.toggleTimePitchShift()
-        }
-        updatePitchShift()
-        
-        // TODO: Revisit this
-        if (preset.state != graph.getTimeState()) {
-            timeBypassAction(self)
-        }
-        
-        // Don't select any of the items
-        presetsMenu.selectItem(at: -1)
+        graph.applyTimePreset(presetsMenu.titleOfSelectedItem!)
+        initControls()
     }
     
     // Displays a popover to allow the user to name the new custom preset
@@ -218,34 +198,23 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
     
     func consumeMessage(_ message: ActionMessage) {
         
-        let message = message as! AudioGraphActionMessage
+        if let message = message as? AudioGraphActionMessage {
         
-        switch message.actionType {
-            
-        case .increaseRate: increaseRate()
-            
-        case .decreaseRate: decreaseRate()
-            
-        case .setRate: setRate(message.value!)
-            
-        default: return
-            
-        }
-    }
-    
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        
-        if request.messageType == .applyTimePreset {
-            
-            if let applyPresetRequest = request as? ApplyEffectsPresetRequest {
+            switch message.actionType {
                 
-                if let timeState = applyPresetRequest.preset as? TimePreset {
-                    applyPreset(timeState)
-                }
+            case .increaseRate: increaseRate()
+                
+            case .decreaseRate: decreaseRate()
+                
+            case .setRate: setRate(message.value!)
+                
+            default: return
+                
             }
+            
+        } else if message.actionType == .updateEffectsView {
+            initControls()
         }
-        
-        return EmptyResponse.instance
     }
     
     // MARK - StringInputClient functions
@@ -272,7 +241,7 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
         
-        TimePresets.addUserDefinedPreset(string, graph.getTimeState(), timeSlider.floatValue, timeOverlapSlider.floatValue, btnShiftPitch.state == 1)
+        graph.saveTimePreset(string)
         
         // Add a menu item for the new preset, at the top of the menu
         presetsMenu.insertItem(withTitle: string, at: 0)
