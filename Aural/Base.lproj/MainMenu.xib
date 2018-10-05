@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="17G2307" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
     </dependencies>
@@ -453,10 +453,12 @@ CQ
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="ndN-AA-rLa"/>
-                            <menuItem title="Disable effects" keyEquivalent="e" id="RYd-AL-o42" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                            <menuItem title="  Disable effects" image="MasterTab-Small" keyEquivalent="e" id="RYd-AL-o42" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Disable effects"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="Enable effects"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="  Disable effects"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="  Enable effects"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="MasterTab-Small"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="MasterTab-Small"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="masterBypassAction:" target="YGo-hN-fxr" id="xp4-OH-Ba5"/>
@@ -1013,6 +1015,7 @@ CQ
         <image name="Favorites-Editor" width="3" height="3"/>
         <image name="FloatingBarMode-Small" width="15" height="15"/>
         <image name="LoopOff-Small" width="0.23999999463558197" height="0.20800000429153442"/>
+        <image name="MasterTab-Small" width="14" height="14"/>
         <image name="Maximize-Small" width="12" height="10"/>
         <image name="MaximizeHorizontal-Small" width="12" height="10"/>
         <image name="MaximizeVertical-Small" width="12" height="10"/>
