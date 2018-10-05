@@ -46,6 +46,14 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 
 ### Recent updates
 
+- **10/05/2018: New release:**
+    
+  * Bug fixes:
+    * **Headphones/speakers plugged in crash**: When headphones/speakers are plugged in/out, the app stops playing audio. This problem has been fixed.  
+    
+  * Improvements:
+    * **Removed custom buffer scheduling (playback)**: Complex custom code that was used to schedule audio buffers for playback has been decommissioned, in favor of much simpler code that uses higher level AVFoundation functions.
+
 - **10/05/2018: Swift 4.2 port:** All source code has been ported to Swift v4.2 ! Also, the old "swift2" branch has been deleted.
 
 - **10/04/2018: New release:**
