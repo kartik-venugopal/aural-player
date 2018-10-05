@@ -22,16 +22,16 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         switch preferences.playlistPreferences.playlistOnStartup {
             
-        case .empty:    btnEmptyPlaylist.state = 1
+        case .empty:    btnEmptyPlaylist.state = convertToNSControlStateValue(1)
             
-        case .rememberFromLastAppLaunch:    btnRememberPlaylist.state = 1
+        case .rememberFromLastAppLaunch:    btnRememberPlaylist.state = convertToNSControlStateValue(1)
             
-        case .loadFile: btnLoadPlaylist.state = 1
+        case .loadFile: btnLoadPlaylist.state = convertToNSControlStateValue(1)
             
         }
         
         [btnBrowse, lblPlaylistFile].forEach({
-            $0.isEnabled = Bool(btnLoadPlaylist.state)
+            $0!.isEnabled = Bool(btnLoadPlaylist.state.rawValue)
         })
         
         hideError()
@@ -43,25 +43,25 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Needed for radio button group
         
         [btnBrowse, lblPlaylistFile].forEach({
-            $0.isEnabled = Bool(btnLoadPlaylist.state)
+            $0!.isEnabled = Bool(btnLoadPlaylist.state.rawValue)
         })
         
-        if (btnLoadPlaylist.state == 0 && !errorIcon.isHidden) {
+        if (btnLoadPlaylist.state.rawValue == 0 && !errorIcon.isHidden) {
             hideError()
         }
     
-        if btnLoadPlaylist.state == 1 && StringUtils.isStringEmpty(lblPlaylistFile.stringValue) {
+        if btnLoadPlaylist.state.rawValue == 1 && StringUtils.isStringEmpty(lblPlaylistFile.stringValue) {
             choosePlaylistFileAction(sender)
         }
     }
     
     func save(_ preferences: Preferences) throws {
         
-        if btnEmptyPlaylist.state == 1 {
+        if btnEmptyPlaylist.state.rawValue == 1 {
             
             preferences.playlistPreferences.playlistOnStartup = .empty
             
-        } else if btnRememberPlaylist.state == 1 {
+        } else if btnRememberPlaylist.state.rawValue == 1 {
             
             preferences.playlistPreferences.playlistOnStartup = .rememberFromLastAppLaunch
             
@@ -89,7 +89,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let modalResponse = dialog.runModal()
         
-        if (modalResponse == NSModalResponseOK) {
+        if (modalResponse == NSApplication.ModalResponse.OK) {
             
             let playlistFile = dialog.urls[0]
             
@@ -111,4 +111,9 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         lblPlaylistFile.setNeedsDisplay()
         errorIcon.isHidden = true
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSControlStateValue(_ input: Int) -> NSControl.StateValue {
+	return NSControl.StateValue(rawValue: input)
 }

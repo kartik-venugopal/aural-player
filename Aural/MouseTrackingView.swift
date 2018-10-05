@@ -18,7 +18,7 @@ class MouseTrackingView: NSView {
         
         // Create a tracking area that covers the bounds of the view. It should respond whenever the mouse enters or exits.
         
-        self.trackingArea = NSTrackingArea(rect: self.bounds, options: [NSTrackingAreaOptions.activeAlways,  NSTrackingAreaOptions.mouseEnteredAndExited, NSTrackingAreaOptions.mouseMoved], owner: self, userInfo: nil)
+        self.trackingArea = NSTrackingArea(rect: self.bounds, options: [NSTrackingArea.Options.activeAlways,  NSTrackingArea.Options.mouseEnteredAndExited, NSTrackingArea.Options.mouseMoved], owner: self, userInfo: nil)
         
         // Add the new tracking area to the view
         addTrackingArea(self.trackingArea!)

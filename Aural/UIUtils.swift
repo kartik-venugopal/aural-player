@@ -5,11 +5,11 @@
 import Cocoa
 
 private var screen: NSRect = {
-    return NSScreen.main()!.frame
+    return NSScreen.main!.frame
 }()
 
 private var visibleFrame: NSRect = {
-    return NSScreen.main()!.visibleFrame
+    return NSScreen.main!.visibleFrame
 }()
 
 class UIUtils {
@@ -31,7 +31,7 @@ class UIUtils {
     }
     
     // Centers an alert with respect to the main app window, and shows it. Returns the modal response from the alert.
-    static func showAlert(_ alert: NSAlert) -> NSModalResponse {
+    static func showAlert(_ alert: NSAlert) -> NSApplication.ModalResponse {
         
         centerDialogWRTScreen(alert.window)
         return alert.runModal()

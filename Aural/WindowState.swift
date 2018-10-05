@@ -123,11 +123,11 @@ extension NSWindow {
     
     // Screen (visible) width - this window's width
     var remainingWidth: CGFloat {
-        return (NSScreen.main()!.visibleFrame.width - self.width)
+        return (NSScreen.main!.visibleFrame.width - self.width)
     }
     
     // Screen (visible) height - this window's height
     var remainingHeight: CGFloat {
-        return (NSScreen.main()!.visibleFrame.height - self.height)
+        return (NSScreen.main!.visibleFrame.height - self.height)
     }
 }

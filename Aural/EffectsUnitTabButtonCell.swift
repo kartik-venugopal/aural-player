@@ -49,7 +49,7 @@ class EffectsUnitTabButtonCell: NSButtonCell {
         NSBezierPath.init(rect: cellFrame).fill()
         
         // Selection box
-        if (state == 1) {
+        if (state.rawValue == 1) {
             
             let drawRect = cellFrame.insetBy(dx: borderInsetX, dy: borderInsetY)
             selectionBoxColor.setFill()
@@ -57,12 +57,12 @@ class EffectsUnitTabButtonCell: NSButtonCell {
         }
         
         // Check if selected, and adjust text font
-        textFont = state == 1 ? boldTextFont : regularTextFont
+        textFont = state.rawValue == 1 ? boldTextFont : regularTextFont
         
         // Title
         let attrs: [String: AnyObject] = [
-            NSFontAttributeName: textFont,
-            NSForegroundColorAttributeName: textColor]
+            convertFromNSAttributedStringKey(NSAttributedString.Key.font): textFont,
+            convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): textColor]
         
         // Draw image (left aligned)
         let rectWidth: CGFloat = cellFrame.width, rectHeight: CGFloat = cellFrame.height
@@ -73,11 +73,22 @@ class EffectsUnitTabButtonCell: NSButtonCell {
         self.image?.draw(in: imgRect)
         
         // Compute text size and position
-        let size: CGSize = self.title.size(withAttributes: attrs)
+        let size: CGSize = self.title.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
         let sx: CGFloat = self.image != nil ? imgRect.maxX + 4 : (rectWidth - size.width) / 2
         let sy = cellFrame.height - size.height - 5
         
         // Draw title (adjacent to image)
-        self.title.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: attrs)
+        self.title.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

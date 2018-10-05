@@ -140,25 +140,30 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         let modes = playbackInfo.getRepeatAndShuffleModes()
         
-        shuffleOffMenuItem.state = modes.shuffleMode == .off ? 1 : 0
-        shuffleOnMenuItem.state = modes.shuffleMode == .on ? 1 : 0
+        shuffleOffMenuItem.state = NSControl.StateValue(rawValue: modes.shuffleMode == .off ? 1 : 0)
+        shuffleOnMenuItem.state = NSControl.StateValue(rawValue: modes.shuffleMode == .on ? 1 : 0)
         
         switch modes.repeatMode {
             
         case .off:
             
-            repeatOffMenuItem.state = 1
-            [repeatOneMenuItem, repeatAllMenuItem].forEach({$0?.state = 0})
+            repeatOffMenuItem.state = convertToNSControlStateValue(1)
+            [repeatOneMenuItem, repeatAllMenuItem].forEach({$0?.state = convertToNSControlStateValue(0)})
             
         case .one:
             
-            repeatOneMenuItem.state = 1
-            [repeatOffMenuItem, repeatAllMenuItem].forEach({$0?.state = 0})
+            repeatOneMenuItem.state = convertToNSControlStateValue(1)
+            [repeatOffMenuItem, repeatAllMenuItem].forEach({$0?.state = convertToNSControlStateValue(0)})
             
         case .all:
             
-            repeatAllMenuItem.state = 1
-            [repeatOffMenuItem, repeatOneMenuItem].forEach({$0?.state = 0})
+            repeatAllMenuItem.state = convertToNSControlStateValue(1)
+            [repeatOffMenuItem, repeatOneMenuItem].forEach({$0?.state = convertToNSControlStateValue(0)})
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSControlStateValue(_ input: Int) -> NSControl.StateValue {
+	return NSControl.StateValue(rawValue: input)
 }

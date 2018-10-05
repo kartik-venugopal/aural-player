@@ -164,8 +164,8 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     @IBAction func tabViewAction(_ sender: NSButton) {
 
         // Set sender button state, reset all other button states
-        fxTabViewButtons!.forEach({$0.state = 0})
-        sender.state = 1
+        fxTabViewButtons!.forEach({$0.state = convertToNSControlStateValue(0)})
+        sender.state = convertToNSControlStateValue(1)
 
         // Button tag is the tab index
         fxTabView.selectTabViewItem(at: sender.tag)
@@ -267,4 +267,9 @@ enum EffectsUnit {
     case delay
     case filter
     case recorder
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSControlStateValue(_ input: Int) -> NSControl.StateValue {
+	return NSControl.StateValue(rawValue: input)
 }

@@ -11,7 +11,7 @@ class TrackPeekingButton: NSButton {
     override func awakeFromNib() {
         
         // Create a tracking area that covers the bounds of the button. It should respond whenever the mouse enters or e
-        let trackingArea = NSTrackingArea(rect: self.bounds, options: [NSTrackingAreaOptions.activeAlways,  NSTrackingAreaOptions.mouseEnteredAndExited], owner: self, userInfo: nil)
+        let trackingArea = NSTrackingArea(rect: self.bounds, options: [NSTrackingArea.Options.activeAlways,  NSTrackingArea.Options.mouseEnteredAndExited], owner: self, userInfo: nil)
         
         // Add the new tracking area to the button
         addTrackingArea(trackingArea)

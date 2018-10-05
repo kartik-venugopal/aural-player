@@ -46,14 +46,25 @@ class GraphicsUtils {
     static func drawCenteredTextInRect(_ rect: NSRect, _ text: String, _ textColor: NSColor, _ font: NSFont) {
         
         let attrs: [String: AnyObject] = [
-            NSFontAttributeName: font,
-            NSForegroundColorAttributeName: textColor]
+            convertFromNSAttributedStringKey(NSAttributedString.Key.font): font,
+            convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): textColor]
         
         // Compute size and origin
-        let size: CGSize = text.size(withAttributes: attrs)
+        let size: CGSize = text.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
         let sx = (rect.width - size.width) / 2
         let sy = (rect.height - size.height) / 2 - 2
         
-        text.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: attrs)
+        text.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

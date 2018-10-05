@@ -27,7 +27,7 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, ActionMess
     }
     
     private lazy var visibleFrame: NSRect = {
-        return NSScreen.main()!.visibleFrame
+        return NSScreen.main!.visibleFrame
     }()
     
     private var dockState: DockState = .none
@@ -42,7 +42,7 @@ class BarModeWindowController: NSWindowController, MessageSubscriber, ActionMess
         dockButtons.forEach({$0.off()})
         
         theWindow.isMovableByWindowBackground = true
-        theWindow.level = Int(CGWindowLevelForKey(.floatingWindow))
+        theWindow.level = convertToNSWindowLevel(Int(CGWindowLevelForKey(.floatingWindow)))
         
         AppModeManager.registerConstituentView(.miniBar, self)
     }
@@ -291,4 +291,9 @@ enum DockState {
     case bottomLeft
     case bottomRight
     case none
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSWindowLevel(_ input: Int) -> NSWindow.Level {
+	return NSWindow.Level(rawValue: input)
 }

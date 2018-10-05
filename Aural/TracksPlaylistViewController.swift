@@ -24,13 +24,13 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     override var nibName: String? {return "Tracks"}
     
     convenience init() {
-        self.init(nibName: "Tracks", bundle: Bundle.main)!
+        self.init(nibName: "Tracks", bundle: Bundle.main)
     }
     
     override func viewDidLoad() {
         
         // Enable drag n drop
-        playlistView.register(forDraggedTypes: [String(kUTTypeFileURL), "public.data"])
+        playlistView.registerForDraggedTypes(convertToNSPasteboardPasteboardTypeArray([String(kUTTypeFileURL), "public.data"]))
         
         // Register for key press and gesture events
         PlaylistInputEventHandler.registerViewForPlaylistType(.tracks, self.playlistView)
@@ -417,4 +417,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSPasteboardPasteboardTypeArray(_ input: [String]) -> [NSPasteboard.PasteboardType] {
+	return input.map { key in NSPasteboard.PasteboardType(key) }
 }

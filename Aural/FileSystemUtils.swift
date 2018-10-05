@@ -183,6 +183,6 @@ class FileSystemUtils {
 
     // Opens a Finder window, with the given file selected within it
     static func showFileInFinder(_ file: URL) {
-        NSWorkspace.shared().activateFileViewerSelecting([file])
+        NSWorkspace.shared.activateFileViewerSelecting([file])
     }
 }

@@ -26,7 +26,7 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
         
         let data = NSKeyedArchiver.archivedData(withRootObject: rowIndexes)
         let item = NSPasteboardItem()
-        item.setData(data, forType: "public.data")
+        item.setData(data, forType: convertToNSPasteboardPasteboardType("public.data"))
         pboard.writeObjects([item])
         
         return true
@@ -35,9 +35,9 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     // Helper function to retrieve source indexes from the NSDraggingInfo pasteboard
     private func getSourceIndexes(_ draggingInfo: NSDraggingInfo) -> IndexSet? {
         
-        let pasteboard = draggingInfo.draggingPasteboard()
+        let pasteboard = draggingInfo.draggingPasteboard
         
-        if let data = pasteboard.pasteboardItems?.first?.data(forType: "public.data"),
+        if let data = pasteboard.pasteboardItems?.first?.data(forType: convertToNSPasteboardPasteboardType("public.data")),
             let sourceIndexSet = NSKeyedUnarchiver.unarchiveObject(with: data) as? IndexSet
         {
             return sourceIndexSet
@@ -47,10 +47,10 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     }
     
     // Validates the proposed drag/drop operation
-    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
         
         // If the source is the tableView, that means playlist tracks are being reordered
-        if (info.draggingSource() is NSTableView) {
+        if (info.draggingSource is NSTableView) {
             
             // Reordering of tracks
             if let sourceIndexSet = getSourceIndexes(info) {
@@ -68,7 +68,7 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     }
     
     // Given source indexes, a destination index (dropRow), and the drop operation (on/above), determines if the drop is a valid reorder operation (depending on the bounds of the playlist, and the source and destination indexes)
-    private func validateReorderOperation(_ tableView: NSTableView, _ sourceIndexSet: IndexSet, _ dropRow: Int, _ operation: NSTableViewDropOperation) -> Bool {
+    private func validateReorderOperation(_ tableView: NSTableView, _ sourceIndexSet: IndexSet, _ dropRow: Int, _ operation: NSTableView.DropOperation) -> Bool {
         
         // If all rows are selected, they cannot be moved, and dropRow cannot be one of the source rows
         if (sourceIndexSet.count == tableView.numberOfRows || sourceIndexSet.contains(dropRow)) {
@@ -80,9 +80,9 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     }
     
     // Performs the drop
-    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         
-        if (info.draggingSource() is NSTableView) {
+        if (info.draggingSource is NSTableView) {
             
             if let sourceIndexSet = getSourceIndexes(info) {
                 
@@ -120,7 +120,7 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
         } else {
             
             // Files added from Finder, add them to the playlist as URLs
-            let objects = info.draggingPasteboard().readObjects(forClasses: [NSURL.self], options: nil)
+            let objects = info.draggingPasteboard.readObjects(forClasses: [NSURL.self], options: nil)
             playlist.addFiles(objects! as! [URL])
             
             return true
@@ -140,7 +140,12 @@ enum DropType {
     case above
     
     // Converts an NSTableViewDropOperation to a DropType
-    static func fromDropOperation(_ dropOp: NSTableViewDropOperation) -> DropType {
+    static func fromDropOperation(_ dropOp: NSTableView.DropOperation) -> DropType {
         return dropOp == .on ? .on : .above
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSPasteboardPasteboardType(_ input: String) -> NSPasteboard.PasteboardType {
+	return NSPasteboard.PasteboardType(rawValue: input)
 }

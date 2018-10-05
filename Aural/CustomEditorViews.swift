@@ -5,10 +5,10 @@ class AuralTableHeaderCell: NSTableHeaderCell {
     override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
         
         let attrs: [String: AnyObject] = [
-            NSFontAttributeName: Fonts.editorHeaderTextFont,
-            NSForegroundColorAttributeName: Colors.editorHeaderTextColor]
+            convertFromNSAttributedStringKey(NSAttributedString.Key.font): Fonts.editorHeaderTextFont,
+            convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): Colors.editorHeaderTextColor]
         
-        stringValue.draw(in: cellFrame.insetBy(dx: 5, dy: 3), withAttributes: attrs)
+        stringValue.draw(in: cellFrame.insetBy(dx: 5, dy: 3), withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
         
         // Bottom line
         let drawRect = cellFrame.insetBy(dx: 0, dy: 16).offsetBy(dx: 0, dy: 10)
@@ -39,7 +39,7 @@ class EditorTableCellView: NSTableCellView {
     var isSelectedFunction: ((Int) -> Bool)?
     
     // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
-    override var backgroundStyle: NSBackgroundStyle {
+    override var backgroundStyle: NSView.BackgroundStyle {
         
         didSet {
             
@@ -68,4 +68,15 @@ class EditorTextField: NSTextField {
         
         return super.becomeFirstResponder()
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

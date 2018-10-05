@@ -46,7 +46,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
     // Returns a view for a single column
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         
-        switch tableColumn!.identifier {
+        switch convertFromNSUserInterfaceItemIdentifier(tableColumn!.identifier) {
             
         case UIConstants.playlistNameColumnID:
             
@@ -54,7 +54,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
             
             if let group = item as? Group {
                 
-                let cell = createImageAndTextCell(outlineView, tableColumn!.identifier, true, String(format: "%@ (%d)", group.name, group.size()), Images.imgGroup)
+                let cell = createImageAndTextCell(outlineView, convertFromNSUserInterfaceItemIdentifier(tableColumn!.identifier), true, String(format: "%@ (%d)", group.name, group.size()), Images.imgGroup)
                 cell?.item = group
                 cell?.playlistType = self.playlistType
                 return cell
@@ -66,7 +66,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
                 let isPlayingTrack = track == playbackInfo.getPlayingTrack()?.track
                 let image = isPlayingTrack ? Images.imgPlayingTrack : track.displayInfo.art
                 
-                let cell = createImageAndTextCell(outlineView, tableColumn!.identifier, false, playlist.displayNameForTrack(playlistType, track), image, isPlayingTrack)
+                let cell = createImageAndTextCell(outlineView, convertFromNSUserInterfaceItemIdentifier(tableColumn!.identifier), false, playlist.displayNameForTrack(playlistType, track), image, isPlayingTrack)
                 cell?.item = track
                 cell?.playlistType = self.playlistType
                 return cell
@@ -101,7 +101,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
     // Creates a cell view containing text and an image. If the row containing the cell represents the playing track, the image will be the playing track animation.
     private func createImageAndTextCell(_ outlineView: NSOutlineView, _ id: String, _ isGroup: Bool, _ text: String, _ image: NSImage?, _ isPlayingTrack: Bool = false) -> GroupedTrackCellView? {
         
-        if let cell = outlineView.make(withIdentifier: id, owner: nil) as? GroupedTrackCellView {
+        if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackCellView {
             
             cell.textField?.stringValue = text
             cell.imageView?.image = image
@@ -122,7 +122,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
     // Creates a cell view containing only text
     private func createTextCell(_ outlineView: NSOutlineView, _ id: String, _ isGroup: Bool, _ text: String) -> GroupedTrackCellView? {
         
-        if let cell = outlineView.make(withIdentifier: id, owner: nil) as? GroupedTrackCellView {
+        if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackCellView {
             
             cell.textField?.stringValue = text
             cell.isGroup = isGroup
@@ -188,7 +188,7 @@ class GroupedTrackCellView: NSTableCellView {
     var item: PlaylistItem?
     
     // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
-    override var backgroundStyle: NSBackgroundStyle {
+    override var backgroundStyle: NSView.BackgroundStyle {
         
         didSet {
             
@@ -214,7 +214,7 @@ class GroupingPlaylistRowView: NSTableRowView {
     // Draws a fancy rounded rectangle around the selected track in the playlist view
     override func drawSelection(in dirtyRect: NSRect) {
         
-        if self.selectionHighlightStyle != NSTableViewSelectionHighlightStyle.none {
+        if self.selectionHighlightStyle != NSTableView.SelectionHighlightStyle.none {
             
             let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
             let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
@@ -251,4 +251,14 @@ class GenresPlaylistViewDelegate: GroupingPlaylistViewDelegate {
     init() {
         super.init(.genres)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSUserInterfaceItemIdentifier(_ input: NSUserInterfaceItemIdentifier) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSUserInterfaceItemIdentifier(_ input: String) -> NSUserInterfaceItemIdentifier {
+	return NSUserInterfaceItemIdentifier(rawValue: input)
 }

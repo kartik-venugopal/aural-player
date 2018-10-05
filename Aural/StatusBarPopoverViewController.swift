@@ -88,7 +88,7 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
         }
     }
     
-    func statusBarButtonAction(_ sender: AnyObject) {
+    @objc func statusBarButtonAction(_ sender: AnyObject) {
         toggle(statusItem.button!, NSRectEdge.minY)
     }
     
@@ -103,7 +103,7 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
     
     func show() {
         
-        statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         if let btn = statusItem.button {
             
             btn.image = NSImage(named: "AppIcon-StatusBar")
@@ -138,7 +138,7 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
     func dismiss() {
         
         close()
-        NSStatusBar.system().removeStatusItem(statusItem)
+        NSStatusBar.system.removeStatusItem(statusItem)
     }
     
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
@@ -206,10 +206,10 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
 fileprivate class GlobalMouseClickMonitor {
     
     private var monitor: Any?
-    private let mask: NSEventMask
+    private let mask: NSEvent.EventTypeMask
     private let handler: (NSEvent!) -> Void
     
-    public init(_ mask: NSEventMask, _ handler: @escaping (NSEvent!) -> Void) {
+    public init(_ mask: NSEvent.EventTypeMask, _ handler: @escaping (NSEvent!) -> Void) {
         self.mask = mask
         self.handler = handler
     }

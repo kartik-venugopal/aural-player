@@ -88,7 +88,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         let dialog = DialogsAndAlerts.saveRecordingPanel(format.fileExtension)
         let modalResponse = dialog.runModal()
         
-        if (modalResponse == NSModalResponseOK) {
+        if (modalResponse == NSApplication.ModalResponse.OK) {
             recorder.saveRecording(dialog.url!)
         } else {
             
@@ -111,7 +111,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         if (recorder.isRecording()) {
             
             // Recording ongoing, prompt the user to save/discard it
-            let response = UIUtils.showAlert(DialogsAndAlerts.saveRecordingAlert)
+            let response = UIUtils.showAlert(DialogsAndAlerts.saveRecordingAlert).rawValue
             
             switch response {
                 

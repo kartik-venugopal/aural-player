@@ -16,7 +16,7 @@ class AudioUtils {
             track.audioAsset = AVURLAsset(url: track.file, options: nil)
         }
         
-        let assetTracks = track.audioAsset?.tracks(withMediaType: AVMediaTypeAudio)
+        let assetTracks = track.audioAsset?.tracks(withMediaType: AVMediaType.audio)
         
         // Check if the asset has any audio tracks
         if (assetTracks?.count == 0) {
@@ -73,7 +73,7 @@ class AudioUtils {
         
         let audioInfo = AudioInfo()
         
-        let assetTracks = track.audioAsset!.tracks(withMediaType: AVMediaTypeAudio)
+        let assetTracks = track.audioAsset!.tracks(withMediaType: AVMediaType.audio)
         audioInfo.format = getFormat(assetTracks.first!)
         
         let fileSize = FileSystemUtils.sizeOfFile(path: track.file.path)

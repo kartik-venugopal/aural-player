@@ -36,7 +36,7 @@ class DetailedTrackInfoRowView: NSTableRowView {
     
     private func createCell(_ id: String, _ text: String) -> NSTableCellView? {
         
-        if let cell = TrackInfoViewHolder.trackInfoView!.make(withIdentifier: id, owner: nil) as? NSTableCellView {
+        if let cell = TrackInfoViewHolder.trackInfoView!.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? NSTableCellView {
             
             cell.textField?.stringValue = text
             return cell
@@ -44,4 +44,9 @@ class DetailedTrackInfoRowView: NSTableRowView {
         
         return nil
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSUserInterfaceItemIdentifier(_ input: String) -> NSUserInterfaceItemIdentifier {
+	return NSUserInterfaceItemIdentifier(rawValue: input)
 }

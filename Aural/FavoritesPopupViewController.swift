@@ -75,7 +75,7 @@ class FavoritesPopupViewController: NSViewController, FavoritesPopupProtocol {
     }
     
     // Closes the popover
-    func close() {
+    @objc func close() {
         
         if (popover.isShown) {
             popover.performClose(self)

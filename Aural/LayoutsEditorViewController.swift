@@ -21,7 +21,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     override var nibName: String? {return "LayoutsEditor"}
     
     private lazy var visibleFrame: NSRect = {
-        return NSScreen.main()!.visibleFrame
+        return NSScreen.main!.visibleFrame
     }()
     
     override func viewDidAppear() {
@@ -146,7 +146,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     // Creates a cell view containing text
     private func createTextCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, _ text: String) -> EditorTableCellView? {
         
-        if let cell = tableView.make(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
+        if let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
             
             cell.isSelectedFunction = {
                 
@@ -171,12 +171,12 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     func control(_ control: NSControl, textShouldBeginEditing fieldEditor: NSText) -> Bool {
         
         // Note down the existing layout name
-        oldLayoutName = fieldEditor.string!
+        oldLayoutName = fieldEditor.string
         
         return true
     }
     
-    override func controlTextDidEndEditing(_ obj: Notification) {
+    func controlTextDidEndEditing(_ obj: Notification) {
         
         let rowIndex = editorView.selectedRow
         let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)

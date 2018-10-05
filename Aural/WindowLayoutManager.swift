@@ -34,7 +34,7 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
     private var lastDockState: PlaylistDockState = .bottom
     
     private lazy var visibleFrame: NSRect = {
-        return NSScreen.main()!.visibleFrame
+        return NSScreen.main!.visibleFrame
     }()
     
     override init() {
@@ -354,7 +354,7 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
     private func showPlaylist() {
         
         // Show playlist window
-        mainWindow.addChildWindow(playlistWindow, ordered: NSWindowOrderingMode.below)
+        mainWindow.addChildWindow(playlistWindow, ordered: NSWindow.OrderingMode.below)
         playlistWindow.setIsVisible(true)
         WindowState.showingPlaylist = true
         
@@ -409,7 +409,7 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
     private func showEffects() {
         
         // Show effects window
-        mainWindow.addChildWindow(effectsWindow, ordered: NSWindowOrderingMode.below)
+        mainWindow.addChildWindow(effectsWindow, ordered: NSWindow.OrderingMode.below)
         effectsWindow.setIsVisible(true)
         WindowState.showingEffects = true
         

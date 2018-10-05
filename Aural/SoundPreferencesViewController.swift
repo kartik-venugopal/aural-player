@@ -28,14 +28,14 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         volumeDeltaStepper.integerValue = volumeDelta
         volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
         
-        btnRememberVolume.state = soundPrefs.volumeOnStartup == .rememberFromLastAppLaunch ? 1 : 0
+        btnRememberVolume.state = NSControl.StateValue(rawValue: soundPrefs.volumeOnStartup == .rememberFromLastAppLaunch ? 1 : 0)
         
-        btnSpecifyVolume.state = soundPrefs.volumeOnStartup == .rememberFromLastAppLaunch ? 0 : 1
+        btnSpecifyVolume.state = NSControl.StateValue(rawValue: soundPrefs.volumeOnStartup == .rememberFromLastAppLaunch ? 0 : 1)
         
-        startupVolumeSlider.isEnabled = Bool(btnSpecifyVolume.state)
+        startupVolumeSlider.isEnabled = Bool(btnSpecifyVolume.state.rawValue)
         startupVolumeSlider.integerValue = Int(round(soundPrefs.startupVolumeValue * AppConstants.volumeConversion_audioGraphToUI))
         
-        lblStartupVolume.isEnabled = Bool(btnSpecifyVolume.state)
+        lblStartupVolume.isEnabled = Bool(btnSpecifyVolume.state.rawValue)
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
         
         let panDelta = Int(round(soundPrefs.panDelta * AppConstants.panConversion_audioGraphToUI))
@@ -52,7 +52,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     }
 
     @IBAction func startupVolumeButtonAction(_ sender: Any) {
-        [startupVolumeSlider, lblStartupVolume].forEach({$0.isEnabled = Bool(btnSpecifyVolume.state)})
+        [startupVolumeSlider, lblStartupVolume].forEach({$0.isEnabled = Bool(btnSpecifyVolume.state.rawValue)})
     }
     
     @IBAction func startupVolumeSliderAction(_ sender: Any) {
@@ -65,7 +65,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         soundPrefs.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.volumeConversion_UIToAudioGraph
         
-        soundPrefs.volumeOnStartup = btnRememberVolume.state == 1 ? .rememberFromLastAppLaunch : .specific
+        soundPrefs.volumeOnStartup = btnRememberVolume.state.rawValue == 1 ? .rememberFromLastAppLaunch : .specific
         soundPrefs.startupVolumeValue = Float(startupVolumeSlider.integerValue) * AppConstants.volumeConversion_UIToAudioGraph
         
         soundPrefs.panDelta = panDeltaStepper.floatValue * AppConstants.panConversion_UIToAudioGraph

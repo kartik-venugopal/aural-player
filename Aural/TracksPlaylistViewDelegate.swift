@@ -34,7 +34,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
     func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
         
         // Only the track name column is used for type selection
-        if (tableColumn?.identifier != UIConstants.playlistNameColumnID) {
+        let colID = tableColumn?.identifier.rawValue ?? ""
+        if colID != UIConstants.playlistNameColumnID {
             return nil
         }
         
@@ -46,7 +47,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
         
         if let track = playlist.trackAtIndex(row)?.track {
             
-            switch tableColumn!.identifier {
+            switch convertFromNSUserInterfaceItemIdentifier(tableColumn!.identifier) {
                 
             case UIConstants.playlistIndexColumnID:
                 
@@ -86,7 +87,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
     // Creates a cell view containing text
     private func createTextCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> PlaylistCellView? {
         
-        if let cell = tableView.make(withIdentifier: id, owner: nil) as? PlaylistCellView {
+        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? PlaylistCellView {
             
             cell.textField?.stringValue = text
             
@@ -105,7 +106,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
     // Creates a cell view containing the animation for the currently playing track
     private func createPlayingTrackAnimationCell(_ tableView: NSTableView) -> PlaylistCellView? {
         
-        if let cell = tableView.make(withIdentifier: UIConstants.playlistIndexColumnID, owner: nil) as? PlaylistCellView {
+        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(UIConstants.playlistIndexColumnID), owner: nil) as? PlaylistCellView {
             
             // Configure and show the image view
             let imgView = cell.imageView!
@@ -171,7 +172,7 @@ class AuralTableRowView: NSTableRowView {
     // Draws a fancy rounded rectangle around the selected track in the playlist view
     override func drawSelection(in dirtyRect: NSRect) {
         
-        if self.selectionHighlightStyle != NSTableViewSelectionHighlightStyle.none {
+        if self.selectionHighlightStyle != NSTableView.SelectionHighlightStyle.none {
             
             let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
             
@@ -191,7 +192,7 @@ class PlaylistCellView: NSTableCellView {
     var row: Int = -1
     
     // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
-    override var backgroundStyle: NSBackgroundStyle {
+    override var backgroundStyle: NSView.BackgroundStyle {
         
         didSet {
             
@@ -211,4 +212,14 @@ class PlaylistCellView: NSTableCellView {
 fileprivate class TableViewHolder {
     
     static var instance: NSTableView?
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSUserInterfaceItemIdentifier(_ input: NSUserInterfaceItemIdentifier) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSUserInterfaceItemIdentifier(_ input: String) -> NSUserInterfaceItemIdentifier {
+	return NSUserInterfaceItemIdentifier(rawValue: input)
 }

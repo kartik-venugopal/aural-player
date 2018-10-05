@@ -53,7 +53,7 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
         
         btnTimeBypass.updateState()
         
-        btnShiftPitch.state = graph.isTimePitchShift() ? 1 : 0
+        btnShiftPitch.state = NSControl.StateValue(rawValue: graph.isTimePitchShift() ? 1 : 0)
         updatePitchShift()
         
         let rate = graph.getTimeRate()
@@ -118,7 +118,7 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
     // Actually saves the new user-defined preset
     private func saveUserPreset(_ request: SaveUserPresetRequest) {
         
-        TimePresets.addUserDefinedPreset(request.presetName, graph.getTimeState(), timeSlider.floatValue, timeOverlapSlider.floatValue, btnShiftPitch.state == 1)
+        TimePresets.addUserDefinedPreset(request.presetName, graph.getTimeState(), timeSlider.floatValue, timeOverlapSlider.floatValue, btnShiftPitch.state.rawValue == 1)
         
         // Add a menu item for the new preset, at the top of the menu
         presetsMenu.insertItem(withTitle: request.presetName, at: 0)

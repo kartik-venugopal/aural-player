@@ -17,7 +17,7 @@ class AppConstants {
     static let supportedAudioFileFormats: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", "lpcm"]
     
     // File types allowed in the Open file dialog (extensions and UTIs)
-    static let supportedFileTypes_open: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", m3u, m3u8, AVFileTypeMPEGLayer3, AVFileTypeAppleM4A, AVFileTypeAIFF, AVFileTypeAIFC, AVFileTypeCoreAudioFormat, AVFileTypeWAVE]
+    static let supportedFileTypes_open: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", m3u, m3u8, convertFromAVFileType(AVFileType.mp3), convertFromAVFileType(AVFileType.m4a), convertFromAVFileType(AVFileType.aiff), convertFromAVFileType(AVFileType.aifc), convertFromAVFileType(AVFileType.caf), convertFromAVFileType(AVFileType.wav)]
     
     // Audible range (frequencies)
     static let audibleRangeMin: Double = 20      // 20 Hz
@@ -79,4 +79,9 @@ class AppConstants {
  
     // Path to bundled PDF user guide file
     static let pdfUserGuidePath: String = Bundle.main.path(forResource: "UserGuide", ofType: "pdf")!
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVFileType(_ input: AVFileType) -> String {
+	return input.rawValue
 }
