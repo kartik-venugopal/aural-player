@@ -20,7 +20,9 @@ class AudioEngineHelper {
     }
     
     @objc func outputChanged() {
-        AsyncMessenger.publishMessage(AudioOutputChangedMessage.instance)
+        
+        // End the current playback session and send out a notification
+        AsyncMessenger.publishMessage(AudioOutputChangedMessage(PlaybackSession.endCurrent()))
     }
     
     // Attach a single node to the engine

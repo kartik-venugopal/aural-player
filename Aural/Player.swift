@@ -1,5 +1,5 @@
 /*
-    Concrete implementation of PlayerProtocol
+ Concrete implementation of PlayerProtocol
  */
 
 import Cocoa
@@ -65,7 +65,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     
     func stop() {
         
-        PlaybackSession.endCurrent()
+        _ = PlaybackSession.endCurrent()
         
         bufferManager.stop()
         playerNode.reset()
@@ -81,6 +81,16 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         
         let session = PlaybackSession.start(track, timestamp)
         session.loop = loop
+        
+        bufferManager.seekToTime(session, seconds, playbackState == .playing)
+    }
+    
+    // Used only when audio output changes
+    private func seekToTime(_ lastSession: PlaybackSession, _ seconds: Double) {
+        
+        // Hand off old session info to the new session
+        let session = PlaybackSession.start(lastSession.track, lastSession.timestamp)
+        session.loop = lastSession.loop
         
         bufferManager.seekToTime(session, seconds, playbackState == .playing)
     }
@@ -155,9 +165,12 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
-        if message.messageType == .audioOutputChanged {
+        // Handler for when the audio output changes (e.g. headphones plugged in/out). Need to restart the audio engine (and resume playback if necessary).
+        if let msg = message as? AudioOutputChangedMessage {
             
-            let playingTrack: Track? = PlaybackSession.currentSession?.track
+            let endedSession = msg.endedSession
+            
+            let playingTrack: Track? = endedSession?.track
             var seekPosn: Double = 0
             
             // Mark the current seek position of the player
@@ -169,10 +182,10 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
             graph.restartAudioEngine()
             
             // Resume playback
-            // TODO: Crashes when looping a track segment
             if playingTrack != nil {
+                
                 initPlayer(playingTrack!)
-                seekToTime(playingTrack!, seekPosn)
+                seekToTime(endedSession!, seekPosn)
             }
         }
     }
