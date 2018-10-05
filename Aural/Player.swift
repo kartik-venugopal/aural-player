@@ -169,6 +169,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
             graph.restartAudioEngine()
             
             // Resume playback
+            // TODO: Crashes when looping a track segment
             if playingTrack != nil {
                 initPlayer(playingTrack!)
                 seekToTime(playingTrack!, seekPosn)
