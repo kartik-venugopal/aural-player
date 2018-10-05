@@ -17,6 +17,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
     private let playlistUpdateQueue = OperationQueue()
     
+    private let playbackPreferences: PlaybackPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().playbackPreferences
+    
+    private lazy var layoutManager: LayoutManager = ObjectGraph.getLayoutManager()
+    
     override var nibName: String? {return "Tracks"}
     
     convenience init() {
@@ -228,8 +232,20 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             refreshIndexes.append(oldTrack!.index)
         }
         
+        let needToShowTrack: Bool = layoutManager.isShowingPlaylist() && PlaylistViewState.current == .tracks && playbackPreferences.showNewTrackInPlaylist
+        
         if (newTrack != nil) {
             refreshIndexes.append(newTrack!.index)
+            
+            if needToShowTrack {
+                showPlayingTrack()
+            }
+            
+        } else {
+            
+            if needToShowTrack {
+                playlistView.deselectAll(self)
+            }
         }
         
         playlistView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)

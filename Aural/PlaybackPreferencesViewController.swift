@@ -11,6 +11,8 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnAutoplayIfNotPlaying: NSButton!
     @IBOutlet weak var btnAutoplayAlways: NSButton!
     
+    @IBOutlet weak var btnShowNewTrack: NSButton!
+    
     override var nibName: String? {return "PlaybackPreferences"}
     
     func getView() -> NSView {
@@ -34,6 +36,8 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         btnAutoplayAlways.isEnabled = playbackPrefs.autoplayAfterAddingTracks
         btnAutoplayAlways.state = playbackPrefs.autoplayAfterAddingOption == .always ? 1 : 0
+        
+        btnShowNewTrack.state = playbackPrefs.showNewTrackInPlaylist ? 1 : 0
     }
     
     @IBAction func seekLengthAction(_ sender: Any) {
@@ -75,5 +79,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         playbackPrefs.autoplayAfterAddingTracks = Bool(btnAutoplayAfterAddingTracks.state)
         playbackPrefs.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.state == 1 ? .ifNotPlaying : .always
+        
+        playbackPrefs.showNewTrackInPlaylist = Bool(btnShowNewTrack.state)
     }
 }

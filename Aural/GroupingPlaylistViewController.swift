@@ -15,6 +15,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
+    private lazy var layoutManager: LayoutManager = ObjectGraph.getLayoutManager()
+    
+    private let playbackPreferences: PlaybackPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().playbackPreferences
+    
     // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
     private let playlistUpdateQueue = OperationQueue()
     
@@ -330,15 +334,20 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         return targetSelRows
     }
     
-    private func cropSelection() {
+    private func clearSelection() {
         
         let selItems = collectTracksAndGroups()
-        let tracksToDelete = getInvertedSelection()
         
         // Clear the selection
         playlistView.deselectAll(self)
         selItems.groups.forEach({playlistView.reloadItem($0)})
         selItems.tracks.forEach({playlistView.reloadItem($0)})
+    }
+    
+    private func cropSelection() {
+        
+        let tracksToDelete = getInvertedSelection()
+        clearSelection()
         
         if (tracksToDelete.count > 0) {
             
@@ -453,6 +462,28 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         if (newTrack != nil) {
             playlistView.reloadItem(newTrack!.track)
+            
+            if layoutManager.isShowingPlaylist() {
+                
+                if let curViewGroupType = PlaylistViewState.current.toGroupType() {
+                    
+                    if curViewGroupType == self.groupType && playbackPreferences.showNewTrackInPlaylist {
+                        showPlayingTrack()
+                    }
+                }
+            }
+            
+        } else {
+            
+            if layoutManager.isShowingPlaylist() {
+                
+                if let curViewGroupType = PlaylistViewState.current.toGroupType() {
+                    
+                    if curViewGroupType == self.groupType && playbackPreferences.showNewTrackInPlaylist {
+                        clearSelection()
+                    }
+                }
+            }
         }
     }
     
