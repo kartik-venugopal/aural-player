@@ -69,15 +69,11 @@
                                         <action selector="floatingBarModeAction:" target="-2" id="LmE-tS-Fhe"/>
                                     </connections>
                                 </button>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6fE-EF-YEC">
-                                    <rect key="frame" x="203" y="197" width="75" height="25"/>
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efk-uj-yYR" userLabel="Title view">
+                                    <rect key="frame" x="208" y="198" width="65" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="AURAL" id="uY5-TU-vN1">
-                                        <font key="font" metaFont="cellTitle"/>
-                                        <color key="textColor" white="0.7480848524" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppTitle" id="0JL-KA-nPB"/>
+                                </imageView>
                                 <button toolTip="Show/hide playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-bp-Vzd" userLabel="Toggle Playlist Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="405" y="204" width="16" height="11"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -203,6 +199,7 @@
         </window>
     </objects>
     <resources>
+        <image name="AppTitle" width="101" height="48"/>
         <image name="Close" width="80" height="80"/>
         <image name="EffectsView-Off" width="419" height="422"/>
         <image name="EffectsView-On" width="419" height="422"/>
