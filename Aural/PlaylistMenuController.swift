@@ -14,14 +14,15 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var moveItemsDownMenuItem: NSMenuItem!
     @IBOutlet weak var removeSelectedItemsMenuItem: NSMenuItem!
     
+    @IBOutlet weak var invertSelectionMenuItem: NSMenuItem!
+    @IBOutlet weak var cropSelectionMenuItem: NSMenuItem!
+    
     @IBOutlet weak var savePlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var clearPlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var searchPlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var sortPlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var scrollToTopMenuItem: NSMenuItem!
     @IBOutlet weak var scrollToBottomMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var shiftTabMenuItem: NSMenuItem!
     
     private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.getPlaylistAccessorDelegate()
     
@@ -42,10 +43,10 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsDownMenuItem, removeSelectedItemsMenuItem].forEach({$0?.isEnabled = layoutManager.isShowingPlaylist() && PlaylistViewState.currentView.selectedRow >= 0})
         
         // These menu items require 1 - the playlist to be visible, and 2 - at least one track in the playlist
-        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem].forEach({$0?.isEnabled = layoutManager.isShowingPlaylist() && playlist.size() > 0})
+        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, invertSelectionMenuItem].forEach({$0?.isEnabled = layoutManager.isShowingPlaylist() && playlist.size() > 0})
         
-        // This menu item requires the playlist to be visible
-        shiftTabMenuItem.isEnabled = layoutManager.isShowingPlaylist()
+        // At least 2 tracks needed for these functions, and at least one track selected
+        cropSelectionMenuItem.isEnabled = layoutManager.isShowingPlaylist() && playlist.size() > 1 && PlaylistViewState.currentView.selectedRow >= 0
     }
     
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist
@@ -91,14 +92,18 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.sort, nil))
     }
     
-    // Switches the current playlist tab to the next one in the playlist tab group. Example: Tracks -> Artists or Albums -> Genres, Genres -> Tracks
-    @IBAction func shiftTabAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.shiftTab, nil))
-    }
-    
     // Plays the selected playlist item (track or group)
     @IBAction func playSelectedItemAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.playSelectedItem, PlaylistViewState.current))
+    }
+    
+    @IBAction func invertSelectionAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.invertSelection, PlaylistViewState.current))
+    }
+    
+    @IBAction func cropSelectionAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.cropSelection, PlaylistViewState.current))
+        sequenceChanged()
     }
     
     // Scrolls the current playlist view to the very top

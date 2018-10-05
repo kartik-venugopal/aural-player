@@ -62,6 +62,11 @@ enum ActionType {
     // Invoke the sort dialog
     case sort
     
+    case invertSelection
+    
+    // Crop selection
+    case cropSelection
+    
     // Scroll to the top of the playlist
     case scrollToTop
     

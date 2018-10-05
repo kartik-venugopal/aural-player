@@ -37,6 +37,8 @@
         <customObject id="sXT-Pr-clR" customClass="PlaylistMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="clearPlaylistMenuItem" destination="ec2-Jm-I4M" id="EHN-Pi-SW4"/>
+                <outlet property="cropSelectionMenuItem" destination="yml-EW-5wq" id="bpz-aE-Smf"/>
+                <outlet property="invertSelectionMenuItem" destination="y60-Ih-ViK" id="7jl-OV-pOp"/>
                 <outlet property="moveItemsDownMenuItem" destination="F5x-Nm-ust" id="cAv-w8-JMV"/>
                 <outlet property="moveItemsUpMenuItem" destination="f3c-TG-M9r" id="tFc-fV-deZ"/>
                 <outlet property="playSelectedItemMenuItem" destination="afl-Xm-nI9" id="RnQ-Qj-phc"/>
@@ -45,7 +47,6 @@
                 <outlet property="scrollToBottomMenuItem" destination="c6s-9I-Btt" id="o2i-bn-R36"/>
                 <outlet property="scrollToTopMenuItem" destination="rnZ-aQ-jrV" id="txi-nc-ex8"/>
                 <outlet property="searchPlaylistMenuItem" destination="Pxd-7C-8tq" id="UMb-jh-SpH"/>
-                <outlet property="shiftTabMenuItem" destination="JAN-jg-Zs1" id="FPw-yl-HpG"/>
                 <outlet property="sortPlaylistMenuItem" destination="ttf-Ix-LHp" id="GfN-A8-04n"/>
                 <outlet property="theMenu" destination="nzT-Bj-81Y" id="L7C-0i-wdd"/>
             </connections>
@@ -269,6 +270,22 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="bMd-aB-U0o"/>
+                            <menuItem title=" Invert selection" image="InvertSelection-Small" id="y60-Ih-ViK" userLabel="Invert selection">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="invertSelectionAction:" target="sXT-Pr-clR" id="wgT-9m-4jm"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Crop selection" image="CropSelection-Small" id="yml-EW-5wq" userLabel="Crop selection">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="cropSelectionAction:" target="sXT-Pr-clR" id="4c5-D4-loM"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Epc-oG-Po5"/>
                             <menuItem title=" Search playlist" image="Search-Small" keyEquivalent="f" id="Pxd-7C-8tq">
                                 <connections>
                                     <action selector="playlistSearchAction:" target="sXT-Pr-clR" id="i4v-Sr-0DH"/>
@@ -291,16 +308,6 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="scrollToBottomAction:" target="sXT-Pr-clR" id="C3f-pL-2AA"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="Zhb-Uk-nYI"/>
-                            <menuItem title="Switch playlist tab" id="JAN-jg-Zs1" userLabel="Scroll to bottom of playlist">
-                                <string key="keyEquivalent" base64-UTF8="YES">
-CQ
-</string>
-                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
-                                <connections>
-                                    <action selector="shiftTabAction:" target="sXT-Pr-clR" id="L8C-bY-QNm"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -1006,6 +1013,7 @@ CQ
         <image name="Bookmark-Dark" width="15" height="15"/>
         <image name="Bookmarks-Editor" width="3" height="3"/>
         <image name="Clear-Small" width="2.5999999046325684" height="3"/>
+        <image name="CropSelection-Small" width="11.199999809265137" height="11.199999809265137"/>
         <image name="DockBottom-Small" width="12" height="10"/>
         <image name="DockLeft-Small" width="12" height="10"/>
         <image name="DockRight-Small" width="12" height="10"/>
@@ -1014,6 +1022,7 @@ CQ
         <image name="Favorites" width="15" height="15"/>
         <image name="Favorites-Editor" width="3" height="3"/>
         <image name="FloatingBarMode-Small" width="15" height="15"/>
+        <image name="InvertSelection-Small" width="13.439999580383301" height="13.439999580383301"/>
         <image name="LoopOff-Small" width="0.23999999463558197" height="0.20800000429153442"/>
         <image name="MasterTab-Small" width="14" height="14"/>
         <image name="Maximize-Small" width="12" height="10"/>

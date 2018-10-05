@@ -36,7 +36,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -179,8 +179,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         let track = playlist.trackAtIndex(playlistView.selectedRow)!.track
         track.loadDetailedInfo()
-        
-        
     }
     
     private func trackAdded(_ message: TrackAddedAsyncMessage) {
@@ -200,6 +198,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     private func tracksRemoved(_ message: TracksRemovedAsyncMessage) {
         
         let indexes = message.results.flatPlaylistResults
+        
+        if indexes.count == 0 {
+            return
+        }
         
         // Update all rows from the first (i.e. smallest index) removed row, down to the end of the playlist
         let minIndex = (indexes.min())!
@@ -248,6 +250,36 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         let selTrack = playlist.trackAtIndex(playlistView.selectedRow)
         FileSystemUtils.showFileInFinder((selTrack?.track.file)!)
+    }
+    
+    private func invertSelection() {
+        playlistView.selectRowIndexes(getInvertedSelection(), byExtendingSelection: false)
+    }
+    
+    private func getInvertedSelection() -> IndexSet {
+        
+        let selRows = playlistView.selectedRowIndexes
+        let playlistSize = playlist.size()
+        var targetSelRows = IndexSet()
+        
+        for index in 0..<playlistSize {
+            
+            if !selRows.contains(index) {
+                targetSelRows.insert(index)
+            }
+        }
+        
+        return targetSelRows
+    }
+    
+    private func cropSelection() {
+        
+        let tracksToDelete = getInvertedSelection()
+        
+        if (tracksToDelete.count > 0) {
+            playlist.removeTracks(tracksToDelete)
+            playlistView.reloadData()
+        }
     }
     
     func getID() -> String {
@@ -356,6 +388,14 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         case .showTrackInFinder:
             
             showTrackInFinder()
+            
+        case .invertSelection:
+            
+            invertSelection()
+            
+        case .cropSelection:
+            
+            cropSelection()
             
         default: return
             
