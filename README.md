@@ -14,7 +14,7 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 
 **User**: Running Aural Player requires OS X 10.10 (Yosemite) or later macOS versions.
 
-**Developer**: To develop Aural Player with Swift 3 (master branch) requires macOS 10.12 (Sierra) and XCode 8.x. To develop Aural Player with Swift 2 ("swift2" branch) requires OS X 10.10 (Yosemite) or later and XCode 7.x.
+**Developer**: To develop Aural Player with Swift 4.2 (master branch) requires macOS 10.13.4 or later (High Sierra) and XCode 10. The old "swift2" branch has been deleted.
 
 ## Features
 
@@ -43,9 +43,10 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 - The option to remember sound settings for a particular song and apply them automatically whenever that song is played
 - A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
 - New color schemes
-- Port to Swift v4.2
 
 ### Recent updates
+
+- **10/05/2018: Swift 4.2 port:** All source code has been ported to Swift v4.2 ! Also, the old "swift2" branch has been deleted.
 
 - **10/04/2018: New release:**
   * New features:
