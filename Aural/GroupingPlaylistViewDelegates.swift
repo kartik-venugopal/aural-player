@@ -234,21 +234,21 @@ class OutlineViewHolder {
 
 class ArtistsPlaylistViewDelegate: GroupingPlaylistViewDelegate {
     
-    init() {
+    @objc init() {
         super.init(.artists)
     }
 }
 
 class AlbumsPlaylistViewDelegate: GroupingPlaylistViewDelegate {
     
-    init() {
+    @objc init() {
         super.init(.albums)
     }
 }
 
 class GenresPlaylistViewDelegate: GroupingPlaylistViewDelegate {
     
-    init() {
+    @objc init() {
         super.init(.genres)
     }
 }

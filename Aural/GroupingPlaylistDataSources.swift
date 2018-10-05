@@ -299,7 +299,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
  */
 class ArtistsPlaylistDataSource: GroupingPlaylistDataSource {
     
-    init() {
+    @objc init() {
         super.init(.artists, .artist)
     }
 }
@@ -309,7 +309,7 @@ class ArtistsPlaylistDataSource: GroupingPlaylistDataSource {
  */
 class AlbumsPlaylistDataSource: GroupingPlaylistDataSource {
     
-    init() {
+    @objc init() {
         super.init(.albums, .album)
     }
 }
@@ -319,7 +319,7 @@ class AlbumsPlaylistDataSource: GroupingPlaylistDataSource {
  */
 class GenresPlaylistDataSource: GroupingPlaylistDataSource {
     
-    init() {
+    @objc init() {
         super.init(.genres, .genre)
     }
 }
