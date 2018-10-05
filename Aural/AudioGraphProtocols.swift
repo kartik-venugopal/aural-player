@@ -240,6 +240,9 @@ protocol PlayerGraphProtocol {
     
     // Clears reverb/delay sound tails. Suitable for use when stopping the player.
     func clearSoundTails()
+    
+    // When the audio output is changed
+    func restartAudioEngine()
 }
 
 /*

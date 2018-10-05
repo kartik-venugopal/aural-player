@@ -851,8 +851,8 @@
 				3E9847901F5D0512001A2D28 /* AudioGraphDelegate.swift */,
 				3E1CF7EC1F5CBA2500613724 /* AudioGraphProtocols.swift */,
 				3E1CF7F21F5CBAD500613724 /* AudioGraph.swift */,
-				3E4F9FD31FC9156600FA4096 /* CustomNodes */,
 				3E551B861F10801100354DE2 /* AudioEngineHelper.swift */,
+				3E4F9FD31FC9156600FA4096 /* CustomNodes */,
 				3E047B0D1F01436700ADE0F1 /* ReverbSpaces.swift */,
 				3EFFE6BD1F0381FA003728BD /* EQPresets.swift */,
 				3E5F00C021536CF000A76C23 /* PitchPresets.swift */,
@@ -1196,9 +1196,9 @@
 			isa = PBXGroup;
 			children = (
 				3E3DCD241F0F913800E09ADC /* AsyncMessages.swift */,
+				3EA29AD41F0B470600DA239E /* AsyncMessenger.swift */,
 				3E3AD5471F5D2BEC006123E9 /* SyncMessages.swift */,
 				3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */,
-				3EA29AD41F0B470600DA239E /* AsyncMessenger.swift */,
 				3E3AD5451F5D2BD1006123E9 /* SyncMessenger.swift */,
 			);
 			name = Messaging;

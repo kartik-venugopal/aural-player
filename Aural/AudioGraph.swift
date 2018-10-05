@@ -809,6 +809,10 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         return state
     }
     
+    func restartAudioEngine() {
+        audioEngineHelper.restart()
+    }
+    
     func tearDown() {
         
         // Stop the player and release the audio engine resources

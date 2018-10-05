@@ -6,7 +6,7 @@ import Cocoa
 import AVFoundation
 
 // TODO: Move PlaybackSession code to BufferManager ???
-class Player: PlayerProtocol {
+class Player: PlayerProtocol, AsyncMessageSubscriber {
     
     // The underlying audio graph used to perform playback
     private let graph: PlayerGraphProtocol
@@ -22,6 +22,8 @@ class Player: PlayerProtocol {
         self.graph = graph
         self.playerNode = graph.playerNode
         self.bufferManager = BufferManager(self.playerNode)
+        
+        AsyncMessenger.subscribe([.audioOutputChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
     // Prepares the player to play a given track
@@ -143,6 +145,35 @@ class Player: PlayerProtocol {
     
     func getPlaybackLoop() -> PlaybackLoop? {
         return PlaybackSession.getCurrentLoop()
+    }
+    
+    // MARK: Message handling
+    
+    func getID() -> String {
+        return "Player"
+    }
+    
+    func consumeAsyncMessage(_ message: AsyncMessage) {
+        
+        if message.messageType == .audioOutputChanged {
+            
+            let playingTrack: Track? = PlaybackSession.currentSession?.track
+            var seekPosn: Double = 0
+            
+            // Mark the current seek position of the player
+            if playingTrack != nil {
+                seekPosn = getSeekPosition()
+            }
+            
+            // Restart the audio engine
+            graph.restartAudioEngine()
+            
+            // Resume playback
+            if playingTrack != nil {
+                initPlayer(playingTrack!)
+                seekToTime(playingTrack!, seekPosn)
+            }
+        }
     }
 }
 
