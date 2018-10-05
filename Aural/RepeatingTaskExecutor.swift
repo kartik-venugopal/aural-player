@@ -33,7 +33,7 @@ class RepeatingTaskExecutor {
         timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: 0), queue: queue)
         
         // Allow a 10% time leeway
-        timer.scheduleRepeating(deadline: DispatchTime.now(), interval: DispatchTimeInterval.milliseconds(intervalMillis), leeway: DispatchTimeInterval.milliseconds(intervalMillis / 10))
+        timer.schedule(deadline: DispatchTime.now(), repeating: DispatchTimeInterval.milliseconds(intervalMillis), leeway: DispatchTimeInterval.milliseconds(intervalMillis / 10))
         
         timer.setEventHandler { [weak self] in
             self!.task()

@@ -167,7 +167,7 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if let message = notification as? EffectsUnitStateChangedNotification {
+        if notification is EffectsUnitStateChangedNotification {
             btnEQBypass.updateState()
         }
     }

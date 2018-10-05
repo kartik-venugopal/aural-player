@@ -51,7 +51,7 @@ class WindowLayoutManager: NSObject, NSWindowDelegate, ActionMessageSubscriber {
         
         mainWindowController.showWindow(self)
         
-        let appState = ObjectGraph.getUIAppState()
+//        let appState = ObjectGraph.getUIAppState()
         
 //        // If a specific position is specified, use it
 //        if let mainWindowOrigin = appState.windowLocationXY {
