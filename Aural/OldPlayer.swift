@@ -168,7 +168,7 @@ class OldPlayer: PlayerProtocol, AsyncMessageSubscriber {
         // Handler for when the audio output changes (e.g. headphones plugged in/out). Need to restart the audio engine (and resume playback if necessary).
         if let msg = message as? AudioOutputChangedMessage {
             
-            let endedSession = msg.playbackSession
+            let endedSession = msg.endedSession
             
             let playingTrack: Track? = endedSession?.track
             var seekPosn: Double = 0
