@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="17G2307" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,6 +11,7 @@
                 <outlet property="btnAutoplayAlways" destination="Yrk-jG-tb1" id="Rf6-x4-cdb"/>
                 <outlet property="btnAutoplayIfNotPlaying" destination="izk-F1-oh2" id="V5b-6i-R0D"/>
                 <outlet property="btnAutoplayOnStartup" destination="08B-D5-cac" id="cVP-E2-hy2"/>
+                <outlet property="btnShowNewTrack" destination="Mc5-gV-VMh" id="wHl-Vk-FWL"/>
                 <outlet property="lblSeekLength" destination="17v-k3-h3w" id="w80-ol-iy2"/>
                 <outlet property="seekLengthSlider" destination="b2Y-oz-e1D" id="xet-Rt-D2I"/>
                 <outlet property="view" destination="deE-Qa-0v2" id="UlI-Hq-7U5"/>
@@ -82,6 +83,14 @@
                         <font key="font" size="11" name="GillSans"/>
                     </buttonCell>
                 </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mc5-gV-VMh">
+                    <rect key="frame" x="31" y="53" width="308" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Select and show it within the playlist (if playlist is visible)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="4pj-8f-QoD" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="GillSans"/>
+                    </buttonCell>
+                </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pTy-Ac-iwY">
                     <rect key="frame" x="31" y="150" width="241" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -124,7 +133,17 @@
                         <action selector="autoplayAfterAddingRadioButtonAction:" target="-2" id="i0t-Om-WQx"/>
                     </connections>
                 </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4I6-pD-wVT" userLabel="Autoplay on startup">
+                    <rect key="frame" x="19" y="75" width="186" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When a track begins playing" id="pGb-qh-aNj">
+                        <font key="font" size="13" name="GillSans"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
+            <point key="canvasLocation" x="139" y="168.5"/>
         </view>
     </objects>
 </document>

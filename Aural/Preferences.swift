@@ -72,6 +72,8 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     var autoplayAfterAddingTracks: Bool
     var autoplayAfterAddingOption: AutoplayAfterAddingOptions
     
+    var showNewTrackInPlaylist: Bool
+    
     fileprivate convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: ControlsPreferences) {
         self.init(defaultsDictionary)
         self.controlsPreferences = controlsPreferences
@@ -90,6 +92,8 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         } else {
             autoplayAfterAddingOption = PreferencesDefaults.Playback.autoplayAfterAddingOption
         }
+        
+        showNewTrackInPlaylist = defaultsDictionary["playback.showNewTrackInPlaylist"] as? Bool ?? PreferencesDefaults.Playback.showNewTrackInPlaylist
     }
     
     func persist(defaults: UserDefaults) {
@@ -99,7 +103,8 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         defaults.set(autoplayOnStartup, forKey: "playback.autoplayOnStartup")
         defaults.set(autoplayAfterAddingTracks, forKey: "playback.autoplayAfterAddingTracks")
         defaults.set(autoplayAfterAddingOption.rawValue, forKey: "playback.autoplayAfterAddingTracks.option")
-
+        
+        defaults.set(showNewTrackInPlaylist, forKey: "playback.showNewTrackInPlaylist")
     }
 }
 
@@ -319,6 +324,7 @@ fileprivate struct PreferencesDefaults {
         static let autoplayOnStartup: Bool = false
         static let autoplayAfterAddingTracks: Bool = false
         static let autoplayAfterAddingOption: AutoplayAfterAddingOptions = .ifNotPlaying
+        static let showNewTrackInPlaylist: Bool = true
     }
     
     struct Sound {
