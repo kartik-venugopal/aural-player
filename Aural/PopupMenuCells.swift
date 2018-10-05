@@ -36,16 +36,16 @@ class PopupMenuCell: NSPopUpButtonCell {
     
     override func drawTitle(_ title: NSAttributedString, withFrame: NSRect, in inView: NSView) -> NSRect {
         
-        let textStyle = NSMutableParagraphStyle.default().mutableCopy() as! NSMutableParagraphStyle
+        let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         textStyle.alignment = NSTextAlignment.center
         
         let textFontAttributes = [
-            NSFontAttributeName: titleFont,
-            NSForegroundColorAttributeName: titleColor,
-            NSParagraphStyleAttributeName: textStyle
+            convertFromNSAttributedStringKey(NSAttributedString.Key.font): titleFont,
+            convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): titleColor,
+            convertFromNSAttributedStringKey(NSAttributedString.Key.paragraphStyle): textStyle
         ]
         
-        title.string.draw(in: withFrame, withAttributes: textFontAttributes)
+        title.string.draw(in: withFrame, withAttributes: convertToOptionalNSAttributedStringKeyDictionary(textFontAttributes))
         
         return withFrame
     }
@@ -92,4 +92,15 @@ class EQPresetsPopupMenuCell: PopupMenuCell {
         // Don't draw the title (we don't need it)
         return withFrame
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

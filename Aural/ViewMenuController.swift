@@ -44,8 +44,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
             
             [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.isHidden = false})
             
-            togglePlaylistMenuItem.state = layoutManager.isShowingPlaylist() ? 1 : 0
-            toggleEffectsMenuItem.state = layoutManager.isShowingEffects() ? 1 : 0
+            togglePlaylistMenuItem.state = NSControl.StateValue(rawValue: layoutManager.isShowingPlaylist() ? 1 : 0)
+            toggleEffectsMenuItem.state = NSControl.StateValue(rawValue: layoutManager.isShowingEffects() ? 1 : 0)
             
         } else {
             

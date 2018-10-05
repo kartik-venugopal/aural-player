@@ -1,7 +1,7 @@
 import Cocoa
 
 fileprivate var visibleFrame: NSRect = {
-    return NSScreen.main()!.visibleFrame
+    return NSScreen.main!.visibleFrame
 }()
 
 fileprivate let mainWindow: NSWindow = WindowFactory.getMainWindow()

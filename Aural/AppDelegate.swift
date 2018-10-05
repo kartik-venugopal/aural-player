@@ -80,7 +80,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         SyncMessenger.publishNotification(AppLoadedNotification(filesToOpen))
     }
     
-    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplicationTerminateReply {
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         
         // Broadcast a request to all app components that the app needs to exit. Check responses to see if it is safe to exit. Some components may need to do some work before the app is able to safely exit, or cancel the exit operation altogether.
         let exitResponses = SyncMessenger.publishRequest(AppExitRequest.instance)

@@ -65,7 +65,7 @@ class BannerLabel: NSView {
         NSAnimationContext.runAnimationGroup({_ in
             
             // Kill any existing animation
-            NSAnimationContext.current().duration = 0.01
+            NSAnimationContext.current.duration = 0.01
             self.label.animator().setFrameOrigin(NSPoint(x: 0.1, y: 0))
 
         }, completionHandler: {
@@ -73,7 +73,7 @@ class BannerLabel: NSView {
             // Begin a new animation
             if self.font != nil {
                 
-                let size: CGSize = (self.text as NSString).size(withAttributes: [NSFontAttributeName: self.label.font!])
+                let size: CGSize = (self.text as NSString).size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): self.label.font!]))
                 self.textWidth = size.width
                 
                 self.label?.setFrameSize(NSSize(width: max(self.textWidth + 10, self.frame.width), height: self.label.frame.height))
@@ -88,7 +88,7 @@ class BannerLabel: NSView {
     private func killAnimation() {
         
         NSAnimationContext.beginGrouping()
-        NSAnimationContext.current().duration = 0.01
+        NSAnimationContext.current.duration = 0.01
         self.label.animator().setFrameOrigin(NSPoint(x: 0.1, y: 0))
         NSAnimationContext.endGrouping()
     }
@@ -102,9 +102,9 @@ class BannerLabel: NSView {
             // Duration at least 2 seconds
             let dur = max(Double(abs(distanceToMove)) / 30, 2)
             
-            NSAnimationContext.current().duration = dur
+            NSAnimationContext.current.duration = dur
             
-            NSAnimationContext.current().timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            NSAnimationContext.current.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             
             // Move either left or right (alternate, creating a ping-pong effect)
             let xDest = self.label.frame.origin.x == 0 ? distanceToMove: 0
@@ -153,4 +153,15 @@ extension NSTextField {
         
         return label
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

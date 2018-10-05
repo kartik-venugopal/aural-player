@@ -273,7 +273,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         // Determine the width of the scope string
         let scopeString: NSString = lblPlaybackScope.stringValue as NSString
-        let stringSize: CGSize = scopeString.size(withAttributes: [NSFontAttributeName: lblPlaybackScope.font as AnyObject])
+        let stringSize: CGSize = scopeString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): lblPlaybackScope.font as AnyObject]))
         let lblWidth = lblPlaybackScope.frame.width
         let textWidth = min(stringSize.width, lblWidth)
         
@@ -579,4 +579,15 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         return (seekPositionMarker, NSRectEdge.minY)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

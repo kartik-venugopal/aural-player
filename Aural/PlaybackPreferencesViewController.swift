@@ -27,17 +27,17 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         seekLengthSlider.integerValue = seekLength
         lblSeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(seekLength)
         
-        btnAutoplayOnStartup.state = playbackPrefs.autoplayOnStartup ? 1 : 0
+        btnAutoplayOnStartup.state = NSControl.StateValue(rawValue: playbackPrefs.autoplayOnStartup ? 1 : 0)
         
-        btnAutoplayAfterAddingTracks.state = playbackPrefs.autoplayAfterAddingTracks ? 1 : 0
+        btnAutoplayAfterAddingTracks.state = NSControl.StateValue(rawValue: playbackPrefs.autoplayAfterAddingTracks ? 1 : 0)
         
         btnAutoplayIfNotPlaying.isEnabled = playbackPrefs.autoplayAfterAddingTracks
-        btnAutoplayIfNotPlaying.state = playbackPrefs.autoplayAfterAddingOption == .ifNotPlaying ? 1 : 0
+        btnAutoplayIfNotPlaying.state = NSControl.StateValue(rawValue: playbackPrefs.autoplayAfterAddingOption == .ifNotPlaying ? 1 : 0)
         
         btnAutoplayAlways.isEnabled = playbackPrefs.autoplayAfterAddingTracks
-        btnAutoplayAlways.state = playbackPrefs.autoplayAfterAddingOption == .always ? 1 : 0
+        btnAutoplayAlways.state = NSControl.StateValue(rawValue: playbackPrefs.autoplayAfterAddingOption == .always ? 1 : 0)
         
-        btnShowNewTrack.state = playbackPrefs.showNewTrackInPlaylist ? 1 : 0
+        btnShowNewTrack.state = NSControl.StateValue(rawValue: playbackPrefs.showNewTrackInPlaylist ? 1 : 0)
     }
     
     @IBAction func seekLengthAction(_ sender: Any) {
@@ -62,7 +62,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     // When the check box for "autoplay after adding tracks" is checked/unchecked, update the enabled state of the 2 option radio buttons
     @IBAction func autoplayAfterAddingAction(_ sender: Any) {
-        [btnAutoplayIfNotPlaying, btnAutoplayAlways].forEach({$0!.isEnabled = Bool(btnAutoplayAfterAddingTracks.state)})
+        [btnAutoplayIfNotPlaying, btnAutoplayAlways].forEach({$0!.isEnabled = Bool(btnAutoplayAfterAddingTracks.state.rawValue)})
     }
     
     @IBAction func autoplayAfterAddingRadioButtonAction(_ sender: Any) {
@@ -75,11 +75,11 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         playbackPrefs.seekLength = seekLengthSlider.integerValue
         
-        playbackPrefs.autoplayOnStartup = Bool(btnAutoplayOnStartup.state)
+        playbackPrefs.autoplayOnStartup = Bool(btnAutoplayOnStartup.state.rawValue)
         
-        playbackPrefs.autoplayAfterAddingTracks = Bool(btnAutoplayAfterAddingTracks.state)
-        playbackPrefs.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.state == 1 ? .ifNotPlaying : .always
+        playbackPrefs.autoplayAfterAddingTracks = Bool(btnAutoplayAfterAddingTracks.state.rawValue)
+        playbackPrefs.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.state.rawValue == 1 ? .ifNotPlaying : .always
         
-        playbackPrefs.showNewTrackInPlaylist = Bool(btnShowNewTrack.state)
+        playbackPrefs.showNewTrackInPlaylist = Bool(btnShowNewTrack.state.rawValue)
     }
 }

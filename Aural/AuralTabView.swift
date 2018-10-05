@@ -40,7 +40,7 @@ class AuralTabView: NSTabView {
     }
     
     // Action function for custom tab buttons. The button's tag value is interpreted as the index of the tab to be selected.
-    func selectTab(_ sender: NSButton) {
+    @objc func selectTab(_ sender: NSButton) {
         self.selectTabViewItem(at: sender.tag)
     }
     
@@ -53,12 +53,17 @@ class AuralTabView: NSTabView {
         
         super.selectTabViewItem(at: index)
         
-        items.forEach({$0.tabButton.state = 0})
-        (self.tabViewItem(at: index) as? AuralTabViewItem)?.tabButton.state = 1
+        items.forEach({$0.tabButton.state = convertToNSControlStateValue(0)})
+        (self.tabViewItem(at: index) as? AuralTabViewItem)?.tabButton.state = convertToNSControlStateValue(1)
     }
 }
 
 // A custom tab view item that has an associated tab button. Instances of this class are intended to be used with an AuralTabView.
 class AuralTabViewItem: NSTabViewItem {
     @IBOutlet weak var tabButton: NSButton!
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSControlStateValue(_ input: Int) -> NSControl.StateValue {
+	return NSControl.StateValue(rawValue: input)
 }

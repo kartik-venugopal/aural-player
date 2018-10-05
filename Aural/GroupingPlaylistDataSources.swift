@@ -78,7 +78,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
         
         let data = NSKeyedArchiver.archivedData(withRootObject: IndexSet(srcRows))
         let item = NSPasteboardItem()
-        item.setData(data, forType: "public.data")
+        item.setData(data, forType: convertToNSPasteboardPasteboardType("public.data"))
         pasteboard.writeObjects([item])
         
         return true
@@ -87,9 +87,9 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
     // Helper function to retrieve source indexes from the NSDraggingInfo pasteboard
     private func getSourceIndexes(_ draggingInfo: NSDraggingInfo) -> IndexSet? {
         
-        let pasteboard = draggingInfo.draggingPasteboard()
+        let pasteboard = draggingInfo.draggingPasteboard
         
-        if let data = pasteboard.pasteboardItems?.first?.data(forType: "public.data"),
+        if let data = pasteboard.pasteboardItems?.first?.data(forType: convertToNSPasteboardPasteboardType("public.data")),
             let sourceIndexSet = NSKeyedUnarchiver.unarchiveObject(with: data) as? IndexSet
         {
             return sourceIndexSet
@@ -102,7 +102,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
         
         // If the source is the outlineView, that means playlist tracks/groups are being reordered
-        if (info.draggingSource() is NSOutlineView) {
+        if (info.draggingSource is NSOutlineView) {
             
             if let sourceIndexSet = getSourceIndexes(info) {
                 
@@ -209,7 +209,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
     // Performs the drop
     func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
         
-        if (info.draggingSource() is NSOutlineView) {
+        if (info.draggingSource is NSOutlineView) {
             
             if let sourceIndexSet = getSourceIndexes(info) {
                 
@@ -233,7 +233,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
         } else {
             
             // Files added from Finder, add them to the playlist as URLs
-            let objects = info.draggingPasteboard().readObjects(forClasses: [NSURL.self], options: nil)
+            let objects = info.draggingPasteboard.readObjects(forClasses: [NSURL.self], options: nil)
             playlist.addFiles(objects! as! [URL])
             
             return true
@@ -322,4 +322,9 @@ class GenresPlaylistDataSource: GroupingPlaylistDataSource {
     init() {
         super.init(.genres, .genre)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSPasteboardPasteboardType(_ input: String) -> NSPasteboard.PasteboardType {
+	return NSPasteboard.PasteboardType(rawValue: input)
 }

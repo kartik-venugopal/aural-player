@@ -97,7 +97,8 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
         
         // Only the bookmark name column is used for type selection
-        if (tableColumn?.identifier != UIConstants.bookmarkNameColumnID) {
+        let colID = tableColumn?.identifier.rawValue ?? ""
+        if colID != UIConstants.bookmarkNameColumnID {
             return nil
         }
         
@@ -126,7 +127,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         
         let bookmark = bookmarks.getBookmarkAtIndex(row)
         
-        switch tableColumn!.identifier {
+        switch tableColumn!.identifier.rawValue {
             
         case UIConstants.bookmarkNameColumnID:
             
@@ -149,7 +150,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     // Creates a cell view containing text
     private func createTextCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, _ text: String, _ editable: Bool) -> EditorTableCellView? {
         
-        if let cell = tableView.make(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
+        if let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
             
             cell.isSelectedFunction = {
                 
@@ -205,7 +206,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         }
     }
     
-    override func controlTextDidEndEditing(_ obj: Notification) {
+    func controlTextDidEndEditing(_ obj: Notification) {
         
         let rowIndex = editorView.selectedRow
         let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)

@@ -23,9 +23,9 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         let viewPrefs = preferences.viewPreferences
      
         if (viewPrefs.layoutOnStartup.option == .specific) {
-            btnStartWithLayout.state = 1
+            btnStartWithLayout.state = convertToNSControlStateValue(1)
         } else {
-            btnRememberLayout.state = 1
+            btnRememberLayout.state = convertToNSControlStateValue(1)
         }
         
         updateLayoutMenu()
@@ -36,14 +36,14 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
             // Default
             layoutMenu.select(layoutMenu.item(withTitle: WindowLayouts.defaultLayout.name))
         }
-        layoutMenu.isEnabled = Bool(btnStartWithLayout.state)
+        layoutMenu.isEnabled = Bool(btnStartWithLayout.state.rawValue)
         
-        btnSnapToWindows.state = viewPrefs.snapToWindows ? 1 : 0
+        btnSnapToWindows.state = NSControl.StateValue(rawValue: viewPrefs.snapToWindows ? 1 : 0)
         gapStepper.floatValue = viewPrefs.windowGap
         lblWindowGap.stringValue = ValueFormatter.formatPixels(gapStepper.floatValue)
-        [lblWindowGap, gapStepper].forEach({$0.isEnabled = Bool(btnSnapToWindows.state)})
+        [lblWindowGap, gapStepper].forEach({$0!.isEnabled = Bool(btnSnapToWindows.state.rawValue)})
         
-        btnSnapToScreen.state = viewPrefs.snapToScreen ? 1 : 0
+        btnSnapToScreen.state = NSControl.StateValue(rawValue: viewPrefs.snapToScreen ? 1 : 0)
     }
     
     // Update the layout menu with custom layouts
@@ -69,11 +69,11 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     }
     
     @IBAction func layoutOnStartupAction(_ sender: Any) {
-        layoutMenu.isEnabled = Bool(btnStartWithLayout.state)
+        layoutMenu.isEnabled = Bool(btnStartWithLayout.state.rawValue)
     }
     
     @IBAction func snapToWindowsAction(_ sender: Any) {
-        [lblWindowGap, gapStepper].forEach({$0.isEnabled = Bool(btnSnapToWindows.state)})
+        [lblWindowGap, gapStepper].forEach({$0!.isEnabled = Bool(btnSnapToWindows.state.rawValue)})
     }
     
     @IBAction func gapStepperAction(_ sender: Any) {
@@ -84,10 +84,10 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         
         let viewPrefs = preferences.viewPreferences
         
-        viewPrefs.layoutOnStartup.option = btnStartWithLayout.state == 1 ? .specific : .rememberFromLastAppLaunch
+        viewPrefs.layoutOnStartup.option = btnStartWithLayout.state.rawValue == 1 ? .specific : .rememberFromLastAppLaunch
         viewPrefs.layoutOnStartup.layoutName = layoutMenu.selectedItem!.title
         
-        viewPrefs.snapToWindows = Bool(btnSnapToWindows.state)
+        viewPrefs.snapToWindows = Bool(btnSnapToWindows.state.rawValue)
         
         let oldWindowGap = viewPrefs.windowGap
         viewPrefs.windowGap = gapStepper.floatValue
@@ -99,6 +99,11 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
             WindowLayouts.recomputeSystemDefinedLayouts()
         }
         
-        viewPrefs.snapToScreen = Bool(btnSnapToScreen.state)
+        viewPrefs.snapToScreen = Bool(btnSnapToScreen.state.rawValue)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSControlStateValue(_ input: Int) -> NSControl.StateValue {
+	return NSControl.StateValue(rawValue: input)
 }

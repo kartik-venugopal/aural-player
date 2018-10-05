@@ -161,9 +161,20 @@ class StringUtils {
     static func numberOfLines(_ text: String, _ font: NSFont, _ lineWidth: CGFloat) -> Int {
         
         let attrs: [String: AnyObject] = [
-            NSFontAttributeName: font]
-        let size: CGSize = text.size(withAttributes: attrs)
+            convertFromNSAttributedStringKey(NSAttributedString.Key.font): font]
+        let size: CGSize = text.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
         
         return Int(ceil(size.width / lineWidth))
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

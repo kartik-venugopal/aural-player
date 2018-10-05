@@ -71,9 +71,9 @@ class PlaylistInputEventHandler {
     private static func handleKeyDown(_ event: NSEvent) {
         
         // Indicate whether or not Shift/Command/Option were pressed
-        let isShift: Bool = event.modifierFlags.contains(NSEventModifierFlags.shift)
-        let isCommand: Bool = event.modifierFlags.contains(NSEventModifierFlags.command)
-        let isOption: Bool = event.modifierFlags.contains(NSEventModifierFlags.option)
+        let isShift: Bool = event.modifierFlags.contains(NSEvent.ModifierFlags.shift)
+        let isCommand: Bool = event.modifierFlags.contains(NSEvent.ModifierFlags.command)
+        let isOption: Bool = event.modifierFlags.contains(NSEvent.ModifierFlags.option)
         
         let isArrow: Bool = KeyCodeConstants.arrows.contains(event.keyCode)
         

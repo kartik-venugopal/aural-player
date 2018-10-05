@@ -103,9 +103,11 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         let favorite = favorites.getFavoriteAtIndex(row)
+        let colID = tableColumn?.identifier.rawValue ?? ""
         
-        if tableColumn?.identifier == UIConstants.favoriteNameColumnID {
+        if colID == UIConstants.favoriteNameColumnID {
             
+            // Name
             return createTextCell(tableView, tableColumn!, row, favorite.name)
             
         } else {
@@ -118,7 +120,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     // Creates a cell view containing text
     private func createTextCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, _ text: String) -> EditorTableCellView? {
         
-        if let cell = tableView.make(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
+        if let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
             
             cell.isSelectedFunction = {
                 
@@ -142,4 +144,9 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
         
         return nil
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSUserInterfaceItemIdentifier(_ input: NSUserInterfaceItemIdentifier) -> String {
+	return input.rawValue
 }

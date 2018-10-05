@@ -32,7 +32,7 @@ class AutoHidingView: NSObject {
     }
     
     // Hide the view
-    func hideView() {
+    @objc func hideView() {
         view.isHidden = true
     }
 }
@@ -78,7 +78,7 @@ class AutoHidingMenu: NSObject {
     }
     
     // Hide the view
-    func hideMenu() {
+    @objc func hideMenu() {
         print("\nHiding menu")
         menu.cancelTracking()
     }

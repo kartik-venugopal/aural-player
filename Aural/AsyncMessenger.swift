@@ -25,7 +25,7 @@ class AsyncMessenger {
             
             // Only add if it doesn't already exist
             if subscriberRegistry[messageType]!.index(where: {$0.0.getID() == subscriber.getID()}) == nil {
-                subscriberRegistry[messageType]!.append(subscriber, dispatchQueue)
+                subscriberRegistry[messageType]!.append((subscriber, dispatchQueue))
             }
         })
     }

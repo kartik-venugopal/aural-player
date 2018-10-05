@@ -1430,7 +1430,7 @@
 					3E85F2551EFA78D6007BE830 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = C4YUF2G676;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -1854,7 +1854,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = anon.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
 			};
 			name = Debug;
@@ -1873,7 +1874,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = anon.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
 			};
 			name = Release;

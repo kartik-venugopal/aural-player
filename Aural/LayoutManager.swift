@@ -11,7 +11,7 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     let playlistWindow: NSWindow = WindowFactory.getPlaylistWindow()
     
     private lazy var visibleFrame: NSRect = {
-        return NSScreen.main()!.visibleFrame
+        return NSScreen.main!.visibleFrame
     }()
     
     init(_ appState: UIState, _ preferences: ViewPreferences) {
@@ -38,13 +38,13 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
             
             if appState.showEffects {
                 
-                mainWindow.addChildWindow(effectsWindow, ordered: NSWindowOrderingMode.below)
+                mainWindow.addChildWindow(effectsWindow, ordered: NSWindow.OrderingMode.below)
                 effectsWindow.setFrameOrigin(appState.effectsWindowOrigin!)
             }
             
             if appState.showPlaylist {
                 
-                mainWindow.addChildWindow(playlistWindow, ordered: NSWindowOrderingMode.below)
+                mainWindow.addChildWindow(playlistWindow, ordered: NSWindow.OrderingMode.below)
                 playlistWindow.setFrame(appState.playlistWindowFrame!, display: true)
             }
             
@@ -62,13 +62,13 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
         
         if layout.showEffects {
             
-            mainWindow.addChildWindow(effectsWindow, ordered: NSWindowOrderingMode.below)
+            mainWindow.addChildWindow(effectsWindow, ordered: NSWindow.OrderingMode.below)
             effectsWindow.setFrameOrigin(layout.effectsWindowOrigin!)
         }
         
         if layout.showPlaylist {
             
-            mainWindow.addChildWindow(playlistWindow, ordered: NSWindowOrderingMode.below)
+            mainWindow.addChildWindow(playlistWindow, ordered: NSWindow.OrderingMode.below)
             playlistWindow.setFrame(layout.playlistWindowFrame!, display: true)
         }
         
@@ -114,7 +114,7 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     // Shows the effects window
     private func showEffects() {
         
-        mainWindow.addChildWindow(effectsWindow, ordered: NSWindowOrderingMode.above)
+        mainWindow.addChildWindow(effectsWindow, ordered: NSWindow.OrderingMode.above)
         effectsWindow.setIsVisible(true)
         effectsWindow.orderFront(self)
     }
@@ -133,7 +133,7 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     // Shows the playlist window
     private func showPlaylist() {
         
-        mainWindow.addChildWindow(playlistWindow, ordered: NSWindowOrderingMode.above)
+        mainWindow.addChildWindow(playlistWindow, ordered: NSWindow.OrderingMode.above)
         playlistWindow.setIsVisible(true)
         playlistWindow.orderFront(self)
     }

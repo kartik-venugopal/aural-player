@@ -7,11 +7,11 @@ class LayoutPreviewView: NSView {
     private let idealImgSize: CGFloat = 15
     
     private lazy var screen: NSRect = {
-        return NSScreen.main()!.frame
+        return NSScreen.main!.frame
     }()
     
     private lazy var visibleFrame: NSRect = {
-        return NSScreen.main()!.visibleFrame
+        return NSScreen.main!.visibleFrame
     }()
     
     private var drawRatio: CGFloat {

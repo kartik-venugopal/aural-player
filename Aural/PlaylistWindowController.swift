@@ -109,7 +109,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         let modalResponse = dialog.runModal()
         
-        if (modalResponse == NSModalResponseOK) {
+        if (modalResponse == NSApplication.ModalResponse.OK) {
             startedAddingTracks()
             playlist.addFiles(dialog.urls)
         }
@@ -231,7 +231,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             let dialog = DialogsAndAlerts.savePlaylistDialog
             let modalResponse = dialog.runModal()
             
-            if (modalResponse == NSModalResponseOK) {
+            if (modalResponse == NSApplication.ModalResponse.OK) {
                 playlist.savePlaylist(dialog.url!)
             }
         }

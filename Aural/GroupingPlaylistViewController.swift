@@ -33,7 +33,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     override func viewDidLoad() {
         
         // Enable drag n drop
-        playlistView.register(forDraggedTypes: [String(kUTTypeFileURL), "public.data"])
+        playlistView.registerForDraggedTypes(convertToNSPasteboardPasteboardTypeArray([String(kUTTypeFileURL), "public.data"]))
         
         playlistView.menu = contextMenu
         
@@ -400,7 +400,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         if result.groupCreated {
         
             // If a new parent group was created, for this new track, insert the new group under the root
-            playlistView.insertItems(at: IndexSet(integer: result.track.groupIndex), inParent: nil, withAnimation: NSTableViewAnimationOptions.effectFade)
+            playlistView.insertItems(at: IndexSet(integer: result.track.groupIndex), inParent: nil, withAnimation: NSTableView.AnimationOptions.effectFade)
             
         } else {
         
@@ -628,4 +628,9 @@ extension IndexSet {
     func toArray() -> [Int] {
         return self.filter({$0 >= 0})
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSPasteboardPasteboardTypeArray(_ input: [String]) -> [NSPasteboard.PasteboardType] {
+	return input.map { key in NSPasteboard.PasteboardType(key) }
 }
