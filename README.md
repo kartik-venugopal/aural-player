@@ -87,10 +87,6 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
     * When playing a track from Favorites/Recently played list, the first 5 seconds of the track would sometimes play twice in a row, because of a race condition in the code that performed preparation for track playback.
     * The playlist scroll buttons stopped working at some point.
 
-- **9/14/2018: Improved aesthetics -** Touched up the UI. Removed ugly panel borders, redid tab group button selection boxes, changed app title text font.
-- **9/14/2018: Playlist docking bug fix -** Fixed a bug that caused the playlist's docking location to not be rememebered across app launches.
-- **9/14/2018: Show track in Finder -** Implemented a new function to allow users to show a track in Finder from the playlist's context menu (i.e. the right-click menu).
-
 ### Background
 
 Aural Player was written by an audio enthusiast learning to program on OS X, coming to Swift programming from many years of Java programming. This project was inspired by the developer’s desire to create a Winamp-like substitute for the macOS platform. No feature bloat or unnecessary annoyances like iTunes.
