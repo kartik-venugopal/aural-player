@@ -48,6 +48,13 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 
 ### Recent updates
 
+- **10/04/2018: New release:**
+  * New features:
+    * **New Master effects unit**: A new effects unit called "Master" has been added to the effects panel. This unit has controls to enable/disable all effects units from one place and provides the ability to capture all sound effects in a single "master" preset.
+    
+  * Bug fixes:
+    * **Headphones plugged in crash**: When headphones are plugged in/out, the app stops playing audio. Now, this works during normal track playback, but still fails during track segment loop playback. A fix for the loop playback crash is planned and coming soon.
+
 - **9/28/2018: New release:** Bug fix - On High Sierra systems, app crashed at the completion of an iteration of a playback loop. This issue has been fixed.
 
 - **9/26/2018: New release:** Favorites items now have their own separate Favorites menu on the main menu bar, entirely separate from the History menu. Also, favorites lists are no longer restricted in size.
@@ -136,10 +143,6 @@ Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant co
 ### Compact view
 
 ![App screenshot4](/Documentation/Screenshots/Compact.png?raw=true "App screenshot4")
-
-### Equalizer effects unit
-
-![EQ](/Documentation/Screenshots/EQ.png?raw=true "Time Stretch")
 
 ### Time stretch effects unit
 
