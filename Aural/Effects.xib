@@ -340,6 +340,12 @@
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
                                                                         <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="bypassedUnitTextColor">
+                                                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="activeUnitTextColor">
+                                                                        <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                    </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </buttonCell>
                                                             <userDefinedRuntimeAttributes>
@@ -391,8 +397,8 @@
         <image name="FilterTab" width="512" height="512"/>
         <image name="FilterTab-Mixed" width="512" height="512"/>
         <image name="FilterTab-On" width="512" height="512"/>
-        <image name="MasterTab" width="25" height="24"/>
-        <image name="MasterTab-On" width="25" height="24"/>
+        <image name="MasterTab" width="19" height="25"/>
+        <image name="MasterTab-On" width="4.559999942779541" height="6"/>
         <image name="PitchTab" width="17" height="13"/>
         <image name="PitchTab-Mixed" width="17" height="13"/>
         <image name="PitchTab-On" width="17" height="13"/>

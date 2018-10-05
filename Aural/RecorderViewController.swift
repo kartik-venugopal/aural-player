@@ -146,9 +146,6 @@ class RecorderViewController: NSViewController, MessageSubscriber {
     
     // MARK: Message handling
     
-    func consumeNotification(_ notification: NotificationMessage) {
-    }
-    
     func processRequest(_ request: RequestMessage) -> ResponseMessage {
         
         if (request is AppExitRequest) {
