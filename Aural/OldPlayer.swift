@@ -5,14 +5,15 @@
 import Cocoa
 import AVFoundation
 
-class NewPlayer: PlayerProtocol {
+// TODO: Move PlaybackSession code to BufferManager ???
+class OldPlayer: PlayerProtocol, AsyncMessageSubscriber {
     
     // The underlying audio graph used to perform playback
     private let graph: PlayerGraphProtocol
     private let playerNode: AVAudioPlayerNode
     
-    // Helper used for actual scheduling and playback
-    private let playbackScheduler: PlaybackScheduler
+    // Helper used for buffer allocation and playback
+    private let bufferManager: BufferManager
     
     private var playbackState: PlaybackState = .noTrack
     
@@ -20,7 +21,9 @@ class NewPlayer: PlayerProtocol {
         
         self.graph = graph
         self.playerNode = graph.playerNode
-        self.playbackScheduler = PlaybackScheduler(self.playerNode)
+        self.bufferManager = BufferManager(self.playerNode)
+        
+        AsyncMessenger.subscribe([.audioOutputChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
     // Prepares the player to play a given track
@@ -33,13 +36,7 @@ class NewPlayer: PlayerProtocol {
     }
     
     func play(_ track: Track) {
-        
-        let session = PlaybackSession.start(track)
-        
-        initPlayer(track)
-        playbackScheduler.playTrack(session)
-        
-        playbackState = .playing
+        play(track, 0)
     }
     
     func play(_ track: Track, _ startPosition: Double) {
@@ -47,14 +44,14 @@ class NewPlayer: PlayerProtocol {
         let session = PlaybackSession.start(track)
         
         initPlayer(track)
-        playbackScheduler.playTrack(session, startPosition)
+        bufferManager.playTrack(session, startPosition)
         
         playbackState = .playing
     }
     
     func pause() {
         
-        playbackScheduler.pause()
+        bufferManager.pause()
         graph.clearSoundTails()
         
         playbackState = .paused
@@ -62,15 +59,15 @@ class NewPlayer: PlayerProtocol {
     
     func resume() {
         
-        playbackScheduler.resume()
+        playerNode.play()
         playbackState = .playing
     }
     
     func stop() {
         
-        PlaybackSession.endCurrent()
+        _ = PlaybackSession.endCurrent()
         
-        playbackScheduler.stop()
+        bufferManager.stop()
         playerNode.reset()
         graph.clearSoundTails()
         
@@ -85,12 +82,22 @@ class NewPlayer: PlayerProtocol {
         let session = PlaybackSession.start(track, timestamp)
         session.loop = loop
         
-        playbackScheduler.seekToTime(session, seconds, playbackState == .playing)
+        bufferManager.seekToTime(session, seconds, playbackState == .playing)
+    }
+    
+    // Used only when audio output changes
+    private func seekToTime(_ lastSession: PlaybackSession, _ seconds: Double) {
+        
+        // Hand off old session info to the new session
+        let session = PlaybackSession.start(lastSession.track, lastSession.timestamp)
+        session.loop = lastSession.loop
+        
+        bufferManager.seekToTime(session, seconds, playbackState == .playing)
     }
     
     func getSeekPosition() -> Double {
         
-        return playbackState == .noTrack ? 0 : playbackScheduler.getSeekPosition()
+        return playbackState == .noTrack ? 0 : bufferManager.getSeekPosition()
     }
     
     func getPlaybackState() -> PlaybackState {
@@ -113,7 +120,7 @@ class NewPlayer: PlayerProtocol {
                 
                 // Remove loop
                 PlaybackSession.removeLoop()
-                playbackScheduler.endLoop(curSession, curLoop.endTime!)
+                bufferManager.endLoopScheduling(curSession)
                 
             } else {
                 
@@ -130,7 +137,7 @@ class NewPlayer: PlayerProtocol {
                 let session = PlaybackSession.start(track, timestamp)
                 session.loop = loop
                 
-                playbackScheduler.playLoop(session, playbackState == .playing)
+                bufferManager.startLoop(session, playbackState == .playing)
             }
             
         } else {
@@ -148,5 +155,38 @@ class NewPlayer: PlayerProtocol {
     
     func getPlaybackLoop() -> PlaybackLoop? {
         return PlaybackSession.getCurrentLoop()
+    }
+    
+    // MARK: Message handling
+    
+    func getID() -> String {
+        return "Player"
+    }
+    
+    func consumeAsyncMessage(_ message: AsyncMessage) {
+        
+        // Handler for when the audio output changes (e.g. headphones plugged in/out). Need to restart the audio engine (and resume playback if necessary).
+        if let msg = message as? AudioOutputChangedMessage {
+            
+            let endedSession = msg.playbackSession
+            
+            let playingTrack: Track? = endedSession?.track
+            var seekPosn: Double = 0
+            
+            // Mark the current seek position of the player
+            if playingTrack != nil {
+                seekPosn = getSeekPosition()
+            }
+            
+            // Restart the audio engine
+            graph.restartAudioEngine()
+            
+            // Resume playback
+            if playingTrack != nil {
+                
+                initPlayer(playingTrack!)
+                seekToTime(endedSession!, seekPosn)
+            }
+        }
     }
 }

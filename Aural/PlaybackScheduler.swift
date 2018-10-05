@@ -184,8 +184,8 @@ class PlaybackScheduler {
                 
                 if lastSeekPosn >= endTime {
                     
+                    // Restart loop
                     lastSeekPosn = endTime
-                    
                     playLoop(session, playerNode.isPlaying)
                 }
                 
@@ -198,7 +198,7 @@ class PlaybackScheduler {
                     // Prevent lastSeekPosn from overruning the track duration to prevent weird incorrect UI displays of seek time
                     lastSeekPosn = duration
                     
-                    // Don't do this if paused and seeking to the end
+                    // Notify observers that the track has finished playing. Don't do this if paused and seeking to the end.
                     if (playerNode.isPlaying) {
                         trackPlaybackCompleted(session)
                     }
