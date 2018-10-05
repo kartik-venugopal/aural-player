@@ -84,21 +84,21 @@ fileprivate enum SystemDefinedPitchPresets: String {
             
         case .normal:   return 0
             
-        case .happyLittleGirl: return 0.3
+        case .happyLittleGirl: return 0.3 * AppConstants.pitchConversion_UIToAudioGraph
             
-        case .chipmunk: return 0.5
+        case .chipmunk: return 0.5 * AppConstants.pitchConversion_UIToAudioGraph
             
-        case .oneOctaveUp:  return 1
+        case .oneOctaveUp:  return 1 * AppConstants.pitchConversion_UIToAudioGraph
             
-        case .twoOctavesUp: return 2
+        case .twoOctavesUp: return 2 * AppConstants.pitchConversion_UIToAudioGraph
             
-        case .deep: return -0.3
+        case .deep: return -0.3 * AppConstants.pitchConversion_UIToAudioGraph
             
-        case .robocop:  return -0.5
+        case .robocop:  return -0.5 * AppConstants.pitchConversion_UIToAudioGraph
             
-        case .oneOctaveDown:    return -1
+        case .oneOctaveDown:    return -1 * AppConstants.pitchConversion_UIToAudioGraph
             
-        case .twoOctavesDown:   return -2
+        case .twoOctavesDown:   return -2 * AppConstants.pitchConversion_UIToAudioGraph
             
         }
     }
