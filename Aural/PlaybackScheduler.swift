@@ -103,8 +103,6 @@ class PlaybackScheduler {
         
         // Schedule a segment beginning at the seek time, with the calculated frame count reflecting the remaining audio frames in the file
         playerNode.scheduleSegment(playingFile, startingFrame: firstFrame, frameCount: AVAudioFrameCount(frameCount), at: nil, completionHandler: nil)
-        
-        NSLog("Scheduled the finishing segment starting at: %f lasting %f", loopEndTime, Double(frameCount)/sampleRate)
     }
     
     // Seeks to a certain position (seconds) in the specified track. Returns the calculated start frame.
