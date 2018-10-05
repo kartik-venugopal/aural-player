@@ -137,6 +137,10 @@ Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant co
 
 ![App screenshot4](/Documentation/Screenshots/Compact.png?raw=true "App screenshot4")
 
+### Equalizer effects unit
+
+![EQ](/Documentation/Screenshots/EQ.png?raw=true "Time Stretch")
+
 ### Time stretch effects unit
 
 ![Time](/Documentation/Screenshots/Time.png?raw=true "Time Stretch")
