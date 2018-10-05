@@ -207,9 +207,9 @@ fileprivate class GlobalMouseClickMonitor {
     
     private var monitor: Any?
     private let mask: NSEvent.EventTypeMask
-    private let handler: (NSEvent!) -> Void
+    private let handler: (NSEvent?) -> Void
     
-    public init(_ mask: NSEvent.EventTypeMask, _ handler: @escaping (NSEvent!) -> Void) {
+    public init(_ mask: NSEvent.EventTypeMask, _ handler: @escaping (NSEvent?) -> Void) {
         self.mask = mask
         self.handler = handler
     }

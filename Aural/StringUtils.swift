@@ -51,7 +51,7 @@ class StringUtils {
         var newString: String = ""
         
         var firstLetter: Bool = true
-        for eachCharacter in word.characters {
+        for eachCharacter in word {
             
             if (eachCharacter >= "A" && eachCharacter <= "Z") == true {
                 
@@ -92,7 +92,7 @@ class StringUtils {
         var newString: String = ""
         
         var wordStart: Bool = false
-        for eachCharacter in words.characters {
+        for eachCharacter in words {
             
             // Ignore spaces
             if (eachCharacter == " ") {
@@ -127,10 +127,10 @@ class StringUtils {
         var readableNumString: String = ""
         
         // Last index of numString
-        let numDigits: Int = numString.characters.count - 1
+        let numDigits: Int = numString.count - 1
         
         var c = 0
-        for eachCharacter in numString.characters {
+        for eachCharacter in numString {
             readableNumString.append(eachCharacter)
             if (c < numDigits && (numDigits - c) % 3 == 0) {
                 readableNumString.append(",")
