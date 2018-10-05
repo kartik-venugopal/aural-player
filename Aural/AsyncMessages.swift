@@ -45,6 +45,8 @@ enum AsyncMessageType {
     case addedToFavorites
     
     case removedFromFavorites
+    
+    case audioOutputChanged
 }
 
 // AsyncMessage indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
@@ -248,4 +250,15 @@ struct FavoritesUpdatedAsyncMessage: AsyncMessage {
         self.messageType = messageType
         self.file = file
     }
+}
+
+// Indicates that the system's audio output device has changed (e.g. when headphones are plugged in/out)
+struct AudioOutputChangedMessage: AsyncMessage {
+    
+    let messageType: AsyncMessageType = .audioOutputChanged
+    
+    private init() {}
+    
+    // Singleton
+    static let instance: AudioOutputChangedMessage = AudioOutputChangedMessage()
 }

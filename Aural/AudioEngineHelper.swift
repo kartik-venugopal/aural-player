@@ -1,4 +1,3 @@
-
 import Cocoa
 import AVFoundation
 
@@ -11,8 +10,17 @@ class AudioEngineHelper {
     private var nodes: [AVAudioNode]
     
     init(engine: AVAudioEngine) {
+        
         self.audioEngine = engine
         nodes = [AVAudioNode]()
+        
+        // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
+        // TODO: Test this with SoundFlower and similar apps
+        NotificationCenter.default.addObserver(self, selector: #selector(outputChanged), name: NSNotification.Name.AVAudioEngineConfigurationChange, object: audioEngine)
+    }
+    
+    @objc func outputChanged() {
+        AsyncMessenger.publishMessage(AudioOutputChangedMessage.instance)
     }
     
     // Attach a single node to the engine
@@ -23,7 +31,9 @@ class AudioEngineHelper {
     
     // Attach multiple nodes to the engine
     func addNodes(_ nodes: [AVAudioNode]) {
+        
         self.nodes.append(contentsOf: nodes)
+        
         for node in nodes {
             audioEngine.attach(node)
         }
@@ -68,5 +78,23 @@ class AudioEngineHelper {
         } catch let error as NSError {
             NSLog("Error starting audio engine: %@", error.description)
         }
+    }
+    
+    func restart() {
+        
+        // Disconnect and detach nodes (in this order)
+        nodes.forEach({
+            audioEngine.disconnectNodeOutput($0)
+            audioEngine.disconnectNodeInput($0)
+            audioEngine.detach($0)
+        })
+        
+        let nodesCopy = nodes
+        nodes.removeAll()
+        
+        // Attach them back and reconnect them
+        addNodes(nodesCopy)
+        connectNodes()
+        start()
     }
 }
