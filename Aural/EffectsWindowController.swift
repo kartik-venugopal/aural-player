@@ -34,6 +34,8 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
 
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    
+    private let recorder: RecorderDelegateProtocol = ObjectGraph.getRecorderDelegate()
 
     private lazy var layoutManager: LayoutManager = ObjectGraph.getLayoutManager()
 
@@ -112,6 +114,12 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
             
             return self.graph.getFilterState()
         }
+        
+        recorderTabViewButton.stateFunction = {
+            () -> EffectsUnitState in
+            
+            return self.recorder.isRecording() ? .active : .bypassed
+        }
     }
 
     func activate() {
@@ -175,7 +183,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         if notification is EffectsUnitStateChangedNotification {
 
             // Update the corresponding tab button's state
-            [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton].forEach({$0?.updateState()})
+            [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton].forEach({$0?.updateState()})
         }
     }
 
