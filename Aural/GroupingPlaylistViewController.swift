@@ -52,7 +52,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.subscribe(messageTypes: [.trackAddedNotification, .trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -61,7 +61,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.unsubscribe(messageTypes: [.trackAddedNotification, .trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -113,8 +113,11 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     // Helper function that gathers all selected playlist items as tracks and groups
     private func collectTracksAndGroups() -> (tracks: [Track], groups: [Group]) {
+        return doCollectTracksAndGroups(playlistView.selectedRowIndexes)
+    }
+    
+    private func doCollectTracksAndGroups(_ indexes: IndexSet) -> (tracks: [Track], groups: [Group]) {
         
-        let indexes = playlistView.selectedRowIndexes
         var tracks = [Track]()
         var groups = [Group]()
         
@@ -252,6 +255,111 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         // Scroll to make the first selected row visible
         playlistView.scrollRowToVisible(playlistView.selectedRow)
+    }
+    
+    private func invertSelection() {
+        playlistView.selectRowIndexes(getInvertedSelection(), byExtendingSelection: false)
+    }
+    
+    private func getInvertedSelection() -> IndexSet {
+        
+        let selRows = playlistView.selectedRowIndexes
+        
+        var curIndex: Int = 0
+        var itemsInspected: Int = 0
+        
+        let playlistSize = playlist.size()
+        var targetSelRows = IndexSet()
+
+        // Iterate through items, till all items have been inspected
+        while itemsInspected < playlistSize {
+            
+            let item = playlistView.item(atRow: curIndex)
+            
+            if let group = item as? Group {
+             
+                let selected: Bool = selRows.contains(curIndex)
+                let expanded: Bool = playlistView.isItemExpanded(group)
+                
+                if selected {
+                    
+                    // Ignore this group as it is selected
+                    if expanded {
+                        curIndex += group.size()
+                    }
+                    
+                } else {
+                    
+                    // Group not selected
+                    
+                    if expanded {
+                        
+                        // Check for selected children
+                        
+                        let childIndexes = selRows.filter({$0 > curIndex && $0 <= curIndex + group.size()})
+                        if childIndexes.isEmpty {
+                            
+                            // No children selected, add group index
+                            targetSelRows.insert(curIndex)
+                            
+                        } else {
+                            
+                            // Check each child track
+                            for index in 1...group.size() {
+                                
+                                if !selRows.contains(curIndex + index) {
+                                    targetSelRows.insert(curIndex + index)
+                                }
+                            }
+                        }
+                        
+                        curIndex += group.size()
+                        
+                    } else {
+                        
+                        // Group (and children) not selected, add this group to inverted selection
+                        targetSelRows.insert(curIndex)
+                    }
+                }
+                
+                curIndex += 1
+                itemsInspected += group.size()
+            }
+        }
+        
+        return targetSelRows
+    }
+    
+    private func cropSelection() {
+        
+        let selItems = collectTracksAndGroups()
+        let tracksToDelete = getInvertedSelection()
+        
+        // Clear the selection
+        playlistView.deselectAll(self)
+        selItems.groups.forEach({playlistView.reloadItem($0)})
+        selItems.tracks.forEach({playlistView.reloadItem($0)})
+        
+        if (tracksToDelete.count > 0) {
+            
+            let tracksAndGroups = doCollectTracksAndGroups(tracksToDelete)
+            let tracks = tracksAndGroups.tracks
+            let groups = tracksAndGroups.groups
+            
+            if (groups.isEmpty && tracks.isEmpty) {
+                
+                // Nothing selected, nothing to do
+                return
+            }
+            
+            // If all groups are selected, this is the same as clearing the playlist
+            if (groups.count == playlist.numberOfGroups(self.groupType)) {
+                clearPlaylist()
+                return
+            }
+            
+            playlist.removeTracksAndGroups(tracks, groups, groupType)
+        }
     }
     
     // Scrolls the playlist view to the very top
@@ -468,6 +576,14 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         case .showTrackInFinder:
             
             showTrackInFinder()
+            
+        case .invertSelection:
+            
+            invertSelection()
+            
+        case .cropSelection:
+            
+            cropSelection()
             
         default: return
             
