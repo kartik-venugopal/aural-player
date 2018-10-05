@@ -256,9 +256,9 @@ struct FavoritesUpdatedAsyncMessage: AsyncMessage {
 struct AudioOutputChangedMessage: AsyncMessage {
     
     let messageType: AsyncMessageType = .audioOutputChanged
+    let endedSession: PlaybackSession?
     
-    private init() {}
-    
-    // Singleton
-    static let instance: AudioOutputChangedMessage = AudioOutputChangedMessage()
+    init(_ session: PlaybackSession?) {
+        self.endedSession = session
+    }
 }
