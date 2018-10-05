@@ -38,7 +38,6 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 
 ### Planned updates
 
-- A new Master effects unit that lets the user enable/disable all effects units from one place and capture all effects settings in one single master preset (that can be applied later)
 - Ability to save track segment loops (similar to bookmarks)
 - A new editor window to manage effects presets
 - The option to remember sound settings for a particular song and apply them automatically whenever that song is played
