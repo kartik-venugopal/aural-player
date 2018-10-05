@@ -50,6 +50,8 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 - **10/04/2018: New release:**
   * New features:
     * **New Master effects unit**: A new effects unit called "Master" has been added to the effects panel. This unit has controls to enable/disable all effects units from one place and provides the ability to capture all sound effects in a single "master" preset.
+    * **New playback preference (show new track in playlist)**: Whenever a track begins playing, the playlist, if visible, will automatically select it and scroll to show it.
+    * **New playlist functions (invert selection, crop selection)**: The playlist menu now has 2 new functions: 1 - Invert selection, which inverts the current playlist selection, and 2 - crop selection, which keeps only selected tracks/groups, deleting all others.
     
   * Bug fixes:
     * **Headphones plugged in crash**: When headphones are plugged in/out, the app stops playing audio. Now, this works during normal track playback, but still fails during track segment loop playback. A fix for the loop playback crash is planned and coming soon.
