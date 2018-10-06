@@ -9,18 +9,27 @@ class Bookmark: StringKeyedItem, PlayableItem {
     let file: URL
     
     // Seek position within track, expressed in seconds
-    let position: Double
+    let startPosition: Double
+    
+    // Seek position within track, expressed in seconds
+    let endPosition: Double?
     
     // Display information used in menu items
     var art: NSImage = Images.imgPlayedTrack
     
     var key: String {return name}
     
-    init(_ name: String, _ file: URL, _ position: Double) {
+    convenience init(_ name: String, _ file: URL, _ startPosition: Double) {
+        self.init(name, file, startPosition, nil)
+    }
+    
+    init(_ name: String, _ file: URL, _ startPosition: Double, _ endPosition: Double?) {
         
         self.name = name
         self.file = file
-        self.position = position
+        self.startPosition = startPosition
+        self.endPosition = endPosition
+        
         loadArtworkFromFile()
     }
     

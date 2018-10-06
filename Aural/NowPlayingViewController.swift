@@ -357,7 +357,11 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     private func trackChanged(_ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
-        seekSliderCell.removeLoop()
+        if (player.getPlaybackLoop()) != nil {
+            renderLoop()
+        } else {
+            seekSliderCell.removeLoop()
+        }
         
         if (newTrack != nil) {
             

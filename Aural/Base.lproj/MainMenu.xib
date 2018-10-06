@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="17G2307" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -29,7 +30,8 @@
         </customObject>
         <customObject id="nnl-Fg-dA2" customClass="BookmarksMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="addBookmarkMenuItem" destination="qCe-8O-8ky" id="PI9-Lc-ocX"/>
+                <outlet property="bookmarkTrackPositionMenuItem" destination="qCe-8O-8ky" id="rH6-15-UwN"/>
+                <outlet property="bookmarkTrackSegmentLoopMenuItem" destination="ISR-D7-7Vu" id="783-3S-lV9"/>
                 <outlet property="manageBookmarksMenuItem" destination="rFK-no-hcx" id="ZZd-2F-ntX"/>
                 <outlet property="theMenu" destination="6PU-OL-7xn" id="mTh-Bf-jxD"/>
             </connections>
@@ -198,9 +200,14 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Bookmarks" autoenablesItems="NO" id="6PU-OL-7xn">
                         <items>
-                            <menuItem title="  Bookmark this track position" image="Bookmark-Dark" keyEquivalent="b" id="qCe-8O-8ky">
+                            <menuItem title="  Bookmark this track position" image="Bookmark-Dark" keyEquivalent="b" id="qCe-8O-8ky" userLabel="Bookmark this track position">
                                 <connections>
-                                    <action selector="bookmarkAction:" target="nnl-Fg-dA2" id="AVT-hc-yET"/>
+                                    <action selector="bookmarkTrackPositionAction:" target="nnl-Fg-dA2" id="cKw-ST-lp3"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Bookmark this track segment loop" image="Bookmark-Dark" keyEquivalent="B" id="ISR-D7-7Vu" userLabel="Bookmark this loop">
+                                <connections>
+                                    <action selector="bookmarkTrackSegmentLoopAction:" target="nnl-Fg-dA2" id="RRN-jv-eIm"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="  Manage bookmarks" image="Bookmarks-Editor" id="rFK-no-hcx" userLabel="Manage Bookmarks">
@@ -1022,7 +1029,7 @@ CA
         <image name="Favorites" width="15" height="15"/>
         <image name="Favorites-Editor" width="3" height="3"/>
         <image name="FloatingBarMode-Small" width="15" height="15"/>
-        <image name="InvertSelection-Small" width="13.439999580383301" height="13.439999580383301"/>
+        <image name="InvertSelection-Small" width="14.399999618530273" height="14.399999618530273"/>
         <image name="LoopOff-Small" width="0.23999999463558197" height="0.20800000429153442"/>
         <image name="MasterTab-Small" width="14" height="14"/>
         <image name="Maximize-Small" width="12" height="10"/>

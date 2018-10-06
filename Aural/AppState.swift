@@ -1355,7 +1355,7 @@ class BookmarksState: PersistentState {
         return BookmarksState()
     }
     
-    var bookmarks: [(name: String, file: URL, position: Double)] = [(name: String, file: URL, position: Double)]()
+    var bookmarks: [(name: String, file: URL, startPosition: Double, endPosition: Double?)] = [(name: String, file: URL, startPosition: Double, endPosition: Double?)]()
     
     func toSerializableArray() -> NSArray {
         
@@ -1365,7 +1365,11 @@ class BookmarksState: PersistentState {
             var map = [NSString: AnyObject]()
             map["name"] = $0.name as AnyObject
             map["file"] = $0.file.path as AnyObject
-            map["position"] = $0.position as NSNumber
+            map["startPosition"] = $0.startPosition as NSNumber
+            
+            if let endPos = $0.endPosition {
+                map["endPosition"] = endPos as NSNumber
+            }
             
             bookmarksArr.append(map as NSDictionary)
         })
@@ -1383,9 +1387,13 @@ class BookmarksState: PersistentState {
                 
                 if let name = bookmarkMap.value(forKey: "name") as? String,
                     let file = bookmarkMap.value(forKey: "file") as? String,
-                    let position = bookmarkMap.value(forKey: "position") as? NSNumber {
+                    let startPosition = bookmarkMap.value(forKey: "startPosition") as? NSNumber {
                     
-                    state.bookmarks.append((name, URL(fileURLWithPath: file), position.doubleValue))
+                    if let endPosition = bookmarkMap.value(forKey: "endPosition") as? NSNumber {
+                        state.bookmarks.append((name, URL(fileURLWithPath: file), startPosition.doubleValue, endPosition.doubleValue))
+                    } else {
+                        state.bookmarks.append((name, URL(fileURLWithPath: file), startPosition.doubleValue, nil))
+                    }
                 }
             }
         })

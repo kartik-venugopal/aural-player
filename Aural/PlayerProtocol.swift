@@ -9,7 +9,7 @@ protocol PlayerProtocol {
     func play(_ track: Track)
     
     // Plays a given track, starting from a given position (used for bookmarks)
-    func play(_ track: Track, _ startPosition: Double)
+    func play(_ track: Track, _ startPosition: Double, _ endPosition: Double?)
     
     // Pauses the currently playing track
     func pause()

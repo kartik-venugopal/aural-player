@@ -18,13 +18,21 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
         
         // Restore the bookmarks model object from persistent state
         state.bookmarks.forEach({
-        
-            _ = bookmarks.addBookmark($0.name, $0.file, $0.position)
+            
+            if let endPos = $0.endPosition {
+                _ = bookmarks.addBookmark($0.name, $0.file, $0.startPosition, endPos)
+            } else {
+                _ = bookmarks.addBookmark($0.name, $0.file, $0.startPosition)
+            }
         })
     }
     
-    func addBookmark(_ name: String, _ file: URL, _ position: Double) -> Bookmark {
-        return bookmarks.addBookmark(name, file, position)
+    func addBookmark(_ name: String, _ file: URL, _ startPosition: Double) -> Bookmark {
+        return bookmarks.addBookmark(name, file, startPosition)
+    }
+    
+    func addBookmark(_ name: String, _ file: URL, _ startPosition: Double, _ endPosition: Double) -> Bookmark {
+        return bookmarks.addBookmark(name, file, startPosition, endPosition)
     }
     
     func getAllBookmarks() -> [Bookmark] {
@@ -53,7 +61,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
             
             // Try playing it
             // TODO: The delegates layer should not be messing around with PlaylistViewState. Move that argument up one layer
-            try _ = player.play(newTrack.track, bookmark.position, PlaylistViewState.current)
+            try _ = player.play(newTrack.track, bookmark.startPosition, bookmark.endPosition, PlaylistViewState.current)
             
             // Notify the UI that a track has started playing
             AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, newTrack))
@@ -79,7 +87,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
         let state = BookmarksState()
         
         bookmarks.getAllBookmarks().forEach({
-            state.bookmarks.append(($0.name, $0.file, $0.position))
+            state.bookmarks.append(($0.name, $0.file, $0.startPosition, $0.endPosition))
         })
         
         return state

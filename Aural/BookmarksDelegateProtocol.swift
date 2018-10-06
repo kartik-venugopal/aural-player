@@ -2,7 +2,10 @@ import Foundation
 
 protocol BookmarksDelegateProtocol {
     
-    func addBookmark(_ name: String, _ file: URL, _ position: Double) -> Bookmark
+    func addBookmark(_ name: String, _ file: URL, _ startPosition: Double) -> Bookmark
+    
+    // Loop
+    func addBookmark(_ name: String, _ file: URL, _ startPosition: Double, _ endPosition: Double) -> Bookmark
     
     func getAllBookmarks() -> [Bookmark]
     

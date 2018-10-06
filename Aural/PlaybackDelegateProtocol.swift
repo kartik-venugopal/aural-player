@@ -39,7 +39,8 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     */
     func play(_ track: Track, _ playlistType: PlaylistType) throws -> IndexedTrack
     
-    func play(_ track: Track, _ startPosition: Double, _ playlistType: PlaylistType) throws -> IndexedTrack
+    // If end position is non-nil, it's a loop
+    func play(_ track: Track, _ startPosition: Double, _ endPosition: Double?, _ playlistType: PlaylistType) throws -> IndexedTrack
     
     /*
         Initiates playback of (tracks within) the given group. Returns complete track information for the track that is chosen to play first.

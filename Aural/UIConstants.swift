@@ -20,7 +20,8 @@ struct UIConstants {
     
     static let bookmarkNameColumnID: String = "cid_BookmarkName"
     static let bookmarkTrackColumnID: String = "cid_BookmarkTrack"
-    static let bookmarkPositionColumnID: String = "cid_BookmarkPosition"
+    static let bookmarkStartPositionColumnID: String = "cid_BookmarkStartPosition"
+    static let bookmarkEndPositionColumnID: String = "cid_BookmarkEndPosition"
     
     static let favoriteNameColumnID: String = "cid_FavoriteName"
     static let favoriteTrackColumnID: String = "cid_FavoriteTrack"

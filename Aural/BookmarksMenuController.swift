@@ -12,13 +12,15 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, Acti
     
     @IBOutlet weak var theMenu: NSMenu!
     
-    @IBOutlet weak var addBookmarkMenuItem: NSMenuItem!
+    @IBOutlet weak var bookmarkTrackPositionMenuItem: NSMenuItem!
+    @IBOutlet weak var bookmarkTrackSegmentLoopMenuItem: NSMenuItem!
     @IBOutlet weak var manageBookmarksMenuItem: NSMenuItem!
     
     // Changes whenever a bookmark is added
     private var defaultBookmarkName: String?
     private var bookmarkedTrack: Track?
-    private var bookmarkedTrackPosition: Double?
+    private var bookmarkedTrackStartPosition: Double?
+    private var bookmarkedTrackEndPosition: Double?
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.getEditorWindowController()
     
@@ -33,7 +35,10 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, Acti
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         // Can't add a bookmark if no track is playing or if the popover is currently being shown
-        addBookmarkMenuItem.isEnabled = player.getPlaybackState() != .noTrack && !bookmarkNamePopover.isShown()
+        bookmarkTrackPositionMenuItem.isEnabled = player.getPlaybackState() != .noTrack && !bookmarkNamePopover.isShown()
+        
+        let hasCompleteLoop = player.getPlaybackLoop() != nil && player.getPlaybackLoop()!.isComplete()
+        bookmarkTrackSegmentLoopMenuItem.isEnabled = player.getPlaybackState() != .noTrack && hasCompleteLoop
         
         manageBookmarksMenuItem.isEnabled = bookmarks.countBookmarks() > 0
         
@@ -73,17 +78,42 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, Acti
     }
     
     // When a bookmark menu item is clicked, the item is played
-    @IBAction func bookmarkAction(_ sender: Any) {
+    @IBAction func bookmarkTrackPositionAction(_ sender: Any) {
         
         // Mark the playing track and position
         bookmarkedTrack = player.getPlayingTrack()!.track
-        bookmarkedTrackPosition = player.getSeekPosition().timeElapsed
+        bookmarkedTrackStartPosition = player.getSeekPosition().timeElapsed
+        bookmarkedTrackEndPosition = nil
         
-        defaultBookmarkName = String(format: "%@ (%@)", bookmarkedTrack!.conciseDisplayName, StringUtils.formatSecondsToHMS(bookmarkedTrackPosition!))
+        defaultBookmarkName = String(format: "%@ (%@)", bookmarkedTrack!.conciseDisplayName, StringUtils.formatSecondsToHMS(bookmarkedTrackStartPosition!))
         
         // Show popover
         let loc = ViewFactory.getLocationForBookmarkPrompt()
         bookmarkNamePopover.show(loc.view, loc.edge)
+    }
+    
+    // When a bookmark menu item is clicked, the item is played
+    @IBAction func bookmarkTrackSegmentLoopAction(_ sender: Any) {
+        
+        // Mark the playing track and position
+        bookmarkedTrack = player.getPlayingTrack()!.track
+        if let loop = player.getPlaybackLoop() {
+            
+            if loop.isComplete() {
+                
+                bookmarkedTrackStartPosition = loop.startTime
+                bookmarkedTrackEndPosition = loop.endTime
+                
+                let startTime = StringUtils.formatSecondsToHMS(loop.startTime)
+                let endTime = StringUtils.formatSecondsToHMS(loop.endTime!)
+                
+                defaultBookmarkName = String(format: "%@ (%@ ⇄ %@)", bookmarkedTrack!.conciseDisplayName, startTime, endTime)
+                
+                // Show popover
+                let loc = ViewFactory.getLocationForBookmarkPrompt()
+                bookmarkNamePopover.show(loc.view, loc.edge)
+            }
+        }
     }
     
     // When a bookmark menu item is clicked, the item is played
@@ -133,7 +163,17 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, Acti
     
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
-        _ = bookmarks.addBookmark(string, bookmarkedTrack!.file, bookmarkedTrackPosition!)
+        
+        if (bookmarkedTrackEndPosition == nil) {
+            
+            // Track position
+            _ = bookmarks.addBookmark(string, bookmarkedTrack!.file, bookmarkedTrackStartPosition!)
+            
+        } else {
+            
+            // Loop
+            _ = bookmarks.addBookmark(string, bookmarkedTrack!.file, bookmarkedTrackStartPosition!, bookmarkedTrackEndPosition!)
+        }
     }
     
     // MARK - Message handling
@@ -145,11 +185,12 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, Acti
     func consumeMessage(_ message: ActionMessage) {
         
         if message.actionType == .bookmark {
-            bookmarkAction(self)
+            bookmarkTrackPositionAction(self)
         }
     }
 }
 
+// Helper class that stores a Bookmark for convenience (when playing it)
 class BookmarksMenuItem: NSMenuItem {
     
     var bookmark: Bookmark!
