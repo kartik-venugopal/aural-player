@@ -44,12 +44,22 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         playbackState = .playing
     }
     
-    func play(_ track: Track, _ startPosition: Double) {
+    func play(_ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) {
         
         let session = PlaybackSession.start(track)
         
         initPlayer(track)
-        playbackScheduler.playTrack(session, startPosition)
+        
+        if let end = endPosition {
+            
+            // Loop is defined
+            session.loop = PlaybackLoop(startPosition, end)
+            playbackScheduler.playLoop(session, true)
+            
+        } else {
+            
+            playbackScheduler.playTrack(session, startPosition)
+        }
         
         playbackState = .playing
     }

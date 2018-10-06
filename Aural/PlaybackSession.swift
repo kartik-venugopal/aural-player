@@ -129,6 +129,11 @@ struct PlaybackLoop {
         self.startTime = startTime
     }
     
+    init(_ startTime: Double, _ endTime: Double) {
+        self.startTime = startTime
+        self.endTime = endTime
+    }
+    
     // Determines if this loop is complete (i.e. both start time and end time are defined)
     func isComplete() -> Bool {
         return endTime != nil

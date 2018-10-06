@@ -81,14 +81,65 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return try play(index, 0)
     }
     
-    func play(_ index: Int, _ startPosition: Double = 0) throws -> IndexedTrack {
+    func play(_ index: Int, _ startPosition: Double = 0, _ endPosition: Double? = nil) throws -> IndexedTrack {
+     
         let track = playbackSequencer.select(index)
-        try play(track, startPosition)
+        try play(track, startPosition, endPosition)
+        return track
+    }
+    
+    func play(_ index: Int, _ interruptPlayback: Bool) throws -> IndexedTrack? {
+        
+        let playbackState = player.getPlaybackState()
+        if (interruptPlayback || playbackState == .noTrack) {
+            return try play(index)
+        }
+        
+        return nil
+    }
+    
+    func play(_ track: Track) throws -> IndexedTrack {
+        return try play(track, 0)
+    }
+    
+    func play(_ track: Track, _ startPosition: Double = 0, _ endPosition: Double? = nil) throws -> IndexedTrack {
+        
+        let indexedTrack = playbackSequencer.select(track)
+        try play(indexedTrack, startPosition, endPosition)
+        return indexedTrack
+    }
+    
+    func play(_ track: Track, _ playlistType: PlaylistType) throws -> IndexedTrack {
+        
+        if (playlistType == .tracks) {
+            // Play by index
+            let index = playlist.indexOfTrack(track)
+            return try play(index!)
+        }
+        
+        return try play(track)
+    }
+    
+    func play(_ track: Track, _ startPosition: Double, _ endPosition: Double? = nil, _ playlistType: PlaylistType) throws -> IndexedTrack {
+        
+        if (playlistType == .tracks) {
+            // Play by index
+            let index = playlist.indexOfTrack(track)
+            return try play(index!, startPosition, endPosition)
+        }
+        
+        return try play(track, startPosition, endPosition)
+    }
+    
+    func play(_ group: Group) throws -> IndexedTrack {
+        
+        let track = playbackSequencer.select(group)
+        try play(track)
         return track
     }
     
     // Throws an error if playback fails
-    private func play(_ track: IndexedTrack?, _ startPosition: Double = 0) throws {
+    private func play(_ track: IndexedTrack?, _ startPosition: Double = 0, _ endPosition: Double? = nil) throws {
         
         // Stop if currently playing
         haltPlayback()
@@ -106,7 +157,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
                 throw actualTrack.lazyLoadingInfo.preparationError!
             }
             
-            player.play(actualTrack, startPosition)
+            player.play(actualTrack, startPosition, endPosition)
             
             // Notify observers
             AsyncMessenger.publishMessage(TrackPlayedAsyncMessage(track: actualTrack))
@@ -367,56 +418,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             trackPlaybackCompleted()
             return
         }
-    }
-    
-    func play(_ index: Int, _ interruptPlayback: Bool) throws -> IndexedTrack? {
-    
-        let playbackState = player.getPlaybackState()
-        if (interruptPlayback || playbackState == .noTrack) {
-            return try play(index)
-        }
-        
-        return nil
-    }
-    
-    func play(_ track: Track) throws -> IndexedTrack {
-        return try play(track, 0)
-    }
-    
-    func play(_ track: Track, _ startPosition: Double = 0) throws -> IndexedTrack {
-        
-        let indexedTrack = playbackSequencer.select(track)
-        try play(indexedTrack, startPosition)
-        return indexedTrack
-    }
-    
-    func play(_ track: Track, _ playlistType: PlaylistType) throws -> IndexedTrack {
-        
-        if (playlistType == .tracks) {
-            // Play by index
-            let index = playlist.indexOfTrack(track)
-            return try play(index!)
-        }
-        
-        return try play(track)
-    }
-    
-    func play(_ track: Track, _ startPosition: Double, _ playlistType: PlaylistType) throws -> IndexedTrack {
-        
-        if (playlistType == .tracks) {
-            // Play by index
-            let index = playlist.indexOfTrack(track)
-            return try play(index!, startPosition)
-        }
-        
-        return try play(track, startPosition)
-    }
-    
-    func play(_ group: Group) throws -> IndexedTrack {
-        
-        let track = playbackSequencer.select(group)
-        try play(track)
-        return track
     }
     
     func toggleLoop() -> PlaybackLoop? {

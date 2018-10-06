@@ -452,7 +452,12 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         btnPlayPause.switchState(player.getPlaybackState())
         SyncMessenger.publishNotification(TrackChangedNotification(oldTrack, newTrack, errorState))
-        btnLoop.switchState(LoopState.none)
+        
+        if let loop = player.getPlaybackLoop() {
+            btnLoop.switchState(LoopState.complete)
+        } else {
+            btnLoop.switchState(LoopState.none)
+        }
     }
     
     private func trackChanged(_ message: TrackChangedAsyncMessage) {

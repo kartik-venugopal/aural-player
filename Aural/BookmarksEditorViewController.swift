@@ -137,9 +137,21 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
             
             return createTextCell(tableView, tableColumn!, row, bookmark.file.path, false)
             
-        case UIConstants.bookmarkPositionColumnID:
+        case UIConstants.bookmarkStartPositionColumnID:
             
-            let formattedPosition = StringUtils.formatSecondsToHMS(bookmark.position)
+            let formattedPosition = StringUtils.formatSecondsToHMS(bookmark.startPosition)
+            return createTextCell(tableView, tableColumn!, row, formattedPosition, false)
+            
+        case UIConstants.bookmarkEndPositionColumnID:
+            
+            var formattedPosition: String = ""
+            
+            if let endPos = bookmark.endPosition {
+                formattedPosition = StringUtils.formatSecondsToHMS(endPos)
+            } else {
+                formattedPosition = "-"
+            }
+            
             return createTextCell(tableView, tableColumn!, row, formattedPosition, false)
             
         default:    return nil
