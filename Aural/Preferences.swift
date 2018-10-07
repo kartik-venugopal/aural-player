@@ -158,7 +158,6 @@ class SoundPreferences: PersistentPreferencesProtocol {
     
     func persist(defaults: UserDefaults) {
         
-        
         defaults.set(volumeDelta, forKey: "sound.volumeDelta")
         
         defaults.set(volumeOnStartup.rawValue, forKey: "sound.volumeOnStartup")
@@ -177,6 +176,9 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
     
     // This will be used only when playlistOnStartup == PlaylistStartupOptions.loadFile
     var playlistFile: URL?
+    
+    // This will be used only when playlistOnStartup == PlaylistStartupOptions.loadFolder
+    var tracksFolder: URL?
     
     internal required init(_ defaultsDictionary: [String: Any]) {
         
@@ -198,12 +200,26 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
             playlistOnStartup = PreferencesDefaults.Playlist.playlistOnStartup
             playlistFile = PreferencesDefaults.Playlist.playlistFile
         }
+        
+        if let tracksFolderStr = defaultsDictionary["playlist.playlistOnStartup.tracksFolderx"] as? String {
+            tracksFolder = URL(fileURLWithPath: tracksFolderStr)
+        } else {
+            tracksFolder = PreferencesDefaults.Playlist.tracksFolder
+        }
+        
+        // If .loadFolder selected but no folder available to load from, revert back to defaults
+        if (playlistOnStartup == .loadFolder && tracksFolder == nil) {
+            
+            playlistOnStartup = PreferencesDefaults.Playlist.playlistOnStartup
+            tracksFolder = PreferencesDefaults.Playlist.tracksFolder
+        }
     }
     
     func persist(defaults: UserDefaults) {
         
         defaults.set(playlistOnStartup.rawValue, forKey: "playlist.playlistOnStartup")
         defaults.set(playlistFile?.path, forKey: "playlist.playlistOnStartup.playlistFile")
+        defaults.set(tracksFolder?.path, forKey: "playlist.playlistOnStartup.tracksFolderx")
     }
 }
 
@@ -358,6 +374,7 @@ fileprivate struct PreferencesDefaults {
         
         static let playlistOnStartup: PlaylistStartupOptions = .rememberFromLastAppLaunch
         static let playlistFile: URL? = nil
+        static let tracksFolder: URL? = nil
     }
     
     struct View {
