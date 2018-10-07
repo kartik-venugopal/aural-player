@@ -21,10 +21,10 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 - Playback of MP3, AAC, AIFF/AIFC, WAV, and CAF audio files
 - Supports M3U/M3U8 playlists
 - Sound effects: Graphic equalizer, Pitch shift, Time stretch, Reverb, Delay, Filter
-- Effects units let you save your settings as presets, so you can use them later without having to remember them **(New!)**
-- Track segment looping, to allow you to loop your favorite parts of a track
+- Save your effects settings as presets, so you can use them later without having to remember them **(New!)**
+- Bookmarking, so you can mark a specific position within a track, save it with an informative description, and come back to it later with one click, which is great for long tracks like audiobooks **(New!)**
+- Track segment looping, to allow you to define and loop your favorite parts of a track. Thanks to bookmarking, you can also save your loops and play them back at any time with one click **(New!)**
 - Display of ID3 and iTunes metadata, including artwork (when available)
-- Bookmarking, so you can mark a specific position within a track, and come back to it later, which is great for long tracks like audiobooks **(New!)**
 - Recording of clips in AAC/ALAC/AIFF formats, so you can capture your applied sound effects and create a customized version of your track.
 - Configurable autoplay (on app startup and/or when tracks are added)
 - Grouping of tracks by artist/album/genre for convenient playlist browsing
@@ -38,7 +38,6 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 
 ### Planned updates
 
-- Ability to save track segment loops (similar to bookmarks)
 - A new editor window to manage effects presets
 - The option to remember sound settings for a particular song and apply them automatically whenever that song is played
 - A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
