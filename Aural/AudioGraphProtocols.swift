@@ -14,6 +14,8 @@ protocol AudioGraphProtocol: EQUnitProtocol, PitchShiftUnitProtocol, TimeStretch
     
     func applyMasterPreset(_ preset: MasterPreset)
     
+    func getSettingsAsMasterPreset() -> MasterPreset
+    
     // Retrieves the current player volume
     func getVolume() -> Float
     

@@ -42,8 +42,14 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var rate3MenuItem: SoundParameterMenuItem!
     @IBOutlet weak var rate4MenuItem: SoundParameterMenuItem!
     
+    @IBOutlet weak var rememberSettingsMenuItem: ToggleMenuItem!
+    
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    
+    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    
+    private let preferences: SoundPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().soundPreferences
     
     // One-time setup.
     override func awakeFromNib() {
@@ -82,6 +88,16 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         let isRegularMode = AppModeManager.mode == .regular
         [panLeftMenuItem, panRightMenuItem].forEach({$0?.isEnabled = isRegularMode && !WindowState.showingPopover})
         [eqMenu, pitchMenu, timeMenu].forEach({$0?.isEnabled = isRegularMode})
+        
+        rememberSettingsMenuItem.isHidden = !(preferences.rememberSettingsPerTrack && preferences.rememberSettingsPerTrackOption == .individualTracks)
+        
+        if let playingTrack = player.getPlayingTrack()?.track {
+            
+            rememberSettingsMenuItem.isEnabled = true
+            rememberSettingsMenuItem.onIf(SoundProfiles.profileForTrack(playingTrack) != nil)
+        } else {
+            rememberSettingsMenuItem.isEnabled = false
+        }
     }
     
     // Mutes or unmutes the player
@@ -176,6 +192,11 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         
         // Menu item's "paramValue" specifies the playback rate value associated with the menu item
         SyncMessenger.publishActionMessage(AudioGraphActionMessage(.setRate, .discrete, sender.paramValue))
+    }
+    
+    @IBAction func rememberSettingsAction(_ sender: ToggleMenuItem) {
+        
+        !rememberSettingsMenuItem.isOn() ? SyncMessenger.publishActionMessage(SoundProfileActionMessage.save) : SyncMessenger.publishActionMessage(SoundProfileActionMessage.delete)
     }
 }
 

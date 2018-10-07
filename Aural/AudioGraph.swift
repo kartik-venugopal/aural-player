@@ -234,6 +234,59 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         MasterPresets.addUserDefinedPreset(presetName, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset)
     }
     
+    func getSettingsAsMasterPreset() -> MasterPreset {
+        
+        let dummyPresetName = "masterPreset_for_soundProfile"
+        
+        // EQ state
+        let eqState = getEQState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        let eqBands = eqNode.allBands()
+        let eqGlobalGain = eqNode.globalGain
+        
+        let eqPreset = EQPreset(dummyPresetName, eqState, eqBands, eqGlobalGain, false)
+        
+        // Pitch state
+        let pitchState = getPitchState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        let pitch = pitchNode.pitch
+        let pitchOverlap = pitchNode.overlap
+        
+        let pitchPreset = PitchPreset(dummyPresetName, pitchState, pitch, pitchOverlap, false)
+        
+        // Time state
+        let timeState = getTimeState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        let rate = timeNode.rate
+        let timeOverlap = timeNode.overlap
+        let timePitchShift = timeNode.shiftPitch
+        
+        let timePreset = TimePreset(dummyPresetName, timeState, rate, timeOverlap, timePitchShift, false)
+        
+        // Reverb state
+        let reverbState = getReverbState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        let space = getReverbSpace()
+        let reverbAmount = reverbNode.wetDryMix
+        
+        let reverbPreset = ReverbPreset(dummyPresetName, reverbState, space, reverbAmount, false)
+        
+        // Delay state
+        let delayState = getDelayState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        let delayTime = delayNode.delayTime
+        let delayAmount = delayNode.wetDryMix
+        let cutoff = delayNode.lowPassCutoff
+        let feedback = delayNode.feedback
+        
+        let delayPreset = DelayPreset(dummyPresetName, delayState, delayAmount, delayTime, feedback, cutoff, false)
+        
+        // Filter state
+        let filterState = getFilterState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        let bassBand = getFilterBassBand()
+        let midBand = getFilterMidBand()
+        let trebleBand = getFilterTrebleBand()
+        
+        let filterPreset = FilterPreset(dummyPresetName, filterState, Double(bassBand.min)...Double(bassBand.max), Double(midBand.min)...Double(midBand.max), Double(trebleBand.min)...Double(trebleBand.max), false)
+        
+        return MasterPreset(name: "_masterPreset_for_soundProfile", eq: eqPreset, pitch: pitchPreset, time: timePreset, reverb: reverbPreset, delay: delayPreset, filter: filterPreset, systemDefined: false)
+    }
+    
     func applyMasterPreset(_ preset: MasterPreset) {
     
         applyEQPreset(preset.eq)

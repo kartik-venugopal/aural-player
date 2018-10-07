@@ -50,3 +50,9 @@ enum ScrollSensitivity: String {
     case medium
     case high
 }
+
+enum RememberSettingsPerTrackOptions: String {
+    
+    case allTracks
+    case individualTracks
+}

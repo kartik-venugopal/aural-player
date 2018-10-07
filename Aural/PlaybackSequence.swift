@@ -106,6 +106,7 @@ class PlaybackSequence: PlaybackSequenceProtocol {
         }
     }
     
+    // BUG TODO: When shuffling, this is often the cause of an exception (simultaneous access)
     private func swapFirstTwoShuffleSequenceElements() {
         swap(&shuffleSequence.sequence[0], &shuffleSequence.sequence[1])
     }

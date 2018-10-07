@@ -121,6 +121,9 @@ class SoundPreferences: PersistentPreferencesProtocol {
     var startupVolumeValue: Float
     var panDelta: Float
     
+    var rememberSettingsPerTrack: Bool
+    var rememberSettingsPerTrackOption: RememberSettingsPerTrackOptions
+    
     private var controlsPreferences: ControlsPreferences!
     
     fileprivate convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: ControlsPreferences) {
@@ -135,7 +138,7 @@ class SoundPreferences: PersistentPreferencesProtocol {
         volumeDelta = defaultsDictionary["sound.volumeDelta"] as? Float ?? PreferencesDefaults.Sound.volumeDelta
         
         if let volumeOnStartupStr = defaultsDictionary["sound.volumeOnStartup"] as? String {
-            volumeOnStartup = VolumeStartupOptions(rawValue: volumeOnStartupStr)!
+            volumeOnStartup = VolumeStartupOptions(rawValue: volumeOnStartupStr) ?? PreferencesDefaults.Sound.volumeOnStartup
         } else {
             volumeOnStartup = PreferencesDefaults.Sound.volumeOnStartup
         }
@@ -143,6 +146,14 @@ class SoundPreferences: PersistentPreferencesProtocol {
         startupVolumeValue = defaultsDictionary["sound.startupVolumeValue"] as? Float ?? PreferencesDefaults.Sound.startupVolumeValue
         
         panDelta = defaultsDictionary["sound.panDelta"] as? Float ?? PreferencesDefaults.Sound.panDelta
+        
+        rememberSettingsPerTrack = defaultsDictionary["sound.rememberSettingsPerTrack"] as? Bool ?? PreferencesDefaults.Sound.rememberSoundSettingsPerTrack
+        
+        if let optionStr = defaultsDictionary["sound.rememberSettingsPerTrack.option"] as? String {
+            rememberSettingsPerTrackOption = RememberSettingsPerTrackOptions(rawValue: optionStr) ?? PreferencesDefaults.Sound.rememberSoundSettingsPerTrackOption
+        } else {
+            rememberSettingsPerTrackOption = PreferencesDefaults.Sound.rememberSoundSettingsPerTrackOption
+        }
     }
     
     func persist(defaults: UserDefaults) {
@@ -154,6 +165,9 @@ class SoundPreferences: PersistentPreferencesProtocol {
         defaults.set(startupVolumeValue, forKey: "sound.startupVolumeValue")
         
         defaults.set(panDelta, forKey: "sound.panDelta")
+        
+        defaults.set(rememberSettingsPerTrack, forKey: "sound.rememberSettingsPerTrack")
+        defaults.set(rememberSettingsPerTrackOption.rawValue, forKey: "sound.rememberSettingsPerTrack.option")
     }
 }
 
@@ -335,6 +349,9 @@ fileprivate struct PreferencesDefaults {
         static let startupVolumeValue: Float = 0.5
         
         static let panDelta: Float = 0.1
+        
+        static let rememberSoundSettingsPerTrack: Bool = true
+        static let rememberSoundSettingsPerTrackOption: RememberSettingsPerTrackOptions = .individualTracks
     }
     
     struct Playlist {

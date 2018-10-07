@@ -206,6 +206,11 @@ enum ActionType {
     // Sets the playback rate to a specific value
     case setRate
     
+    // Saves the current settings in a sound profile for the current track
+    case saveSoundProfile
+    
+    case deleteSoundProfile
+    
     // MARK: Effects view actions
     
     // Switches the Effects panel tab group to a specfic tab
@@ -351,4 +356,15 @@ struct WindowLayoutActionMessage: ActionMessage {
     init(_ layout: WindowLayoutPresets) {
         self.layout = layout
     }
+}
+
+struct SoundProfileActionMessage: ActionMessage {
+    
+    var actionType: ActionType
+    
+    private init(_ actionType: ActionType) {self.actionType = actionType}
+    
+    static let save: SoundProfileActionMessage = SoundProfileActionMessage(.saveSoundProfile)
+    
+    static let delete: SoundProfileActionMessage = SoundProfileActionMessage(.deleteSoundProfile)
 }
