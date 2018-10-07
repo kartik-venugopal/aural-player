@@ -10,6 +10,8 @@ Aural Player is a free and open source audio player application for the macOS pl
 
 Download the disk image file [Aural.dmg](https://github.com/maculateConception/aural-player/blob/master/Aural.dmg?raw=true). Just mount it and run the app !
 
+NOTE - This project is currently under heavy development as of 10/07/2018. So, please expect frequent updates/releases, and perhaps the occasional bug or two. I might switch to doing Git releases once the code is more stable, after most major updates have been rolled out and tested.
+
 ### Compatibility
 
 **User**: Running Aural Player requires OS X 10.10 (Yosemite) or later macOS versions.
