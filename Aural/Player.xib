@@ -61,13 +61,19 @@
                         <action selector="shuffleAction:" target="-2" id="bzg-Iw-fvN"/>
                     </connections>
                 </button>
-                <button toolTip="Play / Pause" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dc4-GM-vmb" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dc4-GM-vmb" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="219" y="18" width="16" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Play" imagePosition="overlaps" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="AJf-TF-0fk">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Play"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Pause"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="Play"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="Pause"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="playPauseAction:" target="-2" id="kbY-rZ-hrA"/>
                     </connections>
@@ -186,6 +192,7 @@ G1BhbiBTbGlkZXI
     <resources>
         <image name="LoopOff" width="2.5120000839233398" height="2.1119999885559082"/>
         <image name="NextTrack" width="162" height="88"/>
+        <image name="Pause" width="105" height="132"/>
         <image name="Play" width="127" height="146"/>
         <image name="PreviousTrack" width="162" height="88"/>
         <image name="RepeatOff" width="256" height="256"/>

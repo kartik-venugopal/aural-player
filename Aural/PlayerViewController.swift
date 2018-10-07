@@ -19,7 +19,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private var autoHidingPanLabel: AutoHidingView!
     
     // Toggle buttons (their images change)
-    @IBOutlet weak var btnPlayPause: MultiStateImageButton!
+    @IBOutlet weak var btnPlayPause: OnOffImageButton!
     @IBOutlet weak var btnShuffle: MultiStateImageButton!
     @IBOutlet weak var btnRepeat: MultiStateImageButton!
     @IBOutlet weak var btnLoop: MultiStateImageButton!
@@ -43,8 +43,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         autoHidingVolumeLabel = AutoHidingView(lblVolume, UIConstants.feedbackLabelAutoHideIntervalSeconds)
         autoHidingPanLabel = AutoHidingView(lblPan, UIConstants.feedbackLabelAutoHideIntervalSeconds)
-        
-        btnPlayPause.stateImageMappings = [(PlaybackState.noTrack, Images.imgPlay), (PlaybackState.paused, Images.imgPlay), (PlaybackState.playing, Images.imgPause)]
         
         btnRepeat.stateImageMappings = [(RepeatMode.off, Images.imgRepeatOff), (RepeatMode.one, Images.imgRepeatOne), (RepeatMode.all, Images.imgRepeatAll)]
         
@@ -79,7 +77,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     func activate() {
         
         initVolumeAndPan()
-        btnPlayPause.switchState(player.getPlaybackState())
+        btnPlayPause.onIf(player.getPlaybackState() == .playing)
         
         let rsModes = player.getRepeatAndShuffleModes()
         updateRepeatAndShuffleControls(rsModes.repeatMode, rsModes.shuffleMode)
@@ -211,7 +209,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
             let playbackInfo = try player.togglePlayPause()
             let playbackState = playbackInfo.playbackState
-            btnPlayPause.switchState(playbackState)
+            btnPlayPause.onIf(player.getPlaybackState() == .playing)
             
             switch playbackState {
                 
@@ -450,7 +448,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     private func trackChanged(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
-        btnPlayPause.switchState(player.getPlaybackState())
+        btnPlayPause.onIf(player.getPlaybackState() == .playing)
         SyncMessenger.publishNotification(TrackChangedNotification(oldTrack, newTrack, errorState))
         
         if (player.getPlaybackLoop()) != nil {
