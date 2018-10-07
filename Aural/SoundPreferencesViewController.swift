@@ -93,5 +93,9 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         soundPrefs.rememberSettingsPerTrack = Bool(btnRememberSettings.state.rawValue)
         soundPrefs.rememberSettingsPerTrackOption = btnRememberSettings_individualTracks.state == UIConstants.buttonState_1 ? .individualTracks : .allTracks
+        
+        if !soundPrefs.rememberSettingsPerTrack {
+            SoundProfiles.removeAll()
+        }
     }
 }

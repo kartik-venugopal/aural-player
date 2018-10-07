@@ -14,6 +14,8 @@ protocol HistoryProtocol {
     // Retrieves all items from the Recently played list, in chronological order
     func allRecentlyPlayedItems() -> [PlayedItem]
     
+    func mostRecentlyPlayedItem() -> PlayedItem?
+    
     // Adds an item, as a track, to the Recently played list. The "time" argument represents the time the corresponding item was played.
     func addRecentlyPlayedItem(_ item: Track, _ time: Date)
     

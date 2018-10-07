@@ -6,11 +6,11 @@ class PlaybackProfiles {
     private static var map: [URL: PlaybackProfile] = [:]
     
     static func saveProfile(_ track: Track, _ lastPosition: Double) {
-        map[track.file] = PlaybackProfile(lastPosition: lastPosition)
+        map[track.file] = PlaybackProfile(file: track.file, lastPosition: lastPosition)
     }
     
     static func saveProfile(_ file: URL, _ lastPosition: Double) {
-        map[file] = PlaybackProfile(lastPosition: lastPosition)
+        map[file] = PlaybackProfile(file: file, lastPosition: lastPosition)
     }
     
     static func deleteProfile(_ track: Track) {
@@ -21,16 +21,22 @@ class PlaybackProfiles {
         return map[track.file]
     }
     
-//    static func getPersistentState() -> SoundProfilesState {
-//
-//        let state = SoundProfilesState()
-//        state.profiles.append(contentsOf: map.values)
-//
-//        return state
-//    }
+    static func removeAll() {
+        map.removeAll()
+    }
+    
+    static func getPersistentState() -> PlaybackProfilesState {
+
+        let state = PlaybackProfilesState()
+        state.profiles.append(contentsOf: map.values)
+
+        return state
+    }
 }
 
 struct PlaybackProfile {
+    
+    let file: URL
     
     // Last playback position
     let lastPosition: Double

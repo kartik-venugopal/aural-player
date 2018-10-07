@@ -11,6 +11,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnAutoplayIfNotPlaying: NSButton!
     @IBOutlet weak var btnAutoplayAlways: NSButton!
     
+    @IBOutlet weak var btnRememberPosition: NSButton!
     @IBOutlet weak var btnShowNewTrack: NSButton!
     
     override var nibName: String? {return "PlaybackPreferences"}
@@ -37,6 +38,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         btnAutoplayAlways.isEnabled = playbackPrefs.autoplayAfterAddingTracks
         btnAutoplayAlways.state = NSControl.StateValue(rawValue: playbackPrefs.autoplayAfterAddingOption == .always ? 1 : 0)
         
+        btnRememberPosition.state = NSControl.StateValue(rawValue: playbackPrefs.rememberLastPosition ? 1 : 0)
         btnShowNewTrack.state = NSControl.StateValue(rawValue: playbackPrefs.showNewTrackInPlaylist ? 1 : 0)
     }
     
@@ -79,7 +81,12 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         playbackPrefs.autoplayAfterAddingTracks = Bool(btnAutoplayAfterAddingTracks.state.rawValue)
         playbackPrefs.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.state.rawValue == 1 ? .ifNotPlaying : .always
-        
+     
+        playbackPrefs.rememberLastPosition = Bool(btnRememberPosition.state.rawValue)
         playbackPrefs.showNewTrackInPlaylist = Bool(btnShowNewTrack.state.rawValue)
+        
+        if !playbackPrefs.rememberLastPosition {
+            PlaybackProfiles.removeAll()
+        }
     }
 }

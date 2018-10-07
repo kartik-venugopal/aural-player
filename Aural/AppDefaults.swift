@@ -49,4 +49,6 @@ class AppDefaults {
     static let filterMidMax: Float = 1000
     static let filterTrebleMin: Float = 4000
     static let filterTrebleMax: Float = 8000
+    
+    static let lastTrackPosition: Double = 0
 }

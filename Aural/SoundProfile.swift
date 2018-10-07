@@ -21,6 +21,10 @@ class SoundProfiles {
         return map[track.file]
     }
     
+    static func removeAll() {
+        map.removeAll()
+    }
+    
     static func getPersistentState() -> SoundProfilesState {
         
         let state = SoundProfilesState()

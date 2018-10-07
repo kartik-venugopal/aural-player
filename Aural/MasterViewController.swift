@@ -22,6 +22,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     private let soundPreferences: SoundPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().soundPreferences
+    private let playbackPreferences: PlaybackPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().playbackPreferences
  
     override var nibName: String? {return "Master"}
     
@@ -224,6 +225,14 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
                 if soundPreferences.rememberSettingsPerTrackOption == .allTracks || SoundProfiles.profileForTrack(plTrack) != nil {
                     SoundProfiles.saveProfile(plTrack, graph.getVolume(), graph.getBalance(), graph.getSettingsAsMasterPreset())
                 }
+            }
+        }
+        
+        if playbackPreferences.rememberLastPosition {
+            
+            // Remember the current playback settings the next time this track plays. Update the profile with the latest settings applied for this track.
+            if let plTrack = player.getPlayingTrack()?.track {
+                PlaybackProfiles.saveProfile(plTrack, player.getSeekPosition().timeElapsed)
             }
         }
         

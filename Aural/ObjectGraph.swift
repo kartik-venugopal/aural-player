@@ -80,9 +80,14 @@ class ObjectGraph {
         
         playbackSequencerInfoDelegate = PlaybackSequencerInfoDelegate(playbackSequencer!)
         
+        // TODO: Fix this dependency weirdness
+        
+        // History (and delegate)
+        history = History(preferences!.historyPreferences)
+        
         // Playback Delegate
-        playbackDelegate = PlaybackDelegate(player!, playbackSequencer!, playlist!, preferences!.playbackPreferences)
-
+        playbackDelegate = PlaybackDelegate(player!, playbackSequencer!, playlist!, history!, preferences!.playbackPreferences)
+        
         // Playlist Delegate
         let accessor = PlaylistAccessorDelegate(playlist!)
         
@@ -95,8 +100,6 @@ class ObjectGraph {
         recorder = Recorder(audioGraph!)
         recorderDelegate = RecorderDelegate(recorder!)
         
-        // History (and delegate)
-        history = History(preferences!.historyPreferences)
         historyDelegate = HistoryDelegate(history!, playlistDelegate!, playbackDelegate!, appState!.historyState)
         
         bookmarks = Bookmarks()
@@ -112,6 +115,10 @@ class ObjectGraph {
         // TODO: Who should own this initialization ???
         appState?.soundProfilesState.profiles.forEach({
             SoundProfiles.saveProfile($0.file, $0.volume, $0.balance, $0.effects)
+        })
+        
+        appState?.playbackProfilesState.profiles.forEach({
+            PlaybackProfiles.saveProfile($0.file, $0.lastPosition)
         })
     }
     
@@ -190,6 +197,7 @@ class ObjectGraph {
         appState?.favoritesState = favoritesDelegate!.persistentState() as! FavoritesState
         appState?.bookmarksState = bookmarksDelegate!.persistentState() as! BookmarksState
         appState?.soundProfilesState = SoundProfiles.getPersistentState()
+        appState?.playbackProfilesState = PlaybackProfiles.getPersistentState()
         
         // Persist app state to disk
         AppStateIO.save(appState!)
