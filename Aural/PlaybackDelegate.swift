@@ -14,14 +14,19 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     // The actual playlist
     private let playlist: PlaylistAccessorProtocol
     
+    private let history: HistoryProtocol
+    
     // User preferences
     private let preferences: PlaybackPreferences
     
-    init(_ player: PlayerProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ playlist: PlaylistAccessorProtocol, _ preferences: PlaybackPreferences) {
+    private var lastPlayedTrack: Track?
+    
+    init(_ player: PlayerProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ playlist: PlaylistAccessorProtocol, _ history: HistoryProtocol, _ preferences: PlaybackPreferences) {
         
         self.player = player
         self.playbackSequencer = playbackSequencer
         self.playlist = playlist
+        self.history = history
         self.preferences = preferences
         
         // Subscribe to message notifications
@@ -78,11 +83,14 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     func play(_ index: Int) throws -> IndexedTrack {
-        return try play(index, 0)
+        
+        let track = playbackSequencer.select(index)
+        try play(track)
+        return track
     }
     
-    func play(_ index: Int, _ startPosition: Double = 0, _ endPosition: Double? = nil) throws -> IndexedTrack {
-     
+    func play(_ index: Int, _ startPosition: Double, _ endPosition: Double?) throws -> IndexedTrack {
+
         let track = playbackSequencer.select(index)
         try play(track, startPosition, endPosition)
         return track
@@ -99,10 +107,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     func play(_ track: Track) throws -> IndexedTrack {
-        return try play(track, 0)
+        
+        let indexedTrack = playbackSequencer.select(track)
+        try play(indexedTrack)
+        return indexedTrack
     }
     
-    func play(_ track: Track, _ startPosition: Double = 0, _ endPosition: Double? = nil) throws -> IndexedTrack {
+    func play(_ track: Track, _ startPosition: Double, _ endPosition: Double?) throws -> IndexedTrack {
         
         let indexedTrack = playbackSequencer.select(track)
         try play(indexedTrack, startPosition, endPosition)
@@ -120,7 +131,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return try play(track)
     }
     
-    func play(_ track: Track, _ startPosition: Double, _ endPosition: Double? = nil, _ playlistType: PlaylistType) throws -> IndexedTrack {
+    func play(_ track: Track, _ startPosition: Double, _ endPosition: Double?, _ playlistType: PlaylistType) throws -> IndexedTrack {
         
         if (playlistType == .tracks) {
             // Play by index
@@ -138,8 +149,34 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return track
     }
     
+    private func play(_ track: IndexedTrack?) throws {
+        
+        var startPosition: Double = 0
+        
+        // Check for playback profile
+        if preferences.rememberLastPosition {
+            
+            if let lastTrack = history.mostRecentlyPlayedItem()?.track {
+                
+                // Save last position for current track
+                let posn = getSeekPosition().timeElapsed
+                PlaybackProfiles.saveProfile(lastTrack, posn)
+            }
+            
+            if (track != nil) {
+                
+                // Apply playback profile for new track
+                if let profile = PlaybackProfiles.profileForTrack(track!.track) {
+                    startPosition = profile.lastPosition
+                }
+            }
+        }
+        
+        try play(track, startPosition)
+    }
+    
     // Throws an error if playback fails
-    private func play(_ track: IndexedTrack?, _ startPosition: Double = 0, _ endPosition: Double? = nil) throws {
+    private func play(_ track: IndexedTrack?, _ startPosition: Double, _ endPosition: Double? = nil) throws {
         
         // Stop if currently playing
         haltPlayback()
@@ -159,6 +196,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             
             player.play(actualTrack, startPosition, endPosition)
             
+            lastPlayedTrack = actualTrack
+            
             // Notify observers
             AsyncMessenger.publishMessage(TrackPlayedAsyncMessage(track: actualTrack))
         }
@@ -168,6 +207,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     private func trackPlaybackCompleted() {
         
         let oldTrack = getPlayingTrack()
+        
+        // Reset playback profile last position to 0 (if there is a profile for the track that completed)
+        if PlaybackProfiles.profileForTrack(oldTrack!.track) != nil {
+            
+            // TODO: This will not work in the future, if the playback profile contains stuff other than just the last position. In that case, mutate the lastPosition variable to 0 but keep the profile otherwise intact
+            PlaybackProfiles.deleteProfile(oldTrack!.track)
+        }
         
         // Stop playback of the old track
         haltPlayback()

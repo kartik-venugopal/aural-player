@@ -1760,6 +1760,57 @@ class SoundProfilesState: PersistentState {
     }
 }
 
+class PlaybackProfilesState: PersistentState {
+    
+    var profiles: [PlaybackProfile] = []
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        // NOT USED
+        return PlaybackProfilesState()
+    }
+    
+    func toSerializableArray() -> NSArray {
+        
+        var profilesArr = [NSDictionary]()
+        profiles.forEach({
+            
+            var map = [NSString: AnyObject]()
+            
+            map["file"] = $0.file.path as AnyObject
+            map["lastPosition"] = $0.lastPosition as NSNumber
+            
+            profilesArr.append(map as NSDictionary)
+        })
+        
+        return NSArray(array: profilesArr)
+    }
+    
+    static func deserialize(_ arr: NSArray) -> PersistentState {
+        
+        let state = PlaybackProfilesState()
+        
+        arr.forEach({
+            
+            let map = $0 as! NSDictionary
+            
+            var profileFile: URL?
+            var profileLastPosition: Double = AppDefaults.lastTrackPosition
+            
+            if let file = map["file"] as? String {
+                profileFile = URL(fileURLWithPath: file)
+            }
+            
+            if let posn = map["lastPosition"] as? NSNumber {
+                profileLastPosition = posn.doubleValue
+            }
+            
+            state.profiles.append(PlaybackProfile(file: profileFile!, lastPosition: profileLastPosition))
+        })
+        
+        return state
+    }
+}
+
 /*
  Encapsulates all application state. It is persisted to disk upon exit and loaded into the application upon startup.
  
@@ -1775,6 +1826,7 @@ class AppState {
     var favoritesState: FavoritesState
     var bookmarksState: BookmarksState
     var soundProfilesState: SoundProfilesState
+    var playbackProfilesState: PlaybackProfilesState
     
     static let defaults: AppState = AppState()
     
@@ -1788,9 +1840,10 @@ class AppState {
         self.favoritesState = FavoritesState()
         self.bookmarksState = BookmarksState()
         self.soundProfilesState = SoundProfilesState()
+        self.playbackProfilesState = PlaybackProfilesState()
     }
     
-    init(_ uiState: UIState, _ audioGraphState: AudioGraphState, _ playlistState: PlaylistState, _ playbackSequenceState: PlaybackSequenceState, _ historyState: HistoryState, _ favoritesState: FavoritesState, _ bookmarksState: BookmarksState, _ soundProfilesState: SoundProfilesState) {
+    init(_ uiState: UIState, _ audioGraphState: AudioGraphState, _ playlistState: PlaylistState, _ playbackSequenceState: PlaybackSequenceState, _ historyState: HistoryState, _ favoritesState: FavoritesState, _ bookmarksState: BookmarksState, _ soundProfilesState: SoundProfilesState, _ playbackProfilesState: PlaybackProfilesState) {
         
         self.uiState = uiState
         self.audioGraphState = audioGraphState
@@ -1800,6 +1853,7 @@ class AppState {
         self.favoritesState = favoritesState
         self.bookmarksState = bookmarksState
         self.soundProfilesState = soundProfilesState
+        self.playbackProfilesState = playbackProfilesState
     }
     
     // Produces an equivalent object suitable for serialization as JSON
@@ -1815,6 +1869,7 @@ class AppState {
         dict["favorites"] = favoritesState.toSerializableArray() as AnyObject
         dict["bookmarks"] = bookmarksState.toSerializableArray() as AnyObject
         dict["soundProfiles"] = soundProfilesState.toSerializableArray() as AnyObject
+        dict["playbackProfiles"] = playbackProfilesState.toSerializableArray() as AnyObject
         
         return dict as NSDictionary
     }
@@ -1852,8 +1907,12 @@ class AppState {
             state.bookmarksState = BookmarksState.deserialize(bookmarksArr) as! BookmarksState
         }
         
-        if let profilesArr = (jsonObject["soundProfiles"] as? NSArray) {
-            state.soundProfilesState = SoundProfilesState.deserialize(profilesArr) as! SoundProfilesState
+        if let soundProfilesArr = (jsonObject["soundProfiles"] as? NSArray) {
+            state.soundProfilesState = SoundProfilesState.deserialize(soundProfilesArr) as! SoundProfilesState
+        }
+        
+        if let playbackProfilesArr = (jsonObject["playbackProfiles"] as? NSArray) {
+            state.playbackProfilesState = PlaybackProfilesState.deserialize(playbackProfilesArr) as! PlaybackProfilesState
         }
         
         return state

@@ -74,6 +74,8 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     
     var showNewTrackInPlaylist: Bool
     
+    var rememberLastPosition: Bool
+    
     fileprivate convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: ControlsPreferences) {
         self.init(defaultsDictionary)
         self.controlsPreferences = controlsPreferences
@@ -94,6 +96,8 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         }
         
         showNewTrackInPlaylist = defaultsDictionary["playback.showNewTrackInPlaylist"] as? Bool ?? PreferencesDefaults.Playback.showNewTrackInPlaylist
+        
+        rememberLastPosition = defaultsDictionary["playback.rememberLastPosition"] as? Bool ?? PreferencesDefaults.Playback.rememberLastPosition
     }
     
     func persist(defaults: UserDefaults) {
@@ -105,6 +109,7 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         defaults.set(autoplayAfterAddingOption.rawValue, forKey: "playback.autoplayAfterAddingTracks.option")
         
         defaults.set(showNewTrackInPlaylist, forKey: "playback.showNewTrackInPlaylist")
+        defaults.set(rememberLastPosition, forKey: "playback.rememberLastPosition")
     }
 }
 
@@ -355,6 +360,7 @@ fileprivate struct PreferencesDefaults {
         static let autoplayAfterAddingTracks: Bool = false
         static let autoplayAfterAddingOption: AutoplayAfterAddingOptions = .ifNotPlaying
         static let showNewTrackInPlaylist: Bool = true
+        static let rememberLastPosition: Bool = false
     }
     
     struct Sound {

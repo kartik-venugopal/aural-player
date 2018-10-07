@@ -49,6 +49,12 @@ class History: HistoryProtocol {
         return recentlyPlayedItems.toArray().reversed()
     }
     
+    func mostRecentlyPlayedItem() -> PlayedItem? {
+        
+        let allPlayedItems = recentlyPlayedItems.toArray()
+        return allPlayedItems.last
+    }
+    
     func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int) {
         
         recentlyAddedItems.resize(recentlyAddedListSize)
