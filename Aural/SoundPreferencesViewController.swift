@@ -92,9 +92,14 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         soundPrefs.panDelta = panDeltaStepper.floatValue * AppConstants.panConversion_UIToAudioGraph
         
         soundPrefs.rememberSettingsPerTrack = Bool(btnRememberSettings.state.rawValue)
+        
+        let wasAllTracks: Bool = soundPrefs.rememberSettingsPerTrackOption == .allTracks
+        
         soundPrefs.rememberSettingsPerTrackOption = btnRememberSettings_individualTracks.state == UIConstants.buttonState_1 ? .individualTracks : .allTracks
         
-        if !soundPrefs.rememberSettingsPerTrack {
+        let isNowIndividualTracks: Bool = soundPrefs.rememberSettingsPerTrackOption == .individualTracks
+        
+        if !soundPrefs.rememberSettingsPerTrack || (wasAllTracks && isNowIndividualTracks) {
             SoundProfiles.removeAll()
         }
     }
