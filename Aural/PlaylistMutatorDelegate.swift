@@ -357,6 +357,12 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 if let playlistFile: URL = preferences.playlistPreferences.playlistFile {
                     addFiles_async([playlistFile], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true))
                 }
+                
+            } else if (preferences.playlistPreferences.playlistOnStartup == .loadFolder) {
+                
+                if let folder: URL = preferences.playlistPreferences.tracksFolder {
+                    addFiles_async([folder], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true))
+                }
             }
             
             return

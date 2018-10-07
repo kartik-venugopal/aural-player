@@ -13,8 +13,7 @@ enum PlaylistStartupOptions: String {
     case empty
     case rememberFromLastAppLaunch
     case loadFile
-    
-    // TODO: case Specific .m3u file
+    case loadFolder
 }
 
 // Possible options for the "autoplay afer adding tracks" user preference

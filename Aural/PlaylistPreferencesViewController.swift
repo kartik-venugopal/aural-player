@@ -4,13 +4,21 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     @IBOutlet weak var btnEmptyPlaylist: NSButton!
     @IBOutlet weak var btnRememberPlaylist: NSButton!
-    @IBOutlet weak var btnLoadPlaylist: NSButton!
-    @IBOutlet weak var btnBrowse: NSButton!
     
-    @IBOutlet weak var errorIcon: NSImageView!
+    @IBOutlet weak var btnLoadPlaylistFromFile: NSButton!
+    @IBOutlet weak var btnBrowseFile: NSButton!
+    
+    @IBOutlet weak var btnLoadTracksFromFolder: NSButton!
+    @IBOutlet weak var btnBrowseFolder: NSButton!
+    
+    @IBOutlet weak var errorIcon_1: NSImageView!
+    @IBOutlet weak var errorIcon_2: NSImageView!
     
     @IBOutlet weak var lblPlaylistFile: NSTextField!
     @IBOutlet weak var lblPlaylistFileCell: ValidatedLabelCell!
+    
+    @IBOutlet weak var lblFolder: NSTextField!
+    @IBOutlet weak var lblFolderCell: ValidatedLabelCell!
     
     override var nibName: String? {return "PlaylistPreferences"}
     
@@ -22,36 +30,61 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         switch preferences.playlistPreferences.playlistOnStartup {
             
-        case .empty:    btnEmptyPlaylist.state = convertToNSControlStateValue(1)
+        case .empty:
+            btnEmptyPlaylist.state = UIConstants.buttonState_1
             
-        case .rememberFromLastAppLaunch:    btnRememberPlaylist.state = convertToNSControlStateValue(1)
+        case .rememberFromLastAppLaunch:
+            btnRememberPlaylist.state = UIConstants.buttonState_1
             
-        case .loadFile: btnLoadPlaylist.state = convertToNSControlStateValue(1)
+        case .loadFile:
+            btnLoadPlaylistFromFile.state = UIConstants.buttonState_1
+            
+        case .loadFolder:
+            btnLoadTracksFromFolder.state = UIConstants.buttonState_1
             
         }
         
-        [btnBrowse, lblPlaylistFile].forEach({
-            $0!.isEnabled = Bool(btnLoadPlaylist.state.rawValue)
+        [btnBrowseFile, lblPlaylistFile].forEach({
+            $0!.isEnabled = Bool(btnLoadPlaylistFromFile.state.rawValue)
         })
         
-        hideError()
+        [btnBrowseFolder, lblFolder].forEach({
+            $0!.isEnabled = Bool(btnLoadTracksFromFolder.state.rawValue)
+        })
+        
+        hideError_playlistFile()
+        hideError_tracksFolder()
+        
         lblPlaylistFile.stringValue = preferences.playlistPreferences.playlistFile?.path ?? ""
+        lblFolder.stringValue = preferences.playlistPreferences.tracksFolder?.path ?? ""
     }
     
     @IBAction func startupPlaylistPrefAction(_ sender: Any) {
         
         // Needed for radio button group
         
-        [btnBrowse, lblPlaylistFile].forEach({
-            $0!.isEnabled = Bool(btnLoadPlaylist.state.rawValue)
+        [btnBrowseFile, lblPlaylistFile].forEach({
+            $0!.isEnabled = Bool(btnLoadPlaylistFromFile.state.rawValue)
         })
         
-        if (btnLoadPlaylist.state.rawValue == 0 && !errorIcon.isHidden) {
-            hideError()
+        [btnBrowseFolder, lblFolder].forEach({
+            $0!.isEnabled = Bool(btnLoadTracksFromFolder.state.rawValue)
+        })
+        
+        if (btnLoadPlaylistFromFile.state.rawValue == 0 && !errorIcon_1.isHidden) {
+            hideError_playlistFile()
         }
     
-        if btnLoadPlaylist.state.rawValue == 1 && StringUtils.isStringEmpty(lblPlaylistFile.stringValue) {
+        if btnLoadPlaylistFromFile.state.rawValue == 1 && StringUtils.isStringEmpty(lblPlaylistFile.stringValue) {
             choosePlaylistFileAction(sender)
+        }
+        
+        if (btnLoadTracksFromFolder.state.rawValue == 0 && !errorIcon_2.isHidden) {
+            hideError_tracksFolder()
+        }
+        
+        if btnLoadTracksFromFolder.state.rawValue == 1 && StringUtils.isStringEmpty(lblFolder.stringValue) {
+            chooseTracksFolderAction(sender)
         }
     }
     
@@ -65,20 +98,38 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
             
             preferences.playlistPreferences.playlistOnStartup = .rememberFromLastAppLaunch
             
-        } else {
+        } else if btnLoadPlaylistFromFile.state.rawValue == 1 {
             
             preferences.playlistPreferences.playlistOnStartup = .loadFile
             
             // Make sure 1 - label is not empty, and 2 - no previous error message is shown
-            if !StringUtils.isStringEmpty(lblPlaylistFile.stringValue) && errorIcon.isHidden {
+            if !StringUtils.isStringEmpty(lblPlaylistFile.stringValue) && errorIcon_1.isHidden {
                 
                 preferences.playlistPreferences.playlistFile = URL(fileURLWithPath: lblPlaylistFile.stringValue)
                 
             } else {
                 
                 // Error
-                showError()
+                showError_playlistFile()
                 throw PlaylistFileNotSpecifiedError("No playlist file specified for loading upon app startup")
+            }
+            
+        } else {
+            
+            // Load tracks from folder
+            
+            preferences.playlistPreferences.playlistOnStartup = .loadFolder
+            
+            // Make sure 1 - label is not empty, and 2 - no previous error message is shown
+            if !StringUtils.isStringEmpty(lblFolder.stringValue) && errorIcon_2.isHidden {
+                
+                preferences.playlistPreferences.tracksFolder = URL(fileURLWithPath: lblFolder.stringValue)
+                
+            } else {
+                
+                // Error
+                showError_tracksFolder()
+                throw PlaylistFileNotSpecifiedError("No tracks folder specified for loading tracks upon app startup")
             }
         }
     }
@@ -93,27 +144,51 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
             
             let playlistFile = dialog.urls[0]
             
-            hideError()
+            hideError_playlistFile()
             lblPlaylistFile.stringValue = playlistFile.path
         }
     }
     
-    private func showError() {
+    @IBAction func chooseTracksFolderAction(_ sender: Any) {
+        
+        let dialog = DialogsAndAlerts.openFolderDialog
+        
+        let modalResponse = dialog.runModal()
+        
+        if (modalResponse == NSApplication.ModalResponse.OK) {
+            
+            let folder = dialog.urls[0]
+            
+            hideError_tracksFolder()
+            lblFolder.stringValue = folder.path
+        }
+    }
+    
+    private func showError_playlistFile() {
         
         lblPlaylistFileCell.markError("  Please choose a playlist file!")
         lblPlaylistFile.setNeedsDisplay()
-        errorIcon.isHidden = false
+        errorIcon_1.isHidden = false
     }
     
-    private func hideError() {
+    private func showError_tracksFolder() {
+        
+        lblFolderCell.markError("  Please choose a folder!")
+        lblFolder.setNeedsDisplay()
+        errorIcon_2.isHidden = false
+    }
+    
+    private func hideError_playlistFile() {
         
         lblPlaylistFileCell.clearError()
         lblPlaylistFile.setNeedsDisplay()
-        errorIcon.isHidden = true
+        errorIcon_1.isHidden = true
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToNSControlStateValue(_ input: Int) -> NSControl.StateValue {
-	return NSControl.StateValue(rawValue: input)
+    
+    private func hideError_tracksFolder() {
+        
+        lblFolderCell.clearError()
+        lblFolder.setNeedsDisplay()
+        errorIcon_2.isHidden = true
+    }
 }
