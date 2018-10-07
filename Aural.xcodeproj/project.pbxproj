@@ -611,7 +611,6 @@
 				3E0ED6A81FBB1378008268B3 /* NowPlaying.xib */,
 				3EEACA051F5E8615003A2140 /* NowPlayingViewController.swift */,
 				3E309B721FB70B7800C61E72 /* FavoritesPopup */,
-				3EF4F8691F2079B200C45840 /* DetailedTrackInfo */,
 			);
 			name = NowPlaying;
 			sourceTree = "<group>";
@@ -975,6 +974,7 @@
 				3E51F6651FC98C40003A2210 /* StatusBar */,
 				3E3F82831FCD4C9100DC9D11 /* BarMode */,
 				3E06C0251FB6AF2B003EE9AB /* CustomControls */,
+				3EF4F8691F2079B200C45840 /* DetailedTrackInfo */,
 				3E02739A1FD91B28000F0844 /* StringInputPopover */,
 				3E2F1047215562B50099FD06 /* Editors */,
 				3E850D511FB441800017CD02 /* WindowFactory.swift */,

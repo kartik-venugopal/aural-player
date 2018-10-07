@@ -177,6 +177,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     // Shows the currently playing track, within the playlist view
     private func showPlayingTrack() {
         selectTrack(playbackInfo.getPlayingTrack()?.index)
+        
+        if !layoutManager.isShowingPlaylist() {
+            SyncMessenger.publishActionMessage(ViewActionMessage(.togglePlaylist))
+        }
     }
     
     private func showSelectedTrackInfo() {
