@@ -18,14 +18,18 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    
+    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
+    
+    private let soundPreferences: SoundPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().soundPreferences
  
     override var nibName: String? {return "Master"}
     
     override func viewDidLoad() {
         
         initControls()
-        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.enableEffects, .disableEffects], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification, .trackChangedNotification, .appExitRequest], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.enableEffects, .disableEffects, .saveSoundProfile, .deleteSoundProfile], subscriber: self)
     }
     
     private func initControls() {
@@ -158,6 +162,75 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
         updateButtons()
     }
     
+    private func effectsUnitStateChanged() {
+        
+        btnMasterBypass.onIf(!graph.isMasterBypass())
+        [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass].forEach({$0?.updateState()})
+    }
+    
+    private func saveSoundProfile() {
+        
+        if let plTrack = player.getPlayingTrack()?.track {
+            SoundProfiles.saveProfile(plTrack, graph.getVolume(), graph.getBalance(), graph.getSettingsAsMasterPreset())
+        }
+    }
+    
+    private func deleteSoundProfile() {
+        
+        if let plTrack = player.getPlayingTrack()?.track {
+            SoundProfiles.deleteProfile(plTrack)
+        }
+    }
+    
+    private func trackChanged(_ message: TrackChangedNotification) {
+        
+        // Apply sound profile if there is one for the new track and if the preferences allow it
+        if soundPreferences.rememberSettingsPerTrack {
+            
+            // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
+            if let oldTrack = message.oldTrack {
+                
+                // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
+                if soundPreferences.rememberSettingsPerTrackOption == .allTracks || SoundProfiles.profileForTrack(oldTrack.track) != nil {
+                    
+                    SoundProfiles.saveProfile(oldTrack.track, graph.getVolume(), graph.getBalance(), graph.getSettingsAsMasterPreset())
+                    
+                }
+            }
+            
+            if let newTrack = message.newTrack {
+                
+                if let profile = SoundProfiles.profileForTrack(newTrack.track) {
+                    
+                    graph.applyMasterPreset(profile.effects)
+                    
+                    updateButtons()
+                    _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
+                }
+            }
+        }
+    }
+    
+    // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.
+    private func onExit() -> AppExitResponse {
+        
+        // Apply sound profile if there is one for the new track and if the preferences allow it
+        if soundPreferences.rememberSettingsPerTrack {
+            
+            // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
+            if let plTrack = player.getPlayingTrack()?.track {
+                
+                // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the app is exiting
+                if soundPreferences.rememberSettingsPerTrackOption == .allTracks || SoundProfiles.profileForTrack(plTrack) != nil {
+                    SoundProfiles.saveProfile(plTrack, graph.getVolume(), graph.getBalance(), graph.getSettingsAsMasterPreset())
+                }
+            }
+        }
+        
+        // No ongoing recording, proceed with exit
+        return AppExitResponse.okToExit
+    }
+    
     // MARK: Message handling
     
     func getID() -> String {
@@ -166,17 +239,45 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     func consumeNotification(_ notification: NotificationMessage) {
         
-        if notification is EffectsUnitStateChangedNotification {
+        switch notification.messageType {
             
-            btnMasterBypass.onIf(!graph.isMasterBypass())
-            [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass].forEach({$0?.updateState()})
+        case .effectsUnitStateChangedNotification:
+            
+            effectsUnitStateChanged()
+            
+        case .trackChangedNotification:
+            
+            trackChanged(notification as! TrackChangedNotification)
+            
+        default: return
+            
         }
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        if (request is AppExitRequest) {
+            return onExit()
+        }
+        
+        return EmptyResponse.instance
     }
     
     func consumeMessage(_ message: ActionMessage) {
         
-        if message is AudioGraphActionMessage {
+        switch message.actionType {
+            
+        case .enableEffects, .disableEffects:
             masterBypassAction(self)
+            
+        case .saveSoundProfile:
+            saveSoundProfile()
+            
+        case .deleteSoundProfile:
+            deleteSoundProfile()
+            
+        default: return
+            
         }
     }
     

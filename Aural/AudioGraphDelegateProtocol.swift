@@ -13,6 +13,10 @@ protocol AudioGraphDelegateProtocol: EQUnitDelegateProtocol, PitchShiftUnitDeleg
     
     func applyMasterPreset(_ presetName: String)
     
+    func applyMasterPreset(_ preset: MasterPreset)
+    
+    func getSettingsAsMasterPreset() -> MasterPreset
+    
     // NOTE - All functions that return String values return user-friendly text representations of the value being get/set, for display in the UI. For instance, setDelayLowPassCutoff(64) might return a value like "64 Hz"
     
     // Retrieves the current player volume

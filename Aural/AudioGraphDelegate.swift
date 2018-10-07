@@ -41,6 +41,14 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         graph.applyMasterPreset(preset)
     }
     
+    func applyMasterPreset(_ preset: MasterPreset) {
+        graph.applyMasterPreset(preset)
+    }
+    
+    func getSettingsAsMasterPreset() -> MasterPreset {
+        return graph.getSettingsAsMasterPreset()
+    }
+    
     func getVolume() -> Float {
         
         // Convert from {0,1} to percentage

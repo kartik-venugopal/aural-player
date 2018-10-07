@@ -108,6 +108,11 @@ class ObjectGraph {
         WindowLayouts.loadUserDefinedLayouts((appState?.uiState.userWindowLayouts)!)
         
         layoutManager = LayoutManager(appState!.uiState, preferences!.viewPreferences)
+        
+        // TODO: Who should own this initialization ???
+        appState?.soundProfilesState.profiles.forEach({
+            SoundProfiles.saveProfile($0.file, $0.volume, $0.balance, $0.effects)
+        })
     }
     
     // MARK: Accessor methods to retrieve objects
@@ -184,6 +189,7 @@ class ObjectGraph {
         appState?.historyState = historyDelegate!.persistentState() as! HistoryState
         appState?.favoritesState = favoritesDelegate!.persistentState() as! FavoritesState
         appState?.bookmarksState = bookmarksDelegate!.persistentState() as! BookmarksState
+        appState?.soundProfilesState = SoundProfiles.getPersistentState()
         
         // Persist app state to disk
         AppStateIO.save(appState!)

@@ -37,6 +37,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // Delegate that conveys all volume/pan adjustments to the audio graph
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
+    private let soundPreferences: SoundPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().soundPreferences
+    
     override var nibName: String? {return "Player"}
     
     override func viewDidLoad() {
@@ -455,6 +457,17 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             btnLoop.switchState(LoopState.complete)
         } else {
             btnLoop.switchState(LoopState.none)
+        }
+        
+        // Apply sound profile if there is one for the new track and the preferences allow it
+        if newTrack != nil && soundPreferences.rememberSettingsPerTrack {
+            
+            if let profile = SoundProfiles.profileForTrack(newTrack!.track) {
+                
+                audioGraph.setVolume(profile.volume)
+                audioGraph.setBalance(profile.balance)
+                initVolumeAndPan()
+            }
         }
     }
     

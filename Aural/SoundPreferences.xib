@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SoundPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnRememberSettings" destination="jBe-ZM-Kwc" id="Sv0-Jv-3Bx"/>
+                <outlet property="btnRememberSettings_allTracks" destination="SYJ-mY-wbQ" id="DxP-KH-sb6"/>
+                <outlet property="btnRememberSettings_individualTracks" destination="XVf-sh-3eM" id="dsD-nE-so2"/>
                 <outlet property="btnRememberVolume" destination="OPY-0e-flD" id="oeS-cC-KLi"/>
                 <outlet property="btnSpecifyVolume" destination="pac-bb-dRC" id="KPk-Qz-vuv"/>
                 <outlet property="lblPanDelta" destination="bbm-7J-t6p" id="gDl-DV-jDL"/>
@@ -24,16 +28,16 @@
             <rect key="frame" x="0.0" y="0.0" width="400" height="275"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vZb-Xp-tul" userLabel="Volume Increment Label">
-                    <rect key="frame" x="17" y="226" width="125" height="20"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vZb-Xp-tul" userLabel="Volume Increment Label">
+                    <rect key="frame" x="17" y="226" width="198" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Volume increment" id="a1w-xv-KVn">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Volume increment / decrement" id="a1w-xv-KVn">
                         <font key="font" size="13" name="GillSans"/>
                         <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8Y-mu-4NB" userLabel="Volume Increment Field">
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c8Y-mu-4NB" userLabel="Volume Increment Field">
                     <rect key="frame" x="320" y="224" width="40" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="5%" id="Bos-7D-fxE">
@@ -54,8 +58,8 @@
                         <action selector="volumeDeltaAction:" target="-2" id="sdh-Cd-NGV"/>
                     </connections>
                 </stepper>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="73W-yJ-QHa" userLabel="Volume on startup Label">
-                    <rect key="frame" x="17" y="189" width="125" height="20"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="73W-yJ-QHa" userLabel="Volume on startup Label">
+                    <rect key="frame" x="17" y="199" width="125" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Volume on startup" id="9eu-6m-iQS">
                         <font key="font" size="13" name="GillSans"/>
@@ -64,7 +68,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OPY-0e-flD">
-                    <rect key="frame" x="29" y="167" width="217" height="20"/>
+                    <rect key="frame" x="29" y="177" width="217" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Remember volume from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="Vhm-Zs-0G3" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -75,7 +79,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pac-bb-dRC">
-                    <rect key="frame" x="29" y="148" width="90" height="20"/>
+                    <rect key="frame" x="29" y="158" width="90" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Specify value" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="GTR-CG-it9" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -86,15 +90,15 @@
                     </connections>
                 </button>
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HYw-Od-8K6" userLabel="Startup Volume Slider">
-                    <rect key="frame" x="121" y="149" width="177" height="15"/>
+                    <rect key="frame" x="121" y="159" width="177" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" sliderType="linear" id="kOJ-HF-zZy" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                     <connections>
                         <action selector="startupVolumeSliderAction:" target="-2" id="s39-Hn-4tD"/>
                     </connections>
                 </slider>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zd7-Jo-NAm" userLabel="Startup Volume Field">
-                    <rect key="frame" x="335" y="146" width="40" height="20"/>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zd7-Jo-NAm" userLabel="Startup Volume Field">
+                    <rect key="frame" x="320" y="156" width="40" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" enabled="NO" state="on" alignment="right" title="50%" id="2bU-2S-WcG">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="pCw-0G-sGB">
@@ -106,17 +110,17 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ePJ-hk-8Nq" userLabel="Pan Delta label">
-                    <rect key="frame" x="17" y="111" width="148" height="20"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ePJ-hk-8Nq" userLabel="Pan Delta label">
+                    <rect key="frame" x="17" y="124" width="187" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Balance increment" id="RwB-be-llM">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Balance increment / decrement" id="RwB-be-llM">
                         <font key="font" size="13" name="GillSans"/>
                         <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbm-7J-t6p" userLabel="Pan Delta Field">
-                    <rect key="frame" x="320" y="109" width="40" height="20"/>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bbm-7J-t6p" userLabel="Pan Delta Field">
+                    <rect key="frame" x="320" y="122" width="40" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="10%" id="GcH-LX-E4h">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="dbE-da-bit">
@@ -129,14 +133,57 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ff-Ne-aOf" userLabel="Pan Delta Stepper">
-                    <rect key="frame" x="360" y="108" width="15" height="22"/>
+                    <rect key="frame" x="360" y="121" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="10" id="XvN-Mz-6h3"/>
                     <connections>
                         <action selector="panDeltaAction:" target="-2" id="ons-lY-NPP"/>
                     </connections>
                 </stepper>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jBe-ZM-Kwc">
+                    <rect key="frame" x="29" y="71" width="324" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Remember and apply all sound settings last used for the track" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="e0v-Gn-fQK" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="GillSans"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="rememberSettingsPerTrackAction:" target="-2" id="T0Z-bA-S8r"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SYJ-mY-wbQ">
+                    <rect key="frame" x="56" y="29" width="213" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="For all tracks" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="dK2-pD-7s0" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="GillSans"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="rememberSettingsPerTrackRadioButtonAction:" target="-2" id="2So-2f-c2U"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XVf-sh-3eM" userLabel="For individual tracks">
+                    <rect key="frame" x="56" y="49" width="315" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="For individual tracks that I apply this option to (Sound menu)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="bEt-OS-mc6" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="GillSans"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="rememberSettingsPerTrackRadioButtonAction:" target="-2" id="6dB-NG-Xji"/>
+                    </connections>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vWy-Oi-wOV">
+                    <rect key="frame" x="18" y="94" width="186" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When a track begins playing" id="tlK-JN-FTN">
+                        <font key="font" size="13" name="GillSans"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
+            <point key="canvasLocation" x="139" y="153.5"/>
         </view>
     </objects>
 </document>

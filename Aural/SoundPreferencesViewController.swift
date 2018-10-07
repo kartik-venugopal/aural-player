@@ -14,6 +14,10 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     @IBOutlet weak var lblPanDelta: NSTextField!
     @IBOutlet weak var panDeltaStepper: NSStepper!
     
+    @IBOutlet weak var btnRememberSettings: NSButton!
+    @IBOutlet weak var btnRememberSettings_allTracks: NSButton!
+    @IBOutlet weak var btnRememberSettings_individualTracks: NSButton!
+    
     override var nibName: String? {return "SoundPreferences"}
     
     func getView() -> NSView {
@@ -41,6 +45,15 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         let panDelta = Int(round(soundPrefs.panDelta * AppConstants.panConversion_audioGraphToUI))
         panDeltaStepper.integerValue = panDelta
         lblPanDelta.stringValue = String(format: "%d%%", panDelta)
+        
+        btnRememberSettings.state = soundPrefs.rememberSettingsPerTrack ? UIConstants.buttonState_1 : UIConstants.buttonState_0
+        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.isEnabled = soundPrefs.rememberSettingsPerTrack})
+        
+        if soundPrefs.rememberSettingsPerTrackOption == .individualTracks {
+            btnRememberSettings_individualTracks.state = UIConstants.buttonState_1
+        } else {
+            btnRememberSettings_allTracks.state = UIConstants.buttonState_1
+        }
     }
     
     @IBAction func volumeDeltaAction(_ sender: Any) {
@@ -59,6 +72,14 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
     }
     
+    @IBAction func rememberSettingsPerTrackAction(_ sender: Any) {
+        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.isEnabled = btnRememberSettings.state == UIConstants.buttonState_1})
+    }
+    
+    @IBAction func rememberSettingsPerTrackRadioButtonAction(_ sender: Any) {
+        // Needed for radio button group
+    }
+    
     func save(_ preferences: Preferences) throws {
         
         let soundPrefs = preferences.soundPreferences
@@ -69,5 +90,8 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         soundPrefs.startupVolumeValue = Float(startupVolumeSlider.integerValue) * AppConstants.volumeConversion_UIToAudioGraph
         
         soundPrefs.panDelta = panDeltaStepper.floatValue * AppConstants.panConversion_UIToAudioGraph
+        
+        soundPrefs.rememberSettingsPerTrack = Bool(btnRememberSettings.state.rawValue)
+        soundPrefs.rememberSettingsPerTrackOption = btnRememberSettings_individualTracks.state == UIConstants.buttonState_1 ? .individualTracks : .allTracks
     }
 }
