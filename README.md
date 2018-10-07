@@ -43,6 +43,14 @@ Download the disk image file [Aural.dmg](https://github.com/maculateConception/a
 - A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
 - New color schemes
 
+### Known issues/bugs
+
+The following bugs are known and fixes are planned. If you find any additional bugs, please feel free to report them in  the "Issues" section right here on GitHub.
+
+- Sometimes, when shuffling a playlist, the app crashes. Not sure when this bug was introduced, but it never showed up on macOSSierra, but shows up on macOS High Sierra.
+- On very rare conditions, the app crashes on startup due to an array indexing being performed out of range. This is due to a very subtle sneaky race condition in the playlist loading code.
+- When modal dialogs such as file browsing dialogs are open, hitting the Cmd/Shift key along with arrows invokes corresponding menu items, instead of acting on the dialog.
+
 ### Recent updates
 
 - **10/05/2018: New release:**
