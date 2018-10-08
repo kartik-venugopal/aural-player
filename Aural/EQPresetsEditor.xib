@@ -6,53 +6,53 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="MasterPresetsEditorViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="EQPresetsEditorViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="editorView" destination="Oib-QJ-T7y" id="qnX-4w-J4q"/>
-                <outlet property="view" destination="8lH-Uc-Wf5" id="wtr-SV-Pzy"/>
+                <outlet property="editorView" destination="rHa-z3-7sV" id="4nC-Ep-cBl"/>
+                <outlet property="view" destination="haI-ib-O6X" id="uAw-xp-cHj"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="8lH-Uc-Wf5">
+        <customView id="haI-ib-O6X">
             <rect key="frame" x="0.0" y="0.0" width="665" height="260"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fx9-kU-RoG" userLabel="Master Presets Table">
+                <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RzX-e3-Ohi" userLabel="EQ Presets Table">
                     <rect key="frame" x="0.0" y="0.0" width="665" height="260"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <clipView key="contentView" ambiguous="YES" copiesOnScroll="NO" id="vdp-if-TVN">
+                    <clipView key="contentView" ambiguous="YES" copiesOnScroll="NO" id="ZGt-qp-9tV">
                         <rect key="frame" x="0.0" y="0.0" width="665" height="260"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" id="Oib-QJ-T7y" userLabel="Master Presets Table View">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" id="rHa-z3-7sV" userLabel="EQ Presets Table View">
                                 <rect key="frame" x="0.0" y="0.0" width="665" height="255"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="gridColor" white="0.42990451390000001" alpha="1" colorSpace="calibratedWhite"/>
                                 <tableColumns>
-                                    <tableColumn identifier="cid_MasterPresetName" width="660" minWidth="330" maxWidth="660" id="c0w-QM-cKc">
+                                    <tableColumn identifier="cid_EQPresetName" width="660" minWidth="330" maxWidth="660" id="ZxG-sh-FKu">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
-                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="tC1-Go-Jlh">
+                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="TK6-PU-hSH">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="Kid-QK-DYP" customClass="EditorTableCellView" customModule="Aural" customModuleProvider="target">
+                                            <tableCellView id="4Li-JB-xPK" customClass="EditorTableCellView" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="1" y="1" width="660" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sRf-i4-F9a" customClass="EditorTextField" customModule="Aural" customModuleProvider="target">
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="shK-df-84j" customClass="EditorTextField" customModule="Aural" customModuleProvider="target">
                                                         <rect key="frame" x="5" y="0.0" width="655" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingMiddle" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="vaj-O8-1JB">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingMiddle" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="x6P-uQ-pv8">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -60,26 +60,26 @@
                                                     </textField>
                                                 </subviews>
                                                 <connections>
-                                                    <outlet property="textField" destination="sRf-i4-F9a" id="xWn-OO-kUn"/>
+                                                    <outlet property="textField" destination="shK-df-84j" id="UQC-3X-hAY"/>
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <outlet property="dataSource" destination="-2" id="Azr-X2-1kt"/>
-                                    <outlet property="delegate" destination="-2" id="cIq-UR-JnU"/>
+                                    <outlet property="dataSource" destination="-2" id="mx6-Gw-2XW"/>
+                                    <outlet property="delegate" destination="-2" id="wjs-xI-WZq"/>
                                 </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </clipView>
                     <edgeInsets key="contentInsets" left="0.0" right="0.0" top="5" bottom="0.0"/>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="HI9-Fn-bGk">
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="b7E-NW-sAL">
                         <rect key="frame" x="0.0" y="289" width="335" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="kEv-1W-wto">
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="YIo-mn-aXj">
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

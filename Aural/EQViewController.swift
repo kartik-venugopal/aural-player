@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the EQ (Equalizer) effects unit
  */
-class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
+class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, ActionMessageSubscriber, StringInputClient {
     
     @IBOutlet weak var btnEQBypass: EffectsUnitTriStateBypassButton!
     
@@ -42,6 +42,26 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
         SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble, .updateEffectsView], subscriber: self)
     }
     
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        let itemCount = eqPresets.itemArray.count
+        
+        let customPresetCount = itemCount - 18  // 3 separators, 15 system-defined presets
+        
+        if customPresetCount > 0 {
+            
+            for index in (0..<customPresetCount).reversed() {
+                eqPresets.removeItem(at: index)
+            }
+        }
+        
+        // Re-initialize the menu with user-defined presets
+        EQPresets.userDefinedPresets.forEach({eqPresets.insertItem(withTitle: $0.name, at: 0)})
+        
+        // Don't select any items from the EQ presets menu
+        eqPresets.selectItem(at: -1)
+    }
+    
     private func oneTimeSetup() {
         
         btnEQBypass.stateFunction = {
@@ -51,9 +71,6 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
         }
         
         eqSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
-
-        // Initialize the menu with user-defined presets
-        EQPresets.userDefinedPresets.forEach({eqPresets.insertItem(withTitle: $0.name, at: 0)})
     }
     
     private func initControls() {
@@ -195,7 +212,11 @@ class EQViewController: NSViewController, MessageSubscriber, ActionMessageSubscr
             }
             
         } else if message.actionType == .updateEffectsView {
-            initControls()
+            
+            let msg = message as! EffectsViewActionMessage
+            if msg.effectsUnit == .master || msg.effectsUnit == .eq {
+                initControls()
+            }
         }
     }
     

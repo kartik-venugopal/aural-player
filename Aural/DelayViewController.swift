@@ -162,7 +162,11 @@ class DelayViewController: NSViewController, MessageSubscriber, ActionMessageSub
     func consumeMessage(_ message: ActionMessage) {
         
         if message.actionType == .updateEffectsView {
-            initControls()
+            
+            let msg = message as! EffectsViewActionMessage
+            if msg.effectsUnit == .master || msg.effectsUnit == .delay {
+                initControls()
+            }
         }
     }
 }
