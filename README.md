@@ -20,28 +20,62 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 ## Features
 
-- Playback of MP3, AAC, AIFF/AIFC, WAV, and CAF audio files
-- Supports M3U/M3U8 playlists
-- Sound effects: Graphic equalizer, Pitch shift, Time stretch, Reverb, Delay, Filter
-- Save your effects settings as presets, so you can use them later without having to remember them **(New!)**
-- Bookmarking, so you can mark a specific position within a track, save it with an informative description, and come back to it later with one click, which is great for long tracks like audiobooks **(New!)**
-- Track segment looping, to allow you to define and loop your favorite parts of a track. Thanks to bookmarking, you can also save your loops and play them back at any time with one click **(New!)**
-- Display of ID3 and iTunes metadata, including artwork (when available)
-- Recording of clips in AAC/ALAC/AIFF formats, so you can capture your applied sound effects and create a customized version of your track.
-- Configurable autoplay (on app startup and/or when tracks are added)
-- Grouping of tracks by artist/album/genre for convenient playlist browsing
-- Searching and sorting of playlist
-- Playlist type selection: Just start typing the name of a track to try to find it within the playlist
-- Favorites list and recent items lists for added convenience
-- Multiple compact and flexible view options - several built-in window layout presets, window snapping with configurable spacing, collapsible views. Plus, you can save your customized window layouts as presets so you can use them again at any time. **(New!)**
-- Gesture recognition for essential player/playlist controls (trackpad/MagicMouse). e.g. two finger vertical scroll for volume control, horizontal scroll for seeking, three finger horizontal swipe to change tracks
-- Extensive set of keyboard shortcuts and menu items for quick and convenient access to functionality
-- Numerous preferences to allow user to highly customize functionality (e.g. seek/volume/pan increment, enabling/disabling and mouse sensitivity for gestures, configurable window layout and snapping behavior, remembered/default playlist on startup, etc.)
+* **Supported file types:**
+   * Audio files: MP3, AAC, AIFF/AIFC, WAV, and CAF
+   * Playlist files: M3U/M3U8
+
+* **Playback:**
+  * Option to remember last playback position, either on a per-track basis or for all tracks, so you can resume listening to a track without needing to remember where you left off **(New!)**
+  * Bookmarking, so you can mark a specific position within a track, save it with an informative description, and come back to it later with one click, which is great for long tracks like audiobooks **(New!)**
+   * Track segment looping, to allow you to define and loop your favorite parts of a track. 
+   * Thanks to bookmarking, you can also save your loops and play them back at any time with one click **(New!)**
+   * Configurable autoplay (on app startup and/or when tracks are added)
+
+* **Effects:**
+   * Graphic equalizer, Pitch shift, Time stretch, Reverb, Delay, Filter, and a Master unit to switch on/off all effects from one place
+   * Option to remember sound settings, either on a per-track basis or for all tracks, so you can tailor the soundscape for each of your tracks without having to manually re-apply any settings. Adjust the settings once and Aural will remember them the next time. **(New!)**
+   * Save your effects settings as presets, either per individual effects unit or all effects as a whole, so you can use them later without having to remember them **(New!)**
+   * Recording of clips in AAC/ALAC/AIFF formats, so you can capture your applied sound effects and create a customized version of your track.
+
+* **Information:**
+   * Display of ID3 and iTunes metadata, including artwork (when available)
+   * Display of file system information and audio information
+
+* **Playlist:**
+   * Grouping of tracks by artist/album/genre for convenient playlist browsing
+   * Searching and sorting of playlist
+   * Playlist type selection: Just start typing the name of a track to try to find it within the playlist
+   
+* **History:**
+   * Favorites list and recent items lists for added convenience. Find tracks you recently added/played or favorited, and play them with one click
+
+* **View:**
+   * Multiple compact and flexible view options - several built-in window layout presets, window snapping with configurable spacing, collapsible views. 
+   * Save your customized window layouts as presets so you can use them again at any time. **(New!)**
+
+* **Usability:**
+   * Gesture recognition for essential player/playlist controls (trackpad/MagicMouse). Examples:
+      * Two finger vertical scroll for volume control
+   	  * Two finger horizontal scroll for seeking 
+   	  * Three finger horizontal swipe to change tracks
+   	  * Three finger vertical swipe to scroll to top/bottom of playlist
+
+   * Extensive set of keyboard shortcuts and menu items for quick and convenient access to functionality. Examples:
+      * Simply press the < / > keys to quickly adjust playback rate (i.e. Time stretch effects unit)
+   	  * Simply press + / - keys to quickly adjust pitch (i.e. Pitch shift effects unit)
+   	  * Press Shift/Alt+1 to increase/decrease Equalizer bass
+
+* **Customization:**
+   * Numerous preferences to allow user to highly customize functionality. Examples:
+   
+      * Configure the seek length to your liking … short intervals for smaller tracks and longer intervals to quickly skip through large audiobooks
+   	  * Configure the increment/decrement for volume/pan adjustments
+   	  * Configure how you want the app to look/behave on startup: Autoplay, volume on startup, window layout on startup, remembered or default playlist on startup, etc.
+   	  * Configure window snapping behavior, mouse sensitivity for gestures, and more …
 
 ### Planned updates
 
 - A new editor window to manage effects presets
-- The option to remember sound settings for a particular song and apply them automatically whenever that song is played
 - A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
 - New color schemes
 
