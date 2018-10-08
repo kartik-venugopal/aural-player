@@ -2,11 +2,23 @@ import Cocoa
 
 class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
-    @IBOutlet weak var lblSeekLength: NSTextField!
-    @IBOutlet weak var seekLengthSlider: NSSlider!
+    // TODO: Enable/disable +/- buttons, slider, and/or stepper, depending on which option is selected (Const
+    
+    @IBOutlet weak var btnPrimarySeekLengthConstant: NSButton!
+    @IBOutlet weak var btnPrimarySeekLengthPerc: NSButton!
+    
+    @IBOutlet weak var lblPrimarySeekLength: NSTextField!
+    @IBOutlet weak var primarySeekLengthSlider: NSSlider!
+    @IBOutlet weak var lblPrimarySeekLengthPerc: NSTextField!
+    @IBOutlet weak var primarySeekLengthPercStepper: NSStepper!
+    
+    @IBOutlet weak var btnSecondarySeekLengthConstant: NSButton!
+    @IBOutlet weak var btnSecondarySeekLengthPerc: NSButton!
     
     @IBOutlet weak var lblSecondarySeekLength: NSTextField!
     @IBOutlet weak var secondarySeekLengthSlider: NSSlider!
+    @IBOutlet weak var lblSecondarySeekLengthPerc: NSTextField!
+    @IBOutlet weak var secondarySeekLengthPercStepper: NSStepper!
     
     @IBOutlet weak var btnAutoplayOnStartup: NSButton!
     
@@ -30,13 +42,33 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let playbackPrefs = preferences.playbackPreferences
         
-        let seekLength = playbackPrefs.seekLength
-        seekLengthSlider.integerValue = seekLength
-        lblSeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(seekLength)
+        let primarySeekLength = playbackPrefs.primarySeekLengthConstant
+        primarySeekLengthSlider.integerValue = primarySeekLength
+        lblPrimarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(primarySeekLength)
         
-        let secondarySeekLength = playbackPrefs.seekLength_secondary
+        let primarySeekLengthPerc = playbackPrefs.primarySeekLengthPercentage
+        primarySeekLengthPercStepper.integerValue = primarySeekLengthPerc
+        lblPrimarySeekLengthPerc.stringValue = String(format: "%d%%", primarySeekLengthPerc)
+        
+        if playbackPrefs.primarySeekLengthOption == .constant {
+            btnPrimarySeekLengthConstant.state = UIConstants.buttonState_1
+        } else {
+            btnPrimarySeekLengthPerc.state = UIConstants.buttonState_1
+        }
+        
+        let secondarySeekLength = playbackPrefs.secondarySeekLengthConstant
         secondarySeekLengthSlider.integerValue = secondarySeekLength
         lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(secondarySeekLength)
+        
+        let secondarySeekLengthPerc = playbackPrefs.secondarySeekLengthPercentage
+        secondarySeekLengthPercStepper.integerValue = secondarySeekLengthPerc
+        lblSecondarySeekLengthPerc.stringValue = String(format: "%d%%", secondarySeekLengthPerc)
+        
+        if playbackPrefs.secondarySeekLengthOption == .constant {
+            btnSecondarySeekLengthConstant.state = UIConstants.buttonState_1
+        } else {
+            btnSecondarySeekLengthPerc.state = UIConstants.buttonState_1
+        }
         
         btnAutoplayOnStartup.state = NSControl.StateValue(rawValue: playbackPrefs.autoplayOnStartup ? 1 : 0)
         
@@ -60,19 +92,23 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         }
     }
     
-    @IBAction func seekLengthAction(_ sender: Any) {
-        lblSeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(seekLengthSlider.integerValue)
+    @IBAction func primarySeekLengthRadioButtonAction(_ sender: Any) {}
+    
+    @IBAction func secondarySeekLengthRadioButtonAction(_ sender: Any) {}
+    
+    @IBAction func primarySeekLengthAction(_ sender: Any) {
+        lblPrimarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(primarySeekLengthSlider.integerValue)
     }
     
     @IBAction func secondarySeekLengthAction(_ sender: Any) {
         lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(secondarySeekLengthSlider.integerValue)
     }
     
-    @IBAction func seekLengthIncrementAction(_ sender: Any) {
+    @IBAction func primarySeekLengthIncrementAction(_ sender: Any) {
         
-        if (Double(seekLengthSlider.integerValue) < seekLengthSlider.maxValue) {
-            seekLengthSlider.integerValue += 1
-            lblSeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(seekLengthSlider.integerValue)
+        if (Double(primarySeekLengthSlider.integerValue) < primarySeekLengthSlider.maxValue) {
+            primarySeekLengthSlider.integerValue += 1
+            lblPrimarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(primarySeekLengthSlider.integerValue)
         }
     }
     
@@ -84,11 +120,11 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         }
     }
     
-    @IBAction func seekLengthDecrementAction(_ sender: Any) {
+    @IBAction func primarySeekLengthDecrementAction(_ sender: Any) {
         
-        if (Double(seekLengthSlider.integerValue) > seekLengthSlider.minValue) {
-            seekLengthSlider.integerValue -= 1
-            lblSeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(seekLengthSlider.integerValue)
+        if (Double(primarySeekLengthSlider.integerValue) > primarySeekLengthSlider.minValue) {
+            primarySeekLengthSlider.integerValue -= 1
+            lblPrimarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(primarySeekLengthSlider.integerValue)
         }
     }
     
@@ -98,6 +134,14 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
             secondarySeekLengthSlider.integerValue -= 1
             lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(secondarySeekLengthSlider.integerValue)
         }
+    }
+    
+    @IBAction func primarySeekLengthPercAction(_ sender: Any) {
+        lblPrimarySeekLengthPerc.stringValue = String(format: "%d%%", primarySeekLengthPercStepper.integerValue)
+    }
+    
+    @IBAction func secondarySeekLengthPercAction(_ sender: Any) {
+        lblSecondarySeekLengthPerc.stringValue = String(format: "%d%%", secondarySeekLengthPercStepper.integerValue)
     }
     
     // When the check box for "autoplay after adding tracks" is checked/unchecked, update the enabled state of the 2 option radio buttons
@@ -121,8 +165,13 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let playbackPrefs = preferences.playbackPreferences
         
-        playbackPrefs.seekLength = seekLengthSlider.integerValue
-        playbackPrefs.seekLength_secondary = secondarySeekLengthSlider.integerValue
+        playbackPrefs.primarySeekLengthOption = btnPrimarySeekLengthConstant.state.rawValue == 1 ? .constant : .percentage
+        playbackPrefs.primarySeekLengthConstant = primarySeekLengthSlider.integerValue
+        playbackPrefs.primarySeekLengthPercentage = primarySeekLengthPercStepper.integerValue
+        
+        playbackPrefs.secondarySeekLengthOption = btnSecondarySeekLengthConstant.state.rawValue == 1 ? .constant : .percentage
+        playbackPrefs.secondarySeekLengthConstant = secondarySeekLengthSlider.integerValue
+        playbackPrefs.secondarySeekLengthPercentage = secondarySeekLengthPercStepper.integerValue
         
         playbackPrefs.autoplayOnStartup = Bool(btnAutoplayOnStartup.state.rawValue)
         

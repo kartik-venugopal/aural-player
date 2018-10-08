@@ -17,14 +17,14 @@
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" id="cPc-w0-G6G" userLabel="Preferences Dialog" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="120" y="65" width="600" height="425"/>
+            <rect key="contentRect" x="120" y="65" width="600" height="500"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" id="fR8-8f-93h">
-                <rect key="frame" x="0.0" y="0.0" width="600" height="425"/>
+                <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="snQ-oA-LvI">
-                        <rect key="frame" x="215" y="408" width="170" height="23"/>
+                        <rect key="frame" x="215" y="483" width="170" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Preferences" id="3Ne-kP-eN0">
                             <font key="font" size="13" name="GillSans-SemiBold"/>
@@ -33,16 +33,16 @@
                         </textFieldCell>
                     </textField>
                     <box hidden="YES" fixedFrame="YES" boxType="custom" borderWidth="2" cornerRadius="3" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="5E6-rc-rG3" userLabel="Container">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="442"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="517"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" ambiguous="YES" id="3Ar-FX-Gbp">
-                            <rect key="frame" x="2" y="2" width="596" height="438"/>
+                            <rect key="frame" x="2" y="2" width="596" height="513"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                         <color key="borderColor" white="0.57961697048611116" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9As-Pf-t9V" userLabel="Playlist tab button">
-                        <rect key="frame" x="97" y="378" width="58" height="22"/>
+                        <rect key="frame" x="97" y="453" width="58" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Playlist" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="qEi-qz-Vo2" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -50,7 +50,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="yYf-cg-2Vs" userLabel="Playback tab button">
-                        <rect key="frame" x="167" y="378" width="65" height="22"/>
+                        <rect key="frame" x="167" y="453" width="65" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Playback" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="Xrz-Gd-6J9" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -58,7 +58,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="l0q-I3-BN2" userLabel="Sound tab button">
-                        <rect key="frame" x="242" y="378" width="55" height="22"/>
+                        <rect key="frame" x="242" y="453" width="55" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Sound" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="X7j-MR-Tzg" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -66,7 +66,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="1P8-qO-PAI" userLabel="View tab button">
-                        <rect key="frame" x="303" y="378" width="50" height="22"/>
+                        <rect key="frame" x="303" y="453" width="50" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="View" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="3" imageScaling="proportionallyDown" inset="2" id="VLG-MA-szg" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -74,7 +74,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="6Mp-rG-06r" userLabel="History tab button">
-                        <rect key="frame" x="365" y="378" width="60" height="22"/>
+                        <rect key="frame" x="365" y="453" width="60" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="History" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="4" imageScaling="proportionallyDown" inset="2" id="doM-yi-aDb" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -82,7 +82,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="NIW-GO-LI8" userLabel="Controls tab button">
-                        <rect key="frame" x="436" y="378" width="60" height="22"/>
+                        <rect key="frame" x="436" y="453" width="60" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Controls" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="4" imageScaling="proportionallyDown" inset="2" id="3KF-l1-pco" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -118,22 +118,22 @@ Gw
                         </connections>
                     </button>
                     <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="E58-7v-r1V" userLabel="Prefs Box">
-                        <rect key="frame" x="12" y="42" width="576" height="328"/>
+                        <rect key="frame" x="12" y="37" width="576" height="408"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" ambiguous="YES" id="JmK-hG-e3d">
-                            <rect key="frame" x="1" y="1" width="574" height="326"/>
+                            <rect key="frame" x="1" y="1" width="574" height="406"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <tabView fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="MZg-sd-sfB" userLabel="Preferences TabView" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="12" y="42" width="576" height="328"/>
+                        <rect key="frame" x="12" y="37" width="576" height="408"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Playlist" identifier="0" id="k4S-mC-mT3" userLabel="Playlist Prefs" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" ambiguous="YES" id="Mhb-Lu-Gfp">
-                                    <rect key="frame" x="0.0" y="0.0" width="576" height="328"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="576" height="408"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <connections>
@@ -142,7 +142,7 @@ Gw
                             </tabViewItem>
                             <tabViewItem label="Playback" identifier="1" id="yO3-Pa-ViJ" userLabel="Playback Prefs" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="Wby-5h-gau">
-                                    <rect key="frame" x="0.0" y="0.0" width="568" height="328"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="576" height="408"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <connections>
@@ -151,7 +151,7 @@ Gw
                             </tabViewItem>
                             <tabViewItem label="Sound" identifier="2" id="Jsa-7o-57W" userLabel="Sound Prefs" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="M5T-uH-Pe9">
-                                    <rect key="frame" x="0.0" y="0.0" width="568" height="328"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="576" height="408"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <connections>
@@ -160,7 +160,7 @@ Gw
                             </tabViewItem>
                             <tabViewItem label="View" identifier="3" id="Y71-kL-xHE" userLabel="View Prefs" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="8Mf-Mz-VyS">
-                                    <rect key="frame" x="0.0" y="0.0" width="568" height="328"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="576" height="408"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <connections>
@@ -169,7 +169,7 @@ Gw
                             </tabViewItem>
                             <tabViewItem label="History" identifier="4" id="8MX-CS-NgA" userLabel="History Prefs" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="VU4-J3-GvZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="568" height="328"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="576" height="408"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <connections>
@@ -178,7 +178,7 @@ Gw
                             </tabViewItem>
                             <tabViewItem label="Controls" identifier="5" id="3TW-yq-t8Z" userLabel="Controls Prefs" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                 <view key="view" id="2UQ-Br-8L8">
-                                    <rect key="frame" x="0.0" y="0.0" width="568" height="328"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="576" height="408"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <connections>
@@ -197,7 +197,7 @@ Gw
             <connections>
                 <outlet property="delegate" destination="-2" id="XFG-Q7-hzn"/>
             </connections>
-            <point key="canvasLocation" x="-955" y="663.5"/>
+            <point key="canvasLocation" x="-955" y="663"/>
         </window>
     </objects>
 </document>

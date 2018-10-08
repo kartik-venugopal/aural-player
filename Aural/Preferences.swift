@@ -59,13 +59,13 @@ class Preferences: PersistentPreferencesProtocol {
 
 class PlaybackPreferences: PersistentPreferencesProtocol {
     
-    // Primary seek length
-    var seekLength: Int
+    var primarySeekLengthOption: SeekLengthOptions
+    var primarySeekLengthConstant: Int
+    var primarySeekLengthPercentage: Int
     
-    var seekLength_secondary: Int
-    
-    // TODO: Allow an option to adjust seek length automatically, proportionate to track duration ? (long for audiobooks, short otherwise)
-    // TODO: Allow multiple seek lengths: short medium long ? Like VLC ?
+    var secondarySeekLengthOption: SeekLengthOptions
+    var secondarySeekLengthConstant: Int
+    var secondarySeekLengthPercentage: Int
     
     private let scrollSensitiveSeekLengths: [ScrollSensitivity: Double] = [.low: 2.5, .medium: 5, .high: 10]
     var seekLength_continuous: Double {
@@ -89,10 +89,24 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     }
     
     internal required init(_ defaultsDictionary: [String: Any]) {
-    
-        seekLength = defaultsDictionary["playback.seekLength"] as? Int ?? PreferencesDefaults.Playback.seekLength
         
-        seekLength_secondary = defaultsDictionary["playback.seekLength.secondary"] as? Int ?? PreferencesDefaults.Playback.seekLength_secondary
+        if let primarySeekLengthOptionStr = defaultsDictionary["playback.seekLength.primary.option"] as? String {
+            primarySeekLengthOption = SeekLengthOptions(rawValue: primarySeekLengthOptionStr) ?? PreferencesDefaults.Playback.primarySeekLengthOption
+        } else {
+            primarySeekLengthOption = PreferencesDefaults.Playback.primarySeekLengthOption
+        }
+    
+        primarySeekLengthConstant = defaultsDictionary["playback.seekLength.primary.constant"] as? Int ?? PreferencesDefaults.Playback.primarySeekLengthConstant
+        primarySeekLengthPercentage = defaultsDictionary["playback.seekLength.primary.percentage"] as? Int ?? PreferencesDefaults.Playback.primarySeekLengthPercentage
+        
+        if let secondarySeekLengthOptionStr = defaultsDictionary["playback.seekLength.secondary.option"] as? String {
+            secondarySeekLengthOption = SeekLengthOptions(rawValue: secondarySeekLengthOptionStr) ?? PreferencesDefaults.Playback.secondarySeekLengthOption
+        } else {
+            secondarySeekLengthOption = PreferencesDefaults.Playback.secondarySeekLengthOption
+        }
+        
+        secondarySeekLengthConstant = defaultsDictionary["playback.seekLength.secondary.constant"] as? Int ?? PreferencesDefaults.Playback.secondarySeekLengthConstant
+        secondarySeekLengthPercentage = defaultsDictionary["playback.seekLength.secondary.percentage"] as? Int ?? PreferencesDefaults.Playback.secondarySeekLengthPercentage
         
         autoplayOnStartup = defaultsDictionary["playback.autoplayOnStartup"] as? Bool ?? PreferencesDefaults.Playback.autoplayOnStartup
         
@@ -117,8 +131,13 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     
     func persist(defaults: UserDefaults) {
         
-        defaults.set(seekLength, forKey: "playback.seekLength")
-        defaults.set(seekLength_secondary, forKey: "playback.seekLength.secondary")
+        defaults.set(primarySeekLengthOption.rawValue, forKey: "playback.seekLength.primary.option")
+        defaults.set(primarySeekLengthConstant, forKey: "playback.seekLength.primary.constant")
+        defaults.set(primarySeekLengthPercentage, forKey: "playback.seekLength.primary.percentage")
+        
+        defaults.set(secondarySeekLengthOption.rawValue, forKey: "playback.seekLength.secondary.option")
+        defaults.set(secondarySeekLengthConstant, forKey: "playback.seekLength.secondary.constant")
+        defaults.set(secondarySeekLengthPercentage, forKey: "playback.seekLength.secondary.percentage")
         
         defaults.set(autoplayOnStartup, forKey: "playback.autoplayOnStartup")
         defaults.set(autoplayAfterAddingTracks, forKey: "playback.autoplayAfterAddingTracks")
@@ -372,8 +391,13 @@ fileprivate struct PreferencesDefaults {
     
     struct Playback {
         
-        static let seekLength: Int = 5
-        static let seekLength_secondary: Int = 30
+        static let primarySeekLengthOption: SeekLengthOptions = .constant
+        static let primarySeekLengthConstant: Int = 5
+        static let primarySeekLengthPercentage: Int = 2
+        
+        static let secondarySeekLengthOption: SeekLengthOptions = .constant
+        static let secondarySeekLengthConstant: Int = 30
+        static let secondarySeekLengthPercentage: Int = 10
         
         static let autoplayOnStartup: Bool = false
         static let autoplayAfterAddingTracks: Bool = false
