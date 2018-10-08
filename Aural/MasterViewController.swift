@@ -186,13 +186,13 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func trackChanged(_ message: TrackChangedNotification) {
         
         // Apply sound profile if there is one for the new track and if the preferences allow it
-        if soundPreferences.rememberSettingsPerTrack {
+        if soundPreferences.rememberSettings {
             
             // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
             if let oldTrack = message.oldTrack {
                 
                 // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
-                if soundPreferences.rememberSettingsPerTrackOption == .allTracks || SoundProfiles.profileForTrack(oldTrack.track) != nil {
+                if soundPreferences.rememberSettingsOption == .allTracks || SoundProfiles.profileForTrack(oldTrack.track) != nil {
                     
                     SoundProfiles.saveProfile(oldTrack.track, graph.getVolume(), graph.getBalance(), graph.getSettingsAsMasterPreset())
                     
@@ -216,23 +216,15 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func onExit() -> AppExitResponse {
         
         // Apply sound profile if there is one for the new track and if the preferences allow it
-        if soundPreferences.rememberSettingsPerTrack {
+        if soundPreferences.rememberSettings {
             
             // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
             if let plTrack = player.getPlayingTrack()?.track {
                 
                 // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the app is exiting
-                if soundPreferences.rememberSettingsPerTrackOption == .allTracks || SoundProfiles.profileForTrack(plTrack) != nil {
+                if soundPreferences.rememberSettingsOption == .allTracks || SoundProfiles.profileForTrack(plTrack) != nil {
                     SoundProfiles.saveProfile(plTrack, graph.getVolume(), graph.getBalance(), graph.getSettingsAsMasterPreset())
                 }
-            }
-        }
-        
-        if playbackPreferences.rememberLastPosition {
-            
-            // Remember the current playback settings the next time this track plays. Update the profile with the latest settings applied for this track.
-            if let plTrack = player.getPlayingTrack()?.track {
-                PlaybackProfiles.saveProfile(plTrack, player.getSeekPosition().timeElapsed)
             }
         }
         

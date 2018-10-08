@@ -60,6 +60,8 @@ class Preferences: PersistentPreferencesProtocol {
 class PlaybackPreferences: PersistentPreferencesProtocol {
     
     var seekLength: Int
+    // TODO: Allow an option to adjust seek length automatically, proportionate to track duration ? (long for audiobooks, short otherwise)
+    // TODO: Allow multiple seek lengths: short medium long ? Like VLC ?
     
     private let scrollSensitiveSeekLengths: [ScrollSensitivity: Double] = [.low: 2.5, .medium: 5, .high: 10]
     var seekLength_continuous: Double {
@@ -75,6 +77,7 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     var showNewTrackInPlaylist: Bool
     
     var rememberLastPosition: Bool
+    var rememberLastPositionOption: RememberSettingsOptions
     
     fileprivate convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: ControlsPreferences) {
         self.init(defaultsDictionary)
@@ -98,6 +101,12 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         showNewTrackInPlaylist = defaultsDictionary["playback.showNewTrackInPlaylist"] as? Bool ?? PreferencesDefaults.Playback.showNewTrackInPlaylist
         
         rememberLastPosition = defaultsDictionary["playback.rememberLastPosition"] as? Bool ?? PreferencesDefaults.Playback.rememberLastPosition
+        
+        if let optionStr = defaultsDictionary["playback.rememberLastPosition.option"] as? String {
+            rememberLastPositionOption = RememberSettingsOptions(rawValue: optionStr) ?? PreferencesDefaults.Playback.rememberLastPositionOption
+        } else {
+            rememberLastPositionOption = PreferencesDefaults.Playback.rememberLastPositionOption
+        }
     }
     
     func persist(defaults: UserDefaults) {
@@ -110,6 +119,7 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         
         defaults.set(showNewTrackInPlaylist, forKey: "playback.showNewTrackInPlaylist")
         defaults.set(rememberLastPosition, forKey: "playback.rememberLastPosition")
+        defaults.set(rememberLastPositionOption.rawValue, forKey: "playback.rememberLastPosition.option")
     }
 }
 
@@ -126,8 +136,8 @@ class SoundPreferences: PersistentPreferencesProtocol {
     var startupVolumeValue: Float
     var panDelta: Float
     
-    var rememberSettingsPerTrack: Bool
-    var rememberSettingsPerTrackOption: RememberSettingsPerTrackOptions
+    var rememberSettings: Bool
+    var rememberSettingsOption: RememberSettingsOptions
     
     private var controlsPreferences: ControlsPreferences!
     
@@ -152,12 +162,12 @@ class SoundPreferences: PersistentPreferencesProtocol {
         
         panDelta = defaultsDictionary["sound.panDelta"] as? Float ?? PreferencesDefaults.Sound.panDelta
         
-        rememberSettingsPerTrack = defaultsDictionary["sound.rememberSettingsPerTrack"] as? Bool ?? PreferencesDefaults.Sound.rememberSoundSettingsPerTrack
+        rememberSettings = defaultsDictionary["sound.rememberSettings"] as? Bool ?? PreferencesDefaults.Sound.rememberSettings
         
-        if let optionStr = defaultsDictionary["sound.rememberSettingsPerTrack.option"] as? String {
-            rememberSettingsPerTrackOption = RememberSettingsPerTrackOptions(rawValue: optionStr) ?? PreferencesDefaults.Sound.rememberSoundSettingsPerTrackOption
+        if let optionStr = defaultsDictionary["sound.rememberSettings.option"] as? String {
+            rememberSettingsOption = RememberSettingsOptions(rawValue: optionStr) ?? PreferencesDefaults.Sound.rememberSettingsOption
         } else {
-            rememberSettingsPerTrackOption = PreferencesDefaults.Sound.rememberSoundSettingsPerTrackOption
+            rememberSettingsOption = PreferencesDefaults.Sound.rememberSettingsOption
         }
     }
     
@@ -170,8 +180,8 @@ class SoundPreferences: PersistentPreferencesProtocol {
         
         defaults.set(panDelta, forKey: "sound.panDelta")
         
-        defaults.set(rememberSettingsPerTrack, forKey: "sound.rememberSettingsPerTrack")
-        defaults.set(rememberSettingsPerTrackOption.rawValue, forKey: "sound.rememberSettingsPerTrack.option")
+        defaults.set(rememberSettings, forKey: "sound.rememberSettings")
+        defaults.set(rememberSettingsOption.rawValue, forKey: "sound.rememberSettings.option")
     }
 }
 
@@ -206,7 +216,7 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
             playlistFile = PreferencesDefaults.Playlist.playlistFile
         }
         
-        if let tracksFolderStr = defaultsDictionary["playlist.playlistOnStartup.tracksFolderx"] as? String {
+        if let tracksFolderStr = defaultsDictionary["playlist.playlistOnStartup.tracksFolder"] as? String {
             tracksFolder = URL(fileURLWithPath: tracksFolderStr)
         } else {
             tracksFolder = PreferencesDefaults.Playlist.tracksFolder
@@ -224,7 +234,7 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
         
         defaults.set(playlistOnStartup.rawValue, forKey: "playlist.playlistOnStartup")
         defaults.set(playlistFile?.path, forKey: "playlist.playlistOnStartup.playlistFile")
-        defaults.set(tracksFolder?.path, forKey: "playlist.playlistOnStartup.tracksFolderx")
+        defaults.set(tracksFolder?.path, forKey: "playlist.playlistOnStartup.tracksFolder")
     }
 }
 
@@ -356,11 +366,15 @@ fileprivate struct PreferencesDefaults {
     struct Playback {
         
         static let seekLength: Int = 5
+        
         static let autoplayOnStartup: Bool = false
         static let autoplayAfterAddingTracks: Bool = false
+        
         static let autoplayAfterAddingOption: AutoplayAfterAddingOptions = .ifNotPlaying
         static let showNewTrackInPlaylist: Bool = true
+        
         static let rememberLastPosition: Bool = false
+        static let rememberLastPositionOption: RememberSettingsOptions = .individualTracks
     }
     
     struct Sound {
@@ -372,8 +386,8 @@ fileprivate struct PreferencesDefaults {
         
         static let panDelta: Float = 0.1
         
-        static let rememberSoundSettingsPerTrack: Bool = true
-        static let rememberSoundSettingsPerTrackOption: RememberSettingsPerTrackOptions = .individualTracks
+        static let rememberSettings: Bool = true
+        static let rememberSettingsOption: RememberSettingsOptions = .individualTracks
     }
     
     struct Playlist {

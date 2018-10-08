@@ -40,4 +40,6 @@ struct PlaybackProfile {
     
     // Last playback position
     let lastPosition: Double
+    
+    // TODO: Seek length ? Long for audiobooks, short for tracks
 }

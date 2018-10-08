@@ -89,7 +89,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         [panLeftMenuItem, panRightMenuItem].forEach({$0?.isEnabled = isRegularMode && !WindowState.showingPopover})
         [eqMenu, pitchMenu, timeMenu].forEach({$0?.isEnabled = isRegularMode})
         
-        rememberSettingsMenuItem.isHidden = !(preferences.rememberSettingsPerTrack && preferences.rememberSettingsPerTrackOption == .individualTracks)
+        rememberSettingsMenuItem.isHidden = !(preferences.rememberSettings && preferences.rememberSettingsOption == .individualTracks)
         
         if let playingTrack = player.getPlayingTrack()?.track {
             

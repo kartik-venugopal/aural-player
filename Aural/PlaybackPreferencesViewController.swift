@@ -11,8 +11,11 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnAutoplayIfNotPlaying: NSButton!
     @IBOutlet weak var btnAutoplayAlways: NSButton!
     
-    @IBOutlet weak var btnRememberPosition: NSButton!
     @IBOutlet weak var btnShowNewTrack: NSButton!
+    
+    @IBOutlet weak var btnRememberPosition: NSButton!
+    @IBOutlet weak var btnRememberPosition_allTracks: NSButton!
+    @IBOutlet weak var btnRememberPosition_individualTracks: NSButton!
     
     override var nibName: String? {return "PlaybackPreferences"}
     
@@ -38,8 +41,16 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         btnAutoplayAlways.isEnabled = playbackPrefs.autoplayAfterAddingTracks
         btnAutoplayAlways.state = NSControl.StateValue(rawValue: playbackPrefs.autoplayAfterAddingOption == .always ? 1 : 0)
         
-        btnRememberPosition.state = NSControl.StateValue(rawValue: playbackPrefs.rememberLastPosition ? 1 : 0)
         btnShowNewTrack.state = NSControl.StateValue(rawValue: playbackPrefs.showNewTrackInPlaylist ? 1 : 0)
+        
+        btnRememberPosition.state = NSControl.StateValue(rawValue: playbackPrefs.rememberLastPosition ? 1 : 0)
+        [btnRememberPosition_individualTracks, btnRememberPosition_allTracks].forEach({$0?.isEnabled = Bool(btnRememberPosition.state.rawValue)})
+        
+        if playbackPrefs.rememberLastPositionOption == .individualTracks {
+            btnRememberPosition_individualTracks.state = UIConstants.buttonState_1
+        } else {
+            btnRememberPosition_allTracks.state = UIConstants.buttonState_1
+        }
     }
     
     @IBAction func seekLengthAction(_ sender: Any) {
@@ -71,6 +82,14 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Needed for radio button group
     }
     
+    @IBAction func rememberLastPositionAction(_ sender: Any) {
+        [btnRememberPosition_individualTracks, btnRememberPosition_allTracks].forEach({$0?.isEnabled = Bool(btnRememberPosition.state.rawValue)})
+    }
+    
+    @IBAction func rememberLastPositionRadioButtonAction(_ sender: Any) {
+        // Needed for radio button group
+    }
+    
     func save(_ preferences: Preferences) throws {
         
         let playbackPrefs = preferences.playbackPreferences
@@ -82,10 +101,17 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         playbackPrefs.autoplayAfterAddingTracks = Bool(btnAutoplayAfterAddingTracks.state.rawValue)
         playbackPrefs.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.state.rawValue == 1 ? .ifNotPlaying : .always
      
-        playbackPrefs.rememberLastPosition = Bool(btnRememberPosition.state.rawValue)
         playbackPrefs.showNewTrackInPlaylist = Bool(btnShowNewTrack.state.rawValue)
         
-        if !playbackPrefs.rememberLastPosition {
+        playbackPrefs.rememberLastPosition = Bool(btnRememberPosition.state.rawValue)
+        
+        let wasAllTracks: Bool = playbackPrefs.rememberLastPositionOption == .allTracks
+        
+        playbackPrefs.rememberLastPositionOption = btnRememberPosition_individualTracks.state == UIConstants.buttonState_1 ? .individualTracks : .allTracks
+        
+        let isNowIndividualTracks: Bool = playbackPrefs.rememberLastPositionOption == .individualTracks
+        
+        if !playbackPrefs.rememberLastPosition || (wasAllTracks && isNowIndividualTracks) {
             PlaybackProfiles.removeAll()
         }
     }

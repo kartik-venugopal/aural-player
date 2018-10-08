@@ -46,10 +46,10 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         panDeltaStepper.integerValue = panDelta
         lblPanDelta.stringValue = String(format: "%d%%", panDelta)
         
-        btnRememberSettings.state = soundPrefs.rememberSettingsPerTrack ? UIConstants.buttonState_1 : UIConstants.buttonState_0
-        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.isEnabled = soundPrefs.rememberSettingsPerTrack})
+        btnRememberSettings.state = soundPrefs.rememberSettings ? UIConstants.buttonState_1 : UIConstants.buttonState_0
+        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.isEnabled = soundPrefs.rememberSettings})
         
-        if soundPrefs.rememberSettingsPerTrackOption == .individualTracks {
+        if soundPrefs.rememberSettingsOption == .individualTracks {
             btnRememberSettings_individualTracks.state = UIConstants.buttonState_1
         } else {
             btnRememberSettings_allTracks.state = UIConstants.buttonState_1
@@ -72,11 +72,11 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
     }
     
-    @IBAction func rememberSettingsPerTrackAction(_ sender: Any) {
+    @IBAction func rememberSettingsAction(_ sender: Any) {
         [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.isEnabled = btnRememberSettings.state == UIConstants.buttonState_1})
     }
     
-    @IBAction func rememberSettingsPerTrackRadioButtonAction(_ sender: Any) {
+    @IBAction func rememberSettingsRadioButtonAction(_ sender: Any) {
         // Needed for radio button group
     }
     
@@ -91,15 +91,15 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         soundPrefs.panDelta = panDeltaStepper.floatValue * AppConstants.panConversion_UIToAudioGraph
         
-        soundPrefs.rememberSettingsPerTrack = Bool(btnRememberSettings.state.rawValue)
+        soundPrefs.rememberSettings = Bool(btnRememberSettings.state.rawValue)
         
-        let wasAllTracks: Bool = soundPrefs.rememberSettingsPerTrackOption == .allTracks
+        let wasAllTracks: Bool = soundPrefs.rememberSettingsOption == .allTracks
         
-        soundPrefs.rememberSettingsPerTrackOption = btnRememberSettings_individualTracks.state == UIConstants.buttonState_1 ? .individualTracks : .allTracks
+        soundPrefs.rememberSettingsOption = btnRememberSettings_individualTracks.state == UIConstants.buttonState_1 ? .individualTracks : .allTracks
         
-        let isNowIndividualTracks: Bool = soundPrefs.rememberSettingsPerTrackOption == .individualTracks
+        let isNowIndividualTracks: Bool = soundPrefs.rememberSettingsOption == .individualTracks
         
-        if !soundPrefs.rememberSettingsPerTrack || (wasAllTracks && isNowIndividualTracks) {
+        if !soundPrefs.rememberSettings || (wasAllTracks && isNowIndividualTracks) {
             SoundProfiles.removeAll()
         }
     }

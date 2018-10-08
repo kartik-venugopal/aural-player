@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -148,7 +147,7 @@
                         <font key="font" size="11" name="GillSans"/>
                     </buttonCell>
                     <connections>
-                        <action selector="rememberSettingsPerTrackAction:" target="-2" id="T0Z-bA-S8r"/>
+                        <action selector="rememberSettingsAction:" target="-2" id="T0Z-bA-S8r"/>
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SYJ-mY-wbQ">
@@ -159,7 +158,7 @@
                         <font key="font" size="11" name="GillSans"/>
                     </buttonCell>
                     <connections>
-                        <action selector="rememberSettingsPerTrackRadioButtonAction:" target="-2" id="2So-2f-c2U"/>
+                        <action selector="rememberSettingsRadioButtonAction:" target="-2" id="2So-2f-c2U"/>
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XVf-sh-3eM" userLabel="For individual tracks">
@@ -170,7 +169,7 @@
                         <font key="font" size="11" name="GillSans"/>
                     </buttonCell>
                     <connections>
-                        <action selector="rememberSettingsPerTrackRadioButtonAction:" target="-2" id="6dB-NG-Xji"/>
+                        <action selector="rememberSettingsRadioButtonAction:" target="-2" id="6dB-NG-Xji"/>
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vWy-Oi-wOV">
