@@ -59,7 +59,11 @@ class Preferences: PersistentPreferencesProtocol {
 
 class PlaybackPreferences: PersistentPreferencesProtocol {
     
+    // Primary seek length
     var seekLength: Int
+    
+    var seekLength_secondary: Int
+    
     // TODO: Allow an option to adjust seek length automatically, proportionate to track duration ? (long for audiobooks, short otherwise)
     // TODO: Allow multiple seek lengths: short medium long ? Like VLC ?
     
@@ -88,6 +92,8 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     
         seekLength = defaultsDictionary["playback.seekLength"] as? Int ?? PreferencesDefaults.Playback.seekLength
         
+        seekLength_secondary = defaultsDictionary["playback.seekLength.secondary"] as? Int ?? PreferencesDefaults.Playback.seekLength_secondary
+        
         autoplayOnStartup = defaultsDictionary["playback.autoplayOnStartup"] as? Bool ?? PreferencesDefaults.Playback.autoplayOnStartup
         
         autoplayAfterAddingTracks = defaultsDictionary["playback.autoplayAfterAddingTracks"] as? Bool ?? PreferencesDefaults.Playback.autoplayAfterAddingTracks
@@ -112,6 +118,7 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     func persist(defaults: UserDefaults) {
         
         defaults.set(seekLength, forKey: "playback.seekLength")
+        defaults.set(seekLength_secondary, forKey: "playback.seekLength.secondary")
         
         defaults.set(autoplayOnStartup, forKey: "playback.autoplayOnStartup")
         defaults.set(autoplayAfterAddingTracks, forKey: "playback.autoplayAfterAddingTracks")
@@ -366,6 +373,7 @@ fileprivate struct PreferencesDefaults {
     struct Playback {
         
         static let seekLength: Int = 5
+        static let seekLength_secondary: Int = 30
         
         static let autoplayOnStartup: Bool = false
         static let autoplayAfterAddingTracks: Bool = false

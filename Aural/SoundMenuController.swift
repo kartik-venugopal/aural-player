@@ -127,7 +127,8 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     // Toggles the master bypass switch
     @IBAction func masterBypassAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(graph.isMasterBypass() ? .enableEffects : .disableEffects))
+//        SyncMessenger.publishActionMessage(AudioGraphActionMessage(graph.isMasterBypass() ? .enableEffects : .disableEffects))
+        WindowFactory.getEditorWindowController().showEffectsPresetsEditor()
     }
     
     // Decreases each of the EQ bass bands by a certain preset decrement

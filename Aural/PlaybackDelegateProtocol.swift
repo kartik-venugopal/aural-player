@@ -74,6 +74,20 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
      */
     func seekBackward(_ actionMode: ActionMode)
     
+    /*
+     Seeks forward by a preset time interval, within the current track.
+     
+     The "actionMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The action mode will affect the time interval of the seek.
+     */
+    func seekForwardSecondary()
+    
+    /*
+     Seeks backward by a preset time interval, within the current track.
+     
+     The "actionMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The action mode will affect the time interval of the seek.
+     */
+    func seekBackwardSecondary()
+    
     // Seeks to a specific percentage of the track duration, within the current track
     func seekToPercentage(_ percentage: Double)
     

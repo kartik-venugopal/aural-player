@@ -125,6 +125,12 @@ enum ActionType {
     // Seek forward within the currently playing track
     case seekForward
     
+    // Seek backward within the currently playing track
+    case seekBackward_secondary
+    
+    // Seek forward within the currently playing track
+    case seekForward_secondary
+    
     // Set repeat mode to "Off"
     case repeatOff
     

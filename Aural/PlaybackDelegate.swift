@@ -294,21 +294,29 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func seekForward(_ actionMode: ActionMode = .discrete) {
         
+        // The seek length depends on the action mode
+        let increment = actionMode == .discrete ? Double(preferences.seekLength) : preferences.seekLength_continuous
+        doSeekForward(increment)
+    }
+    
+    func seekForwardSecondary() {
+        doSeekForward(Double(preferences.seekLength_secondary))
+    }
+    
+    private func doSeekForward(_ increment: Double) {
+        
         if (player.getPlaybackState() == .noTrack) {
             return
         }
         
         // Calculate the new start position
         let curPosn = player.getSeekPosition()
-        let increment = actionMode == .discrete ? Double(preferences.seekLength) : preferences.seekLength_continuous
         
         let playingTrack = getPlayingTrack()
         
         if let loop = getPlaybackLoop() {
             
             if let loopEnd = loop.endTime {
-            
-                // The seek length depends on the action mode
                 
                 let newPosn = min(loopEnd, curPosn + increment)
                 
@@ -347,6 +355,17 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func seekBackward(_ actionMode: ActionMode = .discrete) {
         
+        // The seek length depends on the action mode
+        let decrement = actionMode == .discrete ? Double(preferences.seekLength) : preferences.seekLength_continuous
+        doSeekBackward(decrement)
+    }
+    
+    func seekBackwardSecondary() {
+        doSeekBackward(Double(preferences.seekLength_secondary))
+    }
+    
+    private func doSeekBackward(_ decrement: Double) {
+        
         if (player.getPlaybackState() == .noTrack) {
             return
         }
@@ -355,9 +374,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         // Calculate the new start position
         let curPosn = player.getSeekPosition()
-        
-        // The seek length depends on the action mode
-        let decrement = actionMode == .discrete ? Double(preferences.seekLength) : preferences.seekLength_continuous
         
         if let loop = getPlaybackLoop() {
             
