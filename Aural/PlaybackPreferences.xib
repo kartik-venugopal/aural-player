@@ -13,11 +13,15 @@
                 <outlet property="btnAutoplayIfNotPlaying" destination="izk-F1-oh2" id="V5b-6i-R0D"/>
                 <outlet property="btnAutoplayOnStartup" destination="08B-D5-cac" id="cVP-E2-hy2"/>
                 <outlet property="btnPrimarySeekLengthConstant" destination="9fb-Eh-kMD" id="u7m-0x-5l3"/>
+                <outlet property="btnPrimarySeekLengthDecrement" destination="yZ8-DP-OAF" id="wxW-SE-BGc"/>
+                <outlet property="btnPrimarySeekLengthIncrement" destination="8TR-zU-aSh" id="0AQ-iK-mWL"/>
                 <outlet property="btnPrimarySeekLengthPerc" destination="n6f-R3-Ism" id="Hr1-Bl-1QL"/>
                 <outlet property="btnRememberPosition" destination="Mc5-gV-VMh" id="LoP-w6-XJN"/>
                 <outlet property="btnRememberPosition_allTracks" destination="d1q-GJ-IXH" id="PIk-7l-LVE"/>
                 <outlet property="btnRememberPosition_individualTracks" destination="58Z-Ev-mgi" id="8Qm-kl-X2t"/>
                 <outlet property="btnSecondarySeekLengthConstant" destination="vxb-3c-7Vu" id="VaA-Zl-QJj"/>
+                <outlet property="btnSecondarySeekLengthDecrement" destination="T1q-ZK-INc" id="srq-Hq-IE1"/>
+                <outlet property="btnSecondarySeekLengthIncrement" destination="01v-DP-jzW" id="ygn-5f-6Wj"/>
                 <outlet property="btnSecondarySeekLengthPerc" destination="GQ3-JO-aUl" id="pFY-ZK-mnj"/>
                 <outlet property="btnShowNewTrack" destination="Uxk-4x-fK7" id="dPJ-Ou-FIT"/>
                 <outlet property="lblPrimarySeekLength" destination="17v-k3-h3w" id="k7H-ed-gMu"/>
@@ -101,7 +105,7 @@
                     </connections>
                 </slider>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n6f-R3-Ism">
-                    <rect key="frame" x="28" y="317" width="163" height="20"/>
+                    <rect key="frame" x="28" y="318" width="163" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Percentage of track duration" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="sJA-mb-cB1" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -112,7 +116,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yPQ-2g-KWZ" userLabel="Primary Seek % Label">
-                    <rect key="frame" x="187" y="315" width="40" height="20"/>
+                    <rect key="frame" x="187" y="316" width="40" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="2%" id="a3R-lY-Tog">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="ypA-mZ-YxT">
@@ -125,7 +129,7 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x5B-Yh-1Ok" userLabel="Primary Seek Stepper">
-                    <rect key="frame" x="227" y="314" width="15" height="22"/>
+                    <rect key="frame" x="227" y="315" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="5" id="VT8-rV-1QJ"/>
                     <connections>
@@ -196,7 +200,7 @@
                     </connections>
                 </slider>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GQ3-JO-aUl">
-                    <rect key="frame" x="28" y="244" width="163" height="20"/>
+                    <rect key="frame" x="28" y="245" width="163" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Percentage of track duration" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="sZy-Dg-GRA" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -207,7 +211,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qk8-qL-Vu1" userLabel="Secondary Seek % Label">
-                    <rect key="frame" x="187" y="242" width="40" height="20"/>
+                    <rect key="frame" x="187" y="243" width="40" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="10%" id="imj-jE-jvb">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="3Yp-PI-ITU">
@@ -220,7 +224,7 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J6n-UQ-U6E" userLabel="Secondary Seek Stepper">
-                    <rect key="frame" x="227" y="241" width="15" height="22"/>
+                    <rect key="frame" x="227" y="242" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="5" id="Si8-hW-Hqb"/>
                     <connections>

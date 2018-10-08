@@ -71,6 +71,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     // Plays whatever track follows the currently playing track (if there is one). If no track is playing, selects the first track in the playback sequence. Throws an error if playback fails.
     private func subsequentTrack() throws -> IndexedTrack? {
+        
         let track = playbackSequencer.subsequent()
         try play(track)
         return track
