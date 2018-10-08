@@ -89,7 +89,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         [panLeftMenuItem, panRightMenuItem].forEach({$0?.isEnabled = isRegularMode && !WindowState.showingPopover})
         [eqMenu, pitchMenu, timeMenu].forEach({$0?.isEnabled = isRegularMode})
         
-        rememberSettingsMenuItem.isHidden = !(preferences.rememberSettings && preferences.rememberSettingsOption == .individualTracks)
+        rememberSettingsMenuItem.isHidden = !(preferences.rememberEffectsSettings && preferences.rememberEffectsSettingsOption == .individualTracks)
         
         if let playingTrack = player.getPlayingTrack()?.track {
             
@@ -127,8 +127,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     // Toggles the master bypass switch
     @IBAction func masterBypassAction(_ sender: Any) {
-//        SyncMessenger.publishActionMessage(AudioGraphActionMessage(graph.isMasterBypass() ? .enableEffects : .disableEffects))
-        WindowFactory.getEditorWindowController().showEffectsPresetsEditor()
+        SyncMessenger.publishActionMessage(AudioGraphActionMessage(graph.isMasterBypass() ? .enableEffects : .disableEffects))
     }
     
     // Decreases each of the EQ bass bands by a certain preset decrement

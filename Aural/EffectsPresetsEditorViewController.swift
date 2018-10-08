@@ -29,7 +29,7 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
         
         addSubViews()
         [btnApply, btnRename, btnDelete].forEach({$0.isEnabled = false})
-        tabViewAction(eqPresetsTabViewButton)
+        tabViewAction(masterPresetsTabViewButton)
         
         SyncMessenger.subscribe(messageTypes: [.editorSelectionChangedNotification], subscriber: self)
     }

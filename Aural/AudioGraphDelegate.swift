@@ -17,7 +17,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         self.graph = graph
         self.preferences = preferences
         
-        if (preferences.volumeOnStartup == .specific) {
+        if (preferences.volumeOnStartupOption == .specific) {
             graph.setVolume(preferences.startupVolumeValue)
             graph.unmute()
         }
@@ -37,8 +37,9 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     func applyMasterPreset(_ presetName: String) {
         
-        let preset = MasterPresets.presetByName(presetName)!
-        graph.applyMasterPreset(preset)
+        if let preset = MasterPresets.presetByName(presetName) {
+            graph.applyMasterPreset(preset)
+        }
     }
     
     func applyMasterPreset(_ preset: MasterPreset) {

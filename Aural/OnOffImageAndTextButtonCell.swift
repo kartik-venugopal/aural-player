@@ -31,10 +31,6 @@ class OnOffImageAndTextButtonCell: NSButtonCell {
         backgroundFillColor.setFill()
         NSBezierPath.init(rect: cellFrame).fill()
         
-//        if self.title == "Master" {
-//            Swift.print(self.title, String(describing: state), String(describing: shouldHighlight))
-//        }
-        
         // Selection box
         if (state.rawValue == 1) {
             

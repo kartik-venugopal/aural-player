@@ -81,7 +81,7 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     var showNewTrackInPlaylist: Bool
     
     var rememberLastPosition: Bool
-    var rememberLastPositionOption: RememberSettingsOptions
+    var rememberLastPositionOption: RememberSettingsForTrackOptions
     
     fileprivate convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: ControlsPreferences) {
         self.init(defaultsDictionary)
@@ -123,7 +123,7 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         rememberLastPosition = defaultsDictionary["playback.rememberLastPosition"] as? Bool ?? PreferencesDefaults.Playback.rememberLastPosition
         
         if let optionStr = defaultsDictionary["playback.rememberLastPosition.option"] as? String {
-            rememberLastPositionOption = RememberSettingsOptions(rawValue: optionStr) ?? PreferencesDefaults.Playback.rememberLastPositionOption
+            rememberLastPositionOption = RememberSettingsForTrackOptions(rawValue: optionStr) ?? PreferencesDefaults.Playback.rememberLastPositionOption
         } else {
             rememberLastPositionOption = PreferencesDefaults.Playback.rememberLastPositionOption
         }
@@ -158,12 +158,16 @@ class SoundPreferences: PersistentPreferencesProtocol {
         return scrollSensitiveVolumeDeltas[controlsPreferences.volumeControlSensitivity]!
     }
     
-    var volumeOnStartup: VolumeStartupOptions
+    var volumeOnStartupOption: VolumeStartupOptions
     var startupVolumeValue: Float
+    
     var panDelta: Float
     
-    var rememberSettings: Bool
-    var rememberSettingsOption: RememberSettingsOptions
+    var effectsSettingsOnStartupOption: EffectsSettingsStartupOptions
+    var masterPresetOnStartup_name: String?
+    
+    var rememberEffectsSettings: Bool
+    var rememberEffectsSettingsOption: RememberSettingsForTrackOptions
     
     private var controlsPreferences: ControlsPreferences!
     
@@ -178,22 +182,35 @@ class SoundPreferences: PersistentPreferencesProtocol {
         
         volumeDelta = defaultsDictionary["sound.volumeDelta"] as? Float ?? PreferencesDefaults.Sound.volumeDelta
         
-        if let volumeOnStartupStr = defaultsDictionary["sound.volumeOnStartup"] as? String {
-            volumeOnStartup = VolumeStartupOptions(rawValue: volumeOnStartupStr) ?? PreferencesDefaults.Sound.volumeOnStartup
+        if let volumeOnStartupOptionStr = defaultsDictionary["sound.volumeOnStartup.option"] as? String {
+            volumeOnStartupOption = VolumeStartupOptions(rawValue: volumeOnStartupOptionStr) ?? PreferencesDefaults.Sound.volumeOnStartupOption
         } else {
-            volumeOnStartup = PreferencesDefaults.Sound.volumeOnStartup
+            volumeOnStartupOption = PreferencesDefaults.Sound.volumeOnStartupOption
         }
         
-        startupVolumeValue = defaultsDictionary["sound.startupVolumeValue"] as? Float ?? PreferencesDefaults.Sound.startupVolumeValue
+        startupVolumeValue = defaultsDictionary["sound.volumeOnStartup.option"] as? Float ?? PreferencesDefaults.Sound.startupVolumeValue
         
         panDelta = defaultsDictionary["sound.panDelta"] as? Float ?? PreferencesDefaults.Sound.panDelta
         
-        rememberSettings = defaultsDictionary["sound.rememberSettings"] as? Bool ?? PreferencesDefaults.Sound.rememberSettings
-        
-        if let optionStr = defaultsDictionary["sound.rememberSettings.option"] as? String {
-            rememberSettingsOption = RememberSettingsOptions(rawValue: optionStr) ?? PreferencesDefaults.Sound.rememberSettingsOption
+        if let effectsSettingsOnStartupOptionStr = defaultsDictionary["sound.effectsSettingsOnStartup.option"] as? String {
+            effectsSettingsOnStartupOption = EffectsSettingsStartupOptions(rawValue: effectsSettingsOnStartupOptionStr) ?? PreferencesDefaults.Sound.effectsSettingsOnStartupOption
         } else {
-            rememberSettingsOption = PreferencesDefaults.Sound.rememberSettingsOption
+            effectsSettingsOnStartupOption = PreferencesDefaults.Sound.effectsSettingsOnStartupOption
+        }
+        
+        masterPresetOnStartup_name = defaultsDictionary["sound.effectsSettingsOnStartup.masterPreset"] as? String ?? PreferencesDefaults.Sound.masterPresetOnStartup_name
+        
+        rememberEffectsSettings = defaultsDictionary["sound.rememberEffectsSettings"] as? Bool ?? PreferencesDefaults.Sound.rememberEffectsSettings
+        
+        if let optionStr = defaultsDictionary["sound.rememberEffectsSettings.option"] as? String {
+            rememberEffectsSettingsOption = RememberSettingsForTrackOptions(rawValue: optionStr) ?? PreferencesDefaults.Sound.rememberEffectsSettingsOption
+        } else {
+            rememberEffectsSettingsOption = PreferencesDefaults.Sound.rememberEffectsSettingsOption
+        }
+        
+        // Revert to default if data is corrupt (missing master preset)
+        if effectsSettingsOnStartupOption == .applyMasterPreset && masterPresetOnStartup_name == nil {
+            effectsSettingsOnStartupOption = .rememberFromLastAppLaunch
         }
     }
     
@@ -201,13 +218,16 @@ class SoundPreferences: PersistentPreferencesProtocol {
         
         defaults.set(volumeDelta, forKey: "sound.volumeDelta")
         
-        defaults.set(volumeOnStartup.rawValue, forKey: "sound.volumeOnStartup")
+        defaults.set(volumeOnStartupOption.rawValue, forKey: "sound.volumeOnStartup")
         defaults.set(startupVolumeValue, forKey: "sound.startupVolumeValue")
         
         defaults.set(panDelta, forKey: "sound.panDelta")
         
-        defaults.set(rememberSettings, forKey: "sound.rememberSettings")
-        defaults.set(rememberSettingsOption.rawValue, forKey: "sound.rememberSettings.option")
+        defaults.set(effectsSettingsOnStartupOption.rawValue, forKey: "sound.effectsSettingsOnStartup.option")
+        defaults.set(masterPresetOnStartup_name, forKey: "sound.effectsSettingsOnStartup.masterPreset")
+        
+        defaults.set(rememberEffectsSettings, forKey: "sound.rememberEffectsSettings")
+        defaults.set(rememberEffectsSettingsOption.rawValue, forKey: "sound.rememberEffectsSettings.option")
     }
 }
 
@@ -406,20 +426,23 @@ fileprivate struct PreferencesDefaults {
         static let showNewTrackInPlaylist: Bool = true
         
         static let rememberLastPosition: Bool = false
-        static let rememberLastPositionOption: RememberSettingsOptions = .individualTracks
+        static let rememberLastPositionOption: RememberSettingsForTrackOptions = .individualTracks
     }
     
     struct Sound {
         
         static let volumeDelta: Float = 0.05
         
-        static let volumeOnStartup: VolumeStartupOptions = .rememberFromLastAppLaunch
+        static let volumeOnStartupOption: VolumeStartupOptions = .rememberFromLastAppLaunch
         static let startupVolumeValue: Float = 0.5
         
         static let panDelta: Float = 0.1
         
-        static let rememberSettings: Bool = true
-        static let rememberSettingsOption: RememberSettingsOptions = .individualTracks
+        static let effectsSettingsOnStartupOption: EffectsSettingsStartupOptions = .rememberFromLastAppLaunch
+        static let masterPresetOnStartup_name: String? = nil
+        
+        static let rememberEffectsSettings: Bool = true
+        static let rememberEffectsSettingsOption: RememberSettingsForTrackOptions = .individualTracks
     }
     
     struct Playlist {
