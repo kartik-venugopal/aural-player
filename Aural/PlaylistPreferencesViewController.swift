@@ -74,13 +74,13 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         if (btnLoadPlaylistFromFile.state.rawValue == 0 && !errorIcon_1.isHidden) {
             hideError_playlistFile()
         }
-    
-        if btnLoadPlaylistFromFile.state.rawValue == 1 && StringUtils.isStringEmpty(lblPlaylistFile.stringValue) {
-            choosePlaylistFileAction(sender)
-        }
         
         if (btnLoadTracksFromFolder.state.rawValue == 0 && !errorIcon_2.isHidden) {
             hideError_tracksFolder()
+        }
+    
+        if btnLoadPlaylistFromFile.state.rawValue == 1 && StringUtils.isStringEmpty(lblPlaylistFile.stringValue) {
+            choosePlaylistFileAction(sender)
         }
         
         if btnLoadTracksFromFolder.state.rawValue == 1 && StringUtils.isStringEmpty(lblFolder.stringValue) {
@@ -100,11 +100,10 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
             
         } else if btnLoadPlaylistFromFile.state.rawValue == 1 {
             
-            preferences.playlistPreferences.playlistOnStartup = .loadFile
-            
             // Make sure 1 - label is not empty, and 2 - no previous error message is shown
             if !StringUtils.isStringEmpty(lblPlaylistFile.stringValue) && errorIcon_1.isHidden {
                 
+                preferences.playlistPreferences.playlistOnStartup = .loadFile
                 preferences.playlistPreferences.playlistFile = URL(fileURLWithPath: lblPlaylistFile.stringValue)
                 
             } else {
@@ -118,11 +117,10 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
             
             // Load tracks from folder
             
-            preferences.playlistPreferences.playlistOnStartup = .loadFolder
-            
             // Make sure 1 - label is not empty, and 2 - no previous error message is shown
             if !StringUtils.isStringEmpty(lblFolder.stringValue) && errorIcon_2.isHidden {
-                
+            
+                preferences.playlistPreferences.playlistOnStartup = .loadFolder
                 preferences.playlistPreferences.tracksFolder = URL(fileURLWithPath: lblFolder.stringValue)
                 
             } else {
