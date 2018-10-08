@@ -21,8 +21,8 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 ## Features
 
 * **Supported file types:**
-    *- Audio files: MP3, AAC, AIFF/AIFC, WAV, and CAF
-    *- Playlist files: M3U/M3U8
+   * Audio files: MP3, AAC, AIFF/AIFC, WAV, and CAF
+   * Playlist files: M3U/M3U8
 
 * **Playback:**
 - Option to remember last playback position, either on a per-track basis or for all tracks, so you can resume listening to a track without needing to remember where you left off **(New!)**
