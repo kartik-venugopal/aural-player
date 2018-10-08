@@ -294,20 +294,23 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func seekForward(_ actionMode: ActionMode = .discrete) {
         
-        // The seek length depends on the action mode
-        let increment = actionMode == .discrete ? Double(preferences.seekLength) : preferences.seekLength_continuous
-        doSeekForward(increment)
+        if (player.getPlaybackState() == .noTrack) {
+            return
+        }
+        
+        doSeekForward(getPrimarySeekLength(actionMode))
     }
     
     func seekForwardSecondary() {
-        doSeekForward(Double(preferences.seekLength_secondary))
-    }
-    
-    private func doSeekForward(_ increment: Double) {
         
         if (player.getPlaybackState() == .noTrack) {
             return
         }
+        
+        doSeekForward(getSecondarySeekLength())
+    }
+    
+    private func doSeekForward(_ increment: Double) {
         
         // Calculate the new start position
         let curPosn = player.getSeekPosition()
@@ -355,20 +358,23 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func seekBackward(_ actionMode: ActionMode = .discrete) {
         
-        // The seek length depends on the action mode
-        let decrement = actionMode == .discrete ? Double(preferences.seekLength) : preferences.seekLength_continuous
-        doSeekBackward(decrement)
+        if (player.getPlaybackState() == .noTrack) {
+            return
+        }
+        
+        doSeekBackward(getPrimarySeekLength(actionMode))
     }
     
     func seekBackwardSecondary() {
-        doSeekBackward(Double(preferences.seekLength_secondary))
-    }
-    
-    private func doSeekBackward(_ decrement: Double) {
         
         if (player.getPlaybackState() == .noTrack) {
             return
         }
+        
+        doSeekBackward(getSecondarySeekLength())
+    }
+    
+    private func doSeekBackward(_ decrement: Double) {
         
         let playingTrack = getPlayingTrack()
         
@@ -387,6 +393,42 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         let newPosn = max(0, curPosn - decrement)
         player.seekToTime(playingTrack!.track, newPosn)
+    }
+    
+    private func getPrimarySeekLength(_ actionMode: ActionMode) -> Double {
+        
+        if actionMode == .discrete {
+            
+            if preferences.primarySeekLengthOption == .constant {
+                
+                return Double(preferences.primarySeekLengthConstant)
+                
+            } else {
+                
+                let trackDuration = getPlayingTrack()!.track.duration
+                let perc = Double(preferences.primarySeekLengthPercentage)
+                
+                return trackDuration * perc / 100.0
+            }
+            
+        } else {
+            return preferences.seekLength_continuous
+        }
+    }
+    
+    private func getSecondarySeekLength() -> Double {
+        
+        if preferences.secondarySeekLengthOption == .constant {
+            
+            return Double(preferences.secondarySeekLengthConstant)
+            
+        } else {
+            
+            let trackDuration = getPlayingTrack()!.track.duration
+            let perc = Double(preferences.secondarySeekLengthPercentage)
+            
+            return trackDuration * perc / 100.0
+        }
     }
     
     func seekToPercentage(_ percentage: Double) {

@@ -55,3 +55,9 @@ enum RememberSettingsOptions: String {
     case allTracks
     case individualTracks
 }
+
+enum SeekLengthOptions: String {
+    
+    case constant
+    case percentage
+}
