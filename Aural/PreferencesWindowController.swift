@@ -48,8 +48,7 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
         resetPreferencesFields()
         
         // Select the playlist prefs tab
-//        tabView.selectTabViewItem(at: 0)
-        tabView.selectTabViewItem(at: 1)
+        tabView.selectTabViewItem(at: 0)
         
         UIUtils.showModalDialog(window!)
     }
