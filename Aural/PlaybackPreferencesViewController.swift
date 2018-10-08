@@ -5,6 +5,9 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var lblSeekLength: NSTextField!
     @IBOutlet weak var seekLengthSlider: NSSlider!
     
+    @IBOutlet weak var lblSecondarySeekLength: NSTextField!
+    @IBOutlet weak var secondarySeekLengthSlider: NSSlider!
+    
     @IBOutlet weak var btnAutoplayOnStartup: NSButton!
     
     @IBOutlet weak var btnAutoplayAfterAddingTracks: NSButton!
@@ -30,6 +33,10 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         let seekLength = playbackPrefs.seekLength
         seekLengthSlider.integerValue = seekLength
         lblSeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(seekLength)
+        
+        let secondarySeekLength = playbackPrefs.seekLength_secondary
+        secondarySeekLengthSlider.integerValue = secondarySeekLength
+        lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(secondarySeekLength)
         
         btnAutoplayOnStartup.state = NSControl.StateValue(rawValue: playbackPrefs.autoplayOnStartup ? 1 : 0)
         
@@ -57,6 +64,10 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         lblSeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(seekLengthSlider.integerValue)
     }
     
+    @IBAction func secondarySeekLengthAction(_ sender: Any) {
+        lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(secondarySeekLengthSlider.integerValue)
+    }
+    
     @IBAction func seekLengthIncrementAction(_ sender: Any) {
         
         if (Double(seekLengthSlider.integerValue) < seekLengthSlider.maxValue) {
@@ -65,11 +76,27 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         }
     }
     
+    @IBAction func secondarySeekLengthIncrementAction(_ sender: Any) {
+        
+        if (Double(secondarySeekLengthSlider.integerValue) < secondarySeekLengthSlider.maxValue) {
+            secondarySeekLengthSlider.integerValue += 1
+            lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(secondarySeekLengthSlider.integerValue)
+        }
+    }
+    
     @IBAction func seekLengthDecrementAction(_ sender: Any) {
         
         if (Double(seekLengthSlider.integerValue) > seekLengthSlider.minValue) {
             seekLengthSlider.integerValue -= 1
             lblSeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(seekLengthSlider.integerValue)
+        }
+    }
+    
+    @IBAction func secondarySeekLengthDecrementAction(_ sender: Any) {
+        
+        if (Double(secondarySeekLengthSlider.integerValue) > secondarySeekLengthSlider.minValue) {
+            secondarySeekLengthSlider.integerValue -= 1
+            lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(secondarySeekLengthSlider.integerValue)
         }
     }
     
@@ -95,6 +122,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         let playbackPrefs = preferences.playbackPreferences
         
         playbackPrefs.seekLength = seekLengthSlider.integerValue
+        playbackPrefs.seekLength_secondary = secondarySeekLengthSlider.integerValue
         
         playbackPrefs.autoplayOnStartup = Bool(btnAutoplayOnStartup.state.rawValue)
         

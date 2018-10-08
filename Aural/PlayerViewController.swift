@@ -101,7 +101,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -110,7 +110,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
     private func initVolumeAndPan() {
@@ -338,6 +338,18 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func seekBackward(_ actionMode: ActionMode) {
         
         player.seekBackward(actionMode)
+        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
+    }
+    
+    private func seekForward_secondary() {
+        
+        player.seekForwardSecondary()
+        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
+    }
+    
+    private func seekBackward_secondary() {
+        
+        player.seekBackwardSecondary()
         SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
     }
     
@@ -585,6 +597,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
             let msg = message as! PlaybackActionMessage
             seekForward(msg.actionMode)
+            
+        case .seekBackward_secondary:
+            
+            seekBackward_secondary()
+            
+        case .seekForward_secondary:
+            
+            seekForward_secondary()
             
         // Repeat and Shuffle
             

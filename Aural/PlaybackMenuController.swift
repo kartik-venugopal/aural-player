@@ -13,8 +13,11 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var replayTrackMenuItem: NSMenuItem!
     @IBOutlet weak var previousTrackMenuItem: NSMenuItem!
     @IBOutlet weak var nextTrackMenuItem: NSMenuItem!
+    
     @IBOutlet weak var seekForwardMenuItem: NSMenuItem!
     @IBOutlet weak var seekBackwardMenuItem: NSMenuItem!
+    @IBOutlet weak var seekForwardSecondaryMenuItem: NSMenuItem!
+    @IBOutlet weak var seekBackwardSecondaryMenuItem: NSMenuItem!
     
     @IBOutlet weak var detailedInfoMenuItem: NSMenuItem!
     @IBOutlet weak var showInPlaylistMenuItem: NSMenuItem!
@@ -66,7 +69,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem, showInPlaylistMenuItem].forEach({$0.isEnabled = isRegularMode && isPlayingOrPaused})
         
         // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)
-        [previousTrackMenuItem, nextTrackMenuItem, seekForwardMenuItem, seekBackwardMenuItem].forEach({$0.isEnabled = isPlayingOrPaused && !WindowState.showingPopover})
+        [previousTrackMenuItem, nextTrackMenuItem, seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0.isEnabled = isPlayingOrPaused && !WindowState.showingPopover})
         
         rememberLastPositionMenuItem.isHidden = !(preferences.rememberLastPosition && preferences.rememberLastPositionOption == .individualTracks)
         
@@ -112,6 +115,16 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Seeks forward within the currently playing track
     @IBAction func seekForwardAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.seekForward))
+    }
+    
+    // Seeks backward within the currently playing track
+    @IBAction func seekBackwardSecondaryAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaybackActionMessage(.seekBackward_secondary))
+    }
+    
+    // Seeks forward within the currently playing track
+    @IBAction func seekForwardSecondaryAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaybackActionMessage(.seekForward_secondary))
     }
     
     // Sets the repeat mode to "Off"

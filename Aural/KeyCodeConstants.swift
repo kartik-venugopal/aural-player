@@ -12,4 +12,5 @@ class KeyCodeConstants {
     static let TAB: UInt16 = 48
     
     static let arrows = [UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW]
+    static let verticalArrows = [UP_ARROW, DOWN_ARROW]
 }

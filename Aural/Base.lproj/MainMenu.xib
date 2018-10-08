@@ -66,7 +66,9 @@
                 <outlet property="repeatOneMenuItem" destination="DMc-0q-KZE" id="8RL-EJ-BFH"/>
                 <outlet property="replayTrackMenuItem" destination="aLr-jT-ZjJ" id="JhP-Wo-e4V"/>
                 <outlet property="seekBackwardMenuItem" destination="h8T-Of-b8S" id="8By-d9-WHo"/>
+                <outlet property="seekBackwardSecondaryMenuItem" destination="hnf-cA-ObB" id="QtG-dz-TRe"/>
                 <outlet property="seekForwardMenuItem" destination="dge-IA-2p7" id="Q7D-f8-ZK1"/>
+                <outlet property="seekForwardSecondaryMenuItem" destination="3mK-Yb-5qC" id="tKn-9V-z5M"/>
                 <outlet property="showInPlaylistMenuItem" destination="XjT-hE-GHo" id="SCJ-zc-OlZ"/>
                 <outlet property="shuffleOffMenuItem" destination="UVB-LH-JI0" id="fZe-NT-Fqk"/>
                 <outlet property="shuffleOnMenuItem" destination="A9x-31-Cvm" id="cQ4-NA-2ye"/>
@@ -363,15 +365,27 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem title=" Seek backward" image="SeekBackward-Small" keyEquivalent="" id="h8T-Of-b8S">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="seekBackwardAction:" target="IvK-xG-TCa" id="oir-Ly-fq0"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Seek forward" image="SeekForward-Small" keyEquivalent="" id="dge-IA-2p7">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="seekForwardAction:" target="IvK-xG-TCa" id="pWy-SE-bo4"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Seek backward (secondary)" image="SeekBackward-Small" keyEquivalent="" id="hnf-cA-ObB">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="seekBackwardSecondaryAction:" target="IvK-xG-TCa" id="sa4-u9-KJk"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Seek forward (secondary)" image="SeekForward-Small" keyEquivalent="" id="3mK-Yb-5qC">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="seekForwardSecondaryAction:" target="IvK-xG-TCa" id="jLq-yN-cy0"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="qNh-j6-Ufh"/>

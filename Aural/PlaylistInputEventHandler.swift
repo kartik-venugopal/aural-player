@@ -75,7 +75,7 @@ class PlaylistInputEventHandler {
         let isCommand: Bool = event.modifierFlags.contains(NSEvent.ModifierFlags.command)
         let isOption: Bool = event.modifierFlags.contains(NSEvent.ModifierFlags.option)
         
-        let isArrow: Bool = KeyCodeConstants.arrows.contains(event.keyCode)
+        let isVerticalArrow: Bool = KeyCodeConstants.verticalArrows.contains(event.keyCode)
         
         let chars = event.charactersIgnoringModifiers
         let isAlphaNumeric = chars != nil && chars!.rangeOfCharacter(from: CharacterSet.alphanumerics) != nil
@@ -83,7 +83,7 @@ class PlaylistInputEventHandler {
         // ---------------------- Handlers --------------------------
         
         // Arrows enable natural playlist scrolling and group expansion/collapsing, and alphanumeric characters enable type selection by track name
-        if (!isShift && !isCommand && !isOption && (isArrow || isAlphaNumeric)) {
+        if (!isShift && !isCommand && !isOption && (isVerticalArrow || isAlphaNumeric)) {
             
             // Forward the event to the currently displayed playlist view
             playlistViews[PlaylistViewState.current]!.keyDown(with: event)
