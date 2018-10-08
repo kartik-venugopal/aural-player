@@ -1,6 +1,6 @@
 import Cocoa
 
-class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
+class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, StringInputClient, NSMenuDelegate {
     
     @IBOutlet weak var btnMasterBypass: EffectsUnitBypassButton!
     
@@ -28,12 +28,22 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     override func viewDidLoad() {
         
+        oneTimeSetup()
         initControls()
+        
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification, .trackChangedNotification, .appExitRequest], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.enableEffects, .disableEffects, .saveSoundProfile, .deleteSoundProfile], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.enableEffects, .disableEffects, .saveSoundProfile, .deleteSoundProfile, .updateEffectsView], subscriber: self)
     }
     
-    private func initControls() {
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        masterPresets.removeAllItems()
+        
+        // Initialize the menu with user-defined presets
+        MasterPresets.userDefinedPresets.forEach({masterPresets.insertItem(withTitle: $0.name, at: 0)})
+    }
+    
+    private func oneTimeSetup() {
         
         btnEQBypass.stateFunction = {
             () -> EffectsUnitState in
@@ -46,7 +56,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
             return self.graph.getPitchState()
         }
-
+        
         btnTimeBypass.stateFunction = {
             () -> EffectsUnitState in
             
@@ -70,14 +80,15 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
             return self.graph.getFilterState()
         }
-
-        updateButtons()
         
-        // Initialize the menu with user-defined presets
-        MasterPresets.userDefinedPresets.forEach({masterPresets.insertItem(withTitle: $0.name, at: 0)})
+        self.menuNeedsUpdate(masterPresets.menu!)
         
         // Don't select any items from the EQ presets menu
         masterPresets.selectItem(at: -1)
+    }
+    
+    private func initControls() {
+        updateButtons()
     }
     
     @IBAction func masterBypassAction(_ sender: AnyObject) {
@@ -276,6 +287,9 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
         case .deleteSoundProfile:
             deleteSoundProfile()
+            
+        case .updateEffectsView:
+            initControls()
             
         default: return
             

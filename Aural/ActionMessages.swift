@@ -242,6 +242,12 @@ enum ActionType {
     
     case miniBarAppMode
     
+    // MARK: Effects presets editor actions
+    
+    case renameEffectsPreset
+    case deleteEffectsPresets
+    case applyEffectsPreset
+    
     // MARK: Mini bar actions
     
     case dockTopLeft
@@ -364,7 +370,7 @@ struct WindowLayoutActionMessage: ActionMessage {
 
 struct SoundProfileActionMessage: ActionMessage {
     
-    var actionType: ActionType
+    let actionType: ActionType
     
     private init(_ actionType: ActionType) {self.actionType = actionType}
     
@@ -375,11 +381,22 @@ struct SoundProfileActionMessage: ActionMessage {
 
 struct PlaybackProfileActionMessage: ActionMessage {
     
-    var actionType: ActionType
+    let actionType: ActionType
     
     private init(_ actionType: ActionType) {self.actionType = actionType}
     
     static let save: PlaybackProfileActionMessage = PlaybackProfileActionMessage(.savePlaybackProfile)
     
     static let delete: PlaybackProfileActionMessage = PlaybackProfileActionMessage(.deletePlaybackProfile)
+}
+
+struct EffectsPresetsEditorActionMessage: ActionMessage {
+    
+    let actionType: ActionType
+    let effectsPresetsUnit: EffectsUnit
+    
+    init(_ actionType: ActionType, _ effectsPresetsUnit: EffectsUnit) {
+        self.actionType = actionType
+        self.effectsPresetsUnit = effectsPresetsUnit
+    }
 }

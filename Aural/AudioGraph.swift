@@ -284,7 +284,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         let filterPreset = FilterPreset(dummyPresetName, filterState, Double(bassBand.min)...Double(bassBand.max), Double(midBand.min)...Double(midBand.max), Double(trebleBand.min)...Double(trebleBand.max), false)
         
-        return MasterPreset(name: "_masterPreset_for_soundProfile", eq: eqPreset, pitch: pitchPreset, time: timePreset, reverb: reverbPreset, delay: delayPreset, filter: filterPreset, systemDefined: false)
+        return MasterPreset("_masterPreset_for_soundProfile", eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)
     }
     
     func applyMasterPreset(_ preset: MasterPreset) {
