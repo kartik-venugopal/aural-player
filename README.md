@@ -25,17 +25,17 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
    * Playlist files: M3U/M3U8
 
 * **Playback:**
-- Option to remember last playback position, either on a per-track basis or for all tracks, so you can resume listening to a track without needing to remember where you left off **(New!)**
-- Bookmarking, so you can mark a specific position within a track, save it with an informative description, and come back to it later with one click, which is great for long tracks like audiobooks **(New!)**
-- Track segment looping, to allow you to define and loop your favorite parts of a track. 
-- Thanks to bookmarking, you can also save your loops and play them back at any time with one click **(New!)**
-- Configurable autoplay (on app startup and/or when tracks are added)
+  * Option to remember last playback position, either on a per-track basis or for all tracks, so you can resume listening to a track without needing to remember where you left off **(New!)**
+  * Bookmarking, so you can mark a specific position within a track, save it with an informative description, and come back to it later with one click, which is great for long tracks like audiobooks **(New!)**
+   * Track segment looping, to allow you to define and loop your favorite parts of a track. 
+   * Thanks to bookmarking, you can also save your loops and play them back at any time with one click **(New!)**
+   * Configurable autoplay (on app startup and/or when tracks are added)
 
 * **Effects:**
-- Graphic equalizer, Pitch shift, Time stretch, Reverb, Delay, Filter, and a Master unit to switch on/off all effects from one place
-- Option to remember sound settings, either on a per-track basis or for all tracks, so you can tailor the soundscape for each of your tracks without having to manually re-apply any settings. Adjust the settings once and Aural will remember them the next time. **(New!)**
-- Save your effects settings as presets, either per individual effects unit or all effects as a whole, so you can use them later without having to remember them **(New!)**
-- Recording of clips in AAC/ALAC/AIFF formats, so you can capture your applied sound effects and create a customized version of your track.
+   * Graphic equalizer, Pitch shift, Time stretch, Reverb, Delay, Filter, and a Master unit to switch on/off all effects from one place
+   * Option to remember sound settings, either on a per-track basis or for all tracks, so you can tailor the soundscape for each of your tracks without having to manually re-apply any settings. Adjust the settings once and Aural will remember them the next time. **(New!)**
+   * Save your effects settings as presets, either per individual effects unit or all effects as a whole, so you can use them later without having to remember them **(New!)**
+   * Recording of clips in AAC/ALAC/AIFF formats, so you can capture your applied sound effects and create a customized version of your track.
 
 * **Information:**
 - Display of ID3 and iTunes metadata, including artwork (when available)
