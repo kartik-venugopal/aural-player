@@ -41,6 +41,9 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         // Initialize the menu with user-defined presets
         MasterPresets.userDefinedPresets.forEach({masterPresets.insertItem(withTitle: $0.name, at: 0)})
+        
+        // Don't select any items from the presets menu
+        masterPresets.selectItem(at: -1)
     }
     
     private func oneTimeSetup() {

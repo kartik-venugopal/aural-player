@@ -169,7 +169,11 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
             }
             
         } else if message.actionType == .updateEffectsView {
-            initControls()
+            
+            let msg = message as! EffectsViewActionMessage
+            if msg.effectsUnit == .master || msg.effectsUnit == .pitch {
+                initControls()
+            }
         }
     }
     

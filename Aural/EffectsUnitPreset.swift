@@ -2,7 +2,7 @@ import Foundation
 
 class EffectsUnitPreset {
     
-    let name: String
+    var name: String
     let systemDefined: Bool
     let state: EffectsUnitState
     

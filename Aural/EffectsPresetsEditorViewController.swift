@@ -3,6 +3,7 @@ import Cocoa
 class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     
     private let masterPresetsEditorView: NSView = ViewFactory.getMasterPresetsEditorView()
+    private let eqPresetsEditorView: NSView = ViewFactory.getEQPresetsEditorView()
     
     // Tab view and its buttons
     
@@ -28,7 +29,7 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
         
         addSubViews()
         [btnApply, btnRename, btnDelete].forEach({$0.isEnabled = false})
-        tabViewAction(masterPresetsTabViewButton)
+        tabViewAction(eqPresetsTabViewButton)
         
         SyncMessenger.subscribe(messageTypes: [.editorSelectionChangedNotification], subscriber: self)
     }
@@ -36,7 +37,7 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     private func addSubViews() {
         
         fxPresetsTabView.tabViewItem(at: 0).view?.addSubview(masterPresetsEditorView)
-        fxPresetsTabView.selectTabViewItem(at: 0)
+        fxPresetsTabView.tabViewItem(at: 1).view?.addSubview(eqPresetsEditorView)
         
         fxPresetsTabViewButtons = [masterPresetsTabViewButton, eqPresetsTabViewButton, pitchPresetsTabViewButton, timePresetsTabViewButton, reverbPresetsTabViewButton, delayPresetsTabViewButton, filterPresetsTabViewButton]
     }
@@ -47,7 +48,6 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
         // Set sender button state, reset all other button states
         fxPresetsTabViewButtons!.forEach({$0.state = UIConstants.buttonState_0})
         sender.state = UIConstants.buttonState_1
-        fxPresetsTabViewButtons!.forEach({$0.setNeedsDisplay()})
         
         // Button tag is the tab index
         fxPresetsTabView.selectTabViewItem(at: sender.tag)

@@ -58,10 +58,6 @@ class MasterPresets {
             presets[newName] = preset
         }
     }
-    
-    static func printAll() {
-        print(presets)
-    }
 }
 
 class MasterPreset {

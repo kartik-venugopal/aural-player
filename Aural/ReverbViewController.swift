@@ -136,7 +136,11 @@ class ReverbViewController: NSViewController, MessageSubscriber, ActionMessageSu
     func consumeMessage(_ message: ActionMessage) {
         
         if message.actionType == .updateEffectsView {
-            initControls()
+            
+            let msg = message as! EffectsViewActionMessage
+            if msg.effectsUnit == .master || msg.effectsUnit == .reverb {
+                initControls()
+            }
         }
     }
 }

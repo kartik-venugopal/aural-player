@@ -214,7 +214,11 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
             }
             
         } else if message.actionType == .updateEffectsView {
-            initControls()
+            
+            let msg = message as! EffectsViewActionMessage
+            if msg.effectsUnit == .master || msg.effectsUnit == .time {
+                initControls()
+            }
         }
     }
     
