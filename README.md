@@ -50,7 +50,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
    * Favorites list and recent items lists for added convenience. Find tracks you recently added/played or favorited, and play them with one click
 
 * **View:**
-   * Multiple compact and flexible view options    * several built-in window layout presets, window snapping with configurable spacing, collapsible views. 
+   * Multiple compact and flexible view options - several built-in window layout presets, window snapping with configurable spacing, collapsible views. 
    * Save your customized window layouts as presets so you can use them again at any time. **(New!)**
 
 * **Usability:**
@@ -61,8 +61,8 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
    	  * Three finger vertical swipe to scroll to top/bottom of playlist
 
    * Extensive set of keyboard shortcuts and menu items for quick and convenient access to functionality. Examples:
-      * Simply press the < > keys to quickly adjust playback rate (i.e. Time stretch effects unit)
-   	  * Simply press +/   * keys to quickly adjust pitch (i.e. Pitch shift effects unit)
+      * Simply press the < / > keys to quickly adjust playback rate (i.e. Time stretch effects unit)
+   	  * Simply press + / - keys to quickly adjust pitch (i.e. Pitch shift effects unit)
    	  * Press Shift/Alt+1 to increase/decrease Equalizer bass
 
 * **Customization:**
