@@ -67,6 +67,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 * **Customization:**
    * Numerous preferences to allow user to highly customize functionality. Examples:
+   
       * Configure the seek length to your liking … short intervals for smaller tracks and longer intervals to quickly skip through large audiobooks
    	  * Configure the increment/decrement for volume/pan adjustments
    	  * Configure how you want the app to look/behave on startup: Autoplay, volume on startup, window layout on startup, remembered or default playlist on startup, etc.
