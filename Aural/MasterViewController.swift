@@ -28,11 +28,10 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     override func viewDidLoad() {
         
-        oneTimeSetup()
-        initControls()
-        
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification, .trackChangedNotification, .appExitRequest], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.enableEffects, .disableEffects, .saveSoundProfile, .deleteSoundProfile, .updateEffectsView], subscriber: self)
+        
+        oneTimeSetup()
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -88,6 +87,26 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         // Don't select any items from the EQ presets menu
         masterPresets.selectItem(at: -1)
+        
+        // If specific startup behavior is defined, update controls accordingly
+        if soundPreferences.effectsSettingsOnStartupOption == .applyMasterPreset {
+            
+            if let preset = soundPreferences.masterPresetOnStartup_name {
+                
+                graph.applyMasterPreset(preset)
+                
+                _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
+                
+                // Don't select any of the items
+                masterPresets.selectItem(at: -1)
+                
+            } else {
+                initControls()
+            }
+            
+        } else {
+            initControls()
+        }
     }
     
     private func initControls() {
@@ -105,9 +124,8 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         graph.applyMasterPreset(masterPresets.titleOfSelectedItem!)
 
-        updateButtons()
         _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
-    
+        
         // Don't select any of the items
         masterPresets.selectItem(at: -1)
     }
@@ -200,13 +218,13 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func trackChanged(_ message: TrackChangedNotification) {
         
         // Apply sound profile if there is one for the new track and if the preferences allow it
-        if soundPreferences.rememberSettings {
+        if soundPreferences.rememberEffectsSettings {
             
             // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
             if let oldTrack = message.oldTrack {
                 
                 // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
-                if soundPreferences.rememberSettingsOption == .allTracks || SoundProfiles.profileForTrack(oldTrack.track) != nil {
+                if soundPreferences.rememberEffectsSettingsOption == .allTracks || SoundProfiles.profileForTrack(oldTrack.track) != nil {
                     
                     SoundProfiles.saveProfile(oldTrack.track, graph.getVolume(), graph.getBalance(), graph.getSettingsAsMasterPreset())
                     
@@ -230,13 +248,13 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func onExit() -> AppExitResponse {
         
         // Apply sound profile if there is one for the new track and if the preferences allow it
-        if soundPreferences.rememberSettings {
+        if soundPreferences.rememberEffectsSettings {
             
             // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
             if let plTrack = player.getPlayingTrack()?.track {
                 
                 // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the app is exiting
-                if soundPreferences.rememberSettingsOption == .allTracks || SoundProfiles.profileForTrack(plTrack) != nil {
+                if soundPreferences.rememberEffectsSettingsOption == .allTracks || SoundProfiles.profileForTrack(plTrack) != nil {
                     SoundProfiles.saveProfile(plTrack, graph.getVolume(), graph.getBalance(), graph.getSettingsAsMasterPreset())
                 }
             }
@@ -292,7 +310,11 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
             deleteSoundProfile()
             
         case .updateEffectsView:
-            initControls()
+            
+            let msg = message as! EffectsViewActionMessage
+            if msg.effectsUnit == .master {
+                initControls()
+            }
             
         default: return
             

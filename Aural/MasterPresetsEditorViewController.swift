@@ -6,6 +6,9 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
+    private lazy var preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.getPreferencesDelegate()
+    private lazy var preferences: Preferences = ObjectGraph.getPreferencesDelegate().getPreferences()
+    
     private var oldPresetName: String?
     
     override var nibName: String? {return "MasterPresetsEditor"}
@@ -146,6 +149,14 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
 
                 // Update the preset name
                 MasterPresets.renamePreset(oldName, newPresetName)
+                
+                // Also update the sound preference, if the chosen preset was this edited one
+                let presetOnStartup = preferences.soundPreferences.masterPresetOnStartup_name
+                if presetOnStartup == oldName {
+                    
+                    preferences.soundPreferences.masterPresetOnStartup_name = newPresetName
+                    preferencesDelegate.savePreferences(preferences)
+                }
             }
         }
     }

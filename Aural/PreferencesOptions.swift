@@ -7,6 +7,12 @@ enum VolumeStartupOptions: String {
     case specific
 }
 
+enum EffectsSettingsStartupOptions: String {
+    
+    case rememberFromLastAppLaunch
+    case applyMasterPreset
+}
+
 // All options for the playlist at startup
 enum PlaylistStartupOptions: String {
     
@@ -50,7 +56,7 @@ enum ScrollSensitivity: String {
     case high
 }
 
-enum RememberSettingsOptions: String {
+enum RememberSettingsForTrackOptions: String {
     
     case allTracks
     case individualTracks
