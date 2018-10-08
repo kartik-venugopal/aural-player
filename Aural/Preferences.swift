@@ -188,7 +188,7 @@ class SoundPreferences: PersistentPreferencesProtocol {
             volumeOnStartupOption = PreferencesDefaults.Sound.volumeOnStartupOption
         }
         
-        startupVolumeValue = defaultsDictionary["sound.volumeOnStartup.option"] as? Float ?? PreferencesDefaults.Sound.startupVolumeValue
+        startupVolumeValue = defaultsDictionary["sound.volumeOnStartup.value"] as? Float ?? PreferencesDefaults.Sound.startupVolumeValue
         
         panDelta = defaultsDictionary["sound.panDelta"] as? Float ?? PreferencesDefaults.Sound.panDelta
         
@@ -218,8 +218,8 @@ class SoundPreferences: PersistentPreferencesProtocol {
         
         defaults.set(volumeDelta, forKey: "sound.volumeDelta")
         
-        defaults.set(volumeOnStartupOption.rawValue, forKey: "sound.volumeOnStartup")
-        defaults.set(startupVolumeValue, forKey: "sound.startupVolumeValue")
+        defaults.set(volumeOnStartupOption.rawValue, forKey: "sound.volumeOnStartup.option")
+        defaults.set(startupVolumeValue, forKey: "sound.volumeOnStartup.value")
         
         defaults.set(panDelta, forKey: "sound.panDelta")
         
