@@ -55,23 +55,22 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 * **Usability:**
    * Gesture recognition for essential player/playlist controls (trackpad/MagicMouse). Examples:
-   * Two finger vertical scroll for volume control
-   * Two finger horizontal scroll for seeking 
-   * Three finger horizontal swipe to change tracks
-   * Three finger vertical swipe to scroll to top/bottom of playlist
+   	* Two finger vertical scroll for volume control
+   	* Two finger horizontal scroll for seeking 
+   	* Three finger horizontal swipe to change tracks
+   	* Three finger vertical swipe to scroll to top/bottom of playlist
 
    * Extensive set of keyboard shortcuts and menu items for quick and convenient access to functionality. Examples:
-   * Simply press the < > keys to quickly adjust playback rate (i.e. Time stretch effects unit)
-   * Simply press +/   * keys to quickly adjust pitch (i.e. Pitch shift effects unit)
-   * Press Shift/Alt+1 to increase/decrease Equalizer bass
+   	* Simply press the < > keys to quickly adjust playback rate (i.e. Time stretch effects unit)
+   	* Simply press +/   * keys to quickly adjust pitch (i.e. Pitch shift effects unit)
+   	* Press Shift/Alt+1 to increase/decrease Equalizer bass
 
 * **Customization:**
    * Numerous preferences to allow user to highly customize functionality. Examples:
-   * Configure the seek length to your liking … short intervals for smaller tracks and longer intervals to quickly skip through large audiobooks
-   * Configure the increment/decrement for volume/pan adjustments
-   * Configure how you want the app to look/behave on startup: Autoplay, volume on startup, window layout on startup, remembered or default playlist on startup, etc.
-   * Configure window snapping behavior, mouse sensitivity for gestures, and more …
-
+   	* Configure the seek length to your liking … short intervals for smaller tracks and longer intervals to quickly skip through large audiobooks
+   	* Configure the increment/decrement for volume/pan adjustments
+   	* Configure how you want the app to look/behave on startup: Autoplay, volume on startup, window layout on startup, remembered or default playlist on startup, etc.
+   	* Configure window snapping behavior, mouse sensitivity for gestures, and more …
 
 ### Planned updates
 
