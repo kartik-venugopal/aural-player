@@ -38,13 +38,13 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
    * Recording of clips in AAC/ALAC/AIFF formats, so you can capture your applied sound effects and create a customized version of your track.
 
 * **Information:**
-- Display of ID3 and iTunes metadata, including artwork (when available)
-- Display of file system information and audio information
+   * Display of ID3 and iTunes metadata, including artwork (when available)
+   * Display of file system information and audio information
 
 * **Playlist:**
-- Grouping of tracks by artist/album/genre for convenient playlist browsing
-- Searching and sorting of playlist
-- Playlist type selection: Just start typing the name of a track to try to find it within the playlist
+   * Grouping of tracks by artist/album/genre for convenient playlist browsing
+   * Searching and sorting of playlist
+   * Playlist type selection: Just start typing the name of a track to try to find it within the playlist
 
 * **History:**
 - Favorites list and recent items lists for added convenience. Find tracks you recently added/played or favorited, and play them with one click
