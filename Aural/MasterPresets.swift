@@ -24,6 +24,17 @@ class MasterPresets {
         return presets.values.filter({$0.systemDefined == false})
     }
     
+    static func countUserDefinedPresets() -> Int {
+        return userDefinedPresets.count
+    }
+    
+    static func deletePresets(_ presetNames: [String]) {
+        
+        presetNames.forEach({
+            presets[$0] = nil
+        })
+    }
+    
     static var systemDefinedPresets: [MasterPreset] {
         return []
     }
@@ -31,17 +42,31 @@ class MasterPresets {
     // Assume preset with this name doesn't already exist
     static func addUserDefinedPreset(_ name: String, _ eq: EQPreset, _ pitch: PitchPreset, _ time: TimePreset, _ reverb: ReverbPreset, _ delay: DelayPreset, _ filter: FilterPreset) {
         
-        presets[name] = MasterPreset(name: name, eq: eq, pitch: pitch, time: time, reverb: reverb, delay: delay, filter: filter, systemDefined: false)
+        presets[name] = MasterPreset(name, eq, pitch, time, reverb, delay, filter, false)
     }
     
     static func presetWithNameExists(_ name: String) -> Bool {
         return presets[name] != nil
     }
+    
+    static func renamePreset(_ oldName: String, _ newName: String) {
+        
+        if let preset = presetByName(oldName) {
+            
+            presets.removeValue(forKey: oldName)
+            preset.name = newName
+            presets[newName] = preset
+        }
+    }
+    
+    static func printAll() {
+        print(presets)
+    }
 }
 
-struct MasterPreset {
+class MasterPreset {
     
-    let name: String
+    var name: String
     
     let eq: EQPreset
     let pitch: PitchPreset
@@ -51,4 +76,16 @@ struct MasterPreset {
     let filter: FilterPreset
     
     let systemDefined: Bool
+    
+    init(_ name: String, _ eq: EQPreset, _ pitch: PitchPreset, _ time: TimePreset, _ reverb: ReverbPreset, _ delay: DelayPreset, _ filter: FilterPreset, _ systemDefined: Bool) {
+        
+        self.name = name
+        self.eq = eq
+        self.pitch = pitch
+        self.time = time
+        self.reverb = reverb
+        self.delay = delay
+        self.filter = filter
+        self.systemDefined = systemDefined
+    }
 }

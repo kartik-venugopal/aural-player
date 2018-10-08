@@ -81,6 +81,8 @@ enum MessageType {
     
     case playlistTypeChangedNotification
     
+    case editorSelectionChangedNotification
+    
     case searchResultSelectionRequest
     
     case appInBackgroundNotification
@@ -501,5 +503,15 @@ struct ApplyEffectsPresetRequest: RequestMessage {
         
         self.messageType = messageType
         self.preset = preset
+    }
+}
+
+struct EditorSelectionChangedNotification: NotificationMessage {
+    
+    let messageType: MessageType = .editorSelectionChangedNotification
+    let numberOfSelectedRows: Int
+    
+    init(_ numberOfSelectedRows: Int) {
+        self.numberOfSelectedRows = numberOfSelectedRows
     }
 }

@@ -7,68 +7,72 @@ struct ViewFactory {
     
     // Top-level sub-views (views displayed directly on the main window)
     
-    private static var nowPlayingViewController: NowPlayingViewController = NowPlayingViewController()
+    private static let nowPlayingViewController: NowPlayingViewController = NowPlayingViewController()
     
-    private static var playerViewController: PlayerViewController = PlayerViewController()
+    private static let playerViewController: PlayerViewController = PlayerViewController()
     
-    private static var barModeNowPlayingViewController: BarModeNowPlayingViewController = BarModeNowPlayingViewController()
+    private static let barModeNowPlayingViewController: BarModeNowPlayingViewController = BarModeNowPlayingViewController()
     
-    private static var barModePlayerViewController: BarModePlayerViewController = BarModePlayerViewController()
+    private static let barModePlayerViewController: BarModePlayerViewController = BarModePlayerViewController()
     
-    private static var bookmarksEditorViewController: BookmarksEditorViewController = BookmarksEditorViewController()
+    private static let bookmarksEditorViewController: BookmarksEditorViewController = BookmarksEditorViewController()
     
-    private static var favoritesEditorViewController: FavoritesEditorViewController = FavoritesEditorViewController()
+    private static let favoritesEditorViewController: FavoritesEditorViewController = FavoritesEditorViewController()
     
-    private static var layoutsEditorViewController: LayoutsEditorViewController = LayoutsEditorViewController()
+    private static let layoutsEditorViewController: LayoutsEditorViewController = LayoutsEditorViewController()
+    
+    private static let effectsPresetsEditorViewController: EffectsPresetsEditorViewController = EffectsPresetsEditorViewController()
+    
+    private static let masterPresetsEditorViewController: MasterPresetsEditorViewController = MasterPresetsEditorViewController()
     
     // Sub-views for the different individual effects units displayed on the Effects panel
     fileprivate struct EffectsViews {
         
-        fileprivate static var masterViewController: MasterViewController = MasterViewController()
+        fileprivate static let masterViewController: MasterViewController = MasterViewController()
         
-        fileprivate static var eqViewController: EQViewController = EQViewController()
+        fileprivate static let eqViewController: EQViewController = EQViewController()
         
-        fileprivate static var pitchViewController: PitchViewController = PitchViewController()
+        fileprivate static let pitchViewController: PitchViewController = PitchViewController()
         
-        fileprivate static var timeViewController: TimeViewController = TimeViewController()
+        fileprivate static let timeViewController: TimeViewController = TimeViewController()
         
-        fileprivate static var reverbViewController: ReverbViewController = ReverbViewController()
+        fileprivate static let reverbViewController: ReverbViewController = ReverbViewController()
         
-        fileprivate static var delayViewController: DelayViewController = DelayViewController()
+        fileprivate static let delayViewController: DelayViewController = DelayViewController()
         
-        fileprivate static var filterViewController: FilterViewController = FilterViewController()
+        fileprivate static let filterViewController: FilterViewController = FilterViewController()
         
-        fileprivate static var recorderViewController: RecorderViewController = RecorderViewController()
+        fileprivate static let recorderViewController: RecorderViewController = RecorderViewController()
     }
     
     // Sub-views for the different individual playlist views displayed in the playlist window's tab group
     fileprivate struct PlaylistViews {
         
-        fileprivate static var tracksViewController: TracksPlaylistViewController = TracksPlaylistViewController()
+        fileprivate static let tracksViewController: TracksPlaylistViewController = TracksPlaylistViewController()
         
-        fileprivate static var artistsViewController: ArtistsPlaylistViewController = ArtistsPlaylistViewController()
+        fileprivate static let artistsViewController: ArtistsPlaylistViewController = ArtistsPlaylistViewController()
         
-        fileprivate static var albumsViewController: AlbumsPlaylistViewController = AlbumsPlaylistViewController()
+        fileprivate static let albumsViewController: AlbumsPlaylistViewController = AlbumsPlaylistViewController()
         
-        fileprivate static var genresViewController: GenresPlaylistViewController = GenresPlaylistViewController()
+        fileprivate static let genresViewController: GenresPlaylistViewController = GenresPlaylistViewController()
         
-        fileprivate static var contextMenuController: PlaylistContextMenuController = PlaylistContextMenuController()
+        fileprivate static let contextMenuController: PlaylistContextMenuController = PlaylistContextMenuController()
     }
     
     // Sub-views for the different individual playlist views displayed in the playlist window's tab group
     fileprivate struct PreferencesViews {
         
-        fileprivate static var playlistPreferencesViewController: PlaylistPreferencesViewController = PlaylistPreferencesViewController()
+        fileprivate static let playlistPreferencesViewController: PlaylistPreferencesViewController = PlaylistPreferencesViewController()
         
-        fileprivate static var playbackPreferencesViewController: PlaybackPreferencesViewController = PlaybackPreferencesViewController()
+        fileprivate static let playbackPreferencesViewController: PlaybackPreferencesViewController = PlaybackPreferencesViewController()
         
-        fileprivate static var soundPreferencesViewController: SoundPreferencesViewController = SoundPreferencesViewController()
+        fileprivate static let soundPreferencesViewController: SoundPreferencesViewController = SoundPreferencesViewController()
         
-        fileprivate static var viewPreferencesViewController: ViewPreferencesViewController = ViewPreferencesViewController()
+        fileprivate static let viewPreferencesViewController: ViewPreferencesViewController = ViewPreferencesViewController()
         
-        fileprivate static var historyPreferencesViewController: HistoryPreferencesViewController = HistoryPreferencesViewController()
+        fileprivate static let historyPreferencesViewController: HistoryPreferencesViewController = HistoryPreferencesViewController()
         
-        fileprivate static var controlsPreferencesViewController: ControlsPreferencesViewController = ControlsPreferencesViewController()
+        fileprivate static let controlsPreferencesViewController: ControlsPreferencesViewController = ControlsPreferencesViewController()
     }
     
     fileprivate struct PopoverViews {
@@ -226,5 +230,13 @@ struct ViewFactory {
     
     static func getLayoutsEditorView() -> NSView {
         return layoutsEditorViewController.view
+    }
+    
+    static func getEffectsPresetsEditorView() -> NSView {
+        return effectsPresetsEditorViewController.view
+    }
+    
+    static func getMasterPresetsEditorView() -> NSView {
+        return masterPresetsEditorViewController.view
     }
 }

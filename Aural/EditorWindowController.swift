@@ -8,6 +8,8 @@ class EditorWindowController: NSWindowController {
     
     private lazy var layoutsEditorView: NSView = ViewFactory.getLayoutsEditorView()
     
+    private lazy var effectsPresetsEditorView: NSView = ViewFactory.getEffectsPresetsEditorView()
+    
     override var windowNibName: String? {return "EditorWindow"}
     
     private var theWindow: NSWindow {
@@ -19,6 +21,7 @@ class EditorWindowController: NSWindowController {
         theWindow.contentView?.addSubview(bookmarksEditorView)
         theWindow.contentView?.addSubview(favoritesEditorView)
         theWindow.contentView?.addSubview(layoutsEditorView)
+        theWindow.contentView?.addSubview(effectsPresetsEditorView)
         
         theWindow.isMovableByWindowBackground = true
     }
@@ -29,6 +32,7 @@ class EditorWindowController: NSWindowController {
         
         favoritesEditorView.isHidden = true
         layoutsEditorView.isHidden = true
+        effectsPresetsEditorView.isHidden = true
         
         WindowState.showingPopover = true
         UIUtils.showModalDialog(theWindow)
@@ -40,6 +44,7 @@ class EditorWindowController: NSWindowController {
         
         bookmarksEditorView.isHidden = true
         layoutsEditorView.isHidden = true
+        effectsPresetsEditorView.isHidden = true
         
         WindowState.showingPopover = true
         UIUtils.showModalDialog(theWindow)
@@ -49,6 +54,19 @@ class EditorWindowController: NSWindowController {
         
         layoutsEditorView.isHidden = false
         
+        favoritesEditorView.isHidden = true
+        bookmarksEditorView.isHidden = true
+        effectsPresetsEditorView.isHidden = true
+        
+        WindowState.showingPopover = true
+        UIUtils.showModalDialog(theWindow)
+    }
+    
+    func showEffectsPresetsEditor() {
+        
+        effectsPresetsEditorView.isHidden = false
+        
+        layoutsEditorView.isHidden = true
         favoritesEditorView.isHidden = true
         bookmarksEditorView.isHidden = true
         

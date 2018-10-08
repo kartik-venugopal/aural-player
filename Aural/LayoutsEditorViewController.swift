@@ -205,7 +205,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
                 
             } else {
             
-                // Update the bookmark name
+                // Update the layout name
                 WindowLayouts.renameLayout(layout.name, newLayoutName)
                 
                 // Also update the view preference, if the chosen layout was this edited one

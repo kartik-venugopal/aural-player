@@ -788,7 +788,7 @@ class AudioGraphState: PersistentState {
                     
                     if let presetName = presetName {
                     
-                        audioGraphState.masterUserPresets.append(MasterPreset(name: presetName, eq: eqPreset, pitch: pitchPreset, time: timePreset, reverb: reverbPreset, delay: delayPreset, filter: filterPreset, systemDefined: false))
+                        audioGraphState.masterUserPresets.append(MasterPreset(presetName, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false))
                     }
                 })
             }
@@ -1750,7 +1750,7 @@ class SoundProfilesState: PersistentState {
                     filterPreset = FilterPreset("", filterPresetState, filterPresetBassMin...filterPresetBassMax, filterPresetMidMin...filterPresetMidMax, filterPresetTrebleMin...filterPresetTrebleMax, false)
                 }
                 
-                let effects = MasterPreset(name: "masterPreset_for_soundProfile", eq: eqPreset, pitch: pitchPreset, time: timePreset, reverb: reverbPreset, delay: delayPreset, filter: filterPreset, systemDefined: false)
+                let effects = MasterPreset("masterPreset_for_soundProfile", eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)
                 
                 state.profiles.append(SoundProfile(file: profileFile!, volume: profileVolume, balance: profileBalance, effects: effects))
             }
