@@ -60,6 +60,7 @@
                 <outlet property="nextTrackMenuItem" destination="z7s-9y-10c" id="6nk-AZ-Jyu"/>
                 <outlet property="playOrPauseMenuItem" destination="T9r-Uq-EPf" id="IlZ-pC-w2Y"/>
                 <outlet property="previousTrackMenuItem" destination="yq3-HU-6rh" id="zSF-vu-IF2"/>
+                <outlet property="rememberLastPositionMenuItem" destination="8QQ-WM-bRZ" id="hj9-6Z-F0f"/>
                 <outlet property="repeatAllMenuItem" destination="l9m-G6-uAk" id="7qX-Uv-a29"/>
                 <outlet property="repeatOffMenuItem" destination="OBr-fe-z4t" id="6I4-nq-jlV"/>
                 <outlet property="repeatOneMenuItem" destination="DMc-0q-KZE" id="8RL-EJ-BFH"/>
@@ -427,6 +428,18 @@ CA
                             <menuItem title=" Show playing track in playlist" image="ShowPlayingTrack-Small" enabled="NO" keyEquivalent="p" id="XjT-hE-GHo" userLabel="Show track in playlist">
                                 <connections>
                                     <action selector="showPlayingTrackAction:" target="IvK-xG-TCa" id="Pew-OT-DKf"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="fWg-GF-TKW"/>
+                            <menuItem title="  Remember playback position for this track" keyEquivalent="k" id="8QQ-WM-bRZ" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="  Remember playback position for this track"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="  Don't remember playback position for this track"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="RememberSoundSettings"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="RememberSoundSettings"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="rememberLastPositionAction:" target="IvK-xG-TCa" id="4go-Vr-CHE"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -1060,7 +1073,7 @@ CA
         <image name="PreviousTrack-Small" width="14" height="8"/>
         <image name="RecentlyAdded" width="18" height="14"/>
         <image name="RecentlyPlayed" width="18" height="14"/>
-        <image name="RememberSoundSettings" width="14" height="14"/>
+        <image name="RememberSoundSettings" width="15" height="15"/>
         <image name="Remove-Small" width="10" height="10"/>
         <image name="RepeatAll-Small" width="17" height="17"/>
         <image name="RepeatMode-Small" width="14" height="13"/>

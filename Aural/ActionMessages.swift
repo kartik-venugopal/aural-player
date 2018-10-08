@@ -211,6 +211,10 @@ enum ActionType {
     
     case deleteSoundProfile
     
+    case savePlaybackProfile
+    
+    case deletePlaybackProfile
+    
     // MARK: Effects view actions
     
     // Switches the Effects panel tab group to a specfic tab
@@ -367,4 +371,15 @@ struct SoundProfileActionMessage: ActionMessage {
     static let save: SoundProfileActionMessage = SoundProfileActionMessage(.saveSoundProfile)
     
     static let delete: SoundProfileActionMessage = SoundProfileActionMessage(.deleteSoundProfile)
+}
+
+struct PlaybackProfileActionMessage: ActionMessage {
+    
+    var actionType: ActionType
+    
+    private init(_ actionType: ActionType) {self.actionType = actionType}
+    
+    static let save: PlaybackProfileActionMessage = PlaybackProfileActionMessage(.savePlaybackProfile)
+    
+    static let delete: PlaybackProfileActionMessage = PlaybackProfileActionMessage(.deletePlaybackProfile)
 }

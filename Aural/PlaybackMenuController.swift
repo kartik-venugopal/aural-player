@@ -31,12 +31,16 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Segment playback loop toggling
     @IBOutlet weak var loopMenuItem: NSMenuItem!
     
+    @IBOutlet weak var rememberLastPositionMenuItem: ToggleMenuItem!
+    
     private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     private lazy var playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.getPlaylistAccessorDelegate()
     
     // Delegate that provides access to History information
     private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
+    
+    private let preferences: PlaybackPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().playbackPreferences
     
     // One-time setup
     override func awakeFromNib() {
@@ -63,6 +67,16 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)
         [previousTrackMenuItem, nextTrackMenuItem, seekForwardMenuItem, seekBackwardMenuItem].forEach({$0.isEnabled = isPlayingOrPaused && !WindowState.showingPopover})
+        
+        rememberLastPositionMenuItem.isHidden = !(preferences.rememberLastPosition && preferences.rememberLastPositionOption == .individualTracks)
+        
+        if let playingTrack = playbackInfo.getPlayingTrack()?.track {
+            
+            rememberLastPositionMenuItem.isEnabled = true
+            rememberLastPositionMenuItem.onIf(PlaybackProfiles.profileForTrack(playingTrack) != nil)
+        } else {
+            rememberLastPositionMenuItem.isEnabled = false
+        }
     }
     
     // Plays, pauses or resumes playback
@@ -133,6 +147,11 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Shows (selects) the currently playing track, within the playlist, if there is one
     @IBAction func showPlayingTrackAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.showPlayingTrack, PlaylistViewState.current))
+    }
+    
+    @IBAction func rememberLastPositionAction(_ sender: ToggleMenuItem) {
+        
+        !rememberLastPositionMenuItem.isOn() ? SyncMessenger.publishActionMessage(PlaybackProfileActionMessage.save) : SyncMessenger.publishActionMessage(PlaybackProfileActionMessage.delete)
     }
     
     // Updates the menu item states per the current playback modes

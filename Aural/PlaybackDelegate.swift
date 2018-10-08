@@ -3,7 +3,7 @@ import Foundation
 /*
     Concrete implementation of PlaybackDelegateProtocol and BasicPlaybackDelegateProtocol.
  */
-class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol, PlaylistChangeListenerProtocol, AsyncMessageSubscriber {
+class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol, PlaylistChangeListenerProtocol, AsyncMessageSubscriber, MessageSubscriber, ActionMessageSubscriber {
     
     // The actual player
     private let player: PlayerProtocol
@@ -30,6 +30,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         self.preferences = preferences
         
         // Subscribe to message notifications
+        SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.savePlaybackProfile, .deletePlaybackProfile], subscriber: self)
         AsyncMessenger.subscribe([.playbackCompleted], subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive))
     }
     
@@ -158,9 +160,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             
             if let lastTrack = history.mostRecentlyPlayedItem()?.track {
                 
-                // Save last position for current track
-                let posn = getSeekPosition().timeElapsed
-                PlaybackProfiles.saveProfile(lastTrack, posn)
+                if preferences.rememberLastPositionOption == .allTracks || PlaybackProfiles.profileForTrack(lastTrack) != nil {
+                
+                    // Update last position for current track
+                    let posn = getSeekPosition().timeElapsed
+                    PlaybackProfiles.saveProfile(lastTrack, posn)
+                }
             }
             
             if (track != nil) {
@@ -458,14 +463,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return playbackSequencer.getRepeatAndShuffleModes()
     }
     
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        if (message is PlaybackCompletedAsyncMessage) {
-            trackPlaybackCompleted()
-            return
-        }
-    }
-    
     func toggleLoop() -> PlaybackLoop? {
         return player.toggleLoop()
     }
@@ -480,6 +477,72 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func getPlaybackLoop() -> PlaybackLoop? {
         return player.getPlaybackLoop()
+    }
+    
+    private func saveProfile() {
+        
+        if let plTrack = getPlayingTrack()?.track {
+            PlaybackProfiles.saveProfile(plTrack, getSeekPosition().timeElapsed)
+        }
+    }
+    
+    private func deleteProfile() {
+        
+        if let plTrack = getPlayingTrack()?.track {
+            PlaybackProfiles.deleteProfile(plTrack)
+        }
+    }
+    
+    // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.
+    private func onExit() -> AppExitResponse {
+        
+        if preferences.rememberLastPosition {
+            
+            // Remember the current playback settings the next time this track plays. Update the profile with the latest settings applied for this track.
+            if let plTrack = getPlayingTrack()?.track {
+                
+                if preferences.rememberLastPositionOption == .allTracks || PlaybackProfiles.profileForTrack(plTrack) != nil {
+                    PlaybackProfiles.saveProfile(plTrack, getSeekPosition().timeElapsed)
+                }
+            }
+        }
+        
+        // No ongoing recording, proceed with exit
+        return AppExitResponse.okToExit
+    }
+    
+    // MARK: Message handling
+    
+    func consumeAsyncMessage(_ message: AsyncMessage) {
+        
+        if (message is PlaybackCompletedAsyncMessage) {
+            trackPlaybackCompleted()
+            return
+        }
+    }
+    
+    func consumeMessage(_ message: ActionMessage) {
+        
+        switch message.actionType {
+            
+        case .savePlaybackProfile:
+            saveProfile()
+            
+        case .deletePlaybackProfile:
+            deleteProfile()
+            
+        default: return
+            
+        }
+    }
+    
+    func processRequest(_ request: RequestMessage) -> ResponseMessage {
+        
+        if (request is AppExitRequest) {
+            return onExit()
+        }
+        
+        return EmptyResponse.instance
     }
     
     // ------------------- PlaylistChangeListenerProtocol methods ---------------------

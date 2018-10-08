@@ -460,7 +460,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         }
         
         // Apply sound profile if there is one for the new track and the preferences allow it
-        if newTrack != nil && soundPreferences.rememberSettingsPerTrack {
+        if newTrack != nil && soundPreferences.rememberSettings {
             
             if let profile = SoundProfiles.profileForTrack(newTrack!.track) {
                 
