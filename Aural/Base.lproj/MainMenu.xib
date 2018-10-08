@@ -431,7 +431,8 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="fWg-GF-TKW"/>
-                            <menuItem title=" Remember playback position for this track" keyEquivalent="k" id="8QQ-WM-bRZ" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                            <menuItem title=" Remember playback position for this track" id="8QQ-WM-bRZ" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value=" Remember playback position for this track"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value=" Don't remember playback position for this track"/>
@@ -686,7 +687,8 @@ CA
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Pfk-E3-d0y"/>
-                            <menuItem title="  Remember these sound settings for this track" keyEquivalent="k" id="lCg-7a-tY1" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                            <menuItem title="  Remember these sound settings for this track" id="lCg-7a-tY1" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="  Remember these sound settings for this track"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="  Don't remember sound settings for this track"/>
