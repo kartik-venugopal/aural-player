@@ -26,6 +26,8 @@
 		3E09C6B71F2F25A7007BB489 /* ShuffleSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C6B61F2F25A7007BB489 /* ShuffleSequence.swift */; };
 		3E09C6BB1F2F388B007BB489 /* PlaybackSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C6BA1F2F388B007BB489 /* PlaybackSequence.swift */; };
 		3E0A66B62169FC9300B2EA2A /* PlaybackProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A66B52169FC9300B2EA2A /* PlaybackProfiles.swift */; };
+		3E0C9939216C82B600E396DB /* DelayPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0C9938216C82B600E396DB /* DelayPresetsEditor.xib */; };
+		3E0C993B216C82CA00E396DB /* DelayPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C993A216C82CA00E396DB /* DelayPresetsEditorViewController.swift */; };
 		3E0ED6A61FBB05FF008268B3 /* Player.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0ED6A51FBB05FF008268B3 /* Player.xib */; };
 		3E0ED6A91FBB1378008268B3 /* NowPlaying.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0ED6A81FBB1378008268B3 /* NowPlaying.xib */; };
 		3E0ED6AC1FBB1961008268B3 /* Effects.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0ED6AB1FBB1961008268B3 /* Effects.xib */; };
@@ -308,6 +310,8 @@
 		3E09C6B61F2F25A7007BB489 /* ShuffleSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShuffleSequence.swift; sourceTree = "<group>"; };
 		3E09C6BA1F2F388B007BB489 /* PlaybackSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSequence.swift; sourceTree = "<group>"; };
 		3E0A66B52169FC9300B2EA2A /* PlaybackProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackProfiles.swift; sourceTree = "<group>"; };
+		3E0C9938216C82B600E396DB /* DelayPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DelayPresetsEditor.xib; sourceTree = "<group>"; };
+		3E0C993A216C82CA00E396DB /* DelayPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPresetsEditorViewController.swift; sourceTree = "<group>"; };
 		3E0ED6A51FBB05FF008268B3 /* Player.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Player.xib; sourceTree = "<group>"; };
 		3E0ED6A81FBB1378008268B3 /* NowPlaying.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NowPlaying.xib; sourceTree = "<group>"; };
 		3E0ED6AB1FBB1961008268B3 /* Effects.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Effects.xib; sourceTree = "<group>"; };
@@ -778,6 +782,8 @@
 		3E24F4D52169A0CD00B9CDA6 /* Delay */ = {
 			isa = PBXGroup;
 			children = (
+				3E0C9938216C82B600E396DB /* DelayPresetsEditor.xib */,
+				3E0C993A216C82CA00E396DB /* DelayPresetsEditorViewController.swift */,
 			);
 			name = Delay;
 			sourceTree = "<group>";
@@ -1592,6 +1598,7 @@
 				3E0ED6A61FBB05FF008268B3 /* Player.xib in Resources */,
 				3E36E85F1FC00E2A0005C62E /* PlaybackPreferences.xib in Resources */,
 				3E066C2F216C796B00E4FE80 /* ReverbPresetsEditor.xib in Resources */,
+				3E0C9939216C82B600E396DB /* DelayPresetsEditor.xib in Resources */,
 				3EF5E5C11FBDB637004270A4 /* Genres.xib in Resources */,
 				3E3F29632159B69900581EFE /* LayoutsEditor.xib in Resources */,
 				3E02739D1FD91B46000F0844 /* StringInputPopover.xib in Resources */,
@@ -1657,6 +1664,7 @@
 				3EC947AF1F5DDEB100FDBE25 /* PlaylistProtocols.swift in Sources */,
 				3E850D631FB45BA90017CD02 /* PlaylistWindowController.swift in Sources */,
 				3E51F6691FC98CAC003A2210 /* StatusBarPopoverViewController.swift in Sources */,
+				3E0C993B216C82CA00E396DB /* DelayPresetsEditorViewController.swift in Sources */,
 				3EDFFA0D1FC0286E00158177 /* HistoryPreferencesViewController.swift in Sources */,
 				3E06C02C1FB6B137003EE9AB /* HistoryItems.swift in Sources */,
 				3EB029121FB55EEF00A2D920 /* DockMenuController.swift in Sources */,

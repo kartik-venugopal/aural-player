@@ -7,6 +7,7 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     private let pitchPresetsEditorView: NSView = ViewFactory.getPitchPresetsEditorView()
     private let timePresetsEditorView: NSView = ViewFactory.getTimePresetsEditorView()
     private let reverbPresetsEditorView: NSView = ViewFactory.getReverbPresetsEditorView()
+    private let delayPresetsEditorView: NSView = ViewFactory.getDelayPresetsEditorView()
     
     // Tab view and its buttons
     
@@ -32,7 +33,7 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
         
         addSubViews()
         [btnApply, btnRename, btnDelete].forEach({$0.isEnabled = false})
-        tabViewAction(reverbPresetsTabViewButton)
+        tabViewAction(delayPresetsTabViewButton)
         
         SyncMessenger.subscribe(messageTypes: [.editorSelectionChangedNotification], subscriber: self)
     }
@@ -44,6 +45,7 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
         fxPresetsTabView.tabViewItem(at: 2).view?.addSubview(pitchPresetsEditorView)
         fxPresetsTabView.tabViewItem(at: 3).view?.addSubview(timePresetsEditorView)
         fxPresetsTabView.tabViewItem(at: 4).view?.addSubview(reverbPresetsEditorView)
+        fxPresetsTabView.tabViewItem(at: 5).view?.addSubview(delayPresetsEditorView)
         
         fxPresetsTabViewButtons = [masterPresetsTabViewButton, eqPresetsTabViewButton, pitchPresetsTabViewButton, timePresetsTabViewButton, reverbPresetsTabViewButton, delayPresetsTabViewButton, filterPresetsTabViewButton]
     }
