@@ -286,7 +286,13 @@
                                         </view>
                                     </tabViewItem>
                                     <tabViewItem label="Time" identifier="3" id="9bj-nK-KOv">
-                                        <view key="view" ambiguous="YES" id="IkI-cp-f8r">
+                                        <view key="view" id="IkI-cp-f8r">
+                                            <rect key="frame" x="10" y="7" width="759" height="262"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                    </tabViewItem>
+                                    <tabViewItem label="Reverb" identifier="4" id="Kq5-A1-meF">
+                                        <view key="view" ambiguous="YES" id="nKT-El-Ylg">
                                             <rect key="frame" x="10" y="7" width="759" height="262"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
