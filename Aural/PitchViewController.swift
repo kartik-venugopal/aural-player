@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Pitch effects unit
  */
-class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
+class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
     
     // Pitch controls
     @IBOutlet weak var btnPitchBypass: EffectsUnitTriStateBypassButton!
@@ -30,6 +30,26 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
         initSubscriptions()
     }
     
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        let itemCount = presetsMenu.itemArray.count
+        
+        let customPresetCount = itemCount - 11  // 2 separators, 9 system-defined presets
+        
+        if customPresetCount > 0 {
+            
+            for index in (0..<customPresetCount).reversed() {
+                presetsMenu.removeItem(at: index)
+            }
+        }
+        
+        // Re-initialize the menu with user-defined presets
+        PitchPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        
+        // Don't select any items from the EQ presets menu
+        presetsMenu.selectItem(at: -1)
+    }
+    
     private func initSubscriptions() {
         
         // Subscribe to message notifications
@@ -44,9 +64,6 @@ class PitchViewController: NSViewController, MessageSubscriber, ActionMessageSub
             
             return self.graph.getPitchState()
         }
-        
-        // Initialize the menu with user-defined presets
-        PitchPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
     }
     
     private func initControls() {
