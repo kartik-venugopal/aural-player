@@ -21,6 +21,8 @@ struct Fonts {
     private static let gillSansSemiBold10Font: NSFont = NSFont(name: "Gill Sans Semibold", size: 10)!
     private static let gillSansSemiBold11Font: NSFont = NSFont(name: "Gill Sans Semibold", size: 11)!
     
+    static let helpInfoTextFont: NSFont = gillSans11Font
+    
     static let barModePlayingTrackTextFont: NSFont = gillSansSemiBold10Font
     
     static let regularModeTrackNameTextFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 14)!

@@ -40,6 +40,9 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnRememberPosition_allTracks: NSButton!
     @IBOutlet weak var btnRememberPosition_individualTracks: NSButton!
     
+    @IBOutlet weak var btnInfo_primarySeekLength: NSButton!
+    @IBOutlet weak var btnInfo_secondarySeekLength: NSButton!
+    
     override var nibName: String? {return "PlaybackPreferences"}
     
     func getView() -> NSView {
@@ -228,4 +231,32 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
             PlaybackProfiles.removeAll()
         }
     }
+    
+    @IBAction func seekLengthPrimary_infoAction(_ sender: Any) {
+        showInfo(Strings.info_seekLengthPrimary)
+    }
+    
+    @IBAction func seekLengthSecondary_infoAction(_ sender: Any) {
+        showInfo(Strings.info_seekLengthSecondary)
+    }
+    
+    private func showInfo(_ text: String) {
+        
+        let helpManager = NSHelpManager.shared
+        let textFontAttributes = convertToOptionalNSAttributedStringKeyDictionary([
+            convertFromNSAttributedStringKey(NSAttributedString.Key.font): Fonts.helpInfoTextFont
+            ])
+        
+        helpManager.setContextHelp(NSAttributedString(string: text, attributes: textFontAttributes), for: btnInfo_primarySeekLength)
+        helpManager.showContextHelp(for: btnInfo_primarySeekLength, locationHint: NSEvent.mouseLocation)
+    }
+}
+
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+    return input.rawValue
+}
+
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+    guard let input = input else { return nil }
+    return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }
