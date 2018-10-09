@@ -30,6 +30,7 @@
 		3E0C993B216C82CA00E396DB /* DelayPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C993A216C82CA00E396DB /* DelayPresetsEditorViewController.swift */; };
 		3E0C993D216C89B400E396DB /* FilterPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0C993C216C89B400E396DB /* FilterPresetsEditor.xib */; };
 		3E0C993F216C89C600E396DB /* FilterPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C993E216C89C600E396DB /* FilterPresetsEditorViewController.swift */; };
+		3E0C9941216C8E2500E396DB /* EQPresetPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C9940216C8E2500E396DB /* EQPresetPreviewView.swift */; };
 		3E0ED6A61FBB05FF008268B3 /* Player.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0ED6A51FBB05FF008268B3 /* Player.xib */; };
 		3E0ED6A91FBB1378008268B3 /* NowPlaying.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0ED6A81FBB1378008268B3 /* NowPlaying.xib */; };
 		3E0ED6AC1FBB1961008268B3 /* Effects.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0ED6AB1FBB1961008268B3 /* Effects.xib */; };
@@ -316,6 +317,7 @@
 		3E0C993A216C82CA00E396DB /* DelayPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPresetsEditorViewController.swift; sourceTree = "<group>"; };
 		3E0C993C216C89B400E396DB /* FilterPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterPresetsEditor.xib; sourceTree = "<group>"; };
 		3E0C993E216C89C600E396DB /* FilterPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresetsEditorViewController.swift; sourceTree = "<group>"; };
+		3E0C9940216C8E2500E396DB /* EQPresetPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPresetPreviewView.swift; sourceTree = "<group>"; };
 		3E0ED6A51FBB05FF008268B3 /* Player.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Player.xib; sourceTree = "<group>"; };
 		3E0ED6A81FBB1378008268B3 /* NowPlaying.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NowPlaying.xib; sourceTree = "<group>"; };
 		3E0ED6AB1FBB1961008268B3 /* Effects.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Effects.xib; sourceTree = "<group>"; };
@@ -752,6 +754,7 @@
 			children = (
 				3E98CBC6216B3C8F0025A77E /* EQPresetsEditor.xib */,
 				3E98CBC8216B3D280025A77E /* EQPresetsEditorViewController.swift */,
+				3E0C9940216C8E2500E396DB /* EQPresetPreviewView.swift */,
 			);
 			name = EQ;
 			sourceTree = "<group>";
@@ -1656,6 +1659,7 @@
 				3EBF7EF2215873E8007869EC /* CustomEditorViews.swift in Sources */,
 				3EBA52FA1FC2EB1E007F902F /* AuralTabView.swift in Sources */,
 				3E33B49E1F3E70F4005EF359 /* FileSystemUtils.swift in Sources */,
+				3E0C9941216C8E2500E396DB /* EQPresetPreviewView.swift in Sources */,
 				3E26B92D1FBC207C00FA3274 /* MultiStateImageButton.swift in Sources */,
 				3EBA52F71FC2E6A2007F902F /* StateMachine.swift in Sources */,
 				3E5F00C62153986700A76C23 /* Bookmark.swift in Sources */,
