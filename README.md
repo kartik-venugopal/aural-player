@@ -25,7 +25,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
    * Playlist files: M3U/M3U8
 
 * **Playback:**
-   * Option to specify two different custom seek lengths so you can perform both fine-grained and coarse-grained seeking simultaneously
+   * Option to specify two different custom seek lengths so you can perform both fine-grained and coarse-grained seeking simultaneously **(New!)**
   * Option to remember last playback position, either on a per-track basis or for all tracks, so you can resume listening to a track without needing to remember where you left off **(New!)**
   * Bookmarking, so you can mark a specific position within a track, save it with an informative description, and come back to it later with one click, which is great for long tracks like audiobooks **(New!)**
    * Track segment looping, to allow you to define and loop your favorite parts of a track. 
@@ -34,7 +34,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 * **Effects:**
    * Graphic equalizer, Pitch shift, Time stretch, Reverb, Delay, Filter, and a Master unit to switch on/off all effects from one place
-   * Option to remember sound settings, either on a per-track basis or for all tracks, so you can tailor the soundscape for each of your tracks without having to manually re-apply any settings. Adjust the settings once and Aural will remember them the next time. **(New!)**
+   * Option to remember sound settings, either on a per-track basis or for all tracks, so you can tailor the soundscape for each of your tracks without having to manually re-apply any settings when they begin playing. Adjust the settings once and Aural will remember them the next time that track plays. **(New!)**
    * Save your effects settings as presets, either per individual effects unit or all effects as a whole, so you can use them later without having to remember them. **(New!)**
    * Recording of clips in AAC/ALAC/AIFF formats, so you can capture your applied sound effects and create a customized version of your track.
 
@@ -43,12 +43,12 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
    * Display of file system information and audio information
 
 * **Playlist:**
-   * Grouping of tracks by artist/album/genre for convenient playlist browsing
-   * Searching and sorting of playlist
-   * Playlist type selection: Just start typing the name of a track to try to find it within the playlist
+   * Grouping of tracks by artist/album/genre for convenient browsing
+   * Searching and sorting
+   * Type selection: Just start typing the name of a track to try to find it within the playlist
    
 * **History:**
-   * Favorites list and recent items lists for added convenience. Find tracks you recently added/played or favorited, and play them with one click
+   * Favorites list and chronologically ordered recent items lists for added convenience. Find tracks you recently added/played or favorited, and add or play them with one click.
 
 * **View:**
    * Multiple compact and flexible view options - several built-in window layout presets, window snapping with configurable spacing, collapsible views. 
@@ -73,6 +73,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
    	  * Configure how you want the app to look/behave on startup: Autoplay, volume and effects settings on startup, window layout on startup, remembered or default playlist on startup, etc.
       * Configure the increment/decrement for volume/pan adjustments
    	  * Configure window snapping behavior, mouse sensitivity for gestures, and more …
+      * Editos to manage all your saved custom app state, such as bookmarks, effects presets, window layouts, etc, so you can rename or edit your saved items and delete unwanted or old data to prevent clutter
 
 ### Planned updates
 
