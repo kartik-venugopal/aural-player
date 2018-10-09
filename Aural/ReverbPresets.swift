@@ -28,6 +28,27 @@ class ReverbPresets {
     static func presetWithNameExists(_ name: String) -> Bool {
         return presets[name] != nil
     }
+    
+    static func countUserDefinedPresets() -> Int {
+        return presets.count
+    }
+    
+    static func deletePresets(_ presetNames: [String]) {
+        
+        presetNames.forEach({
+            presets[$0] = nil
+        })
+    }
+    
+    static func renamePreset(_ oldName: String, _ newName: String) {
+        
+        if let preset = presetByName(oldName) {
+            
+            presets.removeValue(forKey: oldName)
+            preset.name = newName
+            presets[newName] = preset
+        }
+    }
 }
 
 class ReverbPreset: EffectsUnitPreset {

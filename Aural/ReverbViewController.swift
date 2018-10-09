@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Reverb effects unit
  */
-class ReverbViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
+class ReverbViewController: NSViewController, NSMenuDelegate, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
     
     // Reverb controls
     @IBOutlet weak var btnReverbBypass: EffectsUnitTriStateBypassButton!
@@ -30,6 +30,14 @@ class ReverbViewController: NSViewController, MessageSubscriber, ActionMessageSu
         SyncMessenger.subscribe(actionTypes: [.updateEffectsView], subscriber: self)
     }
     
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        presetsMenu.removeAllItems()
+        
+        // Re-initialize the menu with user-defined presets
+        ReverbPresets.allPresets().forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+    }
+    
     private func oneTimeSetup() {
         
         btnReverbBypass.stateFunction = {
@@ -37,9 +45,6 @@ class ReverbViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
             return self.graph.getReverbState()
         }
-        
-        // Initialize the menu with user-defined presets
-        ReverbPresets.allPresets().forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
     }
     
     private func initControls() {

@@ -31,6 +31,8 @@ struct ViewFactory {
     
     private static let timePresetsEditorViewController: TimePresetsEditorViewController = TimePresetsEditorViewController()
     
+    private static let reverbPresetsEditorViewController: ReverbPresetsEditorViewController = ReverbPresetsEditorViewController()
+    
     // Sub-views for the different individual effects units displayed on the Effects panel
     fileprivate struct EffectsViews {
         
@@ -256,5 +258,9 @@ struct ViewFactory {
     
     static func getTimePresetsEditorView() -> NSView {
         return timePresetsEditorViewController.view
+    }
+    
+    static func getReverbPresetsEditorView() -> NSView {
+        return reverbPresetsEditorViewController.view
     }
 }
