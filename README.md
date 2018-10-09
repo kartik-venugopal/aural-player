@@ -77,6 +77,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 ### Planned updates
 
+- Option to insert gaps of silence between tracks
 - A new editor window to manage effects presets
 - A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
 - New color schemes
