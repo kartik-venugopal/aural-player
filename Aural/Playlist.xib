@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,12 +18,12 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="mIO-7n-iVB" userLabel="Playlist Window" customClass="SnappingWindow" customModule="Aural" customModuleProvider="target">
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="mIO-7n-iVB" userLabel="Playlist Window" customClass="SnappingWindow" customModule="Aural" customModuleProvider="target">
             <windowStyleMask key="styleMask" resizable="YES" texturedBackground="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="109" y="132" width="480" height="277"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <value key="minSize" type="size" width="480" height="180"/>
             <view key="contentView" wantsLayer="YES" id="eVi-5y-Ide">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="277"/>
@@ -398,7 +398,7 @@
                                         </ciFilter>
                                     </contentFilters>
                                 </progressIndicator>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLw-7p-b04" userLabel="Tracks summary">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VLw-7p-b04" userLabel="Tracks summary">
                                     <rect key="frame" x="8" y="4" width="159" height="19"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="155" id="nCr-fa-5NI"/>
@@ -410,7 +410,7 @@
                                         <color key="backgroundColor" white="0.78719075520000004" alpha="1" colorSpace="calibratedWhite"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXQ-hF-zKn" userLabel="Duration summary">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QXQ-hF-zKn" userLabel="Duration summary">
                                     <rect key="frame" x="330" y="4" width="115" height="19"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="111" id="Dph-rN-D1k"/>
@@ -543,6 +543,64 @@
                         <action selector="playSelectedItemAction:" target="TnB-Sk-yOp" id="BOn-Ox-BlV"/>
                     </connections>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="ptR-ch-WUH"/>
+                <menuItem title="  Insert gap before track" hidden="YES" enabled="NO" id="Tte-BT-Pxq" userLabel="Insert gap before">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="  Insert gap before track" id="czk-Mf-Hvj">
+                        <items>
+                            <menuItem title="3 seconds" tag="3" enabled="NO" id="7g3-Jb-WWI">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="insertGapBeforeTrackAction:" target="TnB-Sk-yOp" id="hEJ-qy-sVR"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="5 seconds" tag="5" enabled="NO" id="uFW-hP-oFT">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="insertGapBeforeTrackAction:" target="TnB-Sk-yOp" id="hcB-8I-8nW"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="10 seconds" tag="10" enabled="NO" id="jab-Rc-p9D">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="insertGapBeforeTrackAction:" target="TnB-Sk-yOp" id="tCf-Un-XK2"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                    <connections>
+                        <action selector="showTrackInFinderAction:" target="TnB-Sk-yOp" id="aNN-Mt-vyN"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="  Insert gap after track" hidden="YES" enabled="NO" id="gPU-Uk-0Ca" userLabel="Insert gap after">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" id="bt4-FY-o52">
+                        <items>
+                            <menuItem title="3 seconds" tag="3" enabled="NO" id="bbi-i1-I7d">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="insertGapAfterTrackAction:" target="TnB-Sk-yOp" id="Sae-Tq-VWJ"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="5 seconds" tag="5" enabled="NO" id="TDZ-fM-hKf">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="insertGapAfterTrackAction:" target="TnB-Sk-yOp" id="umy-dy-Lg0"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="10 seconds" tag="10" enabled="NO" id="wyO-yF-vbJ">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="insertGapAfterTrackAction:" target="TnB-Sk-yOp" id="rBX-Yg-J07"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                    <connections>
+                        <action selector="showTrackInFinderAction:" target="TnB-Sk-yOp" id="LYy-pa-P2e"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="xpC-LX-tPd"/>
                 <menuItem id="CHV-5l-G4d" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <userDefinedRuntimeAttributes>
@@ -567,7 +625,7 @@
                         <action selector="showTrackInFinderAction:" target="TnB-Sk-yOp" id="06W-8k-6gu"/>
                     </connections>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="ptR-ch-WUH"/>
+                <menuItem isSeparatorItem="YES" id="6Fo-LX-Ia0"/>
                 <menuItem title="  Remove this track" image="Remove-Small" id="RCk-oA-gLU" userLabel="Remove track">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -636,7 +694,7 @@
         <image name="Maximize" width="700" height="600"/>
         <image name="MaximizeHorizontal" width="700" height="600"/>
         <image name="MaximizeVertical" width="700" height="600"/>
-        <image name="MoreInfo-Padded-Small" width="15" height="15"/>
+        <image name="MoreInfo-Padded-Small" width="3.5999999046325684" height="3.5999999046325684"/>
         <image name="Play-Padded-Small" width="15" height="15"/>
         <image name="Remove" width="134" height="134"/>
         <image name="Remove-Small" width="10" height="10"/>

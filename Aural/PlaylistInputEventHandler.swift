@@ -15,24 +15,26 @@ class PlaylistInputEventHandler {
         playlistViews[playlistType] = playlistView
     }
     
-    // Handles a single event
-    static func handle(_ event: NSEvent) {
+    // Handles a single event. Returns true if the event has been successfully handled (or needs to be suppressed), false otherwise
+    static func handle(_ event: NSEvent) -> Bool {
         
         if (NSApp.modalWindow != nil || WindowState.showingPopover) {
             // Modal dialog open, don't do anything
-            return
+            return false
         }
         
         // Delegate to an appropriate handler function based on event type
         switch event.type {
             
-        case .keyDown: handleKeyDown(event)
+        case .keyDown: return handleKeyDown(event)
             
         case .swipe: handleSwipe(event)
             
-        default: return
+        default: return false
             
         }
+        
+        return false
     }
     
     // Handles a single swipe event
@@ -67,8 +69,8 @@ class PlaylistInputEventHandler {
         }
     }
     
-    // Handles a single key press event
-    private static func handleKeyDown(_ event: NSEvent) {
+    // Handles a single key press event. Returns true if the event has been successfully handled (or needs to be suppressed), false otherwise
+    private static func handleKeyDown(_ event: NSEvent) -> Bool {
         
         // Indicate whether or not Shift/Command/Option were pressed
         let isShift: Bool = event.modifierFlags.contains(NSEvent.ModifierFlags.shift)
@@ -87,14 +89,16 @@ class PlaylistInputEventHandler {
             
             // Forward the event to the currently displayed playlist view
             playlistViews[PlaylistViewState.current]!.keyDown(with: event)
-            return
+            return true
         }
         
         // NOTE - This keyboard shortcut is for debugging purposes only, not intended for the end user
         // (Shift + Command + S) Print Timer stats
         if (isShift && isCommand && (chars != nil && chars! == "S")) {
             TimerUtils.printStats()
-            return
+            return false
         }
+        
+        return false
     }
 }

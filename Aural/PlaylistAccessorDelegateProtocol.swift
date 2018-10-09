@@ -44,4 +44,8 @@ protocol PlaylistAccessorDelegateProtocol {
     
     // Returns the display name for a track within a specific playlist. For example, within the Artists playlist, the display name of a track will consist of just its title.
     func displayNameForTrack(_ playlistType: PlaylistType, _ track: Track) -> String
+    
+    func getGapForTrack(_ index: Int) -> PlaybackGap?
+    
+    func getGapForTrack(_ track: Track) -> PlaybackGap?
 }

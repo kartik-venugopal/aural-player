@@ -21,6 +21,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     private var lastPlayedTrack: Track?
     
+    private var inGap: Bool = false
+    
     init(_ player: PlayerProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ playlist: PlaylistAccessorProtocol, _ history: HistoryProtocol, _ preferences: PlaybackPreferences) {
         
         self.player = player
@@ -184,6 +186,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     // Throws an error if playback fails
     private func play(_ track: IndexedTrack?, _ startPosition: Double, _ endPosition: Double? = nil) throws {
         
+        // Invalidate the gap
+        inGap = false
+        
         // Stop if currently playing
         haltPlayback()
         
@@ -206,36 +211,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             
             // Notify observers
             AsyncMessenger.publishMessage(TrackPlayedAsyncMessage(track: actualTrack))
-        }
-    }
-    
-    // Responds to a notification that playback of the current track has completed. Selects the subsequent track for playback and plays it, notifying observers of the track change.
-    private func trackPlaybackCompleted() {
-        
-        let oldTrack = getPlayingTrack()
-        
-        // Reset playback profile last position to 0 (if there is a profile for the track that completed)
-        if PlaybackProfiles.profileForTrack(oldTrack!.track) != nil {
-            
-            // TODO: This will not work in the future, if the playback profile contains stuff other than just the last position. In that case, mutate the lastPosition variable to 0 but keep the profile otherwise intact
-            PlaybackProfiles.deleteProfile(oldTrack!.track)
-        }
-        
-        // Stop playback of the old track
-        haltPlayback()
-        
-        // Continue the playback sequence
-        do {
-            let newTrack = try subsequentTrack()
-            
-            // Notify the UI about this track change event
-            AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, newTrack))
-            
-        } catch let error {
-            
-            if (error is InvalidTrackError) {
-                AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(oldTrack, error as! InvalidTrackError))
-            }
         }
     }
     
@@ -536,6 +511,64 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func getPlaybackLoop() -> PlaybackLoop? {
         return player.getPlaybackLoop()
+    }
+    
+    // Responds to a notification that playback of the current track has completed. Selects the subsequent track for playback and plays it, notifying observers of the track change.
+    private func trackPlaybackCompleted() {
+        
+        let oldTrack = getPlayingTrack()
+        
+        // Reset playback profile last position to 0 (if there is a profile for the track that completed)
+        if PlaybackProfiles.profileForTrack(oldTrack!.track) != nil {
+            
+            // TODO: This will not work in the future, if the playback profile contains stuff other than just the last position. In that case, mutate the lastPosition variable to 0 but keep the profile otherwise intact
+            PlaybackProfiles.deleteProfile(oldTrack!.track)
+        }
+        
+        // Stop playback of the old track
+        haltPlayback()
+        
+        // ----------------- GAP ---------------------
+        
+//        if let gap = playlist.getGapForTrack(oldTrack!.track) {
+//
+//            inGap = true
+//            NSLog("Gap = %lf seconds", gap.duration)
+//
+//            DispatchQueue.main.asyncAfter(deadline: .now() + gap.duration) {
+//
+//                if self.inGap {
+//                    self.continuePlayback()
+//                }
+//            }
+//
+//        } else {
+            continuePlayback()
+//        }
+    }
+    
+    private func continuePlayback() {
+        
+//        NSLog("Gap complete ... proceeding")
+        
+        let oldTrack = getPlayingTrack()
+        
+        // Continue the playback sequence
+        do {
+            
+            let newTrack = try subsequentTrack()
+            
+            // Notify the UI about this track change event
+            AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, newTrack))
+            
+        } catch let error {
+            
+            if (error is InvalidTrackError) {
+                AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(oldTrack, error as! InvalidTrackError))
+            }
+        }
+        
+        inGap = false
     }
     
     private func saveProfile() {
