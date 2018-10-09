@@ -69,7 +69,8 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem, showInPlaylistMenuItem].forEach({$0.isEnabled = isRegularMode && isPlayingOrPaused})
         
         // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)
-        [previousTrackMenuItem, nextTrackMenuItem, seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0.isEnabled = isPlayingOrPaused && !WindowState.showingPopover})
+        let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
+        [previousTrackMenuItem, nextTrackMenuItem, seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0.isEnabled = isPlayingOrPaused && !showingDialogOrPopover})
         
         rememberLastPositionMenuItem.isHidden = !(preferences.rememberLastPosition && preferences.rememberLastPositionOption == .individualTracks)
         
