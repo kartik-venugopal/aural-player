@@ -72,9 +72,14 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     private func initSubscriptions() {
         
         // Set up an input handler to handle scrolling and type selection with key events and gestures
-        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .swipe], handler: {(event: NSEvent!) -> NSEvent in
-            PlaylistInputEventHandler.handle(event)
-            return event;
+        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .swipe], handler: {(event: NSEvent) -> NSEvent? in
+            
+            // Fix for system beep
+            if PlaylistInputEventHandler.handle(event) {
+                return nil
+            } else {
+                return event
+            }
         });
         
         // Register self as a subscriber to various AsyncMessage notifications

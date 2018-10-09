@@ -22,6 +22,8 @@ class PlaybackScheduler {
     
     private var completionPollTimer: RepeatingTaskExecutor?
     
+    private var lastCompletedSession: PlaybackSession?
+    
     init(_ playerNode: AVAudioPlayerNode) {
         self.playerNode = playerNode
     }
@@ -197,8 +199,9 @@ class PlaybackScheduler {
                     lastSeekPosn = duration
                     
                     // Notify observers that the track has finished playing. Don't do this if paused and seeking to the end.
-                    if (playerNode.isPlaying) {
+                    if (playerNode.isPlaying && session !== lastCompletedSession) {
                         trackPlaybackCompleted(session)
+                        lastCompletedSession = session
                     }
                 }
             }

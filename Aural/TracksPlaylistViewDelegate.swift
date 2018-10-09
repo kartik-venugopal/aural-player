@@ -42,6 +42,17 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
         return playlist.trackAtIndex(row)?.track.conciseDisplayName
     }
     
+//    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+//        
+//        if playlist.getGapForTrack(row) != nil {
+//            
+//            print("Found gap: ", row)
+//            return 40
+//        }
+//        
+//        return 22
+//    }
+    
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
@@ -68,8 +79,31 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
                 
             case UIConstants.playlistNameColumnID:
                 
-                // Track name
-                return createTextCell(tableView, UIConstants.playlistNameColumnID, track.conciseDisplayName, row)
+//                if let gap = playlist.getGapForTrack(row) {
+//
+//                    print("Found gap: ", row)
+//
+//                    let cell = createTextCell(tableView, UIConstants.playlistNameColumnID, track.conciseDisplayName, row)
+//
+//                    let gapTf = NSTextField()
+//                    gapTf.stringValue = String(format: "*** GAP: %.0lf seconds", gap.duration)
+//                    gapTf.setFrameSize(NSMakeSize(150, 22))
+//
+//                    gapTf.textColor = cell?.textField?.textColor
+//                    gapTf.font = cell?.textField?.font
+////                    gapTf.backgroundColor = NSColor(calibratedWhite: 1, alpha: 0)
+//                    gapTf.drawsBackground = false
+//                    gapTf.isBordered = false
+//
+//                    cell?.addSubview(gapTf)
+//
+//                    return cell
+//
+//                } else {
+                
+                    // Track name
+                    return createTextCell(tableView, UIConstants.playlistNameColumnID, track.conciseDisplayName, row)
+//                }
                 
             case UIConstants.playlistDurationColumnID:
                 
@@ -204,6 +238,17 @@ class PlaylistCellView: NSTableCellView {
                 textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
                 textField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
             }
+            
+            // If there is a text field indicating a playback gap, color it too
+            // TODO: Make this more efficient by having a separate variable storing the gap text field, and position it precisely
+//            for view in self.subviews {
+//
+//                if let tf = view as? NSTextField {
+//
+//                    tf.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
+//                    tf.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+//                }
+//            }
         }
     }
 }

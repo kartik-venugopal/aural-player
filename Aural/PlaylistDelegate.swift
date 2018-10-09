@@ -120,4 +120,16 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
             PlaylistIO.savePlaylist(file)
         }
     }
+    
+    func insertGapAfterTrack(_ index: Int, _ gap: PlaybackGap) {
+        mutator.insertGapAfterTrack(index, gap)
+    }
+    
+    func getGapForTrack(_ track: Track) -> PlaybackGap? {
+        return accessor.getGapForTrack(track)
+    }
+    
+    func getGapForTrack(_ index: Int) -> PlaybackGap? {
+        return accessor.getGapForTrack(index)
+    }
 }

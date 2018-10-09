@@ -44,6 +44,9 @@ enum ActionType {
     // Play the item selected within the current playlist view
     case playSelectedItem
     
+    // Insert a playback gap before/after the selected track
+    case insertGap
+    
     // Move selected items up one row within playlist
     case moveTracksUp
     
@@ -404,5 +407,20 @@ struct EffectsPresetsEditorActionMessage: ActionMessage {
     init(_ actionType: ActionType, _ effectsPresetsUnit: EffectsUnit) {
         self.actionType = actionType
         self.effectsPresetsUnit = effectsPresetsUnit
+    }
+}
+
+struct InsertPlaybackGapActionMessage: ActionMessage {
+    
+    let actionType: ActionType = .insertGap
+    
+    let track: Track
+    let gap: PlaybackGap
+    let playlistType: PlaylistType?
+    
+    init(_ track: Track, _ gap: PlaybackGap, _ playlistType: PlaylistType?) {
+        self.track = track
+        self.gap = gap
+        self.playlistType = playlistType
     }
 }

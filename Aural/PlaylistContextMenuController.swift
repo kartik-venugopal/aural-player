@@ -89,6 +89,24 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.playSelectedItem, PlaylistViewState.current))
     }
     
+    @IBAction func insertGapBeforeTrackAction(_ sender: NSMenuItem) {
+        
+        // Sender's tag is gap duration in seconds
+        let gapDuration = sender.tag
+        let gap = PlaybackGap(Double(gapDuration), .beforeTrack)
+        
+        SyncMessenger.publishActionMessage(InsertPlaybackGapActionMessage(getClickedTrack(), gap, PlaylistViewState.current))
+    }
+    
+    @IBAction func insertGapAfterTrackAction(_ sender: NSMenuItem) {
+        
+        // Sender's tag is gap duration in seconds
+        let gapDuration = sender.tag
+        let gap = PlaybackGap(Double(gapDuration), .afterTrack)
+        
+        SyncMessenger.publishActionMessage(InsertPlaybackGapActionMessage(getClickedTrack(), gap, PlaylistViewState.current))
+    }
+    
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
     @IBAction func favoritesAction(_ sender: Any) {
         

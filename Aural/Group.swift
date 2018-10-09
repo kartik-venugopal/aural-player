@@ -143,7 +143,10 @@ class Group: NSObject, GroupAccessorProtocol, PlaylistItem {
     
     // Swaps two tracks in the array of tracks
     private func swapTracks(_ trackIndex1: Int, _ trackIndex2: Int) {
-        swap(&tracks[trackIndex1], &tracks[trackIndex2])
+        
+        let temp = tracks[trackIndex1]
+        tracks[trackIndex1] = tracks[trackIndex2]
+        tracks[trackIndex2] = temp
     }
     
     // Sorts all tracks in this group, using the given strategy to compare tracks

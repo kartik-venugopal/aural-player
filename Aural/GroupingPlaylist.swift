@@ -364,7 +364,10 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     }
     
     private func swapGroups(_ index1: Int, _ index2: Int) {
-        swap(&groups[index1], &groups[index2])
+        
+        let temp = groups[index1]
+        groups[index1] = groups[index2]
+        groups[index2] = temp
     }
     
     func moveTracksAndGroupsDown(_ tracks: [Track], _ groupsToMove: [Group]) -> ItemMoveResults {

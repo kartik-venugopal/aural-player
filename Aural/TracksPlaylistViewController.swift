@@ -40,7 +40,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder, .insertGap], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -302,6 +302,13 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         }
     }
     
+    private func insertGap(_ track: Track, _ gap: PlaybackGap) {
+        playlist.insertGapAfterTrack(playlistView.selectedRow, gap)
+        
+        playlistView.reloadData(forRowIndexes: IndexSet([playlistView.selectedRow]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([playlistView.selectedRow]))
+    }
+    
     func getID() -> String {
         return self.className
     }
@@ -360,65 +367,78 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     func consumeMessage(_ message: ActionMessage) {
         
-        let msg = message as! PlaylistActionMessage
-        
-        // Check if this message is intended for this playlist view
-        if (msg.playlistType != nil && msg.playlistType != .tracks) {
+        if let msg = message as? PlaylistActionMessage {
+            
+            // Check if this message is intended for this playlist view
+            if (msg.playlistType != nil && msg.playlistType != .tracks) {
+                return
+            }
+            
+            switch (msg.actionType) {
+                
+            case .refresh:
+                
+                refresh()
+                
+            case .removeTracks:
+                
+                removeTracks()
+                
+            case .showPlayingTrack:
+                
+                showPlayingTrack()
+                
+            case .playSelectedItem:
+                
+                playSelectedTrackAction(self)
+                
+            case .moveTracksUp:
+                
+                moveTracksUp()
+                
+            case .moveTracksDown:
+                
+                moveTracksDown()
+                
+            case .scrollToTop:
+                
+                scrollToTop()
+                
+            case .scrollToBottom:
+                
+                scrollToBottom()
+                
+            case .selectedTrackInfo:
+                
+                showSelectedTrackInfo()
+                
+            case .showTrackInFinder:
+                
+                showTrackInFinder()
+                
+            case .invertSelection:
+                
+                invertSelection()
+                
+            case .cropSelection:
+                
+                cropSelection()
+                
+            default: return
+                
+            }
+            
             return
         }
         
-        switch (msg.actionType) {
+        if let insertGapMsg = message as? InsertPlaybackGapActionMessage {
             
-        case .refresh:
+            // Check if this message is intended for this playlist view
+            if (insertGapMsg.playlistType != nil && insertGapMsg.playlistType != .tracks) {
+                return
+            }
             
-            refresh()
-            
-        case .removeTracks:
-            
-            removeTracks()
-            
-        case .showPlayingTrack:
-            
-            showPlayingTrack()
-            
-        case .playSelectedItem:
-            
-            playSelectedTrackAction(self)
-            
-        case .moveTracksUp:
-            
-            moveTracksUp()
-            
-        case .moveTracksDown:
-            
-            moveTracksDown()
-            
-        case .scrollToTop:
-            
-            scrollToTop()
-            
-        case .scrollToBottom:
-            
-            scrollToBottom()
-            
-        case .selectedTrackInfo:
-            
-            showSelectedTrackInfo()
-            
-        case .showTrackInFinder:
-            
-            showTrackInFinder()
-            
-        case .invertSelection:
-            
-            invertSelection()
-            
-        case .cropSelection:
-            
-            cropSelection()
-            
-        default: return
-            
+            insertGap(insertGapMsg.track, insertGapMsg.gap)
         }
     }
 }
