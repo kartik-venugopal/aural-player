@@ -4,16 +4,38 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     @IBOutlet weak var editorView: NSTableView!
     
+    @IBOutlet weak var previewBox: NSBox!
+    
+    @IBOutlet weak var eqGlobalGainSlider: NSSlider!
+    @IBOutlet weak var eqSlider1k: NSSlider!
+    @IBOutlet weak var eqSlider64: NSSlider!
+    @IBOutlet weak var eqSlider16k: NSSlider!
+    @IBOutlet weak var eqSlider8k: NSSlider!
+    @IBOutlet weak var eqSlider4k: NSSlider!
+    @IBOutlet weak var eqSlider2k: NSSlider!
+    @IBOutlet weak var eqSlider32: NSSlider!
+    @IBOutlet weak var eqSlider512: NSSlider!
+    @IBOutlet weak var eqSlider256: NSSlider!
+    @IBOutlet weak var eqSlider128: NSSlider!
+    
+    private var eqSliders: [NSSlider] = []
+    
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
     private var oldPresetName: String?
     
     override var nibName: String? {return "EQPresetsEditor"}
     
+    override func viewDidLoad() {
+        
+        eqSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
+    }
+    
     override func viewDidAppear() {
         
         editorView.reloadData()
         editorView.deselectAll(self)
+        previewBox.isHidden = true
         
         SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
@@ -64,6 +86,15 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .eq))
     }
     
+    private func updateAllEQSliders(_ eqBands: [Int: Float], _ globalGain: Float) {
+        // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
+        eqSliders.forEach({
+            $0.floatValue = eqBands[$0.tag] ?? 0
+        })
+        
+        eqGlobalGainSlider.floatValue = globalGain
+    }
+    
     // MARK: View delegate functions
     
     // Returns the total number of playlist rows
@@ -72,7 +103,23 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        SyncMessenger.publishNotification(EditorSelectionChangedNotification(editorView.selectedRowIndexes.count))
+        
+        let numRows = editorView.selectedRowIndexes.count
+        
+        if numRows == 1 {
+            
+            // Render preview
+            previewBox.isHidden = false
+            let selection = getSelectedPresetNames()
+            let preset = EQPresets.presetByName(selection[0])
+            
+            updateAllEQSliders(preset.bands, preset.globalGain)
+            
+        } else {
+            previewBox.isHidden = true
+        }
+        
+        SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
     }
     
     // Returns a view for a single row
