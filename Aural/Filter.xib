@@ -212,6 +212,9 @@
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
+                            <connections>
+                                <outlet property="delegate" destination="-2" id="dGM-SU-F7M"/>
+                            </connections>
                         </menu>
                     </popUpButtonCell>
                     <connections>

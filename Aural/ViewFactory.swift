@@ -104,6 +104,8 @@ struct ViewFactory {
         fileprivate static let reverbPresetsEditorViewController: ReverbPresetsEditorViewController = ReverbPresetsEditorViewController()
         
         fileprivate static let delayPresetsEditorViewController: DelayPresetsEditorViewController = DelayPresetsEditorViewController()
+        
+        fileprivate static let filterPresetsEditorViewController: FilterPresetsEditorViewController = FilterPresetsEditorViewController()
     }
     
     // MARK: Accessor functions for the different views
@@ -272,5 +274,9 @@ struct ViewFactory {
     
     static func getDelayPresetsEditorView() -> NSView {
         return EditorViews.delayPresetsEditorViewController.view
+    }
+    
+    static func getFilterPresetsEditorView() -> NSView {
+        return EditorViews.filterPresetsEditorViewController.view
     }
 }

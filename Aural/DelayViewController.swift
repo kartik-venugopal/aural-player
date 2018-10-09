@@ -63,9 +63,6 @@ class DelayViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
             
             return self.graph.getDelayState()
         }
-        
-        // Initialize the menu with user-defined presets
-        DelayPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
     }
 
     private func initControls() {

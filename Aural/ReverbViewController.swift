@@ -36,6 +36,8 @@ class ReverbViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         
         // Re-initialize the menu with user-defined presets
         ReverbPresets.allPresets().forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        
+        presetsMenu.selectItem(at: -1)
     }
     
     private func oneTimeSetup() {
