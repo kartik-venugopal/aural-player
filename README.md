@@ -25,16 +25,17 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
    * Playlist files: M3U/M3U8
 
 * **Playback:**
+   * Option to specify two different custom seek lengths so you can perform both fine-grained and coarse-grained seeking simultaneously
   * Option to remember last playback position, either on a per-track basis or for all tracks, so you can resume listening to a track without needing to remember where you left off **(New!)**
   * Bookmarking, so you can mark a specific position within a track, save it with an informative description, and come back to it later with one click, which is great for long tracks like audiobooks **(New!)**
    * Track segment looping, to allow you to define and loop your favorite parts of a track. 
-   * Thanks to bookmarking, you can also save your loops and play them back at any time with one click **(New!)**
+   * Thanks to bookmarking, save your loops and play them back at any time with one click **(New!)**
    * Configurable autoplay (on app startup and/or when tracks are added)
 
 * **Effects:**
    * Graphic equalizer, Pitch shift, Time stretch, Reverb, Delay, Filter, and a Master unit to switch on/off all effects from one place
    * Option to remember sound settings, either on a per-track basis or for all tracks, so you can tailor the soundscape for each of your tracks without having to manually re-apply any settings. Adjust the settings once and Aural will remember them the next time. **(New!)**
-   * Save your effects settings as presets, either per individual effects unit or all effects as a whole, so you can use them later without having to remember them **(New!)**
+   * Save your effects settings as presets, either per individual effects unit or all effects as a whole, so you can use them later without having to remember them. **(New!)**
    * Recording of clips in AAC/ALAC/AIFF formats, so you can capture your applied sound effects and create a customized version of your track.
 
 * **Information:**
@@ -68,9 +69,9 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 * **Customization:**
    * Numerous preferences to allow user to highly customize functionality. Examples:
    
-      * Configure the seek length to your liking … short intervals for smaller tracks and longer intervals to quickly skip through large audiobooks
-   	  * Configure the increment/decrement for volume/pan adjustments
-   	  * Configure how you want the app to look/behave on startup: Autoplay, volume on startup, window layout on startup, remembered or default playlist on startup, etc.
+      * Configure two independent seek lengths to your liking, used by two independent sets of seek controls … either as a constant value or a percentage of track duration. For instance, set one to a short interval and set the other to a longer interval to quickly skip through large audiobooks while also being able to perform more fine-grained seeking to get to exactly where you want within the track.
+   	  * Configure how you want the app to look/behave on startup: Autoplay, volume and effects settings on startup, window layout on startup, remembered or default playlist on startup, etc.
+      * Configure the increment/decrement for volume/pan adjustments
    	  * Configure window snapping behavior, mouse sensitivity for gestures, and more …
 
 ### Planned updates
