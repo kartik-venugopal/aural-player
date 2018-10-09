@@ -86,7 +86,8 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         masterBypassMenuItem.onIf(graph.isMasterBypass())
         
         let isRegularMode = AppModeManager.mode == .regular
-        [panLeftMenuItem, panRightMenuItem].forEach({$0?.isEnabled = isRegularMode && !WindowState.showingPopover})
+        let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
+        [panLeftMenuItem, panRightMenuItem].forEach({$0?.isEnabled = isRegularMode && !showingDialogOrPopover})
         [eqMenu, pitchMenu, timeMenu].forEach({$0?.isEnabled = isRegularMode})
         
         rememberSettingsMenuItem.isHidden = !(preferences.rememberEffectsSettings && preferences.rememberEffectsSettingsOption == .individualTracks)
