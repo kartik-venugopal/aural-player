@@ -96,6 +96,8 @@ The following bugs are known and fixes are planned. If you find any additional b
   * Bug fixes:
     * **Crash when shuffling / moving tracks**: When a new shuffle sequence is started or tracks are moved up/down within the playlist, app crashes. This has been fixed.
     * **System beep when scrolling through playlist**: When scrolling through the playlist with the arrow keys, the app produces annoying system beeps. This has been fixed.
+    * **Modal dialogs unable to use Shift key**: When modal dialogs such as file browsing dialogs are open, hitting the Cmd/Shift key along with arrows invokes corresponding menu items, instead of acting on the dialog. This has been fixed.
+    * **Playing track selection**: When double-clicking a playlist file, it plays but does not select it (when the option to show it everytime a track plays is selected, it should do this). This has been fixed.
 
 
 - **10/05/2018: New release:**
