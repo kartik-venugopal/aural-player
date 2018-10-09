@@ -70,6 +70,11 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             
             // Clear the selection and reload the rows
             playlistView.deselectAll(self)
+            
+            if playbackPreferences.showNewTrackInPlaylist {
+                playlistView.selectRowIndexes(IndexSet([selRowIndexes.min()!]), byExtendingSelection: false)
+            }
+            
             playlistView.reloadData(forRowIndexes: selRowIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         }
     }
