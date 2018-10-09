@@ -298,7 +298,13 @@
                                         </view>
                                     </tabViewItem>
                                     <tabViewItem label="Delay" identifier="5" id="8Cn-JM-gIC">
-                                        <view key="view" ambiguous="YES" id="i7g-Aw-R5h">
+                                        <view key="view" id="i7g-Aw-R5h">
+                                            <rect key="frame" x="10" y="7" width="759" height="262"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                    </tabViewItem>
+                                    <tabViewItem label="Filter" identifier="6" id="u2K-U0-Rjo">
+                                        <view key="view" ambiguous="YES" id="5nP-ZL-tW8">
                                             <rect key="frame" x="10" y="7" width="759" height="262"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>

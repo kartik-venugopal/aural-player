@@ -28,6 +28,8 @@
 		3E0A66B62169FC9300B2EA2A /* PlaybackProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A66B52169FC9300B2EA2A /* PlaybackProfiles.swift */; };
 		3E0C9939216C82B600E396DB /* DelayPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0C9938216C82B600E396DB /* DelayPresetsEditor.xib */; };
 		3E0C993B216C82CA00E396DB /* DelayPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C993A216C82CA00E396DB /* DelayPresetsEditorViewController.swift */; };
+		3E0C993D216C89B400E396DB /* FilterPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0C993C216C89B400E396DB /* FilterPresetsEditor.xib */; };
+		3E0C993F216C89C600E396DB /* FilterPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C993E216C89C600E396DB /* FilterPresetsEditorViewController.swift */; };
 		3E0ED6A61FBB05FF008268B3 /* Player.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0ED6A51FBB05FF008268B3 /* Player.xib */; };
 		3E0ED6A91FBB1378008268B3 /* NowPlaying.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0ED6A81FBB1378008268B3 /* NowPlaying.xib */; };
 		3E0ED6AC1FBB1961008268B3 /* Effects.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0ED6AB1FBB1961008268B3 /* Effects.xib */; };
@@ -312,6 +314,8 @@
 		3E0A66B52169FC9300B2EA2A /* PlaybackProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackProfiles.swift; sourceTree = "<group>"; };
 		3E0C9938216C82B600E396DB /* DelayPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DelayPresetsEditor.xib; sourceTree = "<group>"; };
 		3E0C993A216C82CA00E396DB /* DelayPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPresetsEditorViewController.swift; sourceTree = "<group>"; };
+		3E0C993C216C89B400E396DB /* FilterPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterPresetsEditor.xib; sourceTree = "<group>"; };
+		3E0C993E216C89C600E396DB /* FilterPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresetsEditorViewController.swift; sourceTree = "<group>"; };
 		3E0ED6A51FBB05FF008268B3 /* Player.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Player.xib; sourceTree = "<group>"; };
 		3E0ED6A81FBB1378008268B3 /* NowPlaying.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NowPlaying.xib; sourceTree = "<group>"; };
 		3E0ED6AB1FBB1961008268B3 /* Effects.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Effects.xib; sourceTree = "<group>"; };
@@ -791,6 +795,8 @@
 		3E24F4D62169A0D300B9CDA6 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
+				3E0C993C216C89B400E396DB /* FilterPresetsEditor.xib */,
+				3E0C993E216C89C600E396DB /* FilterPresetsEditorViewController.swift */,
 			);
 			name = Filter;
 			sourceTree = "<group>";
@@ -1594,6 +1600,7 @@
 				3E066C2D216C6FB500E4FE80 /* TimePresetsEditor.xib in Resources */,
 				3E0ED6BD1FBB1CB7008268B3 /* Delay.xib in Resources */,
 				3EF08DCD21571BD8000C7F11 /* ReleaseNotes.rtf in Resources */,
+				3E0C993D216C89B400E396DB /* FilterPresetsEditor.xib in Resources */,
 				3E0ED6AC1FBB1961008268B3 /* Effects.xib in Resources */,
 				3E0ED6A61FBB05FF008268B3 /* Player.xib in Resources */,
 				3E36E85F1FC00E2A0005C62E /* PlaybackPreferences.xib in Resources */,
@@ -1621,6 +1628,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E0C993F216C89C600E396DB /* FilterPresetsEditorViewController.swift in Sources */,
 				3E864ADB1F25C81B006A7626 /* PlaylistDelegateProtocol.swift in Sources */,
 				3E80E6721F04FA7C007480CC /* SizeUnit.swift in Sources */,
 				3EB029141FB58CEC00A2D920 /* SoundMenuController.swift in Sources */,

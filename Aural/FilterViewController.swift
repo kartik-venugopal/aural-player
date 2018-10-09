@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Filter effects unit
  */
-class FilterViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
+class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
     
     // Filter controls
     @IBOutlet weak var btnFilterBypass: EffectsUnitTriStateBypassButton!
@@ -34,6 +34,28 @@ class FilterViewController: NSViewController, MessageSubscriber, ActionMessageSu
         SyncMessenger.subscribe(actionTypes: [.updateEffectsView], subscriber: self)
     }
     
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        let itemCount = presetsMenu.itemArray.count
+        
+        let customPresetCount = itemCount - 6  // 1 separator, 5 system-defined presets
+        
+        if customPresetCount > 0 {
+            
+            for index in (0..<customPresetCount).reversed() {
+                presetsMenu.removeItem(at: index)
+            }
+        }
+        
+        // Re-initialize the menu with user-defined presets
+        
+        // Initialize the menu with user-defined presets
+        FilterPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        
+        // Don't select any items from the presets menu
+        presetsMenu.selectItem(at: -1)
+    }
+    
     private func oneTimeSetup() {
         
         btnFilterBypass.stateFunction = {
@@ -56,9 +78,6 @@ class FilterViewController: NSViewController, MessageSubscriber, ActionMessageSu
             (slider: RangeSlider) -> Void in
             self.filterTrebleChanged()
         })
-        
-        // Initialize the menu with user-defined presets
-        FilterPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
     }
  
     private func initControls() {
@@ -171,7 +190,7 @@ class FilterViewController: NSViewController, MessageSubscriber, ActionMessageSu
         if message.actionType == .updateEffectsView {
             
             let msg = message as! EffectsViewActionMessage
-            if msg.effectsUnit == .master || msg.effectsUnit == .pitch {
+            if msg.effectsUnit == .master || msg.effectsUnit == .filter {
                 initControls()
             }
         }
