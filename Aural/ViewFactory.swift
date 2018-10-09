@@ -29,6 +29,8 @@ struct ViewFactory {
     
     private static let pitchPresetsEditorViewController: PitchPresetsEditorViewController = PitchPresetsEditorViewController()
     
+    private static let timePresetsEditorViewController: TimePresetsEditorViewController = TimePresetsEditorViewController()
+    
     // Sub-views for the different individual effects units displayed on the Effects panel
     fileprivate struct EffectsViews {
         
@@ -250,5 +252,9 @@ struct ViewFactory {
     
     static func getPitchPresetsEditorView() -> NSView {
         return pitchPresetsEditorViewController.view
+    }
+    
+    static func getTimePresetsEditorView() -> NSView {
+        return timePresetsEditorViewController.view
     }
 }

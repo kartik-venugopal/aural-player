@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Time effects unit
  */
-class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
+class TimeViewController: NSViewController, NSMenuDelegate, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
     
     // Time controls
     @IBOutlet weak var btnTimeBypass: EffectsUnitTriStateBypassButton!
@@ -37,6 +37,26 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
         SyncMessenger.subscribe(actionTypes: [.increaseRate, .decreaseRate, .setRate, .updateEffectsView], subscriber: self)
     }
     
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        let itemCount = presetsMenu.itemArray.count
+        
+        let customPresetCount = itemCount - 13  // 2 separators, 11 system-defined presets
+        
+        if customPresetCount > 0 {
+            
+            for index in (0..<customPresetCount).reversed() {
+                presetsMenu.removeItem(at: index)
+            }
+        }
+        
+        // Re-initialize the menu with user-defined presets
+        TimePresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        
+        // Don't select any items from the EQ presets menu
+        presetsMenu.selectItem(at: -1)
+    }
+    
     private func oneTimeSetup() {
         
         btnTimeBypass.stateFunction = {
@@ -44,9 +64,6 @@ class TimeViewController: NSViewController, MessageSubscriber, ActionMessageSubs
             
             return self.graph.getTimeState()
         }
-        
-        // Initialize the menu with user-defined presets
-        TimePresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
     }
     
     private func initControls() {
