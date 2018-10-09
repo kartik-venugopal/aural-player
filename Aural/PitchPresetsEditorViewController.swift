@@ -1,6 +1,6 @@
 import Cocoa
 
-class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, ActionMessageSubscriber {
+class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, ActionMessageSubscriber {
     
     @IBOutlet weak var editorView: NSTableView!
     
@@ -8,7 +8,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     private var oldPresetName: String?
     
-    override var nibName: String? {return "EQPresetsEditor"}
+    override var nibName: String? {return "PitchPresetsEditor"}
     
     override func viewDidAppear() {
         
@@ -25,7 +25,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     private func deleteSelectedPresetsAction() {
         
         let selection = getSelectedPresetNames()
-        EQPresets.deletePresets(selection)
+        PitchPresets.deletePresets(selection)
         editorView.reloadData()
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
@@ -60,15 +60,15 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     private func applyPresetAction() {
         
         let selection = getSelectedPresetNames()
-        graph.applyEQPreset(selection[0])
-        SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .eq))
+        graph.applyPitchPreset(selection[0])
+        SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .pitch))
     }
     
     // MARK: View delegate functions
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return EQPresets.countUserDefinedPresets()
+        return PitchPresets.countUserDefinedPresets()
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -83,7 +83,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let preset = EQPresets.userDefinedPresets[row]
+        let preset = PitchPresets.userDefinedPresets[row]
         return createTextCell(tableView, tableColumn!, row, preset.name)
     }
     
@@ -130,9 +130,9 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
         // Access the old value from the temp storage variable
         let oldName = oldPresetName!
         
-        if EQPresets.presetWithNameExists(oldName) {
+        if PitchPresets.presetWithNameExists(oldName) {
             
-            let preset = EQPresets.presetByName(oldName)
+            let preset = PitchPresets.presetByName(oldName)
             
             let newPresetName = editedTextField.stringValue
             
@@ -145,7 +145,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
                 
                 editedTextField.stringValue = preset.name
                 
-            } else if EQPresets.presetWithNameExists(newPresetName) {
+            } else if PitchPresets.presetWithNameExists(newPresetName) {
                 
                 // Another preset with that name exists, can't rename
                 editedTextField.stringValue = preset.name
@@ -153,7 +153,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
             } else {
                 
                 // Update the preset name
-                EQPresets.renamePreset(oldName, newPresetName)
+                PitchPresets.renamePreset(oldName, newPresetName)
             }
             
         } else {
@@ -162,7 +162,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
             editedTextField.stringValue = oldName
         }
     }
- 
+    
     // MARK: Message handling
     
     func getID() -> String {
@@ -173,7 +173,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
         
         if let msg = message as? EffectsPresetsEditorActionMessage {
             
-            if msg.effectsPresetsUnit == .eq {
+            if msg.effectsPresetsUnit == .pitch {
                 
                 switch msg.actionType {
                     
@@ -193,3 +193,4 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
         }
     }
 }
+

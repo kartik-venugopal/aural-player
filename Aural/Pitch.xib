@@ -191,6 +191,9 @@
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
+                            <connections>
+                                <outlet property="delegate" destination="-2" id="AR6-Fa-ijL"/>
+                            </connections>
                         </menu>
                     </popUpButtonCell>
                     <connections>

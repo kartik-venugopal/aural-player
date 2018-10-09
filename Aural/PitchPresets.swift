@@ -28,6 +28,29 @@ class PitchPresets {
         return presets[name] ?? defaultPreset
     }
     
+    static func countUserDefinedPresets() -> Int {
+        return userDefinedPresets.count
+    }
+    
+    static func deletePresets(_ presetNames: [String]) {
+        
+        presetNames.forEach({
+            presets[$0] = nil
+        })
+    }
+    
+    static func renamePreset(_ oldName: String, _ newName: String) {
+        
+        if presetWithNameExists(oldName) {
+            
+            let preset = presetByName(oldName)
+            
+            presets.removeValue(forKey: oldName)
+            preset.name = newName
+            presets[newName] = preset
+        }
+    }
+    
     static func loadUserDefinedPresets(_ userDefinedPresets: [PitchPreset]) {
         userDefinedPresets.forEach({presets[$0.name] = $0})
     }
