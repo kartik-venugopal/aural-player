@@ -12,6 +12,8 @@
                 <outlet property="btnAutoplayAlways" destination="Yrk-jG-tb1" id="Rf6-x4-cdb"/>
                 <outlet property="btnAutoplayIfNotPlaying" destination="izk-F1-oh2" id="V5b-6i-R0D"/>
                 <outlet property="btnAutoplayOnStartup" destination="08B-D5-cac" id="cVP-E2-hy2"/>
+                <outlet property="btnInfo_primarySeekLength" destination="Rka-88-zsT" id="CpA-fk-ARo"/>
+                <outlet property="btnInfo_secondarySeekLength" destination="cds-hi-8Qd" id="fzI-wZ-h92"/>
                 <outlet property="btnPrimarySeekLengthConstant" destination="9fb-Eh-kMD" id="u7m-0x-5l3"/>
                 <outlet property="btnPrimarySeekLengthDecrement" destination="yZ8-DP-OAF" id="wxW-SE-BGc"/>
                 <outlet property="btnPrimarySeekLengthIncrement" destination="8TR-zU-aSh" id="0AQ-iK-mWL"/>
@@ -331,8 +333,33 @@
                         <action selector="rememberLastPositionRadioButtonAction:" target="-2" id="l9i-EQ-wZv"/>
                     </connections>
                 </button>
+                <button toolTip="What is this ?" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rka-88-zsT" userLabel="Info - Seek length primary">
+                    <rect key="frame" x="139" y="359" width="15" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="WhatIsThis" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Am0-cs-ZJL">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="seekLengthPrimary_infoAction:" target="-2" id="glU-oY-C7R"/>
+                    </connections>
+                </button>
+                <button toolTip="What is this ?" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cds-hi-8Qd" userLabel="Info - Seek length primary">
+                    <rect key="frame" x="151" y="288" width="15" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="WhatIsThis" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qfv-ZU-ev0">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="seekLengthSecondary_infoAction:" target="-2" id="nQi-vs-Mtb"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="-346" y="-20"/>
         </view>
     </objects>
+    <resources>
+        <image name="WhatIsThis" width="512" height="512"/>
+    </resources>
 </document>
