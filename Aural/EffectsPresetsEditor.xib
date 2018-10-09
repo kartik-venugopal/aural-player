@@ -280,7 +280,13 @@
                                         </view>
                                     </tabViewItem>
                                     <tabViewItem label="Pitch" identifier="2" id="OFM-QL-27B">
-                                        <view key="view" ambiguous="YES" id="Bg4-2c-Zgz">
+                                        <view key="view" id="Bg4-2c-Zgz">
+                                            <rect key="frame" x="10" y="7" width="759" height="262"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                    </tabViewItem>
+                                    <tabViewItem label="Time" identifier="3" id="9bj-nK-KOv">
+                                        <view key="view" ambiguous="YES" id="IkI-cp-f8r">
                                             <rect key="frame" x="10" y="7" width="759" height="262"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>

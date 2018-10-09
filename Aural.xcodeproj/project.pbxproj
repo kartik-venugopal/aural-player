@@ -13,6 +13,8 @@
 		3E047B0E1F01436700ADE0F1 /* ReverbSpaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E047B0D1F01436700ADE0F1 /* ReverbSpaces.swift */; };
 		3E066C27216C5FEF00E4FE80 /* PitchPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E066C26216C5FEF00E4FE80 /* PitchPresetsEditor.xib */; };
 		3E066C29216C601500E4FE80 /* PitchPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E066C28216C601500E4FE80 /* PitchPresetsEditorViewController.swift */; };
+		3E066C2B216C6F5300E4FE80 /* TimePresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E066C2A216C6F5300E4FE80 /* TimePresetsEditorViewController.swift */; };
+		3E066C2D216C6FB500E4FE80 /* TimePresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E066C2C216C6FB500E4FE80 /* TimePresetsEditor.xib */; };
 		3E06C0271FB6B0BF003EE9AB /* HistoryMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06C0261FB6B0BF003EE9AB /* HistoryMenuController.swift */; };
 		3E06C02A1FB6B120003EE9AB /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06C0291FB6B120003EE9AB /* History.swift */; };
 		3E06C02C1FB6B137003EE9AB /* HistoryItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06C02B1FB6B137003EE9AB /* HistoryItems.swift */; };
@@ -291,6 +293,8 @@
 		3E047B0D1F01436700ADE0F1 /* ReverbSpaces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverbSpaces.swift; sourceTree = "<group>"; };
 		3E066C26216C5FEF00E4FE80 /* PitchPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PitchPresetsEditor.xib; sourceTree = "<group>"; };
 		3E066C28216C601500E4FE80 /* PitchPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchPresetsEditorViewController.swift; sourceTree = "<group>"; };
+		3E066C2A216C6F5300E4FE80 /* TimePresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePresetsEditorViewController.swift; sourceTree = "<group>"; };
+		3E066C2C216C6FB500E4FE80 /* TimePresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimePresetsEditor.xib; sourceTree = "<group>"; };
 		3E06C0261FB6B0BF003EE9AB /* HistoryMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryMenuController.swift; sourceTree = "<group>"; };
 		3E06C0291FB6B120003EE9AB /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		3E06C02B1FB6B137003EE9AB /* HistoryItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItems.swift; sourceTree = "<group>"; };
@@ -752,6 +756,8 @@
 		3E24F4D32169A0C000B9CDA6 /* Time */ = {
 			isa = PBXGroup;
 			children = (
+				3E066C2C216C6FB500E4FE80 /* TimePresetsEditor.xib */,
+				3E066C2A216C6F5300E4FE80 /* TimePresetsEditorViewController.swift */,
 			);
 			name = Time;
 			sourceTree = "<group>";
@@ -1573,6 +1579,7 @@
 				3E2F1049215562DD0099FD06 /* EditorWindow.xib in Resources */,
 				3E85F25F1EFA78D6007BE830 /* MainMenu.xib in Resources */,
 				3E24F4D021699E5000B9CDA6 /* EffectsPresetsEditor.xib in Resources */,
+				3E066C2D216C6FB500E4FE80 /* TimePresetsEditor.xib in Resources */,
 				3E0ED6BD1FBB1CB7008268B3 /* Delay.xib in Resources */,
 				3EF08DCD21571BD8000C7F11 /* ReleaseNotes.rtf in Resources */,
 				3E0ED6AC1FBB1961008268B3 /* Effects.xib in Resources */,
@@ -1610,6 +1617,7 @@
 				3E3FB7F3215B577400974A59 /* PlayableItem.swift in Sources */,
 				3EF043A51F9D5ED8000EE7ED /* ActionMessages.swift in Sources */,
 				3EF5E5D21FBF0373004270A4 /* TracksPlaylistViewDelegate.swift in Sources */,
+				3E066C2B216C6F5300E4FE80 /* TimePresetsEditorViewController.swift in Sources */,
 				3E58CC2B1F0275B200C36DC1 /* TimerUtils.swift in Sources */,
 				3E2188A81F0771390085BAB3 /* DetailedTrackInfoViewController.swift in Sources */,
 				3E2F10532155742E0099FD06 /* BookmarksEditorViewController.swift in Sources */,

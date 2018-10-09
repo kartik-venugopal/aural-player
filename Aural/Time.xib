@@ -219,6 +219,9 @@
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
+                            <connections>
+                                <outlet property="delegate" destination="-2" id="aDM-eD-pHD"/>
+                            </connections>
                         </menu>
                     </popUpButtonCell>
                     <connections>
