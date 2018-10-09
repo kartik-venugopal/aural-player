@@ -292,7 +292,13 @@
                                         </view>
                                     </tabViewItem>
                                     <tabViewItem label="Reverb" identifier="4" id="Kq5-A1-meF">
-                                        <view key="view" ambiguous="YES" id="nKT-El-Ylg">
+                                        <view key="view" id="nKT-El-Ylg">
+                                            <rect key="frame" x="10" y="7" width="759" height="262"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                    </tabViewItem>
+                                    <tabViewItem label="Delay" identifier="5" id="8Cn-JM-gIC">
+                                        <view key="view" ambiguous="YES" id="i7g-Aw-R5h">
                                             <rect key="frame" x="10" y="7" width="759" height="262"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>

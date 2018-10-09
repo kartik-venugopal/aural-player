@@ -15,24 +15,6 @@ struct ViewFactory {
     
     private static let barModePlayerViewController: BarModePlayerViewController = BarModePlayerViewController()
     
-    private static let bookmarksEditorViewController: BookmarksEditorViewController = BookmarksEditorViewController()
-    
-    private static let favoritesEditorViewController: FavoritesEditorViewController = FavoritesEditorViewController()
-    
-    private static let layoutsEditorViewController: LayoutsEditorViewController = LayoutsEditorViewController()
-    
-    private static let effectsPresetsEditorViewController: EffectsPresetsEditorViewController = EffectsPresetsEditorViewController()
-    
-    private static let masterPresetsEditorViewController: MasterPresetsEditorViewController = MasterPresetsEditorViewController()
-    
-    private static let eqPresetsEditorViewController: EQPresetsEditorViewController = EQPresetsEditorViewController()
-    
-    private static let pitchPresetsEditorViewController: PitchPresetsEditorViewController = PitchPresetsEditorViewController()
-    
-    private static let timePresetsEditorViewController: TimePresetsEditorViewController = TimePresetsEditorViewController()
-    
-    private static let reverbPresetsEditorViewController: ReverbPresetsEditorViewController = ReverbPresetsEditorViewController()
-    
     // Sub-views for the different individual effects units displayed on the Effects panel
     fileprivate struct EffectsViews {
         
@@ -98,6 +80,30 @@ struct ViewFactory {
         fileprivate static var statusBarPopover: StatusBarPopoverViewController = {
             return StatusBarPopoverViewController.create()
         }()
+    }
+    
+    // Sub-views for the different individual editor views
+    fileprivate struct EditorViews {
+        
+        fileprivate static let bookmarksEditorViewController: BookmarksEditorViewController = BookmarksEditorViewController()
+        
+        fileprivate static let favoritesEditorViewController: FavoritesEditorViewController = FavoritesEditorViewController()
+        
+        fileprivate static let layoutsEditorViewController: LayoutsEditorViewController = LayoutsEditorViewController()
+        
+        fileprivate static let effectsPresetsEditorViewController: EffectsPresetsEditorViewController = EffectsPresetsEditorViewController()
+        
+        fileprivate static let masterPresetsEditorViewController: MasterPresetsEditorViewController = MasterPresetsEditorViewController()
+        
+        fileprivate static let eqPresetsEditorViewController: EQPresetsEditorViewController = EQPresetsEditorViewController()
+        
+        fileprivate static let pitchPresetsEditorViewController: PitchPresetsEditorViewController = PitchPresetsEditorViewController()
+        
+        fileprivate static let timePresetsEditorViewController: TimePresetsEditorViewController = TimePresetsEditorViewController()
+        
+        fileprivate static let reverbPresetsEditorViewController: ReverbPresetsEditorViewController = ReverbPresetsEditorViewController()
+        
+        fileprivate static let delayPresetsEditorViewController: DelayPresetsEditorViewController = DelayPresetsEditorViewController()
     }
     
     // MARK: Accessor functions for the different views
@@ -229,38 +235,42 @@ struct ViewFactory {
     }
     
     static func getBookmarksEditorView() -> NSView {
-        return bookmarksEditorViewController.view
+        return EditorViews.bookmarksEditorViewController.view
     }
     
     static func getFavoritesEditorView() -> NSView {
-        return favoritesEditorViewController.view
+        return EditorViews.favoritesEditorViewController.view
     }
     
     static func getLayoutsEditorView() -> NSView {
-        return layoutsEditorViewController.view
+        return EditorViews.layoutsEditorViewController.view
     }
     
     static func getEffectsPresetsEditorView() -> NSView {
-        return effectsPresetsEditorViewController.view
+        return EditorViews.effectsPresetsEditorViewController.view
     }
     
     static func getMasterPresetsEditorView() -> NSView {
-        return masterPresetsEditorViewController.view
+        return EditorViews.masterPresetsEditorViewController.view
     }
     
     static func getEQPresetsEditorView() -> NSView {
-        return eqPresetsEditorViewController.view
+        return EditorViews.eqPresetsEditorViewController.view
     }
     
     static func getPitchPresetsEditorView() -> NSView {
-        return pitchPresetsEditorViewController.view
+        return EditorViews.pitchPresetsEditorViewController.view
     }
     
     static func getTimePresetsEditorView() -> NSView {
-        return timePresetsEditorViewController.view
+        return EditorViews.timePresetsEditorViewController.view
     }
     
     static func getReverbPresetsEditorView() -> NSView {
-        return reverbPresetsEditorViewController.view
+        return EditorViews.reverbPresetsEditorViewController.view
+    }
+    
+    static func getDelayPresetsEditorView() -> NSView {
+        return EditorViews.delayPresetsEditorViewController.view
     }
 }

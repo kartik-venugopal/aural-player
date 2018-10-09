@@ -271,6 +271,9 @@
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
+                            <connections>
+                                <outlet property="delegate" destination="-2" id="nVt-oC-Avl"/>
+                            </connections>
                         </menu>
                     </popUpButtonCell>
                     <connections>

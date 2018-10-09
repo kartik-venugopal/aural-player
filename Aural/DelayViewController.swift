@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Delay effects unit
  */
-class DelayViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
+class DelayViewController: NSViewController, NSMenuDelegate, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
     
     // Delay controls
     @IBOutlet weak var btnDelayBypass: EffectsUnitTriStateBypassButton!
@@ -34,6 +34,26 @@ class DelayViewController: NSViewController, MessageSubscriber, ActionMessageSub
         initControls()
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.updateEffectsView], subscriber: self)
+    }
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        let itemCount = presetsMenu.itemArray.count
+        
+        let customPresetCount = itemCount - 7  // 2 separators, 5 system-defined presets
+        
+        if customPresetCount > 0 {
+            
+            for index in (0..<customPresetCount).reversed() {
+                presetsMenu.removeItem(at: index)
+            }
+        }
+        
+        // Re-initialize the menu with user-defined presets
+        DelayPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        
+        // Don't select any items from the presets menu
+        presetsMenu.selectItem(at: -1)
     }
     
     private func oneTimeSetup() {
