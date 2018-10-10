@@ -5,6 +5,8 @@ import Cocoa
  */
 class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscriber {
     
+    // TODO: Reduce code duplication in the cell creation and constraint code
+    
     @IBOutlet weak var playlistView: NSTableView!
     
     // Delegate that relays accessor operations to the playlist
