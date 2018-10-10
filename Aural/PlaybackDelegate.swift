@@ -195,24 +195,62 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         if (track != nil) {
             
-            let actualTrack = track!.track
-            TrackIO.prepareForPlayback(actualTrack)
-            
-            if (actualTrack.lazyLoadingInfo.preparationFailed) {
+            // Check for gap before track
+            if let gap = playlist.getGapBeforeTrack(track!.track) {
                 
-                // If an error occurs, playback is halted, and the playback sequence has ended
-                playbackSequencer.end()
+                currentGap = gap
+                NSLog("Gap before %@ = %lf seconds", track!.track.conciseDisplayName, gap.duration)
                 
-                throw actualTrack.lazyLoadingInfo.preparationError!
+                DispatchQueue.main.asyncAfter(deadline: .now() + gap.duration) {
+                    
+                    if self.currentGap != nil && self.currentGap == gap {
+                        
+                        NSLog("Gap Before: %d is valid. Proceeding with playback ...", gap.id)
+                        
+                        do {
+                            
+                            try self.doPlay(track, startPosition)
+                            // TODO: Need to send out a notification that playback has actually started
+                            
+                        } catch let error {
+                            
+                            if (error is InvalidTrackError) {
+                                AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(track, error as! InvalidTrackError))
+                            }
+                        }
+                        
+                    } else {
+                        NSLog("Gap: %d has expired.", gap.id)
+                    }
+                }
+                
+            } else {
+                
+                // Play sync
+                try doPlay(track, startPosition)
             }
-            
-            player.play(actualTrack, startPosition, endPosition)
-            
-            lastPlayedTrack = actualTrack
-            
-            // Notify observers
-            AsyncMessenger.publishMessage(TrackPlayedAsyncMessage(track: actualTrack))
         }
+    }
+    
+    private func doPlay(_ track: IndexedTrack?, _ startPosition: Double, _ endPosition: Double? = nil) throws {
+        
+        let actualTrack = track!.track
+        TrackIO.prepareForPlayback(actualTrack)
+        
+        if (actualTrack.lazyLoadingInfo.preparationFailed) {
+            
+            // If an error occurs, playback is halted, and the playback sequence has ended
+            playbackSequencer.end()
+            
+            throw actualTrack.lazyLoadingInfo.preparationError!
+        }
+        
+        player.play(actualTrack, startPosition, endPosition)
+        
+        lastPlayedTrack = actualTrack
+        
+        // Notify observers
+        AsyncMessenger.publishMessage(TrackPlayedAsyncMessage(track: actualTrack))
     }
     
     func stop() {
