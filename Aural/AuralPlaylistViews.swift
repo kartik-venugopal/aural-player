@@ -12,37 +12,7 @@ class AuralPlaylistTableView: NSTableView {
 }
 
 /*
- Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
- */
-@IBDesignable
-class TrackNameCellView: NSTableCellView {
-    
-    // The table view row that this cell is contained in. Used to determine whether or not this cell is selected.
-    var row: Int = -1
-    
-    @IBInspectable @IBOutlet weak var gapBeforeImg: NSImageView!
-    @IBInspectable @IBOutlet weak var gapAfterImg: NSImageView!
-    
-    override var backgroundStyle: NSView.BackgroundStyle {
-        
-        didSet {
-            
-            // Check if this row is selected
-            let isSelRow = TableViewHolder.instance!.selectedRowIndexes.contains(row)
-            
-            if let textField = self.textField {
-                
-                textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
-                textField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
-            }
-        }
-    }
-}
-
-
-
-/*
- Custom view for a NSTableView row that displays a single playlist track. Customizes the selection look and feel.
+    Custom view for a NSTableView row that displays a single playlist track. Customizes the selection look and feel.
  */
 class AuralTableRowView: NSTableRowView {
     
@@ -103,6 +73,34 @@ extension NSTableView {
         PlaylistViewContext.noteViewClicked(self)
         
         return self.menu
+    }
+}
+
+/*
+ Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
+ */
+@IBDesignable
+class TrackNameCellView: NSTableCellView {
+    
+    // The table view row that this cell is contained in. Used to determine whether or not this cell is selected.
+    var row: Int = -1
+    
+    @IBInspectable @IBOutlet weak var gapBeforeImg: NSImageView!
+    @IBInspectable @IBOutlet weak var gapAfterImg: NSImageView!
+    
+    override var backgroundStyle: NSView.BackgroundStyle {
+        
+        didSet {
+            
+            // Check if this row is selected
+            let isSelRow = TableViewHolder.instance!.selectedRowIndexes.contains(row)
+            
+            if let textField = self.textField {
+                
+                textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
+                textField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+            }
+        }
     }
 }
 

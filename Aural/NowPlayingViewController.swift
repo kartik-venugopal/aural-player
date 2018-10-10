@@ -6,6 +6,13 @@ import Cocoa
 
 class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber, ConstituentView {
     
+    @IBOutlet weak var nowPlayingView: NSView!
+    @IBOutlet weak var gapView: NSView!
+    
+    @IBOutlet weak var gapView_lblTrackTitle: NSTextField!
+    @IBOutlet weak var gapView_artView: NSImageView!
+    @IBOutlet weak var gapView_lblTimeRemaining: NSTextField!
+    
     // Fields that display playing track info
     @IBOutlet weak var lblTrackArtist: NSTextField!
     @IBOutlet weak var lblTrackTitle: NSTextField!
@@ -51,11 +58,11 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
     // Delegate that provides access to History information
-//    private let history: HistoryDelegateProtocol = ObjectGraph.getHistoryDelegate()
     private let favorites: FavoritesDelegateProtocol = ObjectGraph.getFavoritesDelegate()
     
     // Timer that periodically updates the seek position slider and label
     private var seekTimer: RepeatingTaskExecutor?
+    private var gapTimer: RepeatingTaskExecutor?
     
     // Popover view that displays detailed info for the currently playing track
     private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.getDetailedTrackInfoPopover()
@@ -103,6 +110,9 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     private func initControls() {
         
+        nowPlayingView.isHidden = false
+        gapView.isHidden = true
+        
         let timeBypassed = audioGraph.getTimeState() != .active
         let seekTimerInterval = timeBypassed ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * audioGraph.getTimeRate().rate))
         
@@ -123,7 +133,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         // Subscribe to various notifications
         
-        AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
@@ -357,6 +367,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     private func trackChanged(_ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
+        gapTimer?.stop()
+        gapView.isHidden = true
+        nowPlayingView.isHidden = false
+        
         if (player.getPlaybackLoop()) != nil {
             renderLoop()
         } else {
@@ -494,11 +508,48 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         showNowPlayingInfo(player.getPlayingTrack()!.track)
     }
     
+    private func updateGapCountdown(_ endTime: Date) {
+        gapView_lblTimeRemaining.stringValue = StringUtils.formatSecondsToHMS(DateUtils.timeUntil(endTime))
+    }
+    
+    private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
+        
+        nowPlayingView.isHidden = true
+        
+        // TODO: What if there is no track next ? Don't allow gap after track if it's the last track in the playlist ? (won't work when shuffling)
+        
+        gapView_lblTrackTitle.stringValue = String(format: "Up next:   %@", msg.nextTrack?.conciseDisplayName ?? "<No track>")
+        updateGapCountdown(msg.gapEndTime)
+        
+        if let track = msg.nextTrack {
+        
+            if (track.displayInfo.art != nil) {
+                
+                gapView_artView.image = track.displayInfo.art!
+                
+            } else {
+                
+                // Default artwork
+                gapView_artView.image = Images.imgPausedArt
+            }
+        }
+        
+        gapView.isHidden = false
+        
+        gapTimer = RepeatingTaskExecutor(intervalMillis: 500, task: {
+            
+            self.updateGapCountdown(msg.gapEndTime)
+            
+        }, queue: DispatchQueue.main)
+        
+        gapTimer?.startOrResume()
+    }
+    
+    // MARK: Message handling
+    
     func getID() -> String {
         return self.className
     }
-    
-    // MARK: Message handlers
     
     // Consume synchronous notification messages
     func consumeNotification(_ notification: NotificationMessage) {
@@ -557,6 +608,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         case .addedToFavorites, .removedFromFavorites:
             
             favoritesUpdated(message as! FavoritesUpdatedAsyncMessage)
+            
+        case .gapStarted:
+            
+            gapStarted(message as! PlaybackGapStartedAsyncMessage)
             
         default: return
         
