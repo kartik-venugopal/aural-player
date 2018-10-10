@@ -47,6 +47,8 @@ enum ActionType {
     // Insert a playback gap before/after the selected track
     case insertGap
     
+    case removeGap
+    
     // Move selected items up one row within playlist
     case moveTracksUp
     
@@ -421,6 +423,21 @@ struct InsertPlaybackGapActionMessage: ActionMessage {
     init(_ track: Track, _ gap: PlaybackGap, _ playlistType: PlaylistType?) {
         self.track = track
         self.gap = gap
+        self.playlistType = playlistType
+    }
+}
+
+struct RemovePlaybackGapActionMessage: ActionMessage {
+    
+    let actionType: ActionType = .removeGap
+    
+    let track: Track
+    let position: PlaybackGapPosition
+    let playlistType: PlaylistType?
+    
+    init(_ track: Track, _ position: PlaybackGapPosition, _ playlistType: PlaylistType?) {
+        self.track = track
+        self.position = position
         self.playlistType = playlistType
     }
 }

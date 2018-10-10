@@ -121,15 +121,23 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         }
     }
     
-    func insertGapAfterTrack(_ index: Int, _ gap: PlaybackGap) {
-        mutator.insertGapAfterTrack(index, gap)
+    func insertGapForTrack(_ index: Int, _ gap: PlaybackGap) {
+        mutator.insertGapForTrack(index, gap)
     }
     
-    func getGapForTrack(_ track: Track) -> PlaybackGap? {
-        return accessor.getGapForTrack(track)
+    func removeGapAfterTrack(_ index: Int) {
+        mutator.removeGapAfterTrack(index)
     }
     
-    func getGapForTrack(_ index: Int) -> PlaybackGap? {
-        return accessor.getGapForTrack(index)
+    func removeGapBeforeTrack(_ index: Int) {
+        mutator.removeGapBeforeTrack(index)
+    }
+    
+    func getGapBeforeTrack(_ track: Track) -> PlaybackGap? {
+        return accessor.getGapBeforeTrack(track)
+    }
+    
+    func getGapAfterTrack(_ track: Track) -> PlaybackGap? {
+        return accessor.getGapAfterTrack(track)
     }
 }

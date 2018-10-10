@@ -7,7 +7,8 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
  
     private var tracks: [Track] = [Track]()
     
-    private var gaps: [Track: PlaybackGap] = [:]
+    private var gapsBefore: [Track: PlaybackGap] = [:]
+    private var gapsAfter: [Track: PlaybackGap] = [:]
     
     // MARK: Accessor functions
     
@@ -171,20 +172,31 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         return removedTracks
     }
     
-    func insertGapAfterTrack(_ index: Int, _ gap: PlaybackGap) {
+    func insertGapForTrack(_ index: Int, _ gap: PlaybackGap) {
         
         let track = tracks[index]
-        gaps[track] = gap
-    }
-    
-    func getGapForTrack(_ index: Int) -> PlaybackGap? {
         
-        let track = tracks[index]
-        return gaps[track]
+        if gap.position == .beforeTrack {
+            gapsBefore[track] = gap
+        } else {
+            gapsAfter[track] = gap
+        }
     }
     
-    func getGapForTrack(_ track: Track) -> PlaybackGap? {
-        return gaps[track]
+    func removeGapBeforeTrack(_ index: Int) {
+        gapsBefore[tracks[index]] = nil
+    }
+    
+    func removeGapAfterTrack(_ index: Int) {
+        gapsAfter[tracks[index]] = nil
+    }
+    
+    func getGapBeforeTrack(_ track: Track) -> PlaybackGap? {
+        return gapsBefore[track]
+    }
+    
+    func getGapAfterTrack(_ track: Track) -> PlaybackGap? {
+        return gapsAfter[track]
     }
     
     // Assume track can be moved

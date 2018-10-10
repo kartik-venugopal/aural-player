@@ -12,6 +12,67 @@ class AuralPlaylistTableView: NSTableView {
 }
 
 /*
+ Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
+ */
+@IBDesignable
+class TrackNameCellView: NSTableCellView {
+    
+    // The table view row that this cell is contained in. Used to determine whether or not this cell is selected.
+    var row: Int = -1
+    
+    @IBInspectable @IBOutlet weak var gapBeforeImg: NSImageView!
+    @IBInspectable @IBOutlet weak var gapAfterImg: NSImageView!
+    
+    override var backgroundStyle: NSView.BackgroundStyle {
+        
+        didSet {
+            
+            // Check if this row is selected
+            let isSelRow = TableViewHolder.instance!.selectedRowIndexes.contains(row)
+            
+            if let textField = self.textField {
+                
+                textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
+                textField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+            }
+            
+//            if let gapField = self.gapBeforeTextField {
+//
+//                gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
+//                gapField.font = isSelRow ? Fonts.playlistSelectedGapTextFont : Fonts.playlistGapTextFont
+//            }
+//
+//            if let gapField = self.gapAfterTextField {
+//
+//                gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
+//                gapField.font = isSelRow ? Fonts.playlistSelectedGapTextFont : Fonts.playlistGapTextFont
+//            }
+        }
+    }
+}
+
+
+
+/*
+ Custom view for a NSTableView row that displays a single playlist track. Customizes the selection look and feel.
+ */
+class AuralTableRowView: NSTableRowView {
+    
+    // Draws a fancy rounded rectangle around the selected track in the playlist view
+    override func drawSelection(in dirtyRect: NSRect) {
+        
+        if self.selectionHighlightStyle != NSTableView.SelectionHighlightStyle.none {
+            
+            let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
+            
+            let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
+            Colors.playlistSelectionBoxColor.setFill()
+            selectionPath.fill()
+        }
+    }
+}
+
+/*
     A customized NSOutlineView that overrides contextual menu behavior
  */
 class AuralPlaylistOutlineView: NSOutlineView {
@@ -55,4 +116,62 @@ extension NSTableView {
         
         return self.menu
     }
+}
+
+/*
+ Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
+ */
+@IBDesignable
+class DurationCellView: NSTableCellView {
+    
+    // The table view row that this cell is contained in. Used to determine whether or not this cell is selected.
+    var row: Int = -1
+    
+    @IBInspectable @IBOutlet weak var gapBeforeTextField: NSTextField!
+    @IBInspectable @IBOutlet weak var gapAfterTextField: NSTextField!
+    
+    override var backgroundStyle: NSView.BackgroundStyle {
+        
+        didSet {
+            
+            // Check if this row is selected
+            let isSelRow = TableViewHolder.instance!.selectedRowIndexes.contains(row)
+            
+            if let textField = self.textField {
+                
+                textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
+                textField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+            }
+            
+            if let gapField = self.gapBeforeTextField {
+                
+                gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
+                gapField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+            }
+            
+            if let gapField = self.gapAfterTextField {
+                
+                gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
+                gapField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+            }
+        }
+    }
+}
+
+
+class VerticallyAlignedTextFieldCell: NSTextFieldCell {
+    
+//    override func drawingRect(forBounds rect: NSRect) -> NSRect {
+//
+//        let srect = super.drawingRect(forBounds: rect)
+//        print("Super rect: ", srect)
+//
+////        let newRect = NSRect(x: 0, y: (rect.size.height - 18) / 2, width: rect.size.width, height: 18)
+////        let myRect = super.drawingRect(forBounds: newRect)
+//
+//        let myRect = srect.offsetBy(dx: 0, dy: -2)
+//        print("My rect: ", myRect)
+//
+//        return myRect
+//    }
 }

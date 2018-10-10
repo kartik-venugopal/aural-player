@@ -518,12 +518,16 @@
                 <outlet property="contextMenu" destination="5mK-N5-S6w" id="H1x-gZ-zII"/>
                 <outlet property="detailedInfoMenuItem" destination="ZQe-wb-b1B" id="F4Z-c5-f3b"/>
                 <outlet property="favoritesMenuItem" destination="CHV-5l-G4d" id="YIy-BC-xYi"/>
+                <outlet property="insertGapAfterTrackMenuItem" destination="gPU-Uk-0Ca" id="xmg-2r-ob8"/>
+                <outlet property="insertGapBeforeTrackMenuItem" destination="Tte-BT-Pxq" id="fB3-sj-gzb"/>
                 <outlet property="moveGroupDownMenuItem" destination="cMs-Ll-SkZ" id="GNc-9J-QrK"/>
                 <outlet property="moveGroupUpMenuItem" destination="hYN-OS-28N" id="OFj-do-S0z"/>
                 <outlet property="moveTrackDownMenuItem" destination="k3z-qH-RxK" id="qsf-iD-rcm"/>
                 <outlet property="moveTrackUpMenuItem" destination="uV5-jg-pxc" id="SUJ-an-HjZ"/>
                 <outlet property="playGroupMenuItem" destination="FsK-Wf-m1z" id="nWG-FT-vqB"/>
                 <outlet property="playTrackMenuItem" destination="s9W-FB-XJa" id="1ar-9p-zIl"/>
+                <outlet property="removeGapAfterTrackMenuItem" destination="1gc-YY-Rwd" id="zr4-yS-BUv"/>
+                <outlet property="removeGapBeforeTrackMenuItem" destination="Da8-AS-fHe" id="EQW-Ek-MDE"/>
                 <outlet property="removeGroupMenuItem" destination="kVv-1O-nHY" id="LIn-q0-Xpf"/>
                 <outlet property="removeTrackMenuItem" destination="RCk-oA-gLU" id="aCt-Zm-jgZ"/>
                 <outlet property="showTrackInFinderMenuItem" destination="6Oh-bN-HCq" id="CK5-Py-mQU"/>
@@ -544,23 +548,23 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="ptR-ch-WUH"/>
-                <menuItem title="  Insert gap before track" hidden="YES" enabled="NO" id="Tte-BT-Pxq" userLabel="Insert gap before">
+                <menuItem title="  Insert gap before track" id="Tte-BT-Pxq" userLabel="Insert gap before">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="  Insert gap before track" id="czk-Mf-Hvj">
                         <items>
-                            <menuItem title="3 seconds" tag="3" enabled="NO" id="7g3-Jb-WWI">
+                            <menuItem title="3 seconds" tag="3" id="7g3-Jb-WWI">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="insertGapBeforeTrackAction:" target="TnB-Sk-yOp" id="hEJ-qy-sVR"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="5 seconds" tag="5" enabled="NO" id="uFW-hP-oFT">
+                            <menuItem title="5 seconds" tag="5" id="uFW-hP-oFT">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="insertGapBeforeTrackAction:" target="TnB-Sk-yOp" id="hcB-8I-8nW"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="10 seconds" tag="10" enabled="NO" id="jab-Rc-p9D">
+                            <menuItem title="10 seconds" tag="10" id="jab-Rc-p9D">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="insertGapBeforeTrackAction:" target="TnB-Sk-yOp" id="tCf-Un-XK2"/>
@@ -572,23 +576,23 @@
                         <action selector="showTrackInFinderAction:" target="TnB-Sk-yOp" id="aNN-Mt-vyN"/>
                     </connections>
                 </menuItem>
-                <menuItem title="  Insert gap after track" hidden="YES" enabled="NO" id="gPU-Uk-0Ca" userLabel="Insert gap after">
+                <menuItem title="  Insert gap after track" id="gPU-Uk-0Ca" userLabel="Insert gap after">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" id="bt4-FY-o52">
                         <items>
-                            <menuItem title="3 seconds" tag="3" enabled="NO" id="bbi-i1-I7d">
+                            <menuItem title="3 seconds" tag="3" id="bbi-i1-I7d">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="insertGapAfterTrackAction:" target="TnB-Sk-yOp" id="Sae-Tq-VWJ"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="5 seconds" tag="5" enabled="NO" id="TDZ-fM-hKf">
+                            <menuItem title="5 seconds" tag="5" id="TDZ-fM-hKf">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="insertGapAfterTrackAction:" target="TnB-Sk-yOp" id="umy-dy-Lg0"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="10 seconds" tag="10" enabled="NO" id="wyO-yF-vbJ">
+                            <menuItem title="10 seconds" tag="10" id="wyO-yF-vbJ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="insertGapAfterTrackAction:" target="TnB-Sk-yOp" id="rBX-Yg-J07"/>
@@ -598,6 +602,18 @@
                     </menu>
                     <connections>
                         <action selector="showTrackInFinderAction:" target="TnB-Sk-yOp" id="LYy-pa-P2e"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="  Remove gap before track" id="Da8-AS-fHe" userLabel="Remove gap before track">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="removeGapBeforeTrackAction:" target="TnB-Sk-yOp" id="d6C-4B-Ybc"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="  Remove gap after track" id="1gc-YY-Rwd" userLabel="Remove gap after track">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="removeGapAfterTrackAction:" target="TnB-Sk-yOp" id="A6b-8Q-YfG"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="xpC-LX-tPd"/>

@@ -14,7 +14,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     // Stores the cell containing the playing track animation, for convenient access when pausing/resuming the animation
-    private var animationCell: PlaylistCellView?
+    private var animationCell: TrackNameCellView?
     
     override func awakeFromNib() {
         
@@ -42,21 +42,30 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
         return playlist.trackAtIndex(row)?.track.conciseDisplayName
     }
     
-//    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-//        
-//        if playlist.getGapForTrack(row) != nil {
-//            
-//            print("Found gap: ", row)
-//            return 40
-//        }
-//        
-//        return 22
-//    }
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+        
+        if let track = playlist.trackAtIndex(row)?.track {
+            
+            let ga = playlist.getGapAfterTrack(track)
+            let gb = playlist.getGapBeforeTrack(track)
+            
+            if ga != nil && gb != nil {
+                return 58
+            } else if ga != nil || gb != nil {
+                return 40
+            }
+        }
+
+        return 22
+    }
     
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         if let track = playlist.trackAtIndex(row)?.track {
+            
+            let gapA = playlist.getGapAfterTrack(track)
+            let gapB = playlist.getGapBeforeTrack(track)
             
             switch convertFromNSUserInterfaceItemIdentifier(tableColumn!.identifier) {
                 
@@ -74,41 +83,16 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
                 } else {
                     
                     // Otherwise, create a text cell with the track index
-                    return createTextCell(tableView, UIConstants.playlistIndexColumnID, String(format: "%d.", row + 1), row)
+                    return createDurationCell(tableView, UIConstants.playlistIndexColumnID, String(format: "%d.", row + 1), nil, nil, row)
                 }
                 
             case UIConstants.playlistNameColumnID:
                 
-//                if let gap = playlist.getGapForTrack(row) {
-//
-//                    print("Found gap: ", row)
-//
-//                    let cell = createTextCell(tableView, UIConstants.playlistNameColumnID, track.conciseDisplayName, row)
-//
-//                    let gapTf = NSTextField()
-//                    gapTf.stringValue = String(format: "*** GAP: %.0lf seconds", gap.duration)
-//                    gapTf.setFrameSize(NSMakeSize(150, 22))
-//
-//                    gapTf.textColor = cell?.textField?.textColor
-//                    gapTf.font = cell?.textField?.font
-////                    gapTf.backgroundColor = NSColor(calibratedWhite: 1, alpha: 0)
-//                    gapTf.drawsBackground = false
-//                    gapTf.isBordered = false
-//
-//                    cell?.addSubview(gapTf)
-//
-//                    return cell
-//
-//                } else {
-                
-                    // Track name
-                    return createTextCell(tableView, UIConstants.playlistNameColumnID, track.conciseDisplayName, row)
-//                }
+                return createTrackNameCell(tableView, UIConstants.playlistNameColumnID, track.conciseDisplayName, gapB, gapA, row)
                 
             case UIConstants.playlistDurationColumnID:
                 
-                // Duration
-                return createTextCell(tableView, UIConstants.playlistDurationColumnID, StringUtils.formatSecondsToHMS(track.duration), row)
+                return createDurationCell(tableView, UIConstants.playlistDurationColumnID, StringUtils.formatSecondsToHMS(track.duration), gapB, gapA, row)
                 
             default: return nil
                 
@@ -118,18 +102,64 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
         return nil
     }
     
-    // Creates a cell view containing text
-    private func createTextCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> PlaylistCellView? {
+    private func createTrackNameCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> TrackNameCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? PlaylistCellView {
+        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? TrackNameCellView {
             
             cell.textField?.stringValue = text
-            
-            // Hide the image view and show the text view
-            cell.imageView?.isHidden = true
             cell.textField?.isHidden = false
-            
             cell.row = row
+            
+            if cell.gapAfterImg == nil {
+                return cell
+            }
+            
+            let both = gapBefore != nil && gapAfter != nil
+            let aOnly = gapAfter != nil && gapBefore == nil
+            let bOnly = gapBefore != nil && gapAfter == nil
+            
+            if aOnly {
+                
+                print("\nA only")
+                
+                cell.gapBeforeImg.isHidden = true
+                cell.gapAfterImg.isHidden = false
+                
+                adjustConstraints_mainFieldOnTop(cell)
+                
+                cell.gapAfterImg.setFrameOrigin(NSPoint.zero)
+                
+            } else if bOnly {
+                
+                print("\nB only")
+                
+                cell.gapBeforeImg.isHidden = false
+                cell.gapAfterImg.isHidden = true
+                
+                adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeImg)
+                
+                cell.textField!.setFrameOrigin(NSPoint.zero)
+                
+            } else if both {
+                
+                print("\nBoth")
+                
+                cell.gapBeforeImg.isHidden = false
+                cell.gapAfterImg.isHidden = false
+                
+                adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeImg)
+                
+                cell.gapAfterImg.setFrameOrigin(NSPoint.zero)
+                
+            } else {
+                
+                // Neither
+                
+                adjustConstraints_mainFieldOnTop(cell)
+                
+                cell.textField!.setFrameOrigin(NSPoint.zero)
+            }
+            
             
             return cell
         }
@@ -137,10 +167,131 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
         return nil
     }
     
-    // Creates a cell view containing the animation for the currently playing track
-    private func createPlayingTrackAnimationCell(_ tableView: NSTableView) -> PlaylistCellView? {
+    private func createDurationCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> DurationCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(UIConstants.playlistIndexColumnID), owner: nil) as? PlaylistCellView {
+        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? DurationCellView {
+            
+            cell.textField?.stringValue = text
+            cell.textField?.isHidden = false
+            cell.row = row
+            
+            if cell.gapAfterTextField == nil {
+                return cell
+            }
+            
+            let both = gapBefore != nil && gapAfter != nil
+            let aOnly = gapAfter != nil && gapBefore == nil
+            let bOnly = gapBefore != nil && gapAfter == nil
+            
+            if aOnly {
+                
+                print("\nA only")
+                
+                let gap = gapAfter!
+                
+                cell.gapBeforeTextField.isHidden = true
+                cell.gapAfterTextField.isHidden = false
+                
+                cell.gapAfterTextField.stringValue = id == UIConstants.playlistNameColumnID ? String(format: "[GAP: %.0lf seconds]", gap.duration) : StringUtils.formatSecondsToHMS(gap.duration)
+                
+                adjustConstraints_mainFieldOnTop(cell)
+                
+                cell.gapAfterTextField.setFrameOrigin(NSPoint.zero)
+                
+            } else if bOnly {
+                
+                print("\nB only")
+                
+                let gap = gapBefore!
+                
+                cell.gapBeforeTextField.isHidden = false
+                cell.gapAfterTextField.isHidden = true
+                
+                cell.gapBeforeTextField.stringValue = id == UIConstants.playlistNameColumnID ? String(format: "[GAP: %.0lf seconds]", gap.duration) : StringUtils.formatSecondsToHMS(gap.duration)
+                
+                adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeTextField)
+                
+                cell.textField!.setFrameOrigin(NSPoint.zero)
+                
+            } else if both {
+                
+                print("\nBoth")
+                
+                let gapA = gapAfter!
+                let gapB = gapBefore!
+                
+                cell.gapBeforeTextField.isHidden = false
+                cell.gapAfterTextField.isHidden = false
+                
+                cell.gapBeforeTextField.stringValue = id == UIConstants.playlistNameColumnID ? String(format: "[GAP: %.0lf seconds]", gapB.duration) : StringUtils.formatSecondsToHMS(gapB.duration)
+                
+                cell.gapAfterTextField.stringValue = id == UIConstants.playlistNameColumnID ? String(format: "[GAP: %.0lf seconds]", gapA.duration) : StringUtils.formatSecondsToHMS(gapA.duration)
+                
+                adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeTextField)
+                
+                cell.gapAfterTextField.setFrameOrigin(NSPoint.zero)
+                
+            } else {
+                
+                // Neither
+                
+                adjustConstraints_mainFieldOnTop(cell)
+                
+                cell.textField!.setFrameOrigin(NSPoint.zero)
+            }
+            
+            
+            return cell
+        }
+        
+        return nil
+    }
+    
+    private func adjustConstraints_mainFieldOnTop(_ cell: NSTableCellView) {
+        
+        let main = cell.textField!
+        
+        for con in cell.constraints {
+            
+            if con.firstItem === main && con.firstAttribute == .top {
+                
+                print("Found con")
+                con.isActive = false
+                cell.removeConstraint(con)
+                break
+            }
+        }
+        
+        let mainFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: 0)
+        mainFieldOnTop.isActive = true
+        cell.addConstraint(mainFieldOnTop)
+    }
+    
+    private func adjustConstraints_beforeGapFieldOnTop(_ cell: NSTableCellView, _ gapView: NSView) {
+        
+        let main = cell.textField!
+        
+        for con in cell.constraints {
+            
+            if con.firstItem === main && con.firstAttribute == .top {
+                
+                print("Found con2")
+                con.isActive = false
+                cell.removeConstraint(con)
+                break
+            }
+        }
+        
+        let befFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: gapView, attribute: .bottom, multiplier: 1.0, constant: 0)
+        befFieldOnTop.isActive = true
+        cell.addConstraint(befFieldOnTop)
+        
+    }
+    
+    // Creates a cell view containing the animation for the currently playing track
+    private func createPlayingTrackAnimationCell(_ tableView: NSTableView) -> TrackNameCellView? {
+        
+        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(UIConstants.playlistIndexColumnID), owner: nil) as? TrackNameCellView {
             
             // Configure and show the image view
             let imgView = cell.imageView!
@@ -157,11 +308,11 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
         return nil
     }
     
+    // MARK: Message handling
+    
     func getID() -> String {
         return self.className
     }
-    
-    // MARK: Message handling
     
     // Whenever the playing track is paused/resumed, the animation needs to be paused/resumed.
     private func playbackStateChanged(_ message: PlaybackStateChangedNotification) {
@@ -198,63 +349,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
     }
 }
 
-/*
-    Custom view for a NSTableView row that displays a single playlist track. Customizes the selection look and feel.
- */
-class AuralTableRowView: NSTableRowView {
-    
-    // Draws a fancy rounded rectangle around the selected track in the playlist view
-    override func drawSelection(in dirtyRect: NSRect) {
-        
-        if self.selectionHighlightStyle != NSTableView.SelectionHighlightStyle.none {
-            
-            let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
-            
-            let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
-            Colors.playlistSelectionBoxColor.setFill()
-            selectionPath.fill()
-        }
-    }
-}
-
-/*
-    Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
- */
-class PlaylistCellView: NSTableCellView {
-    
-    // The table view row that this cell is contained in. Used to determine whether or not this cell is selected.
-    var row: Int = -1
-    
-    // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
-    override var backgroundStyle: NSView.BackgroundStyle {
-        
-        didSet {
-            
-            // Check if this row is selected
-            let isSelRow = TableViewHolder.instance!.selectedRowIndexes.contains(row)
-            
-            if let textField = self.textField {
-                
-                textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
-                textField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
-            }
-            
-            // If there is a text field indicating a playback gap, color it too
-            // TODO: Make this more efficient by having a separate variable storing the gap text field, and position it precisely
-//            for view in self.subviews {
-//
-//                if let tf = view as? NSTextField {
-//
-//                    tf.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
-//                    tf.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
-//                }
-//            }
-        }
-    }
-}
-
 // Utility class to hold an NSTableView instance for convenient access
-fileprivate class TableViewHolder {
+class TableViewHolder {
     
     static var instance: NSTableView?
 }
