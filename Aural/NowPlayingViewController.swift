@@ -509,7 +509,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     }
     
     private func updateGapCountdown(_ endTime: Date) {
-        gapView_lblTimeRemaining.stringValue = StringUtils.formatSecondsToHMS(DateUtils.timeUntil(endTime))
+        gapView_lblTimeRemaining.stringValue = StringUtils.formatSecondsToHMS(max(DateUtils.timeUntil(endTime), 0))
     }
     
     private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {

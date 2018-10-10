@@ -43,7 +43,7 @@ class DateUtils {
     }
     
     static func timeUntil(_ date: Date) -> Double {
-        return round(date.timeIntervalSince(Date()))
+        return ceil(date.timeIntervalSince(Date()))
     }
 }
 

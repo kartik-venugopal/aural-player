@@ -21,6 +21,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     private var currentGap: PlaybackGap? = nil
     
+    private let trackPlaybackQueue: DispatchQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
+    
     init(_ player: PlayerProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ playlist: PlaylistAccessorProtocol, _ history: HistoryProtocol, _ preferences: PlaybackPreferences) {
         
         self.player = player
@@ -32,7 +34,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.savePlaybackProfile, .deletePlaybackProfile], subscriber: self)
-        AsyncMessenger.subscribe([.playbackCompleted], subscriber: self, dispatchQueue: DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive))
+        AsyncMessenger.subscribe([.playbackCompleted], subscriber: self, dispatchQueue: trackPlaybackQueue)
     }
     
     func getID() -> String {
@@ -70,11 +72,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     // Plays whatever track follows the currently playing track (if there is one). If no track is playing, selects the first track in the playback sequence. Throws an error if playback fails.
-    private func subsequentTrack() throws -> IndexedTrack? {
-        
-        let track = playbackSequencer.subsequent()
-        try play(track)
-        return track
+    private func subsequentTrack() throws {
+        try play(playbackSequencer.subsequent())
     }
     
     private func pause() {
@@ -181,7 +180,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         try play(track, startPosition)
     }
     
-    // ACTUALLY PLAYS THE TRACK
     // Throws an error if playback fails
     private func play(_ track: IndexedTrack?, _ startPosition: Double, _ endPosition: Double? = nil) throws {
         
@@ -201,14 +199,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
                 let gapEndTime_dt = DispatchTime.now() + gap.duration
                 let gapEndTime: Date = DateUtils.addToDate(Date(), gap.duration)
                 
-                DispatchQueue.main.asyncAfter(deadline: gapEndTime_dt) {
+                trackPlaybackQueue.asyncAfter(deadline: gapEndTime_dt) {
                     
                     if self.currentGap != nil && self.currentGap == gap {
                         
                         do {
                             
                             try self.doPlay(track, startPosition)
-                            // TODO: Need to send out a notification that playback has actually started
                             
                         } catch let error {
                             
@@ -229,7 +226,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         }
     }
     
+    // ACTUALLY PLAYS THE TRACK
     private func doPlay(_ track: IndexedTrack?, _ startPosition: Double, _ endPosition: Double? = nil) throws {
+        
+        // TODO: Make this cleaner
+        let lastPlayed = history.mostRecentlyPlayedItem()?.track
+        let oldTrack = lastPlayed != nil ? playlist.findTrackByFile(lastPlayed!.file) : nil
         
         let actualTrack = track!.track
         TrackIO.prepareForPlayback(actualTrack)
@@ -243,6 +245,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         }
         
         player.play(actualTrack, startPosition, endPosition)
+        
+        // TODO: Can we consolidate these 2 notifications into one ?
+        AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, track))
         
         // Notify observers
         AsyncMessenger.publishMessage(TrackPlayedAsyncMessage(track: actualTrack))
@@ -562,16 +567,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         // Stop playback of the old track
         haltPlayback()
         
-        // ----------------- GAP ---------------------
+        // ----------------- GAP AFTER COMPLETED TRACK ---------------------
         
         if let gap = playlist.getGapAfterTrack(oldTrack!.track) {
-
+            
             currentGap = gap
             
             let gapEndTime_dt = DispatchTime.now() + gap.duration
             let gapEndTime: Date = DateUtils.addToDate(Date(), gap.duration)
             
-            DispatchQueue.main.asyncAfter(deadline: gapEndTime_dt) {
+            trackPlaybackQueue.asyncAfter(deadline: gapEndTime_dt) {
 
                 if self.currentGap != nil && self.currentGap == gap {
                     
@@ -597,10 +602,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         // Continue the playback sequence
         do {
             
-            let newTrack = try subsequentTrack()
-            
-            // Notify the UI about this track change event
-            AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, newTrack))
+            try subsequentTrack()
             
         } catch let error {
             

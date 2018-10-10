@@ -323,11 +323,11 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
             }
         }
         
-        let indexTF = NSLayoutConstraint(item: cell.textField!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -11)
+        let indexTF = NSLayoutConstraint(item: cell.textField!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -12)
         indexTF.isActive = true
         cell.addConstraint(indexTF)
         
-        let indexIV = NSLayoutConstraint(item: cell.imageView!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -11)
+        let indexIV = NSLayoutConstraint(item: cell.imageView!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -12)
         indexIV.isActive = true
         cell.addConstraint(indexIV)
     }
@@ -349,11 +349,11 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
             }
         }
         
-        let indexTF = NSLayoutConstraint(item: cell.textField!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -29)
+        let indexTF = NSLayoutConstraint(item: cell.textField!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -30)
         indexTF.isActive = true
         cell.addConstraint(indexTF)
         
-        let indexIV = NSLayoutConstraint(item: cell.imageView!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -29)
+        let indexIV = NSLayoutConstraint(item: cell.imageView!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -30)
         indexIV.isActive = true
         cell.addConstraint(indexIV)
     }
@@ -375,11 +375,11 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
             }
         }
         
-        let indexTF = NSLayoutConstraint(item: cell.textField!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .centerY, multiplier: 1.0, constant: 0)
+        let indexTF = NSLayoutConstraint(item: cell.textField!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .centerY, multiplier: 1.0, constant: -1)
         indexTF.isActive = true
         cell.addConstraint(indexTF)
         
-        let indexIV = NSLayoutConstraint(item: cell.imageView!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .centerY, multiplier: 1.0, constant: 0)
+        let indexIV = NSLayoutConstraint(item: cell.imageView!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .centerY, multiplier: 1.0, constant: -1)
         indexIV.isActive = true
         cell.addConstraint(indexIV)
     }
