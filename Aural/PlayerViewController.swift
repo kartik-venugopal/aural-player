@@ -243,7 +243,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         if let _ = player.getPlayingTrack() {
             
             // TODO: Move this to a new delegate function replayTrack()
-            player.seekToPercentage(99)
+            player.seekToPercentage(0)
             
             // If paused, play
             if (player.getPlaybackState() == .paused) {
