@@ -1452,9 +1452,9 @@
 			isa = PBXGroup;
 			children = (
 				3EF5E5B31FBDA3DB004270A4 /* Tracks.xib */,
+				3EF5E5D11FBF0373004270A4 /* TracksPlaylistViewDelegate.swift */,
 				3E3AEB0F1F9D361A00E9BEDE /* TracksPlaylistViewController.swift */,
 				3E722F7A1EFCF4EC00916BF2 /* TracksPlaylistViewDataSource.swift */,
-				3EF5E5D11FBF0373004270A4 /* TracksPlaylistViewDelegate.swift */,
 			);
 			name = TracksPlaylist;
 			sourceTree = "<group>";

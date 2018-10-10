@@ -69,11 +69,11 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
         return playlist.numberOfGroups(type)
     }
     
-    func getGapForTrack(_ index: Int) -> PlaybackGap? {
-        return playlist.getGapForTrack(index)
+    func getGapBeforeTrack(_ track: Track) -> PlaybackGap? {
+        return playlist.getGapBeforeTrack(track)
     }
     
-    func getGapForTrack(_ track: Track) -> PlaybackGap? {
-        return playlist.getGapForTrack(track)
+    func getGapAfterTrack(_ track: Track) -> PlaybackGap? {
+        return playlist.getGapAfterTrack(track)
     }
 }

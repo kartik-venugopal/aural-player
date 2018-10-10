@@ -21,7 +21,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     private var lastPlayedTrack: Track?
     
-    private var inGap: Bool = false
+    private var currentGap: PlaybackGap? = nil
     
     init(_ player: PlayerProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ playlist: PlaylistAccessorProtocol, _ history: HistoryProtocol, _ preferences: PlaybackPreferences) {
         
@@ -183,11 +183,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         try play(track, startPosition)
     }
     
+    // ACTUALLY PLAYS THE TRACK
     // Throws an error if playback fails
     private func play(_ track: IndexedTrack?, _ startPosition: Double, _ endPosition: Double? = nil) throws {
         
-        // Invalidate the gap
-        inGap = false
+        // Invalidate the gap, if there is one
+        currentGap = nil
         
         // Stop if currently playing
         haltPlayback()
@@ -530,26 +531,30 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         // ----------------- GAP ---------------------
         
-//        if let gap = playlist.getGapForTrack(oldTrack!.track) {
-//
-//            inGap = true
-//            NSLog("Gap = %lf seconds", gap.duration)
-//
-//            DispatchQueue.main.asyncAfter(deadline: .now() + gap.duration) {
-//
-//                if self.inGap {
-//                    self.continuePlayback()
-//                }
-//            }
-//
-//        } else {
+        if let gap = playlist.getGapAfterTrack(oldTrack!.track) {
+
+            currentGap = gap
+            NSLog("Gap %d = %lf seconds", gap.id, gap.duration)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + gap.duration) {
+
+                if self.currentGap != nil && self.currentGap == gap {
+                    
+                    NSLog("Gap: %d is valid. Proceeding with playback ...", gap.id)
+                    self.continuePlayback()
+                } else {
+                    NSLog("Gap: %d has expired.", gap.id)
+                }
+            }
+
+        } else {
             continuePlayback()
-//        }
+        }
     }
     
     private func continuePlayback() {
         
-//        NSLog("Gap complete ... proceeding")
+        NSLog("Gap %d complete ... proceeding", currentGap?.id ?? "nil")
         
         let oldTrack = getPlayingTrack()
         
@@ -568,7 +573,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             }
         }
         
-        inGap = false
+        // Invalidate the gap
+        currentGap = nil
     }
     
     private func saveProfile() {
@@ -642,12 +648,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool) {
         
         if (playingTrackRemoved) {
+            
+            currentGap = nil
             stop()
             AsyncMessenger.publishMessage(TrackChangedAsyncMessage(nil, nil))
         }
     }
     
     func playlistCleared() {
+        
+        currentGap = nil
         stop()
         AsyncMessenger.publishMessage(TrackChangedAsyncMessage(nil, nil))
     }

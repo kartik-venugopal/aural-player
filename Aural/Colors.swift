@@ -9,13 +9,16 @@ struct Colors {
     // Color of text inside any of the container boxes
     static let boxTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
     
+    static let editorHeaderTextColor: NSColor = NSColor(calibratedWhite: 0.85, alpha: 1)
+    
     // Color of text inside the playlist (non-selected items)
     static let playlistTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
     
-    static let editorHeaderTextColor: NSColor = NSColor(calibratedWhite: 0.85, alpha: 1)
-    
     // Color of selected item text inside the playlist
     static let playlistSelectedTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
+    
+    static let playlistGapTextColor: NSColor = NSColor(calibratedRed: 0.7, green: 0, blue: 0, alpha: 1)
+    static let playlistSelectedGapTextColor: NSColor = NSColor(calibratedRed: 0.85, green: 0, blue: 0, alpha: 1)
     
     // Color for playlist grouped views
     static let playlistGroupNameTextColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)

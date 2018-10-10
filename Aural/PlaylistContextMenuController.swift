@@ -11,6 +11,12 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Track-specific menu items
     
     @IBOutlet weak var playTrackMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var insertGapBeforeTrackMenuItem: NSMenuItem!
+    @IBOutlet weak var insertGapAfterTrackMenuItem: NSMenuItem!
+    @IBOutlet weak var removeGapBeforeTrackMenuItem: NSMenuItem!
+    @IBOutlet weak var removeGapAfterTrackMenuItem: NSMenuItem!
+    
     @IBOutlet weak var favoritesMenuItem: ToggleMenuItem!
     @IBOutlet weak var detailedInfoMenuItem: NSMenuItem!
     
@@ -76,6 +82,12 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             let track = clickedItem.type == .index ? playlist.trackAtIndex(clickedItem.index!)!.track : clickedItem.track!
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(track.file))
             
+            insertGapBeforeTrackMenuItem.isHidden = playlist.getGapBeforeTrack(track) != nil
+            insertGapAfterTrackMenuItem.isHidden = playlist.getGapAfterTrack(track) != nil
+            
+            removeGapBeforeTrackMenuItem.isHidden = playlist.getGapBeforeTrack(track) == nil
+            removeGapAfterTrackMenuItem.isHidden = playlist.getGapAfterTrack(track) == nil
+            
         case .group:
             
             // Show all group-specific menu items, hide track-specific ones
@@ -105,6 +117,14 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         let gap = PlaybackGap(Double(gapDuration), .afterTrack)
         
         SyncMessenger.publishActionMessage(InsertPlaybackGapActionMessage(getClickedTrack(), gap, PlaylistViewState.current))
+    }
+    
+    @IBAction func removeGapBeforeTrackAction(_ sender: NSMenuItem) {
+        SyncMessenger.publishActionMessage(RemovePlaybackGapActionMessage(getClickedTrack(), .beforeTrack, PlaylistViewState.current))
+    }
+    
+    @IBAction func removeGapAfterTrackAction(_ sender: NSMenuItem) {
+        SyncMessenger.publishActionMessage(RemovePlaybackGapActionMessage(getClickedTrack(), .afterTrack, PlaylistViewState.current))
     }
     
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list

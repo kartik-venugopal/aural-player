@@ -8,6 +8,8 @@ struct Fonts {
     
     static let gillSans11Font: NSFont = NSFont(name: "Gill Sans", size: 11)!
     static let gillSans10Font: NSFont = NSFont(name: "Gill Sans", size: 10)!
+    static let gillSans10LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 10)!
+    static let gillSans11LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 11)!
     
     private static let gillSans12LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 12)!
     private static let gillSans12Font: NSFont = NSFont(name: "Gill Sans", size: 12)!
@@ -32,6 +34,9 @@ struct Fonts {
     // Fonts used by the playlist view
     static let playlistSelectedTextFont: NSFont = gillSans12Font
     static let playlistTextFont: NSFont = gillSans12LightFont
+    
+    static let playlistSelectedGapTextFont: NSFont = gillSans11Font
+    static let playlistGapTextFont: NSFont = gillSans11LightFont
     
     static let playlistGroupNameSelectedTextFont: NSFont = gillSans12SemiBoldFont
     static let playlistGroupNameTextFont: NSFont = gillSans12Font

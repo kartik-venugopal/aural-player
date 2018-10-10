@@ -87,16 +87,24 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         return nil
     }
     
-    func insertGapAfterTrack(_ index: Int, _ gap: PlaybackGap) {
-        flatPlaylist.insertGapAfterTrack(index, gap)
+    func insertGapForTrack(_ index: Int, _ gap: PlaybackGap) {
+        flatPlaylist.insertGapForTrack(index, gap)
     }
     
-    func getGapForTrack(_ index: Int) -> PlaybackGap? {
-        return flatPlaylist.getGapForTrack(index)
+    func removeGapBeforeTrack(_ index: Int) {
+        flatPlaylist.removeGapBeforeTrack(index)
     }
     
-    func getGapForTrack(_ track: Track) -> PlaybackGap? {
-        return flatPlaylist.getGapForTrack(track)
+    func removeGapAfterTrack(_ index: Int) {
+        flatPlaylist.removeGapAfterTrack(index)
+    }
+    
+    func getGapBeforeTrack(_ track: Track) -> PlaybackGap? {
+        return flatPlaylist.getGapBeforeTrack(track)
+    }
+    
+    func getGapAfterTrack(_ track: Track) -> PlaybackGap? {
+        return flatPlaylist.getGapAfterTrack(track)
     }
     
     // Checks whether or not a track with the given absolute file path already exists.

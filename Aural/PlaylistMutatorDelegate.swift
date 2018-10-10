@@ -322,8 +322,16 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         changeListeners.forEach({$0.playlistCleared()})
     }
     
-    func insertGapAfterTrack(_ index: Int, _ gap: PlaybackGap) {
-        playlist.insertGapAfterTrack(index, gap)
+    func insertGapForTrack(_ index: Int, _ gap: PlaybackGap) {
+        playlist.insertGapForTrack(index, gap)
+    }
+    
+    func removeGapBeforeTrack(_ index: Int) {
+        playlist.removeGapBeforeTrack(index)
+    }
+    
+    func removeGapAfterTrack(_ index: Int) {
+        playlist.removeGapAfterTrack(index)
     }
     
     func sort(_ sort: Sort, _ playlistType: PlaylistType) {
