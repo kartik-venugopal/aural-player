@@ -47,6 +47,8 @@ enum AsyncMessageType {
     case removedFromFavorites
     
     case audioOutputChanged
+    
+    case gapStarted
 }
 
 // AsyncMessage indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
@@ -260,5 +262,19 @@ struct AudioOutputChangedMessage: AsyncMessage {
     
     init(_ session: PlaybackSession?) {
         self.endedSession = session
+    }
+}
+
+struct PlaybackGapStartedAsyncMessage: AsyncMessage {
+    
+    let messageType: AsyncMessageType = .gapStarted
+    
+    let gapEndTime: Date
+    let nextTrack: Track?
+    
+    init(_ gapEndTime: Date, _ nextTrack: Track?) {
+        
+        self.gapEndTime = gapEndTime
+        self.nextTrack = nextTrack
     }
 }
