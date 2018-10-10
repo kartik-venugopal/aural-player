@@ -261,7 +261,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             }
         }
         
-        print("Refreshing: ", refreshIndexes)
         playlistView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
     }
     

@@ -44,7 +44,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView focusRingType="none" id="Nr9-vb-v1E" customClass="DurationCellView" customModule="Aural" customModuleProvider="target">
+                                            <tableCellView focusRingType="none" id="Nr9-vb-v1E" customClass="IndexCellView" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="1" y="2" width="30" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -60,7 +60,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0ic-SL-nto">
-                                                        <rect key="frame" x="5" y="3" width="20" height="17"/>
+                                                        <rect key="frame" x="5" y="2" width="20" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="20" id="6tL-FQ-6nA"/>
                                                             <constraint firstAttribute="height" constant="17" id="W0Q-PN-zAl"/>
@@ -70,8 +70,8 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="ghD-Os-Qiu" firstAttribute="leading" secondItem="Nr9-vb-v1E" secondAttribute="leading" id="6cv-6z-7MP"/>
-                                                    <constraint firstItem="0ic-SL-nto" firstAttribute="top" secondItem="Nr9-vb-v1E" secondAttribute="top" id="QS8-4M-uSS"/>
-                                                    <constraint firstItem="ghD-Os-Qiu" firstAttribute="top" secondItem="Nr9-vb-v1E" secondAttribute="top" id="UVU-ML-dy7"/>
+                                                    <constraint firstItem="ghD-Os-Qiu" firstAttribute="centerY" secondItem="Nr9-vb-v1E" secondAttribute="centerY" id="8sz-Ch-eSf"/>
+                                                    <constraint firstItem="0ic-SL-nto" firstAttribute="centerY" secondItem="Nr9-vb-v1E" secondAttribute="centerY" id="QS8-4M-uSS"/>
                                                     <constraint firstItem="0ic-SL-nto" firstAttribute="centerX" secondItem="ghD-Os-Qiu" secondAttribute="centerX" id="cNG-fu-StN"/>
                                                     <constraint firstItem="ghD-Os-Qiu" firstAttribute="trailing" secondItem="Nr9-vb-v1E" secondAttribute="trailing" id="xdd-Uo-hm5"/>
                                                 </constraints>
@@ -104,14 +104,14 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="I0D-dr-r3g"/>
                                                         </constraints>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="proportionallyDown" image="Gap" id="WwI-lW-bjN"/>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="WwI-lW-bjN"/>
                                                     </imageView>
                                                     <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FbN-Tk-3gy" userLabel="Gap After">
                                                         <rect key="frame" x="0.0" y="0.0" width="344" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="5aD-Rb-bfv"/>
                                                         </constraints>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="proportionallyDown" image="Gap" id="leO-sM-2Ls"/>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="leO-sM-2Ls"/>
                                                     </imageView>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="DnL-mo-oiW" userLabel="Track Name">
                                                         <rect key="frame" x="-2" y="18" width="348" height="22"/>
@@ -173,7 +173,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pY7-8Q-lam" userLabel="Duration">
-                                                        <rect key="frame" x="-7" y="18" width="69" height="22"/>
+                                                        <rect key="frame" x="-7" y="10" width="69" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="22" id="hjg-gf-GXP"/>
                                                         </constraints>
@@ -184,7 +184,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H1x-FR-uuU" userLabel="Gap After">
-                                                        <rect key="frame" x="-7" y="0.0" width="69" height="18"/>
+                                                        <rect key="frame" x="-7" y="-5" width="69" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="1qv-hN-SSp"/>
                                                         </constraints>
@@ -198,10 +198,10 @@
                                                 <constraints>
                                                     <constraint firstItem="H1x-FR-uuU" firstAttribute="leading" secondItem="fAu-nU-Alw" secondAttribute="leading" id="Dfw-Lq-5rT"/>
                                                     <constraint firstItem="pY7-8Q-lam" firstAttribute="leading" secondItem="fAu-nU-Alw" secondAttribute="leading" id="Jhd-vc-yyg"/>
-                                                    <constraint firstItem="H1x-FR-uuU" firstAttribute="top" secondItem="pY7-8Q-lam" secondAttribute="bottom" id="MdQ-Tc-DtG"/>
+                                                    <constraint firstItem="H1x-FR-uuU" firstAttribute="top" secondItem="pY7-8Q-lam" secondAttribute="bottom" constant="-3" id="MdQ-Tc-DtG"/>
                                                     <constraint firstItem="pY7-8Q-lam" firstAttribute="trailing" secondItem="fAu-nU-Alw" secondAttribute="trailing" id="g3u-Kg-kTy"/>
                                                     <constraint firstAttribute="trailing" secondItem="pY7-8Q-lam" secondAttribute="trailing" constant="5" id="lwJ-Be-82Y"/>
-                                                    <constraint firstItem="pY7-8Q-lam" firstAttribute="top" secondItem="fAu-nU-Alw" secondAttribute="bottom" id="p02-wo-hDj"/>
+                                                    <constraint firstItem="pY7-8Q-lam" firstAttribute="top" secondItem="fAu-nU-Alw" secondAttribute="bottom" constant="8" id="p02-wo-hDj"/>
                                                     <constraint firstItem="H1x-FR-uuU" firstAttribute="trailing" secondItem="fAu-nU-Alw" secondAttribute="trailing" id="qsq-rO-8SP"/>
                                                     <constraint firstItem="pY7-8Q-lam" firstAttribute="leading" secondItem="Nxn-ZH-ZX3" secondAttribute="leading" constant="-5" id="sJA-dS-TRw"/>
                                                     <constraint firstItem="fAu-nU-Alw" firstAttribute="top" secondItem="Nxn-ZH-ZX3" secondAttribute="top" id="ugN-Su-uyE"/>
@@ -249,6 +249,6 @@
         </customObject>
     </objects>
     <resources>
-        <image name="Gap" width="51.119998931884766" height="3.8399999141693115"/>
+        <image name="Gap" width="107" height="18"/>
     </resources>
 </document>
