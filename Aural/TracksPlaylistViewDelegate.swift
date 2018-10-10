@@ -14,7 +14,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     // Stores the cell containing the playing track animation, for convenient access when pausing/resuming the animation
-    private var animationCell: TrackNameCellView?
+    private var playingTrackImageCell: IndexCellView?
     
     override func awakeFromNib() {
         
@@ -77,13 +77,13 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
                 // If this row contains the playing track, display an animation, instead of the track index
                 if (playingTrackIndex != nil && playingTrackIndex == row) {
                     
-                    animationCell = createPlayingTrackAnimationCell(tableView)
-                    return animationCell
+                    playingTrackImageCell = createPlayingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, String(format: "%d.", row + 1), gapB, gapA, row)
+                    return playingTrackImageCell
                     
                 } else {
                     
                     // Otherwise, create a text cell with the track index
-                    return createDurationCell(tableView, UIConstants.playlistIndexColumnID, String(format: "%d.", row + 1), nil, nil, row)
+                    return createIndexCell(tableView, UIConstants.playlistIndexColumnID, String(format: "%d.", row + 1), gapB, gapA, row)
                 }
                 
             case UIConstants.playlistNameColumnID:
@@ -102,6 +102,37 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
         return nil
     }
     
+    private func createIndexCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> IndexCellView? {
+     
+        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? IndexCellView {
+            
+            cell.textField?.stringValue = text
+            cell.textField?.isHidden = false
+            cell.imageView?.isHidden = true
+            cell.row = row
+            
+            let aOnly = gapAfter != nil && gapBefore == nil
+            let bOnly = gapBefore != nil && gapAfter == nil
+            
+            if aOnly {
+                
+                adjustIndexConstraints_afterGapOnly(cell)
+                
+            } else if bOnly {
+                
+                adjustIndexConstraints_beforeGapOnly(cell)
+                
+            } else {
+                
+                adjustIndexConstraints_centered(cell)
+            }
+            
+            return cell
+        }
+        
+        return nil
+    }
+    
     private func createTrackNameCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> TrackNameCellView? {
         
         if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? TrackNameCellView {
@@ -110,17 +141,11 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
             cell.textField?.isHidden = false
             cell.row = row
             
-            if cell.gapAfterImg == nil {
-                return cell
-            }
-            
             let both = gapBefore != nil && gapAfter != nil
             let aOnly = gapAfter != nil && gapBefore == nil
             let bOnly = gapBefore != nil && gapAfter == nil
             
             if aOnly {
-                
-                print("\nA only")
                 
                 cell.gapBeforeImg.isHidden = true
                 cell.gapAfterImg.isHidden = false
@@ -131,8 +156,6 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
                 
             } else if bOnly {
                 
-                print("\nB only")
-                
                 cell.gapBeforeImg.isHidden = false
                 cell.gapAfterImg.isHidden = true
                 
@@ -141,8 +164,6 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
                 cell.textField!.setFrameOrigin(NSPoint.zero)
                 
             } else if both {
-                
-                print("\nBoth")
                 
                 cell.gapBeforeImg.isHidden = false
                 cell.gapAfterImg.isHidden = false
@@ -154,6 +175,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
             } else {
                 
                 // Neither
+                cell.gapBeforeImg.isHidden = true
+                cell.gapAfterImg.isHidden = true
                 
                 adjustConstraints_mainFieldOnTop(cell)
                 
@@ -185,8 +208,6 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
             
             if aOnly {
                 
-                print("\nA only")
-                
                 let gap = gapAfter!
                 
                 cell.gapBeforeTextField.isHidden = true
@@ -200,8 +221,6 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
                 
             } else if bOnly {
                 
-                print("\nB only")
-                
                 let gap = gapBefore!
                 
                 cell.gapBeforeTextField.isHidden = false
@@ -214,8 +233,6 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
                 cell.textField!.setFrameOrigin(NSPoint.zero)
                 
             } else if both {
-                
-                print("\nBoth")
                 
                 let gapA = gapAfter!
                 let gapB = gapBefore!
@@ -234,6 +251,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
             } else {
                 
                 // Neither
+                cell.gapBeforeTextField.isHidden = true
+                cell.gapAfterTextField.isHidden = true
                 
                 adjustConstraints_mainFieldOnTop(cell)
                 
@@ -255,7 +274,6 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
             
             if con.firstItem === main && con.firstAttribute == .top {
                 
-                print("Found con")
                 con.isActive = false
                 cell.removeConstraint(con)
                 break
@@ -275,7 +293,6 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
             
             if con.firstItem === main && con.firstAttribute == .top {
                 
-                print("Found con2")
                 con.isActive = false
                 cell.removeConstraint(con)
                 break
@@ -285,13 +302,90 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
         let befFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: gapView, attribute: .bottom, multiplier: 1.0, constant: 0)
         befFieldOnTop.isActive = true
         cell.addConstraint(befFieldOnTop)
+    }
+    
+    // MARK: Constraints for Index cells
+    
+    private func adjustIndexConstraints_beforeGapOnly(_ cell: NSTableCellView) {
+     
+        for con in cell.constraints {
+            
+            if con.firstItem === cell.textField && con.firstAttribute == .centerY {
+                con.isActive = false
+                cell.removeConstraint(con)
+            }
+            
+            if con.firstItem === cell.imageView && con.firstAttribute == .centerY {
+                con.isActive = false
+                cell.removeConstraint(con)
+            }
+        }
         
+        let indexTF = NSLayoutConstraint(item: cell.textField!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -11)
+        indexTF.isActive = true
+        cell.addConstraint(indexTF)
+        
+        let indexIV = NSLayoutConstraint(item: cell.imageView!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -11)
+        indexIV.isActive = true
+        cell.addConstraint(indexIV)
+    }
+    
+    private func adjustIndexConstraints_afterGapOnly(_ cell: NSTableCellView) {
+        
+        for con in cell.constraints {
+            
+            if con.firstItem === cell.textField && con.firstAttribute == .centerY {
+                
+                con.isActive = false
+                cell.removeConstraint(con)
+            }
+            
+            if con.firstItem === cell.imageView && con.firstAttribute == .centerY {
+                
+                con.isActive = false
+                cell.removeConstraint(con)
+            }
+        }
+        
+        let indexTF = NSLayoutConstraint(item: cell.textField!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -29)
+        indexTF.isActive = true
+        cell.addConstraint(indexTF)
+        
+        let indexIV = NSLayoutConstraint(item: cell.imageView!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -29)
+        indexIV.isActive = true
+        cell.addConstraint(indexIV)
+    }
+    
+    private func adjustIndexConstraints_centered(_ cell: NSTableCellView) {
+        
+        for con in cell.constraints {
+            
+            if con.firstItem === cell.textField && con.firstAttribute == .centerY {
+                
+                con.isActive = false
+                cell.removeConstraint(con)
+            }
+            
+            if con.firstItem === cell.imageView && con.firstAttribute == .centerY {
+                
+                con.isActive = false
+                cell.removeConstraint(con)
+            }
+        }
+        
+        let indexTF = NSLayoutConstraint(item: cell.textField!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .centerY, multiplier: 1.0, constant: 0)
+        indexTF.isActive = true
+        cell.addConstraint(indexTF)
+        
+        let indexIV = NSLayoutConstraint(item: cell.imageView!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .centerY, multiplier: 1.0, constant: 0)
+        indexIV.isActive = true
+        cell.addConstraint(indexIV)
     }
     
     // Creates a cell view containing the animation for the currently playing track
-    private func createPlayingTrackAnimationCell(_ tableView: NSTableView) -> TrackNameCellView? {
+    private func createPlayingTrackImageCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> IndexCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(UIConstants.playlistIndexColumnID), owner: nil) as? TrackNameCellView {
+        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(UIConstants.playlistIndexColumnID), owner: nil) as? IndexCellView {
             
             // Configure and show the image view
             let imgView = cell.imageView!
@@ -301,6 +395,25 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
             
             // Hide the text view
             cell.textField?.isHidden = true
+            
+            cell.textField?.stringValue = text
+            cell.row = row
+            
+            let aOnly = gapAfter != nil && gapBefore == nil
+            let bOnly = gapBefore != nil && gapAfter == nil
+            
+            if aOnly {
+                
+                adjustIndexConstraints_afterGapOnly(cell)
+                
+            } else if bOnly {
+                
+                adjustIndexConstraints_beforeGapOnly(cell)
+                
+            } else {
+                
+                adjustIndexConstraints_centered(cell)
+            }
             
             return cell
         }
@@ -322,11 +435,11 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
         case .noTrack:
             
             // The track is no longer playing
-            animationCell = nil
+            playingTrackImageCell = nil
             
         case .playing, .paused:
             
-            animationCell?.imageView?.image = Images.imgPlayingTrack
+            playingTrackImageCell?.imageView?.image = Images.imgPlayingTrack
             
         }
     }

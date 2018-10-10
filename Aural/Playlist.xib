@@ -586,8 +586,7 @@
                                     <action selector="insertGapAfterTrackAction:" target="TnB-Sk-yOp" id="Sae-Tq-VWJ"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="5 seconds" tag="5" id="TDZ-fM-hKf">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="5 seconds" tag="5" keyEquivalent="t" id="TDZ-fM-hKf">
                                 <connections>
                                     <action selector="insertGapAfterTrackAction:" target="TnB-Sk-yOp" id="umy-dy-Lg0"/>
                                 </connections>
