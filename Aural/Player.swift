@@ -89,6 +89,10 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         playbackState = .noTrack
     }
     
+    func wait() {
+        playbackState = .waiting
+    }
+    
     func seekToTime(_ track: Track, _ seconds: Double) {
         
         let timestamp = PlaybackSession.currentSession!.timestamp
@@ -212,4 +216,5 @@ enum PlaybackState {
     case playing
     case paused
     case noTrack
+    case waiting
 }

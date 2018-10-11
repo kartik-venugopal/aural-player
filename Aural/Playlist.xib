@@ -552,12 +552,6 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="  Insert gap before track" id="czk-Mf-Hvj">
                         <items>
-                            <menuItem title="3 seconds" tag="3" id="7g3-Jb-WWI">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="insertGapBeforeTrackAction:" target="TnB-Sk-yOp" id="hEJ-qy-sVR"/>
-                                </connections>
-                            </menuItem>
                             <menuItem title="5 seconds" tag="5" id="uFW-hP-oFT">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
@@ -570,6 +564,25 @@
                                     <action selector="insertGapBeforeTrackAction:" target="TnB-Sk-yOp" id="tCf-Un-XK2"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="30 seconds" tag="30" id="rlm-ps-OYr">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="insertGapBeforeTrackAction:" target="TnB-Sk-yOp" id="coW-yE-Gbz"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="60 seconds" tag="60" id="ib5-lL-mNO">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="insertGapBeforeTrackAction:" target="TnB-Sk-yOp" id="fJg-U7-uEG"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="qSk-rQ-dtJ"/>
+                            <menuItem title="Custom" tag="-1" id="YL5-ac-I2C">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="insertGapAfterTrackAction:" target="TnB-Sk-yOp" id="pB0-k6-nKd"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                     <connections>
@@ -580,13 +593,8 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" id="bt4-FY-o52">
                         <items>
-                            <menuItem title="3 seconds" tag="3" id="bbi-i1-I7d">
+                            <menuItem title="5 seconds" tag="5" id="TDZ-fM-hKf">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="insertGapAfterTrackAction:" target="TnB-Sk-yOp" id="Sae-Tq-VWJ"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="5 seconds" tag="5" keyEquivalent="t" id="TDZ-fM-hKf">
                                 <connections>
                                     <action selector="insertGapAfterTrackAction:" target="TnB-Sk-yOp" id="umy-dy-Lg0"/>
                                 </connections>
@@ -595,6 +603,25 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="insertGapAfterTrackAction:" target="TnB-Sk-yOp" id="rBX-Yg-J07"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="30 seconds" tag="30" id="eCE-Bh-Wnu">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="insertGapAfterTrackAction:" target="TnB-Sk-yOp" id="JgW-H0-iaS"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="60 seconds" tag="60" id="xH7-1Y-GZn">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="insertGapAfterTrackAction:" target="TnB-Sk-yOp" id="SQq-Fv-vHS"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="lxs-Dm-FlO"/>
+                            <menuItem title="Custom" tag="-1" id="8Ay-Tc-Adf">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="insertGapAfterTrackAction:" target="TnB-Sk-yOp" id="I44-xt-jiJ"/>
                                 </connections>
                             </menuItem>
                         </items>

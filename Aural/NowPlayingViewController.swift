@@ -516,22 +516,19 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         nowPlayingView.isHidden = true
         
-        // TODO: What if there is no track next ? Don't allow gap after track if it's the last track in the playlist ? (won't work when shuffling)
+        let track = msg.nextTrack.track
         
-        gapView_lblTrackTitle.stringValue = String(format: "Up next:   %@", msg.nextTrack?.conciseDisplayName ?? "<No track>")
+        gapView_lblTrackTitle.stringValue = String(format: "Up next:   %@", track.conciseDisplayName)
         updateGapCountdown(msg.gapEndTime)
         
-        if let track = msg.nextTrack {
-        
-            if (track.displayInfo.art != nil) {
-                
-                gapView_artView.image = track.displayInfo.art!
-                
-            } else {
-                
-                // Default artwork
-                gapView_artView.image = Images.imgPausedArt
-            }
+        if (track.displayInfo.art != nil) {
+            
+            gapView_artView.image = track.displayInfo.art!
+            
+        } else {
+            
+            // Default artwork
+            gapView_artView.image = Images.imgPausedArt
         }
         
         gapView.isHidden = false

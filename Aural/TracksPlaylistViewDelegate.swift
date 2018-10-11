@@ -432,18 +432,17 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
     // Whenever the playing track is paused/resumed, the animation needs to be paused/resumed.
     private func playbackStateChanged(_ message: PlaybackStateChangedNotification) {
         
-        switch (message.newPlaybackState) {
-            
-        case .noTrack:
-            
-            // The track is no longer playing
-            playingTrackImageCell = nil
-            
-        case .playing, .paused:
-            
-            playingTrackImageCell?.imageView?.image = Images.imgPlayingTrack
-            
-        }
+//        switch (message.newPlaybackState) {
+//
+//        case .noTrack, .waiting:
+//
+//            // The track is no longer playing
+//            playingTrackImageCell = nil
+//
+//        case .playing, .paused:
+//
+//            playingTrackImageCell?.imageView?.image = Images.imgPlayingTrack
+//        }
     }
     
     func consumeNotification(_ notification: NotificationMessage) {

@@ -19,8 +19,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     // User preferences
     private let preferences: PlaybackPreferences
     
-    private var currentGap: PlaybackGap? = nil
-    
     private let trackPlaybackQueue: DispatchQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
     
     init(_ player: PlayerProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ playlist: PlaylistAccessorProtocol, _ history: HistoryProtocol, _ preferences: PlaybackPreferences) {
@@ -59,6 +57,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             
         case .playing: pause()
             
+        case .waiting:
+            
+            // Skip gap and start playback
+            let track = PlaybackGapContext.subsequentTrack!
+            try doPlay(track, 0)
+            trackChanged = true
         }
         
         return (getPlaybackState(), getPlayingTrack(), trackChanged)
@@ -86,12 +90,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func play(_ index: Int) throws -> IndexedTrack {
         
+        PlaybackGapContext.clear()
+        
         let track = playbackSequencer.select(index)
         try play(track)
         return track
     }
     
     func play(_ index: Int, _ startPosition: Double, _ endPosition: Double?) throws -> IndexedTrack {
+        
+        PlaybackGapContext.clear()
 
         let track = playbackSequencer.select(index)
         try play(track, startPosition, endPosition)
@@ -110,12 +118,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func play(_ track: Track) throws -> IndexedTrack {
         
+        PlaybackGapContext.clear()
+        
         let indexedTrack = playbackSequencer.select(track)
         try play(indexedTrack)
         return indexedTrack
     }
     
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double?) throws -> IndexedTrack {
+        
+        PlaybackGapContext.clear()
         
         let indexedTrack = playbackSequencer.select(track)
         try play(indexedTrack, startPosition, endPosition)
@@ -145,6 +157,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     func play(_ group: Group) throws -> IndexedTrack {
+        
+        PlaybackGapContext.clear()
         
         let track = playbackSequencer.select(group)
         try play(track)
@@ -183,30 +197,40 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     // Throws an error if playback fails
     private func play(_ track: IndexedTrack?, _ startPosition: Double, _ endPosition: Double? = nil) throws {
         
-        // Invalidate the gap, if there is one
-        currentGap = nil
-        
         // Stop if currently playing
         haltPlayback()
         
         if (track != nil) {
             
             // Check for gap before track
-            if let gap = playlist.getGapBeforeTrack(track!.track) {
+            if let gapBeforeSubsequentTrack = playlist.getGapBeforeTrack(track!.track) {
                 
-                currentGap = gap
+                PlaybackGapContext.addGap(gapBeforeSubsequentTrack)
+                PlaybackGapContext.subsequentTrack = track
+            }
+            
+            // If there are gaps, delay playback (async)
+            if PlaybackGapContext.hasGaps() {
                 
-                let gapEndTime_dt = DispatchTime.now() + gap.duration
-                let gapEndTime: Date = DateUtils.addToDate(Date(), gap.duration)
+                // Mark the current state as "waiting" in between tracks
+                player.wait()
+                
+                let gapContextId = PlaybackGapContext.getId()
+                let gapDuration = PlaybackGapContext.getGapLength()
+                
+                let gapEndTime_dt = DispatchTime.now() + gapDuration
+                let gapEndTime: Date = DateUtils.addToDate(Date(), gapDuration)
+                
+                let lastPlayed = history.mostRecentlyPlayedItem()?.track
+                let lastPlayedIndexed = lastPlayed != nil ? playlist.findTrackByFile(lastPlayed!.file) : nil
                 
                 trackPlaybackQueue.asyncAfter(deadline: gapEndTime_dt) {
                     
-                    if self.currentGap != nil && self.currentGap == gap {
+                    // Perform this check to account for the possibility that the gap has been skipped (e.g. user performs Play or Next/Previous track)
+                    if PlaybackGapContext.isCurrent(gapContextId) {
                         
                         do {
-                            
                             try self.doPlay(track, startPosition)
-                            
                         } catch let error {
                             
                             if (error is InvalidTrackError) {
@@ -216,11 +240,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
                     }
                 }
                 
-                AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, track!.track))
+                // Let observers know that a playback gap has begun
+                AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, lastPlayedIndexed, track!))
                 
             } else {
                 
-                // Play sync
+                // Play immediately (sync)
                 try doPlay(track, startPosition)
             }
         }
@@ -228,6 +253,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     // ACTUALLY PLAYS THE TRACK
     private func doPlay(_ track: IndexedTrack?, _ startPosition: Double, _ endPosition: Double? = nil) throws {
+        
+        // Invalidate the gap, if there is one
+        PlaybackGapContext.clear()
         
         // TODO: Make this cleaner
         let lastPlayed = history.mostRecentlyPlayedItem()?.track
@@ -271,6 +299,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         let track = playbackSequencer.next()
         
         if (track != nil) {
+            PlaybackGapContext.clear()
             try play(track)
         }
         
@@ -282,6 +311,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         let track = playbackSequencer.previous()
         
         if (track != nil) {
+            PlaybackGapContext.clear()
             try play(track)
         }
         
@@ -504,7 +534,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     func getPlayingTrack() -> IndexedTrack? {
-        return playbackSequencer.getPlayingTrack()
+        return getPlaybackState() == .waiting ? nil : playbackSequencer.getPlayingTrack()
     }
     
     func getPlayingTrackGroupInfo(_ groupType: GroupType) -> GroupedTrack? {
@@ -569,29 +599,19 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         // ----------------- GAP AFTER COMPLETED TRACK ---------------------
         
-        if let gap = playlist.getGapAfterTrack(oldTrack!.track) {
+        if let subsequentTrack = playbackSequencer.peekSubsequent() {
             
-            currentGap = gap
-            
-            let gapEndTime_dt = DispatchTime.now() + gap.duration
-            let gapEndTime: Date = DateUtils.addToDate(Date(), gap.duration)
-            
-            trackPlaybackQueue.asyncAfter(deadline: gapEndTime_dt) {
-
-                if self.currentGap != nil && self.currentGap == gap {
-                    
-                    self.continuePlayback()
-                    
-                    // Invalidate the gap
-                    self.currentGap = nil
-                }
+            if let gapAfterCompletedTrack = playlist.getGapAfterTrack(oldTrack!.track) {
+                
+                PlaybackGapContext.addGap(gapAfterCompletedTrack)
+                PlaybackGapContext.subsequentTrack = subsequentTrack
             }
             
-            let subsequentTrack = playbackSequencer.peekSubsequent()
-            AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, subsequentTrack?.track))
-
-        } else {
             continuePlayback()
+            
+        } else {
+            
+            AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, nil))
         }
     }
     
@@ -684,7 +704,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         if (playingTrackRemoved) {
             
-            currentGap = nil
+            PlaybackGapContext.clear()
             stop()
             AsyncMessenger.publishMessage(TrackChangedAsyncMessage(nil, nil))
         }
@@ -692,7 +712,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func playlistCleared() {
         
-        currentGap = nil
+        PlaybackGapContext.clear()
         stop()
         AsyncMessenger.publishMessage(TrackChangedAsyncMessage(nil, nil))
     }
