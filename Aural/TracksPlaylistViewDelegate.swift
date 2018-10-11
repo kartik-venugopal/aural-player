@@ -3,7 +3,7 @@ import Cocoa
 /*
     Delegate for the NSTableView that displays the "Tracks" (flat) playlist view.
  */
-class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscriber {
+class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     
     // TODO: Reduce code duplication in the cell creation and constraint code
     
@@ -15,13 +15,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
     // Used to determine the currently playing track
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
-    // Stores the cell containing the playing track animation, for convenient access when pausing/resuming the animation
-    private var playingTrackImageCell: IndexCellView?
-    
     override func awakeFromNib() {
-        
-        // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.playbackStateChangedNotification], subscriber: self)
         
         // Store the NSTableView in a variable for convenient subsequent access
         TableViewHolder.instance = playlistView
@@ -79,8 +73,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
                 // If this row contains the playing track, display an animation, instead of the track index
                 if (playingTrackIndex != nil && playingTrackIndex == row) {
                     
-                    playingTrackImageCell = createPlayingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, String(format: "%d.", row + 1), gapB, gapA, row)
-                    return playingTrackImageCell
+                    return createPlayingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, String(format: "%d.", row + 1), gapB, gapA, row)
                     
                 } else {
                     
@@ -421,45 +414,6 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate, MessageSubscrib
         }
         
         return nil
-    }
-    
-    // MARK: Message handling
-    
-    func getID() -> String {
-        return self.className
-    }
-    
-    // Whenever the playing track is paused/resumed, the animation needs to be paused/resumed.
-    private func playbackStateChanged(_ message: PlaybackStateChangedNotification) {
-        
-//        switch (message.newPlaybackState) {
-//
-//        case .noTrack, .waiting:
-//
-//            // The track is no longer playing
-//            playingTrackImageCell = nil
-//
-//        case .playing, .paused:
-//
-//            playingTrackImageCell?.imageView?.image = Images.imgPlayingTrack
-//        }
-    }
-    
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        switch notification.messageType {
-            
-        case .playbackStateChangedNotification:
-            
-            playbackStateChanged(notification as! PlaybackStateChangedNotification)
-            
-        default: return
-            
-        }
-    }
-    
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        return EmptyResponse.instance
     }
 }
 
