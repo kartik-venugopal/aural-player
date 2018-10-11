@@ -57,6 +57,10 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
         subViews.forEach({$0.resetFields(preferences)})
     }
     
+    @IBAction func shiftTabAction(_ sender: Any) {
+        tabView.nextTab()
+    }
+    
     @IBAction func savePreferencesAction(_ sender: Any) {
         
         var saveFailed: Bool = false

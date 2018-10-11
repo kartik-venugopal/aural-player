@@ -580,13 +580,19 @@
                             <menuItem title="Custom" tag="-1" id="YL5-ac-I2C">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="insertGapAfterTrackAction:" target="TnB-Sk-yOp" id="pB0-k6-nKd"/>
+                                    <action selector="insertGapBeforeTrackAction:" target="TnB-Sk-yOp" id="uP9-Kf-4fn"/>
                                 </connections>
                             </menuItem>
                         </items>
                     </menu>
                     <connections>
                         <action selector="showTrackInFinderAction:" target="TnB-Sk-yOp" id="aNN-Mt-vyN"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="  Remove gap before track" id="Da8-AS-fHe" userLabel="Remove gap before track">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="removeGapBeforeTrackAction:" target="TnB-Sk-yOp" id="d6C-4B-Ybc"/>
                     </connections>
                 </menuItem>
                 <menuItem title="  Insert gap after track" id="gPU-Uk-0Ca" userLabel="Insert gap after">
@@ -628,12 +634,6 @@
                     </menu>
                     <connections>
                         <action selector="showTrackInFinderAction:" target="TnB-Sk-yOp" id="LYy-pa-P2e"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="  Remove gap before track" id="Da8-AS-fHe" userLabel="Remove gap before track">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="removeGapBeforeTrackAction:" target="TnB-Sk-yOp" id="d6C-4B-Ybc"/>
                     </connections>
                 </menuItem>
                 <menuItem title="  Remove gap after track" id="1gc-YY-Rwd" userLabel="Remove gap after track">

@@ -44,6 +44,8 @@
 		3E0F947B1FBBA01500B6E1B3 /* DelayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F947A1FBBA01500B6E1B3 /* DelayViewController.swift */; };
 		3E0F947D1FBBA33C00B6E1B3 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F947C1FBBA33C00B6E1B3 /* FilterViewController.swift */; };
 		3E0F947F1FBBDC3300B6E1B3 /* OnOffImageButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F947E1FBBDC3300B6E1B3 /* OnOffImageButtons.swift */; };
+		3E10DDDF216F28A7001D3B66 /* GapsEditorDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E10DDDE216F28A7001D3B66 /* GapsEditorDialog.xib */; };
+		3E10DDE1216F2F53001D3B66 /* GapsEditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E10DDE0216F2F53001D3B66 /* GapsEditorWindowController.swift */; };
 		3E192394215AEEB600E894B3 /* PlaybackScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */; };
 		3E192396215B0F1100E894B3 /* FavoritesMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */; };
 		3E1CF7ED1F5CBA2500613724 /* AudioGraphProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1CF7EC1F5CBA2500613724 /* AudioGraphProtocols.swift */; };
@@ -331,6 +333,8 @@
 		3E0F947A1FBBA01500B6E1B3 /* DelayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayViewController.swift; sourceTree = "<group>"; };
 		3E0F947C1FBBA33C00B6E1B3 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		3E0F947E1FBBDC3300B6E1B3 /* OnOffImageButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnOffImageButtons.swift; sourceTree = "<group>"; };
+		3E10DDDE216F28A7001D3B66 /* GapsEditorDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GapsEditorDialog.xib; sourceTree = "<group>"; };
+		3E10DDE0216F2F53001D3B66 /* GapsEditorWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GapsEditorWindowController.swift; sourceTree = "<group>"; };
 		3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackScheduler.swift; sourceTree = "<group>"; };
 		3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesMenuController.swift; sourceTree = "<group>"; };
 		3E1CF7EC1F5CBA2500613724 /* AudioGraphProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphProtocols.swift; sourceTree = "<group>"; };
@@ -734,6 +738,15 @@
 			name = Recorder;
 			sourceTree = "<group>";
 		};
+		3E10DDDD216F2884001D3B66 /* Gaps */ = {
+			isa = PBXGroup;
+			children = (
+				3E10DDDE216F28A7001D3B66 /* GapsEditorDialog.xib */,
+				3E10DDE0216F2F53001D3B66 /* GapsEditorWindowController.swift */,
+			);
+			name = Gaps;
+			sourceTree = "<group>";
+		};
 		3E24F4CE21699E0600B9CDA6 /* EffectsPresets */ = {
 			isa = PBXGroup;
 			children = (
@@ -881,6 +894,7 @@
 				3E2F104A215569BD0099FD06 /* Bookmarks */,
 				3E2F104D215569DB0099FD06 /* Favorites */,
 				3E3F29612159B66F00581EFE /* Layouts */,
+				3E10DDDD216F2884001D3B66 /* Gaps */,
 			);
 			name = Editors;
 			sourceTree = "<group>";
@@ -1606,6 +1620,7 @@
 				3E0ED6BD1FBB1CB7008268B3 /* Delay.xib in Resources */,
 				3E0C993D216C89B400E396DB /* FilterPresetsEditor.xib in Resources */,
 				3E0ED6AC1FBB1961008268B3 /* Effects.xib in Resources */,
+				3E10DDDF216F28A7001D3B66 /* GapsEditorDialog.xib in Resources */,
 				3E0ED6A61FBB05FF008268B3 /* Player.xib in Resources */,
 				3E36E85F1FC00E2A0005C62E /* PlaybackPreferences.xib in Resources */,
 				3E066C2F216C796B00E4FE80 /* ReverbPresetsEditor.xib in Resources */,
@@ -1633,6 +1648,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E0C993F216C89C600E396DB /* FilterPresetsEditorViewController.swift in Sources */,
+				3E10DDE1216F2F53001D3B66 /* GapsEditorWindowController.swift in Sources */,
 				3E864ADB1F25C81B006A7626 /* PlaylistDelegateProtocol.swift in Sources */,
 				3E80E6721F04FA7C007480CC /* SizeUnit.swift in Sources */,
 				3EB029141FB58CEC00A2D920 /* SoundMenuController.swift in Sources */,

@@ -14,6 +14,8 @@ class AuralTabView: NSTabView {
     
     private var indexedViews: [NSView: Int] = [NSView: Int]()
     
+    private var curIndex: Int = 0
+    
     // The tab view items cast to AuralTabViewItem
     var items: [AuralTabViewItem] {
         return self.tabViewItems as! [AuralTabViewItem]
@@ -55,6 +57,17 @@ class AuralTabView: NSTabView {
         
         items.forEach({$0.tabButton.state = convertToNSControlStateValue(0)})
         (self.tabViewItem(at: index) as? AuralTabViewItem)?.tabButton.state = convertToNSControlStateValue(1)
+        
+        curIndex = index
+    }
+    
+    func nextTab() {
+        
+        if curIndex < items.count - 1 {
+            selectTabViewItem(at: curIndex + 1)
+        } else {
+            selectTabViewItem(at: 0)
+        }
     }
 }
 

@@ -83,6 +83,9 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     var rememberLastPosition: Bool
     var rememberLastPositionOption: RememberSettingsForTrackOptions
     
+    var gapBetweenTracks: Bool
+    var gapBetweenTracksDuration: Int
+    
     fileprivate convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: ControlsPreferences) {
         self.init(defaultsDictionary)
         self.controlsPreferences = controlsPreferences
@@ -127,6 +130,9 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         } else {
             rememberLastPositionOption = PreferencesDefaults.Playback.rememberLastPositionOption
         }
+        
+        gapBetweenTracks = defaultsDictionary["playback.gapBetweenTracks"] as? Bool ?? PreferencesDefaults.Playback.gapBetweenTracks
+        gapBetweenTracksDuration = defaultsDictionary["playback.gapBetweenTracks.duration"] as? Int ?? PreferencesDefaults.Playback.gapBetweenTracksDuration
     }
     
     func persist(defaults: UserDefaults) {
@@ -144,8 +150,12 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         defaults.set(autoplayAfterAddingOption.rawValue, forKey: "playback.autoplayAfterAddingTracks.option")
         
         defaults.set(showNewTrackInPlaylist, forKey: "playback.showNewTrackInPlaylist")
+        
         defaults.set(rememberLastPosition, forKey: "playback.rememberLastPosition")
         defaults.set(rememberLastPositionOption.rawValue, forKey: "playback.rememberLastPosition.option")
+        
+        defaults.set(gapBetweenTracks, forKey: "playback.gapBetweenTracks")
+        defaults.set(gapBetweenTracksDuration, forKey: "playback.gapBetweenTracks.duration")
     }
 }
 
@@ -427,6 +437,9 @@ fileprivate struct PreferencesDefaults {
         
         static let rememberLastPosition: Bool = false
         static let rememberLastPositionOption: RememberSettingsForTrackOptions = .individualTracks
+        
+        static let gapBetweenTracks: Bool = false
+        static let gapBetweenTracksDuration: Int = 5
     }
     
     struct Sound {

@@ -51,6 +51,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Delegate that provides access to History information
     private let favorites: FavoritesDelegateProtocol = ObjectGraph.getFavoritesDelegate()
     
+    private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.getGapsEditorDialog()
+    
     // One-time setup
     override func awakeFromNib() {
         
@@ -114,6 +116,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         } else {
             
             // Custom gap dialog
+            gapsEditor.setDataForKey("gapPosition", PlaybackGapPosition.beforeTrack)
+            gapsEditor.showDialog()
         }
     }
     
@@ -130,6 +134,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         } else {
             
             // Custom gap dialog
+            gapsEditor.setDataForKey("gapPosition", PlaybackGapPosition.afterTrack)
+            gapsEditor.showDialog()
         }
     }
     

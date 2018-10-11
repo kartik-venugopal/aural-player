@@ -128,6 +128,8 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         filterNode.setFilterMidBand(state.filterMidMin, state.filterMidMax)
         filterNode.setFilterTrebleBand(state.filterTrebleMin, state.filterTrebleMax)
         FilterPresets.loadUserDefinedPresets(state.filterUserPresets)
+        
+        
     }
 
     private func bypassAllUnits() {

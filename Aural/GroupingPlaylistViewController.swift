@@ -400,10 +400,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     private func showPlayingTrack() {
         
         selectTrack(playbackInfo.getPlayingTrackGroupInfo(self.groupType))
-        
-        if !layoutManager.isShowingPlaylist() {
-            SyncMessenger.publishActionMessage(ViewActionMessage(.togglePlaylist))
-        }
     }
  
     // Refreshes the playlist view in response to a new track being added to the playlist
