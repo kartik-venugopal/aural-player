@@ -36,7 +36,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         PlaylistInputEventHandler.registerViewForPlaylistType(.tracks, self.playlistView)
         
         // Register as a subscriber to various message notifications
-        AsyncMessenger.subscribe([.trackAdded, .tracksRemoved, .trackInfoUpdated], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackAdded, .tracksRemoved, .trackInfoUpdated, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
         
@@ -327,6 +327,13 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([playlistView.selectedRow]))
     }
     
+    private func gapStarted(_ message: PlaybackGapStartedAsyncMessage) {
+        
+        if let oldTrackIndex = message.lastPlayedTrack?.index {
+            playlistView.reloadData(forRowIndexes: IndexSet([oldTrackIndex]), columnIndexes: [0])
+        }
+    }
+    
     func getID() -> String {
         return self.className
     }
@@ -348,6 +355,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         case .trackInfoUpdated:
             
             trackInfoUpdated(message as! TrackUpdatedAsyncMessage)
+            
+        case .gapStarted:
+            
+            gapStarted(message as! PlaybackGapStartedAsyncMessage)
             
         default: return
             

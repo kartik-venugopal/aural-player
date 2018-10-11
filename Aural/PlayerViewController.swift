@@ -97,7 +97,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func initSubscriptions() {
         
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.trackNotPlayed, .trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.trackNotPlayed, .trackChanged, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification], subscriber: self)
         
@@ -106,7 +106,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     private func removeSubscriptions() {
         
-        AsyncMessenger.unsubscribe([.trackNotPlayed, .trackChanged], subscriber: self)
+        AsyncMessenger.unsubscribe([.trackNotPlayed, .trackChanged, .gapStarted], subscriber: self)
         
         SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification], subscriber: self)
         
@@ -227,6 +227,10 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
                     // Resumed the same track
                     SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
                 }
+                
+            case .waiting:  // Impossible
+                
+                return
             }
             
         } catch let error {
@@ -520,11 +524,17 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         }
     }
     
-    func getID() -> String {
-        return self.className
+    private func gapStarted() {
+        
+        btnPlayPause.off()
+        btnLoop.switchState(LoopState.none)
     }
     
     // MARK: Message handling
+    
+    func getID() -> String {
+        return self.className
+    }
     
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
@@ -537,6 +547,10 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         case .trackNotPlayed:
             
             trackNotPlayed(message as! TrackNotPlayedAsyncMessage)
+            
+        case .gapStarted:
+            
+            gapStarted()
             
         default: return
             

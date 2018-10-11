@@ -189,6 +189,10 @@ class BarModePlayerViewController: NSViewController, MessageSubscriber, AsyncMes
                     // Resumed the same track
                     SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
                 }
+                
+            case .waiting:
+                
+                return
             }
             
         } catch let error {

@@ -142,7 +142,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
             // The track is no longer playing
             animationCell = nil
             
-        case .playing, .paused:
+        case .playing, .paused, .waiting:
             
             animationCell?.imageView?.image = Images.imgPlayingTrack
             

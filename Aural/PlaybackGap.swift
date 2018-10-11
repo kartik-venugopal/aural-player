@@ -33,3 +33,58 @@ extension PlaybackGap: Hashable {
         return self.id
     }
 }
+
+class PlaybackGapContext {
+    
+    private static var id: Int = -1
+    private static var gaps: Queue<PlaybackGap> = Queue<PlaybackGap>()
+    static var subsequentTrack: IndexedTrack?
+    
+    static func hasGaps() -> Bool {
+        return subsequentTrack != nil && gaps.size() > 0
+    }
+    
+    static func getId() -> Int {
+        return id
+    }
+    
+    static func isCurrent(_ contextId: Int) -> Bool {
+        return contextId == id
+    }
+    
+    static func getGapLength() -> Double {
+        
+        var length: Double = 0.0
+        let gapsArr = gaps.toArray()
+        
+        for gap in gapsArr {
+            length += gap.duration
+        }
+        
+        return length
+    }
+    
+    static func clear() {
+        
+        id = -1
+        gaps.clear()
+        subsequentTrack = nil
+    }
+    
+    private static func initialize() {
+        id = Int.random(in: 0...Int.max)
+    }
+    
+    static func addGap(_ gap: PlaybackGap) {
+        
+        if gaps.size() == 0 {
+            initialize()
+        }
+        
+        gaps.enqueue(gap)
+    }
+    
+    static func getGaps() -> [PlaybackGap] {
+        return gaps.toArray()
+    }
+}

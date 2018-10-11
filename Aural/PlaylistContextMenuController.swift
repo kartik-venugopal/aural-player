@@ -105,18 +105,32 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         // Sender's tag is gap duration in seconds
         let gapDuration = sender.tag
-        let gap = PlaybackGap(Double(gapDuration), .beforeTrack)
         
-        SyncMessenger.publishActionMessage(InsertPlaybackGapActionMessage(getClickedTrack(), gap, PlaylistViewState.current))
+        if gapDuration > 0 {
+         
+            let gap = PlaybackGap(Double(gapDuration), .beforeTrack)
+            SyncMessenger.publishActionMessage(InsertPlaybackGapActionMessage(getClickedTrack(), gap, PlaylistViewState.current))
+            
+        } else {
+            
+            // Custom gap dialog
+        }
     }
     
     @IBAction func insertGapAfterTrackAction(_ sender: NSMenuItem) {
         
         // Sender's tag is gap duration in seconds
         let gapDuration = sender.tag
-        let gap = PlaybackGap(Double(gapDuration), .afterTrack)
         
-        SyncMessenger.publishActionMessage(InsertPlaybackGapActionMessage(getClickedTrack(), gap, PlaylistViewState.current))
+        if gapDuration > 0 {
+            
+            let gap = PlaybackGap(Double(gapDuration), .afterTrack)
+            SyncMessenger.publishActionMessage(InsertPlaybackGapActionMessage(getClickedTrack(), gap, PlaylistViewState.current))
+            
+        } else {
+            
+            // Custom gap dialog
+        }
     }
     
     @IBAction func removeGapBeforeTrackAction(_ sender: NSMenuItem) {
