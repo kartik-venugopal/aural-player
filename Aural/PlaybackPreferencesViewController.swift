@@ -40,6 +40,12 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnRememberPosition_allTracks: NSButton!
     @IBOutlet weak var btnRememberPosition_individualTracks: NSButton!
     
+    @IBOutlet weak var btnGapBetweenTracks: NSButton!
+    @IBOutlet weak var gapDurationSlider: NSSlider!
+    @IBOutlet weak var btnGapDurationIncrement: NSButton!
+    @IBOutlet weak var btnGapDurationDecrement: NSButton!
+    @IBOutlet weak var lblGapDuration: NSTextField!
+    
     @IBOutlet weak var btnInfo_primarySeekLength: NSButton!
     @IBOutlet weak var btnInfo_secondarySeekLength: NSButton!
     
@@ -123,6 +129,13 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         } else {
             btnRememberPosition_allTracks.state = UIConstants.buttonState_1
         }
+        
+        // Gap between tracks
+        
+        btnGapBetweenTracks.state = playbackPrefs.gapBetweenTracks ? UIConstants.buttonState_1 : UIConstants.buttonState_0
+        [lblGapDuration, gapDurationSlider, btnGapDurationIncrement, btnGapDurationDecrement].forEach({$0?.isEnabled = btnGapBetweenTracks.state == UIConstants.buttonState_1})
+        gapDurationSlider.integerValue = playbackPrefs.gapBetweenTracksDuration
+        lblGapDuration.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(gapDurationSlider.integerValue)
     }
     
     @IBAction func primarySeekLengthRadioButtonAction(_ sender: Any) {
@@ -200,6 +213,49 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Needed for radio button group
     }
     
+    @IBAction func gapAction(_ sender: NSButton) {
+        [lblGapDuration, gapDurationSlider, btnGapDurationIncrement, btnGapDurationDecrement].forEach({$0?.isEnabled = btnGapBetweenTracks.state == UIConstants.buttonState_1})
+    }
+    
+    @IBAction func gapDurationIncrementAction(_ sender: Any) {
+        
+        if (Double(gapDurationSlider.integerValue) < gapDurationSlider.maxValue) {
+            gapDurationSlider.integerValue += 1
+            lblGapDuration.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(gapDurationSlider.integerValue)
+        }
+    }
+    
+    @IBAction func gapDurationDecrementAction(_ sender: Any) {
+        
+        if (Double(gapDurationSlider.integerValue) > gapDurationSlider.minValue) {
+            gapDurationSlider.integerValue -= 1
+            lblGapDuration.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(gapDurationSlider.integerValue)
+        }
+    }
+    
+    @IBAction func gapDurationSliderAction(_ sender: Any) {
+        lblGapDuration.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(gapDurationSlider.integerValue)
+    }
+    
+    @IBAction func seekLengthPrimary_infoAction(_ sender: Any) {
+        showInfo(Strings.info_seekLengthPrimary)
+    }
+    
+    @IBAction func seekLengthSecondary_infoAction(_ sender: Any) {
+        showInfo(Strings.info_seekLengthSecondary)
+    }
+    
+    private func showInfo(_ text: String) {
+        
+        let helpManager = NSHelpManager.shared
+        let textFontAttributes = convertToOptionalNSAttributedStringKeyDictionary([
+            convertFromNSAttributedStringKey(NSAttributedString.Key.font): Fonts.helpInfoTextFont
+            ])
+        
+        helpManager.setContextHelp(NSAttributedString(string: text, attributes: textFontAttributes), for: btnInfo_primarySeekLength)
+        helpManager.showContextHelp(for: btnInfo_primarySeekLength, locationHint: NSEvent.mouseLocation)
+    }
+    
     func save(_ preferences: Preferences) throws {
         
         let playbackPrefs = preferences.playbackPreferences
@@ -230,25 +286,9 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         if !playbackPrefs.rememberLastPosition || (wasAllTracks && isNowIndividualTracks) {
             PlaybackProfiles.removeAll()
         }
-    }
-    
-    @IBAction func seekLengthPrimary_infoAction(_ sender: Any) {
-        showInfo(Strings.info_seekLengthPrimary)
-    }
-    
-    @IBAction func seekLengthSecondary_infoAction(_ sender: Any) {
-        showInfo(Strings.info_seekLengthSecondary)
-    }
-    
-    private func showInfo(_ text: String) {
         
-        let helpManager = NSHelpManager.shared
-        let textFontAttributes = convertToOptionalNSAttributedStringKeyDictionary([
-            convertFromNSAttributedStringKey(NSAttributedString.Key.font): Fonts.helpInfoTextFont
-            ])
-        
-        helpManager.setContextHelp(NSAttributedString(string: text, attributes: textFontAttributes), for: btnInfo_primarySeekLength)
-        helpManager.showContextHelp(for: btnInfo_primarySeekLength, locationHint: NSEvent.mouseLocation)
+        playbackPrefs.gapBetweenTracks = btnGapBetweenTracks.state == UIConstants.buttonState_1
+        playbackPrefs.gapBetweenTracksDuration = gapDurationSlider.integerValue
     }
 }
 

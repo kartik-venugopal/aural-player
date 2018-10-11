@@ -7,13 +7,19 @@ class PlaybackGap {
     
     var duration: Double
     var position: PlaybackGapPosition
+    var type: PlaybackGapType
     
-    init(_ duration: Double, _ position: PlaybackGapPosition) {
+    convenience init(_ duration: Double, _ position: PlaybackGapPosition) {
+        self.init(duration, position, .tillAppExits)
+    }
+    
+    init(_ duration: Double, _ position: PlaybackGapPosition, _ type: PlaybackGapType) {
         
         self.id = Int.random(in: 0 ... Int.max)
         
         self.duration = duration
         self.position = position
+        self.type = type
     }
 }
 
@@ -21,6 +27,13 @@ enum PlaybackGapPosition {
     
     case beforeTrack
     case afterTrack
+}
+
+enum PlaybackGapType {
+    
+    case oneTime
+    case tillAppExits
+    case persistent
 }
 
 extension PlaybackGap: Hashable {

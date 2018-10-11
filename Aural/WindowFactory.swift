@@ -21,6 +21,8 @@ class WindowFactory {
     
     private static var playlistSortWindowController : PlaylistSortWindowController = PlaylistSortWindowController()
     
+    private static var gapsEditorWindowController: GapsEditorWindowController = GapsEditorWindowController()
+    
     // MARK: Accessor functions for the different windows/dialogs
     
     static func getMainWindow() -> NSWindow {
@@ -62,6 +64,10 @@ class WindowFactory {
     static func getPlaylistSortDialog() -> ModalDialogDelegate {
         return playlistSortWindowController
     }
+    
+    static func getGapsEditorDialog() -> ModalDialogDelegate {
+        return gapsEditorWindowController
+    }
 }
 
 /*
@@ -71,4 +77,13 @@ protocol ModalDialogDelegate {
     
     // Initialize and present the dialog modally
     func showDialog()
+    
+    func setDataForKey(_ key: String, _ value: Any?)
+}
+
+extension ModalDialogDelegate {
+    
+    func setDataForKey(_ key: String, _ value: Any?) {
+        // Dummy implementation
+    }
 }

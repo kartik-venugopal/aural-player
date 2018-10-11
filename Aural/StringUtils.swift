@@ -45,6 +45,40 @@ class StringUtils {
         return mins > 0 ? (secs > 0 ? String(format: "%d min %d sec", mins, secs) : String(format: "%d min", mins)) : String(format: "%d sec", secs)
     }
     
+    // Formats a duration (time interval) from seconds to a displayable string showing minutes, and seconds. For example, 500 seconds becomes "8 min 20 sec", 120 seconds becomes "2 min", and 36 seconds becomes "36 sec"
+    static func formatSecondsToHMS_hrMinSec(_ duration: Int) -> String {
+        
+        let hrs = duration / oneHour
+        let mins = (duration - (hrs * oneHour)) / oneMin
+        let secs = duration % oneMin
+        
+        var hrsStr = ""
+        
+        if hrs > 0 {
+            hrsStr = String(format: "%d hr ", hrs)
+        }
+        
+        var secsStr = "0 sec"
+        
+        if secs > 0 {
+            secsStr = String(format: "%d sec", secs)
+        } else {
+            secsStr = ""
+        }
+        
+        var minsStr = ""
+        
+        if mins > 0 {
+            minsStr = String(format: "%d min ", mins)
+        } else {
+            minsStr = hrs > 0 ? (secs > 0 ?  "0 min " : "") : ""
+        }
+        
+        let fStr = String(format: "%@%@%@", hrsStr, minsStr, secsStr)
+        
+        return fStr
+    }
+    
     // Splits a camel cased word into separate words, all capitalized. For ex, "albumName" -> "Album Name". This is useful for display within the UI.
     static func splitCamelCaseWord(_ word: String, _ capitalizeEachWord: Bool) -> String {
         
