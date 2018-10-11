@@ -31,9 +31,13 @@ enum PlaybackGapPosition {
 
 enum PlaybackGapType {
     
+    // Explicit gap types as defined by the user per-track (i.e. applies to a single playlist track)
     case oneTime
     case tillAppExits
     case persistent
+    
+    // Implicit gap as specified by Playback preferences (i.e. applies to all playlist tracks)
+    case implicit
 }
 
 extension PlaybackGap: Hashable {
@@ -50,11 +54,11 @@ extension PlaybackGap: Hashable {
 class PlaybackGapContext {
     
     private static var id: Int = -1
-    private static var gaps: Queue<PlaybackGap> = Queue<PlaybackGap>()
+    private static var gaps: [PlaybackGap] = []
     static var subsequentTrack: IndexedTrack?
     
     static func hasGaps() -> Bool {
-        return subsequentTrack != nil && gaps.size() > 0
+        return subsequentTrack != nil && !gaps.isEmpty
     }
     
     static func getId() -> Int {
@@ -68,19 +72,36 @@ class PlaybackGapContext {
     static func getGapLength() -> Double {
         
         var length: Double = 0.0
-        let gapsArr = gaps.toArray()
-        
-        for gap in gapsArr {
+        for gap in gaps {
             length += gap.duration
         }
         
         return length
     }
     
+    static func removeImplicitGap() {
+        
+        if !gaps.isEmpty {
+        
+            for index in 0..<gaps.count {
+                
+                let gap = gaps[index]
+                
+                if gap.type == .implicit {
+                    
+                    gaps.remove(at: index)
+                    
+                    // There can only be one implict gap, so it is safe to return once it has been removed
+                    return
+                }
+            }
+        }
+    }
+    
     static func clear() {
         
         id = -1
-        gaps.clear()
+        gaps.removeAll()
         subsequentTrack = nil
     }
     
@@ -90,14 +111,15 @@ class PlaybackGapContext {
     
     static func addGap(_ gap: PlaybackGap) {
         
-        if gaps.size() == 0 {
+        if gaps.isEmpty {
             initialize()
         }
         
-        gaps.enqueue(gap)
+        gaps.append(gap)
     }
     
     static func getGaps() -> [PlaybackGap] {
-        return gaps.toArray()
+        let copy = gaps
+        return copy
     }
 }
