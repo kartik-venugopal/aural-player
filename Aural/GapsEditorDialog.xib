@@ -27,6 +27,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="469" height="200"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <box fixedFrame="YES" boxType="custom" cornerRadius="4" translatesAutoresizingMaskIntoConstraints="NO" id="s6S-F1-KQq" userLabel="Container">
+                        <rect key="frame" x="10" y="36" width="449" height="138"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" ambiguous="YES" id="4fI-mv-2x1">
+                            <rect key="frame" x="1" y="1" width="447" height="136"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </view>
+                        <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </box>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="afc-YH-1YT">
                         <rect key="frame" x="150" y="182" width="170" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>

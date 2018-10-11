@@ -206,6 +206,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             if let gapBeforeSubsequentTrack = playlist.getGapBeforeTrack(track!.track) {
                 
                 PlaybackGapContext.addGap(gapBeforeSubsequentTrack)
+                
+                // The explicitly defined gap before the track takes precedence over the implicit gap defined by the playback preferences, so remove the implicit gap
+                PlaybackGapContext.removeImplicitGap()
                 PlaybackGapContext.subsequentTrack = track
             }
             
@@ -601,9 +604,20 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         if let subsequentTrack = playbackSequencer.peekSubsequent() {
             
+            // First, check for an explicit gap defined by the user (takes precedence over implicit gap defined by playback preferences)
             if let gapAfterCompletedTrack = playlist.getGapAfterTrack(oldTrack!.track) {
                 
                 PlaybackGapContext.addGap(gapAfterCompletedTrack)
+                PlaybackGapContext.subsequentTrack = subsequentTrack
+                
+            } else if preferences.gapBetweenTracks {
+                
+                // Check for an implicit gap defined by playback preferences
+                
+                let gapDuration = Double(preferences.gapBetweenTracksDuration)
+                let gap = PlaybackGap(gapDuration, .afterTrack, .implicit)
+                
+                PlaybackGapContext.addGap(gap)
                 PlaybackGapContext.subsequentTrack = subsequentTrack
             }
             
