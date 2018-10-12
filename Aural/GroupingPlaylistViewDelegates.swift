@@ -40,35 +40,24 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
         
         if let track = item as? Track {
-            
-            
 
             let ga = playlist.getGapAfterTrack(track)
             let gb = playlist.getGapBeforeTrack(track)
 
             if ga != nil && gb != nil {
-                print("Both")
                 return 58
                 
             } else if ga != nil || gb != nil {
-                print("Only one")
                 return 40
             }
 
-            print("Neither")
             return 22
 
         } else {
 
-            print("Group")
             // Group
-            return 22
+            return 26
         }
-        
-//        return 50
-        
-        // Group rows are taller than track rows
-//        return item is Group ? 26 : 22
     }
     
     // Returns a view for a single column
@@ -97,8 +86,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
                 let isPlayingTrack = track == playbackInfo.getPlayingTrack()?.track
                 let image = isPlayingTrack ? Images.imgPlayingTrack : track.displayInfo.art
                 
-//                let cell = createImageAndTextCell(outlineView, convertFromNSUserInterfaceItemIdentifier(tableColumn!.identifier), false, playlist.displayNameForTrack(playlistType, track), image, isPlayingTrack)
-                
                 let cell = createImageAndTextCell_gaps(outlineView, convertFromNSUserInterfaceItemIdentifier(tableColumn!.identifier), false, playlist.displayNameForTrack(playlistType, track), image, isPlayingTrack, gapB, gapA)
                 
                 cell?.item = track
@@ -107,8 +94,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
             }
             
         case UIConstants.playlistDurationColumnID:
-            
-            return nil
             
             // Duration
             
@@ -140,6 +125,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackNameCellView {
             
             cell.textField?.stringValue = text
+            cell.imageView?.image = image
             cell.isGroup = isGroup
             
             if (isPlayingTrack) {
@@ -206,20 +192,25 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
                 
                 con.isActive = false
                 cell.removeConstraint(con)
-                break
             }
             
             if con.secondItem === main && (con.secondAttribute == .top || con.secondAttribute == .centerY) {
                 
                 con.isActive = false
                 cell.removeConstraint(con)
-                break
             }
         }
         
         let mainFieldOnTop = NSLayoutConstraint(item: main, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .centerY, multiplier: 1.0, constant: 0)
         mainFieldOnTop.isActive = true
         cell.addConstraint(mainFieldOnTop)
+        
+        if let imgView = cell.imageView {
+        
+            let imgFieldCentered = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: main, attribute: .centerY, multiplier: 1.0, constant: 0)
+            imgFieldCentered.isActive = true
+            cell.addConstraint(imgFieldCentered)
+        }
     }
     
     private func adjustConstraints_mainFieldOnTop(_ cell: NSTableCellView) {
@@ -232,20 +223,25 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
                 
                 con.isActive = false
                 cell.removeConstraint(con)
-                break
             }
             
             if con.secondItem === main && (con.secondAttribute == .top || con.secondAttribute == .centerY) {
                 
                 con.isActive = false
                 cell.removeConstraint(con)
-                break
             }
         }
         
         let mainFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: 0)
         mainFieldOnTop.isActive = true
         cell.addConstraint(mainFieldOnTop)
+        
+        if let imgView = cell.imageView {
+            
+            let imgFieldCentered = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: main, attribute: .centerY, multiplier: 1.0, constant: 0)
+            imgFieldCentered.isActive = true
+            cell.addConstraint(imgFieldCentered)
+        }
     }
     
     private func adjustConstraints_beforeGapFieldOnTop(_ cell: NSTableCellView, _ gapView: NSView) {
@@ -259,20 +255,25 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
                 
                 con.isActive = false
                 cell.removeConstraint(con)
-                break
             }
             
             if con.secondItem === main && (con.secondAttribute == .top || con.secondAttribute == .centerY) {
                 
                 con.isActive = false
                 cell.removeConstraint(con)
-                break
             }
         }
         
         let befFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: gapView, attribute: .bottom, multiplier: 1.0, constant: 0)
         befFieldOnTop.isActive = true
         cell.addConstraint(befFieldOnTop)
+        
+        if let imgView = cell.imageView {
+            
+            let imgFieldCentered = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: main, attribute: .centerY, multiplier: 1.0, constant: 0)
+            imgFieldCentered.isActive = true
+            cell.addConstraint(imgFieldCentered)
+        }
     }
     
     // Creates a cell view containing text and an image. If the row containing the cell represents the playing track, the image will be the playing track animation.

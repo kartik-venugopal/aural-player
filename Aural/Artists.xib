@@ -48,22 +48,30 @@
                                                 <rect key="frame" x="1" y="1" width="372" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GWB-bk-VCY" userLabel="Gap Before">
-                                                        <rect key="frame" x="0.0" y="40" width="372" height="18"/>
+                                                    <imageView identifier="Icon" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dks-xg-67t" userLabel="Icon">
+                                                        <rect key="frame" x="3" y="20" width="16" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="18" id="I5g-A6-BHV"/>
+                                                            <constraint firstAttribute="width" constant="16" id="K0D-5v-AKO"/>
+                                                        </constraints>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="YHr-RW-w8U"/>
+                                                    </imageView>
+                                                    <imageView identifier="GapBefore" hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GWB-bk-VCY" userLabel="Gap Before">
+                                                        <rect key="frame" x="27" y="40" width="345" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="Yyx-R8-whg"/>
                                                         </constraints>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="a7U-eT-gHT"/>
                                                     </imageView>
-                                                    <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vby-YG-uyp" userLabel="Gap After">
-                                                        <rect key="frame" x="0.0" y="0.0" width="372" height="18"/>
+                                                    <imageView identifier="GapAfter" hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vby-YG-uyp" userLabel="Gap After">
+                                                        <rect key="frame" x="27" y="0.0" width="345" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="53a-wl-lQN"/>
                                                         </constraints>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="Z1u-Zg-l3v"/>
                                                     </imageView>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="aJe-Bl-Fbk" userLabel="Track Name">
-                                                        <rect key="frame" x="-2" y="18" width="376" height="22"/>
+                                                    <textField identifier="TrackName" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="aJe-Bl-Fbk" userLabel="Track Name">
+                                                        <rect key="frame" x="25" y="18" width="349" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="22" id="zUk-G2-dv9"/>
                                                         </constraints>
@@ -76,18 +84,21 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="GWB-bk-VCY" firstAttribute="leading" secondItem="aJe-Bl-Fbk" secondAttribute="leading" id="08y-ky-rR0"/>
+                                                    <constraint firstItem="dks-xg-67t" firstAttribute="centerY" secondItem="aJe-Bl-Fbk" secondAttribute="centerY" id="8LS-f6-Esy"/>
                                                     <constraint firstItem="vby-YG-uyp" firstAttribute="trailing" secondItem="GWB-bk-VCY" secondAttribute="trailing" id="GQE-8L-9pe"/>
                                                     <constraint firstItem="vby-YG-uyp" firstAttribute="bottom" secondItem="SmH-XT-UUI" secondAttribute="bottom" id="I4F-iJ-ZRI"/>
-                                                    <constraint firstItem="aJe-Bl-Fbk" firstAttribute="leading" secondItem="SmH-XT-UUI" secondAttribute="leading" id="Lca-Va-9De"/>
+                                                    <constraint firstItem="aJe-Bl-Fbk" firstAttribute="leading" secondItem="dks-xg-67t" secondAttribute="trailing" constant="8" id="Lca-Va-9De"/>
                                                     <constraint firstAttribute="trailing" secondItem="aJe-Bl-Fbk" secondAttribute="trailing" id="Z7e-sW-eKW"/>
                                                     <constraint firstItem="vby-YG-uyp" firstAttribute="trailing" secondItem="aJe-Bl-Fbk" secondAttribute="trailing" id="ZVs-ZR-UeK"/>
                                                     <constraint firstItem="vby-YG-uyp" firstAttribute="leading" secondItem="aJe-Bl-Fbk" secondAttribute="leading" id="dKc-vP-21c"/>
                                                     <constraint firstItem="aJe-Bl-Fbk" firstAttribute="centerY" secondItem="SmH-XT-UUI" secondAttribute="centerY" id="ma7-YQ-pHW"/>
+                                                    <constraint firstItem="dks-xg-67t" firstAttribute="leading" secondItem="SmH-XT-UUI" secondAttribute="leading" constant="3" id="phb-ZA-qiH"/>
                                                     <constraint firstItem="GWB-bk-VCY" firstAttribute="top" secondItem="SmH-XT-UUI" secondAttribute="top" id="ypf-qd-yYs"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="gapAfterImg" destination="vby-YG-uyp" id="QZs-Bb-j7H"/>
                                                     <outlet property="gapBeforeImg" destination="GWB-bk-VCY" id="6gs-nj-yrI"/>
+                                                    <outlet property="imageView" destination="dks-xg-67t" id="UFf-Na-Mqe"/>
                                                     <outlet property="textField" destination="aJe-Bl-Fbk" id="QiW-KS-ETt"/>
                                                 </connections>
                                             </tableCellView>
