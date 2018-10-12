@@ -23,6 +23,8 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
     // Delegate that retrieves current playback information
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
+    private var modalDialogResponse: ModalDialogResponse = .ok
+    
     override var windowNibName: String? {return "PlaylistSort"}
     
     override func windowDidLoad() {
@@ -31,11 +33,11 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
         super.windowDidLoad()
     }
     
-    func showDialog() {
+    func showDialog() -> ModalDialogResponse {
         
         // Don't do anything if either no tracks or only 1 track in playlist
         if (playlist.size() < 2) {
-            return
+            return .cancel
         }
         
         // Force loading of the window if it hasn't been loaded yet (only once)
@@ -46,6 +48,7 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
         sortTracksInGroups.isEnabled = PlaylistViewState.current != .tracks
         
         UIUtils.showModalDialog(self.window!)
+        return modalDialogResponse
     }
     
     @IBAction func sortOptionsChangedAction(_ sender: Any) {
@@ -76,10 +79,12 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
             SyncMessenger.publishNotification(SequenceChangedNotification.instance)
         }
         
+        modalDialogResponse = .ok
         UIUtils.dismissModalDialog()
     }
     
     @IBAction func sortCancelBtnAction(_ sender: Any) {
+        modalDialogResponse = .cancel
         UIUtils.dismissModalDialog()
     }
 }

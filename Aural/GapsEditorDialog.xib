@@ -8,11 +8,22 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GapsEditorWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnGapType_oneTime" destination="hWS-8a-rSa" id="bGr-QX-a52"/>
-                <outlet property="btnGapType_persistent" destination="E5h-wJ-5bD" id="OZu-aO-bcW"/>
-                <outlet property="btnGapType_tillAppExits" destination="Dkt-qY-LlR" id="dli-a8-MXf"/>
-                <outlet property="durationSlider" destination="pDs-Tu-374" id="b6B-wD-inr"/>
-                <outlet property="lblDuration" destination="KWS-XR-coJ" id="od7-p2-UZQ"/>
+                <outlet property="btnGapAfterTrack" destination="eYc-vm-O5r" id="XvO-ih-jr1"/>
+                <outlet property="btnGapBeforeTrack" destination="3ip-H9-wbf" id="Q64-Eo-ZAj"/>
+                <outlet property="btnGapDuration_decrement_1" destination="PBN-gC-CfV" id="fhh-gb-7Pm"/>
+                <outlet property="btnGapDuration_decrement_2" destination="0FY-se-Hwc" id="zDF-Gb-RNJ"/>
+                <outlet property="btnGapDuration_increment_1" destination="Cy5-7e-epC" id="T1q-KZ-w74"/>
+                <outlet property="btnGapDuration_increment_2" destination="5mf-p3-hEX" id="p6F-dJ-KjX"/>
+                <outlet property="btnGapType_oneTime_1" destination="hWS-8a-rSa" id="0gH-EN-QJa"/>
+                <outlet property="btnGapType_oneTime_2" destination="d9R-C2-HWC" id="Ms0-sQ-ZFH"/>
+                <outlet property="btnGapType_persistent_1" destination="E5h-wJ-5bD" id="wzy-TB-4h7"/>
+                <outlet property="btnGapType_persistent_2" destination="EzP-T0-qiT" id="nJW-5D-IMn"/>
+                <outlet property="btnGapType_tillAppExits_1" destination="Dkt-qY-LlR" id="tFS-G4-Qkq"/>
+                <outlet property="btnGapType_tillAppExits_2" destination="dic-K9-Wmo" id="yKe-xN-cR5"/>
+                <outlet property="durationSlider_1" destination="pDs-Tu-374" id="CmA-pd-78f"/>
+                <outlet property="durationSlider_2" destination="8f0-Ph-0pu" id="QHg-Gd-qQb"/>
+                <outlet property="lblDuration_1" destination="KWS-XR-coJ" id="hcK-To-iCX"/>
+                <outlet property="lblDuration_2" destination="mXO-lt-P0v" id="Dtj-pc-ARv"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="p9R-0u-q5x"/>
             </connections>
         </customObject>
@@ -21,23 +32,14 @@
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="QvC-M9-y7g" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="469" height="200"/>
+            <rect key="contentRect" x="196" y="240" width="469" height="370"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="469" height="200"/>
+                <rect key="frame" x="0.0" y="0.0" width="469" height="370"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box fixedFrame="YES" boxType="custom" cornerRadius="4" translatesAutoresizingMaskIntoConstraints="NO" id="s6S-F1-KQq" userLabel="Container">
-                        <rect key="frame" x="10" y="36" width="449" height="138"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView" ambiguous="YES" id="4fI-mv-2x1">
-                            <rect key="frame" x="1" y="1" width="447" height="136"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        </view>
-                        <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    </box>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="afc-YH-1YT">
-                        <rect key="frame" x="150" y="182" width="170" height="23"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="afc-YH-1YT" userLabel="Title">
+                        <rect key="frame" x="150" y="352" width="170" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Playback Gap" id="AdG-IK-JY4">
                             <font key="font" size="12" name="GillSans-SemiBold"/>
@@ -45,17 +47,46 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hda-is-mSC" userLabel="Volume Increment Label">
-                        <rect key="frame" x="18" y="148" width="67" height="20"/>
+                    <box fixedFrame="YES" boxType="custom" cornerRadius="4" translatesAutoresizingMaskIntoConstraints="NO" id="s6S-F1-KQq" userLabel="Container">
+                        <rect key="frame" x="10" y="43" width="449" height="300"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Duration" id="bDw-bk-bns">
+                        <view key="contentView" ambiguous="YES" id="4fI-mv-2x1">
+                            <rect key="frame" x="1" y="1" width="447" height="298"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </view>
+                        <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </box>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nDN-3P-FJf">
+                        <rect key="frame" x="36" y="312" width="151" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Before track plays" id="Bw2-4u-NQ7">
                             <font key="font" size="13" name="GillSans"/>
                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KWS-XR-coJ">
-                        <rect key="frame" x="352" y="147" width="109" height="20"/>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ip-H9-wbf" userLabel="Toggle box 1">
+                        <rect key="frame" x="17" y="311" width="120" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="EjZ-sN-6BO" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="13" name="GillSans"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="gapBeforeTrackAction:" target="-2" id="cHr-jw-9bE"/>
+                        </connections>
+                    </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hda-is-mSC" userLabel="Duration caption 1">
+                        <rect key="frame" x="48" y="288" width="67" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Duration" id="bDw-bk-bns">
+                            <font key="font" size="12" name="GillSans"/>
+                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KWS-XR-coJ" userLabel="Lbl Duration 1">
+                        <rect key="frame" x="357" y="287" width="96" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="5 sec" id="rkr-jQ-iVg">
                             <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="uRN-Lq-gJ4">
@@ -67,80 +98,194 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cy5-7e-epC">
-                        <rect key="frame" x="326" y="148" width="17" height="16"/>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cy5-7e-epC" userLabel="+ 1">
+                        <rect key="frame" x="331" y="288" width="17" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="roundTextured" title="+" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6r1-At-b3S">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="systemBold" size="10"/>
                         </buttonCell>
                         <connections>
-                            <action selector="durationIncrementAction:" target="-2" id="k1a-WA-47l"/>
+                            <action selector="durationIncrementAction_1:" target="-2" id="8VA-9P-AgG"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PBN-gC-CfV">
-                        <rect key="frame" x="82" y="148" width="17" height="16"/>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PBN-gC-CfV" userLabel="- 1">
+                        <rect key="frame" x="107" y="288" width="17" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="roundTextured" title="-" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QVQ-If-eRN">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="systemBold" size="10"/>
                         </buttonCell>
                         <connections>
-                            <action selector="durationDecrementAction:" target="-2" id="tBt-Ef-TqG"/>
+                            <action selector="durationDecrementAction_1:" target="-2" id="8tt-tI-a11"/>
                         </connections>
                     </button>
-                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pDs-Tu-374" userLabel="Seek Length Slider">
-                        <rect key="frame" x="104" y="149" width="215" height="15"/>
+                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pDs-Tu-374" userLabel="Duration slider 1">
+                        <rect key="frame" x="129" y="289" width="195" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="36000" doubleValue="5" tickMarkPosition="below" sliderType="linear" id="8cq-mg-beB" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                         <connections>
-                            <action selector="durationSliderAction:" target="-2" id="gtm-ud-5w8"/>
+                            <action selector="durationSliderAction_1:" target="-2" id="p9u-AG-4Sy"/>
                         </connections>
                     </slider>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Ct-i7-j8v" userLabel="Volume Increment Label">
-                        <rect key="frame" x="17" y="110" width="67" height="20"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Ct-i7-j8v" userLabel="Type label 1">
+                        <rect key="frame" x="48" y="265" width="67" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Type" id="7mg-5Y-yV3">
-                            <font key="font" size="13" name="GillSans"/>
+                            <font key="font" size="12" name="GillSans"/>
                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hWS-8a-rSa">
-                        <rect key="frame" x="33" y="67" width="137" height="20"/>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hWS-8a-rSa" userLabel="Btn Gap Type one Time 1">
+                        <rect key="frame" x="64" y="222" width="137" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="radio" title="One time only" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="pEV-dH-Bbd" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" size="11" name="GillSans"/>
                         </buttonCell>
                         <connections>
-                            <action selector="gapTypeAction:" target="-2" id="wv2-IB-8Jb"/>
+                            <action selector="gapTypeAction_1:" target="-2" id="6dC-X9-rGm"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dkt-qY-LlR">
-                        <rect key="frame" x="33" y="86" width="122" height="20"/>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dkt-qY-LlR" userLabel="Btn Gap Type till App Exits 1">
+                        <rect key="frame" x="64" y="241" width="122" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="radio" title="Till app exits" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="zUd-eD-pJe" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" size="11" name="GillSans"/>
                         </buttonCell>
                         <connections>
-                            <action selector="gapTypeAction:" target="-2" id="l45-2X-Oli"/>
+                            <action selector="gapTypeAction_1:" target="-2" id="cWY-Ad-cKe"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E5h-wJ-5bD">
-                        <rect key="frame" x="33" y="48" width="395" height="20"/>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E5h-wJ-5bD" userLabel="Btn Gap Type persistent 1">
+                        <rect key="frame" x="64" y="203" width="343" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="radio" title="Persistent - Across app launches, till track/gap is removed from the playlist" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="tFs-xa-3ZZ" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="radio" title="Persistent across app launches, till removed from playlist" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="tFs-xa-3ZZ" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" size="11" name="GillSans"/>
                         </buttonCell>
                         <connections>
-                            <action selector="gapTypeAction:" target="-2" id="jiw-yk-V7e"/>
+                            <action selector="gapTypeAction_1:" target="-2" id="ecf-N0-sJy"/>
+                        </connections>
+                    </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xEf-wc-Izn">
+                        <rect key="frame" x="36" y="165" width="151" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="After track plays" id="9tW-Ed-EwS">
+                            <font key="font" size="13" name="GillSans"/>
+                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eYc-vm-O5r" userLabel="Toggle box 2">
+                        <rect key="frame" x="17" y="165" width="110" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="00h-ZT-nNG" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="13" name="GillSans"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="gapAfterTrackAction:" target="-2" id="0wb-Qq-j9O"/>
+                        </connections>
+                    </button>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dic-K9-Wmo" userLabel="Btn Gap Type till App Exits 1">
+                        <rect key="frame" x="64" y="95" width="122" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="radio" title="Till app exits" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="Nl4-pW-zPk" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="11" name="GillSans"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="gapTypeAction_2:" target="-2" id="Tba-1n-goi"/>
+                        </connections>
+                    </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2MB-xi-8wm" userLabel="Type label 1">
+                        <rect key="frame" x="48" y="119" width="67" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Type" id="ZrB-xc-ZWt">
+                            <font key="font" size="12" name="GillSans"/>
+                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xIc-PX-acv" userLabel="Duration caption 1">
+                        <rect key="frame" x="48" y="142" width="67" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Duration" id="C2z-Io-HNx">
+                            <font key="font" size="12" name="GillSans"/>
+                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EzP-T0-qiT" userLabel="Btn Gap Type persistent 1">
+                        <rect key="frame" x="64" y="57" width="343" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="radio" title="Persistent across app launches, till removed from playlist" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="HVp-Su-lMC" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="11" name="GillSans"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="gapTypeAction_2:" target="-2" id="DBl-P4-q1R"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0FY-se-Hwc" userLabel="- 1">
+                        <rect key="frame" x="107" y="142" width="17" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundTextured" title="-" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zm8-7d-9rt">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="systemBold" size="10"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="durationDecrementAction_2:" target="-2" id="nSt-5l-FFL"/>
+                        </connections>
+                    </button>
+                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8f0-Ph-0pu" userLabel="Duration slider 1">
+                        <rect key="frame" x="129" y="143" width="195" height="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="36000" doubleValue="5" tickMarkPosition="below" sliderType="linear" id="XLk-c1-tS7" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
+                        <connections>
+                            <action selector="durationSliderAction_2:" target="-2" id="eMr-vt-Ol2"/>
+                        </connections>
+                    </slider>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mXO-lt-P0v" userLabel="Lbl Duration 1">
+                        <rect key="frame" x="357" y="141" width="96" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="5 sec" id="1Nw-jv-F5V">
+                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Ao8-WW-bIw">
+                                <real key="minimum" value="3"/>
+                                <real key="maximum" value="300"/>
+                            </numberFormatter>
+                            <font key="font" size="11" name="GillSans"/>
+                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5mf-p3-hEX" userLabel="+ 1">
+                        <rect key="frame" x="331" y="142" width="17" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundTextured" title="+" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PN5-L9-SUc">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="systemBold" size="10"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="durationIncrementAction_2:" target="-2" id="GMx-aI-9ev"/>
+                        </connections>
+                    </button>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d9R-C2-HWC" userLabel="Btn Gap Type one Time 1">
+                        <rect key="frame" x="64" y="76" width="137" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="radio" title="One time only" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="Lqc-j3-ze7" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="11" name="GillSans"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="gapTypeAction_2:" target="-2" id="uLZ-kC-yC6"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nkf-d4-NK2" userLabel="Save button">
-                        <rect key="frame" x="331" y="6" width="55" height="19"/>
+                        <rect key="frame" x="334" y="11" width="55" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="roundRect" title="Save" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1uy-5M-zgz" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -154,7 +299,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B8L-bi-6TF" userLabel="Cancel button">
-                        <rect key="frame" x="393" y="6" width="63" height="19"/>
+                        <rect key="frame" x="396" y="11" width="63" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6eB-ji-pxL" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

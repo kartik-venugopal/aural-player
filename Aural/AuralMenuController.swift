@@ -9,7 +9,7 @@ class AuralMenuController: NSObject {
     
     // Presents the Preferences modal dialog
     @IBAction func preferencesAction(_ sender: Any) {
-        preferencesDialog.showDialog()
+        _ = preferencesDialog.showDialog()
     }
     
     // Hides the app

@@ -69,6 +69,14 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
         return playlist.numberOfGroups(type)
     }
     
+    func getGapsAroundTrack(_ track: Track) -> (hasGaps: Bool, beforeTrack: PlaybackGap?, afterTrack: PlaybackGap?) {
+        
+        let before = getGapBeforeTrack(track)
+        let after = getGapAfterTrack(track)
+        
+        return ((before != nil || after != nil, before, after))
+    }
+    
     func getGapBeforeTrack(_ track: Track) -> PlaybackGap? {
         return playlist.getGapBeforeTrack(track)
     }

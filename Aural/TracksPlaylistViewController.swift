@@ -40,7 +40,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder, .insertGap, .removeGap], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -257,7 +257,11 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             }
         }
         
-        playlistView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        // Gaps may have been removed, so row heights need to be updated too
+        let indexSet: IndexSet = IndexSet(refreshIndexes)
+        playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        playlistView.noteHeightOfRows(withIndexesChanged: indexSet)
+        
     }
     
     // Selects an item within the playlist view, to show a single result of a search
@@ -307,17 +311,17 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         }
     }
     
-    private func insertGap(_ track: Track, _ gap: PlaybackGap) {
+    private func insertGap(_ track: Track, _ gapBefore: PlaybackGap?, _ gapAfter: PlaybackGap?) {
         
-        playlist.insertGapForTrack(playlistView.selectedRow, gap)
+        playlist.setGapsForTrack(track, gapBefore, gapAfter)
         
         playlistView.reloadData(forRowIndexes: IndexSet([playlistView.selectedRow]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([playlistView.selectedRow]))
     }
     
-    private func removeGap(_ track: Track, _ position: PlaybackGapPosition) {
+    private func removeGaps(_ track: Track) {
         
-        position == .beforeTrack ? playlist.removeGapBeforeTrack(playlistView.selectedRow) : playlist.removeGapAfterTrack(playlistView.selectedRow)
+        playlist.removeGapsForTrack(track)
         
         playlistView.reloadData(forRowIndexes: IndexSet([playlistView.selectedRow]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([playlistView.selectedRow]))
@@ -325,9 +329,17 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func gapStarted(_ message: PlaybackGapStartedAsyncMessage) {
         
+        var refreshIndexes: [Int] = [message.nextTrack.index]
+        
         if let oldTrackIndex = message.lastPlayedTrack?.index {
-            playlistView.reloadData(forRowIndexes: IndexSet([oldTrackIndex]), columnIndexes: [0])
+            refreshIndexes.append(oldTrackIndex)
         }
+        
+        let refreshIndexSet: IndexSet = IndexSet(refreshIndexes)
+        
+        // One-time gaps may have been removed, so need to update the table view
+        playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
     }
     
     func getID() -> String {
@@ -456,20 +468,20 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             return
         }
         
-        if let insertGapMsg = message as? InsertPlaybackGapActionMessage {
+        if let insertGapsMsg = message as? InsertPlaybackGapsActionMessage {
             
             // Check if this message is intended for this playlist view
-            if (insertGapMsg.playlistType == nil || insertGapMsg.playlistType == .tracks) {
-                insertGap(insertGapMsg.track, insertGapMsg.gap)
+            if (insertGapsMsg.playlistType == nil || insertGapsMsg.playlistType == .tracks) {
+                insertGap(insertGapsMsg.track, insertGapsMsg.gapBeforeTrack, insertGapsMsg.gapAfterTrack)
             }
             
             return
         }
         
-        if let removeGapMsg = message as? RemovePlaybackGapActionMessage {
+        if let removeGapMsg = message as? RemovePlaybackGapsActionMessage {
             
             if removeGapMsg.playlistType == nil || removeGapMsg.playlistType == .tracks {
-                removeGap(removeGapMsg.track, removeGapMsg.position)
+                removeGaps(removeGapMsg.track)
             }
             
             return

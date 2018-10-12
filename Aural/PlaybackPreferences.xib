@@ -360,10 +360,19 @@
                         <action selector="seekLengthSecondary_infoAction:" target="-2" id="nQi-vs-Mtb"/>
                     </connections>
                 </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Yj-BP-jvV" userLabel="Insert gap">
+                    <rect key="frame" x="38" y="47" width="186" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Insert a silent gap between tracks" id="vNr-zk-Q7O">
+                        <font key="font" size="13" name="GillSans"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pxF-6N-xpM">
                     <rect key="frame" x="18" y="45" width="227" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Insert a silent gap between tracks" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="8XV-sf-0gQ" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="8XV-sf-0gQ" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="13" name="GillSans"/>
                     </buttonCell>

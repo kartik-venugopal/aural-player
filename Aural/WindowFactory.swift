@@ -76,9 +76,15 @@ class WindowFactory {
 protocol ModalDialogDelegate {
     
     // Initialize and present the dialog modally
-    func showDialog()
+    func showDialog() -> ModalDialogResponse
     
     func setDataForKey(_ key: String, _ value: Any?)
+}
+
+enum ModalDialogResponse {
+    
+    case ok
+    case cancel
 }
 
 extension ModalDialogDelegate {

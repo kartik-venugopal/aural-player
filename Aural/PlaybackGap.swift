@@ -54,7 +54,7 @@ extension PlaybackGap: Hashable {
 class PlaybackGapContext {
     
     private static var id: Int = -1
-    private static var gaps: [PlaybackGap] = []
+    private static var gaps: [PlaybackGap: IndexedTrack] = [:]
     static var subsequentTrack: IndexedTrack?
     
     static func hasGaps() -> Bool {
@@ -72,7 +72,7 @@ class PlaybackGapContext {
     static func getGapLength() -> Double {
         
         var length: Double = 0.0
-        for gap in gaps {
+        for gap in gaps.keys {
             length += gap.duration
         }
         
@@ -83,19 +83,18 @@ class PlaybackGapContext {
         
         if !gaps.isEmpty {
         
-            for index in 0..<gaps.count {
-                
-                let gap = gaps[index]
+            for gap in gaps.keys {
                 
                 if gap.type == .implicit {
-                    
-                    gaps.remove(at: index)
-                    
-                    // There can only be one implict gap, so it is safe to return once it has been removed
+                    gaps.removeValue(forKey: gap)
                     return
                 }
             }
         }
+    }
+    
+    static func oneTimeGaps() -> [PlaybackGap: IndexedTrack] {
+        return gaps.filter({$0.key.type == .oneTime})
     }
     
     static func clear() {
@@ -109,17 +108,12 @@ class PlaybackGapContext {
         id = Int.random(in: 0...Int.max)
     }
     
-    static func addGap(_ gap: PlaybackGap) {
+    static func addGap(_ gap: PlaybackGap, _ track: IndexedTrack) {
         
         if gaps.isEmpty {
             initialize()
         }
         
-        gaps.append(gap)
-    }
-    
-    static func getGaps() -> [PlaybackGap] {
-        let copy = gaps
-        return copy
+        gaps[gap] = track
     }
 }
