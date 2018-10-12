@@ -208,7 +208,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 cell.gapBeforeTextField.isHidden = true
                 cell.gapAfterTextField.isHidden = false
                 
-                cell.gapAfterTextField.stringValue = id == UIConstants.playlistNameColumnID ? String(format: "[GAP: %.0lf seconds]", gap.duration) : StringUtils.formatSecondsToHMS(gap.duration)
+                cell.gapAfterTextField.stringValue = StringUtils.formatSecondsToHMS(gap.duration)
                 
                 adjustConstraints_mainFieldOnTop(cell)
                 
@@ -221,7 +221,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 cell.gapBeforeTextField.isHidden = false
                 cell.gapAfterTextField.isHidden = true
                 
-                cell.gapBeforeTextField.stringValue = id == UIConstants.playlistNameColumnID ? String(format: "[GAP: %.0lf seconds]", gap.duration) : StringUtils.formatSecondsToHMS(gap.duration)
+                cell.gapBeforeTextField.stringValue = StringUtils.formatSecondsToHMS(gap.duration)
                 
                 adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeTextField)
                 
@@ -235,9 +235,9 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 cell.gapBeforeTextField.isHidden = false
                 cell.gapAfterTextField.isHidden = false
                 
-                cell.gapBeforeTextField.stringValue = id == UIConstants.playlistNameColumnID ? String(format: "[GAP: %.0lf seconds]", gapB.duration) : StringUtils.formatSecondsToHMS(gapB.duration)
+                cell.gapBeforeTextField.stringValue = StringUtils.formatSecondsToHMS(gapB.duration)
                 
-                cell.gapAfterTextField.stringValue = id == UIConstants.playlistNameColumnID ? String(format: "[GAP: %.0lf seconds]", gapA.duration) : StringUtils.formatSecondsToHMS(gapA.duration)
+                cell.gapAfterTextField.stringValue = StringUtils.formatSecondsToHMS(gapA.duration)
                 
                 adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeTextField)
                 

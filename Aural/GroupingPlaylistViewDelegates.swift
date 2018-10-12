@@ -101,7 +101,10 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 
                 let track = item as! Track
                 
-                let cell = createTextCell(outlineView, UIConstants.playlistDurationColumnID, false, StringUtils.formatSecondsToHMS(track.duration))
+                let gapA = playlist.getGapAfterTrack(track)
+                let gapB = playlist.getGapBeforeTrack(track)
+                
+                let cell = createDurationCell(outlineView, UIConstants.playlistDurationColumnID, false, StringUtils.formatSecondsToHMS(track.duration), gapB, gapA)
                 cell?.item = track
                 cell?.playlistType = self.playlistType
                 return cell
@@ -255,6 +258,80 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         }
     }
     
+    private func createDurationCell(_ outlineView: NSOutlineView, _ id: String, _ isGroup: Bool, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil) -> GroupedTrackDurationCellView? {
+        
+        if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackDurationCellView {
+            
+            cell.textField?.stringValue = text
+            cell.textField?.isHidden = false
+            
+            if cell.gapAfterTextField == nil {
+                return cell
+            }
+            
+            let both = gapBefore != nil && gapAfter != nil
+            let aOnly = gapAfter != nil && gapBefore == nil
+            let bOnly = gapBefore != nil && gapAfter == nil
+            
+            if aOnly {
+                
+                let gap = gapAfter!
+                
+                cell.gapBeforeTextField.isHidden = true
+                cell.gapAfterTextField.isHidden = false
+                
+                cell.gapAfterTextField.stringValue = StringUtils.formatSecondsToHMS(gap.duration)
+                
+                adjustConstraints_mainFieldOnTop(cell)
+                
+                cell.gapAfterTextField.setFrameOrigin(NSPoint.zero)
+                
+            } else if bOnly {
+                
+                let gap = gapBefore!
+                
+                cell.gapBeforeTextField.isHidden = false
+                cell.gapAfterTextField.isHidden = true
+                
+                cell.gapBeforeTextField.stringValue = StringUtils.formatSecondsToHMS(gap.duration)
+                
+                adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeTextField)
+                
+                cell.textField!.setFrameOrigin(NSPoint.zero)
+                
+            } else if both {
+                
+                let gapA = gapAfter!
+                let gapB = gapBefore!
+                
+                cell.gapBeforeTextField.isHidden = false
+                cell.gapAfterTextField.isHidden = false
+                
+                cell.gapBeforeTextField.stringValue = StringUtils.formatSecondsToHMS(gapB.duration)
+                cell.gapAfterTextField.stringValue = StringUtils.formatSecondsToHMS(gapA.duration)
+                
+                adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeTextField)
+                
+                cell.gapAfterTextField.setFrameOrigin(NSPoint.zero)
+                
+            } else {
+                
+                // Neither
+                cell.gapBeforeTextField.isHidden = true
+                cell.gapAfterTextField.isHidden = true
+                
+                adjustConstraints_mainFieldOnTop(cell)
+                
+                cell.textField!.setFrameOrigin(NSPoint.zero)
+            }
+            
+            
+            return cell
+        }
+        
+        return nil
+    }
+    
     // Creates a cell view containing text and an image. If the row containing the cell represents the playing track, the image will be the playing track animation.
     private func createImageAndTextCell(_ outlineView: NSOutlineView, _ id: String, _ isGroup: Bool, _ text: String, _ image: NSImage?, _ isPlayingTrack: Bool = false) -> GroupedTrackNameCellView? {
         
@@ -275,9 +352,9 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     }
     
     // Creates a cell view containing only text
-    private func createTextCell(_ outlineView: NSOutlineView, _ id: String, _ isGroup: Bool, _ text: String) -> GroupedTrackCellView? {
+    private func createTextCell(_ outlineView: NSOutlineView, _ id: String, _ isGroup: Bool, _ text: String) -> GroupedTrackDurationCellView? {
         
-        if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackCellView {
+        if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackDurationCellView {
             
             cell.textField?.stringValue = text
             cell.isGroup = isGroup

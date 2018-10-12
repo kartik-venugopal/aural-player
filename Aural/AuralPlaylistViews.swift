@@ -239,6 +239,53 @@ class GroupedTrackNameCellView: NSTableCellView {
     }
 }
 
+/*
+ Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
+ */
+class GroupedTrackDurationCellView: NSTableCellView {
+    
+    // Whether or not this cell is contained within a row that represents a group (as opposed to a track)
+    var isGroup: Bool = false
+    
+    // This is used to determine which NSOutlineView contains this cell
+    var playlistType: PlaylistType = .artists
+    
+    // The item represented by the row containing this cell
+    var item: PlaylistItem?
+    
+    @IBInspectable @IBOutlet weak var gapBeforeTextField: NSTextField!
+    @IBInspectable @IBOutlet weak var gapAfterTextField: NSTextField!
+    
+    // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
+    override var backgroundStyle: NSView.BackgroundStyle {
+        
+        didSet {
+            
+            // Check if this row is selected
+            let outlineView = OutlineViewHolder.instances[self.playlistType]!
+            let isSelRow = outlineView.selectedRowIndexes.contains(outlineView.row(forItem: item))
+            
+            if let textField = self.textField {
+                
+                textField.textColor = isSelRow ? (isGroup ? Colors.playlistGroupNameSelectedTextColor : Colors.playlistGroupItemSelectedTextColor) : (isGroup ? Colors.playlistGroupNameTextColor : Colors.playlistGroupItemTextColor)
+                
+                textField.font = isSelRow ? (isGroup ? Fonts.playlistGroupNameSelectedTextFont : Fonts.playlistGroupItemSelectedTextFont) : (isGroup ? Fonts.playlistGroupNameTextFont : Fonts.playlistGroupItemTextFont)
+            }
+            
+            if let gapField = self.gapBeforeTextField {
+                
+                gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
+                gapField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+            }
+            
+            if let gapField = self.gapAfterTextField {
+                
+                gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
+                gapField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+            }
+        }
+    }
+}
 
 /*
  Custom view for a NSTableView row that displays a single playlist track or group. Customizes the selection look and feel.
