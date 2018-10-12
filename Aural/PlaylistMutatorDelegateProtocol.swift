@@ -76,6 +76,8 @@ protocol PlaylistMutatorDelegateProtocol {
      */
     func moveTracksDown(_ indexes: IndexSet) -> ItemMoveResults
     
+    func moveTracksToBottom(_ indexes: IndexSet)
+    
     /*
         Moves either the specified tracks, or the specified groups (groups take precedence), up one index in the specified grouping/hierarchical playlist type, if they can be moved (they are not already at the top). Returns mappings of source indexes to destination indexes, for all the tracks/groups (for tracks/groups that didn't move, the new index will match the old index).
      

@@ -251,6 +251,10 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         return flatPlaylist.moveTracksDown(indexes)
     }
     
+    func moveTracksToBottom(_ indexes: IndexSet) {
+        flatPlaylist.moveTracksToBottom(indexes)
+    }
+    
     func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults {
         return flatPlaylist.moveTracksUp(indexes)
     }

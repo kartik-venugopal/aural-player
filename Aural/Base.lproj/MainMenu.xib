@@ -44,6 +44,7 @@
                 <outlet property="insertGapsMenuItem" destination="9iu-he-pRn" id="IS7-Q2-4Hw"/>
                 <outlet property="invertSelectionMenuItem" destination="y60-Ih-ViK" id="7jl-OV-pOp"/>
                 <outlet property="moveItemsDownMenuItem" destination="F5x-Nm-ust" id="cAv-w8-JMV"/>
+                <outlet property="moveItemsToBottomMenuItem" destination="07J-Mu-hRE" id="VEk-EP-txO"/>
                 <outlet property="moveItemsToTopMenuItem" destination="av2-sE-9MQ" id="DV5-5L-dmS"/>
                 <outlet property="moveItemsUpMenuItem" destination="f3c-TG-M9r" id="tFc-fV-deZ"/>
                 <outlet property="playSelectedItemMenuItem" destination="afl-Xm-nI9" id="RnQ-Qj-phc"/>
@@ -385,7 +386,7 @@ CA
                             <menuItem title="  Move selected items to bottom" image="Down-Small" keyEquivalent="" id="07J-Mu-hRE" userLabel="Move selected items bottom">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" option="YES"/>
                                 <connections>
-                                    <action selector="moveItemsDownAction:" target="sXT-Pr-clR" id="pp5-Nd-A6W"/>
+                                    <action selector="moveItemsToBottomAction:" target="sXT-Pr-clR" id="uBN-Wa-TQa"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Epc-oG-Po5"/>

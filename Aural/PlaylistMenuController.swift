@@ -13,6 +13,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var moveItemsUpMenuItem: NSMenuItem!
     @IBOutlet weak var moveItemsToTopMenuItem: NSMenuItem!
     @IBOutlet weak var moveItemsDownMenuItem: NSMenuItem!
+    @IBOutlet weak var moveItemsToBottomMenuItem: NSMenuItem!
     @IBOutlet weak var removeSelectedItemsMenuItem: NSMenuItem!
     
     @IBOutlet weak var insertGapsMenuItem: NSMenuItem!
@@ -48,7 +49,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         // These menu items require 1 - the playlist to be visible, and 2 - at least one playlist item to be selected
         let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
-        [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, removeSelectedItemsMenuItem].forEach({$0?.isEnabled = layoutManager.isShowingPlaylist() && !showingDialogOrPopover && PlaylistViewState.currentView.selectedRow >= 0})
+        [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, moveItemsToBottomMenuItem, removeSelectedItemsMenuItem].forEach({$0?.isEnabled = layoutManager.isShowingPlaylist() && !showingDialogOrPopover && PlaylistViewState.currentView.selectedRow >= 0})
         
         // These menu items require 1 - the playlist to be visible, and 2 - at least one track in the playlist
         [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, invertSelectionMenuItem].forEach({$0?.isEnabled = layoutManager.isShowingPlaylist() && playlist.size() > 0})
@@ -125,6 +126,12 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     // Moves any selected playlist items down one row in the playlist
     @IBAction func moveItemsDownAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current))
+        sequenceChanged()
+    }
+    
+    // Moves the selected playlist item up one row in the playlist
+    @IBAction func moveItemsToBottomAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksToBottom, PlaylistViewState.current))
         sequenceChanged()
     }
     
