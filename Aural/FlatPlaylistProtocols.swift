@@ -32,6 +32,8 @@ protocol FlatPlaylistAccessorProtocol {
     func getGapBeforeTrack(_ track: Track) -> PlaybackGap?
     
     func getGapAfterTrack(_ track: Track) -> PlaybackGap?
+    
+    func getAllGaps() -> (gapsBeforeTracks: [Track: PlaybackGap], gapsAfterTracks: [Track: PlaybackGap])
 }
 
 /*

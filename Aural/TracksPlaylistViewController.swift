@@ -192,10 +192,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func trackAdded(_ message: TrackAddedAsyncMessage) {
         
-//        if playlistView.numberOfRows == 1 {
-//            playlist.insertGapForTrack(0, PlaybackGap(5, .afterTrack))
-//        }
-        
         DispatchQueue.main.async {
             self.playlistView.noteNumberOfRowsChanged()
         }
@@ -261,7 +257,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         let indexSet: IndexSet = IndexSet(refreshIndexes)
         playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         playlistView.noteHeightOfRows(withIndexesChanged: indexSet)
-        
     }
     
     // Selects an item within the playlist view, to show a single result of a search

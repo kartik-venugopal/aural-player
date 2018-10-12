@@ -198,6 +198,10 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         return gapsAfter[track]
     }
     
+    func getAllGaps() -> (gapsBeforeTracks: [Track: PlaybackGap], gapsAfterTracks: [Track: PlaybackGap]) {
+        return (gapsBefore, gapsAfter)
+    }
+    
     // Assume track can be moved
     private func moveTrackUp(_ index: Int) -> Int {
         
