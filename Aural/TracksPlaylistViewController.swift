@@ -40,7 +40,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -135,7 +135,45 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         }
     }
     
+    private func moveTracksToTop() {
+        
+        let selRows = playlistView.selectedRowIndexes
+        let numRows = playlistView.numberOfRows
+        
+        /*
+         If playlist empty or has only 1 row OR
+         no tracks selected OR
+         all tracks selected, don't do anything
+         */
+        if (numRows > 1 && selRows.count > 0 && selRows.count < numRows) {
+            
+            playlist.moveTracksToTop(selRows)
+            playlistView.reloadData(forRowIndexes: IndexSet(integersIn: 0...selRows.max()!), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            
+            // Select all the same items but now at the top
+            playlistView.scrollRowToVisible(0)
+            playlistView.selectRowIndexes(IndexSet(0..<selRows.count), byExtendingSelection: false)
+        }
+    }
+    
     private func moveTracksDown() {
+        
+        let selRows = playlistView.selectedRowIndexes
+        let numRows = playlistView.numberOfRows
+        
+        /*
+         If playlist empty or has only 1 row OR
+         no tracks selected OR
+         all tracks selected, don't do anything
+         */
+        if (numRows > 1 && selRows.count > 0 && selRows.count < numRows) {
+            
+            moveItems(playlist.moveTracksDown(selRows))
+            playlistView.scrollRowToVisible(selRows.min()!)
+        }
+    }
+    
+    private func moveTracksToBottom() {
         
         let selRows = playlistView.selectedRowIndexes
         let numRows = playlistView.numberOfRows
@@ -433,6 +471,14 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             case .moveTracksDown:
                 
                 moveTracksDown()
+                
+            case .moveTracksToTop:
+                
+                moveTracksToTop()
+                
+            case .moveTracksToBottom:
+                
+                moveTracksToBottom()
                 
             case .scrollToTop:
                 

@@ -663,10 +663,10 @@
                         <action selector="moveItemUpAction:" target="TnB-Sk-yOp" id="axi-a3-lIi"/>
                     </connections>
                 </menuItem>
-                <menuItem title="  Move this track to the top" image="Up-Small" hidden="YES" id="QUe-xD-qff" userLabel="Move track top">
+                <menuItem title="  Move this track to the top" image="Up-Small" id="QUe-xD-qff" userLabel="Move track top">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="moveItemUpAction:" target="TnB-Sk-yOp" id="FFy-VX-OEM"/>
+                        <action selector="moveItemToTopAction:" target="TnB-Sk-yOp" id="map-b5-fpX"/>
                     </connections>
                 </menuItem>
                 <menuItem title="  Move this track down" image="Down-Small" id="k3z-qH-RxK" userLabel="Move track down">
@@ -675,10 +675,10 @@
                         <action selector="moveItemDownAction:" target="TnB-Sk-yOp" id="Jjq-1a-OiX"/>
                     </connections>
                 </menuItem>
-                <menuItem title="  Move this track to the bottom" image="Down-Small" hidden="YES" id="HDD-rc-j4w" userLabel="Move track bottom">
+                <menuItem title="  Move this track to the bottom" image="Down-Small" id="HDD-rc-j4w" userLabel="Move track bottom">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="moveItemDownAction:" target="TnB-Sk-yOp" id="Af7-Yz-t96"/>
+                        <action selector="moveItemToBottomAction:" target="TnB-Sk-yOp" id="aMP-iX-nBi"/>
                     </connections>
                 </menuItem>
                 <menuItem title="  Remove this group" image="Remove-Small" id="kVv-1O-nHY">

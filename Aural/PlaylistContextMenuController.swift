@@ -202,9 +202,21 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         sequenceChanged()
     }
     
+    // Moves the selected playlist item up one row in the playlist
+    @IBAction func moveItemToTopAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksToTop, PlaylistViewState.current))
+        sequenceChanged()
+    }
+    
     // Moves the selected playlist item down one row in the playlist
     @IBAction func moveItemDownAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current))
+        sequenceChanged()
+    }
+    
+    // Moves the selected playlist item up one row in the playlist
+    @IBAction func moveItemToBottomAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksToBottom, PlaylistViewState.current))
         sequenceChanged()
     }
     
