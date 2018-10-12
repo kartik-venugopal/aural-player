@@ -65,6 +65,8 @@ protocol FlatPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
      */
     func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults
     
+    func moveTracksToTop(_ indexes: IndexSet)
+    
     /*
         Moves the tracks at the specified indexes, down one index, in the playlist, if they can be moved (they are not already at the bottom).
      

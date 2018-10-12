@@ -44,6 +44,7 @@
                 <outlet property="insertGapsMenuItem" destination="9iu-he-pRn" id="IS7-Q2-4Hw"/>
                 <outlet property="invertSelectionMenuItem" destination="y60-Ih-ViK" id="7jl-OV-pOp"/>
                 <outlet property="moveItemsDownMenuItem" destination="F5x-Nm-ust" id="cAv-w8-JMV"/>
+                <outlet property="moveItemsToTopMenuItem" destination="av2-sE-9MQ" id="DV5-5L-dmS"/>
                 <outlet property="moveItemsUpMenuItem" destination="f3c-TG-M9r" id="tFc-fV-deZ"/>
                 <outlet property="playSelectedItemMenuItem" destination="afl-Xm-nI9" id="RnQ-Qj-phc"/>
                 <outlet property="removeGapsMenuItem" destination="iK1-11-rDP" id="Rvs-NL-PET"/>
@@ -262,28 +263,6 @@ DQ
                                     <action selector="playSelectedItemAction:" target="sXT-Pr-clR" id="6ty-nb-ja1"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="  Move selected items up" image="Up-Small" keyEquivalent="" id="f3c-TG-M9r">
-                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
-                                <connections>
-                                    <action selector="moveItemsUpAction:" target="sXT-Pr-clR" id="NJB-lG-6X3"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="  Move selected items down" image="Down-Small" keyEquivalent="" id="F5x-Nm-ust">
-                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
-                                <connections>
-                                    <action selector="moveItemsDownAction:" target="sXT-Pr-clR" id="Vpf-ou-Z2h"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="  Remove selected items" image="Remove-Small" id="20j-6Y-sbB" userLabel="Remove selected track">
-                                <string key="keyEquivalent" base64-UTF8="YES">
-CA
-</string>
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="removeSelectedItemsAction:" target="sXT-Pr-clR" id="BhW-E1-Pey"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="15x-8w-Stx"/>
                             <menuItem title="  Insert silent gaps around selected track" id="9iu-he-pRn" userLabel="Insert gaps">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="  Insert silent gaps around selected track" id="Lrd-d0-88m">
@@ -359,7 +338,7 @@ CA
                                     <action selector="removeGapsAction:" target="sXT-Pr-clR" id="4rn-ui-ejH"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="bMd-aB-U0o"/>
+                            <menuItem isSeparatorItem="YES" id="15x-8w-Stx"/>
                             <menuItem title=" Invert selection" image="InvertSelection-Small" id="y60-Ih-ViK" userLabel="Invert selection">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
@@ -373,6 +352,40 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="cropSelectionAction:" target="sXT-Pr-clR" id="4c5-D4-loM"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Remove selected items" image="Remove-Small" id="20j-6Y-sbB" userLabel="Remove selected track">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="removeSelectedItemsAction:" target="sXT-Pr-clR" id="BhW-E1-Pey"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="A1f-ka-gQW"/>
+                            <menuItem title="  Move selected items up" image="Up-Small" keyEquivalent="" id="f3c-TG-M9r">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                <connections>
+                                    <action selector="moveItemsUpAction:" target="sXT-Pr-clR" id="NJB-lG-6X3"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Move selected items to top" image="Up-Small" keyEquivalent="" id="av2-sE-9MQ" userLabel="Move selected items top">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" option="YES"/>
+                                <connections>
+                                    <action selector="moveItemsToTopAction:" target="sXT-Pr-clR" id="Xck-Tb-A3A"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Move selected items down" image="Down-Small" keyEquivalent="" id="F5x-Nm-ust">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                <connections>
+                                    <action selector="moveItemsDownAction:" target="sXT-Pr-clR" id="Vpf-ou-Z2h"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Move selected items to bottom" image="Down-Small" keyEquivalent="" id="07J-Mu-hRE" userLabel="Move selected items bottom">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" option="YES"/>
+                                <connections>
+                                    <action selector="moveItemsDownAction:" target="sXT-Pr-clR" id="pp5-Nd-A6W"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Epc-oG-Po5"/>

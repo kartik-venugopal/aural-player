@@ -52,8 +52,12 @@ enum ActionType {
     // Move selected items up one row within playlist
     case moveTracksUp
     
+    case moveTracksToTop
+    
     // Move selected items down one row within playlist
     case moveTracksDown
+    
+    case moveTracksToBottom
     
     // Show the selected track in Finder
     case showTrackInFinder

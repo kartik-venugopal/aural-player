@@ -255,6 +255,10 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         return flatPlaylist.moveTracksUp(indexes)
     }
     
+    func moveTracksToTop(_ indexes: IndexSet) {
+        flatPlaylist.moveTracksToTop(indexes)
+    }
+    
     func trackAtIndex(_ index: Int?) -> IndexedTrack? {
         return flatPlaylist.trackAtIndex(index)
     }

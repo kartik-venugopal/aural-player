@@ -296,6 +296,12 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         return results
     }
     
+    func moveTracksToTop(_ indexes: IndexSet) {
+        
+        playlist.moveTracksToTop(indexes)
+        changeListeners.forEach({$0.tracksReordered(.tracks)})
+    }
+    
     func moveTracksDown(_ indexes: IndexSet) -> ItemMoveResults {
         let results = playlist.moveTracksDown(indexes)
         changeListeners.forEach({$0.tracksReordered(.tracks)})
