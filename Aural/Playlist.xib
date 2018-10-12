@@ -609,9 +609,6 @@
                             </menuItem>
                         </items>
                     </menu>
-                    <connections>
-                        <action selector="showTrackInFinderAction:" target="TnB-Sk-yOp" id="aNN-Mt-vyN"/>
-                    </connections>
                 </menuItem>
                 <menuItem title="  Edit silent gaps around track" id="Da8-AS-fHe" userLabel="Edit gaps">
                     <modifierMask key="keyEquivalentModifierMask"/>
