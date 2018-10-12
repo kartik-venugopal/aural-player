@@ -6,6 +6,8 @@
 
 Aural Player is a free and open source audio player application for the macOS platform. Inspired by the classic Winamp player for Windows, it is designed to be to-the-point, easy to use, and highly customizable, with some sound tuning capabilities for audio enthusiasts.
 
+If all you want to do is drag, drop, and play, ... great ! ... because Aural Player uses sensible defaults and doesn't require any configuration or tweaking whatsoever. But, if you want to tweak, configure, and customize, you can do plenty of that too !
+
 ## Download
 
 Download the disk image file [Aural.dmg](https://github.com/maculateConception/aural-player/blob/master/Aural.dmg?raw=true). Just mount it and run the app !
