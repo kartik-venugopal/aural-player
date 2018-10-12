@@ -148,7 +148,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         if (numRows > 1 && selRows.count > 0 && selRows.count < numRows) {
             
             playlist.moveTracksToTop(selRows)
-            playlistView.reloadData(forRowIndexes: IndexSet(integersIn: 0...selRows.max()!), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            
+            let updatedRows = IndexSet(integersIn: 0...selRows.max()!)
+            playlistView.reloadData(forRowIndexes: updatedRows, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            playlistView.noteHeightOfRows(withIndexesChanged: updatedRows)
             
             // Select all the same items but now at the top
             playlistView.scrollRowToVisible(0)
@@ -188,7 +191,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             let lastIndex = playlistView.numberOfRows - 1
             
             playlist.moveTracksToBottom(selRows)
-            playlistView.reloadData(forRowIndexes: IndexSet(integersIn: selRows.min()!...lastIndex), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            
+            let updatedRows = IndexSet(integersIn: selRows.min()!...lastIndex)
+            playlistView.reloadData(forRowIndexes: updatedRows, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            playlistView.noteHeightOfRows(withIndexesChanged: updatedRows)
             
             // Select all the same items but now at the bottom
             playlistView.scrollRowToVisible(lastIndex)
