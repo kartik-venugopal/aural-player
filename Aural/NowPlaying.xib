@@ -21,7 +21,7 @@
                 <outlet property="lblPlaybackScope" destination="QMC-YM-g63" id="iwl-bu-CCX"/>
                 <outlet property="lblSequenceProgress" destination="e1b-K8-gyA" id="OAX-TK-hBH"/>
                 <outlet property="lblTimeElapsed" destination="876-EM-3g4" id="jNq-Qy-9fP"/>
-                <outlet property="lblTimeRemaining" destination="sGu-eX-EOv" id="dTW-i0-k9p"/>
+                <outlet property="lblTimeRemainingOrDuration" destination="sGu-eX-EOv" id="KYf-zs-A3B"/>
                 <outlet property="lblTrackArtist" destination="Ic4-td-93d" id="OMa-fz-AOs"/>
                 <outlet property="lblTrackName" destination="TAg-yT-Umq" id="jkC-cY-6v9"/>
                 <outlet property="lblTrackTitle" destination="2m3-ds-GGr" id="gHi-uH-Jg0"/>
@@ -157,6 +157,9 @@
                                 <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="backgroundColor" white="0.63127055919999997" alpha="1" colorSpace="calibratedWhite"/>
                             </textFieldCell>
+                            <connections>
+                                <action selector="switchTrackTimeDisplayAction:" target="-2" id="a9O-e6-jyH"/>
+                            </connections>
                         </textField>
                         <button hidden="YES" toolTip="Detailed information about playing track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d6y-wj-Yri" userLabel="More Info Button">
                             <rect key="frame" x="432" y="75" width="14" height="14"/>

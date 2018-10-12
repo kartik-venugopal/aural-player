@@ -51,9 +51,9 @@ class WindowState {
         return appActive && !appHidden && !minimized
     }
     
-    static func persistentState() -> UIState {
+    static func persistentState() -> WindowLayoutState {
         
-        let uiState = UIState()
+        let uiState = WindowLayoutState()
         
         uiState.showEffects = showingEffects
         uiState.showPlaylist = showingPlaylist

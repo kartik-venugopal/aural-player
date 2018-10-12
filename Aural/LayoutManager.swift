@@ -2,7 +2,7 @@ import Cocoa
 
 class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
     
-    private let appState: UIState
+    private let appState: WindowLayoutState
     private let preferences: ViewPreferences
     
     // App windows
@@ -14,7 +14,7 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
         return NSScreen.main!.visibleFrame
     }()
     
-    init(_ appState: UIState, _ preferences: ViewPreferences) {
+    init(_ appState: WindowLayoutState, _ preferences: ViewPreferences) {
         
         // Use appState and prefs to determine initial layout
         self.appState = appState
@@ -39,13 +39,23 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
             if appState.showEffects {
                 
                 mainWindow.addChildWindow(effectsWindow, ordered: NSWindow.OrderingMode.below)
-                effectsWindow.setFrameOrigin(appState.effectsWindowOrigin!)
+                
+                if let effectsWindowOrigin = appState.effectsWindowOrigin {
+                    effectsWindow.setFrameOrigin(effectsWindowOrigin)
+                } else {
+                    defaultLayout()
+                }
             }
             
             if appState.showPlaylist {
                 
                 mainWindow.addChildWindow(playlistWindow, ordered: NSWindow.OrderingMode.below)
-                playlistWindow.setFrame(appState.playlistWindowFrame!, display: true)
+                
+                if let playlistWindowFrame = appState.playlistWindowFrame {
+                    playlistWindow.setFrame(playlistWindowFrame, display: true)
+                } else {
+                    defaultLayout()
+                }
             }
             
             mainWindow.setIsVisible(true)
@@ -54,6 +64,11 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
             
             SyncMessenger.publishNotification(LayoutChangedNotification(appState.showEffects, appState.showPlaylist))
         }
+    }
+    
+    // Revert to default layout if app state is corrupted
+    private func defaultLayout() {
+        layout(WindowLayouts.defaultLayout)
     }
     
     func layout(_ layout: WindowLayout) {
@@ -331,9 +346,9 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
         }
     }
     
-    func persistentState() -> UIState {
+    func persistentState() -> WindowLayoutState {
         
-        let uiState = UIState()
+        let uiState = WindowLayoutState()
         
         uiState.showEffects = effectsWindow.isVisible
         uiState.showPlaylist = playlistWindow.isVisible

@@ -108,9 +108,9 @@ class ObjectGraph {
         favorites = Favorites()
         favoritesDelegate = FavoritesDelegate(favorites!, playlistDelegate!, playbackDelegate!, appState!.favoritesState)
         
-        WindowLayouts.loadUserDefinedLayouts((appState?.uiState.userWindowLayouts)!)
+        WindowLayouts.loadUserDefinedLayouts((appState?.uiState.windowLayoutState.userWindowLayouts)!)
         
-        layoutManager = LayoutManager(appState!.uiState, preferences!.viewPreferences)
+        layoutManager = LayoutManager(appState!.uiState.windowLayoutState, preferences!.viewPreferences)
         
         // TODO: Who should own this initialization ???
         appState?.soundProfilesState.profiles.forEach({
@@ -192,7 +192,11 @@ class ObjectGraph {
         appState?.audioGraphState = audioGraph!.persistentState() as! AudioGraphState
         appState?.playlistState = playlist!.persistentState() as! PlaylistState
         appState?.playbackSequenceState = playbackSequencer!.persistentState() as! PlaybackSequenceState
-        appState?.uiState = layoutManager!.persistentState()
+        
+        appState?.uiState = UIState()
+        appState?.uiState.windowLayoutState = layoutManager!.persistentState()
+        appState?.uiState.nowPlayingState = NowPlayingViewState.persistentState()
+        
         appState?.historyState = historyDelegate!.persistentState() as! HistoryState
         appState?.favoritesState = favoritesDelegate!.persistentState() as! FavoritesState
         appState?.bookmarksState = bookmarksDelegate!.persistentState() as! BookmarksState

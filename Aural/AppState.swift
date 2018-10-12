@@ -36,6 +36,68 @@ extension PersistentState {
  */
 class UIState: PersistentState {
     
+    var windowLayoutState: WindowLayoutState
+    var nowPlayingState: NowPlayingState
+    
+    init() {
+        self.windowLayoutState = WindowLayoutState()
+        self.nowPlayingState = NowPlayingState()
+    }
+    
+    func toSerializableMap() -> NSDictionary {
+        
+        var map = [NSString: AnyObject]()
+        
+        map["windowLayout"] = windowLayoutState.toSerializableMap()
+        
+        map["nowPlaying"] = nowPlayingState.toSerializableMap()
+        
+        return map as NSDictionary
+    }
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state = UIState()
+        
+        if let windowLayoutMap = map["windowLayout"] as? NSDictionary {
+            state.windowLayoutState = WindowLayoutState.deserialize(windowLayoutMap) as! WindowLayoutState
+        }
+        
+        if let nowPlayingMap = map["nowPlaying"] as? NSDictionary {
+            state.nowPlayingState = NowPlayingState.deserialize(nowPlayingMap) as! NowPlayingState
+        }
+        
+        return state
+    }
+}
+
+class NowPlayingState: PersistentState {
+    
+    var showDuration: Bool = false
+    
+    func toSerializableMap() -> NSDictionary {
+        
+        var map = [NSString: AnyObject]()
+        
+        map["showDuration"] = showDuration as AnyObject
+        
+        return map as NSDictionary
+    }
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state = NowPlayingState()
+        
+        if let showDuration = map["showDuration"] as? Bool {
+            state.showDuration = showDuration
+        }
+        
+        return state
+    }
+}
+
+class WindowLayoutState: PersistentState {
+    
     var showEffects: Bool = true
     var showPlaylist: Bool = true
     
@@ -102,35 +164,35 @@ class UIState: PersistentState {
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
-        let uiState = UIState()
+        let state = WindowLayoutState()
         
         if let showPlaylist = map["showPlaylist"] as? Bool {
-            uiState.showPlaylist = showPlaylist
+            state.showPlaylist = showPlaylist
         }
         
         if let showEffects = map["showEffects"] as? Bool {
-            uiState.showEffects = showEffects
+            state.showEffects = showEffects
         }
         
         if let mainWindowX = map["mainWindow_x"] as? NSNumber {
             
             if let mainWindowY = map["mainWindow_y"] as? NSNumber {
-                uiState.mainWindowOrigin = NSPoint(x: CGFloat(mainWindowX.floatValue), y: CGFloat(mainWindowY.floatValue))
+                state.mainWindowOrigin = NSPoint(x: CGFloat(mainWindowX.floatValue), y: CGFloat(mainWindowY.floatValue))
             }
         }
-
-        if uiState.showEffects {
+        
+        if state.showEffects {
             
             if let effectsWindowX = map["effectsWindow_x"] as? NSNumber {
                 
                 if let effectsWindowY = map["effectsWindow_y"] as? NSNumber {
                     
-                    uiState.effectsWindowOrigin = NSPoint(x: CGFloat(effectsWindowX.floatValue), y: CGFloat(effectsWindowY.floatValue))
+                    state.effectsWindowOrigin = NSPoint(x: CGFloat(effectsWindowX.floatValue), y: CGFloat(effectsWindowY.floatValue))
                 }
             }
         }
         
-        if uiState.showPlaylist {
+        if state.showPlaylist {
             
             if let playlistWindowX = map["playlistWindow_x"] as? NSNumber {
                 
@@ -142,7 +204,7 @@ class UIState: PersistentState {
                         
                         if let playlistWindowHeight = map["playlistWindow_height"] as? NSNumber {
                             
-                            uiState.playlistWindowFrame = NSRect(x: origin.x, y: origin.y, width: CGFloat(playlistWindowWidth.floatValue), height: CGFloat(playlistWindowHeight.floatValue))
+                            state.playlistWindowFrame = NSRect(x: origin.x, y: origin.y, width: CGFloat(playlistWindowWidth.floatValue), height: CGFloat(playlistWindowHeight.floatValue))
                         }
                     }
                 }
@@ -228,14 +290,14 @@ class UIState: PersistentState {
                             
                             let newLayout = WindowLayout(layoutName!, layoutShowEffects!, layoutShowPlaylist!, layoutMainWindowOrigin!, layoutEffectsWindowOrigin, layoutPlaylistWindowFrame, false)
                             
-                            uiState.userWindowLayouts.append(newLayout)
+                            state.userWindowLayouts.append(newLayout)
                         }
                     }
                 }
             })
         }
         
-        return uiState
+        return state
     }
 }
 
