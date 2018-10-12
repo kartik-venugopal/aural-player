@@ -26,7 +26,6 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
     @IBOutlet weak var durationSlider_2: NSSlider!
     @IBOutlet weak var lblDuration_2: NSTextField!
     
-    private var track: Track?
     private var gaps: (hasGaps: Bool, beforeTrack: PlaybackGap?, afterTrack: PlaybackGap?)?
     
     // Delegate that relays CRUD actions to the playlist
@@ -56,15 +55,6 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
     }
     
     func setDataForKey(_ key: String, _ value: Any?) {
-        
-        if key == "track" {
-            
-            if let t = value as? Track {
-                self.track = t
-            }
-            
-            return
-        }
         
         if key == "gaps" {
             
@@ -236,7 +226,7 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
             gapAfterTrack = PlaybackGap(duration2, .afterTrack, type2)
         }
         
-        SyncMessenger.publishActionMessage(InsertPlaybackGapsActionMessage(self.track!, gapBeforeTrack, gapAfterTrack, PlaylistViewState.current))
+        SyncMessenger.publishActionMessage(InsertPlaybackGapsActionMessage(gapBeforeTrack, gapAfterTrack, PlaylistViewState.current))
         
         modalDialogResponse = .ok
         UIUtils.dismissModalDialog()

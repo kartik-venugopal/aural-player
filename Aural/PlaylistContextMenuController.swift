@@ -111,7 +111,6 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBAction func insertGapsAction(_ sender: NSMenuItem) {
         
         // Sender's tag is gap duration in seconds
-        let track = getClickedTrack()
         let tag = sender.tag
         
         if tag != 0 {
@@ -123,12 +122,11 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             let gapBefore = gapPosn == .beforeTrack ? gap : nil
             let gapAfter = gapPosn == .afterTrack ? gap : nil
             
-            SyncMessenger.publishActionMessage(InsertPlaybackGapsActionMessage(track, gapBefore, gapAfter, PlaylistViewState.current))
+            SyncMessenger.publishActionMessage(InsertPlaybackGapsActionMessage(gapBefore, gapAfter, PlaylistViewState.current))
             
         } else {
             
             // Custom gap dialog
-            gapsEditor.setDataForKey("track", track)
             gapsEditor.setDataForKey("gaps", nil)
             
             _ = gapsEditor.showDialog()
@@ -141,14 +139,13 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         let track = getClickedTrack()
         let gaps = playlist.getGapsAroundTrack(track)
         
-        gapsEditor.setDataForKey("track", track)
         gapsEditor.setDataForKey("gaps", gaps)
         
         _ = gapsEditor.showDialog()
     }
     
     @IBAction func removeGapsAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(RemovePlaybackGapsActionMessage(getClickedTrack(), PlaylistViewState.current))
+        SyncMessenger.publishActionMessage(RemovePlaybackGapsActionMessage(PlaylistViewState.current))
     }
     
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list

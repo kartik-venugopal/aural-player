@@ -306,17 +306,19 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         }
     }
     
-    private func insertGap(_ track: Track, _ gapBefore: PlaybackGap?, _ gapAfter: PlaybackGap?) {
+    private func insertGap(_ gapBefore: PlaybackGap?, _ gapAfter: PlaybackGap?) {
         
-        playlist.setGapsForTrack(track, gapBefore, gapAfter)
+        let track = playlist.trackAtIndex(playlistView.selectedRow)
+        playlist.setGapsForTrack(track!.track, gapBefore, gapAfter)
         
         playlistView.reloadData(forRowIndexes: IndexSet([playlistView.selectedRow]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([playlistView.selectedRow]))
     }
     
-    private func removeGaps(_ track: Track) {
+    private func removeGaps() {
         
-        playlist.removeGapsForTrack(track)
+        let track = playlist.trackAtIndex(playlistView.selectedRow)
+        playlist.removeGapsForTrack(track!.track)
         
         playlistView.reloadData(forRowIndexes: IndexSet([playlistView.selectedRow]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([playlistView.selectedRow]))
@@ -467,7 +469,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             
             // Check if this message is intended for this playlist view
             if (insertGapsMsg.playlistType == nil || insertGapsMsg.playlistType == .tracks) {
-                insertGap(insertGapsMsg.track, insertGapsMsg.gapBeforeTrack, insertGapsMsg.gapAfterTrack)
+                insertGap(insertGapsMsg.gapBeforeTrack, insertGapsMsg.gapAfterTrack)
             }
             
             return
@@ -476,7 +478,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         if let removeGapMsg = message as? RemovePlaybackGapsActionMessage {
             
             if removeGapMsg.playlistType == nil || removeGapMsg.playlistType == .tracks {
-                removeGaps(removeGapMsg.track)
+                removeGaps()
             }
             
             return

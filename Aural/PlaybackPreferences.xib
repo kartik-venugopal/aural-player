@@ -60,7 +60,7 @@
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="17v-k3-h3w">
                     <rect key="frame" x="391" y="414" width="74" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="5 sec" id="AcS-8N-Avq">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="5 sec" id="AcS-8N-Avq">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="soq-hh-Ogi">
                             <real key="minimum" value="3"/>
                             <real key="maximum" value="300"/>
@@ -106,7 +106,7 @@
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b2Y-oz-e1D" userLabel="Seek Length Slider">
                     <rect key="frame" x="137" y="416" width="224" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="1800" doubleValue="5" tickMarkPosition="below" sliderType="linear" id="ZSN-mn-4yz" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
+                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="3600" doubleValue="5" tickMarkPosition="below" sliderType="linear" id="ZSN-mn-4yz" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                     <connections>
                         <action selector="primarySeekLengthAction:" target="-2" id="oWZ-cj-AgQ"/>
                     </connections>
@@ -155,7 +155,7 @@
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9VE-Se-JMe">
                     <rect key="frame" x="391" y="341" width="74" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="30 sec" id="uh5-Ef-Yeg">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="30 sec" id="uh5-Ef-Yeg">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="UY4-Dz-mTw">
                             <real key="minimum" value="3"/>
                             <real key="maximum" value="300"/>
@@ -201,7 +201,7 @@
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x96-XT-cYQ" userLabel="Seek Length Slider">
                     <rect key="frame" x="137" y="343" width="224" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="1800" doubleValue="30" tickMarkPosition="below" sliderType="linear" id="UTv-Wo-9If" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
+                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="3600" doubleValue="30" tickMarkPosition="below" sliderType="linear" id="UTv-Wo-9If" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                     <connections>
                         <action selector="secondarySeekLengthAction:" target="-2" id="nGw-Ur-0Lk"/>
                     </connections>
