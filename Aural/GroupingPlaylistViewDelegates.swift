@@ -3,7 +3,7 @@ import Cocoa
 /*
     Delegate base class for the NSOutlineView instances that display the "Artists", "Albums", and "Genres" (hierarchical/grouping) playlist views.
  */
-class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubscriber {
+class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
  
     @IBOutlet weak var playlistView: NSOutlineView!
     
@@ -16,18 +16,11 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
     // Indicates the type of groups displayed by this NSOutlineView (intended to be overridden by subclasses)
     fileprivate var playlistType: PlaylistType
     
-    // Stores the cell containing the playing track animation, for convenient access when pausing/resuming the animation
-    private var animationCell: GroupedTrackCellView?
-    
     init(_ playlistType: PlaylistType) {
         self.playlistType = playlistType
     }
     
     override func awakeFromNib() {
-        
-        // Subscribe to message notifications
-        SyncMessenger.subscribe(messageTypes: [.playbackStateChangedNotification], subscriber: self)
-        
         OutlineViewHolder.instances[self.playlistType] = playlistView
     }
     
@@ -128,12 +121,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
             cell.imageView?.image = image
             cell.isGroup = isGroup
             
-            if (isPlayingTrack) {
-                
-                // Mark this cell for later
-//                animationCell = cell
-            }
-            
             let both = gapBefore != nil && gapAfter != nil
             let aOnly = gapAfter != nil && gapBefore == nil
             let bOnly = gapBefore != nil && gapAfter == nil
@@ -145,16 +132,12 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
                 
                 adjustConstraints_mainFieldOnTop(cell)
                 
-                cell.gapAfterImg.setFrameOrigin(NSPoint.zero)
-                
             } else if bOnly {
                 
                 cell.gapBeforeImg.isHidden = false
                 cell.gapAfterImg.isHidden = true
                 
                 adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeImg)
-                
-//                cell.textField!.setFrameOrigin(NSPoint.zero)
                 
             } else if both {
                 
@@ -163,8 +146,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
                 
                 adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeImg)
                 
-                cell.gapAfterImg.setFrameOrigin(NSPoint.zero)
-                
             } else {
                 
                 // Neither
@@ -172,8 +153,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
                 cell.gapAfterImg.isHidden = true
                 
                 adjustConstraints_mainFieldOnTop(cell)
-                
-//                cell.textField!.setFrameOrigin(NSPoint.zero)
             }
             
             return cell
@@ -285,12 +264,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
             cell.imageView?.image = image
             cell.isGroup = isGroup
             
-            if (isPlayingTrack) {
-                
-                // Mark this cell for later
-//                animationCell = cell
-            }
-            
             adjustConstraints_mainFieldCentered(cell)
             
             cell.textField!.setFrameOrigin(NSPoint.zero)
@@ -312,46 +285,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
         }
         
         return nil
-    }
-    
-    // Whenever the playing track is paused/resumed, the animation needs to be paused/resumed.
-    private func playbackStateChanged(_ message: PlaybackStateChangedNotification) {
-        
-        switch (message.newPlaybackState) {
-            
-        case .noTrack:
-            
-            // The track is no longer playing
-            animationCell = nil
-            
-        case .playing, .paused, .waiting:
-            
-            animationCell?.imageView?.image = Images.imgPlayingTrack
-            
-        }
-    }
-    
-    func getID() -> String {
-        return String(format: "%@-%@", self.className, String(describing: self.playlistType))
-    }
-    
-    // MARK: Message handling
-    
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        switch notification.messageType {
-            
-        case .playbackStateChangedNotification:
-            
-            playbackStateChanged(notification as! PlaybackStateChangedNotification)
-            
-        default: return
-            
-        }
-    }
-    
-    func processRequest(_ request: RequestMessage) -> ResponseMessage {
-        return EmptyResponse.instance
     }
 }
 
