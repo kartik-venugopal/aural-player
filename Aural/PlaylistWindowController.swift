@@ -64,7 +64,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         tabGroup.addViewsForTabs([tracksView, artistsView, albumsView, genresView])
 
         // Initialize all the tab views (and select the first one to be shown)
-        [1, 2, 3, 0].forEach({tabGroup.selectTabViewItem(at: $0)})
+//        [1, 2, 3, 0].forEach({tabGroup.selectTabViewItem(at: $0)})
+        
+        [2, 3, 0, 1].forEach({tabGroup.selectTabViewItem(at: $0)})
         
         tabGroup.delegate = self
     }
