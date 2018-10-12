@@ -173,65 +173,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate, MessageSubs
     }
 }
 
-/*
-    Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
- */
-class GroupedTrackCellView: NSTableCellView {
-    
-    // Whether or not this cell is contained within a row that represents a group (as opposed to a track)
-    var isGroup: Bool = false
-    
-    // This is used to determine which NSOutlineView contains this cell
-    var playlistType: PlaylistType = .artists
-    
-    // The item represented by the row containing this cell
-    var item: PlaylistItem?
-    
-    // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
-    override var backgroundStyle: NSView.BackgroundStyle {
-        
-        didSet {
-            
-            // Check if this row is selected
-            let outlineView = OutlineViewHolder.instances[self.playlistType]!
-            let isSelRow = outlineView.selectedRowIndexes.contains(outlineView.row(forItem: item))
-            
-            if let textField = self.textField {
-                
-                textField.textColor = isSelRow ? (isGroup ? Colors.playlistGroupNameSelectedTextColor : Colors.playlistGroupItemSelectedTextColor) : (isGroup ? Colors.playlistGroupNameTextColor : Colors.playlistGroupItemTextColor)
-                
-                textField.font = isSelRow ? (isGroup ? Fonts.playlistGroupNameSelectedTextFont : Fonts.playlistGroupItemSelectedTextFont) : (isGroup ? Fonts.playlistGroupNameTextFont : Fonts.playlistGroupItemTextFont)
-            }
-        }
-    }
-}
-
-/*
-    Custom view for a NSTableView row that displays a single playlist track or group. Customizes the selection look and feel.
- */
-class GroupingPlaylistRowView: NSTableRowView {
-    
-    // Draws a fancy rounded rectangle around the selected track in the playlist view
-    override func drawSelection(in dirtyRect: NSRect) {
-        
-        if self.selectionHighlightStyle != NSTableView.SelectionHighlightStyle.none {
-            
-            let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
-            let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
-            
-            Colors.playlistSelectionBoxColor.setFill()
-            selectionPath.fill()
-        }
-    }
-}
-
-// Utility class to hold NSOutlineView instances for convenient access
-class OutlineViewHolder {
-    
-    // Mapping of playlist types to their corresponding outline views
-    static var instances = [PlaylistType: NSOutlineView]()
-}
-
 class ArtistsPlaylistViewDelegate: GroupingPlaylistViewDelegate {
     
     @objc init() {
