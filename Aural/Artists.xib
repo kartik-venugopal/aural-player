@@ -57,21 +57,21 @@
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="YHr-RW-w8U"/>
                                                     </imageView>
                                                     <imageView identifier="GapBefore" hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GWB-bk-VCY" userLabel="Gap Before">
-                                                        <rect key="frame" x="27" y="40" width="345" height="18"/>
+                                                        <rect key="frame" x="3" y="40" width="369" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="Yyx-R8-whg"/>
                                                         </constraints>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="a7U-eT-gHT"/>
                                                     </imageView>
                                                     <imageView identifier="GapAfter" hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vby-YG-uyp" userLabel="Gap After">
-                                                        <rect key="frame" x="27" y="0.0" width="345" height="18"/>
+                                                        <rect key="frame" x="3" y="0.0" width="369" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="53a-wl-lQN"/>
                                                         </constraints>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="Z1u-Zg-l3v"/>
                                                     </imageView>
                                                     <textField identifier="TrackName" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="aJe-Bl-Fbk" userLabel="Track Name">
-                                                        <rect key="frame" x="25" y="18" width="349" height="22"/>
+                                                        <rect key="frame" x="23" y="18" width="351" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="22" id="zUk-G2-dv9"/>
                                                         </constraints>
@@ -83,14 +83,14 @@
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="GWB-bk-VCY" firstAttribute="leading" secondItem="aJe-Bl-Fbk" secondAttribute="leading" id="08y-ky-rR0"/>
+                                                    <constraint firstItem="GWB-bk-VCY" firstAttribute="leading" secondItem="dks-xg-67t" secondAttribute="leading" id="08y-ky-rR0"/>
                                                     <constraint firstItem="dks-xg-67t" firstAttribute="centerY" secondItem="aJe-Bl-Fbk" secondAttribute="centerY" id="8LS-f6-Esy"/>
                                                     <constraint firstItem="vby-YG-uyp" firstAttribute="trailing" secondItem="GWB-bk-VCY" secondAttribute="trailing" id="GQE-8L-9pe"/>
                                                     <constraint firstItem="vby-YG-uyp" firstAttribute="bottom" secondItem="SmH-XT-UUI" secondAttribute="bottom" id="I4F-iJ-ZRI"/>
-                                                    <constraint firstItem="aJe-Bl-Fbk" firstAttribute="leading" secondItem="dks-xg-67t" secondAttribute="trailing" constant="8" id="Lca-Va-9De"/>
+                                                    <constraint firstItem="aJe-Bl-Fbk" firstAttribute="leading" secondItem="dks-xg-67t" secondAttribute="trailing" constant="6" id="Lca-Va-9De"/>
                                                     <constraint firstAttribute="trailing" secondItem="aJe-Bl-Fbk" secondAttribute="trailing" id="Z7e-sW-eKW"/>
                                                     <constraint firstItem="vby-YG-uyp" firstAttribute="trailing" secondItem="aJe-Bl-Fbk" secondAttribute="trailing" id="ZVs-ZR-UeK"/>
-                                                    <constraint firstItem="vby-YG-uyp" firstAttribute="leading" secondItem="aJe-Bl-Fbk" secondAttribute="leading" id="dKc-vP-21c"/>
+                                                    <constraint firstItem="vby-YG-uyp" firstAttribute="leading" secondItem="dks-xg-67t" secondAttribute="leading" id="dKc-vP-21c"/>
                                                     <constraint firstItem="aJe-Bl-Fbk" firstAttribute="centerY" secondItem="SmH-XT-UUI" secondAttribute="centerY" id="ma7-YQ-pHW"/>
                                                     <constraint firstItem="dks-xg-67t" firstAttribute="leading" secondItem="SmH-XT-UUI" secondAttribute="leading" constant="3" id="phb-ZA-qiH"/>
                                                     <constraint firstItem="GWB-bk-VCY" firstAttribute="top" secondItem="SmH-XT-UUI" secondAttribute="top" id="ypf-qd-yYs"/>
@@ -117,29 +117,59 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="zwp-3R-qci" customClass="GroupedTrackCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="376" y="1" width="70" height="22"/>
+                                            <tableCellView focusRingType="none" id="a1J-7t-rVr" customClass="GroupedTrackDurationCellView" customModule="Aural" customModuleProvider="target">
+                                                <rect key="frame" x="376" y="1" width="70" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="tl0-UE-3BE" userLabel="Duration">
-                                                        <rect key="frame" x="-2" y="-4" width="69" height="25"/>
+                                                    <textField hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0rh-OG-qQu" userLabel="Gap Before">
+                                                        <rect key="frame" x="-7" y="40" width="74" height="18"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="CUL-EP-4Hw"/>
+                                                            <constraint firstAttribute="height" constant="18" id="hQW-Zk-gEs"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="xz6-gw-g35">
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" id="zs9-lG-IuU">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="w6x-Ir-z8I" userLabel="Duration">
+                                                        <rect key="frame" x="-7" y="10" width="74" height="22"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="22" id="Vaa-yG-bAf"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="SHk-2h-2Xj">
                                                             <font key="font" size="13" name="GillSans-Light"/>
-                                                            <color key="textColor" white="0.69509548610000005" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="deviceWhite"/>
+                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ETO-Q1-jTq" userLabel="Gap After">
+                                                        <rect key="frame" x="-7" y="-5" width="74" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="18" id="efW-YP-JF6"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" id="YCH-s6-tXg">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </textFieldCell>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="tl0-UE-3BE" secondAttribute="trailing" constant="5" id="FmV-ib-pXS"/>
-                                                    <constraint firstItem="tl0-UE-3BE" firstAttribute="leading" secondItem="zwp-3R-qci" secondAttribute="leading" id="OLK-uf-2hG"/>
-                                                    <constraint firstItem="tl0-UE-3BE" firstAttribute="centerY" secondItem="zwp-3R-qci" secondAttribute="centerY" constant="3" id="sjS-Td-Kqt"/>
+                                                    <constraint firstItem="w6x-Ir-z8I" firstAttribute="trailing" secondItem="0rh-OG-qQu" secondAttribute="trailing" id="5Pa-qN-Ovd"/>
+                                                    <constraint firstItem="ETO-Q1-jTq" firstAttribute="top" secondItem="w6x-Ir-z8I" secondAttribute="bottom" constant="-3" id="Az3-Ij-n4F"/>
+                                                    <constraint firstItem="w6x-Ir-z8I" firstAttribute="leading" secondItem="a1J-7t-rVr" secondAttribute="leading" constant="-5" id="DuL-Na-FT4"/>
+                                                    <constraint firstAttribute="trailing" secondItem="w6x-Ir-z8I" secondAttribute="trailing" constant="5" id="Xwd-5p-8Mg"/>
+                                                    <constraint firstItem="w6x-Ir-z8I" firstAttribute="leading" secondItem="0rh-OG-qQu" secondAttribute="leading" id="e8h-cb-dkp"/>
+                                                    <constraint firstItem="0rh-OG-qQu" firstAttribute="top" secondItem="a1J-7t-rVr" secondAttribute="top" id="hK6-XK-C6u"/>
+                                                    <constraint firstItem="ETO-Q1-jTq" firstAttribute="trailing" secondItem="0rh-OG-qQu" secondAttribute="trailing" id="oWC-fd-piS"/>
+                                                    <constraint firstItem="w6x-Ir-z8I" firstAttribute="top" secondItem="0rh-OG-qQu" secondAttribute="bottom" constant="8" id="tXg-SL-hl4"/>
+                                                    <constraint firstItem="ETO-Q1-jTq" firstAttribute="leading" secondItem="0rh-OG-qQu" secondAttribute="leading" id="wlw-wk-KLl"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="textField" destination="tl0-UE-3BE" id="alJ-8H-3t3"/>
+                                                    <outlet property="gapAfterTextField" destination="ETO-Q1-jTq" id="K7F-Qb-mhZ"/>
+                                                    <outlet property="gapBeforeTextField" destination="0rh-OG-qQu" id="ZBZ-7m-dQ3"/>
+                                                    <outlet property="textField" destination="w6x-Ir-z8I" id="to5-eM-Les"/>
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
