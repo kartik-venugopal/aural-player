@@ -24,6 +24,8 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
     // Cached preferences instance
     private var preferences: Preferences = ObjectGraph.getPreferencesDelegate().getPreferences()
     
+    private var modalDialogResponse: ModalDialogResponse = .ok
+    
     override var windowNibName: String? {return "Preferences"}
     
     override func windowDidLoad() {
@@ -38,7 +40,7 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
         super.windowDidLoad()
     }
     
-    func showDialog() {
+    func showDialog() -> ModalDialogResponse {
      
         // Force loading of the window if it hasn't been loaded yet (only once)
         if (!self.isWindowLoaded) {
@@ -51,6 +53,8 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
         tabView.selectTabViewItem(at: 0)
         
         UIUtils.showModalDialog(window!)
+        
+        return modalDialogResponse
     }
     
     private func resetPreferencesFields() {
@@ -85,11 +89,13 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate, ModalDi
         if (!saveFailed) {
             
             delegate.savePreferences(preferences)
+            modalDialogResponse = .ok
             UIUtils.dismissModalDialog()
         }
     }
     
     @IBAction func cancelPreferencesAction(_ sender: Any) {
+        modalDialogResponse = .cancel
         UIUtils.dismissModalDialog()
     }
 }

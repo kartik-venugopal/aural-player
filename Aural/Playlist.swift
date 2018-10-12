@@ -87,16 +87,16 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         return nil
     }
     
-    func insertGapForTrack(_ index: Int, _ gap: PlaybackGap) {
-        flatPlaylist.insertGapForTrack(index, gap)
+    func setGapsForTrack(_ track: Track, _ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?) {
+        flatPlaylist.setGapsForTrack(track, gapBeforeTrack, gapAfterTrack)
     }
     
-    func removeGapBeforeTrack(_ index: Int) {
-        flatPlaylist.removeGapBeforeTrack(index)
+    func removeGapsForTrack(_ track: Track) {
+        flatPlaylist.removeGapsForTrack(track)
     }
     
-    func removeGapAfterTrack(_ index: Int) {
-        flatPlaylist.removeGapAfterTrack(index)
+    func removeGapForTrack(_ track: Track, _ gapPosition: PlaybackGapPosition) {
+        flatPlaylist.removeGapForTrack(track, gapPosition)
     }
     
     func getGapBeforeTrack(_ track: Track) -> PlaybackGap? {

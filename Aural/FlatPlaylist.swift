@@ -172,23 +172,22 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         return removedTracks
     }
     
-    func insertGapForTrack(_ index: Int, _ gap: PlaybackGap) {
+    func setGapsForTrack(_ track: Track, _ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?) {
         
-        let track = tracks[index]
+        removeGapsForTrack(track)
         
-        if gap.position == .beforeTrack {
-            gapsBefore[track] = gap
-        } else {
-            gapsAfter[track] = gap
-        }
+        gapsBefore[track] = gapBeforeTrack
+        gapsAfter[track] = gapAfterTrack
     }
     
-    func removeGapBeforeTrack(_ index: Int) {
-        gapsBefore[tracks[index]] = nil
+    func removeGapsForTrack(_ track: Track) {
+        
+        gapsBefore.removeValue(forKey: track)
+        gapsAfter.removeValue(forKey: track)
     }
     
-    func removeGapAfterTrack(_ index: Int) {
-        gapsAfter[tracks[index]] = nil
+    func removeGapForTrack(_ track: Track, _ gapPosition: PlaybackGapPosition) {
+        _ = gapPosition == .beforeTrack ? gapsBefore.removeValue(forKey: track) : gapsAfter.removeValue(forKey: track)
     }
     
     func getGapBeforeTrack(_ track: Track) -> PlaybackGap? {

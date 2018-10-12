@@ -91,11 +91,11 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
      */
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> TrackRemovalResults
     
-    func insertGapForTrack(_ index: Int, _ gap: PlaybackGap)
+    func setGapsForTrack(_ track: Track, _ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?)
     
-    func removeGapBeforeTrack(_ index: Int)
+    func removeGapForTrack(_ track: Track, _ gapPosition: PlaybackGapPosition)
     
-    func removeGapAfterTrack(_ index: Int)
+    func removeGapsForTrack(_ track: Track)
     
     /*
         Moves the tracks at the specified indexes, up one index, in the flat playlist, if they can be moved (they are not already at the top). Returns mappings of source indexes to destination indexes, for all the tracks (for tracks that didn't move, the new index will match the old index)

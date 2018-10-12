@@ -48,11 +48,11 @@ protocol FlatPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     // Removes the specific tracks from the playlist. Returns the indexes of the removed tracks.
     func removeTracks(_ tracks: [Track]) -> IndexSet
     
-    func insertGapForTrack(_ index: Int, _ gap: PlaybackGap)
+    func setGapsForTrack(_ track: Track, _ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?)
     
-    func removeGapBeforeTrack(_ index: Int)
+    func removeGapsForTrack(_ track: Track)
     
-    func removeGapAfterTrack(_ index: Int)
+    func removeGapForTrack(_ track: Track, _ gapPosition: PlaybackGapPosition)
     
     /*
         Moves the tracks at the specified indexes, up one index, in the playlist, if they can be moved (they are not already at the top). 

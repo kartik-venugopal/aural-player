@@ -12,10 +12,9 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var playTrackMenuItem: NSMenuItem!
     
-    @IBOutlet weak var insertGapBeforeTrackMenuItem: NSMenuItem!
-    @IBOutlet weak var insertGapAfterTrackMenuItem: NSMenuItem!
-    @IBOutlet weak var removeGapBeforeTrackMenuItem: NSMenuItem!
-    @IBOutlet weak var removeGapAfterTrackMenuItem: NSMenuItem!
+    @IBOutlet weak var insertGapsMenuItem: NSMenuItem!
+    @IBOutlet weak var editGapsMenuItem: NSMenuItem!
+    @IBOutlet weak var removeGapsMenuItem: NSMenuItem!
     
     @IBOutlet weak var favoritesMenuItem: ToggleMenuItem!
     @IBOutlet weak var detailedInfoMenuItem: NSMenuItem!
@@ -67,6 +66,13 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         favoritesMenuItem.off()
     }
     
+    // Helper to determine the track represented by the clicked item
+    private func getClickedTrack() -> Track {
+        
+        let clickedItem = PlaylistViewContext.clickedItem
+        return clickedItem.type == .index ? playlist.trackAtIndex(clickedItem.index!)!.track : clickedItem.track!
+    }
+    
     // Sets up the menu items that need to be displayed, depending on what type of playlist item was clicked, and the current state of that item
     func menuNeedsUpdate(_ menu: NSMenu) {
         
@@ -81,14 +87,13 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             groupMenuItems.forEach({$0.isHidden = true})
             
             // Update the state of the favorites menu item (based on if the clicked track is already in the favorites list or not)
-            let track = clickedItem.type == .index ? playlist.trackAtIndex(clickedItem.index!)!.track : clickedItem.track!
+            let track = getClickedTrack()
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(track.file))
             
-            insertGapBeforeTrackMenuItem.isHidden = playlist.getGapBeforeTrack(track) != nil
-            insertGapAfterTrackMenuItem.isHidden = playlist.getGapAfterTrack(track) != nil
-            
-            removeGapBeforeTrackMenuItem.isHidden = playlist.getGapBeforeTrack(track) == nil
-            removeGapAfterTrackMenuItem.isHidden = playlist.getGapAfterTrack(track) == nil
+            let gaps = playlist.getGapsAroundTrack(track)
+            insertGapsMenuItem.isHidden = gaps.hasGaps
+            removeGapsMenuItem.isHidden = !gaps.hasGaps
+            editGapsMenuItem.isHidden = !gaps.hasGaps
             
         case .group:
             
@@ -103,48 +108,47 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.playSelectedItem, PlaylistViewState.current))
     }
     
-    @IBAction func insertGapBeforeTrackAction(_ sender: NSMenuItem) {
+    @IBAction func insertGapsAction(_ sender: NSMenuItem) {
         
         // Sender's tag is gap duration in seconds
-        let gapDuration = sender.tag
+        let track = getClickedTrack()
+        let tag = sender.tag
         
-        if gapDuration > 0 {
+        if tag != 0 {
          
-            let gap = PlaybackGap(Double(gapDuration), .beforeTrack)
-            SyncMessenger.publishActionMessage(InsertPlaybackGapActionMessage(getClickedTrack(), gap, PlaylistViewState.current))
+            // Negative tag value indicates .beforeTrack, positive value indicates .afterTrack
+            let gapPosn: PlaybackGapPosition = tag < 0 ? .beforeTrack: .afterTrack
+            let gap = PlaybackGap(Double(abs(tag)), gapPosn)
+            
+            let gapBefore = gapPosn == .beforeTrack ? gap : nil
+            let gapAfter = gapPosn == .afterTrack ? gap : nil
+            
+            SyncMessenger.publishActionMessage(InsertPlaybackGapsActionMessage(track, gapBefore, gapAfter, PlaylistViewState.current))
             
         } else {
             
             // Custom gap dialog
-            gapsEditor.setDataForKey("gapPosition", PlaybackGapPosition.beforeTrack)
-            gapsEditor.showDialog()
+            gapsEditor.setDataForKey("track", track)
+            gapsEditor.setDataForKey("gaps", nil)
+            
+            _ = gapsEditor.showDialog()
         }
     }
     
-    @IBAction func insertGapAfterTrackAction(_ sender: NSMenuItem) {
+    @IBAction func editGapsAction(_ sender: NSMenuItem) {
         
-        // Sender's tag is gap duration in seconds
-        let gapDuration = sender.tag
+        // Custom gap dialog
+        let track = getClickedTrack()
+        let gaps = playlist.getGapsAroundTrack(track)
         
-        if gapDuration > 0 {
-            
-            let gap = PlaybackGap(Double(gapDuration), .afterTrack)
-            SyncMessenger.publishActionMessage(InsertPlaybackGapActionMessage(getClickedTrack(), gap, PlaylistViewState.current))
-            
-        } else {
-            
-            // Custom gap dialog
-            gapsEditor.setDataForKey("gapPosition", PlaybackGapPosition.afterTrack)
-            gapsEditor.showDialog()
-        }
+        gapsEditor.setDataForKey("track", track)
+        gapsEditor.setDataForKey("gaps", gaps)
+        
+        _ = gapsEditor.showDialog()
     }
     
-    @IBAction func removeGapBeforeTrackAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(RemovePlaybackGapActionMessage(getClickedTrack(), .beforeTrack, PlaylistViewState.current))
-    }
-    
-    @IBAction func removeGapAfterTrackAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(RemovePlaybackGapActionMessage(getClickedTrack(), .afterTrack, PlaylistViewState.current))
+    @IBAction func removeGapsAction(_ sender: NSMenuItem) {
+        SyncMessenger.publishActionMessage(RemovePlaybackGapsActionMessage(getClickedTrack(), PlaylistViewState.current))
     }
     
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
@@ -180,13 +184,6 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         detailedInfoPopover.show(track, rowView, NSRectEdge.maxY)
         WindowState.mainWindow.makeKeyAndOrderFront(self)
-    }
-    
-    // Helper to determine the track represented by the clicked item
-    private func getClickedTrack() -> Track {
-        
-        let clickedItem = PlaylistViewContext.clickedItem
-        return clickedItem.type == .index ? playlist.trackAtIndex(clickedItem.index!)!.track : clickedItem.track!
     }
     
     // Helper to obtain the view for the selected playlist row (used to position popovers)

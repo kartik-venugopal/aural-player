@@ -35,6 +35,8 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
     // Current playlist search results
     private var searchResults: SearchResults?
     
+    private var modalDialogResponse: ModalDialogResponse = .ok
+    
     override var windowNibName: String? {return "PlaylistSearch"}
     
     override func windowDidLoad() {
@@ -43,11 +45,11 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
         SyncMessenger.subscribe(messageTypes: [.searchTextChangedNotification], subscriber: self)
     }
 
-    func showDialog() {
+    func showDialog() -> ModalDialogResponse {
         
         // Don't do anything if no tracks in playlist
         if (playlist.size() == 0) {
-            return
+            return .cancel
         }
         
         // Force loading of the window if it hasn't been loaded yet (only once)
@@ -62,6 +64,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
         self.window?.makeFirstResponder(searchField)
         
         UIUtils.showModalDialog(self.window!)
+        return modalDialogResponse
     }
     
     // Called when any of the search criteria have changed, performs a new search
@@ -122,6 +125,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
     }
     
     @IBAction func searchDoneAction(_ sender: Any) {
+        modalDialogResponse = .ok
         UIUtils.dismissModalDialog()
     }
     

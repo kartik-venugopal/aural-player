@@ -12,7 +12,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     private let playbackSequencer: PlaybackSequencerProtocol
     
     // The actual playlist
-    private let playlist: PlaylistAccessorProtocol
+    private let playlist: PlaylistCRUDProtocol
     
     private let history: HistoryProtocol
     
@@ -21,7 +21,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     private let trackPlaybackQueue: DispatchQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
     
-    init(_ player: PlayerProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ playlist: PlaylistAccessorProtocol, _ history: HistoryProtocol, _ preferences: PlaybackPreferences) {
+    init(_ player: PlayerProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ history: HistoryProtocol, _ preferences: PlaybackPreferences) {
         
         self.player = player
         self.playbackSequencer = playbackSequencer
@@ -205,7 +205,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             // Check for gap before track
             if let gapBeforeSubsequentTrack = playlist.getGapBeforeTrack(track!.track) {
                 
-                PlaybackGapContext.addGap(gapBeforeSubsequentTrack)
+                PlaybackGapContext.addGap(gapBeforeSubsequentTrack, track!)
                 
                 // The explicitly defined gap before the track takes precedence over the implicit gap defined by the playback preferences, so remove the implicit gap
                 PlaybackGapContext.removeImplicitGap()
@@ -241,6 +241,12 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
                             }
                         }
                     }
+                }
+                
+                // Check if those gaps were one-time gaps. If so, delete them
+                let oneTimeGaps = PlaybackGapContext.oneTimeGaps()
+                for gap in oneTimeGaps.keys {
+                    playlist.removeGapForTrack(oneTimeGaps[gap]!.track, gap.position)
                 }
                 
                 // Let observers know that a playback gap has begun
@@ -607,7 +613,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             // First, check for an explicit gap defined by the user (takes precedence over implicit gap defined by playback preferences)
             if let gapAfterCompletedTrack = playlist.getGapAfterTrack(oldTrack!.track) {
                 
-                PlaybackGapContext.addGap(gapAfterCompletedTrack)
+                PlaybackGapContext.addGap(gapAfterCompletedTrack, oldTrack!)
                 PlaybackGapContext.subsequentTrack = subsequentTrack
                 
             } else if preferences.gapBetweenTracks {
@@ -617,7 +623,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
                 let gapDuration = Double(preferences.gapBetweenTracksDuration)
                 let gap = PlaybackGap(gapDuration, .afterTrack, .implicit)
                 
-                PlaybackGapContext.addGap(gap)
+                PlaybackGapContext.addGap(gap, oldTrack!)
                 PlaybackGapContext.subsequentTrack = subsequentTrack
             }
             

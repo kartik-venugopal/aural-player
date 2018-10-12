@@ -1208,8 +1208,8 @@
 			children = (
 				3E850D5F1FB459230017CD02 /* Playlist.xib */,
 				3E850D621FB45BA90017CD02 /* PlaylistWindowController.swift */,
-				3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */,
 				3EF5E5C71FBDBE9C004270A4 /* PlaylistContextMenuController.swift */,
+				3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */,
 				3EF5E5C91FBE49B6004270A4 /* AuralPlaylistViews.swift */,
 				3EF5E5CB1FBE55D2004270A4 /* PlaylistViewContext.swift */,
 				3EF5E5B21FBDA374004270A4 /* TracksPlaylist */,

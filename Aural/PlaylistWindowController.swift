@@ -287,12 +287,12 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     // Presents the search modal dialog to allow the user to search for playlist tracks
     @IBAction func searchAction(_ sender: AnyObject) {
-        playlistSearchDialog.showDialog()
+        _ = playlistSearchDialog.showDialog()
     }
     
     // Presents the sort modal dialog to allow the user to sort playlist tracks
     @IBAction func sortAction(_ sender: AnyObject) {
-        playlistSortDialog.showDialog()
+        _ = playlistSortDialog.showDialog()
     }
     
     // MARK: Playlist window actions
