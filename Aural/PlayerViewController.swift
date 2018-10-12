@@ -467,7 +467,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func trackChanged(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
         btnPlayPause.onIf(player.getPlaybackState() == .playing)
-        SyncMessenger.publishNotification(TrackChangedNotification(oldTrack, newTrack, errorState))
         
         if (player.getPlaybackLoop()) != nil {
             btnLoop.switchState(LoopState.complete)
@@ -542,7 +541,9 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
         case .trackChanged:
             
-            trackChanged(message as! TrackChangedAsyncMessage)
+            let msg = message as! TrackChangedAsyncMessage
+            trackChanged(msg)
+            SyncMessenger.publishNotification(TrackChangedNotification(msg.oldTrack, msg.newTrack, false))
             
         case .trackNotPlayed:
             

@@ -211,6 +211,10 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         
         // Non-nil result indicates success
         if let result = playlist.addTrack(track) {
+            
+            // Add gaps around this track (persistent ones)
+            let gapsForTrack = playlistState.getGapsForTrack(track)
+            playlist.setGapsForTrack(track, convertGapStateToGap(gapsForTrack.gapBeforeTrack), convertGapStateToGap(gapsForTrack.gapAfterTrack))
 
             // Inform the UI of the new track
             AsyncMessenger.publishMessage(TrackAddedAsyncMessage.fromTrackAddResult(result, progress))
@@ -226,6 +230,15 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         }
         
         return nil
+    }
+    
+    private func convertGapStateToGap(_ gapState: PlaybackGapState?) -> PlaybackGap? {
+        
+        if gapState == nil {
+            return nil
+        }
+        
+        return PlaybackGap(gapState!.duration, gapState!.position, gapState!.type)
     }
     
     // Performs autoplay, by delegating a playback request to the player

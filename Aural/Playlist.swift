@@ -190,8 +190,37 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         
         let state = PlaylistState()
         let tracks = allTracks()
+        let gaps = flatPlaylist.getAllGaps()
         
         tracks.forEach({state.tracks.append($0.file)})
+        
+        gaps.gapsBeforeTracks.forEach({
+            
+            if $0.value.type == .persistent {
+                
+                let gapState = PlaybackGapState()
+                gapState.track = $0.key.file
+                gapState.duration = $0.value.duration
+                gapState.position = $0.value.position
+                gapState.type = $0.value.type
+                
+                state.gaps.append(gapState)
+            }
+        })
+        
+        gaps.gapsAfterTracks.forEach({
+            
+            if $0.value.type == .persistent {
+                
+                let gapState = PlaybackGapState()
+                gapState.track = $0.key.file
+                gapState.duration = $0.value.duration
+                gapState.position = $0.value.position
+                gapState.type = $0.value.type
+                
+                state.gaps.append(gapState)
+            }
+        })
         
         return state
     }

@@ -10,7 +10,7 @@ class PlaybackGap {
     var type: PlaybackGapType
     
     convenience init(_ duration: Double, _ position: PlaybackGapPosition) {
-        self.init(duration, position, .tillAppExits)
+        self.init(duration, position, .persistent)
     }
     
     init(_ duration: Double, _ position: PlaybackGapPosition, _ type: PlaybackGapType) {
@@ -23,13 +23,13 @@ class PlaybackGap {
     }
 }
 
-enum PlaybackGapPosition {
+enum PlaybackGapPosition: String {
     
     case beforeTrack
     case afterTrack
 }
 
-enum PlaybackGapType {
+enum PlaybackGapType: String {
     
     // Explicit gap types as defined by the user per-track (i.e. applies to a single playlist track)
     case oneTime

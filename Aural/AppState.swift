@@ -1180,6 +1180,13 @@ class PlaylistState: PersistentState {
     
     // List of track files
     var tracks: [URL] = [URL]()
+    var gaps: [PlaybackGapState] = []
+    private var gapsBeforeMap: [URL: PlaybackGapState] = [:]
+    private var gapsAfterMap: [URL: PlaybackGapState] = [:]
+    
+    func getGapsForTrack(_ track: Track) -> (gapBeforeTrack: PlaybackGapState?, gapAfterTrack: PlaybackGapState?) {
+        return (gapsBeforeMap[track.file], gapsAfterMap[track.file])
+    }
     
     func toSerializableMap() -> NSDictionary {
         
@@ -1188,6 +1195,12 @@ class PlaylistState: PersistentState {
         var tracksArr = [String]()
         tracks.forEach({tracksArr.append($0.path)})
         map["tracks"] = NSArray(array: tracksArr)
+        
+        var gapsArr = [NSDictionary]()
+        gaps.forEach({
+            gapsArr.append($0.toSerializableMap())
+        })
+        map["gaps"] = NSArray(array: gapsArr)
         
         return map as NSDictionary
     }
@@ -1198,6 +1211,72 @@ class PlaylistState: PersistentState {
         
         if let tracks = map["tracks"] as? [String] {
             tracks.forEach({state.tracks.append(URL(fileURLWithPath: $0))})
+        }
+        
+        if let gaps = map["gaps"] as? [NSDictionary] {
+            
+            gaps.forEach({
+                
+                let gap = PlaybackGapState.deserialize($0) as! PlaybackGapState
+                
+                if gap.position == .beforeTrack {
+                    state.gapsBeforeMap[gap.track!] = gap
+                } else {
+                    state.gapsAfterMap[gap.track!] = gap
+                }
+                
+                state.gaps.append(gap)
+            })
+        }
+        
+        return state
+    }
+}
+
+class PlaybackGapState: PersistentState {
+    
+    var track: URL?
+    
+    var duration: Double = AppDefaults.playbackGapDuration
+    var position: PlaybackGapPosition = AppDefaults.playbackGapPosition
+    var type: PlaybackGapType = AppDefaults.playbackGapType
+    
+    func toSerializableMap() -> NSDictionary {
+        
+        var map = [NSString: AnyObject]()
+        
+        map["track"] = track!.path as AnyObject
+        map["duration"] = duration as NSNumber
+        map["position"] = position.rawValue as AnyObject
+        map["type"] = type.rawValue as AnyObject
+        
+        return map as NSDictionary
+    }
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state = PlaybackGapState()
+        
+        if let trackStr = map["track"] as? String {
+            state.track = URL(fileURLWithPath: trackStr)
+        }
+        
+        if let duration = map["duration"] as? NSNumber {
+            state.duration = duration.doubleValue
+        }
+        
+        if let positionStr = map["position"] as? String {
+            
+            if let position = PlaybackGapPosition(rawValue: positionStr) {
+                state.position = position
+            }
+        }
+        
+        if let typeStr = map["type"] as? String {
+            
+            if let type = PlaybackGapType(rawValue: typeStr) {
+                state.type = type
+            }
         }
         
         return state
