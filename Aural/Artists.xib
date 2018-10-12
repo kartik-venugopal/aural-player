@@ -44,63 +44,51 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="2sG-bh-Fjg" userLabel="Artist Cell View" customClass="GroupedTrackNameCellView" customModule="Aural" customModuleProvider="target">
+                                            <tableCellView focusRingType="none" id="SmH-XT-UUI" customClass="GroupedTrackNameCellView" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="1" y="1" width="372" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zdh-fe-bsi" userLabel="Icon">
-                                                        <rect key="frame" x="3" y="20" width="16" height="18"/>
+                                                    <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GWB-bk-VCY" userLabel="Gap Before">
+                                                        <rect key="frame" x="0.0" y="40" width="372" height="18"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="16" id="ejO-Hk-SoJ"/>
-                                                            <constraint firstAttribute="height" constant="18" id="x8E-gK-KLx"/>
+                                                            <constraint firstAttribute="height" constant="18" id="Yyx-R8-whg"/>
                                                         </constraints>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="icE-vi-FVa"/>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="a7U-eT-gHT"/>
                                                     </imageView>
-                                                    <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="goA-MZ-gAK" userLabel="Gap After">
-                                                        <rect key="frame" x="24" y="0.0" width="348" height="18"/>
+                                                    <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vby-YG-uyp" userLabel="Gap After">
+                                                        <rect key="frame" x="0.0" y="0.0" width="372" height="18"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="18" id="OaH-35-wqH"/>
-                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="fn5-og-EZ3"/>
+                                                            <constraint firstAttribute="height" constant="18" id="53a-wl-lQN"/>
                                                         </constraints>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="2KX-X6-KQB"/>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="Z1u-Zg-l3v"/>
                                                     </imageView>
-                                                    <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nYd-f8-aTu" userLabel="Gap Before">
-                                                        <rect key="frame" x="24" y="40" width="348" height="18"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="aJe-Bl-Fbk" userLabel="Track Name">
+                                                        <rect key="frame" x="-2" y="18" width="376" height="22"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="18" id="coy-a9-e0R"/>
-                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="zKt-9f-ePC"/>
+                                                            <constraint firstAttribute="height" constant="22" id="zUk-G2-dv9"/>
                                                         </constraints>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="qtt-6c-j2z"/>
-                                                    </imageView>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aie-vf-uX4" userLabel="Artist Name">
-                                                        <rect key="frame" x="22" y="18" width="352" height="22"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="22" id="M0i-BC-yM7"/>
-                                                        </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="tyA-u9-5ub">
-                                                            <font key="font" metaFont="system"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="Kf3-ll-mev">
+                                                            <font key="font" size="13" name="GillSans-Light"/>
+                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         </textFieldCell>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="Zdh-fe-bsi" firstAttribute="centerY" secondItem="aie-vf-uX4" secondAttribute="centerY" id="6uZ-My-g0B"/>
-                                                    <constraint firstItem="goA-MZ-gAK" firstAttribute="top" secondItem="aie-vf-uX4" secondAttribute="bottom" id="8Ws-OP-Elg"/>
-                                                    <constraint firstItem="aie-vf-uX4" firstAttribute="leading" secondItem="nYd-f8-aTu" secondAttribute="leading" id="DSt-vS-XEu"/>
-                                                    <constraint firstItem="Zdh-fe-bsi" firstAttribute="leading" secondItem="2sG-bh-Fjg" secondAttribute="leading" constant="3" id="Fc4-uK-uX8"/>
-                                                    <constraint firstItem="nYd-f8-aTu" firstAttribute="top" secondItem="2sG-bh-Fjg" secondAttribute="top" id="IQw-cg-Zdb"/>
-                                                    <constraint firstAttribute="bottom" secondItem="goA-MZ-gAK" secondAttribute="bottom" id="WEz-22-BTt"/>
-                                                    <constraint firstItem="aie-vf-uX4" firstAttribute="trailing" secondItem="nYd-f8-aTu" secondAttribute="trailing" id="eZN-VQ-mBY"/>
-                                                    <constraint firstItem="goA-MZ-gAK" firstAttribute="trailing" secondItem="aie-vf-uX4" secondAttribute="trailing" id="rzP-UJ-esA"/>
-                                                    <constraint firstItem="aie-vf-uX4" firstAttribute="leading" secondItem="Zdh-fe-bsi" secondAttribute="trailing" constant="5" id="t08-2a-91w"/>
-                                                    <constraint firstItem="goA-MZ-gAK" firstAttribute="leading" secondItem="aie-vf-uX4" secondAttribute="leading" id="xbU-R5-kNn"/>
-                                                    <constraint firstItem="aie-vf-uX4" firstAttribute="top" secondItem="nYd-f8-aTu" secondAttribute="bottom" id="yeU-B8-lRt"/>
-                                                    <constraint firstAttribute="trailing" secondItem="aie-vf-uX4" secondAttribute="trailing" id="zNb-1G-M0s"/>
+                                                    <constraint firstItem="GWB-bk-VCY" firstAttribute="leading" secondItem="aJe-Bl-Fbk" secondAttribute="leading" id="08y-ky-rR0"/>
+                                                    <constraint firstItem="vby-YG-uyp" firstAttribute="trailing" secondItem="GWB-bk-VCY" secondAttribute="trailing" id="GQE-8L-9pe"/>
+                                                    <constraint firstItem="vby-YG-uyp" firstAttribute="bottom" secondItem="SmH-XT-UUI" secondAttribute="bottom" id="I4F-iJ-ZRI"/>
+                                                    <constraint firstItem="aJe-Bl-Fbk" firstAttribute="leading" secondItem="SmH-XT-UUI" secondAttribute="leading" id="Lca-Va-9De"/>
+                                                    <constraint firstAttribute="trailing" secondItem="aJe-Bl-Fbk" secondAttribute="trailing" id="Z7e-sW-eKW"/>
+                                                    <constraint firstItem="vby-YG-uyp" firstAttribute="trailing" secondItem="aJe-Bl-Fbk" secondAttribute="trailing" id="ZVs-ZR-UeK"/>
+                                                    <constraint firstItem="vby-YG-uyp" firstAttribute="leading" secondItem="aJe-Bl-Fbk" secondAttribute="leading" id="dKc-vP-21c"/>
+                                                    <constraint firstItem="aJe-Bl-Fbk" firstAttribute="centerY" secondItem="SmH-XT-UUI" secondAttribute="centerY" id="ma7-YQ-pHW"/>
+                                                    <constraint firstItem="GWB-bk-VCY" firstAttribute="top" secondItem="SmH-XT-UUI" secondAttribute="top" id="ypf-qd-yYs"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="imageView" destination="Zdh-fe-bsi" id="iCU-CY-Eh2"/>
-                                                    <outlet property="textField" destination="aie-vf-uX4" id="PEe-91-PaQ"/>
+                                                    <outlet property="gapAfterImg" destination="vby-YG-uyp" id="QZs-Bb-j7H"/>
+                                                    <outlet property="gapBeforeImg" destination="GWB-bk-VCY" id="6gs-nj-yrI"/>
+                                                    <outlet property="textField" destination="aJe-Bl-Fbk" id="QiW-KS-ETt"/>
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
