@@ -40,10 +40,13 @@
             <connections>
                 <outlet property="clearPlaylistMenuItem" destination="ec2-Jm-I4M" id="EHN-Pi-SW4"/>
                 <outlet property="cropSelectionMenuItem" destination="yml-EW-5wq" id="bpz-aE-Smf"/>
+                <outlet property="editGapsMenuItem" destination="y39-3c-GVk" id="H1v-4Z-ze8"/>
+                <outlet property="insertGapsMenuItem" destination="9iu-he-pRn" id="IS7-Q2-4Hw"/>
                 <outlet property="invertSelectionMenuItem" destination="y60-Ih-ViK" id="7jl-OV-pOp"/>
                 <outlet property="moveItemsDownMenuItem" destination="F5x-Nm-ust" id="cAv-w8-JMV"/>
                 <outlet property="moveItemsUpMenuItem" destination="f3c-TG-M9r" id="tFc-fV-deZ"/>
                 <outlet property="playSelectedItemMenuItem" destination="afl-Xm-nI9" id="RnQ-Qj-phc"/>
+                <outlet property="removeGapsMenuItem" destination="iK1-11-rDP" id="Rvs-NL-PET"/>
                 <outlet property="removeSelectedItemsMenuItem" destination="20j-6Y-sbB" id="1Tx-Bh-Msu"/>
                 <outlet property="savePlaylistMenuItem" destination="Cvk-m8-oAg" id="G6F-eB-XFB"/>
                 <outlet property="scrollToBottomMenuItem" destination="c6s-9I-Btt" id="o2i-bn-R36"/>
@@ -278,6 +281,82 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="removeSelectedItemsAction:" target="sXT-Pr-clR" id="BhW-E1-Pey"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="15x-8w-Stx"/>
+                            <menuItem title="  Insert silent gaps around selected track" id="9iu-he-pRn" userLabel="Insert gaps">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="  Insert silent gaps around selected track" id="Lrd-d0-88m">
+                                    <items>
+                                        <menuItem title="5 seconds before track" tag="-5" id="gJ6-BW-gp0">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="insertGapsAction:" target="sXT-Pr-clR" id="Q8s-eh-i0M"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="10 seconds before track" tag="-10" id="npX-0Z-nfR">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="insertGapsAction:" target="sXT-Pr-clR" id="WRp-ca-u4q"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="30 seconds before track" tag="-30" id="M5y-hJ-Rs8">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="insertGapsAction:" target="sXT-Pr-clR" id="N80-Ek-Vw1"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="60 seconds before track" tag="-60" id="SnN-Nc-MXY">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="insertGapsAction:" target="sXT-Pr-clR" id="1fH-Ii-jyn"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="2EW-Dy-ct5"/>
+                                        <menuItem title="5 seconds after track" tag="5" id="nql-Yw-ixc">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="insertGapsAction:" target="sXT-Pr-clR" id="SpT-WU-l8S"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="10 seconds after track" tag="10" id="qU3-qF-oPq">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="insertGapsAction:" target="sXT-Pr-clR" id="zzl-m4-kVK"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="30 seconds after track" tag="30" id="dUl-J5-mT5">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="insertGapsAction:" target="sXT-Pr-clR" id="sUw-8A-JvM"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="60 seconds after track" tag="60" id="BKF-Pm-Xmo">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="insertGapsAction:" target="sXT-Pr-clR" id="YfF-dA-NZe"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="tfi-qc-dAY"/>
+                                        <menuItem title="Custom" id="xag-u9-6nG">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="insertGapsAction:" target="sXT-Pr-clR" id="YrH-9k-Eqr"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="  Edit silent gaps around selected track" id="y39-3c-GVk" userLabel="Edit gaps">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="editGapsAction:" target="sXT-Pr-clR" id="lQn-m4-OVn"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Remove silent gaps around selected track" id="iK1-11-rDP" userLabel="Remove gaps">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="removeGapsAction:" target="sXT-Pr-clR" id="4rn-ui-ejH"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="bMd-aB-U0o"/>

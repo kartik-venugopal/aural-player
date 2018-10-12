@@ -14,6 +14,10 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var moveItemsDownMenuItem: NSMenuItem!
     @IBOutlet weak var removeSelectedItemsMenuItem: NSMenuItem!
     
+    @IBOutlet weak var insertGapsMenuItem: NSMenuItem!
+    @IBOutlet weak var editGapsMenuItem: NSMenuItem!
+    @IBOutlet weak var removeGapsMenuItem: NSMenuItem!
+    
     @IBOutlet weak var invertSelectionMenuItem: NSMenuItem!
     @IBOutlet weak var cropSelectionMenuItem: NSMenuItem!
     
@@ -30,6 +34,8 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     private lazy var layoutManager: LayoutManager = ObjectGraph.getLayoutManager()
+    
+    private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.getGapsEditorDialog()
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
@@ -48,6 +54,38 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         // At least 2 tracks needed for these functions, and at least one track selected
         cropSelectionMenuItem.isEnabled = layoutManager.isShowingPlaylist() && playlist.size() > 1 && PlaylistViewState.currentView.selectedRow >= 0
+        
+        if PlaylistViewState.currentView.selectedRowIndexes.count == 1 {
+            
+            if let track = selectedTrack() {
+                
+                let gaps = playlist.getGapsAroundTrack(track)
+                insertGapsMenuItem.isHidden = gaps.hasGaps
+                removeGapsMenuItem.isHidden = !gaps.hasGaps
+                editGapsMenuItem.isHidden = !gaps.hasGaps
+                
+            } else {
+                
+                [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.isHidden = true})
+            }
+            
+        } else {
+            
+            [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.isHidden = true})
+        }
+    }
+
+    private func selectedTrack() -> Track? {
+        
+        let selRow = PlaylistViewState.currentView.selectedRow
+        
+        if selRow >= 0 {
+            
+            let track = playlist.trackAtIndex(selRow)
+            return track!.track
+        }
+        
+        return nil
     }
     
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist
@@ -81,6 +119,46 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsDownAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current))
         sequenceChanged()
+    }
+    
+    @IBAction func insertGapsAction(_ sender: NSMenuItem) {
+        
+        // Sender's tag is gap duration in seconds
+        let tag = sender.tag
+        
+        if tag != 0 {
+            
+            // Negative tag value indicates .beforeTrack, positive value indicates .afterTrack
+            let gapPosn: PlaybackGapPosition = tag < 0 ? .beforeTrack: .afterTrack
+            let gap = PlaybackGap(Double(abs(tag)), gapPosn)
+            
+            let gapBefore = gapPosn == .beforeTrack ? gap : nil
+            let gapAfter = gapPosn == .afterTrack ? gap : nil
+            
+            SyncMessenger.publishActionMessage(InsertPlaybackGapsActionMessage(gapBefore, gapAfter, PlaylistViewState.current))
+            
+        } else {
+            
+            // Custom gap dialog
+            gapsEditor.setDataForKey("track", selectedTrack()!)
+            gapsEditor.setDataForKey("gaps", nil)
+            
+            _ = gapsEditor.showDialog()
+        }
+    }
+    
+    @IBAction func editGapsAction(_ sender: NSMenuItem) {
+        
+        // Custom gap dialog
+        let gaps = playlist.getGapsAroundTrack(selectedTrack()!)
+        
+        gapsEditor.setDataForKey("gaps", gaps)
+        
+        _ = gapsEditor.showDialog()
+    }
+    
+    @IBAction func removeGapsAction(_ sender: NSMenuItem) {
+        SyncMessenger.publishActionMessage(RemovePlaybackGapsActionMessage(PlaylistViewState.current))
     }
     
     // Presents the search modal dialog to allow the user to search for playlist tracks

@@ -416,14 +416,12 @@ struct InsertPlaybackGapsActionMessage: ActionMessage {
     
     let actionType: ActionType = .insertGaps
     
-    let track: Track
     let gapBeforeTrack: PlaybackGap?
     let gapAfterTrack: PlaybackGap?
     let playlistType: PlaylistType?
     
-    init(_ track: Track, _ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?, _ playlistType: PlaylistType?) {
+    init(_ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?, _ playlistType: PlaylistType?) {
         
-        self.track = track
         self.gapBeforeTrack = gapBeforeTrack
         self.gapAfterTrack = gapAfterTrack
         self.playlistType = playlistType
@@ -434,11 +432,9 @@ struct RemovePlaybackGapsActionMessage: ActionMessage {
     
     let actionType: ActionType = .removeGaps
     
-    let track: Track
     let playlistType: PlaylistType?
     
-    init(_ track: Track, _ playlistType: PlaylistType?) {
-        self.track = track
+    init(_ playlistType: PlaylistType?) {
         self.playlistType = playlistType
     }
 }

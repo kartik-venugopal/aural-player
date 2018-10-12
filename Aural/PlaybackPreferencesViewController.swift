@@ -69,7 +69,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let primarySeekLength = playbackPrefs.primarySeekLengthConstant
         primarySeekLengthSlider.integerValue = primarySeekLength
-        lblPrimarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(primarySeekLength)
+        lblPrimarySeekLength.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(primarySeekLength)
         
         let primarySeekLengthPerc = playbackPrefs.primarySeekLengthPercentage
         primarySeekLengthPercStepper.integerValue = primarySeekLengthPerc
@@ -88,7 +88,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let secondarySeekLength = playbackPrefs.secondarySeekLengthConstant
         secondarySeekLengthSlider.integerValue = secondarySeekLength
-        lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(secondarySeekLength)
+        lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(secondarySeekLength)
         
         let secondarySeekLengthPerc = playbackPrefs.secondarySeekLengthPercentage
         secondarySeekLengthPercStepper.integerValue = secondarySeekLengthPerc
@@ -149,18 +149,18 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     }
     
     @IBAction func primarySeekLengthAction(_ sender: Any) {
-        lblPrimarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(primarySeekLengthSlider.integerValue)
+        lblPrimarySeekLength.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(primarySeekLengthSlider.integerValue)
     }
     
     @IBAction func secondarySeekLengthAction(_ sender: Any) {
-        lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(secondarySeekLengthSlider.integerValue)
+        lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(secondarySeekLengthSlider.integerValue)
     }
     
     @IBAction func primarySeekLengthIncrementAction(_ sender: Any) {
         
         if (Double(primarySeekLengthSlider.integerValue) < primarySeekLengthSlider.maxValue) {
             primarySeekLengthSlider.integerValue += 1
-            lblPrimarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(primarySeekLengthSlider.integerValue)
+            lblPrimarySeekLength.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(primarySeekLengthSlider.integerValue)
         }
     }
     
@@ -168,7 +168,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         if (Double(secondarySeekLengthSlider.integerValue) < secondarySeekLengthSlider.maxValue) {
             secondarySeekLengthSlider.integerValue += 1
-            lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(secondarySeekLengthSlider.integerValue)
+            lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(secondarySeekLengthSlider.integerValue)
         }
     }
     
@@ -176,7 +176,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         if (Double(primarySeekLengthSlider.integerValue) > primarySeekLengthSlider.minValue) {
             primarySeekLengthSlider.integerValue -= 1
-            lblPrimarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(primarySeekLengthSlider.integerValue)
+            lblPrimarySeekLength.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(primarySeekLengthSlider.integerValue)
         }
     }
     
@@ -184,7 +184,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         if (Double(secondarySeekLengthSlider.integerValue) > secondarySeekLengthSlider.minValue) {
             secondarySeekLengthSlider.integerValue -= 1
-            lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_minSec(secondarySeekLengthSlider.integerValue)
+            lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(secondarySeekLengthSlider.integerValue)
         }
     }
     
