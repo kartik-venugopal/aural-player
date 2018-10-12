@@ -56,7 +56,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.subscribe(messageTypes: [.trackAddedNotification, .trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -65,7 +65,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.unsubscribe(messageTypes: [.trackAddedNotification, .trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -515,6 +515,28 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         FileSystemUtils.showFileInFinder(selTrack.file)
     }
     
+    private func insertGap(_ gapBefore: PlaybackGap?, _ gapAfter: PlaybackGap?) {
+        
+        let selTrack = playlistView.item(atRow: playlistView.selectedRow) as! Track
+        playlist.setGapsForTrack(selTrack, gapBefore, gapAfter)
+        
+        refreshSelectedRow()
+    }
+    
+    private func removeGaps() {
+        
+        let selTrack = playlistView.item(atRow: playlistView.selectedRow) as! Track
+        playlist.removeGapsForTrack(selTrack)
+
+        refreshSelectedRow()
+    }
+    
+    private func refreshSelectedRow() {
+        
+        playlistView.reloadData(forRowIndexes: IndexSet([playlistView.selectedRow]), columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
+        playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([playlistView.selectedRow]))
+    }
+    
     func getID() -> String {
         return String(format: "%@-%@", self.className, String(describing: self.groupType))
     }
@@ -573,61 +595,81 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     func consumeMessage(_ message: ActionMessage) {
         
-        let msg = message as! PlaylistActionMessage
+        if let msg = message as? PlaylistActionMessage {
+            
+            // Check if this message is intended for this playlist view
+            if (msg.playlistType != nil && msg.playlistType != self.playlistType) {
+                return
+            }
+            
+            switch (msg.actionType) {
+                
+            case .refresh:
+                
+                refresh()
+                
+            case .removeTracks:
+                
+                removeTracks()
+                
+            case .showPlayingTrack:
+                
+                showPlayingTrack()
+                
+            case .playSelectedItem:
+                
+                playSelectedItemAction(self)
+                
+            case .moveTracksUp:
+                
+                moveTracksUp()
+                
+            case .moveTracksDown:
+                
+                moveTracksDown()
+                
+            case .scrollToTop:
+                
+                scrollToTop()
+                
+            case .scrollToBottom:
+                
+                scrollToBottom()
+                
+            case .showTrackInFinder:
+                
+                showTrackInFinder()
+                
+            case .invertSelection:
+                
+                invertSelection()
+                
+            case .cropSelection:
+                
+                cropSelection()
+                
+            default: return
+                
+            }
+        }
         
-        // Check if this message is intended for this playlist view
-        if (msg.playlistType != nil && msg.playlistType != self.playlistType) {
+        if let insertGapsMsg = message as? InsertPlaybackGapsActionMessage {
+            
+            // Check if this message is intended for this playlist view
+            if (insertGapsMsg.playlistType == nil || insertGapsMsg.playlistType == self.playlistType) {
+                insertGap(insertGapsMsg.gapBeforeTrack, insertGapsMsg.gapAfterTrack)
+            }
+            
             return
         }
         
-        switch (msg.actionType) {
+        if let removeGapMsg = message as? RemovePlaybackGapsActionMessage {
             
-        case .refresh:
+            if removeGapMsg.playlistType == nil || removeGapMsg.playlistType == self.playlistType {
+                removeGaps()
+            }
             
-            refresh()
-            
-        case .removeTracks:
-            
-            removeTracks()
-            
-        case .showPlayingTrack:
-            
-            showPlayingTrack()
-            
-        case .playSelectedItem:
-            
-            playSelectedItemAction(self)
-            
-        case .moveTracksUp:
-            
-            moveTracksUp()
-            
-        case .moveTracksDown:
-            
-            moveTracksDown()
-            
-        case .scrollToTop:
-            
-            scrollToTop()
-            
-        case .scrollToBottom:
-            
-            scrollToBottom()
-            
-        case .showTrackInFinder:
-            
-            showTrackInFinder()
-            
-        case .invertSelection:
-            
-            invertSelection()
-            
-        case .cropSelection:
-            
-            cropSelection()
-            
-        default: return
-            
+            return
         }
     }
 }

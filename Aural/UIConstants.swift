@@ -16,7 +16,7 @@ struct UIConstants {
     
     // Index set used to reload specific playlist rows
     static let flatPlaylistViewColumnIndexes: IndexSet = IndexSet([0, 1, 2])
-    static let groupingPlaylistViewColumnIndexes: IndexSet = IndexSet([0, 1])
+    static let groupingPlaylistViewColumnIndexes: IndexSet = IndexSet([0])
     
     static let bookmarkNameColumnID: String = "cid_BookmarkName"
     static let bookmarkTrackColumnID: String = "cid_BookmarkTrack"
