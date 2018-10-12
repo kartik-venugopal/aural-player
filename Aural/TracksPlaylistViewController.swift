@@ -185,8 +185,16 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
          */
         if (numRows > 1 && selRows.count > 0 && selRows.count < numRows) {
             
-            moveItems(playlist.moveTracksDown(selRows))
-            playlistView.scrollRowToVisible(selRows.min()!)
+            let lastIndex = playlistView.numberOfRows - 1
+            
+            playlist.moveTracksToBottom(selRows)
+            playlistView.reloadData(forRowIndexes: IndexSet(integersIn: selRows.min()!...lastIndex), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            
+            // Select all the same items but now at the bottom
+            playlistView.scrollRowToVisible(lastIndex)
+            
+            let firstSel = lastIndex - selRows.count + 1
+            playlistView.selectRowIndexes(IndexSet(firstSel...lastIndex), byExtendingSelection: false)
         }
     }
     

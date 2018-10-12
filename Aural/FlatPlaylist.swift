@@ -226,6 +226,21 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         }
     }
     
+    func moveTracksToBottom(_ indexes: IndexSet) {
+        
+        var tracksMoved: Int = 0
+        let sortedIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
+        
+        for index in sortedIndexes {
+            
+            // Remove from original location and insert at top, one after another, below the previous one
+            let track = tracks.remove(at: index)
+            tracks.insert(track, at: tracks.endIndex - tracksMoved)
+            
+            tracksMoved += 1
+        }
+    }
+    
     // Assume track can be moved
     private func moveTrackDown(_ index: Int) -> Int {
         

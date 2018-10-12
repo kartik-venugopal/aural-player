@@ -76,6 +76,8 @@ protocol FlatPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
      */
     func moveTracksDown(_ indexes: IndexSet) -> ItemMoveResults
     
+    func moveTracksToBottom(_ indexes: IndexSet)
+    
     /*
         Performs a drag and drop reordering operation on the playlist, from a set of source indexes to a destination drop index (either on or above the drop index). 
      
