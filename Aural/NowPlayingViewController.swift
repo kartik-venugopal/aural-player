@@ -21,7 +21,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     // Fields that display/control seek position within the playing track
     @IBOutlet weak var lblTimeElapsed: NSTextField!
-    @IBOutlet weak var lblTimeRemaining: NSTextField!
+    @IBOutlet weak var lblTimeRemainingOrDuration: NSTextField!
     
     // Fields that display information about the current playback scope
     @IBOutlet weak var lblSequenceProgress: NSTextField!
@@ -70,6 +70,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Popup view that displays a brief notification when the currently playing track is added/removed to/from the Favorites list
     private lazy var favoritesPopup: FavoritesPopupProtocol = ViewFactory.getFavoritesPopup()
     
+    private let appState: NowPlayingState = ObjectGraph.getAppState().uiState.nowPlayingState
+    
     override var nibName: String? {return "NowPlaying"}
     
     override func viewDidLoad() {
@@ -110,6 +112,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     private func initControls() {
         
+        NowPlayingViewState.showDuration = appState.showDuration
+        
         nowPlayingView.isHidden = false
         gapView.isHidden = true
         
@@ -125,8 +129,13 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         }, queue: DispatchQueue.main)
         
+        // TODO: Can't this be done in Interface Builder ???
         lblTrackName.font = Fonts.regularModeTrackNameTextFont
         lblTrackName.alignment = NSTextAlignment.center
+        
+        // Allow clicks on the time remaining label to switch to  track duration display
+        let gestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTrackTimeDisplayAction(_:)))
+        lblTimeRemainingOrDuration.addGestureRecognizer(gestureRecognizer)
     }
     
     private func initSubscriptions() {
@@ -217,6 +226,11 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         }
     }
     
+    @IBAction func switchTrackTimeDisplayAction(_ sender: Any) {
+        NowPlayingViewState.showDuration = !NowPlayingViewState.showDuration
+        updateSeekPosition()
+    }
+    
     private func showNowPlayingInfo(_ track: Track) {
         
         var artistAndTitleAvailable: Bool = false
@@ -302,7 +316,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         seekSlider.floatValue = 0
         lblTimeElapsed.isHidden = true
-        lblTimeRemaining.isHidden = true
+        lblTimeRemainingOrDuration.isHidden = true
         setSeekTimerState(false)
         seekSlider.isEnabled = false
         
@@ -330,13 +344,13 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration)
         
         lblTimeElapsed.stringValue = trackTimes.elapsed
-        lblTimeRemaining.stringValue = trackTimes.remaining
+        lblTimeRemainingOrDuration.stringValue = NowPlayingViewState.showDuration ? StringUtils.formatSecondsToHMS(seekPosn.trackDuration) : trackTimes.remaining
     }
     
     private func initSeekPosition() {
         
         lblTimeElapsed.isHidden = false
-        lblTimeRemaining.isHidden = false
+        lblTimeRemainingOrDuration.isHidden = false
         updateSeekPosition()
     }
     
@@ -344,10 +358,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     private func resetSeekPosition(_ track: Track) {
         
         lblTimeElapsed.stringValue = Strings.zeroDurationString
-        lblTimeRemaining.stringValue = StringUtils.formatSecondsToHMS(track.duration, true)
+        lblTimeRemainingOrDuration.stringValue = NowPlayingViewState.showDuration ? StringUtils.formatSecondsToHMS(track.duration) : StringUtils.formatSecondsToHMS(track.duration, true)
         
         lblTimeElapsed.isHidden = false
-        lblTimeRemaining.isHidden = false
+        lblTimeRemainingOrDuration.isHidden = false
         
         seekSlider.floatValue = 0
     }
@@ -646,4 +660,18 @@ fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [Stri
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
 	return input.rawValue
+}
+
+// Convenient accessor for information about the current playlist view
+class NowPlayingViewState {
+    
+    static var showDuration: Bool = false
+    
+    static func persistentState() -> NowPlayingState {
+    
+        let state = NowPlayingState()
+        state.showDuration = showDuration
+        
+        return state
+    }
 }
