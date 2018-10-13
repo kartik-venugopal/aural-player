@@ -8,8 +8,13 @@ import AVFoundation
  */
 class PlaybackScheduler {
     
-    // Indicates the beginning of a file, used when starting file playback
-    static let FRAME_ZERO = AVAudioFramePosition(0)
+    // TODO: Use completion callback type (available in 10.13) conditionally, to simplify completion logic
+    
+    static let completionPollTimerIntervalMillis: Int = 125     // 1/8th of a second
+    
+    // Interval used for comparing two Double values (to avoid problems with Double precision resulting in equal values being considered inequal)
+    // If two Double track seek times are within 0.01 seconds of each other, we'll consider them equal (used to detect the completion of playback of a loop or segment)
+    static let timeComparisonTolerance: Double = 0.01
     
     // Player node used for actual playback
     private var playerNode: AVAudioPlayerNode
@@ -24,7 +29,8 @@ class PlaybackScheduler {
     
     private var lastCompletedSession: PlaybackSession?
     
-    private var playerStopped: Bool = false
+    // Flag used to indicate when the player node has been forcibly stopped (i.e. its queue is being flushed), to avoid completion handlers from executing
+    private var playerQueueBeingFlushed: Bool = false
     
     init(_ playerNode: AVAudioPlayerNode) {
         self.playerNode = playerNode
@@ -142,13 +148,13 @@ class PlaybackScheduler {
     
     private func segmentCompleted(_ session: PlaybackSession) {
         
-        if self.playerStopped {
+        if self.playerQueueBeingFlushed {
             // Player queue is being flushed (e.g. when seeking) ... ignore this event
             return
         }
         
         // Start the completion poll timer
-        completionPollTimer = RepeatingTaskExecutor(intervalMillis: 125, task: {
+        completionPollTimer = RepeatingTaskExecutor(intervalMillis: PlaybackScheduler.completionPollTimerIntervalMillis, task: {
             
             self.pollForTrackCompletion()
             
@@ -166,7 +172,10 @@ class PlaybackScheduler {
             
             let duration = session.track.duration
             
-            if lastSeekPosn >= duration {
+            // This will update lastSeekPosn
+            _ = getSeekPosition()
+            
+            if lastSeekPosn > (duration - PlaybackScheduler.timeComparisonTolerance) {
                 
                 // Prevent lastSeekPosn from overruning the track duration to prevent weird incorrect UI displays of seek time
                 lastSeekPosn = duration
@@ -189,14 +198,17 @@ class PlaybackScheduler {
     
     private func loopCompleted(_ session: PlaybackSession) {
         
-        if self.playerStopped {
+        // TODO: Schedule the next loop segment ahead of time to avoid gaps in playback after each loop iteration
+        
+        if self.playerQueueBeingFlushed {
+            
             // TODO: Will this always work ??? What if stopping the player after a seek close to the end of the track takes a long time, past the end of the track ?
             // Player queue is being flushed (e.g. when seeking) ... ignore this event
             return
         }
         
         // Start the completion poll timer
-        completionPollTimer = RepeatingTaskExecutor(intervalMillis: 125, task: {
+        completionPollTimer = RepeatingTaskExecutor(intervalMillis: PlaybackScheduler.completionPollTimerIntervalMillis, task: {
             
             self.pollForLoopCompletion()
             
@@ -214,7 +226,10 @@ class PlaybackScheduler {
             
             let loopEndTime = session.loop!.endTime!
             
-            if lastSeekPosn >= loopEndTime {
+            // This will update lastSeekPosn
+            _ = getSeekPosition()
+            
+            if lastSeekPosn > (loopEndTime - PlaybackScheduler.timeComparisonTolerance) {
                 
                 lastSeekPosn = loopEndTime
                 
@@ -251,9 +266,9 @@ class PlaybackScheduler {
     // Stops the scheduling of audio buffers, in response to a request to stop playback (or when seeking to a new position). Marks the end of a "playback session".
     func stop() {
         
-        playerStopped = true
+        playerQueueBeingFlushed = true
         playerNode.stop()
-        playerStopped = false
+        playerQueueBeingFlushed = false
         
         // Completion timer is no longer relevant for this playback session which has ended. The next session will spawn a new timer if/when needed.
         completionPollTimer?.stop()
@@ -264,6 +279,25 @@ class PlaybackScheduler {
         
         if let nodeTime = playerNode.lastRenderTime, let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
             lastSeekPosn = Double(startFrame! + playerTime.sampleTime) / playerTime.sampleRate
+        }
+        
+        // Prevent lastSeekPosn from overruning the track duration to prevent weird incorrect UI displays of seek time
+        if let session = PlaybackSession.currentSession {
+            
+            if session.hasCompleteLoop() {
+                
+                let loopEndTime = session.loop!.endTime!
+                if lastSeekPosn > (loopEndTime - PlaybackScheduler.timeComparisonTolerance) {
+                    lastSeekPosn = loopEndTime
+                }
+                
+            } else {
+                
+                let duration = session.track.duration
+                if lastSeekPosn > (duration - PlaybackScheduler.timeComparisonTolerance) {
+                    lastSeekPosn = duration
+                }
+            }
         }
         
         // Default to last remembered position when nodeTime is nil
