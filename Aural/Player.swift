@@ -34,16 +34,6 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         graph.reconnectPlayerNodeWithFormat(format)
     }
     
-    func play(_ track: Track) {
-        
-        let session = PlaybackSession.start(track)
-        
-        initPlayer(track)
-        playbackScheduler.playTrack(session)
-        
-        playbackState = .playing
-    }
-    
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) {
         
         let session = PlaybackSession.start(track)
