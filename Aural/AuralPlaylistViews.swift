@@ -102,6 +102,45 @@ class BasicFlatPlaylistCellView: NSTableCellView {
             textField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
         }
     }
+    
+    func placeTextFieldOnTop() {
+        
+        let textField = self.textField!
+        
+        for con in self.constraints {
+            
+            if con.firstItem === textField && con.firstAttribute == .top {
+                
+                con.isActive = false
+                self.removeConstraint(con)
+                break
+            }
+        }
+        
+        // textField.top == self.top
+        let textFieldOnTopConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0)
+        textFieldOnTopConstraint.isActive = true
+        self.addConstraint(textFieldOnTopConstraint)
+    }
+    
+    func placeTextFieldBelowView(_ view: NSView) {
+        
+        let textField = self.textField!
+        
+        for con in self.constraints {
+            
+            if con.firstItem === textField && con.firstAttribute == .top {
+                
+                con.isActive = false
+                self.removeConstraint(con)
+                break
+            }
+        }
+        
+        let textFieldBelowViewConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0)
+        textFieldBelowViewConstraint.isActive = true
+        self.addConstraint(textFieldBelowViewConstraint)
+    }
 }
 
 /*
@@ -148,7 +187,93 @@ class DurationCellView: BasicFlatPlaylistCellView {
 /*
  Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
  */
-class IndexCellView: BasicFlatPlaylistCellView {}
+class IndexCellView: BasicFlatPlaylistCellView {
+    
+    func adjustIndexConstraints_beforeGapOnly() {
+        
+        let textField = self.textField!
+        let imgView = self.imageView!
+        
+        for con in self.constraints {
+            
+            if con.firstItem === textField && con.firstAttribute == .centerY {
+                con.isActive = false
+                self.removeConstraint(con)
+            }
+            
+            if con.firstItem === imgView && con.firstAttribute == .centerY {
+                con.isActive = false
+                self.removeConstraint(con)
+            }
+        }
+        
+        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -12)
+        indexTF.isActive = true
+        self.addConstraint(indexTF)
+        
+        let indexIV = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -12)
+        indexIV.isActive = true
+        self.addConstraint(indexIV)
+    }
+    
+    func adjustIndexConstraints_afterGapOnly() {
+        
+        let textField = self.textField!
+        let imgView = self.imageView!
+        
+        for con in self.constraints {
+            
+            if con.firstItem === textField && con.firstAttribute == .centerY {
+                
+                con.isActive = false
+                self.removeConstraint(con)
+            }
+            
+            if con.firstItem === imgView && con.firstAttribute == .centerY {
+                
+                con.isActive = false
+                self.removeConstraint(con)
+            }
+        }
+        
+        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -30)
+        indexTF.isActive = true
+        self.addConstraint(indexTF)
+        
+        let indexIV = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -30)
+        indexIV.isActive = true
+        self.addConstraint(indexIV)
+    }
+    
+    func adjustIndexConstraints_centered() {
+        
+        let textField = self.textField!
+        let imgView = self.imageView!
+        
+        for con in self.constraints {
+            
+            if con.firstItem === textField && con.firstAttribute == .centerY {
+                
+                con.isActive = false
+                self.removeConstraint(con)
+            }
+            
+            if con.firstItem === imageView && con.firstAttribute == .centerY {
+                
+                con.isActive = false
+                self.removeConstraint(con)
+            }
+        }
+        
+        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: -1)
+        indexTF.isActive = true
+        self.addConstraint(indexTF)
+        
+        let indexIV = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: -1)
+        indexIV.isActive = true
+        self.addConstraint(indexIV)
+    }
+}
 
 /*
  Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
