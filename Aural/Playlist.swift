@@ -14,6 +14,9 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     // A map to quickly look up tracks by (absolute) file path (used when adding tracks, to prevent duplicates)
     private var tracksByFilePath: [String: Track] = [String: Track]()
     
+    private var gapsBefore: [Track: PlaybackGap] = [:]
+    private var gapsAfter: [Track: PlaybackGap] = [:]
+    
     init(_ flatPlaylist: FlatPlaylistCRUDProtocol, _ groupingPlaylists: [GroupingPlaylistCRUDProtocol]) {
         
         self.flatPlaylist = flatPlaylist
@@ -88,23 +91,33 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     }
     
     func setGapsForTrack(_ track: Track, _ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?) {
-        flatPlaylist.setGapsForTrack(track, gapBeforeTrack, gapAfterTrack)
+        
+        removeGapsForTrack(track)
+        
+        gapsBefore[track] = gapBeforeTrack
+        gapsAfter[track] = gapAfterTrack
     }
     
     func removeGapsForTrack(_ track: Track) {
-        flatPlaylist.removeGapsForTrack(track)
+        
+        gapsBefore.removeValue(forKey: track)
+        gapsAfter.removeValue(forKey: track)
     }
     
     func removeGapForTrack(_ track: Track, _ gapPosition: PlaybackGapPosition) {
-        flatPlaylist.removeGapForTrack(track, gapPosition)
+        _ = gapPosition == .beforeTrack ? gapsBefore.removeValue(forKey: track) : gapsAfter.removeValue(forKey: track)
     }
     
     func getGapBeforeTrack(_ track: Track) -> PlaybackGap? {
-        return flatPlaylist.getGapBeforeTrack(track)
+        return gapsBefore[track]
     }
     
     func getGapAfterTrack(_ track: Track) -> PlaybackGap? {
-        return flatPlaylist.getGapAfterTrack(track)
+        return gapsAfter[track]
+    }
+    
+    func getAllGaps() -> (gapsBeforeTracks: [Track: PlaybackGap], gapsAfterTracks: [Track: PlaybackGap]) {
+        return (gapsBefore, gapsAfter)
     }
     
     // Checks whether or not a track with the given absolute file path already exists.
@@ -190,7 +203,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         
         let state = PlaylistState()
         let tracks = allTracks()
-        let gaps = flatPlaylist.getAllGaps()
+        let gaps = getAllGaps()
         
         tracks.forEach({state.tracks.append($0.file)})
         

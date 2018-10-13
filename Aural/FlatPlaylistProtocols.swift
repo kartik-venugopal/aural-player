@@ -28,12 +28,6 @@ protocol FlatPlaylistAccessorProtocol {
     
     // Returns the display name for a track within the playlist
     func displayNameForTrack(_ track: Track) -> String
-    
-    func getGapBeforeTrack(_ track: Track) -> PlaybackGap?
-    
-    func getGapAfterTrack(_ track: Track) -> PlaybackGap?
-    
-    func getAllGaps() -> (gapsBeforeTracks: [Track: PlaybackGap], gapsAfterTracks: [Track: PlaybackGap])
 }
 
 /*
@@ -49,12 +43,6 @@ protocol FlatPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     
     // Removes the specific tracks from the playlist. Returns the indexes of the removed tracks.
     func removeTracks(_ tracks: [Track]) -> IndexSet
-    
-    func setGapsForTrack(_ track: Track, _ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?)
-    
-    func removeGapsForTrack(_ track: Track)
-    
-    func removeGapForTrack(_ track: Track, _ gapPosition: PlaybackGapPosition)
     
     /*
         Moves the tracks at the specified indexes, up one index, in the playlist, if they can be moved (they are not already at the top). 
