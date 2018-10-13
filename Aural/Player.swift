@@ -12,7 +12,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     private let playerNode: AVAudioPlayerNode
     
     // Helper used for actual scheduling and playback
-    private let playbackScheduler: PlaybackScheduler
+    private let scheduler: PlaybackScheduler
     
     private var playbackState: PlaybackState = .noTrack
     
@@ -20,7 +20,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         
         self.graph = graph
         self.playerNode = graph.playerNode
-        self.playbackScheduler = PlaybackScheduler(self.playerNode)
+        self.scheduler = PlaybackScheduler(self.playerNode)
         
         AsyncMessenger.subscribe([.audioOutputChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
@@ -44,11 +44,11 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
             
             // Loop is defined
             session.loop = PlaybackLoop(startPosition, end)
-            playbackScheduler.playLoop(session, true)
+            scheduler.playLoop(session, true)
             
         } else {
             
-            playbackScheduler.playTrack(session, startPosition)
+            scheduler.playTrack(session, startPosition)
         }
         
         playbackState = .playing
@@ -56,7 +56,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     
     func pause() {
         
-        playbackScheduler.pause()
+        scheduler.pause()
         graph.clearSoundTails()
         
         playbackState = .paused
@@ -64,7 +64,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     
     func resume() {
         
-        playbackScheduler.resume()
+        scheduler.resume()
         playbackState = .playing
     }
     
@@ -72,7 +72,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         
         _ = PlaybackSession.endCurrent()
         
-        playbackScheduler.stop()
+        scheduler.stop()
         playerNode.reset()
         graph.clearSoundTails()
         
@@ -91,12 +91,12 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         let session = PlaybackSession.start(track, timestamp)
         session.loop = loop
         
-        playbackScheduler.seekToTime(session, seconds, playbackState == .playing)
+        scheduler.seekToTime(session, seconds, playbackState == .playing)
     }
     
     func getSeekPosition() -> Double {
         
-        return playbackState == .noTrack ? 0 : playbackScheduler.getSeekPosition()
+        return playbackState == .noTrack ? 0 : scheduler.getSeekPosition()
     }
     
     func getPlaybackState() -> PlaybackState {
@@ -119,7 +119,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
                 
                 // Remove loop
                 PlaybackSession.removeLoop()
-                playbackScheduler.endLoop(curSession, curLoop.endTime!)
+                scheduler.endLoop(curSession, curLoop.endTime!)
                 
             } else {
                 
@@ -136,7 +136,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
                 let session = PlaybackSession.start(track, timestamp)
                 session.loop = loop
                 
-                playbackScheduler.playLoop(session, playbackState == .playing)
+                scheduler.playLoop(session, playbackState == .playing)
             }
             
         } else {
@@ -196,7 +196,11 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
         let session = PlaybackSession.start(lastSession.track, lastSession.timestamp)
         session.loop = lastSession.loop
         
-        playbackScheduler.seekToTime(session, seconds, playbackState == .playing)
+        scheduler.seekToTime(session, seconds, playbackState == .playing)
+    }
+    
+    func tearDown() {
+        stop()
     }
 }
 

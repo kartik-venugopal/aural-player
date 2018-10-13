@@ -54,4 +54,7 @@ protocol PlayerProtocol {
     
     // Retrieves information about the playback loop defined on a segment of the currently playing track, if there is a playing track and a loop for it
     func getPlaybackLoop() -> PlaybackLoop?
+    
+    // Before app exits
+    func tearDown()
 }
