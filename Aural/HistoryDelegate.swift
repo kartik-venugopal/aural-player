@@ -58,9 +58,6 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
             // Try playing it
             try _ = player.play(newTrack.track, playlistType)
             
-            // Notify the UI that a track has started playing
-            AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, newTrack))
-            
         } catch let error {
             
             if (error is InvalidTrackError) {
