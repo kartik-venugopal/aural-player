@@ -405,32 +405,33 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     // Refreshes the playlist view in response to a new track being added to the playlist
     private func trackAdded(_ message: TrackAddedAsyncMessage) {
         
-        let result = message.groupInfo[self.groupType]!
-        
-        if result.groupCreated {
-        
-            // If a new parent group was created, for this new track, insert the new group under the root
-            playlistView.insertItems(at: IndexSet(integer: result.track.groupIndex), inParent: nil, withAnimation: NSTableView.AnimationOptions.effectFade)
-            
-        } else {
-        
-            // Insert the new track under its parent group, and reload the parent group
-            let group = result.track.group
-            
-            playlistView.insertItems(at: IndexSet(integer: result.track.trackIndex), inParent: group, withAnimation: .effectGap)
-            playlistView.reloadItem(group)
+        if let result = message.groupInfo[self.groupType] {
+
+            if result.groupCreated {
+                
+                // If a new parent group was created, for this new track, insert the new group under the root
+                playlistView.insertItems(at: IndexSet(integer: result.track.groupIndex), inParent: nil, withAnimation: NSTableView.AnimationOptions.effectFade)
+                
+            } else {
+                
+                // Insert the new track under its parent group, and reload the parent group
+                let group = result.track.group
+                
+                playlistView.insertItems(at: IndexSet(integer: result.track.trackIndex), inParent: group, withAnimation: .effectGap)
+                playlistView.reloadItem(group)
+            }
         }
     }
     
     // Refreshes the playlist view in response to a track being updated with new information
     private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {
         
-        let track = message.groupInfo[self.groupType]!.track
-        let group = message.groupInfo[self.groupType]!.group
-        
-        // Reload the parent group and the track
-        self.playlistView.reloadItem(group, reloadChildren: false)
-        self.playlistView.reloadItem(track)
+        if let groupInfo = message.groupInfo[self.groupType] {
+            
+            // Reload the parent group and the track
+            self.playlistView.reloadItem(groupInfo.group, reloadChildren: false)
+            self.playlistView.reloadItem(groupInfo.track)
+        }
     }
     
     // Refreshes the playlist view in response to tracks/groups being removed from the playlist
