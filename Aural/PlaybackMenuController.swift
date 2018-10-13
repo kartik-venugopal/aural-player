@@ -10,6 +10,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Menu items whose states are toggled when they (or others) are clicked
     
     @IBOutlet weak var playOrPauseMenuItem: ToggleMenuItem!     // Needs to be toggled
+    @IBOutlet weak var stopMenuItem: NSMenuItem!
     @IBOutlet weak var replayTrackMenuItem: NSMenuItem!
     @IBOutlet weak var previousTrackMenuItem: NSMenuItem!
     @IBOutlet weak var nextTrackMenuItem: NSMenuItem!
@@ -57,11 +58,15 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         updateRepeatAndShuffleMenuItemStates()
         
         let isRegularMode = AppModeManager.mode == .regular
-        let isPlayingOrPaused = playbackInfo.getPlaybackState() != .noTrack
+        let playbackState = playbackInfo.getPlaybackState()
+        let isPlayingOrPaused = playbackState == .playing || playbackState == .paused
+        let isPlayingPausedOrWaiting = isPlayingOrPaused || playbackState == .waiting
         
         // Play/pause enabled if at least one track available
         playOrPauseMenuItem.isEnabled = playlist.size() > 0
         playOrPauseMenuItem.onIf(playbackInfo.getPlaybackState() == .playing)
+        
+        stopMenuItem.isEnabled = isPlayingPausedOrWaiting
         
         // Enabled only in regular mode if playing/paused
         
@@ -70,7 +75,9 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)
         let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
-        [previousTrackMenuItem, nextTrackMenuItem, seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0.isEnabled = isPlayingOrPaused && !showingDialogOrPopover})
+        [previousTrackMenuItem, nextTrackMenuItem].forEach({$0.isEnabled = isPlayingPausedOrWaiting && !showingDialogOrPopover})
+        
+        [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0.isEnabled = isPlayingOrPaused && !showingDialogOrPopover})
         
         rememberLastPositionMenuItem.isHidden = !(preferences.rememberLastPosition && preferences.rememberLastPositionOption == .individualTracks)
         
@@ -86,6 +93,10 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     // Plays, pauses or resumes playback
     @IBAction func playOrPauseAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(PlaybackActionMessage(.playOrPause))
+    }
+    
+    @IBAction func stopAction(_ sender: AnyObject) {
+        SyncMessenger.publishActionMessage(PlaybackActionMessage(.stop))
     }
     
     // Replays the currently playing track from the beginning, if there is one

@@ -101,7 +101,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -110,7 +110,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
     
     private func initVolumeAndPan() {
@@ -239,6 +239,12 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
                 handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
             }
         }
+    }
+    
+    private func stop() {
+        player.stop()
+        btnPlayPause.off()
+        btnLoop.switchState(LoopState.none)
     }
     
     // Replays the currently playing track, from the beginning, if there is one
@@ -594,6 +600,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // Player functions
             
         case .playOrPause: playPauseAction(self)
+            
+        case .stop: stop()
             
         case .replayTrack: replayTrack()
             

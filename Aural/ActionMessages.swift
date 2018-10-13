@@ -116,6 +116,8 @@ enum ActionType {
     // Play, pause, or resume playback
     case playOrPause
     
+    case stop
+    
     // Replay the currently playing track from the beginning, if there is one
     case replayTrack
     
