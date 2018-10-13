@@ -38,7 +38,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         // Register as a subscriber to various message notifications
         AsyncMessenger.subscribe([.trackAdded, .tracksRemoved, .trackInfoUpdated, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
         
@@ -363,8 +363,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         let track = playlist.trackAtIndex(playlistView.selectedRow)
         playlist.setGapsForTrack(track!.track, gapBefore, gapAfter)
         
-        playlistView.reloadData(forRowIndexes: IndexSet([playlistView.selectedRow]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-        playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([playlistView.selectedRow]))
+//        playlistView.reloadData(forRowIndexes: IndexSet([playlistView.selectedRow]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+//        playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([playlistView.selectedRow]))
+        
+        SyncMessenger.publishNotification(PlaybackGapUpdatedNotification(track!.track))
     }
     
     private func removeGaps() {
@@ -372,8 +374,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         let track = playlist.trackAtIndex(playlistView.selectedRow)
         playlist.removeGapsForTrack(track!.track)
         
-        playlistView.reloadData(forRowIndexes: IndexSet([playlistView.selectedRow]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-        playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([playlistView.selectedRow]))
+        // This should also refresh this view
+        SyncMessenger.publishNotification(PlaybackGapUpdatedNotification(track!.track))
     }
     
     private func gapStarted(_ message: PlaybackGapStartedAsyncMessage) {
@@ -389,6 +391,23 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         // One-time gaps may have been removed, so need to update the table view
         playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
+    }
+    
+    private func gapUpdated(_ message: PlaybackGapUpdatedNotification) {
+        
+        // Find track and refresh it
+        if let updatedRow = playlist.indexOfTrack(message.updatedTrack)?.index {
+            
+            if updatedRow >= 0 {
+                refreshRow(updatedRow)
+            }
+        }
+    }
+    
+    private func refreshRow(_ row: Int) {
+        
+        playlistView.reloadData(forRowIndexes: IndexSet([row]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
     }
     
     func getID() -> String {
@@ -429,6 +448,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         case .trackChangedNotification:
             
             trackChanged(notification as! TrackChangedNotification)
+            
+        case .gapUpdatedNotification:
+            
+            gapUpdated(notification as! PlaybackGapUpdatedNotification)
             
         default: return
             

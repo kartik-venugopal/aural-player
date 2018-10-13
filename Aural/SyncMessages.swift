@@ -47,8 +47,6 @@ protocol ResponseMessage: SyncMessage {
 // Enumeration of the different message types. See the various Message structs below, for descriptions of each message type.
 enum MessageType {
     
-    case trackAddedNotification
-    
     case trackUpdatedNotification
     
     case trackGroupUpdatedNotification
@@ -124,27 +122,8 @@ enum MessageType {
     case applyDelayPreset
     
     case applyFilterPreset
-}
-
-// Notification indicating that a new track has been added to the playlist, and that the UI should refresh itself to show the new information
-struct TrackAddedNotification: NotificationMessage {
     
-    let messageType: MessageType = .trackAddedNotification
-    
-    // The index of the newly added track
-    let trackIndex: Int
-    
-    let groupInfo: [GroupType: GroupedTrackAddResult]
-    
-    // The current progress of the track add operation (See TrackAddedMessageProgress)
-    let progress: TrackAddedMessageProgress
-    
-    init(_ trackIndex: Int, _ groupInfo: [GroupType: GroupedTrackAddResult], _ progress: TrackAddedMessageProgress) {
-        
-        self.trackIndex = trackIndex
-        self.groupInfo = groupInfo
-        self.progress = progress
-    }
+    case gapUpdatedNotification
 }
 
 // Notification indicating that the currently playing track has changed and the UI needs to be refreshed with the new track information
@@ -513,5 +492,16 @@ struct EditorSelectionChangedNotification: NotificationMessage {
     
     init(_ numberOfSelectedRows: Int) {
         self.numberOfSelectedRows = numberOfSelectedRows
+    }
+}
+
+struct PlaybackGapUpdatedNotification: NotificationMessage {
+    
+    let messageType: MessageType = .gapUpdatedNotification
+    
+    let updatedTrack: Track
+    
+    init(_ updatedTrack: Track) {
+        self.updatedTrack = updatedTrack
     }
 }

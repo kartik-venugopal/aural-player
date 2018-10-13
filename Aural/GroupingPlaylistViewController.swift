@@ -38,7 +38,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistView.menu = contextMenu
         
         initSubscriptions()
-        SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification, .gapUpdatedNotification], subscriber: self)
         
         // Register for key press and gesture events
         PlaylistInputEventHandler.registerViewForPlaylistType(self.playlistType, playlistView)
@@ -54,7 +54,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         // Register self as a subscriber to various message notifications
         AsyncMessenger.subscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackAddedNotification, .trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
     }
@@ -63,7 +63,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         AsyncMessenger.unsubscribe([.trackAdded, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .gapStarted], subscriber: self)
         
-        SyncMessenger.unsubscribe(messageTypes: [.trackAddedNotification, .trackChangedNotification, .searchResultSelectionRequest], subscriber: self)
+        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
         SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
     }
@@ -518,18 +518,20 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private func insertGap(_ gapBefore: PlaybackGap?, _ gapAfter: PlaybackGap?) {
         
-        let selTrack = playlistView.item(atRow: playlistView.selectedRow) as! Track
-        playlist.setGapsForTrack(selTrack, gapBefore, gapAfter)
-        
-        refreshSelectedRow()
+        if let selTrack = playlistView.item(atRow: playlistView.selectedRow) as? Track {
+            
+            playlist.setGapsForTrack(selTrack, gapBefore, gapAfter)
+            SyncMessenger.publishNotification(PlaybackGapUpdatedNotification(selTrack))
+        }
     }
     
     private func removeGaps() {
         
-        let selTrack = playlistView.item(atRow: playlistView.selectedRow) as! Track
-        playlist.removeGapsForTrack(selTrack)
-
-        refreshSelectedRow()
+        if let selTrack = playlistView.item(atRow: playlistView.selectedRow) as? Track {
+            
+            playlist.removeGapsForTrack(selTrack)
+            SyncMessenger.publishNotification(PlaybackGapUpdatedNotification(selTrack))
+        }
     }
     
     private func gapStarted(_ message: PlaybackGapStartedAsyncMessage) {
@@ -548,10 +550,24 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
     }
     
-    private func refreshSelectedRow() {
+    private func gapUpdated(_ message: PlaybackGapUpdatedNotification) {
         
-        playlistView.reloadData(forRowIndexes: IndexSet([playlistView.selectedRow]), columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
-        playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([playlistView.selectedRow]))
+        // Find track and refresh it
+        let updatedRow = playlistView.row(forItem: message.updatedTrack)
+        
+        if updatedRow >= 0 {
+            refreshRow(updatedRow)
+        }
+    }
+    
+    private func refreshSelectedRow() {
+        refreshRow(playlistView.selectedRow)
+    }
+    
+    private func refreshRow(_ row: Int) {
+        
+        playlistView.reloadData(forRowIndexes: IndexSet([row]), columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
+        playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
     }
     
     func getID() -> String {
@@ -593,6 +609,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         case .trackChangedNotification:
             
             trackChanged(notification as! TrackChangedNotification)
+            
+        case .gapUpdatedNotification:
+            
+            gapUpdated(notification as! PlaybackGapUpdatedNotification)
             
         default: return
             

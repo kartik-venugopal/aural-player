@@ -62,7 +62,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     
     private func updateButtonStates() {
         
-        let selRows: Int = editorView.selectedRowIndexes.count
+        let selRows: Int = editorView.numberOfSelectedRows
         
         btnDelete.isEnabled = selRows > 0
         btnPlay.isEnabled = selRows == 1
@@ -70,7 +70,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     
     @IBAction func playSelectedFavoriteAction(_ sender: AnyObject) {
         
-        if editorView.selectedRowIndexes.count == 1 {
+        if editorView.numberOfSelectedRows == 1 {
             
             let fav = favorites.getFavoriteAtIndex(editorView.selectedRow)
             favorites.playFavorite(fav)

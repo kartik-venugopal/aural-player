@@ -95,7 +95,7 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
             
             btnGapBeforeTrack.state = UIConstants.buttonState_0
             durationSlider_1.integerValue = 5
-            btnGapType_tillAppExits_1.state = UIConstants.buttonState_1
+            btnGapType_persistent_1.state = UIConstants.buttonState_1
         }
         
         if let gapA = gaps?.afterTrack {
@@ -126,7 +126,7 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
             
             btnGapAfterTrack.state = UIConstants.buttonState_0
             durationSlider_2.integerValue = 5
-            btnGapType_tillAppExits_2.state = UIConstants.buttonState_1
+            btnGapType_persistent_2.state = UIConstants.buttonState_1
         }
         
         durationSliderAction_1(self)

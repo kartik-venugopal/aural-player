@@ -72,7 +72,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        SyncMessenger.publishNotification(EditorSelectionChangedNotification(editorView.selectedRowIndexes.count))
+        SyncMessenger.publishNotification(EditorSelectionChangedNotification(editorView.numberOfSelectedRows))
     }
     
     // Returns a view for a single row
