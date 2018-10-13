@@ -63,9 +63,6 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
             // TODO: The delegates layer should not be messing around with PlaylistViewState. Move that argument up one layer
             try _ = player.play(newTrack.track, bookmark.startPosition, bookmark.endPosition, PlaylistViewState.current)
             
-            // Notify the UI that a track has started playing
-            AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, newTrack))
-            
         } catch let error {
             
             if (error is InvalidTrackError) {

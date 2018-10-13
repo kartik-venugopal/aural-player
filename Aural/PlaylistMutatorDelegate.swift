@@ -250,12 +250,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             do {
                 
-                let playingTrack = try self.player.play(index, interruptPlayback)
-                
-                // Notify the UI that a track has started playing
-                if (playingTrack != nil) {
-                    AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, playingTrack))
-                }
+                _ = try self.player.play(index, interruptPlayback)
                 
             } catch let error {
                 

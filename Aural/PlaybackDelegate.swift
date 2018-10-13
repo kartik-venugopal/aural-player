@@ -167,7 +167,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     private func play(_ track: IndexedTrack?) throws {
         
-        var startPosition: Double = 0
+        var startPosition: Double? = nil
         
         // Check for playback profile
         if preferences.rememberLastPosition {
@@ -195,7 +195,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     }
     
     // Throws an error if playback fails
-    private func play(_ track: IndexedTrack?, _ startPosition: Double, _ endPosition: Double? = nil) throws {
+    private func play(_ track: IndexedTrack?, _ startPosition: Double? = nil, _ endPosition: Double? = nil) throws {
         
         // Stop if currently playing
         haltPlayback()
@@ -203,17 +203,22 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         if (track != nil) {
             
             // Check for gap before track
-            if let gapBeforeSubsequentTrack = playlist.getGapBeforeTrack(track!.track) {
+            
+            // StartPos == nil indicates playback from beginning of track, i.e. not a bookmark or saved loop (What to do when remembering playback posn ???)
+            if startPosition == nil {
                 
-                PlaybackGapContext.addGap(gapBeforeSubsequentTrack, track!)
-                
-                // The explicitly defined gap before the track takes precedence over the implicit gap defined by the playback preferences, so remove the implicit gap
-                PlaybackGapContext.removeImplicitGap()
-                PlaybackGapContext.subsequentTrack = track
+                if let gapBeforeSubsequentTrack = playlist.getGapBeforeTrack(track!.track) {
+                    
+                    PlaybackGapContext.addGap(gapBeforeSubsequentTrack, track!)
+                    
+                    // The explicitly defined gap before the track takes precedence over the implicit gap defined by the playback preferences, so remove the implicit gap
+                    PlaybackGapContext.removeImplicitGap()
+                    PlaybackGapContext.subsequentTrack = track
+                }
             }
             
             // If there are gaps, delay playback (async)
-            if PlaybackGapContext.hasGaps() {
+            if startPosition == nil && PlaybackGapContext.hasGaps() {
                 
                 // Mark the current state as "waiting" in between tracks
                 player.wait()
@@ -233,7 +238,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
                     if PlaybackGapContext.isCurrent(gapContextId) {
                         
                         do {
-                            try self.doPlay(track, startPosition)
+                            try self.doPlay(track, startPosition, endPosition)
                         } catch let error {
                             
                             if (error is InvalidTrackError) {
@@ -255,13 +260,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             } else {
                 
                 // Play immediately (sync)
-                try doPlay(track, startPosition)
+                try doPlay(track, startPosition, endPosition)
             }
         }
     }
     
     // ACTUALLY PLAYS THE TRACK
-    private func doPlay(_ track: IndexedTrack?, _ startPosition: Double, _ endPosition: Double? = nil) throws {
+    private func doPlay(_ track: IndexedTrack?, _ startPosition: Double? = nil, _ endPosition: Double? = nil) throws {
         
         // Invalidate the gap, if there is one
         PlaybackGapContext.clear()
@@ -281,7 +286,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             throw actualTrack.lazyLoadingInfo.preparationError!
         }
         
-        player.play(actualTrack, startPosition, endPosition)
+        player.play(actualTrack, startPosition ?? 0, endPosition)
         
         // TODO: Can we consolidate these 2 notifications into one ?
         AsyncMessenger.publishMessage(TrackChangedAsyncMessage(oldTrack, track))

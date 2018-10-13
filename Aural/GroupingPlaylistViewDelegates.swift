@@ -229,7 +229,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     private func adjustConstraints_beforeGapFieldOnTop(_ cell: NSTableCellView, _ gapView: NSView) {
         
         let main = cell.textField!
-//        let img = cell.imageView!
         
         for con in cell.constraints {
             
