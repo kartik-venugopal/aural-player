@@ -207,6 +207,7 @@ class ObjectGraph {
         AppStateIO.save(appState!)
         
         // Tear down the audio engine
+        player?.tearDown()
         audioGraph?.tearDown()
     }
 }
