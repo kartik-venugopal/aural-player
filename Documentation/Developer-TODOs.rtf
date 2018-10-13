@@ -11,6 +11,8 @@
 \
 Add Playback > Stop function (in Playback menu only) Cmd+. (Command Dot)\
 \
+Playlist > Clear selection function\
+\
 PlaybackScheduler - Maybe always use scheduleSegment if its completionHandler is more accurate than that of scheduleFile ??\
 \
 Bug - Race condition: When playing a Bookmark/Fav, the new track is not selected because the trackChanged() happens before it is added to the playlist view. Possible fix: Send out a delayed notification (0.25 secs)\

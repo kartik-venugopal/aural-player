@@ -1285,7 +1285,6 @@
 				3E221FB71F98530700DA3AD8 /* Group.swift */,
 				3EC947AE1F5DDEB100FDBE25 /* PlaylistProtocols.swift */,
 				3E1D93511F626BF9008AC59E /* Playlist.swift */,
-				3E1DAAA31FAEB561002BB405 /* CRUDOperationResults.swift */,
 				3E357B4F1F9C798500C8F7B1 /* FlatPlaylistProtocols.swift */,
 				3E357B531F9C7DFB00C8F7B1 /* FlatPlaylist.swift */,
 				3E357B511F9C79E900C8F7B1 /* GroupingPlaylistProtocols.swift */,
@@ -1295,6 +1294,7 @@
 				3E0012291F26A5100059B2D0 /* SearchQuery.swift */,
 				3E3BAF231F274771008F090E /* Sort.swift */,
 				3EF6A0011FA313120050F0D2 /* Sorts.swift */,
+				3E1DAAA31FAEB561002BB405 /* CRUDOperationResults.swift */,
 			);
 			name = Playlist;
 			sourceTree = "<group>";

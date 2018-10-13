@@ -7,9 +7,6 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
  
     private var tracks: [Track] = [Track]()
     
-    private var gapsBefore: [Track: PlaybackGap] = [:]
-    private var gapsAfter: [Track: PlaybackGap] = [:]
-    
     // MARK: Accessor functions
     
     func allTracks() -> [Track] {
@@ -170,36 +167,6 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         sortedIndexes.forEach({removedTracks.append(removeTrackAtIndex($0))})
         
         return removedTracks
-    }
-    
-    func setGapsForTrack(_ track: Track, _ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?) {
-        
-        removeGapsForTrack(track)
-        
-        gapsBefore[track] = gapBeforeTrack
-        gapsAfter[track] = gapAfterTrack
-    }
-    
-    func removeGapsForTrack(_ track: Track) {
-        
-        gapsBefore.removeValue(forKey: track)
-        gapsAfter.removeValue(forKey: track)
-    }
-    
-    func removeGapForTrack(_ track: Track, _ gapPosition: PlaybackGapPosition) {
-        _ = gapPosition == .beforeTrack ? gapsBefore.removeValue(forKey: track) : gapsAfter.removeValue(forKey: track)
-    }
-    
-    func getGapBeforeTrack(_ track: Track) -> PlaybackGap? {
-        return gapsBefore[track]
-    }
-    
-    func getGapAfterTrack(_ track: Track) -> PlaybackGap? {
-        return gapsAfter[track]
-    }
-    
-    func getAllGaps() -> (gapsBeforeTracks: [Track: PlaybackGap], gapsAfterTracks: [Track: PlaybackGap]) {
-        return (gapsBefore, gapsAfter)
     }
     
     // Assume track can be moved
