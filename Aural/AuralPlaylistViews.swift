@@ -76,30 +76,30 @@ extension NSTableView {
     }
 }
 
-/*
- Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
- */
-@IBDesignable
-class TrackNameCellView: NSTableCellView {
+class BasicFlatPlaylistCellView: NSTableCellView {
     
     // The table view row that this cell is contained in. Used to determine whether or not this cell is selected.
     var row: Int = -1
     
-    @IBInspectable @IBOutlet weak var gapBeforeImg: NSImageView!
-    @IBInspectable @IBOutlet weak var gapAfterImg: NSImageView!
+    // TODO: Store this logic in a closure passed in by the view delegate, instead of using TableViewHolder
+    var isSelRow: Bool {
+        return TableViewHolder.instance!.selectedRowIndexes.contains(row)
+    }
     
     override var backgroundStyle: NSView.BackgroundStyle {
         
         didSet {
+            backgroundStyleChanged()
+        }
+    }
+    
+    func backgroundStyleChanged() {
+        
+        // Check if this row is selected, change font and color accordingly
+        if let textField = self.textField {
             
-            // Check if this row is selected
-            let isSelRow = TableViewHolder.instance!.selectedRowIndexes.contains(row)
-            
-            if let textField = self.textField {
-                
-                textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
-                textField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
-            }
+            textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
+            textField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
         }
     }
 }
@@ -108,10 +108,17 @@ class TrackNameCellView: NSTableCellView {
  Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
  */
 @IBDesignable
-class DurationCellView: NSTableCellView {
+class TrackNameCellView: BasicFlatPlaylistCellView {
     
-    // The table view row that this cell is contained in. Used to determine whether or not this cell is selected.
-    var row: Int = -1
+    @IBInspectable @IBOutlet weak var gapBeforeImg: NSImageView!
+    @IBInspectable @IBOutlet weak var gapAfterImg: NSImageView!
+}
+
+/*
+ Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
+ */
+@IBDesignable
+class DurationCellView: BasicFlatPlaylistCellView {
     
     @IBInspectable @IBOutlet weak var gapBeforeTextField: NSTextField!
     @IBInspectable @IBOutlet weak var gapAfterTextField: NSTextField!
@@ -121,13 +128,7 @@ class DurationCellView: NSTableCellView {
         didSet {
             
             // Check if this row is selected
-            let isSelRow = TableViewHolder.instance!.selectedRowIndexes.contains(row)
-            
-            if let textField = self.textField {
-                
-                textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
-                textField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
-            }
+            super.backgroundStyleChanged()
             
             if let gapField = self.gapBeforeTextField {
                 
@@ -147,27 +148,7 @@ class DurationCellView: NSTableCellView {
 /*
  Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
  */
-@IBDesignable
-class IndexCellView: NSTableCellView {
-    
-    // The table view row that this cell is contained in. Used to determine whether or not this cell is selected.
-    var row: Int = -1
-    
-    override var backgroundStyle: NSView.BackgroundStyle {
-        
-        didSet {
-            
-            // Check if this row is selected
-            let isSelRow = TableViewHolder.instance!.selectedRowIndexes.contains(row)
-            
-            if let textField = self.textField {
-                
-                textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
-                textField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
-            }
-        }
-    }
-}
+class IndexCellView: BasicFlatPlaylistCellView {}
 
 /*
  Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
