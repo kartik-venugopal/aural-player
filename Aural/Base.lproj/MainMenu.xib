@@ -77,6 +77,7 @@
                 <outlet property="showInPlaylistMenuItem" destination="XjT-hE-GHo" id="SCJ-zc-OlZ"/>
                 <outlet property="shuffleOffMenuItem" destination="UVB-LH-JI0" id="fZe-NT-Fqk"/>
                 <outlet property="shuffleOnMenuItem" destination="A9x-31-Cvm" id="cQ4-NA-2ye"/>
+                <outlet property="stopMenuItem" destination="Fy2-i2-DaU" id="HAq-f2-Cpx"/>
             </connections>
         </customObject>
         <customObject id="YGo-hN-fxr" customClass="SoundMenuController" customModule="Aural" customModuleProvider="target">
@@ -424,7 +425,7 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Playback" autoenablesItems="NO" id="4gC-cq-kT9">
                         <items>
-                            <menuItem title=" Play" image="Play-Small" keyEquivalent=" " id="T9r-Uq-EPf" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                            <menuItem title="  Play" image="Play-Small" keyEquivalent=" " id="T9r-Uq-EPf" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="  Play"/>
@@ -434,6 +435,11 @@ CA
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="playOrPauseAction:" target="IvK-xG-TCa" id="RJp-Hs-lxk"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Stop" image="Stop-Small" keyEquivalent="." id="Fy2-i2-DaU" userLabel="Stop">
+                                <connections>
+                                    <action selector="stopAction:" target="IvK-xG-TCa" id="FLy-jg-6Jd"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Replay current track" image="Replay" keyEquivalent="r" id="aLr-jT-ZjJ" userLabel="Replay current track">
@@ -1197,6 +1203,7 @@ CA
         <image name="ShowPlayingTrack-Small" width="13" height="13"/>
         <image name="ShuffleOn-Small" width="15" height="15"/>
         <image name="Sort-Small" width="17" height="14"/>
+        <image name="Stop-Small" width="9" height="9"/>
         <image name="Time" width="16" height="13"/>
         <image name="ToggleEffectsView-Small" width="14" height="14"/>
         <image name="TogglePlaylistView-Small" width="14" height="12"/>

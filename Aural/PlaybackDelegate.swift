@@ -299,6 +299,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         haltPlayback()
         playbackSequencer.end()
+        
+        let lastPlayed = history.mostRecentlyPlayedItem()?.track
+        let lastPlayedIndexed = lastPlayed != nil ? playlist.findTrackByFile(lastPlayed!.file) : nil
+        AsyncMessenger.publishMessage(TrackChangedAsyncMessage(lastPlayedIndexed, nil))
     }
     
     // Temporarily halts playback
@@ -731,7 +735,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             
             PlaybackGapContext.clear()
             stop()
-            AsyncMessenger.publishMessage(TrackChangedAsyncMessage(nil, nil))
         }
     }
     
@@ -739,6 +742,5 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         PlaybackGapContext.clear()
         stop()
-        AsyncMessenger.publishMessage(TrackChangedAsyncMessage(nil, nil))
     }
 }
