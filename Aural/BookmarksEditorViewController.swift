@@ -66,7 +66,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     
     @IBAction func playSelectedBookmarkAction(_ sender: AnyObject) {
         
-        if editorView.selectedRowIndexes.count == 1 {
+        if editorView.numberOfSelectedRows == 1 {
             bookmarks.playBookmark(bookmarks.getBookmarkAtIndex(editorView.selectedRow))
         }
     }
@@ -111,7 +111,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     
     private func updateButtonStates() {
         
-        let selRows: Int = editorView.selectedRowIndexes.count
+        let selRows: Int = editorView.numberOfSelectedRows
         
         btnDelete.isEnabled = selRows > 0
         [btnPlay, btnRename].forEach({$0.isEnabled = selRows == 1})

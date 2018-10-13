@@ -76,7 +76,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     
     private func updateButtonStates() {
         
-        let selRows: Int = editorView.selectedRowIndexes.count
+        let selRows: Int = editorView.numberOfSelectedRows
         
         btnDelete.isEnabled = selRows > 0
         btnApply.isEnabled = selRows == 1
@@ -106,7 +106,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     
     private func updatePreview() {
         
-        if editorView.selectedRowIndexes.count == 1 {
+        if editorView.numberOfSelectedRows == 1 {
             
             let selection = getSelectedLayoutNames()
             let layout = WindowLayouts.layoutByName(selection[0])!

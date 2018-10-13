@@ -104,7 +104,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     func tableViewSelectionDidChange(_ notification: Notification) {
         
-        let numRows = editorView.selectedRowIndexes.count
+        let numRows = editorView.numberOfSelectedRows
         
         if numRows == 1 {
             

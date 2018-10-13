@@ -20,8 +20,12 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var detailedInfoMenuItem: NSMenuItem!
     
     @IBOutlet weak var removeTrackMenuItem: NSMenuItem!
+    
     @IBOutlet weak var moveTrackUpMenuItem: NSMenuItem!
     @IBOutlet weak var moveTrackDownMenuItem: NSMenuItem!
+    @IBOutlet weak var moveTrackToTopMenuItem: NSMenuItem!
+    @IBOutlet weak var moveTrackToBottomMenuItem: NSMenuItem!
+    
     @IBOutlet weak var showTrackInFinderMenuItem: NSMenuItem!
     
     private var trackMenuItems: [NSMenuItem] = []
@@ -57,7 +61,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         // Store all track-specific and group-specific menu items in separate arrays for convenient access when setting up the menu prior to display
         
-        trackMenuItems = [playTrackMenuItem, favoritesMenuItem, detailedInfoMenuItem, removeTrackMenuItem, moveTrackUpMenuItem, moveTrackDownMenuItem, showTrackInFinderMenuItem]
+        trackMenuItems = [playTrackMenuItem, favoritesMenuItem, detailedInfoMenuItem, removeTrackMenuItem, moveTrackUpMenuItem, moveTrackDownMenuItem, showTrackInFinderMenuItem, insertGapsMenuItem, editGapsMenuItem, removeGapsMenuItem]
         
         groupMenuItems = [playGroupMenuItem, removeGroupMenuItem, moveGroupUpMenuItem, moveGroupDownMenuItem]
         
@@ -75,6 +79,9 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     // Sets up the menu items that need to be displayed, depending on what type of playlist item was clicked, and the current state of that item
     func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        // TODO: Temporary. Need to implement move top/bottom for grouping playlists
+        [moveTrackToTopMenuItem, moveTrackToBottomMenuItem].forEach({$0?.isHidden = true})
         
         let clickedItem = PlaylistViewContext.clickedItem
         

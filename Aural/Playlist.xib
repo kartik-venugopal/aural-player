@@ -523,6 +523,8 @@
                 <outlet property="moveGroupDownMenuItem" destination="cMs-Ll-SkZ" id="GNc-9J-QrK"/>
                 <outlet property="moveGroupUpMenuItem" destination="hYN-OS-28N" id="OFj-do-S0z"/>
                 <outlet property="moveTrackDownMenuItem" destination="k3z-qH-RxK" id="qsf-iD-rcm"/>
+                <outlet property="moveTrackToBottomMenuItem" destination="HDD-rc-j4w" id="bts-ta-Cik"/>
+                <outlet property="moveTrackToTopMenuItem" destination="QUe-xD-qff" id="ZtY-Ee-nCA"/>
                 <outlet property="moveTrackUpMenuItem" destination="uV5-jg-pxc" id="SUJ-an-HjZ"/>
                 <outlet property="playGroupMenuItem" destination="FsK-Wf-m1z" id="nWG-FT-vqB"/>
                 <outlet property="playTrackMenuItem" destination="s9W-FB-XJa" id="1ar-9p-zIl"/>

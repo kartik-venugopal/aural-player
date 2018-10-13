@@ -488,4 +488,25 @@ class PlaylistViewState {
             
         }
     }
+    
+    static var selectedItem: SelectedItem {
+        
+        // Determine which item was clicked, and what kind of item it is
+        if let outlineView = currentView as? AuralPlaylistOutlineView {
+            
+            // Grouping view
+            let item = outlineView.item(atRow: outlineView.selectedRow)
+            
+            if let group = item as? Group {
+                return SelectedItem(group: group)
+            } else {
+                // Track
+                return SelectedItem(track: item as! Track)
+            }
+        } else {
+            
+            // Tracks view
+            return SelectedItem(index: currentView.selectedRow)
+        }
+    }
 }

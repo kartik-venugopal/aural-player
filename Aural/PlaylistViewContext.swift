@@ -11,7 +11,7 @@ class PlaylistViewContext {
     private static var _clickedView: NSTableView!
     
     // The playlist item that was clicked. Will be nil initially.
-    private static var _clickedItem: ClickedItem!
+    private static var _clickedItem: SelectedItem!
     
     // Exposed to outside callers (should never be nil). Should only be accessed subsequent to calling noteViewClicked().
     static var clickedView: NSTableView {
@@ -19,7 +19,7 @@ class PlaylistViewContext {
     }
     
     // Exposed to outside callers (should never be nil). Should only be accessed subsequent to calling noteViewClicked().
-    static var clickedItem: ClickedItem {
+    static var clickedItem: SelectedItem {
         return _clickedItem!
     }
     
@@ -39,23 +39,23 @@ class PlaylistViewContext {
             let item = outlineView.item(atRow: outlineView.selectedRow)
             
             if let group = item as? Group {
-                _clickedItem = ClickedItem(group: group)
+                _clickedItem = SelectedItem(group: group)
             } else {
                 // Track
-                _clickedItem = ClickedItem(track: item as! Track)
+                _clickedItem = SelectedItem(track: item as! Track)
             }
         } else {
             
             // Tracks view
-            _clickedItem = ClickedItem(index: _clickedView.selectedRow)
+            _clickedItem = SelectedItem(index: _clickedView.selectedRow)
         }
     }
 }
 
 // Encapsulates information about a playlist item that was clicked
-struct ClickedItem {
+struct SelectedItem {
     
-    var type: ClickedItemType
+    var type: SelectedItemType
     
     // Only one of these will be non-nil, depending on the type of item
     var index: Int?
@@ -82,7 +82,7 @@ struct ClickedItem {
 }
 
 // Enumerates the different types of playlist items (in terms of their location within the playlist)
-enum ClickedItemType {
+enum SelectedItemType {
     
     case index
     case track

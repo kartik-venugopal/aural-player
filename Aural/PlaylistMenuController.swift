@@ -41,6 +41,9 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
+        // TODO: Temporary. Need to implement move top/bottom for grouping playlists
+        [moveItemsToTopMenuItem, moveItemsToBottomMenuItem].forEach({$0?.isHidden = true})
+        
         theMenu.isEnabled = AppModeManager.mode == .regular && layoutManager.isShowingPlaylist()
         
         if (AppModeManager.mode != .regular) {
@@ -57,9 +60,12 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         // At least 2 tracks needed for these functions, and at least one track selected
         cropSelectionMenuItem.isEnabled = layoutManager.isShowingPlaylist() && playlist.size() > 1 && PlaylistViewState.currentView.selectedRow >= 0
         
-        if PlaylistViewState.currentView.selectedRowIndexes.count == 1 {
+        // Make sure it's a track, not a group, and that only one track is selected
+        if PlaylistViewState.currentView.numberOfSelectedRows == 1 {
             
-            if let track = selectedTrack() {
+            if PlaylistViewState.selectedItem.type != .group {
+                
+                let track = selectedTrack()
                 
                 let gaps = playlist.getGapsAroundTrack(track)
                 insertGapsMenuItem.isHidden = gaps.hasGaps
@@ -67,27 +73,18 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
                 editGapsMenuItem.isHidden = !gaps.hasGaps
                 
             } else {
-                
                 [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.isHidden = true})
             }
             
         } else {
-            
             [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.isHidden = true})
         }
     }
-
-    private func selectedTrack() -> Track? {
-        
-        let selRow = PlaylistViewState.currentView.selectedRow
-        
-        if selRow >= 0 {
-            
-            let track = playlist.trackAtIndex(selRow)
-            return track!.track
-        }
-        
-        return nil
+    
+    // Assumes only one item selected, and that it's a track
+    private func selectedTrack() -> Track {
+        let selItem = PlaylistViewState.selectedItem
+        return selItem.type == .index ? playlist.trackAtIndex(selItem.index!)!.track : selItem.track!
     }
     
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist
@@ -154,7 +151,6 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         } else {
             
             // Custom gap dialog
-            gapsEditor.setDataForKey("track", selectedTrack()!)
             gapsEditor.setDataForKey("gaps", nil)
             
             _ = gapsEditor.showDialog()
@@ -164,7 +160,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func editGapsAction(_ sender: NSMenuItem) {
         
         // Custom gap dialog
-        let gaps = playlist.getGapsAroundTrack(selectedTrack()!)
+        let gaps = playlist.getGapsAroundTrack(selectedTrack())
         
         gapsEditor.setDataForKey("gaps", gaps)
         
