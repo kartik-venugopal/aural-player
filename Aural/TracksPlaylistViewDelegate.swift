@@ -111,15 +111,15 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             
             if aOnly {
                 
-                adjustIndexConstraints_afterGapOnly(cell)
+                cell.adjustIndexConstraints_afterGapOnly()
                 
             } else if bOnly {
                 
-                adjustIndexConstraints_beforeGapOnly(cell)
+                cell.adjustIndexConstraints_beforeGapOnly()
                 
             } else {
                 
-                adjustIndexConstraints_centered(cell)
+                cell.adjustIndexConstraints_centered()
             }
             
             return cell
@@ -145,27 +145,21 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 cell.gapBeforeImg.isHidden = true
                 cell.gapAfterImg.isHidden = false
                 
-                adjustConstraints_mainFieldOnTop(cell)
-                
-                cell.gapAfterImg.setFrameOrigin(NSPoint.zero)
+                cell.placeTextFieldOnTop()
                 
             } else if bOnly {
                 
                 cell.gapBeforeImg.isHidden = false
                 cell.gapAfterImg.isHidden = true
                 
-                adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeImg)
-                
-                cell.textField!.setFrameOrigin(NSPoint.zero)
+                cell.placeTextFieldBelowView(cell.gapBeforeImg)
                 
             } else if both {
                 
                 cell.gapBeforeImg.isHidden = false
                 cell.gapAfterImg.isHidden = false
                 
-                adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeImg)
-                
-                cell.gapAfterImg.setFrameOrigin(NSPoint.zero)
+                cell.placeTextFieldBelowView(cell.gapBeforeImg)
                 
             } else {
                 
@@ -173,11 +167,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 cell.gapBeforeImg.isHidden = true
                 cell.gapAfterImg.isHidden = true
                 
-                adjustConstraints_mainFieldOnTop(cell)
-                
-                cell.textField!.setFrameOrigin(NSPoint.zero)
+                cell.placeTextFieldOnTop()
             }
-            
             
             return cell
         }
@@ -210,9 +201,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 
                 cell.gapAfterTextField.stringValue = StringUtils.formatSecondsToHMS(gap.duration)
                 
-                adjustConstraints_mainFieldOnTop(cell)
-                
-                cell.gapAfterTextField.setFrameOrigin(NSPoint.zero)
+                cell.placeTextFieldOnTop()
                 
             } else if bOnly {
                 
@@ -223,9 +212,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 
                 cell.gapBeforeTextField.stringValue = StringUtils.formatSecondsToHMS(gap.duration)
                 
-                adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeTextField)
-                
-                cell.textField!.setFrameOrigin(NSPoint.zero)
+                cell.placeTextFieldBelowView(cell.gapBeforeTextField)
                 
             } else if both {
                 
@@ -236,12 +223,9 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 cell.gapAfterTextField.isHidden = false
                 
                 cell.gapBeforeTextField.stringValue = StringUtils.formatSecondsToHMS(gapB.duration)
-                
                 cell.gapAfterTextField.stringValue = StringUtils.formatSecondsToHMS(gapA.duration)
                 
-                adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeTextField)
-                
-                cell.gapAfterTextField.setFrameOrigin(NSPoint.zero)
+                cell.placeTextFieldBelowView(cell.gapBeforeTextField)
                 
             } else {
                 
@@ -249,11 +233,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 cell.gapBeforeTextField.isHidden = true
                 cell.gapAfterTextField.isHidden = true
                 
-                adjustConstraints_mainFieldOnTop(cell)
-                
-                cell.textField!.setFrameOrigin(NSPoint.zero)
+                cell.placeTextFieldOnTop()
             }
-            
             
             return cell
         }
@@ -261,121 +242,9 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         return nil
     }
     
-    private func adjustConstraints_mainFieldOnTop(_ cell: NSTableCellView) {
-        
-        let main = cell.textField!
-        
-        for con in cell.constraints {
-            
-            if con.firstItem === main && con.firstAttribute == .top {
-                
-                con.isActive = false
-                cell.removeConstraint(con)
-                break
-            }
-        }
-        
-        let mainFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: 0)
-        mainFieldOnTop.isActive = true
-        cell.addConstraint(mainFieldOnTop)
-    }
-    
-    private func adjustConstraints_beforeGapFieldOnTop(_ cell: NSTableCellView, _ gapView: NSView) {
-        
-        let main = cell.textField!
-        
-        for con in cell.constraints {
-            
-            if con.firstItem === main && con.firstAttribute == .top {
-                
-                con.isActive = false
-                cell.removeConstraint(con)
-                break
-            }
-        }
-        
-        let befFieldOnTop = NSLayoutConstraint(item: main, attribute: .top, relatedBy: .equal, toItem: gapView, attribute: .bottom, multiplier: 1.0, constant: 0)
-        befFieldOnTop.isActive = true
-        cell.addConstraint(befFieldOnTop)
-    }
-    
     // MARK: Constraints for Index cells
     
-    private func adjustIndexConstraints_beforeGapOnly(_ cell: NSTableCellView) {
-     
-        for con in cell.constraints {
-            
-            if con.firstItem === cell.textField && con.firstAttribute == .centerY {
-                con.isActive = false
-                cell.removeConstraint(con)
-            }
-            
-            if con.firstItem === cell.imageView && con.firstAttribute == .centerY {
-                con.isActive = false
-                cell.removeConstraint(con)
-            }
-        }
-        
-        let indexTF = NSLayoutConstraint(item: cell.textField!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -12)
-        indexTF.isActive = true
-        cell.addConstraint(indexTF)
-        
-        let indexIV = NSLayoutConstraint(item: cell.imageView!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -12)
-        indexIV.isActive = true
-        cell.addConstraint(indexIV)
-    }
     
-    private func adjustIndexConstraints_afterGapOnly(_ cell: NSTableCellView) {
-        
-        for con in cell.constraints {
-            
-            if con.firstItem === cell.textField && con.firstAttribute == .centerY {
-                
-                con.isActive = false
-                cell.removeConstraint(con)
-            }
-            
-            if con.firstItem === cell.imageView && con.firstAttribute == .centerY {
-                
-                con.isActive = false
-                cell.removeConstraint(con)
-            }
-        }
-        
-        let indexTF = NSLayoutConstraint(item: cell.textField!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -30)
-        indexTF.isActive = true
-        cell.addConstraint(indexTF)
-        
-        let indexIV = NSLayoutConstraint(item: cell.imageView!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -30)
-        indexIV.isActive = true
-        cell.addConstraint(indexIV)
-    }
-    
-    private func adjustIndexConstraints_centered(_ cell: NSTableCellView) {
-        
-        for con in cell.constraints {
-            
-            if con.firstItem === cell.textField && con.firstAttribute == .centerY {
-                
-                con.isActive = false
-                cell.removeConstraint(con)
-            }
-            
-            if con.firstItem === cell.imageView && con.firstAttribute == .centerY {
-                
-                con.isActive = false
-                cell.removeConstraint(con)
-            }
-        }
-        
-        let indexTF = NSLayoutConstraint(item: cell.textField!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .centerY, multiplier: 1.0, constant: -1)
-        indexTF.isActive = true
-        cell.addConstraint(indexTF)
-        
-        let indexIV = NSLayoutConstraint(item: cell.imageView!, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .centerY, multiplier: 1.0, constant: -1)
-        indexIV.isActive = true
-        cell.addConstraint(indexIV)
-    }
     
     // Creates a cell view containing the animation for the currently playing track
     private func createPlayingTrackImageCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> IndexCellView? {
@@ -399,15 +268,15 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             
             if aOnly {
                 
-                adjustIndexConstraints_afterGapOnly(cell)
+                cell.adjustIndexConstraints_afterGapOnly()
                 
             } else if bOnly {
                 
-                adjustIndexConstraints_beforeGapOnly(cell)
+                cell.adjustIndexConstraints_beforeGapOnly()
                 
             } else {
                 
-                adjustIndexConstraints_centered(cell)
+                cell.adjustIndexConstraints_centered()
             }
             
             return cell
