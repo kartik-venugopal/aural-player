@@ -24,13 +24,10 @@ class PlaybackScheduler {
     
     private var lastCompletedSession: PlaybackSession?
     
+    private var playerStopped: Bool = false
+    
     init(_ playerNode: AVAudioPlayerNode) {
         self.playerNode = playerNode
-    }
-    
-    // Start track playback from the beginning
-    func playTrack(_ playbackSession: PlaybackSession) {
-        doPlayTrack(playbackSession)
     }
     
     // Start track playback from a given position expressed in seconds
@@ -39,23 +36,8 @@ class PlaybackScheduler {
     }
     
     // Starts track playback from a given frame position. The playbackSesssion parameter is used to ensure that no buffers are scheduled on the player for an old playback session.
-    private func doPlayTrack(_ playbackSession: PlaybackSession, _ startPosition: Double? = nil) {
-        
-        if let startPosn = startPosition {
-            
-            seekToTime(playbackSession, startPosn, true)
-            return
-        }
-        
-        // This means startPosition is 0
-        startFrame = PlaybackScheduler.FRAME_ZERO
-        lastSeekPosn = 0
-        
-        // Can assume that audioFile is non-nil, because track has been prepared for playback
-        let playingFile: AVAudioFile = playbackSession.track.playbackInfo!.audioFile!
-        
-        playerNode.scheduleFile(playingFile, at: nil, completionHandler: nil)
-        playerNode.play()
+    private func doPlayTrack(_ playbackSession: PlaybackSession, _ startPosition: Double) {
+        seekToTime(playbackSession, startPosition, true)
     }
     
     func playLoop(_ playbackSession: PlaybackSession, _ beginPlayback: Bool = true) {
@@ -81,7 +63,9 @@ class PlaybackScheduler {
         lastSeekPosn = loop.startTime
         
         // Schedule a segment beginning at the seek time, with the calculated frame count reflecting the remaining audio frames in the file
-        playerNode.scheduleSegment(playingFile, startingFrame: firstFrame, frameCount: AVAudioFrameCount(frameCount), at: nil, completionHandler: nil)
+        playerNode.scheduleSegment(playingFile, startingFrame: firstFrame, frameCount: AVAudioFrameCount(frameCount), at: nil, completionHandler: {
+            self.loopCompleted(playbackSession)
+        })
         
         // Don't start playing if player is paused
         if beginPlayback {
@@ -93,6 +77,7 @@ class PlaybackScheduler {
     func endLoop(_ playbackSession: PlaybackSession, _ loopEndTime: Double) {
         
         // Schedule a new segment from loopEnd -> trackEnd
+        completionPollTimer?.stop()
         
         // Can assume that playbackInfo is non-nil, because track has been prepared for playback
         let playbackInfo: PlaybackInfo = playbackSession.track.playbackInfo!
@@ -104,7 +89,9 @@ class PlaybackScheduler {
         let frameCount = playbackInfo.frames! - firstFrame + 1
         
         // Schedule a segment beginning at the seek time, with the calculated frame count reflecting the remaining audio frames in the file
-        playerNode.scheduleSegment(playingFile, startingFrame: firstFrame, frameCount: AVAudioFrameCount(frameCount), at: nil, completionHandler: nil)
+        playerNode.scheduleSegment(playingFile, startingFrame: firstFrame, frameCount: AVAudioFrameCount(frameCount), at: nil, completionHandler: {
+            self.segmentCompleted(playbackSession)
+        })
     }
     
     // Seeks to a certain position (seconds) in the specified track. Returns the calculated start frame.
@@ -122,7 +109,11 @@ class PlaybackScheduler {
         let firstFrame = Int64(seconds * sampleRate)
         var lastFrame: Int64 = 0
         
+        var hasLoop: Bool = false
+        
         if playbackSession.hasCompleteLoop() {
+            
+            hasLoop = true
             
             let loop = playbackSession.loop!
             lastFrame = Int64(loop.endTime! * sampleRate)
@@ -139,11 +130,103 @@ class PlaybackScheduler {
         lastSeekPosn = seconds
         
         // Schedule a segment beginning at the seek time, with the calculated frame count reflecting the remaining audio frames in the file
-        playerNode.scheduleSegment(playingFile, startingFrame: firstFrame, frameCount: AVAudioFrameCount(frameCount), at: nil, completionHandler: nil)
+        playerNode.scheduleSegment(playingFile, startingFrame: firstFrame, frameCount: AVAudioFrameCount(frameCount), at: nil, completionHandler: {
+            hasLoop ? self.loopCompleted(playbackSession) : self.segmentCompleted(playbackSession)
+        })
         
         // Don't start playing if player is paused
         if beginPlayback {
             playerNode.play()
+        }
+    }
+    
+    private func segmentCompleted(_ session: PlaybackSession) {
+        
+        if self.playerStopped {
+            // Player queue is being flushed (e.g. when seeking) ... ignore this event
+            return
+        }
+        
+        // Start the completion poll timer
+        completionPollTimer = RepeatingTaskExecutor(intervalMillis: 125, task: {
+            
+            self.pollForTrackCompletion()
+            
+        }, queue: DispatchQueue.global(qos: .userInteractive))
+        
+        // Don't start the timer if player is paused
+        if playerNode.isPlaying {
+            completionPollTimer?.startOrResume()
+        }
+    }
+    
+    private func pollForTrackCompletion() {
+        
+        if let session = PlaybackSession.currentSession {
+            
+            let duration = session.track.duration
+            
+            if lastSeekPosn >= duration {
+                
+                // Prevent lastSeekPosn from overruning the track duration to prevent weird incorrect UI displays of seek time
+                lastSeekPosn = duration
+                
+                // Notify observers that the track has finished playing. Don't do this if paused and seeking to the end.
+                if (playerNode.isPlaying && session !== lastCompletedSession) {
+                    
+                    trackPlaybackCompleted(session)
+                    lastCompletedSession = session
+                    
+                    completionPollTimer?.stop()
+                }
+            }
+            
+        } else {
+            // Theoretically impossible
+            completionPollTimer?.stop()
+        }
+    }
+    
+    private func loopCompleted(_ session: PlaybackSession) {
+        
+        if self.playerStopped {
+            // TODO: Will this always work ??? What if stopping the player after a seek close to the end of the track takes a long time, past the end of the track ?
+            // Player queue is being flushed (e.g. when seeking) ... ignore this event
+            return
+        }
+        
+        // Start the completion poll timer
+        completionPollTimer = RepeatingTaskExecutor(intervalMillis: 125, task: {
+            
+            self.pollForLoopCompletion()
+            
+        }, queue: DispatchQueue.global(qos: .userInteractive))
+        
+        // Don't start the timer if player is paused
+        if playerNode.isPlaying {
+            completionPollTimer?.startOrResume()
+        }
+    }
+    
+    private func pollForLoopCompletion() {
+        
+        if let session = PlaybackSession.currentSession, session.hasCompleteLoop() {
+            
+            let loopEndTime = session.loop!.endTime!
+            
+            if lastSeekPosn >= loopEndTime {
+                
+                lastSeekPosn = loopEndTime
+                
+                if playerNode.isPlaying {
+                    // Restart loop
+                    playLoop(session, true)
+                }
+            }
+            
+        } else {
+            // Theoretically impossible (no current session)
+            completionPollTimer?.stop()
         }
     }
     
@@ -152,59 +235,35 @@ class PlaybackScheduler {
         // Update lastSeekPosn before pausing
         _ = getSeekPosition()
         playerNode.pause()
+        
+        // If the completion timer is running, pause it
+        completionPollTimer?.pause()
     }
     
     func resume() {
+        
         playerNode.play()
+        
+        // If the completion timer is paused, resume it
+        completionPollTimer?.startOrResume()
     }
     
     // Stops the scheduling of audio buffers, in response to a request to stop playback (or when seeking to a new position). Marks the end of a "playback session".
     func stop() {
+        
+        playerStopped = true
         playerNode.stop()
+        playerStopped = false
+        
+        // Completion timer is no longer relevant for this playback session which has ended. The next session will spawn a new timer if/when needed.
+        completionPollTimer?.stop()
     }
     
     // Retrieves the current seek position, in seconds
     func getSeekPosition() -> Double {
         
-        if let nodeTime = playerNode.lastRenderTime {
-            
-            if let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
-                lastSeekPosn = Double(startFrame! + playerTime.sampleTime) / playerTime.sampleRate
-            }
-        }
-        
-        // TODO: When playback rate is slow (e.g. 0.25 x), there will be a 2 seconds dead time at the end, before playback completes. Maybe need a separate timer after all
-        // Detect track playback completion
-        if let session = PlaybackSession.currentSession {
-            
-            if session.hasCompleteLoop() {
-                
-                let loop = session.loop!
-                let endTime = loop.endTime!
-                
-                if lastSeekPosn >= endTime {
-                    
-                    // Restart loop
-                    lastSeekPosn = endTime
-                    playLoop(session, playerNode.isPlaying)
-                }
-                
-            } else {
-                
-                let duration = session.track.duration
-                
-                if lastSeekPosn >= duration {
-                    
-                    // Prevent lastSeekPosn from overruning the track duration to prevent weird incorrect UI displays of seek time
-                    lastSeekPosn = duration
-                    
-                    // Notify observers that the track has finished playing. Don't do this if paused and seeking to the end.
-                    if (playerNode.isPlaying && session !== lastCompletedSession) {
-                        trackPlaybackCompleted(session)
-                        lastCompletedSession = session
-                    }
-                }
-            }
+        if let nodeTime = playerNode.lastRenderTime, let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
+            lastSeekPosn = Double(startFrame! + playerTime.sampleTime) / playerTime.sampleRate
         }
         
         // Default to last remembered position when nodeTime is nil

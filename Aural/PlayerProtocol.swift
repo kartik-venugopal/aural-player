@@ -5,9 +5,6 @@ import Cocoa
  */
 protocol PlayerProtocol {
     
-    // Plays a given track
-    func play(_ track: Track)
-    
     // Plays a given track, starting from a given position (used for bookmarks)
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double?)
     
