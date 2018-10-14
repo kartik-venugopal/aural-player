@@ -97,6 +97,48 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return track
     }
     
+    func playWithDelay(_ index: Int, _ delay: Double) throws -> IndexedTrack {
+        
+        PlaybackGapContext.clear()
+        
+        // Stop if currently playing
+        haltPlayback()
+        
+        let track = playbackSequencer.select(index)
+        
+        let gap = PlaybackGap(delay, .beforeTrack)
+        PlaybackGapContext.addGap(gap, track)
+        
+        let gapContextId = PlaybackGapContext.getId()
+        
+        // Mark the current state as "waiting" in between tracks
+        player.wait()
+        
+        let gapEndTime_dt = DispatchTime.now() + delay
+        let gapEndTime: Date = DateUtils.addToDate(Date(), delay)
+        
+        trackPlaybackQueue.asyncAfter(deadline: gapEndTime_dt) {
+            
+            // Perform this check to account for the possibility that the gap has been skipped (e.g. user performs Play or Next/Previous track)
+            if PlaybackGapContext.isCurrent(gapContextId) {
+                
+                do {
+                    try self.doPlay(track, nil, nil)
+                } catch let error {
+                    
+                    if (error is InvalidTrackError) {
+                        AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(track, error as! InvalidTrackError))
+                    }
+                }
+            }
+        }
+        
+        // Let observers know that a playback gap has begun
+        AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, nil, track, nil, gap))
+        
+        return track
+    }
+    
     func play(_ index: Int, _ startPosition: Double, _ endPosition: Double?) throws -> IndexedTrack {
         
         PlaybackGapContext.clear()
@@ -212,7 +254,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
                     PlaybackGapContext.addGap(gapBeforeSubsequentTrack, track!)
                     
                     // The explicitly defined gap before the track takes precedence over the implicit gap defined by the playback preferences, so remove the implicit gap
+                    
+                    // TODO: Move this line to PlaybackGapContext
                     PlaybackGapContext.removeImplicitGap()
+                    
                     PlaybackGapContext.subsequentTrack = track
                 }
             }
