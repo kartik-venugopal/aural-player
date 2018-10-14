@@ -363,9 +363,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         let track = playlist.trackAtIndex(playlistView.selectedRow)
         playlist.setGapsForTrack(track!.track, gapBefore, gapAfter)
         
-//        playlistView.reloadData(forRowIndexes: IndexSet([playlistView.selectedRow]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-//        playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([playlistView.selectedRow]))
-        
         SyncMessenger.publishNotification(PlaybackGapUpdatedNotification(track!.track))
     }
     
