@@ -115,7 +115,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         }
     }
     
-    
     private func createImageAndTextCell_gaps(_ outlineView: NSOutlineView, _ id: String, _ isGroup: Bool, _ text: String, _ image: NSImage?, _ isPlayingTrack: Bool = false, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil) -> GroupedTrackNameCellView? {
         
         if let cell = outlineView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? GroupedTrackNameCellView {
@@ -340,6 +339,9 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             cell.imageView?.image = image
             cell.isGroup = isGroup
             
+            cell.gapAfterImg.isHidden = true
+            cell.gapBeforeImg.isHidden = true
+            
             adjustConstraints_mainFieldCentered(cell)
             
             cell.textField!.setFrameOrigin(NSPoint.zero)
@@ -357,6 +359,10 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             
             cell.textField?.stringValue = text
             cell.isGroup = isGroup
+            
+            cell.gapAfterTextField.isHidden = true
+            cell.gapBeforeTextField.isHidden = true
+            
             return cell
         }
         

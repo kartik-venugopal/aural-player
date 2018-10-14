@@ -170,6 +170,25 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlist.removeTracksAndGroups(tracks, groups, groupType)
     }
     
+    private func selectTrack(_ track: Track?) {
+        
+        if (playlistView.numberOfRows > 0) {
+            
+            if let _track = track {
+                
+                let group = playlist.groupingInfoForTrack(self.groupType, _track).group
+                
+                // Need to expand the parent group to make the child track visible
+                playlistView.expandItem(group)
+                
+                let trackRowIndex = playlistView.row(forItem: _track)
+                
+                playlistView.selectRowIndexes(IndexSet(integer: trackRowIndex), byExtendingSelection: false)
+                playlistView.scrollRowToVisible(trackRowIndex)
+            }
+        }
+    }
+    
     // Selects (and shows) a certain track within the playlist view
     private func selectTrack(_ track: GroupedTrack?) {
         
@@ -542,36 +561,25 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private func gapStarted(_ message: PlaybackGapStartedAsyncMessage) {
         
+        var refreshTracks: [Track] = [message.nextTrack.track]
+        
+        if let oldTrack = message.lastPlayedTrack {
+            refreshTracks.append(oldTrack.track)
+        }
+        
         var refreshIndexSet: IndexSet = IndexSet([])
+        refreshTracks.forEach({refreshIndexSet.insert(playlistView.row(forItem: $0))})
         
-        // Check if gap after last track is a one-time gap
-        if let gapAfterLastTrack = message.gapAfterLastPlayedTrack, let lastTrack = message.lastPlayedTrack?.track {
-           
-            if gapAfterLastTrack.type == .oneTime {
-                
-                let oldTrackRow = playlistView.row(forItem: lastTrack)
-                if oldTrackRow >= 0 {
-                    refreshIndexSet.insert(oldTrackRow)
-                }
-            }
-        }
+        // Don't include -1 when a row is not found
+        refreshIndexSet = IndexSet(refreshIndexSet.filter({$0 >= 0}))
         
-        // Check if gap before next track is a one-time gap
-        if let gapBeforeNextTrack = message.gapBeforeNextTrack {
-           
-            if gapBeforeNextTrack.type == .oneTime {
-                
-                let newTrackRow = playlistView.row(forItem: message.nextTrack.track)
-                if newTrackRow >= 0 {
-                    refreshIndexSet.insert(newTrackRow)
-                }
-            }
-        }
+        // Playing track is no longer playing. One-time gaps may have been removed, so need to update the table view
+        playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
+        playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
         
-        if !refreshIndexSet.isEmpty {
-            
-            playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
-            playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
+        // TODO: Select the next track
+        if playbackPreferences.showNewTrackInPlaylist {
+            selectTrack(message.nextTrack.track)
         }
     }
     

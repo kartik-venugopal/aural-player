@@ -284,8 +284,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func trackChanged(_ message: TrackChangedNotification) {
         
-        
-        
         let oldTrack = message.oldTrack
         let newTrack = message.newTrack
         
@@ -384,31 +382,21 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func gapStarted(_ message: PlaybackGapStartedAsyncMessage) {
         
-        var refreshIndexes: [Int] = []
+        var refreshIndexes: [Int] = [message.nextTrack.index]
         
-        // Check if gap after last track is a one-time gap
-        if let gapAfterLastTrack = message.gapAfterLastPlayedTrack {
-            if gapAfterLastTrack.type == .oneTime {
-                if let oldTrackIndex = message.lastPlayedTrack?.index {
-                    refreshIndexes.append(oldTrackIndex)
-                }
-            }
+        if let oldTrackIndex = message.lastPlayedTrack?.index {
+            refreshIndexes.append(oldTrackIndex)
         }
         
-        // Check if gap before next track is a one-time gap
-        if let gapBeforeNextTrack = message.gapBeforeNextTrack {
-            if gapBeforeNextTrack.type == .oneTime {
-                refreshIndexes.append(message.nextTrack.index)
-            }
-        }
+        let refreshIndexSet: IndexSet = IndexSet(refreshIndexes)
         
-        if !refreshIndexes.isEmpty {
-            
-            let refreshIndexSet: IndexSet = IndexSet(refreshIndexes)
-            
-            // One-time gaps may have been removed, so need to update the table view, if there was one such gap
-            playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-            playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
+        // Last playing track is no longer playing. Also, one-time gaps may have been removed, so need to update the table view
+        playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
+        
+        // TODO: Select the next track
+        if playbackPreferences.showNewTrackInPlaylist {
+            playlistView.selectRowIndexes(IndexSet([message.nextTrack.index]), byExtendingSelection: false)
         }
     }
     
