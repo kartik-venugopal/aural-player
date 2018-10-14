@@ -270,13 +270,21 @@ struct PlaybackGapStartedAsyncMessage: AsyncMessage {
     let messageType: AsyncMessageType = .gapStarted
     
     let gapEndTime: Date
-    let lastPlayedTrack: IndexedTrack?
-    let nextTrack: IndexedTrack
     
-    init(_ gapEndTime: Date, _ lastPlayedTrack: IndexedTrack?, _ nextTrack: IndexedTrack) {
+    let lastPlayedTrack: IndexedTrack?
+    let gapAfterLastPlayedTrack: PlaybackGap?
+    
+    let nextTrack: IndexedTrack
+    let gapBeforeNextTrack: PlaybackGap?
+    
+    init(_ gapEndTime: Date, _ lastPlayedTrack: IndexedTrack?, _ nextTrack: IndexedTrack, _ gapAfterLastPlayedTrack: PlaybackGap?, _ gapBeforeNextTrack: PlaybackGap?) {
         
         self.gapEndTime = gapEndTime
+        
         self.lastPlayedTrack = lastPlayedTrack
+        self.gapAfterLastPlayedTrack = gapAfterLastPlayedTrack
+        
         self.nextTrack = nextTrack
+        self.gapBeforeNextTrack = gapBeforeNextTrack
     }
 }

@@ -97,6 +97,30 @@ class PlaybackGapContext {
         return gaps.filter({$0.key.type == .oneTime})
     }
     
+    static func gapBeforeNextTrack() -> PlaybackGap? {
+        
+        for gap in gaps {
+            
+            if gap.key.position == .beforeTrack {
+                return gap.key
+            }
+        }
+        
+        return nil
+    }
+    
+    static func gapAfterLastTrack() -> PlaybackGap? {
+        
+        for gap in gaps {
+            
+            if gap.key.position == .afterTrack {
+                return gap.key
+            }
+        }
+        
+        return nil
+    }
+    
     static func clear() {
         
         id = -1

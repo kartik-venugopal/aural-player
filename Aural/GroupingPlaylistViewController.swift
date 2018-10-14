@@ -468,11 +468,17 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         let newTrack = notification.newTrack
         
         if (oldTrack != nil) {
+            
             playlistView.reloadItem(oldTrack!.track)
+            let row = playlistView.row(forItem: oldTrack!.track)
+            playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
         }
         
         if (newTrack != nil) {
+            
             playlistView.reloadItem(newTrack!.track)
+            let row = playlistView.row(forItem: newTrack!.track)
+            playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
             
             if layoutManager.isShowingPlaylist() {
                 
@@ -536,18 +542,37 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     private func gapStarted(_ message: PlaybackGapStartedAsyncMessage) {
         
-        var refreshTracks: [Track] = [message.nextTrack.track]
+        var refreshIndexSet: IndexSet = IndexSet([])
         
-        if let oldTrack = message.lastPlayedTrack {
-            refreshTracks.append(oldTrack.track)
+        // Check if gap after last track is a one-time gap
+        if let gapAfterLastTrack = message.gapAfterLastPlayedTrack, let lastTrack = message.lastPlayedTrack?.track {
+           
+            if gapAfterLastTrack.type == .oneTime {
+                
+                let oldTrackRow = playlistView.row(forItem: lastTrack)
+                if oldTrackRow >= 0 {
+                    refreshIndexSet.insert(oldTrackRow)
+                }
+            }
         }
         
-        var refreshIndexSet: IndexSet = IndexSet([])
-        refreshTracks.forEach({refreshIndexSet.insert(playlistView.row(forItem: $0))})
+        // Check if gap before next track is a one-time gap
+        if let gapBeforeNextTrack = message.gapBeforeNextTrack {
+           
+            if gapBeforeNextTrack.type == .oneTime {
+                
+                let newTrackRow = playlistView.row(forItem: message.nextTrack.track)
+                if newTrackRow >= 0 {
+                    refreshIndexSet.insert(newTrackRow)
+                }
+            }
+        }
         
-        // One-time gaps may have been removed, so need to update the table view
-        playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
-        playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
+        if !refreshIndexSet.isEmpty {
+            
+            playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
+            playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
+        }
     }
     
     private func gapUpdated(_ message: PlaybackGapUpdatedNotification) {
