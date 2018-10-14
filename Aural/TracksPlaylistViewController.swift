@@ -252,6 +252,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     private func trackInfoUpdated(_ message: TrackUpdatedAsyncMessage) {
         
         DispatchQueue.main.async {
+            
+            // NOTE - In the future, if gap info is updated, also need to update row height
             self.playlistView.reloadData(forRowIndexes: IndexSet(integer: message.trackIndex), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         }
     }
@@ -260,7 +262,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         let indexes = message.results.flatPlaylistResults
         
-        if indexes.count == 0 {
+        if indexes.isEmpty {
             return
         }
         
@@ -271,7 +273,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         // If not all removed rows are contiguous and at the end of the playlist
         if (minIndex <= maxIndex) {
             
-            playlistView.reloadData(forRowIndexes: IndexSet(minIndex...maxIndex), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            let refreshIndexes = IndexSet(minIndex...maxIndex)
+            playlistView.reloadData(forRowIndexes: refreshIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexes)
         }
         
         // Tell the playlist view that the number of rows has changed
@@ -279,6 +283,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     private func trackChanged(_ message: TrackChangedNotification) {
+        
+        
         
         let oldTrack = message.oldTrack
         let newTrack = message.newTrack
@@ -307,6 +313,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         // Gaps may have been removed, so row heights need to be updated too
         let indexSet: IndexSet = IndexSet(refreshIndexes)
+        
         playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         playlistView.noteHeightOfRows(withIndexesChanged: indexSet)
     }
@@ -377,17 +384,32 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func gapStarted(_ message: PlaybackGapStartedAsyncMessage) {
         
-        var refreshIndexes: [Int] = [message.nextTrack.index]
+        var refreshIndexes: [Int] = []
         
-        if let oldTrackIndex = message.lastPlayedTrack?.index {
-            refreshIndexes.append(oldTrackIndex)
+        // Check if gap after last track is a one-time gap
+        if let gapAfterLastTrack = message.gapAfterLastPlayedTrack {
+            if gapAfterLastTrack.type == .oneTime {
+                if let oldTrackIndex = message.lastPlayedTrack?.index {
+                    refreshIndexes.append(oldTrackIndex)
+                }
+            }
         }
         
-        let refreshIndexSet: IndexSet = IndexSet(refreshIndexes)
+        // Check if gap before next track is a one-time gap
+        if let gapBeforeNextTrack = message.gapBeforeNextTrack {
+            if gapBeforeNextTrack.type == .oneTime {
+                refreshIndexes.append(message.nextTrack.index)
+            }
+        }
         
-        // One-time gaps may have been removed, so need to update the table view
-        playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-        playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
+        if !refreshIndexes.isEmpty {
+            
+            let refreshIndexSet: IndexSet = IndexSet(refreshIndexes)
+            
+            // One-time gaps may have been removed, so need to update the table view, if there was one such gap
+            playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
+        }
     }
     
     private func gapUpdated(_ message: PlaybackGapUpdatedNotification) {

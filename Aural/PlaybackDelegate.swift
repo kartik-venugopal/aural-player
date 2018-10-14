@@ -250,12 +250,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
                 
                 // Check if those gaps were one-time gaps. If so, delete them
                 let oneTimeGaps = PlaybackGapContext.oneTimeGaps()
+                
                 for gap in oneTimeGaps.keys {
                     playlist.removeGapForTrack(oneTimeGaps[gap]!.track, gap.position)
                 }
                 
                 // Let observers know that a playback gap has begun
-                AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, lastPlayedIndexed, track!))
+                AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, lastPlayedIndexed, track!, PlaybackGapContext.gapAfterLastTrack(), PlaybackGapContext.gapBeforeNextTrack()))
                 
             } else {
                 
