@@ -1159,9 +1159,9 @@
 			isa = PBXGroup;
 			children = (
 				3E1E970E1FA44671006C8629 /* PlaybackSequencerProtocol.swift */,
+				3E1E97101FA44833006C8629 /* PlaybackSequencer.swift */,
 				3EDA1FBA214F305C003591FA /* PlaybackSequencerInfoDelegateProtocol.swift */,
 				3EDA1FBC214F3102003591FA /* PlaybackSequencerInfoDelegate.swift */,
-				3E1E97101FA44833006C8629 /* PlaybackSequencer.swift */,
 				3EC947AC1F5DDEA400FDBE25 /* PlaybackSequenceProtocol.swift */,
 				3E09C6BA1F2F388B007BB489 /* PlaybackSequence.swift */,
 				3E09C6B61F2F25A7007BB489 /* ShuffleSequence.swift */,
