@@ -549,9 +549,9 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="ptR-ch-WUH"/>
-                <menuItem title="  Insert silent gaps around track" id="Tte-BT-Pxq" userLabel="Insert gaps">
+                <menuItem title=" Insert silent gaps around track" image="Gap-Padded-Small" id="Tte-BT-Pxq" userLabel="Insert gaps">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="  Insert silent gaps around track" id="czk-Mf-Hvj">
+                    <menu key="submenu" title=" Insert silent gaps around track" id="czk-Mf-Hvj">
                         <items>
                             <menuItem title="5 seconds before track" tag="-5" id="uFW-hP-oFT">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -612,20 +612,20 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="  Edit silent gaps around track" id="Da8-AS-fHe" userLabel="Edit gaps">
+                <menuItem title=" Edit silent gaps around track" image="Gap-Padded-Small" id="Da8-AS-fHe" userLabel="Edit gaps">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="editGapsAction:" target="TnB-Sk-yOp" id="0o6-WN-54c"/>
                     </connections>
                 </menuItem>
-                <menuItem title="  Remove silent gaps around track" id="9i8-3l-G5u" userLabel="Remove gaps">
+                <menuItem title="      Remove silent gaps around track" id="9i8-3l-G5u" userLabel="Remove gaps">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="removeGapsAction:" target="TnB-Sk-yOp" id="P7E-7E-Tks"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="xpC-LX-tPd"/>
-                <menuItem id="CHV-5l-G4d" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                <menuItem title=" Add this track to Favorites" id="CHV-5l-G4d" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value=" Add this track to Favorites"/>
@@ -643,7 +643,7 @@
                         <action selector="moreInfoAction:" target="TnB-Sk-yOp" id="5Dw-se-FC1"/>
                     </connections>
                 </menuItem>
-                <menuItem title="  Show track in Finder" image="ShowInFinder" id="6Oh-bN-HCq" userLabel="Show track in Finder">
+                <menuItem title=" Show track in Finder" image="ShowInFinder" id="6Oh-bN-HCq" userLabel="Show track in Finder">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="showTrackInFinderAction:" target="TnB-Sk-yOp" id="06W-8k-6gu"/>
@@ -662,7 +662,7 @@
                         <action selector="moveItemUpAction:" target="TnB-Sk-yOp" id="axi-a3-lIi"/>
                     </connections>
                 </menuItem>
-                <menuItem title="  Move this track to the top" image="Up-Small" id="QUe-xD-qff" userLabel="Move track top">
+                <menuItem title="  Move this track to the top" image="Up-Small" hidden="YES" enabled="NO" id="QUe-xD-qff" userLabel="Move track top">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="moveItemToTopAction:" target="TnB-Sk-yOp" id="map-b5-fpX"/>
@@ -674,7 +674,7 @@
                         <action selector="moveItemDownAction:" target="TnB-Sk-yOp" id="Jjq-1a-OiX"/>
                     </connections>
                 </menuItem>
-                <menuItem title="  Move this track to the bottom" image="Down-Small" id="HDD-rc-j4w" userLabel="Move track bottom">
+                <menuItem title="  Move this track to the bottom" image="Down-Small" hidden="YES" enabled="NO" id="HDD-rc-j4w" userLabel="Move track bottom">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="moveItemToBottomAction:" target="TnB-Sk-yOp" id="aMP-iX-nBi"/>
@@ -715,6 +715,7 @@
         <image name="Down" width="92" height="128"/>
         <image name="Down-Small" width="10" height="14"/>
         <image name="Favorites" width="15" height="15"/>
+        <image name="Gap-Padded-Small" width="15" height="15"/>
         <image name="Maximize" width="700" height="600"/>
         <image name="MaximizeHorizontal" width="700" height="600"/>
         <image name="MaximizeVertical" width="700" height="600"/>
