@@ -299,7 +299,18 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             refreshIndexes.append(newTrack!.index)
             
             if needToShowTrack {
-                showPlayingTrack()
+                
+                let plIndex = playbackInfo.getPlayingTrack()!.index
+                if (plIndex == playlistView.numberOfRows) {
+                    
+                    // This means the track is in the playlist but has not yet been added to the playlist view (Bookmark/Recently played/Favorite item), and will be added shortly (this is a race condition). So, dispatch an async delayed handler to show the track in the playlist, after it is expected to be added.
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                        self.showPlayingTrack()
+                    })
+                    
+                } else {
+                    showPlayingTrack()
+                }
             }
             
         } else {
