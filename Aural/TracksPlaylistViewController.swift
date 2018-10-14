@@ -105,12 +105,12 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     }
     
     // Selects (and shows) a certain track within the playlist view
-    private func selectTrack(_ index: Int?) {
+    private func selectTrack(_ selIndex: Int?) {
         
-        if (playlistView.numberOfRows > 0 && index != nil && index! >= 0) {
-
-            playlistView.selectRowIndexes(IndexSet(integer: index!), byExtendingSelection: false)
-            playlistView.scrollRowToVisible(index!)
+        if let index = selIndex, playlistView.numberOfRows > 0, index >= 0 {
+            
+            playlistView.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
+            playlistView.scrollRowToVisible(index)
         }
     }
     
@@ -394,9 +394,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
         
-        // TODO: Select the next track
+        // Select the next track
         if playbackPreferences.showNewTrackInPlaylist {
-            playlistView.selectRowIndexes(IndexSet([message.nextTrack.index]), byExtendingSelection: false)
+            selectTrack(message.nextTrack.index)
         }
     }
     
