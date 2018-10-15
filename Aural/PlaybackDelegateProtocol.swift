@@ -21,7 +21,11 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
      */
     func play(_ index: Int) throws -> IndexedTrack
     
-    func playWithDelay(_ index: Int, _ delay: Double) throws -> IndexedTrack
+    func playWithDelay(_ index: Int, _ delay: Double) -> IndexedTrack
+    
+    func playWithDelay(_ track: Track, _ delay: Double) -> IndexedTrack
+    
+    func playWithDelay(_ group: Group, _ delay: Double) -> IndexedTrack
     
     /*
         Plays the given track. Returns complete track information for the track.

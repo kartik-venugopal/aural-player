@@ -221,9 +221,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
                 
             case .playing:
                 
-                if (playbackInfo.trackChanged) {
-                    trackChanged(oldTrack, playbackInfo.playingTrack)
-                } else {
+                if (!playbackInfo.trackChanged) {
                     // Resumed the same track
                     SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
                 }
@@ -297,10 +295,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         do {
             
-            let prevTrack = try player.previousTrack()
-            if (prevTrack?.track != nil) {
-                trackChanged(oldTrack, prevTrack)
-            }
+            _ = try player.previousTrack()
             
         } catch let error {
             
@@ -316,10 +311,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         let oldTrack = player.getPlayingTrack()
         
         do {
-            let nextTrack = try player.nextTrack()
-            if (nextTrack?.track != nil) {
-                trackChanged(oldTrack, nextTrack)
-            }
+            _ = try player.nextTrack()
             
         } catch let error {
             
@@ -369,9 +361,11 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         do {
             
-            let track = delay != nil ? try player.playWithDelay(trackIndex, delay!) : try player.play(trackIndex)
-             
-            trackChanged(oldTrack, track)
+            if let playbackDelay = delay {
+                _ = player.playWithDelay(trackIndex, playbackDelay)
+            } else {
+                _ = try player.play(trackIndex)
+            }
             
         } catch let error {
             
@@ -381,15 +375,17 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         }
     }
 
-    // TODO: Delay
     private func playTrack(_ track: Track, _ delay: Double?) {
         
         let oldTrack = player.getPlayingTrack()
         
         do {
             
-            let playingTrack = try player.play(track)
-            trackChanged(oldTrack, playingTrack)
+            if let playbackDelay = delay {
+                _ = player.playWithDelay(track, playbackDelay)
+            } else {
+                _ = try player.play(track)
+            }
             
         } catch let error {
             
@@ -399,15 +395,17 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         }
     }
     
-    // TODO: Delay
     private func playGroup(_ group: Group, _ delay: Double?) {
         
         let oldTrack = player.getPlayingTrack()
         
         do {
             
-            let track = try player.play(group)
-            trackChanged(oldTrack, track)
+            if let playbackDelay = delay {
+                _ = player.playWithDelay(group, playbackDelay)
+            } else {
+                _ = try player.play(group)
+            }
             
         } catch let error {
             
@@ -476,12 +474,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func trackChanged(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
         btnPlayPause.onIf(player.getPlaybackState() == .playing)
-        
-        if (player.getPlaybackLoop()) != nil {
-            btnLoop.switchState(LoopState.complete)
-        } else {
-            btnLoop.switchState(LoopState.none)
-        }
+        btnLoop.switchState(player.getPlaybackLoop() != nil ? LoopState.complete : LoopState.none)
         
         // Apply sound profile if there is one for the new track and the preferences allow it
         if newTrack != nil && soundPreferences.rememberEffectsSettings {
