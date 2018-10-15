@@ -47,6 +47,7 @@
                 <outlet property="moveItemsToBottomMenuItem" destination="07J-Mu-hRE" id="VEk-EP-txO"/>
                 <outlet property="moveItemsToTopMenuItem" destination="av2-sE-9MQ" id="DV5-5L-dmS"/>
                 <outlet property="moveItemsUpMenuItem" destination="f3c-TG-M9r" id="tFc-fV-deZ"/>
+                <outlet property="playSelectedItemDelayedMenuItem" destination="Q9h-Nv-Vuv" id="CZO-kT-Je1"/>
                 <outlet property="playSelectedItemMenuItem" destination="afl-Xm-nI9" id="RnQ-Qj-phc"/>
                 <outlet property="removeGapsMenuItem" destination="iK1-11-rDP" id="Rvs-NL-PET"/>
                 <outlet property="removeSelectedItemsMenuItem" destination="20j-6Y-sbB" id="1Tx-Bh-Msu"/>
@@ -256,7 +257,7 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="ZbT-B5-jLK"/>
-                            <menuItem title="   Play selected item" image="Play-Small" id="afl-Xm-nI9" userLabel="Play selected track/group">
+                            <menuItem title="  Play selected item" image="Play-Small" id="afl-Xm-nI9" userLabel="Play selected track/group">
                                 <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
@@ -265,9 +266,71 @@ DQ
                                     <action selector="playSelectedItemAction:" target="sXT-Pr-clR" id="6ty-nb-ja1"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="  Insert silent gaps around selected track" image="Gap-Small" id="9iu-he-pRn" userLabel="Insert gaps">
+                            <menuItem title="  Play selected item after timed delay" image="DelayedPlayback-Menu" id="Q9h-Nv-Vuv" userLabel="Play track delayed">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Insert silent gaps around selected track" id="Lrd-d0-88m">
+                                <menu key="submenu" title="  Play selected item after timed delay" id="VIM-4Q-OAh">
+                                    <items>
+                                        <menuItem title="5 seconds" tag="5" id="njI-b7-TQK">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="playSelectedItemAfterDelayAction:" target="sXT-Pr-clR" id="ji6-9m-AJz"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="10 seconds" tag="10" id="Yjk-ex-f8t">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="playSelectedItemAfterDelayAction:" target="sXT-Pr-clR" id="936-5c-ukZ"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="30 seconds" tag="30" id="Fdt-bH-mri">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="playSelectedItemAfterDelayAction:" target="sXT-Pr-clR" id="U9x-2D-E6z"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="1 minute" tag="60" id="Kut-WL-qGT">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="playSelectedItemAfterDelayAction:" target="sXT-Pr-clR" id="qsw-6S-c9W"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="5 minutes" tag="300" id="iqd-m1-eQh">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="playSelectedItemAfterDelayAction:" target="sXT-Pr-clR" id="QSQ-k1-fLD"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="10 minutes" tag="600" id="znj-uJ-5kA">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="playSelectedItemAfterDelayAction:" target="sXT-Pr-clR" id="Evl-ZU-1dq"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="30 minutes" tag="1800" id="06H-Mx-6k1">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="playSelectedItemAfterDelayAction:" target="sXT-Pr-clR" id="iSD-Ga-nnv"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="1 hour" tag="3600" id="Xw9-dy-zBv">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="playSelectedItemAfterDelayAction:" target="sXT-Pr-clR" id="o1z-dW-1mE"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="uwW-rP-V5V"/>
+                                        <menuItem title="Custom" id="zTF-be-DXn">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="playSelectedItemAfterDelayAction:" target="sXT-Pr-clR" id="vzb-ct-Kds"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title=" Insert silent gaps around selected track" image="Gap-Small" id="9iu-he-pRn" userLabel="Insert gaps">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title=" Insert silent gaps around selected track" id="Lrd-d0-88m">
                                     <items>
                                         <menuItem title="5 seconds before track" tag="-5" id="gJ6-BW-gp0">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -328,13 +391,13 @@ DQ
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="  Edit silent gaps around selected track" image="Gap-Small" id="y39-3c-GVk" userLabel="Edit gaps">
+                            <menuItem title=" Edit silent gaps around selected track" image="Gap-Small" id="y39-3c-GVk" userLabel="Edit gaps">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="editGapsAction:" target="sXT-Pr-clR" id="lQn-m4-OVn"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="      Remove silent gaps around selected track(s)" id="iK1-11-rDP" userLabel="Remove gaps">
+                            <menuItem title="     Remove silent gaps around selected track(s)" id="iK1-11-rDP" userLabel="Remove gaps">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="removeGapsAction:" target="sXT-Pr-clR" id="4rn-ui-ejH"/>
@@ -1162,6 +1225,7 @@ CA
         <image name="Bookmarks-Editor" width="3" height="3"/>
         <image name="Clear-Small" width="2.5999999046325684" height="3"/>
         <image name="CropSelection-Small" width="11.199999809265137" height="11.199999809265137"/>
+        <image name="DelayedPlayback-Menu" width="9" height="14"/>
         <image name="DockBottom-Small" width="12" height="10"/>
         <image name="DockLeft-Small" width="12" height="10"/>
         <image name="DockRight-Small" width="12" height="10"/>

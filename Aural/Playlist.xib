@@ -550,7 +550,7 @@
                         <action selector="playSelectedItemAction:" target="TnB-Sk-yOp" id="BOn-Ox-BlV"/>
                     </connections>
                 </menuItem>
-                <menuItem title=" Play this track after timed delay" image="Play-Padded-Small" id="gko-SZ-rGu" userLabel="Play track delayed">
+                <menuItem title=" Play this track after timed delay" image="DelayedPlayback" id="gko-SZ-rGu" userLabel="Play track delayed">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title=" Play this track after timed delay" id="nja-RQ-A90">
                         <items>
@@ -615,7 +615,7 @@
                         <action selector="playSelectedItemAction:" target="TnB-Sk-yOp" id="FKk-BG-jY3"/>
                     </connections>
                 </menuItem>
-                <menuItem title=" Play this group after timed delay" image="Play-Padded-Small" id="0Iq-rK-reF" userLabel="Play group delayed">
+                <menuItem title=" Play this group after timed delay" image="DelayedPlayback" id="0Iq-rK-reF" userLabel="Play group delayed">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title=" Play this group after timed delay" id="mR1-5u-f5f">
                         <items>
@@ -756,31 +756,6 @@
                         <action selector="removeGapsAction:" target="TnB-Sk-yOp" id="P7E-7E-Tks"/>
                     </connections>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="xpC-LX-tPd"/>
-                <menuItem title=" Add this track to Favorites" id="CHV-5l-G4d" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value=" Add this track to Favorites"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value=" Remove this track from Favorites"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="Favorites"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="Favorites"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="favoritesAction:" target="TnB-Sk-yOp" id="b2g-2H-jbW"/>
-                    </connections>
-                </menuItem>
-                <menuItem title=" Get detailed track info" image="MoreInfo-Padded-Small" id="ZQe-wb-b1B">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="moreInfoAction:" target="TnB-Sk-yOp" id="5Dw-se-FC1"/>
-                    </connections>
-                </menuItem>
-                <menuItem title=" Show track in Finder" image="ShowInFinder" id="6Oh-bN-HCq" userLabel="Show track in Finder">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="showTrackInFinderAction:" target="TnB-Sk-yOp" id="06W-8k-6gu"/>
-                    </connections>
-                </menuItem>
                 <menuItem isSeparatorItem="YES" id="6Fo-LX-Ia0"/>
                 <menuItem title="  Remove this track" image="Remove-Small" id="RCk-oA-gLU" userLabel="Remove track">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -830,7 +805,31 @@
                         <action selector="moveItemDownAction:" target="TnB-Sk-yOp" id="zzV-RP-NYT"/>
                     </connections>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="pT2-gB-uk0"/>
+                <menuItem isSeparatorItem="YES" id="xpC-LX-tPd"/>
+                <menuItem title=" Add this track to Favorites" id="CHV-5l-G4d" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value=" Add this track to Favorites"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value=" Remove this track from Favorites"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="Favorites"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="Favorites"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="favoritesAction:" target="TnB-Sk-yOp" id="b2g-2H-jbW"/>
+                    </connections>
+                </menuItem>
+                <menuItem title=" Get detailed track info" image="MoreInfo-Padded-Small" id="ZQe-wb-b1B">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="moreInfoAction:" target="TnB-Sk-yOp" id="5Dw-se-FC1"/>
+                    </connections>
+                </menuItem>
+                <menuItem title=" Show this track in Finder" image="ShowInFinder" id="6Oh-bN-HCq" userLabel="Show track in Finder">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showTrackInFinderAction:" target="TnB-Sk-yOp" id="06W-8k-6gu"/>
+                    </connections>
+                </menuItem>
             </items>
             <connections>
                 <outlet property="delegate" destination="TnB-Sk-yOp" id="QBL-nZ-sex"/>
@@ -841,6 +840,7 @@
     <resources>
         <image name="Add" width="134" height="134"/>
         <image name="Clear" width="34.599998474121094" height="40"/>
+        <image name="DelayedPlayback" width="15" height="15"/>
         <image name="DockBottom" width="473" height="405"/>
         <image name="DockLeft" width="700" height="600"/>
         <image name="DockRight" width="700" height="600"/>

@@ -10,6 +10,8 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var theMenu: NSMenuItem!
     
     @IBOutlet weak var playSelectedItemMenuItem: NSMenuItem!
+    @IBOutlet weak var playSelectedItemDelayedMenuItem: NSMenuItem!
+    
     @IBOutlet weak var moveItemsUpMenuItem: NSMenuItem!
     @IBOutlet weak var moveItemsToTopMenuItem: NSMenuItem!
     @IBOutlet weak var moveItemsDownMenuItem: NSMenuItem!
@@ -38,6 +40,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     private lazy var layoutManager: LayoutManager = ObjectGraph.getLayoutManager()
     
     private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.getGapsEditorDialog()
+    private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.getDelayedPlaybackEditorDialog()
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
@@ -52,13 +55,13 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         // These menu items require 1 - the playlist to be visible, and 2 - at least one playlist item to be selected
         let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
-        [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, moveItemsToBottomMenuItem, removeSelectedItemsMenuItem].forEach({$0?.isEnabled = layoutManager.isShowingPlaylist() && !showingDialogOrPopover && PlaylistViewState.currentView.selectedRow >= 0})
+        [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, moveItemsToBottomMenuItem, removeSelectedItemsMenuItem].forEach({$0?.isEnabled = !showingDialogOrPopover && PlaylistViewState.currentView.selectedRow >= 0})
         
         // These menu items require 1 - the playlist to be visible, and 2 - at least one track in the playlist
-        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, invertSelectionMenuItem].forEach({$0?.isEnabled = layoutManager.isShowingPlaylist() && playlist.size() > 0})
+        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, invertSelectionMenuItem].forEach({$0?.isEnabled = playlist.size() > 0})
         
         // At least 2 tracks needed for these functions, and at least one track selected
-        cropSelectionMenuItem.isEnabled = layoutManager.isShowingPlaylist() && playlist.size() > 1 && PlaylistViewState.currentView.selectedRow >= 0
+        cropSelectionMenuItem.isEnabled = playlist.size() > 1 && PlaylistViewState.currentView.selectedRow >= 0
         
         // Make sure it's a track, not a group, and that only one track is selected
         if PlaylistViewState.currentView.numberOfSelectedRows == 1 {
@@ -79,6 +82,8 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         } else {
             [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.isHidden = true})
         }
+        
+        playSelectedItemDelayedMenuItem.isEnabled = PlaylistViewState.currentView.numberOfSelectedRows == 1
     }
     
     // Assumes only one item selected, and that it's a track
@@ -184,6 +189,21 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     // Plays the selected playlist item (track or group)
     @IBAction func playSelectedItemAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.playSelectedItem, PlaylistViewState.current))
+    }
+    
+    @IBAction func playSelectedItemAfterDelayAction(_ sender: NSMenuItem) {
+        
+        let delay = sender.tag
+        
+        if delay == 0 {
+            
+            // Custom delay ... show dialog
+            _ = delayedPlaybackEditor.showDialog()
+            
+        } else {
+            
+            SyncMessenger.publishActionMessage(DelayedPlaybackActionMessage(Double(delay), PlaylistViewState.current))
+        }
     }
     
     @IBAction func invertSelectionAction(_ sender: Any) {
