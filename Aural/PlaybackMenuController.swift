@@ -19,6 +19,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var seekBackwardMenuItem: NSMenuItem!
     @IBOutlet weak var seekForwardSecondaryMenuItem: NSMenuItem!
     @IBOutlet weak var seekBackwardSecondaryMenuItem: NSMenuItem!
+    @IBOutlet weak var jumpToTimeMenuItem: NSMenuItem!
     
     @IBOutlet weak var detailedInfoMenuItem: NSMenuItem!
     @IBOutlet weak var showInPlaylistMenuItem: NSMenuItem!
@@ -46,6 +47,8 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     private let preferences: PlaybackPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().playbackPreferences
     
+    private let jumpToTimeDialog: ModalDialogDelegate = WindowFactory.getJumpToTimeEditorDialog()
+    
     // One-time setup
     override func awakeFromNib() {
         
@@ -67,6 +70,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         playOrPauseMenuItem.onIf(playbackInfo.getPlaybackState() == .playing)
         
         stopMenuItem.isEnabled = isPlayingPausedOrWaiting
+        jumpToTimeMenuItem.isEnabled = isPlayingOrPaused
         
         // Enabled only in regular mode if playing/paused
         
@@ -88,6 +92,14 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         } else {
             rememberLastPositionMenuItem.isEnabled = false
         }
+    }
+    
+    @IBAction func jumpToTimeAction(_ sender: AnyObject) {
+        
+        let plTrack = playbackInfo.getPlayingTrack()!.track
+        
+        jumpToTimeDialog.setDataForKey("trackDuration", plTrack.duration)
+        _ = jumpToTimeDialog.showDialog()
     }
     
     // Plays, pauses or resumes playback

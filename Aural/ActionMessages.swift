@@ -144,6 +144,8 @@ enum ActionType {
     // Seek forward within the currently playing track
     case seekForward_secondary
     
+    case jumpToTime
+    
     // Set repeat mode to "Off"
     case repeatOff
     
@@ -458,5 +460,16 @@ struct DelayedPlaybackActionMessage: ActionMessage {
     init(_ delay: Double, _ playlistType: PlaylistType?) {
         self.delay = delay
         self.playlistType = playlistType
+    }
+}
+
+struct JumpToTimeActionMessage: ActionMessage {
+    
+    let actionType: ActionType = .jumpToTime
+    
+    let time: Double
+    
+    init(_ time: Double) {
+        self.time = time
     }
 }

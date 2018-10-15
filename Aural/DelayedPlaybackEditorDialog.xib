@@ -46,24 +46,6 @@
                         <view key="contentView" ambiguous="YES" id="MEc-Vm-eAl">
                             <rect key="frame" x="1" y="1" width="448" height="291"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <datePicker verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i1C-3U-Dd0">
-                                    <rect key="frame" x="107" y="20" width="277" height="148"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <datePickerCell key="cell" controlSize="mini" continuous="YES" enabled="NO" borderStyle="bezel" alignment="left" datePickerStyle="clockAndCalendar" id="BU3-sQ-ft0">
-                                        <font key="font" size="10" name="GillSans"/>
-                                        <date key="date" timeIntervalSinceReferenceDate="-31536000">
-                                            <!--2000-01-02 00:00:00 +0000-->
-                                        </date>
-                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <datePickerElements key="datePickerElements" year="YES" month="YES" day="YES" hour="YES" minute="YES" second="YES"/>
-                                    </datePickerCell>
-                                    <connections>
-                                        <action selector="timePickerAction:" target="-2" id="KDy-ux-9HX"/>
-                                    </connections>
-                                </datePicker>
-                            </subviews>
                         </view>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
@@ -110,7 +92,7 @@
                             <action selector="delayIncrementAction:" target="-2" id="qVb-wX-RHN"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hgz-ko-n7M" userLabel="Btn Gap Type one Time 1">
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hgz-ko-n7M">
                         <rect key="frame" x="34" y="232" width="85" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="radio" title="At time" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="oRS-Zd-ybU" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
@@ -134,7 +116,7 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u4v-Ij-a8A" userLabel="Btn Gap Type till App Exits 1">
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u4v-Ij-a8A" userLabel="Btn Delay">
                         <rect key="frame" x="34" y="266" width="85" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="radio" title="After delay" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="tnh-sh-xiB" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
@@ -154,6 +136,22 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <datePicker verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i1C-3U-Dd0">
+                        <rect key="frame" x="121" y="65" width="277" height="148"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <datePickerCell key="cell" controlSize="mini" continuous="YES" enabled="NO" borderStyle="bezel" alignment="left" datePickerStyle="clockAndCalendar" id="BU3-sQ-ft0">
+                            <font key="font" size="10" name="GillSans"/>
+                            <date key="date" timeIntervalSinceReferenceDate="-31536000">
+                                <!--2000-01-02 00:00:00 +0000-->
+                            </date>
+                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <datePickerElements key="datePickerElements" year="YES" month="YES" day="YES" hour="YES" minute="YES" second="YES"/>
+                        </datePickerCell>
+                        <connections>
+                            <action selector="timePickerAction:" target="-2" id="KDy-ux-9HX"/>
+                        </connections>
+                    </datePicker>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YXR-bR-VCT" userLabel="Ok button">
                         <rect key="frame" x="339" y="9" width="55" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>

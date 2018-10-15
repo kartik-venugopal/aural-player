@@ -62,6 +62,7 @@
         <customObject id="IvK-xG-TCa" customClass="PlaybackMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="detailedInfoMenuItem" destination="GCy-Rj-Mv5" id="FTi-Dg-C0L"/>
+                <outlet property="jumpToTimeMenuItem" destination="ihH-E8-ggt" id="K78-3H-f2M"/>
                 <outlet property="loopMenuItem" destination="TzA-UC-Ox0" id="ceJ-FL-dwd"/>
                 <outlet property="nextTrackMenuItem" destination="z7s-9y-10c" id="6nk-AZ-Jyu"/>
                 <outlet property="playOrPauseMenuItem" destination="T9r-Uq-EPf" id="IlZ-pC-w2Y"/>
@@ -505,16 +506,6 @@ CA
                                     <action selector="stopAction:" target="IvK-xG-TCa" id="FLy-jg-6Jd"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Replay current track" image="Replay" keyEquivalent="r" id="aLr-jT-ZjJ" userLabel="Replay current track">
-                                <connections>
-                                    <action selector="replayTrackAction:" target="IvK-xG-TCa" id="Cze-vX-d1I"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title=" Toggle A-&gt;B segment loop" image="LoopOff-Small" keyEquivalent="l" id="TzA-UC-Ox0" userLabel="Toggle A-&gt;B loop">
-                                <connections>
-                                    <action selector="toggleLoopAction:" target="IvK-xG-TCa" id="Rre-UU-RNW"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="O1F-Wz-nQ9"/>
                             <menuItem title=" Previous track" image="PreviousTrack-Small" keyEquivalent="" id="yq3-HU-6rh">
                                 <connections>
@@ -526,6 +517,17 @@ CA
                                     <action selector="nextTrackAction:" target="IvK-xG-TCa" id="4mr-wR-zPu"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title=" Replay current track" image="Replay" keyEquivalent="r" id="aLr-jT-ZjJ" userLabel="Replay current track">
+                                <connections>
+                                    <action selector="replayTrackAction:" target="IvK-xG-TCa" id="Cze-vX-d1I"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Toggle A-&gt;B segment loop" image="LoopOff-Small" keyEquivalent="l" id="TzA-UC-Ox0" userLabel="Toggle A-&gt;B loop">
+                                <connections>
+                                    <action selector="toggleLoopAction:" target="IvK-xG-TCa" id="Rre-UU-RNW"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="xhK-cx-FFJ"/>
                             <menuItem title=" Seek backward" image="SeekBackward-Small" keyEquivalent="" id="h8T-Of-b8S">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
@@ -548,6 +550,11 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="seekForwardSecondaryAction:" target="IvK-xG-TCa" id="jLq-yN-cy0"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Jump to time" keyEquivalent="j" indentationLevel="1" id="ihH-E8-ggt" userLabel="Jump">
+                                <connections>
+                                    <action selector="jumpToTimeAction:" target="IvK-xG-TCa" id="88e-o4-bXj"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="qNh-j6-Ufh"/>
