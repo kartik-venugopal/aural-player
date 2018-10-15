@@ -97,14 +97,36 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         return track
     }
     
-    func playWithDelay(_ index: Int, _ delay: Double) throws -> IndexedTrack {
+    func playWithDelay(_ index: Int, _ delay: Double) -> IndexedTrack {
+        
+        let track = playbackSequencer.select(index)
+        doPlayWithDelay(track, delay)
+        
+        return track
+    }
+    
+    func playWithDelay(_ track: Track, _ delay: Double) -> IndexedTrack {
+        
+        let indexedTrack = playbackSequencer.select(track)
+        doPlayWithDelay(indexedTrack, delay)
+        
+        return indexedTrack
+    }
+    
+    func playWithDelay(_ group: Group, _ delay: Double) -> IndexedTrack {
+        
+        let indexedTrack = playbackSequencer.select(group)
+        doPlayWithDelay(indexedTrack, delay)
+        
+        return indexedTrack
+    }
+    
+    func doPlayWithDelay(_ track: IndexedTrack, _ delay: Double) {
         
         PlaybackGapContext.clear()
         
         // Stop if currently playing
         haltPlayback()
-        
-        let track = playbackSequencer.select(index)
         
         let gap = PlaybackGap(delay, .beforeTrack)
         PlaybackGapContext.subsequentTrack = track
@@ -139,8 +161,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         
         // Let observers know that a playback gap has begun
         AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, lastPlayedIndexed, track, nil, gap))
-        
-        return track
     }
     
     func play(_ index: Int, _ startPosition: Double, _ endPosition: Double?) throws -> IndexedTrack {

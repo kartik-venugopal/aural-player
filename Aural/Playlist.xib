@@ -550,63 +550,63 @@
                         <action selector="playSelectedItemAction:" target="TnB-Sk-yOp" id="BOn-Ox-BlV"/>
                     </connections>
                 </menuItem>
-                <menuItem title=" Play this track with timed delay" image="Play-Padded-Small" id="gko-SZ-rGu" userLabel="Play track delayed">
+                <menuItem title=" Play this track after timed delay" image="Play-Padded-Small" id="gko-SZ-rGu" userLabel="Play track delayed">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title=" Insert silent gaps around track" id="nja-RQ-A90">
+                    <menu key="submenu" title=" Play this track after timed delay" id="nja-RQ-A90">
                         <items>
                             <menuItem title="5 seconds" tag="5" id="O2h-a3-jfh">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="playSelectedItemWithDelayAction:" target="TnB-Sk-yOp" id="0VY-eO-1Dl"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="0VY-eO-1Dl"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="10 seconds" tag="10" id="Ahz-6K-LK0">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="playSelectedItemWithDelayAction:" target="TnB-Sk-yOp" id="k2K-fb-IJK"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="k2K-fb-IJK"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="30 seconds" tag="30" id="Phm-Db-rUU">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="playSelectedItemWithDelayAction:" target="TnB-Sk-yOp" id="kk1-tX-aB2"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="kk1-tX-aB2"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="1 minute" tag="60" id="kzW-Ot-KBb">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="playSelectedItemWithDelayAction:" target="TnB-Sk-yOp" id="gof-ts-7Fc"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="gof-ts-7Fc"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="5 minutes" tag="300" id="qfB-Pm-0n8">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="playSelectedItemWithDelayAction:" target="TnB-Sk-yOp" id="P4E-UJ-mW1"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="P4E-UJ-mW1"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="10 minutes" tag="600" id="8lh-PQ-BXP">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="playSelectedItemWithDelayAction:" target="TnB-Sk-yOp" id="6Ql-3t-A2K"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="6Ql-3t-A2K"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="30 minutes" tag="1800" id="xyc-iz-cWW">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="playSelectedItemWithDelayAction:" target="TnB-Sk-yOp" id="gEj-IH-pnl"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="gEj-IH-pnl"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="1 hour" tag="3600" id="d3o-xj-j2I">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="playSelectedItemWithDelayAction:" target="TnB-Sk-yOp" id="DJp-gz-1Sg"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="DJp-gz-1Sg"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="dXv-9O-pdj"/>
                             <menuItem title="Custom" id="3xk-A9-ucY">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="playSelectedItemWithDelayAction:" target="TnB-Sk-yOp" id="Jf8-Yd-8Km"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="Jf8-Yd-8Km"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -615,64 +615,63 @@
                         <action selector="playSelectedItemAction:" target="TnB-Sk-yOp" id="FKk-BG-jY3"/>
                     </connections>
                 </menuItem>
-                <menuItem title=" Play this group with timed delay" image="Play-Padded-Small" hidden="YES" enabled="NO" id="0Iq-rK-reF" userLabel="Play group delayed">
+                <menuItem title=" Play this group after timed delay" image="Play-Padded-Small" id="0Iq-rK-reF" userLabel="Play group delayed">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title=" Insert silent gaps around track" id="mR1-5u-f5f">
+                    <menu key="submenu" title=" Play this group after timed delay" id="mR1-5u-f5f">
                         <items>
-                            <menuItem title="5 seconds before track" tag="-5" enabled="NO" id="0Kj-fz-SVm">
+                            <menuItem title="5 seconds" tag="5" id="0Kj-fz-SVm">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="lGI-Re-3hJ"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="buD-vn-z9C"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="10 seconds before track" tag="-10" enabled="NO" id="bfV-Qc-yOA">
+                            <menuItem title="10 seconds" tag="10" id="bfV-Qc-yOA">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="g16-qD-Xnz"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="Tiy-vo-GHx"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="30 seconds before track" tag="-30" enabled="NO" id="ijf-Hb-haJ">
+                            <menuItem title="30 seconds" tag="30" id="ijf-Hb-haJ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="SbK-HW-hjx"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="UW9-9j-cMk"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="60 seconds before track" tag="-60" enabled="NO" id="jce-16-zYg">
+                            <menuItem title="1 minute" tag="60" id="jce-16-zYg">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="eJN-nC-fPP"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="tMy-KQ-I89"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="aas-1J-VqF"/>
-                            <menuItem title="5 seconds after track" tag="5" enabled="NO" id="ZmU-tV-qan">
+                            <menuItem title="5 minutes" tag="300" id="ZmU-tV-qan">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="MFi-by-3gn"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="e6c-bn-Ubh"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="10 seconds after track" tag="10" enabled="NO" id="AVF-4X-ARi">
+                            <menuItem title="10 minutes" tag="600" id="AVF-4X-ARi">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="J6y-NO-SZ3"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="tkg-Ga-PmK"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="30 seconds after track" tag="30" enabled="NO" id="T9y-Vt-q33">
+                            <menuItem title="30 minutes" tag="1800" id="T9y-Vt-q33">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="T5v-8z-gg7"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="dVC-KZ-KZm"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="60 seconds after track" tag="60" enabled="NO" id="fk5-AH-59d">
+                            <menuItem title="1 hour" tag="3600" id="fk5-AH-59d">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="vXj-5L-kJA"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="snV-z3-qcP"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="M4e-Lx-L75"/>
-                            <menuItem title="Custom" enabled="NO" id="q7m-To-PWZ">
+                            <menuItem title="Custom" id="q7m-To-PWZ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="TmL-uy-TfA"/>
+                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="r7w-LO-AYs"/>
                                 </connections>
                             </menuItem>
                         </items>

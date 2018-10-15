@@ -56,7 +56,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -65,7 +65,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -104,6 +104,52 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 
                 let group = item as! Group
                 _ = SyncMessenger.publishRequest(PlaybackRequest(group: group))
+                
+                // Clear the selection and reload the row
+                playlistView.deselectAll(self)
+                playlistView.reloadData(forRowIndexes: selRowIndexes, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
+                
+                if playbackPreferences.showNewTrackInPlaylist {
+                    showPlayingTrack()
+                }
+                
+                // Expand the group to show the new playing track under the group
+                playlistView.expandItem(group)
+            }
+        }
+    }
+    
+    private func playSelectedItemWithDelay(_ delay: Double) {
+        
+        let selRowIndexes = playlistView.selectedRowIndexes
+        
+        if (!selRowIndexes.isEmpty) {
+            
+            let item = playlistView.item(atRow: selRowIndexes.min()!)
+            
+            // The selected item is either a track or a group
+            if let track = item as? Track {
+                
+                var request = PlaybackRequest(track: track)
+                request.delay = delay
+                _ = SyncMessenger.publishRequest(request)
+                
+                // Clear the selection and reload the row
+                playlistView.deselectAll(self)
+                
+                if playbackPreferences.showNewTrackInPlaylist {
+                    playlistView.selectRowIndexes(IndexSet([selRowIndexes.min()!]), byExtendingSelection: false)
+                }
+                
+                playlistView.reloadData(forRowIndexes: selRowIndexes, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
+                
+            } else {
+                
+                let group = item as! Group
+                
+                var request = PlaybackRequest(group: group)
+                request.delay = delay
+                _ = SyncMessenger.publishRequest(request)
                 
                 // Clear the selection and reload the row
                 playlistView.deselectAll(self)
@@ -728,10 +774,19 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             }
         }
         
+        if let delayedPlaybackMsg = message as? DelayedPlaybackActionMessage {
+            
+            if delayedPlaybackMsg.playlistType == self.playlistType {
+                
+                playSelectedItemWithDelay(delayedPlaybackMsg.delay)
+                return
+            }
+        }
+        
         if let insertGapsMsg = message as? InsertPlaybackGapsActionMessage {
             
             // Check if this message is intended for this playlist view
-            if (insertGapsMsg.playlistType == nil || insertGapsMsg.playlistType == self.playlistType) {
+            if insertGapsMsg.playlistType == self.playlistType {
                 insertGap(insertGapsMsg.gapBeforeTrack, insertGapsMsg.gapAfterTrack)
             }
             
@@ -740,7 +795,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         if let removeGapMsg = message as? RemovePlaybackGapsActionMessage {
             
-            if removeGapMsg.playlistType == nil || removeGapMsg.playlistType == self.playlistType {
+            if removeGapMsg.playlistType == self.playlistType {
                 removeGaps()
             }
             

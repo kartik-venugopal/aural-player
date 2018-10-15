@@ -119,7 +119,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.playSelectedItem, PlaylistViewState.current))
     }
     
-    @IBAction func playSelectedItemWithDelayAction(_ sender: NSMenuItem) {
+    @IBAction func playSelectedItemAfterDelayAction(_ sender: NSMenuItem) {
         
         let delay = sender.tag
         
