@@ -67,19 +67,30 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 
             case UIConstants.playlistIndexColumnID:
                 
-                // Track index
-                let playingTrackIndex = playbackInfo.getPlayingTrack()?.index
+                let indexText: String = String(format: "%d.", row + 1)
                 
-                // If this row contains the playing track, display an animation, instead of the track index
-                if (playingTrackIndex != nil && playingTrackIndex == row) {
+                switch playbackInfo.getPlaybackState() {
                     
-                    return createPlayingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, String(format: "%d.", row + 1), gapB, gapA, row)
+                    case .playing, .paused:
+                        
+                        if let playingTrackIndex = playbackInfo.getPlayingTrack()?.index, playingTrackIndex == row {
+                            return createPlayingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
+                        }
                     
-                } else {
+                    case .waiting:
+                        
+                        if let waitingTrackIndex = playbackInfo.getWaitingTrack()?.index, waitingTrackIndex == row {
+                            return createWaitingImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
+                        }
                     
-                    // Otherwise, create a text cell with the track index
-                    return createIndexCell(tableView, UIConstants.playlistIndexColumnID, String(format: "%d.", row + 1), gapB, gapA, row)
+                    case .noTrack:
+                        
+                        // Otherwise, create a text cell with the track index
+                        return createIndexTextCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
+                    
                 }
+                
+                return createIndexTextCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
                 
             case UIConstants.playlistNameColumnID:
                 
@@ -97,7 +108,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         return nil
     }
     
-    private func createIndexCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> IndexCellView? {
+    private func createIndexTextCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> IndexCellView? {
      
         if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? IndexCellView {
             
@@ -244,17 +255,26 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     
     // MARK: Constraints for Index cells
     
-    
-    
     // Creates a cell view containing the animation for the currently playing track
     private func createPlayingTrackImageCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> IndexCellView? {
+        
+        return createIndexImageCell(tableView, id, text, gapBefore, gapAfter, row, Images.imgPlayingTrack)
+    }
+    
+    // Creates a cell view containing the animation for the currently playing track
+    private func createWaitingImageCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> IndexCellView? {
+        
+        return createIndexImageCell(tableView, id, text, gapBefore, gapAfter, row, Images.imgWaitingTrack)
+    }
+    
+    private func createIndexImageCell(_ tableView: NSTableView, _ id: String, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int, _ image: NSImage) -> IndexCellView? {
         
         if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(UIConstants.playlistIndexColumnID), owner: nil) as? IndexCellView {
             
             // Configure and show the image view
             let imgView = cell.imageView!
-            
-            imgView.image = Images.imgPlayingTrack
+         
+            imgView.image = image
             imgView.isHidden = false
             
             // Hide the text view

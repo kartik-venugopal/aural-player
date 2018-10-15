@@ -40,7 +40,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -68,6 +68,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             
             _ = SyncMessenger.publishRequest(PlaybackRequest(index: selRowIndexes.min()!))
             
+            // TODO: Do we need this ? Won't track changed notification handling do the refresh ?
             // Clear the selection and reload the rows
             playlistView.deselectAll(self)
             
@@ -76,6 +77,28 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             }
             
             playlistView.reloadData(forRowIndexes: selRowIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        }
+    }
+    
+    private func playSelectedTrackWithDelay(_ msg: DelayedPlaybackActionMessage) {
+        
+        let selRowIndexes = playlistView.selectedRowIndexes
+        
+        if (!selRowIndexes.isEmpty) {
+            
+            var request = PlaybackRequest(index: selRowIndexes.min()!)
+            request.delay = msg.delay
+            
+            _ = SyncMessenger.publishRequest(request)
+//
+//            // Clear the selection and reload the rows
+//            playlistView.deselectAll(self)
+//
+//            if playbackPreferences.showNewTrackInPlaylist {
+//                playlistView.selectRowIndexes(IndexSet([selRowIndexes.min()!]), byExtendingSelection: false)
+//            }
+//
+//            playlistView.reloadData(forRowIndexes: selRowIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         }
     }
     
@@ -406,7 +429,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
         
         // Select the next track
-        if playbackPreferences.showNewTrackInPlaylist {
+        let needToShowTrack: Bool = layoutManager.isShowingPlaylist() && PlaylistViewState.current == .tracks && playbackPreferences.showNewTrackInPlaylist
+        if needToShowTrack {
             selectTrack(message.nextTrack.index)
         }
     }
@@ -563,6 +587,12 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
                 
             }
             
+            return
+        }
+        
+        if let delayedPlaybackMsg = message as? DelayedPlaybackActionMessage {
+            
+            playSelectedTrackWithDelay(delayedPlaybackMsg)
             return
         }
         

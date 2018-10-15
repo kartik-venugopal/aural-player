@@ -23,6 +23,8 @@ class WindowFactory {
     
     private static var gapsEditorWindowController: GapsEditorWindowController = GapsEditorWindowController()
     
+    private static var delayedPlaybackEditorWindowController: DelayedPlaybackEditorWindowController = DelayedPlaybackEditorWindowController()
+    
     // MARK: Accessor functions for the different windows/dialogs
     
     static func getMainWindow() -> NSWindow {
@@ -67,6 +69,10 @@ class WindowFactory {
     
     static func getGapsEditorDialog() -> ModalDialogDelegate {
         return gapsEditorWindowController
+    }
+    
+    static func getDelayedPlaybackEditorDialog() -> ModalDialogDelegate {
+        return delayedPlaybackEditorWindowController
     }
 }
 

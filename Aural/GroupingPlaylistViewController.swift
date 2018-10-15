@@ -577,8 +577,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistView.reloadData(forRowIndexes: refreshIndexSet, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
         playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexSet)
         
-        // TODO: Select the next track
-        if playbackPreferences.showNewTrackInPlaylist {
+        let needToShowTrack: Bool = layoutManager.isShowingPlaylist() && PlaylistViewState.current == self.playlistType && playbackPreferences.showNewTrackInPlaylist
+        if needToShowTrack {
             selectTrack(message.nextTrack.track)
         }
     }

@@ -11,6 +11,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Track-specific menu items
     
     @IBOutlet weak var playTrackMenuItem: NSMenuItem!
+    @IBOutlet weak var playTrackDelayedMenuItem: NSMenuItem!
     
     @IBOutlet weak var insertGapsMenuItem: NSMenuItem!
     @IBOutlet weak var editGapsMenuItem: NSMenuItem!
@@ -33,6 +34,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Group-specific menu items
     
     @IBOutlet weak var playGroupMenuItem: NSMenuItem!
+    @IBOutlet weak var playGroupDelayedMenuItem: NSMenuItem!
+    
     @IBOutlet weak var removeGroupMenuItem: NSMenuItem!
     @IBOutlet weak var moveGroupUpMenuItem: NSMenuItem!
     @IBOutlet weak var moveGroupDownMenuItem: NSMenuItem!
@@ -55,15 +58,16 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     private let favorites: FavoritesDelegateProtocol = ObjectGraph.getFavoritesDelegate()
     
     private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.getGapsEditorDialog()
+    private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.getDelayedPlaybackEditorDialog()
     
     // One-time setup
     override func awakeFromNib() {
         
         // Store all track-specific and group-specific menu items in separate arrays for convenient access when setting up the menu prior to display
         
-        trackMenuItems = [playTrackMenuItem, favoritesMenuItem, detailedInfoMenuItem, removeTrackMenuItem, moveTrackUpMenuItem, moveTrackDownMenuItem, showTrackInFinderMenuItem, insertGapsMenuItem, editGapsMenuItem, removeGapsMenuItem]
+        trackMenuItems = [playTrackMenuItem, playTrackDelayedMenuItem, favoritesMenuItem, detailedInfoMenuItem, removeTrackMenuItem, moveTrackUpMenuItem, moveTrackDownMenuItem, showTrackInFinderMenuItem, insertGapsMenuItem, editGapsMenuItem, removeGapsMenuItem]
         
-        groupMenuItems = [playGroupMenuItem, removeGroupMenuItem, moveGroupUpMenuItem, moveGroupDownMenuItem]
+        groupMenuItems = [playGroupMenuItem, playGroupDelayedMenuItem, removeGroupMenuItem, moveGroupUpMenuItem, moveGroupDownMenuItem]
         
         // Set up the two possible captions for the favorites menu item
         
@@ -113,6 +117,21 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Plays the selected playlist item (track or group)
     @IBAction func playSelectedItemAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.playSelectedItem, PlaylistViewState.current))
+    }
+    
+    @IBAction func playSelectedItemWithDelayAction(_ sender: NSMenuItem) {
+        
+        let delay = sender.tag
+        
+        if delay == 0 {
+            
+            // Custom delay ... show dialog
+            _ = delayedPlaybackEditor.showDialog()
+            
+        } else {
+            
+            SyncMessenger.publishActionMessage(DelayedPlaybackActionMessage(Double(delay), PlaylistViewState.current))
+        }
     }
     
     @IBAction func insertGapsAction(_ sender: NSMenuItem) {

@@ -107,6 +107,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
         let track = playbackSequencer.select(index)
         
         let gap = PlaybackGap(delay, .beforeTrack)
+        PlaybackGapContext.subsequentTrack = track
         PlaybackGapContext.addGap(gap, track)
         
         let gapContextId = PlaybackGapContext.getId()
@@ -133,8 +134,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
             }
         }
         
+        let lastPlayed = history.mostRecentlyPlayedItem()?.track
+        let lastPlayedIndexed = lastPlayed != nil ? playlist.findTrackByFile(lastPlayed!.file) : nil
+        
         // Let observers know that a playback gap has begun
-        AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, nil, track, nil, gap))
+        AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, lastPlayedIndexed, track, nil, gap))
         
         return track
     }
@@ -599,6 +603,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, BasicPlaybackDelegateProtocol,
     
     func getPlayingTrack() -> IndexedTrack? {
         return getPlaybackState() == .waiting ? nil : playbackSequencer.getPlayingTrack()
+    }
+    
+    func getWaitingTrack() -> IndexedTrack? {
+        return getPlaybackState() == .waiting ? playbackSequencer.getPlayingTrack() : nil
     }
     
     func getPlayingTrackGroupInfo(_ groupType: GroupType) -> GroupedTrack? {
