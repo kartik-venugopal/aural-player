@@ -12,8 +12,10 @@
                 <outlet property="btnDelayDecrement" destination="uDQ-n8-2Ck" id="qa8-qo-tJv"/>
                 <outlet property="btnDelayIncrement" destination="CTy-bZ-xUS" id="pfs-bR-CnD"/>
                 <outlet property="btnTime" destination="hgz-ko-n7M" id="Loe-8Z-INT"/>
+                <outlet property="dateFormatter" destination="R1U-GQ-iOx" id="QOz-na-sK4"/>
                 <outlet property="delaySlider" destination="ncP-l4-HUr" id="Qiv-A3-CCA"/>
                 <outlet property="lblDelay" destination="dYX-rR-gbM" id="0A9-J3-kbo"/>
+                <outlet property="lblTime" destination="OD9-Qs-8QM" id="w12-lB-P1d"/>
                 <outlet property="timePicker" destination="i1C-3U-Dd0" id="VXb-RH-rKr"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="Baw-bo-e1y"/>
             </connections>
@@ -23,14 +25,14 @@
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="480" height="190"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="361"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="190"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="361"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9fR-7s-VvH" userLabel="Title">
-                        <rect key="frame" x="157" y="172" width="170" height="23"/>
+                        <rect key="frame" x="157" y="343" width="170" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Delayed Playback" id="fWC-Nc-XBn">
                             <font key="font" size="12" name="GillSans-SemiBold"/>
@@ -39,52 +41,55 @@
                         </textFieldCell>
                     </textField>
                     <box fixedFrame="YES" boxType="custom" cornerRadius="4" translatesAutoresizingMaskIntoConstraints="NO" id="nVQ-qV-R1D" userLabel="Container">
-                        <rect key="frame" x="15" y="37" width="449" height="125"/>
+                        <rect key="frame" x="15" y="40" width="450" height="293"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" ambiguous="YES" id="MEc-Vm-eAl">
-                            <rect key="frame" x="1" y="1" width="447" height="123"/>
+                            <rect key="frame" x="1" y="1" width="448" height="291"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <datePicker verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i1C-3U-Dd0">
+                                    <rect key="frame" x="107" y="20" width="277" height="148"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <datePickerCell key="cell" controlSize="mini" continuous="YES" enabled="NO" borderStyle="bezel" alignment="left" datePickerStyle="clockAndCalendar" id="BU3-sQ-ft0">
+                                        <font key="font" size="10" name="GillSans"/>
+                                        <date key="date" timeIntervalSinceReferenceDate="-31536000">
+                                            <!--2000-01-02 00:00:00 +0000-->
+                                        </date>
+                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <datePickerElements key="datePickerElements" year="YES" month="YES" day="YES" hour="YES" minute="YES" second="YES"/>
+                                    </datePickerCell>
+                                    <connections>
+                                        <action selector="timePickerAction:" target="-2" id="KDy-ux-9HX"/>
+                                    </connections>
+                                </datePicker>
+                            </subviews>
                         </view>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3h3-LR-nni" userLabel="Cancel button">
-                        <rect key="frame" x="401" y="8" width="63" height="19"/>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OD9-Qs-8QM" userLabel="Chosen time">
+                        <rect key="frame" x="118" y="231" width="242" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ISg-um-TXF" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="cellTitle"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="cancelAction:" target="-2" id="cqL-ZZ-GP6"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YXR-bR-VCT" userLabel="Save button">
-                        <rect key="frame" x="339" y="8" width="55" height="19"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="roundRect" title="Save" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qMJ-WL-PoO" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="cellTitle"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="saveAction:" target="-2" id="PY4-vs-tHB"/>
-                        </connections>
-                    </button>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" id="812-cF-7GR">
+                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="xgA-XC-jHD">
+                                <real key="minimum" value="3"/>
+                                <real key="maximum" value="300"/>
+                            </numberFormatter>
+                            <font key="font" size="11" name="GillSans"/>
+                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ncP-l4-HUr" userLabel="Duration slider 1">
-                        <rect key="frame" x="144" y="96" width="195" height="15"/>
+                        <rect key="frame" x="139" y="267" width="195" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="36000" doubleValue="5" tickMarkPosition="below" sliderType="linear" id="h87-4a-TYn" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
+                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="86400" doubleValue="5" tickMarkPosition="below" sliderType="linear" id="h87-4a-TYn" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                         <connections>
                             <action selector="delaySliderAction:" target="-2" id="9Pe-dm-nug"/>
                         </connections>
                     </slider>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uDQ-n8-2Ck" userLabel="- 1">
-                        <rect key="frame" x="122" y="95" width="17" height="16"/>
+                        <rect key="frame" x="117" y="266" width="17" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="roundTextured" title="-" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Noj-78-JkZ">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -95,7 +100,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CTy-bZ-xUS" userLabel="+ 1">
-                        <rect key="frame" x="346" y="95" width="17" height="16"/>
+                        <rect key="frame" x="341" y="266" width="17" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="roundTextured" title="+" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="efR-0H-Tty">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -106,7 +111,7 @@ DQ
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hgz-ko-n7M" userLabel="Btn Gap Type one Time 1">
-                        <rect key="frame" x="29" y="61" width="85" height="20"/>
+                        <rect key="frame" x="34" y="232" width="85" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="radio" title="At time" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="oRS-Zd-ybU" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -117,7 +122,7 @@ DQ
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dYX-rR-gbM" userLabel="Lbl Duration 1">
-                        <rect key="frame" x="372" y="94" width="96" height="20"/>
+                        <rect key="frame" x="363" y="265" width="96" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="5 sec" id="dCu-ae-MLE">
                             <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="JbW-d6-AN1">
@@ -130,7 +135,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u4v-Ij-a8A" userLabel="Btn Gap Type till App Exits 1">
-                        <rect key="frame" x="29" y="95" width="85" height="20"/>
+                        <rect key="frame" x="34" y="266" width="85" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="radio" title="After delay" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="tnh-sh-xiB" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -140,28 +145,43 @@ DQ
                             <action selector="radioButtonAction:" target="-2" id="UuD-Rv-oXJ"/>
                         </connections>
                     </button>
-                    <datePicker verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i1C-3U-Dd0">
-                        <rect key="frame" x="122" y="56" width="196" height="27"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <datePickerCell key="cell" enabled="NO" borderStyle="bezel" alignment="left" id="BU3-sQ-ft0">
-                            <font key="font" metaFont="system"/>
-                            <date key="date" timeIntervalSinceReferenceDate="561222000">
-                                <!--2018-10-14 15:00:00 +0000-->
-                            </date>
-                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <datePickerElements key="datePickerElements" year="YES" month="YES" day="YES" hour="YES" minute="YES" second="YES"/>
-                        </datePickerCell>
-                    </datePicker>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UG7-8O-eEE">
-                        <rect key="frame" x="19" y="132" width="151" height="20"/>
+                        <rect key="frame" x="24" y="303" width="224" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Play track" id="s1A-Pa-we9">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Play track (up to 24 hours from now)" id="s1A-Pa-we9">
                             <font key="font" size="13" name="GillSans"/>
                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YXR-bR-VCT" userLabel="Ok button">
+                        <rect key="frame" x="339" y="9" width="55" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Ok" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qMJ-WL-PoO" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="okAction:" target="-2" id="GlJ-Q2-uds"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3h3-LR-nni" userLabel="Cancel button">
+                        <rect key="frame" x="401" y="9" width="63" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ISg-um-TXF" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="cancelAction:" target="-2" id="cqL-ZZ-GP6"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <userDefinedRuntimeAttributes>
@@ -169,10 +189,12 @@ DQ
                     <color key="value" white="0.15097656249999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="139" y="107"/>
+            <point key="canvasLocation" x="139" y="192.5"/>
         </window>
-        <dateComponentsFormatter unitsStyle="positional" id="1S6-Xt-LId">
-            <zeroFormattingBehavior key="zeroFormattingBehavior" none="YES"/>
-        </dateComponentsFormatter>
+        <dateFormatter dateStyle="short" timeStyle="medium" id="R1U-GQ-iOx">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="dateFormat" value="hh : mm : ss a 'on' MMMM dd, yyyy"/>
+            </userDefinedRuntimeAttributes>
+        </dateFormatter>
     </objects>
 </document>
