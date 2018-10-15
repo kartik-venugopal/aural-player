@@ -123,7 +123,7 @@
                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pDs-Tu-374" userLabel="Duration slider 1">
                         <rect key="frame" x="129" y="289" width="195" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="36000" doubleValue="5" tickMarkPosition="below" sliderType="linear" id="8cq-mg-beB" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
+                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="86400" doubleValue="5" tickMarkPosition="below" sliderType="linear" id="8cq-mg-beB" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                         <connections>
                             <action selector="durationSliderAction_1:" target="-2" id="p9u-AG-4Sy"/>
                         </connections>
@@ -244,7 +244,7 @@
                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8f0-Ph-0pu" userLabel="Duration slider 1">
                         <rect key="frame" x="129" y="143" width="195" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="36000" doubleValue="5" tickMarkPosition="below" sliderType="linear" id="XLk-c1-tS7" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
+                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="86400" doubleValue="5" tickMarkPosition="below" sliderType="linear" id="XLk-c1-tS7" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                         <connections>
                             <action selector="durationSliderAction_2:" target="-2" id="eMr-vt-Ol2"/>
                         </connections>

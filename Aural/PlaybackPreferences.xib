@@ -418,7 +418,7 @@
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Re-Hb-Gxw" userLabel="Seek Length Slider">
                     <rect key="frame" x="152" y="26" width="224" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="36000" doubleValue="5" tickMarkPosition="below" sliderType="linear" id="adc-gJ-L99" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
+                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="86400" doubleValue="5" tickMarkPosition="below" sliderType="linear" id="adc-gJ-L99" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
                     <connections>
                         <action selector="gapDurationSliderAction:" target="-2" id="J3Y-eF-soA"/>
                     </connections>
