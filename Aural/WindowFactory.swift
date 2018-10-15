@@ -25,6 +25,8 @@ class WindowFactory {
     
     private static var delayedPlaybackEditorWindowController: DelayedPlaybackEditorWindowController = DelayedPlaybackEditorWindowController()
     
+    private static var jumptToTimeEditorWindowController: JumpToTimeEditorWindowController = JumpToTimeEditorWindowController()
+    
     // MARK: Accessor functions for the different windows/dialogs
     
     static func getMainWindow() -> NSWindow {
@@ -73,6 +75,10 @@ class WindowFactory {
     
     static func getDelayedPlaybackEditorDialog() -> ModalDialogDelegate {
         return delayedPlaybackEditorWindowController
+    }
+    
+    static func getJumpToTimeEditorDialog() -> ModalDialogDelegate {
+        return jumptToTimeEditorWindowController
     }
 }
 
