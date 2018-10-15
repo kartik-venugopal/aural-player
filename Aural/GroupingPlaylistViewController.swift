@@ -136,11 +136,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 
                 // Clear the selection and reload the row
                 playlistView.deselectAll(self)
-                
-                if playbackPreferences.showNewTrackInPlaylist {
-                    playlistView.selectRowIndexes(IndexSet([selRowIndexes.min()!]), byExtendingSelection: false)
-                }
-                
                 playlistView.reloadData(forRowIndexes: selRowIndexes, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
                 
             } else {
@@ -154,10 +149,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
                 // Clear the selection and reload the row
                 playlistView.deselectAll(self)
                 playlistView.reloadData(forRowIndexes: selRowIndexes, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
-                
-                if playbackPreferences.showNewTrackInPlaylist {
-                    showPlayingTrack()
-                }
                 
                 // Expand the group to show the new playing track under the group
                 playlistView.expandItem(group)
