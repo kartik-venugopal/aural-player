@@ -44,6 +44,8 @@ enum ActionType {
     // Play the item selected within the current playlist view
     case playSelectedItem
     
+    case playSelectedItemWithDelay
+    
     // Insert a playback gap before/after the selected track
     case insertGaps
     
@@ -441,6 +443,20 @@ struct RemovePlaybackGapsActionMessage: ActionMessage {
     let playlistType: PlaylistType?
     
     init(_ playlistType: PlaylistType?) {
+        self.playlistType = playlistType
+    }
+}
+
+// TODO: Refactor message hierarchy. This could be a child of PlaylistActionMessage ???
+struct DelayedPlaybackActionMessage: ActionMessage {
+    
+    let actionType: ActionType = .playSelectedItemWithDelay
+    
+    let delay: Double
+    let playlistType: PlaylistType?
+    
+    init(_ delay: Double, _ playlistType: PlaylistType?) {
+        self.delay = delay
         self.playlistType = playlistType
     }
 }

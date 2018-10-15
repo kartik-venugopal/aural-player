@@ -363,13 +363,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
     }
     
-    private func playTrackWithIndex(_ trackIndex: Int) {
+    private func playTrackWithIndex(_ trackIndex: Int, _ delay: Double?) {
         
         let oldTrack = player.getPlayingTrack()
         
         do {
             
-            let track = try player.play(trackIndex)
+            let track = delay != nil ? try player.playWithDelay(trackIndex, delay!) : try player.play(trackIndex)
+             
             trackChanged(oldTrack, track)
             
         } catch let error {
@@ -380,7 +381,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         }
     }
 
-    private func playTrack(_ track: Track) {
+    // TODO: Delay
+    private func playTrack(_ track: Track, _ delay: Double?) {
         
         let oldTrack = player.getPlayingTrack()
         
@@ -397,7 +399,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         }
     }
     
-    private func playGroup(_ group: Group) {
+    // TODO: Delay
+    private func playGroup(_ group: Group, _ delay: Double?) {
         
         let oldTrack = player.getPlayingTrack()
         
@@ -504,11 +507,11 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         switch request.type {
             
-        case .index: playTrackWithIndex(request.index!)
+        case .index: playTrackWithIndex(request.index!, request.delay)
             
-        case .track: playTrack(request.track!)
+        case .track: playTrack(request.track!, request.delay)
             
-        case .group: playGroup(request.group!)
+        case .group: playGroup(request.group!, request.delay)
             
         }
     }

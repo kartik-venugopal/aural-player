@@ -297,6 +297,8 @@ struct PlaybackRequest: RequestMessage {
     // Type indicates whether the request parameter is an index, track, or group. This is used to initialize the new playback sequence.
     let type: PlaybackRequestType
     
+    var delay: Double? = nil
+    
     // Only one of these 3 fields will be non-nil, depending on the request type
     var index: Int? = nil
     var track: Track? = nil
