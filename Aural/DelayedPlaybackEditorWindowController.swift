@@ -12,6 +12,8 @@ class DelayedPlaybackEditorWindowController: NSWindowController, ModalDialogDele
     @IBOutlet weak var lblDelay: NSTextField!
     
     @IBOutlet weak var timePicker: NSDatePicker!
+    @IBOutlet weak var lblTime: NSTextField!
+    @IBOutlet weak var dateFormatter: DateFormatter!
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     
@@ -44,12 +46,22 @@ class DelayedPlaybackEditorWindowController: NSWindowController, ModalDialogDele
         
         delaySlider.integerValue = 5
         delaySliderAction(self)
+        
+        timePicker.minDate = Date()
+        
+        // Max = 24 hours from now
+        // TODO: Put this constant value in a constants file
+        timePicker.maxDate = DateUtils.addToDate(Date(), 86400)
+        
+        timePickerAction(self)
     }
     
     @IBAction func radioButtonAction(_ sender: Any) {
         
         [delaySlider, btnDelayDecrement, btnDelayIncrement].forEach({$0?.isEnabled = btnDelay.state == UIConstants.buttonState_1})
+        
         timePicker.isEnabled = btnTime.state == UIConstants.buttonState_1
+        timePicker.isHidden = btnTime.state == UIConstants.buttonState_0
     }
     
     @IBAction func delayIncrementAction(_ sender: Any) {
@@ -72,9 +84,27 @@ class DelayedPlaybackEditorWindowController: NSWindowController, ModalDialogDele
         lblDelay.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(delaySlider.integerValue)
     }
     
-    @IBAction func saveAction(_ sender: Any) {
+    @IBAction func timePickerAction(_ sender: Any) {
+        lblTime.stringValue = dateFormatter.string(from: timePicker.dateValue)
+    }
+    
+    @IBAction func okAction(_ sender: Any) {
         
-        SyncMessenger.publishActionMessage(DelayedPlaybackActionMessage(delaySlider.doubleValue, PlaylistViewState.current))
+        var delay: Double = 0
+        
+        if btnTime.state == UIConstants.buttonState_1 {
+            
+            let chosenTime = timePicker.dateValue
+            delay = DateUtils.timeUntil(chosenTime)
+            
+        } else {
+            
+            delay = delaySlider.doubleValue
+        }
+        
+        if delay < 0 {delay = 0}
+        
+        SyncMessenger.publishActionMessage(DelayedPlaybackActionMessage(delay, PlaylistViewState.current))
         
         modalDialogResponse = .ok
         UIUtils.dismissModalDialog()
