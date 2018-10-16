@@ -86,9 +86,6 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Sets up the menu items that need to be displayed, depending on what type of playlist item was clicked, and the current state of that item
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        // TODO: Temporary. Need to implement move top/bottom for grouping playlists
-        [moveTrackToTopMenuItem, moveTrackToBottomMenuItem].forEach({$0?.isHidden = true})
-        
         let clickedItem = PlaylistViewContext.clickedItem
         
         switch clickedItem.type {

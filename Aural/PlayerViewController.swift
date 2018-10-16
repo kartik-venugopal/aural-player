@@ -213,12 +213,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     }
     
     private func stop() {
-        
         player.stop()
-        
-        // TODO: Won't track change take care of this ?
-        btnPlayPause.off()
-        btnLoop.switchState(LoopState.none)
     }
     
     // Replays the currently playing track, from the beginning, if there is one
@@ -228,8 +223,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
             let wasPaused: Bool = player.getPlaybackState() == .paused
             
-//            player.replay()
-            player.seekToPercentage(99)
+            player.replay()
+//            player.seekToPercentage(99)
             
             btnPlayPause.on()
             SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
