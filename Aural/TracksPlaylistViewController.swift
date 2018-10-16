@@ -61,44 +61,19 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     // Plays the track selected within the playlist, if there is one. If multiple tracks are selected, the first one will be chosen.
     @IBAction func playSelectedTrackAction(_ sender: AnyObject) {
-        
-        let selRowIndexes = playlistView.selectedRowIndexes
-    
-        if (!selRowIndexes.isEmpty) {
-            
-            _ = SyncMessenger.publishRequest(PlaybackRequest(index: selRowIndexes.min()!))
-            
-            // TODO: Do we need this ? Won't track changed notification handling do the refresh ?
-            // Clear the selection and reload the rows
-            playlistView.deselectAll(self)
-            
-            if playbackPreferences.showNewTrackInPlaylist {
-                playlistView.selectRowIndexes(IndexSet([selRowIndexes.min()!]), byExtendingSelection: false)
-            }
-            
-            playlistView.reloadData(forRowIndexes: selRowIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-        }
+        playSelectedTrackWithDelay(nil)
     }
     
-    private func playSelectedTrackWithDelay(_ msg: DelayedPlaybackActionMessage) {
+    private func playSelectedTrackWithDelay(_ delay: Double?) {
         
         let selRowIndexes = playlistView.selectedRowIndexes
         
         if (!selRowIndexes.isEmpty) {
             
             var request = PlaybackRequest(index: selRowIndexes.min()!)
-            request.delay = msg.delay
+            request.delay = delay
             
             _ = SyncMessenger.publishRequest(request)
-//
-//            // Clear the selection and reload the rows
-//            playlistView.deselectAll(self)
-//
-//            if playbackPreferences.showNewTrackInPlaylist {
-//                playlistView.selectRowIndexes(IndexSet([selRowIndexes.min()!]), byExtendingSelection: false)
-//            }
-//
-//            playlistView.reloadData(forRowIndexes: selRowIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         }
     }
     
@@ -319,7 +294,11 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         let needToShowTrack: Bool = layoutManager.isShowingPlaylist() && PlaylistViewState.current == .tracks && playbackPreferences.showNewTrackInPlaylist
         
         if (newTrack != nil) {
-            refreshIndexes.append(newTrack!.index)
+            
+            // If new and old are the same, don't refresh the same row twice
+            if !newTrack!.equals(oldTrack) {
+                refreshIndexes.append(newTrack!.index)
+            }
             
             if needToShowTrack {
                 
@@ -418,7 +397,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         var refreshIndexes: [Int] = [message.nextTrack.index]
         
-        if let oldTrackIndex = message.lastPlayedTrack?.index {
+        if let oldTrackIndex = message.lastPlayedTrack?.index, oldTrackIndex != message.nextTrack.index {
             refreshIndexes.append(oldTrackIndex)
         }
         
@@ -592,7 +571,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         if let delayedPlaybackMsg = message as? DelayedPlaybackActionMessage {
             
-            playSelectedTrackWithDelay(delayedPlaybackMsg)
+            playSelectedTrackWithDelay(delayedPlaybackMsg.delay)
             return
         }
         

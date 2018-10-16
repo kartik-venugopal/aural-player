@@ -205,42 +205,18 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // Plays, pauses, or resumes playback
     @IBAction func playPauseAction(_ sender: AnyObject) {
         
-        let oldTrack = player.getPlayingTrack()
+        player.togglePlayPause()
         
-        do {
-            
-            let playbackInfo = try player.togglePlayPause()
-            let playbackState = playbackInfo.playbackState
-            btnPlayPause.onIf(player.getPlaybackState() == .playing)
-            
-            switch playbackState {
-                
-            case .noTrack, .paused:
-                
-                SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
-                
-            case .playing:
-                
-                if (!playbackInfo.trackChanged) {
-                    // Resumed the same track
-                    SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
-                }
-                
-            case .waiting:  // Impossible
-                
-                return
-            }
-            
-        } catch let error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-            }
-        }
+        let playbackState = player.getPlaybackState()
+        btnPlayPause.onIf(playbackState == .playing)
+        SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
     }
     
     private func stop() {
+        
         player.stop()
+        
+        // TODO: Won't track change take care of this ?
         btnPlayPause.off()
         btnLoop.switchState(LoopState.none)
     }
@@ -250,15 +226,17 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         if let _ = player.getPlayingTrack() {
             
-            // TODO: Move this to a new delegate function replayTrack()
-            player.seekToPercentage(99)
+            let wasPaused: Bool = player.getPlaybackState() == .paused
             
-            // If paused, play
-            if (player.getPlaybackState() == .paused) {
-                playPauseAction(self)
-            }
+            player.replay()
+//            player.seekToPercentage(99)
             
+            btnPlayPause.on()
             SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
+            
+            if (wasPaused) {
+                SyncMessenger.publishNotification(PlaybackStateChangedNotification(.playing))
+            }
         }
     }
     
@@ -290,35 +268,12 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     // Plays the previous track in the current playback sequence
     @IBAction func previousTrackAction(_ sender: AnyObject) {
-        
-        let oldTrack = player.getPlayingTrack()
-        
-        do {
-            
-            _ = try player.previousTrack()
-            
-        } catch let error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-            }
-        }
+        player.previousTrack()
     }
     
     // Plays the next track in the current playback sequence
     @IBAction func nextTrackAction(_ sender: AnyObject) {
-        
-        let oldTrack = player.getPlayingTrack()
-        
-        do {
-            _ = try player.nextTrack()
-            
-        } catch let error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-            }
-        }
+        player.nextTrack()
     }
     
     // Seeks backward within the currently playing track
@@ -356,68 +311,27 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     }
     
     private func jumpToTime(_ time: Double) {
+        
         player.seekToTime(time)
         SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
     }
     
     private func playTrackWithIndex(_ trackIndex: Int, _ delay: Double?) {
         
-        let oldTrack = player.getPlayingTrack()
-        
-        do {
-            
-            if let playbackDelay = delay {
-                _ = player.playWithDelay(trackIndex, playbackDelay)
-            } else {
-                _ = try player.play(trackIndex)
-            }
-            
-        } catch let error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-            }
-        }
+        let params = PlaybackParams.defaultParams().withDelay(delay)
+        player.play(trackIndex, params)
     }
 
     private func playTrack(_ track: Track, _ delay: Double?) {
-        
-        let oldTrack = player.getPlayingTrack()
-        
-        do {
-            
-            if let playbackDelay = delay {
-                _ = player.playWithDelay(track, playbackDelay)
-            } else {
-                _ = try player.play(track)
-            }
-            
-        } catch let error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-            }
-        }
+
+        let params = PlaybackParams.defaultParams().withDelay(delay)
+        player.play(track, params)
     }
     
     private func playGroup(_ group: Group, _ delay: Double?) {
         
-        let oldTrack = player.getPlayingTrack()
-        
-        do {
-            
-            if let playbackDelay = delay {
-                _ = player.playWithDelay(group, playbackDelay)
-            } else {
-                _ = try player.play(group)
-            }
-            
-        } catch let error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-            }
-        }
+        let params = PlaybackParams.defaultParams().withDelay(delay)
+        player.play(group, params)
     }
 
     // Toggles the repeat mode

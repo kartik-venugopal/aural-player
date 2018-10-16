@@ -1896,7 +1896,9 @@ class PlaybackProfilesState: PersistentState {
                 profileLastPosition = posn.doubleValue
             }
             
-            state.profiles.append(PlaybackProfile(file: profileFile!, lastPosition: profileLastPosition))
+            let profile = PlaybackProfile(profileFile!)
+            profile.lastPosition = profileLastPosition
+            state.profiles.append(profile)
         })
         
         return state

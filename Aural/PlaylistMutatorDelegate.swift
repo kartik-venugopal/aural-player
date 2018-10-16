@@ -15,7 +15,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     private let changeListeners: [PlaylistChangeListenerProtocol]
     
     // A player with basic playback functionality (used for autoplay)
-    private let player: BasicPlaybackDelegateProtocol
+    private let player: PlaybackDelegateProtocol
     
     // Persistent playlist state (used upon app startup)
     private let playlistState: PlaylistState
@@ -23,7 +23,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     // User preferences (used for autoplay)
     private let preferences: Preferences
     
-    init(_ playlist: PlaylistCRUDProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ player: BasicPlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
+    init(_ playlist: PlaylistCRUDProtocol, _ playbackSequencer: PlaybackSequencerProtocol, _ player: PlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
         
         self.playlist = playlist
         self.playbackSequencer = playbackSequencer
@@ -250,7 +250,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             
             do {
                 
-                _ = try self.player.play(index, interruptPlayback)
+//                _ = try self.player.play(index, interruptPlayback)
                 
             } catch let error {
                 

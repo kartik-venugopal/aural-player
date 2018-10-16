@@ -55,10 +55,9 @@ class PlaybackGapContext {
     
     private static var id: Int = -1
     private static var gaps: [PlaybackGap: IndexedTrack] = [:]
-    static var subsequentTrack: IndexedTrack?
     
     static func hasGaps() -> Bool {
-        return subsequentTrack != nil && !gaps.isEmpty
+        return !gaps.isEmpty
     }
     
     static func getId() -> Int {
@@ -125,7 +124,6 @@ class PlaybackGapContext {
         
         id = -1
         gaps.removeAll()
-        subsequentTrack = nil
     }
     
     private static func initialize() {
