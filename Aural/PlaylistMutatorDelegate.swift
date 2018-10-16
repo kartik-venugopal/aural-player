@@ -281,10 +281,11 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         return results
     }
     
-    func moveTracksToTop(_ indexes: IndexSet) {
+    func moveTracksToTop(_ indexes: IndexSet) -> ItemMoveResults {
         
-        playlist.moveTracksToTop(indexes)
+        let results = playlist.moveTracksToTop(indexes)
         changeListeners.forEach({$0.tracksReordered(.tracks)})
+        return results
     }
     
     func moveTracksDown(_ indexes: IndexSet) -> ItemMoveResults {
@@ -293,9 +294,11 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         return results
     }
     
-    func moveTracksToBottom(_ indexes: IndexSet) {
-        playlist.moveTracksToBottom(indexes)
+    func moveTracksToBottom(_ indexes: IndexSet) -> ItemMoveResults {
+        
+        let results = playlist.moveTracksToBottom(indexes)
         changeListeners.forEach({$0.tracksReordered(.tracks)})
+        return results
     }
     
     private func findNewIndexFor(_ oldIndex: Int, _ results: ItemMoveResults) -> Int {

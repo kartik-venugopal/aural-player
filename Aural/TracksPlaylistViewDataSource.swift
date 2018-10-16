@@ -91,8 +91,17 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
                 
                 // Refresh the playlist view (only the relevant rows), and re-select the source rows that were reordered
                 
-                let srcArray = sourceIndexSet.toArray()
-                let destArray = destination.toArray()
+                var srcArray = sourceIndexSet.toArray()
+                var destArray = destination.toArray()
+                
+                // If items are being moved down, the order of the srcArray and destArray needs to be reversed
+                let movingDown = srcArray[0] < destArray[0]
+                if movingDown {
+                    
+                    // Sort in descending order
+                    srcArray = srcArray.reversed()
+                    destArray = destArray.reversed()
+                }
                 
                 // Swap source rows with destination rows
                 var cur = 0
@@ -104,7 +113,9 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
                 // Reload all source and destination rows, and all rows in between
                 let srcDestUnion = sourceIndexSet.union(destination)
                 let reloadIndexes = IndexSet(srcDestUnion.min()!...srcDestUnion.max()!)
+                
                 tableView.reloadData(forRowIndexes: reloadIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+                tableView.noteHeightOfRows(withIndexesChanged: reloadIndexes)
                 
                 // Select all the destination rows (the new locations of the moved tracks)
                 tableView.selectRowIndexes(destination, byExtendingSelection: false)

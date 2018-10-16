@@ -247,15 +247,17 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             
             if let trackMovedResult = result as? TrackMoveResult {
                 
-                playlistView.removeItems(at: IndexSet([trackMovedResult.oldTrackIndex]), inParent: trackMovedResult.parentGroup)
-                playlistView.insertItems(at: IndexSet([trackMovedResult.newTrackIndex]), inParent: trackMovedResult.parentGroup)
+                playlistView.removeItems(at: IndexSet([trackMovedResult.oldTrackIndex]), inParent: trackMovedResult.parentGroup, withAnimation: trackMovedResult.movedUp ? .slideUp : .slideDown)
+                
+                playlistView.insertItems(at: IndexSet([trackMovedResult.newTrackIndex]), inParent: trackMovedResult.parentGroup, withAnimation: trackMovedResult.movedUp ? .slideDown : .slideUp)
                 
             } else {
                 
                 let groupMovedResult = result as! GroupMoveResult
                 
-                playlistView.removeItems(at: IndexSet([groupMovedResult.oldGroupIndex]), inParent: nil)
-                playlistView.insertItems(at: IndexSet([groupMovedResult.newGroupIndex]), inParent: nil)
+                playlistView.removeItems(at: IndexSet([groupMovedResult.oldGroupIndex]), inParent: nil, withAnimation: groupMovedResult.movedUp ? .slideUp : .slideDown)
+                
+                playlistView.insertItems(at: IndexSet([groupMovedResult.newGroupIndex]), inParent: nil, withAnimation: groupMovedResult.movedUp ? .slideDown : .slideUp)
             }
         }
     }
@@ -481,7 +483,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             if result.groupCreated {
                 
                 // If a new parent group was created, for this new track, insert the new group under the root
-                playlistView.insertItems(at: IndexSet(integer: result.track.groupIndex), inParent: nil, withAnimation: NSTableView.AnimationOptions.effectFade)
+                playlistView.insertItems(at: IndexSet(integer: result.track.groupIndex), inParent: nil, withAnimation: .effectFade)
                 
             } else {
                 
