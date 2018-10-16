@@ -67,7 +67,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         prepareForTrackChange()
         
         let params = PlaybackParams().withAllowDelay(false)
-        play(track.track, params)
+        forcedTrackChange(track, params)
     }
     
     private func beginPlayback() {
@@ -75,7 +75,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         prepareForTrackChange()
         
         if let track = sequencer.begin() {
-            play(track.track)
+            prepareAndPlay(track)
         }
     }
     
