@@ -39,13 +39,23 @@ class LayoutManager: LayoutManagerProtocol, ActionMessageSubscriber {
             if appState.showEffects {
                 
                 mainWindow.addChildWindow(effectsWindow, ordered: NSWindow.OrderingMode.below)
-                effectsWindow.setFrameOrigin(appState.effectsWindowOrigin)
+                
+                if let effectsWindowOrigin = appState.effectsWindowOrigin {
+                    effectsWindow.setFrameOrigin(effectsWindowOrigin)
+                } else {
+                    defaultLayout()
+                }
             }
             
             if appState.showPlaylist {
                 
                 mainWindow.addChildWindow(playlistWindow, ordered: NSWindow.OrderingMode.below)
-                playlistWindow.setFrame(appState.playlistWindowFrame, display: true)
+                
+                if let playlistWindowFrame = appState.playlistWindowFrame {
+                    playlistWindow.setFrame(playlistWindowFrame, display: true)
+                } else {
+                    defaultLayout()
+                }
             }
             
             mainWindow.setIsVisible(true)

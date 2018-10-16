@@ -46,7 +46,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         theMenu.isEnabled = AppModeManager.mode == .regular && layoutManager.isShowingPlaylist()
         
-        if (AppModeManager.mode != .regular) {
+        if (!theMenu.isEnabled) {
             return
         }
         

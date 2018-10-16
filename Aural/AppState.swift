@@ -103,8 +103,8 @@ class WindowLayoutState: PersistentState {
     
     // TODO: Revisit this
     var mainWindowOrigin: NSPoint = NSPoint.zero
-    var effectsWindowOrigin: NSPoint = NSPoint.zero
-    var playlistWindowFrame: NSRect = NSRect(x: 0, y: 0, width: 500, height: 300)
+    var effectsWindowOrigin: NSPoint? = nil
+    var playlistWindowFrame: NSRect? = nil
     
     var userWindowLayouts: [WindowLayout] = [WindowLayout]()
     
@@ -118,13 +118,19 @@ class WindowLayoutState: PersistentState {
         map["mainWindow_x"] = mainWindowOrigin.x as NSNumber
         map["mainWindow_y"] = mainWindowOrigin.y as NSNumber
         
-        map["effectsWindow_x"] = effectsWindowOrigin.x as NSNumber
-        map["effectsWindow_y"] = effectsWindowOrigin.y as NSNumber
+        if let origin = effectsWindowOrigin {
+            
+            map["effectsWindow_x"] = origin.x as NSNumber
+            map["effectsWindow_y"] = origin.y as NSNumber
+        }
         
-        map["playlistWindow_x"] = playlistWindowFrame.origin.x as NSNumber
-        map["playlistWindow_y"] = playlistWindowFrame.origin.y as NSNumber
-        map["playlistWindow_width"] = playlistWindowFrame.width as NSNumber
-        map["playlistWindow_height"] = playlistWindowFrame.height as NSNumber
+        if let frame = playlistWindowFrame {
+            
+            map["playlistWindow_x"] = frame.origin.x as NSNumber
+            map["playlistWindow_y"] = frame.origin.y as NSNumber
+            map["playlistWindow_width"] = frame.width as NSNumber
+            map["playlistWindow_height"] = frame.height as NSNumber
+        }
         
         var userWindowLayoutsArr = [[NSString: AnyObject]]()
         for layout in userWindowLayouts {
