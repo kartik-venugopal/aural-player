@@ -113,7 +113,7 @@ Gw
                         </connections>
                     </datePicker>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-NN-0r7" userLabel="Title">
-                        <rect key="frame" x="90" y="160" width="170" height="23"/>
+                        <rect key="frame" x="90" y="159" width="170" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Jump to time" id="cWx-76-qvN">
                             <font key="font" size="12" name="GillSans-SemiBold"/>
