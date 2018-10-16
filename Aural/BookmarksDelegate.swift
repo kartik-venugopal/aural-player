@@ -59,8 +59,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
             // First, find or add the given file
             let newTrack = try playlist.findOrAddFile(bookmark.file)
             
-            // Try playing it
-            // TODO: The delegates layer should not be messing around with PlaylistViewState. Move that argument up one layer
+            // Play it
             let params = PlaybackParams().withStartAndEndPosition(bookmark.startPosition, bookmark.endPosition)
             player.play(newTrack.track, params)
             
