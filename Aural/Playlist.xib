@@ -521,6 +521,8 @@
                 <outlet property="favoritesMenuItem" destination="CHV-5l-G4d" id="YIy-BC-xYi"/>
                 <outlet property="insertGapsMenuItem" destination="Tte-BT-Pxq" id="ajO-OX-XeV"/>
                 <outlet property="moveGroupDownMenuItem" destination="cMs-Ll-SkZ" id="GNc-9J-QrK"/>
+                <outlet property="moveGroupToBottomMenuItem" destination="cM6-av-4Fm" id="vff-oI-INs"/>
+                <outlet property="moveGroupToTopMenuItem" destination="ZqA-YA-lUY" id="AHu-7m-BwF"/>
                 <outlet property="moveGroupUpMenuItem" destination="hYN-OS-28N" id="OFj-do-S0z"/>
                 <outlet property="moveTrackDownMenuItem" destination="k3z-qH-RxK" id="qsf-iD-rcm"/>
                 <outlet property="moveTrackToBottomMenuItem" destination="HDD-rc-j4w" id="bts-ta-Cik"/>
@@ -769,7 +771,7 @@
                         <action selector="moveItemUpAction:" target="TnB-Sk-yOp" id="axi-a3-lIi"/>
                     </connections>
                 </menuItem>
-                <menuItem title="  Move this track to the top" image="Up-Small" hidden="YES" enabled="NO" id="QUe-xD-qff" userLabel="Move track top">
+                <menuItem title="  Move this track to the top" image="Up-Small" id="QUe-xD-qff" userLabel="Move track top">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="moveItemToTopAction:" target="TnB-Sk-yOp" id="map-b5-fpX"/>
@@ -781,7 +783,7 @@
                         <action selector="moveItemDownAction:" target="TnB-Sk-yOp" id="Jjq-1a-OiX"/>
                     </connections>
                 </menuItem>
-                <menuItem title="  Move this track to the bottom" image="Down-Small" hidden="YES" enabled="NO" id="HDD-rc-j4w" userLabel="Move track bottom">
+                <menuItem title="  Move this track to the bottom" image="Down-Small" id="HDD-rc-j4w" userLabel="Move track bottom">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="moveItemToBottomAction:" target="TnB-Sk-yOp" id="aMP-iX-nBi"/>
@@ -799,10 +801,22 @@
                         <action selector="moveItemUpAction:" target="TnB-Sk-yOp" id="N1O-fu-7Jh"/>
                     </connections>
                 </menuItem>
+                <menuItem title="  Move this group to the top" image="Up-Small" id="ZqA-YA-lUY" userLabel="Move group top">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="moveItemToTopAction:" target="TnB-Sk-yOp" id="12u-YL-hof"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="  Move this group down" image="Down-Small" id="cMs-Ll-SkZ">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="moveItemDownAction:" target="TnB-Sk-yOp" id="zzV-RP-NYT"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="  Move this group to the bottom" image="Down-Small" id="cM6-av-4Fm" userLabel="Move group bottom">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="moveItemToBottomAction:" target="TnB-Sk-yOp" id="YYg-2c-WAc"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="xpC-LX-tPd"/>

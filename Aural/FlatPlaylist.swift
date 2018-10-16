@@ -177,7 +177,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         return upIndex
     }
     
-    // Assume track can be moved
+    // Assume tracks can be moved
     func moveTracksToTop(_ indexes: IndexSet) {
         
         var tracksMoved: Int = 0

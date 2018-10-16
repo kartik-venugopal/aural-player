@@ -335,12 +335,19 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         return groupingPlaylists[groupType.toPlaylistType()]!.moveTracksAndGroupsUp(tracks, groups)
     }
     
+    func moveTracksAndGroupsToTop(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
+        return groupingPlaylists[groupType.toPlaylistType()]!.moveTracksAndGroupsToTop(tracks, groups)
+    }
+    
     func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
         return groupingPlaylists[groupType.toPlaylistType()]!.moveTracksAndGroupsDown(tracks, groups)
     }
     
+    func moveTracksAndGroupsToBottom(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
+        return groupingPlaylists[groupType.toPlaylistType()]!.moveTracksAndGroupsToBottom(tracks, groups)
+    }
+    
     func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType, _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults {
-        
         return groupingPlaylists[groupType.toPlaylistType()]!.dropTracksAndGroups(tracks, groups, dropParent, dropIndex)
     }
 }

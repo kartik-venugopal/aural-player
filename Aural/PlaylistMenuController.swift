@@ -44,9 +44,6 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        // TODO: Temporary. Need to implement move top/bottom for grouping playlists
-        [moveItemsToTopMenuItem, moveItemsToBottomMenuItem].forEach({$0?.isHidden = true})
-        
         theMenu.isEnabled = AppModeManager.mode == .regular && layoutManager.isShowingPlaylist()
         
         if (AppModeManager.mode != .regular) {
@@ -61,7 +58,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, invertSelectionMenuItem].forEach({$0?.isEnabled = playlist.size() > 0})
         
         // At least 2 tracks needed for these functions, and at least one track selected
-        cropSelectionMenuItem.isEnabled = playlist.size() > 1 && PlaylistViewState.currentView.selectedRow >= 0
+        [moveItemsToTopMenuItem, moveItemsToBottomMenuItem, cropSelectionMenuItem].forEach({$0?.isEnabled = playlist.size() > 1 && PlaylistViewState.currentView.selectedRow >= 0})
         
         // Make sure it's a track, not a group, and that only one track is selected
         if PlaylistViewState.currentView.numberOfSelectedRows == 1 {

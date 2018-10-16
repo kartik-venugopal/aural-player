@@ -319,8 +319,22 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         return results
     }
     
+    func moveTracksAndGroupsToTop(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
+        
+        let results = playlist.moveTracksAndGroupsToTop(tracks, groups, groupType)
+        changeListeners.forEach({$0.tracksReordered(groupType.toPlaylistType())})
+        return results
+    }
+    
     func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
         let results = playlist.moveTracksAndGroupsDown(tracks, groups, groupType)
+        changeListeners.forEach({$0.tracksReordered(groupType.toPlaylistType())})
+        return results
+    }
+    
+    func moveTracksAndGroupsToBottom(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
+        
+        let results = playlist.moveTracksAndGroupsToBottom(tracks, groups, groupType)
         changeListeners.forEach({$0.tracksReordered(groupType.toPlaylistType())})
         return results
     }

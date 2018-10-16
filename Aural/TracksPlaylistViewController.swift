@@ -147,6 +147,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             
             playlist.moveTracksToTop(selRows)
             
+            // TODO: Don't reload, simply move the rows
             let updatedRows = IndexSet(integersIn: 0...selRows.max()!)
             playlistView.reloadData(forRowIndexes: updatedRows, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
             playlistView.noteHeightOfRows(withIndexesChanged: updatedRows)
@@ -190,6 +191,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             
             playlist.moveTracksToBottom(selRows)
             
+            // TODO: Don't reload, simply move the rows
             let updatedRows = IndexSet(integersIn: selRows.min()!...lastIndex)
             playlistView.reloadData(forRowIndexes: updatedRows, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
             playlistView.noteHeightOfRows(withIndexesChanged: updatedRows)
