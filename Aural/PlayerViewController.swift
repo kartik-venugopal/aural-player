@@ -228,8 +228,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
             let wasPaused: Bool = player.getPlaybackState() == .paused
             
-            player.replay()
-//            player.seekToPercentage(99)
+//            player.replay()
+            player.seekToPercentage(99)
             
             btnPlayPause.on()
             SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)

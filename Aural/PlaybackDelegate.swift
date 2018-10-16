@@ -176,7 +176,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         TrackChangeContext.setNewTrack(indexedTrack)
         
         // Figure out start and end position
-        var startPosition: Double? = nil
+        var startPosition: Double? = params.startPosition
         let endPosition: Double? = params.endPosition
         
         // Check for playback profile
