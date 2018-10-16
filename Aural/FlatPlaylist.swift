@@ -178,10 +178,12 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     }
     
     // Assume tracks can be moved
-    func moveTracksToTop(_ indexes: IndexSet) {
+    func moveTracksToTop(_ indexes: IndexSet) -> ItemMoveResults {
         
         var tracksMoved: Int = 0
         let sortedIndexes = indexes.sorted(by: {x, y -> Bool in x < y})
+        
+        var results = [TrackMoveResult]()
         
         for index in sortedIndexes {
             
@@ -189,23 +191,37 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
             let track = tracks.remove(at: index)
             tracks.insert(track, at: tracksMoved)
             
+            results.append(TrackMoveResult(index, tracksMoved))
+            
             tracksMoved += 1
         }
+        
+        // Ascending order (by old index)
+        return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}), .tracks)
     }
     
-    func moveTracksToBottom(_ indexes: IndexSet) {
+    func moveTracksToBottom(_ indexes: IndexSet) -> ItemMoveResults {
         
         var tracksMoved: Int = 0
         let sortedIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
+        
+        var results = [TrackMoveResult]()
         
         for index in sortedIndexes {
             
             // Remove from original location and insert at top, one after another, below the previous one
             let track = tracks.remove(at: index)
-            tracks.insert(track, at: tracks.endIndex - tracksMoved)
+            
+            let newIndex = tracks.endIndex - tracksMoved
+            tracks.insert(track, at: newIndex)
+            
+            results.append(TrackMoveResult(index, newIndex))
             
             tracksMoved += 1
         }
+        
+        // Descending order (by old index)
+        return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}), .tracks)
     }
     
     // Assume track can be moved

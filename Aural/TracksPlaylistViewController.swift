@@ -145,12 +145,11 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
          */
         if (numRows > 1 && selRows.count > 0 && selRows.count < numRows) {
             
-            playlist.moveTracksToTop(selRows)
+            let results = playlist.moveTracksToTop(selRows)
+            removeAndInsertItems(results)
             
-            // TODO: Don't reload, simply move the rows
             let updatedRows = IndexSet(integersIn: 0...selRows.max()!)
             playlistView.reloadData(forRowIndexes: updatedRows, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-            playlistView.noteHeightOfRows(withIndexesChanged: updatedRows)
             
             // Select all the same items but now at the top
             playlistView.scrollRowToVisible(0)
@@ -189,16 +188,14 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             
             let lastIndex = playlistView.numberOfRows - 1
             
-            playlist.moveTracksToBottom(selRows)
+            let results = playlist.moveTracksToBottom(selRows)
+            removeAndInsertItems(results)
             
-            // TODO: Don't reload, simply move the rows
             let updatedRows = IndexSet(integersIn: selRows.min()!...lastIndex)
             playlistView.reloadData(forRowIndexes: updatedRows, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-            playlistView.noteHeightOfRows(withIndexesChanged: updatedRows)
             
             // Select all the same items but now at the bottom
             playlistView.scrollRowToVisible(lastIndex)
-            
             let firstSel = lastIndex - selRows.count + 1
             playlistView.selectRowIndexes(IndexSet(firstSel...lastIndex), byExtendingSelection: false)
         }
@@ -220,13 +217,25 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         }
     }
     
+    // Refreshes the playlist view by rearranging the items that were moved
+    private func removeAndInsertItems(_ results: ItemMoveResults) {
+        
+        for result in results.results {
+
+            if let trackMovedResult = result as? TrackMoveResult {
+
+                playlistView.removeRows(at: IndexSet([trackMovedResult.oldTrackIndex]), withAnimation: trackMovedResult.movedUp ? .slideUp : .slideDown)
+                playlistView.insertRows(at: IndexSet([trackMovedResult.newTrackIndex]), withAnimation: trackMovedResult.movedUp ? .slideDown : .slideUp)
+            }
+        }
+    }
+    
     // Rearranges tracks within the view that have been reordered
     private func moveItems(_ results: ItemMoveResults) {
         
         for result in results.results as! [TrackMoveResult] {
             
             playlistView.moveRow(at: result.oldTrackIndex, to: result.newTrackIndex)
-            
             playlistView.reloadData(forRowIndexes: IndexSet([result.oldTrackIndex, result.newTrackIndex]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         }
     }
