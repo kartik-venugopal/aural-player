@@ -173,6 +173,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     private func prepareAndPlay(_ indexedTrack: IndexedTrack, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
         
+        // Stop if currently playing
+        haltPlayback()
+        
         TrackChangeContext.setNewTrack(indexedTrack)
         
         // Figure out start and end position
@@ -258,9 +261,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     }
     
     private func doPlay(_ track: Track, _ startPosition: Double? = nil, _ endPosition: Double? = nil) {
-        
-        // Stop if currently playing
-        haltPlayback()
         
         // Invalidate the gap, if there is one
         PlaybackGapContext.clear()

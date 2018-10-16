@@ -395,14 +395,27 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         btnPlayPause.onIf(player.getPlaybackState() == .playing)
         btnLoop.switchState(player.getPlaybackLoop() != nil ? LoopState.complete : LoopState.none)
         
-        // Apply sound profile if there is one for the new track and the preferences allow it
-        if newTrack != nil && soundPreferences.rememberEffectsSettings {
+        if soundPreferences.rememberEffectsSettings {
             
-            if let profile = SoundProfiles.profileForTrack(newTrack!.track) {
+            // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
+            if let _oldTrack = oldTrack {
                 
-                audioGraph.setVolume(profile.volume)
-                audioGraph.setBalance(profile.balance)
-                initVolumeAndPan()
+                // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
+                if soundPreferences.rememberEffectsSettingsOption == .allTracks || SoundProfiles.profileForTrack(_oldTrack.track) != nil {
+                    
+                    SoundProfiles.saveProfile(_oldTrack.track, audioGraph.getVolume(), audioGraph.getBalance(), audioGraph.getSettingsAsMasterPreset())
+                }
+            }
+            
+            // Apply sound profile if there is one for the new track and the preferences allow it
+            if newTrack != nil {
+                
+                if let profile = SoundProfiles.profileForTrack(newTrack!.track) {
+                    
+                    audioGraph.setVolume(profile.volume)
+                    audioGraph.setBalance(profile.balance)
+                    initVolumeAndPan()
+                }
             }
         }
     }
