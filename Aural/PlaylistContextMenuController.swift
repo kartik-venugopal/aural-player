@@ -39,6 +39,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var removeGroupMenuItem: NSMenuItem!
     @IBOutlet weak var moveGroupUpMenuItem: NSMenuItem!
     @IBOutlet weak var moveGroupDownMenuItem: NSMenuItem!
+    @IBOutlet weak var moveGroupToTopMenuItem: NSMenuItem!
+    @IBOutlet weak var moveGroupToBottomMenuItem: NSMenuItem!
     
     private var groupMenuItems: [NSMenuItem] = []
     
@@ -65,9 +67,9 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         // Store all track-specific and group-specific menu items in separate arrays for convenient access when setting up the menu prior to display
         
-        trackMenuItems = [playTrackMenuItem, playTrackDelayedMenuItem, favoritesMenuItem, detailedInfoMenuItem, removeTrackMenuItem, moveTrackUpMenuItem, moveTrackDownMenuItem, showTrackInFinderMenuItem, insertGapsMenuItem, editGapsMenuItem, removeGapsMenuItem]
+        trackMenuItems = [playTrackMenuItem, playTrackDelayedMenuItem, favoritesMenuItem, detailedInfoMenuItem, removeTrackMenuItem, moveTrackUpMenuItem, moveTrackDownMenuItem, moveTrackToTopMenuItem, moveTrackToBottomMenuItem, showTrackInFinderMenuItem, insertGapsMenuItem, editGapsMenuItem, removeGapsMenuItem]
         
-        groupMenuItems = [playGroupMenuItem, playGroupDelayedMenuItem, removeGroupMenuItem, moveGroupUpMenuItem, moveGroupDownMenuItem]
+        groupMenuItems = [playGroupMenuItem, playGroupDelayedMenuItem, removeGroupMenuItem, moveGroupUpMenuItem, moveGroupDownMenuItem, moveGroupToTopMenuItem, moveGroupToBottomMenuItem]
         
         // Set up the two possible captions for the favorites menu item
         

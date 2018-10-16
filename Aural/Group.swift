@@ -91,6 +91,29 @@ class Group: NSObject, GroupAccessorProtocol, PlaylistItem {
         return indexMappings
     }
     
+    // Assume tracks can be moved
+    func moveTracksToTop(_ indexes: IndexSet) -> [Int: Int] {
+        
+        var tracksMoved: Int = 0
+        let sortedIndexes = indexes.sorted(by: {x, y -> Bool in x < y})
+        
+        // Mappings of oldIndex (prior to move) -> newIndex (after move)
+        var indexMappings = [Int: Int]()
+        
+        for index in sortedIndexes {
+            
+            // Remove from original location and insert at top, one after another, below the previous one
+            let track = tracks.remove(at: index)
+            tracks.insert(track, at: tracksMoved)
+            
+            indexMappings[index] = tracksMoved
+            
+            tracksMoved += 1
+        }
+        
+        return indexMappings
+    }
+    
     // Moves tracks within this group, at the given indexes, down one index, if possible. Returns a mapping of source indexes to destination indexes.
     func moveTracksDown(_ indexes: IndexSet) -> [Int: Int] {
         
@@ -120,6 +143,30 @@ class Group: NSObject, GroupAccessorProtocol, PlaylistItem {
             for index in unmovableBlockSize...descendingOldIndexes.count - 1 {
                 indexMappings[descendingOldIndexes[index]] = moveTrackDown(descendingOldIndexes[index])
             }
+        }
+        
+        return indexMappings
+    }
+    
+    func moveTracksToBottom(_ indexes: IndexSet) -> [Int: Int] {
+        
+        var tracksMoved: Int = 0
+        let sortedIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
+        
+        // Mappings of oldIndex (prior to move) -> newIndex (after move)
+        var indexMappings = [Int: Int]()
+        
+        for index in sortedIndexes {
+            
+            // Remove from original location and insert at top, one after another, below the previous one
+            let track = tracks.remove(at: index)
+            
+            let newIndex = tracks.endIndex - tracksMoved
+            tracks.insert(track, at: newIndex)
+            
+            indexMappings[index] = newIndex
+            
+            tracksMoved += 1
         }
         
         return indexMappings

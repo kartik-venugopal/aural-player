@@ -56,7 +56,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -65,7 +65,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -215,6 +215,78 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistView.scrollRowToVisible(playlistView.selectedRow)
     }
     
+    private func moveTracksToTop() {
+        
+        let tracksAndGroups = collectTracksAndGroups()
+        let tracks = tracksAndGroups.tracks
+        let groups = tracksAndGroups.groups
+        
+        // Cannot move both tracks and groups
+        if (!tracks.isEmpty && !groups.isEmpty) {
+            return
+        }
+        
+        // Move items within the playlist and refresh the playlist view
+        let results = playlist.moveTracksAndGroupsToTop(tracks, groups, self.groupType)
+        removeAndInsertItems(results)
+        
+        // Re-select all the items that were moved
+        var allItems: [PlaylistItem] = [PlaylistItem]()
+        groups.forEach({allItems.append($0)})
+        tracks.forEach({allItems.append($0)})
+        selectAllItems(allItems)
+        
+        // Scroll to make the first selected row visible
+        playlistView.scrollRowToVisible(playlistView.selectedRow)
+    }
+    
+    // Refreshes the playlist view by rearranging the items that were moved
+    private func removeAndInsertItems(_ results: ItemMoveResults) {
+        
+        for result in results.results {
+            
+            if let trackMovedResult = result as? TrackMoveResult {
+                
+                playlistView.removeItems(at: IndexSet([trackMovedResult.oldTrackIndex]), inParent: trackMovedResult.parentGroup)
+                playlistView.insertItems(at: IndexSet([trackMovedResult.newTrackIndex]), inParent: trackMovedResult.parentGroup)
+                
+            } else {
+                
+                let groupMovedResult = result as! GroupMoveResult
+                
+                playlistView.removeItems(at: IndexSet([groupMovedResult.oldGroupIndex]), inParent: nil)
+                playlistView.insertItems(at: IndexSet([groupMovedResult.newGroupIndex]), inParent: nil)
+            }
+        }
+    }
+    
+    private func moveTracksToBottom() {
+        
+        // TODO: Code duplication with moveTracksToTop
+        
+        let tracksAndGroups = collectTracksAndGroups()
+        let tracks = tracksAndGroups.tracks
+        let groups = tracksAndGroups.groups
+        
+        // Cannot move both tracks and groups
+        if (!tracks.isEmpty && !groups.isEmpty) {
+            return
+        }
+        
+        // Move items within the playlist and refresh the playlist view
+        let results = playlist.moveTracksAndGroupsToBottom(tracks, groups, self.groupType)
+        removeAndInsertItems(results)
+        
+        // Re-select all the items that were moved
+        var allItems: [PlaylistItem] = [PlaylistItem]()
+        groups.forEach({allItems.append($0)})
+        tracks.forEach({allItems.append($0)})
+        selectAllItems(allItems)
+        
+        // Scroll to make the first selected row visible
+        playlistView.scrollRowToVisible(playlistView.selectedRow)
+    }
+    
     // Refreshes the playlist view by rearranging the items that were moved
     private func moveItems(_ results: ItemMoveResults) {
         
@@ -244,6 +316,8 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     private func moveTracksDown() {
+        
+        // TODO: Code duplication with moveTracksUp
         
         let tracksAndGroups = collectTracksAndGroups()
         let tracks = tracksAndGroups.tracks
@@ -683,6 +757,14 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             case .moveTracksDown:
                 
                 moveTracksDown()
+                
+            case .moveTracksToTop:
+                
+                moveTracksToTop()
+                
+            case .moveTracksToBottom:
+                
+                moveTracksToBottom()
                 
             case .scrollToTop:
                 

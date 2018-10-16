@@ -61,6 +61,8 @@ protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
      */
     func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group]) -> ItemMoveResults
     
+    func moveTracksAndGroupsToTop(_ tracks: [Track], _ groups: [Group]) -> ItemMoveResults
+    
     /*
         Moves either the specified tracks, or the specified groups (groups take precedence), down one index in this playlist, if they can be moved (they are not already at the bottom).
      
@@ -73,6 +75,8 @@ protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
             - Even if some tracks/groups cannot move, those that can will be moved. i.e. This is not an all or nothing operation.
      */
     func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group]) -> ItemMoveResults
+    
+    func moveTracksAndGroupsToBottom(_ tracks: [Track], _ groups: [Group]) -> ItemMoveResults
     
     /*
         Performs a drag and drop reordering operation on this playlist. Source items (tracks or groups) are dropped, under a given parent (either the root, if groups are being moved, or a specific group, if tracks are being moved), at a destination drop index.
