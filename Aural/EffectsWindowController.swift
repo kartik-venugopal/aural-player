@@ -136,10 +136,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
 
     private func initUnits() {
 
-        [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton].forEach({$0?.updateState()})
-
-        // TODO: This will not always be off (only on app startup)
-        recorderTabViewButton.off()
+        [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton].forEach({$0?.updateState()})
     }
 
     private func initTabGroup() {

@@ -80,13 +80,11 @@ class ObjectGraph {
         
         playbackSequencerInfoDelegate = PlaybackSequencerInfoDelegate(playbackSequencer!)
         
-        // TODO: Fix this dependency weirdness
+        // Playback Delegate
+        playbackDelegate = PlaybackDelegate(player!, playbackSequencer!, playlist!, preferences!.playbackPreferences)
         
         // History (and delegate)
         history = History(preferences!.historyPreferences)
-        
-        // Playback Delegate
-        playbackDelegate = PlaybackDelegate(player!, playbackSequencer!, playlist!, history!, preferences!.playbackPreferences)
         
         // Playlist Delegate
         let accessor = PlaylistAccessorDelegate(playlist!)

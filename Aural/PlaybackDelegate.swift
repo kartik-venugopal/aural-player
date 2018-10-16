@@ -14,19 +14,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // The actual playlist
     private let playlist: PlaylistCRUDProtocol
     
-    private let history: HistoryProtocol
-    
     // User preferences
     private let preferences: PlaybackPreferences
     
     private let trackPlaybackQueue: DispatchQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
     
-    init(_ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ history: HistoryProtocol, _ preferences: PlaybackPreferences) {
+    init(_ player: PlayerProtocol, _ sequencer: PlaybackSequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ preferences: PlaybackPreferences) {
         
         self.player = player
         self.sequencer = sequencer
         self.playlist = playlist
-        self.history = history
         self.preferences = preferences
         
         // Subscribe to message notifications
