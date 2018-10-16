@@ -220,17 +220,6 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // Apply sound profile if there is one for the new track and if the preferences allow it
         if soundPreferences.rememberEffectsSettings {
             
-            // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
-            if let oldTrack = message.oldTrack {
-                
-                // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
-                if soundPreferences.rememberEffectsSettingsOption == .allTracks || SoundProfiles.profileForTrack(oldTrack.track) != nil {
-                    
-                    SoundProfiles.saveProfile(oldTrack.track, graph.getVolume(), graph.getBalance(), graph.getSettingsAsMasterPreset())
-                    
-                }
-            }
-            
             if let newTrack = message.newTrack {
                 
                 if let profile = SoundProfiles.profileForTrack(newTrack.track) {
