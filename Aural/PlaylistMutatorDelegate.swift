@@ -245,19 +245,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     private func autoplay(_ index: Int, _ interruptPlayback: Bool) {
         
         DispatchQueue.main.async {
-            
-            let oldTrack = self.playbackSequencer.getPlayingTrack()
-            
-            do {
-                
-//                _ = try self.player.play(index, interruptPlayback)
-                
-            } catch let error {
-                
-                if (error is InvalidTrackError) {
-                    AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(oldTrack, error as! InvalidTrackError))
-                }
-            }
+
+            let params = PlaybackParams().withInterruptPlayback(interruptPlayback)
+            self.player.play(index, params)
         }
     }
     
