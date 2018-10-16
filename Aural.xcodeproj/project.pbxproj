@@ -1541,8 +1541,8 @@
 			isa = PBXGroup;
 			children = (
 				3E3AEB111F9D3BA200E9BEDE /* GroupingPlaylistViewController.swift */,
-				3E59A3761F9959C10087198C /* GroupingPlaylistDataSources.swift */,
 				3EF5E5D41FBF104D004270A4 /* GroupingPlaylistViewDelegates.swift */,
+				3E59A3761F9959C10087198C /* GroupingPlaylistDataSources.swift */,
 				3EF5E5B51FBDAEA1004270A4 /* Artists */,
 				3EF5E5BA1FBDB36D004270A4 /* Albums */,
 				3EF5E5BF1FBDB622004270A4 /* Genres */,

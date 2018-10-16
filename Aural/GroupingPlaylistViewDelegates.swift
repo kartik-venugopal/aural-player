@@ -93,7 +93,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             
             if let group = item as? Group {
                 
-                let cell = createTextCell(outlineView, UIConstants.playlistDurationColumnID, true, StringUtils.formatSecondsToHMS(group.duration))
+                let cell = createDurationCell(outlineView, UIConstants.playlistDurationColumnID, true, StringUtils.formatSecondsToHMS(group.duration), nil, nil)
                 cell?.item = group
                 cell?.playlistType = self.playlistType
                 return cell
@@ -263,10 +263,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             
             cell.textField?.stringValue = text
             cell.textField?.isHidden = false
-            
-            if cell.gapAfterTextField == nil {
-                return cell
-            }
+            cell.isGroup = isGroup
             
             let both = gapBefore != nil && gapAfter != nil
             let aOnly = gapAfter != nil && gapBefore == nil
@@ -283,8 +280,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 
                 adjustConstraints_mainFieldOnTop(cell)
                 
-                cell.gapAfterTextField.setFrameOrigin(NSPoint.zero)
-                
             } else if bOnly {
                 
                 let gap = gapBefore!
@@ -295,8 +290,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 cell.gapBeforeTextField.stringValue = StringUtils.formatSecondsToHMS(gap.duration)
                 
                 adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeTextField)
-                
-                cell.textField!.setFrameOrigin(NSPoint.zero)
                 
             } else if both {
                 
@@ -311,8 +304,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 
                 adjustConstraints_beforeGapFieldOnTop(cell, cell.gapBeforeTextField)
                 
-                cell.gapAfterTextField.setFrameOrigin(NSPoint.zero)
-                
             } else {
                 
                 // Neither
@@ -320,8 +311,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
                 cell.gapAfterTextField.isHidden = true
                 
                 adjustConstraints_mainFieldOnTop(cell)
-                
-                cell.textField!.setFrameOrigin(NSPoint.zero)
             }
             
             

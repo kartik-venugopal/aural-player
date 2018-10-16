@@ -378,16 +378,20 @@ class GroupedTrackDurationCellView: NSTableCellView {
                 textField.font = isSelRow ? (isGroup ? Fonts.playlistGroupNameSelectedTextFont : Fonts.playlistGroupItemSelectedTextFont) : (isGroup ? Fonts.playlistGroupNameTextFont : Fonts.playlistGroupItemTextFont)
             }
             
-            if let gapField = self.gapBeforeTextField {
-                
-                gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
-                gapField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
-            }
+            if !isGroup {
             
-            if let gapField = self.gapAfterTextField {
+                if let gapField = self.gapBeforeTextField {
+                    
+                    gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
+                    gapField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+                }
                 
-                gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
-                gapField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+                if let gapField = self.gapAfterTextField {
+                    
+                    gapField.textColor = isSelRow ? Colors.playlistSelectedGapTextColor : Colors.playlistGapTextColor
+                    gapField.font = isSelRow ? Fonts.playlistSelectedTextFont : Fonts.playlistTextFont
+                }
+                
             }
         }
     }
