@@ -455,12 +455,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         // The seek timer can be disabled when not needed (e.g. when paused)
         setSeekTimerState(isPlaying)
         
-        let track = (player.getPlayingTrack()?.track)!
-        if (track.displayInfo.art == nil) {
+        if let track = player.getPlayingTrack()?.track, track.displayInfo.art == nil {
         
             // Default artwork
-            let playing = player.getPlaybackState() == .playing
-            artView.image = playing ? Images.imgPlayingArt : Images.imgPausedArt
+            artView.image = isPlaying ? Images.imgPlayingArt : Images.imgPausedArt
         }
     }
     

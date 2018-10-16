@@ -79,47 +79,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     // Plays the track/group selected within the playlist, if there is one. If multiple items are selected, the first one will be chosen.
     @IBAction func playSelectedItemAction(_ sender: AnyObject) {
-        
-        let selRowIndexes = playlistView.selectedRowIndexes
-        
-        if (!selRowIndexes.isEmpty) {
-            
-            let item = playlistView.item(atRow: selRowIndexes.min()!)
-            
-            // The selected item is either a track or a group
-            if let track = item as? Track {
-                
-                _ = SyncMessenger.publishRequest(PlaybackRequest(track: track))
-                
-                // Clear the selection and reload the row
-                playlistView.deselectAll(self)
-                
-                if playbackPreferences.showNewTrackInPlaylist {
-                    playlistView.selectRowIndexes(IndexSet([selRowIndexes.min()!]), byExtendingSelection: false)
-                }
-                
-                playlistView.reloadData(forRowIndexes: selRowIndexes, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
-                
-            } else {
-                
-                let group = item as! Group
-                _ = SyncMessenger.publishRequest(PlaybackRequest(group: group))
-                
-                // Clear the selection and reload the row
-                playlistView.deselectAll(self)
-                playlistView.reloadData(forRowIndexes: selRowIndexes, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
-                
-                if playbackPreferences.showNewTrackInPlaylist {
-                    showPlayingTrack()
-                }
-                
-                // Expand the group to show the new playing track under the group
-                playlistView.expandItem(group)
-            }
-        }
+        playSelectedItemWithDelay(nil)
     }
     
-    private func playSelectedItemWithDelay(_ delay: Double) {
+    private func playSelectedItemWithDelay(_ delay: Double?) {
         
         let selRowIndexes = playlistView.selectedRowIndexes
         
@@ -128,31 +91,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             let item = playlistView.item(atRow: selRowIndexes.min()!)
             
             // The selected item is either a track or a group
-            if let track = item as? Track {
-                
-                var request = PlaybackRequest(track: track)
-                request.delay = delay
-                _ = SyncMessenger.publishRequest(request)
-                
-                // Clear the selection and reload the row
-                playlistView.deselectAll(self)
-                playlistView.reloadData(forRowIndexes: selRowIndexes, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
-                
-            } else {
-                
-                let group = item as! Group
-                
-                var request = PlaybackRequest(group: group)
-                request.delay = delay
-                _ = SyncMessenger.publishRequest(request)
-                
-                // Clear the selection and reload the row
-                playlistView.deselectAll(self)
-                playlistView.reloadData(forRowIndexes: selRowIndexes, columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
-                
-                // Expand the group to show the new playing track under the group
-                playlistView.expandItem(group)
-            }
+            var request: PlaybackRequest = item is Track ? PlaybackRequest(track: item as! Track) : PlaybackRequest(group: item as! Group)
+            request.delay = delay
+            
+            _ = SyncMessenger.publishRequest(request)
         }
     }
     
@@ -454,7 +396,6 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     
     // Selects the currently playing track, within the playlist view
     private func showPlayingTrack() {
-        
         selectTrack(playbackInfo.getPlayingTrackGroupInfo(self.groupType))
     }
  
@@ -532,9 +473,12 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         if (newTrack != nil) {
             
-            playlistView.reloadItem(newTrack!.track)
-            let row = playlistView.row(forItem: newTrack!.track)
-            playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
+            if !newTrack!.equals(oldTrack) {
+                
+                playlistView.reloadItem(newTrack!.track)
+                let row = playlistView.row(forItem: newTrack!.track)
+                playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
+            }
             
             if layoutManager.isShowingPlaylist() {
                 
@@ -600,7 +544,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         var refreshTracks: [Track] = [message.nextTrack.track]
         
-        if let oldTrack = message.lastPlayedTrack {
+        if let oldTrack = message.lastPlayedTrack, !message.nextTrack.equals(oldTrack) {
             refreshTracks.append(oldTrack.track)
         }
         

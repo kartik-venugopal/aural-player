@@ -74,10 +74,11 @@ class FavoritesDelegate: FavoritesDelegateProtocol, PersistentModelObject {
             let newTrack = try playlist.findOrAddFile(favorite.file)
             
             // Try playing it
-            try _ = player.play(newTrack.track, PlaylistViewState.current)
+            player.play(newTrack.track)
             
         } catch let error {
             
+            // TODO: Handle FileNotFoundError
             if (error is InvalidTrackError) {
                 AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(oldTrack, error as! InvalidTrackError))
             }

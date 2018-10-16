@@ -95,6 +95,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     }
     
     func subsequent() -> IndexedTrack? {
+        
         let subsequent = getTrackForIndex(sequence.subsequent())
         playingTrack = subsequent?.track
         return subsequent
@@ -105,6 +106,7 @@ class PlaybackSequencer: PlaybackSequencerProtocol, PlaylistChangeListenerProtoc
     }
     
     func next() -> IndexedTrack? {
+        
         let next = getTrackForIndex(sequence.next())
         
         // If there is no next track, don't change the playingTrack variable, because the playing track will continue playing

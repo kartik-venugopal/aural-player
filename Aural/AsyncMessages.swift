@@ -59,11 +59,16 @@ struct TrackChangedAsyncMessage: AsyncMessage {
     // The track that was playing before the track change (may be nil, meaning no track was playing)
     let oldTrack: IndexedTrack?
     
+    // Playback state before the track change
+    let oldState: PlaybackState
+    
     // The track that is now playing (may be nil, meaning no track playing)
     let newTrack: IndexedTrack?
     
-    init(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?) {
+    init(_ oldTrack: IndexedTrack?, _ oldState: PlaybackState, _ newTrack: IndexedTrack?) {
+        
         self.oldTrack = oldTrack
+        self.oldState = oldState
         self.newTrack = newTrack
     }
 }
@@ -272,19 +277,13 @@ struct PlaybackGapStartedAsyncMessage: AsyncMessage {
     let gapEndTime: Date
     
     let lastPlayedTrack: IndexedTrack?
-    let gapAfterLastPlayedTrack: PlaybackGap?
-    
     let nextTrack: IndexedTrack
-    let gapBeforeNextTrack: PlaybackGap?
     
-    init(_ gapEndTime: Date, _ lastPlayedTrack: IndexedTrack?, _ nextTrack: IndexedTrack, _ gapAfterLastPlayedTrack: PlaybackGap?, _ gapBeforeNextTrack: PlaybackGap?) {
+    init(_ gapEndTime: Date, _ lastPlayedTrack: IndexedTrack?, _ nextTrack: IndexedTrack) {
         
         self.gapEndTime = gapEndTime
         
         self.lastPlayedTrack = lastPlayedTrack
-        self.gapAfterLastPlayedTrack = gapAfterLastPlayedTrack
-        
         self.nextTrack = nextTrack
-        self.gapBeforeNextTrack = gapBeforeNextTrack
     }
 }

@@ -10,7 +10,7 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
         Throws an error if playback begins with a track that cannot be played back.
      */
-    func togglePlayPause() throws -> (playbackState: PlaybackState, playingTrack: IndexedTrack?, trackChanged: Bool)
+    func togglePlayPause()
     
     /* 
         Plays the track at a given index in the player playlist. Returns complete track information for the track.
@@ -19,13 +19,7 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
  
         NOTE - When a single index is specified, it is implied that the playlist from which this request originated was the flat "Tracks" playlist, because this playlist locates tracks by a single absolute index. Hence, this function is intended to be called only when playback originates from the "Tracks" playlist.
      */
-    func play(_ index: Int) throws -> IndexedTrack
-    
-    func playWithDelay(_ index: Int, _ delay: Double) -> IndexedTrack
-    
-    func playWithDelay(_ track: Track, _ delay: Double) -> IndexedTrack
-    
-    func playWithDelay(_ group: Group, _ delay: Double) -> IndexedTrack
+    func play(_ index: Int, _ params: PlaybackParams)
     
     /*
         Plays the given track. Returns complete track information for the track.
@@ -34,19 +28,7 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
         
         NOTE - When a track is specified, it is implied that the playlist from which this request originated was a grouping/hierarchical playlist, because such a playlist does not provide a single index to locate an item. It provides either a track or a group. Hence, this function is intended to be called only when playback originates from one of the grouping/hierarchical playlists.
      */
-    func play(_ track: Track) throws -> IndexedTrack
-    
-    /* 
-        Plays the given track. Returns complete track information for the track.
-        
-        Throws an error if the selected track cannot be played back.
-        
-        NOTE - The "playlistType" argument is used to initialize the playback sequence (which is dependent on the current playlist view)
-    */
-    func play(_ track: Track, _ playlistType: PlaylistType) throws -> IndexedTrack
-    
-    // If end position is non-nil, it's a loop
-    func play(_ track: Track, _ startPosition: Double, _ endPosition: Double?, _ playlistType: PlaylistType) throws -> IndexedTrack
+    func play(_ track: Track, _ params: PlaybackParams)
     
     /*
         Initiates playback of (tracks within) the given group. Returns complete track information for the track that is chosen to play first.
@@ -55,16 +37,19 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
      
         NOTE - When a group is specified, it is implied that the playlist from which this request originated was a grouping/hierarchical playlist, because such a playlist does not provide a single index to locate an item. It provides either a track or a group. Hence, this function is intended to be called only when playback originates from one of the grouping/hierarchical playlists.
      */
-    func play(_ group: Group) throws -> IndexedTrack
+    func play(_ group: Group, _ params: PlaybackParams)
+    
+    // Restarts the current track, if there is one (i.e. seek to 0)
+    func replay()
     
     // Stops playback
     func stop()
     
     // Plays (and returns) the next track, if there is one. Throws an error if the next track cannot be played back
-    func nextTrack() throws -> IndexedTrack?
+    func nextTrack()
     
     // Plays (and returns) the previous track, if there is one. Throws an error if the previous track cannot be played back
-    func previousTrack() throws -> IndexedTrack?
+    func previousTrack()
     
     /*
         Seeks forward by a preset time interval, within the current track.
@@ -119,14 +104,23 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
         2 - loop ended: the end (and start) of the loop has been marked, completing the definition of the playback loop. Any subsequent playback will now proceed within the scope of the loop, i.e. between the 2 loop points: start and end
         3 - loop removed: any previous loop definition has been removed/cleared. Playback will proceed normally from start -> end of the playing track
      
-        Returns the definition of the current loop, if one is currently defined.
+        Returns the definition of the current loop, if one is defined, after the execution of this function
      */
     func toggleLoop() -> PlaybackLoop?
 }
 
-// A contract for basic playback operations. Used for autoplay
-protocol BasicPlaybackDelegateProtocol {
+// Default function implementations
+extension PlaybackDelegateProtocol {
 
-    // Plays the track with the given index, interrupting current playback if indicated by the interruptPlayback argument.
-    func play(_ index: Int, _ interruptPlayback: Bool) throws -> IndexedTrack?
+    func play(_ index: Int, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
+        play(index, params)
+    }
+    
+    func play(_ track: Track, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
+        play(track, params)
+    }
+    
+    func play(_ group: Group, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
+        play(group, params)
+    }
 }

@@ -61,10 +61,12 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
             
             // Try playing it
             // TODO: The delegates layer should not be messing around with PlaylistViewState. Move that argument up one layer
-            try _ = player.play(newTrack.track, bookmark.startPosition, bookmark.endPosition, PlaylistViewState.current)
+            let params = PlaybackParams().withStartAndEndPosition(bookmark.startPosition, bookmark.endPosition)
+            player.play(newTrack.track, params)
             
         } catch let error {
             
+            // TODO: Handle FileNotFoundError
             if (error is InvalidTrackError) {
                 AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(oldTrack, error as! InvalidTrackError))
             }

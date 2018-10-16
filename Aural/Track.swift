@@ -213,6 +213,10 @@ struct IndexedTrack {
         self.track = track
         self.index = index
     }
+    
+    func equals(_ other: IndexedTrack?) -> Bool {
+        return other != nil && other!.index == self.index
+    }
 }
 
 // Wrapper around Track that includes its location within a group in a hierarchical playlist

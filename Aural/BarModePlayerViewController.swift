@@ -167,40 +167,40 @@ class BarModePlayerViewController: NSViewController, MessageSubscriber, AsyncMes
     // Plays, pauses, or resumes playback
     @IBAction func playPauseAction(_ sender: AnyObject) {
         
-        let oldTrack = player.getPlayingTrack()
-        
-        do {
-            
-            let playbackInfo = try player.togglePlayPause()
-            let playbackState = playbackInfo.playbackState
-            btnPlayPause.switchState(playbackState)
-            
-            switch playbackState {
-                
-            case .noTrack, .paused:
-                
-                SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
-                
-            case .playing:
-                
-                if (playbackInfo.trackChanged) {
-                    trackChanged(oldTrack, playbackInfo.playingTrack)
-                } else {
-                    // Resumed the same track
-                    SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
-                }
-                
-            case .waiting:
-                
-                return
-            }
-            
-        } catch let error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-            }
-        }
+//        let oldTrack = player.getPlayingTrack()
+//
+//        do {
+//
+//            let playbackInfo = try player.togglePlayPause()
+//            let playbackState = playbackInfo.playbackState
+//            btnPlayPause.switchState(playbackState)
+//
+//            switch playbackState {
+//
+//            case .noTrack, .paused:
+//
+//                SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
+//
+//            case .playing:
+//
+//                if (playbackInfo.trackChanged) {
+//                    trackChanged(oldTrack, playbackInfo.playingTrack)
+//                } else {
+//                    // Resumed the same track
+//                    SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
+//                }
+//
+//            case .waiting:
+//
+//                return
+//            }
+//
+//        } catch let error {
+//
+//            if (error is InvalidTrackError) {
+//                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
+//            }
+//        }
     }
     
     // Replays the currently playing track, from the beginning, if there is one
@@ -215,40 +215,40 @@ class BarModePlayerViewController: NSViewController, MessageSubscriber, AsyncMes
     // Plays the previous track in the current playback sequence
     @IBAction func previousTrackAction(_ sender: AnyObject) {
         
-        let oldTrack = player.getPlayingTrack()
-        
-        do {
-            
-            let prevTrack = try player.previousTrack()
-            if (prevTrack?.track != nil) {
-                trackChanged(oldTrack, prevTrack)
-            }
-            
-        } catch let error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-            }
-        }
+//        let oldTrack = player.getPlayingTrack()
+//
+//        do {
+//
+//            let prevTrack = try player.previousTrack()
+//            if (prevTrack?.track != nil) {
+//                trackChanged(oldTrack, prevTrack)
+//            }
+//
+//        } catch let error {
+//
+//            if (error is InvalidTrackError) {
+//                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
+//            }
+//        }
     }
     
     // Plays the next track in the current playback sequence
     @IBAction func nextTrackAction(_ sender: AnyObject) {
         
-        let oldTrack = player.getPlayingTrack()
-        
-        do {
-            let nextTrack = try player.nextTrack()
-            if (nextTrack?.track != nil) {
-                trackChanged(oldTrack, nextTrack)
-            }
-            
-        } catch let error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-            }
-        }
+//        let oldTrack = player.getPlayingTrack()
+//
+//        do {
+//            let nextTrack = try player.nextTrack()
+//            if (nextTrack?.track != nil) {
+//                trackChanged(oldTrack, nextTrack)
+//            }
+//
+//        } catch let error {
+//
+//            if (error is InvalidTrackError) {
+//                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
+//            }
+//        }
     }
     
     // Seeks backward within the currently playing track
@@ -275,53 +275,53 @@ class BarModePlayerViewController: NSViewController, MessageSubscriber, AsyncMes
     
     private func playTrackWithIndex(_ trackIndex: Int) {
         
-        let oldTrack = player.getPlayingTrack()
-        
-        do {
-            
-            let track = try player.play(trackIndex)
-            trackChanged(oldTrack, track)
-            
-        } catch let error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-            }
-        }
+//        let oldTrack = player.getPlayingTrack()
+//
+//        do {
+//
+//            let track = try player.play(trackIndex)
+//            trackChanged(oldTrack, track)
+//
+//        } catch let error {
+//
+//            if (error is InvalidTrackError) {
+//                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
+//            }
+//        }
     }
     
     private func playTrack(_ track: Track) {
         
-        let oldTrack = player.getPlayingTrack()
-        
-        do {
-            
-            let playingTrack = try player.play(track)
-            trackChanged(oldTrack, playingTrack)
-            
-        } catch let error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-            }
-        }
+//        let oldTrack = player.getPlayingTrack()
+//
+//        do {
+//
+//            let playingTrack = try player.play(track)
+//            trackChanged(oldTrack, playingTrack)
+//
+//        } catch let error {
+//
+//            if (error is InvalidTrackError) {
+//                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
+//            }
+//        }
     }
     
     private func playGroup(_ group: Group) {
         
-        let oldTrack = player.getPlayingTrack()
-        
-        do {
-            
-            let track = try player.play(group)
-            trackChanged(oldTrack, track)
-            
-        } catch let error {
-            
-            if (error is InvalidTrackError) {
-                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
-            }
-        }
+//        let oldTrack = player.getPlayingTrack()
+//        
+//        do {
+//            
+//            let track = try player.play(group)
+//            trackChanged(oldTrack, track)
+//            
+//        } catch let error {
+//            
+//            if (error is InvalidTrackError) {
+//                handleTrackNotPlayedError(oldTrack, error as! InvalidTrackError)
+//            }
+//        }
     }
     
     // Toggles the repeat mode

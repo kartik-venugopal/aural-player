@@ -6,11 +6,14 @@ class PlaybackProfiles {
     private static var map: [URL: PlaybackProfile] = [:]
     
     static func saveProfile(_ track: Track, _ lastPosition: Double) {
-        map[track.file] = PlaybackProfile(file: track.file, lastPosition: lastPosition)
+        saveProfile(track.file, lastPosition)
     }
     
     static func saveProfile(_ file: URL, _ lastPosition: Double) {
-        map[file] = PlaybackProfile(file: file, lastPosition: lastPosition)
+        
+        let profile = PlaybackProfile(file)
+        profile.lastPosition = lastPosition
+        map[file] = profile
     }
     
     static func deleteProfile(_ track: Track) {
@@ -34,12 +37,15 @@ class PlaybackProfiles {
     }
 }
 
-struct PlaybackProfile {
+class PlaybackProfile {
     
     let file: URL
     
     // Last playback position
-    let lastPosition: Double
+    var lastPosition: Double = 0
     
     // TODO: Seek length ? Long for audiobooks, short for tracks
+    init(_ file: URL) {
+        self.file = file
+    }
 }

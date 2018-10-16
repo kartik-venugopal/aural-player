@@ -55,11 +55,12 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
             // First, find or add the given file
             let newTrack = try playlist.findOrAddFile(item)
             
-            // Try playing it
-            try _ = player.play(newTrack.track, playlistType)
+            // Play it
+            player.play(newTrack.track)
             
         } catch let error {
             
+            // TODO: Handle FileNotFoundError
             if (error is InvalidTrackError) {
                 AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(oldTrack, error as! InvalidTrackError))
             }
