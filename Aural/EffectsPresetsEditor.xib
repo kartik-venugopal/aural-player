@@ -277,13 +277,13 @@
                                 <font key="font" metaFont="system"/>
                                 <tabViewItems>
                                     <tabViewItem label="Master" identifier="0" id="X3Y-yy-Zpf">
-                                        <view key="view" id="Lje-0R-KbF">
+                                        <view key="view" ambiguous="YES" id="Lje-0R-KbF">
                                             <rect key="frame" x="10" y="7" width="791" height="262"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
                                     </tabViewItem>
                                     <tabViewItem label="EQ" identifier="1" id="BLQ-N4-KdC">
-                                        <view key="view" ambiguous="YES" id="r8b-zP-Lvq">
+                                        <view key="view" id="r8b-zP-Lvq">
                                             <rect key="frame" x="10" y="7" width="791" height="262"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
