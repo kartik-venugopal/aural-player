@@ -173,6 +173,18 @@ Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant co
 
 ![App screenshot](/Documentation/Screenshots/SegmentLoop.png?raw=true "Track segment loop playback")
 
+### Using the Effects panel to disable/enable effects
+
+![App screenshot2](/Documentation/Demos/UsingFXUnit.gif?raw=true "Using the FX panel")
+
+### Delayed track playback
+
+![App screenshot2](/Documentation/Demos/delayedPlayback.gif?raw=true "Delayed playback")
+
+### Insertings gaps of silence around tracks
+
+![App screenshot2](/Documentation/Demos/gaps.gif?raw=true "Playback gaps")
+
 ### Playlist-only view w/ detailed track info popover view
 
 ![App screenshot w/ more info view](/Documentation/Screenshots/DetailedInfo.png?raw=true "More Info")
