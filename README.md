@@ -78,17 +78,87 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
    	  * Configure window snapping behavior, mouse sensitivity for gestures, and more …
       * Editors to manage all your saved custom app state, such as bookmarks, favorites, window layouts, etc, so you can edit your saved data and delete unwanted or old data to prevent clutter
 
-### Planned updates
+## Screenshots
 
-- A new editor window to manage effects presets
-- A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
-- New color schemes
+### Default view
 
-### Known issues/bugs
+![App screenshot](/Documentation/Screenshots/Default.png?raw=true "App screenshot")
 
-The following bugs are known and fixes are planned. If you find any additional bugs, please feel free to report them in  the "Issues" section right here on GitHub.
+### Track segment loop playback (red segment on seek bar)
 
-- On very rare conditions, the app crashes on startup due to an array indexing being performed out of range. This is due to a very subtle sneaky race condition in the playlist loading code.
+![App screenshot](/Documentation/Screenshots/SegmentLoop.png?raw=true "Track segment loop playback")
+
+### Using the Effects panel to disable/enable effects
+
+![App screenshot2](/Documentation/Demos/UsingFXUnit.gif?raw=true "Using the FX panel")
+
+### Delayed track playback
+
+![App screenshot2](/Documentation/Demos/delayedPlayback.gif?raw=true "Delayed playback")
+
+### Insertings gaps of silence around tracks
+
+![App screenshot2](/Documentation/Demos/gaps.gif?raw=true "Playback gaps")
+
+### Playlist-only view w/ detailed track info popover view
+
+![App screenshot w/ more info view](/Documentation/Screenshots/DetailedInfo.png?raw=true "More Info")
+
+### Bookmarking
+
+![App screenshot w/ more info view](/Documentation/Screenshots/Bookmarking.png?raw=true "Bookmarking")
+
+#### Managing bookmarks
+
+![App screenshot w/ more info view](/Documentation/Screenshots/BookmarksEditor.png?raw=true "Bookmarks Editor")
+
+### Saving an effects unit preset
+
+![App screenshot w/ more info view](/Documentation/Screenshots/FXPreset.png?raw=true "Saving an effects preset")
+
+### "Big bottom playlist" window layout
+
+![App screenshot2](/Documentation/Screenshots/BigBottomPlaylist.png?raw=true "Big bottom playlist window layout")
+
+### Changing the window layout with one click
+
+![App screenshot2](/Documentation/Demos/WindowLayout.gif?raw=true "Choosing a window layout")
+
+### Managing window layouts
+
+![App screenshot2](/Documentation/Screenshots/LayoutsEditor.png?raw=true "Managing window layouts")
+
+### Compact view
+
+![App screenshot4](/Documentation/Screenshots/Compact.png?raw=true "App screenshot4")
+
+### Equalizer effects unit
+
+![EQ](/Documentation/Screenshots/EQ.png?raw=true "Equalizer")
+
+### Time stretch effects unit
+
+![Time](/Documentation/Screenshots/Time.png?raw=true "Time Stretch")
+
+### Filter effects unit
+
+![Filter](/Documentation/Screenshots/Filter.png?raw=true "Filter")
+
+### Delay effects unit
+
+![Delay](/Documentation/Screenshots/Delay.png?raw=true "Delay")
+
+### Playlist search
+
+![Playlist search](/Documentation/Screenshots/Search.png?raw=true "Delay")
+
+### Playlist sort
+
+![Playlist sort](/Documentation/Screenshots/Sort.png?raw=true "Delay")
+
+### Preferences (Playback tab selected)
+
+![Preferences](/Documentation/Screenshots/Preferences-Playback.png?raw=true "Delay")
 
 ### Recent updates
 
@@ -173,9 +243,17 @@ The following bugs are known and fixes are planned. If you find any additional b
     * When playing a track from Favorites/Recently played list, the first 5 seconds of the track would sometimes play twice in a row, because of a race condition in the code that performed preparation for track playback.
     * The playlist scroll buttons stopped working at some point.
 
-### Background
+### Planned updates
 
-Aural Player was written by an audio enthusiast learning to program on OS X, coming to Swift programming from many years of Java programming. This project was inspired by the developer’s desire to create a Winamp-like substitute for the macOS platform. No feature bloat or unnecessary annoyances like iTunes.
+- A new editor window to manage effects presets
+- A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
+- New color schemes
+
+### Known issues/bugs
+
+The following bugs are known and fixes are planned. If you find any additional bugs, please feel free to report them in  the "Issues" section right here on GitHub.
+
+- On very rare conditions, the app crashes on startup due to an array indexing being performed out of range. This is due to a very subtle sneaky race condition in the playlist loading code.
 
 ### Third party code and contributor attributions
 
@@ -183,86 +261,6 @@ Aural Player makes use of (a modified version of) a reusable UI control called [
 
 Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant contributions towards this project - performance optimizations, UX improvements, etc.
 
-## Screenshots
+### Background
 
-### Default view
-
-![App screenshot](/Documentation/Screenshots/Default.png?raw=true "App screenshot")
-
-### Track segment loop playback (red segment on seek bar)
-
-![App screenshot](/Documentation/Screenshots/SegmentLoop.png?raw=true "Track segment loop playback")
-
-### Using the Effects panel to disable/enable effects
-
-![App screenshot2](/Documentation/Demos/UsingFXUnit.gif?raw=true "Using the FX panel")
-
-### Delayed track playback
-
-![App screenshot2](/Documentation/Demos/delayedPlayback.gif?raw=true "Delayed playback")
-
-### Insertings gaps of silence around tracks
-
-![App screenshot2](/Documentation/Demos/gaps.gif?raw=true "Playback gaps")
-
-### Playlist-only view w/ detailed track info popover view
-
-![App screenshot w/ more info view](/Documentation/Screenshots/DetailedInfo.png?raw=true "More Info")
-
-### Bookmarking
-
-![App screenshot w/ more info view](/Documentation/Screenshots/Bookmarking.png?raw=true "Bookmarking")
-
-#### Managing bookmarks
-
-![App screenshot w/ more info view](/Documentation/Screenshots/BookmarksEditor.png?raw=true "Bookmarks Editor")
-
-### Saving an effects unit preset
-
-![App screenshot w/ more info view](/Documentation/Screenshots/FXPreset.png?raw=true "Saving an effects preset")
-
-### "Big bottom playlist" window layout
-
-![App screenshot2](/Documentation/Screenshots/BigBottomPlaylist.png?raw=true "Big bottom playlist window layout")
-
-### Changing the window layout with one click
-
-![App screenshot2](/Documentation/Demos/WindowLayout.gif?raw=true "Choosing a window layout")
-
-### Managing window layouts
-
-![App screenshot2](/Documentation/Screenshots/LayoutsEditor.png?raw=true "Managing window layouts")
-
-### Compact view
-
-![App screenshot4](/Documentation/Screenshots/Compact.png?raw=true "App screenshot4")
-
-### Equalizer effects unit
-
-![EQ](/Documentation/Screenshots/EQ.png?raw=true "Equalizer")
-
-### Time stretch effects unit
-
-![Time](/Documentation/Screenshots/Time.png?raw=true "Time Stretch")
-
-### Filter effects unit
-
-![Filter](/Documentation/Screenshots/Filter.png?raw=true "Filter")
-
-### Delay effects unit
-
-![Delay](/Documentation/Screenshots/Delay.png?raw=true "Delay")
-
-### Playlist search
-
-![Playlist search](/Documentation/Screenshots/Search.png?raw=true "Delay")
-
-### Playlist sort
-
-![Playlist sort](/Documentation/Screenshots/Sort.png?raw=true "Delay")
-
-### Preferences (Playback tab selected)
-
-![Preferences](/Documentation/Screenshots/Preferences-Playback.png?raw=true "Delay")
-
-
+Aural Player was written by an audio enthusiast learning to program on OS X, coming to Swift programming from many years of Java programming. This project was inspired by the developer’s desire to create a Winamp-like substitute for the macOS platform. No feature bloat or unnecessary annoyances like iTunes.
