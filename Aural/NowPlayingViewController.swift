@@ -44,7 +44,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     // Button to show the currently playing track within the playlist
     @IBOutlet weak var btnShowPlayingTrackInPlaylist: NSButton!
-
+    
     // Button to add/remove the currently playing track to/from the Favorites list
     @IBOutlet weak var btnFavorite: OnOffImageButton!
     
@@ -142,7 +142,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         // Subscribe to various notifications
         
-        AsyncMessenger.subscribe([.trackAdded, .tracksRemoved, .addedToFavorites, .removedFromFavorites, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
+        AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
@@ -151,7 +151,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     private func removeSubscriptions() {
         
-        AsyncMessenger.unsubscribe([.trackAdded, .tracksRemoved, .addedToFavorites, .removedFromFavorites], subscriber: self)
+        AsyncMessenger.unsubscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites], subscriber: self)
         
         SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
@@ -266,8 +266,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         btnFavorite.onIf(favorites.favoriteWithFileExists(track.file))
     }
     
-    /* 
-        Displays information about the current playback scope (i.e. the set of tracks that make up the current playback sequence - for ex. a specific artist group, or all tracks), and progress within that sequence - for ex. 5/67 (5th track playing out of a total of 67 tracks).
+    /*
+     Displays information about the current playback scope (i.e. the set of tracks that make up the current playback sequence - for ex. a specific artist group, or all tracks), and progress within that sequence - for ex. 5/67 (5th track playing out of a total of 67 tracks).
      */
     private func showPlaybackScope() {
         
@@ -554,18 +554,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         gapTimer?.startOrResume()
     }
     
-    private func trackAdded(_ message: TrackAddedAsyncMessage) {
-        
-        let playbackState = player.getPlaybackState()
-        
-        if playbackState == .playing || playbackState == .paused {
-        
-            DispatchQueue.main.async {
-                self.sequenceChanged()
-            }
-        }
-    }
-    
     // MARK: Message handling
     
     func getID() -> String {
@@ -621,10 +609,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     func consumeAsyncMessage(_ message: AsyncMessage) {
         
         switch message.messageType {
-            
-        case .trackAdded:
-            
-            trackAdded(message as! TrackAddedAsyncMessage)
             
         case .tracksRemoved:
             
