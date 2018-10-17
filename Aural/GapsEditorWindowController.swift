@@ -8,11 +8,8 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
     @IBOutlet weak var btnGapType_tillAppExits_1: NSButton!
     @IBOutlet weak var btnGapType_persistent_1: NSButton!
     
-    @IBOutlet weak var btnGapDuration_decrement_1: NSButton!
-    @IBOutlet weak var btnGapDuration_increment_1: NSButton!
-    
-    @IBOutlet weak var durationSlider_1: NSSlider!
-    @IBOutlet weak var lblDuration_1: NSTextField!
+    @IBOutlet weak var timePicker_1: IntervalPicker!
+    @IBOutlet weak var lblDuration_1: FormattedIntervalLabel!
     
     @IBOutlet weak var btnGapAfterTrack: NSButton!
     
@@ -20,11 +17,8 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
     @IBOutlet weak var btnGapType_tillAppExits_2: NSButton!
     @IBOutlet weak var btnGapType_persistent_2: NSButton!
     
-    @IBOutlet weak var btnGapDuration_decrement_2: NSButton!
-    @IBOutlet weak var btnGapDuration_increment_2: NSButton!
-    
-    @IBOutlet weak var durationSlider_2: NSSlider!
-    @IBOutlet weak var lblDuration_2: NSTextField!
+    @IBOutlet weak var timePicker_2: IntervalPicker!
+    @IBOutlet weak var lblDuration_2: FormattedIntervalLabel!
     
     private var gaps: (hasGaps: Bool, beforeTrack: PlaybackGap?, afterTrack: PlaybackGap?)?
     
@@ -71,7 +65,7 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
         if let gapB = gaps?.beforeTrack {
         
             btnGapBeforeTrack.state = UIConstants.buttonState_1
-            durationSlider_1.integerValue = Int(gapB.duration)
+            timePicker_1.setInterval(gapB.duration)
             
             switch gapB.type {
                 
@@ -94,15 +88,14 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
         } else {
             
             btnGapBeforeTrack.state = UIConstants.buttonState_0
-            durationSlider_1.integerValue = 5
+            timePicker_1.setInterval(5)
             btnGapType_persistent_1.state = UIConstants.buttonState_1
         }
         
         if let gapA = gaps?.afterTrack {
             
             btnGapAfterTrack.state = UIConstants.buttonState_1
-            
-            durationSlider_2.integerValue = Int(gapA.duration)
+            timePicker_2.setInterval(gapA.duration)
             
             switch gapA.type {
                 
@@ -125,72 +118,40 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
         } else {
             
             btnGapAfterTrack.state = UIConstants.buttonState_0
-            durationSlider_2.integerValue = 5
+            timePicker_2.setInterval(5)
             btnGapType_persistent_2.state = UIConstants.buttonState_1
         }
         
-        durationSliderAction_1(self)
-        durationSliderAction_2(self)
+        timePickerAction_1(self)
+        timePickerAction_2(self)
         gapBeforeTrackAction(self)
         gapAfterTrackAction(self)
     }
     
     @IBAction func gapBeforeTrackAction(_ sender: Any) {
         
-        [durationSlider_1, btnGapDuration_decrement_1, btnGapDuration_increment_1, btnGapType_oneTime_1, btnGapType_persistent_1, btnGapType_tillAppExits_1].forEach({$0?.isEnabled = btnGapBeforeTrack.state == UIConstants.buttonState_1})
+        [timePicker_1, btnGapType_oneTime_1, btnGapType_persistent_1, btnGapType_tillAppExits_1].forEach({$0?.isEnabled = btnGapBeforeTrack.state == UIConstants.buttonState_1})
     }
     
     @IBAction func gapTypeAction_1(_ sender: Any) {
         // Needed for radio button group
     }
     
-    @IBAction func durationIncrementAction_1(_ sender: Any) {
-        
-        if (Double(durationSlider_1.integerValue) < durationSlider_1.maxValue) {
-            durationSlider_1.integerValue += 1
-            lblDuration_1.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(durationSlider_1.integerValue)
-        }
-    }
-    
-    @IBAction func durationDecrementAction_1(_ sender: Any) {
-        
-        if (Double(durationSlider_1.integerValue) > durationSlider_1.minValue) {
-            durationSlider_1.integerValue -= 1
-            lblDuration_1.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(durationSlider_1.integerValue)
-        }
-    }
-    
-    @IBAction func durationSliderAction_1(_ sender: Any) {
-        lblDuration_1.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(durationSlider_1.integerValue)
+    @IBAction func timePickerAction_1(_ sender: Any) {
+        lblDuration_1.interval = timePicker_1.interval
     }
     
     @IBAction func gapAfterTrackAction(_ sender: Any) {
         
-        [durationSlider_2, btnGapDuration_decrement_2, btnGapDuration_increment_2, btnGapType_oneTime_2, btnGapType_persistent_2, btnGapType_tillAppExits_2].forEach({$0?.isEnabled = btnGapAfterTrack.state == UIConstants.buttonState_1})
+        [timePicker_2, btnGapType_oneTime_2, btnGapType_persistent_2, btnGapType_tillAppExits_2].forEach({$0?.isEnabled = btnGapAfterTrack.state == UIConstants.buttonState_1})
     }
     
     @IBAction func gapTypeAction_2(_ sender: Any) {
         // Needed for radio button group
     }
     
-    @IBAction func durationIncrementAction_2(_ sender: Any) {
-        
-        if (Double(durationSlider_2.integerValue) < durationSlider_2.maxValue) {
-            durationSlider_2.integerValue += 1
-            lblDuration_2.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(durationSlider_2.integerValue)
-        }
-    }
-    
-    @IBAction func durationDecrementAction_2(_ sender: Any) {
-        
-        if (Double(durationSlider_2.integerValue) > durationSlider_2.minValue) {
-            durationSlider_2.integerValue -= 1
-            lblDuration_2.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(durationSlider_2.integerValue)
-        }
-    }
-    
-    @IBAction func durationSliderAction_2(_ sender: Any) {
-        lblDuration_2.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(durationSlider_2.integerValue)
+    @IBAction func timePickerAction_2(_ sender: Any) {
+        lblDuration_2.interval = timePicker_2.interval
     }
     
     @IBAction func saveAction(_ sender: Any) {
@@ -200,7 +161,7 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
         
         if btnGapBeforeTrack.state == UIConstants.buttonState_1 {
         
-            let duration1 = Double(durationSlider_1.integerValue)
+            let duration1 = timePicker_1.interval
             var type1: PlaybackGapType = .tillAppExits
             
             if btnGapType_oneTime_1.state == UIConstants.buttonState_1 {
@@ -214,7 +175,7 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
         
         if btnGapAfterTrack.state == UIConstants.buttonState_1 {
             
-            let duration2 = Double(durationSlider_2.integerValue)
+            let duration2 = timePicker_2.interval
             var type2: PlaybackGapType = .tillAppExits
             
             if btnGapType_oneTime_2.state == UIConstants.buttonState_1 {

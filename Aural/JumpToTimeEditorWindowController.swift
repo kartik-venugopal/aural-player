@@ -10,7 +10,8 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
     @IBOutlet weak var btnHMS: NSButton!
     @IBOutlet weak var btnSeconds: NSButton!
     
-    @IBOutlet weak var timePicker: NSDatePicker!
+    @IBOutlet weak var timePicker: IntervalPicker!
+    
     @IBOutlet weak var secondsFormatter: JumpToTimeSecondsFormatter!
     
     @IBOutlet weak var txtSeconds: NSTextField!
@@ -21,9 +22,6 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
     private var modalDialogResponse: ModalDialogResponse = .ok
     
     override func windowDidLoad() {
-        
-        // 24 hour clock (don't want AM/PM)
-        timePicker.locale = Locale(identifier: "en_GB")
         
         secondsFormatter.valueFunction = {
             () -> String in
@@ -72,9 +70,8 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
             btnSeconds.title = String(format: "Specify as seconds (0 to %d)", durationInt)
             
             // Reset to 00:00:00
-            let startOfDay = Date().startOfDay
-            timePicker.dateValue = startOfDay
-            timePicker.maxDate = startOfDay.addingTimeInterval(roundedDuration)
+            timePicker.maxInterval = roundedDuration
+            timePicker.reset()
             
             secondsFormatter.maxValue = durationInt
             stepper.maxValue = roundedDuration
@@ -109,8 +106,7 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
         if btnHMS.state == UIConstants.buttonState_1 {
             
             // HH : MM : SS
-            let chosenTime = timePicker.dateValue
-            jumpToTime = chosenTime.timeIntervalSince(chosenTime.startOfDay)
+            jumpToTime = timePicker.interval
             
         } else {
             

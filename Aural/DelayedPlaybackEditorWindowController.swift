@@ -5,14 +5,13 @@ class DelayedPlaybackEditorWindowController: NSWindowController, ModalDialogDele
     @IBOutlet weak var btnDelay: NSButton!
     @IBOutlet weak var btnTime: NSButton!
     
-    @IBOutlet weak var btnDelayDecrement: NSButton!
-    @IBOutlet weak var btnDelayIncrement: NSButton!
-    
-    @IBOutlet weak var delaySlider: NSSlider!
-    @IBOutlet weak var lblDelay: NSTextField!
+    @IBOutlet weak var delayPicker: IntervalPicker!
+    @IBOutlet weak var lblDelay: FormattedIntervalLabel!
     
     @IBOutlet weak var timePicker: NSDatePicker!
     @IBOutlet weak var lblTime: NSTextField!
+    
+    @IBOutlet weak var delayFormatter: DateFormatter!
     @IBOutlet weak var dateFormatter: DateFormatter!
     
     private var modalDialogResponse: ModalDialogResponse = .ok
@@ -44,44 +43,26 @@ class DelayedPlaybackEditorWindowController: NSWindowController, ModalDialogDele
         btnDelay.state = UIConstants.buttonState_1
         radioButtonAction(self)
         
-        delaySlider.integerValue = 5
-        delaySliderAction(self)
-        
-        timePicker.minDate = Date()
+        let now = Date()
+        delayPicker.maxInterval = 86400
+        delayPicker.reset()
+        delayPickerAction(self)
         
         // Max = 24 hours from now
         // TODO: Put this constant value in a constants file
-        timePicker.maxDate = DateUtils.addToDate(Date(), 86400)
-        
+        timePicker.minDate = now
+        timePicker.maxDate = DateUtils.addToDate(now, 86400)
         timePickerAction(self)
     }
     
     @IBAction func radioButtonAction(_ sender: Any) {
         
-        [delaySlider, btnDelayDecrement, btnDelayIncrement].forEach({$0?.isEnabled = btnDelay.state == UIConstants.buttonState_1})
-        
-        timePicker.isEnabled = btnTime.state == UIConstants.buttonState_1
-        timePicker.isHidden = btnTime.state == UIConstants.buttonState_0
+        delayPicker.isEnabled = btnDelay.state == UIConstants.buttonState_1
+        timePicker.isEnabled = !delayPicker.isEnabled
     }
     
-    @IBAction func delayIncrementAction(_ sender: Any) {
-        
-        if (Double(delaySlider.integerValue) < delaySlider.maxValue) {
-            delaySlider.integerValue += 1
-            lblDelay.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(delaySlider.integerValue)
-        }
-    }
-    
-    @IBAction func delayDecrementAction(_ sender: Any) {
-        
-        if (Double(delaySlider.integerValue) > delaySlider.minValue) {
-            delaySlider.integerValue -= 1
-            lblDelay.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(delaySlider.integerValue)
-        }
-    }
-    
-    @IBAction func delaySliderAction(_ sender: Any) {
-        lblDelay.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(delaySlider.integerValue)
+    @IBAction func delayPickerAction(_ sender: Any) {
+        lblDelay.interval = delayPicker.interval
     }
     
     @IBAction func timePickerAction(_ sender: Any) {
@@ -99,7 +80,7 @@ class DelayedPlaybackEditorWindowController: NSWindowController, ModalDialogDele
             
         } else {
             
-            delay = delaySlider.doubleValue
+            delay = delayPicker.interval
         }
         
         if delay < 0 {delay = 0}
