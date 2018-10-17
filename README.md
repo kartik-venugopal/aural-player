@@ -81,9 +81,6 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 ### Planned updates
 
-- Option to insert gaps of silence between tracks
-- Delayed playback function: "Play after timed delay" or "Play at time"
-- "Jump to time" function
 - A new editor window to manage effects presets
 - A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
 - New color schemes
@@ -95,6 +92,26 @@ The following bugs are known and fixes are planned. If you find any additional b
 - On very rare conditions, the app crashes on startup due to an array indexing being performed out of range. This is due to a very subtle sneaky race condition in the playlist loading code.
 
 ### Recent updates
+
+- **10/17/2018: New release:**
+
+  * New features:
+
+    * **Playback gaps**: Added option to insert gaps of silence before/after/between tracks and configure them (duration and scope)
+    * **Delayed playback**: Added delayed playback function with 2 options: 1 - Start after delay, 2 - Start at time
+    * **Jump to time function**: Seek to a specific location quickly
+    * **Stop function**: Stops all playback and ends the playback sequence (wasn't there before)
+    * **Time remaining / Duration display**: User can now click the "Time remaining" label of the Now Playing box and switch to displaying duration instead of time remaining. Can toggle between the two displays. State is remembered across app launches.
+    * **Playlist move to top/bottom**: New playlist functions - move items to top/bottom
+
+  * Bug fixes:
+    * Loop rendering on seek bar was offset before
+    * Volume per-track setting would not be remembered properly
+    * Sound settings were not being remembered properly
+
+  * Improvements:
+    * More accurate and prompt detection of end of track playback (PlaybackScheduler)
+    * Nicer looking Effects unit bypass buttons
 
 - **10/09/2018: New release:**
     
