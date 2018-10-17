@@ -35,27 +35,33 @@ class PlaybackParams {
     var interruptPlayback: Bool = true
     
     func withDelay(_ delay: Double?) -> PlaybackParams {
+        
         self.delay = delay
         return self
     }
     
-    func withStartPosition(_ startPosition: Double?) -> PlaybackParams {
+    func withStartPosition(_ startPosition: Double) -> PlaybackParams {
+        
         self.startPosition = startPosition
         return self
     }
     
-    func withStartAndEndPosition(_ startPosition: Double?, _ endPosition: Double?) -> PlaybackParams {
+    func withStartAndEndPosition(_ startPosition: Double, _ endPosition: Double?) -> PlaybackParams {
+        
         self.startPosition = startPosition
         self.endPosition = endPosition
+        
         return self
     }
     
     func withAllowDelay(_ allowDelay: Bool) -> PlaybackParams {
+        
         self.allowDelay = allowDelay
         return self
     }
     
     func withInterruptPlayback(_ interruptPlayback: Bool) -> PlaybackParams {
+        
         self.interruptPlayback = interruptPlayback
         return self
     }

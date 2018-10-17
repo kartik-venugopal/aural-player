@@ -67,8 +67,6 @@ class FavoritesDelegate: FavoritesDelegateProtocol, PersistentModelObject {
     
     func playFavorite(_ favorite: Favorite) {
         
-        let oldTrack = player.getPlayingTrack()
-        
         do {
             // First, find or add the given file
             let newTrack = try playlist.findOrAddFile(favorite.file)
@@ -79,8 +77,8 @@ class FavoritesDelegate: FavoritesDelegateProtocol, PersistentModelObject {
         } catch let error {
             
             // TODO: Handle FileNotFoundError
-            if (error is InvalidTrackError) {
-                AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(oldTrack, error as! InvalidTrackError))
+            if let fnfError = error as? FileNotFoundError {
+                NSLog("Unable to play Favorites item. Details: %@", fnfError.message)
             }
         }
     }
