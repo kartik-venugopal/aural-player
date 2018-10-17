@@ -5,10 +5,8 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnPrimarySeekLengthConstant: NSButton!
     @IBOutlet weak var btnPrimarySeekLengthPerc: NSButton!
     
-    @IBOutlet weak var primarySeekLengthSlider: NSSlider!
-    @IBOutlet weak var btnPrimarySeekLengthIncrement: NSButton!
-    @IBOutlet weak var btnPrimarySeekLengthDecrement: NSButton!
-    @IBOutlet weak var lblPrimarySeekLength: NSTextField!
+    @IBOutlet weak var primarySeekLengthPicker: IntervalPicker!
+    @IBOutlet weak var lblPrimarySeekLength: FormattedIntervalLabel!
     
     @IBOutlet weak var primarySeekLengthPercStepper: NSStepper!
     @IBOutlet weak var lblPrimarySeekLengthPerc: NSTextField!
@@ -18,10 +16,8 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnSecondarySeekLengthConstant: NSButton!
     @IBOutlet weak var btnSecondarySeekLengthPerc: NSButton!
     
-    @IBOutlet weak var secondarySeekLengthSlider: NSSlider!
-    @IBOutlet weak var btnSecondarySeekLengthIncrement: NSButton!
-    @IBOutlet weak var btnSecondarySeekLengthDecrement: NSButton!
-    @IBOutlet weak var lblSecondarySeekLength: NSTextField!
+    @IBOutlet weak var secondarySeekLengthPicker: IntervalPicker!
+    @IBOutlet weak var lblSecondarySeekLength: FormattedIntervalLabel!
     
     @IBOutlet weak var secondarySeekLengthPercStepper: NSStepper!
     @IBOutlet weak var lblSecondarySeekLengthPerc: NSTextField!
@@ -41,10 +37,8 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnRememberPosition_individualTracks: NSButton!
     
     @IBOutlet weak var btnGapBetweenTracks: NSButton!
-    @IBOutlet weak var gapDurationSlider: NSSlider!
-    @IBOutlet weak var btnGapDurationIncrement: NSButton!
-    @IBOutlet weak var btnGapDurationDecrement: NSButton!
-    @IBOutlet weak var lblGapDuration: NSTextField!
+    @IBOutlet weak var gapDurationPicker: IntervalPicker!
+    @IBOutlet weak var lblGapDuration: FormattedIntervalLabel!
     
     @IBOutlet weak var btnInfo_primarySeekLength: NSButton!
     @IBOutlet weak var btnInfo_secondarySeekLength: NSButton!
@@ -57,8 +51,8 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     override func viewDidLoad() {
         
-        primarySeekLengthConstantFields = [btnPrimarySeekLengthDecrement, btnPrimarySeekLengthIncrement, primarySeekLengthSlider]
-        secondarySeekLengthConstantFields = [btnSecondarySeekLengthDecrement, btnSecondarySeekLengthIncrement, secondarySeekLengthSlider]
+        primarySeekLengthConstantFields = [primarySeekLengthPicker]
+        secondarySeekLengthConstantFields = [secondarySeekLengthPicker]
     }
     
     func resetFields(_ preferences: Preferences) {
@@ -68,8 +62,8 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Primary seek length
         
         let primarySeekLength = playbackPrefs.primarySeekLengthConstant
-        primarySeekLengthSlider.integerValue = primarySeekLength
-        lblPrimarySeekLength.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(primarySeekLength)
+        primarySeekLengthPicker.setInterval(Double(primarySeekLength))
+        primarySeekLengthAction(self)
         
         let primarySeekLengthPerc = playbackPrefs.primarySeekLengthPercentage
         primarySeekLengthPercStepper.integerValue = primarySeekLengthPerc
@@ -87,8 +81,8 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Secondary seek length
         
         let secondarySeekLength = playbackPrefs.secondarySeekLengthConstant
-        secondarySeekLengthSlider.integerValue = secondarySeekLength
-        lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(secondarySeekLength)
+        secondarySeekLengthPicker.setInterval(Double(secondarySeekLength))
+        secondarySeekLengthAction(self)
         
         let secondarySeekLengthPerc = playbackPrefs.secondarySeekLengthPercentage
         secondarySeekLengthPercStepper.integerValue = secondarySeekLengthPerc
@@ -133,9 +127,9 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Gap between tracks
         
         btnGapBetweenTracks.state = playbackPrefs.gapBetweenTracks ? UIConstants.buttonState_1 : UIConstants.buttonState_0
-        [lblGapDuration, gapDurationSlider, btnGapDurationIncrement, btnGapDurationDecrement].forEach({$0?.isEnabled = btnGapBetweenTracks.state == UIConstants.buttonState_1})
-        gapDurationSlider.integerValue = playbackPrefs.gapBetweenTracksDuration
-        lblGapDuration.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(gapDurationSlider.integerValue)
+        [lblGapDuration, gapDurationPicker].forEach({$0?.isEnabled = btnGapBetweenTracks.state == UIConstants.buttonState_1})
+        gapDurationPicker.setInterval(Double(playbackPrefs.gapBetweenTracksDuration))
+        gapDurationPickerAction(self)
     }
     
     @IBAction func primarySeekLengthRadioButtonAction(_ sender: Any) {
@@ -149,43 +143,11 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     }
     
     @IBAction func primarySeekLengthAction(_ sender: Any) {
-        lblPrimarySeekLength.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(primarySeekLengthSlider.integerValue)
+        lblPrimarySeekLength.interval = primarySeekLengthPicker.interval
     }
     
     @IBAction func secondarySeekLengthAction(_ sender: Any) {
-        lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(secondarySeekLengthSlider.integerValue)
-    }
-    
-    @IBAction func primarySeekLengthIncrementAction(_ sender: Any) {
-        
-        if (Double(primarySeekLengthSlider.integerValue) < primarySeekLengthSlider.maxValue) {
-            primarySeekLengthSlider.integerValue += 1
-            lblPrimarySeekLength.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(primarySeekLengthSlider.integerValue)
-        }
-    }
-    
-    @IBAction func secondarySeekLengthIncrementAction(_ sender: Any) {
-        
-        if (Double(secondarySeekLengthSlider.integerValue) < secondarySeekLengthSlider.maxValue) {
-            secondarySeekLengthSlider.integerValue += 1
-            lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(secondarySeekLengthSlider.integerValue)
-        }
-    }
-    
-    @IBAction func primarySeekLengthDecrementAction(_ sender: Any) {
-        
-        if (Double(primarySeekLengthSlider.integerValue) > primarySeekLengthSlider.minValue) {
-            primarySeekLengthSlider.integerValue -= 1
-            lblPrimarySeekLength.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(primarySeekLengthSlider.integerValue)
-        }
-    }
-    
-    @IBAction func secondarySeekLengthDecrementAction(_ sender: Any) {
-        
-        if (Double(secondarySeekLengthSlider.integerValue) > secondarySeekLengthSlider.minValue) {
-            secondarySeekLengthSlider.integerValue -= 1
-            lblSecondarySeekLength.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(secondarySeekLengthSlider.integerValue)
-        }
+        lblSecondarySeekLength.interval = secondarySeekLengthPicker.interval
     }
     
     @IBAction func primarySeekLengthPercAction(_ sender: Any) {
@@ -213,28 +175,12 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Needed for radio button group
     }
     
-    @IBAction func gapAction(_ sender: NSButton) {
-        [lblGapDuration, gapDurationSlider, btnGapDurationIncrement, btnGapDurationDecrement].forEach({$0?.isEnabled = btnGapBetweenTracks.state == UIConstants.buttonState_1})
+    @IBAction func gapDurationAction(_ sender: NSButton) {
+        [lblGapDuration, gapDurationPicker].forEach({$0?.isEnabled = btnGapBetweenTracks.state == UIConstants.buttonState_1})
     }
     
-    @IBAction func gapDurationIncrementAction(_ sender: Any) {
-        
-        if (Double(gapDurationSlider.integerValue) < gapDurationSlider.maxValue) {
-            gapDurationSlider.integerValue += 1
-            lblGapDuration.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(gapDurationSlider.integerValue)
-        }
-    }
-    
-    @IBAction func gapDurationDecrementAction(_ sender: Any) {
-        
-        if (Double(gapDurationSlider.integerValue) > gapDurationSlider.minValue) {
-            gapDurationSlider.integerValue -= 1
-            lblGapDuration.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(gapDurationSlider.integerValue)
-        }
-    }
-    
-    @IBAction func gapDurationSliderAction(_ sender: Any) {
-        lblGapDuration.stringValue = StringUtils.formatSecondsToHMS_hrMinSec(gapDurationSlider.integerValue)
+    @IBAction func gapDurationPickerAction(_ sender: Any) {
+        lblGapDuration.interval = gapDurationPicker.interval
     }
     
     @IBAction func seekLengthPrimary_infoAction(_ sender: Any) {
@@ -261,11 +207,11 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         let playbackPrefs = preferences.playbackPreferences
         
         playbackPrefs.primarySeekLengthOption = btnPrimarySeekLengthConstant.state.rawValue == 1 ? .constant : .percentage
-        playbackPrefs.primarySeekLengthConstant = primarySeekLengthSlider.integerValue
+        playbackPrefs.primarySeekLengthConstant = Int(round(primarySeekLengthPicker.interval))
         playbackPrefs.primarySeekLengthPercentage = primarySeekLengthPercStepper.integerValue
         
         playbackPrefs.secondarySeekLengthOption = btnSecondarySeekLengthConstant.state.rawValue == 1 ? .constant : .percentage
-        playbackPrefs.secondarySeekLengthConstant = secondarySeekLengthSlider.integerValue
+        playbackPrefs.secondarySeekLengthConstant = Int(round(secondarySeekLengthPicker.interval))
         playbackPrefs.secondarySeekLengthPercentage = secondarySeekLengthPercStepper.integerValue
         
         playbackPrefs.autoplayOnStartup = Bool(btnAutoplayOnStartup.state.rawValue)
@@ -288,7 +234,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         }
         
         playbackPrefs.gapBetweenTracks = btnGapBetweenTracks.state == UIConstants.buttonState_1
-        playbackPrefs.gapBetweenTracksDuration = gapDurationSlider.integerValue
+        playbackPrefs.gapBetweenTracksDuration = Int(round(gapDurationPicker.interval))
     }
 }
 
