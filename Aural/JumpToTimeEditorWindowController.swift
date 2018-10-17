@@ -62,6 +62,7 @@ class JumpToTimeEditorWindowController: NSWindowController, ModalDialogDelegate 
     func resetFields() {
         
         btnHMS.state = UIConstants.buttonState_1
+        radioButtonAction(self)
         
         // Reset to 00:00:00
         let startOfDay = Date().startOfDay
