@@ -870,10 +870,10 @@ CA
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Pfk-E3-d0y"/>
-                            <menuItem title="  Remember these sound settings for this track" id="lCg-7a-tY1" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                            <menuItem title="  Remember sound settings for this track" id="lCg-7a-tY1" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="  Remember these sound settings for this track"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="  Remember sound settings for this track"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="  Don't remember sound settings for this track"/>
                                     <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="Remember"/>
                                     <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="Remember"/>
