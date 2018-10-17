@@ -191,7 +191,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             
             if let delay = params.delay {
 
-                // Delay
+                // If an explicit delay is defined, it takes precedence over gaps.
                 
                 PlaybackGapContext.clear()
                 
@@ -203,7 +203,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                 
             } else {
                 
-                // Gaps
+                // If no explicit delay is defined, check for gaps.
                 
                 if let gapBefore = playlist.getGapBeforeTrack(indexedTrack.track) {
                     
@@ -228,10 +228,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             }
         }
         
-        // Play immediately (sync)
+        // No gaps or delay, play immediately (sync)
         doPlay(indexedTrack.track, startPosition, endPosition)
     }
     
+    // Plays the track asynchronously, after the given delay
     private func doPlayWithDelay(_ track: Track, _ delay: Double, _ startPosition: Double? = nil, _ endPosition: Double? = nil) {
         
         let gapContextId = PlaybackGapContext.getId()
@@ -257,6 +258,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         AsyncMessenger.publishMessage(PlaybackGapStartedAsyncMessage(gapEndTime, TrackChangeContext.currentTrack, TrackChangeContext.newTrack!))
     }
     
+    // Plays the track synchronously and immediately
     private func doPlay(_ track: Track, _ startPosition: Double? = nil, _ endPosition: Double? = nil) {
         
         // Invalidate the gap, if there is one

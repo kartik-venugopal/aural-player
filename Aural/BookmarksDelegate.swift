@@ -53,21 +53,19 @@ class BookmarksDelegate: BookmarksDelegateProtocol, PersistentModelObject {
     
     func playBookmark(_ bookmark: Bookmark) {
         
-        let oldTrack = player.getPlayingTrack()
-        
         do {
             // First, find or add the given file
             let newTrack = try playlist.findOrAddFile(bookmark.file)
             
-            // Play it
-            let params = PlaybackParams().withStartAndEndPosition(bookmark.startPosition, bookmark.endPosition)
+            // Play it immediately. Don't allow a gap/delay.
+            let params = PlaybackParams().withStartAndEndPosition(bookmark.startPosition, bookmark.endPosition).withAllowDelay(false)
             player.play(newTrack.track, params)
             
         } catch let error {
             
             // TODO: Handle FileNotFoundError
-            if (error is InvalidTrackError) {
-                AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(oldTrack, error as! InvalidTrackError))
+            if let fnfError = error as? FileNotFoundError {
+                NSLog("Unable to play Bookmark item. Details: %@", fnfError.message)
             }
         }
     }

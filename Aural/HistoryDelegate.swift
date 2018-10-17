@@ -49,8 +49,6 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
     
     func playItem(_ item: URL, _ playlistType: PlaylistType) {
         
-        let oldTrack = player.getPlayingTrack()
-        
         do {
             // First, find or add the given file
             let newTrack = try playlist.findOrAddFile(item)
@@ -61,8 +59,8 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         } catch let error {
             
             // TODO: Handle FileNotFoundError
-            if (error is InvalidTrackError) {
-                AsyncMessenger.publishMessage(TrackNotPlayedAsyncMessage(oldTrack, error as! InvalidTrackError))
+            if let fnfError = error as? FileNotFoundError {
+                NSLog("Unable to play History item. Details: %@", fnfError.message)
             }
         }
     }
