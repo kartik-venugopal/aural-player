@@ -385,7 +385,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     }
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
-    private func trackChanged(_ oldTrack: IndexedTrack?, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
+    private func trackChanged(_ oldTrack: IndexedTrack?, _ oldState: PlaybackState, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
         btnPlayPause.onIf(player.getPlaybackState() == .playing)
         btnLoop.switchState(player.getPlaybackLoop() != nil ? LoopState.complete : LoopState.none)
@@ -393,7 +393,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         if soundPreferences.rememberEffectsSettings {
             
             // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
-            if let _oldTrack = oldTrack {
+            if let _oldTrack = oldTrack, oldState != .waiting {
                 
                 // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
                 if soundPreferences.rememberEffectsSettingsOption == .allTracks || SoundProfiles.profileForTrack(_oldTrack.track) != nil {
@@ -403,20 +403,17 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             }
             
             // Apply sound profile if there is one for the new track and the preferences allow it
-            if newTrack != nil {
+            if newTrack != nil, let profile = SoundProfiles.profileForTrack(newTrack!.track) {
                 
-                if let profile = SoundProfiles.profileForTrack(newTrack!.track) {
-                    
-                    audioGraph.setVolume(profile.volume)
-                    audioGraph.setBalance(profile.balance)
-                    initVolumeAndPan()
-                }
+                audioGraph.setVolume(profile.volume)
+                audioGraph.setBalance(profile.balance)
+                initVolumeAndPan()
             }
         }
     }
     
     private func trackChanged(_ message: TrackChangedAsyncMessage) {
-        trackChanged(message.oldTrack, message.newTrack)
+        trackChanged(message.oldTrack, message.oldState, message.newTrack)
     }
     
     private func trackNotPlayed(_ message: TrackNotPlayedAsyncMessage) {
@@ -442,7 +439,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         DispatchQueue.main.async {
             
             let errorTrack = error.track
-            self.trackChanged(oldTrack, nil, true)
+            self.trackChanged(oldTrack, .playing, nil, true)
             
             // Position and display an alert with error info
             _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(error))
@@ -452,10 +449,24 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         }
     }
     
-    private func gapStarted() {
+    private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
         
         btnPlayPause.off()
         btnLoop.switchState(LoopState.none)
+        
+        if soundPreferences.rememberEffectsSettings {
+            
+            // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
+            if let oldTrack = msg.lastPlayedTrack {
+                
+                // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
+                if soundPreferences.rememberEffectsSettingsOption == .allTracks || SoundProfiles.profileForTrack(oldTrack.track) != nil {
+                    
+                    SoundProfiles.saveProfile(oldTrack.track, audioGraph.getVolume(), audioGraph.getBalance(), audioGraph.getSettingsAsMasterPreset())
+                    
+                }
+            }
+        }
     }
     
     // MARK: Message handling
@@ -480,7 +491,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
         case .gapStarted:
             
-            gapStarted()
+            gapStarted(message as! PlaybackGapStartedAsyncMessage)
             
         default: return
             

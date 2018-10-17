@@ -228,6 +228,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
                     
                     updateButtons()
                     _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
+                    
                 }
             }
         }
