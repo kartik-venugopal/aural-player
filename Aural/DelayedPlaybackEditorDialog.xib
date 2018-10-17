@@ -9,11 +9,10 @@
         <customObject id="-2" userLabel="File's Owner" customClass="DelayedPlaybackEditorWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnDelay" destination="u4v-Ij-a8A" id="gqx-4N-5sI"/>
-                <outlet property="btnDelayDecrement" destination="uDQ-n8-2Ck" id="qa8-qo-tJv"/>
-                <outlet property="btnDelayIncrement" destination="CTy-bZ-xUS" id="pfs-bR-CnD"/>
                 <outlet property="btnTime" destination="hgz-ko-n7M" id="Loe-8Z-INT"/>
                 <outlet property="dateFormatter" destination="R1U-GQ-iOx" id="QOz-na-sK4"/>
-                <outlet property="delaySlider" destination="ncP-l4-HUr" id="Qiv-A3-CCA"/>
+                <outlet property="delayFormatter" destination="FZC-Wc-jRY" id="1Ti-VV-uCG"/>
+                <outlet property="delayPicker" destination="kmf-6x-xci" id="rPy-YU-rn8"/>
                 <outlet property="lblDelay" destination="dYX-rR-gbM" id="0A9-J3-kbo"/>
                 <outlet property="lblTime" destination="OD9-Qs-8QM" id="w12-lB-P1d"/>
                 <outlet property="timePicker" destination="i1C-3U-Dd0" id="VXb-RH-rKr"/>
@@ -50,7 +49,7 @@
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OD9-Qs-8QM" userLabel="Chosen time">
-                        <rect key="frame" x="118" y="231" width="242" height="20"/>
+                        <rect key="frame" x="133" y="231" width="242" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" id="812-cF-7GR">
                             <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="xgA-XC-jHD">
@@ -62,38 +61,29 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ncP-l4-HUr" userLabel="Duration slider 1">
-                        <rect key="frame" x="139" y="267" width="195" height="15"/>
+                    <datePicker focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kmf-6x-xci" customClass="IntervalPicker" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="136" y="265" width="112" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="86400" doubleValue="5" tickMarkPosition="below" sliderType="linear" id="h87-4a-TYn" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
+                        <datePickerCell key="cell" controlSize="small" borderStyle="bezel" focusRingType="none" alignment="left" id="3XK-hQ-tLb">
+                            <font key="font" size="11" name="GillSans"/>
+                            <date key="date" timeIntervalSinceReferenceDate="-595929600">
+                                <!--1982-02-12 16:00:00 +0000-->
+                            </date>
+                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <datePickerElements key="datePickerElements" hour="YES" minute="YES" second="YES"/>
+                        </datePickerCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="maxInterval">
+                                <real key="value" value="86400"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                         <connections>
-                            <action selector="delaySliderAction:" target="-2" id="9Pe-dm-nug"/>
+                            <action selector="delayPickerAction:" target="-2" id="Hyo-cE-PHY"/>
                         </connections>
-                    </slider>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uDQ-n8-2Ck" userLabel="- 1">
-                        <rect key="frame" x="117" y="266" width="17" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="roundTextured" title="-" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Noj-78-JkZ">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="systemBold" size="10"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="delayDecrementAction:" target="-2" id="Pqs-T2-Iyi"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CTy-bZ-xUS" userLabel="+ 1">
-                        <rect key="frame" x="341" y="266" width="17" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="roundTextured" title="+" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="efR-0H-Tty">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="systemBold" size="10"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="delayIncrementAction:" target="-2" id="qVb-wX-RHN"/>
-                        </connections>
-                    </button>
+                    </datePicker>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hgz-ko-n7M">
-                        <rect key="frame" x="34" y="232" width="85" height="20"/>
+                        <rect key="frame" x="34" y="232" width="94" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="radio" title="At time" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="oRS-Zd-ybU" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -103,8 +93,8 @@
                             <action selector="radioButtonAction:" target="-2" id="iKr-MT-ev1"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dYX-rR-gbM" userLabel="Lbl Duration 1">
-                        <rect key="frame" x="363" y="265" width="96" height="20"/>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dYX-rR-gbM" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="250" y="265" width="112" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="5 sec" id="dCu-ae-MLE">
                             <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="JbW-d6-AN1">
@@ -115,9 +105,14 @@
                             <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="interval">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </textField>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u4v-Ij-a8A" userLabel="Btn Delay">
-                        <rect key="frame" x="34" y="266" width="85" height="20"/>
+                        <rect key="frame" x="34" y="266" width="93" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="radio" title="After delay" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="tnh-sh-xiB" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -137,7 +132,7 @@
                         </textFieldCell>
                     </textField>
                     <datePicker verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i1C-3U-Dd0">
-                        <rect key="frame" x="121" y="65" width="277" height="148"/>
+                        <rect key="frame" x="136" y="65" width="277" height="148"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <datePickerCell key="cell" controlSize="mini" continuous="YES" enabled="NO" borderStyle="bezel" alignment="left" datePickerStyle="clockAndCalendar" id="BU3-sQ-ft0">
                             <font key="font" size="10" name="GillSans"/>
@@ -192,6 +187,11 @@ Gw
         <dateFormatter dateStyle="short" timeStyle="medium" id="R1U-GQ-iOx">
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="dateFormat" value="hh : mm : ss a 'on' MMMM dd, yyyy"/>
+            </userDefinedRuntimeAttributes>
+        </dateFormatter>
+        <dateFormatter dateStyle="short" timeStyle="medium" id="FZC-Wc-jRY" userLabel="Delay Formatter">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="dateFormat" value="hh 'hr' mm 'min' ss 'sec'"/>
             </userDefinedRuntimeAttributes>
         </dateFormatter>
     </objects>

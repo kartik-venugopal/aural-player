@@ -180,11 +180,6 @@
                     </popUpButtonCell>
                 </popUpButton>
             </subviews>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                    <color key="value" white="0.52132161458333337" alpha="1" colorSpace="calibratedWhite"/>
-                </userDefinedRuntimeAttribute>
-            </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="189" y="196.5"/>
         </view>
     </objects>

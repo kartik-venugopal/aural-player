@@ -10,20 +10,16 @@
             <connections>
                 <outlet property="btnGapAfterTrack" destination="eYc-vm-O5r" id="XvO-ih-jr1"/>
                 <outlet property="btnGapBeforeTrack" destination="3ip-H9-wbf" id="Q64-Eo-ZAj"/>
-                <outlet property="btnGapDuration_decrement_1" destination="PBN-gC-CfV" id="fhh-gb-7Pm"/>
-                <outlet property="btnGapDuration_decrement_2" destination="0FY-se-Hwc" id="zDF-Gb-RNJ"/>
-                <outlet property="btnGapDuration_increment_1" destination="Cy5-7e-epC" id="T1q-KZ-w74"/>
-                <outlet property="btnGapDuration_increment_2" destination="5mf-p3-hEX" id="p6F-dJ-KjX"/>
                 <outlet property="btnGapType_oneTime_1" destination="hWS-8a-rSa" id="0gH-EN-QJa"/>
                 <outlet property="btnGapType_oneTime_2" destination="d9R-C2-HWC" id="Ms0-sQ-ZFH"/>
                 <outlet property="btnGapType_persistent_1" destination="E5h-wJ-5bD" id="wzy-TB-4h7"/>
                 <outlet property="btnGapType_persistent_2" destination="EzP-T0-qiT" id="nJW-5D-IMn"/>
                 <outlet property="btnGapType_tillAppExits_1" destination="Dkt-qY-LlR" id="tFS-G4-Qkq"/>
                 <outlet property="btnGapType_tillAppExits_2" destination="dic-K9-Wmo" id="yKe-xN-cR5"/>
-                <outlet property="durationSlider_1" destination="pDs-Tu-374" id="CmA-pd-78f"/>
-                <outlet property="durationSlider_2" destination="8f0-Ph-0pu" id="QHg-Gd-qQb"/>
-                <outlet property="lblDuration_1" destination="KWS-XR-coJ" id="hcK-To-iCX"/>
-                <outlet property="lblDuration_2" destination="mXO-lt-P0v" id="Dtj-pc-ARv"/>
+                <outlet property="lblDuration_1" destination="u4l-N0-438" id="5cr-Cp-CFm"/>
+                <outlet property="lblDuration_2" destination="vEl-hC-t55" id="fDn-Wn-KAZ"/>
+                <outlet property="timePicker_1" destination="rsV-hx-DKF" id="dYu-wz-a5y"/>
+                <outlet property="timePicker_2" destination="9Mf-Up-fuo" id="ig7-v0-1pr"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="p9R-0u-q5x"/>
             </connections>
         </customObject>
@@ -56,6 +52,84 @@
                         </view>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
+                    <datePicker focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rsV-hx-DKF" customClass="IntervalPicker" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="145" y="284" width="112" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <datePickerCell key="cell" controlSize="small" borderStyle="bezel" focusRingType="none" alignment="left" id="XpL-tv-oEh">
+                            <font key="font" size="11" name="GillSans"/>
+                            <date key="date" timeIntervalSinceReferenceDate="-595929600">
+                                <!--1982-02-12 16:00:00 +0000-->
+                            </date>
+                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <datePickerElements key="datePickerElements" hour="YES" minute="YES" second="YES"/>
+                        </datePickerCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="maxInterval">
+                                <real key="value" value="86400"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="timePickerAction_1:" target="-2" id="JIA-Xf-ZEH"/>
+                        </connections>
+                    </datePicker>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u4l-N0-438" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="264" y="284" width="112" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" id="cnZ-Cu-pu0">
+                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="bxK-vR-k4v">
+                                <real key="minimum" value="3"/>
+                                <real key="maximum" value="300"/>
+                            </numberFormatter>
+                            <font key="font" size="11" name="GillSans"/>
+                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="interval">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </textField>
+                    <datePicker focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Mf-Up-fuo" customClass="IntervalPicker" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="145" y="138" width="112" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <datePickerCell key="cell" controlSize="small" borderStyle="bezel" focusRingType="none" alignment="left" id="sKi-zr-yx3">
+                            <font key="font" size="11" name="GillSans"/>
+                            <date key="date" timeIntervalSinceReferenceDate="-595929600">
+                                <!--1982-02-12 16:00:00 +0000-->
+                            </date>
+                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <datePickerElements key="datePickerElements" hour="YES" minute="YES" second="YES"/>
+                        </datePickerCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="maxInterval">
+                                <real key="value" value="86400"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="timePickerAction_2:" target="-2" id="HTk-nN-X5a"/>
+                        </connections>
+                    </datePicker>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vEl-hC-t55" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="264" y="138" width="112" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" id="gHS-Rd-Ik3">
+                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="OO0-2q-bWH">
+                                <real key="minimum" value="3"/>
+                                <real key="maximum" value="300"/>
+                            </numberFormatter>
+                            <font key="font" size="11" name="GillSans"/>
+                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="interval">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nDN-3P-FJf">
                         <rect key="frame" x="41" y="312" width="151" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -77,7 +151,7 @@
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hda-is-mSC" userLabel="Duration caption 1">
-                        <rect key="frame" x="53" y="288" width="67" height="20"/>
+                        <rect key="frame" x="53" y="286" width="67" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Duration" id="bDw-bk-bns">
                             <font key="font" size="12" name="GillSans"/>
@@ -85,49 +159,6 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KWS-XR-coJ" userLabel="Lbl Duration 1">
-                        <rect key="frame" x="362" y="287" width="96" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="5 sec" id="rkr-jQ-iVg">
-                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="uRN-Lq-gJ4">
-                                <real key="minimum" value="3"/>
-                                <real key="maximum" value="300"/>
-                            </numberFormatter>
-                            <font key="font" size="11" name="GillSans"/>
-                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cy5-7e-epC" userLabel="+ 1">
-                        <rect key="frame" x="336" y="288" width="17" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="roundTextured" title="+" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6r1-At-b3S">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="systemBold" size="10"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="durationIncrementAction_1:" target="-2" id="8VA-9P-AgG"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PBN-gC-CfV" userLabel="- 1">
-                        <rect key="frame" x="112" y="288" width="17" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="roundTextured" title="-" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QVQ-If-eRN">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="systemBold" size="10"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="durationDecrementAction_1:" target="-2" id="8tt-tI-a11"/>
-                        </connections>
-                    </button>
-                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pDs-Tu-374" userLabel="Duration slider 1">
-                        <rect key="frame" x="134" y="289" width="195" height="15"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="86400" doubleValue="5" tickMarkPosition="below" sliderType="linear" id="8cq-mg-beB" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
-                        <connections>
-                            <action selector="durationSliderAction_1:" target="-2" id="p9u-AG-4Sy"/>
-                        </connections>
-                    </slider>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Ct-i7-j8v" userLabel="Type label 1">
                         <rect key="frame" x="53" y="265" width="67" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -211,7 +242,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xIc-PX-acv" userLabel="Duration caption 1">
-                        <rect key="frame" x="53" y="142" width="67" height="20"/>
+                        <rect key="frame" x="53" y="140" width="67" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Duration" id="C2z-Io-HNx">
                             <font key="font" size="12" name="GillSans"/>
@@ -228,49 +259,6 @@
                         </buttonCell>
                         <connections>
                             <action selector="gapTypeAction_2:" target="-2" id="DBl-P4-q1R"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0FY-se-Hwc" userLabel="- 1">
-                        <rect key="frame" x="112" y="142" width="17" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="roundTextured" title="-" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zm8-7d-9rt">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="systemBold" size="10"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="durationDecrementAction_2:" target="-2" id="nSt-5l-FFL"/>
-                        </connections>
-                    </button>
-                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8f0-Ph-0pu" userLabel="Duration slider 1">
-                        <rect key="frame" x="134" y="143" width="195" height="15"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="1" maxValue="86400" doubleValue="5" tickMarkPosition="below" sliderType="linear" id="XLk-c1-tS7" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
-                        <connections>
-                            <action selector="durationSliderAction_2:" target="-2" id="eMr-vt-Ol2"/>
-                        </connections>
-                    </slider>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mXO-lt-P0v" userLabel="Lbl Duration 1">
-                        <rect key="frame" x="362" y="141" width="96" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="5 sec" id="1Nw-jv-F5V">
-                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Ao8-WW-bIw">
-                                <real key="minimum" value="3"/>
-                                <real key="maximum" value="300"/>
-                            </numberFormatter>
-                            <font key="font" size="11" name="GillSans"/>
-                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5mf-p3-hEX" userLabel="+ 1">
-                        <rect key="frame" x="336" y="142" width="17" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="roundTextured" title="+" bezelStyle="texturedRounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PN5-L9-SUc">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="systemBold" size="10"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="durationIncrementAction_2:" target="-2" id="GMx-aI-9ev"/>
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d9R-C2-HWC" userLabel="Btn Gap Type one Time 1">

@@ -47,6 +47,7 @@
 		3E0F947F1FBBDC3300B6E1B3 /* OnOffImageButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F947E1FBBDC3300B6E1B3 /* OnOffImageButtons.swift */; };
 		3E10DDDF216F28A7001D3B66 /* GapsEditorDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E10DDDE216F28A7001D3B66 /* GapsEditorDialog.xib */; };
 		3E10DDE1216F2F53001D3B66 /* GapsEditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E10DDE0216F2F53001D3B66 /* GapsEditorWindowController.swift */; };
+		3E12AF8A2176FC2F00692391 /* IntervalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12AF892176FC2F00692391 /* IntervalPicker.swift */; };
 		3E192394215AEEB600E894B3 /* PlaybackScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */; };
 		3E192396215B0F1100E894B3 /* FavoritesMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */; };
 		3E1CF7ED1F5CBA2500613724 /* AudioGraphProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1CF7EC1F5CBA2500613724 /* AudioGraphProtocols.swift */; };
@@ -342,6 +343,7 @@
 		3E0F947E1FBBDC3300B6E1B3 /* OnOffImageButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnOffImageButtons.swift; sourceTree = "<group>"; };
 		3E10DDDE216F28A7001D3B66 /* GapsEditorDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GapsEditorDialog.xib; sourceTree = "<group>"; };
 		3E10DDE0216F2F53001D3B66 /* GapsEditorWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GapsEditorWindowController.swift; sourceTree = "<group>"; };
+		3E12AF892176FC2F00692391 /* IntervalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalPicker.swift; sourceTree = "<group>"; };
 		3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackScheduler.swift; sourceTree = "<group>"; };
 		3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesMenuController.swift; sourceTree = "<group>"; };
 		3E1CF7EC1F5CBA2500613724 /* AudioGraphProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphProtocols.swift; sourceTree = "<group>"; };
@@ -634,6 +636,7 @@
 				3E26B92A1FBC177F00FA3274 /* AutoHidingView.swift */,
 				3EAEBCAB1FDCD644000FBC04 /* BannerLabel.swift */,
 				3EF08DCE21578CFD000C7F11 /* ValidatedLabelCell.swift */,
+				3E12AF892176FC2F00692391 /* IntervalPicker.swift */,
 			);
 			name = CustomControls;
 			sourceTree = "<group>";
@@ -1781,6 +1784,7 @@
 				3E192394215AEEB600E894B3 /* PlaybackScheduler.swift in Sources */,
 				3E26B9311FBC53A700FA3274 /* GestureHandler.swift in Sources */,
 				3EF08DCF21578CFD000C7F11 /* ValidatedLabelCell.swift in Sources */,
+				3E12AF8A2176FC2F00692391 /* IntervalPicker.swift in Sources */,
 				3E3DCD251F0F913800E09ADC /* AsyncMessages.swift in Sources */,
 				3EB1700E2173F5DA00B82D3A /* DelayedPlaybackEditorWindowController.swift in Sources */,
 				3E98478F1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift in Sources */,
