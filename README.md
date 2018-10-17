@@ -25,14 +25,13 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
    * Playlist files: M3U/M3U8
 
 * **Playback:**
-   * Options to specify two different custom seek lengths so you can perform both fine-grained and coarse-grained seeking simultaneously **(New!)**
-   * Insert timed gaps of silence (up to 24 hours) before or after individual tracks. Global preference to implicitly insert a gap between all tracks during playback. Gaps can be configured to be remembered just once, till the app exits, or to persist across app launches.
-   * Delayed track playback function, with up to a 24 hour delay. Set a time interval or choose a "Start at" time. Useful when you have to perform some kind of setup/preparation before a track plays, or if you need time to get from the computer to your partner on the dance floor !
-   * "Jump to time" function to skip to a specific position within a track
+  * Bookmarking, so you can mark a specific position within a track and come back to it later with one click, which is great for long tracks like audiobooks
+   * Track segment looping, to allow you to define and loop your favorite parts of a track. Save your loops and play them back at any time with one click **(New!)**
+   * Specify two different custom seek lengths so you can perform both fine-grained and coarse-grained seeking simultaneously **(New!)**
+   * Insert timed gaps of silence (up to 24 hours) before or after individual tracks or set a global preference to implicitly insert a gap between all tracks during playback **(New!)**
+   * Delayed track playback function, with up to a 24 hour delay. Set a time interval or choose a "Start at" time. Useful for setup before a track plays (e.g. for a live performance), or if you need time to get to the dance floor **(New!)**
   * Option to remember last playback position, either on a per-track basis or for all tracks, so you can resume listening to a track without needing to remember where you left off **(New!)**
-  * Bookmarking, so you can mark a specific position within a track, save it with an informative description, and come back to it later with one click, which is great for long tracks like audiobooks **(New!)**
-   * Track segment looping, to allow you to define and loop your favorite parts of a track. 
-   * Thanks to bookmarking, save your loops and play them back at any time with one click **(New!)**
+  * "Jump to time" function to skip to a specific position within a track **(New!)**
    * Configurable autoplay (on app startup and/or when tracks are added)
 
 * **Effects:**
