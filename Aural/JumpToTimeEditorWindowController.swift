@@ -1,8 +1,11 @@
 import Cocoa
 
-class JumpToTimeEditorWindowController: NSWindowController, ModalDialogDelegate {
+class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscriber, ModalDialogDelegate {
     
     override var windowNibName: String? {return "JumpToTimeEditorDialog"}
+    
+    @IBOutlet weak var lblTrackName: NSTextField!
+    @IBOutlet weak var lblTrackDuration: NSTextField!
     
     @IBOutlet weak var btnHMS: NSButton!
     @IBOutlet weak var btnSeconds: NSButton!
@@ -13,19 +16,9 @@ class JumpToTimeEditorWindowController: NSWindowController, ModalDialogDelegate 
     @IBOutlet weak var txtSeconds: NSTextField!
     @IBOutlet weak var stepper: NSStepper!
     
-    private var trackDuration: Double = 0
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
     private var modalDialogResponse: ModalDialogResponse = .ok
-    
-    func setDataForKey(_ key: String, _ value: Any?) {
-        
-        if key == "trackDuration" {
-            
-            if let val = value as? Double {
-                self.trackDuration = val
-            }
-        }
-    }
     
     override func windowDidLoad() {
         
@@ -43,6 +36,8 @@ class JumpToTimeEditorWindowController: NSWindowController, ModalDialogDelegate 
             
             self.stepper.integerValue = value
         }
+        
+        AsyncMessenger.subscribe([.trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
     
     func showDialog() -> ModalDialogResponse {
@@ -61,18 +56,36 @@ class JumpToTimeEditorWindowController: NSWindowController, ModalDialogDelegate 
     
     func resetFields() {
         
-        btnHMS.state = UIConstants.buttonState_1
-        radioButtonAction(self)
+        if let playingTrack = playbackInfo.getPlayingTrack() {
         
-        // Reset to 00:00:00
-        let startOfDay = Date().startOfDay
-        timePicker.dateValue = startOfDay
-        timePicker.maxDate = startOfDay.addingTimeInterval(trackDuration)
-        
-        secondsFormatter.maxValue = Int(trackDuration)
-        stepper.maxValue = trackDuration
-        stepper.doubleValue = 0
-        secondsStepperAction(self)
+            let roundedDuration = round(playingTrack.track.duration)
+            let formattedDuration = StringUtils.formatSecondsToHMS(roundedDuration)
+            let durationInt = Int(roundedDuration)
+            
+            lblTrackName.stringValue = String(format: "Track:   %@", playingTrack.track.conciseDisplayName)
+            lblTrackDuration.stringValue = String(format: "Duration:   %@", formattedDuration)
+            
+            btnHMS.state = UIConstants.buttonState_1
+            radioButtonAction(self)
+            
+            btnHMS.title = String(format: "Specify as hh : mm : ss (00:00:00 to %@)", formattedDuration)
+            btnSeconds.title = String(format: "Specify as seconds (0 to %d)", durationInt)
+            
+            // Reset to 00:00:00
+            let startOfDay = Date().startOfDay
+            timePicker.dateValue = startOfDay
+            timePicker.maxDate = startOfDay.addingTimeInterval(roundedDuration)
+            
+            secondsFormatter.maxValue = durationInt
+            stepper.maxValue = roundedDuration
+            stepper.doubleValue = 0
+            secondsStepperAction(self)
+            
+        } else {
+            
+            // No track playing
+            cancelAction(self)
+        }
     }
     
     @IBAction func radioButtonAction(_ sender: Any) {
@@ -115,6 +128,32 @@ class JumpToTimeEditorWindowController: NSWindowController, ModalDialogDelegate 
         
         modalDialogResponse = .cancel
         UIUtils.dismissModalDialog()
+    }
+    
+    private func trackChanged(_ msg: TrackChangedAsyncMessage) {
+        resetFields()
+    }
+    
+    // MARK: Message handling
+    
+    func getID() -> String {
+        return self.className
+    }
+    
+    func consumeAsyncMessage(_ message: AsyncMessage) {
+        
+        switch message.messageType {
+            
+        case .trackChanged:
+            
+            // Update the track duration
+            trackChanged(message as! TrackChangedAsyncMessage)
+            
+        default:
+            
+            return
+            
+        }
     }
 }
 

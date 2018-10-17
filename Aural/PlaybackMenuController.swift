@@ -95,11 +95,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         }
     }
     
-    @IBAction func jumpToTimeAction(_ sender: AnyObject) {
-        
-        let plTrack = playbackInfo.getPlayingTrack()!.track
-        
-        jumpToTimeDialog.setDataForKey("trackDuration", plTrack.duration)
+    @IBAction func jumpToTimeAction(_ sender: AnyObject) {        
         _ = jumpToTimeDialog.showDialog()
     }
     
