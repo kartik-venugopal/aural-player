@@ -67,13 +67,12 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             if (progress.errors.count > 0) {
                 AsyncMessenger.publishMessage(TracksNotAddedAsyncMessage(progress.errors))
             }
-            
-            // Notify change listeners
-            self.changeListeners.forEach({$0.tracksAdded(progress.addResults)})
         }
     }
     
     func findOrAddFile(_ file: URL) throws -> IndexedTrack {
+        
+        // TODO: Code duplication with addTrack()
         
         // If track exists, return it
         if let foundTrack = playlist.findTrackByFile(file) {
@@ -225,6 +224,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                 TrackIO.loadDuration(track)
                 AsyncMessenger.publishMessage(TrackUpdatedAsyncMessage.fromTrackAddResult(result))
             }
+            
+            // Notify change listeners
+            self.changeListeners.forEach({$0.tracksAdded([result])})
             
             return result
         }
