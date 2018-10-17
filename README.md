@@ -160,7 +160,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 ![Preferences](/Documentation/Screenshots/Preferences-Playback.png?raw=true "Delay")
 
-### Recent updates
+## Recent updates
 
 - **10/17/2018: New release:**
 
@@ -243,24 +243,24 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
     * When playing a track from Favorites/Recently played list, the first 5 seconds of the track would sometimes play twice in a row, because of a race condition in the code that performed preparation for track playback.
     * The playlist scroll buttons stopped working at some point.
 
-### Planned updates
+## Planned updates
 
 - A new editor window to manage effects presets
 - A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
 - New color schemes
 
-### Known issues/bugs
+## Known issues/bugs
 
 The following bugs are known and fixes are planned. If you find any additional bugs, please feel free to report them in  the "Issues" section right here on GitHub.
 
 - On very rare conditions, the app crashes on startup due to an array indexing being performed out of range. This is due to a very subtle sneaky race condition in the playlist loading code.
 
-### Third party code and contributor attributions
+## Third party code and contributor attributions
 
 Aural Player makes use of (a modified version of) a reusable UI control called [RangeSlider](https://github.com/matthewreagan/RangeSlider).
 
 Fellow GitHub member [Dunkeeel](https://github.com/Dunkeeel) made significant contributions towards this project - performance optimizations, UX improvements, etc.
 
-### Background
+## Background
 
 Aural Player was written by an audio enthusiast learning to program on OS X, coming to Swift programming from many years of Java programming. This project was inspired by the developer’s desire to create a Winamp-like substitute for the macOS platform. No feature bloat or unnecessary annoyances like iTunes.
