@@ -244,7 +244,14 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         
         // Remove tracks from flat playlist
         let removedTracks = flatPlaylist.removeTracks(indexes)
-        removedTracks.forEach({tracksByFilePath.removeValue(forKey: $0.file.path)})
+        
+        // Remove secondary state associated with these tracks
+        removedTracks.forEach({
+            
+            tracksByFilePath.removeValue(forKey: $0.file.path)
+            gapsBefore.removeValue(forKey: $0)
+            gapsAfter.removeValue(forKey: $0)
+        })
         
         var groupingPlaylistResults = [GroupType: [ItemRemovalResult]]()
         
@@ -311,7 +318,13 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         // Remove duplicates
         removedTracks = Array(Set(removedTracks))
         
-        removedTracks.forEach({tracksByFilePath.removeValue(forKey: $0.file.path)})
+        // Remove secondary state associated with these tracks
+        removedTracks.forEach({
+            
+            tracksByFilePath.removeValue(forKey: $0.file.path)
+            gapsBefore.removeValue(forKey: $0)
+            gapsAfter.removeValue(forKey: $0)
+        })
         
         var groupingPlaylistResults = [GroupType: [ItemRemovalResult]]()
         
