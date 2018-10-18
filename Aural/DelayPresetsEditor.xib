@@ -8,7 +8,16 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="DelayPresetsEditorViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="delayAmountSlider" destination="eFY-W3-NdA" id="xTf-at-yVL"/>
+                <outlet property="delayCutoffSlider" destination="VuK-Rl-Cng" id="aNA-Rf-YRA"/>
+                <outlet property="delayFeedbackSlider" destination="c1j-yZ-Zwb" id="Nzp-bZ-MxB"/>
+                <outlet property="delayTimeSlider" destination="Gdx-qC-VaZ" id="3Lr-Lq-U5P"/>
                 <outlet property="editorView" destination="Av3-gn-UFU" id="S2e-81-Rhr"/>
+                <outlet property="lblDelayAmountValue" destination="t1H-8q-jA6" id="Nef-u7-10V"/>
+                <outlet property="lblDelayFeedbackValue" destination="Tkp-NP-3UC" id="3Uy-Mt-F5H"/>
+                <outlet property="lblDelayLowPassCutoffValue" destination="Hd6-M0-Zh5" id="aHn-uo-y2S"/>
+                <outlet property="lblDelayTimeValue" destination="zmo-aQ-stl" id="JLr-wE-xuI"/>
+                <outlet property="previewBox" destination="3jD-XY-CBs" id="vHs-gp-21k"/>
                 <outlet property="view" destination="bei-Ks-bkt" id="3C4-g0-2Ff"/>
             </connections>
         </customObject>
@@ -85,7 +94,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
-                <box hidden="YES" fixedFrame="YES" boxType="custom" borderType="line" borderWidth="2" cornerRadius="3" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="3jD-XY-CBs" userLabel="Preview Box">
+                <box hidden="YES" fixedFrame="YES" boxType="custom" borderType="line" borderWidth="2" cornerRadius="3" translatesAutoresizingMaskIntoConstraints="NO" id="3jD-XY-CBs" userLabel="Preview Box">
                     <rect key="frame" x="383" y="0.0" width="292" height="280"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="dRW-BP-EHJ">
@@ -101,6 +110,182 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="zbD-ta-cRx" userLabel="Controls Box">
+                                <rect key="frame" x="-1" y="138" width="355" height="101"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" ambiguous="YES" id="OhN-ph-6uy">
+                                    <rect key="frame" x="0.0" y="0.0" width="355" height="101"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2jP-uS-jPz">
+                                            <rect key="frame" x="6" y="74" width="38" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Time" id="xju-dx-W6h">
+                                                <font key="font" size="11" name="GillSans"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gdx-qC-VaZ" userLabel="Time Slider">
+                                            <rect key="frame" x="82" y="72" width="135" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="2" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="9" sliderType="linear" id="y0D-MT-eRw" customClass="EffectsTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                        </slider>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="riO-ba-y1S" userLabel="Zero Secs">
+                                            <rect key="frame" x="50" y="76" width="30" height="15"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="W11-Fy-05C">
+                                                <font key="font" size="10" name="GillSans"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AZd-gJ-8ji" userLabel="Two Secs">
+                                            <rect key="frame" x="219" y="76" width="30" height="15"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="2" id="UWe-e6-t5r">
+                                                <font key="font" size="10" name="GillSans"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zmo-aQ-stl" userLabel="Lbl Time Value">
+                                            <rect key="frame" x="241" y="76" width="44" height="15"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="0mC-Ff-pnx">
+                                                <font key="font" size="10" name="GillSans"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t1H-8q-jA6" userLabel="Lbl Amount Value">
+                                            <rect key="frame" x="241" y="54" width="44" height="15"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="Wzl-lp-kMM">
+                                                <font key="font" size="10" name="GillSans"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eFY-W3-NdA" userLabel="Amount Slider">
+                                            <rect key="frame" x="82" y="50" width="135" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" maxValue="100" doubleValue="33.2801094890511" tickMarkPosition="below" numberOfTickMarks="3" sliderType="linear" id="jNT-Qj-qTy" customClass="EffectsTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                        </slider>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jJg-YI-sYX">
+                                            <rect key="frame" x="6" y="52" width="64" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Amount" id="HVB-Mu-95O">
+                                                <font key="font" size="11" name="GillSans"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8uU-xY-L44" userLabel="Zero">
+                                            <rect key="frame" x="50" y="54" width="30" height="15"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="kBW-s4-Dd8">
+                                                <font key="font" size="10" name="GillSans"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nWz-yV-XrB" userLabel="Hundred">
+                                            <rect key="frame" x="219" y="54" width="30" height="15"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="100" id="aDZ-8W-WxM">
+                                                <font key="font" size="10" name="GillSans"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c1j-yZ-Zwb" userLabel="Feedback Slider">
+                                            <rect key="frame" x="82" y="28" width="135" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" minValue="-100" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="7Ka-hH-GPY" customClass="EffectsTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                        </slider>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jtb-Ta-j4L">
+                                            <rect key="frame" x="6" y="30" width="66" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Feedback" id="QMm-ev-WZr">
+                                                <font key="font" size="11" name="GillSans"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tkp-NP-3UC" userLabel="Lbl Feedback Value">
+                                            <rect key="frame" x="241" y="32" width="44" height="15"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="hdR-tg-SVx">
+                                                <font key="font" size="10" name="GillSans"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WVU-St-O9e" userLabel="Minus100Perc">
+                                            <rect key="frame" x="50" y="32" width="30" height="15"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="-100" id="AI6-3l-rqj">
+                                                <font key="font" size="10" name="GillSans"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vvh-hb-ook" userLabel="Hundred Perc">
+                                            <rect key="frame" x="219" y="32" width="30" height="15"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="+100" id="VE8-Q5-DOH">
+                                                <font key="font" size="10" name="GillSans"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hd6-M0-Zh5" userLabel="Lbl LowPass Value">
+                                            <rect key="frame" x="241" y="10" width="44" height="15"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="UNP-yn-Xux">
+                                                <font key="font" size="10" name="GillSans"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VuK-Rl-Cng" userLabel="Cutoff Slider">
+                                            <rect key="frame" x="82" y="6" width="135" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" minValue="10" maxValue="20480" doubleValue="15000" tickMarkPosition="below" numberOfTickMarks="2" sliderType="linear" id="ifY-af-dn1" customClass="EffectsTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                        </slider>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tnC-Oq-DO0">
+                                            <rect key="frame" x="6" y="8" width="56" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Low Pass" id="U3N-M1-rdG">
+                                                <font key="font" size="11" name="GillSans"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BYb-GB-4hn" userLabel="Ten Hz">
+                                            <rect key="frame" x="50" y="10" width="30" height="15"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="10" id="4wb-hM-qs3">
+                                                <font key="font" size="10" name="GillSans"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MQu-Mo-GZt" userLabel="Twenty KHz">
+                                            <rect key="frame" x="219" y="10" width="30" height="15"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="20K" id="7pY-py-Olf">
+                                                <font key="font" size="10" name="GillSans"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                </view>
+                                <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </box>
                         </subviews>
                     </view>
                     <color key="borderColor" white="0.35150669639999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
