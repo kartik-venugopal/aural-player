@@ -18,7 +18,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     override var nibName: String? {return "PitchPresetsEditor"}
     
     override func viewDidLoad() {
-        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -210,6 +210,9 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
             if msg.effectsPresetsUnit == .pitch {
                 
                 switch msg.actionType {
+                    
+                case .reloadPresets:
+                    viewDidAppear()
                     
                 case .renameEffectsPreset:
                     renamePresetAction()

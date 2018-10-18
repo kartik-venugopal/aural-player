@@ -45,6 +45,8 @@ class RangeSlider: NSView {
     
     //MARK: - Public API -
     
+    @IBInspectable var enabled: Bool = true
+    
     private let verticalShadowPadding: CGFloat = 4.0
     private let barTrailingMargin: CGFloat = 1.0
     private let disabledControlDimmingRatio: CGFloat = 0.65
@@ -218,6 +220,8 @@ class RangeSlider: NSView {
     //MARK: - Event -
     
     override func mouseDown(with event: NSEvent) {
+        
+        if !enabled {return}
 
         let point = convert(event.locationInWindow, from: nil)
         let startSlider = frameForStartSlider()
@@ -243,6 +247,9 @@ class RangeSlider: NSView {
     }
     
     override func mouseDragged(with event: NSEvent) {
+        
+        if !enabled {return}
+        
         let point = convert(event.locationInWindow, from: nil)
         updateForClick(atPoint: point)
     }

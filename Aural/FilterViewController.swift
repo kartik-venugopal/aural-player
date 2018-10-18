@@ -7,6 +7,7 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     
     // Filter controls
     @IBOutlet weak var btnFilterBypass: EffectsUnitTriStateBypassButton!
+    
     @IBOutlet weak var filterBassSlider: RangeSlider!
     @IBOutlet weak var filterMidSlider: RangeSlider!
     @IBOutlet weak var filterTrebleSlider: RangeSlider!

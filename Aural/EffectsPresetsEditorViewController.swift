@@ -40,6 +40,9 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
         
         [btnApply, btnRename, btnDelete].forEach({$0.isEnabled = false})
         tabViewAction(delayPresetsTabViewButton)
+        
+        let units: [EffectsUnit] = [.master, .eq, .pitch, .time, .reverb, .delay, .filter]
+        units.forEach({SyncMessenger.publishActionMessage(EffectsPresetsEditorActionMessage(.reloadPresets, $0))})
     }
     
     private func addSubViews() {

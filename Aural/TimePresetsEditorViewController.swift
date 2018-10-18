@@ -21,7 +21,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     override var nibName: String? {return "TimePresetsEditor"}
     
     override func viewDidLoad() {
-        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -216,6 +216,9 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
             if msg.effectsPresetsUnit == .time {
                 
                 switch msg.actionType {
+                    
+                case .reloadPresets:
+                    viewDidAppear()
                     
                 case .renameEffectsPreset:
                     renamePresetAction()

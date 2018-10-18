@@ -279,6 +279,7 @@ enum ActionType {
     
     // MARK: Effects presets editor actions
     
+    case reloadPresets
     case renameEffectsPreset
     case deleteEffectsPresets
     case applyEffectsPreset
