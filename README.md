@@ -100,7 +100,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 ![App screenshot2](/Documentation/Demos/gaps.gif?raw=true "Playback gaps")
 
-### Playlist-only view w/ detailed track info popover view
+### Detailed track info popover
 
 ![App screenshot w/ more info view](/Documentation/Screenshots/DetailedInfo.png?raw=true "More Info")
 
@@ -108,25 +108,13 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 ![App screenshot w/ more info view](/Documentation/Screenshots/Bookmarking.png?raw=true "Bookmarking")
 
-#### Managing bookmarks
-
-![App screenshot w/ more info view](/Documentation/Screenshots/BookmarksEditor.png?raw=true "Bookmarks Editor")
-
 ### Saving an effects unit preset
 
 ![App screenshot w/ more info view](/Documentation/Screenshots/FXPreset.png?raw=true "Saving an effects preset")
 
-### "Big bottom playlist" window layout
-
-![App screenshot2](/Documentation/Screenshots/BigBottomPlaylist.png?raw=true "Big bottom playlist window layout")
-
 ### Changing the window layout with one click
 
 ![App screenshot2](/Documentation/Demos/WindowLayout.gif?raw=true "Choosing a window layout")
-
-### Managing window layouts
-
-![App screenshot2](/Documentation/Screenshots/LayoutsEditor.png?raw=true "Managing window layouts")
 
 ### Compact view
 
