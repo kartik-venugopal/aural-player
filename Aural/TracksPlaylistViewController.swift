@@ -8,6 +8,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     @IBOutlet weak var playlistView: NSTableView!
     private lazy var contextMenu: NSMenu! = WindowFactory.getPlaylistContextMenu()
     
+    @IBOutlet weak var scrollView: NSScrollView!
+    
     // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
     
@@ -40,7 +42,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -217,6 +219,73 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         }
     }
     
+    private func pageUp() {
+        
+        // Determine if the first row currently displayed has been truncated so it is not fully visible
+        
+        let firstRowShown = playlistView.rows(in: playlistView.visibleRect).lowerBound
+        let firstRowShown_height = playlistView.rect(ofRow: firstRowShown).height
+        let firstRowShown_minY = playlistView.rect(ofRow: firstRowShown).minY
+        
+        let visibleRect_minY = playlistView.visibleRect.minY
+        
+        let truncationAmount =  visibleRect_minY - firstRowShown_minY
+        let truncationRatio = truncationAmount / firstRowShown_height
+        
+        // If the first row currently displayed has been truncated more than 10%, show it again in the next page
+        
+        let lastRowToShow = truncationRatio > 0.1 ? firstRowShown : firstRowShown - 1
+        let lastRowToShow_maxY = playlistView.rect(ofRow: lastRowToShow).maxY
+        
+        let visibleRect_maxY = playlistView.visibleRect.maxY
+        
+        // Calculate the scroll amount, as a function of the last row to show next, using the visible rect origin (i.e. the top of the first row in the playlist) as the stopping point
+        
+        let scrollAmount = min(playlistView.visibleRect.origin.y, visibleRect_maxY - lastRowToShow_maxY)
+        
+        if scrollAmount > 0 {
+            
+            let up = playlistView.visibleRect.origin.applying(CGAffineTransform.init(translationX: 0, y: -scrollAmount))
+            scrollView.contentView.scroll(to: up)
+        }
+    }
+    
+    private func pageDown() {
+        
+        // Determine if the last row currently displayed has been truncated so it is not fully visible
+        
+        let visibleRows = playlistView.rows(in: playlistView.visibleRect)
+        
+        let lastRowShown = visibleRows.lowerBound + visibleRows.length - 1
+        let lastRowShown_maxY = playlistView.rect(ofRow: lastRowShown).maxY
+        let lastRowShown_height = playlistView.rect(ofRow: lastRowShown).height
+        
+        let lastRowInPlaylist = playlistView.numberOfRows - 1
+        let lastRowInPlaylist_maxY = playlistView.rect(ofRow: lastRowInPlaylist).maxY
+        
+        // If the first row currently displayed has been truncated more than 10%, show it again in the next page
+        
+        let visibleRect_maxY = playlistView.visibleRect.maxY
+        
+        let truncationAmount = lastRowShown_maxY - visibleRect_maxY
+        let truncationRatio = truncationAmount / lastRowShown_height
+        
+        let firstRowToShow = truncationRatio > 0.1 ? lastRowShown : lastRowShown + 1
+        
+        let visibleRect_originY = playlistView.visibleRect.origin.y
+        let firstRowToShow_originY = playlistView.rect(ofRow: firstRowToShow).origin.y
+        
+        // Calculate the scroll amount, as a function of the first row to show next, using the visible rect maxY (i.e. the bottom of the last row in the playlist) as the stopping point
+        
+        let scrollAmount = min(firstRowToShow_originY - visibleRect_originY, lastRowInPlaylist_maxY - playlistView.visibleRect.maxY)
+        
+        if scrollAmount > 0 {
+            
+            let down = playlistView.visibleRect.origin.applying(CGAffineTransform.init(translationX: 0, y: scrollAmount))
+            scrollView.contentView.scroll(to: down)
+        }
+    }
+    
     // Refreshes the playlist view by rearranging the items that were moved
     private func removeAndInsertItems(_ results: ItemMoveResults) {
         
@@ -293,10 +362,13 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func trackChanged(_ message: TrackChangedNotification) {
         
+        let selRows = playlistView.selectedRowIndexes
+        
         let oldTrack = message.oldTrack
         let newTrack = message.newTrack
         
         var refreshIndexes = [Int]()
+        refreshIndexes.append(contentsOf: selRows)
         
         if (oldTrack != nil) {
             refreshIndexes.append(oldTrack!.index)
@@ -556,6 +628,14 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             case .scrollToBottom:
                 
                 scrollToBottom()
+                
+            case .pageUp:
+                
+                pageUp()
+                
+            case .pageDown:
+                
+                pageDown()
                 
             case .selectedTrackInfo:
                 
