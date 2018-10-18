@@ -173,6 +173,7 @@ class SoundPreferences: PersistentPreferencesProtocol {
     
     var panDelta: Float
     
+    var eqDelta: Float
     var pitchDelta: Int
     var timeDelta: Float
     
@@ -205,6 +206,7 @@ class SoundPreferences: PersistentPreferencesProtocol {
         
         panDelta = defaultsDictionary["sound.panDelta"] as? Float ?? PreferencesDefaults.Sound.panDelta
         
+        eqDelta = defaultsDictionary["sound.eqDelta"] as? Float ?? PreferencesDefaults.Sound.eqDelta
         pitchDelta = defaultsDictionary["sound.pitchDelta"] as? Int ?? PreferencesDefaults.Sound.pitchDelta
         timeDelta = defaultsDictionary["sound.timeDelta"] as? Float ?? PreferencesDefaults.Sound.timeDelta
         
@@ -239,6 +241,7 @@ class SoundPreferences: PersistentPreferencesProtocol {
         
         defaults.set(panDelta, forKey: "sound.panDelta")
         
+        defaults.set(eqDelta, forKey: "sound.eqDelta")
         defaults.set(pitchDelta, forKey: "sound.pitchDelta")
         defaults.set(timeDelta, forKey: "sound.timeDelta")
         
@@ -460,6 +463,7 @@ fileprivate struct PreferencesDefaults {
         
         static let panDelta: Float = 0.1
         
+        static let eqDelta: Float = 1
         static let pitchDelta: Int = 100
         static let timeDelta: Float = 0.05
         

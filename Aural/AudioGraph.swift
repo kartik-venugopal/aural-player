@@ -397,28 +397,28 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         eqNode.setBands(bands)
     }
     
-    func increaseBass() -> [Int : Float] {
-        return eqNode.increaseBass()
+    func increaseBass(_ increment: Float) -> [Int : Float] {
+        return eqNode.increaseBass(increment)
     }
     
-    func decreaseBass() -> [Int : Float] {
-        return eqNode.decreaseBass()
+    func decreaseBass(_ decrement: Float) -> [Int : Float] {
+        return eqNode.decreaseBass(decrement)
     }
     
-    func increaseMids() -> [Int: Float] {
-        return eqNode.increaseMids()
+    func increaseMids(_ increment: Float) -> [Int: Float] {
+        return eqNode.increaseMids(increment)
     }
     
-    func decreaseMids() -> [Int: Float] {
-        return eqNode.decreaseMids()
+    func decreaseMids(_ decrement: Float) -> [Int: Float] {
+        return eqNode.decreaseMids(decrement)
     }
     
-    func increaseTreble() -> [Int: Float] {
-        return eqNode.increaseTreble()
+    func increaseTreble(_ increment: Float) -> [Int: Float] {
+        return eqNode.increaseTreble(increment)
     }
     
-    func decreaseTreble() -> [Int: Float] {
-        return eqNode.decreaseTreble()
+    func decreaseTreble(_ decrement: Float) -> [Int: Float] {
+        return eqNode.decreaseTreble(decrement)
     }
     
     func saveEQPreset(_ presetName: String) {

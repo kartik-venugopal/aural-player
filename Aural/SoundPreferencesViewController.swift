@@ -14,6 +14,9 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     @IBOutlet weak var lblPanDelta: NSTextField!
     @IBOutlet weak var panDeltaStepper: NSStepper!
     
+    @IBOutlet weak var lblEQDelta: NSTextField!
+    @IBOutlet weak var eqDeltaStepper: NSStepper!
+    
     @IBOutlet weak var lblPitchDelta: NSTextField!
     @IBOutlet weak var pitchDeltaStepper: NSStepper!
     
@@ -55,6 +58,10 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         let panDelta = Int(round(soundPrefs.panDelta * AppConstants.panConversion_audioGraphToUI))
         panDeltaStepper.integerValue = panDelta
         panDeltaAction(self)
+        
+        let eqDelta = soundPrefs.eqDelta
+        eqDeltaStepper.floatValue = eqDelta
+        eqDeltaAction(self)
         
         let pitchDelta = soundPrefs.pitchDelta
         pitchDeltaStepper.integerValue = pitchDelta
@@ -104,6 +111,10 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         lblPanDelta.stringValue = String(format: "%d%%", panDeltaStepper.integerValue)
     }
     
+    @IBAction func eqDeltaAction(_ sender: Any) {
+        lblEQDelta.stringValue = String(format: "%.1lf dB", eqDeltaStepper.floatValue)
+    }
+    
     @IBAction func pitchDeltaAction(_ sender: Any) {
         lblPitchDelta.stringValue = String(format: "%d cents", pitchDeltaStepper.integerValue)
     }
@@ -142,6 +153,8 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         soundPrefs.startupVolumeValue = Float(startupVolumeSlider.integerValue) * AppConstants.volumeConversion_UIToAudioGraph
         
         soundPrefs.panDelta = panDeltaStepper.floatValue * AppConstants.panConversion_UIToAudioGraph
+        
+        soundPrefs.eqDelta = eqDeltaStepper.floatValue
         soundPrefs.pitchDelta = pitchDeltaStepper.integerValue
         soundPrefs.timeDelta = timeDeltaStepper.floatValue
         

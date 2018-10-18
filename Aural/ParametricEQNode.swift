@@ -36,57 +36,57 @@ class ParametricEQNode: AVAudioUnitEQ {
         }
     }
     
-    func increaseBass() -> [Int: Float] {
+    func increaseBass(_ increment: Float) -> [Int: Float] {
         
-        let _ = increaseBandGains(bassBandIndexes)
+        let _ = increaseBandGains(bassBandIndexes, increment)
         return allBands()
     }
     
-    func decreaseBass() -> [Int: Float] {
-        let _ = decreaseBandGains(bassBandIndexes)
+    func decreaseBass(_ decrement: Float) -> [Int: Float] {
+        let _ = decreaseBandGains(bassBandIndexes, decrement)
         return allBands()
     }
     
-    func increaseMids() -> [Int: Float] {
-        let _ = increaseBandGains(midBandIndexes)
+    func increaseMids(_ increment: Float) -> [Int: Float] {
+        let _ = increaseBandGains(midBandIndexes, increment)
         return allBands()
     }
     
-    func decreaseMids() -> [Int: Float] {
-        let _ = decreaseBandGains(midBandIndexes)
+    func decreaseMids(_ decrement: Float) -> [Int: Float] {
+        let _ = decreaseBandGains(midBandIndexes, decrement)
         return allBands()
     }
     
-    func increaseTreble() -> [Int: Float] {
-        let _ = increaseBandGains(trebleBandIndexes)
+    func increaseTreble(_ increment: Float) -> [Int: Float] {
+        let _ = increaseBandGains(trebleBandIndexes, increment)
         return allBands()
     }
     
-    func decreaseTreble() -> [Int: Float] {
-        let _ = decreaseBandGains(trebleBandIndexes)
+    func decreaseTreble(_ decrement: Float) -> [Int: Float] {
+        let _ = decreaseBandGains(trebleBandIndexes, decrement)
         return allBands()
     }
     
-    private func increaseBandGains(_ bandIndexes: [Int]) -> [Int: Float] {
+    private func increaseBandGains(_ bandIndexes: [Int], _ increment: Float) -> [Int: Float] {
         
         var newGainValues = [Int: Float]()
         bandIndexes.forEach({
             
             let band = bands[$0]
-            band.gain = min(band.gain + 1, maxGain)
+            band.gain = min(band.gain + increment, maxGain)
             newGainValues[$0] = band.gain
         })
         
         return newGainValues
     }
     
-    private func decreaseBandGains(_ bandIndexes: [Int]) -> [Int: Float] {
+    private func decreaseBandGains(_ bandIndexes: [Int], _ decrement: Float) -> [Int: Float] {
         
         var newGainValues = [Int: Float]()
         bandIndexes.forEach({
             
             let band = bands[$0]
-            band.gain = max(band.gain - 1, minGain)
+            band.gain = max(band.gain - decrement, minGain)
             newGainValues[$0] = band.gain
         })
         
