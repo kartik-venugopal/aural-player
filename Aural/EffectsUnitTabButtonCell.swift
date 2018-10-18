@@ -1,5 +1,10 @@
 import Cocoa
 
+class EffectsEditorTabButtonCell: EffectsUnitTabButtonCell {
+    
+    override var fillBeforeBorder: Bool {return false}
+}
+
 @IBDesignable
 class EffectsUnitTabButtonCell: NSButtonCell {
     
@@ -7,7 +12,8 @@ class EffectsUnitTabButtonCell: NSButtonCell {
     private let borderInsetY: CGFloat = 2
     private let borderRadius: CGFloat = 2
     
-    private let backgroundFillColor: NSColor = Colors.tabViewButtonBackgroundColor
+    var fillBeforeBorder: Bool {return true}
+    fileprivate var backgroundFillColor: NSColor = Colors.tabViewButtonBackgroundColor
     private let selectionBoxColor: NSColor = Colors.tabViewSelectionBoxColor
     
     private let unselectedTextColor: NSColor = Colors.tabViewButtonTextColor
@@ -44,9 +50,13 @@ class EffectsUnitTabButtonCell: NSButtonCell {
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         
+        if fillBeforeBorder {
+            
+            print("filling")
         // Background
         backgroundFillColor.setFill()
         NSBezierPath.init(rect: cellFrame).fill()
+        }
         
         // Selection box
         if (state.rawValue == 1) {

@@ -49,6 +49,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
         let selection = getSelectedPresetNames()
         EQPresets.deletePresets(selection)
         editorView.reloadData()
+        previewBox.isHidden = true
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
     }

@@ -14,15 +14,15 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     
     @IBOutlet weak var fxPresetsTabView: NSTabView!
     
-    private var fxPresetsTabViewButtons: [EffectsUnitTabButton]?
+    private var fxPresetsTabViewButtons: [NSButton]?
     
-    @IBOutlet weak var masterPresetsTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var eqPresetsTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var pitchPresetsTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var timePresetsTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var reverbPresetsTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var delayPresetsTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var filterPresetsTabViewButton: EffectsUnitTabButton!
+    @IBOutlet weak var masterPresetsTabViewButton: NSButton!
+    @IBOutlet weak var eqPresetsTabViewButton: NSButton!
+    @IBOutlet weak var pitchPresetsTabViewButton: NSButton!
+    @IBOutlet weak var timePresetsTabViewButton: NSButton!
+    @IBOutlet weak var reverbPresetsTabViewButton: NSButton!
+    @IBOutlet weak var delayPresetsTabViewButton: NSButton!
+    @IBOutlet weak var filterPresetsTabViewButton: NSButton!
     
     @IBOutlet weak var btnDelete: NSButton!
     @IBOutlet weak var btnApply: NSButton!
@@ -30,13 +30,16 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     
     override var nibName: String? {return "EffectsPresetsEditor"}
     
-    override func viewDidAppear() {
+    override func viewDidLoad() {
         
         addSubViews()
-        [btnApply, btnRename, btnDelete].forEach({$0.isEnabled = false})
-        tabViewAction(masterPresetsTabViewButton)
-        
         SyncMessenger.subscribe(messageTypes: [.editorSelectionChangedNotification], subscriber: self)
+    }
+    
+    override func viewDidAppear() {
+        
+        [btnApply, btnRename, btnDelete].forEach({$0.isEnabled = false})
+        tabViewAction(eqPresetsTabViewButton)
     }
     
     private func addSubViews() {
