@@ -4,18 +4,29 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     
     @IBOutlet weak var editorView: NSTableView!
     
+    @IBOutlet weak var pitchSlider: NSSlider!
+    @IBOutlet weak var pitchOverlapSlider: NSSlider!
+    @IBOutlet weak var lblPitchValue: NSTextField!
+    @IBOutlet weak var lblPitchOverlapValue: NSTextField!
+    
+    @IBOutlet weak var previewBox: NSBox!
+    
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
     private var oldPresetName: String?
     
     override var nibName: String? {return "PitchPresetsEditor"}
     
+    override func viewDidLoad() {
+        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+    }
+    
     override func viewDidAppear() {
         
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+        previewBox.isHidden = true
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -64,6 +75,18 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .pitch))
     }
     
+    private func renderPreview(_ preset: PitchPreset) {
+        
+        let pitch = preset.pitch * AppConstants.pitchConversion_audioGraphToUI
+        pitchSlider.floatValue = pitch
+        lblPitchValue.stringValue = ValueFormatter.formatPitch(pitch)
+        
+        pitchOverlapSlider.floatValue = preset.overlap
+        lblPitchOverlapValue.stringValue = ValueFormatter.formatOverlap(preset.overlap)
+        
+        previewBox.isHidden = false
+    }
+    
     // MARK: View delegate functions
     
     // Returns the total number of playlist rows
@@ -72,7 +95,16 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        SyncMessenger.publishNotification(EditorSelectionChangedNotification(editorView.numberOfSelectedRows))
+        
+        let numRows = editorView.numberOfSelectedRows
+
+        previewBox.isHidden = numRows != 1
+        
+        if numRows == 1 {
+            renderPreview(PitchPresets.presetByName(getSelectedPresetNames()[0]))
+        }
+        
+        SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
     }
     
     // Returns a view for a single row
