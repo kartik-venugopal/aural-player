@@ -66,22 +66,22 @@ protocol EQUnitProtocol {
     func setEQBands(_ bands: [Int: Float])
     
     // Increases the equalizer bass band gains by a small increment. Returns all EQ band gain values, mapped by index.
-    func increaseBass() -> [Int: Float]
+    func increaseBass(_ increment: Float) -> [Int: Float]
     
     // Decreases the equalizer bass band gains by a small decrement. Returns all EQ band gain values, mapped by index.
-    func decreaseBass() -> [Int: Float]
+    func decreaseBass(_ decrement: Float) -> [Int: Float]
     
     // Increases the equalizer mid-frequency band gains by a small increment. Returns all EQ band gain values, mapped by index.
-    func increaseMids() -> [Int: Float]
+    func increaseMids(_ increment: Float) -> [Int: Float]
     
     // Decreases the equalizer mid-frequency band gains by a small decrement. Returns all EQ band gain values, mapped by index.
-    func decreaseMids() -> [Int: Float]
+    func decreaseMids(_ decrement: Float) -> [Int: Float]
     
     // Increases the equalizer treble band gains by a small increment. Returns all EQ band gain values, mapped by index.
-    func increaseTreble() -> [Int: Float]
+    func increaseTreble(_ increment: Float) -> [Int: Float]
     
     // Decreases the equalizer treble band gains by a small decrement. Returns all EQ band gain values, mapped by index.
-    func decreaseTreble() -> [Int: Float]
+    func decreaseTreble(_ decrement: Float) -> [Int: Float]
     
     func saveEQPreset(_ presetName: String)
     

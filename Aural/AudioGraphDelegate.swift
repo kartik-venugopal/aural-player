@@ -187,37 +187,37 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     func increaseBass() -> [Int : Float] {
         
         ensureEQActive()
-        return graph.increaseBass()
+        return graph.increaseBass(preferences.eqDelta)
     }
     
     func decreaseBass() -> [Int : Float] {
         
         ensureEQActive()
-        return graph.decreaseBass()
+        return graph.decreaseBass(preferences.eqDelta)
     }
     
     func increaseMids() -> [Int : Float] {
         
         ensureEQActive()
-        return graph.increaseMids()
+        return graph.increaseMids(preferences.eqDelta)
     }
     
     func decreaseMids() -> [Int : Float] {
         
         ensureEQActive()
-        return graph.decreaseMids()
+        return graph.decreaseMids(preferences.eqDelta)
     }
     
     func increaseTreble() -> [Int : Float] {
         
         ensureEQActive()
-        return graph.increaseTreble()
+        return graph.increaseTreble(preferences.eqDelta)
     }
     
     func decreaseTreble() -> [Int : Float] {
         
         ensureEQActive()
-        return graph.decreaseTreble()
+        return graph.decreaseTreble(preferences.eqDelta)
     }
     
     // Activates and resets the EQ unit if it is inactive
