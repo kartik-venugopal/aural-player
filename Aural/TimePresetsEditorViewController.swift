@@ -42,6 +42,8 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
         TimePresets.deletePresets(selection)
         editorView.reloadData()
         
+        previewBox.isHidden = true
+        
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
     }
     
