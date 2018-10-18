@@ -47,6 +47,8 @@
                 <outlet property="moveItemsToBottomMenuItem" destination="07J-Mu-hRE" id="VEk-EP-txO"/>
                 <outlet property="moveItemsToTopMenuItem" destination="av2-sE-9MQ" id="DV5-5L-dmS"/>
                 <outlet property="moveItemsUpMenuItem" destination="f3c-TG-M9r" id="tFc-fV-deZ"/>
+                <outlet property="pageDownMenuItem" destination="aHg-LZ-M39" id="upm-yM-qtU"/>
+                <outlet property="pageUpMenuItem" destination="OVI-nb-hI6" id="wAC-Gl-qhP"/>
                 <outlet property="playSelectedItemDelayedMenuItem" destination="Q9h-Nv-Vuv" id="CZO-kT-Je1"/>
                 <outlet property="playSelectedItemMenuItem" destination="afl-Xm-nI9" id="RnQ-Qj-phc"/>
                 <outlet property="removeGapsMenuItem" destination="iK1-11-rDP" id="Rvs-NL-PET"/>
@@ -477,6 +479,18 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="scrollToBottomAction:" target="sXT-Pr-clR" id="C3f-pL-2AA"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Page up" image="PageUp-Small" keyEquivalent="" id="OVI-nb-hI6" userLabel="Page up">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="pageUpAction:" target="sXT-Pr-clR" id="meb-hY-yYP"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Page down" image="PageDown-Small" keyEquivalent="" id="aHg-LZ-M39" userLabel="Page down">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="pageDownAction:" target="sXT-Pr-clR" id="8di-V3-kIw"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -1251,6 +1265,8 @@ CA
         <image name="MoreInfo-Small" width="2.880000114440918" height="2.880000114440918"/>
         <image name="Mute-Small" width="14" height="14"/>
         <image name="NextTrack-Small" width="14" height="8"/>
+        <image name="PageDown-Small" width="12" height="9"/>
+        <image name="PageUp-Small" width="12" height="9"/>
         <image name="PanL-Small" width="12" height="12"/>
         <image name="PanR-Small" width="12" height="12"/>
         <image name="Pause-Small" width="14" height="14"/>

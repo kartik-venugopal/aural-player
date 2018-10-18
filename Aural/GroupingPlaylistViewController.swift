@@ -56,7 +56,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -65,7 +65,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -470,6 +470,73 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         }
     }
     
+    private func pageUp() {
+        
+        // Determine if the first row currently displayed has been truncated so it is not fully visible
+        
+        let firstRowShown = playlistView.rows(in: playlistView.visibleRect).lowerBound
+        let firstRowShown_height = playlistView.rect(ofRow: firstRowShown).height
+        let firstRowShown_minY = playlistView.rect(ofRow: firstRowShown).minY
+        
+        let visibleRect_minY = playlistView.visibleRect.minY
+        
+        let truncationAmount =  visibleRect_minY - firstRowShown_minY
+        let truncationRatio = truncationAmount / firstRowShown_height
+        
+        // If the first row currently displayed has been truncated more than 10%, show it again in the next page
+        
+        let lastRowToShow = truncationRatio > 0.1 ? firstRowShown : firstRowShown - 1
+        let lastRowToShow_maxY = playlistView.rect(ofRow: lastRowToShow).maxY
+        
+        let visibleRect_maxY = playlistView.visibleRect.maxY
+        
+        // Calculate the scroll amount, as a function of the last row to show next, using the visible rect origin (i.e. the top of the first row in the playlist) as the stopping point
+        
+        let scrollAmount = min(playlistView.visibleRect.origin.y, visibleRect_maxY - lastRowToShow_maxY)
+        
+        if scrollAmount > 0 {
+            
+            let up = playlistView.visibleRect.origin.applying(CGAffineTransform.init(translationX: 0, y: -scrollAmount))
+            playlistView.enclosingScrollView!.contentView.scroll(to: up)
+        }
+    }
+    
+    private func pageDown() {
+        
+        // Determine if the last row currently displayed has been truncated so it is not fully visible
+        
+        let visibleRows = playlistView.rows(in: playlistView.visibleRect)
+        
+        let lastRowShown = visibleRows.lowerBound + visibleRows.length - 1
+        let lastRowShown_maxY = playlistView.rect(ofRow: lastRowShown).maxY
+        let lastRowShown_height = playlistView.rect(ofRow: lastRowShown).height
+        
+        let lastRowInPlaylist = playlistView.numberOfRows - 1
+        let lastRowInPlaylist_maxY = playlistView.rect(ofRow: lastRowInPlaylist).maxY
+        
+        // If the first row currently displayed has been truncated more than 10%, show it again in the next page
+        
+        let visibleRect_maxY = playlistView.visibleRect.maxY
+        
+        let truncationAmount = lastRowShown_maxY - visibleRect_maxY
+        let truncationRatio = truncationAmount / lastRowShown_height
+        
+        let firstRowToShow = truncationRatio > 0.1 ? lastRowShown : lastRowShown + 1
+        
+        let visibleRect_originY = playlistView.visibleRect.origin.y
+        let firstRowToShow_originY = playlistView.rect(ofRow: firstRowToShow).origin.y
+        
+        // Calculate the scroll amount, as a function of the first row to show next, using the visible rect maxY (i.e. the bottom of the last row in the playlist) as the stopping point
+        
+        let scrollAmount = min(firstRowToShow_originY - visibleRect_originY, lastRowInPlaylist_maxY - playlistView.visibleRect.maxY)
+        
+        if scrollAmount > 0 {
+            
+            let down = playlistView.visibleRect.origin.applying(CGAffineTransform.init(translationX: 0, y: scrollAmount))
+            playlistView.enclosingScrollView!.contentView.scroll(to: down)
+        }
+    }
+    
     // Selects the currently playing track, within the playlist view
     private func showPlayingTrack() {
         selectTrack(playbackInfo.getPlayingTrackGroupInfo(self.groupType))
@@ -775,6 +842,14 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             case .scrollToBottom:
                 
                 scrollToBottom()
+                
+            case .pageUp:
+                
+                pageUp()
+                
+            case .pageDown:
+                
+                pageDown()
                 
             case .showTrackInFinder:
                 

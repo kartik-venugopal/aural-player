@@ -27,10 +27,14 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var savePlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var clearPlaylistMenuItem: NSMenuItem!
+    
     @IBOutlet weak var searchPlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var sortPlaylistMenuItem: NSMenuItem!
+    
     @IBOutlet weak var scrollToTopMenuItem: NSMenuItem!
     @IBOutlet weak var scrollToBottomMenuItem: NSMenuItem!
+    @IBOutlet weak var pageUpMenuItem: NSMenuItem!
+    @IBOutlet weak var pageDownMenuItem: NSMenuItem!
     
     private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.getPlaylistAccessorDelegate()
     
@@ -55,7 +59,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, moveItemsToBottomMenuItem, removeSelectedItemsMenuItem].forEach({$0?.isEnabled = !showingDialogOrPopover && PlaylistViewState.currentView.selectedRow >= 0})
         
         // These menu items require 1 - the playlist to be visible, and 2 - at least one track in the playlist
-        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, invertSelectionMenuItem].forEach({$0?.isEnabled = playlist.size() > 0})
+        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, pageUpMenuItem, pageDownMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, invertSelectionMenuItem].forEach({$0?.isEnabled = playlist.size() > 0})
         
         // At least 2 tracks needed for these functions, and at least one track selected
         [moveItemsToTopMenuItem, moveItemsToBottomMenuItem, cropSelectionMenuItem].forEach({$0?.isEnabled = playlist.size() > 1 && PlaylistViewState.currentView.selectedRow >= 0})
@@ -220,6 +224,13 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     // Scrolls the current playlist view to the very bottom
     @IBAction func scrollToBottomAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.scrollToBottom, PlaylistViewState.current))
+    }
+    
+    @IBAction func pageUpAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.pageUp, PlaylistViewState.current))
+    }
+    @IBAction func pageDownAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.pageDown, PlaylistViewState.current))
     }
     
     // Publishes a notification that the playback sequence may have changed, so that interested UI observers may update their views if necessary
