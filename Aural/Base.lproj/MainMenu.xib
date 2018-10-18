@@ -40,8 +40,12 @@
             <connections>
                 <outlet property="clearPlaylistMenuItem" destination="ec2-Jm-I4M" id="EHN-Pi-SW4"/>
                 <outlet property="clearSelectionMenuItem" destination="y60-Ih-ViK" id="UHW-zF-nLv"/>
+                <outlet property="collapseAllGroupsMenuItem" destination="vBe-YK-qXP" id="uNq-A9-nfW"/>
+                <outlet property="collapseSelectedGroupsMenuItem" destination="t2f-1t-8Uh" id="0bT-1W-ega"/>
                 <outlet property="cropSelectionMenuItem" destination="yml-EW-5wq" id="bpz-aE-Smf"/>
                 <outlet property="editGapsMenuItem" destination="y39-3c-GVk" id="H1v-4Z-ze8"/>
+                <outlet property="expandAllGroupsMenuItem" destination="Sls-KQ-Exg" id="dka-Gd-bKT"/>
+                <outlet property="expandSelectedGroupsMenuItem" destination="bgZ-UF-jHK" id="QKY-C8-Uh0"/>
                 <outlet property="insertGapsMenuItem" destination="9iu-he-pRn" id="IS7-Q2-4Hw"/>
                 <outlet property="invertSelectionMenuItem" destination="y60-Ih-ViK" id="7jl-OV-pOp"/>
                 <outlet property="moveItemsDownMenuItem" destination="F5x-Nm-ust" id="cAv-w8-JMV"/>
@@ -464,6 +468,31 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Epc-oG-Po5"/>
+                            <menuItem title="  Expand selected groups" keyEquivalent="/" id="bgZ-UF-jHK" userLabel="Expand selected groups">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="expandSelectedGroupsAction:" target="sXT-Pr-clR" id="vvf-uQ-9kx"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Collapse selected groups" keyEquivalent="." id="t2f-1t-8Uh" userLabel="Collapse selected groups">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="collapseSelectedGroupsAction:" target="sXT-Pr-clR" id="aiF-NB-YFo"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Expand all groups" keyEquivalent="/" id="Sls-KQ-Exg" userLabel="Expand all groups">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="expandAllGroupsAction:" target="sXT-Pr-clR" id="z4e-po-fu5"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Collapse all groups" keyEquivalent="." id="vBe-YK-qXP" userLabel="Collapse all groups">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="collapseAllGroupsAction:" target="sXT-Pr-clR" id="Zdp-pO-9F5"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Qlz-cM-3y9"/>
                             <menuItem title=" Search playlist" image="Search-Small" keyEquivalent="f" id="Pxd-7C-8tq">
                                 <connections>
                                     <action selector="playlistSearchAction:" target="sXT-Pr-clR" id="i4v-Sr-0DH"/>

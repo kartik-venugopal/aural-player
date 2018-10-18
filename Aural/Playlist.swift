@@ -133,6 +133,8 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         
         // Remove all the file path mappings
         tracksByFilePath.removeAll()
+        gapsBefore.removeAll()
+        gapsAfter.removeAll()
     }
     
     func search(_ searchQuery: SearchQuery, _ playlistType: PlaylistType) -> SearchResults {

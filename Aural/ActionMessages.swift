@@ -80,6 +80,14 @@ enum ActionType {
     // Crop selection
     case cropSelection
     
+    case expandSelectedGroups
+    
+    case collapseSelectedGroups
+    
+    case expandAllGroups
+    
+    case collapseAllGroups
+    
     // Scroll to the top of the playlist
     case scrollToTop
     

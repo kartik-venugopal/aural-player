@@ -56,7 +56,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedGroups, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -65,7 +65,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedGroups, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -445,6 +445,50 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             }
             
             playlist.removeTracksAndGroups(tracks, groups, groupType)
+        }
+    }
+    
+    private func expandSelectedGroups() {
+        
+        // Need to sort in descending order because expanding a group will change the row indexes of other selected items :)
+        let sortedIndexes = playlistView.selectedRowIndexes.sorted(by: {x, y -> Bool in x > y})
+        sortedIndexes.forEach({playlistView.expandItem(playlistView.item(atRow: $0))})
+    }
+    
+    private func collapseSelectedGroups() {
+        
+        // Need to sort in descending order because collapsing a group will change the row indexes of other selected items :)
+        let sortedIndexes = playlistView.selectedRowIndexes.sorted(by: {x, y -> Bool in x > y})
+        sortedIndexes.forEach({playlistView.collapseItem(playlistView.item(atRow: $0))})
+    }
+    
+    private func expandAllGroups() {
+        
+        // Need to sort in descending order because expanding a group will change the row indexes of other selected items :)
+        let numGroups = playlist.numberOfGroups(self.groupType)
+        
+        if numGroups > 0 {
+            
+            for groupIndex in 0..<numGroups {
+                
+                let group = playlist.groupAtIndex(self.groupType, groupIndex)
+                playlistView.expandItem(group)
+            }
+        }
+    }
+    
+    private func collapseAllGroups() {
+        
+        // Need to sort in descending order because expanding a group will change the row indexes of other selected items :)
+        let numGroups = playlist.numberOfGroups(self.groupType)
+        
+        if numGroups > 0 {
+            
+            for groupIndex in 0..<numGroups {
+                
+                let group = playlist.groupAtIndex(self.groupType, groupIndex)
+                playlistView.collapseItem(group)
+            }
         }
     }
     
@@ -860,6 +904,22 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             case .cropSelection:
                 
                 cropSelection()
+                
+            case .expandSelectedGroups:
+                
+                expandSelectedGroups()
+                
+            case .collapseSelectedGroups:
+                
+                collapseSelectedGroups()
+                
+            case .expandAllGroups:
+                
+                expandAllGroups()
+                
+            case .collapseAllGroups:
+                
+                collapseAllGroups()
                 
             default: return
                 

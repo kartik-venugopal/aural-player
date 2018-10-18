@@ -26,6 +26,11 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var invertSelectionMenuItem: NSMenuItem!
     @IBOutlet weak var cropSelectionMenuItem: NSMenuItem!
     
+    @IBOutlet weak var expandSelectedGroupsMenuItem: NSMenuItem!
+    @IBOutlet weak var collapseSelectedGroupsMenuItem: NSMenuItem!
+    @IBOutlet weak var expandAllGroupsMenuItem: NSMenuItem!
+    @IBOutlet weak var collapseAllGroupsMenuItem: NSMenuItem!
+    
     @IBOutlet weak var savePlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var clearPlaylistMenuItem: NSMenuItem!
     
@@ -55,17 +60,21 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             return
         }
         
+        let playlistSize = playlist.size()
+        let playlistNotEmpty = playlistSize > 0
+        let atLeastOneItemSelected = PlaylistViewState.currentView.selectedRow >= 0
+        
         // These menu items require 1 - the playlist to be visible, and 2 - at least one playlist item to be selected
         let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
-        [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, moveItemsToBottomMenuItem, removeSelectedItemsMenuItem].forEach({$0?.isEnabled = !showingDialogOrPopover && PlaylistViewState.currentView.selectedRow >= 0})
+        [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, moveItemsToBottomMenuItem, removeSelectedItemsMenuItem].forEach({$0?.isEnabled = !showingDialogOrPopover && atLeastOneItemSelected})
         
         // These menu items require 1 - the playlist to be visible, and 2 - at least one track in the playlist
-        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, pageUpMenuItem, pageDownMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, invertSelectionMenuItem].forEach({$0?.isEnabled = playlist.size() > 0})
+        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, pageUpMenuItem, pageDownMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, invertSelectionMenuItem].forEach({$0?.isEnabled = playlistNotEmpty})
         
         // At least 2 tracks needed for these functions, and at least one track selected
-        [moveItemsToTopMenuItem, moveItemsToBottomMenuItem, cropSelectionMenuItem].forEach({$0?.isEnabled = playlist.size() > 1 && PlaylistViewState.currentView.selectedRow >= 0})
+        [moveItemsToTopMenuItem, moveItemsToBottomMenuItem, cropSelectionMenuItem].forEach({$0?.isEnabled = playlistSize > 1 && atLeastOneItemSelected})
         
-        clearSelectionMenuItem.isEnabled = playlist.size() > 0 && PlaylistViewState.currentView.selectedRow >= 0
+        clearSelectionMenuItem.isEnabled = playlistNotEmpty && atLeastOneItemSelected
         
         // Make sure it's a track, not a group, and that only one track is selected
         if PlaylistViewState.currentView.numberOfSelectedRows == 1 {
@@ -88,6 +97,25 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         }
         
         playSelectedItemDelayedMenuItem.isEnabled = PlaylistViewState.currentView.numberOfSelectedRows == 1
+        
+        [expandSelectedGroupsMenuItem, collapseSelectedGroupsMenuItem].forEach({
+            $0?.isHidden = PlaylistViewState.current == .tracks
+            $0?.isEnabled = atLeastOneItemSelected && areOnlyGroupsSelected()
+        })
+        [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.isHidden = !(PlaylistViewState.current != .tracks && playlistNotEmpty)})
+    }
+    
+    private func areOnlyGroupsSelected() -> Bool {
+        
+        let items = PlaylistViewState.selectedItems
+        
+        for item in items {
+            if item.type != .group {
+                return false
+            }
+        }
+        
+        return true
     }
     
     // Assumes only one item selected, and that it's a track
@@ -221,6 +249,22 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func cropSelectionAction(_ sender: Any) {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.cropSelection, PlaylistViewState.current))
         sequenceChanged()
+    }
+    
+    @IBAction func expandSelectedGroupsAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.expandSelectedGroups, PlaylistViewState.current))
+    }
+    
+    @IBAction func collapseSelectedGroupsAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.collapseSelectedGroups, PlaylistViewState.current))
+    }
+    
+    @IBAction func expandAllGroupsAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.expandAllGroups, PlaylistViewState.current))
+    }
+    
+    @IBAction func collapseAllGroupsAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.collapseAllGroups, PlaylistViewState.current))
     }
     
     // Scrolls the current playlist view to the very top
