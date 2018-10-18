@@ -29,6 +29,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     override func viewDidLoad() {
         
         eqSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
+        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -36,8 +37,6 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
         editorView.reloadData()
         editorView.deselectAll(self)
         previewBox.isHidden = true
-        
-        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {

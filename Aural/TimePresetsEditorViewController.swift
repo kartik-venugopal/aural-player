@@ -4,18 +4,32 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     
     @IBOutlet weak var editorView: NSTableView!
     
+    @IBOutlet weak var btnShiftPitch: NSButton!
+    @IBOutlet weak var timeSlider: NSSlider!
+    @IBOutlet weak var timeOverlapSlider: NSSlider!
+    
+    @IBOutlet weak var lblTimeStretchRateValue: NSTextField!
+    @IBOutlet weak var lblPitchShiftValue: NSTextField!
+    @IBOutlet weak var lblTimeOverlapValue: NSTextField!
+    
+    @IBOutlet weak var previewBox: NSBox!
+    
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
     private var oldPresetName: String?
     
     override var nibName: String? {return "TimePresetsEditor"}
     
+    override func viewDidLoad() {
+        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+    }
+    
     override func viewDidAppear() {
         
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+        previewBox.isHidden = true
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -64,6 +78,21 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .time))
     }
     
+    private func renderPreview(_ preset: TimePreset) {
+        
+        btnShiftPitch.state = NSControl.StateValue(rawValue: preset.pitchShift ? 1 : 0)
+        let pitchShift = (preset.pitchShift ? 1200 * log2(preset.rate) : 0) * AppConstants.pitchConversion_audioGraphToUI
+        lblPitchShiftValue.stringValue = ValueFormatter.formatPitch(pitchShift)
+        
+        timeSlider.floatValue = preset.rate
+        lblTimeStretchRateValue.stringValue = ValueFormatter.formatTimeStretchRate(preset.rate)
+        
+        timeOverlapSlider.floatValue = preset.overlap
+        lblTimeOverlapValue.stringValue = ValueFormatter.formatOverlap(preset.overlap)
+        
+        previewBox.isHidden = false
+    }
+    
     // MARK: View delegate functions
     
     // Returns the total number of playlist rows
@@ -72,7 +101,16 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        SyncMessenger.publishNotification(EditorSelectionChangedNotification(editorView.numberOfSelectedRows))
+        
+        let numRows = editorView.numberOfSelectedRows
+        
+        previewBox.isHidden = numRows != 1
+        
+        if numRows == 1 {
+            renderPreview(TimePresets.presetByName(getSelectedPresetNames()[0]))
+        }
+        
+        SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
     }
     
     // Returns a view for a single row
