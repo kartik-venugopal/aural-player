@@ -39,6 +39,7 @@
         <customObject id="sXT-Pr-clR" customClass="PlaylistMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="clearPlaylistMenuItem" destination="ec2-Jm-I4M" id="EHN-Pi-SW4"/>
+                <outlet property="clearSelectionMenuItem" destination="y60-Ih-ViK" id="UHW-zF-nLv"/>
                 <outlet property="cropSelectionMenuItem" destination="yml-EW-5wq" id="bpz-aE-Smf"/>
                 <outlet property="editGapsMenuItem" destination="y39-3c-GVk" id="H1v-4Z-ze8"/>
                 <outlet property="insertGapsMenuItem" destination="9iu-he-pRn" id="IS7-Q2-4Hw"/>
@@ -407,10 +408,16 @@ DQ
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="15x-8w-Stx"/>
-                            <menuItem title=" Invert selection" image="InvertSelection-Small" id="y60-Ih-ViK" userLabel="Invert selection">
+                            <menuItem title=" Clear selection" image="InvertSelection-Small" id="y60-Ih-ViK" userLabel="Clear selection">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="invertSelectionAction:" target="sXT-Pr-clR" id="wgT-9m-4jm"/>
+                                    <action selector="clearSelectionAction:" target="sXT-Pr-clR" id="TuU-uT-Adg"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Invert selection" image="InvertSelection-Small" id="mNx-Xb-Z6H" userLabel="Invert selection">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="invertSelectionAction:" target="sXT-Pr-clR" id="b0a-lB-qWT"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Crop selection" image="CropSelection-Small" id="yml-EW-5wq" userLabel="Crop selection">

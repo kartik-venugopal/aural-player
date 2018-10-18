@@ -42,7 +42,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -87,7 +87,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     private func removeTracks() {
         
         let selectedIndexes = playlistView.selectedRowIndexes
-        if (selectedIndexes.count > 0) {
+        if (!selectedIndexes.isEmpty) {
             
             // Special case: If all tracks were removed, this is the same as clearing the playlist, delegate to that (simpler and more efficient) function instead.
             if (selectedIndexes.count == playlistView.numberOfRows) {
@@ -95,12 +95,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
                 return
             }
             
-            if (!selectedIndexes.isEmpty) {
-                playlist.removeTracks(selectedIndexes)
-                
-                // Clear the playlist selection
-                playlistView.deselectAll(self)
-            }
+            playlist.removeTracks(selectedIndexes)
+            
+            // Clear the playlist selection
+            clearSelection()
         }
     }
     
@@ -362,13 +360,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
     
     private func trackChanged(_ message: TrackChangedNotification) {
         
-        let selRows = playlistView.selectedRowIndexes
-        
         let oldTrack = message.oldTrack
         let newTrack = message.newTrack
         
         var refreshIndexes = [Int]()
-        refreshIndexes.append(contentsOf: selRows)
         
         if (oldTrack != nil) {
             refreshIndexes.append(oldTrack!.index)
@@ -401,7 +396,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         } else {
             
             if needToShowTrack {
-                playlistView.deselectAll(self)
+                clearSelection()
             }
         }
         
@@ -427,6 +422,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
         
         let selTrack = playlist.trackAtIndex(playlistView.selectedRow)
         FileSystemUtils.showFileInFinder((selTrack?.track.file)!)
+    }
+    
+    private func clearSelection() {
+        playlistView.selectRowIndexes(IndexSet([]), byExtendingSelection: false)
     }
     
     private func invertSelection() {
@@ -644,6 +643,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, AsyncMe
             case .showTrackInFinder:
                 
                 showTrackInFinder()
+                
+            case .clearSelection:
+                
+                clearSelection()
                 
             case .invertSelection:
                 

@@ -56,7 +56,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -65,7 +65,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         
         SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .searchResultSelectionRequest, .gapUpdatedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -418,13 +418,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
     }
     
     private func clearSelection() {
-        
-        let selItems = collectTracksAndGroups()
-        
-        // Clear the selection
-        playlistView.deselectAll(self)
-        selItems.groups.forEach({playlistView.reloadItem($0)})
-        selItems.tracks.forEach({playlistView.reloadItem($0)})
+        playlistView.selectRowIndexes(IndexSet([]), byExtendingSelection: false)
     }
     
     private func cropSelection() {
@@ -854,6 +848,10 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
             case .showTrackInFinder:
                 
                 showTrackInFinder()
+                
+            case .clearSelection:
+                
+                clearSelection()
                 
             case .invertSelection:
                 
