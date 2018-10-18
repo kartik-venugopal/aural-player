@@ -9,13 +9,7 @@
 \
 *** Color schemes (light, dark, brown, etc)\
 \
-When loading a large playlist on app startup, the Now playing scope label shows 1/0 if autoplay is enabled. Because sequence is updated only after the add is complete. Can we improve this without causing concurrency problems in PlaybackSequencer.updateSequence() ?\
-\
 Make the Playlist right-click context menu applicable to multiple item selections, not just single items\
-\
-Playlist > Clear selection function\
-\
-*** Group playlists: New function: Expand all groups\
 \
 "Preview track"  feature ? "Play first few seconds / last few seconds" ???\
 \
@@ -26,6 +20,8 @@ Catch-all exception handling of AppStateIO.readAppState() to prevent app crashes
 Make Main window and FX window resizable (adjust layout manager code accordingly)\
 \
 Revisit Main window UI - Now Playing and Player boxes (auto hide seek bar and seek times ?)\
+\
+When loading a large playlist on app startup, the Now playing scope label shows 1/0 if autoplay is enabled. Because sequence is updated only after the add is complete. Can we improve this without causing concurrency problems in PlaybackSequencer.updateSequence() ?\
 \
 Profiling: Look at memory usage - ID3 metadata 150 MB for 419 tracks\
 \

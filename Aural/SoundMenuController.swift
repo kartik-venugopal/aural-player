@@ -51,6 +51,8 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     private let preferences: SoundPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().soundPreferences
     
+    private let presetsEditor: EditorWindowController = WindowFactory.getEditorWindowController()
+    
     // One-time setup.
     override func awakeFromNib() {
         
@@ -128,7 +130,8 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     // Toggles the master bypass switch
     @IBAction func masterBypassAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(graph.isMasterBypass() ? .enableEffects : .disableEffects))
+//        SyncMessenger.publishActionMessage(AudioGraphActionMessage(graph.isMasterBypass() ? .enableEffects : .disableEffects))
+        presetsEditor.showEffectsPresetsEditor()
     }
     
     // Decreases each of the EQ bass bands by a certain preset decrement
