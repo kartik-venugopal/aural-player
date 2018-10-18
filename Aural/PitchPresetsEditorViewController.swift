@@ -39,6 +39,8 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         PitchPresets.deletePresets(selection)
         editorView.reloadData()
         
+        previewBox.isHidden = true
+        
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
     }
     

@@ -4,18 +4,28 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     @IBOutlet weak var editorView: NSTableView!
     
+    @IBOutlet weak var reverbSpaceMenu: NSPopUpButton!
+    @IBOutlet weak var reverbAmountSlider: NSSlider!
+    @IBOutlet weak var lblReverbAmountValue: NSTextField!
+    
+    @IBOutlet weak var previewBox: NSBox!
+    
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
     private var oldPresetName: String?
     
     override var nibName: String? {return "ReverbPresetsEditor"}
     
+    override func viewDidLoad() {
+        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+    }
+    
     override func viewDidAppear() {
         
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+        previewBox.isHidden = true
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -27,6 +37,8 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
         let selection = getSelectedPresetNames()
         ReverbPresets.deletePresets(selection)
         editorView.reloadData()
+        
+        previewBox.isHidden = true
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
     }
@@ -64,6 +76,16 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .reverb))
     }
     
+    private func renderPreview(_ preset: ReverbPreset) {
+        
+        reverbSpaceMenu.select(reverbSpaceMenu.item(withTitle: preset.space.description))
+        
+        reverbAmountSlider.floatValue = preset.amount
+        lblReverbAmountValue.stringValue = ValueFormatter.formatReverbAmount(preset.amount)
+        
+        previewBox.isHidden = false
+    }
+    
     // MARK: View delegate functions
     
     // Returns the total number of playlist rows
@@ -72,7 +94,16 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        SyncMessenger.publishNotification(EditorSelectionChangedNotification(editorView.numberOfSelectedRows))
+        
+        let numRows = editorView.numberOfSelectedRows
+        
+        previewBox.isHidden = numRows != 1
+        
+        if numRows == 1 {
+            renderPreview(ReverbPresets.presetByName(getSelectedPresetNames()[0])!)
+        }
+        
+        SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
     }
     
     // Returns a view for a single row
