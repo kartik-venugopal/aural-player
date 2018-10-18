@@ -14,6 +14,12 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     @IBOutlet weak var lblPanDelta: NSTextField!
     @IBOutlet weak var panDeltaStepper: NSStepper!
     
+    @IBOutlet weak var lblPitchDelta: NSTextField!
+    @IBOutlet weak var pitchDeltaStepper: NSStepper!
+    
+    @IBOutlet weak var lblTimeDelta: NSTextField!
+    @IBOutlet weak var timeDeltaStepper: NSStepper!
+    
     @IBOutlet weak var btnRememberEffectsOnStartup: NSButton!
     @IBOutlet weak var btnApplyPresetOnStartup: NSButton!
     @IBOutlet weak var masterPresetsMenu: NSPopUpButton!
@@ -48,7 +54,15 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         let panDelta = Int(round(soundPrefs.panDelta * AppConstants.panConversion_audioGraphToUI))
         panDeltaStepper.integerValue = panDelta
-        lblPanDelta.stringValue = String(format: "%d%%", panDelta)
+        panDeltaAction(self)
+        
+        let pitchDelta = soundPrefs.pitchDelta
+        pitchDeltaStepper.integerValue = pitchDelta
+        pitchDeltaAction(self)
+        
+        let timeDelta = soundPrefs.timeDelta
+        timeDeltaStepper.floatValue = timeDelta
+        timeDeltaAction(self)
         
         if soundPrefs.effectsSettingsOnStartupOption == .rememberFromLastAppLaunch {
             btnRememberEffectsOnStartup.state = UIConstants.buttonState_1
@@ -89,6 +103,14 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     @IBAction func panDeltaAction(_ sender: Any) {
         lblPanDelta.stringValue = String(format: "%d%%", panDeltaStepper.integerValue)
     }
+    
+    @IBAction func pitchDeltaAction(_ sender: Any) {
+        lblPitchDelta.stringValue = String(format: "%d cents", pitchDeltaStepper.integerValue)
+    }
+    
+    @IBAction func timeDeltaAction(_ sender: Any) {
+        lblTimeDelta.stringValue = String(format: "%.2lfx", timeDeltaStepper.floatValue)
+    }
 
     @IBAction func startupVolumeButtonAction(_ sender: Any) {
         [startupVolumeSlider, lblStartupVolume].forEach({$0.isEnabled = Bool(btnSpecifyVolume.state.rawValue)})
@@ -120,6 +142,8 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         soundPrefs.startupVolumeValue = Float(startupVolumeSlider.integerValue) * AppConstants.volumeConversion_UIToAudioGraph
         
         soundPrefs.panDelta = panDeltaStepper.floatValue * AppConstants.panConversion_UIToAudioGraph
+        soundPrefs.pitchDelta = pitchDeltaStepper.integerValue
+        soundPrefs.timeDelta = timeDeltaStepper.floatValue
         
         soundPrefs.effectsSettingsOnStartupOption = btnRememberEffectsOnStartup.state == UIConstants.buttonState_1 ? .rememberFromLastAppLaunch : .applyMasterPreset
         

@@ -16,10 +16,14 @@
                 <outlet property="btnRememberVolume" destination="OPY-0e-flD" id="oeS-cC-KLi"/>
                 <outlet property="btnSpecifyVolume" destination="pac-bb-dRC" id="KPk-Qz-vuv"/>
                 <outlet property="lblPanDelta" destination="bbm-7J-t6p" id="gDl-DV-jDL"/>
+                <outlet property="lblPitchDelta" destination="cBh-5a-sGE" id="6Qh-1E-g6Z"/>
                 <outlet property="lblStartupVolume" destination="zd7-Jo-NAm" id="ARg-5D-e13"/>
+                <outlet property="lblTimeDelta" destination="Olr-u5-HZY" id="wZI-wb-lfU"/>
                 <outlet property="masterPresetsMenu" destination="Lvv-S2-ojY" id="p29-5C-JPT"/>
                 <outlet property="panDeltaStepper" destination="3ff-Ne-aOf" id="gg8-Gy-SZb"/>
+                <outlet property="pitchDeltaStepper" destination="87x-lR-h9b" id="hGq-Kb-Muk"/>
                 <outlet property="startupVolumeSlider" destination="HYw-Od-8K6" id="Wll-EM-xCr"/>
+                <outlet property="timeDeltaStepper" destination="w86-tN-oiq" id="xZm-0C-abo"/>
                 <outlet property="view" destination="ADk-4h-E7s" id="8AJ-pj-jzB"/>
                 <outlet property="volumeDeltaField" destination="c8Y-mu-4NB" id="dUS-dq-vJL"/>
                 <outlet property="volumeDeltaStepper" destination="fH7-I4-NvB" id="eRq-6I-zXU"/>
@@ -187,6 +191,27 @@
                         <action selector="panDeltaAction:" target="-2" id="ons-lY-NPP"/>
                     </connections>
                 </stepper>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cBh-5a-sGE" userLabel="Pan Delta Field">
+                    <rect key="frame" x="285" y="76" width="76" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="100 cents" id="Ak5-LK-kXa">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Xvz-O1-T1i">
+                            <real key="minimum" value="3"/>
+                            <real key="maximum" value="30"/>
+                        </numberFormatter>
+                        <font key="font" size="11" name="GillSans"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="87x-lR-h9b" userLabel="Pan Delta Stepper">
+                    <rect key="frame" x="361" y="75" width="15" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" increment="5" minValue="5" maxValue="2400" doubleValue="100" id="4cU-Q8-O9g"/>
+                    <connections>
+                        <action selector="pitchDeltaAction:" target="-2" id="mzZ-93-zJS"/>
+                    </connections>
+                </stepper>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vWy-Oi-wOV">
                     <rect key="frame" x="18" y="345" width="186" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -229,6 +254,45 @@
                         <action selector="rememberSettingsRadioButtonAction:" target="-2" id="6dB-NG-Xji"/>
                     </connections>
                 </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jxR-jK-p05" userLabel="Volume Increment Label">
+                    <rect key="frame" x="18" y="78" width="198" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Pitch shift increment / decrement" id="R34-xM-Eub">
+                        <font key="font" size="13" name="GillSans"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cyn-wd-aSP" userLabel="Volume Increment Label">
+                    <rect key="frame" x="18" y="44" width="211" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playback rate increment / decrement" id="fCT-ag-LGh">
+                        <font key="font" size="13" name="GillSans"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Olr-u5-HZY" userLabel="Pan Delta Field">
+                    <rect key="frame" x="314" y="42" width="47" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="0.05x" id="J2O-Tp-4as">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="aog-Ng-Kr1">
+                            <real key="minimum" value="3"/>
+                            <real key="maximum" value="30"/>
+                        </numberFormatter>
+                        <font key="font" size="11" name="GillSans"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w86-tN-oiq" userLabel="Pan Delta Stepper">
+                    <rect key="frame" x="361" y="41" width="15" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" increment="0.01" minValue="0.01" maxValue="1" doubleValue="0.050000000000000003" id="VD6-El-Gyk"/>
+                    <connections>
+                        <action selector="timeDeltaAction:" target="-2" id="5V0-D8-jgY"/>
+                    </connections>
+                </stepper>
             </subviews>
             <point key="canvasLocation" x="139" y="153"/>
         </view>

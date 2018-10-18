@@ -293,7 +293,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
             graph.setPitch(AppDefaults.pitch)
         }
         
-        let newPitch = min(2400, graph.getPitch() + 100)
+        // TODO: Put this value in a constant
+        let newPitch = min(2400, graph.getPitch() + Float(preferences.pitchDelta))
         graph.setPitch(newPitch)
         
         // Convert from cents to octaves
@@ -311,7 +312,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
             graph.setPitch(AppDefaults.pitch)
         }
         
-        let newPitch = max(-2400, graph.getPitch() - 100)
+        // TODO: Put this value in a constant
+        let newPitch = max(-2400, graph.getPitch() - Float(preferences.pitchDelta))
         graph.setPitch(newPitch)
         
         // Convert from cents to octaves
@@ -375,7 +377,9 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         // Volume is increased by an amount set in the user preferences
         
         let curRate = graph.getTimeStretchRate()
-        let newRate = min(4, curRate + 0.05)
+        
+        // TODO: Put this value in a constant
+        let newRate = min(4, curRate + preferences.timeDelta)
         graph.setTimeStretchRate(newRate)
         
         return (newRate, ValueFormatter.formatTimeStretchRate(newRate))
@@ -393,7 +397,9 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         // Volume is increased by an amount set in the user preferences
         
         let curRate = graph.getTimeStretchRate()
-        let newRate = max(0.25, curRate - 0.05)
+        
+        // TODO: Put this value in a constant
+        let newRate = max(0.25, curRate - preferences.timeDelta)
         graph.setTimeStretchRate(newRate)
         
         return (newRate, ValueFormatter.formatTimeStretchRate(newRate))

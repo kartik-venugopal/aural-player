@@ -173,6 +173,9 @@ class SoundPreferences: PersistentPreferencesProtocol {
     
     var panDelta: Float
     
+    var pitchDelta: Int
+    var timeDelta: Float
+    
     var effectsSettingsOnStartupOption: EffectsSettingsStartupOptions
     var masterPresetOnStartup_name: String?
     
@@ -201,6 +204,9 @@ class SoundPreferences: PersistentPreferencesProtocol {
         startupVolumeValue = defaultsDictionary["sound.volumeOnStartup.value"] as? Float ?? PreferencesDefaults.Sound.startupVolumeValue
         
         panDelta = defaultsDictionary["sound.panDelta"] as? Float ?? PreferencesDefaults.Sound.panDelta
+        
+        pitchDelta = defaultsDictionary["sound.pitchDelta"] as? Int ?? PreferencesDefaults.Sound.pitchDelta
+        timeDelta = defaultsDictionary["sound.timeDelta"] as? Float ?? PreferencesDefaults.Sound.timeDelta
         
         if let effectsSettingsOnStartupOptionStr = defaultsDictionary["sound.effectsSettingsOnStartup.option"] as? String {
             effectsSettingsOnStartupOption = EffectsSettingsStartupOptions(rawValue: effectsSettingsOnStartupOptionStr) ?? PreferencesDefaults.Sound.effectsSettingsOnStartupOption
@@ -232,6 +238,9 @@ class SoundPreferences: PersistentPreferencesProtocol {
         defaults.set(startupVolumeValue, forKey: "sound.volumeOnStartup.value")
         
         defaults.set(panDelta, forKey: "sound.panDelta")
+        
+        defaults.set(pitchDelta, forKey: "sound.pitchDelta")
+        defaults.set(timeDelta, forKey: "sound.timeDelta")
         
         defaults.set(effectsSettingsOnStartupOption.rawValue, forKey: "sound.effectsSettingsOnStartup.option")
         defaults.set(masterPresetOnStartup_name, forKey: "sound.effectsSettingsOnStartup.masterPreset")
@@ -450,6 +459,9 @@ fileprivate struct PreferencesDefaults {
         static let startupVolumeValue: Float = 0.5
         
         static let panDelta: Float = 0.1
+        
+        static let pitchDelta: Int = 100
+        static let timeDelta: Float = 0.05
         
         static let effectsSettingsOnStartupOption: EffectsSettingsStartupOptions = .rememberFromLastAppLaunch
         static let masterPresetOnStartup_name: String? = nil
