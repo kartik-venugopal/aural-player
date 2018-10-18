@@ -517,4 +517,35 @@ class PlaylistViewState {
             return SelectedItem(index: currentView.selectedRow)
         }
     }
+    
+    static var selectedItems: [SelectedItem] {
+        
+        let selRows = currentView.selectedRowIndexes
+        var items: [SelectedItem] = []
+        
+        if let outlineView = currentView as? AuralPlaylistOutlineView {
+            
+            // Grouping view
+            for row in selRows {
+                
+                let item = outlineView.item(atRow: row)
+                
+                if let group = item as? Group {
+                    items.append(SelectedItem(group: group))
+                } else {
+                    // Track
+                    items.append(SelectedItem(track: item as! Track))
+                }
+            }
+            
+        } else {
+            
+            for row in selRows {
+                // Tracks view
+                items.append(SelectedItem(index: row))
+            }
+        }
+        
+        return items
+    }
 }

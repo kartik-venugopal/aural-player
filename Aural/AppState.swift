@@ -1208,6 +1208,11 @@ class PlaylistState: PersistentState {
         return (gapsBeforeMap[track.file], gapsAfterMap[track.file])
     }
     
+    func removeGapsForTrack(_ track: Track) {
+        gapsBeforeMap.removeValue(forKey: track.file)
+        gapsAfterMap.removeValue(forKey: track.file)
+    }
+    
     func toSerializableMap() -> NSDictionary {
         
         var map = [NSString: AnyObject]()
