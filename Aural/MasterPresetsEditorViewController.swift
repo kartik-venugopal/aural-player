@@ -175,6 +175,9 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
                 
                 switch msg.actionType {
                     
+                case .reloadPresets:
+                    viewDidAppear()
+                    
                 case .renameEffectsPreset:
                     renamePresetAction()
                     

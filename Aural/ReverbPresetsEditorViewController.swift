@@ -17,7 +17,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     override var nibName: String? {return "ReverbPresetsEditor"}
     
     override func viewDidLoad() {
-        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -205,6 +205,9 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
             if msg.effectsPresetsUnit == .reverb {
                 
                 switch msg.actionType {
+                    
+                case .reloadPresets:
+                    viewDidAppear()
                     
                 case .renameEffectsPreset:
                     renamePresetAction()

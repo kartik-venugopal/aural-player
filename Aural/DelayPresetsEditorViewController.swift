@@ -23,7 +23,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     override var nibName: String? {return "DelayPresetsEditor"}
     
     override func viewDidLoad() {
-        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -220,6 +220,9 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
             if msg.effectsPresetsUnit == .delay {
                 
                 switch msg.actionType {
+                    
+                case .reloadPresets:
+                    viewDidAppear()
                     
                 case .renameEffectsPreset:
                     renamePresetAction()

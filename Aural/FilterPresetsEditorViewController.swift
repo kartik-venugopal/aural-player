@@ -4,18 +4,48 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     @IBOutlet weak var editorView: NSTableView!
     
+    @IBOutlet weak var filterBassSlider: RangeSlider!
+    @IBOutlet weak var filterMidSlider: RangeSlider!
+    @IBOutlet weak var filterTrebleSlider: RangeSlider!
+    
+    @IBOutlet weak var lblFilterBassRange: NSTextField!
+    @IBOutlet weak var lblFilterMidRange: NSTextField!
+    @IBOutlet weak var lblFilterTrebleRange: NSTextField!
+    
+    @IBOutlet weak var previewBox: NSBox!
+    
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
     private var oldPresetName: String?
     
     override var nibName: String? {return "FilterPresetsEditor"}
     
+    override func viewDidLoad() {
+        
+        filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, {
+            (slider: RangeSlider) -> Void in
+            // Do nothing
+        })
+        
+        filterMidSlider.initialize(AppConstants.mid_min, AppConstants.mid_max, {
+            (slider: RangeSlider) -> Void in
+            // Do nothing
+        })
+        
+        filterTrebleSlider.initialize(AppConstants.treble_min, AppConstants.treble_max, {
+            (slider: RangeSlider) -> Void in
+            // Do nothing
+        })
+        
+        SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+    }
+    
     override func viewDidAppear() {
         
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+        previewBox.isHidden = true
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -27,6 +57,8 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         let selection = getSelectedPresetNames()
         FilterPresets.deletePresets(selection)
         editorView.reloadData()
+        
+        previewBox.isHidden = true
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
     }
@@ -64,6 +96,26 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .filter))
     }
     
+    private func renderPreview(_ preset: FilterPreset) {
+        
+        let bassBand = preset.bassBand
+        filterBassSlider.start = Double(bassBand.lowerBound)
+        filterBassSlider.end = Double(bassBand.upperBound)
+        lblFilterBassRange.stringValue = ValueFormatter.formatFilterFrequencyRange(bassBand.lowerBound, bassBand.upperBound)
+        
+        let midBand = preset.midBand
+        filterMidSlider.start = Double(midBand.lowerBound)
+        filterMidSlider.end = Double(midBand.upperBound)
+        lblFilterMidRange.stringValue = ValueFormatter.formatFilterFrequencyRange(midBand.lowerBound, midBand.upperBound)
+        
+        let trebleBand = preset.trebleBand
+        filterTrebleSlider.start = Double(trebleBand.lowerBound)
+        filterTrebleSlider.end = Double(trebleBand.upperBound)
+        lblFilterTrebleRange.stringValue = ValueFormatter.formatFilterFrequencyRange(trebleBand.lowerBound, trebleBand.upperBound)
+        
+        previewBox.isHidden = false
+    }
+    
     // MARK: View delegate functions
     
     // Returns the total number of playlist rows
@@ -72,7 +124,16 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        SyncMessenger.publishNotification(EditorSelectionChangedNotification(editorView.numberOfSelectedRows))
+        
+        let numRows = editorView.numberOfSelectedRows
+        
+        previewBox.isHidden = numRows != 1
+        
+        if numRows == 1 {
+            renderPreview(FilterPresets.presetByName(getSelectedPresetNames()[0]))
+        }
+        
+        SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
     }
     
     // Returns a view for a single row
@@ -176,6 +237,9 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
             if msg.effectsPresetsUnit == .filter {
                 
                 switch msg.actionType {
+                    
+                case .reloadPresets:
+                    viewDidAppear()
                     
                 case .renameEffectsPreset:
                     renamePresetAction()

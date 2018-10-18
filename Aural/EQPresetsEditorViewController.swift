@@ -29,7 +29,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     override func viewDidLoad() {
         
         eqSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
-        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -223,6 +223,9 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
             if msg.effectsPresetsUnit == .eq {
                 
                 switch msg.actionType {
+
+                case .reloadPresets:
+                    viewDidAppear()
                     
                 case .renameEffectsPreset:
                     renamePresetAction()
