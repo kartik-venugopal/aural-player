@@ -4,18 +4,34 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     
     @IBOutlet weak var editorView: NSTableView!
     
+    @IBOutlet weak var delayTimeSlider: NSSlider!
+    @IBOutlet weak var delayAmountSlider: NSSlider!
+    @IBOutlet weak var delayCutoffSlider: NSSlider!
+    @IBOutlet weak var delayFeedbackSlider: NSSlider!
+    
+    @IBOutlet weak var lblDelayTimeValue: NSTextField!
+    @IBOutlet weak var lblDelayAmountValue: NSTextField!
+    @IBOutlet weak var lblDelayFeedbackValue: NSTextField!
+    @IBOutlet weak var lblDelayLowPassCutoffValue: NSTextField!
+    
+    @IBOutlet weak var previewBox: NSBox!
+    
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
     private var oldPresetName: String?
     
     override var nibName: String? {return "DelayPresetsEditor"}
     
+    override func viewDidLoad() {
+        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+    }
+    
     override func viewDidAppear() {
         
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+        previewBox.isHidden = true
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -27,6 +43,8 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         let selection = getSelectedPresetNames()
         DelayPresets.deletePresets(selection)
         editorView.reloadData()
+        
+        previewBox.isHidden = true
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
     }
@@ -64,6 +82,23 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .delay))
     }
     
+    private func renderPreview(_ preset: DelayPreset) {
+        
+        delayAmountSlider.floatValue = preset.amount
+        lblDelayAmountValue.stringValue = ValueFormatter.formatDelayAmount(preset.amount)
+        
+        delayTimeSlider.doubleValue = preset.time
+        lblDelayTimeValue.stringValue = ValueFormatter.formatDelayTime(preset.time)
+        
+        delayFeedbackSlider.floatValue = preset.feedback
+        lblDelayFeedbackValue.stringValue = ValueFormatter.formatDelayFeedback(preset.feedback)
+        
+        delayCutoffSlider.floatValue = preset.cutoff
+        lblDelayLowPassCutoffValue.stringValue = ValueFormatter.formatDelayLowPassCutoff(preset.cutoff)
+        
+        previewBox.isHidden = false
+    }
+    
     // MARK: View delegate functions
     
     // Returns the total number of playlist rows
@@ -72,7 +107,16 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        SyncMessenger.publishNotification(EditorSelectionChangedNotification(editorView.numberOfSelectedRows))
+        
+        let numRows = editorView.numberOfSelectedRows
+        
+        previewBox.isHidden = numRows != 1
+        
+        if numRows == 1 {
+            renderPreview(DelayPresets.presetByName(getSelectedPresetNames()[0]))
+        }
+        
+        SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
     }
     
     // Returns a view for a single row

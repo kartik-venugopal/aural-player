@@ -39,7 +39,7 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     override func viewDidAppear() {
         
         [btnApply, btnRename, btnDelete].forEach({$0.isEnabled = false})
-        tabViewAction(reverbPresetsTabViewButton)
+        tabViewAction(delayPresetsTabViewButton)
     }
     
     private func addSubViews() {
