@@ -22,6 +22,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var editGapsMenuItem: NSMenuItem!
     @IBOutlet weak var removeGapsMenuItem: NSMenuItem!
     
+    @IBOutlet weak var clearSelectionMenuItem: NSMenuItem!
     @IBOutlet weak var invertSelectionMenuItem: NSMenuItem!
     @IBOutlet weak var cropSelectionMenuItem: NSMenuItem!
     
@@ -63,6 +64,8 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         // At least 2 tracks needed for these functions, and at least one track selected
         [moveItemsToTopMenuItem, moveItemsToBottomMenuItem, cropSelectionMenuItem].forEach({$0?.isEnabled = playlist.size() > 1 && PlaylistViewState.currentView.selectedRow >= 0})
+        
+        clearSelectionMenuItem.isEnabled = playlist.size() > 0 && PlaylistViewState.currentView.selectedRow >= 0
         
         // Make sure it's a track, not a group, and that only one track is selected
         if PlaylistViewState.currentView.numberOfSelectedRows == 1 {
@@ -205,6 +208,10 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             
             SyncMessenger.publishActionMessage(DelayedPlaybackActionMessage(Double(delay), PlaylistViewState.current))
         }
+    }
+    
+    @IBAction func clearSelectionAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.clearSelection, PlaylistViewState.current))
     }
     
     @IBAction func invertSelectionAction(_ sender: Any) {
