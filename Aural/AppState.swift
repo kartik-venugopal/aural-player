@@ -145,13 +145,19 @@ class WindowLayoutState: PersistentState {
             layoutDict["mainWindow_x"] = layout.mainWindowOrigin.x as NSNumber
             layoutDict["mainWindow_y"] = layout.mainWindowOrigin.y as NSNumber
             
-            layoutDict["effectsWindow_x"] = layout.effectsWindowOrigin!.x as NSNumber
-            layoutDict["effectsWindow_y"] = layout.effectsWindowOrigin!.y as NSNumber
+            if let origin = layout.effectsWindowOrigin {
             
-            layoutDict["playlistWindow_x"] = layout.playlistWindowFrame!.origin.x as NSNumber
-            layoutDict["playlistWindow_y"] = layout.playlistWindowFrame!.origin.y as NSNumber
-            layoutDict["playlistWindow_width"] = layout.playlistWindowFrame!.width as NSNumber
-            layoutDict["playlistWindow_height"] = layout.playlistWindowFrame!.height as NSNumber
+                layoutDict["effectsWindow_x"] = origin.x as NSNumber
+                layoutDict["effectsWindow_y"] = origin.y as NSNumber
+            }
+            
+            if let frame = layout.playlistWindowFrame {
+            
+                layoutDict["playlistWindow_x"] = frame.origin.x as NSNumber
+                layoutDict["playlistWindow_y"] = frame.origin.y as NSNumber
+                layoutDict["playlistWindow_width"] = frame.width as NSNumber
+                layoutDict["playlistWindow_height"] = frame.height as NSNumber
+            }
             
             userWindowLayoutsArr.append(layoutDict)
         }
