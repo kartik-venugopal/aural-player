@@ -24,4 +24,6 @@ protocol HistoryProtocol {
     
     // Resizes all history lists with the given sizes
     func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int)
+    
+    func clearAllHistory()
 }

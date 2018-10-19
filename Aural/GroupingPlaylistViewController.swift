@@ -38,7 +38,7 @@ class GroupingPlaylistViewController: NSViewController, AsyncMessageSubscriber, 
         playlistView.menu = contextMenu
         
         initSubscriptions()
-        SyncMessenger.subscribe(messageTypes: [.appModeChangedNotification, .gapUpdatedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.gapUpdatedNotification], subscriber: self)
         
         // Register for key press and gesture events
         PlaylistInputEventHandler.registerViewForPlaylistType(self.playlistType, playlistView)

@@ -181,6 +181,13 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Recently played" id="7KE-9e-wni"/>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="hwh-Hx-g15"/>
+                            <menuItem title=" Clear all history" image="Clear-Small" id="DRu-hG-VNs" userLabel="Clear history">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="clearHistoryAction:" target="XfS-j8-3jQ" id="0yH-Gi-Rh9"/>
+                                </connections>
+                            </menuItem>
                         </items>
                         <connections>
                             <outlet property="delegate" destination="XfS-j8-3jQ" id="zhe-eR-H6f"/>

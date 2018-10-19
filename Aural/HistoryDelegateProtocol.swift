@@ -18,4 +18,6 @@ protocol HistoryDelegateProtocol {
     func playItem(_ item: URL, _ playlistType: PlaylistType)
     
     func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int)
+    
+    func clearAllHistory()
 }
