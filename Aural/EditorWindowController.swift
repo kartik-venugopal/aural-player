@@ -30,6 +30,10 @@ class EditorWindowController: NSWindowController {
         
         bookmarksEditorView.isHidden = false
         
+        var frame = theWindow.frame
+        frame.size = NSMakeSize(frame.width, bookmarksEditorView.height)
+        theWindow.setFrame(frame, display: true)
+        
         favoritesEditorView.isHidden = true
         layoutsEditorView.isHidden = true
         effectsPresetsEditorView.isHidden = true
@@ -41,6 +45,10 @@ class EditorWindowController: NSWindowController {
     func showFavoritesEditor() {
         
         favoritesEditorView.isHidden = false
+        
+        var frame = theWindow.frame
+        frame.size = NSMakeSize(frame.width, favoritesEditorView.height)
+        theWindow.setFrame(frame, display: true)
         
         bookmarksEditorView.isHidden = true
         layoutsEditorView.isHidden = true
@@ -54,6 +62,10 @@ class EditorWindowController: NSWindowController {
         
         layoutsEditorView.isHidden = false
         
+        var frame = theWindow.frame
+        frame.size = NSMakeSize(frame.width, layoutsEditorView.height)
+        theWindow.setFrame(frame, display: true)
+        
         favoritesEditorView.isHidden = true
         bookmarksEditorView.isHidden = true
         effectsPresetsEditorView.isHidden = true
@@ -65,6 +77,10 @@ class EditorWindowController: NSWindowController {
     func showEffectsPresetsEditor() {
         
         effectsPresetsEditorView.isHidden = false
+        
+        var frame = theWindow.frame
+        frame.size = NSMakeSize(frame.width, effectsPresetsEditorView.height)
+        theWindow.setFrame(frame, display: true)
         
         layoutsEditorView.isHidden = true
         favoritesEditorView.isHidden = true

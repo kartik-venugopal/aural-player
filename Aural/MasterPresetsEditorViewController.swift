@@ -4,6 +4,16 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     @IBOutlet weak var editorView: NSTableView!
     
+    @IBOutlet weak var btnEQBypass: EffectsUnitTriStateBypassButton!
+    @IBOutlet weak var btnPitchBypass: EffectsUnitTriStateBypassButton!
+    @IBOutlet weak var btnTimeBypass: EffectsUnitTriStateBypassButton!
+    @IBOutlet weak var btnReverbBypass: EffectsUnitTriStateBypassButton!
+    @IBOutlet weak var btnDelayBypass: EffectsUnitTriStateBypassButton!
+    @IBOutlet weak var btnFilterBypass: EffectsUnitTriStateBypassButton!
+    
+    @IBOutlet weak var previewBox: NSBox!
+    @IBOutlet weak var subPreviewBox: NSBox!
+    
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
     private lazy var preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.getPreferencesDelegate()
@@ -13,12 +23,16 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     override var nibName: String? {return "MasterPresetsEditor"}
     
+    override func viewDidLoad() {
+        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+    }
+    
     override func viewDidAppear() {
         
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+        previewBox.isHidden = true
     }
     
     private func deleteSelectedPresetsAction() {
@@ -26,6 +40,8 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         let selection = getSelectedPresetNames()
         MasterPresets.deletePresets(selection)
         editorView.reloadData()
+        
+        previewBox.isHidden = true
     }
     
     private func getSelectedPresetNames() -> [String] {
@@ -61,6 +77,18 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
     }
     
+    private func renderPreview(_ preset: MasterPreset) {
+        
+        btnEQBypass.onIf(preset.eq.state == .active)
+        btnPitchBypass.onIf(preset.pitch.state == .active)
+        btnTimeBypass.onIf(preset.time.state == .active)
+        btnReverbBypass.onIf(preset.reverb.state == .active)
+        btnDelayBypass.onIf(preset.delay.state == .active)
+        btnFilterBypass.onIf(preset.filter.state == .active)
+        
+        previewBox.isHidden = false
+    }
+    
     // MARK: View delegate functions
     
     // Returns the total number of playlist rows
@@ -69,7 +97,16 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        SyncMessenger.publishNotification(EditorSelectionChangedNotification(editorView.numberOfSelectedRows))
+        
+        let numRows = editorView.numberOfSelectedRows
+        
+        previewBox.isHidden = numRows != 1
+        
+        if numRows == 1 {
+            renderPreview(MasterPresets.presetByName(getSelectedPresetNames()[0])!)
+        }
+        
+        SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
     }
     
     // Returns a view for a single row

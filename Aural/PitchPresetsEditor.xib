@@ -90,15 +90,15 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
-                <box hidden="YES" fixedFrame="YES" boxType="custom" borderType="line" borderWidth="2" cornerRadius="3" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="dva-Wp-792" userLabel="Preview Box">
+                <box hidden="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="dva-Wp-792" userLabel="Preview Box">
                     <rect key="frame" x="383" y="0.0" width="292" height="280"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="IOp-tI-Mp1">
-                        <rect key="frame" x="2" y="2" width="288" height="276"/>
+                        <rect key="frame" x="0.0" y="0.0" width="292" height="280"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cm3-7I-OTX">
-                                <rect key="frame" x="60" y="245" width="170" height="23"/>
+                                <rect key="frame" x="60" y="249" width="170" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Preview" id="8NA-aA-ZiC">
                                     <font key="font" size="12" name="GillSans-SemiBold"/>
@@ -107,7 +107,7 @@
                                 </textFieldCell>
                             </textField>
                             <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="pjE-mj-o5v" userLabel="Controls Box">
-                                <rect key="frame" x="5" y="169" width="355" height="68"/>
+                                <rect key="frame" x="5" y="172" width="355" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" ambiguous="YES" id="jm8-1A-7qr">
                                     <rect key="frame" x="0.0" y="0.0" width="355" height="68"/>
