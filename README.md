@@ -76,7 +76,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
    	  * Configure how you want the app to look/behave on startup: Autoplay, volume and effects settings on startup, window layout on startup, remembered or default playlist on startup, etc.
       * Configure the increment/decrement for volume/pan adjustments
    	  * Configure window snapping behavior, mouse sensitivity for gestures, and more …
-      * Editors to manage all your saved custom app state, such as bookmarks, favorites, window layouts, etc, so you can edit your saved data and delete unwanted or old data to prevent clutter
+      * Editors to manage all your saved custom app state, such as effects presets, bookmarks, favorites, window layouts, etc, so you can edit your saved data and delete unwanted or old data to prevent clutter
 
 ## Screenshots
 
@@ -111,6 +111,10 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 ### Saving an effects unit preset
 
 ![App screenshot w/ more info view](/Documentation/Screenshots/FXPreset.png?raw=true "Saving an effects preset")
+
+### Previewing and managing effects presets
+
+![App screenshot w/ effects presets editor](/Documentation/Screenshots/FXPresetsEditor.png?raw=true "Previewing and managing effects presets")
 
 ### Changing the window layout with one click
 
