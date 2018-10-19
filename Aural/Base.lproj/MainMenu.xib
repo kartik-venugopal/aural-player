@@ -202,8 +202,8 @@
                                     <action selector="favoritesAction:" target="fgG-X5-zeR" id="BtZ-rx-LZF"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="  Manage favorites" image="Favorites-Editor" id="bQl-7h-k7i" userLabel="Manage Favorites">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="  Manage favorites" image="Favorites-Editor" keyEquivalent="f" id="bQl-7h-k7i" userLabel="Manage Favorites">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="manageFavoritesAction:" target="fgG-X5-zeR" id="JjQ-aA-EWH"/>
                                 </connections>
@@ -229,8 +229,8 @@
                                     <action selector="bookmarkTrackSegmentLoopAction:" target="nnl-Fg-dA2" id="RRN-jv-eIm"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="  Manage bookmarks" image="Bookmarks-Editor" id="rFK-no-hcx" userLabel="Manage Bookmarks">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="  Manage bookmarks" image="Bookmarks-Editor" keyEquivalent="b" id="rFK-no-hcx" userLabel="Manage Bookmarks">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="manageBookmarksAction:" target="nnl-Fg-dA2" id="iWC-1Z-7Jn"/>
                                 </connections>
@@ -932,6 +932,13 @@ CA
                                     <action selector="rememberSettingsAction:" target="YGo-hN-fxr" id="ARZ-Zd-ocp"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Gy8-Qf-SmN"/>
+                            <menuItem title="  Manage effects presets" image="EffectsPresets-Editor" keyEquivalent="e" id="RIr-s5-ArY" userLabel="Manage effects presets">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="managePresetsAction:" target="YGo-hN-fxr" id="eyb-Re-wT9"/>
+                                </connections>
+                            </menuItem>
                         </items>
                         <connections>
                             <outlet property="delegate" destination="YGo-hN-fxr" id="UYO-2w-Qh7"/>
@@ -1288,6 +1295,7 @@ CA
         <image name="DockRight-Small" width="12" height="10"/>
         <image name="Down-Small" width="10" height="14"/>
         <image name="EQ" width="14" height="14"/>
+        <image name="EffectsPresets-Editor" width="2.7999999523162842" height="2.7999999523162842"/>
         <image name="Favorites" width="15" height="15"/>
         <image name="Favorites-Editor" width="3" height="3"/>
         <image name="FloatingBarMode-Small" width="15" height="15"/>

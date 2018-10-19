@@ -130,7 +130,10 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     // Toggles the master bypass switch
     @IBAction func masterBypassAction(_ sender: Any) {
-//        SyncMessenger.publishActionMessage(AudioGraphActionMessage(graph.isMasterBypass() ? .enableEffects : .disableEffects))
+        SyncMessenger.publishActionMessage(AudioGraphActionMessage(graph.isMasterBypass() ? .enableEffects : .disableEffects))
+    }
+    
+    @IBAction func managePresetsAction(_ sender: Any) {
         presetsEditor.showEffectsPresetsEditor()
     }
     
