@@ -185,7 +185,6 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         
         // Access the old value from the temp storage variable
         
-        // TODO: This is dangerous. Get the old value from the presets array using row as the index
         let oldName = oldPresetName ?? editedTextField.stringValue
         
         if FilterPresets.presetWithNameExists(oldName) {

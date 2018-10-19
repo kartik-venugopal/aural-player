@@ -73,4 +73,8 @@ struct LRUArray<T: EquatableHistoryItem> {
             array.removeFirst(array.count - newSize)
         }
     }
+    
+    mutating func clear() {
+        array.removeAll()
+    }
 }

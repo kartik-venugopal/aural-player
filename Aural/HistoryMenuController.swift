@@ -108,6 +108,10 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
 //            // TODO: Offer more options like "Point to the new location of the file". See RecorderViewController for reference.
 //        }
     }
+    
+    @IBAction fileprivate func clearHistoryAction(_ sender: NSMenuItem) {
+        history.clearAllHistory()
+    }
 }
 
 // A menu item that stores an associated history item (used when executing the menu item action)

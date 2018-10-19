@@ -60,4 +60,9 @@ class History: HistoryProtocol {
         recentlyAddedItems.resize(recentlyAddedListSize)
         recentlyPlayedItems.resize(recentlyPlayedListSize)
     }
+    
+    func clearAllHistory() {
+        recentlyAddedItems.clear()
+        recentlyPlayedItems.clear()
+    }
 }

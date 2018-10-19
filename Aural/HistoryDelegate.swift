@@ -81,6 +81,10 @@ class HistoryDelegate: HistoryDelegateProtocol, AsyncMessageSubscriber, Persiste
         return state
     }
     
+    func clearAllHistory() {
+        history.clearAllHistory()
+    }
+    
     // Whenever a track is played by the player, add an entry in the "Recently played" list
     private func trackPlayed(_ message: TrackPlayedAsyncMessage) {
         history.addRecentlyPlayedItem(message.track, Date())
