@@ -141,6 +141,10 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         subPreviewMenu.selectItem(withTitle: "EQ")
     }
     
+    @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
+        applyPresetAction()
+    }
+    
     private func deleteSelectedPresetsAction() {
         
         let selection = getSelectedPresetNames()
