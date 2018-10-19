@@ -109,10 +109,10 @@
                                 </textFieldCell>
                             </textField>
                             <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="N99-lr-hpW" userLabel="Controls Box">
-                                <rect key="frame" x="1" y="156" width="355" height="84"/>
+                                <rect key="frame" x="1" y="156" width="291" height="84"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" ambiguous="YES" id="ykt-an-DOs">
-                                    <rect key="frame" x="0.0" y="0.0" width="355" height="84"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="291" height="84"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jQ3-Xz-elW" userLabel="Rate">
@@ -143,7 +143,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aju-PR-5lS" userLabel="Time Slider">
-                                            <rect key="frame" x="69" y="52" width="160" height="18"/>
+                                            <rect key="frame" x="68" y="52" width="160" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" minValue="0.25" maxValue="4" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="16" sliderType="linear" id="2Jb-MZ-zC4" customClass="EffectsTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
                                         </slider>
@@ -225,7 +225,7 @@
                     <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
             </subviews>
-            <point key="canvasLocation" x="244" y="240"/>
+            <point key="canvasLocation" x="243.5" y="240"/>
         </customView>
     </objects>
 </document>

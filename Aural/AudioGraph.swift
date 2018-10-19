@@ -290,7 +290,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     }
     
     func applyMasterPreset(_ preset: MasterPreset) {
-    
+        
         applyEQPreset(preset.eq)
         applyPitchPreset(preset.pitch)
         applyTimePreset(preset.time)

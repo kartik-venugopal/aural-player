@@ -130,7 +130,10 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         previewBox.isHidden = numRows != 1
         
         if numRows == 1 {
-            renderPreview(FilterPresets.presetByName(getSelectedPresetNames()[0]))
+            
+            let presetName = getSelectedPresetNames()[0]
+            renderPreview(FilterPresets.presetByName(presetName))
+            oldPresetName = presetName
         }
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
@@ -173,14 +176,6 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     // MARK: Text field delegate functions
     
-    func control(_ control: NSControl, textShouldBeginEditing fieldEditor: NSText) -> Bool {
-        
-        // Note down the existing preset name
-        oldPresetName = fieldEditor.string
-        
-        return true
-    }
-    
     func controlTextDidEndEditing(_ obj: Notification) {
         
         let rowIndex = editorView.selectedRow
@@ -189,7 +184,9 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         let editedTextField = cell.textField!
         
         // Access the old value from the temp storage variable
-        let oldName = oldPresetName!
+        
+        // TODO: This is dangerous. Get the old value from the presets array using row as the index
+        let oldName = oldPresetName ?? editedTextField.stringValue
         
         if FilterPresets.presetWithNameExists(oldName) {
             

@@ -118,6 +118,7 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     }
     
     private func updateAllEQSliders(_ eqBands: [Int: Float], _ globalGain: Float) {
+        
         // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
         eqSliders.forEach({
             $0.floatValue = eqBands[$0.tag] ?? 0

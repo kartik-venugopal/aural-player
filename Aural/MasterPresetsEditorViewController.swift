@@ -12,6 +12,86 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     @IBOutlet weak var btnFilterBypass: EffectsUnitTriStateBypassButton!
     
     @IBOutlet weak var previewBox: NSBox!
+    
+    @IBOutlet weak var subPreviewMenu: NSPopUpButton!
+    
+    // EQ
+    
+    @IBOutlet weak var eqSubPreview: NSView!
+    
+    @IBOutlet weak var eqGlobalGainSlider: NSSlider!
+    @IBOutlet weak var eqSlider1k: NSSlider!
+    @IBOutlet weak var eqSlider64: NSSlider!
+    @IBOutlet weak var eqSlider16k: NSSlider!
+    @IBOutlet weak var eqSlider8k: NSSlider!
+    @IBOutlet weak var eqSlider4k: NSSlider!
+    @IBOutlet weak var eqSlider2k: NSSlider!
+    @IBOutlet weak var eqSlider32: NSSlider!
+    @IBOutlet weak var eqSlider512: NSSlider!
+    @IBOutlet weak var eqSlider256: NSSlider!
+    @IBOutlet weak var eqSlider128: NSSlider!
+    
+    private var eqSliders: [NSSlider] = []
+    
+    // Pitch
+    
+    @IBOutlet weak var pitchSubPreview: NSView!
+    
+    @IBOutlet weak var pitchSlider: NSSlider!
+    @IBOutlet weak var pitchOverlapSlider: NSSlider!
+    @IBOutlet weak var lblPitchValue: NSTextField!
+    @IBOutlet weak var lblPitchOverlapValue: NSTextField!
+    
+    // Time
+    
+    @IBOutlet weak var timeSubPreview: NSView!
+    
+    @IBOutlet weak var btnShiftPitch: NSButton!
+    @IBOutlet weak var timeSlider: NSSlider!
+    @IBOutlet weak var timeOverlapSlider: NSSlider!
+    
+    @IBOutlet weak var lblTimeStretchRateValue: NSTextField!
+    @IBOutlet weak var lblPitchShiftValue: NSTextField!
+    @IBOutlet weak var lblTimeOverlapValue: NSTextField!
+    
+    // Reverb
+    
+    @IBOutlet weak var reverbSubPreview: NSView!
+    
+    @IBOutlet weak var reverbSpaceMenu: NSPopUpButton!
+    @IBOutlet weak var reverbAmountSlider: NSSlider!
+    @IBOutlet weak var lblReverbAmountValue: NSTextField!
+    
+    // Delay
+    
+    @IBOutlet weak var delaySubPreview: NSView!
+    
+    @IBOutlet weak var delayTimeSlider: NSSlider!
+    @IBOutlet weak var delayAmountSlider: NSSlider!
+    @IBOutlet weak var delayCutoffSlider: NSSlider!
+    @IBOutlet weak var delayFeedbackSlider: NSSlider!
+    
+    @IBOutlet weak var lblDelayTimeValue: NSTextField!
+    @IBOutlet weak var lblDelayAmountValue: NSTextField!
+    @IBOutlet weak var lblDelayFeedbackValue: NSTextField!
+    @IBOutlet weak var lblDelayLowPassCutoffValue: NSTextField!
+    
+    // Filter
+    
+    @IBOutlet weak var filterSubPreview: NSView!
+    
+    @IBOutlet weak var filterBassSlider: RangeSlider!
+    @IBOutlet weak var filterMidSlider: RangeSlider!
+    @IBOutlet weak var filterTrebleSlider: RangeSlider!
+    
+    @IBOutlet weak var lblFilterBassRange: NSTextField!
+    @IBOutlet weak var lblFilterMidRange: NSTextField!
+    @IBOutlet weak var lblFilterTrebleRange: NSTextField!
+    
+    // --------------------------------
+    
+    private var subPreviewViews: [NSView] = []
+    
     @IBOutlet weak var subPreviewBox: NSBox!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
@@ -24,7 +104,28 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     override var nibName: String? {return "MasterPresetsEditor"}
     
     override func viewDidLoad() {
-        SyncMessenger.subscribe(actionTypes: [.applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+        
+        subPreviewViews = [eqSubPreview, pitchSubPreview, timeSubPreview, reverbSubPreview, delaySubPreview, filterSubPreview]
+        subPreviewViews.forEach({subPreviewBox.addSubview($0)})
+        
+        eqSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
+        
+        filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, {
+            (slider: RangeSlider) -> Void in
+            // Do nothing
+        })
+        
+        filterMidSlider.initialize(AppConstants.mid_min, AppConstants.mid_max, {
+            (slider: RangeSlider) -> Void in
+            // Do nothing
+        })
+        
+        filterTrebleSlider.initialize(AppConstants.treble_min, AppConstants.treble_max, {
+            (slider: RangeSlider) -> Void in
+            // Do nothing
+        })
+        
+        SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -33,6 +134,11 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         editorView.deselectAll(self)
         
         previewBox.isHidden = true
+        
+        // Show EQ sub preview by default
+        subPreviewViews.forEach({$0.isHidden = true})
+        eqSubPreview.isHidden = false
+        subPreviewMenu.selectItem(withTitle: "EQ")
     }
     
     private func deleteSelectedPresetsAction() {
@@ -77,6 +183,31 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
     }
     
+    @IBAction func subPreviewMenuAction(_ sender: AnyObject) {
+        
+        subPreviewViews.forEach({$0.isHidden = true})
+        
+        let selItem = subPreviewMenu.titleOfSelectedItem
+        
+        switch selItem {
+            
+        case "EQ": eqSubPreview.isHidden = false
+            
+        case "Pitch": pitchSubPreview.isHidden = false
+            
+        case "Time": timeSubPreview.isHidden = false
+            
+        case "Reverb": reverbSubPreview.isHidden = false
+            
+        case "Delay": delaySubPreview.isHidden = false
+            
+        case "Filter": filterSubPreview.isHidden = false
+            
+        default: return
+            
+        }
+    }
+    
     private func renderPreview(_ preset: MasterPreset) {
         
         btnEQBypass.onIf(preset.eq.state == .active)
@@ -86,7 +217,93 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         btnDelayBypass.onIf(preset.delay.state == .active)
         btnFilterBypass.onIf(preset.filter.state == .active)
         
+        // Set up EQ
+        renderEQPreview(preset.eq)
+        
+        renderPitchPreview(preset.pitch)
+        renderTimePreview(preset.time)
+        renderReverbPreview(preset.reverb)
+        renderDelayPreview(preset.delay)
+        renderFilterPreview(preset.filter)
+        
         previewBox.isHidden = false
+    }
+    
+    private func renderEQPreview(_ preset: EQPreset) {
+        
+        let eqBands: [Int: Float] = preset.bands
+        let globalGain: Float = preset.globalGain
+        
+        // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
+        eqSliders.forEach({
+            $0.floatValue = eqBands[$0.tag] ?? 0
+        })
+        
+        eqGlobalGainSlider.floatValue = globalGain
+    }
+    
+    private func renderPitchPreview(_ preset: PitchPreset) {
+        
+        let pitch = preset.pitch * AppConstants.pitchConversion_audioGraphToUI
+        pitchSlider.floatValue = pitch
+        lblPitchValue.stringValue = ValueFormatter.formatPitch(pitch)
+        
+        pitchOverlapSlider.floatValue = preset.overlap
+        lblPitchOverlapValue.stringValue = ValueFormatter.formatOverlap(preset.overlap)
+    }
+    
+    private func renderTimePreview(_ preset: TimePreset) {
+        
+        btnShiftPitch.state = NSControl.StateValue(rawValue: preset.pitchShift ? 1 : 0)
+        let pitchShift = (preset.pitchShift ? 1200 * log2(preset.rate) : 0) * AppConstants.pitchConversion_audioGraphToUI
+        lblPitchShiftValue.stringValue = ValueFormatter.formatPitch(pitchShift)
+        
+        timeSlider.floatValue = preset.rate
+        lblTimeStretchRateValue.stringValue = ValueFormatter.formatTimeStretchRate(preset.rate)
+        
+        timeOverlapSlider.floatValue = preset.overlap
+        lblTimeOverlapValue.stringValue = ValueFormatter.formatOverlap(preset.overlap)
+    }
+    
+    private func renderReverbPreview(_ preset: ReverbPreset) {
+        
+        reverbSpaceMenu.select(reverbSpaceMenu.item(withTitle: preset.space.description))
+        
+        reverbAmountSlider.floatValue = preset.amount
+        lblReverbAmountValue.stringValue = ValueFormatter.formatReverbAmount(preset.amount)
+    }
+    
+    private func renderDelayPreview(_ preset: DelayPreset) {
+        
+        delayAmountSlider.floatValue = preset.amount
+        lblDelayAmountValue.stringValue = ValueFormatter.formatDelayAmount(preset.amount)
+        
+        delayTimeSlider.doubleValue = preset.time
+        lblDelayTimeValue.stringValue = ValueFormatter.formatDelayTime(preset.time)
+        
+        delayFeedbackSlider.floatValue = preset.feedback
+        lblDelayFeedbackValue.stringValue = ValueFormatter.formatDelayFeedback(preset.feedback)
+        
+        delayCutoffSlider.floatValue = preset.cutoff
+        lblDelayLowPassCutoffValue.stringValue = ValueFormatter.formatDelayLowPassCutoff(preset.cutoff)
+    }
+    
+    private func renderFilterPreview(_ preset: FilterPreset) {
+        
+        let bassBand = preset.bassBand
+        filterBassSlider.start = Double(bassBand.lowerBound)
+        filterBassSlider.end = Double(bassBand.upperBound)
+        lblFilterBassRange.stringValue = ValueFormatter.formatFilterFrequencyRange(bassBand.lowerBound, bassBand.upperBound)
+        
+        let midBand = preset.midBand
+        filterMidSlider.start = Double(midBand.lowerBound)
+        filterMidSlider.end = Double(midBand.upperBound)
+        lblFilterMidRange.stringValue = ValueFormatter.formatFilterFrequencyRange(midBand.lowerBound, midBand.upperBound)
+        
+        let trebleBand = preset.trebleBand
+        filterTrebleSlider.start = Double(trebleBand.lowerBound)
+        filterTrebleSlider.end = Double(trebleBand.upperBound)
+        lblFilterTrebleRange.stringValue = ValueFormatter.formatFilterFrequencyRange(trebleBand.lowerBound, trebleBand.upperBound)
     }
     
     // MARK: View delegate functions
@@ -103,7 +320,10 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         previewBox.isHidden = numRows != 1
         
         if numRows == 1 {
-            renderPreview(MasterPresets.presetByName(getSelectedPresetNames()[0])!)
+            
+            let presetName = getSelectedPresetNames()[0]
+            renderPreview(MasterPresets.presetByName(presetName)!)
+            oldPresetName = presetName
         }
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
@@ -146,14 +366,6 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     // MARK: Text field delegate functions
     
-    func control(_ control: NSControl, textShouldBeginEditing fieldEditor: NSText) -> Bool {
-        
-        // Note down the existing preset name
-        oldPresetName = fieldEditor.string
-        
-        return true
-    }
-    
     func controlTextDidEndEditing(_ obj: Notification) {
         
         let rowIndex = editorView.selectedRow
@@ -162,7 +374,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         let editedTextField = cell.textField!
         
         // Access the old value from the temp storage variable
-        let oldName = oldPresetName!
+        let oldName = oldPresetName ?? editedTextField.stringValue
         
         if let preset = MasterPresets.presetByName(oldName) {
             

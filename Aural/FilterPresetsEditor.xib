@@ -109,10 +109,10 @@
                                 </textFieldCell>
                             </textField>
                             <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="4" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="wMl-kt-ewH" userLabel="Controls Box">
-                                <rect key="frame" x="-2" y="152" width="355" height="101"/>
+                                <rect key="frame" x="-2" y="152" width="294" height="101"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" ambiguous="YES" id="Fl5-cz-GI5">
-                                    <rect key="frame" x="0.0" y="0.0" width="355" height="101"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="294" height="101"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hCB-YJ-uA4" userLabel="Lbl Treble Range">
@@ -255,7 +255,7 @@
                     <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
             </subviews>
-            <point key="canvasLocation" x="244" y="240"/>
+            <point key="canvasLocation" x="243.5" y="240"/>
         </customView>
     </objects>
 </document>

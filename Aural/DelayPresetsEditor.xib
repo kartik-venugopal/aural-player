@@ -111,10 +111,10 @@
                                 </textFieldCell>
                             </textField>
                             <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="zbD-ta-cRx" userLabel="Controls Box">
-                                <rect key="frame" x="0.0" y="141" width="355" height="101"/>
+                                <rect key="frame" x="0.0" y="141" width="292" height="101"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" ambiguous="YES" id="OhN-ph-6uy">
-                                    <rect key="frame" x="0.0" y="0.0" width="355" height="101"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="292" height="101"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2jP-uS-jPz">
@@ -292,7 +292,7 @@
                     <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
             </subviews>
-            <point key="canvasLocation" x="244" y="240"/>
+            <point key="canvasLocation" x="243.5" y="240"/>
         </customView>
     </objects>
 </document>
