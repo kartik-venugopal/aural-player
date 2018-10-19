@@ -86,7 +86,11 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .eq))
     }
     
-    private func updateAllEQSliders(_ eqBands: [Int: Float], _ globalGain: Float) {
+    private func renderPreview(_ preset: EQPreset) {
+        
+        let eqBands: [Int: Float] = preset.bands
+        let globalGain: Float = preset.globalGain
+        
         // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
         eqSliders.forEach({
             $0.floatValue = eqBands[$0.tag] ?? 0
@@ -111,9 +115,12 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
             // Render preview
             previewBox.isHidden = false
             let selection = getSelectedPresetNames()
-            let preset = EQPresets.presetByName(selection[0])
+            let presetName = selection[0]
             
-            updateAllEQSliders(preset.bands, preset.globalGain)
+            let preset = EQPresets.presetByName(presetName)
+            oldPresetName = presetName
+            
+            renderPreview(preset)
             
         } else {
             previewBox.isHidden = true
@@ -159,14 +166,6 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     // MARK: Text field delegate functions
     
-    func control(_ control: NSControl, textShouldBeginEditing fieldEditor: NSText) -> Bool {
-        
-        // Note down the existing preset name
-        oldPresetName = fieldEditor.string
-        
-        return true
-    }
-    
     func controlTextDidEndEditing(_ obj: Notification) {
         
         let rowIndex = editorView.selectedRow
@@ -175,7 +174,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
         let editedTextField = cell.textField!
         
         // Access the old value from the temp storage variable
-        let oldName = oldPresetName!
+        let oldName = oldPresetName ?? editedTextField.stringValue
         
         if EQPresets.presetWithNameExists(oldName) {
             

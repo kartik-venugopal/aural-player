@@ -16,7 +16,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     private lazy var preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.getPreferencesDelegate()
     private lazy var preferences: Preferences = ObjectGraph.getPreferencesDelegate().getPreferences()
     
-    private var oldLayoutName: String = ""
+    private var oldLayoutName: String?
     
     override var nibName: String? {return "LayoutsEditor"}
     
@@ -127,8 +127,15 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
+        
         updateButtonStates()
         updatePreview()
+        
+        if editorView.numberOfSelectedRows == 1 {
+        
+            let cell = editorView.view(atColumn: 0, row: editorView.selectedRow, makeIfNecessary: true) as! NSTableCellView
+            oldLayoutName = cell.textField!.stringValue
+        }
     }
     
     // Returns a view for a single row
@@ -168,14 +175,6 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     
     // MARK: Text field delegate functions
     
-    func control(_ control: NSControl, textShouldBeginEditing fieldEditor: NSText) -> Bool {
-        
-        // Note down the existing layout name
-        oldLayoutName = fieldEditor.string
-        
-        return true
-    }
-    
     func controlTextDidEndEditing(_ obj: Notification) {
         
         let rowIndex = editorView.selectedRow
@@ -184,7 +183,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
         let editedTextField = cell.textField!
         
         // Access the old value from the temp storage variable
-        let oldName = oldLayoutName
+        let oldName = oldLayoutName ?? editedTextField.stringValue
         
         if let layout = WindowLayouts.layoutByName(oldName, false) {
             

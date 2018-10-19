@@ -103,7 +103,10 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         previewBox.isHidden = numRows != 1
         
         if numRows == 1 {
-            renderPreview(PitchPresets.presetByName(getSelectedPresetNames()[0]))
+            
+            let presetName = getSelectedPresetNames()[0]
+            renderPreview(PitchPresets.presetByName(presetName))
+            oldPresetName = presetName
         }
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))
@@ -146,14 +149,6 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     
     // MARK: Text field delegate functions
     
-    func control(_ control: NSControl, textShouldBeginEditing fieldEditor: NSText) -> Bool {
-        
-        // Note down the existing preset name
-        oldPresetName = fieldEditor.string
-        
-        return true
-    }
-    
     func controlTextDidEndEditing(_ obj: Notification) {
         
         let rowIndex = editorView.selectedRow
@@ -162,7 +157,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         let editedTextField = cell.textField!
         
         // Access the old value from the temp storage variable
-        let oldName = oldPresetName!
+        let oldName = oldPresetName ?? editedTextField.stringValue
         
         if PitchPresets.presetWithNameExists(oldName) {
             
