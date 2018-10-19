@@ -475,25 +475,25 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Epc-oG-Po5"/>
-                            <menuItem title="  Expand selected groups" keyEquivalent="/" id="bgZ-UF-jHK" userLabel="Expand selected groups">
+                            <menuItem title="  Expand selected groups" image="ExpandGroups" keyEquivalent="/" id="bgZ-UF-jHK" userLabel="Expand selected groups">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="expandSelectedGroupsAction:" target="sXT-Pr-clR" id="vvf-uQ-9kx"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="  Collapse selected groups" keyEquivalent="." id="t2f-1t-8Uh" userLabel="Collapse selected groups">
+                            <menuItem title="  Collapse selected groups" image="CollapseGroups" keyEquivalent="." id="t2f-1t-8Uh" userLabel="Collapse selected groups">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="collapseSelectedGroupsAction:" target="sXT-Pr-clR" id="aiF-NB-YFo"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="  Expand all groups" keyEquivalent="/" id="Sls-KQ-Exg" userLabel="Expand all groups">
+                            <menuItem title="  Expand all groups" image="ExpandGroups" keyEquivalent="/" id="Sls-KQ-Exg" userLabel="Expand all groups">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="expandAllGroupsAction:" target="sXT-Pr-clR" id="z4e-po-fu5"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="  Collapse all groups" keyEquivalent="." id="vBe-YK-qXP" userLabel="Collapse all groups">
+                            <menuItem title="  Collapse all groups" image="CollapseGroups" keyEquivalent="." id="vBe-YK-qXP" userLabel="Collapse all groups">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="collapseAllGroupsAction:" target="sXT-Pr-clR" id="Zdp-pO-9F5"/>
@@ -1295,6 +1295,7 @@ CA
         <image name="Bookmark-Dark" width="15" height="15"/>
         <image name="Bookmarks-Editor" width="3" height="3"/>
         <image name="Clear-Small" width="2.5999999046325684" height="3"/>
+        <image name="CollapseGroups" width="15" height="15"/>
         <image name="CropSelection-Small" width="11.199999809265137" height="11.199999809265137"/>
         <image name="DelayedPlayback-Menu" width="9" height="14"/>
         <image name="DockBottom-Small" width="12" height="10"/>
@@ -1303,6 +1304,7 @@ CA
         <image name="Down-Small" width="10" height="14"/>
         <image name="EQ" width="14" height="14"/>
         <image name="EffectsPresets-Editor" width="2.7999999523162842" height="2.7999999523162842"/>
+        <image name="ExpandGroups" width="15" height="15"/>
         <image name="Favorites" width="15" height="15"/>
         <image name="Favorites-Editor" width="3" height="3"/>
         <image name="FloatingBarMode-Small" width="15" height="15"/>
