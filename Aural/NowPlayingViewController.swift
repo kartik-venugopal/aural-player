@@ -97,7 +97,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.moreInfo], subscriber: self)
     }
@@ -106,7 +106,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         AsyncMessenger.unsubscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites], subscriber: self)
         
-        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
+        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
         SyncMessenger.unsubscribe(actionTypes: [.moreInfo], subscriber: self)
     }
@@ -225,64 +225,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         btnFavorite.onIf(favorites.favoriteWithFileExists(track.file))
     }
-    
-    /*
-     
-     private func showNowPlayingInfo(_ track: Track) {
-     
-     var artistAndTitleAvailable: Bool = false
-     
-     if (track.displayInfo.hasArtistAndTitle()) {
-     
-     artistAndTitleAvailable = true
-     
-     // Both title and artist
-     lblTrackArtist.stringValue = track.displayInfo.artist!
-     lblTrackTitle.stringValue = track.displayInfo.title!
-     
-     } else {
-     
-     lblTrackName.stringValue = track.conciseDisplayName
-     
-     // Re-position and resize the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
-     
-     // Determine how many lines the track name will occupy, within the label
-     let numLines = StringUtils.numberOfLines(track.conciseDisplayName, lblTrackName.font!, lblTrackName.frame.width)
-     
-     // The Y co-ordinate is a pre-determined constant
-     var origin = lblTrackName.frame.origin
-     origin.y = numLines == 1 ? Dimensions.trackNameLabelLocationY_oneLine : Dimensions.trackNameLabelLocationY_twoLines
-     
-     // The height is a pre-determined constant
-     var lblFrameSize = lblTrackName.frame.size
-     lblFrameSize.height = numLines == 1 ? Dimensions.trackNameLabelHeight_oneLine : Dimensions.trackNameLabelHeight_twoLines
-     
-     // Resize the label
-     lblTrackName.setFrameSize(lblFrameSize)
-     
-     // Re-position the label
-     lblTrackName.setFrameOrigin(origin)
-     }
-     
-     lblTrackName.isHidden = artistAndTitleAvailable
-     [lblTrackArtist, lblTrackTitle].forEach({$0?.isHidden = !artistAndTitleAvailable})
-     
-     if (track.displayInfo.art != nil) {
-     artView.image = track.displayInfo.art!
-     } else {
-     
-     // Default artwork animation
-     artView.image = Images.imgPlayingArt
-     artView.animates = true
-     }
-     
-     resetSeekPosition(track)
-     showPlaybackScope()
-     
-     btnFavorite.onIf(history.hasFavorite(track))
-     }
-     
-     */
     
     /*
      Displays information about the current playback scope (i.e. the set of tracks that make up the current playback sequence - for ex. a specific artist group, or all tracks), and progress within that sequence - for ex. 5/67 (5th track playing out of a total of 67 tracks).
@@ -495,16 +437,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         default: return
             
         }
-    }
-    
-    // Used to position the bookmark name popover relative to the seek slider cell
-    func getLocationForBookmarkPrompt() -> (view: NSView, edge: NSRectEdge) {
-        
-        // Slider knob position
-        //        let knobRect = seekSliderCell.knobRect(flipped: false)
-        //        seekPositionMarker.setFrameOrigin(NSPoint(x: seekSlider.frame.origin.x + knobRect.minX + 4, y: seekSlider.frame.origin.y + knobRect.height / 2))
-        
-        return (self.view, NSRectEdge.minY)
     }
 }
 

@@ -117,7 +117,7 @@ struct ViewFactory {
     
     // Used to position the bookmark name popover relative to the seek slider cell
     static func getLocationForBookmarkPrompt() -> (view: NSView, edge: NSRectEdge) {
-        return nowPlayingViewController.getLocationForBookmarkPrompt()
+        return playerViewController.getLocationForBookmarkPrompt()
     }
     
     // Returns the view that displays the player

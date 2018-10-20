@@ -225,6 +225,15 @@ G1BhbiBTbGlkZXI
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XNE-6n-5ZW" userLabel="SeekPositionMarker">
+                    <rect key="frame" x="246" y="31" width="7" height="4"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="2Gd-Ur-hxQ">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="136" y="67"/>
         </view>
@@ -239,15 +248,6 @@ G1BhbiBTbGlkZXI
                 <action selector="seekSliderAction:" target="-2" id="VwF-12-dOF"/>
             </connections>
         </slider>
-        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="XNE-6n-5ZW" userLabel="SeekPositionMarker">
-            <rect key="frame" x="0.0" y="0.0" width="7" height="4"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="2Gd-Ur-hxQ">
-                <font key="font" metaFont="system"/>
-                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-            </textFieldCell>
-        </textField>
     </objects>
     <resources>
         <image name="LoopOff" width="2.5120000839233398" height="2.1119999885559082"/>
