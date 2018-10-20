@@ -12,6 +12,8 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     @IBOutlet weak var lblPitchValue: NSTextField!
     @IBOutlet weak var lblPitchOverlapValue: NSTextField!
     
+    @IBOutlet weak var box: NSBox!
+    
     // Presets menu
     @IBOutlet weak var presetsMenu: NSPopUpButton!
     @IBOutlet weak var btnSavePreset: NSButton!
@@ -80,6 +82,8 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
+        
+        print(box.frame)
     }
     
     // Activates/deactivates the Pitch effects unit
