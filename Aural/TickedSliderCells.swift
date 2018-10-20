@@ -71,7 +71,7 @@ class PanTickedSliderCell: TickedSliderCell {
 }
 
 // Cell for all ticked effects sliders
-class EffectsTickedSliderCell: TickedSliderCell {
+class EffectsTickedSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
     
     override var barRadius: CGFloat {return 1.5}
     override var barInsetY: CGFloat {return 0.5}
@@ -82,4 +82,19 @@ class EffectsTickedSliderCell: TickedSliderCell {
     
     override var tickVerticalSpacing: CGFloat {return 1}
     override var tickColor: NSColor {return NSColor.black}
+    
+    override var barColoredGradient: NSGradient {
+     
+        switch self.unitState {
+            
+        case .active:   return Colors.activeSliderBarColoredGradient
+            
+        case .bypassed: return Colors.bypassedSliderBarColoredGradient
+            
+        case .suppressed:   return Colors.suppressedSliderBarColoredGradient
+            
+        }
+    }
+    
+    var unitState: EffectsUnitState = .bypassed
 }

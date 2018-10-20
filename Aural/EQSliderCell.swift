@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class EQSliderCell: NSSliderCell {
+class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     
     let barRadius: CGFloat = 0.75
     let barInsetX: CGFloat = 0.25
@@ -13,6 +13,8 @@ class EQSliderCell: NSSliderCell {
     let knobHeight: CGFloat = 10
     let knobInsetX: CGFloat = 1.5
     let knobInsetY: CGFloat = 0
+    
+    var unitState: EffectsUnitState = .bypassed
     
     override internal func drawKnob(_ knobRect: NSRect) {
         
@@ -39,7 +41,20 @@ class EQSliderCell: NSSliderCell {
         
         // Bottom rect
         var drawPath = NSBezierPath.init(roundedRect: bottomRect, xRadius: barRadius, yRadius: barRadius)
-        Colors.sliderBarColoredGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+        
+        let sliderColor: NSGradient
+        
+        switch self.unitState {
+            
+        case .active:   sliderColor = Colors.activeSliderBarColoredGradient
+            
+        case .bypassed: sliderColor = Colors.bypassedSliderBarColoredGradient
+            
+        case .suppressed:   sliderColor = Colors.suppressedSliderBarColoredGradient
+            
+        }
+        
+        sliderColor.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
         
         // Top rect
         drawPath = NSBezierPath.init(roundedRect: topRect, xRadius: barRadius, yRadius: barRadius)

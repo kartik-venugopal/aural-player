@@ -178,7 +178,7 @@ class RangeSlider: NSView {
 //        assert(barFillGradient != nil, "Couldn't generate gradient.")
 //        
 //        return barFillGradient!
-        return Colors.sliderBarColoredGradient
+        return Colors.activeSliderBarColoredGradient
     }
     
     func initialize(_ min: Double, _ max: Double, _ changeHandler: ((RangeSlider) -> Void)?) {

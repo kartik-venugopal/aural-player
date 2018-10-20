@@ -41,6 +41,7 @@
                 <outlet property="clearPlaylistMenuItem" destination="ec2-Jm-I4M" id="EHN-Pi-SW4"/>
                 <outlet property="clearSelectionMenuItem" destination="y60-Ih-ViK" id="UHW-zF-nLv"/>
                 <outlet property="collapseAllGroupsMenuItem" destination="vBe-YK-qXP" id="uNq-A9-nfW"/>
+                <outlet property="collapseParentGroupMenuItem" destination="t2f-1t-8Uh" id="GzJ-Gx-HG5"/>
                 <outlet property="collapseSelectedGroupsMenuItem" destination="t2f-1t-8Uh" id="0bT-1W-ega"/>
                 <outlet property="cropSelectionMenuItem" destination="yml-EW-5wq" id="bpz-aE-Smf"/>
                 <outlet property="editGapsMenuItem" destination="y39-3c-GVk" id="H1v-4Z-ze8"/>
@@ -481,10 +482,16 @@ CA
                                     <action selector="expandSelectedGroupsAction:" target="sXT-Pr-clR" id="vvf-uQ-9kx"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="  Collapse selected groups" image="CollapseGroups" keyEquivalent="." id="t2f-1t-8Uh" userLabel="Collapse selected groups">
+                            <menuItem title="  Collapse parent group" image="CollapseGroups" keyEquivalent="." id="t2f-1t-8Uh" userLabel="Collapse parent group">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="collapseSelectedGroupsAction:" target="sXT-Pr-clR" id="aiF-NB-YFo"/>
+                                    <action selector="collapseParentGroupAction:" target="sXT-Pr-clR" id="11M-f6-dX5"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Collapse selected groups" image="CollapseGroups" id="P3w-3g-aC8" userLabel="Collapse selected groups">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="collapseSelectedGroupsAction:" target="sXT-Pr-clR" id="hdb-mK-JPn"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="  Expand all groups" image="ExpandGroups" keyEquivalent="/" id="Sls-KQ-Exg" userLabel="Expand all groups">
@@ -956,9 +963,37 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" autoenablesItems="NO" id="Fd0-9b-tm8">
                         <items>
-                            <menuItem title=" Playlist" state="on" image="TogglePlaylistView-Small" keyEquivalent="1" id="af4-4E-1QV" userLabel="Playlist">
+                            <menuItem title="      Player" state="mixed" id="af4-4E-1QV" userLabel="Player">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="  Dock Playlist" id="y9u-HE-dXj">
+                                    <items>
+                                        <menuItem title="Album art" id="HPx-xo-hJh">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showOrHideAlbumArtAction:" target="xzd-WN-BuR" id="g1H-k9-oY6"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Now playing track functions" id="JiX-rw-gah">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showOrHidePlayingTrackFunctionsAction:" target="xzd-WN-BuR" id="GSR-f4-iF8"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Seek bar" id="Fu7-ev-msw">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="dockPlaylistRightAction:" target="xzd-WN-BuR" id="4kM-W5-3Sg"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
                                 <connections>
                                     <action selector="togglePlaylistAction:" target="xzd-WN-BuR" id="cIn-p4-B3g"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Playlist" state="on" image="TogglePlaylistView-Small" keyEquivalent="1" id="0PH-nx-xo9" userLabel="Playlist">
+                                <connections>
+                                    <action selector="togglePlaylistAction:" target="xzd-WN-BuR" id="pGa-5C-cvc"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Effects" state="on" image="ToggleEffectsView-Small" keyEquivalent="2" id="fK8-7g-oqx" userLabel="Effects">

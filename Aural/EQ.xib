@@ -32,7 +32,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ltF-GM-eRb" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="10" y="134" width="17" height="17"/>
+                    <rect key="frame" x="10" y="134" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ug8-Ny-QHf">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -51,7 +51,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IIo-B2-5Oj" userLabel="EQGlobalGain">
+                <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IIo-B2-5Oj" userLabel="EQGlobalGain" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="85" y="30" width="18" height="108"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="0KA-ve-aBI" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
@@ -59,7 +59,7 @@
                         <action selector="eqGlobalGainAction:" target="-2" id="FF8-0L-jIK"/>
                     </connections>
                 </slider>
-                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="9" translatesAutoresizingMaskIntoConstraints="NO" id="4BB-8h-UPv" userLabel="Eq Slider16k">
+                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="9" translatesAutoresizingMaskIntoConstraints="NO" id="4BB-8h-UPv" userLabel="Eq Slider16k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="378" y="30" width="18" height="108"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="MG1-xd-tHZ" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
@@ -67,7 +67,7 @@
                         <action selector="eqSliderAction:" target="-2" id="6Bu-hc-Gfa"/>
                     </connections>
                 </slider>
-                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="8" translatesAutoresizingMaskIntoConstraints="NO" id="lOT-aJ-pva" userLabel="Eq Slider8k">
+                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="8" translatesAutoresizingMaskIntoConstraints="NO" id="lOT-aJ-pva" userLabel="Eq Slider8k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="350" y="30" width="18" height="108"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="7OV-Ma-0SK" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
@@ -75,7 +75,7 @@
                         <action selector="eqSliderAction:" target="-2" id="2kg-rP-4ga"/>
                     </connections>
                 </slider>
-                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="7" translatesAutoresizingMaskIntoConstraints="NO" id="pLK-Et-C5f" userLabel="Eq Slider4k">
+                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="7" translatesAutoresizingMaskIntoConstraints="NO" id="pLK-Et-C5f" userLabel="Eq Slider4k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="322" y="30" width="18" height="108"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="wwU-EM-AyQ" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
@@ -83,7 +83,7 @@
                         <action selector="eqSliderAction:" target="-2" id="RLd-Jk-Jp2"/>
                     </connections>
                 </slider>
-                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="6" translatesAutoresizingMaskIntoConstraints="NO" id="aIx-d4-yLB" userLabel="Eq Slider2k">
+                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="6" translatesAutoresizingMaskIntoConstraints="NO" id="aIx-d4-yLB" userLabel="Eq Slider2k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="294" y="30" width="18" height="108"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="7XM-EP-Lu8" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
@@ -91,7 +91,7 @@
                         <action selector="eqSliderAction:" target="-2" id="9Oa-zl-CSW"/>
                     </connections>
                 </slider>
-                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="46P-3h-ZP7" userLabel="Eq Slider1k">
+                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="46P-3h-ZP7" userLabel="Eq Slider1k" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="266" y="30" width="18" height="108"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="dBE-nv-BNf" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
@@ -99,7 +99,7 @@
                         <action selector="eqSliderAction:" target="-2" id="Dfe-XN-MLb"/>
                     </connections>
                 </slider>
-                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="5rc-Hc-DOd">
+                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="5rc-Hc-DOd" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="238" y="30" width="18" height="108"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="W7v-sg-lv3" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
@@ -107,7 +107,7 @@
                         <action selector="eqSliderAction:" target="-2" id="jN8-tu-3tg"/>
                     </connections>
                 </slider>
-                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="uP6-o7-czy">
+                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="uP6-o7-czy" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="210" y="30" width="18" height="108"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="rvQ-pf-KXZ" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
@@ -115,7 +115,7 @@
                         <action selector="eqSliderAction:" target="-2" id="3ct-LK-pXZ"/>
                     </connections>
                 </slider>
-                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="q1N-vR-jab">
+                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="q1N-vR-jab" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="182" y="30" width="18" height="108"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="vC6-RD-QpO" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
@@ -123,7 +123,7 @@
                         <action selector="eqSliderAction:" target="-2" id="K6R-la-M2d"/>
                     </connections>
                 </slider>
-                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="o2S-O5-oy2">
+                <slider horizontalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="o2S-O5-oy2" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="154" y="30" width="18" height="108"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="KnE-WL-FHm" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
@@ -131,7 +131,7 @@
                         <action selector="eqSliderAction:" target="-2" id="UXj-lI-I47"/>
                     </connections>
                 </slider>
-                <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nSp-0B-c3z">
+                <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nSp-0B-c3z" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="126" y="30" width="18" height="108"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="left" numberOfTickMarks="1" sliderType="linear" id="xpz-4S-x93" customClass="EQSliderCell" customModule="Aural" customModuleProvider="target"/>
