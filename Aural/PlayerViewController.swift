@@ -194,8 +194,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     private func initSeekPosition() {
         
-        lblTimeElapsed.isHidden = false
-        lblTimeRemainingOrDuration.isHidden = false
+        [seekSlider, lblTimeElapsed, lblTimeRemainingOrDuration].forEach({$0?.isHidden = false})
         updateSeekPosition()
     }
     
@@ -213,6 +212,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         lblTimeElapsed.stringValue = trackTimes.elapsed
         lblTimeRemainingOrDuration.stringValue = PlayerViewState.showDuration ? StringUtils.formatSecondsToHMS(seekPosn.trackDuration) : trackTimes.remaining;
+        
+//        NSLog("USP")
     }
     
     // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
@@ -658,6 +659,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         btnPlayPause.off()
         btnLoop.switchState(LoopState.none)
+        
+        [seekSlider, lblTimeElapsed, lblTimeRemainingOrDuration].forEach({$0?.isHidden = true})
         
         if soundPreferences.rememberEffectsSettings {
             
