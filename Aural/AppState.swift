@@ -73,13 +73,15 @@ class UIState: PersistentState {
 
 class PlayerState: PersistentState {
     
-    var showDuration: Bool = false
+    var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
+    var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
     
     func toSerializableMap() -> NSDictionary {
         
         var map = [NSString: AnyObject]()
         
-        map["showDuration"] = showDuration as AnyObject
+        map["timeElapsedDisplayType"] = timeElapsedDisplayType.rawValue as AnyObject
+        map["timeRemainingDisplayType"] = timeRemainingDisplayType.rawValue as AnyObject
         
         return map as NSDictionary
     }
@@ -88,8 +90,12 @@ class PlayerState: PersistentState {
         
         let state = PlayerState()
         
-        if let showDuration = map["showDuration"] as? Bool {
-            state.showDuration = showDuration
+        if let displayTypeStr = map["timeElapsedDisplayType"] as? String, let timeElapsedDisplayType = TimeElapsedDisplayType(rawValue: displayTypeStr) {
+            state.timeElapsedDisplayType = timeElapsedDisplayType
+        }
+        
+        if let displayTypeStr = map["timeRemainingDisplayType"] as? String, let timeRemainingDisplayType = TimeRemainingDisplayType(rawValue: displayTypeStr) {
+            state.timeRemainingDisplayType = timeRemainingDisplayType
         }
         
         return state

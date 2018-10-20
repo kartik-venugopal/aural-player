@@ -105,11 +105,16 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
         }, queue: DispatchQueue.main)
         
-        PlayerViewState.showDuration = appState.showDuration
+        // Allow clicks on the seek time display labels to switch to different display formats
         
-        // Allow clicks on the time remaining label to switch to track duration display
-        let gestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTrackTimeDisplayAction(_:)))
-        lblTimeRemainingOrDuration.addGestureRecognizer(gestureRecognizer)
+        PlayerViewState.timeElapsedDisplayType = appState.timeElapsedDisplayType
+        PlayerViewState.timeRemainingDisplayType = appState.timeRemainingDisplayType
+        
+        let elapsedTimeGestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeElapsedDisplayAction))
+        lblTimeElapsed.addGestureRecognizer(elapsedTimeGestureRecognizer)
+        
+        let remainingTimeGestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction))
+        lblTimeRemainingOrDuration.addGestureRecognizer(remainingTimeGestureRecognizer)
         
         AppModeManager.registerConstituentView(.regular, self)
     }
@@ -170,8 +175,13 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         panSlider.floatValue = audioGraph.getBalance()
     }
     
-    @IBAction func switchTrackTimeDisplayAction(_ sender: Any) {
-        PlayerViewState.showDuration = !PlayerViewState.showDuration
+    @IBAction func switchTimeElapsedDisplayAction(_ sender: Any) {
+        PlayerViewState.timeElapsedDisplayType = PlayerViewState.timeElapsedDisplayType.toggle()
+        updateSeekPosition()
+    }
+    
+    @IBAction func switchTimeRemainingDisplayAction(_ sender: Any) {
+        PlayerViewState.timeRemainingDisplayType = PlayerViewState.timeRemainingDisplayType.toggle()
         updateSeekPosition()
     }
     
@@ -208,10 +218,49 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         seekSlider.doubleValue = seekPosn.percentageElapsed
         
-        let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration)
+        switch PlayerViewState.timeElapsedDisplayType {
         
-        lblTimeElapsed.stringValue = trackTimes.elapsed
-        lblTimeRemainingOrDuration.stringValue = PlayerViewState.showDuration ? StringUtils.formatSecondsToHMS(seekPosn.trackDuration) : trackTimes.remaining;
+        case .formatted:
+            
+            let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration)
+            lblTimeElapsed.stringValue = trackTimes.elapsed
+            
+        case .seconds:
+            
+            let secStr = StringUtils.commaSeparatedInt(Int(round(seekPosn.timeElapsed)))
+            lblTimeElapsed.stringValue = String(format: "%@ sec", secStr)
+            
+        case .percentage:
+            
+            lblTimeElapsed.stringValue = String(format: "%d%%", Int(round(seekPosn.percentageElapsed)))
+        }
+        
+        switch PlayerViewState.timeRemainingDisplayType {
+            
+        case .formatted:
+            
+            let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration)
+            lblTimeRemainingOrDuration.stringValue = trackTimes.remaining
+            
+        case .seconds:
+            
+            let secStr = StringUtils.commaSeparatedInt(Int(round(seekPosn.trackDuration - seekPosn.timeElapsed)))
+            lblTimeRemainingOrDuration.stringValue = String(format: "- %@ sec", secStr)
+            
+        case .percentage:
+            
+            let percentageRemaining = 100 - seekPosn.percentageElapsed
+            lblTimeRemainingOrDuration.stringValue = String(format: "- %d%%", Int(round(percentageRemaining)))
+            
+        case .duration_formatted:
+            
+            lblTimeRemainingOrDuration.stringValue = StringUtils.formatSecondsToHMS(seekPosn.trackDuration)
+            
+        case .duration_seconds:
+            
+            let secStr = StringUtils.commaSeparatedInt(Int(round(seekPosn.trackDuration)))
+            lblTimeRemainingOrDuration.stringValue = String(format: "%@ sec", secStr)
+        }
     }
     
     // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
@@ -824,14 +873,64 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
 // Convenient accessor for information about the current player view
 class PlayerViewState {
     
+    static var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
+    static var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
+    
     static var showDuration: Bool = false
     
     static func persistentState() -> PlayerState {
         
         let state = PlayerState()
-        state.showDuration = showDuration
+        state.timeElapsedDisplayType = timeElapsedDisplayType
+        state.timeRemainingDisplayType = timeRemainingDisplayType
         
         return state
+    }
+}
+
+enum TimeElapsedDisplayType: String {
+    
+    case formatted
+    case seconds
+    case percentage
+    
+    func toggle() -> TimeElapsedDisplayType {
+    
+        switch self {
+            
+        case .formatted:    return .seconds
+            
+        case .seconds:      return .percentage
+            
+        case .percentage:   return .formatted
+            
+        }
+    }
+}
+
+enum TimeRemainingDisplayType: String {
+    
+    case formatted
+    case duration_formatted
+    case duration_seconds
+    case seconds
+    case percentage
+    
+    func toggle() -> TimeRemainingDisplayType {
+        
+        switch self {
+            
+        case .formatted:    return .duration_formatted
+            
+        case .duration_formatted:     return .duration_seconds
+            
+        case .duration_seconds:     return .seconds
+            
+        case .seconds:      return .percentage
+            
+        case .percentage:   return .formatted
+            
+        }
     }
 }
 
