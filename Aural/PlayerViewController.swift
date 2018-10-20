@@ -212,8 +212,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         lblTimeElapsed.stringValue = trackTimes.elapsed
         lblTimeRemainingOrDuration.stringValue = PlayerViewState.showDuration ? StringUtils.formatSecondsToHMS(seekPosn.trackDuration) : trackTimes.remaining;
-        
-//        NSLog("USP")
     }
     
     // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
