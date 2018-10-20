@@ -97,7 +97,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         AsyncMessenger.subscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.moreInfo], subscriber: self)
     }
@@ -106,7 +106,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         AsyncMessenger.unsubscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites], subscriber: self)
         
-        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackRateChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
+        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playbackStateChangedNotification, .playbackLoopChangedNotification, .seekPositionChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
         SyncMessenger.unsubscribe(actionTypes: [.moreInfo], subscriber: self)
     }
