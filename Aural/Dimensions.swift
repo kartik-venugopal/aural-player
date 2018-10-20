@@ -2,7 +2,13 @@ import Cocoa
 
 struct Dimensions {
  
-    static let minImgScopeLocationX: CGFloat = 85
+    // Y co-ordinates for the Track Name label, depending on whether it is displaying one or two lines of text
+    static let trackNameLabelLocationY_oneLine: CGFloat = 50
+    static let trackNameLabelLocationY_twoLines: CGFloat = 43
+    
+    // Height values for the Track Name label, depending on whether it is displaying one or two lines of text
+    static let trackNameLabelHeight_oneLine: CGFloat = 30
+    static let trackNameLabelHeight_twoLines: CGFloat = 45
     
     // Values used to determine the row height of table rows in the detailed track info popover view
     static let trackInfoKeyColumnWidth: CGFloat = 125

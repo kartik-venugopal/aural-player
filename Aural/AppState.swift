@@ -37,11 +37,11 @@ extension PersistentState {
 class UIState: PersistentState {
     
     var windowLayoutState: WindowLayoutState
-    var nowPlayingState: NowPlayingState
+    var playerState: PlayerState
     
     init() {
         self.windowLayoutState = WindowLayoutState()
-        self.nowPlayingState = NowPlayingState()
+        self.playerState = PlayerState()
     }
     
     func toSerializableMap() -> NSDictionary {
@@ -50,7 +50,7 @@ class UIState: PersistentState {
         
         map["windowLayout"] = windowLayoutState.toSerializableMap()
         
-        map["nowPlaying"] = nowPlayingState.toSerializableMap()
+        map["player"] = playerState.toSerializableMap()
         
         return map as NSDictionary
     }
@@ -63,15 +63,15 @@ class UIState: PersistentState {
             state.windowLayoutState = WindowLayoutState.deserialize(windowLayoutMap) as! WindowLayoutState
         }
         
-        if let nowPlayingMap = map["nowPlaying"] as? NSDictionary {
-            state.nowPlayingState = NowPlayingState.deserialize(nowPlayingMap) as! NowPlayingState
+        if let playerMap = map["player"] as? NSDictionary {
+            state.playerState = PlayerState.deserialize(playerMap) as! PlayerState
         }
         
         return state
     }
 }
 
-class NowPlayingState: PersistentState {
+class PlayerState: PersistentState {
     
     var showDuration: Bool = false
     
@@ -86,7 +86,7 @@ class NowPlayingState: PersistentState {
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
-        let state = NowPlayingState()
+        let state = PlayerState()
         
         if let showDuration = map["showDuration"] as? Bool {
             state.showDuration = showDuration
