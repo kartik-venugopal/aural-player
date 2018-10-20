@@ -453,7 +453,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             if let _ = player.getPlayingTrack() {
                 
                 _ = player.toggleLoop()
-                SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
+                playbackLoopChanged()
             }
         }
     }
@@ -671,10 +671,18 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
                 if soundPreferences.rememberEffectsSettingsOption == .allTracks || SoundProfiles.profileForTrack(oldTrack.track) != nil {
                     
                     SoundProfiles.saveProfile(oldTrack.track, audioGraph.getVolume(), audioGraph.getBalance(), audioGraph.getSettingsAsMasterPreset())
-                    
                 }
             }
         }
+    }
+    
+    func getLocationForBookmarkPrompt() -> (view: NSView, edge: NSRectEdge) {
+        
+        // Slider knob position
+        let knobRect = seekSliderCell.knobRect(flipped: false)
+        seekPositionMarker.setFrameOrigin(NSPoint(x: seekSlider.frame.origin.x + knobRect.minX + 2, y: seekSlider.frame.origin.y + knobRect.minY))
+        
+        return (seekPositionMarker, NSRectEdge.maxY)
     }
     
     // MARK: Message handling
