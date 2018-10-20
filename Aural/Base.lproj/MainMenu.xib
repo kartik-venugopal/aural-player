@@ -128,6 +128,10 @@
                 <outlet property="switchViewMenuItem" destination="Lhd-o1-irA" id="cBX-0N-n7w"/>
                 <outlet property="toggleEffectsMenuItem" destination="fK8-7g-oqx" id="xo8-0f-yDo"/>
                 <outlet property="togglePlaylistMenuItem" destination="af4-4E-1QV" id="PWt-uf-MOX"/>
+                <outlet property="viewPlayerArtMenuItem" destination="HPx-xo-hJh" id="zzH-Fp-6Xv"/>
+                <outlet property="viewPlayerMenuItem" destination="af4-4E-1QV" id="k8I-Lo-FQl"/>
+                <outlet property="viewPlayerSeekBarMenuItem" destination="Fu7-ev-msw" id="6vW-q0-9mA"/>
+                <outlet property="viewPlayerTrackFunctionsMenuItem" destination="JiX-rw-gah" id="ehe-uf-GBd"/>
                 <outlet property="windowLayoutsMenu" destination="S2A-E2-dfO" id="791-vR-GsR"/>
             </connections>
         </customObject>
@@ -963,9 +967,9 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" autoenablesItems="NO" id="Fd0-9b-tm8">
                         <items>
-                            <menuItem title="      Player" state="mixed" id="af4-4E-1QV" userLabel="Player">
+                            <menuItem title="  Player" id="af4-4E-1QV" userLabel="Player">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Dock Playlist" id="y9u-HE-dXj">
+                                <menu key="submenu" title="  Player" id="y9u-HE-dXj">
                                     <items>
                                         <menuItem title="Album art" id="HPx-xo-hJh">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -981,15 +985,9 @@ CA
                                         </menuItem>
                                         <menuItem title="Seek bar" id="Fu7-ev-msw">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="dockPlaylistRightAction:" target="xzd-WN-BuR" id="4kM-W5-3Sg"/>
-                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
-                                <connections>
-                                    <action selector="togglePlaylistAction:" target="xzd-WN-BuR" id="cIn-p4-B3g"/>
-                                </connections>
                             </menuItem>
                             <menuItem title=" Playlist" state="on" image="TogglePlaylistView-Small" keyEquivalent="1" id="0PH-nx-xo9" userLabel="Playlist">
                                 <connections>
