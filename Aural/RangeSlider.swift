@@ -31,7 +31,7 @@ enum DraggedSlider {
 }
 
 @IBDesignable
-class RangeSlider: NSView {
+class RangeSlider: NSView, EffectsUnitSliderProtocol {
     
     //****************************************************************************//
     //****************************************************************************//
@@ -46,6 +46,19 @@ class RangeSlider: NSView {
     //MARK: - Public API -
     
     @IBInspectable var enabled: Bool = true
+    var unitState: EffectsUnitState = .bypassed
+    
+    var stateFunction: (() -> EffectsUnitState)?
+    
+    func updateState() {
+        
+        if let function = stateFunction {
+            
+            unitState = function()
+            self.setNeedsDisplay(self.bounds)
+        }
+    }
+
     
     private let verticalShadowPadding: CGFloat = 4.0
     private let barTrailingMargin: CGFloat = 1.0
@@ -158,7 +171,15 @@ class RangeSlider: NSView {
     
     //MARK: - Appearance -
     
-    private lazy var barBackgroundGradient: NSGradient = Colors.sliderBarGradient
+    private lazy var barBackgroundGradient: NSGradient = {
+        
+        let backgroundStart = NSColor(white: 0.2, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.2, alpha: 1.0)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        assert(barBackgroundGradient != nil, "Couldn't generate gradient.")
+        
+        return barBackgroundGradient!
+    }()
     
     private lazy var sliderGradient: NSGradient = {
         let backgroundStart = NSColor(white: 0.92, alpha: 1.0)
@@ -171,14 +192,15 @@ class RangeSlider: NSView {
 
     private var barFillGradient: NSGradient {
         
-//        let fillStart: NSColor = NSColor.red
-//        let fillEnd: NSColor = NSColor(deviceRed: CGFloat(0.5), green: CGFloat(0), blue: CGFloat(0), alpha: CGFloat(1))
-//        
-//        let barFillGradient = NSGradient(starting: fillStart, ending: fillEnd)
-//        assert(barFillGradient != nil, "Couldn't generate gradient.")
-//        
-//        return barFillGradient!
-        return Colors.activeSliderBarColoredGradient
+        switch unitState {
+            
+        case .active:   return Colors.activeSliderBarColoredGradient
+            
+        case .bypassed: return Colors.bypassedSliderBarColoredGradient
+            
+        case .suppressed:   return Colors.suppressedSliderBarColoredGradient
+            
+        }
     }
     
     func initialize(_ min: Double, _ max: Double, _ changeHandler: ((RangeSlider) -> Void)?) {

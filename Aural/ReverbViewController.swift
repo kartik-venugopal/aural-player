@@ -8,7 +8,7 @@ class ReverbViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     // Reverb controls
     @IBOutlet weak var btnReverbBypass: EffectsUnitTriStateBypassButton!
     @IBOutlet weak var reverbSpaceMenu: NSPopUpButton!
-    @IBOutlet weak var reverbAmountSlider: NSSlider!
+    @IBOutlet weak var reverbAmountSlider: EffectsUnitSlider!
     @IBOutlet weak var lblReverbAmountValue: NSTextField!
     
     // Presets menu
@@ -26,6 +26,7 @@ class ReverbViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         
         oneTimeSetup()
         initControls()
+        
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.updateEffectsView], subscriber: self)
     }
@@ -42,16 +43,19 @@ class ReverbViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     
     private func oneTimeSetup() {
         
-        btnReverbBypass.stateFunction = {
+        let stateFunction = {
             () -> EffectsUnitState in
-            
             return self.graph.getReverbState()
         }
+        
+        btnReverbBypass.stateFunction = stateFunction
+        reverbAmountSlider.stateFunction = stateFunction
     }
     
     private func initControls() {
         
         btnReverbBypass.updateState()
+        reverbAmountSlider.updateState()
         
         reverbSpaceMenu.select(reverbSpaceMenu.item(withTitle: graph.getReverbSpace().description))
         
@@ -68,6 +72,7 @@ class ReverbViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         
         _ = graph.toggleReverbState()
         btnReverbBypass.updateState()
+        reverbAmountSlider.updateState()
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
@@ -136,7 +141,9 @@ class ReverbViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     func consumeNotification(_ notification: NotificationMessage) {
         
         if notification is EffectsUnitStateChangedNotification {
+            
             btnReverbBypass.updateState()
+            reverbAmountSlider.updateState()
         }
     }
     
