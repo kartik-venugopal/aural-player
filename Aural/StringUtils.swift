@@ -175,6 +175,26 @@ class StringUtils {
         return readableNumString
     }
     
+    static func commaSeparatedInt(_ num: Int) -> String {
+        
+        let numString = String(num)
+        var readableNumString: String = ""
+        
+        // Last index of numString
+        let numDigits: Int = numString.count - 1
+        
+        var c = 0
+        for eachCharacter in numString {
+            readableNumString.append(eachCharacter)
+            if (c < numDigits && (numDigits - c) % 3 == 0) {
+                readableNumString.append(",")
+            }
+            c += 1
+        }
+        
+        return readableNumString
+    }
+    
     // Checks if the string 1 - is non-null, 2 - has characters, 3 - not all characters are whitespace
     static func isStringEmpty(_ string: String?) -> Bool {
         

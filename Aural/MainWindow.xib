@@ -172,10 +172,10 @@
                                                 <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </box>
                                             <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wJm-gK-OsL" userLabel="Player Box">
-                                                <rect key="frame" x="0.0" y="7" width="500" height="66"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="500" height="70"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <view key="contentView" id="0EX-XC-OYa">
-                                                    <rect key="frame" x="0.0" y="0.0" width="500" height="66"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="500" height="70"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </view>
                                                 <color key="borderColor" white="0.099066840279999999" alpha="1" colorSpace="calibratedWhite"/>
