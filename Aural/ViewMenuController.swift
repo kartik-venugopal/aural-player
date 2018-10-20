@@ -149,6 +149,18 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         editorWindowController.showLayoutsEditor()
     }
     
+    @IBAction func showOrHidePlayingTrackFunctionsAction(_ sender: NSMenuItem) {
+        
+        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackFunctions))
+        sender.state = sender.state == UIConstants.buttonState_1 ? UIConstants.buttonState_0 : UIConstants.buttonState_1
+    }
+    
+    @IBAction func showOrHideAlbumArtAction(_ sender: NSMenuItem) {
+        
+        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideAlbumArt))
+        sender.state = sender.state == UIConstants.buttonState_1 ? UIConstants.buttonState_0 : UIConstants.buttonState_1
+    }
+    
     // MARK - StringInputClient functions
     
     func getInputPrompt() -> String {

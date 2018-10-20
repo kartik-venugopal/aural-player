@@ -7,19 +7,19 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     
     @IBOutlet weak var btnEQBypass: EffectsUnitTriStateBypassButton!
     
-    @IBOutlet weak var eqGlobalGainSlider: NSSlider!
-    @IBOutlet weak var eqSlider1k: NSSlider!
-    @IBOutlet weak var eqSlider64: NSSlider!
-    @IBOutlet weak var eqSlider16k: NSSlider!
-    @IBOutlet weak var eqSlider8k: NSSlider!
-    @IBOutlet weak var eqSlider4k: NSSlider!
-    @IBOutlet weak var eqSlider2k: NSSlider!
-    @IBOutlet weak var eqSlider32: NSSlider!
-    @IBOutlet weak var eqSlider512: NSSlider!
-    @IBOutlet weak var eqSlider256: NSSlider!
-    @IBOutlet weak var eqSlider128: NSSlider!
+    @IBOutlet weak var eqGlobalGainSlider: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider1k: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider64: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider16k: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider8k: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider4k: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider2k: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider32: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider512: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider256: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider128: EffectsUnitSlider!
     
-    private var eqSliders: [NSSlider] = []
+    private var eqSliders: [EffectsUnitSlider] = []
     
     // Presets menu
     @IBOutlet weak var eqPresets: NSPopUpButton!
@@ -64,13 +64,16 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     
     private func oneTimeSetup() {
         
-        btnEQBypass.stateFunction = {
+        let eqStateFunction = {
             () -> EffectsUnitState in
-            
             return self.graph.getEQState()
         }
         
+        btnEQBypass.stateFunction = eqStateFunction
         eqSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
+        
+        eqSliders.forEach({$0.stateFunction = eqStateFunction})
+        eqGlobalGainSlider.stateFunction = eqStateFunction
     }
     
     private func initControls() {
@@ -78,6 +81,7 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
         btnEQBypass.updateState()
         
         updateAllEQSliders(graph.getEQBands(), graph.getEQGlobalGain())
+        redrawSliders()
         
         // Don't select any items from the EQ presets menu
         eqPresets.selectItem(at: -1)
@@ -87,8 +91,15 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
         
         _ = graph.toggleEQState()
         btnEQBypass.updateState()
+        redrawSliders()
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
+    }
+    
+    private func redrawSliders() {
+        
+        eqSliders.forEach({$0.updateState()})
+        eqGlobalGainSlider.updateState()
     }
     
     // Updates the global gain value of the Equalizer
@@ -97,7 +108,7 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     }
     
     // Updates the gain value of a single frequency band (specified by the slider parameter) of the Equalizer
-    @IBAction func eqSliderAction(_ sender: NSSlider) {
+    @IBAction func eqSliderAction(_ sender: EffectsUnitSlider) {
         // Slider tags match the corresponding EQ band indexes
         graph.setEQBand(sender.tag, gain: sender.floatValue)
     }
@@ -165,6 +176,7 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
         
         btnEQBypass.on()
         updateAllEQSliders(bands, graph.getEQGlobalGain())
+        redrawSliders()
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
         showEQTab()
@@ -187,6 +199,7 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
         
         if notification is EffectsUnitStateChangedNotification {
             btnEQBypass.updateState()
+            redrawSliders()
         }
     }
     

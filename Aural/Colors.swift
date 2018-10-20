@@ -69,17 +69,44 @@ struct Colors {
     // Gradient used to fill slider bars
     static let sliderBarPlainGradient: NSGradient = {
         
-        let backgroundStart = NSColor(white: 0.7, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0.2, alpha: 1.0)
+        let backgroundStart = NSColor(white: 0.4, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.1, alpha: 1.0)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!
     }()
     
-    static let sliderBarColoredGradient: NSGradient = {
-        
+    static let neutralSliderBarColoredGradient: NSGradient = {
+
         let backgroundStart = NSColor(red: 1, green: 0, blue: 0, alpha: 1)
         let backgroundEnd =  NSColor(red: 0.4, green: 0, blue: 0, alpha: 1)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+
+        return barBackgroundGradient!
+    }()
+    
+    static let activeSliderBarColoredGradient: NSGradient = {
+        
+        let backgroundStart = NSColor(red: 0, green: 0.65, blue: 0, alpha: 1)
+        let backgroundEnd =  NSColor(red: 0, green: 0.2, blue: 0, alpha: 1)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
+    static let bypassedSliderBarColoredGradient: NSGradient = {
+        
+        let backgroundStart = NSColor(calibratedWhite: 0.6, alpha: 1)
+        let backgroundEnd =  NSColor(calibratedWhite: 0.3, alpha: 1)
+        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
+        
+        return barBackgroundGradient!
+    }()
+    
+    static let suppressedSliderBarColoredGradient: NSGradient = {
+        
+        let backgroundStart = NSColor(red: 0.68, green: 0.56, blue: 0, alpha: 1)
+        let backgroundEnd =  NSColor(red: 0.34, green: 0.28, blue: 0, alpha: 1)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!
@@ -96,8 +123,8 @@ struct Colors {
     
     static let seekBarPlainGradient: NSGradient = {
         
-        let backgroundStart = NSColor(white: 0.3, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0.3, alpha: 1.0)
+        let backgroundStart = NSColor(white: 0.4, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.2, alpha: 1.0)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!
@@ -105,8 +132,8 @@ struct Colors {
     
     static let seekBarColoredGradient: NSGradient = {
         
-        let backgroundStart = NSColor(white: 0.8, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0.6, alpha: 1.0)
+        let backgroundStart = NSColor(white: 0.7, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.5, alpha: 1.0)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!

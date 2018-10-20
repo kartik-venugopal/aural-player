@@ -17,12 +17,16 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     @IBOutlet weak var lblTrackArtist: NSTextField!
     @IBOutlet weak var lblTrackTitle: NSTextField!
     @IBOutlet weak var lblTrackName: NSTextField!
+    
+    @IBOutlet weak var artBox: NSBox!
     @IBOutlet weak var artView: NSImageView!
     
     // Fields that display information about the current playback scope
     @IBOutlet weak var lblSequenceProgress: NSTextField!
     @IBOutlet weak var lblPlaybackScope: NSTextField!
     @IBOutlet weak var imgScope: NSImageView!
+    
+    @IBOutlet weak var buttonsBox: NSBox!
     
     // Button to display more details about the playing track
     @IBOutlet weak var btnMoreInfo: NSButton!
@@ -99,7 +103,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.moreInfo], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.moreInfo, .showOrHidePlayingTrackFunctions, .showOrHideAlbumArt], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -108,7 +112,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.moreInfo], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.moreInfo, .showOrHidePlayingTrackFunctions, .showOrHideAlbumArt], subscriber: self)
     }
     
     // Shows a popover with detailed information for the currently playing track, if there is one
@@ -371,6 +375,18 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         gapTimer?.startOrResume()
     }
     
+    private func showOrHidePlayingTrackFunctions() {
+        
+        NowPlayingViewState.showButtons = !NowPlayingViewState.showButtons
+        buttonsBox.isHidden = !NowPlayingViewState.showButtons
+    }
+    
+    private func showOrHideAlbumArt() {
+        
+        NowPlayingViewState.showAlbumArt = !NowPlayingViewState.showAlbumArt
+        artBox.isHidden = !NowPlayingViewState.showAlbumArt
+    }
+    
     // MARK: Message handling
     
     func getID() -> String {
@@ -434,10 +450,33 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
             
         case .moreInfo: moreInfoAction(self)
             
+        case .showOrHidePlayingTrackFunctions:
+            
+            showOrHidePlayingTrackFunctions()
+            
+        case .showOrHideAlbumArt:
+            
+            showOrHideAlbumArt()
+            
         default: return
             
         }
     }
+}
+
+// Convenient accessor for information about the current playlist view
+class NowPlayingViewState {
+    
+    static var showButtons = true
+    static var showAlbumArt = true
+    
+//    static func persistentState() -> PlayerState {
+//
+//        let state = PlayerState()
+//        state.showDuration = showDuration
+//
+//        return state
+//    }
 }
 
 // Helper function inserted by Swift 4.2 migrator.

@@ -823,7 +823,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     }
 }
 
-// Convenient accessor for information about the current playlist view
+// Convenient accessor for information about the current player view
 class PlayerViewState {
     
     static var showDuration: Bool = false

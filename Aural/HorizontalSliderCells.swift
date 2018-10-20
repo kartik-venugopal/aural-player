@@ -11,7 +11,7 @@ class HorizontalSliderCell: NSSliderCell {
     
     var barRadius: CGFloat {return 1}
     var barPlainGradient: NSGradient {return Colors.sliderBarPlainGradient}
-    var barColoredGradient: NSGradient {return Colors.sliderBarColoredGradient}
+    var barColoredGradient: NSGradient {return Colors.activeSliderBarColoredGradient}
     var gradientDegrees: CGFloat {return UIConstants.horizontalGradientDegrees}
     var barInsetX: CGFloat {return 0}
     var barInsetY: CGFloat {return 0}
@@ -66,6 +66,8 @@ class VolumeSliderCell: HorizontalSliderCell {
     override var knobWidth: CGFloat {return 6}
     override var knobRadius: CGFloat {return 0.5}
     override var knobHeightOutsideBar: CGFloat {return 0.5}
+    
+    override var barColoredGradient: NSGradient {return Colors.neutralSliderBarColoredGradient}
 }
 
 // Defines the range (start and end points) used to render a track segment playback loop
@@ -81,12 +83,12 @@ struct PlaybackLoopRange {
 class SeekSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 1}
-    override var barInsetY: CGFloat {return 0.25}
+    override var barInsetY: CGFloat {return 0.5}
     
     override var knobRadius: CGFloat {return 1}
-    override var knobColor: NSColor {return NSColor(white: 0.8, alpha: 1.0)}
+    override var knobColor: NSColor {return NSColor(white: 0.7, alpha: 1.0)}
     override var knobWidth: CGFloat {return 10}
-    override var knobHeightOutsideBar: CGFloat {return 1}
+    override var knobHeightOutsideBar: CGFloat {return 0.5}
     
     override var barPlainGradient: NSGradient {return Colors.seekBarPlainGradient}
     override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
@@ -193,6 +195,10 @@ class SeekSliderCell: HorizontalSliderCell {
         let knobPath = NSBezierPath(roundedRect: rect, xRadius: knobRadius, yRadius: knobRadius)
         knobColor.setFill()
         knobPath.fill()
+        
+//        NSColor.white.setStroke()
+//        knobPath.lineWidth = 0.5
+//        knobPath.stroke()
     }
 }
 
@@ -220,7 +226,7 @@ class PreferencesSliderCell: HorizontalSliderCell {
 
 // Cell for sliders on the effects panel
 class EffectsSliderCell: HorizontalSliderCell {
-
+    
     override var barRadius: CGFloat {return 1.5}
     override var barInsetY: CGFloat {return 0.5}
     

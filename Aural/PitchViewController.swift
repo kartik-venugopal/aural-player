@@ -7,8 +7,8 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     
     // Pitch controls
     @IBOutlet weak var btnPitchBypass: EffectsUnitTriStateBypassButton!
-    @IBOutlet weak var pitchSlider: NSSlider!
-    @IBOutlet weak var pitchOverlapSlider: NSSlider!
+    @IBOutlet weak var pitchSlider: EffectsUnitSlider!
+    @IBOutlet weak var pitchOverlapSlider: EffectsUnitSlider!
     @IBOutlet weak var lblPitchValue: NSTextField!
     @IBOutlet weak var lblPitchOverlapValue: NSTextField!
     
@@ -61,16 +61,20 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     
     private func oneTimeSetup() {
         
-        btnPitchBypass.stateFunction = {
+        let stateFunction = {
             () -> EffectsUnitState in
             
             return self.graph.getPitchState()
         }
+        
+        btnPitchBypass.stateFunction = stateFunction
+        [pitchSlider, pitchOverlapSlider].forEach({$0?.stateFunction = stateFunction})
     }
     
     private func initControls() {
         
         btnPitchBypass.updateState()
+        [pitchSlider, pitchOverlapSlider].forEach({$0?.updateState()})
         
         let pitch = graph.getPitch()
         pitchSlider.floatValue = pitch.pitch
@@ -88,7 +92,9 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     @IBAction func pitchBypassAction(_ sender: AnyObject) {
         
         _ = graph.togglePitchState()
+        
         btnPitchBypass.updateState()
+        [pitchSlider, pitchOverlapSlider].forEach({$0?.updateState()})
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
@@ -106,7 +112,10 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     private func setPitch(_ pitch: Float) {
         
         lblPitchValue.stringValue = graph.setPitch(pitch, true)
+        
         btnPitchBypass.updateState()
+        [pitchSlider, pitchOverlapSlider].forEach({$0?.updateState()})
+        
         pitchSlider.floatValue = pitch
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
@@ -152,7 +161,9 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         
         pitchSlider.floatValue = pitchInfo.pitch
         lblPitchValue.stringValue = pitchInfo.pitchString
+        
         btnPitchBypass.updateState()
+        [pitchSlider, pitchOverlapSlider].forEach({$0?.updateState()})
         
         // Show the Pitch tab if the Effects panel is shown
         showPitchTab()
@@ -168,6 +179,7 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         
         if notification is EffectsUnitStateChangedNotification {
             btnPitchBypass.updateState()
+            [pitchSlider, pitchOverlapSlider].forEach({$0?.updateState()})
         }
     }
     

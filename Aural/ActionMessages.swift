@@ -84,6 +84,8 @@ enum ActionType {
     
     case collapseSelectedGroups
     
+    case collapseParentGroup
+    
     case expandAllGroups
     
     case collapseAllGroups
@@ -290,6 +292,13 @@ enum ActionType {
     case dockTopRight
     case dockBottomLeft
     case dockBottomRight
+    
+    // Now playing view actions
+    
+    case showOrHidePlayingTrackFunctions
+    case showOrHideAlbumArt
+    
+    case showOrHideSeekBar
 }
 
 enum ActionMode {
