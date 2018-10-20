@@ -16,6 +16,11 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     @IBOutlet weak var switchViewMenuItem: ToggleMenuItem!
     
+    @IBOutlet weak var viewPlayerMenuItem: NSMenuItem!
+    @IBOutlet weak var viewPlayerArtMenuItem: NSMenuItem!
+    @IBOutlet weak var viewPlayerSeekBarMenuItem: NSMenuItem!
+    @IBOutlet weak var viewPlayerTrackFunctionsMenuItem: NSMenuItem!
+    
     // Menu items whose states are toggled when they (or others) are clicked
     @IBOutlet weak var togglePlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var toggleEffectsMenuItem: NSMenuItem!
@@ -31,7 +36,9 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     private lazy var editorWindowController: EditorWindowController = WindowFactory.getEditorWindowController()
     
     override func awakeFromNib() {
+        
         switchViewMenuItem.off()
+        [viewPlayerArtMenuItem, viewPlayerTrackFunctionsMenuItem, viewPlayerSeekBarMenuItem].forEach({$0?.state = UIConstants.buttonState_1})
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state
@@ -75,6 +82,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         })
     
         manageLayoutsMenuItem.isEnabled = !customLayouts.isEmpty
+        
+        viewPlayerMenuItem.state = UIConstants.buttonState_0
     }
  
     // Docks the playlist window to the left of the main window
