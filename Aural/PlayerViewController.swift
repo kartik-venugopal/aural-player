@@ -5,6 +5,26 @@ import Cocoa
 
 class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber, ConstituentView {
     
+    // Fields that display/control seek position within the playing track
+    @IBOutlet weak var lblTimeElapsed: NSTextField!
+    @IBOutlet weak var lblTimeRemainingOrDuration: NSTextField!
+    @IBOutlet weak var lblSequenceProgress: NSTextField!
+    @IBOutlet weak var imgScope: NSImageView!
+    
+    // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
+    @IBOutlet weak var seekSlider: NSSlider!
+    @IBOutlet weak var seekSliderCell: SeekSliderCell!
+    
+    // A clone of the seek slider, used to render the segment playback loop
+    @IBOutlet weak var seekSliderClone: NSSlider!
+    @IBOutlet weak var seekSliderCloneCell: SeekSliderCell!
+    
+    // Used to display the bookmark name prompt popover
+    @IBOutlet weak var seekPositionMarker: NSView!
+    
+    // Timer that periodically updates the seek position slider and label
+    private var seekTimer: RepeatingTaskExecutor?
+    
     // Volume/pan controls
     @IBOutlet weak var btnVolume: NSButton!
     @IBOutlet weak var volumeSlider: NSSlider!
@@ -73,10 +93,41 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             return "Next track"
         }
         
+        let timeBypassed = audioGraph.getTimeState() != .active
+        let seekTimerInterval = timeBypassed ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * audioGraph.getTimeRate().rate))
+        
+        // Timer interval depends on whether time stretch unit is active
+        seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval, task: {
+            
+            if (self.player.getPlaybackState() == .playing) {
+                self.updateSeekPosition()
+            }
+            
+        }, queue: DispatchQueue.main)
+        
+//        NowPlayingViewState.showDuration = appState.showDuration
+        NowPlayingViewState.showDuration = false
+        
+        // Allow clicks on the time remaining label to switch to track duration display
+        let gestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTrackTimeDisplayAction(_:)))
+        lblTimeRemainingOrDuration.addGestureRecognizer(gestureRecognizer)
+        
         AppModeManager.registerConstituentView(.regular, self)
     }
     
     func activate() {
+        
+        let newTrack = player.getPlayingTrack()
+        
+        if (newTrack != nil) {
+            
+            showNowPlayingInfo(newTrack!.track)
+            
+        } else {
+            
+            // No track playing, clear the info fields
+            clearNowPlayingInfo()
+        }
         
         initVolumeAndPan()
         btnPlayPause.onIf(player.getPlaybackState() == .playing)
@@ -99,7 +150,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // Subscribe to message notifications
         AsyncMessenger.subscribe([.trackNotPlayed, .trackChanged, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .sequenceChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
@@ -108,7 +159,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         AsyncMessenger.unsubscribe([.trackNotPlayed, .trackChanged, .gapStarted], subscriber: self)
         
-        SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification], subscriber: self)
+        SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .sequenceChangedNotification], subscriber: self)
         
         SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
@@ -119,7 +170,209 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         setVolumeImage(audioGraph.isMuted())
         panSlider.floatValue = audioGraph.getBalance()
     }
+    
+    @IBAction func switchTrackTimeDisplayAction(_ sender: Any) {
+        NowPlayingViewState.showDuration = !NowPlayingViewState.showDuration
+        updateSeekPosition()
+    }
+    
+    private func showNowPlayingInfo(_ track: Track) {
+        
+        setSeekTimerState(true)
+        initSeekPosition()
+        seekSlider.isEnabled = true
+        sequenceChanged()
+        imgScope.isHidden = false
+        renderLoop()
+    }
+    
+    private func clearNowPlayingInfo() {
+        
+        lblTimeElapsed.isHidden = true
+        lblTimeRemainingOrDuration.isHidden = true
+        setSeekTimerState(false)
+        seekSlider.floatValue = 0
+        seekSlider.isEnabled = false
+        lblSequenceProgress.stringValue = ""
+        imgScope.isHidden = true
+    }
+    
+    private func initSeekPosition() {
+        
+        lblTimeElapsed.isHidden = false
+        lblTimeRemainingOrDuration.isHidden = false
+        updateSeekPosition()
+    }
+    
+    private func setSeekTimerState(_ timerOn: Bool) {
+        timerOn ? seekTimer?.startOrResume() : seekTimer?.pause()
+    }
+    
+    private func updateSeekPosition() {
+        
+        let seekPosn = player.getSeekPosition()
+        
+        seekSlider.doubleValue = seekPosn.percentageElapsed
+        
+        let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration)
+        
+        lblTimeElapsed.stringValue = trackTimes.elapsed
+        lblTimeRemainingOrDuration.stringValue = NowPlayingViewState.showDuration ? StringUtils.formatSecondsToHMS(seekPosn.trackDuration) : trackTimes.remaining
+    }
+    
+    // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
+    private func resetSeekPosition(_ track: Track) {
+        
+        lblTimeElapsed.stringValue = Strings.zeroDurationString
+        lblTimeRemainingOrDuration.stringValue = NowPlayingViewState.showDuration ? StringUtils.formatSecondsToHMS(track.duration) : StringUtils.formatSecondsToHMS(track.duration, true)
+        
+        lblTimeElapsed.isHidden = false
+        lblTimeRemainingOrDuration.isHidden = false
+        
+        seekSlider.floatValue = 0
+    }
 
+    // Moving the seek slider results in seeking the track to the new slider position
+    @IBAction func seekSliderAction(_ sender: AnyObject) {
+        player.seekToPercentage(seekSlider.doubleValue)
+        updateSeekPosition()
+    }
+    
+    // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
+    private func playbackRateChanged(_ notification: PlaybackRateChangedNotification) {
+        
+        let interval = Int(1000 / (2 * notification.newPlaybackRate))
+        
+        if (interval != seekTimer?.getInterval()) {
+            
+            seekTimer?.stop()
+            seekTimer = RepeatingTaskExecutor(intervalMillis: interval, task: {
+                
+                if (self.player.getPlaybackState() == .playing) {
+                    self.updateSeekPosition()
+                }
+            }, queue: DispatchQueue.main)
+            
+            let playbackState = player.getPlaybackState()
+            setSeekTimerState(playbackState == .playing)
+        }
+    }
+    
+    // When the playback state changes (e.g. playing -> paused), fields may need to be updated
+    private func playbackStateChanged() {
+        
+        let playbackState = player.getPlaybackState()
+        let isPlaying: Bool = playbackState == .playing
+        
+        btnPlayPause.onIf(isPlaying)
+        // The seek timer can be disabled when not needed (e.g. when paused)
+        setSeekTimerState(isPlaying)
+    }
+    
+    private func sequenceChanged() {
+        
+        let sequence = player.getPlaybackSequenceInfo()
+        let scope = sequence.scope
+        
+        var scopeStr: String
+        
+        // Description and image for playback scope
+        switch scope.type {
+            
+        case .allTracks, .allArtists, .allAlbums, .allGenres:
+            
+            scopeStr = StringUtils.splitCamelCaseWord(scope.type.rawValue, false)
+            imgScope.image = Images.imgPlaylistOn
+            
+        case .artist, .album, .genre:
+            
+            scopeStr = scope.scope!.name
+            imgScope.image = Images.imgGroup
+        }
+        
+        // Sequence progress. For example, "5 / 10" (tracks)
+        let trackIndex = sequence.trackIndex
+        let totalTracks = sequence.totalTracks
+        
+        let str = String(format: "%@:   %d / %d", scopeStr, sequence.trackIndex, sequence.totalTracks)
+        
+//         Dynamically position the scope image relative to the scope description string
+        
+//         Determine the width of the scope string
+        let scopeString: NSString = str as NSString
+        let stringSize: CGSize = scopeString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): lblSequenceProgress.font as AnyObject]))
+        let lblWidth = lblSequenceProgress.frame.width
+        let textWidth = min(stringSize.width, lblWidth)
+        
+//         Position the scope image a few pixels to the left of the scope string
+        let margin = (lblWidth - textWidth) / 2
+        let newImgX = lblSequenceProgress.frame.origin.x + margin - imgScope.frame.width - 5
+        imgScope.frame.origin.x = max(Dimensions.minImgScopeLocationX, newImgX)
+        
+        lblSequenceProgress.stringValue = str
+    }
+    
+    // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
+    private func playbackLoopChanged() {
+        
+        let loop = player.getPlaybackLoop()
+        
+        // Update loop button image
+        let loopState: LoopState = loop == nil ? .none : (loop!.isComplete() ? .complete: .started)
+        btnLoop.switchState(loopState)
+        
+        //        if let loop = player.getPlaybackLoop() {
+        //
+        //            let duration = (player.getPlayingTrack()?.track.duration)!
+        //
+        //            // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
+        //            if (loop.isComplete()) {
+        //
+        //                seekSliderClone.doubleValue = loop.endTime! * 100 / duration
+        //                seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
+        //
+        //            } else {
+        //
+        //                seekSliderClone.doubleValue = loop.startTime * 100 / duration
+        //                seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
+        //            }
+        //
+        //        } else {
+        //            seekSliderCell.removeLoop()
+        //        }
+        //
+        //        // Force a redraw of the seek slider
+        //        updateSeekPosition()
+    }
+    
+    private func renderLoop() {
+        
+        //        if let loop = player.getPlaybackLoop() {
+        //
+        //            let duration = (player.getPlayingTrack()?.track.duration)!
+        //
+        //            // Mark start
+        //            seekSliderClone.doubleValue = loop.startTime * 100 / duration
+        //            seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
+        //
+        //            // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
+        //            if (loop.isComplete()) {
+        //
+        //                seekSliderClone.doubleValue = loop.endTime! * 100 / duration
+        //                seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
+        //            }
+        //
+        //        } else {
+        //
+        //            seekSliderCell.removeLoop()
+        //        }
+        //
+        //        // Force a redraw of the seek slider
+        //        updateSeekPosition()
+    }
+    
+    // MARK - Volume and Pan
+    
     // Updates the volume
     @IBAction func volumeAction(_ sender: AnyObject) {
         
@@ -202,14 +455,12 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         autoHidingPanLabel.showView()
     }
     
+    // MARK: Playback
+    
     // Plays, pauses, or resumes playback
     @IBAction func playPauseAction(_ sender: AnyObject) {
-        
         player.togglePlayPause()
-        
-        let playbackState = player.getPlaybackState()
-        btnPlayPause.onIf(playbackState == .playing)
-        SyncMessenger.publishNotification(PlaybackStateChangedNotification(playbackState))
+        playbackStateChanged()
     }
     
     private func stop() {
@@ -224,13 +475,10 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             let wasPaused: Bool = player.getPlaybackState() == .paused
             
             player.replay()
-//            player.seekToPercentage(99)
-            
-            btnPlayPause.on()
-            SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
+            updateSeekPosition()
             
             if (wasPaused) {
-                SyncMessenger.publishNotification(PlaybackStateChangedNotification(.playing))
+                playbackStateChanged()
             }
         }
     }
@@ -252,14 +500,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         }
     }
     
-    private func playbackLoopChanged() {
-        
-        let loop = player.getPlaybackLoop()
-        
-        // Update loop button image
-        let loopState: LoopState = loop == nil ? .none : (loop!.isComplete() ? .complete: .started)
-        btnLoop.switchState(loopState)
-    }
     
     // Plays the previous track in the current playback sequence
     @IBAction func previousTrackAction(_ sender: AnyObject) {
@@ -284,31 +524,31 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func seekForward(_ actionMode: ActionMode) {
         
         player.seekForward(actionMode)
-        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
+        updateSeekPosition()
     }
     
     private func seekBackward(_ actionMode: ActionMode) {
         
         player.seekBackward(actionMode)
-        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
+        updateSeekPosition()
     }
     
     private func seekForward_secondary() {
         
         player.seekForwardSecondary()
-        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
+        updateSeekPosition()
     }
     
     private func seekBackward_secondary() {
         
         player.seekBackwardSecondary()
-        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
+        updateSeekPosition()
     }
     
     private func jumpToTime(_ time: Double) {
         
         player.seekToTime(time)
-        SyncMessenger.publishNotification(SeekPositionChangedNotification.instance)
+        updateSeekPosition()
     }
     
     private func playTrackWithIndex(_ trackIndex: Int, _ delay: Double?) {
@@ -389,6 +629,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         btnPlayPause.onIf(player.getPlaybackState() == .playing)
         btnLoop.switchState(player.getPlaybackLoop() != nil ? LoopState.complete : LoopState.none)
+        
+        if (player.getPlaybackLoop()) != nil {
+            renderLoop()
+        } else {
+            seekSliderCell.removeLoop()
+        }
+        
+        newTrack != nil ? showNowPlayingInfo(newTrack!.track) : clearNowPlayingInfo()
         
         if soundPreferences.rememberEffectsSettings {
             
@@ -506,6 +754,10 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
             playbackLoopChanged()
             
+        case .sequenceChangedNotification:
+            
+            sequenceChanged()
+            
         default: return
             
         }
@@ -601,4 +853,15 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+    guard let input = input else { return nil }
+    return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+    return input.rawValue
 }

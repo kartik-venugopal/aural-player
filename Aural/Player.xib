@@ -15,9 +15,18 @@
                 <outlet property="btnRepeat" destination="Ghu-Et-yHG" id="cG7-ao-d0a"/>
                 <outlet property="btnShuffle" destination="5iY-Bb-qE7" id="k6z-Gd-J0g"/>
                 <outlet property="btnVolume" destination="C1N-8X-NEN" id="f9i-pE-iXS"/>
+                <outlet property="imgScope" destination="dtp-JY-43X" id="qmK-gP-DR8"/>
                 <outlet property="lblPan" destination="DqJ-NT-YGM" id="ysV-eR-vl6"/>
+                <outlet property="lblSequenceProgress" destination="0Wk-hH-FI1" id="VJ0-Xb-6Bm"/>
+                <outlet property="lblTimeElapsed" destination="Guc-Gm-WbK" id="sqE-Ax-AlJ"/>
+                <outlet property="lblTimeRemainingOrDuration" destination="hDi-pa-Wii" id="BSs-lY-J6Q"/>
                 <outlet property="lblVolume" destination="ZQ8-sp-wFj" id="YZW-uX-Yyf"/>
                 <outlet property="panSlider" destination="Scl-AU-A5D" id="mgO-p7-xRo"/>
+                <outlet property="seekPositionMarker" destination="XNE-6n-5ZW" id="fZR-hM-5Mp"/>
+                <outlet property="seekSlider" destination="7Kc-fa-4iy" id="4Ka-ZZ-fU6"/>
+                <outlet property="seekSliderCell" destination="eaE-Iy-gOS" id="hkC-nZ-UZG"/>
+                <outlet property="seekSliderClone" destination="Fzu-V7-fMg" id="GRR-Pp-ga6"/>
+                <outlet property="seekSliderCloneCell" destination="ttd-ma-kiF" id="KZe-wQ-zEn"/>
                 <outlet property="view" destination="hMe-X0-zRV" id="ApX-Iu-a0J"/>
                 <outlet property="volumeSlider" destination="ik2-K6-9en" id="bfC-s4-mq4"/>
             </connections>
@@ -25,11 +34,52 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view wantsLayer="YES" id="hMe-X0-zRV">
-            <rect key="frame" x="0.0" y="0.0" width="450" height="52"/>
+            <rect key="frame" x="0.0" y="0.0" width="500" height="80"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Kc-fa-4iy" userLabel="Seek Slider">
+                    <rect key="frame" x="7" y="41" width="489" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <shadow key="shadow" blurRadius="1">
+                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </shadow>
+                    <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="eaE-Iy-gOS" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
+                    <connections>
+                        <action selector="seekSliderAction:" target="-2" id="kwR-5E-GAV"/>
+                    </connections>
+                </slider>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Guc-Gm-WbK" userLabel="Lbl Time Elapsed">
+                    <rect key="frame" x="8" y="59" width="53" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="99:99:99" placeholderString="" id="w92-a0-z9g">
+                        <font key="font" size="12" name="GillSans-SemiBold"/>
+                        <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.63127055919999997" alpha="1" colorSpace="calibratedWhite"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hDi-pa-Wii" userLabel="Lbl Time Remaining">
+                    <rect key="frame" x="438" y="59" width="55" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="-99:99:99" placeholderString="" id="uCv-pb-dzv">
+                        <font key="font" size="12" name="GillSans-SemiBold"/>
+                        <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.63127055919999997" alpha="1" colorSpace="calibratedWhite"/>
+                    </textFieldCell>
+                    <connections>
+                        <action selector="switchTrackTimeDisplayAction:" target="-2" id="YaM-C8-84Q"/>
+                    </connections>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Wk-hH-FI1" userLabel="Lbl Sequence Progress">
+                    <rect key="frame" x="78" y="57" width="345" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" id="DTe-oS-E9O">
+                        <font key="font" size="12" name="GillSans-SemiBold"/>
+                        <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.63127055919999997" alpha="1" colorSpace="calibratedWhite"/>
+                    </textFieldCell>
+                </textField>
                 <button toolTip="Repeat" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ghu-Et-yHG" userLabel="Repeat Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="7" y="16" width="18" height="18"/>
+                    <rect key="frame" x="7" y="14" width="18" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RepeatOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="n1e-Vs-jAv">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -40,7 +90,7 @@
                     </connections>
                 </button>
                 <button toolTip="A-&gt;B Segment loop" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8CO-uA-28Y" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="48" y="21" width="18" height="15"/>
+                    <rect key="frame" x="48" y="19" width="18" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="LoopOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="PVi-ZF-Siy">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -51,7 +101,7 @@
                     </connections>
                 </button>
                 <button toolTip="Shuffle" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5iY-Bb-qE7" userLabel="Shuffle Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="27" y="19" width="18" height="18"/>
+                    <rect key="frame" x="27" y="17" width="18" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShuffleOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ibb-Eg-Yea">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -62,7 +112,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dc4-GM-vmb" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="219" y="18" width="16" height="16"/>
+                    <rect key="frame" x="243" y="18" width="16" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Play" imagePosition="overlaps" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="AJf-TF-0fk">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -79,7 +129,7 @@
                     </connections>
                 </button>
                 <button toolTip="Previous track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YI0-Vg-EQs" userLabel="PrevTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="193" y="20" width="16" height="11"/>
+                    <rect key="frame" x="217" y="20" width="16" height="11"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PreviousTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="PQL-Ns-yQn">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -90,7 +140,7 @@
                     </connections>
                 </button>
                 <button toolTip="Next track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPb-lv-92X" userLabel="NextTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="242" y="20" width="16" height="11"/>
+                    <rect key="frame" x="266" y="20" width="16" height="11"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NextTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="GgN-ux-evh">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -101,7 +151,7 @@
                     </connections>
                 </button>
                 <button toolTip="Seek backward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VxM-1M-6tI" userLabel="Seek Bwd Button">
-                    <rect key="frame" x="169" y="20" width="15" height="10"/>
+                    <rect key="frame" x="193" y="20" width="15" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekBackward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="mLy-s0-mRb">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -112,7 +162,7 @@
                     </connections>
                 </button>
                 <button toolTip="Seek forward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xeA-uu-J77" userLabel="Seek Fwd Button">
-                    <rect key="frame" x="268" y="20" width="15" height="10"/>
+                    <rect key="frame" x="292" y="20" width="15" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekForward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="Vcr-dx-eGD">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -123,7 +173,7 @@
                     </connections>
                 </button>
                 <slider toolTip="Volume" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ik2-K6-9en" userLabel="Volume Slider">
-                    <rect key="frame" x="395" y="27" width="45" height="13"/>
+                    <rect key="frame" x="448" y="25" width="45" height="13"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <shadow key="shadow" blurRadius="3">
                         <size key="offset" width="0.0" height="1"/>
@@ -135,7 +185,7 @@
                     </connections>
                 </slider>
                 <button toolTip="Mute / Unmute" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C1N-8X-NEN" userLabel="Volume Button">
-                    <rect key="frame" x="380" y="28" width="11" height="11"/>
+                    <rect key="frame" x="433" y="26" width="11" height="11"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="VolumeMedium" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="wur-FB-A6q">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -146,7 +196,7 @@
                     </connections>
                 </button>
                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZQ8-sp-wFj" userLabel="Volume Value Label">
-                    <rect key="frame" x="415" y="40" width="27" height="11"/>
+                    <rect key="frame" x="466" y="38" width="27" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="kKs-yD-r4k">
                         <font key="font" size="8" name="GillSans-SemiBold"/>
@@ -155,7 +205,7 @@
                     </textFieldCell>
                 </textField>
                 <slider toolTip="Pan / Balance" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Scl-AU-A5D">
-                    <rect key="frame" x="395" y="9" width="45" height="15"/>
+                    <rect key="frame" x="448" y="7" width="45" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <shadow key="shadow" blurRadius="1">
                         <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -169,7 +219,7 @@ G1BhbiBTbGlkZXI
                     </connections>
                 </slider>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ymP-RF-lwf">
-                    <rect key="frame" x="373" y="14" width="20" height="11"/>
+                    <rect key="frame" x="426" y="12" width="20" height="11"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="L/R" id="DHa-6E-9nj">
                         <font key="font" size="7" name="GillSans-Bold"/>
@@ -178,7 +228,7 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DqJ-NT-YGM" userLabel="Pan Value Label">
-                    <rect key="frame" x="396" y="3" width="40" height="11"/>
+                    <rect key="frame" x="449" y="1" width="40" height="11"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="C" id="kVo-e7-oFc">
                         <font key="font" size="8" name="GillSans-SemiBold"/>
@@ -186,8 +236,32 @@ G1BhbiBTbGlkZXI
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dtp-JY-43X">
+                    <rect key="frame" x="61" y="62" width="11" height="11"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="TVv-IB-Dug"/>
+                </imageView>
             </subviews>
+            <point key="canvasLocation" x="136" y="67"/>
         </view>
+        <slider verticalHuggingPriority="750" id="Fzu-V7-fMg" userLabel="Seek Slider clone">
+            <rect key="frame" x="0.0" y="0.0" width="539" height="19"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <shadow key="shadow" blurRadius="1">
+                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            </shadow>
+            <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="ttd-ma-kiF" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
+            <point key="canvasLocation" x="155" y="-40"/>
+        </slider>
+        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="XNE-6n-5ZW" userLabel="SeekPositionMarker">
+            <rect key="frame" x="0.0" y="0.0" width="7" height="4"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="2Gd-Ur-hxQ">
+                <font key="font" metaFont="system"/>
+                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+            </textFieldCell>
+        </textField>
     </objects>
     <resources>
         <image name="LoopOff" width="2.5120000839233398" height="2.1119999885559082"/>

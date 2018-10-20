@@ -33,7 +33,7 @@ class StringUtils {
         let mins = (timeSeconds / oneMin) % oneMin
         let hrs = timeSeconds / oneHour
         
-        return hrs > 0 ? String(format: "%@%d:%02d:%02d", includeMinusPrefix ? "-" : "", hrs, mins, secs) : String(format: "%@%d:%02d", includeMinusPrefix ? "-" : "", mins, secs)
+        return hrs > 0 ? String(format: "%@%d:%02d:%02d", includeMinusPrefix ? "- " : "", hrs, mins, secs) : String(format: "%@%d:%02d", includeMinusPrefix ? "- " : "", mins, secs)
     }
     
     // Formats a duration (time interval) from seconds to a displayable string showing minutes, and seconds. For example, 500 seconds becomes "8 min 20 sec", 120 seconds becomes "2 min", and 36 seconds becomes "36 sec"
