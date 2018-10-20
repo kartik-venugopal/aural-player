@@ -22,22 +22,22 @@
             <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES" texturedBackground="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
-            <rect key="contentRect" x="335" y="100" width="480" height="230"/>
+            <rect key="contentRect" x="335" y="100" width="530" height="230"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
-            <value key="minSize" type="size" width="480" height="230"/>
-            <value key="maxSize" type="size" width="480" height="230"/>
+            <value key="minSize" type="size" width="530" height="230"/>
+            <value key="maxSize" type="size" width="530" height="230"/>
             <view key="contentView" wantsLayer="YES" id="W7v-UI-tl4">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="230"/>
+                <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="s2a-4T-trI" userLabel="Root Container">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="230"/>
+                        <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
                         <view key="contentView" id="sdu-Lk-MLz">
-                            <rect key="frame" x="0.0" y="0.0" width="480" height="230"/>
+                            <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zFi-Se-R21" userLabel="Quit Button">
-                                    <rect key="frame" x="12" y="204" width="12" height="12"/>
+                                    <rect key="frame" x="12" y="204" width="10" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="8cf-gd-eOH">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -48,7 +48,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Minimize window" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4p-3A-TgZ" userLabel="Minimize Button">
-                                    <rect key="frame" x="27" y="204" width="12" height="12"/>
+                                    <rect key="frame" x="26" y="204" width="10" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Hide" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="vzp-6D-Pbu">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -70,12 +70,12 @@
                                     </connections>
                                 </button>
                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efk-uj-yYR" userLabel="Title view">
-                                    <rect key="frame" x="208" y="198" width="65" height="24"/>
+                                    <rect key="frame" x="233" y="197" width="65" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppTitle" id="0JL-KA-nPB"/>
                                 </imageView>
                                 <button toolTip="Show/hide playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Br1-bp-Vzd" userLabel="Toggle Playlist Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="405" y="204" width="16" height="11"/>
+                                    <rect key="frame" x="456" y="204" width="15" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlaylistView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yEP-qA-m8Z">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -92,7 +92,7 @@
                                     </connections>
                                 </button>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1Y-N5-RBQ" userLabel="Toggle Effects Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="424" y="204" width="16" height="11"/>
+                                    <rect key="frame" x="475" y="204" width="15" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="EffectsView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ayS-P6-02f">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -109,7 +109,7 @@
                                     </connections>
                                 </button>
                                 <popUpButton toolTip="Change the window layout" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0It-ci-89a" userLabel="Layout Menu">
-                                    <rect key="frame" x="441" y="204" width="25" height="11"/>
+                                    <rect key="frame" x="492" y="204" width="25" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="KSu-L0-WGd" id="TRJ-cB-oZx">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -154,25 +154,37 @@
                                         <action selector="btnLayoutAction:" target="-2" id="5cS-9b-ldk"/>
                                     </connections>
                                 </popUpButton>
-                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="zwp-2y-nBe" userLabel="Now Playing Box">
-                                    <rect key="frame" x="14" y="82" width="452" height="108"/>
+                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="hPg-iX-tXz" userLabel="Container Box">
+                                    <rect key="frame" x="14" y="15" width="500" height="174"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <view key="contentView" id="r5T-L7-Nu3">
-                                        <rect key="frame" x="0.0" y="0.0" width="452" height="108"/>
+                                    <view key="contentView" id="DYU-Up-NX9">
+                                        <rect key="frame" x="0.0" y="0.0" width="500" height="174"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" title="Box" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zwp-2y-nBe" userLabel="Now Playing Box">
+                                                <rect key="frame" x="0.0" y="80" width="500" height="94"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <view key="contentView" id="r5T-L7-Nu3">
+                                                    <rect key="frame" x="0.0" y="0.0" width="500" height="94"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                                <color key="borderColor" white="0.103108724" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </box>
+                                            <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wJm-gK-OsL" userLabel="Player Box">
+                                                <rect key="frame" x="0.0" y="0.0" width="500" height="80"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <view key="contentView" id="0EX-XC-OYa">
+                                                    <rect key="frame" x="0.0" y="0.0" width="500" height="80"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                                <color key="borderColor" white="0.099066840279999999" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </box>
+                                        </subviews>
                                     </view>
                                     <color key="borderColor" white="0.103108724" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </box>
-                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="wJm-gK-OsL" userLabel="Player Box">
-                                    <rect key="frame" x="14" y="14" width="452" height="54"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <view key="contentView" id="0EX-XC-OYa">
-                                        <rect key="frame" x="0.0" y="0.0" width="452" height="54"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    </view>
-                                    <color key="borderColor" white="0.099066840279999999" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </box>
                             </subviews>
                         </view>
@@ -195,7 +207,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="XQM-qc-0vY"/>
             </connections>
-            <point key="canvasLocation" x="156" y="-60.5"/>
+            <point key="canvasLocation" x="156" y="-61"/>
         </window>
     </objects>
     <resources>
