@@ -149,8 +149,8 @@ class SeekSliderCell: HorizontalSliderCell {
             var drawPath = NSBezierPath.init(roundedRect: loopRect, xRadius: barRadius, yRadius: barRadius)
             Colors.playbackLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
             
-            let markerMinY = barRect(flipped: false).minY - 2
-            let markerHeight: CGFloat = aRect.height + 3
+            let markerMinY = knobFrame.minY
+            let markerHeight: CGFloat = aRect.height + knobHeightOutsideBar * 2
             let markerRadius: CGFloat = 0
             
             // Loop start marker
