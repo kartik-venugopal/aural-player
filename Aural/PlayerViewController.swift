@@ -8,8 +8,10 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // Fields that display/control seek position within the playing track
     @IBOutlet weak var lblTimeElapsed: NSTextField!
     @IBOutlet weak var lblTimeRemainingOrDuration: NSTextField!
-    @IBOutlet weak var lblSequenceProgress: NSTextField!
+    
     @IBOutlet weak var imgScope: NSImageView!
+    @IBOutlet weak var lblScope: NSTextField!
+    @IBOutlet weak var lblSequenceProgress: NSTextField!
     
     // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
     @IBOutlet weak var seekSlider: NSSlider!
@@ -59,6 +61,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     private let soundPreferences: SoundPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().soundPreferences
     
+    private let appState: PlayerState = ObjectGraph.getAppState().uiState.playerState
+    
     override var nibName: String? {return "Player"}
     
     override func viewDidLoad() {
@@ -105,8 +109,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
         }, queue: DispatchQueue.main)
         
-//        NowPlayingViewState.showDuration = appState.showDuration
-        NowPlayingViewState.showDuration = false
+        PlayerViewState.showDuration = appState.showDuration
         
         // Allow clicks on the time remaining label to switch to track duration display
         let gestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTrackTimeDisplayAction(_:)))
@@ -172,7 +175,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     }
     
     @IBAction func switchTrackTimeDisplayAction(_ sender: Any) {
-        NowPlayingViewState.showDuration = !NowPlayingViewState.showDuration
+        PlayerViewState.showDuration = !PlayerViewState.showDuration
         updateSeekPosition()
     }
     
@@ -181,6 +184,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         setSeekTimerState(true)
         initSeekPosition()
         seekSlider.isEnabled = true
+        showScope()
         sequenceChanged()
         imgScope.isHidden = false
         renderLoop()
@@ -194,6 +198,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         seekSlider.floatValue = 0
         seekSlider.isEnabled = false
         lblSequenceProgress.stringValue = ""
+        lblScope.stringValue = ""
         imgScope.isHidden = true
     }
     
@@ -217,14 +222,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration)
         
         lblTimeElapsed.stringValue = trackTimes.elapsed
-        lblTimeRemainingOrDuration.stringValue = NowPlayingViewState.showDuration ? StringUtils.formatSecondsToHMS(seekPosn.trackDuration) : trackTimes.remaining
+        lblTimeRemainingOrDuration.stringValue = PlayerViewState.showDuration ? StringUtils.formatSecondsToHMS(seekPosn.trackDuration) : trackTimes.remaining
     }
     
     // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
     private func resetSeekPosition(_ track: Track) {
         
         lblTimeElapsed.stringValue = Strings.zeroDurationString
-        lblTimeRemainingOrDuration.stringValue = NowPlayingViewState.showDuration ? StringUtils.formatSecondsToHMS(track.duration) : StringUtils.formatSecondsToHMS(track.duration, true)
+        lblTimeRemainingOrDuration.stringValue = PlayerViewState.showDuration ? StringUtils.formatSecondsToHMS(track.duration) : StringUtils.formatSecondsToHMS(track.duration, true)
         
         lblTimeElapsed.isHidden = false
         lblTimeRemainingOrDuration.isHidden = false
@@ -269,7 +274,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         setSeekTimerState(isPlaying)
     }
     
-    private func sequenceChanged() {
+    private func showScope() {
         
         let sequence = player.getPlaybackSequenceInfo()
         let scope = sequence.scope
@@ -290,26 +295,27 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             imgScope.image = Images.imgGroup
         }
         
-        // Sequence progress. For example, "5 / 10" (tracks)
-        let trackIndex = sequence.trackIndex
-        let totalTracks = sequence.totalTracks
+        // Dynamically position the scope image relative to the scope description string
         
-        let str = String(format: "%@:   %d / %d", scopeStr, sequence.trackIndex, sequence.totalTracks)
-        
-//         Dynamically position the scope image relative to the scope description string
-        
-//         Determine the width of the scope string
-        let scopeString: NSString = str as NSString
-        let stringSize: CGSize = scopeString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): lblSequenceProgress.font as AnyObject]))
-        let lblWidth = lblSequenceProgress.frame.width
+        // Determine the width of the scope string
+        let scopeString: NSString = scopeStr as NSString
+        let stringSize: CGSize = scopeString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): lblScope.font as AnyObject]))
+        let lblWidth = lblScope.frame.width
         let textWidth = min(stringSize.width, lblWidth)
         
-//         Position the scope image a few pixels to the left of the scope string
+        // Position the scope image a few pixels to the left of the scope string
         let margin = (lblWidth - textWidth) / 2
-        let newImgX = lblSequenceProgress.frame.origin.x + margin - imgScope.frame.width - 5
-        imgScope.frame.origin.x = max(Dimensions.minImgScopeLocationX, newImgX)
+        let newImgX = lblScope.frame.origin.x + margin - imgScope.frame.width - 5
+        imgScope.frame.origin.x = max(lblTimeElapsed.frame.maxX + 1, newImgX)
+//        lblSequenceProgress.frame.origin.x = lblScope.frame.maxX - margin + 5
         
-        lblSequenceProgress.stringValue = str
+        lblScope.stringValue = scopeStr
+    }
+    
+    private func sequenceChanged() {
+        
+        let sequence = player.getPlaybackSequenceInfo()
+        lblSequenceProgress.stringValue = String(format: "%d / %d", sequence.trackIndex, sequence.totalTracks)
     }
     
     // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
@@ -852,6 +858,20 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         default: return
             
         }
+    }
+}
+
+// Convenient accessor for information about the current playlist view
+class PlayerViewState {
+    
+    static var showDuration: Bool = false
+    
+    static func persistentState() -> PlayerState {
+        
+        let state = PlayerState()
+        state.showDuration = showDuration
+        
+        return state
     }
 }
 

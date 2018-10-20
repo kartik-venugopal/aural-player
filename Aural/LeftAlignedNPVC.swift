@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber, ConstituentView {
+class LeftAlignedNPVC: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber, ConstituentView {
     
     @IBOutlet weak var nowPlayingView: NSView!
     @IBOutlet weak var gapView: NSView!
@@ -16,7 +16,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Fields that display playing track info
     @IBOutlet weak var lblTrackArtist: NSTextField!
     @IBOutlet weak var lblTrackTitle: NSTextField!
-    @IBOutlet weak var lblTrackName: NSTextField!
+    @IBOutlet weak var lblTrackName: BannerLabel!
     @IBOutlet weak var artView: NSImageView!
     
     // Fields that display information about the current playback scope
@@ -53,7 +53,9 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Popup view that displays a brief notification when the currently playing track is added/removed to/from the Favorites list
     private lazy var favoritesPopup: FavoritesPopupProtocol = ViewFactory.getFavoritesPopup()
     
-    override var nibName: String? {return "NowPlaying"}
+    private let appState: PlayerState = ObjectGraph.getAppState().uiState.playerState
+    
+    override var nibName: String? {return "LANP"}
     
     override func viewDidLoad() {
         
@@ -65,6 +67,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     func activate() {
         
         initSubscriptions()
+        
+        lblTrackName.beginAnimation()
         
         let newTrack = player.getPlayingTrack()
         
@@ -82,6 +86,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     func deactivate() {
         
+        lblTrackName.endAnimation()
         removeSubscriptions()
     }
     
@@ -89,6 +94,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         nowPlayingView.isHidden = false
         gapView.isHidden = true
+        
+        // TODO: Can't this be done in Interface Builder ???
+        lblTrackName.font = Fonts.regularModeTrackNameTextFont
+        lblTrackName.alignment = NSTextAlignment.left
     }
     
     private func initSubscriptions() {
@@ -187,26 +196,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
             
         } else {
             
-            lblTrackName.stringValue = track.conciseDisplayName
-            
-            // Re-position and resize the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
-            
-            // Determine how many lines the track name will occupy, within the label
-            let numLines = StringUtils.numberOfLines(track.conciseDisplayName, lblTrackName.font!, lblTrackName.frame.width)
-            
-            // The Y co-ordinate is a pre-determined constant
-            var origin = lblTrackName.frame.origin
-            origin.y = numLines == 1 ? Dimensions.trackNameLabelLocationY_oneLine : Dimensions.trackNameLabelLocationY_twoLines
-            
-            // The height is a pre-determined constant
-            var lblFrameSize = lblTrackName.frame.size
-            lblFrameSize.height = numLines == 1 ? Dimensions.trackNameLabelHeight_oneLine : Dimensions.trackNameLabelHeight_twoLines
-            
-            // Resize the label
-            lblTrackName.setFrameSize(lblFrameSize)
-            
-            // Re-position the label
-            lblTrackName.setFrameOrigin(origin)
+            lblTrackName.text = track.conciseDisplayName
         }
         
         lblTrackName.isHidden = artistAndTitleAvailable
@@ -225,64 +215,6 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         btnFavorite.onIf(favorites.favoriteWithFileExists(track.file))
     }
-    
-    /*
-     
-     private func showNowPlayingInfo(_ track: Track) {
-     
-     var artistAndTitleAvailable: Bool = false
-     
-     if (track.displayInfo.hasArtistAndTitle()) {
-     
-     artistAndTitleAvailable = true
-     
-     // Both title and artist
-     lblTrackArtist.stringValue = track.displayInfo.artist!
-     lblTrackTitle.stringValue = track.displayInfo.title!
-     
-     } else {
-     
-     lblTrackName.stringValue = track.conciseDisplayName
-     
-     // Re-position and resize the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
-     
-     // Determine how many lines the track name will occupy, within the label
-     let numLines = StringUtils.numberOfLines(track.conciseDisplayName, lblTrackName.font!, lblTrackName.frame.width)
-     
-     // The Y co-ordinate is a pre-determined constant
-     var origin = lblTrackName.frame.origin
-     origin.y = numLines == 1 ? Dimensions.trackNameLabelLocationY_oneLine : Dimensions.trackNameLabelLocationY_twoLines
-     
-     // The height is a pre-determined constant
-     var lblFrameSize = lblTrackName.frame.size
-     lblFrameSize.height = numLines == 1 ? Dimensions.trackNameLabelHeight_oneLine : Dimensions.trackNameLabelHeight_twoLines
-     
-     // Resize the label
-     lblTrackName.setFrameSize(lblFrameSize)
-     
-     // Re-position the label
-     lblTrackName.setFrameOrigin(origin)
-     }
-     
-     lblTrackName.isHidden = artistAndTitleAvailable
-     [lblTrackArtist, lblTrackTitle].forEach({$0?.isHidden = !artistAndTitleAvailable})
-     
-     if (track.displayInfo.art != nil) {
-     artView.image = track.displayInfo.art!
-     } else {
-     
-     // Default artwork animation
-     artView.image = Images.imgPlayingArt
-     artView.animates = true
-     }
-     
-     resetSeekPosition(track)
-     showPlaybackScope()
-     
-     btnFavorite.onIf(history.hasFavorite(track))
-     }
-     
-     */
     
     /*
      Displays information about the current playback scope (i.e. the set of tracks that make up the current playback sequence - for ex. a specific artist group, or all tracks), and progress within that sequence - for ex. 5/67 (5th track playing out of a total of 67 tracks).
@@ -313,22 +245,22 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         // Dynamically position the scope image relative to the scope description string
         
-        // Determine the width of the scope string
-        let scopeString: NSString = lblPlaybackScope.stringValue as NSString
-        let stringSize: CGSize = scopeString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): lblPlaybackScope.font as AnyObject]))
-        let lblWidth = lblPlaybackScope.frame.width
-        let textWidth = min(stringSize.width, lblWidth)
-        
-        // Position the scope image a few pixels to the left of the scope string
-        let margin = (lblWidth - textWidth) / 2
-        let newImgX = lblPlaybackScope.frame.origin.x + margin - imgScope.frame.width - 5
-        imgScope.frame.origin.x = max(artView.frame.maxX + 3, newImgX)
+        //        // Determine the width of the scope string
+        //        let scopeString: NSString = lblPlaybackScope.stringValue as NSString
+        //        let stringSize: CGSize = scopeString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): lblPlaybackScope.font as AnyObject]))
+        //        let lblWidth = lblPlaybackScope.frame.width
+        //        let textWidth = min(stringSize.width, lblWidth)
+        //
+        //        // Position the scope image a few pixels to the left of the scope string
+        //        let margin = (lblWidth - textWidth) / 2
+        //        let newImgX = lblPlaybackScope.frame.origin.x + margin - imgScope.frame.width - 5
+        //        imgScope.frame.origin.x = max(Dimensions.minImgScopeLocationX, newImgX)
     }
     
     private func clearNowPlayingInfo() {
         
         [lblTrackArtist, lblTrackTitle, lblPlaybackScope, lblSequenceProgress].forEach({$0?.stringValue = ""})
-        lblTrackName.stringValue = ""
+        lblTrackName.text = ""
         artView.image = Images.imgPausedArt
         imgScope.image = nil
         

@@ -17,7 +17,8 @@
                 <outlet property="btnVolume" destination="C1N-8X-NEN" id="f9i-pE-iXS"/>
                 <outlet property="imgScope" destination="dtp-JY-43X" id="qmK-gP-DR8"/>
                 <outlet property="lblPan" destination="DqJ-NT-YGM" id="ysV-eR-vl6"/>
-                <outlet property="lblSequenceProgress" destination="0Wk-hH-FI1" id="VJ0-Xb-6Bm"/>
+                <outlet property="lblScope" destination="0Wk-hH-FI1" id="2iY-Ql-yA8"/>
+                <outlet property="lblSequenceProgress" destination="jhg-r3-sEK" id="VVf-I6-Ezq"/>
                 <outlet property="lblTimeElapsed" destination="Guc-Gm-WbK" id="sqE-Ax-AlJ"/>
                 <outlet property="lblTimeRemainingOrDuration" destination="hDi-pa-Wii" id="BSs-lY-J6Q"/>
                 <outlet property="lblVolume" destination="ZQ8-sp-wFj" id="YZW-uX-Yyf"/>
@@ -38,7 +39,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Kc-fa-4iy" userLabel="Seek Slider">
-                    <rect key="frame" x="7" y="41" width="489" height="19"/>
+                    <rect key="frame" x="57" y="55" width="381" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <shadow key="shadow" blurRadius="1">
                         <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -49,7 +50,7 @@
                     </connections>
                 </slider>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Guc-Gm-WbK" userLabel="Lbl Time Elapsed">
-                    <rect key="frame" x="8" y="59" width="53" height="18"/>
+                    <rect key="frame" x="7" y="56" width="50" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="99:99:99" placeholderString="" id="w92-a0-z9g">
                         <font key="font" size="12" name="GillSans-SemiBold"/>
@@ -58,7 +59,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hDi-pa-Wii" userLabel="Lbl Time Remaining">
-                    <rect key="frame" x="438" y="59" width="55" height="18"/>
+                    <rect key="frame" x="438" y="56" width="55" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="-99:99:99" placeholderString="" id="uCv-pb-dzv">
                         <font key="font" size="12" name="GillSans-SemiBold"/>
@@ -69,10 +70,19 @@
                         <action selector="switchTrackTimeDisplayAction:" target="-2" id="YaM-C8-84Q"/>
                     </connections>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Wk-hH-FI1" userLabel="Lbl Sequence Progress">
-                    <rect key="frame" x="78" y="57" width="345" height="20"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Wk-hH-FI1" userLabel="Lbl Scope">
+                    <rect key="frame" x="79" y="-1000" width="289" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" id="DTe-oS-E9O">
+                        <font key="font" size="12" name="GillSans-SemiBold"/>
+                        <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.63127055919999997" alpha="1" colorSpace="calibratedWhite"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jhg-r3-sEK" userLabel="Lbl Sequence Progress">
+                    <rect key="frame" x="207" y="-300" width="86" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="9999 / 9999" placeholderString="" id="bjU-IN-BH5">
                         <font key="font" size="12" name="GillSans-SemiBold"/>
                         <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" white="0.63127055919999997" alpha="1" colorSpace="calibratedWhite"/>
@@ -237,7 +247,7 @@ G1BhbiBTbGlkZXI
                     </textFieldCell>
                 </textField>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dtp-JY-43X">
-                    <rect key="frame" x="61" y="62" width="11" height="11"/>
+                    <rect key="frame" x="63" y="-1000" width="11" height="11"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="TVv-IB-Dug"/>
                 </imageView>
