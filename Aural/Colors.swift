@@ -105,8 +105,8 @@ struct Colors {
     
     static let suppressedSliderBarColoredGradient: NSGradient = {
         
-        let backgroundStart = NSColor(red: 0.68, green: 0.56, blue: 0, alpha: 1)
-        let backgroundEnd =  NSColor(red: 0.34, green: 0.28, blue: 0, alpha: 1)
+        let backgroundStart = NSColor(red: 0.8, green: 0.6, blue: 0, alpha: 1)
+        let backgroundEnd =  NSColor(red: 0.27, green: 0.2, blue: 0, alpha: 1)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!
