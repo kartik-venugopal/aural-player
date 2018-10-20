@@ -39,8 +39,6 @@ class HorizontalSliderCell: NSSliderCell {
     
     override internal func drawKnob(_ knobRect: NSRect) {
         
-//        print("knobRECT: ", knobRect)
-        
         let rectWidth = knobRect.width
         let bar = barRect(flipped: true)
         let xCenter = knobRect.minX + (rectWidth / 2)
