@@ -19,7 +19,8 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     @IBOutlet weak var eqSlider256: EffectsUnitSlider!
     @IBOutlet weak var eqSlider128: EffectsUnitSlider!
     
-    private var eqSliders: [EffectsUnitSlider] = []
+    private var bandSliders: [EffectsUnitSlider] = []
+    private var allSliders: [EffectsUnitSlider] = []
     
     // Presets menu
     @IBOutlet weak var eqPresets: NSPopUpButton!
@@ -70,10 +71,11 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
         }
         
         btnEQBypass.stateFunction = eqStateFunction
-        eqSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
+        bandSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
         
-        eqSliders.forEach({$0.stateFunction = eqStateFunction})
-        eqGlobalGainSlider.stateFunction = eqStateFunction
+        allSliders = [eqGlobalGainSlider, eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
+        
+        allSliders.forEach({$0.stateFunction = eqStateFunction})
     }
     
     private func initControls() {
@@ -97,9 +99,7 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     }
     
     private func redrawSliders() {
-        
-        eqSliders.forEach({$0.updateState()})
-        eqGlobalGainSlider.updateState()
+        allSliders.forEach({$0.updateState()})
     }
     
     // Updates the global gain value of the Equalizer
@@ -131,7 +131,7 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     private func updateAllEQSliders(_ eqBands: [Int: Float], _ globalGain: Float) {
         
         // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
-        eqSliders.forEach({
+        bandSliders.forEach({
             $0.floatValue = eqBands[$0.tag] ?? 0
         })
         
@@ -185,7 +185,7 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     private func getAllBands() -> [Int: Float] {
         
         var allBands: [Int: Float] = [Int: Float]()
-        eqSliders.forEach({allBands[$0.tag] = $0.floatValue})
+        bandSliders.forEach({allBands[$0.tag] = $0.floatValue})
         return allBands
     }
     

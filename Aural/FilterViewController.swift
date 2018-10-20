@@ -12,6 +12,8 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     @IBOutlet weak var filterMidSlider: RangeSlider!
     @IBOutlet weak var filterTrebleSlider: RangeSlider!
     
+    private var sliders: [RangeSlider] = []
+    
     @IBOutlet weak var lblFilterBassRange: NSTextField!
     @IBOutlet weak var lblFilterMidRange: NSTextField!
     @IBOutlet weak var lblFilterTrebleRange: NSTextField!
@@ -31,6 +33,7 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         
         oneTimeSetup()
         initControls()
+        
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.updateEffectsView], subscriber: self)
     }
@@ -59,11 +62,12 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     
     private func oneTimeSetup() {
         
-        btnFilterBypass.stateFunction = {
+        let stateFunction = {
             () -> EffectsUnitState in
-            
             return self.graph.getFilterState()
         }
+        
+        btnFilterBypass.stateFunction = stateFunction
         
         filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, {
             (slider: RangeSlider) -> Void in
@@ -79,11 +83,15 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
             (slider: RangeSlider) -> Void in
             self.filterTrebleChanged()
         })
+        
+        sliders = [filterBassSlider, filterMidSlider, filterTrebleSlider]
+        sliders.forEach({$0.stateFunction = stateFunction})
     }
  
     private func initControls() {
         
         btnFilterBypass.updateState()
+        sliders.forEach({$0.updateState()})
         
         let bassBand = graph.getFilterBassBand()
         filterBassSlider.start = Double(bassBand.min)
@@ -108,7 +116,9 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     @IBAction func filterBypassAction(_ sender: AnyObject) {
         
         _ = graph.toggleFilterState()
+        
         btnFilterBypass.updateState()
+        sliders.forEach({$0.updateState()})
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
@@ -182,7 +192,9 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     func consumeNotification(_ notification: NotificationMessage) {
         
         if notification is EffectsUnitStateChangedNotification {
+            
             btnFilterBypass.updateState()
+            sliders.forEach({$0.updateState()})
         }
     }
     

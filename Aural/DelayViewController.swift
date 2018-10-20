@@ -7,10 +7,13 @@ class DelayViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     
     // Delay controls
     @IBOutlet weak var btnDelayBypass: EffectsUnitTriStateBypassButton!
-    @IBOutlet weak var delayTimeSlider: NSSlider!
-    @IBOutlet weak var delayAmountSlider: NSSlider!
-    @IBOutlet weak var delayCutoffSlider: NSSlider!
-    @IBOutlet weak var delayFeedbackSlider: NSSlider!
+    
+    @IBOutlet weak var delayTimeSlider: EffectsUnitSlider!
+    @IBOutlet weak var delayAmountSlider: EffectsUnitSlider!
+    @IBOutlet weak var delayCutoffSlider: EffectsUnitSlider!
+    @IBOutlet weak var delayFeedbackSlider: EffectsUnitSlider!
+    
+    private var sliders: [EffectsUnitSlider] = []
     
     @IBOutlet weak var lblDelayTimeValue: NSTextField!
     @IBOutlet weak var lblDelayAmountValue: NSTextField!
@@ -32,6 +35,7 @@ class DelayViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         
         oneTimeSetup()
         initControls()
+        
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.updateEffectsView], subscriber: self)
     }
@@ -58,16 +62,21 @@ class DelayViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     
     private func oneTimeSetup() {
         
-        btnDelayBypass.stateFunction = {
+        let stateFunction = {
             () -> EffectsUnitState in
-            
             return self.graph.getDelayState()
         }
+        
+        btnDelayBypass.stateFunction = stateFunction
+        
+        sliders = [delayTimeSlider, delayAmountSlider, delayFeedbackSlider, delayCutoffSlider]
+        sliders.forEach({$0.stateFunction = stateFunction})
     }
 
     private func initControls() {
         
         btnDelayBypass.updateState()
+        sliders.forEach({$0.updateState()})
         
         let amount = graph.getDelayAmount()
         delayAmountSlider.floatValue = amount.amount
@@ -94,6 +103,7 @@ class DelayViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         
         _ = graph.toggleDelayState()
         btnDelayBypass.updateState()
+        sliders.forEach({$0.updateState()})
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
@@ -173,6 +183,7 @@ class DelayViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         
         if notification is EffectsUnitStateChangedNotification {
             btnDelayBypass.updateState()
+            sliders.forEach({$0.updateState()})
         }
     }
     
