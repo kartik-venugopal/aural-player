@@ -9,10 +9,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     @IBOutlet weak var lblTimeElapsed: NSTextField!
     @IBOutlet weak var lblTimeRemainingOrDuration: NSTextField!
     
-    @IBOutlet weak var imgScope: NSImageView!
-    @IBOutlet weak var lblScope: NSTextField!
-    @IBOutlet weak var lblSequenceProgress: NSTextField!
-    
     // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
     @IBOutlet weak var seekSlider: NSSlider!
     @IBOutlet weak var seekSliderCell: SeekSliderCell!
@@ -153,7 +149,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // Subscribe to message notifications
         AsyncMessenger.subscribe([.trackNotPlayed, .trackChanged, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .sequenceChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
@@ -162,7 +158,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         AsyncMessenger.unsubscribe([.trackNotPlayed, .trackChanged, .gapStarted], subscriber: self)
         
-        SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .sequenceChangedNotification], subscriber: self)
+        SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
         SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
     }
@@ -184,9 +180,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         setSeekTimerState(true)
         initSeekPosition()
         seekSlider.isEnabled = true
-        showScope()
-        sequenceChanged()
-        imgScope.isHidden = false
         renderLoop()
     }
     
@@ -197,9 +190,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         setSeekTimerState(false)
         seekSlider.floatValue = 0
         seekSlider.isEnabled = false
-        lblSequenceProgress.stringValue = ""
-        lblScope.stringValue = ""
-        imgScope.isHidden = true
     }
     
     private func initSeekPosition() {
@@ -222,7 +212,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration)
         
         lblTimeElapsed.stringValue = trackTimes.elapsed
-        lblTimeRemainingOrDuration.stringValue = PlayerViewState.showDuration ? StringUtils.formatSecondsToHMS(seekPosn.trackDuration) : trackTimes.remaining
+        lblTimeRemainingOrDuration.stringValue = PlayerViewState.showDuration ? StringUtils.formatSecondsToHMS(seekPosn.trackDuration) : trackTimes.remaining;
     }
     
     // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
@@ -274,107 +264,66 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         setSeekTimerState(isPlaying)
     }
     
-    private func showScope() {
-        
-        let sequence = player.getPlaybackSequenceInfo()
-        let scope = sequence.scope
-        
-        var scopeStr: String
-        
-        // Description and image for playback scope
-        switch scope.type {
-            
-        case .allTracks, .allArtists, .allAlbums, .allGenres:
-            
-            scopeStr = StringUtils.splitCamelCaseWord(scope.type.rawValue, false)
-            imgScope.image = Images.imgPlaylistOn
-            
-        case .artist, .album, .genre:
-            
-            scopeStr = scope.scope!.name
-            imgScope.image = Images.imgGroup
-        }
-        
-        // Dynamically position the scope image relative to the scope description string
-        
-        // Determine the width of the scope string
-        let scopeString: NSString = scopeStr as NSString
-        let stringSize: CGSize = scopeString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): lblScope.font as AnyObject]))
-        let lblWidth = lblScope.frame.width
-        let textWidth = min(stringSize.width, lblWidth)
-        
-        // Position the scope image a few pixels to the left of the scope string
-        let margin = (lblWidth - textWidth) / 2
-        let newImgX = lblScope.frame.origin.x + margin - imgScope.frame.width - 5
-        imgScope.frame.origin.x = max(lblTimeElapsed.frame.maxX + 1, newImgX)
-//        lblSequenceProgress.frame.origin.x = lblScope.frame.maxX - margin + 5
-        
-        lblScope.stringValue = scopeStr
-    }
-    
-    private func sequenceChanged() {
-        
-        let sequence = player.getPlaybackSequenceInfo()
-        lblSequenceProgress.stringValue = String(format: "%d / %d", sequence.trackIndex, sequence.totalTracks)
-    }
-    
     // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
     private func playbackLoopChanged() {
         
-        let loop = player.getPlaybackLoop()
+        if let loop = player.getPlaybackLoop() {
+            
+            // Update loop button image
+            btnLoop.switchState(loop.isComplete() ? LoopState.complete: LoopState.started)
+            
+            let duration = (player.getPlayingTrack()?.track.duration)!
+            
+            // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
+            if (loop.isComplete()) {
+                
+                seekSliderClone.doubleValue = loop.endTime! * 100 / duration
+                seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
+                
+            } else {
+                
+                seekSliderClone.doubleValue = loop.startTime * 100 / duration
+                seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
+            }
+            
+        } else {
+            
+            seekSliderCell.removeLoop()
+            btnLoop.switchState(LoopState.none)
+        }
         
-        // Update loop button image
-        let loopState: LoopState = loop == nil ? .none : (loop!.isComplete() ? .complete: .started)
-        btnLoop.switchState(loopState)
-        
-        //        if let loop = player.getPlaybackLoop() {
-        //
-        //            let duration = (player.getPlayingTrack()?.track.duration)!
-        //
-        //            // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
-        //            if (loop.isComplete()) {
-        //
-        //                seekSliderClone.doubleValue = loop.endTime! * 100 / duration
-        //                seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
-        //
-        //            } else {
-        //
-        //                seekSliderClone.doubleValue = loop.startTime * 100 / duration
-        //                seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
-        //            }
-        //
-        //        } else {
-        //            seekSliderCell.removeLoop()
-        //        }
-        //
-        //        // Force a redraw of the seek slider
-        //        updateSeekPosition()
+        // Force a redraw of the seek slider
+        updateSeekPosition()
     }
     
     private func renderLoop() {
         
-        //        if let loop = player.getPlaybackLoop() {
-        //
-        //            let duration = (player.getPlayingTrack()?.track.duration)!
-        //
-        //            // Mark start
-        //            seekSliderClone.doubleValue = loop.startTime * 100 / duration
-        //            seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
-        //
-        //            // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
-        //            if (loop.isComplete()) {
-        //
-        //                seekSliderClone.doubleValue = loop.endTime! * 100 / duration
-        //                seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
-        //            }
-        //
-        //        } else {
-        //
-        //            seekSliderCell.removeLoop()
-        //        }
-        //
-        //        // Force a redraw of the seek slider
-        //        updateSeekPosition()
+        if let loop = player.getPlaybackLoop() {
+            
+            // Update loop button image
+            btnLoop.switchState(loop.isComplete() ? LoopState.complete: LoopState.started)
+            
+            let duration = (player.getPlayingTrack()?.track.duration)!
+            
+            // Mark start
+            seekSliderClone.doubleValue = loop.startTime * 100 / duration
+            seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
+            
+            // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
+            if (loop.isComplete()) {
+                
+                seekSliderClone.doubleValue = loop.endTime! * 100 / duration
+                seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
+            }
+            
+        } else {
+            
+            seekSliderCell.removeLoop()
+            btnLoop.switchState(LoopState.none)
+        }
+        
+        // Force a redraw of the seek slider
+        updateSeekPosition()
     }
     
     // MARK - Volume and Pan
@@ -496,7 +445,9 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     private func toggleLoop() {
         
-        if player.getPlaybackState() != .noTrack {
+        let playbackState = player.getPlaybackState()
+        
+        if playbackState == .playing || playbackState == .paused {
         
             if let _ = player.getPlayingTrack() {
                 
@@ -756,13 +707,13 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         switch notification.messageType {
             
+        case .playbackRateChangedNotification:
+            
+            playbackRateChanged(notification as! PlaybackRateChangedNotification)
+            
         case .playbackLoopChangedNotification:
             
             playbackLoopChanged()
-            
-        case .sequenceChangedNotification:
-            
-            sequenceChanged()
             
         default: return
             

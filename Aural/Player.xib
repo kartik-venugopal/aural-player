@@ -15,10 +15,7 @@
                 <outlet property="btnRepeat" destination="Ghu-Et-yHG" id="cG7-ao-d0a"/>
                 <outlet property="btnShuffle" destination="5iY-Bb-qE7" id="k6z-Gd-J0g"/>
                 <outlet property="btnVolume" destination="C1N-8X-NEN" id="f9i-pE-iXS"/>
-                <outlet property="imgScope" destination="dtp-JY-43X" id="qmK-gP-DR8"/>
                 <outlet property="lblPan" destination="DqJ-NT-YGM" id="ysV-eR-vl6"/>
-                <outlet property="lblScope" destination="0Wk-hH-FI1" id="2iY-Ql-yA8"/>
-                <outlet property="lblSequenceProgress" destination="jhg-r3-sEK" id="VVf-I6-Ezq"/>
                 <outlet property="lblTimeElapsed" destination="Guc-Gm-WbK" id="sqE-Ax-AlJ"/>
                 <outlet property="lblTimeRemainingOrDuration" destination="hDi-pa-Wii" id="BSs-lY-J6Q"/>
                 <outlet property="lblVolume" destination="ZQ8-sp-wFj" id="YZW-uX-Yyf"/>
@@ -26,8 +23,8 @@
                 <outlet property="seekPositionMarker" destination="XNE-6n-5ZW" id="fZR-hM-5Mp"/>
                 <outlet property="seekSlider" destination="7Kc-fa-4iy" id="4Ka-ZZ-fU6"/>
                 <outlet property="seekSliderCell" destination="eaE-Iy-gOS" id="hkC-nZ-UZG"/>
-                <outlet property="seekSliderClone" destination="Fzu-V7-fMg" id="GRR-Pp-ga6"/>
-                <outlet property="seekSliderCloneCell" destination="ttd-ma-kiF" id="KZe-wQ-zEn"/>
+                <outlet property="seekSliderClone" destination="JK0-dx-fpr" id="eNO-7T-JZS"/>
+                <outlet property="seekSliderCloneCell" destination="e8S-Qc-bqn" id="uLj-6j-JxC"/>
                 <outlet property="view" destination="hMe-X0-zRV" id="ApX-Iu-a0J"/>
                 <outlet property="volumeSlider" destination="ik2-K6-9en" id="bfC-s4-mq4"/>
             </connections>
@@ -39,7 +36,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Kc-fa-4iy" userLabel="Seek Slider">
-                    <rect key="frame" x="57" y="55" width="381" height="19"/>
+                    <rect key="frame" x="58" y="49" width="381" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <shadow key="shadow" blurRadius="1">
                         <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -50,7 +47,7 @@
                     </connections>
                 </slider>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Guc-Gm-WbK" userLabel="Lbl Time Elapsed">
-                    <rect key="frame" x="7" y="56" width="50" height="18"/>
+                    <rect key="frame" x="7" y="51" width="50" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="99:99:99" placeholderString="" id="w92-a0-z9g">
                         <font key="font" size="12" name="GillSans-SemiBold"/>
@@ -59,7 +56,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hDi-pa-Wii" userLabel="Lbl Time Remaining">
-                    <rect key="frame" x="438" y="56" width="55" height="18"/>
+                    <rect key="frame" x="438" y="51" width="55" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="-99:99:99" placeholderString="" id="uCv-pb-dzv">
                         <font key="font" size="12" name="GillSans-SemiBold"/>
@@ -69,24 +66,6 @@
                     <connections>
                         <action selector="switchTrackTimeDisplayAction:" target="-2" id="YaM-C8-84Q"/>
                     </connections>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Wk-hH-FI1" userLabel="Lbl Scope">
-                    <rect key="frame" x="79" y="-1000" width="289" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" id="DTe-oS-E9O">
-                        <font key="font" size="12" name="GillSans-SemiBold"/>
-                        <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" white="0.63127055919999997" alpha="1" colorSpace="calibratedWhite"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jhg-r3-sEK" userLabel="Lbl Sequence Progress">
-                    <rect key="frame" x="207" y="-300" width="86" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="9999 / 9999" placeholderString="" id="bjU-IN-BH5">
-                        <font key="font" size="12" name="GillSans-SemiBold"/>
-                        <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" white="0.63127055919999997" alpha="1" colorSpace="calibratedWhite"/>
-                    </textFieldCell>
                 </textField>
                 <button toolTip="Repeat" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ghu-Et-yHG" userLabel="Repeat Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="7" y="14" width="18" height="18"/>
@@ -246,22 +225,19 @@ G1BhbiBTbGlkZXI
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dtp-JY-43X">
-                    <rect key="frame" x="63" y="-1000" width="11" height="11"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="TVv-IB-Dug"/>
-                </imageView>
             </subviews>
             <point key="canvasLocation" x="136" y="67"/>
         </view>
-        <slider verticalHuggingPriority="750" id="Fzu-V7-fMg" userLabel="Seek Slider clone">
-            <rect key="frame" x="0.0" y="0.0" width="539" height="19"/>
+        <slider verticalHuggingPriority="750" id="JK0-dx-fpr" userLabel="Seek Slider Clone">
+            <rect key="frame" x="0.0" y="0.0" width="381" height="19"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <shadow key="shadow" blurRadius="1">
                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             </shadow>
-            <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="ttd-ma-kiF" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
-            <point key="canvasLocation" x="155" y="-40"/>
+            <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="e8S-Qc-bqn" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
+            <connections>
+                <action selector="seekSliderAction:" target="-2" id="VwF-12-dOF"/>
+            </connections>
         </slider>
         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="XNE-6n-5ZW" userLabel="SeekPositionMarker">
             <rect key="frame" x="0.0" y="0.0" width="7" height="4"/>
