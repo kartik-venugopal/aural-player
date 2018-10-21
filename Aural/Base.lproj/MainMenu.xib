@@ -968,9 +968,9 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" autoenablesItems="NO" id="Fd0-9b-tm8">
                         <items>
-                            <menuItem title="  Player" id="af4-4E-1QV" userLabel="Player">
+                            <menuItem title=" Player" image="PlayPause-Small" id="af4-4E-1QV" userLabel="Player">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Player" id="y9u-HE-dXj">
+                                <menu key="submenu" title=" Player" id="y9u-HE-dXj">
                                     <items>
                                         <menuItem title="Album art" id="HPx-xo-hJh">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -984,13 +984,13 @@ CA
                                                 <action selector="showOrHidePlayingTrackFunctionsAction:" target="xzd-WN-BuR" id="GSR-f4-iF8"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Seek bar" id="Fu7-ev-msw">
+                                        <menuItem title="Seek bar" hidden="YES" enabled="NO" id="Fu7-ev-msw">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showOrHideSeekBarAction:" target="xzd-WN-BuR" id="CeD-Xp-h6D"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Main controls" id="9dh-e2-H3v" userLabel="View Player Main Controls">
+                                        <menuItem title="Main controls" hidden="YES" enabled="NO" id="9dh-e2-H3v" userLabel="View Player Main Controls">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showOrHideMainControlsAction:" target="xzd-WN-BuR" id="U63-VK-9oh"/>

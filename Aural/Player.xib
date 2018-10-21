@@ -88,7 +88,7 @@
                                 </textFieldCell>
                             </textField>
                             <button toolTip="Seek backward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cui-KQ-DfK" userLabel="Seek Bwd Button">
-                                <rect key="frame" x="193" y="21" width="15" height="10"/>
+                                <rect key="frame" x="193" y="22" width="14" height="9"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekBackward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="MR9-jh-HZn">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -144,7 +144,7 @@ G1BhbiBTbGlkZXI
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KdH-15-ouV" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="243" y="19" width="16" height="16"/>
+                                <rect key="frame" x="241" y="18" width="17" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Play" imagePosition="overlaps" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="0Av-vD-smN">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -204,7 +204,7 @@ G1BhbiBTbGlkZXI
                                 </connections>
                             </button>
                             <button toolTip="Seek forward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qlp-2n-vIP" userLabel="Seek Fwd Button">
-                                <rect key="frame" x="292" y="21" width="15" height="10"/>
+                                <rect key="frame" x="292" y="22" width="14" height="9"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekForward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="EdH-uQ-XzY">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -265,13 +265,13 @@ G1BhbiBTbGlkZXI
     </objects>
     <resources>
         <image name="LoopOff" width="2.5120000839233398" height="2.1119999885559082"/>
-        <image name="NextTrack" width="162" height="88"/>
-        <image name="Pause" width="105" height="132"/>
-        <image name="Play" width="127" height="146"/>
-        <image name="PreviousTrack" width="162" height="88"/>
+        <image name="NextTrack" width="109" height="69.599998474121094"/>
+        <image name="Pause" width="388" height="512"/>
+        <image name="Play" width="61.439998626708984" height="67.919998168945312"/>
+        <image name="PreviousTrack" width="109" height="69.599998474121094"/>
         <image name="RepeatOff" width="256" height="256"/>
-        <image name="SeekBackward" width="155" height="88"/>
-        <image name="SeekForward" width="155" height="88"/>
+        <image name="SeekBackward" width="106.80000305175781" height="69.599998474121094"/>
+        <image name="SeekForward" width="106.80000305175781" height="69.599998474121094"/>
         <image name="ShuffleOff" width="256" height="256"/>
         <image name="VolumeMedium" width="256" height="256"/>
     </resources>

@@ -29,6 +29,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     @IBOutlet weak var windowLayoutsMenu: NSMenu!
     @IBOutlet weak var manageLayoutsMenuItem: NSMenuItem!
     
+    private let viewAppState = ObjectGraph.getAppState().uiState.nowPlayingState
+    
     // To save the name of a custom window layout
     private lazy var layoutNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
@@ -39,7 +41,10 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     override func awakeFromNib() {
         
         switchViewMenuItem.off()
-        [viewPlayerArtMenuItem, viewPlayerTrackFunctionsMenuItem, viewPlayerSeekBarMenuItem, viewPlayerMainControlsMenuItem].forEach({$0?.state = UIConstants.buttonState_1})
+//        [viewPlayerSeekBarMenuItem, viewPlayerMainControlsMenuItem].forEach({$0?.state = UIConstants.buttonState_1})
+        
+        viewPlayerArtMenuItem.state = viewAppState.showAlbumArt ? UIConstants.buttonState_1 : UIConstants.buttonState_0
+        viewPlayerTrackFunctionsMenuItem.state = viewAppState.showPlayingTrackFunctions ? UIConstants.buttonState_1 : UIConstants.buttonState_0
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state

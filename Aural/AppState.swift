@@ -38,10 +38,12 @@ class UIState: PersistentState {
     
     var windowLayoutState: WindowLayoutState
     var playerState: PlayerState
+    var nowPlayingState: NowPlayingState
     
     init() {
         self.windowLayoutState = WindowLayoutState()
         self.playerState = PlayerState()
+        self.nowPlayingState = NowPlayingState()
     }
     
     func toSerializableMap() -> NSDictionary {
@@ -49,8 +51,8 @@ class UIState: PersistentState {
         var map = [NSString: AnyObject]()
         
         map["windowLayout"] = windowLayoutState.toSerializableMap()
-        
         map["player"] = playerState.toSerializableMap()
+        map["nowPlaying"] = nowPlayingState.toSerializableMap()
         
         return map as NSDictionary
     }
@@ -67,9 +69,45 @@ class UIState: PersistentState {
             state.playerState = PlayerState.deserialize(playerMap) as! PlayerState
         }
         
+        if let nowPlayingMap = map["nowPlaying"] as? NSDictionary {
+            state.nowPlayingState = NowPlayingState.deserialize(nowPlayingMap) as! NowPlayingState
+        }
+        
         return state
     }
 }
+
+class NowPlayingState: PersistentState {
+    
+    var showAlbumArt: Bool = true
+    var showPlayingTrackFunctions: Bool = true
+    
+    func toSerializableMap() -> NSDictionary {
+        
+        var map = [NSString: AnyObject]()
+        
+        map["showAlbumArt"] = showAlbumArt as AnyObject
+        map["showPlayingTrackFunctions"] = showPlayingTrackFunctions as AnyObject
+        
+        return map as NSDictionary
+    }
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state = NowPlayingState()
+        
+        if let showAlbumArt = map["showAlbumArt"] as? Bool {
+            state.showAlbumArt = showAlbumArt
+        }
+        
+        if let showPlayingTrackFunctions = map["showPlayingTrackFunctions"] as? Bool {
+            state.showPlayingTrackFunctions = showPlayingTrackFunctions
+        }
+        
+        return state
+    }
+}
+
 
 class PlayerState: PersistentState {
     
