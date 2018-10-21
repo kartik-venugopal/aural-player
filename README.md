@@ -31,11 +31,12 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
    * Insert timed gaps of silence (up to 24 hours) before or after individual tracks or set a global preference to implicitly insert a gap between all tracks during playback **(New!)**
    * Delayed track playback function, with up to a 24 hour delay. Set a time interval or choose a "Start at" time. Useful for setup before a track plays (e.g. for a live performance), or if you need time to get to the dance floor **(New!)**
   * Option to remember last playback position, either on a per-track basis or for all tracks, so you can resume listening to a track without needing to remember where you left off **(New!)**
-  * "Jump to time" function to skip to a specific position within a track **(New!)**
+  * "Jump to time" function to quickly skip to a specific position within a track **(New!)**
    * Configurable autoplay (on app startup and/or when tracks are added)
 
 * **Effects:**
    * Graphic equalizer, Pitch shift, Time stretch, Reverb, Delay, Filter, and a Master unit to switch on/off all effects from one place
+   * Effects unit controls dynamically change their colors to intuitively inform you of the state of the unit (active/bypassed)
    * Option to remember sound settings, either on a per-track basis or for all tracks, so you can tailor the soundscape for each of your tracks without having to manually re-apply any settings when they begin playing. Adjust the settings once and Aural will remember and automatically apply them the next time that track plays. **(New!)**
    * Save your effects settings as presets, either per individual effects unit or all effects as a whole, so you can use them later without having to remember them. **(New!)**
    * Recording of clips in AAC/ALAC/AIFF formats, so you can capture your applied sound effects and create a customized version of your track.
@@ -56,6 +57,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 * **View:**
    * Multiple compact and flexible view options - several built-in window layout presets, window snapping with configurable spacing, collapsible views. 
    * Save your customized window layouts as presets so you can use them again at any time. **(New!)**
+   * Hide individual UI components, such as album art or toolbars, per your preference, to get the UI looking more like you want it.
 
 * **Usability:**
    * Gesture recognition for essential player/playlist controls (trackpad/MagicMouse). Examples:
@@ -73,6 +75,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
    * Numerous preferences to allow user to highly customize functionality. Examples:
    
       * Configure two independent seek lengths to your liking, used by two independent sets of seek controls … either as a constant value or a percentage of track duration. For instance, set one to a short interval and set the other to a longer interval to quickly skip through large audiobooks while also being able to perform more fine-grained seeking to get to exactly where you want within the track.
+      * Click on the track time labels around the seek bar to change the display format to either hh:mm:ss or number of seconds or percentage of track duration
    	  * Configure how you want the app to look/behave on startup: Autoplay, volume and effects settings on startup, window layout on startup, remembered or default playlist on startup, etc.
       * Configure the increment/decrement for volume/pan adjustments
    	  * Configure window snapping behavior, mouse sensitivity for gestures, and more …
