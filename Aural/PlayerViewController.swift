@@ -7,7 +7,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     // Fields that display/control seek position within the playing track
     @IBOutlet weak var lblTimeElapsed: NSTextField!
-    @IBOutlet weak var lblTimeRemainingOrDuration: NSTextField!
+    @IBOutlet weak var lblTimeRemaining: NSTextField!
     
     // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
     @IBOutlet weak var seekSlider: NSSlider!
@@ -45,6 +45,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // Buttons whose tool tips may change
     @IBOutlet weak var btnPreviousTrack: TrackPeekingButton!
     @IBOutlet weak var btnNextTrack: TrackPeekingButton!
+    
+    @IBOutlet weak var mainControlsBox: NSBox!
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
@@ -114,7 +116,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         lblTimeElapsed.addGestureRecognizer(elapsedTimeGestureRecognizer)
         
         let remainingTimeGestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction))
-        lblTimeRemainingOrDuration.addGestureRecognizer(remainingTimeGestureRecognizer)
+        lblTimeRemaining.addGestureRecognizer(remainingTimeGestureRecognizer)
         
         AppModeManager.registerConstituentView(.regular, self)
     }
@@ -156,7 +158,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .showOrHideSeekBar, .showOrHideMainControls], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -165,7 +167,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .showOrHideSeekBar, .showOrHideMainControls], subscriber: self)
     }
     
     private func initVolumeAndPan() {
@@ -196,7 +198,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func clearNowPlayingInfo() {
         
         lblTimeElapsed.isHidden = true
-        lblTimeRemainingOrDuration.isHidden = true
+        lblTimeRemaining.isHidden = true
         setSeekTimerState(false)
         seekSlider.floatValue = 0
         seekSlider.isEnabled = false
@@ -204,12 +206,26 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     private func initSeekPosition() {
         
-        [seekSlider, lblTimeElapsed, lblTimeRemainingOrDuration].forEach({$0?.isHidden = false})
+        [seekSlider, lblTimeElapsed, lblTimeRemaining].forEach({$0?.isHidden = false})
         updateSeekPosition()
     }
     
     private func setSeekTimerState(_ timerOn: Bool) {
         timerOn ? seekTimer?.startOrResume() : seekTimer?.pause()
+    }
+    
+    private func showOrHideSeekBar() {
+        
+        if seekSlider.isHidden {
+            [seekSlider, lblTimeElapsed, lblTimeRemaining].forEach({$0?.isHidden = false})
+        } else {
+            [seekSlider, lblTimeElapsed, lblTimeRemaining].forEach({$0?.isHidden = true})
+        }
+    }
+    
+    private func showOrHideMainControls() {
+        
+        mainControlsBox.isHidden = mainControlsBox.isHidden ? false : true
     }
     
     private func updateSeekPosition() {
@@ -218,59 +234,20 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         seekSlider.doubleValue = seekPosn.percentageElapsed
         
-        switch PlayerViewState.timeElapsedDisplayType {
+        let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration, seekPosn.percentageElapsed, PlayerViewState.timeElapsedDisplayType, PlayerViewState.timeRemainingDisplayType)
         
-        case .formatted:
-            
-            let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration)
-            lblTimeElapsed.stringValue = trackTimes.elapsed
-            
-        case .seconds:
-            
-            let secStr = StringUtils.commaSeparatedInt(Int(round(seekPosn.timeElapsed)))
-            lblTimeElapsed.stringValue = String(format: "%@ sec", secStr)
-            
-        case .percentage:
-            
-            lblTimeElapsed.stringValue = String(format: "%d%%", Int(round(seekPosn.percentageElapsed)))
-        }
-        
-        switch PlayerViewState.timeRemainingDisplayType {
-            
-        case .formatted:
-            
-            let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration)
-            lblTimeRemainingOrDuration.stringValue = trackTimes.remaining
-            
-        case .seconds:
-            
-            let secStr = StringUtils.commaSeparatedInt(Int(round(seekPosn.trackDuration - seekPosn.timeElapsed)))
-            lblTimeRemainingOrDuration.stringValue = String(format: "- %@ sec", secStr)
-            
-        case .percentage:
-            
-            let percentageRemaining = 100 - seekPosn.percentageElapsed
-            lblTimeRemainingOrDuration.stringValue = String(format: "- %d%%", Int(round(percentageRemaining)))
-            
-        case .duration_formatted:
-            
-            lblTimeRemainingOrDuration.stringValue = StringUtils.formatSecondsToHMS(seekPosn.trackDuration)
-            
-        case .duration_seconds:
-            
-            let secStr = StringUtils.commaSeparatedInt(Int(round(seekPosn.trackDuration)))
-            lblTimeRemainingOrDuration.stringValue = String(format: "%@ sec", secStr)
-        }
+        lblTimeElapsed.stringValue = trackTimes.elapsed
+        lblTimeRemaining.stringValue = trackTimes.remaining
     }
     
     // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
     private func resetSeekPosition(_ track: Track) {
         
         lblTimeElapsed.stringValue = Strings.zeroDurationString
-        lblTimeRemainingOrDuration.stringValue = PlayerViewState.showDuration ? StringUtils.formatSecondsToHMS(track.duration) : StringUtils.formatSecondsToHMS(track.duration, true)
+        lblTimeRemaining.stringValue = PlayerViewState.showDuration ? StringUtils.formatSecondsToHMS(track.duration) : StringUtils.formatSecondsToHMS(track.duration, true)
         
         lblTimeElapsed.isHidden = false
-        lblTimeRemainingOrDuration.isHidden = false
+        lblTimeRemaining.isHidden = false
         
         seekSlider.floatValue = 0
     }
@@ -707,7 +684,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         btnPlayPause.off()
         btnLoop.switchState(LoopState.none)
         
-        [seekSlider, lblTimeElapsed, lblTimeRemainingOrDuration].forEach({$0?.isHidden = true})
+        [seekSlider, lblTimeElapsed, lblTimeRemaining].forEach({$0?.isHidden = true})
         
         if soundPreferences.rememberEffectsSettings {
             
@@ -863,6 +840,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         case .panLeft: panLeft()
             
         case .panRight: panRight()
+            
+        case .showOrHideSeekBar:
+            
+            showOrHideSeekBar()
+            
+        case .showOrHideMainControls:
+            
+            showOrHideMainControls()
             
         default: return
             

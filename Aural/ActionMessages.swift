@@ -299,6 +299,7 @@ enum ActionType {
     case showOrHideAlbumArt
     
     case showOrHideSeekBar
+    case showOrHideMainControls
 }
 
 enum ActionMode {

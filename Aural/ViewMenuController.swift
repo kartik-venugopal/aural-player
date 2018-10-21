@@ -18,8 +18,9 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     @IBOutlet weak var viewPlayerMenuItem: NSMenuItem!
     @IBOutlet weak var viewPlayerArtMenuItem: NSMenuItem!
-    @IBOutlet weak var viewPlayerSeekBarMenuItem: NSMenuItem!
     @IBOutlet weak var viewPlayerTrackFunctionsMenuItem: NSMenuItem!
+    @IBOutlet weak var viewPlayerSeekBarMenuItem: NSMenuItem!
+    @IBOutlet weak var viewPlayerMainControlsMenuItem: NSMenuItem!
     
     // Menu items whose states are toggled when they (or others) are clicked
     @IBOutlet weak var togglePlaylistMenuItem: NSMenuItem!
@@ -38,7 +39,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     override func awakeFromNib() {
         
         switchViewMenuItem.off()
-        [viewPlayerArtMenuItem, viewPlayerTrackFunctionsMenuItem, viewPlayerSeekBarMenuItem].forEach({$0?.state = UIConstants.buttonState_1})
+        [viewPlayerArtMenuItem, viewPlayerTrackFunctionsMenuItem, viewPlayerSeekBarMenuItem, viewPlayerMainControlsMenuItem].forEach({$0?.state = UIConstants.buttonState_1})
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state
@@ -167,6 +168,18 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     @IBAction func showOrHideAlbumArtAction(_ sender: NSMenuItem) {
         
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideAlbumArt))
+        sender.state = sender.state == UIConstants.buttonState_1 ? UIConstants.buttonState_0 : UIConstants.buttonState_1
+    }
+    
+    @IBAction func showOrHideSeekBarAction(_ sender: NSMenuItem) {
+        
+        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideSeekBar))
+        sender.state = sender.state == UIConstants.buttonState_1 ? UIConstants.buttonState_0 : UIConstants.buttonState_1
+    }
+    
+    @IBAction func showOrHideMainControlsAction(_ sender: NSMenuItem) {
+        
+        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideMainControls))
         sender.state = sender.state == UIConstants.buttonState_1 ? UIConstants.buttonState_0 : UIConstants.buttonState_1
     }
     
