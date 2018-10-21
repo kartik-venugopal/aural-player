@@ -9,13 +9,19 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
     
     @IBOutlet weak var btnHMS: NSButton!
     @IBOutlet weak var btnSeconds: NSButton!
+    @IBOutlet weak var btnPercentage: NSButton!
     
     @IBOutlet weak var timePicker: IntervalPicker!
     
-    @IBOutlet weak var secondsFormatter: JumpToTimeSecondsFormatter!
+    @IBOutlet weak var secondsFormatter: JumpToTimeValueFormatter!
+    
+    @IBOutlet weak var percentageFormatter: JumpToTimeValueFormatter!
     
     @IBOutlet weak var txtSeconds: NSTextField!
-    @IBOutlet weak var stepper: NSStepper!
+    @IBOutlet weak var secondsStepper: NSStepper!
+    
+    @IBOutlet weak var txtPercentage: NSTextField!
+    @IBOutlet weak var percentageStepper: NSStepper!
     
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
@@ -26,14 +32,28 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
         secondsFormatter.valueFunction = {
             () -> String in
             
-            return String(describing: self.stepper.integerValue)
+            return String(describing: self.secondsStepper.doubleValue)
         }
         
         secondsFormatter.updateFunction = {
-            (_ value: Int) in
+            (_ value: Double) in
             
-            self.stepper.integerValue = value
+            self.secondsStepper.doubleValue = value
         }
+        
+        percentageFormatter.valueFunction = {
+            () -> String in
+            
+            return String(describing: self.percentageStepper.doubleValue)
+        }
+        
+        percentageFormatter.updateFunction = {
+            (_ value: Double) in
+            
+            self.percentageStepper.doubleValue = value
+        }
+        
+        percentageFormatter.maxValue = 100
         
         AsyncMessenger.subscribe([.trackChanged], subscriber: self, dispatchQueue: DispatchQueue.main)
     }
@@ -73,10 +93,13 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
             timePicker.maxInterval = roundedDuration
             timePicker.reset()
             
-            secondsFormatter.maxValue = durationInt
-            stepper.maxValue = roundedDuration
-            stepper.doubleValue = 0
+            secondsFormatter.maxValue = roundedDuration
+            secondsStepper.maxValue = roundedDuration
+            secondsStepper.doubleValue = 0
             secondsStepperAction(self)
+            
+            percentageStepper.doubleValue = 0
+            percentageStepperAction(self)
             
         } else {
             
@@ -88,15 +111,25 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
     @IBAction func radioButtonAction(_ sender: Any) {
         
         timePicker.isEnabled = btnHMS.state == UIConstants.buttonState_1
-        [txtSeconds, stepper].forEach({$0?.isEnabled = btnSeconds.state == UIConstants.buttonState_1})
+        [txtSeconds, secondsStepper].forEach({$0?.isEnabled = btnSeconds.state == UIConstants.buttonState_1})
         
         if (txtSeconds.isEnabled) {
             self.window?.makeFirstResponder(txtSeconds)
         }
+        
+        [txtPercentage, percentageStepper].forEach({$0?.isEnabled = btnPercentage.state == UIConstants.buttonState_1})
+        
+        if (txtPercentage.isEnabled) {
+            self.window?.makeFirstResponder(txtPercentage)
+        }
     }
     
     @IBAction func secondsStepperAction(_ sender: Any) {
-        txtSeconds.stringValue = String(describing: stepper.integerValue)
+        txtSeconds.stringValue = String(describing: secondsStepper.doubleValue)
+    }
+    
+    @IBAction func percentageStepperAction(_ sender: Any) {
+        txtSeconds.stringValue = String(describing: percentageStepper.doubleValue)
     }
     
     @IBAction func okAction(_ sender: Any) {
@@ -108,10 +141,16 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
             // HH : MM : SS
             jumpToTime = timePicker.interval
             
-        } else {
+        } else if btnSeconds.state == UIConstants.buttonState_1 {
             
             // Seconds
-            jumpToTime = stepper.doubleValue
+            jumpToTime = secondsStepper.doubleValue
+            
+        } else {
+            
+            // Percentage
+            // NOTE - secondsStepper.maxValue = track duration
+            jumpToTime = percentageStepper.doubleValue * secondsStepper.maxValue / 100
         }
         
         SyncMessenger.publishActionMessage(JumpToTimeActionMessage(jumpToTime))
