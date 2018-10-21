@@ -125,14 +125,22 @@
                 <outlet property="dockPlaylistMenuItem" destination="RWg-5h-jkO" id="d20-xc-maQ"/>
                 <outlet property="manageLayoutsMenuItem" destination="ly6-5K-P4A" id="Sjk-TY-Kfh"/>
                 <outlet property="maximizePlaylistMenuItem" destination="Yge-Nz-rQX" id="jij-YN-cqO"/>
+                <outlet property="playerArtMenuItem" destination="HPx-xo-hJh" id="6fy-Kk-ubP"/>
+                <outlet property="playerMainControlsMenuItem" destination="9dh-e2-H3v" id="hEP-Fe-8Ub"/>
+                <outlet property="playerMenuItem" destination="af4-4E-1QV" id="4gV-4y-eCR"/>
+                <outlet property="playerSeekBarMenuItem" destination="Fu7-ev-msw" id="UvR-dt-iWB"/>
+                <outlet property="playerTrackFunctionsMenuItem" destination="JiX-rw-gah" id="f1m-fz-tMI"/>
                 <outlet property="switchViewMenuItem" destination="Lhd-o1-irA" id="cBX-0N-n7w"/>
+                <outlet property="timeElapsedMenuItem_hms" destination="z7S-TB-1Mk" id="cG7-TH-KCL"/>
+                <outlet property="timeElapsedMenuItem_percentage" destination="jXi-ii-Jv1" id="0k3-01-1cL"/>
+                <outlet property="timeElapsedMenuItem_seconds" destination="gY9-cI-tiW" id="Oaf-6d-fgq"/>
+                <outlet property="timeRemainingMenuItem_durationHMS" destination="nIB-ij-hMS" id="QbV-8z-IqC"/>
+                <outlet property="timeRemainingMenuItem_durationSeconds" destination="LbF-gn-eNa" id="I5X-Ss-GW6"/>
+                <outlet property="timeRemainingMenuItem_hms" destination="NI1-7T-K0P" id="3V8-yW-uZL"/>
+                <outlet property="timeRemainingMenuItem_percentage" destination="uZs-VF-KJX" id="ckJ-wC-g3t"/>
+                <outlet property="timeRemainingMenuItem_seconds" destination="dpf-Rp-xFl" id="QIA-hx-PPP"/>
                 <outlet property="toggleEffectsMenuItem" destination="fK8-7g-oqx" id="xo8-0f-yDo"/>
                 <outlet property="togglePlaylistMenuItem" destination="af4-4E-1QV" id="PWt-uf-MOX"/>
-                <outlet property="viewPlayerArtMenuItem" destination="HPx-xo-hJh" id="zzH-Fp-6Xv"/>
-                <outlet property="viewPlayerMainControlsMenuItem" destination="9dh-e2-H3v" id="9TX-I8-iUm"/>
-                <outlet property="viewPlayerMenuItem" destination="af4-4E-1QV" id="k8I-Lo-FQl"/>
-                <outlet property="viewPlayerSeekBarMenuItem" destination="Fu7-ev-msw" id="6vW-q0-9mA"/>
-                <outlet property="viewPlayerTrackFunctionsMenuItem" destination="JiX-rw-gah" id="ehe-uf-GBd"/>
                 <outlet property="windowLayoutsMenu" destination="S2A-E2-dfO" id="791-vR-GsR"/>
             </connections>
         </customObject>
@@ -994,6 +1002,76 @@ CA
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showOrHideMainControlsAction:" target="xzd-WN-BuR" id="U63-VK-9oh"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="Was-xV-Moy"/>
+                                        <menuItem title="Time elapsed display" id="nsK-2D-RCp">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Time elapsed display" id="aBb-re-Vum">
+                                                <items>
+                                                    <menuItem title="hh:mm:ss (e.g. &quot;15:36&quot;)" id="z7S-TB-1Mk">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="timeElapsedDisplayFormatAction:" target="xzd-WN-BuR" id="ZkG-aL-Cjq"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Number of seconds (e.g. &quot;79 sec&quot;)" tag="1" id="gY9-cI-tiW">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="timeElapsedDisplayFormatAction:" target="xzd-WN-BuR" id="PWq-o0-eKa"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Percentage of track duration (e.g. &quot;12%&quot;)" tag="2" id="jXi-ii-Jv1">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="timeElapsedDisplayFormatAction:" target="xzd-WN-BuR" id="fCJ-BV-IhH"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                            <connections>
+                                                <action selector="showOrHideMainControlsAction:" target="xzd-WN-BuR" id="I7A-aA-K0G"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Time remaining display" id="MVi-gk-qfx" userLabel="Time remaining format">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Time remaining display" id="1tb-nA-dOU">
+                                                <items>
+                                                    <menuItem title="hh:mm:ss (e.g. &quot;- 2:15&quot;)" id="NI1-7T-K0P">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="timeRemainingDisplayFormatAction:" target="xzd-WN-BuR" id="zu2-bn-I4y"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Number of seconds (e.g. &quot;- 17 sec&quot;)" tag="1" id="dpf-Rp-xFl">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="timeRemainingDisplayFormatAction:" target="xzd-WN-BuR" id="Fv5-hZ-fyV"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Percentage of track duration (e.g. &quot;- 3%&quot;)" tag="2" id="uZs-VF-KJX">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="timeRemainingDisplayFormatAction:" target="xzd-WN-BuR" id="rzj-Oc-SRU"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="wD6-1O-U6z"/>
+                                                    <menuItem title="Track duration as hh:mm:ss (e.g. &quot;5:48&quot;)" tag="3" id="nIB-ij-hMS">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="timeRemainingDisplayFormatAction:" target="xzd-WN-BuR" id="eTd-JA-K8J"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Track duration as number of seconds (e.g. &quot;348 sec&quot;)" tag="4" id="LbF-gn-eNa">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="timeRemainingDisplayFormatAction:" target="xzd-WN-BuR" id="s7B-8b-AfI"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                            <connections>
+                                                <action selector="showOrHideMainControlsAction:" target="xzd-WN-BuR" id="23G-BY-aVo"/>
                                             </connections>
                                         </menuItem>
                                     </items>

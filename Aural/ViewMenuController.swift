@@ -16,11 +16,23 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     @IBOutlet weak var switchViewMenuItem: ToggleMenuItem!
     
-    @IBOutlet weak var viewPlayerMenuItem: NSMenuItem!
-    @IBOutlet weak var viewPlayerArtMenuItem: NSMenuItem!
-    @IBOutlet weak var viewPlayerTrackFunctionsMenuItem: NSMenuItem!
-    @IBOutlet weak var viewPlayerSeekBarMenuItem: NSMenuItem!
-    @IBOutlet weak var viewPlayerMainControlsMenuItem: NSMenuItem!
+    @IBOutlet weak var playerMenuItem: NSMenuItem!
+    @IBOutlet weak var playerArtMenuItem: NSMenuItem!
+    @IBOutlet weak var playerTrackFunctionsMenuItem: NSMenuItem!
+    @IBOutlet weak var playerSeekBarMenuItem: NSMenuItem!
+    @IBOutlet weak var playerMainControlsMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var timeElapsedMenuItem_hms: NSMenuItem!
+    @IBOutlet weak var timeElapsedMenuItem_seconds: NSMenuItem!
+    @IBOutlet weak var timeElapsedMenuItem_percentage: NSMenuItem!
+    private var timeElapsedDisplayFormats: [NSMenuItem] = []
+    
+    @IBOutlet weak var timeRemainingMenuItem_hms: NSMenuItem!
+    @IBOutlet weak var timeRemainingMenuItem_seconds: NSMenuItem!
+    @IBOutlet weak var timeRemainingMenuItem_percentage: NSMenuItem!
+    @IBOutlet weak var timeRemainingMenuItem_durationHMS: NSMenuItem!
+    @IBOutlet weak var timeRemainingMenuItem_durationSeconds: NSMenuItem!
+    private var timeRemainingDisplayFormats: [NSMenuItem] = []
     
     // Menu items whose states are toggled when they (or others) are clicked
     @IBOutlet weak var togglePlaylistMenuItem: NSMenuItem!
@@ -41,10 +53,9 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     override func awakeFromNib() {
         
         switchViewMenuItem.off()
-//        [viewPlayerSeekBarMenuItem, viewPlayerMainControlsMenuItem].forEach({$0?.state = UIConstants.buttonState_1})
         
-        viewPlayerArtMenuItem.state = viewAppState.showAlbumArt ? UIConstants.buttonState_1 : UIConstants.buttonState_0
-        viewPlayerTrackFunctionsMenuItem.state = viewAppState.showPlayingTrackFunctions ? UIConstants.buttonState_1 : UIConstants.buttonState_0
+        timeElapsedDisplayFormats = [timeElapsedMenuItem_hms, timeElapsedMenuItem_seconds, timeElapsedMenuItem_percentage]
+        timeRemainingDisplayFormats = [timeRemainingMenuItem_hms, timeRemainingMenuItem_seconds, timeRemainingMenuItem_percentage, timeRemainingMenuItem_durationHMS, timeRemainingMenuItem_durationSeconds]
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state
@@ -89,7 +100,38 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
         manageLayoutsMenuItem.isEnabled = !customLayouts.isEmpty
         
-        viewPlayerMenuItem.state = UIConstants.buttonState_0
+        playerMenuItem.state = UIConstants.buttonState_0
+        
+        // Player view:
+        
+        playerArtMenuItem.state = NowPlayingViewState.showAlbumArt ? UIConstants.buttonState_1 : UIConstants.buttonState_0
+        playerTrackFunctionsMenuItem.state = NowPlayingViewState.showPlayingTrackFunctions ? UIConstants.buttonState_1 : UIConstants.buttonState_0
+        
+        timeElapsedDisplayFormats.forEach({$0.state = UIConstants.buttonState_0})
+        switch PlayerViewState.timeElapsedDisplayType {
+            
+        case .formatted:    timeElapsedMenuItem_hms.state = UIConstants.buttonState_1
+            
+        case .seconds:      timeElapsedMenuItem_seconds.state = UIConstants.buttonState_1
+            
+        case .percentage:   timeElapsedMenuItem_percentage.state = UIConstants.buttonState_1
+            
+        }
+        
+        timeRemainingDisplayFormats.forEach({$0.state = UIConstants.buttonState_0})
+        switch PlayerViewState.timeRemainingDisplayType {
+            
+        case .formatted:    timeRemainingMenuItem_hms.state = UIConstants.buttonState_1
+            
+        case .seconds:      timeRemainingMenuItem_seconds.state = UIConstants.buttonState_1
+            
+        case .percentage:   timeRemainingMenuItem_percentage.state = UIConstants.buttonState_1
+            
+        case .duration_formatted:   timeRemainingMenuItem_durationHMS.state = UIConstants.buttonState_1
+            
+        case .duration_seconds:     timeRemainingMenuItem_durationSeconds.state = UIConstants.buttonState_1
+            
+        }
     }
  
     // Docks the playlist window to the left of the main window
@@ -165,27 +207,61 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     }
     
     @IBAction func showOrHidePlayingTrackFunctionsAction(_ sender: NSMenuItem) {
-        
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackFunctions))
-        sender.state = sender.state == UIConstants.buttonState_1 ? UIConstants.buttonState_0 : UIConstants.buttonState_1
     }
     
     @IBAction func showOrHideAlbumArtAction(_ sender: NSMenuItem) {
-        
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideAlbumArt))
-        sender.state = sender.state == UIConstants.buttonState_1 ? UIConstants.buttonState_0 : UIConstants.buttonState_1
     }
     
     @IBAction func showOrHideSeekBarAction(_ sender: NSMenuItem) {
-        
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideSeekBar))
-        sender.state = sender.state == UIConstants.buttonState_1 ? UIConstants.buttonState_0 : UIConstants.buttonState_1
     }
     
     @IBAction func showOrHideMainControlsAction(_ sender: NSMenuItem) {
-        
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideMainControls))
-        sender.state = sender.state == UIConstants.buttonState_1 ? UIConstants.buttonState_0 : UIConstants.buttonState_1
+    }
+    
+    @IBAction func timeElapsedDisplayFormatAction(_ sender: NSMenuItem) {
+
+        var format: TimeElapsedDisplayType
+        
+        switch sender.tag {
+            
+        case 0: format = .formatted
+            
+        case 1: format = .seconds
+            
+        case 2: format = .percentage
+            
+        default: format = .formatted
+            
+        }
+        
+        SyncMessenger.publishActionMessage(SetTimeElapsedDisplayFormatActionMessage(format))
+    }
+    
+    @IBAction func timeRemainingDisplayFormatAction(_ sender: NSMenuItem) {
+        
+        var format: TimeRemainingDisplayType
+        
+        switch sender.tag {
+            
+        case 0: format = .formatted
+            
+        case 1: format = .seconds
+            
+        case 2: format = .percentage
+            
+        case 3: format = .duration_formatted
+            
+        case 4: format = .duration_seconds
+            
+        default: format = .formatted
+            
+        }
+        
+        SyncMessenger.publishActionMessage(SetTimeRemainingDisplayFormatActionMessage(format))
     }
     
     // MARK - StringInputClient functions
