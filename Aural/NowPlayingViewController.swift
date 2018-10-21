@@ -54,6 +54,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     // Popover view that displays detailed info for the currently playing track
     private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.getDetailedTrackInfoPopover()
     
+    private let appState = ObjectGraph.getAppState().uiState.nowPlayingState
+    
     // Popup view that displays a brief notification when the currently playing track is added/removed to/from the Favorites list
     private lazy var favoritesPopup: FavoritesPopupProtocol = ViewFactory.getFavoritesPopup()
     
@@ -93,6 +95,12 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         nowPlayingView.isHidden = false
         gapView.isHidden = true
+        
+        NowPlayingViewState.showPlayingTrackFunctions = appState.showPlayingTrackFunctions
+        NowPlayingViewState.showAlbumArt = appState.showAlbumArt
+        
+        artBox.isHidden = !NowPlayingViewState.showAlbumArt
+        buttonsBox.isHidden = !NowPlayingViewState.showPlayingTrackFunctions
     }
     
     private func initSubscriptions() {
@@ -377,8 +385,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     
     private func showOrHidePlayingTrackFunctions() {
         
-        NowPlayingViewState.showButtons = !NowPlayingViewState.showButtons
-        buttonsBox.isHidden = !NowPlayingViewState.showButtons
+        NowPlayingViewState.showPlayingTrackFunctions = !NowPlayingViewState.showPlayingTrackFunctions
+        buttonsBox.isHidden = !NowPlayingViewState.showPlayingTrackFunctions
     }
     
     private func showOrHideAlbumArt() {
@@ -467,16 +475,17 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
 // Convenient accessor for information about the current playlist view
 class NowPlayingViewState {
     
-    static var showButtons = true
-    static var showAlbumArt = true
+    static var showPlayingTrackFunctions: Bool = true
+    static var showAlbumArt: Bool = true
     
-//    static func persistentState() -> PlayerState {
-//
-//        let state = PlayerState()
-//        state.showDuration = showDuration
-//
-//        return state
-//    }
+    static func persistentState() -> NowPlayingState {
+
+        let state = NowPlayingState()
+        state.showAlbumArt = showAlbumArt
+        state.showPlayingTrackFunctions = showPlayingTrackFunctions
+
+        return state
+    }
 }
 
 // Helper function inserted by Swift 4.2 migrator.

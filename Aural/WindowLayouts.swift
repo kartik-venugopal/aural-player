@@ -314,7 +314,7 @@ enum WindowLayoutPresets: String {
             
         case .bigBottomPlaylist:    return mainWindow.width + gap + effectsWindow.width
             
-        case .bigLeftPlaylist, .bigRightPlaylist:   return 500
+        case .bigLeftPlaylist, .bigRightPlaylist:   return mainWindow.width
             
         case .horizontalPlayerAndPlaylistStack: return visibleFrame.width - (mainWindow.width + gap)
             
