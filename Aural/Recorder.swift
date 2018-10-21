@@ -39,6 +39,18 @@ class Recorder: RecorderProtocol {
         }
     }
     
+    // NOTE - This function is in use only by an experimental feature in development, not currently accessible to the user
+    func startViz(_ sp: Spectrogram, _ fft: FFT) {
+        
+        graph.nodeForRecorderTap.installTap(onBus: 0, bufferSize: 1024, format: nil, block: { buffer, when in
+            
+//            buffer.frameLength = 512
+            
+            let data = fft.fft1(buffer)
+            sp.updateWithData(data)
+        })
+    }
+    
     func stopRecording() {
         
         // This sleep is to make up for the lag in the tap. In other words, continue to collect tapped data for half a second after the stop is requested.
