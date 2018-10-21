@@ -129,7 +129,7 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
     }
     
     @IBAction func percentageStepperAction(_ sender: Any) {
-        txtSeconds.stringValue = String(describing: percentageStepper.doubleValue)
+        txtPercentage.stringValue = String(describing: percentageStepper.doubleValue)
     }
     
     @IBAction func okAction(_ sender: Any) {
