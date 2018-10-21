@@ -196,48 +196,6 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 - **10/05/2018: Swift 4.2 port:** All source code has been ported to Swift v4.2 ! Also, the old "swift2" branch has been deleted.
 
-- **10/04/2018: New release:**
-  * New features:
-    * **New Master effects unit**: A new effects unit called "Master" has been added to the effects panel. This unit has controls to enable/disable all effects units from one place and provides the ability to capture all sound effects in a single "master" preset.
-    * **New playback preference (show new track in playlist)**: Whenever a track begins playing, the playlist, if visible, will automatically select it and scroll to show it.
-    * **New playlist functions (invert selection, crop selection)**: The playlist menu now has 2 new functions: 1 - Invert selection, which inverts the current playlist selection, and 2 - crop selection, which keeps only selected tracks/groups, deleting all others.
-    
-  * Bug fixes:
-    * **Headphones plugged in crash**: When headphones are plugged in/out, the app stops playing audio. Now, this works during normal track playback, but still fails during track segment loop playback. A fix for the loop playback crash is planned and coming soon.
-
-- **9/28/2018: New release:** Bug fix - On High Sierra systems, app crashed at the completion of an iteration of a playback loop. This issue has been fixed.
-
-- **9/26/2018: New release:** Favorites items now have their own separate Favorites menu on the main menu bar, entirely separate from the History menu. Also, favorites lists are no longer restricted in size.
-
-- **9/25/2018: New release:**
-  * New features:
-    * **Configurable window spacing**: The user can now configure the spacing between windows when windows are snapped together. The user can specify a value between 0 and 25 pixels, as per his visual preference.
-    * **Layouts editor**: The user can now manage user-defined window layouts within a new editor window. In addition to being able to rename and delete layouts, the editor window will display an accurately scaled graphical preview of the layout.
-
-- **9/24/2018: New release:**
-  * New features:
-    * **Bookmarks editor and Favorites editor**: The user can now manage bookmarks (rename and/or delete them) and favorites (delete unwanted ones) with a new editor window.
-    * **Playlist file on startup**: The user can now specify a preference that, on app startup, the playlist should load tracks from a specific (M3U/M3U8) playlist file. This option can be found in the Playlist tab of the Preferences dialog.
-    * **Seeking/looping/replaying tracks when paused**: Previously, seeking, looping, and replaying tracks could only be done while the player was playing (as opposed to paused). This limitation no longer exists.
-    
-  * Bug fixes:
-    * **History/Favorites bug**: When history/favorites lists are resized, menus and other UI elements need to be updated. They weren't always being updated, resulting in weird UI states.
-
-- **9/22/2018: New release with lots of updates:**
-  * New features:
-    * **Bookmarking**: The user can now mark a specific position in a track, and it will be saved with a name/description the user can provide. The user can then return to that track position later with one click. This is great when listening to long files like audiobooks or podcasts.
-    * **New window layouts and user-defined layouts**: The way windows are laid out has been simplified and made easier for the user. The user can choose from multiple built-in window layouts, or lay out the windows per his preference and save the layout as a preset for later use. **Window snapping**, to other app windows, and to screen corners and edges for added convenience.
-    * **FX unit presets**: Each effects unit now allows the saving of settings as a preset, so the user can save all his sound settings as presets for later use with just one click.
-    * **Dynamic tool tips**: The previous/next track buttons of the player controls now show the name of the previous/next track, as tool tips, so the user can know, before clicking the button, which track will play as a result.
-    
-  * Improvements:
-    * Performance improvement: No more GIF animations. Only static images are shown to indicate a playing track. This has reduced CPU usage by about 60%..
-    
-  * The following bugs have been fixed:
-    * Audio engine crash upon app exit, causing corruption of app state file, resulting in loss of all saved settings and user presets/data.
-    * When playing a track from Favorites/Recently played list, the first 5 seconds of the track would sometimes play twice in a row, because of a race condition in the code that performed preparation for track playback.
-    * The playlist scroll buttons stopped working at some point.
-
 ## Planned updates
 
 - A new status bar player mode
