@@ -140,7 +140,7 @@
                 <outlet property="timeRemainingMenuItem_percentage" destination="uZs-VF-KJX" id="ckJ-wC-g3t"/>
                 <outlet property="timeRemainingMenuItem_seconds" destination="dpf-Rp-xFl" id="QIA-hx-PPP"/>
                 <outlet property="toggleEffectsMenuItem" destination="fK8-7g-oqx" id="xo8-0f-yDo"/>
-                <outlet property="togglePlaylistMenuItem" destination="af4-4E-1QV" id="PWt-uf-MOX"/>
+                <outlet property="togglePlaylistMenuItem" destination="0PH-nx-xo9" id="60y-S3-b3m"/>
                 <outlet property="windowLayoutsMenu" destination="S2A-E2-dfO" id="791-vR-GsR"/>
             </connections>
         </customObject>
@@ -1085,6 +1085,11 @@ CA
                             <menuItem title=" Effects" state="on" image="ToggleEffectsView-Small" keyEquivalent="2" id="fK8-7g-oqx" userLabel="Effects">
                                 <connections>
                                     <action selector="toggleEffectsAction:" target="xzd-WN-BuR" id="fHz-aJ-KZK"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Visualizer" state="on" image="ToggleEffectsView-Small" hidden="YES" enabled="NO" keyEquivalent="v" id="ZMB-r0-Kye" userLabel="Vis">
+                                <connections>
+                                    <action selector="vizAction:" target="xzd-WN-BuR" id="eIk-J5-9GN"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="sUj-gu-cOk"/>

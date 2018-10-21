@@ -166,6 +166,10 @@ class ObjectGraph {
         return recorderDelegate!
     }
     
+    static func getRecorder() -> Recorder {
+        return recorder!
+    }
+    
     static func getHistoryDelegate() -> HistoryDelegateProtocol {
         return historyDelegate!
     }

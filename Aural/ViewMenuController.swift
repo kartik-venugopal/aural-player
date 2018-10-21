@@ -50,6 +50,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.getEditorWindowController()
     
+    private var rec: Recorder = ObjectGraph.getRecorder()
+    
     override func awakeFromNib() {
         
         switchViewMenuItem.off()
@@ -288,6 +290,20 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
         WindowLayouts.addUserDefinedLayout(string)
+    }
+    
+    // MARK - Experimental code
+    
+    // NOTE - This function is in use only by an experimental feature in development, not currently accessible to the user
+    @IBAction func vizAction(_ sender: AnyObject) {
+        
+        let viz = VisualizerWC()
+        viz.showWindow(self)
+        
+        let sp = viz.sp!
+        let fft = FFT(sampleRate: 44100)
+        
+        rec.startViz(sp, fft)
     }
 }
 
