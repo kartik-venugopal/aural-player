@@ -129,6 +129,7 @@
                 <outlet property="toggleEffectsMenuItem" destination="fK8-7g-oqx" id="xo8-0f-yDo"/>
                 <outlet property="togglePlaylistMenuItem" destination="af4-4E-1QV" id="PWt-uf-MOX"/>
                 <outlet property="viewPlayerArtMenuItem" destination="HPx-xo-hJh" id="zzH-Fp-6Xv"/>
+                <outlet property="viewPlayerMainControlsMenuItem" destination="9dh-e2-H3v" id="9TX-I8-iUm"/>
                 <outlet property="viewPlayerMenuItem" destination="af4-4E-1QV" id="k8I-Lo-FQl"/>
                 <outlet property="viewPlayerSeekBarMenuItem" destination="Fu7-ev-msw" id="6vW-q0-9mA"/>
                 <outlet property="viewPlayerTrackFunctionsMenuItem" destination="JiX-rw-gah" id="ehe-uf-GBd"/>
@@ -985,6 +986,15 @@ CA
                                         </menuItem>
                                         <menuItem title="Seek bar" id="Fu7-ev-msw">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showOrHideSeekBarAction:" target="xzd-WN-BuR" id="CeD-Xp-h6D"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Main controls" id="9dh-e2-H3v" userLabel="View Player Main Controls">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showOrHideMainControlsAction:" target="xzd-WN-BuR" id="U63-VK-9oh"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
