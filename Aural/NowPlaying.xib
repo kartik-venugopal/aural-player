@@ -47,7 +47,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l10-SF-CHC">
-                                        <rect key="frame" x="7" y="9" width="80" height="80"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="kh2-To-Ha7"/>
                                     </imageView>
@@ -170,7 +170,7 @@
                     </subviews>
                 </view>
                 <view wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PRf-Wn-q9a" userLabel="Gap View">
-                    <rect key="frame" x="0.0" y="-210" width="500" height="94"/>
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="94"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y2o-Xb-TnC" userLabel="Art View">

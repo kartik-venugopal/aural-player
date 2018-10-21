@@ -362,6 +362,8 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         gapView_lblTrackTitle.stringValue = String(format: "Up next:   %@", track.conciseDisplayName)
         updateGapCountdown(msg.gapEndTime)
         
+        gapView_artView.isHidden = !NowPlayingViewState.showAlbumArt
+        
         if (track.displayInfo.art != nil) {
             
             gapView_artView.image = track.displayInfo.art!
