@@ -298,8 +298,13 @@ enum ActionType {
     case showOrHidePlayingTrackFunctions
     case showOrHideAlbumArt
     
+    // Player view actions
+    
     case showOrHideSeekBar
     case showOrHideMainControls
+    
+    case setTimeElapsedDisplayFormat
+    case setTimeRemainingDisplayFormat
 }
 
 enum ActionMode {
@@ -496,5 +501,27 @@ struct JumpToTimeActionMessage: ActionMessage {
     
     init(_ time: Double) {
         self.time = time
+    }
+}
+
+struct SetTimeElapsedDisplayFormatActionMessage: ActionMessage {
+    
+    let actionType: ActionType = .setTimeElapsedDisplayFormat
+    
+    let format: TimeElapsedDisplayType
+    
+    init(_ format: TimeElapsedDisplayType) {
+        self.format = format
+    }
+}
+
+struct SetTimeRemainingDisplayFormatActionMessage: ActionMessage {
+    
+    let actionType: ActionType = .setTimeRemainingDisplayFormat
+    
+    let format: TimeRemainingDisplayType
+    
+    init(_ format: TimeRemainingDisplayType) {
+        self.format = format
     }
 }

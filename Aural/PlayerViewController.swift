@@ -158,7 +158,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .showOrHideSeekBar, .showOrHideMainControls], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .showOrHideSeekBar, .showOrHideMainControls, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -167,7 +167,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .showOrHideSeekBar, .showOrHideMainControls], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .showOrHideSeekBar, .showOrHideMainControls, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
     
     private func initVolumeAndPan() {
@@ -178,12 +178,26 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     }
     
     @IBAction func switchTimeElapsedDisplayAction(_ sender: Any) {
+        
         PlayerViewState.timeElapsedDisplayType = PlayerViewState.timeElapsedDisplayType.toggle()
         updateSeekPosition()
     }
     
     @IBAction func switchTimeRemainingDisplayAction(_ sender: Any) {
+        
         PlayerViewState.timeRemainingDisplayType = PlayerViewState.timeRemainingDisplayType.toggle()
+        updateSeekPosition()
+    }
+    
+    private func setTimeElapsedDisplayFormat(_ format: TimeElapsedDisplayType) {
+        
+        PlayerViewState.timeElapsedDisplayType = format
+        updateSeekPosition()
+    }
+    
+    private func setTimeRemainingDisplayFormat(_ format: TimeRemainingDisplayType) {
+        
+        PlayerViewState.timeRemainingDisplayType = format
         updateSeekPosition()
     }
     
@@ -848,6 +862,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         case .showOrHideMainControls:
             
             showOrHideMainControls()
+            
+        case .setTimeElapsedDisplayFormat:
+            
+            setTimeElapsedDisplayFormat((message as! SetTimeElapsedDisplayFormatActionMessage).format)
+            
+        case .setTimeRemainingDisplayFormat:
+            
+            setTimeRemainingDisplayFormat((message as! SetTimeRemainingDisplayFormatActionMessage).format)
             
         default: return
             
