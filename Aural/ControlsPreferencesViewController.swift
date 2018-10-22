@@ -31,35 +31,35 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let controlsPrefs = preferences.controlsPreferences
         
-        btnAllowVolumeControl.state = NSControl.StateValue(rawValue: controlsPrefs.allowVolumeControl ? 1 : 0)
-        volumeControlSensitivityMenu.isEnabled = btnAllowVolumeControl.state.rawValue == 1
+        btnAllowVolumeControl.onIf(controlsPrefs.allowVolumeControl)
+        volumeControlSensitivityMenu.isEnabled = btnAllowVolumeControl.isOn()
         volumeControlSensitivityMenu.selectItem(withTitle: controlsPrefs.volumeControlSensitivity.rawValue.capitalized)
         
-        btnAllowSeeking.state = NSControl.StateValue(rawValue: controlsPrefs.allowSeeking ? 1 : 0)
-        seekSensitivityMenu.isEnabled = btnAllowSeeking.state.rawValue == 1
+        btnAllowSeeking.onIf(controlsPrefs.allowSeeking)
+        seekSensitivityMenu.isEnabled = btnAllowSeeking.isOn()
         seekSensitivityMenu.selectItem(withTitle: controlsPrefs.seekSensitivity.rawValue.capitalized)
         
-        btnAllowTrackChange.state = NSControl.StateValue(rawValue: controlsPrefs.allowTrackChange ? 1 : 0)
+        btnAllowTrackChange.onIf(controlsPrefs.allowTrackChange)
         
-        btnAllowPlaylistNavigation.state = NSControl.StateValue(rawValue: controlsPrefs.allowPlaylistNavigation ? 1 : 0)
-        btnAllowPlaylistTabToggle.state = NSControl.StateValue(rawValue: controlsPrefs.allowPlaylistTabToggle ? 1 : 0)
+        btnAllowPlaylistNavigation.onIf(controlsPrefs.allowPlaylistNavigation)
+        btnAllowPlaylistTabToggle.onIf(controlsPrefs.allowPlaylistTabToggle)
     }
     
     @IBAction func allowVolumeControlAction(_ sender: Any) {
-        volumeControlSensitivityMenu.isEnabled = Bool(btnAllowVolumeControl.state.rawValue)
+        volumeControlSensitivityMenu.isEnabled = btnAllowVolumeControl.isOn()
     }
     
     @IBAction func allowSeekingAction(_ sender: Any) {
-        seekSensitivityMenu.isEnabled = Bool(btnAllowSeeking.state.rawValue)
+        seekSensitivityMenu.isEnabled = btnAllowSeeking.isOn()
     }
     
     @IBAction func enableAllGesturesAction(_ sender: Any) {
-        gestureButtons.forEach({$0.state = convertToNSControlStateValue(1)})
+        gestureButtons.forEach({$0.on()})
         [volumeControlSensitivityMenu, seekSensitivityMenu].forEach({$0.isEnabled = true})
     }
     
     @IBAction func disableAllGesturesAction(_ sender: Any) {
-        gestureButtons.forEach({$0.state = convertToNSControlStateValue(0)})
+        gestureButtons.forEach({$0.off()})
         [volumeControlSensitivityMenu, seekSensitivityMenu].forEach({$0.isEnabled = false})
     }
     
@@ -67,20 +67,15 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let controlsPrefs = preferences.controlsPreferences
         
-        controlsPrefs.allowVolumeControl = Bool(btnAllowVolumeControl.state.rawValue)
+        controlsPrefs.allowVolumeControl = btnAllowVolumeControl.isOn()
         controlsPrefs.volumeControlSensitivity = ScrollSensitivity(rawValue: volumeControlSensitivityMenu.titleOfSelectedItem!.lowercased())!
         
-        controlsPrefs.allowSeeking = Bool(btnAllowSeeking.state.rawValue)
+        controlsPrefs.allowSeeking = btnAllowSeeking.isOn()
         controlsPrefs.seekSensitivity = ScrollSensitivity(rawValue: seekSensitivityMenu.titleOfSelectedItem!.lowercased())!
         
-        controlsPrefs.allowTrackChange = Bool(btnAllowTrackChange.state.rawValue)
+        controlsPrefs.allowTrackChange = btnAllowTrackChange.isOn()
         
-        controlsPrefs.allowPlaylistNavigation = Bool(btnAllowPlaylistNavigation.state.rawValue)
-        controlsPrefs.allowPlaylistTabToggle = Bool(btnAllowPlaylistTabToggle.state.rawValue)
+        controlsPrefs.allowPlaylistNavigation = btnAllowPlaylistNavigation.isOn()
+        controlsPrefs.allowPlaylistTabToggle = btnAllowPlaylistTabToggle.isOn()
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToNSControlStateValue(_ input: Int) -> NSControl.StateValue {
-	return NSControl.StateValue(rawValue: input)
 }

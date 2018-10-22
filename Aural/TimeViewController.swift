@@ -75,7 +75,7 @@ class TimeViewController: NSViewController, NSMenuDelegate, MessageSubscriber, A
         btnTimeBypass.updateState()
         [timeSlider, timeOverlapSlider].forEach({$0?.updateState()})
         
-        btnShiftPitch.state = NSControl.StateValue(rawValue: graph.isTimePitchShift() ? 1 : 0)
+        btnShiftPitch.onIf(graph.isTimePitchShift())
         updatePitchShift()
         
         let rate = graph.getTimeRate()
@@ -141,7 +141,7 @@ class TimeViewController: NSViewController, NSMenuDelegate, MessageSubscriber, A
     // Actually saves the new user-defined preset
     private func saveUserPreset(_ request: SaveUserPresetRequest) {
         
-        TimePresets.addUserDefinedPreset(request.presetName, graph.getTimeState(), timeSlider.floatValue, timeOverlapSlider.floatValue, btnShiftPitch.state.rawValue == 1)
+        TimePresets.addUserDefinedPreset(request.presetName, graph.getTimeState(), timeSlider.floatValue, timeOverlapSlider.floatValue, btnShiftPitch.isOn())
         
         // Add a menu item for the new preset, at the top of the menu
         presetsMenu.insertItem(withTitle: request.presetName, at: 0)

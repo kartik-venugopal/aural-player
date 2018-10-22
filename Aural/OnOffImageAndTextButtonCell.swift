@@ -32,7 +32,7 @@ class OnOffImageAndTextButtonCell: NSButtonCell {
         NSBezierPath.init(rect: cellFrame).fill()
         
         // Selection box
-        if (state.rawValue == 1) {
+        if isOn() {
             
             let drawRect = cellFrame.insetBy(dx: borderInsetX, dy: borderInsetY)
             selectionBoxColor.setFill()
@@ -40,8 +40,8 @@ class OnOffImageAndTextButtonCell: NSButtonCell {
         }
         
         // Title
-        let textColor = shouldHighlight ? highlightColor : (state.rawValue == 0 ? unselectedTextColor : selectedTextColor)
-        let font = state.rawValue == 1 ? boldTextFont : textFont
+        let textColor = shouldHighlight ? highlightColor : (isOff() ? unselectedTextColor : selectedTextColor)
+        let font = isOn() ? boldTextFont : textFont
         
         let attrs: [String: AnyObject] = [
             convertFromNSAttributedStringKey(NSAttributedString.Key.font): font,

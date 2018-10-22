@@ -43,6 +43,6 @@ struct UIConstants {
     // Maximum time gap between scroll events for them to be considered as being part of the same scroll session
     static let scrollSessionMaxTimeGapSeconds: TimeInterval = (1/6)
     
-    static let buttonState_0: NSControl.StateValue = NSControl.StateValue(rawValue: 0)
-    static let buttonState_1: NSControl.StateValue = NSControl.StateValue(rawValue: 1)
+    static let offState: NSControl.StateValue = NSControl.StateValue(rawValue: 0)
+    static let onState: NSControl.StateValue = NSControl.StateValue(rawValue: 1)
 }

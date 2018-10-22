@@ -21,31 +21,33 @@ class OnOffImageButton: NSButton {
     private var _isOn: Bool = false
     
     // Sets the button state to be "Off"
-    func off() {
+    override func off() {
+        
         self.image = offStateImage
         self.toolTip = offStateTooltip
         _isOn = false
     }
     
     // Sets the button state to be "On"
-    func on() {
+    override func on() {
+        
         self.image = onStateImage
         self.toolTip = onStateTooltip
         _isOn = true
     }
     
     // Convenience function to set the button to "On" if the specified condition is true, and "Off" if not.
-    func onIf(_ condition: Bool) {
+    override func onIf(_ condition: Bool) {
         condition ? on() : off()
     }
     
     // Toggles the On/Off state
-    func toggle() {
+    override func toggle() {
         _isOn ? off() : on()
     }
     
     // Returns true if the button is in the On state, false otherwise.
-    func isOn() -> Bool {
+    override func isOn() -> Bool {
         return _isOn
     }
 }

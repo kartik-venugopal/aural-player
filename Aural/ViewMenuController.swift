@@ -70,8 +70,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
             
             [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.isHidden = false})
             
-            togglePlaylistMenuItem.state = NSControl.StateValue(rawValue: layoutManager.isShowingPlaylist() ? 1 : 0)
-            toggleEffectsMenuItem.state = NSControl.StateValue(rawValue: layoutManager.isShowingEffects() ? 1 : 0)
+            togglePlaylistMenuItem.onIf(layoutManager.isShowingPlaylist())
+            toggleEffectsMenuItem.onIf(layoutManager.isShowingEffects())
             
         } else {
             
@@ -102,36 +102,36 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
         manageLayoutsMenuItem.isEnabled = !customLayouts.isEmpty
         
-        playerMenuItem.state = UIConstants.buttonState_0
+        playerMenuItem.off()
         
         // Player view:
         
-        playerArtMenuItem.state = NowPlayingViewState.showAlbumArt ? UIConstants.buttonState_1 : UIConstants.buttonState_0
-        playerTrackFunctionsMenuItem.state = NowPlayingViewState.showPlayingTrackFunctions ? UIConstants.buttonState_1 : UIConstants.buttonState_0
+        playerArtMenuItem.onIf(NowPlayingViewState.showAlbumArt)
+        playerTrackFunctionsMenuItem.onIf(NowPlayingViewState.showPlayingTrackFunctions)
         
-        timeElapsedDisplayFormats.forEach({$0.state = UIConstants.buttonState_0})
+        timeElapsedDisplayFormats.forEach({$0.off()})
         switch PlayerViewState.timeElapsedDisplayType {
             
-        case .formatted:    timeElapsedMenuItem_hms.state = UIConstants.buttonState_1
+        case .formatted:    timeElapsedMenuItem_hms.on()
             
-        case .seconds:      timeElapsedMenuItem_seconds.state = UIConstants.buttonState_1
+        case .seconds:      timeElapsedMenuItem_seconds.on()
             
-        case .percentage:   timeElapsedMenuItem_percentage.state = UIConstants.buttonState_1
+        case .percentage:   timeElapsedMenuItem_percentage.on()
             
         }
         
-        timeRemainingDisplayFormats.forEach({$0.state = UIConstants.buttonState_0})
+        timeRemainingDisplayFormats.forEach({$0.off()})
         switch PlayerViewState.timeRemainingDisplayType {
             
-        case .formatted:    timeRemainingMenuItem_hms.state = UIConstants.buttonState_1
+        case .formatted:    timeRemainingMenuItem_hms.on()
             
-        case .seconds:      timeRemainingMenuItem_seconds.state = UIConstants.buttonState_1
+        case .seconds:      timeRemainingMenuItem_seconds.on()
             
-        case .percentage:   timeRemainingMenuItem_percentage.state = UIConstants.buttonState_1
+        case .percentage:   timeRemainingMenuItem_percentage.on()
             
-        case .duration_formatted:   timeRemainingMenuItem_durationHMS.state = UIConstants.buttonState_1
+        case .duration_formatted:   timeRemainingMenuItem_durationHMS.on()
             
-        case .duration_seconds:     timeRemainingMenuItem_durationSeconds.state = UIConstants.buttonState_1
+        case .duration_seconds:     timeRemainingMenuItem_durationSeconds.on()
             
         }
     }

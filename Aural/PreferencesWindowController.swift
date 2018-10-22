@@ -109,10 +109,3 @@ protocol PreferencesViewProtocol {
     // Throws an exception if the input provided is invalid
     func save(_ preferences: Preferences) throws
 }
-
-// Int to Bool conversion
-extension Bool {
-    init<T: BinaryInteger>(_ num: T) {
-        self.init(num != 0)
-    }
-}

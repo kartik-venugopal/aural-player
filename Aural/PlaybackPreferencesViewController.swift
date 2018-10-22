@@ -70,9 +70,9 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         lblPrimarySeekLengthPerc.stringValue = String(format: "%d%%", primarySeekLengthPerc)
         
         if playbackPrefs.primarySeekLengthOption == .constant {
-            btnPrimarySeekLengthConstant.state = UIConstants.buttonState_1
+            btnPrimarySeekLengthConstant.on()
         } else {
-            btnPrimarySeekLengthPerc.state = UIConstants.buttonState_1
+            btnPrimarySeekLengthPerc.on()
         }
         
         primarySeekLengthConstantFields.forEach({$0.isEnabled = playbackPrefs.primarySeekLengthOption == .constant})
@@ -89,9 +89,9 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         lblSecondarySeekLengthPerc.stringValue = String(format: "%d%%", secondarySeekLengthPerc)
         
         if playbackPrefs.secondarySeekLengthOption == .constant {
-            btnSecondarySeekLengthConstant.state = UIConstants.buttonState_1
+            btnSecondarySeekLengthConstant.on()
         } else {
-            btnSecondarySeekLengthPerc.state = UIConstants.buttonState_1
+            btnSecondarySeekLengthPerc.on()
         }
         
         secondarySeekLengthConstantFields.forEach({$0.isEnabled = playbackPrefs.secondarySeekLengthOption == .constant})
@@ -99,47 +99,47 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         // Autoplay
         
-        btnAutoplayOnStartup.state = NSControl.StateValue(rawValue: playbackPrefs.autoplayOnStartup ? 1 : 0)
+        btnAutoplayOnStartup.onIf(playbackPrefs.autoplayOnStartup)
         
-        btnAutoplayAfterAddingTracks.state = NSControl.StateValue(rawValue: playbackPrefs.autoplayAfterAddingTracks ? 1 : 0)
+        btnAutoplayAfterAddingTracks.onIf(playbackPrefs.autoplayAfterAddingTracks)
         
         btnAutoplayIfNotPlaying.isEnabled = playbackPrefs.autoplayAfterAddingTracks
-        btnAutoplayIfNotPlaying.state = NSControl.StateValue(rawValue: playbackPrefs.autoplayAfterAddingOption == .ifNotPlaying ? 1 : 0)
+        btnAutoplayIfNotPlaying.onIf(playbackPrefs.autoplayAfterAddingOption == .ifNotPlaying)
         
         btnAutoplayAlways.isEnabled = playbackPrefs.autoplayAfterAddingTracks
-        btnAutoplayAlways.state = NSControl.StateValue(rawValue: playbackPrefs.autoplayAfterAddingOption == .always ? 1 : 0)
+        btnAutoplayAlways.onIf(playbackPrefs.autoplayAfterAddingOption == .always)
         
         // Show new track
         
-        btnShowNewTrack.state = NSControl.StateValue(rawValue: playbackPrefs.showNewTrackInPlaylist ? 1 : 0)
+        btnShowNewTrack.onIf(playbackPrefs.showNewTrackInPlaylist)
         
         // Remember last track position
         
-        btnRememberPosition.state = NSControl.StateValue(rawValue: playbackPrefs.rememberLastPosition ? 1 : 0)
-        [btnRememberPosition_individualTracks, btnRememberPosition_allTracks].forEach({$0?.isEnabled = Bool(btnRememberPosition.state.rawValue)})
+        btnRememberPosition.onIf(playbackPrefs.rememberLastPosition)
+        [btnRememberPosition_individualTracks, btnRememberPosition_allTracks].forEach({$0?.isEnabled = btnRememberPosition.isOn()})
         
         if playbackPrefs.rememberLastPositionOption == .individualTracks {
-            btnRememberPosition_individualTracks.state = UIConstants.buttonState_1
+            btnRememberPosition_individualTracks.on()
         } else {
-            btnRememberPosition_allTracks.state = UIConstants.buttonState_1
+            btnRememberPosition_allTracks.on()
         }
         
         // Gap between tracks
         
-        btnGapBetweenTracks.state = playbackPrefs.gapBetweenTracks ? UIConstants.buttonState_1 : UIConstants.buttonState_0
-        [lblGapDuration, gapDurationPicker].forEach({$0?.isEnabled = btnGapBetweenTracks.state == UIConstants.buttonState_1})
+        btnGapBetweenTracks.onIf(playbackPrefs.gapBetweenTracks)
+        [lblGapDuration, gapDurationPicker].forEach({$0?.isEnabled = btnGapBetweenTracks.isOn()})
         gapDurationPicker.setInterval(Double(playbackPrefs.gapBetweenTracksDuration))
         gapDurationPickerAction(self)
     }
     
     @IBAction func primarySeekLengthRadioButtonAction(_ sender: Any) {
-        primarySeekLengthConstantFields.forEach({$0.isEnabled = btnPrimarySeekLengthConstant.state.rawValue == 1})
-        primarySeekLengthPercStepper.isEnabled = btnPrimarySeekLengthPerc.state.rawValue == 1
+        primarySeekLengthConstantFields.forEach({$0.isEnabled = btnPrimarySeekLengthConstant.isOn()})
+        primarySeekLengthPercStepper.isEnabled = btnPrimarySeekLengthPerc.isOn()
     }
     
     @IBAction func secondarySeekLengthRadioButtonAction(_ sender: Any) {
-        secondarySeekLengthConstantFields.forEach({$0.isEnabled = btnSecondarySeekLengthConstant.state.rawValue == 1})
-        secondarySeekLengthPercStepper.isEnabled = btnSecondarySeekLengthPerc.state.rawValue == 1
+        secondarySeekLengthConstantFields.forEach({$0.isEnabled = btnSecondarySeekLengthConstant.isOn()})
+        secondarySeekLengthPercStepper.isEnabled = btnSecondarySeekLengthPerc.isOn()
     }
     
     @IBAction func primarySeekLengthAction(_ sender: Any) {
@@ -160,7 +160,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     // When the check box for "autoplay after adding tracks" is checked/unchecked, update the enabled state of the 2 option radio buttons
     @IBAction func autoplayAfterAddingAction(_ sender: Any) {
-        [btnAutoplayIfNotPlaying, btnAutoplayAlways].forEach({$0!.isEnabled = Bool(btnAutoplayAfterAddingTracks.state.rawValue)})
+        [btnAutoplayIfNotPlaying, btnAutoplayAlways].forEach({$0!.isEnabled = btnAutoplayAfterAddingTracks.isOn()})
     }
     
     @IBAction func autoplayAfterAddingRadioButtonAction(_ sender: Any) {
@@ -168,7 +168,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     }
     
     @IBAction func rememberLastPositionAction(_ sender: Any) {
-        [btnRememberPosition_individualTracks, btnRememberPosition_allTracks].forEach({$0?.isEnabled = Bool(btnRememberPosition.state.rawValue)})
+        [btnRememberPosition_individualTracks, btnRememberPosition_allTracks].forEach({$0?.isEnabled = btnRememberPosition.isOn()})
     }
     
     @IBAction func rememberLastPositionRadioButtonAction(_ sender: Any) {
@@ -176,7 +176,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     }
     
     @IBAction func gapDurationAction(_ sender: NSButton) {
-        [lblGapDuration, gapDurationPicker].forEach({$0?.isEnabled = btnGapBetweenTracks.state == UIConstants.buttonState_1})
+        [lblGapDuration, gapDurationPicker].forEach({$0?.isEnabled = btnGapBetweenTracks.isOn()})
     }
     
     @IBAction func gapDurationPickerAction(_ sender: Any) {
@@ -206,26 +206,26 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let playbackPrefs = preferences.playbackPreferences
         
-        playbackPrefs.primarySeekLengthOption = btnPrimarySeekLengthConstant.state.rawValue == 1 ? .constant : .percentage
+        playbackPrefs.primarySeekLengthOption = btnPrimarySeekLengthConstant.isOn() ? .constant : .percentage
         playbackPrefs.primarySeekLengthConstant = Int(round(primarySeekLengthPicker.interval))
         playbackPrefs.primarySeekLengthPercentage = primarySeekLengthPercStepper.integerValue
         
-        playbackPrefs.secondarySeekLengthOption = btnSecondarySeekLengthConstant.state.rawValue == 1 ? .constant : .percentage
+        playbackPrefs.secondarySeekLengthOption = btnSecondarySeekLengthConstant.isOn() ? .constant : .percentage
         playbackPrefs.secondarySeekLengthConstant = Int(round(secondarySeekLengthPicker.interval))
         playbackPrefs.secondarySeekLengthPercentage = secondarySeekLengthPercStepper.integerValue
         
-        playbackPrefs.autoplayOnStartup = Bool(btnAutoplayOnStartup.state.rawValue)
+        playbackPrefs.autoplayOnStartup = btnAutoplayOnStartup.isOn()
         
-        playbackPrefs.autoplayAfterAddingTracks = Bool(btnAutoplayAfterAddingTracks.state.rawValue)
-        playbackPrefs.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.state.rawValue == 1 ? .ifNotPlaying : .always
+        playbackPrefs.autoplayAfterAddingTracks = btnAutoplayAfterAddingTracks.isOn()
+        playbackPrefs.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.isOn() ? .ifNotPlaying : .always
      
-        playbackPrefs.showNewTrackInPlaylist = Bool(btnShowNewTrack.state.rawValue)
+        playbackPrefs.showNewTrackInPlaylist = btnShowNewTrack.isOn()
         
-        playbackPrefs.rememberLastPosition = Bool(btnRememberPosition.state.rawValue)
+        playbackPrefs.rememberLastPosition = btnRememberPosition.isOn()
         
         let wasAllTracks: Bool = playbackPrefs.rememberLastPositionOption == .allTracks
         
-        playbackPrefs.rememberLastPositionOption = btnRememberPosition_individualTracks.state == UIConstants.buttonState_1 ? .individualTracks : .allTracks
+        playbackPrefs.rememberLastPositionOption = btnRememberPosition_individualTracks.isOn() ? .individualTracks : .allTracks
         
         let isNowIndividualTracks: Bool = playbackPrefs.rememberLastPositionOption == .individualTracks
         
@@ -233,7 +233,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
             PlaybackProfiles.removeAll()
         }
         
-        playbackPrefs.gapBetweenTracks = btnGapBetweenTracks.state == UIConstants.buttonState_1
+        playbackPrefs.gapBetweenTracks = btnGapBetweenTracks.isOn()
         playbackPrefs.gapBetweenTracksDuration = Int(round(gapDurationPicker.interval))
     }
 }

@@ -49,7 +49,7 @@ class EffectsUnitTabButtonCell: NSButtonCell {
         NSBezierPath.init(rect: cellFrame).fill()
         
         // Selection box
-        if (state.rawValue == 1) {
+        if isOn() {
             
             let drawRect = cellFrame.insetBy(dx: borderInsetX, dy: borderInsetY)
             selectionBoxColor.setFill()
@@ -57,7 +57,7 @@ class EffectsUnitTabButtonCell: NSButtonCell {
         }
         
         // Check if selected, and adjust text font
-        textFont = state.rawValue == 1 ? boldTextFont : regularTextFont
+        textFont = isOn() ? boldTextFont : regularTextFont
         
         // Title
         let attrs: [String: AnyObject] = [
