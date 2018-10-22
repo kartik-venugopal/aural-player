@@ -258,7 +258,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     private func renderTimePreview(_ preset: TimePreset) {
         
-        btnShiftPitch.state = NSControl.StateValue(rawValue: preset.pitchShift ? 1 : 0)
+        btnShiftPitch.onIf(preset.pitchShift)
         let pitchShift = (preset.pitchShift ? 1200 * log2(preset.rate) : 0) * AppConstants.pitchConversion_audioGraphToUI
         lblPitchShiftValue.stringValue = ValueFormatter.formatPitch(pitchShift)
         

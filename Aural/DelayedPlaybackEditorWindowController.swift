@@ -40,7 +40,7 @@ class DelayedPlaybackEditorWindowController: NSWindowController, ModalDialogDele
     func resetFields() {
         
         // Initial values will depend on whether the dialog is in "create" mode or "edit" mode
-        btnDelay.state = UIConstants.buttonState_1
+        btnDelay.on()
         radioButtonAction(self)
         
         let now = Date()
@@ -57,7 +57,7 @@ class DelayedPlaybackEditorWindowController: NSWindowController, ModalDialogDele
     
     @IBAction func radioButtonAction(_ sender: Any) {
         
-        delayPicker.isEnabled = btnDelay.state == UIConstants.buttonState_1
+        delayPicker.isEnabled = btnDelay.isOn()
         timePicker.isEnabled = !delayPicker.isEnabled
     }
     
@@ -73,7 +73,7 @@ class DelayedPlaybackEditorWindowController: NSWindowController, ModalDialogDele
         
         var delay: Double = 0
         
-        if btnTime.state == UIConstants.buttonState_1 {
+        if btnTime.isOn() {
             
             let chosenTime = timePicker.dateValue
             delay = DateUtils.timeUntil(chosenTime)

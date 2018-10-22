@@ -45,14 +45,14 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         volumeDeltaStepper.integerValue = volumeDelta
         volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
         
-        btnRememberVolume.state = NSControl.StateValue(rawValue: soundPrefs.volumeOnStartupOption == .rememberFromLastAppLaunch ? 1 : 0)
+        btnRememberVolume.onIf(soundPrefs.volumeOnStartupOption == .rememberFromLastAppLaunch)
         
-        btnSpecifyVolume.state = NSControl.StateValue(rawValue: soundPrefs.volumeOnStartupOption == .rememberFromLastAppLaunch ? 0 : 1)
+        btnSpecifyVolume.onIf(soundPrefs.volumeOnStartupOption == .specific)
         
-        startupVolumeSlider.isEnabled = Bool(btnSpecifyVolume.state.rawValue)
+        startupVolumeSlider.isEnabled = btnSpecifyVolume.isOn()
         startupVolumeSlider.integerValue = Int(round(soundPrefs.startupVolumeValue * AppConstants.volumeConversion_audioGraphToUI))
         
-        lblStartupVolume.isEnabled = Bool(btnSpecifyVolume.state.rawValue)
+        lblStartupVolume.isEnabled = btnSpecifyVolume.isOn()
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
         
         let panDelta = Int(round(soundPrefs.panDelta * AppConstants.panConversion_audioGraphToUI))
@@ -72,12 +72,12 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         timeDeltaAction(self)
         
         if soundPrefs.effectsSettingsOnStartupOption == .rememberFromLastAppLaunch {
-            btnRememberEffectsOnStartup.state = UIConstants.buttonState_1
+            btnRememberEffectsOnStartup.on()
         } else {
-            btnApplyPresetOnStartup.state = UIConstants.buttonState_1
+            btnApplyPresetOnStartup.on()
         }
         
-        masterPresetsMenu.isEnabled = btnApplyPresetOnStartup.state.rawValue == 1
+        masterPresetsMenu.isEnabled = btnApplyPresetOnStartup.isOn()
         
         updateMasterPresetsMenu()
         
@@ -85,13 +85,13 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
             masterPresetsMenu.selectItem(withTitle: masterPresetName)
         }
         
-        btnRememberSettingsForTrack.state = soundPrefs.rememberEffectsSettings ? UIConstants.buttonState_1 : UIConstants.buttonState_0
+        btnRememberSettingsForTrack.onIf(soundPrefs.rememberEffectsSettings)
         [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.isEnabled = soundPrefs.rememberEffectsSettings})
         
         if soundPrefs.rememberEffectsSettingsOption == .individualTracks {
-            btnRememberSettings_individualTracks.state = UIConstants.buttonState_1
+            btnRememberSettings_individualTracks.on()
         } else {
-            btnRememberSettings_allTracks.state = UIConstants.buttonState_1
+            btnRememberSettings_allTracks.on()
         }
     }
     
@@ -124,7 +124,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     }
 
     @IBAction func startupVolumeButtonAction(_ sender: Any) {
-        [startupVolumeSlider, lblStartupVolume].forEach({$0.isEnabled = Bool(btnSpecifyVolume.state.rawValue)})
+        [startupVolumeSlider, lblStartupVolume].forEach({$0.isEnabled = btnSpecifyVolume.isOn()})
     }
     
     @IBAction func startupVolumeSliderAction(_ sender: Any) {
@@ -132,11 +132,11 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     }
     
     @IBAction func effectsSettingsOnStartupRadioButtonAction(_ sender: Any) {
-        masterPresetsMenu.isEnabled = btnApplyPresetOnStartup.state.rawValue == 1
+        masterPresetsMenu.isEnabled = btnApplyPresetOnStartup.isOn()
     }
     
     @IBAction func rememberSettingsAction(_ sender: Any) {
-        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.isEnabled = btnRememberSettingsForTrack.state == UIConstants.buttonState_1})
+        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.isEnabled = btnRememberSettingsForTrack.isOn()})
     }
     
     @IBAction func rememberSettingsRadioButtonAction(_ sender: Any) {
@@ -149,7 +149,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         soundPrefs.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.volumeConversion_UIToAudioGraph
         
-        soundPrefs.volumeOnStartupOption = btnRememberVolume.state.rawValue == 1 ? .rememberFromLastAppLaunch : .specific
+        soundPrefs.volumeOnStartupOption = btnRememberVolume.isOn() ? .rememberFromLastAppLaunch : .specific
         soundPrefs.startupVolumeValue = Float(startupVolumeSlider.integerValue) * AppConstants.volumeConversion_UIToAudioGraph
         
         soundPrefs.panDelta = panDeltaStepper.floatValue * AppConstants.panConversion_UIToAudioGraph
@@ -158,15 +158,15 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         soundPrefs.pitchDelta = pitchDeltaStepper.integerValue
         soundPrefs.timeDelta = timeDeltaStepper.floatValue
         
-        soundPrefs.effectsSettingsOnStartupOption = btnRememberEffectsOnStartup.state == UIConstants.buttonState_1 ? .rememberFromLastAppLaunch : .applyMasterPreset
+        soundPrefs.effectsSettingsOnStartupOption = btnRememberEffectsOnStartup.isOn() ? .rememberFromLastAppLaunch : .applyMasterPreset
         
         soundPrefs.masterPresetOnStartup_name = masterPresetsMenu.titleOfSelectedItem ?? ""
         
-        soundPrefs.rememberEffectsSettings = Bool(btnRememberSettingsForTrack.state.rawValue)
+        soundPrefs.rememberEffectsSettings = btnRememberSettingsForTrack.isOn()
         
         let wasAllTracks: Bool = soundPrefs.rememberEffectsSettingsOption == .allTracks
         
-        soundPrefs.rememberEffectsSettingsOption = btnRememberSettings_individualTracks.state == UIConstants.buttonState_1 ? .individualTracks : .allTracks
+        soundPrefs.rememberEffectsSettingsOption = btnRememberSettings_individualTracks.isOn() ? .individualTracks : .allTracks
         
         let isNowIndividualTracks: Bool = soundPrefs.rememberEffectsSettingsOption == .individualTracks
         

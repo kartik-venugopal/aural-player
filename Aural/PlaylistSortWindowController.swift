@@ -11,6 +11,8 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
     
     @IBOutlet weak var sortByName: NSButton!
     @IBOutlet weak var sortByDuration: NSButton!
+    @IBOutlet weak var sortByArtist: NSButton!
+    @IBOutlet weak var sortByAlbum: NSButton!
     
     @IBOutlet weak var sortAscending: NSButton!
     @IBOutlet weak var sortDescending: NSButton!
@@ -59,13 +61,13 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
         
         // Gather field values
         let sortOptions = Sort()
-        sortOptions.field = sortByName.state.rawValue == 1 ? SortField.name : SortField.duration
-        sortOptions.order = sortAscending.state.rawValue == 1 ? SortOrder.ascending : SortOrder.descending
+        sortOptions.field = sortByName.isOn() ? SortField.name : SortField.duration
+        sortOptions.order = sortAscending.isOn() ? SortOrder.ascending : SortOrder.descending
         
         if PlaylistViewState.groupType != nil {
             
             // This option is only applicable to grouping playlists
-            sortOptions.options.sortTracksInGroups = sortTracksInGroups.state.rawValue == 1
+            sortOptions.options.sortTracksInGroups = sortTracksInGroups.isOn()
         }
         
         // Perform the sort

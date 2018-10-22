@@ -161,6 +161,8 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     @IBAction func tabViewAction(_ sender: NSButton) {
 
         // Set sender button state, reset all other button states
+        
+        // TODO: Add a field "isSelected" to the tab button control to distinguish between "state" (on/off) and "selected"
         fxTabViewButtons!.forEach({$0.state = convertToNSControlStateValue(0)})
         sender.state = convertToNSControlStateValue(1)
 

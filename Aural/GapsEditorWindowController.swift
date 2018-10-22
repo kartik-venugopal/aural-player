@@ -64,22 +64,22 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
         
         if let gapB = gaps?.beforeTrack {
         
-            btnGapBeforeTrack.state = UIConstants.buttonState_1
+            btnGapBeforeTrack.on()
             timePicker_1.setInterval(gapB.duration)
             
             switch gapB.type {
                 
             case .oneTime:
                 
-                btnGapType_oneTime_1.state = UIConstants.buttonState_1
+                btnGapType_oneTime_1.on()
                 
             case .tillAppExits:
                 
-                btnGapType_tillAppExits_1.state = UIConstants.buttonState_1
+                btnGapType_tillAppExits_1.on()
                 
             case .persistent:
                 
-                btnGapType_persistent_1.state = UIConstants.buttonState_1
+                btnGapType_persistent_1.on()
                 
             default: NSLog("Gap type (before track) is implicit. This should be impossible !")
                 
@@ -87,29 +87,29 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
             
         } else {
             
-            btnGapBeforeTrack.state = UIConstants.buttonState_0
+            btnGapBeforeTrack.off()
             timePicker_1.setInterval(5)
-            btnGapType_persistent_1.state = UIConstants.buttonState_1
+            btnGapType_persistent_1.on()
         }
         
         if let gapA = gaps?.afterTrack {
             
-            btnGapAfterTrack.state = UIConstants.buttonState_1
+            btnGapAfterTrack.on()
             timePicker_2.setInterval(gapA.duration)
             
             switch gapA.type {
                 
             case .oneTime:
                 
-                btnGapType_oneTime_2.state = UIConstants.buttonState_1
+                btnGapType_oneTime_2.on()
                 
             case .tillAppExits:
                 
-                btnGapType_tillAppExits_2.state = UIConstants.buttonState_1
+                btnGapType_tillAppExits_2.on()
                 
             case .persistent:
                 
-                btnGapType_persistent_2.state = UIConstants.buttonState_1
+                btnGapType_persistent_2.on()
                 
             default: NSLog("Gap type (after track) is implicit. This should be impossible !")
                 
@@ -117,9 +117,9 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
             
         } else {
             
-            btnGapAfterTrack.state = UIConstants.buttonState_0
+            btnGapAfterTrack.off()
             timePicker_2.setInterval(5)
-            btnGapType_persistent_2.state = UIConstants.buttonState_1
+            btnGapType_persistent_2.on()
         }
         
         timePickerAction_1(self)
@@ -130,7 +130,7 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
     
     @IBAction func gapBeforeTrackAction(_ sender: Any) {
         
-        [timePicker_1, btnGapType_oneTime_1, btnGapType_persistent_1, btnGapType_tillAppExits_1].forEach({$0?.isEnabled = btnGapBeforeTrack.state == UIConstants.buttonState_1})
+        [timePicker_1, btnGapType_oneTime_1, btnGapType_persistent_1, btnGapType_tillAppExits_1].forEach({$0?.isEnabled = btnGapBeforeTrack.isOn()})
     }
     
     @IBAction func gapTypeAction_1(_ sender: Any) {
@@ -143,7 +143,7 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
     
     @IBAction func gapAfterTrackAction(_ sender: Any) {
         
-        [timePicker_2, btnGapType_oneTime_2, btnGapType_persistent_2, btnGapType_tillAppExits_2].forEach({$0?.isEnabled = btnGapAfterTrack.state == UIConstants.buttonState_1})
+        [timePicker_2, btnGapType_oneTime_2, btnGapType_persistent_2, btnGapType_tillAppExits_2].forEach({$0?.isEnabled = btnGapAfterTrack.isOn()})
     }
     
     @IBAction func gapTypeAction_2(_ sender: Any) {
@@ -159,28 +159,28 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
         var gapBeforeTrack: PlaybackGap? = nil
         var gapAfterTrack: PlaybackGap? = nil
         
-        if btnGapBeforeTrack.state == UIConstants.buttonState_1 {
+        if btnGapBeforeTrack.isOn() {
         
             let duration1 = timePicker_1.interval
             var type1: PlaybackGapType = .tillAppExits
             
-            if btnGapType_oneTime_1.state == UIConstants.buttonState_1 {
+            if btnGapType_oneTime_1.isOn() {
                 type1 = .oneTime
-            } else if btnGapType_persistent_1.state == UIConstants.buttonState_1 {
+            } else if btnGapType_persistent_1.isOn() {
                 type1 = .persistent
             }
             
             gapBeforeTrack = PlaybackGap(duration1, .beforeTrack, type1)
         }
         
-        if btnGapAfterTrack.state == UIConstants.buttonState_1 {
+        if btnGapAfterTrack.isOn() {
             
             let duration2 = timePicker_2.interval
             var type2: PlaybackGapType = .tillAppExits
             
-            if btnGapType_oneTime_2.state == UIConstants.buttonState_1 {
+            if btnGapType_oneTime_2.isOn() {
                 type2 = .oneTime
-            } else if btnGapType_persistent_2.state == UIConstants.buttonState_1 {
+            } else if btnGapType_persistent_2.isOn() {
                 type2 = .persistent
             }
             

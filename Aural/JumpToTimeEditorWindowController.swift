@@ -83,7 +83,7 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
             lblTrackName.stringValue = String(format: "Track:   %@", playingTrack.track.conciseDisplayName)
             lblTrackDuration.stringValue = String(format: "Duration:   %@", formattedDuration)
             
-            btnHMS.state = UIConstants.buttonState_1
+            btnHMS.on()
             radioButtonAction(self)
             
             btnHMS.title = String(format: "Specify as hh : mm : ss (00:00:00 to %@)", formattedDuration)
@@ -110,14 +110,14 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
     
     @IBAction func radioButtonAction(_ sender: Any) {
         
-        timePicker.isEnabled = btnHMS.state == UIConstants.buttonState_1
-        [txtSeconds, secondsStepper].forEach({$0?.isEnabled = btnSeconds.state == UIConstants.buttonState_1})
+        timePicker.isEnabled = btnHMS.isOn()
+        [txtSeconds, secondsStepper].forEach({$0?.isEnabled = btnSeconds.isOn()})
         
         if (txtSeconds.isEnabled) {
             self.window?.makeFirstResponder(txtSeconds)
         }
         
-        [txtPercentage, percentageStepper].forEach({$0?.isEnabled = btnPercentage.state == UIConstants.buttonState_1})
+        [txtPercentage, percentageStepper].forEach({$0?.isEnabled = btnPercentage.isOn()})
         
         if (txtPercentage.isEnabled) {
             self.window?.makeFirstResponder(txtPercentage)
@@ -136,12 +136,12 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
         
         var jumpToTime: Double = 0
         
-        if btnHMS.state == UIConstants.buttonState_1 {
+        if btnHMS.isOn() {
             
             // HH : MM : SS
             jumpToTime = timePicker.interval
             
-        } else if btnSeconds.state == UIConstants.buttonState_1 {
+        } else if btnSeconds.isOn() {
             
             // Seconds
             jumpToTime = secondsStepper.doubleValue

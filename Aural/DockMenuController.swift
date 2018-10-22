@@ -209,25 +209,25 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
         
         let modes = playbackInfo.getRepeatAndShuffleModes()
         
-        shuffleOffMenuItem.state = NSControl.StateValue(rawValue: modes.shuffleMode == .off ? 1 : 0)
-        shuffleOnMenuItem.state = NSControl.StateValue(rawValue: modes.shuffleMode == .on ? 1 : 0)
+        shuffleOffMenuItem.onIf(modes.shuffleMode == .off)
+        shuffleOnMenuItem.onIf(modes.shuffleMode == .on)
         
         switch modes.repeatMode {
             
         case .off:
             
-            repeatOffMenuItem.state = convertToNSControlStateValue(1)
-            [repeatOneMenuItem, repeatAllMenuItem].forEach({$0?.state = convertToNSControlStateValue(0)})
+            repeatOffMenuItem.on()
+            [repeatOneMenuItem, repeatAllMenuItem].forEach({$0?.off()})
             
         case .one:
             
-            repeatOneMenuItem.state = convertToNSControlStateValue(1)
-            [repeatOffMenuItem, repeatAllMenuItem].forEach({$0?.state = convertToNSControlStateValue(0)})
+            repeatOneMenuItem.on()
+            [repeatOffMenuItem, repeatAllMenuItem].forEach({$0?.off()})
             
         case .all:
             
-            repeatAllMenuItem.state = convertToNSControlStateValue(1)
-            [repeatOffMenuItem, repeatOneMenuItem].forEach({$0?.state = convertToNSControlStateValue(0)})
+            repeatAllMenuItem.on()
+            [repeatOffMenuItem, repeatOneMenuItem].forEach({$0?.off()})
         }
     }
     
@@ -299,9 +299,4 @@ class DockMenuController: NSObject, AsyncMessageSubscriber {
             
         }
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToNSControlStateValue(_ input: Int) -> NSControl.StateValue {
-	return NSControl.StateValue(rawValue: input)
 }

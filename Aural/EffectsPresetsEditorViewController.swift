@@ -62,8 +62,8 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     @IBAction func tabViewAction(_ sender: NSButton) {
         
         // Set sender button state, reset all other button states
-        fxPresetsTabViewButtons!.forEach({$0.state = UIConstants.buttonState_0})
-        sender.state = UIConstants.buttonState_1
+        fxPresetsTabViewButtons!.forEach({$0.off()})
+        sender.on()
         
         // Button tag is the tab index
         fxPresetsTabView.selectTabViewItem(at: sender.tag)

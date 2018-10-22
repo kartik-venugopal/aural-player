@@ -147,10 +147,10 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
         
         let searchFields = searchQuery.fields
         
-        searchFields.name = Bool(searchByName.state.rawValue)
-        searchFields.artist = Bool(searchByArtist.state.rawValue)
-        searchFields.title = Bool(searchByTitle.state.rawValue)
-        searchFields.album = Bool(searchByAlbum.state.rawValue)
+        searchFields.name = searchByName.isOn()
+        searchFields.artist = searchByArtist.isOn()
+        searchFields.title = searchByTitle.isOn()
+        searchFields.album = searchByAlbum.isOn()
         
         // No fields to compare or no search text, don't do the search
         if (searchFields.noFieldsSelected() || searchQuery.text == "") {
@@ -163,11 +163,11 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
     
     @IBAction func searchTypeChangedAction(_ sender: Any) {
         
-        if (comparisonTypeEquals.state.rawValue == 1) {
+        if (comparisonTypeEquals.isOn()) {
             searchQuery.type = .equals
-        } else if (comparisonTypeContains.state.rawValue == 1) {
+        } else if (comparisonTypeContains.isOn()) {
             searchQuery.type = .contains
-        } else if (comparisonTypeBeginsWith.state.rawValue == 1) {
+        } else if (comparisonTypeBeginsWith.isOn()) {
             searchQuery.type = .beginsWith
         } else {
             // Ends with
@@ -185,7 +185,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
     
     @IBAction func searchOptionsChangedAction(_ sender: Any) {
         
-        searchQuery.options.caseSensitive = Bool(searchCaseSensitive.state.rawValue)
+        searchQuery.options.caseSensitive = searchCaseSensitive.isOn()
         
         // No fields to compare or no search text, don't do the search
         if (searchQuery.fields.noFieldsSelected() || searchQuery.text == "") {

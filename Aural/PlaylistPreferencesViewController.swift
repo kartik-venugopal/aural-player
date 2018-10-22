@@ -31,25 +31,25 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         switch preferences.playlistPreferences.playlistOnStartup {
             
         case .empty:
-            btnEmptyPlaylist.state = UIConstants.buttonState_1
+            btnEmptyPlaylist.on()
             
         case .rememberFromLastAppLaunch:
-            btnRememberPlaylist.state = UIConstants.buttonState_1
+            btnRememberPlaylist.on()
             
         case .loadFile:
-            btnLoadPlaylistFromFile.state = UIConstants.buttonState_1
+            btnLoadPlaylistFromFile.on()
             
         case .loadFolder:
-            btnLoadTracksFromFolder.state = UIConstants.buttonState_1
+            btnLoadTracksFromFolder.on()
             
         }
         
         [btnBrowseFile, lblPlaylistFile].forEach({
-            $0!.isEnabled = Bool(btnLoadPlaylistFromFile.state.rawValue)
+            $0!.isEnabled = btnLoadPlaylistFromFile.isOn()
         })
         
         [btnBrowseFolder, lblFolder].forEach({
-            $0!.isEnabled = Bool(btnLoadTracksFromFolder.state.rawValue)
+            $0!.isEnabled = btnLoadTracksFromFolder.isOn()
         })
         
         hideError_playlistFile()
@@ -64,41 +64,41 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Needed for radio button group
         
         [btnBrowseFile, lblPlaylistFile].forEach({
-            $0!.isEnabled = Bool(btnLoadPlaylistFromFile.state.rawValue)
+            $0!.isEnabled = btnLoadPlaylistFromFile.isOn()
         })
         
         [btnBrowseFolder, lblFolder].forEach({
-            $0!.isEnabled = Bool(btnLoadTracksFromFolder.state.rawValue)
+            $0!.isEnabled = btnLoadTracksFromFolder.isOn()
         })
         
-        if (btnLoadPlaylistFromFile.state.rawValue == 0 && !errorIcon_1.isHidden) {
+        if (btnLoadPlaylistFromFile.isOff() && !errorIcon_1.isHidden) {
             hideError_playlistFile()
         }
         
-        if (btnLoadTracksFromFolder.state.rawValue == 0 && !errorIcon_2.isHidden) {
+        if (btnLoadTracksFromFolder.isOff() && !errorIcon_2.isHidden) {
             hideError_tracksFolder()
         }
     
-        if btnLoadPlaylistFromFile.state.rawValue == 1 && StringUtils.isStringEmpty(lblPlaylistFile.stringValue) {
+        if btnLoadPlaylistFromFile.isOn() && StringUtils.isStringEmpty(lblPlaylistFile.stringValue) {
             choosePlaylistFileAction(sender)
         }
         
-        if btnLoadTracksFromFolder.state.rawValue == 1 && StringUtils.isStringEmpty(lblFolder.stringValue) {
+        if btnLoadTracksFromFolder.isOn() && StringUtils.isStringEmpty(lblFolder.stringValue) {
             chooseTracksFolderAction(sender)
         }
     }
     
     func save(_ preferences: Preferences) throws {
         
-        if btnEmptyPlaylist.state.rawValue == 1 {
+        if btnEmptyPlaylist.isOn() {
             
             preferences.playlistPreferences.playlistOnStartup = .empty
             
-        } else if btnRememberPlaylist.state.rawValue == 1 {
+        } else if btnRememberPlaylist.isOn() {
             
             preferences.playlistPreferences.playlistOnStartup = .rememberFromLastAppLaunch
             
-        } else if btnLoadPlaylistFromFile.state.rawValue == 1 {
+        } else if btnLoadPlaylistFromFile.isOn() {
             
             // Make sure 1 - label is not empty, and 2 - no previous error message is shown
             if !StringUtils.isStringEmpty(lblPlaylistFile.stringValue) && errorIcon_1.isHidden {
