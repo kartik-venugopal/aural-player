@@ -121,6 +121,9 @@ class GroupingInfo {
     var artist: String?
     var album: String?
     var genre: String?
+    
+    var discNumber: Int?
+    var trackNumber: Int?
 }
 
 class PlaybackInfo {
