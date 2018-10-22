@@ -32,7 +32,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <view wantsLayer="YES" id="hMe-X0-zRV">
+        <view id="hMe-X0-zRV">
             <rect key="frame" x="0.0" y="0.0" width="500" height="70"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -48,30 +48,30 @@
                     </connections>
                 </slider>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Guc-Gm-WbK" userLabel="Lbl Time Elapsed">
-                    <rect key="frame" x="12" y="52" width="70" height="18"/>
+                    <rect key="frame" x="14" y="52" width="66" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="360000 sec" placeholderString="" id="w92-a0-z9g">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="360000 sec" placeholderString="" drawsBackground="YES" id="w92-a0-z9g">
                         <font key="font" size="12" name="GillSans-SemiBold"/>
                         <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" white="0.63127055919999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </textFieldCell>
                     <connections>
                         <action selector="switchTimeElapsedDisplayAction:" target="-2" id="nfy-nN-WSD"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hDi-pa-Wii" userLabel="Lbl Time Remaining">
-                    <rect key="frame" x="413" y="52" width="75" height="18"/>
+                    <rect key="frame" x="415" y="52" width="71" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="-99:99:99" placeholderString="" id="uCv-pb-dzv">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="-99:99:99" placeholderString="" drawsBackground="YES" id="uCv-pb-dzv">
                         <font key="font" size="12" name="GillSans-SemiBold"/>
                         <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" white="0.63127055919999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </textFieldCell>
                     <connections>
                         <action selector="switchTimeRemainingDisplayAction:" target="-2" id="7B3-9G-uLd"/>
                     </connections>
                 </textField>
-                <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="N21-80-kdT">
+                <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="N21-80-kdT">
                     <rect key="frame" x="0.0" y="0.0" width="500" height="47"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="CJH-xp-Ubv">
@@ -79,12 +79,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aYm-Vs-u0g">
-                                <rect key="frame" x="421" y="13" width="20" height="11"/>
+                                <rect key="frame" x="423" y="13" width="16" height="11"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="L/R" id="boo-Mc-w15">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="L/R" drawsBackground="YES" id="boo-Mc-w15">
                                     <font key="font" size="7" name="GillSans-Bold"/>
                                     <color key="textColor" white="0.70298936629999997" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textFieldCell>
                             </textField>
                             <button toolTip="Seek backward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cui-KQ-DfK" userLabel="Seek Bwd Button">
@@ -124,12 +124,12 @@ G1BhbiBTbGlkZXI
                                 </connections>
                             </slider>
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M8t-5x-J1F" userLabel="Pan Value Label">
-                                <rect key="frame" x="444" y="2" width="40" height="11"/>
+                                <rect key="frame" x="446" y="2" width="36" height="11"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="C" id="yaQ-gh-jAt">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="C" drawsBackground="YES" id="yaQ-gh-jAt">
                                     <font key="font" size="8" name="GillSans-SemiBold"/>
                                     <color key="textColor" white="0.70298936629999997" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textFieldCell>
                             </textField>
                             <button toolTip="A-&gt;B Segment loop" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LA3-CF-ZFq" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
@@ -172,12 +172,12 @@ G1BhbiBTbGlkZXI
                                 </connections>
                             </button>
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Ql-rF-otE" userLabel="Volume Value Label">
-                                <rect key="frame" x="461" y="39" width="27" height="10"/>
+                                <rect key="frame" x="463" y="39" width="23" height="10"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="vWc-Ec-Zl0">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" drawsBackground="YES" id="vWc-Ec-Zl0">
                                     <font key="font" size="8" name="GillSans-SemiBold"/>
                                     <color key="textColor" white="0.70298936629999997" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textFieldCell>
                             </textField>
                             <slider toolTip="Volume" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xG9-tq-ZyT" userLabel="Volume Slider">

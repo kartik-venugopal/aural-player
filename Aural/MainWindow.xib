@@ -26,7 +26,7 @@
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <value key="minSize" type="size" width="530" height="230"/>
             <value key="maxSize" type="size" width="530" height="230"/>
-            <view key="contentView" wantsLayer="YES" id="W7v-UI-tl4">
+            <view key="contentView" id="W7v-UI-tl4">
                 <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
@@ -189,7 +189,7 @@
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.90103274828767121" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.898162411971831" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </box>
                 </subviews>
                 <constraints>
@@ -201,7 +201,7 @@
             </view>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                    <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>

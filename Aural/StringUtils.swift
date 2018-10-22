@@ -264,6 +264,15 @@ class StringUtils {
         
         return Int(ceil(size.width / lineWidth))
     }
+    
+    static func sizeOfString(_ text: String, _ font: NSFont) -> CGSize {
+        
+        let attrs: [String: AnyObject] = [
+            convertFromNSAttributedStringKey(NSAttributedString.Key.font): font]
+        let size: CGSize = text.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
+        
+        return size
+    }
 }
 
 // Helper function inserted by Swift 4.2 migrator.
