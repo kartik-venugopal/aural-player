@@ -273,6 +273,22 @@ class StringUtils {
         
         return size
     }
+    
+    static func parseFirstNumber(_ string: String) -> Int? {
+        
+        // No separator in string
+        if let num = Int(string) {
+            return num
+        }
+        
+        // Separator '/' in string
+        let tokens = string.split(separator: Character("/"))
+        if let token = tokens.first, let num = Int(trimString(token + "")) {
+            return num
+        }
+        
+        return nil
+    }
 }
 
 // Helper function inserted by Swift 4.2 migrator.

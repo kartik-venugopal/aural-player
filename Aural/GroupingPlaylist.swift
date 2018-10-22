@@ -783,6 +783,10 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
                     sortAllTracks(Sorts.compareTracks_descendingByDuration)
                 }
             }
+            
+        // TODO: Implement other sorts
+        default: return
+            
         }
     }
     

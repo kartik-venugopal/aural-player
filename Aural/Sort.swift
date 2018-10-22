@@ -19,6 +19,12 @@ enum SortField {
     
     case name
     case duration
+    
+    // For grouping playlists only
+    case artist
+    case album
+    case discNumber
+    case trackNumber
 }
 
 // Specifies the order in which to perform the sort

@@ -328,6 +328,10 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
             } else {
                 tracks.sort(by: Sorts.compareTracks_descendingByDuration)
             }
+            
+        // TODO: Implement other sorts
+        default: return
+            
         }
     }
     

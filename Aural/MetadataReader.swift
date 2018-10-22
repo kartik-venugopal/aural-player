@@ -110,6 +110,73 @@ class MetadataReader {
         track.groupingInfo.artist = track.displayInfo.artist
         track.groupingInfo.album = getMetadataForCommonKey(track.audioAsset!, convertFromAVMetadataKey(AVMetadataKey.commonKeyAlbumName))
         track.groupingInfo.genre = getMetadataForCommonKey(track.audioAsset!, convertFromAVMetadataKey(AVMetadataKey.commonKeyType))
+        
+        track.groupingInfo.discNumber = getDiscNumber(track)
+        track.groupingInfo.trackNumber = getTrackNumber(track)
+    }
+    
+    private static func getDiscNumber(_ track: Track) -> Int? {
+        
+        let id3DiscNumKey = AVMetadataItem.identifier(forKey: convertFromAVMetadataKey(AVMetadataKey.id3MetadataKeyPartOfASet), keySpace: AVMetadataKeySpace.id3)!.rawValue
+        
+        var discNumItems = AVMetadataItem.metadataItems(from: track.audioAsset!.metadata, filteredByIdentifier: convertToAVMetadataIdentifier(id3DiscNumKey))
+        if (!discNumItems.isEmpty) {
+            
+            let discNumItem = discNumItems.first!
+            if (!StringUtils.isStringEmpty(discNumItem.stringValue)) {
+                
+                if let discNum = Int(discNumItem.stringValue!) {
+                    return discNum
+                }
+            }
+        }
+        
+        // iTunes
+        
+        let iTunesDiscNumKey = AVMetadataItem.identifier(forKey: convertFromAVMetadataKey(AVMetadataKey.iTunesMetadataKeyDiscNumber), keySpace: AVMetadataKeySpace.iTunes)!.rawValue
+        
+        discNumItems = AVMetadataItem.metadataItems(from: track.audioAsset!.metadata, filteredByIdentifier: convertToAVMetadataIdentifier(iTunesDiscNumKey))
+        if (!discNumItems.isEmpty) {
+            
+            let discNumItem = discNumItems.first!
+            
+            if (!StringUtils.isStringEmpty(discNumItem.stringValue)) {
+                return StringUtils.parseFirstNumber(discNumItem.stringValue!)
+            }
+        }
+        
+        return nil
+    }
+    
+    private static func getTrackNumber(_ track: Track) -> Int? {
+        
+        let id3TrackNumKey = AVMetadataItem.identifier(forKey: convertFromAVMetadataKey(AVMetadataKey.id3MetadataKeyTrackNumber), keySpace: AVMetadataKeySpace.id3)!.rawValue
+        
+        var trackNumItems = AVMetadataItem.metadataItems(from: track.audioAsset!.metadata, filteredByIdentifier: convertToAVMetadataIdentifier(id3TrackNumKey))
+        if (!trackNumItems.isEmpty) {
+            
+            let trackNumItem = trackNumItems.first!
+            
+            if (!StringUtils.isStringEmpty(trackNumItem.stringValue)) {
+                return StringUtils.parseFirstNumber(trackNumItem.stringValue!)
+            }
+        }
+        
+        // iTunes
+        
+        let iTunesTrackNumKey = AVMetadataItem.identifier(forKey: convertFromAVMetadataKey(AVMetadataKey.iTunesMetadataKeyTrackNumber), keySpace: AVMetadataKeySpace.iTunes)!.rawValue
+        
+        trackNumItems = AVMetadataItem.metadataItems(from: track.audioAsset!.metadata, filteredByIdentifier: convertToAVMetadataIdentifier(iTunesTrackNumKey))
+        if (!trackNumItems.isEmpty) {
+            
+            let trackNumItem = trackNumItems.first!
+            
+            if (!StringUtils.isStringEmpty(trackNumItem.stringValue)) {
+                return StringUtils.parseFirstNumber(trackNumItem.stringValue!)
+            }
+        }
+        
+        return nil
     }
     
     // Retrieves the common metadata entry for the given track, with the given metadata key, if there is one
