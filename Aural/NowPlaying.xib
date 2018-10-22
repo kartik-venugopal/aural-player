@@ -35,7 +35,7 @@
             <rect key="frame" x="0.0" y="0.0" width="500" height="94"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <view wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WEn-UI-cQh" userLabel="Now Playing View">
+                <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WEn-UI-cQh" userLabel="Now Playing View">
                     <rect key="frame" x="0.0" y="0.0" width="500" height="94"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
@@ -54,41 +54,42 @@
                                 </subviews>
                             </view>
                             <color key="borderColor" white="0.099190848214285712" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </box>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8gP-Iw-Ava" userLabel="Track Name">
-                            <rect key="frame" x="90" y="47" width="320" height="30"/>
+                            <rect key="frame" x="92" y="47" width="316" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" id="L7X-SI-PET">
+                            <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" drawsBackground="YES" id="L7X-SI-PET">
                                 <font key="font" size="14" name="GillSans-SemiBold"/>
                                 <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Qt-eu-LYY" userLabel="Track Title">
-                            <rect key="frame" x="90" y="67" width="320" height="20"/>
+                            <rect key="frame" x="92" y="67" width="316" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="msk-op-b89">
+                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" drawsBackground="YES" id="msk-op-b89">
                                 <font key="font" size="14" name="GillSans-SemiBold"/>
                                 <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NpJ-bU-VYr" userLabel="Track Artist">
-                            <rect key="frame" x="90" y="47" width="320" height="20"/>
+                            <rect key="frame" x="92" y="47" width="316" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="bCD-1W-Pcm">
+                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" drawsBackground="YES" id="bCD-1W-Pcm">
                                 <font key="font" size="13" name="GillSans"/>
                                 <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ax-cI-TYz" userLabel="Lbl Playback Scope">
-                            <rect key="frame" x="103" y="26" width="307" height="17"/>
+                            <rect key="frame" x="105" y="26" width="303" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" id="gex-Jf-Yqj">
+                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" drawsBackground="YES" id="gex-Jf-Yqj">
                                 <font key="font" size="12" name="GillSans"/>
                                 <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" white="0.63127055919999997" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </textFieldCell>
                         </textField>
                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fQq-xK-Yfp">
@@ -97,15 +98,15 @@
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="z02-cs-77v"/>
                         </imageView>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uyw-tN-838" userLabel="Lbl Sequence Progress">
-                            <rect key="frame" x="200" y="7" width="100" height="17"/>
+                            <rect key="frame" x="202" y="7" width="96" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="99999 / 99999" placeholderString="" id="EmC-Bg-uaZ">
+                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="99999 / 99999" placeholderString="" drawsBackground="YES" id="EmC-Bg-uaZ">
                                 <font key="font" size="11" name="GillSans-SemiBold"/>
                                 <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" white="0.63127055919999997" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </textFieldCell>
                         </textField>
-                        <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="2" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="8cM-9t-5Ap" userLabel="Buttons Box">
+                        <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="8cM-9t-5Ap" userLabel="Buttons Box">
                             <rect key="frame" x="474" y="3" width="18" height="75"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <view key="contentView" ambiguous="YES" id="E0K-te-9MR">
@@ -169,7 +170,7 @@
                         </box>
                     </subviews>
                 </view>
-                <view wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PRf-Wn-q9a" userLabel="Gap View">
+                <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PRf-Wn-q9a" userLabel="Gap View">
                     <rect key="frame" x="0.0" y="0.0" width="500" height="94"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
@@ -184,7 +185,7 @@
                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Up next: " id="YeK-4u-ilm">
                                 <font key="font" size="14" name="GillSans-SemiBold"/>
                                 <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x0D-dF-6wP" userLabel="Lbl Time Remaining">
@@ -193,7 +194,7 @@
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="00:00:00" placeholderString="" id="Rav-fP-S5V">
                                 <font key="font" size="16" name="GillSans-SemiBold"/>
                                 <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" white="0.63127055919999997" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </textFieldCell>
                         </textField>
                     </subviews>
