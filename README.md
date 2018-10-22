@@ -77,7 +77,7 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
       * Configure two independent seek lengths to your liking, used by two independent sets of seek controls … either as a constant value or a percentage of track duration. For instance, set one to a short interval and set the other to a longer interval to quickly skip through large audiobooks while also being able to perform more fine-grained seeking to get to exactly where you want within the track.
       * Click on the track time labels around the seek bar to change the display format to either hh:mm:ss or number of seconds or percentage of track duration
    	  * Configure how you want the app to look/behave on startup: Autoplay, volume and effects settings on startup, window layout on startup, remembered or default playlist on startup, etc.
-      * Configure the increment/decrement for volume/pan adjustments
+      * Configure the increment/decrement for volume/pan and effects unit adjustments
    	  * Configure window snapping behavior, mouse sensitivity for gestures, and more …
       * Editors to manage all your saved custom app state, such as effects presets, bookmarks, favorites, window layouts, etc, so you can edit your saved data and delete unwanted or old data to prevent clutter
 
