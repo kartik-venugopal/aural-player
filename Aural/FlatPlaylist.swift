@@ -308,31 +308,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     }
  
     func sort(_ sort: Sort) {
-        
-        switch sort.field {
-            
-        // Sort by name
-        case .name:
-            
-            if sort.order == SortOrder.ascending {
-                tracks.sort(by: Sorts.compareTracks_ascendingByName)
-            } else {
-                tracks.sort(by: Sorts.compareTracks_descendingByName)
-            }
-            
-        // Sort by duration
-        case .duration:
-            
-            if sort.order == SortOrder.ascending {
-                tracks.sort(by: Sorts.compareTracks_ascendingByDuration)
-            } else {
-                tracks.sort(by: Sorts.compareTracks_descendingByDuration)
-            }
-            
-        // TODO: Implement other sorts
-        default: return
-            
-        }
+        tracks.sort(by: SortStrategy(sort).compareTracks)
     }
     
     func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
