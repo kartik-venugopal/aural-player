@@ -5,19 +5,10 @@ import Cocoa
  */
 class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
     
-    // Playlist sort modal dialog fields
+    @IBOutlet weak var container: NSBox!
     
-    @IBOutlet weak var sortPanel: NSPanel!
-    
-    @IBOutlet weak var sortByName: NSButton!
-    @IBOutlet weak var sortByDuration: NSButton!
-    @IBOutlet weak var sortByArtist: NSButton!
-    @IBOutlet weak var sortByAlbum: NSButton!
-    
-    @IBOutlet weak var sortAscending: NSButton!
-    @IBOutlet weak var sortDescending: NSButton!
-    
-    @IBOutlet weak var sortTracksInGroups: NSButton!
+    private var tracksPlaylistSortView: SortViewProtocol = TracksPlaylistSortViewController()
+    private var artistsPlaylistSortView: SortViewProtocol = ArtistsPlaylistSortViewController()
     
     // Delegate that relays sort requests to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
@@ -27,11 +18,15 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     
-    override var windowNibName: String? {return "PlaylistSort"}
+    override var windowNibName: String? {return "PlaylistSortDialog"}
     
     override func windowDidLoad() {
         
         self.window?.titlebarAppearsTransparent = true
+        
+        container.addSubview(tracksPlaylistSortView.getView())
+        container.addSubview(artistsPlaylistSortView.getView())
+        
         super.windowDidLoad()
     }
     
@@ -47,29 +42,31 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
             _ = self.window!
         }
         
-        sortTracksInGroups.isEnabled = PlaylistViewState.current != .tracks
+        // Choose sort view based on current playlist view
+        [tracksPlaylistSortView, artistsPlaylistSortView].forEach({$0.getView().isHidden = true})
+        switch PlaylistViewState.current {
+
+        case .tracks:
+            
+            tracksPlaylistSortView.getView().isHidden = false
+            tracksPlaylistSortView.resetFields()
+            
+        case .artists:
+            
+            artistsPlaylistSortView.getView().isHidden = false
+            artistsPlaylistSortView.resetFields()
+            
+        default: return .cancel
+            
+        }
         
         UIUtils.showModalDialog(self.window!)
         return modalDialogResponse
     }
     
-    @IBAction func sortOptionsChangedAction(_ sender: Any) {
-        // Do nothing ... this action function is just to get the radio button groups to work
-    }
-    
     @IBAction func sortBtnAction(_ sender: Any) {
         
-        // Gather field values
-        let sortOptions = Sort()
-        sortOptions.field = sortByName.isOn() ? SortField.name : SortField.duration
-        sortOptions.order = sortAscending.isOn() ? SortOrder.ascending : SortOrder.descending
-        
-        if PlaylistViewState.groupType != nil {
-            
-            // This option is only applicable to grouping playlists
-            sortOptions.options.sortTracksInGroups = sortTracksInGroups.isOn()
-        }
-        
+        let sortOptions = tracksPlaylistSortView.getSortOptions()
         // Perform the sort
         playlist.sort(sortOptions, PlaylistViewState.current)
         
@@ -89,4 +86,13 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
         modalDialogResponse = .cancel
         UIUtils.dismissModalDialog()
     }
+}
+
+protocol SortViewProtocol {
+    
+    func getView() -> NSView
+    
+    func resetFields()
+    
+    func getSortOptions() -> Sort
 }

@@ -4,27 +4,68 @@
 
 import Cocoa
 
-// Encapsulates all sort criteria
 class Sort {
     
-    // By default, sort is performed by name, in ascending order
+    var tracksSort: TracksSort?
+    var groupsSort: GroupsSort?
     
-    var field: SortField = .name
-    var order: SortOrder = .ascending
-    var options: SortOptions = SortOptions()
+    func withTracksSort(_ sort: TracksSort) -> Sort {
+        self.tracksSort = sort
+        return self
+    }
+    
+    func withGroupsSort(_ sort: GroupsSort) -> Sort {
+        self.groupsSort = sort
+        return self
+    }
 }
 
-// Specifies which track field is used as sort criteria
+class GroupsSort {
+    
+    var fields: [SortField] = [.name]
+    var order: SortOrder = .ascending
+    
+    func withFields(_ fields: SortField...) -> GroupsSort {
+        self.fields = fields
+        return self
+    }
+    
+    func withOrder(_ order: SortOrder) -> GroupsSort {
+        self.order = order
+        return self
+    }
+}
+
+class TracksSort {
+    
+    var fields: [SortField] = [.name]
+    var order: SortOrder = .ascending
+    var scope: GroupsScope = .allGroups     // Used only when sorting tracks within groups
+    
+    func withFields(_ fields: SortField...) -> TracksSort {
+        self.fields = fields
+        return self
+    }
+    
+    func withOrder(_ order: SortOrder) -> TracksSort {
+        self.order = order
+        return self
+    }
+    
+    func withScope(_ scope: GroupsScope) -> TracksSort {
+        self.scope = scope
+        return self
+    }
+}
+
+// Specifies which field is used as sort criteria
 enum SortField {
     
     case name
     case duration
-    
-    // For grouping playlists only
     case artist
     case album
-    case discNumber
-    case trackNumber
+    case discNumberAndTrackNumber
 }
 
 // Specifies the order in which to perform the sort
@@ -34,9 +75,8 @@ enum SortOrder {
     case descending
 }
 
-// Additional sort options
-class SortOptions {
+enum GroupsScope {
     
-    // Whether or not the tracks within each group are to be sorted
-    var sortTracksInGroups: Bool = true
+    case allGroups
+    case selectedGroups
 }

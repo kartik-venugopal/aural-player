@@ -746,48 +746,48 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         // Sorts groups, and if requested, also the child tracks within each group
         
-        switch sort.field {
-            
-        // Sort by name
-        case .name:
-            
-            if sort.order == SortOrder.ascending {
-                
-                groups.sort(by: Sorts.compareGroups_ascendingByName)
-                if sort.options.sortTracksInGroups {
-                    sortAllTracks(compareTracks_ascendingByDisplayName)
-                }
-                
-            } else {
-                
-                groups.sort(by: Sorts.compareGroups_descendingByName)
-                if sort.options.sortTracksInGroups {
-                    sortAllTracks(compareTracks_descendingByDisplayName)
-                }
-            }
-            
-        // Sort by duration
-        case .duration:
-            
-            if sort.order == SortOrder.ascending {
-                
-                groups.sort(by: Sorts.compareGroups_ascendingByDuration)
-                if sort.options.sortTracksInGroups {
-                    sortAllTracks(Sorts.compareTracks_ascendingByDuration)
-                }
-                
-            } else {
-                
-                groups.sort(by: Sorts.compareGroups_descendingByDuration)
-                if sort.options.sortTracksInGroups {
-                    sortAllTracks(Sorts.compareTracks_descendingByDuration)
-                }
-            }
-            
-        // TODO: Implement other sorts
-        default: return
-            
-        }
+//        switch sort.fields.first! {
+//
+//        // Sort by name
+//        case .name:
+//
+//            if sort.order == SortOrder.ascending {
+//
+//                groups.sort(by: SortStrategies.compareGroups_ascendingByName)
+//                if sort.options.sortTracksInGroups {
+//                    sortAllTracks(compareTracks_ascendingByDisplayName)
+//                }
+//
+//            } else {
+//
+//                groups.sort(by: SortStrategies.compareGroups_descendingByName)
+//                if sort.options.sortTracksInGroups {
+//                    sortAllTracks(compareTracks_descendingByDisplayName)
+//                }
+//            }
+//
+//        // Sort by duration
+//        case .duration:
+//
+//            if sort.order == SortOrder.ascending {
+//
+//                groups.sort(by: SortStrategies.compareGroups_ascendingByDuration)
+//                if sort.options.sortTracksInGroups {
+//                    sortAllTracks(SortStrategies.compareTracks_ascendingByDuration)
+//                }
+//
+//            } else {
+//
+//                groups.sort(by: SortStrategies.compareGroups_descendingByDuration)
+//                if sort.options.sortTracksInGroups {
+//                    sortAllTracks(SortStrategies.compareTracks_descendingByDuration)
+//                }
+//            }
+//
+//        // TODO: Implement other sorts
+//        default: return
+//
+//        }
     }
     
     // Sorts all tracks within each group, given the specified track comparison strategy

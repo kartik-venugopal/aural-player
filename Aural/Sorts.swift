@@ -1,37 +1,99 @@
 import Foundation
 
 // Utility class that encapsulates logic for different sort strategies
-class Sorts {
+class SortStrategy {
     
-    static func compareGroups_ascendingByName(aGroup: Group, anotherGroup: Group) -> Bool {
-        return aGroup.name.compare(anotherGroup.name) == ComparisonResult.orderedAscending
+    let sort: Sort
+    
+    init(_ sort: Sort) {
+        self.sort = sort
     }
     
-    static func compareGroups_descendingByName(aGroup: Group, anotherGroup: Group) -> Bool {
-        return aGroup.name.compare(anotherGroup.name) == ComparisonResult.orderedDescending
+    func compareTracks(_ aTrack: Track, _ anotherTrack: Track) -> Bool {
+        
+        let tracksSort = sort.tracksSort!
+        
+        if tracksSort.order == .ascending {
+            return compareTracks(aTrack, anotherTrack, tracksSort.fields) == .orderedAscending
+        } else {
+            return compareTracks(aTrack, anotherTrack, tracksSort.fields) == .orderedDescending
+        }
     }
     
-    static func compareGroups_ascendingByDuration(aGroup: Group, anotherGroup: Group) -> Bool {
-        return aGroup.duration < anotherGroup.duration
+    private func compareTracks(_ aTrack: Track, _ anotherTrack: Track, _ fields: [SortField]) -> ComparisonResult {
+        
+        var result: ComparisonResult = .orderedSame
+        
+        for field in fields {
+            
+            result = compareTracks(aTrack, anotherTrack, field)
+            if result != .orderedSame {
+                return result
+            }
+        }
+        
+        return result
     }
     
-    static func compareGroups_descendingByDuration(aGroup: Group, anotherGroup: Group) -> Bool {
-        return aGroup.duration > anotherGroup.duration
+    private func compareTracks(_ aTrack: Track, _ anotherTrack: Track, _ field: SortField) -> ComparisonResult {
+        
+        switch field {
+            
+        case .name:
+            
+            return aTrack.conciseDisplayName.compare(anotherTrack.conciseDisplayName)
+            
+        case .duration:
+            
+            return compareDoubles(aTrack.duration, anotherTrack.duration)
+            
+        case .artist:
+            
+            let a1 = aTrack.groupingInfo.artist ?? ""
+            let a2 = anotherTrack.groupingInfo.artist ?? ""
+            return a1.compare(a2)
+            
+        case .album:
+            
+            let a1 = aTrack.groupingInfo.album ?? ""
+            let a2 = anotherTrack.groupingInfo.album ?? ""
+            return a1.compare(a2)
+            
+        case .discNumberAndTrackNumber:
+            
+            let d1 = aTrack.groupingInfo.discNumber ?? 0
+            let d2 = anotherTrack.groupingInfo.discNumber ?? 0
+            
+            if d1 == d2 {
+                
+                let t1 = aTrack.groupingInfo.trackNumber ?? 0
+                let t2 = anotherTrack.groupingInfo.trackNumber ?? 0
+                return compareInts(t1, t2)
+            }
+            
+            return compareInts(d1, d2)
+        }
     }
     
-    static func compareTracks_ascendingByName(aTrack: Track, anotherTrack: Track) -> Bool {
-        return aTrack.conciseDisplayName.compare(anotherTrack.conciseDisplayName) == ComparisonResult.orderedAscending
+    private func compareDoubles(_ d1: Double, _ d2: Double) -> ComparisonResult {
+        
+        if d1 == d2 {
+            return .orderedSame
+        } else if d1 < d2 {
+            return .orderedAscending
+        } else {
+            return .orderedDescending
+        }
     }
     
-    static func compareTracks_descendingByName(aTrack: Track, anotherTrack: Track) -> Bool {
-        return aTrack.conciseDisplayName.compare(anotherTrack.conciseDisplayName) == ComparisonResult.orderedDescending
-    }
-    
-    static func compareTracks_ascendingByDuration(aTrack: Track, anotherTrack: Track) -> Bool {
-        return aTrack.duration < anotherTrack.duration
-    }
-    
-    static func compareTracks_descendingByDuration(aTrack: Track, anotherTrack: Track) -> Bool {
-        return aTrack.duration > anotherTrack.duration
+    private func compareInts(_ i1: Int, _ i2: Int) -> ComparisonResult {
+        
+        if i1 == i2 {
+            return .orderedSame
+        } else if i1 < i2 {
+            return .orderedAscending
+        } else {
+            return .orderedDescending
+        }
     }
 }

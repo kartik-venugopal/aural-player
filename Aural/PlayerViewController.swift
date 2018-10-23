@@ -455,6 +455,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     @IBAction func playPauseAction(_ sender: AnyObject) {
         player.togglePlayPause()
         playbackStateChanged()
+        
+        // TODO: Change default art
     }
     
     private func stop() {
