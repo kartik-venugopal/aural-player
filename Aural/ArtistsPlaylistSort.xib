@@ -214,7 +214,7 @@
                     </view>
                 </box>
                 <box fixedFrame="YES" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="STq-fb-mvI" userLabel="Tracks Sort order box">
-                    <rect key="frame" x="256" y="116" width="127" height="75"/>
+                    <rect key="frame" x="256" y="122" width="127" height="75"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="3ZY-ne-46i">
                         <rect key="frame" x="2" y="2" width="123" height="71"/>

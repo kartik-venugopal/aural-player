@@ -66,7 +66,19 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
     
     @IBAction func sortBtnAction(_ sender: Any) {
         
-        let sortOptions = tracksPlaylistSortView.getSortOptions()
+        var sortOptions: Sort
+        
+        switch PlaylistViewState.current {
+            
+        case .tracks:  sortOptions = tracksPlaylistSortView.getSortOptions()
+            
+        case .artists: sortOptions = artistsPlaylistSortView.getSortOptions()
+            
+        // TODO: Implement this for Albums and Genres playlist views
+        default:    sortOptions = Sort()
+            
+        }
+        
         // Perform the sort
         playlist.sort(sortOptions, PlaylistViewState.current)
         

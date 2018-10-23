@@ -51,6 +51,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         audioEngine = AVAudioEngine()
         mainMixer = audioEngine.mainMixerNode
+        
         eqNode = ParametricEQNode()
         pitchNode = AVAudioUnitTimePitch()
         reverbNode = AVAudioUnitReverb()

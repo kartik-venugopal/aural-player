@@ -1,7 +1,7 @@
 import Foundation
 
 // Utility class that encapsulates logic for different sort strategies
-class SortStrategy {
+class SortComparator {
     
     let sort: Sort
     
@@ -9,15 +9,52 @@ class SortStrategy {
         self.sort = sort
     }
     
+    func compareGroups(_ aGroup: Group, _ anotherGroup: Group) -> Bool {
+        
+        if let groupsSort = sort.groupsSort {
+            
+            if groupsSort.order == .ascending {
+                return compareGroups(aGroup, anotherGroup, groupsSort.fields.first!) == .orderedAscending
+            } else {
+                return compareGroups(aGroup, anotherGroup, groupsSort.fields.first!) == .orderedDescending
+            }
+        }
+        
+        return true
+    }
+    
+    private func compareGroups(_ aGroup: Group, _ anotherGroup: Group, _ field: SortField) -> ComparisonResult {
+        
+        switch field {
+            
+        case .name:
+            
+            return aGroup.name.compare(anotherGroup.name)
+            
+        case .duration:
+            
+            return compareDoubles(aGroup.duration, anotherGroup.duration)
+            
+        // Impossible
+        default: return .orderedSame
+            
+        }
+    }
+
+    // MARK: --------- Tracks comparison --------------
+    
     func compareTracks(_ aTrack: Track, _ anotherTrack: Track) -> Bool {
         
-        let tracksSort = sort.tracksSort!
+        if let tracksSort = sort.tracksSort {
         
-        if tracksSort.order == .ascending {
-            return compareTracks(aTrack, anotherTrack, tracksSort.fields) == .orderedAscending
-        } else {
-            return compareTracks(aTrack, anotherTrack, tracksSort.fields) == .orderedDescending
+            if tracksSort.order == .ascending {
+                return compareTracks(aTrack, anotherTrack, tracksSort.fields) == .orderedAscending
+            } else {
+                return compareTracks(aTrack, anotherTrack, tracksSort.fields) == .orderedDescending
+            }
         }
+        
+        return true
     }
     
     private func compareTracks(_ aTrack: Track, _ anotherTrack: Track, _ fields: [SortField]) -> ComparisonResult {
