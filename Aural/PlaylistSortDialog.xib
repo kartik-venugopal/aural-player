@@ -17,23 +17,23 @@
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" id="q7J-c3-oYm" userLabel="Playlist Sort Dialog" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" utility="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="0.0" y="0.0" width="470" height="350"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="530" height="400"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" wantsLayer="YES" id="d89-ua-Tni" userLabel="Container View">
-                <rect key="frame" x="0.0" y="0.0" width="470" height="350"/>
+                <rect key="frame" x="0.0" y="0.0" width="530" height="400"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Options:" translatesAutoresizingMaskIntoConstraints="NO" id="2Xd-Vi-QuN" userLabel="Sort Options Box">
-                        <rect key="frame" x="15" y="38" width="440" height="280"/>
+                        <rect key="frame" x="15" y="37" width="500" height="330"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" ambiguous="YES" id="sFa-mR-3mA">
-                            <rect key="frame" x="1" y="1" width="438" height="278"/>
+                            <rect key="frame" x="1" y="1" width="498" height="328"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LWZ-RI-Vag" userLabel="Sort button">
-                        <rect key="frame" x="335" y="8" width="50" height="19"/>
+                        <rect key="frame" x="390" y="8" width="50" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="roundRect" title="Sort" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6qZ-Ub-qll" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -47,7 +47,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mom-Ef-ghy" userLabel="Cancel button">
-                        <rect key="frame" x="392" y="8" width="63" height="19"/>
+                        <rect key="frame" x="452" y="8" width="63" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZG0-Ss-3uq" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -61,7 +61,7 @@ Gw
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V2b-Ns-cA4" userLabel="Title">
-                        <rect key="frame" x="150" y="322" width="170" height="23"/>
+                        <rect key="frame" x="180" y="372" width="170" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Sort playlist" id="I23-mM-Bne">
                             <font key="font" size="12" name="GillSans-SemiBold"/>
@@ -76,7 +76,7 @@ Gw
                     <color key="value" white="0.150390625" alpha="1" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="-962.5" y="205.5"/>
+            <point key="canvasLocation" x="-963" y="205"/>
         </window>
     </objects>
 </document>

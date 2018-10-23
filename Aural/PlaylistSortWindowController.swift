@@ -9,6 +9,8 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
     
     private var tracksPlaylistSortView: SortViewProtocol = TracksPlaylistSortViewController()
     private var artistsPlaylistSortView: SortViewProtocol = ArtistsPlaylistSortViewController()
+    private var albumsPlaylistSortView: SortViewProtocol = AlbumsPlaylistSortViewController()
+    private var genresPlaylistSortView: SortViewProtocol = GenresPlaylistSortViewController()
     
     // Delegate that relays sort requests to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.getPlaylistDelegate()
@@ -26,6 +28,8 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
         
         container.addSubview(tracksPlaylistSortView.getView())
         container.addSubview(artistsPlaylistSortView.getView())
+        container.addSubview(albumsPlaylistSortView.getView())
+        container.addSubview(genresPlaylistSortView.getView())
         
         super.windowDidLoad()
     }
@@ -43,7 +47,7 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
         }
         
         // Choose sort view based on current playlist view
-        [tracksPlaylistSortView, artistsPlaylistSortView].forEach({$0.getView().isHidden = true})
+        [tracksPlaylistSortView, artistsPlaylistSortView, albumsPlaylistSortView, genresPlaylistSortView].forEach({$0.getView().isHidden = true})
         switch PlaylistViewState.current {
 
         case .tracks:
@@ -56,8 +60,15 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
             artistsPlaylistSortView.getView().isHidden = false
             artistsPlaylistSortView.resetFields()
             
-        default: return .cancel
+        case .albums:
             
+            albumsPlaylistSortView.getView().isHidden = false
+            albumsPlaylistSortView.resetFields()
+            
+        case .genres:
+            
+            genresPlaylistSortView.getView().isHidden = false
+            genresPlaylistSortView.resetFields()
         }
         
         UIUtils.showModalDialog(self.window!)
@@ -74,8 +85,9 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
             
         case .artists: sortOptions = artistsPlaylistSortView.getSortOptions()
             
-        // TODO: Implement this for Albums and Genres playlist views
-        default:    sortOptions = Sort()
+        case .albums: sortOptions = albumsPlaylistSortView.getSortOptions()
+            
+        case .genres: sortOptions = genresPlaylistSortView.getSortOptions()
             
         }
         

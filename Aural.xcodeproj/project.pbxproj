@@ -235,6 +235,10 @@
 		3EB2A7EE1F04697E001DF748 /* GraphicsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7ED1F04697E001DF748 /* GraphicsUtils.swift */; };
 		3EB2F1FF1FB311760031B6C1 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2F1FE1FB311760031B6C1 /* Fonts.swift */; };
 		3EB2F2011FB311FB0031B6C1 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2F2001FB311FB0031B6C1 /* Images.swift */; };
+		3EB7F45F217FC48800A2CE76 /* AlbumsPlaylistSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB7F45E217FC48800A2CE76 /* AlbumsPlaylistSortViewController.swift */; };
+		3EB7F461217FC4BA00A2CE76 /* AlbumsPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EB7F460217FC4BA00A2CE76 /* AlbumsPlaylistSort.xib */; };
+		3EB7F464217FC72900A2CE76 /* GenresPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EB7F463217FC72900A2CE76 /* GenresPlaylistSort.xib */; };
+		3EB7F466217FC73F00A2CE76 /* GenresPlaylistSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB7F465217FC73F00A2CE76 /* GenresPlaylistSortViewController.swift */; };
 		3EB9EB6C1FCFB98A00287F53 /* AppModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB9EB6B1FCFB98A00287F53 /* AppModeManager.swift */; };
 		3EBA52F51FC2E29E007F902F /* KeyCodeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA52F41FC2E29E007F902F /* KeyCodeConstants.swift */; };
 		3EBA52F71FC2E6A2007F902F /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA52F61FC2E6A2007F902F /* StateMachine.swift */; };
@@ -547,6 +551,10 @@
 		3EB2A7ED1F04697E001DF748 /* GraphicsUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphicsUtils.swift; sourceTree = "<group>"; };
 		3EB2F1FE1FB311760031B6C1 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		3EB2F2001FB311FB0031B6C1 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		3EB7F45E217FC48800A2CE76 /* AlbumsPlaylistSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsPlaylistSortViewController.swift; sourceTree = "<group>"; };
+		3EB7F460217FC4BA00A2CE76 /* AlbumsPlaylistSort.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumsPlaylistSort.xib; sourceTree = "<group>"; };
+		3EB7F463217FC72900A2CE76 /* GenresPlaylistSort.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GenresPlaylistSort.xib; sourceTree = "<group>"; };
+		3EB7F465217FC73F00A2CE76 /* GenresPlaylistSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresPlaylistSortViewController.swift; sourceTree = "<group>"; };
 		3EB9EB6B1FCFB98A00287F53 /* AppModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModeManager.swift; sourceTree = "<group>"; };
 		3EBA52F41FC2E29E007F902F /* KeyCodeConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCodeConstants.swift; sourceTree = "<group>"; };
 		3EBA52F61FC2E6A2007F902F /* StateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
@@ -1256,6 +1264,8 @@
 				3E850D531FB444BB0017CD02 /* PlaylistSortWindowController.swift */,
 				3E176600217DE334001C6CF9 /* TracksPlaylistSort */,
 				3E176601217DE3BB001C6CF9 /* ArtistsPlaylistSort */,
+				3EB7F45D217FC45F00A2CE76 /* AlbumsPlaylistSort */,
+				3EB7F462217FC70F00A2CE76 /* GenresPlaylistSort */,
 			);
 			name = PlaylistSort;
 			sourceTree = "<group>";
@@ -1439,6 +1449,24 @@
 				3EB1700F21748B7600B82D3A /* TimeIntervalFormatter.swift */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		3EB7F45D217FC45F00A2CE76 /* AlbumsPlaylistSort */ = {
+			isa = PBXGroup;
+			children = (
+				3EB7F460217FC4BA00A2CE76 /* AlbumsPlaylistSort.xib */,
+				3EB7F45E217FC48800A2CE76 /* AlbumsPlaylistSortViewController.swift */,
+			);
+			name = AlbumsPlaylistSort;
+			sourceTree = "<group>";
+		};
+		3EB7F462217FC70F00A2CE76 /* GenresPlaylistSort */ = {
+			isa = PBXGroup;
+			children = (
+				3EB7F463217FC72900A2CE76 /* GenresPlaylistSort.xib */,
+				3EB7F465217FC73F00A2CE76 /* GenresPlaylistSortViewController.swift */,
+			);
+			name = GenresPlaylistSort;
 			sourceTree = "<group>";
 		};
 		3EBA52F81FC2EB09007F902F /* TabView */ = {
@@ -1702,6 +1730,7 @@
 				3EA5C7A31F458EB400556669 /* UserGuide.pdf in Resources */,
 				3EF5E5B71FBDAED9004270A4 /* Artists.xib in Resources */,
 				3E0ED6B51FBB1B64008268B3 /* Time.xib in Resources */,
+				3EB7F464217FC72900A2CE76 /* GenresPlaylistSort.xib in Resources */,
 				3E2F104F21556A2D0099FD06 /* BookmarksEditor.xib in Resources */,
 				3E3F296B215A395A00581EFE /* Filter.xib in Resources */,
 				3E176603217DE43D001C6CF9 /* TracksPlaylistSort.xib in Resources */,
@@ -1714,6 +1743,7 @@
 				3E066C27216C5FEF00E4FE80 /* PitchPresetsEditor.xib in Resources */,
 				3E2188AC1F0781970085BAB3 /* DetailedTrackInfo.xib in Resources */,
 				3EA19C231FC174A30072929E /* ControlsPreferences.xib in Resources */,
+				3EB7F461217FC4BA00A2CE76 /* AlbumsPlaylistSort.xib in Resources */,
 				3E98CBC5216B0D990025A77E /* MasterPresetsEditor.xib in Resources */,
 				3E51F6671FC98C7B003A2210 /* StatusBarPopover.xib in Resources */,
 				3EF7EFCC215075DD00E582CB /* BarModeNowPlaying.xib in Resources */,
@@ -1761,6 +1791,7 @@
 				3E0C993F216C89C600E396DB /* FilterPresetsEditorViewController.swift in Sources */,
 				3E10DDE1216F2F53001D3B66 /* GapsEditorWindowController.swift in Sources */,
 				3E864ADB1F25C81B006A7626 /* PlaylistDelegateProtocol.swift in Sources */,
+				3EB7F45F217FC48800A2CE76 /* AlbumsPlaylistSortViewController.swift in Sources */,
 				3E80E6721F04FA7C007480CC /* SizeUnit.swift in Sources */,
 				3EB029141FB58CEC00A2D920 /* SoundMenuController.swift in Sources */,
 				3E0A66B62169FC9300B2EA2A /* PlaybackProfiles.swift in Sources */,
@@ -1979,6 +2010,7 @@
 				3EC7E8AA217ADDC500F21695 /* LeftAlignedNPVC.swift in Sources */,
 				3EAEBCAC1FDCD644000FBC04 /* BannerLabel.swift in Sources */,
 				3EFC506B1F607B530032BE21 /* PlaylistDelegate.swift in Sources */,
+				3EB7F466217FC73F00A2CE76 /* GenresPlaylistSortViewController.swift in Sources */,
 				3EB2A7E61F043989001DF748 /* HorizontalSliderCells.swift in Sources */,
 				3E58CC271F025B0D00C36DC1 /* Colors.swift in Sources */,
 				3E09C6B51F2EE70C007BB489 /* PlaybackSession.swift in Sources */,
