@@ -18,8 +18,10 @@ class GenresPlaylistSortViewController: NSViewController, SortViewProtocol {
     @IBOutlet weak var sortTracks_byArtist_andName: NSButton!
     @IBOutlet weak var sortTracks_byArtist_andAlbum_andDiscTrack: NSButton!
     @IBOutlet weak var sortTracks_byArtist_andAlbum_andName: NSButton!
+    
     @IBOutlet weak var sortTracks_byAlbum_andDiscTrack: NSButton!
     @IBOutlet weak var sortTracks_byAlbum_andName: NSButton!
+    
     @IBOutlet weak var sortTracks_byName: NSButton!
     @IBOutlet weak var sortTracks_byDuration: NSButton!
     
