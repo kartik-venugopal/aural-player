@@ -1,10 +1,10 @@
 import Cocoa
 
-class ArtistsPlaylistSortViewController: NSViewController, SortViewProtocol {
+class GenresPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     @IBOutlet weak var sortGroups: NSButton!
     
-    @IBOutlet weak var sortGroups_byArtist: NSButton!
+    @IBOutlet weak var sortGroups_byGenre: NSButton!
     @IBOutlet weak var sortGroups_byDuration: NSButton!
     
     @IBOutlet weak var sortGroups_ascending: NSButton!
@@ -15,6 +15,9 @@ class ArtistsPlaylistSortViewController: NSViewController, SortViewProtocol {
     @IBOutlet weak var sortTracks_allGroups: NSButton!
     @IBOutlet weak var sortTracks_selectedGroups: NSButton!
     
+    @IBOutlet weak var sortTracks_byArtist_andName: NSButton!
+    @IBOutlet weak var sortTracks_byArtist_andAlbum_andDiscTrack: NSButton!
+    @IBOutlet weak var sortTracks_byArtist_andAlbum_andName: NSButton!
     @IBOutlet weak var sortTracks_byAlbum_andDiscTrack: NSButton!
     @IBOutlet weak var sortTracks_byAlbum_andName: NSButton!
     @IBOutlet weak var sortTracks_byName: NSButton!
@@ -23,7 +26,7 @@ class ArtistsPlaylistSortViewController: NSViewController, SortViewProtocol {
     @IBOutlet weak var sortTracks_ascending: NSButton!
     @IBOutlet weak var sortTracks_descending: NSButton!
     
-    override var nibName: String? {return "ArtistsPlaylistSort"}
+    override var nibName: String? {return "GenresPlaylistSort"}
     
     func getView() -> NSView {
         return self.view
@@ -32,7 +35,7 @@ class ArtistsPlaylistSortViewController: NSViewController, SortViewProtocol {
     func resetFields() {
         
         sortGroups.on()
-        sortGroups_byArtist.on()
+        sortGroups_byGenre.on()
         sortGroups_ascending.on()
         groupsSortToggleAction(self)
         
@@ -45,7 +48,7 @@ class ArtistsPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     @IBAction func groupsSortToggleAction(_ sender: Any) {
         
-        [sortGroups_byArtist, sortGroups_byDuration, sortGroups_ascending, sortGroups_descending].forEach({$0?.isEnabled = sortGroups.isOn()})
+        [sortGroups_byGenre, sortGroups_byDuration, sortGroups_ascending, sortGroups_descending].forEach({$0?.isEnabled = sortGroups.isOn()})
     }
     
     @IBAction func groupsSortFieldAction(_ sender: Any) {}
@@ -54,7 +57,7 @@ class ArtistsPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     @IBAction func tracksSortToggleAction(_ sender: Any) {
         
-        [sortTracks_allGroups, sortTracks_selectedGroups, sortTracks_byAlbum_andDiscTrack, sortTracks_byAlbum_andName, sortTracks_byName, sortTracks_byDuration, sortTracks_ascending, sortTracks_descending].forEach({$0?.isEnabled = sortTracks.isOn()})
+        [sortTracks_allGroups, sortTracks_selectedGroups, sortTracks_byArtist_andName, sortTracks_byArtist_andAlbum_andName, sortTracks_byArtist_andAlbum_andDiscTrack, sortTracks_byAlbum_andDiscTrack, sortTracks_byAlbum_andName, sortTracks_byName, sortTracks_byDuration, sortTracks_ascending, sortTracks_descending].forEach({$0?.isEnabled = sortTracks.isOn()})
     }
     
     @IBAction func tracksSortScopeAction(_ sender: Any) {}
@@ -67,10 +70,10 @@ class ArtistsPlaylistSortViewController: NSViewController, SortViewProtocol {
         
         // Gather field values
         let sort = Sort()
-
+        
         if sortGroups.isOn() {
             
-            let field: SortField = sortGroups_byArtist.isOn() ? .name : .duration
+            let field: SortField = sortGroups_byGenre.isOn() ? .name : .duration
             _ = sort.withGroupsSort(GroupsSort().withFields(field).withOrder(sortGroups_ascending.isOn() ? .ascending : .descending))
         }
         
@@ -98,6 +101,12 @@ class ArtistsPlaylistSortViewController: NSViewController, SortViewProtocol {
             // Fields
             if sortTracks_byName.isOn() {
                 _ = tracksSort.withFields(.name)
+            } else if sortTracks_byArtist_andName.isOn() {
+                _ = tracksSort.withFields(.artist, .name)
+            } else if sortTracks_byArtist_andAlbum_andDiscTrack.isOn() {
+                _ = tracksSort.withFields(.artist, .album, .discNumberAndTrackNumber)
+            } else if sortTracks_byArtist_andAlbum_andName.isOn() {
+                _ = tracksSort.withFields(.artist, .album, .name)
             } else if sortTracks_byAlbum_andDiscTrack.isOn() {
                 _ = tracksSort.withFields(.album, .discNumberAndTrackNumber)
             } else if sortTracks_byAlbum_andName.isOn() {
@@ -106,7 +115,7 @@ class ArtistsPlaylistSortViewController: NSViewController, SortViewProtocol {
                 // By duration
                 _ = tracksSort.withFields(.duration)
             }
-
+            
             // Order
             _ = tracksSort.withOrder(sortTracks_ascending.isOn() ? .ascending : .descending)
             
