@@ -744,55 +744,27 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     func sort(_ sort: Sort) {
         
-        // Sorts groups, and if requested, also the child tracks within each group
+        let comparator = SortComparator(sort)
         
-//        switch sort.fields.first! {
-//
-//        // Sort by name
-//        case .name:
-//
-//            if sort.order == SortOrder.ascending {
-//
-//                groups.sort(by: SortStrategies.compareGroups_ascendingByName)
-//                if sort.options.sortTracksInGroups {
-//                    sortAllTracks(compareTracks_ascendingByDisplayName)
-//                }
-//
-//            } else {
-//
-//                groups.sort(by: SortStrategies.compareGroups_descendingByName)
-//                if sort.options.sortTracksInGroups {
-//                    sortAllTracks(compareTracks_descendingByDisplayName)
-//                }
-//            }
-//
-//        // Sort by duration
-//        case .duration:
-//
-//            if sort.order == SortOrder.ascending {
-//
-//                groups.sort(by: SortStrategies.compareGroups_ascendingByDuration)
-//                if sort.options.sortTracksInGroups {
-//                    sortAllTracks(SortStrategies.compareTracks_ascendingByDuration)
-//                }
-//
-//            } else {
-//
-//                groups.sort(by: SortStrategies.compareGroups_descendingByDuration)
-//                if sort.options.sortTracksInGroups {
-//                    sortAllTracks(SortStrategies.compareTracks_descendingByDuration)
-//                }
-//            }
-//
-//        // TODO: Implement other sorts
-//        default: return
-//
-//        }
+        // Sorts groups, and if requested, also the child tracks within each group
+        if sort.groupsSort != nil {
+            groups.sort(by: comparator.compareGroups)
+        }
+        
+        if let tracksSort = sort.tracksSort {
+            
+            if tracksSort.scope == .allGroups {
+                sortTracksInGroups(self.groups, comparator.compareTracks)
+            } else {
+                // Selected groups
+                sortTracksInGroups(tracksSort.parentGroups!, comparator.compareTracks)
+            }
+        }
     }
     
-    // Sorts all tracks within each group, given the specified track comparison strategy
-    private func sortAllTracks(_ trackComparisonStrategy: (Track, Track) -> Bool) {
-        groups.forEach({$0.sort(trackComparisonStrategy)})
+    // Sorts all tracks within each given parent group, with the specified track comparison strategy
+    private func sortTracksInGroups(_ parentGroups: [Group], _ trackComparisonStrategy: (Track, Track) -> Bool) {
+        parentGroups.forEach({$0.sort(trackComparisonStrategy)})
     }
     
     private func compareTracks_ascendingByDisplayName(aTrack: Track, anotherTrack: Track) -> Bool {

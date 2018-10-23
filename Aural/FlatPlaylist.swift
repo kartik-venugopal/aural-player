@@ -308,7 +308,10 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     }
  
     func sort(_ sort: Sort) {
-        tracks.sort(by: SortStrategy(sort).compareTracks)
+        
+        if sort.tracksSort != nil {
+            tracks.sort(by: SortComparator(sort).compareTracks)
+        }
     }
     
     func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
