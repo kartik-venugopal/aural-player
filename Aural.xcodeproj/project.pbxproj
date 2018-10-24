@@ -795,22 +795,22 @@
 			name = Gaps;
 			sourceTree = "<group>";
 		};
-		3E176600217DE334001C6CF9 /* TracksPlaylistSort */ = {
+		3E176600217DE334001C6CF9 /* TracksPlaylist */ = {
 			isa = PBXGroup;
 			children = (
 				3E176602217DE43D001C6CF9 /* TracksPlaylistSort.xib */,
 				3E176606217DE513001C6CF9 /* TracksPlaylistSortViewController.swift */,
 			);
-			name = TracksPlaylistSort;
+			name = TracksPlaylist;
 			sourceTree = "<group>";
 		};
-		3E176601217DE3BB001C6CF9 /* ArtistsPlaylistSort */ = {
+		3E176601217DE3BB001C6CF9 /* ArtistsPlaylist */ = {
 			isa = PBXGroup;
 			children = (
 				3E176604217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib */,
 				3E7CA23B217E739A00356240 /* ArtistsPlaylistSortViewController.swift */,
 			);
-			name = ArtistsPlaylistSort;
+			name = ArtistsPlaylist;
 			sourceTree = "<group>";
 		};
 		3E24F4CE21699E0600B9CDA6 /* EffectsPresets */ = {
@@ -1257,26 +1257,26 @@
 			name = Preferences;
 			sourceTree = "<group>";
 		};
-		3E850D551FB444D20017CD02 /* PlaylistSort */ = {
+		3E850D551FB444D20017CD02 /* Sort */ = {
 			isa = PBXGroup;
 			children = (
 				3E850D561FB4461E0017CD02 /* PlaylistSortDialog.xib */,
 				3E850D531FB444BB0017CD02 /* PlaylistSortWindowController.swift */,
-				3E176600217DE334001C6CF9 /* TracksPlaylistSort */,
-				3E176601217DE3BB001C6CF9 /* ArtistsPlaylistSort */,
-				3EB7F45D217FC45F00A2CE76 /* AlbumsPlaylistSort */,
-				3EB7F462217FC70F00A2CE76 /* GenresPlaylistSort */,
+				3E176600217DE334001C6CF9 /* TracksPlaylist */,
+				3E176601217DE3BB001C6CF9 /* ArtistsPlaylist */,
+				3EB7F45D217FC45F00A2CE76 /* AlbumsPlaylist */,
+				3EB7F462217FC70F00A2CE76 /* GenresPlaylist */,
 			);
-			name = PlaylistSort;
+			name = Sort;
 			sourceTree = "<group>";
 		};
-		3E850D5A1FB44DD30017CD02 /* PlaylistSearch */ = {
+		3E850D5A1FB44DD30017CD02 /* Search */ = {
 			isa = PBXGroup;
 			children = (
 				3E850D5D1FB44DF30017CD02 /* PlaylistSearch.xib */,
 				3E850D5B1FB44DE70017CD02 /* PlaylistSearchWindowController.swift */,
 			);
-			name = PlaylistSearch;
+			name = Search;
 			sourceTree = "<group>";
 		};
 		3E850D611FB45B920017CD02 /* Playlist */ = {
@@ -1290,8 +1290,8 @@
 				3EF5E5CB1FBE55D2004270A4 /* PlaylistViewContext.swift */,
 				3EF5E5B21FBDA374004270A4 /* TracksPlaylist */,
 				3EF5E5D31FBF0F8B004270A4 /* GroupingPlaylists */,
-				3E850D5A1FB44DD30017CD02 /* PlaylistSearch */,
-				3E850D551FB444D20017CD02 /* PlaylistSort */,
+				3E850D5A1FB44DD30017CD02 /* Search */,
+				3E850D551FB444D20017CD02 /* Sort */,
 			);
 			name = Playlist;
 			sourceTree = "<group>";
@@ -1451,22 +1451,22 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
-		3EB7F45D217FC45F00A2CE76 /* AlbumsPlaylistSort */ = {
+		3EB7F45D217FC45F00A2CE76 /* AlbumsPlaylist */ = {
 			isa = PBXGroup;
 			children = (
 				3EB7F460217FC4BA00A2CE76 /* AlbumsPlaylistSort.xib */,
 				3EB7F45E217FC48800A2CE76 /* AlbumsPlaylistSortViewController.swift */,
 			);
-			name = AlbumsPlaylistSort;
+			name = AlbumsPlaylist;
 			sourceTree = "<group>";
 		};
-		3EB7F462217FC70F00A2CE76 /* GenresPlaylistSort */ = {
+		3EB7F462217FC70F00A2CE76 /* GenresPlaylist */ = {
 			isa = PBXGroup;
 			children = (
 				3EB7F463217FC72900A2CE76 /* GenresPlaylistSort.xib */,
 				3EB7F465217FC73F00A2CE76 /* GenresPlaylistSortViewController.swift */,
 			);
-			name = GenresPlaylistSort;
+			name = GenresPlaylist;
 			sourceTree = "<group>";
 		};
 		3EBA52F81FC2EB09007F902F /* TabView */ = {

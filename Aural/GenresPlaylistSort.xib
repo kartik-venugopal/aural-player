@@ -25,6 +25,7 @@
                 <outlet property="sortTracks_byName" destination="SJ8-o1-o1C" id="5dI-7P-wyQ"/>
                 <outlet property="sortTracks_descending" destination="Muv-C2-5BQ" id="xJF-nN-eLY"/>
                 <outlet property="sortTracks_selectedGroups" destination="sdC-Zi-ZKz" id="rpP-Fv-yrg"/>
+                <outlet property="useTrackNameIfNoMetadata" destination="Sc7-CQ-WHk" id="Ahb-BC-i7L"/>
                 <outlet property="view" destination="pSI-VB-f6N" id="IbA-SC-eKj"/>
             </connections>
         </customObject>
@@ -35,14 +36,14 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <box fixedFrame="YES" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1D7-nx-vo8" userLabel="Sort fields box">
-                    <rect key="frame" x="1" y="-4" width="253" height="334"/>
+                    <rect key="frame" x="1" y="36" width="253" height="294"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="LPj-kx-DV9">
-                        <rect key="frame" x="2" y="2" width="249" height="330"/>
+                        <rect key="frame" x="2" y="2" width="249" height="290"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3rg-Gv-pPw" userLabel="Sort groups by">
-                                <rect key="frame" x="15" y="295" width="157" height="25"/>
+                                <rect key="frame" x="15" y="255" width="157" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Sort groups by:" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="ITA-i6-5cJ" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -53,7 +54,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qPg-gt-v9u" userLabel="Duration field">
-                                <rect key="frame" x="35" y="253" width="90" height="25"/>
+                                <rect key="frame" x="35" y="213" width="90" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Duration" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="1gi-HX-vtY" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -64,7 +65,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a7U-WW-kOm" userLabel="Genre field">
-                                <rect key="frame" x="35" y="272" width="115" height="25"/>
+                                <rect key="frame" x="35" y="232" width="115" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Genre name" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="KVz-S2-Ike" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -75,7 +76,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uIq-cV-C0a" userLabel="Sort tracks">
-                                <rect key="frame" x="14" y="223" width="171" height="25"/>
+                                <rect key="frame" x="14" y="188" width="171" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Sort tracks within groups:" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="LC0-Wh-qbg" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -86,7 +87,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XcS-nL-6Pp">
-                                <rect key="frame" x="35" y="201" width="115" height="25"/>
+                                <rect key="frame" x="35" y="166" width="115" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="All groups" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="rLj-6f-Bmk" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -97,7 +98,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sdC-Zi-ZKz" userLabel="Sel groups">
-                                <rect key="frame" x="35" y="183" width="115" height="25"/>
+                                <rect key="frame" x="35" y="148" width="115" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Selected groups" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="gMN-1K-j5t" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -108,7 +109,7 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fh8-se-84c">
-                                <rect key="frame" x="50" y="162" width="94" height="20"/>
+                                <rect key="frame" x="50" y="127" width="94" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sort by:" id="nic-VL-gGn">
                                     <font key="font" size="11" name="GillSans-SemiBold"/>
@@ -117,7 +118,7 @@
                                 </textFieldCell>
                             </textField>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="asG-6w-wDa" userLabel="Artist, album, and disc/track">
-                                <rect key="frame" x="62" y="117" width="190" height="22"/>
+                                <rect key="frame" x="62" y="90" width="190" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Artist,  Album, and Disc# / Track#" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="IzR-zz-2RF" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -128,7 +129,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LZf-F4-yKS" userLabel="Artist and track name">
-                                <rect key="frame" x="62" y="82" width="132" height="22"/>
+                                <rect key="frame" x="62" y="56" width="132" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Artist and Track name" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="FAG-V4-RDL" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -139,7 +140,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c1H-Jm-FbA" userLabel="Duration field">
-                                <rect key="frame" x="62" y="10" width="90" height="22"/>
+                                <rect key="frame" x="62" y="5" width="90" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Duration" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="2tl-dG-tpF" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -150,7 +151,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SJ8-o1-o1C" userLabel="Name field">
-                                <rect key="frame" x="62" y="142" width="90" height="22"/>
+                                <rect key="frame" x="62" y="107" width="90" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Track name" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="qXN-tx-FTJ" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -161,7 +162,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SfB-3Y-6gS" userLabel="Album and track name">
-                                <rect key="frame" x="62" y="36" width="132" height="22"/>
+                                <rect key="frame" x="62" y="22" width="132" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Album and Track name" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="9U6-Jy-3DM" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -172,7 +173,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bov-eE-FKe" userLabel="Album and disc/track">
-                                <rect key="frame" x="62" y="53" width="190" height="22"/>
+                                <rect key="frame" x="62" y="39" width="190" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Album and Disc# / Track#" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="ZOM-xx-oDx" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -183,7 +184,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PCa-YE-Wo0" userLabel="Artist, album, and track name">
-                                <rect key="frame" x="62" y="100" width="190" height="22"/>
+                                <rect key="frame" x="62" y="73" width="190" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Artist,  Album, and Track name" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="fUH-6L-pId" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -238,7 +239,7 @@
                     </view>
                 </box>
                 <box fixedFrame="YES" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mWG-hE-n5n" userLabel="Tracks Sort order box">
-                    <rect key="frame" x="266" y="164" width="127" height="75"/>
+                    <rect key="frame" x="266" y="169" width="127" height="75"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="Kpw-rF-85g">
                         <rect key="frame" x="2" y="2" width="123" height="71"/>
@@ -278,6 +279,14 @@
                         </subviews>
                     </view>
                 </box>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sc7-CQ-WHk" userLabel="Duration field">
+                    <rect key="frame" x="36" y="5" width="390" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Use track name for tracks without artist / album metadata" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="Ojk-Gx-OK7" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="GillSans"/>
+                    </buttonCell>
+                </button>
             </subviews>
             <point key="canvasLocation" x="189" y="208"/>
         </view>

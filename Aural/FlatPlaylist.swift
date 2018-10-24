@@ -310,7 +310,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     func sort(_ sort: Sort) {
         
         if sort.tracksSort != nil {
-            tracks.sort(by: SortComparator(sort).compareTracks)
+            tracks.sort(by: SortComparator(sort, self.displayNameForTrack).compareTracks)
         }
     }
     

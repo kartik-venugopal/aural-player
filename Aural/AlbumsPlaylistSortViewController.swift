@@ -22,6 +22,8 @@ class AlbumsPlaylistSortViewController: NSViewController, SortViewProtocol {
     @IBOutlet weak var sortTracks_ascending: NSButton!
     @IBOutlet weak var sortTracks_descending: NSButton!
     
+    @IBOutlet weak var useTrackNameIfNoMetadata: NSButton!
+    
     override var nibName: String? {return "AlbumsPlaylistSort"}
     
     func getView() -> NSView {
@@ -39,6 +41,7 @@ class AlbumsPlaylistSortViewController: NSViewController, SortViewProtocol {
         sortTracks_allGroups.on()
         sortTracks_byName.on()
         sortTracks_ascending.on()
+        useTrackNameIfNoMetadata.on()
         tracksSortToggleAction(self)
     }
     
@@ -53,7 +56,7 @@ class AlbumsPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     @IBAction func tracksSortToggleAction(_ sender: Any) {
         
-        [sortTracks_allGroups, sortTracks_selectedGroups, sortTracks_byDiscAndTrack, sortTracks_byName, sortTracks_byDuration, sortTracks_ascending, sortTracks_descending].forEach({$0?.isEnabled = sortTracks.isOn()})
+        [sortTracks_allGroups, sortTracks_selectedGroups, sortTracks_byDiscAndTrack, sortTracks_byName, sortTracks_byDuration, sortTracks_ascending, sortTracks_descending, useTrackNameIfNoMetadata].forEach({$0?.isEnabled = sortTracks.isOn()})
     }
     
     @IBAction func tracksSortScopeAction(_ sender: Any) {}
@@ -106,6 +109,9 @@ class AlbumsPlaylistSortViewController: NSViewController, SortViewProtocol {
             
             // Order
             _ = tracksSort.withOrder(sortTracks_ascending.isOn() ? .ascending : .descending)
+            
+            // Options
+            _ = useTrackNameIfNoMetadata.isOn() ? tracksSort.withOptions(.useNameIfNoMetadata) : tracksSort.withNoOptions()
             
             _ = sort.withTracksSort(tracksSort)
         }

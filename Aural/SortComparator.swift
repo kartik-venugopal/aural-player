@@ -4,9 +4,20 @@ import Foundation
 class SortComparator {
     
     let sort: Sort
+    let trackDisplayNameFunction: ((Track) -> String)
     
-    init(_ sort: Sort) {
+    init(_ sort: Sort, _ trackDisplayNameFunction: @escaping ((Track) -> String)) {
         self.sort = sort
+        self.trackDisplayNameFunction = trackDisplayNameFunction
+    }
+    
+    private func shouldUseTrackNameIfNoMetadata() -> Bool {
+        
+        if let options = sort.tracksSort?.options {
+            return options.contains(.useNameIfNoMetadata)
+        }
+        
+        return false
     }
     
     func compareGroups(_ aGroup: Group, _ anotherGroup: Group) -> Bool {
@@ -78,7 +89,10 @@ class SortComparator {
             
         case .name:
             
-            return aTrack.conciseDisplayName.compare(anotherTrack.conciseDisplayName)
+            let n1 = trackDisplayNameFunction(aTrack)
+            let n2 = trackDisplayNameFunction(anotherTrack)
+            
+            return n1.compare(n2)
             
         case .duration:
             
@@ -86,17 +100,30 @@ class SortComparator {
             
         case .artist:
             
+            if shouldUseTrackNameIfNoMetadata() && aTrack.groupingInfo.artist == nil && anotherTrack.groupingInfo.artist == nil {
+                return compareTracks(aTrack, anotherTrack, .name)
+            }
+            
             let a1 = aTrack.groupingInfo.artist ?? ""
             let a2 = anotherTrack.groupingInfo.artist ?? ""
             return a1.compare(a2)
             
         case .album:
             
+            if shouldUseTrackNameIfNoMetadata() && aTrack.groupingInfo.album == nil && anotherTrack.groupingInfo.album == nil {
+                return compareTracks(aTrack, anotherTrack, .name)
+            }
+            
             let a1 = aTrack.groupingInfo.album ?? ""
             let a2 = anotherTrack.groupingInfo.album ?? ""
             return a1.compare(a2)
             
         case .discNumberAndTrackNumber:
+            
+            if shouldUseTrackNameIfNoMetadata() && aTrack.groupingInfo.discNumber == nil && anotherTrack.groupingInfo.discNumber == nil && aTrack.groupingInfo.trackNumber == nil && anotherTrack.groupingInfo.trackNumber == nil {
+                
+                return compareTracks(aTrack, anotherTrack, .name)
+            }
             
             let d1 = aTrack.groupingInfo.discNumber ?? 0
             let d2 = anotherTrack.groupingInfo.discNumber ?? 0

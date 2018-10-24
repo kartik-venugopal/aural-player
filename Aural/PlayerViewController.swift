@@ -333,6 +333,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         // Force a redraw of the seek slider
         updateSeekPosition()
+        seekSlider.setNeedsDisplay()
     }
     
     private func renderLoop() {
@@ -363,6 +364,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         // Force a redraw of the seek slider
         updateSeekPosition()
+        seekSlider.setNeedsDisplay()
     }
     
     // MARK - Volume and Pan
