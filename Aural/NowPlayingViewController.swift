@@ -18,13 +18,15 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     @IBOutlet weak var lblTrackTitle: NSTextField!
     @IBOutlet weak var lblTrackName: NSTextField!
     
-    @IBOutlet weak var artBox: NSBox!
     @IBOutlet weak var artView: NSImageView!
+    @IBOutlet weak var bigArtView: NSImageView!
     
     // Fields that display information about the current playback scope
     @IBOutlet weak var lblSequenceProgress: NSTextField!
     @IBOutlet weak var lblPlaybackScope: NSTextField!
     @IBOutlet weak var imgScope: NSImageView!
+    
+    @IBOutlet weak var playingTrackInfoBox: NSBox!
     
     @IBOutlet weak var buttonsBox: NSBox!
     
@@ -99,7 +101,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         NowPlayingViewState.showPlayingTrackFunctions = appState.showPlayingTrackFunctions
         NowPlayingViewState.showAlbumArt = appState.showAlbumArt
         
-        artBox.isHidden = !NowPlayingViewState.showAlbumArt
+        artView.isHidden = !NowPlayingViewState.showAlbumArt
         buttonsBox.isHidden = !NowPlayingViewState.showPlayingTrackFunctions
     }
     
@@ -111,7 +113,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.moreInfo, .showOrHidePlayingTrackFunctions, .showOrHideAlbumArt], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.moreInfo, .showOrHidePlayingTrackInfo, .showOrHidePlayingTrackFunctions, .showOrHideAlbumArt], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -120,7 +122,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.moreInfo, .showOrHidePlayingTrackFunctions, .showOrHideAlbumArt], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.moreInfo, .showOrHidePlayingTrackInfo, .showOrHidePlayingTrackFunctions, .showOrHideAlbumArt], subscriber: self)
     }
     
     // Shows a popover with detailed information for the currently playing track, if there is one
@@ -226,11 +228,17 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         if (track.displayInfo.art != nil) {
             artView.image = track.displayInfo.art!
+            if !bigArtView.isHidden {
+                bigArtView.image = track.displayInfo.art!
+            }
         } else {
             
             // Default artwork
             let playing = player.getPlaybackState() == .playing
             artView.image = playing ? Images.imgPlayingArt : Images.imgPausedArt
+            if !bigArtView.isHidden {
+                bigArtView.image = artView.image
+            }
         }
         
         showPlaybackScope()
@@ -283,7 +291,12 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         
         [lblTrackArtist, lblTrackTitle, lblPlaybackScope, lblSequenceProgress].forEach({$0?.stringValue = ""})
         lblTrackName.stringValue = ""
+        
         artView.image = Images.imgPausedArt
+        if !bigArtView.isHidden {
+            bigArtView.image = artView.image
+        }
+        
         imgScope.image = nil
         
         togglePlayingTrackButtons(false)
@@ -385,6 +398,27 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
         gapTimer?.startOrResume()
     }
     
+    private func showOrHidePlayingTrackInfo() {
+        
+        NowPlayingViewState.showPlayingTrackInfo = !NowPlayingViewState.showPlayingTrackInfo
+        
+        if NowPlayingViewState.showPlayingTrackInfo {
+            
+            playingTrackInfoBox.isHidden = false
+            bigArtView.isHidden = true
+            artView.isHidden = !NowPlayingViewState.showAlbumArt
+            
+        } else {
+            
+            playingTrackInfoBox.isHidden = true
+            
+            NowPlayingViewState.showAlbumArt = true
+            
+            bigArtView.image = artView.image
+            bigArtView.isHidden = false
+        }
+    }
+    
     private func showOrHidePlayingTrackFunctions() {
         
         NowPlayingViewState.showPlayingTrackFunctions = !NowPlayingViewState.showPlayingTrackFunctions
@@ -394,7 +428,16 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
     private func showOrHideAlbumArt() {
         
         NowPlayingViewState.showAlbumArt = !NowPlayingViewState.showAlbumArt
-        artBox.isHidden = !NowPlayingViewState.showAlbumArt
+        
+        if NowPlayingViewState.showAlbumArt {
+            artView.isHidden = false
+        } else {
+            
+            NowPlayingViewState.showPlayingTrackInfo = true
+            playingTrackInfoBox.isHidden = false
+            bigArtView.isHidden = true
+            artView.isHidden = true
+        }
     }
     
     // MARK: Message handling
@@ -460,6 +503,10 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
             
         case .moreInfo: moreInfoAction(self)
             
+        case .showOrHidePlayingTrackInfo:
+            
+            showOrHidePlayingTrackInfo()
+            
         case .showOrHidePlayingTrackFunctions:
             
             showOrHidePlayingTrackFunctions()
@@ -477,6 +524,7 @@ class NowPlayingViewController: NSViewController, MessageSubscriber, ActionMessa
 // Convenient accessor for information about the current playlist view
 class NowPlayingViewState {
     
+    static var showPlayingTrackInfo: Bool = true
     static var showPlayingTrackFunctions: Bool = true
     static var showAlbumArt: Bool = true
     

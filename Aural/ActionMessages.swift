@@ -295,6 +295,7 @@ enum ActionType {
     
     // Now playing view actions
     
+    case showOrHidePlayingTrackInfo
     case showOrHidePlayingTrackFunctions
     case showOrHideAlbumArt
     

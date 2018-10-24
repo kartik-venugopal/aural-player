@@ -158,7 +158,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .showOrHideSeekBar, .showOrHideMainControls, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .showOrHideSeekBar, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -167,7 +167,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .showOrHideSeekBar, .showOrHideMainControls, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .showOrHideSeekBar, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
     }
     
     private func initVolumeAndPan() {
@@ -257,8 +257,13 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
     private func resetSeekPosition(_ track: Track) {
         
-        lblTimeElapsed.stringValue = Strings.zeroDurationString
-        lblTimeRemaining.stringValue = PlayerViewState.showDuration ? StringUtils.formatSecondsToHMS(track.duration) : StringUtils.formatSecondsToHMS(track.duration, true)
+        let trackTimes = StringUtils.formatTrackTimes(0, track.duration, 0, PlayerViewState.timeElapsedDisplayType, PlayerViewState.timeRemainingDisplayType)
+        
+        lblTimeElapsed.stringValue = trackTimes.elapsed
+        lblTimeRemaining.stringValue = trackTimes.remaining
+        
+//        lblTimeElapsed.stringValue = Strings.zeroDurationString
+//        lblTimeRemaining.stringValue = PlayerViewState.showDuration ? StringUtils.formatSecondsToHMS(track.duration) : StringUtils.formatSecondsToHMS(track.duration, true)
         
         lblTimeElapsed.isHidden = false
         lblTimeRemaining.isHidden = false
@@ -859,11 +864,11 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         case .panRight: panRight()
             
         case .showOrHideSeekBar:
-            
+
             showOrHideSeekBar()
-            
+
         case .showOrHideMainControls:
-            
+
             showOrHideMainControls()
             
         case .setTimeElapsedDisplayFormat:
@@ -886,7 +891,7 @@ class PlayerViewState {
     static var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
     static var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
     
-    static var showDuration: Bool = false
+    static var showControls: Bool = true
     
     static func persistentState() -> PlayerState {
         

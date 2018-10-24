@@ -18,6 +18,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     @IBOutlet weak var playerMenuItem: NSMenuItem!
     @IBOutlet weak var playerArtMenuItem: NSMenuItem!
+    @IBOutlet weak var playerTrackInfoMenuItem: NSMenuItem!
     @IBOutlet weak var playerTrackFunctionsMenuItem: NSMenuItem!
     @IBOutlet weak var playerSeekBarMenuItem: NSMenuItem!
     @IBOutlet weak var playerMainControlsMenuItem: NSMenuItem!
@@ -50,7 +51,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.getEditorWindowController()
     
-    private var rec: Recorder = ObjectGraph.getRecorder()
+//    private var rec: Recorder = ObjectGraph.getRecorder()
     
     override func awakeFromNib() {
         
@@ -107,7 +108,9 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         // Player view:
         
         playerArtMenuItem.onIf(NowPlayingViewState.showAlbumArt)
+        playerTrackInfoMenuItem.onIf(NowPlayingViewState.showPlayingTrackInfo)
         playerTrackFunctionsMenuItem.onIf(NowPlayingViewState.showPlayingTrackFunctions)
+        playerMainControlsMenuItem.onIf(PlayerViewState.showControls)
         
         timeElapsedDisplayFormats.forEach({$0.off()})
         switch PlayerViewState.timeElapsedDisplayType {
@@ -208,6 +211,10 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         editorWindowController.showLayoutsEditor()
     }
     
+    @IBAction func showOrHidePlayingTrackInfoAction(_ sender: NSMenuItem) {
+        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackInfo))
+    }
+    
     @IBAction func showOrHidePlayingTrackFunctionsAction(_ sender: NSMenuItem) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackFunctions))
     }
@@ -297,13 +304,13 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     // NOTE - This function is in use only by an experimental feature in development, not currently accessible to the user
     @IBAction func vizAction(_ sender: AnyObject) {
         
-        let viz = VisualizerWC()
-        viz.showWindow(self)
-        
-        let sp = viz.sp!
-        let fft = FFT(sampleRate: 44100)
-        
-        rec.startViz(sp, fft)
+//        let viz = VisualizerWC()
+//        viz.showWindow(self)
+//
+//        let sp = viz.sp!
+//        let fft = FFT(sampleRate: 44100)
+//
+//        rec.startViz(sp, fft)
     }
 }
 
