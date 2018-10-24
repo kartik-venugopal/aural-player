@@ -744,7 +744,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     func sort(_ sort: Sort) {
         
-        let comparator = SortComparator(sort)
+        let comparator = SortComparator(sort, self.displayNameForTrack)
         
         // Sorts groups, and if requested, also the child tracks within each group
         if sort.groupsSort != nil {

@@ -28,6 +28,8 @@ class GenresPlaylistSortViewController: NSViewController, SortViewProtocol {
     @IBOutlet weak var sortTracks_ascending: NSButton!
     @IBOutlet weak var sortTracks_descending: NSButton!
     
+    @IBOutlet weak var useTrackNameIfNoMetadata: NSButton!
+    
     override var nibName: String? {return "GenresPlaylistSort"}
     
     func getView() -> NSView {
@@ -45,6 +47,7 @@ class GenresPlaylistSortViewController: NSViewController, SortViewProtocol {
         sortTracks_allGroups.on()
         sortTracks_byName.on()
         sortTracks_ascending.on()
+        useTrackNameIfNoMetadata.on()
         tracksSortToggleAction(self)
     }
     
@@ -59,7 +62,7 @@ class GenresPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     @IBAction func tracksSortToggleAction(_ sender: Any) {
         
-        [sortTracks_allGroups, sortTracks_selectedGroups, sortTracks_byArtist_andName, sortTracks_byArtist_andAlbum_andName, sortTracks_byArtist_andAlbum_andDiscTrack, sortTracks_byAlbum_andDiscTrack, sortTracks_byAlbum_andName, sortTracks_byName, sortTracks_byDuration, sortTracks_ascending, sortTracks_descending].forEach({$0?.isEnabled = sortTracks.isOn()})
+        [sortTracks_allGroups, sortTracks_selectedGroups, sortTracks_byArtist_andName, sortTracks_byArtist_andAlbum_andName, sortTracks_byArtist_andAlbum_andDiscTrack, sortTracks_byAlbum_andDiscTrack, sortTracks_byAlbum_andName, sortTracks_byName, sortTracks_byDuration, sortTracks_ascending, sortTracks_descending, useTrackNameIfNoMetadata].forEach({$0?.isEnabled = sortTracks.isOn()})
     }
     
     @IBAction func tracksSortScopeAction(_ sender: Any) {}
@@ -120,6 +123,9 @@ class GenresPlaylistSortViewController: NSViewController, SortViewProtocol {
             
             // Order
             _ = tracksSort.withOrder(sortTracks_ascending.isOn() ? .ascending : .descending)
+            
+            // Options
+            _ = useTrackNameIfNoMetadata.isOn() ? tracksSort.withOptions(.useNameIfNoMetadata) : tracksSort.withNoOptions()
             
             _ = sort.withTracksSort(tracksSort)
         }

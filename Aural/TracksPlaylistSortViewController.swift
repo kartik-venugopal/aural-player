@@ -15,6 +15,8 @@ class TracksPlaylistSortViewController: NSViewController, SortViewProtocol {
     @IBOutlet weak var sortAscending: NSButton!
     @IBOutlet weak var sortDescending: NSButton!
     
+    @IBOutlet weak var useTrackNameIfNoMetadata: NSButton!
+    
     override var nibName: String? {return "TracksPlaylistSort"}
     
     func getView() -> NSView {
@@ -25,6 +27,7 @@ class TracksPlaylistSortViewController: NSViewController, SortViewProtocol {
         
         sortByName.on()
         sortAscending.on()
+        useTrackNameIfNoMetadata.on()
     }
     
     @IBAction func sortFieldsAction(_ sender: Any) {}
@@ -69,6 +72,8 @@ class TracksPlaylistSortViewController: NSViewController, SortViewProtocol {
         }
         
         _ = tracksSort.withOrder(sortAscending.isOn() ? .ascending : .descending)
+        
+        _ = useTrackNameIfNoMetadata.isOn() ? tracksSort.withOptions(.useNameIfNoMetadata) : tracksSort.withNoOptions()
         
         return sort
     }
