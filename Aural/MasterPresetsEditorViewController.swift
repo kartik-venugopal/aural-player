@@ -19,26 +19,26 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     @IBOutlet weak var eqSubPreview: NSView!
     
-    @IBOutlet weak var eqGlobalGainSlider: NSSlider!
-    @IBOutlet weak var eqSlider1k: NSSlider!
-    @IBOutlet weak var eqSlider64: NSSlider!
-    @IBOutlet weak var eqSlider16k: NSSlider!
-    @IBOutlet weak var eqSlider8k: NSSlider!
-    @IBOutlet weak var eqSlider4k: NSSlider!
-    @IBOutlet weak var eqSlider2k: NSSlider!
-    @IBOutlet weak var eqSlider32: NSSlider!
-    @IBOutlet weak var eqSlider512: NSSlider!
-    @IBOutlet weak var eqSlider256: NSSlider!
-    @IBOutlet weak var eqSlider128: NSSlider!
+    @IBOutlet weak var eqGlobalGainSlider: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider1k: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider64: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider16k: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider8k: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider4k: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider2k: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider32: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider512: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider256: EffectsUnitSlider!
+    @IBOutlet weak var eqSlider128: EffectsUnitSlider!
     
-    private var eqSliders: [NSSlider] = []
+    private var eqSliders: [EffectsUnitSlider] = []
     
     // Pitch
     
     @IBOutlet weak var pitchSubPreview: NSView!
     
-    @IBOutlet weak var pitchSlider: NSSlider!
-    @IBOutlet weak var pitchOverlapSlider: NSSlider!
+    @IBOutlet weak var pitchSlider: EffectsUnitSlider!
+    @IBOutlet weak var pitchOverlapSlider: EffectsUnitSlider!
     @IBOutlet weak var lblPitchValue: NSTextField!
     @IBOutlet weak var lblPitchOverlapValue: NSTextField!
     
@@ -47,8 +47,8 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     @IBOutlet weak var timeSubPreview: NSView!
     
     @IBOutlet weak var btnShiftPitch: NSButton!
-    @IBOutlet weak var timeSlider: NSSlider!
-    @IBOutlet weak var timeOverlapSlider: NSSlider!
+    @IBOutlet weak var timeSlider: EffectsUnitSlider!
+    @IBOutlet weak var timeOverlapSlider: EffectsUnitSlider!
     
     @IBOutlet weak var lblTimeStretchRateValue: NSTextField!
     @IBOutlet weak var lblPitchShiftValue: NSTextField!
@@ -59,17 +59,17 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     @IBOutlet weak var reverbSubPreview: NSView!
     
     @IBOutlet weak var reverbSpaceMenu: NSPopUpButton!
-    @IBOutlet weak var reverbAmountSlider: NSSlider!
+    @IBOutlet weak var reverbAmountSlider: EffectsUnitSlider!
     @IBOutlet weak var lblReverbAmountValue: NSTextField!
     
     // Delay
     
     @IBOutlet weak var delaySubPreview: NSView!
     
-    @IBOutlet weak var delayTimeSlider: NSSlider!
-    @IBOutlet weak var delayAmountSlider: NSSlider!
-    @IBOutlet weak var delayCutoffSlider: NSSlider!
-    @IBOutlet weak var delayFeedbackSlider: NSSlider!
+    @IBOutlet weak var delayTimeSlider: EffectsUnitSlider!
+    @IBOutlet weak var delayAmountSlider: EffectsUnitSlider!
+    @IBOutlet weak var delayCutoffSlider: EffectsUnitSlider!
+    @IBOutlet weak var delayFeedbackSlider: EffectsUnitSlider!
     
     @IBOutlet weak var lblDelayTimeValue: NSTextField!
     @IBOutlet weak var lblDelayAmountValue: NSTextField!
@@ -241,18 +241,22 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
         eqSliders.forEach({
             $0.floatValue = eqBands[$0.tag] ?? 0
+            $0.setUnitState(preset.state)
         })
         
         eqGlobalGainSlider.floatValue = globalGain
+        eqGlobalGainSlider.setUnitState(preset.state)
     }
     
     private func renderPitchPreview(_ preset: PitchPreset) {
         
         let pitch = preset.pitch * AppConstants.pitchConversion_audioGraphToUI
         pitchSlider.floatValue = pitch
+        pitchSlider.setUnitState(preset.state)
         lblPitchValue.stringValue = ValueFormatter.formatPitch(pitch)
         
         pitchOverlapSlider.floatValue = preset.overlap
+        pitchOverlapSlider.setUnitState(preset.state)
         lblPitchOverlapValue.stringValue = ValueFormatter.formatOverlap(preset.overlap)
     }
     
@@ -263,9 +267,11 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         lblPitchShiftValue.stringValue = ValueFormatter.formatPitch(pitchShift)
         
         timeSlider.floatValue = preset.rate
+        timeSlider.setUnitState(preset.state)
         lblTimeStretchRateValue.stringValue = ValueFormatter.formatTimeStretchRate(preset.rate)
         
         timeOverlapSlider.floatValue = preset.overlap
+        timeOverlapSlider.setUnitState(preset.state)
         lblTimeOverlapValue.stringValue = ValueFormatter.formatOverlap(preset.overlap)
     }
     
@@ -274,6 +280,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         reverbSpaceMenu.select(reverbSpaceMenu.item(withTitle: preset.space.description))
         
         reverbAmountSlider.floatValue = preset.amount
+        reverbAmountSlider.setUnitState(preset.state)
         lblReverbAmountValue.stringValue = ValueFormatter.formatReverbAmount(preset.amount)
     }
     
@@ -290,6 +297,8 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         
         delayCutoffSlider.floatValue = preset.cutoff
         lblDelayLowPassCutoffValue.stringValue = ValueFormatter.formatDelayLowPassCutoff(preset.cutoff)
+        
+        [delayTimeSlider, delayAmountSlider, delayCutoffSlider, delayFeedbackSlider].forEach({$0?.setUnitState(preset.state)})
     }
     
     private func renderFilterPreview(_ preset: FilterPreset) {
@@ -308,6 +317,8 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         filterTrebleSlider.start = Double(trebleBand.lowerBound)
         filterTrebleSlider.end = Double(trebleBand.upperBound)
         lblFilterTrebleRange.stringValue = ValueFormatter.formatFilterFrequencyRange(trebleBand.lowerBound, trebleBand.upperBound)
+        
+        [filterBassSlider, filterMidSlider, filterTrebleSlider].forEach({$0?.unitState = preset.state})
     }
     
     // MARK: View delegate functions

@@ -31,4 +31,15 @@ class EffectsUnitSlider: NSSlider, EffectsUnitSliderProtocol {
             self.setNeedsDisplay()
         }
     }
+    
+    func setUnitState(_ state: EffectsUnitState) {
+        
+        self.unitState = state
+        
+        if var cell = self.cell as? EffectsUnitSliderCellProtocol {
+            cell.unitState = unitState
+        }
+        
+        self.setNeedsDisplay()
+    }
 }
