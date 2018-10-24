@@ -82,7 +82,7 @@ enum ActionType {
     
     case expandSelectedGroups
     
-    case collapseSelectedGroups
+    case collapseSelectedItems
     
     case collapseParentGroup
     

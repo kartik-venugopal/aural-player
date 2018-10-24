@@ -27,8 +27,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var cropSelectionMenuItem: NSMenuItem!
     
     @IBOutlet weak var expandSelectedGroupsMenuItem: NSMenuItem!
-    @IBOutlet weak var collapseSelectedGroupsMenuItem: NSMenuItem!
-    @IBOutlet weak var collapseParentGroupMenuItem: NSMenuItem!
+    @IBOutlet weak var collapseSelectedItemsMenuItem: NSMenuItem!
     
     @IBOutlet weak var expandAllGroupsMenuItem: NSMenuItem!
     @IBOutlet weak var collapseAllGroupsMenuItem: NSMenuItem!
@@ -65,6 +64,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         let playlistSize = playlist.size()
         let playlistNotEmpty = playlistSize > 0
         let atLeastOneItemSelected = PlaylistViewState.currentView.selectedRow >= 0
+        let numSelectedRows = PlaylistViewState.currentView.numberOfSelectedRows
         
         // These menu items require 1 - the playlist to be visible, and 2 - at least one playlist item to be selected
         let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
@@ -79,7 +79,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         clearSelectionMenuItem.isEnabled = playlistNotEmpty && atLeastOneItemSelected
         
         // Make sure it's a track, not a group, and that only one track is selected
-        if PlaylistViewState.currentView.numberOfSelectedRows == 1 {
+        if numSelectedRows == 1 {
             
             if PlaylistViewState.selectedItem.type != .group {
                 
@@ -98,16 +98,15 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.isHidden = true})
         }
         
-        playSelectedItemDelayedMenuItem.isEnabled = PlaylistViewState.currentView.numberOfSelectedRows == 1
+        playSelectedItemDelayedMenuItem.isEnabled = numSelectedRows == 1
         
-        [expandSelectedGroupsMenuItem, collapseSelectedGroupsMenuItem].forEach({
-            $0?.isHidden = PlaylistViewState.current == .tracks
-            $0?.isEnabled = atLeastOneItemSelected && areOnlyGroupsSelected()
-        })
+        expandSelectedGroupsMenuItem.isHidden = PlaylistViewState.current == .tracks
+        expandSelectedGroupsMenuItem.isEnabled = atLeastOneItemSelected && areOnlyGroupsSelected()
+        
+        collapseSelectedItemsMenuItem.isHidden = PlaylistViewState.current == .tracks
+        collapseSelectedItemsMenuItem.isEnabled = atLeastOneItemSelected
+        
         [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.isHidden = !(PlaylistViewState.current != .tracks && playlistNotEmpty)})
-        
-//        collapseParentGroupMenuItem.isHidden = PlaylistViewState.current == .tracks || !collapseSelectedGroupsMenuItem.isHidden
-//        collapseParentGroupMenuItem.isEnabled = numRowsSelected == 1 && PlaylistViewState.selectedItem.type == .track
     }
     
     private func areOnlyGroupsSelected() -> Bool {
@@ -260,12 +259,8 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.expandSelectedGroups, PlaylistViewState.current))
     }
     
-    @IBAction func collapseSelectedGroupsAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.collapseSelectedGroups, PlaylistViewState.current))
-    }
-    
-    @IBAction func collapseParentGroupAction(_ sender: Any) {
-//        SyncMessenger.publishActionMessage(PlaylistActionMessage(.collapseParentGroup, PlaylistViewState.current))
+    @IBAction func collapseSelectedItemsAction(_ sender: Any) {
+        SyncMessenger.publishActionMessage(PlaylistActionMessage(.collapseSelectedItems, PlaylistViewState.current))
     }
     
     @IBAction func expandAllGroupsAction(_ sender: Any) {

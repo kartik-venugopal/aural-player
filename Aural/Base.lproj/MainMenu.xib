@@ -41,8 +41,7 @@
                 <outlet property="clearPlaylistMenuItem" destination="ec2-Jm-I4M" id="EHN-Pi-SW4"/>
                 <outlet property="clearSelectionMenuItem" destination="y60-Ih-ViK" id="UHW-zF-nLv"/>
                 <outlet property="collapseAllGroupsMenuItem" destination="vBe-YK-qXP" id="uNq-A9-nfW"/>
-                <outlet property="collapseParentGroupMenuItem" destination="t2f-1t-8Uh" id="GzJ-Gx-HG5"/>
-                <outlet property="collapseSelectedGroupsMenuItem" destination="P3w-3g-aC8" id="yLs-d5-nMR"/>
+                <outlet property="collapseSelectedItemsMenuItem" destination="P3w-3g-aC8" id="yLs-d5-nMR"/>
                 <outlet property="cropSelectionMenuItem" destination="yml-EW-5wq" id="bpz-aE-Smf"/>
                 <outlet property="editGapsMenuItem" destination="y39-3c-GVk" id="H1v-4Z-ze8"/>
                 <outlet property="expandAllGroupsMenuItem" destination="Sls-KQ-Exg" id="dka-Gd-bKT"/>
@@ -495,16 +494,10 @@ CA
                                     <action selector="expandSelectedGroupsAction:" target="sXT-Pr-clR" id="vvf-uQ-9kx"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Collapse parent group" image="CollapseGroups" hidden="YES" enabled="NO" id="t2f-1t-8Uh" userLabel="Collapse parent group">
+                            <menuItem title=" Collapse selected items" image="CollapseGroups" keyEquivalent="." id="P3w-3g-aC8" userLabel="Collapse selected items">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="collapseParentGroupAction:" target="sXT-Pr-clR" id="11M-f6-dX5"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title=" Collapse selected groups" image="CollapseGroups" keyEquivalent="." id="P3w-3g-aC8" userLabel="Collapse selected groups">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="collapseSelectedGroupsAction:" target="sXT-Pr-clR" id="hdb-mK-JPn"/>
+                                    <action selector="collapseSelectedItemsAction:" target="sXT-Pr-clR" id="hdb-mK-JPn"/>
                                 </connections>
                             </menuItem>
                             <menuItem title=" Expand all groups" image="ExpandGroups" keyEquivalent="/" id="Sls-KQ-Exg" userLabel="Expand all groups">
