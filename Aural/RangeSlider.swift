@@ -46,7 +46,12 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
     //MARK: - Public API -
     
     @IBInspectable var enabled: Bool = true
-    var unitState: EffectsUnitState = .bypassed
+    var unitState: EffectsUnitState = .bypassed {
+        
+        didSet {
+            self.setNeedsDisplay(self.bounds)
+        }
+    }
     
     var stateFunction: (() -> EffectsUnitState)?
     
