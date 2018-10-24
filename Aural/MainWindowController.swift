@@ -105,13 +105,13 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     private func initSubscriptions() {
         
         // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .showOrHideMainControls], subscriber: self)
         SyncMessenger.subscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
-        SyncMessenger.unsubscribe(actionTypes: [.toggleEffects, .togglePlaylist], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.toggleEffects, .togglePlaylist, .showOrHideMainControls], subscriber: self)
         SyncMessenger.unsubscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
     
@@ -163,6 +163,27 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     // Minimizes the window (and any child windows)
     @IBAction func minimizeAction(_ sender: AnyObject) {
         theWindow.miniaturize(self)
+    }
+    
+    private func showOrHideMainControls() {
+        
+        if playerBox.isHidden {
+            
+            // Show controls
+            playerBox.isHidden = false
+            PlayerViewState.showControls = true
+            
+            // Move Now Playing box up
+            nowPlayingBox.setFrameOrigin(NSPoint(x: 0, y: 73))
+            
+        } else {
+            
+            // Hide controls
+            playerBox.isHidden = true
+            PlayerViewState.showControls = false
+            
+            nowPlayingBox.setFrameOrigin(NSPoint(x: 0, y: 40))
+        }
     }
     
     // MARK: Window delegate
@@ -233,6 +254,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         case .toggleEffects: toggleEffects()
             
         case .togglePlaylist: togglePlaylist()
+            
+        case .showOrHideMainControls:   showOrHideMainControls()
             
         default: return
             

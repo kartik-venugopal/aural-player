@@ -8,8 +8,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NowPlayingViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="artBox" destination="PT4-Nz-wsq" id="1pa-52-qXF"/>
-                <outlet property="artView" destination="l10-SF-CHC" id="Ee2-rS-1ja"/>
+                <outlet property="artView" destination="BPT-Vw-GwV" id="Miv-0l-TKN"/>
+                <outlet property="bigArtView" destination="fEe-2I-RVe" id="Wzp-iQ-nPW"/>
                 <outlet property="btnBookmark" destination="C4w-OW-dlN" id="jru-RG-O6M"/>
                 <outlet property="btnFavorite" destination="KT7-8r-vad" id="6Gf-dk-PC8"/>
                 <outlet property="btnMoreInfo" destination="kPM-Qe-A4w" id="bVr-b6-leU"/>
@@ -19,13 +19,14 @@
                 <outlet property="gapView_artView" destination="y2o-Xb-TnC" id="aHq-gW-TgF"/>
                 <outlet property="gapView_lblTimeRemaining" destination="x0D-dF-6wP" id="Mtf-03-GMI"/>
                 <outlet property="gapView_lblTrackTitle" destination="Na1-JX-XfV" id="0eu-UX-YBQ"/>
-                <outlet property="imgScope" destination="fQq-xK-Yfp" id="Ve7-lA-IMM"/>
-                <outlet property="lblPlaybackScope" destination="9ax-cI-TYz" id="CYU-ji-GkG"/>
-                <outlet property="lblSequenceProgress" destination="uyw-tN-838" id="3DM-2K-lJk"/>
-                <outlet property="lblTrackArtist" destination="NpJ-bU-VYr" id="F4T-J0-c47"/>
-                <outlet property="lblTrackName" destination="8gP-Iw-Ava" id="TeL-2e-fHh"/>
-                <outlet property="lblTrackTitle" destination="5Qt-eu-LYY" id="UXC-tO-Ipb"/>
+                <outlet property="imgScope" destination="QoY-4i-ahB" id="Znw-Se-wHt"/>
+                <outlet property="lblPlaybackScope" destination="eMp-22-hxm" id="c3x-nx-asS"/>
+                <outlet property="lblSequenceProgress" destination="SLg-RK-nN6" id="q72-wv-34K"/>
+                <outlet property="lblTrackArtist" destination="R89-sc-9iG" id="6lV-R8-52a"/>
+                <outlet property="lblTrackName" destination="zPS-5T-W6q" id="ayI-BY-NY2"/>
+                <outlet property="lblTrackTitle" destination="A9w-Lb-zHm" id="LwV-mK-al0"/>
                 <outlet property="nowPlayingView" destination="WEn-UI-cQh" id="TdD-ML-7hE"/>
+                <outlet property="playingTrackInfoBox" destination="3dm-hA-FTE" id="oRq-g5-djZ"/>
                 <outlet property="view" destination="cgF-tt-Oo4" id="gUA-fd-ItW"/>
             </connections>
         </customObject>
@@ -39,73 +40,78 @@
                     <rect key="frame" x="0.0" y="0.0" width="500" height="94"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="2" cornerRadius="2" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="PT4-Nz-wsq" userLabel="Art Box">
-                            <rect key="frame" x="10" y="12" width="70" height="70"/>
+                        <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fEe-2I-RVe" userLabel="Big Art View">
+                            <rect key="frame" x="203" y="0.0" width="94" height="94"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <view key="contentView" ambiguous="YES" id="m7s-3c-jqW">
-                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="duc-xD-6tP"/>
+                        </imageView>
+                        <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="3dm-hA-FTE" userLabel="Playing Track Info Box">
+                            <rect key="frame" x="0.0" y="0.0" width="455" height="94"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <view key="contentView" ambiguous="YES" id="yuw-97-vbx">
+                                <rect key="frame" x="0.0" y="0.0" width="455" height="94"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l10-SF-CHC">
-                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BPT-Vw-GwV" userLabel="Art View">
+                                        <rect key="frame" x="10" y="12" width="70" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="kh2-To-Ha7"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="jwz-Ne-J7E"/>
                                     </imageView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zPS-5T-W6q" userLabel="Track Name">
+                                        <rect key="frame" x="92" y="47" width="316" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" drawsBackground="YES" id="Niy-WC-7GX">
+                                            <font key="font" size="14" name="GillSans-SemiBold"/>
+                                            <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A9w-Lb-zHm" userLabel="Track Title">
+                                        <rect key="frame" x="92" y="67" width="316" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" drawsBackground="YES" id="iJe-Md-RiM">
+                                            <font key="font" size="14" name="GillSans-SemiBold"/>
+                                            <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R89-sc-9iG" userLabel="Track Artist">
+                                        <rect key="frame" x="92" y="47" width="316" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" drawsBackground="YES" id="BUT-OT-J3s">
+                                            <font key="font" size="13" name="GillSans"/>
+                                            <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QoY-4i-ahB" userLabel="Img Scope">
+                                        <rect key="frame" x="90" y="27" width="11" height="11"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="o3e-QU-6oU"/>
+                                    </imageView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eMp-22-hxm" userLabel="Lbl Playback Scope">
+                                        <rect key="frame" x="105" y="26" width="303" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" drawsBackground="YES" id="1hf-qd-gJk">
+                                            <font key="font" size="12" name="GillSans"/>
+                                            <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SLg-RK-nN6" userLabel="Lbl Sequence Progress">
+                                        <rect key="frame" x="202" y="9" width="96" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="99999 / 99999" placeholderString="" drawsBackground="YES" id="gl6-VO-Qte">
+                                            <font key="font" size="11" name="GillSans-SemiBold"/>
+                                            <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                             </view>
-                            <color key="borderColor" white="0.099190848214285712" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </box>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8gP-Iw-Ava" userLabel="Track Name">
-                            <rect key="frame" x="92" y="47" width="316" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" drawsBackground="YES" id="L7X-SI-PET">
-                                <font key="font" size="14" name="GillSans-SemiBold"/>
-                                <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </textFieldCell>
-                        </textField>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Qt-eu-LYY" userLabel="Track Title">
-                            <rect key="frame" x="92" y="67" width="316" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" drawsBackground="YES" id="msk-op-b89">
-                                <font key="font" size="14" name="GillSans-SemiBold"/>
-                                <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </textFieldCell>
-                        </textField>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NpJ-bU-VYr" userLabel="Track Artist">
-                            <rect key="frame" x="92" y="47" width="316" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" drawsBackground="YES" id="bCD-1W-Pcm">
-                                <font key="font" size="13" name="GillSans"/>
-                                <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </textFieldCell>
-                        </textField>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ax-cI-TYz" userLabel="Lbl Playback Scope">
-                            <rect key="frame" x="105" y="26" width="303" height="17"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" drawsBackground="YES" id="gex-Jf-Yqj">
-                                <font key="font" size="12" name="GillSans"/>
-                                <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </textFieldCell>
-                        </textField>
-                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fQq-xK-Yfp">
-                            <rect key="frame" x="90" y="27" width="11" height="11"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="z02-cs-77v"/>
-                        </imageView>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uyw-tN-838" userLabel="Lbl Sequence Progress">
-                            <rect key="frame" x="202" y="9" width="96" height="17"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="99999 / 99999" placeholderString="" drawsBackground="YES" id="EmC-Bg-uaZ">
-                                <font key="font" size="11" name="GillSans-SemiBold"/>
-                                <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </textFieldCell>
-                        </textField>
                         <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="8cM-9t-5Ap" userLabel="Buttons Box">
                             <rect key="frame" x="474" y="3" width="18" height="75"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -171,7 +177,7 @@
                     </subviews>
                 </view>
                 <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PRf-Wn-q9a" userLabel="Gap View">
-                    <rect key="frame" x="0.0" y="0.0" width="500" height="94"/>
+                    <rect key="frame" x="0.0" y="-145" width="500" height="94"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y2o-Xb-TnC" userLabel="Art View">

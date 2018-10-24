@@ -129,6 +129,7 @@
                 <outlet property="playerMenuItem" destination="af4-4E-1QV" id="4gV-4y-eCR"/>
                 <outlet property="playerSeekBarMenuItem" destination="Fu7-ev-msw" id="UvR-dt-iWB"/>
                 <outlet property="playerTrackFunctionsMenuItem" destination="JiX-rw-gah" id="f1m-fz-tMI"/>
+                <outlet property="playerTrackInfoMenuItem" destination="UzR-MM-ibF" id="zYk-YS-LFY"/>
                 <outlet property="switchViewMenuItem" destination="Lhd-o1-irA" id="cBX-0N-n7w"/>
                 <outlet property="timeElapsedMenuItem_hms" destination="z7S-TB-1Mk" id="cG7-TH-KCL"/>
                 <outlet property="timeElapsedMenuItem_percentage" destination="jXi-ii-Jv1" id="0k3-01-1cL"/>
@@ -979,7 +980,13 @@ CA
                                                 <action selector="showOrHideAlbumArtAction:" target="xzd-WN-BuR" id="g1H-k9-oY6"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Now playing track functions" id="JiX-rw-gah">
+                                        <menuItem title="Playing track info" id="UzR-MM-ibF" userLabel="Playing track info">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showOrHidePlayingTrackInfoAction:" target="xzd-WN-BuR" id="jEk-wI-Lr5"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Playing track functions" id="JiX-rw-gah">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showOrHidePlayingTrackFunctionsAction:" target="xzd-WN-BuR" id="GSR-f4-iF8"/>
@@ -991,7 +998,7 @@ CA
                                                 <action selector="showOrHideSeekBarAction:" target="xzd-WN-BuR" id="CeD-Xp-h6D"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Main controls" hidden="YES" enabled="NO" id="9dh-e2-H3v" userLabel="View Player Main Controls">
+                                        <menuItem title="Main controls" id="9dh-e2-H3v" userLabel="View Player Main Controls">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showOrHideMainControlsAction:" target="xzd-WN-BuR" id="U63-VK-9oh"/>
