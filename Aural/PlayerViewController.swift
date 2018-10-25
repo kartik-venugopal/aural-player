@@ -1,28 +1,38 @@
 /*
- View controller for the player controls (volume, pan, play/pause, prev/next track, seeking, repeat/shuffle)
+    View controller for the player controls (volume, pan, play/pause, prev/next track, seeking, repeat/shuffle)
  */
 import Cocoa
 
 class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber, ConstituentView {
     
-    @IBOutlet weak var artView: NSImageView!
+    @IBOutlet weak var defaultView: PlayerView!
+    @IBOutlet weak var expandedArtView: PlayerView!
     @IBOutlet weak var playbackBox: NSBox!
-    @IBOutlet weak var playbackInfoBox: NSBox!
     @IBOutlet weak var functionsBox: NSBox!
-    @IBOutlet weak var overlayBox: NSBox!
     @IBOutlet weak var gapView: NSView!
+    
+    private lazy var mouseTrackingView: MouseTrackingView = ViewFactory.getMainWindowMouseTrackingView()
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.getPlaybackDelegate()
     
     override var nibName: String? {return "Player"}
     
-    override func viewDidLoad() {
-        AppModeManager.registerConstituentView(.regular, self)
+    private var theView: PlayerView {
+        return PlayerViewState.viewType == .defaultView ? defaultView : expandedArtView
     }
     
-    override func viewDidAppear() {
-        overlayBox.isHidden = !PlayerViewState.overlay
+    override func viewDidLoad() {
+        
+        self.view.addSubview(defaultView)
+        self.view.addSubview(expandedArtView)
+        
+        // TODO: This value will come from appState
+        PlayerViewState.viewType = .defaultView
+        
+        showView(PlayerViewState.viewType)
+        
+        AppModeManager.registerConstituentView(.regular, self)
     }
     
     func activate() {
@@ -40,7 +50,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.showOrHideSeekBar, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHidePlayingTrackFunctions], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -49,81 +59,81 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         SyncMessenger.unsubscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.showOrHideSeekBar], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHidePlayingTrackFunctions], subscriber: self)
     }
     
     private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
         gapView.isHidden = false
     }
     
-    private func showOrHidePlayingTrackInfo() {
+    private func changeView(_ message: PlayerViewActionMessage) {
+        showView(message.viewType)
+    }
+    
+    private func showView(_ viewType: PlayerViewType) {
         
-        NowPlayingViewState.DefaultViewState.showPlayingTrackInfo = !NowPlayingViewState.DefaultViewState.showPlayingTrackInfo
+        PlayerViewState.viewType = viewType
         
-        if NowPlayingViewState.DefaultViewState.showPlayingTrackInfo {
+        switch viewType {
             
-            playbackInfoBox.isHidden = false
-            artView.isHidden = !NowPlayingViewState.DefaultViewState.showAlbumArt
+        case .defaultView:
             
-        } else {
+            showDefaultView()
             
-            playbackInfoBox.isHidden = true
-            NowPlayingViewState.DefaultViewState.showAlbumArt = true
+        case .expandedArt:
+            
+            showExpandedArtView()
         }
+        
+        PlayerViewState.showControls ? mouseTrackingView.stopTracking() : mouseTrackingView.startTracking()
+    }
+    
+    private func showDefaultView() {
+        
+        PlayerViewState.viewType = .defaultView
+        
+        expandedArtView.isHidden = true
+        expandedArtView.hideView()
+
+        defaultView.showView()
+        defaultView.isHidden = false
+    }
+    
+    private func showExpandedArtView() {
+        
+        PlayerViewState.viewType = .expandedArt
+        
+        defaultView.isHidden = true
+        defaultView.hideView()
+        
+        expandedArtView.showView()
+        expandedArtView.isHidden = false
+    }
+    
+    private func showOrHidePlayingTrackInfo() {
+        theView.showOrHidePlayingTrackInfo()
     }
     
     private func showOrHidePlayingTrackFunctions() {
-        
-        NowPlayingViewState.DefaultViewState.showPlayingTrackFunctions = !NowPlayingViewState.DefaultViewState.showPlayingTrackFunctions
-        functionsBox.isHidden = !NowPlayingViewState.DefaultViewState.showPlayingTrackFunctions
+        theView.showOrHidePlayingTrackFunctions()
     }
     
     private func showOrHideAlbumArt() {
-        
-        NowPlayingViewState.DefaultViewState.showAlbumArt = !NowPlayingViewState.DefaultViewState.showAlbumArt
-        
-        if NowPlayingViewState.DefaultViewState.showAlbumArt {
-            artView.isHidden = false
-        } else {
-            
-            NowPlayingViewState.DefaultViewState.showPlayingTrackInfo = true
-            playbackInfoBox.isHidden = false
-            artView.isHidden = true
-        }
+        theView.showOrHideAlbumArt()
     }
     
-    private func showPlayerControls() {
+    private func showOrHideMainControls() {
         
-        overlayBox.isHidden = false
-        playbackBox.isHidden = false
-        
-        var superView = playbackBox.superview
-        playbackBox.removeFromSuperview()
-        superView?.addSubview(playbackBox, positioned: .above, relativeTo: nil)
-        
-        playbackInfoBox.isTransparent = true
-        
-        superView = playbackInfoBox.superview
-        playbackInfoBox.removeFromSuperview()
-        superView?.addSubview(playbackInfoBox, positioned: .above, relativeTo: nil)
-        
-        superView = functionsBox.superview
-        functionsBox.removeFromSuperview()
-        superView?.addSubview(functionsBox, positioned: .above, relativeTo: nil)
-        
-        playbackInfoBox.frame.origin.y = playbackBox.frame.maxY
-        
-        functionsBox.frame.origin.y = playbackInfoBox.frame.origin.y
+        theView.showOrHideMainControls()
+        PlayerViewState.showControls ? mouseTrackingView.stopTracking() : mouseTrackingView.startTracking()
     }
     
-    private func hidePlayerControls() {
-        
-        overlayBox.isHidden = true
-        playbackBox.isHidden = true
-        playbackInfoBox.isTransparent = false
-        
-        playbackInfoBox.frame.origin.y = (self.view.frame.height / 2) - (playbackInfoBox.frame.height / 2)
-        functionsBox.frame.origin.y = playbackInfoBox.frame.origin.y
+    func mouseEntered() {
+        theView.mouseEntered()
+    }
+    
+    func mouseExited() {
+        theView.mouseExited()
     }
     
     func getLocationForBookmarkPrompt() -> (view: NSView, edge: NSRectEdge) {
@@ -149,11 +159,11 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
         case .mouseEnteredView:
             
-            showPlayerControls()
+            mouseEntered()
             
         case .mouseExitedView:
             
-            hidePlayerControls()
+            mouseExited()
             
         default: return
             
@@ -173,53 +183,66 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         }
     }
     
-//    func consumeMessage(_ message: ActionMessage) {
-//
-//        switch message.actionType {
-//
-//        case .showOrHidePlayingTrackInfo:
-//
-//            showOrHidePlayingTrackInfo()
-//
-//        case .showOrHidePlayingTrackFunctions:
-//
-//            showOrHidePlayingTrackFunctions()
-//
-//        case .showOrHideAlbumArt:
-//
-//            showOrHideAlbumArt()
-//
-//        default: return
-//
-//        }
-//    }
-    
     func consumeMessage(_ message: ActionMessage) {
         
         switch message.actionType {
             
+        case .changePlayerView:
             
+            changeView((message as! PlayerViewActionMessage))
             
-            // Player functions
-      
-//        case .showOrHideSeekBar:
-//
-//            showOrHideSeekBar()
-//
-//        case .showOrHideMainControls:
-//
-//            showOrHideMainControls()
-//
-//        case .setTimeElapsedDisplayFormat:
-//
-//            setTimeElapsedDisplayFormat((message as! SetTimeElapsedDisplayFormatActionMessage).format)
-//
-//        case .setTimeRemainingDisplayFormat:
-//
-//            setTimeRemainingDisplayFormat((message as! SetTimeRemainingDisplayFormatActionMessage).format)
+        case .showOrHidePlayingTrackInfo:
+            
+            showOrHidePlayingTrackInfo()
+            
+        case .showOrHidePlayingTrackFunctions:
+            
+            showOrHidePlayingTrackFunctions()
+            
+        case .showOrHideAlbumArt:
+            
+            showOrHideAlbumArt()
+            
+        case .showOrHideMainControls:
+            
+            showOrHideMainControls()
             
         default: return
             
         }
     }
+}
+
+// Convenient accessor for information about the current playlist view
+class PlayerViewState {
+    
+    static var viewType: PlayerViewType = .defaultView
+    
+    static var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
+    static var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
+    
+    static var showControls: Bool = true
+    
+    // Default view
+    static var showPlayingTrackInfo: Bool = true
+    static var showPlayingTrackFunctions: Bool = true
+    static var showAlbumArt: Bool = true
+    
+    static func persistentState() -> PlayerState {
+        
+//        let state = NowPlayingState()
+        let state = PlayerState()
+//        state.showAlbumArt = DefaultViewState.showAlbumArt
+//        state.showPlayingTrackFunctions = DefaultViewState.showPlayingTrackFunctions
+        state.timeElapsedDisplayType = timeElapsedDisplayType
+        state.timeRemainingDisplayType = timeRemainingDisplayType
+        
+        return state
+    }
+}
+
+enum PlayerViewType: String {
+    
+    case defaultView
+    case expandedArt
 }

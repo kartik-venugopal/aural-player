@@ -295,17 +295,14 @@ enum ActionType {
     
     // Now playing view actions
     
-    case changeNowPlayingView
+    case changePlayerView
     
     case showOrHidePlayingTrackInfo
     case showOrHidePlayingTrackFunctions
     case showOrHideAlbumArt
     
-    case showOrHideTrackName
-    
     // Player view actions
     
-    case showOrHideSeekBar
     case showOrHideMainControls
     
     case setTimeElapsedDisplayFormat
@@ -531,13 +528,13 @@ struct SetTimeRemainingDisplayFormatActionMessage: ActionMessage {
     }
 }
 
-struct NowPlayingViewActionMessage: ActionMessage {
+struct PlayerViewActionMessage: ActionMessage {
     
-    let actionType: ActionType = .changeNowPlayingView
+    let actionType: ActionType = .changePlayerView
     
-    let viewType: NowPlayingViewType
+    let viewType: PlayerViewType
     
-    init(_ viewType: NowPlayingViewType) {
+    init(_ viewType: PlayerViewType) {
         self.viewType = viewType
     }
 }

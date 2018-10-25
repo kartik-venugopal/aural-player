@@ -4,17 +4,34 @@ class MouseTrackingView: NSView {
     
     private var trackingArea: NSTrackingArea?
     
+    private var isTracking: Bool = false
+    
     private var inArea: Bool = false
     
-    override func awakeFromNib() {
+    func startTracking() {
+        
+        print("\nStart")
+        stopTracking()
+        
+        isTracking = true
         updateTrackingAreas()
+    }
+    
+    func stopTracking() {
+        
+        print("\nStop")
+        if let area = self.trackingArea {
+            self.removeTrackingArea(area)
+        }
+        
+        isTracking = false
     }
  
     override func updateTrackingAreas() {
         
-        if let area = self.trackingArea {
-            self.removeTrackingArea(area)
-        }
+        if !isTracking {return}
+        
+        print("\nUpdate")
         
         // Create a tracking area that covers the bounds of the view. It should respond whenever the mouse enters or exits.
         
