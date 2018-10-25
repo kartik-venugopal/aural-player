@@ -124,12 +124,15 @@
                 <outlet property="dockPlaylistMenuItem" destination="RWg-5h-jkO" id="d20-xc-maQ"/>
                 <outlet property="manageLayoutsMenuItem" destination="ly6-5K-P4A" id="Sjk-TY-Kfh"/>
                 <outlet property="maximizePlaylistMenuItem" destination="Yge-Nz-rQX" id="jij-YN-cqO"/>
-                <outlet property="playerArtMenuItem" destination="HPx-xo-hJh" id="6fy-Kk-ubP"/>
-                <outlet property="playerMainControlsMenuItem" destination="9dh-e2-H3v" id="hEP-Fe-8Ub"/>
+                <outlet property="playerDefaultViewMenuItem" destination="0Vx-5M-0eg" id="489-P9-GSF"/>
+                <outlet property="playerExpandedArtViewMenuItem" destination="qqG-bq-Cq8" id="CYm-oo-dP6"/>
                 <outlet property="playerMenuItem" destination="af4-4E-1QV" id="4gV-4y-eCR"/>
-                <outlet property="playerSeekBarMenuItem" destination="Fu7-ev-msw" id="UvR-dt-iWB"/>
-                <outlet property="playerTrackFunctionsMenuItem" destination="JiX-rw-gah" id="f1m-fz-tMI"/>
-                <outlet property="playerTrackInfoMenuItem" destination="UzR-MM-ibF" id="zYk-YS-LFY"/>
+                <outlet property="showArtMenuItem" destination="HPx-xo-hJh" id="Xtg-Cu-hT9"/>
+                <outlet property="showMainControlsMenuItem" destination="9dh-e2-H3v" id="bYn-m9-zR7"/>
+                <outlet property="showSeekBarMenuItem" destination="Fu7-ev-msw" id="WNg-9D-UMG"/>
+                <outlet property="showTrackFunctionsMenuItem" destination="JiX-rw-gah" id="SUR-wS-Lbs"/>
+                <outlet property="showTrackInfoMenuItem" destination="UzR-MM-ibF" id="Jog-0Q-j1h"/>
+                <outlet property="showTrackNameMenuItem" destination="rVI-6g-Dza" id="0Ak-bH-Nok"/>
                 <outlet property="switchViewMenuItem" destination="Lhd-o1-irA" id="cBX-0N-n7w"/>
                 <outlet property="timeElapsedMenuItem_hms" destination="z7S-TB-1Mk" id="cG7-TH-KCL"/>
                 <outlet property="timeElapsedMenuItem_percentage" destination="jXi-ii-Jv1" id="0k3-01-1cL"/>
@@ -974,6 +977,19 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title=" Player" id="y9u-HE-dXj">
                                     <items>
+                                        <menuItem title="Default view" state="on" id="0Vx-5M-0eg">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="playerDefaultViewAction:" target="xzd-WN-BuR" id="Q5E-Oc-c72"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Expanded art view" id="qqG-bq-Cq8">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="playerExpandedArtViewAction:" target="xzd-WN-BuR" id="6QB-ag-awI"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="ZNa-Wn-ZhE"/>
                                         <menuItem title="Album art" id="HPx-xo-hJh">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -1005,6 +1021,13 @@ CA
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Was-xV-Moy"/>
+                                        <menuItem title="Track name" state="on" id="rVI-6g-Dza">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showOrHideTrackNameAction:" target="xzd-WN-BuR" id="TYp-aQ-Pm3"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="Yvf-AY-f2r"/>
                                         <menuItem title="Time elapsed display" id="nsK-2D-RCp">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Time elapsed display" id="aBb-re-Vum">
@@ -1087,11 +1110,7 @@ CA
                                     <action selector="toggleEffectsAction:" target="xzd-WN-BuR" id="fHz-aJ-KZK"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Visualizer" state="on" image="ToggleEffectsView-Small" hidden="YES" enabled="NO" keyEquivalent="v" id="ZMB-r0-Kye" userLabel="Vis">
-                                <connections>
-                                    <action selector="vizAction:" target="xzd-WN-BuR" id="eIk-J5-9GN"/>
-                                </connections>
-                            </menuItem>
+                            <menuItem title="Visualizer" state="on" image="ToggleEffectsView-Small" hidden="YES" enabled="NO" keyEquivalent="v" id="ZMB-r0-Kye" userLabel="Vis"/>
                             <menuItem isSeparatorItem="YES" id="sUj-gu-cOk"/>
                             <menuItem title="  Dock Playlist" image="DockBottom-Small" hidden="YES" enabled="NO" id="pRj-Q7-pVQ" userLabel="Dock Playlist">
                                 <modifierMask key="keyEquivalentModifierMask"/>

@@ -41,6 +41,7 @@ struct Images {
     
     // Displayed in the playlist view
     static let imgGroup: NSImage = NSImage(named: "Group")!
+    static let imgGroup_noPadding: NSImage = NSImage(named: "Group-NoPadding")!
     
     // Images displayed in alerts
     static let imgWarning: NSImage = NSImage(named: "Warning")!

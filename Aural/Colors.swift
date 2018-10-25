@@ -14,6 +14,8 @@ struct Colors {
     // Color of text inside the playlist (non-selected items)
     static let playlistTextColor: NSColor = NSColor(calibratedWhite: 0.7, alpha: 1)
     
+    static let overlayBackgroundColor: NSColor = NSColor(calibratedWhite: 0, alpha: 0.8)
+    
     // Color of selected item text inside the playlist
     static let playlistSelectedTextColor: NSColor = NSColor(calibratedWhite: 1, alpha: 1)
     

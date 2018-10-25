@@ -59,14 +59,14 @@ import Cocoa
 //
 //    private func initSubscriptions() {
 //
-//        SyncMessenger.subscribe(messageTypes: [.barModeWindowMouseEntered, .barModeWindowMouseExited], subscriber: self)
+//        SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
 //
 //        SyncMessenger.subscribe(actionTypes: [.dockTopLeft, .dockTopRight, .dockBottomLeft, .dockBottomRight], subscriber: self)
 //    }
 //
 //    private func removeSubscriptions() {
 //
-//        SyncMessenger.unsubscribe(messageTypes: [.barModeWindowMouseEntered, .barModeWindowMouseExited], subscriber: self)
+//        SyncMessenger.unsubscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
 //
 //        SyncMessenger.unsubscribe(actionTypes: [.dockTopLeft, .dockTopRight, .dockBottomLeft, .dockBottomRight], subscriber: self)
 //    }
@@ -267,11 +267,11 @@ import Cocoa
 //
 //        switch notification.messageType {
 //
-//        case .barModeWindowMouseEntered:
+//        case .mouseEnteredView:
 //
 //            showPlayer()
 //
-//        case .barModeWindowMouseExited:
+//        case .mouseExitedView:
 //
 //            hidePlayer()
 //

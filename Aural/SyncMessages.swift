@@ -93,9 +93,9 @@ enum MessageType {
     
     case layoutChangedNotification
     
-    case barModeWindowMouseEntered
+    case mouseEnteredView
     
-    case barModeWindowMouseExited
+    case mouseExitedView
     
     case playbackRequest
     
@@ -463,7 +463,7 @@ struct LayoutChangedNotification: NotificationMessage {
     }
 }
 
-struct BarModeWindowMouseNotification: NotificationMessage {
+struct MouseTrackingNotification: NotificationMessage {
     
     let messageType: MessageType
     
@@ -471,8 +471,8 @@ struct BarModeWindowMouseNotification: NotificationMessage {
         self.messageType = messageType
     }
     
-    static let mouseEntered = BarModeWindowMouseNotification(.barModeWindowMouseEntered)
-    static let mouseExited = BarModeWindowMouseNotification(.barModeWindowMouseExited)
+    static let mouseEntered = MouseTrackingNotification(.mouseEnteredView)
+    static let mouseExited = MouseTrackingNotification(.mouseExitedView)
 }
 
 struct ApplyEffectsPresetRequest: RequestMessage {

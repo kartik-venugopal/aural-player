@@ -11,8 +11,7 @@
                 <outlet property="btnLayout" destination="0It-ci-89a" id="5aD-xW-9M2"/>
                 <outlet property="btnToggleEffects" destination="W1Y-N5-RBQ" id="U8N-rP-qpZ"/>
                 <outlet property="btnTogglePlaylist" destination="Br1-bp-Vzd" id="Cye-Wt-34K"/>
-                <outlet property="nowPlayingBox" destination="zwp-2y-nBe" id="zAh-6S-sE5"/>
-                <outlet property="playerBox" destination="wJm-gK-OsL" id="VAc-7N-kQ8"/>
+                <outlet property="containerBox" destination="hPg-iX-tXz" id="5Gt-cO-ZjA"/>
                 <outlet property="window" destination="7ng-jb-SCK" id="iPt-b2-wep"/>
             </connections>
         </customObject>
@@ -26,7 +25,7 @@
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <value key="minSize" type="size" width="530" height="230"/>
             <value key="maxSize" type="size" width="530" height="230"/>
-            <view key="contentView" id="W7v-UI-tl4">
+            <view key="contentView" id="W7v-UI-tl4" customClass="MouseTrackingView" customModule="Aural" customModuleProvider="target">
                 <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
@@ -154,34 +153,12 @@
                                         <action selector="btnLayoutAction:" target="-2" id="5cS-9b-ldk"/>
                                     </connections>
                                 </popUpButton>
-                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="hPg-iX-tXz" userLabel="Container Box">
+                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="hPg-iX-tXz" userLabel="Container Box">
                                     <rect key="frame" x="14" y="15" width="500" height="174"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" id="DYU-Up-NX9">
                                         <rect key="frame" x="0.0" y="0.0" width="500" height="174"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <subviews>
-                                            <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" title="Box" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zwp-2y-nBe" userLabel="Now Playing Box">
-                                                <rect key="frame" x="0.0" y="73" width="500" height="94"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <view key="contentView" id="r5T-L7-Nu3">
-                                                    <rect key="frame" x="0.0" y="0.0" width="500" height="94"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                </view>
-                                                <color key="borderColor" white="0.103108724" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </box>
-                                            <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wJm-gK-OsL" userLabel="Player Box">
-                                                <rect key="frame" x="0.0" y="0.0" width="500" height="70"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <view key="contentView" id="0EX-XC-OYa">
-                                                    <rect key="frame" x="0.0" y="0.0" width="500" height="70"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                </view>
-                                                <color key="borderColor" white="0.099066840279999999" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            </box>
-                                        </subviews>
                                     </view>
                                     <color key="borderColor" white="0.103108724" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
