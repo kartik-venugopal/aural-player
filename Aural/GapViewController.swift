@@ -37,7 +37,7 @@ class GapViewController: NSViewController, AsyncMessageSubscriber {
         lblTrackTitle.stringValue = String(format: "Up next:   %@", track.conciseDisplayName)
         updateGapCountdown(msg.gapEndTime)
         
-        artView.isHidden = !NowPlayingViewState.DefaultViewState.showAlbumArt
+        artView.isHidden = !PlayerViewState.showAlbumArt
         
         if (track.displayInfo.art != nil) {
             

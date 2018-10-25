@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class PlayingTrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber, ConstituentView {
+class TrackInfoViewController: NSViewController, MessageSubscriber, AsyncMessageSubscriber, ConstituentView {
     
     // Fields that display playing track info
     @IBOutlet weak var lblTrackArtist: NSTextField!
@@ -54,14 +54,14 @@ class PlayingTrackInfoViewController: NSViewController, MessageSubscriber, Async
         
         AsyncMessenger.subscribe([.tracksRemoved], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playingTrackInfoUpdatedNotification, .mouseEnteredView, .mouseExitedView], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
         AsyncMessenger.unsubscribe([.tracksRemoved, .addedToFavorites, .removedFromFavorites], subscriber: self)
         
-        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playingTrackInfoUpdatedNotification, .mouseEnteredView, .mouseExitedView], subscriber: self)
+        SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification, .sequenceChangedNotification, .playingTrackInfoUpdatedNotification], subscriber: self)
     }
     
     private func showNowPlayingInfo(_ track: Track) {
@@ -239,41 +239,6 @@ class PlayingTrackInfoViewController: NSViewController, MessageSubscriber, Async
     }
 }
 
-// Convenient accessor for information about the current playlist view
-class NowPlayingViewState {
-    
-    static var viewType: NowPlayingViewType = .defaultView
-    
-    class DefaultViewState {
-        
-        // Default view
-        static var showPlayingTrackInfo: Bool = true
-        static var showPlayingTrackFunctions: Bool = true
-        static var showAlbumArt: Bool = true
-    }
-    
-    class ExpandedArtViewState {
-    
-        // Expanded art view
-        static var showTrackName: Bool = true
-    }
-    
-    static func persistentState() -> NowPlayingState {
-        
-        let state = NowPlayingState()
-        state.showAlbumArt = DefaultViewState.showAlbumArt
-        state.showPlayingTrackFunctions = DefaultViewState.showPlayingTrackFunctions
-
-        return state
-    }
-}
-
-enum NowPlayingViewType: String {
-    
-    case defaultView
-    case expandedArt
-}
-
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
     guard let input = input else { return nil }
@@ -284,3 +249,7 @@ fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [Stri
 fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
     return input.rawValue
 }
+
+class DefaultPlayerTrackInfoViewController: TrackInfoViewController {}
+
+class ExpandedArtPlayerTrackInfoViewController: TrackInfoViewController {}

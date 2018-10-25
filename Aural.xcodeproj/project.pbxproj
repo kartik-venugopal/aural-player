@@ -165,6 +165,7 @@
 		3E7D8A64218118FF00EF8746 /* GapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D8A63218118FF00EF8746 /* GapViewController.swift */; };
 		3E7D8A6821817C8300EF8746 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D8A6721817C8300EF8746 /* PlayerViewController.swift */; };
 		3E7D8A6A2181910800EF8746 /* PlayingTrackFunctionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */; };
+		3E7D8A6C2181CCCB00EF8746 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D8A6B2181CCCB00EF8746 /* PlayerView.swift */; };
 		3E8036C11FD2840C00674934 /* MiniBarAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8036C01FD2840C00674934 /* MiniBarAppModeController.swift */; };
 		3E807C421FC597FC0027050F /* MouseTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E807C411FC597FC0027050F /* MouseTrackingView.swift */; };
 		3E80E66F1F04FA60007480CC /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E80E66E1F04FA60007480CC /* Size.swift */; };
@@ -284,7 +285,7 @@
 		3EDFFA0B1FC0283F00158177 /* ViewPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFFA0A1FC0283F00158177 /* ViewPreferencesViewController.swift */; };
 		3EDFFA0D1FC0286E00158177 /* HistoryPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFFA0C1FC0286E00158177 /* HistoryPreferencesViewController.swift */; };
 		3EE429AE1FCFD10D00E81C15 /* RegularAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE429AD1FCFD10D00E81C15 /* RegularAppModeController.swift */; };
-		3EEACA061F5E8615003A2140 /* PlayingTrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEACA051F5E8615003A2140 /* PlayingTrackInfoViewController.swift */; };
+		3EEACA061F5E8615003A2140 /* TrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEACA051F5E8615003A2140 /* TrackInfoViewController.swift */; };
 		3EEB25A9216EF0AF00569D35 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEB25A8216EF0AF00569D35 /* Queue.swift */; };
 		3EF043A51F9D5ED8000EE7ED /* ActionMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */; };
 		3EF08DCB2156D65D000C7F11 /* LayoutManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF08DCA2156D65D000C7F11 /* LayoutManagerProtocol.swift */; };
@@ -482,6 +483,7 @@
 		3E7D8A63218118FF00EF8746 /* GapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GapViewController.swift; sourceTree = "<group>"; };
 		3E7D8A6721817C8300EF8746 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingTrackFunctionsViewController.swift; sourceTree = "<group>"; };
+		3E7D8A6B2181CCCB00EF8746 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		3E8036C01FD2840C00674934 /* MiniBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniBarAppModeController.swift; sourceTree = "<group>"; };
 		3E807C411FC597FC0027050F /* MouseTrackingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MouseTrackingView.swift; sourceTree = "<group>"; };
 		3E80E66E1F04FA60007480CC /* Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
@@ -603,7 +605,7 @@
 		3EDFFA0A1FC0283F00158177 /* ViewPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPreferencesViewController.swift; sourceTree = "<group>"; };
 		3EDFFA0C1FC0286E00158177 /* HistoryPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryPreferencesViewController.swift; sourceTree = "<group>"; };
 		3EE429AD1FCFD10D00E81C15 /* RegularAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularAppModeController.swift; sourceTree = "<group>"; };
-		3EEACA051F5E8615003A2140 /* PlayingTrackInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingTrackInfoViewController.swift; sourceTree = "<group>"; };
+		3EEACA051F5E8615003A2140 /* TrackInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackInfoViewController.swift; sourceTree = "<group>"; };
 		3EEB25A8216EF0AF00569D35 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		3EF043A41F9D5ED8000EE7ED /* ActionMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionMessages.swift; sourceTree = "<group>"; };
 		3EF08DCA2156D65D000C7F11 /* LayoutManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutManagerProtocol.swift; sourceTree = "<group>"; };
@@ -697,8 +699,9 @@
 			children = (
 				3E0ED6A51FBB05FF008268B3 /* Player.xib */,
 				3E7D8A6721817C8300EF8746 /* PlayerViewController.swift */,
+				3E7D8A6B2181CCCB00EF8746 /* PlayerView.swift */,
+				3EEACA051F5E8615003A2140 /* TrackInfoViewController.swift */,
 				3E7C6FFF1F5F45F00035AEF2 /* PlaybackViewController.swift */,
-				3EEACA051F5E8615003A2140 /* PlayingTrackInfoViewController.swift */,
 				3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */,
 				3E7D8A63218118FF00EF8746 /* GapViewController.swift */,
 				3E309B721FB70B7800C61E72 /* FavoritesPopup */,
@@ -1874,7 +1877,7 @@
 				3E0ED6C31FBB1E18008268B3 /* EQViewController.swift in Sources */,
 				3E53A7D11FBD1C370058940D /* ToggleMenuItem.swift in Sources */,
 				3EB2F2011FB311FB0031B6C1 /* Images.swift in Sources */,
-				3EEACA061F5E8615003A2140 /* PlayingTrackInfoViewController.swift in Sources */,
+				3EEACA061F5E8615003A2140 /* TrackInfoViewController.swift in Sources */,
 				3EF7EFC82150757D00E582CB /* BarModeNowPlayingViewController.swift in Sources */,
 				3E24F4D92169A15500B9CDA6 /* EffectsPresetsEditorViewController.swift in Sources */,
 				3E3FB7F5215B57B700974A59 /* Favorite.swift in Sources */,
@@ -1912,6 +1915,7 @@
 				3E981EA91F7A0C8A003DDA38 /* RecordingSession.swift in Sources */,
 				3EA29AD51F0B470600DA239E /* AsyncMessenger.swift in Sources */,
 				3EB20B491EFF230C008138A4 /* AppStateIO.swift in Sources */,
+				3E7D8A6C2181CCCB00EF8746 /* PlayerView.swift in Sources */,
 				3ED526511F3003A800001A97 /* ObjectGraph.swift in Sources */,
 				3EDDF6AE1FB4FF8000DF2E9A /* MainWindowController.swift in Sources */,
 				3E3AEB101F9D361A00E9BEDE /* TracksPlaylistViewController.swift in Sources */,

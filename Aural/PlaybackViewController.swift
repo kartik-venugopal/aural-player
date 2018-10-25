@@ -616,6 +616,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     private func trackChanged(_ oldTrack: IndexedTrack?, _ oldState: PlaybackState, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
+        print("Tr Chg !")
+        
         btnPlayPause.onIf(player.getPlaybackState() == .playing)
         btnLoop.switchState(player.getPlaybackLoop() != nil ? LoopState.complete : LoopState.none)
         
@@ -862,26 +864,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     }
 }
 
-// Convenient accessor for information about the current player view
-class PlayerViewState {
-    
-    static var overlay: Bool = false
-    
-    static var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
-    static var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
-    
-    static var showControls: Bool = true
-    
-    static func persistentState() -> PlayerState {
-        
-        let state = PlayerState()
-        state.timeElapsedDisplayType = timeElapsedDisplayType
-        state.timeRemainingDisplayType = timeRemainingDisplayType
-        
-        return state
-    }
-}
-
 enum TimeElapsedDisplayType: String {
     
     case formatted
@@ -889,7 +871,7 @@ enum TimeElapsedDisplayType: String {
     case percentage
     
     func toggle() -> TimeElapsedDisplayType {
-    
+        
         switch self {
             
         case .formatted:    return .seconds

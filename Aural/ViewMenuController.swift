@@ -24,10 +24,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     @IBOutlet weak var showArtMenuItem: NSMenuItem!
     @IBOutlet weak var showTrackInfoMenuItem: NSMenuItem!
     @IBOutlet weak var showTrackFunctionsMenuItem: NSMenuItem!
-    @IBOutlet weak var showSeekBarMenuItem: NSMenuItem!
     @IBOutlet weak var showMainControlsMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var showTrackNameMenuItem: NSMenuItem!
     
     @IBOutlet weak var timeElapsedMenuItem_hms: NSMenuItem!
     @IBOutlet weak var timeElapsedMenuItem_seconds: NSMenuItem!
@@ -111,18 +108,15 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         
         // Player view:
         
-        playerDefaultViewMenuItem.onIf(NowPlayingViewState.viewType == .defaultView)
-        playerExpandedArtViewMenuItem.onIf(NowPlayingViewState.viewType == .expandedArt)
+        playerDefaultViewMenuItem.onIf(PlayerViewState.viewType == .defaultView)
+        playerExpandedArtViewMenuItem.onIf(PlayerViewState.viewType == .expandedArt)
         
-        [showArtMenuItem, showTrackInfoMenuItem, showTrackFunctionsMenuItem, showMainControlsMenuItem].forEach({$0?.isHidden = NowPlayingViewState.viewType != .defaultView})
+        [showArtMenuItem, showTrackInfoMenuItem, showTrackFunctionsMenuItem, showMainControlsMenuItem].forEach({$0?.isHidden = PlayerViewState.viewType != .defaultView})
         
-        showArtMenuItem.onIf(NowPlayingViewState.DefaultViewState.showAlbumArt)
-        showTrackInfoMenuItem.onIf(NowPlayingViewState.DefaultViewState.showPlayingTrackInfo)
-        showTrackFunctionsMenuItem.onIf(NowPlayingViewState.DefaultViewState.showPlayingTrackFunctions)
+        showArtMenuItem.onIf(PlayerViewState.showAlbumArt)
+        showTrackInfoMenuItem.onIf(PlayerViewState.showPlayingTrackInfo)
+        showTrackFunctionsMenuItem.onIf(PlayerViewState.showPlayingTrackFunctions)
         showMainControlsMenuItem.onIf(PlayerViewState.showControls)
-        
-        showTrackNameMenuItem.isHidden = NowPlayingViewState.viewType != .expandedArt
-        showTrackNameMenuItem.onIf(NowPlayingViewState.ExpandedArtViewState.showTrackName)
         
         timeElapsedDisplayFormats.forEach({$0.off()})
         switch PlayerViewState.timeElapsedDisplayType {
@@ -224,11 +218,11 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     }
     
     @IBAction func playerDefaultViewAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(NowPlayingViewActionMessage(.defaultView))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.defaultView))
     }
     
     @IBAction func playerExpandedArtViewAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(NowPlayingViewActionMessage(.expandedArt))
+        SyncMessenger.publishActionMessage(PlayerViewActionMessage(.expandedArt))
     }
     
     @IBAction func showOrHidePlayingTrackFunctionsAction(_ sender: NSMenuItem) {
@@ -243,16 +237,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideAlbumArt))
     }
     
-    @IBAction func showOrHideSeekBarAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideSeekBar))
-    }
-    
     @IBAction func showOrHideMainControlsAction(_ sender: NSMenuItem) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideMainControls))
-    }
-    
-    @IBAction func showOrHideTrackNameAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideTrackName))
     }
     
     @IBAction func timeElapsedDisplayFormatAction(_ sender: NSMenuItem) {

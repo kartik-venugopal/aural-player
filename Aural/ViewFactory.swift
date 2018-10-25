@@ -118,6 +118,10 @@ struct ViewFactory {
         return playerViewController.view
     }
     
+    static func getMainWindowMouseTrackingView() -> MouseTrackingView {
+        return WindowFactory.getMainWindow().contentView as! MouseTrackingView
+    }
+    
     // Returns the view that displays the Equalizer effects unit
     static func getMasterView() -> NSView {
         return EffectsViews.masterViewController.view
