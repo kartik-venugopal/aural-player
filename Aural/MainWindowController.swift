@@ -11,11 +11,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     }
     
     // The box that encloses the Now Playing info section
-    @IBOutlet weak var nowPlayingBox: NSBox!
-    private lazy var nowPlayingView: NSView = ViewFactory.getNowPlayingView()
-    
-    // The box that encloses the player controls
-    @IBOutlet weak var playerBox: NSBox!
+    @IBOutlet weak var containerBox: NSBox!
     private lazy var playerView: NSView = ViewFactory.getPlayerView()
     
     // Buttons to toggle the playlist/effects views
@@ -37,9 +33,9 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     // One-time setup
     override func windowDidLoad() {
         
-        theWindow.setIsVisible(false)
+//        theWindow.setIsVisible(false)
         initWindow()
-        theWindow.setIsVisible(false)
+//        theWindow.setIsVisible(false)
         
         // Register a handler for trackpad/MagicMouse gestures
         gestureHandler = GestureHandler(theWindow)
@@ -80,9 +76,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     
     // Add the sub-views that make up the main window
     private func addSubViews() {
-        
-        nowPlayingBox.addSubview(nowPlayingView)
-        playerBox.addSubview(playerView)
+        containerBox.addSubview(playerView)
     }
     
     private func activateGestureHandler() {
@@ -105,13 +99,13 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     private func initSubscriptions() {
         
         // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .showOrHideMainControls], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist], subscriber: self)
         SyncMessenger.subscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
-        SyncMessenger.unsubscribe(actionTypes: [.toggleEffects, .togglePlaylist, .showOrHideMainControls], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.toggleEffects, .togglePlaylist], subscriber: self)
         SyncMessenger.unsubscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
     
@@ -163,27 +157,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     // Minimizes the window (and any child windows)
     @IBAction func minimizeAction(_ sender: AnyObject) {
         theWindow.miniaturize(self)
-    }
-    
-    private func showOrHideMainControls() {
-        
-        if playerBox.isHidden {
-            
-            // Show controls
-            playerBox.isHidden = false
-            PlayerViewState.showControls = true
-            
-            // Move Now Playing box up
-            nowPlayingBox.setFrameOrigin(NSPoint(x: 0, y: 73))
-            
-        } else {
-            
-            // Hide controls
-            playerBox.isHidden = true
-            PlayerViewState.showControls = false
-            
-            nowPlayingBox.setFrameOrigin(NSPoint(x: 0, y: 40))
-        }
     }
     
     // MARK: Window delegate
@@ -254,8 +227,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         case .toggleEffects: toggleEffects()
             
         case .togglePlaylist: togglePlaylist()
-            
-        case .showOrHideMainControls:   showOrHideMainControls()
             
         default: return
             

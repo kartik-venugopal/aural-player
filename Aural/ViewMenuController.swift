@@ -17,11 +17,17 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     @IBOutlet weak var switchViewMenuItem: ToggleMenuItem!
     
     @IBOutlet weak var playerMenuItem: NSMenuItem!
-    @IBOutlet weak var playerArtMenuItem: NSMenuItem!
-    @IBOutlet weak var playerTrackInfoMenuItem: NSMenuItem!
-    @IBOutlet weak var playerTrackFunctionsMenuItem: NSMenuItem!
-    @IBOutlet weak var playerSeekBarMenuItem: NSMenuItem!
-    @IBOutlet weak var playerMainControlsMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var playerDefaultViewMenuItem: NSMenuItem!
+    @IBOutlet weak var playerExpandedArtViewMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var showArtMenuItem: NSMenuItem!
+    @IBOutlet weak var showTrackInfoMenuItem: NSMenuItem!
+    @IBOutlet weak var showTrackFunctionsMenuItem: NSMenuItem!
+    @IBOutlet weak var showSeekBarMenuItem: NSMenuItem!
+    @IBOutlet weak var showMainControlsMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var showTrackNameMenuItem: NSMenuItem!
     
     @IBOutlet weak var timeElapsedMenuItem_hms: NSMenuItem!
     @IBOutlet weak var timeElapsedMenuItem_seconds: NSMenuItem!
@@ -50,8 +56,6 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     private lazy var layoutManager: LayoutManager = ObjectGraph.getLayoutManager()
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.getEditorWindowController()
-    
-//    private var rec: Recorder = ObjectGraph.getRecorder()
     
     override func awakeFromNib() {
         
@@ -107,10 +111,18 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         
         // Player view:
         
-        playerArtMenuItem.onIf(NowPlayingViewState.showAlbumArt)
-        playerTrackInfoMenuItem.onIf(NowPlayingViewState.showPlayingTrackInfo)
-        playerTrackFunctionsMenuItem.onIf(NowPlayingViewState.showPlayingTrackFunctions)
-        playerMainControlsMenuItem.onIf(PlayerViewState.showControls)
+        playerDefaultViewMenuItem.onIf(NowPlayingViewState.viewType == .defaultView)
+        playerExpandedArtViewMenuItem.onIf(NowPlayingViewState.viewType == .expandedArt)
+        
+        [showArtMenuItem, showTrackInfoMenuItem, showTrackFunctionsMenuItem, showMainControlsMenuItem].forEach({$0?.isHidden = NowPlayingViewState.viewType != .defaultView})
+        
+        showArtMenuItem.onIf(NowPlayingViewState.DefaultViewState.showAlbumArt)
+        showTrackInfoMenuItem.onIf(NowPlayingViewState.DefaultViewState.showPlayingTrackInfo)
+        showTrackFunctionsMenuItem.onIf(NowPlayingViewState.DefaultViewState.showPlayingTrackFunctions)
+        showMainControlsMenuItem.onIf(PlayerViewState.showControls)
+        
+        showTrackNameMenuItem.isHidden = NowPlayingViewState.viewType != .expandedArt
+        showTrackNameMenuItem.onIf(NowPlayingViewState.ExpandedArtViewState.showTrackName)
         
         timeElapsedDisplayFormats.forEach({$0.off()})
         switch PlayerViewState.timeElapsedDisplayType {
@@ -211,12 +223,20 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         editorWindowController.showLayoutsEditor()
     }
     
-    @IBAction func showOrHidePlayingTrackInfoAction(_ sender: NSMenuItem) {
-        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackInfo))
+    @IBAction func playerDefaultViewAction(_ sender: NSMenuItem) {
+        SyncMessenger.publishActionMessage(NowPlayingViewActionMessage(.defaultView))
+    }
+    
+    @IBAction func playerExpandedArtViewAction(_ sender: NSMenuItem) {
+        SyncMessenger.publishActionMessage(NowPlayingViewActionMessage(.expandedArt))
     }
     
     @IBAction func showOrHidePlayingTrackFunctionsAction(_ sender: NSMenuItem) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackFunctions))
+    }
+    
+    @IBAction func showOrHidePlayingTrackInfoAction(_ sender: NSMenuItem) {
+        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackInfo))
     }
     
     @IBAction func showOrHideAlbumArtAction(_ sender: NSMenuItem) {
@@ -229,6 +249,10 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     @IBAction func showOrHideMainControlsAction(_ sender: NSMenuItem) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideMainControls))
+    }
+    
+    @IBAction func showOrHideTrackNameAction(_ sender: NSMenuItem) {
+        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideTrackName))
     }
     
     @IBAction func timeElapsedDisplayFormatAction(_ sender: NSMenuItem) {
@@ -297,20 +321,6 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
         WindowLayouts.addUserDefinedLayout(string)
-    }
-    
-    // MARK - Experimental code
-    
-    // NOTE - This function is in use only by an experimental feature in development, not currently accessible to the user
-    @IBAction func vizAction(_ sender: AnyObject) {
-        
-//        let viz = VisualizerWC()
-//        viz.showWindow(self)
-//
-//        let sp = viz.sp!
-//        let fft = FFT(sampleRate: 44100)
-//
-//        rec.startViz(sp, fft)
     }
 }
 

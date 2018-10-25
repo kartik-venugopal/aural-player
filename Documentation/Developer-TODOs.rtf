@@ -5,49 +5,57 @@
 \margl720\margr720\margb720\margt720\vieww24520\viewh14600\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\fs28 \cf0 Search option (only for grouping playlists) ... "Search in: 1 - All groups, OR 2 - Selected groups"\
+\f0\fs28 \cf0 ------------------------- Features: -------------------------\
+\
+Make Main window and FX window resizable (adjust layout manager code accordingly)\
+\
+Allow user to drag a picture into frame *\
+\
+Keyboard shortcut: Tab to switch between modal dialog or playlist tabs.\
+\
+Info tooltips for preferences and effects settings ? "Context-sensitive tool tip" ... show "i" button "What is this ?"\
+\
+Auto-hide for player in main window ? (only in compact mode)\
+\
+"Preview track"  feature ? "Play first few seconds / last few seconds" ???\
+\
+------------------------- Enhancements: -------------------------\
+\
+New Now Playing view option: Album art only ... with floating auto-hide controls translucent overlay bar on top ?\
+\
+IN PROGRESS - Allow user to hide UI elements: e.g. Now Playing toolbar buttons, time elapsed/remaining, art, etc\
+\
+IN PROGRESS - Revisit Main window UI - Now Playing and Player boxes (auto hide seek bar and seek times ?)\
+\
+Add 2 more built-in window layouts: 1 - Player and FX (horizontal), and 2 - Player and FX (vertical)\
+\
+Revisit Recorder unit. Add more options: Start when track playback begins and end when playback ends. Don't allow recording of silence.\
+\
+Make the Playlist right-click context menu applicable to multiple item selections, not just single items\
+\
+Search option (only for grouping playlists) ... "Search in: 1 - All groups, OR 2 - Selected groups"\
+\
+- Show tooltips for playlist tracks (table cells) whose names have been truncated, when hovering over them \
 \
 Playlist function > Play "All Tracks" ... right-click menu for playlist tab buttons ??\
 \
 Right-click menu "Play from beginning" OR "Play from remembered last track position" (if playback profile for track exists)\
 \
-** Revisit Recorder unit. Add more options: Start when track playback begins and end when playback ends. Don't allow recording of silence.\
+Revisit playlist control icons/tooltips (icon size)\
 \
-Revisit playlist control icons/tooltips\
+Show last modified and date created in more info\
 \
-Make the Playlist right-click context menu applicable to multiple item selections, not just single items\
-\
-IN PROGRESS - Revisit Main window UI - Now Playing and Player boxes (auto hide seek bar and seek times ?)\
-\
-IN PROGRESS - Allow user to hide UI elements: e.g. Now Playing toolbar buttons, time elapsed/remaining, art, etc\
-\
-New Now Playing view option: Album art only ... with floating auto-hide controls translucent overlay bar on top ?\
-\
-Add 2 more built-in window layouts: 1 - Player and FX (horizontal), and 2 - Player and FX (vertical)\
-\
-"Search the web for more info on this track" feature ? Opens browser with a Google search including the track name as the search query ???\
-\
-??? Undo feature to undo track deletions ?\
-\
-*** Color schemes (light, dark, brown, etc)\
-\
-"Preview track"  feature ? "Play first few seconds / last few seconds" ???\
-\
-Catch-all exception handling of AppStateIO.readAppState() to prevent app crashes due to corrupt app state data\
-\
-****: Under album groups, sort tracks by disc number ID3 info ... under artists, sort by album and disc number ... under genre, sort by artist, album, disc number\
-\
-Make Main window and FX window resizable (adjust layout manager code accordingly)\
+Revisit support for media keys\
 \
 When loading a large playlist on app startup, the Now playing scope label shows 1/0 if autoplay is enabled. Because sequence is updated only after the add is complete. Can we improve this without causing concurrency problems in PlaybackSequencer.updateSequence() ?\
 \
+Add snapping for resize !!!\
+\
+*** When main window is moved, use bounding box (including FX and Playlist windows) as criteria for snapping, not just main window\
+\
+------------------------- Performance: -------------------------\
+\
 Profiling: Look at memory usage - ID3 metadata 150 MB for 419 tracks\
-\
-BONUS - Create multiple playlists (add new tabs to playlist tab group)\
-\
-Keyboard shortcut: Tab to switch between modal dialog or playlist tabs.\
-\
-Info tooltips for preferences and effects settings ? "Context-sensitive tool tip" ... show "i" button "What is this ?"\
 \
 Look at warnings and runtime issues\
 \
@@ -55,53 +63,40 @@ CPU usage ~ 12% ?!!! Why ??? Possibility - Look at seek label timers ... do they
 \
 Revisit app performance\
 \
-Auto-hide for player in main window ? (only in compact mode)\
+------------------------- Validation: -------------------------\
 \
-Show last modified and date created in more info\
+How to deal with user removing/renaming tracks in History/Bookmarks lists ? Should show error when clicked "This bookmark/history item is no longer valid. File may have been moved or renamed."\
 \
-******* Fix Banner label in Now Playing box !!! - gets stuck in the middle sometimes\
-\
-Add snapping for resize !!!\
-\
-*** When main window is moved, use bounding box (including FX and Playlist windows) as criteria for snapping, not just main window\
+Catch-all exception handling of AppStateIO.readAppState() to prevent app crashes due to corrupt app state data\
 \
 ** Revisit menu enabling/disabling\
-\
-Revisit support for media keys\
-\
-------------------\
-\
-Look into toolbars and NSToolbar (e.g. "Bookmarks toolbar")\
-\
-Dock menu: Can you have a slider for volume ?\
-\
-*** Display favorites and bookmarks in playlist as separate tabs ? Favs and BMs as separate playlists ? Or in sep dockable windows ?\
-\
-- Show tooltips for playlist tracks (table cells) whose names have been truncated, when hovering over them \
 \
 ****** Validation for items lists (history, favs, bookmarks, etc) ... if item not found, display an error ?? icon and show a message "This file may have been moved" and offer an option to delete the item\
 \
 *** Validation in general, across all layers of the app\
-\
-Online lyrics / album art lookup ?\
-\
 ******* MAKE APP STATE I/O MORE RELIABLE (fixed with crash bug fix) ************* Look for design guidelines\
+\
+BONUS\
+\
+- Create multiple playlists (add new tabs to playlist tab group)\
+*** Color schemes (light, dark, brown, etc)\
+******* Fix Banner label in Now Playing box !!! - gets stuck in the middle sometimes\
+*** Display favorites and bookmarks in playlist as separate tabs ? Favs and BMs as separate playlists ? Or in sep dockable windows ?\
+"Search the web for more info on this track" feature ? Opens browser with a Google search including the track name as the search query ???\
+??? Undo feature to undo track deletions ?\
+Stop and fade away\
+Visualization\
+\
+Usability >\
 \
 Update user guide\
 - Demos / Gallery\
-\
-Bonus features >\
-Stop and fade away\
-BONUS: Visualization\
-\
-Errors/Validation:\
-How to deal with user removing/renaming tracks in History/Bookmarks lists ? Should show error when clicked "This bookmark/history item is no longer valid. File may have been moved or renamed."\
-\
-Usability >\
 Improve developer readme file\
 Show context-sensitive tool tips for all controls (e.g. "Pitch value") on the FX sliders\
 \
 Cleanup>\
+\
+*** Messaging *** Consolidate redundant classes/structs, clean up unnecessary types, etc. rethink sync/async\
 \
 *** ADD DEFAULT FUNCTION IMPLEMENTATIONS TO MESSAGE SUBSCRIBER PROTOCOLS AND CLEAN UP DUMMY IMPLEMENTATIONS IN SUBSCRIBER CLASSES *****\
 \

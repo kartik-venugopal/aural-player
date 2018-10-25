@@ -7,8 +7,6 @@ struct ViewFactory {
     
     // Top-level sub-views (views displayed directly on the main window)
     
-    private static let nowPlayingViewController: NowPlayingViewController = NowPlayingViewController()
-    
     private static let playerViewController: PlayerViewController = PlayerViewController()
     
     private static let barModeNowPlayingViewController: BarModeNowPlayingViewController = BarModeNowPlayingViewController()
@@ -109,11 +107,6 @@ struct ViewFactory {
     }
     
     // MARK: Accessor functions for the different views
-    
-    // Returns the view that displays the Now Playing information section
-    static func getNowPlayingView() -> NSView {
-        return nowPlayingViewController.view
-    }
     
     // Used to position the bookmark name popover relative to the seek slider cell
     static func getLocationForBookmarkPrompt() -> (view: NSView, edge: NSRectEdge) {

@@ -16,7 +16,7 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
     
     // The box that encloses the Now Playing info section
     @IBOutlet weak var nowPlayingBox: NSBox!
-    private lazy var nowPlayingView: NSView = ViewFactory.getNowPlayingView()
+//    private lazy var nowPlayingView: NSView = ViewFactory.getNowPlayingView()
     
     // The box that encloses the player controls
     @IBOutlet weak var playerBox: NSBox!
@@ -52,7 +52,7 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
     
     override func viewDidLoad() {
         
-        nowPlayingBox.addSubview(nowPlayingView)
+//        nowPlayingBox.addSubview(nowPlayingView)
         playerBox.addSubview(playerView)
 //        effectsBox.addSubview(effectsView)
         
@@ -112,7 +112,7 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
         }
         
         if (nowPlayingBox != nil) {
-            nowPlayingBox.addSubview(nowPlayingView)
+//            nowPlayingBox.addSubview(nowPlayingView)
             playerBox.addSubview(playerView)
         }
         

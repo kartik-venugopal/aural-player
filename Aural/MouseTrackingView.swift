@@ -28,23 +28,23 @@ class MouseTrackingView: NSView {
     
     override func mouseEntered(with event: NSEvent) {
         
-        let mouseX = event.locationInWindow.x
+//        let mouseX = event.locationInWindow.x
         
-        if (mouseX >= 20) {
-            SyncMessenger.publishNotification(BarModeWindowMouseNotification.mouseEntered)
+//        if (mouseX >= 20) {
+            SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
             inArea = true
-        }
+//        }
     }
     
     override func mouseMoved(with event: NSEvent) {
         
         if (!inArea) {
             
-            let mouseX = event.locationInWindow.x
-            if (mouseX >= 20) {
-                SyncMessenger.publishNotification(BarModeWindowMouseNotification.mouseEntered)
+//            let mouseX = event.locationInWindow.x
+//            if (mouseX >= 20) {
+                SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
                 inArea = true
-            }
+//            }
         }
     }
     
@@ -62,7 +62,7 @@ class MouseTrackingView: NSView {
         let yExit = loc.y < self.bounds.minY || loc.y > self.bounds.maxY
         
         if (xExit || yExit) {
-            SyncMessenger.publishNotification(BarModeWindowMouseNotification.mouseExited)
+            SyncMessenger.publishNotification(MouseTrackingNotification.mouseExited)
             inArea = false
         }
     }
