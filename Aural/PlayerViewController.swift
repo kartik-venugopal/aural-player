@@ -85,7 +85,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             showExpandedArtView()
         }
         
-        PlayerViewState.showControls ? mouseTrackingView.stopTracking() : mouseTrackingView.startTracking()
+        theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showDefaultView() {
@@ -111,21 +111,27 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     }
     
     private func showOrHidePlayingTrackInfo() {
+        
         theView.showOrHidePlayingTrackInfo()
+        theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHidePlayingTrackFunctions() {
+        
         theView.showOrHidePlayingTrackFunctions()
+        theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideAlbumArt() {
+        
         theView.showOrHideAlbumArt()
+        theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showOrHideMainControls() {
         
         theView.showOrHideMainControls()
-        PlayerViewState.showControls ? mouseTrackingView.stopTracking() : mouseTrackingView.startTracking()
+        theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     func mouseEntered() {

@@ -23,8 +23,6 @@ class ToggleMenuItem: NSMenuItem {
     // Sets the item state to be "Off"
     override func off() {
         
-        super.off()
-        
         self.title = offStateTitle
         self.image = offImage
         _isOn = false
@@ -33,8 +31,6 @@ class ToggleMenuItem: NSMenuItem {
     // Sets the item state to be "On"
     override func on() {
         
-        super.on()
-        
         self.title = onStateTitle
         self.image = onImage
         _isOn = true
@@ -42,14 +38,11 @@ class ToggleMenuItem: NSMenuItem {
     
     // Convenience function to set the item to "On" if the specified condition is true, and "Off" if not.
     override func onIf(_ condition: Bool) {
-        
-        super.onIf(condition)
         condition ? on() : off()
     }
     
     // Toggles the On/Off state
     override func toggle() {
-        super.toggle()
         _isOn ? off() : on()
     }
     

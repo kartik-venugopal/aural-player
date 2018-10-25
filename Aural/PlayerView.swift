@@ -18,9 +18,9 @@ class PlayerView: NSView {
     @IBOutlet weak var lblPlaybackScope: NSTextField!
     @IBOutlet weak var imgScope: NSImageView!
     
+    fileprivate var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 0, y: 46) }
+    
     func showView() {
-        
-        print("Showing view: ", self.className)
         
         self.addSubview(playbackBox, positioned: .above, relativeTo: nil)
         self.addSubview(functionsBox)
@@ -28,6 +28,8 @@ class PlayerView: NSView {
         self.setNeedsDisplay(self.bounds)
         
         playbackBox.setFrameOrigin(NSPoint.zero)
+        
+        playbackInfoBox.setFrameOrigin(infoBoxDefaultPosition)
         centerFunctionsBox()
     }
     
@@ -42,8 +44,6 @@ class PlayerView: NSView {
         
         playbackBox.removeFromSuperview()
         functionsBox.removeFromSuperview()
-        
-        print(self.className, "hidden !")
     }
     
     func showOrHidePlayingTrackInfo() {
@@ -92,15 +92,15 @@ class PlayerView: NSView {
         playbackBox.isHidden = !PlayerViewState.showControls
     }
     
-    func mouseEntered() {
-        print("Mouse Entered !")
+    func mouseEntered() {}
+    
+    func mouseExited() {}
+    
+    func needsMouseTracking() -> Bool {
+        return !PlayerViewState.showControls || !PlayerViewState.showPlayingTrackInfo
     }
     
-    func mouseExited() {
-        print("Mouse Exited !")
-    }
-    
-    private func bringViewToFront(_ aView: NSView) {
+    fileprivate func bringViewToFront(_ aView: NSView) {
         
         let superView = aView.superview
         aView.removeFromSuperview()
@@ -111,20 +111,19 @@ class PlayerView: NSView {
 @IBDesignable
 class DefaultPlayerView: PlayerView {
     
-    private let artViewDefaultPosition: NSPoint = NSPoint(x: 10, y: 87)
+    private let artViewDefaultPosition: NSPoint = NSPoint(x: 10, y: 82)
     
     private let artViewXCentered: CGFloat = 215
     private let artViewYCentered: CGFloat = 52
     
-    private let infoBoxDefaultPosition: NSPoint = NSPoint(x: 90, y: 75)
+    override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 90, y: 70) }
     private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 90, y: 40)
     
     override func showView() {
         
         super.showView()
         
-        // Position the info box
-        playbackInfoBox.setFrameOrigin(infoBoxDefaultPosition)
+        // Position the art view
         artView.setFrameOrigin(artViewDefaultPosition)
         
         PlayerViewState.showControls = true
@@ -166,14 +165,70 @@ class DefaultPlayerView: PlayerView {
             artView.frame.origin.x = artViewXCentered
         }
     }
+    
+    override func mouseEntered() {
+        
+        super.mouseEntered()
+        
+        if !PlayerViewState.showPlayingTrackInfo {
+            autoHideInfo_show()
+        }
+        
+        if !PlayerViewState.showControls {
+            autoHideControls_show()
+        }
+    }
+    
+    override func mouseExited() {
+        
+        super.mouseExited()
+        
+        if !PlayerViewState.showPlayingTrackInfo {
+            autoHideInfo_hide()
+        }
+        
+        if !PlayerViewState.showControls {
+            autoHideControls_hide()
+        }
+    }
+    
+    private func autoHideInfo_show() {
+        
+        playbackInfoBox.isTransparent = false
+        playbackInfoBox.isHidden = false
+    }
+    
+    private func autoHideInfo_hide() {
+        
+        playbackInfoBox.isTransparent = true
+        playbackInfoBox.isHidden = true
+    }
+    
+    private func autoHideControls_show() {
+        
+        // Show controls
+        playbackBox.isHidden = false
+        
+        playbackInfoBox.setFrameOrigin(infoBoxDefaultPosition)
+        artView.frame.origin.y = artViewDefaultPosition.y
+        centerFunctionsBox()
+    }
+    
+    private func autoHideControls_hide() {
+        
+        // Hide controls
+        playbackBox.isHidden = true
+        
+        playbackInfoBox.setFrameOrigin(infoBoxCenteredPosition)
+        artView.frame.origin.y = artViewYCentered
+        centerFunctionsBox()
+    }
 }
-
 
 @IBDesignable
 class ExpandedArtPlayerView: PlayerView {
     
-    private let infoBoxDefaultPosition: NSPoint = NSPoint(x: 0, y: 46)
-    private let infoBoxTopPosition: NSPoint = NSPoint(x: 0, y: 81)
+    private let infoBoxTopPosition: NSPoint = NSPoint(x: 0, y: 75)
     
     @IBOutlet weak var overlayBox: NSBox!
     
@@ -192,8 +247,86 @@ class ExpandedArtPlayerView: PlayerView {
         functionsBox.isHidden = false
         
         playbackInfoBox.isTransparent = false
+    }
+    
+    override func showOrHideMainControls() {
         
-        // Center the info box
+        super.showOrHideMainControls()
+        
+        overlayBox.isHidden = !PlayerViewState.showControls
+        [playbackInfoBox, playbackBox].forEach({$0?.isTransparent = !overlayBox.isHidden})
+        
+        [playbackInfoBox, playbackBox, functionsBox].forEach({self.bringViewToFront($0)})
+        
+        // Re-position the info box, art view, and functions box
+        playbackInfoBox.setFrameOrigin(PlayerViewState.showControls ? infoBoxTopPosition : infoBoxDefaultPosition)
+        centerFunctionsBox()
+    }
+    
+    override func mouseEntered() {
+        
+        super.mouseEntered()
+        
+        autoHideControls_show()
+        
+        if !PlayerViewState.showPlayingTrackInfo {
+            autoHideInfo_show()
+        }
+    }
+    
+    override func mouseExited() {
+        
+        super.mouseExited()
+        
+        if !PlayerViewState.showPlayingTrackInfo {
+            autoHideInfo_hide()
+        }
+        
+        autoHideControls_hide()
+    }
+    
+    private func autoHideInfo_show() {
+        
+        playbackInfoBox.isTransparent = true
+        playbackInfoBox.isHidden = false
+    }
+    
+    private func autoHideInfo_hide() {
+        
+        playbackInfoBox.isTransparent = false
+        playbackInfoBox.isHidden = true
+    }
+    
+    private func autoHideControls_show() {
+        
+        // Show controls
+        playbackBox.isHidden = false
+        overlayBox.isHidden = false
+        
+        [playbackInfoBox, playbackBox].forEach({$0?.isTransparent = true})
+        
+        [playbackInfoBox, playbackBox, functionsBox].forEach({self.bringViewToFront($0)})
+        
+        // Re-position the info box, art view, and functions box
+        playbackInfoBox.isHidden = false
+        playbackInfoBox.setFrameOrigin(infoBoxTopPosition)
+        centerFunctionsBox()
+    }
+    
+    private func autoHideControls_hide() {
+        
+        // Hide controls
+        overlayBox.isHidden = true
+        playbackBox.isHidden = true
+        
+        playbackInfoBox.isTransparent = false
+        
         playbackInfoBox.setFrameOrigin(infoBoxDefaultPosition)
+        centerFunctionsBox()
+        
+        // Show info box as overlay temporarily
+        if !PlayerViewState.showPlayingTrackInfo {
+            playbackInfoBox.isHidden = true
+        }
     }
 }

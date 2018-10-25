@@ -31,7 +31,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="nDh-sM-DxS"/>
                 </imageView>
-                <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="rbO-oI-Q0q" userLabel="Playing Track Info Box">
+                <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rbO-oI-Q0q" userLabel="Playing Track Info Box">
                     <rect key="frame" x="90" y="80" width="365" height="94"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="OTb-xb-jQR">
@@ -91,6 +91,7 @@
                         </subviews>
                     </view>
                     <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
             </subviews>
             <connections>
@@ -147,12 +148,12 @@
                                 </textFieldCell>
                             </textField>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="67e-z1-ERL" userLabel="Img Scope">
-                                <rect key="frame" x="30" y="23" width="11" height="11"/>
+                                <rect key="frame" x="37" y="23" width="11" height="11"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="QCm-FK-zGX"/>
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Amh-rC-QU4" userLabel="Lbl Playback Scope">
-                                <rect key="frame" x="45" y="21" width="410" height="18"/>
+                                <rect key="frame" x="52" y="21" width="405" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="All tracks" placeholderString="" id="OPG-tw-GpH">
                                     <font key="font" size="12" name="GillSans"/>
@@ -172,7 +173,7 @@
                         </subviews>
                     </view>
                     <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" white="0.0" alpha="0.70262984154929575" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="fillColor" white="0.0" alpha="0.74614876760563376" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YCE-84-duq" userLabel="Art View">
                     <rect key="frame" x="165" y="2" width="170" height="170"/>
@@ -187,7 +188,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                     <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" white="0.0" alpha="0.69619278169014087" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="fillColor" white="0.0" alpha="0.75129291373239437" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
             </subviews>
             <connections>
@@ -504,6 +505,7 @@ G1BhbiBTbGlkZXI
                 </subviews>
             </view>
             <color key="borderColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="fillColor" white="0.0" alpha="0.75211817781690138" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <point key="canvasLocation" x="40" y="-42"/>
         </box>
         <box hidden="YES" wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" id="RmC-sy-Ygh" userLabel="Functions Box">

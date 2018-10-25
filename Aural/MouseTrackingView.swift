@@ -10,7 +10,6 @@ class MouseTrackingView: NSView {
     
     func startTracking() {
         
-        print("\nStart")
         stopTracking()
         
         isTracking = true
@@ -18,20 +17,17 @@ class MouseTrackingView: NSView {
     }
     
     func stopTracking() {
+
+        isTracking = false
         
-        print("\nStop")
         if let area = self.trackingArea {
             self.removeTrackingArea(area)
         }
-        
-        isTracking = false
     }
  
     override func updateTrackingAreas() {
         
         if !isTracking {return}
-        
-        print("\nUpdate")
         
         // Create a tracking area that covers the bounds of the view. It should respond whenever the mouse enters or exits.
         
@@ -45,23 +41,16 @@ class MouseTrackingView: NSView {
     
     override func mouseEntered(with event: NSEvent) {
         
-//        let mouseX = event.locationInWindow.x
-        
-//        if (mouseX >= 20) {
-            SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
-            inArea = true
-//        }
+        SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
+        inArea = true
     }
     
     override func mouseMoved(with event: NSEvent) {
         
         if (!inArea) {
             
-//            let mouseX = event.locationInWindow.x
-//            if (mouseX >= 20) {
-                SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
-                inArea = true
-//            }
+            SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
+            inArea = true
         }
     }
     
@@ -71,7 +60,7 @@ class MouseTrackingView: NSView {
             return
         }
         
-        // TODO: There seems to be a bug/issue with false exit events triggered by hovering over player controls. So, this redundant validation is necessary to validate the X position.
+        // TODO: There seems to be a bug/issue with false exit events triggered by hovering over some sub-views. So, this redundant validation is necessary to validate the X position.
         
         let loc = event.locationInWindow
         
