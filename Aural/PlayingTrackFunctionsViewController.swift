@@ -122,7 +122,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     
     private func newTrackStarted(_ track: Track) {
         
-        self.view.isHidden = false
+        self.view.isHidden = !PlayerViewState.showPlayingTrackFunctions
         btnFavorite.onIf(favorites.favoriteWithFileExists(track.file))
     }
     

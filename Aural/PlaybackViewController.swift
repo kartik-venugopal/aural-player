@@ -616,8 +616,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
     private func trackChanged(_ oldTrack: IndexedTrack?, _ oldState: PlaybackState, _ newTrack: IndexedTrack?, _ errorState: Bool = false) {
         
-        print("Tr Chg !")
-        
         btnPlayPause.onIf(player.getPlaybackState() == .playing)
         btnLoop.switchState(player.getPlaybackLoop() != nil ? LoopState.complete : LoopState.none)
         

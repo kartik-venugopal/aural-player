@@ -107,11 +107,10 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         playerMenuItem.off()
         
         // Player view:
-        
         playerDefaultViewMenuItem.onIf(PlayerViewState.viewType == .defaultView)
         playerExpandedArtViewMenuItem.onIf(PlayerViewState.viewType == .expandedArt)
         
-        [showArtMenuItem, showTrackInfoMenuItem, showTrackFunctionsMenuItem, showMainControlsMenuItem].forEach({$0?.isHidden = PlayerViewState.viewType != .defaultView})
+        [showArtMenuItem, showMainControlsMenuItem].forEach({$0.isHidden = PlayerViewState.viewType == .expandedArt})
         
         showArtMenuItem.onIf(PlayerViewState.showAlbumArt)
         showTrackInfoMenuItem.onIf(PlayerViewState.showPlayingTrackInfo)
