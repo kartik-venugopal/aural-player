@@ -29,7 +29,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        [btnDelete, btnRename, btnApply].forEach({$0.isEnabled = false})
+        [btnDelete, btnRename, btnApply].forEach({$0.disable()})
         
         previewView.clear()
     }
@@ -78,9 +78,9 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
         
         let selRows: Int = editorView.numberOfSelectedRows
         
-        btnDelete.isEnabled = selRows > 0
-        btnApply.isEnabled = selRows == 1
-        btnRename.isEnabled = selRows == 1
+        btnDelete.enableIf(selRows > 0)
+        btnApply.enableIf(selRows == 1)
+        btnRename.enableIf(selRows == 1)
     }
     
     @IBAction func renameLayoutAction(_ sender: AnyObject) {

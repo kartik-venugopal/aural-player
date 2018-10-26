@@ -36,12 +36,12 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
             // Default
             layoutMenu.select(layoutMenu.item(withTitle: WindowLayouts.defaultLayout.name))
         }
-        layoutMenu.isEnabled = btnStartWithLayout.isOn()
+        layoutMenu.enableIf(btnStartWithLayout.isOn())
         
         btnSnapToWindows.onIf(viewPrefs.snapToWindows)
         gapStepper.floatValue = viewPrefs.windowGap
         lblWindowGap.stringValue = ValueFormatter.formatPixels(gapStepper.floatValue)
-        [lblWindowGap, gapStepper].forEach({$0!.isEnabled = btnSnapToWindows.isOn()})
+        [lblWindowGap, gapStepper].forEach({$0!.enableIf(btnSnapToWindows.isOn())})
         
         btnSnapToScreen.onIf(viewPrefs.snapToScreen)
     }
@@ -69,11 +69,11 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     }
     
     @IBAction func layoutOnStartupAction(_ sender: Any) {
-        layoutMenu.isEnabled = btnStartWithLayout.isOn()
+        layoutMenu.enableIf(btnStartWithLayout.isOn())
     }
     
     @IBAction func snapToWindowsAction(_ sender: Any) {
-        [lblWindowGap, gapStepper].forEach({$0!.isEnabled = btnSnapToWindows.isOn()})
+        [lblWindowGap, gapStepper].forEach({$0!.enableIf(btnSnapToWindows.isOn())})
     }
     
     @IBAction func gapStepperAction(_ sender: Any) {

@@ -25,7 +25,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        previewBox.isHidden = true
+        previewBox.hide()
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -38,7 +38,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
         ReverbPresets.deletePresets(selection)
         editorView.reloadData()
         
-        previewBox.isHidden = true
+        previewBox.hide()
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
     }
@@ -83,7 +83,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
         reverbAmountSlider.floatValue = preset.amount
         lblReverbAmountValue.stringValue = ValueFormatter.formatReverbAmount(preset.amount)
         
-        previewBox.isHidden = false
+        previewBox.show()
     }
     
     // MARK: View delegate functions
@@ -97,7 +97,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
         
         let numRows = editorView.numberOfSelectedRows
         
-        previewBox.isHidden = numRows != 1
+        previewBox.hideIf(numRows != 1)
         
         if numRows == 1 {
             

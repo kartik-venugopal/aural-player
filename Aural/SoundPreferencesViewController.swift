@@ -49,10 +49,10 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         btnSpecifyVolume.onIf(soundPrefs.volumeOnStartupOption == .specific)
         
-        startupVolumeSlider.isEnabled = btnSpecifyVolume.isOn()
+        startupVolumeSlider.enableIf(btnSpecifyVolume.isOn())
         startupVolumeSlider.integerValue = Int(round(soundPrefs.startupVolumeValue * AppConstants.volumeConversion_audioGraphToUI))
         
-        lblStartupVolume.isEnabled = btnSpecifyVolume.isOn()
+        lblStartupVolume.enableIf(btnSpecifyVolume.isOn())
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
         
         let panDelta = Int(round(soundPrefs.panDelta * AppConstants.panConversion_audioGraphToUI))
@@ -77,7 +77,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
             btnApplyPresetOnStartup.on()
         }
         
-        masterPresetsMenu.isEnabled = btnApplyPresetOnStartup.isOn()
+        masterPresetsMenu.enableIf(btnApplyPresetOnStartup.isOn())
         
         updateMasterPresetsMenu()
         
@@ -86,7 +86,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         }
         
         btnRememberSettingsForTrack.onIf(soundPrefs.rememberEffectsSettings)
-        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.isEnabled = soundPrefs.rememberEffectsSettings})
+        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.enableIf(soundPrefs.rememberEffectsSettings)})
         
         if soundPrefs.rememberEffectsSettingsOption == .individualTracks {
             btnRememberSettings_individualTracks.on()
@@ -124,7 +124,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     }
 
     @IBAction func startupVolumeButtonAction(_ sender: Any) {
-        [startupVolumeSlider, lblStartupVolume].forEach({$0.isEnabled = btnSpecifyVolume.isOn()})
+        [startupVolumeSlider, lblStartupVolume].forEach({$0.enableIf(btnSpecifyVolume.isOn())})
     }
     
     @IBAction func startupVolumeSliderAction(_ sender: Any) {
@@ -132,11 +132,11 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     }
     
     @IBAction func effectsSettingsOnStartupRadioButtonAction(_ sender: Any) {
-        masterPresetsMenu.isEnabled = btnApplyPresetOnStartup.isOn()
+        masterPresetsMenu.enableIf(btnApplyPresetOnStartup.isOn())
     }
     
     @IBAction func rememberSettingsAction(_ sender: Any) {
-        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.isEnabled = btnRememberSettingsForTrack.isOn()})
+        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.enableIf(btnRememberSettingsForTrack.isOn())})
     }
     
     @IBAction func rememberSettingsRadioButtonAction(_ sender: Any) {

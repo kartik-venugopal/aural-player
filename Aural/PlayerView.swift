@@ -38,13 +38,13 @@ class PlayerView: NSView {
         playbackBox.setFrameOrigin(NSPoint.zero)
         
         playbackInfoBox.setFrameOrigin(infoBoxDefaultPosition)
-        functionsBox.isHidden = playbackState == .noTrack
+        functionsBox.hideIf(playbackState == .noTrack)
         centerFunctionsBox()
         
         if playbackState == .waiting {
             showGapFields()
         } else {
-            gapBox.isHidden = true
+            gapBox.hide()
         }
     }
     
@@ -67,14 +67,14 @@ class PlayerView: NSView {
         
         if PlayerViewState.showPlayingTrackInfo {
             
-            playbackInfoBox.isHidden = false
+            playbackInfoBox.show()
             
         } else {
             
-            playbackInfoBox.isHidden = true
+            playbackInfoBox.hide()
             
             PlayerViewState.showAlbumArt = true
-            artView.isHidden = false
+            artView.show()
         }
     }
     
@@ -84,27 +84,27 @@ class PlayerView: NSView {
         
         if PlayerViewState.showAlbumArt {
             
-            artView.isHidden = false
+            artView.show()
             
         } else {
             
-            artView.isHidden = true
+            artView.hide()
             
             PlayerViewState.showPlayingTrackInfo = true
-            playbackInfoBox.isHidden = false
+            playbackInfoBox.show()
         }
     }
     
     func showOrHidePlayingTrackFunctions() {
         
         PlayerViewState.showPlayingTrackFunctions = !PlayerViewState.showPlayingTrackFunctions
-        functionsBox.isHidden = !PlayerViewState.showPlayingTrackFunctions
+        functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
     }
     
     func showOrHideMainControls() {
         
         PlayerViewState.showControls = !PlayerViewState.showControls
-        playbackBox.isHidden = !PlayerViewState.showControls
+        playbackBox.showIf(PlayerViewState.showControls)
     }
     
     func mouseEntered() {}
@@ -144,8 +144,8 @@ class PlayerView: NSView {
             positionTrackNameLabel()
         }
         
-        lblTrackName.isHidden = artistAndTitleAvailable
-        [lblTrackArtist, lblTrackTitle].forEach({$0?.isHidden = !artistAndTitleAvailable})
+        lblTrackName.hideIf(artistAndTitleAvailable)
+        [lblTrackArtist, lblTrackTitle].forEach({$0?.showIf(artistAndTitleAvailable)})
         
         if (track.displayInfo.art != nil) {
             artView.image = track.displayInfo.art!
@@ -292,20 +292,20 @@ class PlayerView: NSView {
     private func showGapFields() {
         
         gapBox.setFrameOrigin(playbackInfoBox.frame.origin)
-        gapBox.isHidden = false
-        [functionsBox, playbackInfoBox].forEach({$0?.isHidden = true})
+        gapBox.show()
+        [functionsBox, playbackInfoBox].forEach({$0?.hide()})
     }
     
     private func showPlayingTrackFields() {
         
         if !gapBox.isHidden {
             
-            gapBox.isHidden = true
+            gapBox.hide()
             
             // TODO: Also show info box if auto-hide-showing
-            playbackInfoBox.isHidden = !PlayerViewState.showPlayingTrackInfo
+            playbackInfoBox.showIf(PlayerViewState.showPlayingTrackInfo)
             
-            functionsBox.isHidden = !PlayerViewState.showPlayingTrackFunctions
+            functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
         }
     }
     
@@ -346,9 +346,9 @@ class DefaultPlayerView: PlayerView {
         PlayerViewState.showAlbumArt = true
         PlayerViewState.showPlayingTrackInfo = true
 
-        artView.isHidden = false
-        playbackInfoBox.isHidden = false
-        playbackBox.isHidden = false
+        artView.show()
+        playbackInfoBox.show()
+        playbackBox.show()
     }
     
     override func showOrHideMainControls() {
@@ -394,19 +394,19 @@ class DefaultPlayerView: PlayerView {
     private func autoHideInfo_show() {
         
         playbackInfoBox.isTransparent = false
-        playbackInfoBox.isHidden = false
+        playbackInfoBox.show()
     }
     
     private func autoHideInfo_hide() {
         
         playbackInfoBox.isTransparent = true
-        playbackInfoBox.isHidden = true
+        playbackInfoBox.hide()
     }
     
     private func autoHideControls_show() {
         
         // Show controls
-        playbackBox.isHidden = false
+        playbackBox.show()
         
         playbackInfoBox.setFrameOrigin(infoBoxDefaultPosition)
         artView.frame.origin.y = artViewDefaultPosition.y
@@ -416,7 +416,7 @@ class DefaultPlayerView: PlayerView {
     private func autoHideControls_hide() {
         
         // Hide controls
-        playbackBox.isHidden = true
+        playbackBox.hide()
         
         playbackInfoBox.setFrameOrigin(infoBoxCenteredPosition)
         artView.frame.origin.y = artViewYCentered
@@ -441,9 +441,9 @@ class ExpandedArtPlayerView: PlayerView {
         PlayerViewState.showAlbumArt = true
         PlayerViewState.showPlayingTrackInfo = true
         
-        artView.isHidden = false
-        playbackBox.isHidden = true
-        overlayBox.isHidden = true
+        artView.show()
+        playbackBox.hide()
+        overlayBox.hide()
         
         playbackInfoBox.isTransparent = false
     }
@@ -485,7 +485,7 @@ class ExpandedArtPlayerView: PlayerView {
         
         let plState = player.getPlaybackState()
         if plState == .playing || plState == .paused {
-            playbackInfoBox.isHidden = false
+            playbackInfoBox.show()
         }
     }
     
@@ -496,15 +496,15 @@ class ExpandedArtPlayerView: PlayerView {
         
         let plState = player.getPlaybackState()
         if plState == .playing || plState == .paused {
-            playbackInfoBox.isHidden = true
+            playbackInfoBox.hide()
         }
     }
     
     private func autoHideControls_show() {
         
         // Show controls
-        playbackBox.isHidden = false
-        overlayBox.isHidden = false
+        playbackBox.show()
+        overlayBox.show()
         
         [playbackInfoBox, playbackBox, gapBox].forEach({$0?.isTransparent = true})
         
@@ -513,7 +513,7 @@ class ExpandedArtPlayerView: PlayerView {
         // Re-position the info box, art view, and functions box
         let plState = player.getPlaybackState()
         if plState == .playing || plState == .paused {
-            playbackInfoBox.isHidden = false
+            playbackInfoBox.show()
         }
         playbackInfoBox.setFrameOrigin(infoBoxTopPosition)
         gapBox.setFrameOrigin(playbackInfoBox.frame.origin)
@@ -523,8 +523,8 @@ class ExpandedArtPlayerView: PlayerView {
     private func autoHideControls_hide() {
         
         // Hide controls
-        overlayBox.isHidden = true
-        playbackBox.isHidden = true
+        overlayBox.hide()
+        playbackBox.hide()
         
         playbackInfoBox.isTransparent = false
         gapBox.isTransparent = false
@@ -535,7 +535,7 @@ class ExpandedArtPlayerView: PlayerView {
         
         // Show info box as overlay temporarily
         if !PlayerViewState.showPlayingTrackInfo {
-            playbackInfoBox.isHidden = true
+            playbackInfoBox.hide()
         }
     }
 }

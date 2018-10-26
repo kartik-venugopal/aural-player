@@ -28,8 +28,7 @@ class HistoryMenuController: NSObject, NSMenuDelegate {
         createChronologicalMenu(history.allRecentlyPlayedItems(), recentlyPlayedMenu)
         
         // Recently Added menu items are only accessible in "regular" mode
-        let enable = AppModeManager.mode == .regular
-        recentlyAddedMenu.items.forEach({$0.isEnabled = enable})
+        recentlyAddedMenu.items.forEach({$0.enableIf(AppModeManager.mode == .regular)})
     }
     
     // Populates the given menu with items corresponding to the given historical item info, grouped by timestamp into categories like "Past 24 hours", "Past 7 days", etc.

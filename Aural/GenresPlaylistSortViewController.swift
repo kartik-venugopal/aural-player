@@ -53,7 +53,7 @@ class GenresPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     @IBAction func groupsSortToggleAction(_ sender: Any) {
         
-        [sortGroups_byGenre, sortGroups_byDuration, sortGroups_ascending, sortGroups_descending].forEach({$0?.isEnabled = sortGroups.isOn()})
+        [sortGroups_byGenre, sortGroups_byDuration, sortGroups_ascending, sortGroups_descending].forEach({$0?.enableIf(sortGroups.isOn())})
     }
     
     @IBAction func groupsSortFieldAction(_ sender: Any) {}
@@ -62,7 +62,7 @@ class GenresPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     @IBAction func tracksSortToggleAction(_ sender: Any) {
         
-        [sortTracks_allGroups, sortTracks_selectedGroups, sortTracks_byArtist_andName, sortTracks_byArtist_andAlbum_andName, sortTracks_byArtist_andAlbum_andDiscTrack, sortTracks_byAlbum_andDiscTrack, sortTracks_byAlbum_andName, sortTracks_byName, sortTracks_byDuration, sortTracks_ascending, sortTracks_descending, useTrackNameIfNoMetadata].forEach({$0?.isEnabled = sortTracks.isOn()})
+        [sortTracks_allGroups, sortTracks_selectedGroups, sortTracks_byArtist_andName, sortTracks_byArtist_andAlbum_andName, sortTracks_byArtist_andAlbum_andDiscTrack, sortTracks_byAlbum_andDiscTrack, sortTracks_byAlbum_andName, sortTracks_byName, sortTracks_byDuration, sortTracks_ascending, sortTracks_descending, useTrackNameIfNoMetadata].forEach({$0?.enableIf(sortTracks.isOn())})
     }
     
     @IBAction func tracksSortScopeAction(_ sender: Any) {}

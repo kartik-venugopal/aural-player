@@ -32,11 +32,11 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
         let controlsPrefs = preferences.controlsPreferences
         
         btnAllowVolumeControl.onIf(controlsPrefs.allowVolumeControl)
-        volumeControlSensitivityMenu.isEnabled = btnAllowVolumeControl.isOn()
+        volumeControlSensitivityMenu.enableIf(btnAllowVolumeControl.isOn())
         volumeControlSensitivityMenu.selectItem(withTitle: controlsPrefs.volumeControlSensitivity.rawValue.capitalized)
         
         btnAllowSeeking.onIf(controlsPrefs.allowSeeking)
-        seekSensitivityMenu.isEnabled = btnAllowSeeking.isOn()
+        seekSensitivityMenu.enableIf(btnAllowSeeking.isOn())
         seekSensitivityMenu.selectItem(withTitle: controlsPrefs.seekSensitivity.rawValue.capitalized)
         
         btnAllowTrackChange.onIf(controlsPrefs.allowTrackChange)
@@ -46,21 +46,21 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
     }
     
     @IBAction func allowVolumeControlAction(_ sender: Any) {
-        volumeControlSensitivityMenu.isEnabled = btnAllowVolumeControl.isOn()
+        volumeControlSensitivityMenu.enableIf(btnAllowVolumeControl.isOn())
     }
     
     @IBAction func allowSeekingAction(_ sender: Any) {
-        seekSensitivityMenu.isEnabled = btnAllowSeeking.isOn()
+        seekSensitivityMenu.enableIf(btnAllowSeeking.isOn())
     }
     
     @IBAction func enableAllGesturesAction(_ sender: Any) {
         gestureButtons.forEach({$0.on()})
-        [volumeControlSensitivityMenu, seekSensitivityMenu].forEach({$0.isEnabled = true})
+        [volumeControlSensitivityMenu, seekSensitivityMenu].forEach({$0.enable()})
     }
     
     @IBAction func disableAllGesturesAction(_ sender: Any) {
         gestureButtons.forEach({$0.off()})
-        [volumeControlSensitivityMenu, seekSensitivityMenu].forEach({$0.isEnabled = false})
+        [volumeControlSensitivityMenu, seekSensitivityMenu].forEach({$0.disable()})
     }
     
     func save(_ preferences: Preferences) throws {

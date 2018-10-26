@@ -88,22 +88,22 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         PlayerViewState.viewType = .defaultView
         
-        expandedArtView.isHidden = true
+        expandedArtView.hide()
         expandedArtView.hideView()
 
         defaultView.showView(player.getPlaybackState())
-        defaultView.isHidden = false
+        defaultView.show()
     }
     
     private func showExpandedArtView() {
         
         PlayerViewState.viewType = .expandedArt
         
-        defaultView.isHidden = true
+        defaultView.hide()
         defaultView.hideView()
         
         expandedArtView.showView(player.getPlaybackState())
-        expandedArtView.isHidden = false
+        expandedArtView.show()
     }
     
     private func showOrHidePlayingTrackInfo() {

@@ -124,7 +124,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     private func startedAddingTracks() {
         
         playlistWorkSpinner.doubleValue = 0
-        playlistWorkSpinner.isHidden = false
+        playlistWorkSpinner.show()
         playlistWorkSpinner.startAnimation(self)
     }
     
@@ -132,7 +132,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     private func doneAddingTracks() {
         
         playlistWorkSpinner.stopAnimation(self)
-        playlistWorkSpinner.isHidden = true
+        playlistWorkSpinner.hide()
         
         sequenceChanged()
     }

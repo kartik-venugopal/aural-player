@@ -47,7 +47,7 @@ class AlbumsPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     @IBAction func groupsSortToggleAction(_ sender: Any) {
         
-        [sortGroups_byAlbum, sortGroups_byDuration, sortGroups_ascending, sortGroups_descending].forEach({$0?.isEnabled = sortGroups.isOn()})
+        [sortGroups_byAlbum, sortGroups_byDuration, sortGroups_ascending, sortGroups_descending].forEach({$0?.enableIf(sortGroups.isOn())})
     }
     
     @IBAction func groupsSortFieldAction(_ sender: Any) {}
@@ -56,7 +56,7 @@ class AlbumsPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     @IBAction func tracksSortToggleAction(_ sender: Any) {
         
-        [sortTracks_allGroups, sortTracks_selectedGroups, sortTracks_byDiscAndTrack, sortTracks_byName, sortTracks_byDuration, sortTracks_ascending, sortTracks_descending, useTrackNameIfNoMetadata].forEach({$0?.isEnabled = sortTracks.isOn()})
+        [sortTracks_allGroups, sortTracks_selectedGroups, sortTracks_byDiscAndTrack, sortTracks_byName, sortTracks_byDuration, sortTracks_ascending, sortTracks_descending, useTrackNameIfNoMetadata].forEach({$0?.enableIf(sortTracks.isOn())})
     }
     
     @IBAction func tracksSortScopeAction(_ sender: Any) {}

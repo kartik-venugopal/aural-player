@@ -207,22 +207,22 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         setSeekTimerState(true)
         initSeekPosition()
-        seekSlider.isEnabled = true
+        seekSlider.enable()
         renderLoop()
     }
     
     private func clearNowPlayingInfo() {
         
-        lblTimeElapsed.isHidden = true
-        lblTimeRemaining.isHidden = true
+        lblTimeElapsed.hide()
+        lblTimeRemaining.hide()
         setSeekTimerState(false)
         seekSlider.floatValue = 0
-        seekSlider.isEnabled = false
+        seekSlider.disable()
     }
     
     private func initSeekPosition() {
         
-        [seekSlider, lblTimeElapsed, lblTimeRemaining].forEach({$0?.isHidden = false})
+        [seekSlider, lblTimeElapsed, lblTimeRemaining].forEach({$0?.show()})
         updateSeekPosition()
     }
     
@@ -250,8 +250,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         lblTimeElapsed.stringValue = trackTimes.elapsed
         lblTimeRemaining.stringValue = trackTimes.remaining
         
-        lblTimeElapsed.isHidden = false
-        lblTimeRemaining.isHidden = false
+        lblTimeElapsed.show()
+        lblTimeRemaining.show()
         
         seekSlider.floatValue = 0
     }
@@ -691,7 +691,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         btnPlayPause.off()
         btnLoop.switchState(LoopState.none)
         
-        [seekSlider, lblTimeElapsed, lblTimeRemaining].forEach({$0?.isHidden = true})
+        [seekSlider, lblTimeElapsed, lblTimeRemaining].forEach({$0?.hide()})
         
         if soundPreferences.rememberEffectsSettings {
             

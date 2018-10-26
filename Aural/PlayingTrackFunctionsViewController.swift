@@ -122,14 +122,14 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     
     private func newTrackStarted(_ track: Track) {
         
-        self.view.isHidden = !PlayerViewState.showPlayingTrackFunctions
+        self.view.showIf(PlayerViewState.showPlayingTrackFunctions)
         btnFavorite.onIf(favorites.favoriteWithFileExists(track.file))
     }
     
     private func noTrackPlaying() {
         
         detailedInfoPopover.close()
-        self.view.isHidden = true
+        self.view.hide()
     }
     
     private func trackChanged(_ notification: TrackChangedNotification) {

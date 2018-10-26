@@ -22,7 +22,7 @@ class AutoHidingView: NSObject {
     // Show the view. If the view is already shown, the auto-hide time interval will be reset, invalidating the previous one.
     func showView() {
         
-        view.isHidden = false
+        view.show()
         
         // Invalidate previously activated timer
         viewHidingTimer?.invalidate()
@@ -33,7 +33,7 @@ class AutoHidingView: NSObject {
     
     // Hide the view
     @objc func hideView() {
-        view.isHidden = true
+        view.hide()
     }
 }
 

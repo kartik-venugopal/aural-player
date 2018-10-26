@@ -45,7 +45,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        previewBox.isHidden = true
+        previewBox.hide()
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -58,7 +58,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         FilterPresets.deletePresets(selection)
         editorView.reloadData()
         
-        previewBox.isHidden = true
+        previewBox.hide()
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
     }
@@ -113,7 +113,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         filterTrebleSlider.end = Double(trebleBand.upperBound)
         lblFilterTrebleRange.stringValue = ValueFormatter.formatFilterFrequencyRange(trebleBand.lowerBound, trebleBand.upperBound)
         
-        previewBox.isHidden = false
+        previewBox.show()
     }
     
     // MARK: View delegate functions
@@ -127,7 +127,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         
         let numRows = editorView.numberOfSelectedRows
         
-        previewBox.isHidden = numRows != 1
+        previewBox.hideIf(numRows != 1)
         
         if numRows == 1 {
             

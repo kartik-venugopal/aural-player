@@ -26,7 +26,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        previewBox.isHidden = true
+        previewBox.hide()
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -39,7 +39,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         PitchPresets.deletePresets(selection)
         editorView.reloadData()
         
-        previewBox.isHidden = true
+        previewBox.hide()
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
     }
@@ -86,7 +86,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         pitchOverlapSlider.floatValue = preset.overlap
         lblPitchOverlapValue.stringValue = ValueFormatter.formatOverlap(preset.overlap)
         
-        previewBox.isHidden = false
+        previewBox.show()
     }
     
     // MARK: View delegate functions
@@ -100,7 +100,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         
         let numRows = editorView.numberOfSelectedRows
 
-        previewBox.isHidden = numRows != 1
+        previewBox.hideIf(numRows != 1)
         
         if numRows == 1 {
             

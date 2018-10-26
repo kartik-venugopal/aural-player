@@ -66,18 +66,18 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         switchViewMenuItem.onIf(AppModeManager.mode != .regular)
-        dockMiniBarMenu.isHidden = AppModeManager.mode == .regular
+        dockMiniBarMenu.hideIf(AppModeManager.mode == .regular)
         
         if (AppModeManager.mode == .regular) {
             
-            [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.isHidden = false})
+            [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.show()})
             
             togglePlaylistMenuItem.onIf(layoutManager.isShowingPlaylist())
             toggleEffectsMenuItem.onIf(layoutManager.isShowingEffects())
             
         } else {
             
-            [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.isHidden = true})
+            [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.hide()})
         }
         
         // Recreate the custom layout items
@@ -102,7 +102,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
             self.windowLayoutsMenu.insertItem(menuItem, at: 0)
         })
     
-        manageLayoutsMenuItem.isEnabled = !customLayouts.isEmpty
+        manageLayoutsMenuItem.enableIf(!customLayouts.isEmpty)
         
         playerMenuItem.off()
         
@@ -110,9 +110,9 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         playerDefaultViewMenuItem.onIf(PlayerViewState.viewType == .defaultView)
         playerExpandedArtViewMenuItem.onIf(PlayerViewState.viewType == .expandedArt)
         
-        [showArtMenuItem, showMainControlsMenuItem].forEach({$0.isHidden = PlayerViewState.viewType == .expandedArt})
+        [showArtMenuItem, showMainControlsMenuItem].forEach({$0.hideIf(PlayerViewState.viewType == .expandedArt)})
         
-        showTrackInfoMenuItem.isHidden = PlayerViewState.viewType == .defaultView
+        showTrackInfoMenuItem.hideIf(PlayerViewState.viewType == .defaultView)
         
         showArtMenuItem.onIf(PlayerViewState.showAlbumArt)
         showTrackInfoMenuItem.onIf(PlayerViewState.showPlayingTrackInfo)
@@ -120,6 +120,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         showMainControlsMenuItem.onIf(PlayerViewState.showControls)
         
         timeElapsedDisplayFormats.forEach({$0.off()})
+        
         switch PlayerViewState.timeElapsedDisplayType {
             
         case .formatted:    timeElapsedMenuItem_hms.on()
