@@ -30,7 +30,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         expandedArtView.setFrameOrigin(NSPoint.zero)
         
         // TODO: This value will come from appState
-        PlayerViewState.viewType = .expandedArt
+        PlayerViewState.viewType = .defaultView
         
         showView(PlayerViewState.viewType)
         
