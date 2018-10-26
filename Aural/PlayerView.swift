@@ -336,9 +336,9 @@ class PlayerView: NSView {
 @IBDesignable
 class DefaultPlayerView: PlayerView {
     
-    private let artViewDefaultPosition: NSPoint = NSPoint(x: 10, y: 80)
+    private let artViewDefaultPosition: NSPoint = NSPoint(x: 10, y: 83)
     
-    private let artViewYCentered: CGFloat = 50
+    private let artViewYCentered: CGFloat = 53
     
     override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 90, y: 70) }
     private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 90, y: 40)
