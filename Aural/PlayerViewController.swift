@@ -3,13 +3,12 @@
  */
 import Cocoa
 
-class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber, ConstituentView {
+class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
     
     @IBOutlet weak var defaultView: PlayerView!
     @IBOutlet weak var expandedArtView: PlayerView!
     @IBOutlet weak var playbackBox: NSBox!
     @IBOutlet weak var functionsBox: NSBox!
-    @IBOutlet weak var gapView: NSView!
     
     private lazy var mouseTrackingView: MouseTrackingView = ViewFactory.getMainWindowMouseTrackingView()
     
@@ -27,8 +26,11 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         self.view.addSubview(defaultView)
         self.view.addSubview(expandedArtView)
         
+        defaultView.setFrameOrigin(NSPoint.zero)
+        expandedArtView.setFrameOrigin(NSPoint.zero)
+        
         // TODO: This value will come from appState
-        PlayerViewState.viewType = .defaultView
+        PlayerViewState.viewType = .expandedArt
         
         showView(PlayerViewState.viewType)
         
@@ -46,8 +48,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     private func initSubscriptions() {
         
         // Subscribe to message notifications
-        AsyncMessenger.subscribe([.gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
-        
         SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
         
         SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHidePlayingTrackFunctions], subscriber: self)
@@ -55,15 +55,9 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     private func removeSubscriptions() {
         
-        AsyncMessenger.unsubscribe([.gapStarted], subscriber: self)
-        
         SyncMessenger.unsubscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
         
         SyncMessenger.unsubscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHidePlayingTrackFunctions], subscriber: self)
-    }
-    
-    private func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
-        gapView.isHidden = false
     }
     
     private func changeView(_ message: PlayerViewActionMessage) {
@@ -78,10 +72,12 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
         case .defaultView:
             
+            expandedArtView.handOff(defaultView)
             showDefaultView()
             
         case .expandedArt:
             
+            defaultView.handOff(expandedArtView)
             showExpandedArtView()
         }
         
@@ -95,7 +91,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         expandedArtView.isHidden = true
         expandedArtView.hideView()
 
-        defaultView.showView()
+        defaultView.showView(player.getPlaybackState())
         defaultView.isHidden = false
     }
     
@@ -106,7 +102,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         defaultView.isHidden = true
         defaultView.hideView()
         
-        expandedArtView.showView()
+        expandedArtView.showView(player.getPlaybackState())
         expandedArtView.isHidden = false
     }
     
@@ -170,19 +166,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         case .mouseExitedView:
             
             mouseExited()
-            
-        default: return
-            
-        }
-    }
-    
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        switch message.messageType {
-            
-        case .gapStarted:
-            
-            gapStarted(message as! PlaybackGapStartedAsyncMessage)
             
         default: return
             

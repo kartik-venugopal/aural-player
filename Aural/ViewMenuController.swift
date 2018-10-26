@@ -112,6 +112,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         
         [showArtMenuItem, showMainControlsMenuItem].forEach({$0.isHidden = PlayerViewState.viewType == .expandedArt})
         
+        showTrackInfoMenuItem.isHidden = PlayerViewState.viewType == .defaultView
+        
         showArtMenuItem.onIf(PlayerViewState.showAlbumArt)
         showTrackInfoMenuItem.onIf(PlayerViewState.showPlayingTrackInfo)
         showTrackFunctionsMenuItem.onIf(PlayerViewState.showPlayingTrackFunctions)
