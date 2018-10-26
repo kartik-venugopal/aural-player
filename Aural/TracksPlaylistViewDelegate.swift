@@ -113,8 +113,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? IndexCellView {
             
             cell.textField?.stringValue = text
-            cell.textField?.isHidden = false
-            cell.imageView?.isHidden = true
+            cell.textField?.show()
+            cell.imageView?.hide()
             cell.row = row
             
             let aOnly = gapAfter != nil && gapBefore == nil
@@ -144,7 +144,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? TrackNameCellView {
             
             cell.textField?.stringValue = text
-            cell.textField?.isHidden = false
+            cell.textField?.show()
             cell.row = row
             
             let both = gapBefore != nil && gapAfter != nil
@@ -153,30 +153,30 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             
             if aOnly {
                 
-                cell.gapBeforeImg.isHidden = true
-                cell.gapAfterImg.isHidden = false
+                cell.gapBeforeImg.hide()
+                cell.gapAfterImg.show()
                 
                 cell.placeTextFieldOnTop()
                 
             } else if bOnly {
                 
-                cell.gapBeforeImg.isHidden = false
-                cell.gapAfterImg.isHidden = true
+                cell.gapBeforeImg.show()
+                cell.gapAfterImg.hide()
                 
                 cell.placeTextFieldBelowView(cell.gapBeforeImg)
                 
             } else if both {
                 
-                cell.gapBeforeImg.isHidden = false
-                cell.gapAfterImg.isHidden = false
+                cell.gapBeforeImg.show()
+                cell.gapAfterImg.show()
                 
                 cell.placeTextFieldBelowView(cell.gapBeforeImg)
                 
             } else {
                 
                 // Neither
-                cell.gapBeforeImg.isHidden = true
-                cell.gapAfterImg.isHidden = true
+                cell.gapBeforeImg.hide()
+                cell.gapAfterImg.hide()
                 
                 cell.placeTextFieldOnTop()
             }
@@ -192,7 +192,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? DurationCellView {
             
             cell.textField?.stringValue = text
-            cell.textField?.isHidden = false
+            cell.textField?.show()
             cell.row = row
             
             if cell.gapAfterTextField == nil {
@@ -207,8 +207,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 
                 let gap = gapAfter!
                 
-                cell.gapBeforeTextField.isHidden = true
-                cell.gapAfterTextField.isHidden = false
+                cell.gapBeforeTextField.hide()
+                cell.gapAfterTextField.show()
                 
                 cell.gapAfterTextField.stringValue = StringUtils.formatSecondsToHMS(gap.duration)
                 
@@ -218,8 +218,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 
                 let gap = gapBefore!
                 
-                cell.gapBeforeTextField.isHidden = false
-                cell.gapAfterTextField.isHidden = true
+                cell.gapBeforeTextField.show()
+                cell.gapAfterTextField.hide()
                 
                 cell.gapBeforeTextField.stringValue = StringUtils.formatSecondsToHMS(gap.duration)
                 
@@ -230,8 +230,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                 let gapA = gapAfter!
                 let gapB = gapBefore!
                 
-                cell.gapBeforeTextField.isHidden = false
-                cell.gapAfterTextField.isHidden = false
+                cell.gapBeforeTextField.show()
+                cell.gapAfterTextField.show()
                 
                 cell.gapBeforeTextField.stringValue = StringUtils.formatSecondsToHMS(gapB.duration)
                 cell.gapAfterTextField.stringValue = StringUtils.formatSecondsToHMS(gapA.duration)
@@ -241,8 +241,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             } else {
                 
                 // Neither
-                cell.gapBeforeTextField.isHidden = true
-                cell.gapAfterTextField.isHidden = true
+                cell.gapBeforeTextField.hide()
+                cell.gapAfterTextField.hide()
                 
                 cell.placeTextFieldOnTop()
             }
@@ -275,10 +275,10 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             let imgView = cell.imageView!
          
             imgView.image = image
-            imgView.isHidden = false
+            imgView.show()
             
             // Hide the text view
-            cell.textField?.isHidden = true
+            cell.textField?.hide()
             
             cell.textField?.stringValue = text
             cell.row = row

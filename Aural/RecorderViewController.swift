@@ -63,7 +63,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         // Update the UI to display current recording information
         lblRecorderDuration.stringValue = Strings.zeroDurationString
         lblRecorderFileSize.stringValue = Size.ZERO.toString()
-        recordingInfoBox.isHidden = false
+        recordingInfoBox.show()
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
@@ -77,7 +77,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         recorderTimer?.pause()
         
         saveRecording(recordingInfo!.format)
-        recordingInfoBox.isHidden = true
+        recordingInfoBox.hide()
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }

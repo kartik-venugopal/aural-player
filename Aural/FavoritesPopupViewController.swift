@@ -42,16 +42,16 @@ class FavoritesPopupViewController: NSViewController, FavoritesPopupProtocol {
     func showAddedMessage(_ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
         
         showAndAutoHide(relativeToView, preferredEdge)
-        lblAdded.isHidden = false
-        lblRemoved.isHidden = true
+        lblAdded.show()
+        lblRemoved.hide()
     }
     
     // Shows a message that a track has been removed from Favorites
     func showRemovedMessage(_ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
         
         showAndAutoHide(relativeToView, preferredEdge)
-        lblAdded.isHidden = true
-        lblRemoved.isHidden = false
+        lblAdded.hide()
+        lblRemoved.show()
     }
     
     // Shows the popover and initiates a timer to auto-hide the popover after a preset time interval

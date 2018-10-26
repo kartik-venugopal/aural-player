@@ -47,7 +47,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        [btnDelete, btnPlay, btnRename].forEach({$0.isEnabled = false})
+        [btnDelete, btnPlay, btnRename].forEach({$0.disable()})
     }
     
     @IBAction func deleteSelectedBookmarksAction(_ sender: AnyObject) {
@@ -113,8 +113,8 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         
         let selRows: Int = editorView.numberOfSelectedRows
         
-        btnDelete.isEnabled = selRows > 0
-        [btnPlay, btnRename].forEach({$0.isEnabled = selRows == 1})
+        btnDelete.enableIf(selRows > 0)
+        [btnPlay, btnRename].forEach({$0.enableIf(selRows == 1)})
     }
     
     // Returns a view for a single row

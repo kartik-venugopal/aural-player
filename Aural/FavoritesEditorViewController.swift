@@ -46,7 +46,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        [btnDelete, btnPlay].forEach({$0.isEnabled = false})
+        [btnDelete, btnPlay].forEach({$0.disable()})
     }
     
     @IBAction func deleteSelectedFavoritesAction(_ sender: AnyObject) {
@@ -64,8 +64,8 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
         
         let selRows: Int = editorView.numberOfSelectedRows
         
-        btnDelete.isEnabled = selRows > 0
-        btnPlay.isEnabled = selRows == 1
+        btnDelete.enableIf(selRows > 0)
+        btnPlay.enableIf(selRows == 1)
     }
     
     @IBAction func playSelectedFavoriteAction(_ sender: AnyObject) {

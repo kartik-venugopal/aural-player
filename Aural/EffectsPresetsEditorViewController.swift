@@ -38,7 +38,7 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     
     override func viewDidAppear() {
         
-        [btnApply, btnRename, btnDelete].forEach({$0.isEnabled = false})
+        [btnApply, btnRename, btnDelete].forEach({$0.disable()})
         tabViewAction(masterPresetsTabViewButton)
         
         let units: [EffectsUnit] = [.master, .eq, .pitch, .time, .reverb, .delay, .filter]
@@ -89,8 +89,8 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     
     private func updateButtonStates(_ selRows: Int) {
         
-        btnDelete.isEnabled = selRows > 0
-        [btnApply, btnRename].forEach({$0.isEnabled = selRows == 1})
+        btnDelete.enableIf(selRows > 0)
+        [btnApply, btnRename].forEach({$0.enableIf(selRows == 1)})
     }
     
     // Returns a view for a single row

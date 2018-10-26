@@ -133,11 +133,11 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        previewBox.isHidden = true
+        previewBox.hide()
         
         // Show EQ sub preview by default
-        subPreviewViews.forEach({$0.isHidden = true})
-        eqSubPreview.isHidden = false
+        subPreviewViews.forEach({$0.hide()})
+        eqSubPreview.show()
         subPreviewMenu.selectItem(withTitle: "EQ")
     }
     
@@ -151,7 +151,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         MasterPresets.deletePresets(selection)
         editorView.reloadData()
         
-        previewBox.isHidden = true
+        previewBox.hide()
     }
     
     private func getSelectedPresetNames() -> [String] {
@@ -189,23 +189,23 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     @IBAction func subPreviewMenuAction(_ sender: AnyObject) {
         
-        subPreviewViews.forEach({$0.isHidden = true})
+        subPreviewViews.forEach({$0.hide()})
         
         let selItem = subPreviewMenu.titleOfSelectedItem
         
         switch selItem {
             
-        case "EQ": eqSubPreview.isHidden = false
+        case "EQ": eqSubPreview.show()
             
-        case "Pitch": pitchSubPreview.isHidden = false
+        case "Pitch": pitchSubPreview.show()
             
-        case "Time": timeSubPreview.isHidden = false
+        case "Time": timeSubPreview.show()
             
-        case "Reverb": reverbSubPreview.isHidden = false
+        case "Reverb": reverbSubPreview.show()
             
-        case "Delay": delaySubPreview.isHidden = false
+        case "Delay": delaySubPreview.show()
             
-        case "Filter": filterSubPreview.isHidden = false
+        case "Filter": filterSubPreview.show()
             
         default: return
             
@@ -230,7 +230,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         renderDelayPreview(preset.delay)
         renderFilterPreview(preset.filter)
         
-        previewBox.isHidden = false
+        previewBox.show()
     }
     
     private func renderEQPreview(_ preset: EQPreset) {
@@ -332,7 +332,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         
         let numRows = editorView.numberOfSelectedRows
         
-        previewBox.isHidden = numRows != 1
+        previewBox.hideIf(numRows != 1)
         
         if numRows == 1 {
             

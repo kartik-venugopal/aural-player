@@ -36,7 +36,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
         
         editorView.reloadData()
         editorView.deselectAll(self)
-        previewBox.isHidden = true
+        previewBox.hide()
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -48,7 +48,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
         let selection = getSelectedPresetNames()
         EQPresets.deletePresets(selection)
         editorView.reloadData()
-        previewBox.isHidden = true
+        previewBox.hide()
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
     }
@@ -113,7 +113,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
         if numRows == 1 {
             
             // Render preview
-            previewBox.isHidden = false
+            previewBox.show()
             let selection = getSelectedPresetNames()
             let presetName = selection[0]
             
@@ -123,7 +123,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
             renderPreview(preset)
             
         } else {
-            previewBox.isHidden = true
+            previewBox.hide()
         }
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(numRows))

@@ -31,7 +31,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        previewBox.isHidden = true
+        previewBox.hide()
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -44,7 +44,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         DelayPresets.deletePresets(selection)
         editorView.reloadData()
         
-        previewBox.isHidden = true
+        previewBox.hide()
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
     }
@@ -96,7 +96,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         delayCutoffSlider.floatValue = preset.cutoff
         lblDelayLowPassCutoffValue.stringValue = ValueFormatter.formatDelayLowPassCutoff(preset.cutoff)
         
-        previewBox.isHidden = false
+        previewBox.show()
     }
     
     // MARK: View delegate functions
@@ -110,7 +110,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         
         let numRows = editorView.numberOfSelectedRows
         
-        previewBox.isHidden = numRows != 1
+        previewBox.hideIf(numRows != 1)
         
         if numRows == 1 {
             

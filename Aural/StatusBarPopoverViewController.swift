@@ -144,7 +144,7 @@ class StatusBarPopoverViewController: NSViewController, NSPopoverDelegate, Messa
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
         
         btnToggleEffects.toggle()
-        effectsBox.isHidden = !effectsBox.isHidden
+        effectsBox.showIf(effectsBox.isHidden)
         
         let newHeight: CGFloat = effectsBox.isHidden ? 211 : 398
         popover.contentSize = NSMakeSize(popover.contentSize.width, newHeight)

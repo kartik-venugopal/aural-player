@@ -89,17 +89,17 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         
         let isRegularMode = AppModeManager.mode == .regular
         let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
-        [panLeftMenuItem, panRightMenuItem].forEach({$0?.isEnabled = isRegularMode && !showingDialogOrPopover})
-        [eqMenu, pitchMenu, timeMenu].forEach({$0?.isEnabled = isRegularMode})
+        [panLeftMenuItem, panRightMenuItem].forEach({$0?.enableIf(isRegularMode && !showingDialogOrPopover)})
+        [eqMenu, pitchMenu, timeMenu].forEach({$0?.enableIf(isRegularMode)})
         
-        rememberSettingsMenuItem.isHidden = !(preferences.rememberEffectsSettings && preferences.rememberEffectsSettingsOption == .individualTracks)
+        rememberSettingsMenuItem.showIf(preferences.rememberEffectsSettings && preferences.rememberEffectsSettingsOption == .individualTracks)
         
         if let playingTrack = player.getPlayingTrack()?.track {
             
-            rememberSettingsMenuItem.isEnabled = true
+            rememberSettingsMenuItem.enable()
             rememberSettingsMenuItem.onIf(SoundProfiles.profileForTrack(playingTrack) != nil)
         } else {
-            rememberSettingsMenuItem.isEnabled = false
+            rememberSettingsMenuItem.disable()
         }
     }
     

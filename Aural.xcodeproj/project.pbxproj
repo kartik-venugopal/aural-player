@@ -22,7 +22,6 @@
 		3E06C02C1FB6B137003EE9AB /* HistoryItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06C02B1FB6B137003EE9AB /* HistoryItems.swift */; };
 		3E06C02F1FB6B2BB003EE9AB /* LRUArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06C02E1FB6B2BB003EE9AB /* LRUArray.swift */; };
 		3E06C0311FB6CA2A003EE9AB /* HistoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06C0301FB6CA2A003EE9AB /* HistoryDelegate.swift */; };
-		3E08DE9B2182E543001104CF /* GapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08DE9A2182E543001104CF /* GapView.swift */; };
 		3E09C6B51F2EE70C007BB489 /* PlaybackSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C6B41F2EE70C007BB489 /* PlaybackSession.swift */; };
 		3E09C6B71F2F25A7007BB489 /* ShuffleSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C6B61F2F25A7007BB489 /* ShuffleSequence.swift */; };
 		3E09C6BB1F2F388B007BB489 /* PlaybackSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C6BA1F2F388B007BB489 /* PlaybackSequence.swift */; };
@@ -48,7 +47,7 @@
 		3E10DDDF216F28A7001D3B66 /* GapsEditorDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E10DDDE216F28A7001D3B66 /* GapsEditorDialog.xib */; };
 		3E10DDE1216F2F53001D3B66 /* GapsEditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E10DDE0216F2F53001D3B66 /* GapsEditorWindowController.swift */; };
 		3E12AF8A2176FC2F00692391 /* IntervalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12AF892176FC2F00692391 /* IntervalPicker.swift */; };
-		3E1765FF217DBAFF001C6CF9 /* ToggleControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1765FE217DBAFF001C6CF9 /* ToggleControls.swift */; };
+		3E1765FF217DBAFF001C6CF9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1765FE217DBAFF001C6CF9 /* Extensions.swift */; };
 		3E176603217DE43D001C6CF9 /* TracksPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E176602217DE43D001C6CF9 /* TracksPlaylistSort.xib */; };
 		3E176605217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E176604217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib */; };
 		3E176607217DE513001C6CF9 /* TracksPlaylistSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E176606217DE513001C6CF9 /* TracksPlaylistSortViewController.swift */; };
@@ -336,7 +335,6 @@
 		3E06C02B1FB6B137003EE9AB /* HistoryItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItems.swift; sourceTree = "<group>"; };
 		3E06C02E1FB6B2BB003EE9AB /* LRUArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRUArray.swift; sourceTree = "<group>"; };
 		3E06C0301FB6CA2A003EE9AB /* HistoryDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryDelegate.swift; sourceTree = "<group>"; };
-		3E08DE9A2182E543001104CF /* GapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GapView.swift; sourceTree = "<group>"; };
 		3E09C6B41F2EE70C007BB489 /* PlaybackSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSession.swift; sourceTree = "<group>"; };
 		3E09C6B61F2F25A7007BB489 /* ShuffleSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShuffleSequence.swift; sourceTree = "<group>"; };
 		3E09C6BA1F2F388B007BB489 /* PlaybackSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSequence.swift; sourceTree = "<group>"; };
@@ -362,7 +360,7 @@
 		3E10DDDE216F28A7001D3B66 /* GapsEditorDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GapsEditorDialog.xib; sourceTree = "<group>"; };
 		3E10DDE0216F2F53001D3B66 /* GapsEditorWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GapsEditorWindowController.swift; sourceTree = "<group>"; };
 		3E12AF892176FC2F00692391 /* IntervalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalPicker.swift; sourceTree = "<group>"; };
-		3E1765FE217DBAFF001C6CF9 /* ToggleControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleControls.swift; sourceTree = "<group>"; };
+		3E1765FE217DBAFF001C6CF9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3E176602217DE43D001C6CF9 /* TracksPlaylistSort.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TracksPlaylistSort.xib; sourceTree = "<group>"; };
 		3E176604217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtistsPlaylistSort.xib; sourceTree = "<group>"; };
 		3E176606217DE513001C6CF9 /* TracksPlaylistSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksPlaylistSortViewController.swift; sourceTree = "<group>"; };
@@ -696,7 +694,6 @@
 				3E0ED6A51FBB05FF008268B3 /* Player.xib */,
 				3E7D8A6721817C8300EF8746 /* PlayerViewController.swift */,
 				3E7D8A6B2181CCCB00EF8746 /* PlayerView.swift */,
-				3E08DE9A2182E543001104CF /* GapView.swift */,
 				3EEACA051F5E8615003A2140 /* TrackInfoViewController.swift */,
 				3E7D8A63218118FF00EF8746 /* GapViewController.swift */,
 				3E7C6FFF1F5F45F00035AEF2 /* PlaybackViewController.swift */,
@@ -947,7 +944,6 @@
 				3E46F55D1F2A8003007CD384 /* ModalDialogButtonCells.swift */,
 				3E46F55B1F2A7A36007CD384 /* CheckRadioButtonCell.swift */,
 				3EDA1FB8214F278C003591FA /* TrackPeekingButton.swift */,
-				3E1765FE217DBAFF001C6CF9 /* ToggleControls.swift */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -1182,6 +1178,7 @@
 				3E2F1047215562B50099FD06 /* Editors */,
 				3EF18476217C8EE900D24F39 /* Visualizer */,
 				3E06C0251FB6AF2B003EE9AB /* CustomControls */,
+				3E1765FE217DBAFF001C6CF9 /* Extensions.swift */,
 				3E850D511FB441800017CD02 /* WindowFactory.swift */,
 				3E0F94781FBB9A2100B6E1B3 /* ViewFactory.swift */,
 				3E46F5651F2ABA57007CD384 /* PopoverContentView.swift */,
@@ -1803,7 +1800,6 @@
 				3E309B781FB70D1F00C61E72 /* FavoritesPopupViewController.swift in Sources */,
 				3EF08DCB2156D65D000C7F11 /* LayoutManagerProtocol.swift in Sources */,
 				3EDFFA071FC0263E00158177 /* PlaylistPreferencesViewController.swift in Sources */,
-				3E08DE9B2182E543001104CF /* GapView.swift in Sources */,
 				3EBF7EF2215873E8007869EC /* CustomEditorViews.swift in Sources */,
 				3EBA52FA1FC2EB1E007F902F /* AuralTabView.swift in Sources */,
 				3E33B49E1F3E70F4005EF359 /* FileSystemUtils.swift in Sources */,
@@ -1880,7 +1876,7 @@
 				3E12AF8A2176FC2F00692391 /* IntervalPicker.swift in Sources */,
 				3E3DCD251F0F913800E09ADC /* AsyncMessages.swift in Sources */,
 				3EB1700E2173F5DA00B82D3A /* DelayedPlaybackEditorWindowController.swift in Sources */,
-				3E1765FF217DBAFF001C6CF9 /* ToggleControls.swift in Sources */,
+				3E1765FF217DBAFF001C6CF9 /* Extensions.swift in Sources */,
 				3E98478F1F5D04E7001A2D28 /* AudioGraphDelegateProtocol.swift in Sources */,
 				3E3BAF241F274771008F090E /* Sort.swift in Sources */,
 				3EC593981F28A0C600153D34 /* RangeSlider.swift in Sources */,

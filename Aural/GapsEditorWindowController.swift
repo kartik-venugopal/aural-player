@@ -130,7 +130,7 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
     
     @IBAction func gapBeforeTrackAction(_ sender: Any) {
         
-        [timePicker_1, btnGapType_oneTime_1, btnGapType_persistent_1, btnGapType_tillAppExits_1].forEach({$0?.isEnabled = btnGapBeforeTrack.isOn()})
+        [timePicker_1, btnGapType_oneTime_1, btnGapType_persistent_1, btnGapType_tillAppExits_1].forEach({$0?.enableIf(btnGapBeforeTrack.isOn())})
     }
     
     @IBAction func gapTypeAction_1(_ sender: Any) {
@@ -143,7 +143,7 @@ class GapsEditorWindowController: NSWindowController, ModalDialogDelegate {
     
     @IBAction func gapAfterTrackAction(_ sender: Any) {
         
-        [timePicker_2, btnGapType_oneTime_2, btnGapType_persistent_2, btnGapType_tillAppExits_2].forEach({$0?.isEnabled = btnGapAfterTrack.isOn()})
+        [timePicker_2, btnGapType_oneTime_2, btnGapType_persistent_2, btnGapType_tillAppExits_2].forEach({$0?.enableIf(btnGapAfterTrack.isOn())})
     }
     
     @IBAction func gapTypeAction_2(_ sender: Any) {

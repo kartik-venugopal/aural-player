@@ -55,7 +55,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        theMenu.isEnabled = AppModeManager.mode == .regular && layoutManager.isShowingPlaylist()
+        theMenu.enableIf(AppModeManager.mode == .regular && layoutManager.isShowingPlaylist())
         
         if (!theMenu.isEnabled) {
             return
@@ -68,15 +68,15 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         // These menu items require 1 - the playlist to be visible, and 2 - at least one playlist item to be selected
         let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
-        [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, moveItemsToBottomMenuItem, removeSelectedItemsMenuItem].forEach({$0?.isEnabled = !showingDialogOrPopover && atLeastOneItemSelected})
+        [playSelectedItemMenuItem, moveItemsUpMenuItem, moveItemsToTopMenuItem, moveItemsDownMenuItem, moveItemsToBottomMenuItem, removeSelectedItemsMenuItem].forEach({$0?.enableIf(!showingDialogOrPopover && atLeastOneItemSelected)})
         
         // These menu items require 1 - the playlist to be visible, and 2 - at least one track in the playlist
-        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, pageUpMenuItem, pageDownMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, invertSelectionMenuItem].forEach({$0?.isEnabled = playlistNotEmpty})
+        [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, pageUpMenuItem, pageDownMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, invertSelectionMenuItem].forEach({$0?.enableIf(playlistNotEmpty)})
         
         // At least 2 tracks needed for these functions, and at least one track selected
-        [moveItemsToTopMenuItem, moveItemsToBottomMenuItem, cropSelectionMenuItem].forEach({$0?.isEnabled = playlistSize > 1 && atLeastOneItemSelected})
+        [moveItemsToTopMenuItem, moveItemsToBottomMenuItem, cropSelectionMenuItem].forEach({$0?.enableIf(playlistSize > 1 && atLeastOneItemSelected)})
         
-        clearSelectionMenuItem.isEnabled = playlistNotEmpty && atLeastOneItemSelected
+        clearSelectionMenuItem.enableIf(playlistNotEmpty && atLeastOneItemSelected)
         
         // Make sure it's a track, not a group, and that only one track is selected
         if numSelectedRows == 1 {
@@ -86,27 +86,27 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
                 let track = selectedTrack()
                 
                 let gaps = playlist.getGapsAroundTrack(track)
-                insertGapsMenuItem.isHidden = gaps.hasGaps
-                removeGapsMenuItem.isHidden = !gaps.hasGaps
-                editGapsMenuItem.isHidden = !gaps.hasGaps
+                insertGapsMenuItem.hideIf(gaps.hasGaps)
+                removeGapsMenuItem.showIf(gaps.hasGaps)
+                editGapsMenuItem.showIf(gaps.hasGaps)
                 
             } else {
-                [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.isHidden = true})
+                [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.hide()})
             }
             
         } else {
-            [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.isHidden = true})
+            [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.hide()})
         }
         
-        playSelectedItemDelayedMenuItem.isEnabled = numSelectedRows == 1
+        playSelectedItemDelayedMenuItem.enableIf(numSelectedRows == 1)
         
-        expandSelectedGroupsMenuItem.isHidden = PlaylistViewState.current == .tracks
-        expandSelectedGroupsMenuItem.isEnabled = atLeastOneItemSelected && areOnlyGroupsSelected()
+        expandSelectedGroupsMenuItem.hideIf(PlaylistViewState.current == .tracks)
+        expandSelectedGroupsMenuItem.enableIf(atLeastOneItemSelected && areOnlyGroupsSelected())
         
-        collapseSelectedItemsMenuItem.isHidden = PlaylistViewState.current == .tracks
-        collapseSelectedItemsMenuItem.isEnabled = atLeastOneItemSelected
+        collapseSelectedItemsMenuItem.hideIf(PlaylistViewState.current == .tracks)
+        collapseSelectedItemsMenuItem.enableIf(atLeastOneItemSelected)
         
-        [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.isHidden = !(PlaylistViewState.current != .tracks && playlistNotEmpty)})
+        [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.hideIf(!(PlaylistViewState.current != .tracks && playlistNotEmpty))})
     }
     
     private func areOnlyGroupsSelected() -> Bool {

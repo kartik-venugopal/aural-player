@@ -47,27 +47,27 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
         }
         
         // Choose sort view based on current playlist view
-        [tracksPlaylistSortView, artistsPlaylistSortView, albumsPlaylistSortView, genresPlaylistSortView].forEach({$0.getView().isHidden = true})
+        [tracksPlaylistSortView, artistsPlaylistSortView, albumsPlaylistSortView, genresPlaylistSortView].forEach({$0.getView().hide()})
         switch PlaylistViewState.current {
 
         case .tracks:
             
-            tracksPlaylistSortView.getView().isHidden = false
+            tracksPlaylistSortView.getView().show()
             tracksPlaylistSortView.resetFields()
             
         case .artists:
             
-            artistsPlaylistSortView.getView().isHidden = false
+            artistsPlaylistSortView.getView().show()
             artistsPlaylistSortView.resetFields()
             
         case .albums:
             
-            albumsPlaylistSortView.getView().isHidden = false
+            albumsPlaylistSortView.getView().show()
             albumsPlaylistSortView.resetFields()
             
         case .genres:
             
-            genresPlaylistSortView.getView().isHidden = false
+            genresPlaylistSortView.getView().show()
             genresPlaylistSortView.resetFields()
         }
         

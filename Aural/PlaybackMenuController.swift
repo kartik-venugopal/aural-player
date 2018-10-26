@@ -68,30 +68,30 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         let isPlayingPausedOrWaiting = isPlayingOrPaused || playbackState == .waiting
         
         // Play/pause enabled if at least one track available
-        playOrPauseMenuItem.isEnabled = playlist.size() > 0
+        playOrPauseMenuItem.enableIf(playlist.size() > 0)
         playOrPauseMenuItem.onIf(playbackInfo.getPlaybackState() == .playing)
         
-        stopMenuItem.isEnabled = isPlayingPausedOrWaiting
-        jumpToTimeMenuItem.isEnabled = isPlayingOrPaused
+        stopMenuItem.enableIf(isPlayingPausedOrWaiting)
+        jumpToTimeMenuItem.enableIf(isPlayingOrPaused)
         
         // Enabled only in regular mode if playing/paused
-        showInPlaylistMenuItem.isEnabled = isPlayingOrPaused && layoutManager.isShowingPlaylist() && isRegularMode
-        [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem].forEach({$0.isEnabled = isPlayingOrPaused && isRegularMode})
+        showInPlaylistMenuItem.enableIf(isPlayingOrPaused && layoutManager.isShowingPlaylist() && isRegularMode)
+        [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem].forEach({$0.enableIf(isPlayingOrPaused && isRegularMode)})
         
         // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)
         let showingDialogOrPopover = NSApp.modalWindow != nil || WindowState.showingPopover
-        [previousTrackMenuItem, nextTrackMenuItem].forEach({$0.isEnabled = isPlayingPausedOrWaiting && !showingDialogOrPopover})
+        [previousTrackMenuItem, nextTrackMenuItem].forEach({$0.enableIf(isPlayingPausedOrWaiting && !showingDialogOrPopover)})
         
-        [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0.isEnabled = isPlayingOrPaused && !showingDialogOrPopover})
+        [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0.enableIf(isPlayingOrPaused && !showingDialogOrPopover)})
         
-        rememberLastPositionMenuItem.isHidden = !(preferences.rememberLastPosition && preferences.rememberLastPositionOption == .individualTracks)
+        rememberLastPositionMenuItem.showIf(preferences.rememberLastPosition && preferences.rememberLastPositionOption == .individualTracks)
         
         if let playingTrack = playbackInfo.getPlayingTrack()?.track {
             
-            rememberLastPositionMenuItem.isEnabled = true
+            rememberLastPositionMenuItem.enable()
             rememberLastPositionMenuItem.onIf(PlaybackProfiles.profileForTrack(playingTrack) != nil)
         } else {
-            rememberLastPositionMenuItem.isEnabled = false
+            rememberLastPositionMenuItem.disable()
         }
     }
     

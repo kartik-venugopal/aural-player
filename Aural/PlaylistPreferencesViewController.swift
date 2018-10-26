@@ -45,11 +45,11 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         }
         
         [btnBrowseFile, lblPlaylistFile].forEach({
-            $0!.isEnabled = btnLoadPlaylistFromFile.isOn()
+            $0!.enableIf(btnLoadPlaylistFromFile.isOn())
         })
         
         [btnBrowseFolder, lblFolder].forEach({
-            $0!.isEnabled = btnLoadTracksFromFolder.isOn()
+            $0!.enableIf(btnLoadTracksFromFolder.isOn())
         })
         
         hideError_playlistFile()
@@ -64,11 +64,11 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Needed for radio button group
         
         [btnBrowseFile, lblPlaylistFile].forEach({
-            $0!.isEnabled = btnLoadPlaylistFromFile.isOn()
+            $0!.enableIf(btnLoadPlaylistFromFile.isOn())
         })
         
         [btnBrowseFolder, lblFolder].forEach({
-            $0!.isEnabled = btnLoadTracksFromFolder.isOn()
+            $0!.enableIf(btnLoadTracksFromFolder.isOn())
         })
         
         if (btnLoadPlaylistFromFile.isOff() && !errorIcon_1.isHidden) {
@@ -166,27 +166,27 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         lblPlaylistFileCell.markError("  Please choose a playlist file!")
         lblPlaylistFile.setNeedsDisplay()
-        errorIcon_1.isHidden = false
+        errorIcon_1.show()
     }
     
     private func showError_tracksFolder() {
         
         lblFolderCell.markError("  Please choose a folder!")
         lblFolder.setNeedsDisplay()
-        errorIcon_2.isHidden = false
+        errorIcon_2.show()
     }
     
     private func hideError_playlistFile() {
         
         lblPlaylistFileCell.clearError()
         lblPlaylistFile.setNeedsDisplay()
-        errorIcon_1.isHidden = true
+        errorIcon_1.hide()
     }
     
     private func hideError_tracksFolder() {
         
         lblFolderCell.clearError()
         lblFolder.setNeedsDisplay()
-        errorIcon_2.isHidden = true
+        errorIcon_2.hide()
     }
 }

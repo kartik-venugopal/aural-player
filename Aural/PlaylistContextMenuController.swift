@@ -93,23 +93,23 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         case .index, .track:
             
             // Show all track-specific menu items, hide group-specific ones
-            trackMenuItems.forEach({$0.isHidden = false})
-            groupMenuItems.forEach({$0.isHidden = true})
+            trackMenuItems.forEach({$0.show()})
+            groupMenuItems.forEach({$0.hide()})
             
             // Update the state of the favorites menu item (based on if the clicked track is already in the favorites list or not)
             let track = getClickedTrack()
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(track.file))
             
             let gaps = playlist.getGapsAroundTrack(track)
-            insertGapsMenuItem.isHidden = gaps.hasGaps
-            removeGapsMenuItem.isHidden = !gaps.hasGaps
-            editGapsMenuItem.isHidden = !gaps.hasGaps
+            insertGapsMenuItem.hideIf(gaps.hasGaps)
+            removeGapsMenuItem.showIf(gaps.hasGaps)
+            editGapsMenuItem.showIf(gaps.hasGaps)
             
         case .group:
             
             // Show all group-specific menu items, hide track-specific ones
-            trackMenuItems.forEach({$0.isHidden = true})
-            groupMenuItems.forEach({$0.isHidden = false})
+            trackMenuItems.forEach({$0.hide()})
+            groupMenuItems.forEach({$0.show()})
         }
     }
     

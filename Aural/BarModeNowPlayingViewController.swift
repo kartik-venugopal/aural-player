@@ -111,7 +111,7 @@ import Cocoa
 //        
 //        seekSlider.floatValue = 0
 //        setSeekTimerState(false)
-//        seekSlider.isEnabled = false
+//        seekSlider.disable()
 //    }
 //    
 //    private func setSeekTimerState(_ timerOn: Bool) {
@@ -119,7 +119,7 @@ import Cocoa
 //        if (timerOn) {
 //            
 //            if (!seekSlider.isEnabled) {
-//                seekSlider.isEnabled = true
+//                seekSlider.enable()
 //                seekTimer?.startOrResume()
 //            }
 //            
@@ -127,7 +127,7 @@ import Cocoa
 //            
 //            if (seekSlider.isEnabled) {
 //                seekTimer?.pause()
-//                seekSlider.isEnabled = false
+//                seekSlider.disable()
 //            }
 //        }
 //    }

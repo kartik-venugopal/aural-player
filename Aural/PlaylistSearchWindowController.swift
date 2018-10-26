@@ -90,7 +90,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
             searchResultsSummaryLabel.stringValue = "No results found"
         }
         searchResultMatchInfo.stringValue = ""
-        [btnNextSearch, btnPreviousSearch].forEach({$0.isHidden = true})
+        [btnNextSearch, btnPreviousSearch].forEach({$0.hide()})
     }
     
     // Iterates to the previous search result
@@ -115,8 +115,8 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, M
         
         searchResultMatchInfo.stringValue = String(format: "Matched %@: '%@'", searchResult.match.fieldKey, searchResult.match.fieldValue)
         
-        btnNextSearch.isHidden = !searchResult.hasNext
-        btnPreviousSearch.isHidden = !searchResult.hasPrevious
+        btnNextSearch.showIf(searchResult.hasNext)
+        btnPreviousSearch.showIf(searchResult.hasPrevious)
     }
     
     // Selects a track within the playlist view, to show the user where the track is located within the playlist

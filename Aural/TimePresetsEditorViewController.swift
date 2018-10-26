@@ -29,7 +29,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        previewBox.isHidden = true
+        previewBox.hide()
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -42,7 +42,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
         TimePresets.deletePresets(selection)
         editorView.reloadData()
         
-        previewBox.isHidden = true
+        previewBox.hide()
         
         SyncMessenger.publishNotification(EditorSelectionChangedNotification(0))
     }
@@ -92,7 +92,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
         timeOverlapSlider.floatValue = preset.overlap
         lblTimeOverlapValue.stringValue = ValueFormatter.formatOverlap(preset.overlap)
         
-        previewBox.isHidden = false
+        previewBox.show()
     }
     
     // MARK: View delegate functions
@@ -106,7 +106,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
         
         let numRows = editorView.numberOfSelectedRows
         
-        previewBox.isHidden = numRows != 1
+        previewBox.hideIf(numRows != 1)
         
         if numRows == 1 {
             

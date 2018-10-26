@@ -48,7 +48,7 @@ class StringInputPopoverViewController: NSViewController, NSPopoverDelegate {
             popover.show(relativeTo: positioningRect, of: relativeToView, preferredEdge: preferredEdge)
             initFields()
             
-            errorBox.isHidden = true
+            errorBox.hide()
         }
     }
     
@@ -78,7 +78,7 @@ class StringInputPopoverViewController: NSViewController, NSPopoverDelegate {
         if !validation.valid {
             
             lblError.stringValue = validation.errorMsg ?? ""
-            errorBox.isHidden = false
+            errorBox.show()
             
         } else {
             

@@ -28,15 +28,15 @@ class EditorWindowController: NSWindowController {
     
     func showBookmarksEditor() {
         
-        bookmarksEditorView.isHidden = false
+        bookmarksEditorView.show()
         
         var frame = theWindow.frame
         frame.size = NSMakeSize(frame.width, bookmarksEditorView.height)
         theWindow.setFrame(frame, display: true)
         
-        favoritesEditorView.isHidden = true
-        layoutsEditorView.isHidden = true
-        effectsPresetsEditorView.isHidden = true
+        favoritesEditorView.hide()
+        layoutsEditorView.hide()
+        effectsPresetsEditorView.hide()
         
         WindowState.showingPopover = true
         UIUtils.showModalDialog(theWindow)
@@ -44,15 +44,15 @@ class EditorWindowController: NSWindowController {
     
     func showFavoritesEditor() {
         
-        favoritesEditorView.isHidden = false
+        favoritesEditorView.show()
         
         var frame = theWindow.frame
         frame.size = NSMakeSize(frame.width, favoritesEditorView.height)
         theWindow.setFrame(frame, display: true)
         
-        bookmarksEditorView.isHidden = true
-        layoutsEditorView.isHidden = true
-        effectsPresetsEditorView.isHidden = true
+        bookmarksEditorView.hide()
+        layoutsEditorView.hide()
+        effectsPresetsEditorView.hide()
         
         WindowState.showingPopover = true
         UIUtils.showModalDialog(theWindow)
@@ -60,15 +60,15 @@ class EditorWindowController: NSWindowController {
     
     func showLayoutsEditor() {
         
-        layoutsEditorView.isHidden = false
+        layoutsEditorView.show()
         
         var frame = theWindow.frame
         frame.size = NSMakeSize(frame.width, layoutsEditorView.height)
         theWindow.setFrame(frame, display: true)
         
-        favoritesEditorView.isHidden = true
-        bookmarksEditorView.isHidden = true
-        effectsPresetsEditorView.isHidden = true
+        favoritesEditorView.hide()
+        bookmarksEditorView.hide()
+        effectsPresetsEditorView.hide()
         
         WindowState.showingPopover = true
         UIUtils.showModalDialog(theWindow)
@@ -76,15 +76,15 @@ class EditorWindowController: NSWindowController {
     
     func showEffectsPresetsEditor() {
         
-        effectsPresetsEditorView.isHidden = false
+        effectsPresetsEditorView.show()
         
         var frame = theWindow.frame
         frame.size = NSMakeSize(frame.width, effectsPresetsEditorView.height)
         theWindow.setFrame(frame, display: true)
         
-        layoutsEditorView.isHidden = true
-        favoritesEditorView.isHidden = true
-        bookmarksEditorView.isHidden = true
+        layoutsEditorView.hide()
+        favoritesEditorView.hide()
+        bookmarksEditorView.hide()
         
         WindowState.showingPopover = true
         UIUtils.showModalDialog(theWindow)
