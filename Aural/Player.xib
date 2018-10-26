@@ -11,7 +11,6 @@
                 <outlet property="defaultView" destination="MHw-PR-9nt" id="onf-KS-q8w"/>
                 <outlet property="expandedArtView" destination="r7J-IJ-3Cp" id="tpC-9o-fXo"/>
                 <outlet property="functionsBox" destination="RmC-sy-Ygh" id="j5P-pJ-LpP"/>
-                <outlet property="gapView" destination="CuH-9B-y97" id="yGM-aZ-8tI"/>
                 <outlet property="playbackBox" destination="IyJ-bL-zmI" id="NPE-VU-lxQ"/>
                 <outlet property="view" destination="LIp-8K-VJD" id="Yh9-bd-ONw"/>
             </connections>
@@ -27,12 +26,12 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xdd-e8-qfH" userLabel="Art View">
-                    <rect key="frame" x="10" y="92" width="70" height="70"/>
+                    <rect key="frame" x="10" y="82" width="70" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="nDh-sM-DxS"/>
                 </imageView>
                 <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rbO-oI-Q0q" userLabel="Playing Track Info Box">
-                    <rect key="frame" x="90" y="80" width="365" height="94"/>
+                    <rect key="frame" x="90" y="70" width="365" height="94"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="OTb-xb-jQR">
                         <rect key="frame" x="0.0" y="0.0" width="365" height="94"/>
@@ -82,10 +81,40 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jty-b4-NqQ" userLabel="Lbl Sequence Progress">
                                 <rect key="frame" x="110" y="9" width="100" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="99999 / 99999" placeholderString="" id="mYK-hh-0sC">
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" id="mYK-hh-0sC">
                                     <font key="font" size="11" name="GillSans-SemiBold"/>
                                     <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                    </view>
+                    <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+                <box hidden="YES" wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nxu-x0-KHZ" userLabel="Gap Info Box">
+                    <rect key="frame" x="90" y="70" width="365" height="94"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" ambiguous="YES" id="uER-ZE-fk4">
+                        <rect key="frame" x="0.0" y="0.0" width="365" height="94"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GFy-Pd-rl3" userLabel="Gap Track Name">
+                                <rect key="frame" x="22" y="47" width="320" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Up next:" id="fnW-p4-Wxy">
+                                    <font key="font" size="14" name="GillSans-SemiBold"/>
+                                    <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="52i-lD-wrI" userLabel="Gap Time Remaining">
+                                <rect key="frame" x="107" y="24" width="150" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="00:00:00" placeholderString="" id="a6I-UQ-NDt">
+                                    <font key="font" size="16" name="GillSans-SemiBold"/>
+                                    <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textFieldCell>
                             </textField>
                         </subviews>
@@ -97,7 +126,10 @@
             <connections>
                 <outlet property="artView" destination="xdd-e8-qfH" id="XgA-FR-n9l"/>
                 <outlet property="functionsBox" destination="RmC-sy-Ygh" id="9bD-ap-z0x"/>
+                <outlet property="gapBox" destination="nxu-x0-KHZ" id="Yg5-wL-4Bh"/>
                 <outlet property="imgScope" destination="uEq-VT-e8Y" id="AXq-NR-AQf"/>
+                <outlet property="lblGapTimeRemaining" destination="52i-lD-wrI" id="2zQ-XB-5hH"/>
+                <outlet property="lblGapTrackName" destination="GFy-Pd-rl3" id="Y1b-ZV-POT"/>
                 <outlet property="lblPlaybackScope" destination="Ncw-1E-Ruw" id="x0Q-82-6aT"/>
                 <outlet property="lblSequenceProgress" destination="Jty-b4-NqQ" id="VfZ-hH-7TU"/>
                 <outlet property="lblTrackArtist" destination="bOQ-z9-Qgx" id="9WE-FM-etW"/>
@@ -132,7 +164,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pQ4-y8-MHZ" userLabel="Track Title">
                                 <rect key="frame" x="30" y="62" width="440" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Deja Vu" id="Lqi-PP-wRn">
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="Lqi-PP-wRn">
                                     <font key="font" size="14" name="GillSans-SemiBold"/>
                                     <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -141,7 +173,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tg3-H8-fu1" userLabel="Track Artist">
                                 <rect key="frame" x="30" y="42" width="440" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Blue Stone" id="clD-ov-oHT">
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="clD-ov-oHT">
                                     <font key="font" size="13" name="GillSans"/>
                                     <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -155,16 +187,16 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Amh-rC-QU4" userLabel="Lbl Playback Scope">
                                 <rect key="frame" x="52" y="21" width="405" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="All tracks" placeholderString="" id="OPG-tw-GpH">
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" id="OPG-tw-GpH">
                                     <font key="font" size="12" name="GillSans"/>
                                     <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6TY-UP-OlP" userLabel="Lbl Sequence Progress">
-                                <rect key="frame" x="190" y="4" width="120" height="17"/>
+                                <rect key="frame" x="200" y="4" width="100" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="23 / 176" placeholderString="" id="Nyo-dn-qs1">
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" id="Nyo-dn-qs1">
                                     <font key="font" size="11" name="GillSans-SemiBold"/>
                                     <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -174,6 +206,36 @@
                     </view>
                     <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.74614876760563376" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+                <box hidden="YES" wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="BKw-xe-F4l" userLabel="Gap Info Box">
+                    <rect key="frame" x="0.0" y="46" width="470" height="82"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" ambiguous="YES" id="3cE-X5-3xz">
+                        <rect key="frame" x="0.0" y="0.0" width="470" height="82"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3kn-aW-0ra" userLabel="Gap Track Name">
+                                <rect key="frame" x="30" y="38" width="440" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Up next:" id="fmO-Gx-ihO">
+                                    <font key="font" size="14" name="GillSans-SemiBold"/>
+                                    <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SJU-tD-CPb" userLabel="Gap Time Remaining">
+                                <rect key="frame" x="175" y="15" width="150" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="00:00:00" placeholderString="" id="Ohn-p3-gsw">
+                                    <font key="font" size="16" name="GillSans-SemiBold"/>
+                                    <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                    </view>
+                    <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YCE-84-duq" userLabel="Art View">
                     <rect key="frame" x="165" y="2" width="170" height="170"/>
@@ -194,7 +256,10 @@
             <connections>
                 <outlet property="artView" destination="YCE-84-duq" id="0jd-Ai-Y2q"/>
                 <outlet property="functionsBox" destination="RmC-sy-Ygh" id="QpI-0l-T9y"/>
+                <outlet property="gapBox" destination="BKw-xe-F4l" id="J4r-Ed-Dx5"/>
                 <outlet property="imgScope" destination="67e-z1-ERL" id="a58-pF-oMl"/>
+                <outlet property="lblGapTimeRemaining" destination="SJU-tD-CPb" id="coi-Mi-knR"/>
+                <outlet property="lblGapTrackName" destination="3kn-aW-0ra" id="w3o-pw-Mfg"/>
                 <outlet property="lblPlaybackScope" destination="Amh-rC-QU4" id="iXW-O2-9B4"/>
                 <outlet property="lblSequenceProgress" destination="6TY-UP-OlP" id="ie6-KS-oqm"/>
                 <outlet property="lblTrackArtist" destination="Tg3-H8-fu1" id="1Hq-eG-JCD"/>
@@ -229,28 +294,11 @@
                 <outlet property="volumeSlider" destination="2ua-z2-ISt" id="h4a-BW-avo"/>
             </connections>
         </viewController>
-        <viewController id="3Ey-pj-f5Y" userLabel="Default View Controller" customClass="DefaultPlayerTrackInfoViewController" customModule="Aural" customModuleProvider="target">
+        <viewController id="3Ey-pj-f5Y" userLabel="Track Info View Controller" customClass="TrackInfoViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="artView" destination="xdd-e8-qfH" id="hAv-aK-hjH"/>
-                <outlet property="imgScope" destination="uEq-VT-e8Y" id="nkd-lt-jUc"/>
-                <outlet property="lblPlaybackScope" destination="Ncw-1E-Ruw" id="8iJ-A8-J8o"/>
-                <outlet property="lblSequenceProgress" destination="Jty-b4-NqQ" id="ghv-ut-s1w"/>
-                <outlet property="lblTrackArtist" destination="bOQ-z9-Qgx" id="y79-c9-Bfa"/>
-                <outlet property="lblTrackName" destination="IeZ-j0-7DQ" id="jiB-lF-eaf"/>
-                <outlet property="lblTrackTitle" destination="bSm-uR-5kK" id="n0A-pp-Kwd"/>
-                <outlet property="view" destination="MHw-PR-9nt" id="71c-GH-BfP"/>
-            </connections>
-        </viewController>
-        <viewController id="RKe-dA-c0k" userLabel="Expanded Art View Controller" customClass="ExpandedArtPlayerTrackInfoViewController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="artView" destination="YCE-84-duq" id="ez4-2T-Q5t"/>
-                <outlet property="imgScope" destination="67e-z1-ERL" id="YaM-q2-a52"/>
-                <outlet property="lblPlaybackScope" destination="Amh-rC-QU4" id="xl0-Dx-90v"/>
-                <outlet property="lblSequenceProgress" destination="6TY-UP-OlP" id="jVA-CE-u66"/>
-                <outlet property="lblTrackArtist" destination="Tg3-H8-fu1" id="pka-ft-uMV"/>
-                <outlet property="lblTrackName" destination="Jz2-jJ-DLn" id="K6q-E9-at3"/>
-                <outlet property="lblTrackTitle" destination="pQ4-y8-MHZ" id="B3n-vm-GD8"/>
-                <outlet property="view" destination="r7J-IJ-3Cp" id="RVf-Fh-PQ5"/>
+                <outlet property="defaultView" destination="MHw-PR-9nt" id="2AS-eF-VIN"/>
+                <outlet property="expandedArtView" destination="r7J-IJ-3Cp" id="6aj-dD-aTe"/>
+                <outlet property="view" destination="LIp-8K-VJD" id="81g-lK-hiX"/>
             </connections>
         </viewController>
         <viewController id="4Js-aK-bND" customClass="PlayingTrackFunctionsViewController" customModule="Aural" customModuleProvider="target">
@@ -262,37 +310,6 @@
                 <outlet property="view" destination="RmC-sy-Ygh" id="dan-Qq-feF"/>
             </connections>
         </viewController>
-        <viewController id="KVa-4t-LnN" customClass="GapViewController" customModule="Aural" customModuleProvider="target"/>
-        <view id="CuH-9B-y97" userLabel="Gap View">
-            <rect key="frame" x="0.0" y="0.0" width="500" height="174"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tWf-mA-qae" userLabel="Art View">
-                    <rect key="frame" x="10" y="92" width="70" height="70"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="1WD-gZ-NUa"/>
-                </imageView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IQW-MD-8gF" userLabel="Track Title">
-                    <rect key="frame" x="90" y="121" width="340" height="29"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Up next: " id="2lk-Zl-aU6">
-                        <font key="font" size="14" name="GillSans-SemiBold"/>
-                        <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W81-D0-6e1" userLabel="Lbl Time Remaining">
-                    <rect key="frame" x="185" y="73" width="150" height="40"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="00:00:00" placeholderString="" id="HSO-xY-Ger">
-                        <font key="font" size="16" name="GillSans-SemiBold"/>
-                        <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </textFieldCell>
-                </textField>
-            </subviews>
-            <point key="canvasLocation" x="-487" y="482"/>
-        </view>
         <box hidden="YES" wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" transparent="YES" id="IyJ-bL-zmI" userLabel="Playback Box">
             <rect key="frame" x="0.0" y="0.0" width="500" height="70"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -518,7 +535,7 @@ G1BhbiBTbGlkZXI
                     <button toolTip="Detailed information about playing track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gad-us-Dhf" userLabel="More Info Button">
                         <rect key="frame" x="3" y="60" width="12" height="12"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="buttonCell:jhK-Bu-nwj:image" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="jhK-Bu-nwj">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MoreInfo" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="jhK-Bu-nwj">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -555,7 +572,7 @@ G1BhbiBTbGlkZXI
                         </connections>
                     </button>
                     <button toolTip="Bookmark this track position" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jec-WW-pdJ" userLabel="Bookmark Button">
-                        <rect key="frame" x="2" y="10" width="12" height="11"/>
+                        <rect key="frame" x="3" y="11" width="11" height="10"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="buttonCell:233-dG-Ebx:image" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="233-dG-Ebx">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -582,6 +599,7 @@ G1BhbiBTbGlkZXI
     </objects>
     <resources>
         <image name="LoopOff" width="2.5120000839233398" height="2.1119999885559082"/>
+        <image name="MoreInfo" width="254" height="254"/>
         <image name="NextTrack" width="109" height="69.599998474121094"/>
         <image name="Pause" width="388" height="512"/>
         <image name="Play" width="61.439998626708984" height="67.919998168945312"/>
@@ -868,99 +886,6 @@ Y2hpdmVy0VJTVHJvb3SAAQAIABEAGgAjAC0AMgA3AEoAUABZAGAAbQB0AHwAfgCDAIUAhwCMAJcAmQCb
 AJ0AogClAKcAqQCrAK0AtAC8AMgAygDMAM4BVQFaAWUBbgF0AXcBgAGFAY0BkAGbAaMBsAG9AdIB1wHb
 Ad0B3wHhAeoB7wH1Af0B/wIBAgMCBQIKAhITfhOAE4UTkxOXE54ToxOwE7MTwBPFE80T0BPVE90T4BPy
 E/UT+gAAAAAAAAIBAAAAAAAAAFQAAAAAAAAAAAAAAAAAABP8A
-</mutableData>
-        </image>
-        <image name="buttonCell:jhK-Bu-nwj:image" width="31.680000305175781" height="32.159999847412109">
-            <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGUFFYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
-ERYbHCIjKSw2PkJGSk1VJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
-b2xvcoAPEgTAAACAAoAJ0hIJExVaTlMub2JqZWN0c6EUgAOACNISCRcVohgZgASABYAIEAXTHQkeHyAh
-V05TLmJhc2VbTlMucmVsYXRpdmWAAIAHgAZfEHxmaWxlOi8vL1VzZXJzL2t2ZW4vUHJvamVjdHMvWENv
-ZGUvQXVyYWwvQXVyYWwvQXNzZXRzLnhjYXNzZXRzL05vd1BsYXlpbmdCb3gvTW9yZUluZm8uaW1hZ2Vz
-ZXQvaW5mb3JtYXRpb24tYnViYmxlJTIwY29weTIucG5n0iQlJidaJGNsYXNzbmFtZVgkY2xhc3Nlc1VO
-U1VSTKImKFhOU09iamVjdNIkJSorV05TQXJyYXmiKijVLS4vMAkxMjM0NVdOU1doaXRlXE5TQ29tcG9u
-ZW50c1xOU0NvbG9yU3BhY2VfEBJOU0N1c3RvbUNvbG9yU3BhY2VEMCAwAEMwIDAQA4AKgA7UNzg5CTo7
-PD1UTlNJRFVOU0lDQ1dOU01vZGVsEAmACxAAgA3SPwlAQVdOUy5kYXRhTxERaAAAEWhhcHBsAgAAAG1u
-dHJHUkFZWFlaIAfcAAgAFwAPAC4AD2Fjc3BBUFBMAAAAAG5vbmUAAAAAAAAAAAAAAAAAAAAAAAD21gAB
-AAAAANMtYXBwbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABWRl
-c2MAAADAAAAAeWRzY20AAAE8AAAH6GNwcnQAAAkkAAAAI3d0cHQAAAlIAAAAFGtUUkMAAAlcAAAIDGRl
-c2MAAAAAAAAAH0dlbmVyaWMgR3JheSBHYW1tYSAyLjIgUHJvZmlsZQAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AABtbHVjAAAAAAAAAB8AAAAMc2tTSwAAAC4AAAGEZGFESwAAADgAAAGyY2FFUwAAADgAAAHqdmlWTgAA
-AEAAAAIicHRCUgAAAEoAAAJidWtVQQAAACwAAAKsZnJGVQAAAD4AAALYaHVIVQAAADQAAAMWemhUVwAA
-AB4AAANKbmJOTwAAADoAAANoY3NDWgAAACgAAAOiaGVJTAAAACQAAAPKaXRJVAAAAE4AAAPucm9STwAA
-ACoAAAQ8ZGVERQAAAE4AAARma29LUgAAACIAAAS0c3ZTRQAAADgAAAGyemhDTgAAAB4AAATWamFKUAAA
-ACYAAAT0ZWxHUgAAACoAAAUacHRQTwAAAFIAAAVEbmxOTAAAAEAAAAWWZXNFUwAAAEwAAAXWdGhUSAAA
-ADIAAAYidHJUUgAAACQAAAZUZmlGSQAAAEYAAAZ4aHJIUgAAAD4AAAa+cGxQTAAAAEoAAAb8cnVSVQAA
-ADoAAAdGZW5VUwAAADwAAAeAYXJFRwAAACwAAAe8AFYBYQBlAG8AYgBlAGMAbgDhACAAcwBpAHYA4QAg
-AGcAYQBtAGEAIAAyACwAMgBHAGUAbgBlAHIAaQBzAGsAIABnAHIA5QAgADIALAAyACAAZwBhAG0AbQBh
-AHAAcgBvAGYAaQBsAEcAYQBtAG0AYQAgAGQAZQAgAGcAcgBpAHMAbwBzACAAZwBlAG4A6AByAGkAYwBh
-ACAAMgAuADIAQx6lAHUAIABoAOwAbgBoACAATQDgAHUAIAB4AOEAbQAgAEMAaAB1AG4AZwAgAEcAYQBt
-AG0AYQAgADIALgAyAFAAZQByAGYAaQBsACAARwBlAG4A6QByAGkAYwBvACAAZABhACAARwBhAG0AYQAg
-AGQAZQAgAEMAaQBuAHoAYQBzACAAMgAsADIEFwQwBDMEMAQ7BEwEPQQwACAARwByAGEAeQAtBDMEMAQ8
-BDAAIAAyAC4AMgBQAHIAbwBmAGkAbAAgAGcA6QBuAOkAcgBpAHEAdQBlACAAZwByAGkAcwAgAGcAYQBt
-AG0AYQAgADIALAAyAMEAbAB0AGEAbADhAG4AbwBzACAAcwB6APwAcgBrAGUAIABnAGEAbQBtAGEAIAAy
-AC4AMpAadShwcJaOUUlepgAgADIALgAyACCCcl9pY8+P8ABHAGUAbgBlAHIAaQBzAGsAIABnAHIA5QAg
-AGcAYQBtAG0AYQAgADIALAAyAC0AcAByAG8AZgBpAGwATwBiAGUAYwBuAOEAIAFhAGUAZADhACAAZwBh
-AG0AYQAgADIALgAyBdIF0AXeBdQAIAXQBeQF1QXoACAF2wXcBdwF2QAgADIALgAyAFAAcgBvAGYAaQBs
-AG8AIABnAHIAaQBnAGkAbwAgAGcAZQBuAGUAcgBpAGMAbwAgAGQAZQBsAGwAYQAgAGcAYQBtAG0AYQAg
-ADIALAAyAEcAYQBtAGEAIABnAHIAaQAgAGcAZQBuAGUAcgBpAGMBAwAgADIALAAyAEEAbABsAGcAZQBt
-AGUAaQBuAGUAcwAgAEcAcgBhAHUAcwB0AHUAZgBlAG4ALQBQAHIAbwBmAGkAbAAgAEcAYQBtAG0AYQAg
-ADIALAAyx3y8GAAg1ozAyQAgrBC5yAAgADIALgAyACDVBLhc0wzHfGZukBpwcF6mfPtlcAAgADIALgAy
-ACBjz4/wZYdO9k4AgiwwsDDsMKQwrDDzMN4AIAAyAC4AMgAgMNcw7TDVMKEwpDDrA5MDtQO9A7kDugPM
-ACADkwO6A8EDuQAgA5MDrAO8A7wDsQAgADIALgAyAFAAZQByAGYAaQBsACAAZwBlAG4A6QByAGkAYwBv
-ACAAZABlACAAYwBpAG4AegBlAG4AdABvAHMAIABkAGEAIABHAGEAbQBtAGEAIAAyACwAMgBBAGwAZwBl
-AG0AZQBlAG4AIABnAHIAaQBqAHMAIABnAGEAbQBtAGEAIAAyACwAMgAtAHAAcgBvAGYAaQBlAGwAUABl
-AHIAZgBpAGwAIABnAGUAbgDpAHIAaQBjAG8AIABkAGUAIABnAGEAbQBtAGEAIABkAGUAIABnAHIAaQBz
-AGUAcwAgADIALAAyDiMOMQ4HDioONQ5BDgEOIQ4hDjIOQA4BDiMOIg5MDhcOMQ5IDicORA4bACAAMgAu
-ADIARwBlAG4AZQBsACAARwByAGkAIABHAGEAbQBhACAAMgAsADIAWQBsAGUAaQBuAGUAbgAgAGgAYQBy
-AG0AYQBhAG4AIABnAGEAbQBtAGEAIAAyACwAMgAgAC0AcAByAG8AZgBpAGkAbABpAEcAZQBuAGUAcgBp
-AQ0AawBpACAARwByAGEAeQAgAEcAYQBtAG0AYQAgADIALgAyACAAcAByAG8AZgBpAGwAVQBuAGkAdwBl
-AHIAcwBhAGwAbgB5ACAAcAByAG8AZgBpAGwAIABzAHoAYQByAG8BWwBjAGkAIABnAGEAbQBtAGEAIAAy
-ACwAMgQeBDEESQQwBE8AIARBBDUEQAQwBE8AIAQzBDAEPAQ8BDAAIAAyACwAMgAtBD8EQAQ+BEQEOAQ7
-BEwARwBlAG4AZQByAGkAYwAgAEcAcgBhAHkAIABHAGEAbQBtAGEAIAAyAC4AMgAgAFAAcgBvAGYAaQBs
-AGUGOgYnBkUGJwAgADIALgAyACAGRAZIBkYAIAYxBkUGJwYvBkoAIAY5BicGRXRleHQAAAAAQ29weXJp
-Z2h0IEFwcGxlIEluYy4sIDIwMTIAAFhZWiAAAAAAAADzUQABAAAAARbMY3VydgAAAAAAAAQAAAAABQAK
-AA8AFAAZAB4AIwAoAC0AMgA3ADsAQABFAEoATwBUAFkAXgBjAGgAbQByAHcAfACBAIYAiwCQAJUAmgCf
-AKQAqQCuALIAtwC8AMEAxgDLANAA1QDbAOAA5QDrAPAA9gD7AQEBBwENARMBGQEfASUBKwEyATgBPgFF
-AUwBUgFZAWABZwFuAXUBfAGDAYsBkgGaAaEBqQGxAbkBwQHJAdEB2QHhAekB8gH6AgMCDAIUAh0CJgIv
-AjgCQQJLAlQCXQJnAnECegKEAo4CmAKiAqwCtgLBAssC1QLgAusC9QMAAwsDFgMhAy0DOANDA08DWgNm
-A3IDfgOKA5YDogOuA7oDxwPTA+AD7AP5BAYEEwQgBC0EOwRIBFUEYwRxBH4EjASaBKgEtgTEBNME4QTw
-BP4FDQUcBSsFOgVJBVgFZwV3BYYFlgWmBbUFxQXVBeUF9gYGBhYGJwY3BkgGWQZqBnsGjAadBq8GwAbR
-BuMG9QcHBxkHKwc9B08HYQd0B4YHmQesB78H0gflB/gICwgfCDIIRghaCG4IggiWCKoIvgjSCOcI+wkQ
-CSUJOglPCWQJeQmPCaQJugnPCeUJ+woRCicKPQpUCmoKgQqYCq4KxQrcCvMLCwsiCzkLUQtpC4ALmAuw
-C8gL4Qv5DBIMKgxDDFwMdQyODKcMwAzZDPMNDQ0mDUANWg10DY4NqQ3DDd4N+A4TDi4OSQ5kDn8Omw62
-DtIO7g8JDyUPQQ9eD3oPlg+zD88P7BAJECYQQxBhEH4QmxC5ENcQ9RETETERTxFtEYwRqhHJEegSBxIm
-EkUSZBKEEqMSwxLjEwMTIxNDE2MTgxOkE8UT5RQGFCcUSRRqFIsUrRTOFPAVEhU0FVYVeBWbFb0V4BYD
-FiYWSRZsFo8WshbWFvoXHRdBF2UXiReuF9IX9xgbGEAYZRiKGK8Y1Rj6GSAZRRlrGZEZtxndGgQaKhpR
-GncanhrFGuwbFBs7G2MbihuyG9ocAhwqHFIcexyjHMwc9R0eHUcdcB2ZHcMd7B4WHkAeah6UHr4e6R8T
-Hz4faR+UH78f6iAVIEEgbCCYIMQg8CEcIUghdSGhIc4h+yInIlUigiKvIt0jCiM4I2YjlCPCI/AkHyRN
-JHwkqyTaJQklOCVoJZclxyX3JicmVyaHJrcm6CcYJ0kneierJ9woDSg/KHEooijUKQYpOClrKZ0p0CoC
-KjUqaCqbKs8rAis2K2krnSvRLAUsOSxuLKIs1y0MLUEtdi2rLeEuFi5MLoIuty7uLyQvWi+RL8cv/jA1
-MGwwpDDbMRIxSjGCMbox8jIqMmMymzLUMw0zRjN/M7gz8TQrNGU0njTYNRM1TTWHNcI1/TY3NnI2rjbp
-NyQ3YDecN9c4FDhQOIw4yDkFOUI5fzm8Ofk6Njp0OrI67zstO2s7qjvoPCc8ZTykPOM9Ij1hPaE94D4g
-PmA+oD7gPyE/YT+iP+JAI0BkQKZA50EpQWpBrEHuQjBCckK1QvdDOkN9Q8BEA0RHRIpEzkUSRVVFmkXe
-RiJGZ0arRvBHNUd7R8BIBUhLSJFI10kdSWNJqUnwSjdKfUrESwxLU0uaS+JMKkxyTLpNAk1KTZNN3E4l
-Tm5Ot08AT0lPk0/dUCdQcVC7UQZRUFGbUeZSMVJ8UsdTE1NfU6pT9lRCVI9U21UoVXVVwlYPVlxWqVb3
-V0RXklfgWC9YfVjLWRpZaVm4WgdaVlqmWvVbRVuVW+VcNVyGXNZdJ114XcleGl5sXr1fD19hX7NgBWBX
-YKpg/GFPYaJh9WJJYpxi8GNDY5dj62RAZJRk6WU9ZZJl52Y9ZpJm6Gc9Z5Nn6Wg/aJZo7GlDaZpp8WpI
-ap9q92tPa6dr/2xXbK9tCG1gbbluEm5rbsRvHm94b9FwK3CGcOBxOnGVcfByS3KmcwFzXXO4dBR0cHTM
-dSh1hXXhdj52m3b4d1Z3s3gReG54zHkqeYl553pGeqV7BHtje8J8IXyBfOF9QX2hfgF+Yn7CfyN/hH/l
-gEeAqIEKgWuBzYIwgpKC9INXg7qEHYSAhOOFR4Wrhg6GcobXhzuHn4gEiGmIzokziZmJ/opkisqLMIuW
-i/yMY4zKjTGNmI3/jmaOzo82j56QBpBukNaRP5GokhGSepLjk02TtpQglIqU9JVflcmWNJaflwqXdZfg
-mEyYuJkkmZCZ/JpomtWbQpuvnByciZz3nWSd0p5Anq6fHZ+Ln/qgaaDYoUehtqImopajBqN2o+akVqTH
-pTilqaYapoum/adup+CoUqjEqTepqaocqo+rAqt1q+msXKzQrUStuK4trqGvFq+LsACwdbDqsWCx1rJL
-ssKzOLOutCW0nLUTtYq2AbZ5tvC3aLfguFm40blKucK6O7q1uy67p7whvJu9Fb2Pvgq+hL7/v3q/9cBw
-wOzBZ8Hjwl/C28NYw9TEUcTOxUvFyMZGxsPHQce/yD3IvMk6ybnKOMq3yzbLtsw1zLXNNc21zjbOts83
-z7jQOdC60TzRvtI/0sHTRNPG1EnUy9VO1dHWVdbY11zX4Nhk2OjZbNnx2nba+9uA3AXcit0Q3ZbeHN6i
-3ynfr+A24L3hROHM4lPi2+Nj4+vkc+T85YTmDeaW5x/nqegy6LzpRunQ6lvq5etw6/vshu0R7ZzuKO60
-70DvzPBY8OXxcvH/8ozzGfOn9DT0wvVQ9d72bfb794r4Gfio+Tj5x/pX+uf7d/wH/Jj9Kf26/kv+3P9t
-//+ADNIkJUNEXU5TTXV0YWJsZURhdGGjQ0UoVk5TRGF0YdIkJUdIXE5TQ29sb3JTcGFjZaJJKFxOU0Nv
-bG9yU3BhY2XSJCVLTFdOU0NvbG9yokso0iQlTk9XTlNJbWFnZaJOKF8QD05TS2V5ZWRBcmNoaXZlctFS
-U1Ryb290gAEACAARABoAIwAtADIANwBKAFAAWQBgAG0AdAB8AH4AgwCFAIcAjACXAJkAmwCdAKIApQCn
-AKkAqwCtALQAvADIAMoAzADOAU0BUgFdAWYBbAFvAXgBfQGFAYgBkwGbAagBtQHKAc8B0wHVAdcB2QHi
-AecB7QH1AfcB+QH7Af0CAgIKE3YTeBN9E4sTjxOWE5sTqBOrE7gTvRPFE8gTzRPVE9gT6hPtE/IAAAAA
-AAACAQAAAAAAAABUAAAAAAAAAAAAAAAAAAAT9A
 </mutableData>
         </image>
         <image name="buttonCell:kBJ-Lc-oYi:image" width="256" height="256">

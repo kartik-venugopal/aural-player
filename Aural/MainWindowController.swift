@@ -33,9 +33,9 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     // One-time setup
     override func windowDidLoad() {
         
-//        theWindow.setIsVisible(false)
+        theWindow.setIsVisible(false)
         initWindow()
-//        theWindow.setIsVisible(false)
+        theWindow.setIsVisible(false)
         
         // Register a handler for trackpad/MagicMouse gestures
         gestureHandler = GestureHandler(theWindow)
