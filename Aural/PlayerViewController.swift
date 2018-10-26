@@ -61,6 +61,10 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     }
     
     private func changeView(_ message: PlayerViewActionMessage) {
+        
+        // If this view is already the current view, do nothing
+        if PlayerViewState.viewType == message.viewType {return}
+        
         showView(message.viewType)
     }
     
