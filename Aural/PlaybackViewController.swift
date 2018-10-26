@@ -218,6 +218,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         setSeekTimerState(false)
         seekSlider.floatValue = 0
         seekSlider.disable()
+        seekSlider.hide()
     }
     
     private func initSeekPosition() {

@@ -40,6 +40,8 @@ class PlayerView: NSView {
         controlsBox.setFrameOrigin(NSPoint.zero)
         
         infoBox.setFrameOrigin(infoBoxDefaultPosition)
+        gapBox.setFrameOrigin(infoBox.frame.origin)
+        
         functionsBox.hideIf(playbackState == .noTrack)
         centerFunctionsBox()
         
@@ -245,8 +247,15 @@ class PlayerView: NSView {
     
     func clearNowPlayingInfo() {
         
-        [lblTrackArtist, lblTrackTitle, lblPlaybackScope, lblSequenceProgress].forEach({$0?.stringValue = ""})
-        lblTrackName.stringValue = ""
+        // If gap is ongoing, end it
+        if gapBox.isShown {
+            
+            gapBox.hide()
+            gapTimer?.stop()
+            gapTimer = nil
+        }
+        
+        [lblTrackName, lblTrackArtist, lblTrackTitle, lblPlaybackScope, lblSequenceProgress].forEach({$0?.stringValue = ""})
         
         artView.image = Images.imgPausedArt
         
@@ -422,6 +431,8 @@ class DefaultPlayerView: PlayerView {
         controlsBox.show()
         
         infoBox.setFrameOrigin(infoBoxDefaultPosition)
+        gapBox.setFrameOrigin(infoBox.frame.origin)
+        
         artView.frame.origin.y = artViewDefaultPosition.y
         centerFunctionsBox()
     }
@@ -432,6 +443,8 @@ class DefaultPlayerView: PlayerView {
         controlsBox.hide()
         
         infoBox.setFrameOrigin(infoBoxCenteredPosition)
+        gapBox.setFrameOrigin(infoBox.frame.origin)
+        
         artView.frame.origin.y = artViewYCentered
         centerFunctionsBox()
     }
