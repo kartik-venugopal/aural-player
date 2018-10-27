@@ -165,6 +165,7 @@
 		3E7D8A6821817C8300EF8746 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D8A6721817C8300EF8746 /* PlayerViewController.swift */; };
 		3E7D8A6A2181910800EF8746 /* PlayingTrackFunctionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */; };
 		3E7D8A6C2181CCCB00EF8746 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D8A6B2181CCCB00EF8746 /* PlayerView.swift */; };
+		3E7E99E621840D5D00CB8406 /* MouseTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7E99E521840D5D00CB8406 /* MouseTracker.swift */; };
 		3E8036C11FD2840C00674934 /* MiniBarAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8036C01FD2840C00674934 /* MiniBarAppModeController.swift */; };
 		3E807C421FC597FC0027050F /* MouseTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E807C411FC597FC0027050F /* MouseTrackingView.swift */; };
 		3E80E66F1F04FA60007480CC /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E80E66E1F04FA60007480CC /* Size.swift */; };
@@ -480,6 +481,7 @@
 		3E7D8A6721817C8300EF8746 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingTrackFunctionsViewController.swift; sourceTree = "<group>"; };
 		3E7D8A6B2181CCCB00EF8746 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		3E7E99E521840D5D00CB8406 /* MouseTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseTracker.swift; sourceTree = "<group>"; };
 		3E8036C01FD2840C00674934 /* MiniBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniBarAppModeController.swift; sourceTree = "<group>"; };
 		3E807C411FC597FC0027050F /* MouseTrackingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MouseTrackingView.swift; sourceTree = "<group>"; };
 		3E80E66E1F04FA60007480CC /* Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
@@ -1518,6 +1520,7 @@
 				3E4CCBA71FD1204500FB5353 /* WindowLayoutManager.swift */,
 				3E26B9301FBC53A700FA3274 /* GestureHandler.swift */,
 				3EFB19281FB81C9A00690C60 /* WindowState.swift */,
+				3E7E99E521840D5D00CB8406 /* MouseTracker.swift */,
 			);
 			name = MainWindow;
 			sourceTree = "<group>";
@@ -1839,6 +1842,7 @@
 				3E0F947F1FBBDC3300B6E1B3 /* OnOffImageButtons.swift in Sources */,
 				3E7CA23C217E739A00356240 /* ArtistsPlaylistSortViewController.swift in Sources */,
 				3EF5E5B91FBDAF0B004270A4 /* ArtistsPlaylistViewController.swift in Sources */,
+				3E7E99E621840D5D00CB8406 /* MouseTracker.swift in Sources */,
 				3E5F00CA21539B2200A76C23 /* BookmarksDelegate.swift in Sources */,
 				3EFFE6BE1F0381FA003728BD /* EQPresets.swift in Sources */,
 				3E98CBC9216B3D280025A77E /* EQPresetsEditorViewController.swift in Sources */,

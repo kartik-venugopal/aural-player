@@ -56,20 +56,20 @@ class MouseTrackingView: NSView {
     
     override func mouseExited(with event: NSEvent) {
         
-        if (!inArea) {
-            return
-        }
+//        if (!inArea) {
+//            return
+//        }
         
         // TODO: There seems to be a bug/issue with false exit events triggered by hovering over some sub-views. So, this redundant validation is necessary to validate the X position.
         
-        let loc = event.locationInWindow
-        
-        let xExit = loc.x < self.bounds.minX || loc.x > self.bounds.maxX
-        let yExit = loc.y < self.bounds.minY || loc.y > self.bounds.maxY
-        
-        if (xExit || yExit) {
+//        let loc = event.locationInWindow
+//
+//        let xExit = loc.x < self.bounds.minX || loc.x > self.bounds.maxX
+//        let yExit = loc.y < self.bounds.minY || loc.y > self.bounds.maxY
+//
+//        if (xExit || yExit) {
             SyncMessenger.publishNotification(MouseTrackingNotification.mouseExited)
             inArea = false
-        }
+//        }
     }
 }
