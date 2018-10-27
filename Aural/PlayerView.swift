@@ -6,28 +6,8 @@ class PlayerView: NSView {
     @IBOutlet weak var infoBox: NSBox!
     @IBOutlet weak var controlsBox: NSBox!
     @IBOutlet weak var functionsBox: NSBox!
-    
-    @IBOutlet weak var lblTrackArtist: NSTextField!
-    @IBOutlet weak var lblTrackTitle: NSTextField!
-    @IBOutlet weak var lblTrackName: NSTextField!
-    
-    @IBOutlet weak var artView: NSImageView!
-    
-    // Fields that display information about the current playback scope
-    @IBOutlet weak var lblSequenceProgress: NSTextField!
-    @IBOutlet weak var lblPlaybackScope: NSTextField!
-    @IBOutlet weak var imgScope: NSImageView!
-    
-//    @IBOutlet weak var lblTimeElapsed: NSTextField!
-//    @IBOutlet weak var lblTimeRemaining: NSTextField!
-    
-    // Gap info fields
-    
     @IBOutlet weak var gapBox: NSBox!
-    @IBOutlet weak var lblGapTrackName: NSTextField!
-    @IBOutlet weak var lblGapTimeRemaining: NSTextField!
-    
-    private var gapTimer: RepeatingTaskExecutor?
+    @IBOutlet weak var artView: NSImageView!
     
     fileprivate let player: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
@@ -42,18 +22,21 @@ class PlayerView: NSView {
         
         controlsBox.setFrameOrigin(NSPoint.zero)
         
-        infoBox.setFrameOrigin(infoBoxDefaultPosition)
-        gapBox.setFrameOrigin(infoBox.frame.origin)
-        
+        moveInfoBoxTo(infoBoxDefaultPosition)
         functionsBox.hideIf(playbackState == .noTrack)
-        centerFunctionsBox()
         
         if playbackState == .waiting {
             showGapFields()
         } else {
             gapBox.hide()
         }
+    }
+    
+    fileprivate func moveInfoBoxTo(_ point: NSPoint) {
         
+        infoBox.setFrameOrigin(point)
+        gapBox.coLocate(infoBox)
+        centerFunctionsBox()
     }
     
     fileprivate func centerFunctionsBox() {
@@ -90,8 +73,8 @@ class PlayerView: NSView {
         
         PlayerViewState.showSequenceInfo = !PlayerViewState.showSequenceInfo
         
-        [lblPlaybackScope, lblSequenceProgress, imgScope].forEach({$0?.showIf(PlayerViewState.showSequenceInfo)})
-        positionTrackInfoLabels()
+//        [lblPlaybackScope, lblSequenceProgress, imgScope].forEach({$0?.showIf(PlayerViewState.showSequenceInfo)})
+//        positionTrackInfoLabels()
     }
     
     func showOrHideAlbumArt() {
@@ -148,30 +131,7 @@ class PlayerView: NSView {
         
         showPlayingTrackFields()
         
-        var artistAndTitleAvailable: Bool = false
-        
-        if (track.displayInfo.hasArtistAndTitle()) {
-            
-            artistAndTitleAvailable = true
-            
-            // Both title and artist
-            if let album = track.groupingInfo.album {
-                lblTrackArtist.stringValue = String(format: "%@ -- %@", track.displayInfo.artist!, album)
-            } else {
-                lblTrackArtist.stringValue = track.displayInfo.artist!
-            }
-            
-            lblTrackTitle.stringValue = track.displayInfo.title!
-            
-        } else {
-            
-            lblTrackName.stringValue = track.conciseDisplayName
-            positionTrackNameLabel()
-        }
-        
-        lblTrackName.hideIf(artistAndTitleAvailable)
-        [lblTrackArtist, lblTrackTitle].forEach({$0?.showIf(artistAndTitleAvailable)})
-        
+        // TODO:
         if (track.displayInfo.art != nil) {
             artView.image = track.displayInfo.art!
         } else {
@@ -180,131 +140,30 @@ class PlayerView: NSView {
             let playing = playbackState == .playing
             artView.image = playing ? Images.imgPlayingArt : Images.imgPausedArt
         }
-        
-        showPlaybackScope(sequence)
-    }
-    
-    fileprivate func positionTrackInfoLabels() {
-        positionTrackNameLabel()
-    }
-    
-    fileprivate func positionTrackNameLabel() {
-        
-        // Re-position and resize the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
-        
-        // Determine how many lines the track name will occupy, within the label
-        let numLines = StringUtils.numberOfLines(lblTrackName.stringValue, lblTrackName.font!, lblTrackName.frame.width)
-        
-        // The height is a pre-determined constant
-        var lblFrameSize = lblTrackName.frame.size
-        
-        // TODO: Remove the constants, use artist/title label heights instead
-        lblFrameSize.height = numLines == 1 ? lblTrackTitle.frame.height : lblTrackTitle.frame.height * 1.5
-        
-        // The Y co-ordinate is a pre-determined constant
-        var origin = lblTrackName.frame.origin
-        if numLines == 1 {
-            
-            // Center it wrt artist/title labels
-            origin.y = lblTrackArtist.frame.minY + ((lblTrackArtist.frame.height + lblTrackTitle.frame.height) / 2) - (lblTrackName.frame.height / 2)
-            
-        } else {
-            
-            origin.y = lblTrackArtist.frame.minY
-        }
-        
-        // Resize the label
-        lblTrackName.setFrameSize(lblFrameSize)
-        
-        // Re-position the label
-        lblTrackName.setFrameOrigin(origin)
-    }
-    
-    /*
-     Displays information about the current playback scope (i.e. the set of tracks that make up the current playback sequence - for ex. a specific artist group, or all tracks), and progress within that sequence - for ex. 5/67 (5th track playing out of a total of 67 tracks).
-     */
-    func showPlaybackScope(_ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
-        
-        let scope = sequence.scope
-        
-        // Description and image for playback scope
-        switch scope.type {
-            
-        case .allTracks, .allArtists, .allAlbums, .allGenres:
-            
-            lblPlaybackScope.stringValue = StringUtils.splitCamelCaseWord(scope.type.rawValue, false)
-            imgScope.image = Images.imgPlaylistOn
-            
-        case .artist, .album, .genre:
-            
-            lblPlaybackScope.stringValue = scope.scope!.name
-            imgScope.image = Images.imgGroup_noPadding
-        }
-        
-        // Sequence progress. For example, "5 / 10" (tracks)
-        let trackIndex = sequence.trackIndex
-        let totalTracks = sequence.totalTracks
-        lblSequenceProgress.stringValue = String(format: "%d / %d", trackIndex, totalTracks)
-        
-        positionScopeImage()
-    }
-    
-    fileprivate func positionScopeImage() {
-        
-        // Dynamically position the scope image relative to the scope description string
-        
-        // Determine the width of the scope string
-        let scopeString: NSString = lblPlaybackScope.stringValue as NSString
-        let stringSize: CGSize = scopeString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): lblPlaybackScope.font as AnyObject]))
-        let lblWidth = lblPlaybackScope.frame.width
-        let textWidth = min(stringSize.width, lblWidth)
-        
-        // Position the scope image a few pixels to the left of the scope string
-        let margin = (lblWidth - textWidth) / 2
-        let newImgX = lblPlaybackScope.frame.origin.x + margin - imgScope.frame.width - 4
-        imgScope.frame.origin.x = max(lblTrackTitle.frame.minX, newImgX)
     }
     
     func clearNowPlayingInfo() {
         
         // If gap is ongoing, end it
         if gapBox.isShown {
-            
             gapBox.hide()
-            gapTimer?.stop()
-            gapTimer = nil
+            // TODO: stop gap timer
         }
         
-        [lblTrackName, lblTrackArtist, lblTrackTitle, lblPlaybackScope, lblSequenceProgress].forEach({$0?.stringValue = ""})
+        // TODO:
         
         artView.image = Images.imgPausedArt
-        
-        imgScope.image = nil
     }
     
     func sequenceChanged(_ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
-        lblSequenceProgress.stringValue = String(format: "%d / %d", sequence.trackIndex, sequence.totalTracks)
-    }
-    
-    private func updateGapCountdown(_ endTime: Date) {
-        
-        let seconds = max(DateUtils.timeUntil(endTime), 0)
-        lblGapTimeRemaining.stringValue = StringUtils.formatSecondsToHMS(seconds)
-        
-        if seconds == 0 {
-            gapTimer?.stop()
-            gapTimer = nil
-        }
+        // TODO:
     }
     
     func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
         
         showGapFields()
-     
-        let track = msg.nextTrack.track
         
-        lblGapTrackName.stringValue = String(format: "Up next:   %@", track.conciseDisplayName)
-        updateGapCountdown(msg.gapEndTime)
+        let track = msg.nextTrack.track
         
         if (track.displayInfo.art != nil) {
             
@@ -315,19 +174,12 @@ class PlayerView: NSView {
             // Default artwork
             artView.image = Images.imgPausedArt
         }
-        
-        gapTimer = RepeatingTaskExecutor(intervalMillis: 500, task: {
-            
-            self.updateGapCountdown(msg.gapEndTime)
-            
-        }, queue: DispatchQueue.main)
-        
-        gapTimer?.startOrResume()
+        // TODO:
     }
     
     private func showGapFields() {
         
-        gapBox.setFrameOrigin(infoBox.frame.origin)
+        gapBox.coLocate(infoBox)
         gapBox.show()
         [functionsBox, infoBox].forEach({$0?.hide()})
     }
@@ -345,20 +197,22 @@ class PlayerView: NSView {
     
     func handOff(_ otherView: PlayerView) {
         
-        otherView.lblTrackName.stringValue = lblTrackName.stringValue
-        otherView.lblTrackTitle.stringValue = lblTrackTitle.stringValue
-        otherView.lblTrackArtist.stringValue = lblTrackArtist.stringValue
-        otherView.artView.image = artView.image
-        otherView.imgScope.image = imgScope.image
-        otherView.lblPlaybackScope.stringValue = lblPlaybackScope.stringValue
-        otherView.lblSequenceProgress.stringValue = lblSequenceProgress.stringValue
+        // TODO: Handoff to gap view also
         
-        otherView.lblTrackName.showIf(lblTrackName.isShown)
-        otherView.lblTrackTitle.showIf(lblTrackTitle.isShown)
-        otherView.lblTrackArtist.showIf(lblTrackArtist.isShown)
-        
-        otherView.positionTrackNameLabel()
-        otherView.positionScopeImage()
+//        otherView.lblTrackName.stringValue = lblTrackName.stringValue
+//        otherView.lblTrackTitle.stringValue = lblTrackTitle.stringValue
+//        otherView.lblTrackArtist.stringValue = lblTrackArtist.stringValue
+//        otherView.artView.image = artView.image
+//        otherView.imgScope.image = imgScope.image
+//        otherView.lblPlaybackScope.stringValue = lblPlaybackScope.stringValue
+//        otherView.lblSequenceProgress.stringValue = lblSequenceProgress.stringValue
+//
+//        otherView.lblTrackName.showIf(lblTrackName.isShown)
+//        otherView.lblTrackTitle.showIf(lblTrackTitle.isShown)
+//        otherView.lblTrackArtist.showIf(lblTrackArtist.isShown)
+//
+//        otherView.positionTrackNameLabel()
+//        otherView.positionScopeImage()
     }
 }
 
@@ -376,9 +230,6 @@ class DefaultPlayerView: PlayerView {
         
         super.showView(playbackState)
         
-        // Position the art view
-        artView.setFrameOrigin(artViewDefaultPosition)
-        
         PlayerViewState.showControls = true
         PlayerViewState.showPlayingTrackFunctions = true
         PlayerViewState.showAlbumArt = true
@@ -389,13 +240,17 @@ class DefaultPlayerView: PlayerView {
 
         artView.show()
         infoBox.show()
-        [lblSequenceProgress, lblPlaybackScope, imgScope].forEach({$0?.show()})
-        positionTrackInfoLabels()
+        
+        // TODO:
+//        [lblSequenceProgress, lblPlaybackScope, imgScope].forEach({$0?.show()})
         
         controlsBox.show()
+    }
+    
+    override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
         
-//        lblTimeElapsed.hide()
-//        lblTimeRemaining.hide()
+        super.moveInfoBoxTo(point)
+        artView.frame.origin.y = infoBox.frame.origin.y + 13
     }
     
     override func showOrHideMainControls() {
@@ -403,11 +258,7 @@ class DefaultPlayerView: PlayerView {
         super.showOrHideMainControls()
         
         // Re-position the info box, art view, and functions box
-        infoBox.setFrameOrigin(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
-        gapBox.setFrameOrigin(infoBox.frame.origin)
-        
-        artView.frame.origin.y = PlayerViewState.showControls ? artViewDefaultPosition.y : artViewYCentered
-        centerFunctionsBox()
+        moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
     }
     
     override func showOrHidePlayingTrackInfo() {
@@ -456,42 +307,14 @@ class DefaultPlayerView: PlayerView {
         
         // Show controls
         controlsBox.show()
-        
-        infoBox.setFrameOrigin(infoBoxDefaultPosition)
-        gapBox.setFrameOrigin(infoBox.frame.origin)
-        
-        artView.frame.origin.y = artViewDefaultPosition.y
-        centerFunctionsBox()
+        moveInfoBoxTo(infoBoxDefaultPosition)
     }
     
     private func autoHideControls_hide() {
         
         // Hide controls
         controlsBox.hide()
-        
-        infoBox.setFrameOrigin(infoBoxCenteredPosition)
-        gapBox.setFrameOrigin(infoBox.frame.origin)
-        
-        artView.frame.origin.y = artViewYCentered
-        centerFunctionsBox()
-    }
-    
-    override fileprivate func positionTrackInfoLabels() {
-        
-        // Re-position and resize the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
-        
-        if PlayerViewState.showSequenceInfo {
-            
-            lblTrackArtist.frame.origin.y = 48
-            lblTrackTitle.frame.origin.y = 67
-            
-        } else {
-            
-            lblTrackArtist.frame.origin.y = 28
-            lblTrackTitle.frame.origin.y = 47
-        }
-        
-        positionTrackNameLabel()
+        moveInfoBoxTo(infoBoxCenteredPosition)
     }
 }
 
@@ -518,15 +341,10 @@ class ExpandedArtPlayerView: PlayerView {
         
         artView.show()
         infoBox.show()
-        [lblSequenceProgress, lblPlaybackScope, imgScope].forEach({$0?.show()})
-        positionTrackInfoLabels()
         controlsBox.hide()
         overlayBox.hide()
         
         infoBox.isTransparent = false
-        
-//        lblTimeElapsed.hide()
-//        lblTimeRemaining.hide()
     }
     
     override func showOrHideMainControls() {
@@ -587,17 +405,16 @@ class ExpandedArtPlayerView: PlayerView {
         overlayBox.show()
         
         [infoBox, controlsBox, gapBox].forEach({$0?.isTransparent = true})
-        
         [infoBox, controlsBox, functionsBox, gapBox].forEach({self.bringViewToFront($0)})
         
         // Re-position the info box, art view, and functions box
         let plState = player.getPlaybackState()
+        // TODO: Add a convenience func to PlaybackState enum to check if playing or paused
         if plState == .playing || plState == .paused {
             infoBox.show()
         }
-        infoBox.setFrameOrigin(infoBoxTopPosition)
-        gapBox.setFrameOrigin(infoBox.frame.origin)
-        centerFunctionsBox()
+        
+        moveInfoBoxTo(infoBoxTopPosition)
     }
     
     private func autoHideControls_hide() {
@@ -609,42 +426,11 @@ class ExpandedArtPlayerView: PlayerView {
         infoBox.isTransparent = false
         gapBox.isTransparent = false
         
-        infoBox.setFrameOrigin(infoBoxDefaultPosition)
-        gapBox.setFrameOrigin(infoBox.frame.origin)
-        centerFunctionsBox()
+        moveInfoBoxTo(infoBoxDefaultPosition)
         
         // Show info box as overlay temporarily
         if !PlayerViewState.showTrackInfo {
             infoBox.hide()
         }
     }
-    
-    override fileprivate func positionTrackInfoLabels() {
-        
-        // Re-position and resize the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
-        
-        if PlayerViewState.showSequenceInfo {
-            
-            lblTrackArtist.frame.origin.y = 40
-            lblTrackTitle.frame.origin.y = 59
-            
-        } else {
-            
-            lblTrackArtist.frame.origin.y = 22
-            lblTrackTitle.frame.origin.y = 41
-        }
-        
-        positionTrackNameLabel()
-    }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
-    guard let input = input else { return nil }
-    return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
-    return input.rawValue
 }
