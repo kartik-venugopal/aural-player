@@ -211,11 +211,11 @@ class PlayerViewState {
     
     static var showControls: Bool = true
     
-    // Default view
     static var showTrackInfo: Bool = true
     static var showSequenceInfo: Bool = true
     static var showPlayingTrackFunctions: Bool = true
     static var showAlbumArt: Bool = true
+    static var showTimeElapsedRemaining: Bool = true
     
     static func persistentState() -> PlayerState {
         

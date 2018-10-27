@@ -130,6 +130,7 @@
                 <outlet property="showArtMenuItem" destination="HPx-xo-hJh" id="Xtg-Cu-hT9"/>
                 <outlet property="showMainControlsMenuItem" destination="9dh-e2-H3v" id="bYn-m9-zR7"/>
                 <outlet property="showSequenceInfoMenuItem" destination="aFP-Tg-nvW" id="Yjb-2T-Ar3"/>
+                <outlet property="showTimeElapsedRemainingMenuItem" destination="mON-Fd-XUs" id="140-mW-rEY"/>
                 <outlet property="showTrackFunctionsMenuItem" destination="JiX-rw-gah" id="SUR-wS-Lbs"/>
                 <outlet property="showTrackInfoMenuItem" destination="UzR-MM-ibF" id="Jog-0Q-j1h"/>
                 <outlet property="switchViewMenuItem" destination="Lhd-o1-irA" id="cBX-0N-n7w"/>
@@ -1015,6 +1016,12 @@ CA
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showOrHideMainControlsAction:" target="xzd-WN-BuR" id="U63-VK-9oh"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Time elapsed / remaining" id="mON-Fd-XUs">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showOrHideTimeElapsedRemainingAction:" target="xzd-WN-BuR" id="jwj-Mz-Pzf"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Yvf-AY-f2r"/>

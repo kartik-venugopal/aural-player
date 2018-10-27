@@ -134,8 +134,8 @@ struct Colors {
     
     static let seekBarColoredGradient: NSGradient = {
         
-        let backgroundStart = NSColor(white: 0.7, alpha: 1.0)
-        let backgroundEnd =  NSColor(white: 0.5, alpha: 1.0)
+        let backgroundStart = NSColor(calibratedRed: 0.67, green: 0.8, blue: 1, alpha: 1)
+        let backgroundEnd =  NSColor(calibratedRed: 0.67, green: 0.8, blue: 0.7, alpha: 1)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!

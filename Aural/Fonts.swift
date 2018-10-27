@@ -11,17 +11,17 @@ struct Fonts {
     static let gillSans10LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 10)!
     static let gillSans11LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 11)!
     
-    private static let gillSans12LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 12)!
-    private static let gillSans12Font: NSFont = NSFont(name: "Gill Sans", size: 12)!
-    private static let gillSans12SemiBoldFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
+    static let gillSans12LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 12)!
+    static let gillSans12Font: NSFont = NSFont(name: "Gill Sans", size: 12)!
+    static let gillSans12SemiBoldFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 12)!
     private static let gillSans12BoldFont: NSFont = NSFont(name: "Gill Sans Bold", size: 12)!
     
-    private static let gillSans13Font: NSFont = NSFont(name: "Gill Sans", size: 13)!
-    private static let gillSans13SemiBoldFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 13)!
-    private static let gillSans13LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 13)!
+    static let gillSans13Font: NSFont = NSFont(name: "Gill Sans", size: 13)!
+    static let gillSans13SemiBoldFont: NSFont = NSFont(name: "Gill Sans Semibold", size: 13)!
+    static let gillSans13LightFont: NSFont = NSFont(name: "Gill Sans Light", size: 13)!
     
-    private static let gillSansSemiBold10Font: NSFont = NSFont(name: "Gill Sans Semibold", size: 10)!
-    private static let gillSansSemiBold11Font: NSFont = NSFont(name: "Gill Sans Semibold", size: 11)!
+    static let gillSansSemiBold10Font: NSFont = NSFont(name: "Gill Sans Semibold", size: 10)!
+    static let gillSansSemiBold11Font: NSFont = NSFont(name: "Gill Sans Semibold", size: 11)!
     
     static let helpInfoTextFont: NSFont = gillSans12Font
     

@@ -11,7 +11,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
     @IBOutlet weak var seekSlider: NSSlider!
-    @IBOutlet weak var seekSliderCell: SeekSliderCell!
+    @IBOutlet weak var seekSliderCell: NewSeekSliderCell!
     
     // A clone of the seek slider, used to render the segment playback loop
     @IBOutlet weak var seekSliderClone: NSSlider!
@@ -58,6 +58,8 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private let soundPreferences: SoundPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().soundPreferences
     
     private let appState: PlayerState = ObjectGraph.getAppState().uiState.playerState
+    
+    private var seekSliderFrame: NSRect?
     
     override var nibName: String? {return "Player"}
     
@@ -160,7 +162,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -169,7 +171,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining], subscriber: self)
     }
     
     private func initVolumeAndPan() {
@@ -223,8 +225,36 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     private func initSeekPosition() {
         
-        [seekSlider, lblTimeElapsed, lblTimeRemaining].forEach({$0?.show()})
+        seekSlider.show()
+        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
         updateSeekPosition()
+        
+        if PlayerViewState.showTimeElapsedRemaining {
+            
+            let seekPosn = player.getSeekPosition()
+            let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration, seekPosn.percentageElapsed, PlayerViewState.timeElapsedDisplayType, TimeRemainingDisplayType.seconds)
+            
+            print(trackTimes.remaining)
+            
+            let timeRemString: NSString = trackTimes.remaining as NSString
+            let stringSize: CGSize = timeRemString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): lblTimeRemaining.font as AnyObject]))
+            let lblWidth = lblTimeRemaining.frame.width
+            let textWidth = min(stringSize.width, lblWidth)
+            
+            seekSlider.frame.origin.x = lblTimeElapsed.frame.minX + textWidth + 10
+            var sf = seekSlider.frame
+            sf.size = NSMakeSize(lblTimeRemaining.frame.maxX - textWidth - 10 - seekSlider.frame.origin.x, sf.height)
+            
+            seekSlider.setFrameSize(sf.size)
+            
+            seekSliderFrame = seekSlider.frame
+            
+        } else {
+            
+            seekSlider.frame.origin.x = 12
+            seekSlider.frame.size = NSMakeSize(476, seekSlider.frame.height)
+            seekSliderFrame = nil
+        }
     }
     
     private func setSeekTimerState(_ timerOn: Bool) {
@@ -235,12 +265,15 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         let seekPosn = player.getSeekPosition()
         
-        seekSlider.doubleValue = seekPosn.percentageElapsed
-        
         let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration, seekPosn.percentageElapsed, PlayerViewState.timeElapsedDisplayType, PlayerViewState.timeRemainingDisplayType)
         
         lblTimeElapsed.stringValue = trackTimes.elapsed
         lblTimeRemaining.stringValue = trackTimes.remaining
+        
+//        seekSliderCell.timeElapsed = trackTimes.elapsed
+//        seekSliderCell.timeRemaining = trackTimes.remaining
+        
+        seekSlider.doubleValue = seekPosn.percentageElapsed
     }
     
     // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
@@ -717,6 +750,45 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         return (seekPositionMarker, NSRectEdge.maxY)
     }
     
+    private func showOrHideTimeElapsedRemaining() {
+        
+        PlayerViewState.showTimeElapsedRemaining = !PlayerViewState.showTimeElapsedRemaining
+        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
+        
+        if PlayerViewState.showTimeElapsedRemaining {
+            
+            if let duration = player.getPlayingTrack()?.track.duration {
+                
+                if let frame = seekSliderFrame {
+                    
+                    seekSlider.frame = frame
+                    
+                } else {
+                    
+                    let trackTimes = StringUtils.formatTrackTimes(0, duration, 0, PlayerViewState.timeElapsedDisplayType, TimeRemainingDisplayType.seconds)
+                    
+                    let timeRemString: NSString = trackTimes.remaining as NSString
+                    let stringSize: CGSize = timeRemString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): lblTimeRemaining.font as AnyObject]))
+                    let lblWidth = lblTimeRemaining.frame.width
+                    let textWidth = min(stringSize.width, lblWidth)
+                    
+                    seekSlider.frame.origin.x = lblTimeElapsed.frame.minX + textWidth + 10
+                    var sf = seekSlider.frame
+                    sf.size = NSMakeSize(lblTimeRemaining.frame.maxX - textWidth - 10 - seekSlider.frame.origin.x, sf.height)
+                    
+                    seekSlider.setFrameSize(sf.size)
+                    
+                    seekSliderFrame = seekSlider.frame
+                }
+            }
+            
+        } else {
+            
+            seekSlider.frame.origin.x = 12
+            seekSlider.frame.size = NSMakeSize(476, seekSlider.frame.height)
+        }
+    }
+    
     // MARK: Message handling
     
     func getID() -> String {
@@ -856,6 +928,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         case .setTimeRemainingDisplayFormat:
             
             setTimeRemainingDisplayFormat((message as! SetTimeRemainingDisplayFormatActionMessage).format)
+            
+        case .showOrHideTimeElapsedRemaining:
+            
+            showOrHideTimeElapsedRemaining()
             
         default: return
             
