@@ -65,7 +65,7 @@ class VolumeSliderCell: HorizontalSliderCell {
     override var knobRadius: CGFloat {return 0.5}
     override var knobHeightOutsideBar: CGFloat {return 0.5}
     
-    override var barColoredGradient: NSGradient {return Colors.neutralSliderBarColoredGradient}
+    override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
 }
 
 // Defines the range (start and end points) used to render a track segment playback loop
