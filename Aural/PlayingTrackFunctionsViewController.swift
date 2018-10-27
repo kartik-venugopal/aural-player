@@ -77,7 +77,12 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
             
             // TODO: This should be done through a delegate (TrackDelegate ???)
             playingTrack!.track.loadDetailedInfo()
-            detailedInfoPopover.toggle(playingTrack!.track, btnMoreInfo, NSRectEdge.maxX)
+            
+            if btnMoreInfo.isVisible {
+                detailedInfoPopover.toggle(playingTrack!.track, btnMoreInfo, NSRectEdge.maxX)
+            } else {
+                detailedInfoPopover.toggle(playingTrack!.track, self.view.window!.contentView!, NSRectEdge.maxX)
+            }
         }
     }
     
@@ -174,11 +179,24 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
             if message.file.path == playingTrack.file.path {
                 
                 if (message.messageType == .addedToFavorites) {
+                    
                     btnFavorite.on()
-                    favoritesPopup.showAddedMessage(btnFavorite, NSRectEdge.maxX)
+                    
+                    if btnFavorite.isVisible {
+                        favoritesPopup.showAddedMessage(btnFavorite, NSRectEdge.maxX)
+                    } else {
+                        favoritesPopup.showAddedMessage(self.view.window!.contentView!, NSRectEdge.maxX)
+                    }
+                    
                 } else {
+                    
                     btnFavorite.off()
-                    favoritesPopup.showRemovedMessage(btnFavorite, NSRectEdge.maxX)
+                    
+                    if btnFavorite.isVisible {
+                        favoritesPopup.showRemovedMessage(btnFavorite, NSRectEdge.maxX)
+                    } else {
+                        favoritesPopup.showRemovedMessage(self.view.window!.contentView!, NSRectEdge.maxX)
+                    }
                 }
             }
         }
