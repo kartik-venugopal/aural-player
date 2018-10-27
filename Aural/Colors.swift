@@ -34,7 +34,8 @@ struct Colors {
     static let editorSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.55, alpha: 1)
     
     // Fill color of all slider knobs
-    static let sliderKnobColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
+//    static let sliderKnobColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
+    static let sliderKnobColor: NSColor = NSColor(red: 0, green: 0.65, blue: 0, alpha: 1)
     
     // Outline color of buttons on modal dialogs
     static let modalDialogButtonOutlineColor: NSColor = NSColor(calibratedWhite: 0.575, alpha: 1)
@@ -89,7 +90,7 @@ struct Colors {
     
     static let activeSliderBarColoredGradient: NSGradient = {
         
-        let backgroundStart = NSColor(red: 0, green: 0.65, blue: 0, alpha: 1)
+        let backgroundStart = NSColor(red: 0, green: 0.55, blue: 0, alpha: 1)
         let backgroundEnd =  NSColor(red: 0, green: 0.2, blue: 0, alpha: 1)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
