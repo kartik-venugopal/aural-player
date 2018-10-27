@@ -50,14 +50,14 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHidePlayingTrackFunctions], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
         SyncMessenger.unsubscribe(messageTypes: [.mouseEnteredView, .mouseExitedView], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHidePlayingTrackFunctions], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions], subscriber: self)
     }
     
     private func changeView(_ message: PlayerViewActionMessage) {
@@ -114,6 +114,10 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         theView.showOrHidePlayingTrackInfo()
         theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
+    }
+    
+    private func showOrHideSequenceInfo() {
+        theView.showOrHideSequenceInfo()
     }
     
     private func showOrHidePlayingTrackFunctions() {
@@ -200,6 +204,10 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             
             showOrHideMainControls()
             
+        case .showOrHideSequenceInfo:
+            
+            showOrHideSequenceInfo()
+            
         default: return
             
         }
@@ -217,7 +225,8 @@ class PlayerViewState {
     static var showControls: Bool = true
     
     // Default view
-    static var showPlayingTrackInfo: Bool = true
+    static var showTrackInfo: Bool = true
+    static var showSequenceInfo: Bool = true
     static var showPlayingTrackFunctions: Bool = true
     static var showAlbumArt: Bool = true
     

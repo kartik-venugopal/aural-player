@@ -129,6 +129,7 @@
                 <outlet property="playerMenuItem" destination="af4-4E-1QV" id="4gV-4y-eCR"/>
                 <outlet property="showArtMenuItem" destination="HPx-xo-hJh" id="Xtg-Cu-hT9"/>
                 <outlet property="showMainControlsMenuItem" destination="9dh-e2-H3v" id="bYn-m9-zR7"/>
+                <outlet property="showSequenceInfoMenuItem" destination="aFP-Tg-nvW" id="Yjb-2T-Ar3"/>
                 <outlet property="showTrackFunctionsMenuItem" destination="JiX-rw-gah" id="SUR-wS-Lbs"/>
                 <outlet property="showTrackInfoMenuItem" destination="UzR-MM-ibF" id="Jog-0Q-j1h"/>
                 <outlet property="switchViewMenuItem" destination="Lhd-o1-irA" id="cBX-0N-n7w"/>
@@ -975,14 +976,12 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title=" Player" id="y9u-HE-dXj">
                                     <items>
-                                        <menuItem title="Default view" state="on" id="0Vx-5M-0eg">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menuItem title="Default view" state="on" keyEquivalent="3" id="0Vx-5M-0eg">
                                             <connections>
                                                 <action selector="playerDefaultViewAction:" target="xzd-WN-BuR" id="Q5E-Oc-c72"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Expanded art view" id="qqG-bq-Cq8">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menuItem title="Expanded art view" keyEquivalent="4" id="qqG-bq-Cq8">
                                             <connections>
                                                 <action selector="playerExpandedArtViewAction:" target="xzd-WN-BuR" id="6QB-ag-awI"/>
                                             </connections>
@@ -998,6 +997,12 @@ CA
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showOrHidePlayingTrackInfoAction:" target="xzd-WN-BuR" id="jEk-wI-Lr5"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Playback sequence info" id="aFP-Tg-nvW">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showOrHideSequenceInfoAction:" target="xzd-WN-BuR" id="sDo-fi-7N5"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Playing track functions" id="JiX-rw-gah">

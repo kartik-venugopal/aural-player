@@ -298,6 +298,7 @@ enum ActionType {
     case changePlayerView
     
     case showOrHidePlayingTrackInfo
+    case showOrHideSequenceInfo
     case showOrHidePlayingTrackFunctions
     case showOrHideAlbumArt
     

@@ -23,6 +23,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     @IBOutlet weak var showArtMenuItem: NSMenuItem!
     @IBOutlet weak var showTrackInfoMenuItem: NSMenuItem!
+    @IBOutlet weak var showSequenceInfoMenuItem: NSMenuItem!
     @IBOutlet weak var showTrackFunctionsMenuItem: NSMenuItem!
     @IBOutlet weak var showMainControlsMenuItem: NSMenuItem!
     
@@ -113,9 +114,11 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         [showArtMenuItem, showMainControlsMenuItem].forEach({$0.hideIf(PlayerViewState.viewType == .expandedArt)})
         
         showTrackInfoMenuItem.hideIf(PlayerViewState.viewType == .defaultView)
+        showSequenceInfoMenuItem.showIf(PlayerViewState.showTrackInfo)
         
         showArtMenuItem.onIf(PlayerViewState.showAlbumArt)
-        showTrackInfoMenuItem.onIf(PlayerViewState.showPlayingTrackInfo)
+        showTrackInfoMenuItem.onIf(PlayerViewState.showTrackInfo)
+        showSequenceInfoMenuItem.onIf(PlayerViewState.showSequenceInfo)
         showTrackFunctionsMenuItem.onIf(PlayerViewState.showPlayingTrackFunctions)
         showMainControlsMenuItem.onIf(PlayerViewState.showControls)
         
@@ -233,6 +236,10 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     @IBAction func showOrHidePlayingTrackInfoAction(_ sender: NSMenuItem) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHidePlayingTrackInfo))
+    }
+    
+    @IBAction func showOrHideSequenceInfoAction(_ sender: NSMenuItem) {
+        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideSequenceInfo))
     }
     
     @IBAction func showOrHideAlbumArtAction(_ sender: NSMenuItem) {
