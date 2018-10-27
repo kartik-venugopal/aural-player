@@ -96,7 +96,7 @@ class Player: PlayerProtocol, AsyncMessageSubscriber {
     
     func getSeekPosition() -> Double {
         
-        return playbackState == .noTrack ? 0 : scheduler.getSeekPosition()
+        return playbackState.notPlaying() ? 0 : scheduler.getSeekPosition()
     }
     
     func getPlaybackState() -> PlaybackState {
@@ -211,4 +211,12 @@ enum PlaybackState {
     case paused
     case noTrack
     case waiting
+    
+    func playingOrPaused() -> Bool {
+        return self == .playing || self == .paused
+    }
+    
+    func notPlaying() -> Bool {
+        return !playingOrPaused()
+    }
 }

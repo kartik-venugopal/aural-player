@@ -64,12 +64,12 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         let isRegularMode = AppModeManager.mode == .regular
         let playbackState = playbackInfo.getPlaybackState()
-        let isPlayingOrPaused = playbackState == .playing || playbackState == .paused
+        let isPlayingOrPaused = playbackState.playingOrPaused()
         let isPlayingPausedOrWaiting = isPlayingOrPaused || playbackState == .waiting
         
         // Play/pause enabled if at least one track available
         playOrPauseMenuItem.enableIf(playlist.size() > 0)
-        playOrPauseMenuItem.onIf(playbackInfo.getPlaybackState() == .playing)
+        playOrPauseMenuItem.onIf(playbackState == .playing)
         
         stopMenuItem.enableIf(isPlayingPausedOrWaiting)
         jumpToTimeMenuItem.enableIf(isPlayingOrPaused)

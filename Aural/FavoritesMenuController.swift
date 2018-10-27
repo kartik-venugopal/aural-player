@@ -48,8 +48,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         }
         
         // These menu item actions are only available when a track is currently playing/paused
-        // TODO: what if state == .waiting
-        addRemoveFavoritesMenuItem.enableIf(playbackInfo.getPlaybackState() != .noTrack)
+        addRemoveFavoritesMenuItem.enableIf(playbackInfo.getPlaybackState().playingOrPaused())
         
         // Menu has 3 static items
         manageFavoritesMenuItem.enableIf(favoritesMenu.items.count > 3)
