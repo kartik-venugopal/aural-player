@@ -3,7 +3,7 @@ import Cocoa
 /*
     Manages and provides actions for the Bookmarks menu that displays bookmarks that can be opened by the player.
  */
-class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, ActionMessageSubscriber {
+class BookmarksMenuController: NSObject, NSMenuDelegate {
     
     private var bookmarks: BookmarksDelegateProtocol = ObjectGraph.getBookmarksDelegate()
     
@@ -16,28 +16,18 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, Acti
     @IBOutlet weak var bookmarkTrackSegmentLoopMenuItem: NSMenuItem!
     @IBOutlet weak var manageBookmarksMenuItem: NSMenuItem!
     
-    // Changes whenever a bookmark is added
-    private var defaultBookmarkName: String?
-    private var bookmarkedTrack: Track?
-    private var bookmarkedTrackStartPosition: Double?
-    private var bookmarkedTrackEndPosition: Double?
-    
     private lazy var editorWindowController: EditorWindowController = WindowFactory.getEditorWindowController()
-    
-    private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
- 
-    // One-time setup, when the menu loads
-    override func awakeFromNib() {
-        SyncMessenger.subscribe(actionTypes: [.bookmark], subscriber: self)
-    }
     
     // Before the menu opens, re-create the menu items from the model
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        // Can't add a bookmark if no track is playing or if the popover is currently being shown
-        bookmarkTrackPositionMenuItem.enableIf(player.getPlaybackState() != .noTrack && !bookmarkNamePopover.isShown())
+        // TODO: Need to also check for state == .waiting (and disable menu items)
         
-        let hasCompleteLoop = player.getPlaybackLoop() != nil && player.getPlaybackLoop()!.isComplete()
+        // Can't add a bookmark if no track is playing or if the popover is currently being shown
+        bookmarkTrackPositionMenuItem.enableIf(player.getPlaybackState() != .noTrack && !WindowState.showingPopover)
+        
+        let loop = player.getPlaybackLoop()
+        let hasCompleteLoop = loop != nil && loop!.isComplete()
         bookmarkTrackSegmentLoopMenuItem.enableIf(player.getPlaybackState() != .noTrack && hasCompleteLoop)
         
         manageBookmarksMenuItem.enableIf(bookmarks.countBookmarks() > 0)
@@ -79,41 +69,12 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, Acti
     
     // When a bookmark menu item is clicked, the item is played
     @IBAction func bookmarkTrackPositionAction(_ sender: Any) {
-        
-        // Mark the playing track and position
-        bookmarkedTrack = player.getPlayingTrack()!.track
-        bookmarkedTrackStartPosition = player.getSeekPosition().timeElapsed
-        bookmarkedTrackEndPosition = nil
-        
-        defaultBookmarkName = String(format: "%@ (%@)", bookmarkedTrack!.conciseDisplayName, StringUtils.formatSecondsToHMS(bookmarkedTrackStartPosition!))
-        
-        // Show popover
-        let loc = ViewFactory.getLocationForBookmarkPrompt()
-        bookmarkNamePopover.show(loc.view, loc.edge)
+        SyncMessenger.publishActionMessage(BookmarkActionMessage(.bookmarkPosition))
     }
     
     // When a bookmark menu item is clicked, the item is played
     @IBAction func bookmarkTrackSegmentLoopAction(_ sender: Any) {
-        
-        // Mark the playing track and position
-        bookmarkedTrack = player.getPlayingTrack()!.track
-        if let loop = player.getPlaybackLoop() {
-            
-            if loop.isComplete() {
-                
-                bookmarkedTrackStartPosition = loop.startTime
-                bookmarkedTrackEndPosition = loop.endTime
-                
-                let startTime = StringUtils.formatSecondsToHMS(loop.startTime)
-                let endTime = StringUtils.formatSecondsToHMS(loop.endTime!)
-                
-                defaultBookmarkName = String(format: "%@ (%@ ⇄ %@)", bookmarkedTrack!.conciseDisplayName, startTime, endTime)
-                
-                // Show popover
-                let loc = ViewFactory.getLocationForBookmarkPrompt()
-                bookmarkNamePopover.show(loc.view, loc.edge)
-            }
-        }
+        SyncMessenger.publishActionMessage(BookmarkActionMessage(.bookmarkLoop))
     }
     
     // When a bookmark menu item is clicked, the item is played
@@ -138,55 +99,6 @@ class BookmarksMenuController: NSObject, NSMenuDelegate, StringInputClient, Acti
     
     @IBAction func manageBookmarksAction(_ sender: Any) {
         editorWindowController.showBookmarksEditor()
-    }
-    
-    // MARK - StringInputClient functions
-    
-    func getInputPrompt() -> String {
-        return "Enter a bookmark name:"
-    }
-    
-    func getDefaultValue() -> String? {
-        return defaultBookmarkName!
-    }
-    
-    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
-        
-        let valid = !bookmarks.bookmarkWithNameExists(string)
-        
-        if (!valid) {
-            return (false, "A bookmark with this name already exists !")
-        } else {
-            return (true, nil)
-        }
-    }
-    
-    // Receives a new EQ preset name and saves the new preset
-    func acceptInput(_ string: String) {
-        
-        if (bookmarkedTrackEndPosition == nil) {
-            
-            // Track position
-            _ = bookmarks.addBookmark(string, bookmarkedTrack!.file, bookmarkedTrackStartPosition!)
-            
-        } else {
-            
-            // Loop
-            _ = bookmarks.addBookmark(string, bookmarkedTrack!.file, bookmarkedTrackStartPosition!, bookmarkedTrackEndPosition!)
-        }
-    }
-    
-    // MARK - Message handling
-    
-    func getID() -> String {
-        return self.className
-    }
-    
-    func consumeMessage(_ message: ActionMessage) {
-        
-        if message.actionType == .bookmark {
-            bookmarkTrackPositionAction(self)
-        }
     }
 }
 
