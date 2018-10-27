@@ -306,9 +306,9 @@ enum ActionType {
     // Player view actions
     
     case showOrHideMainControls
-    
     case setTimeElapsedDisplayFormat
     case setTimeRemainingDisplayFormat
+    case showOrHideTimeElapsedRemaining
 }
 
 enum ActionMode {

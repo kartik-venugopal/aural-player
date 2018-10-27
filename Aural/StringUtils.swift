@@ -18,7 +18,7 @@ class StringUtils {
         var elapsedString: String
         var remainingString: String
         
-         switch PlayerViewState.timeElapsedDisplayType {
+         switch timeElapsedDisplayType {
          
          case .formatted:
          
@@ -35,7 +35,7 @@ class StringUtils {
             
          }
          
-         switch PlayerViewState.timeRemainingDisplayType {
+         switch timeRemainingDisplayType {
          
          case .formatted:
          

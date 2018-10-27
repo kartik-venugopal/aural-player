@@ -18,6 +18,9 @@ class PlayerView: NSView {
     @IBOutlet weak var lblPlaybackScope: NSTextField!
     @IBOutlet weak var imgScope: NSImageView!
     
+//    @IBOutlet weak var lblTimeElapsed: NSTextField!
+//    @IBOutlet weak var lblTimeRemaining: NSTextField!
+    
     // Gap info fields
     
     @IBOutlet weak var gapBox: NSBox!
@@ -390,6 +393,9 @@ class DefaultPlayerView: PlayerView {
         positionTrackInfoLabels()
         
         controlsBox.show()
+        
+//        lblTimeElapsed.hide()
+//        lblTimeRemaining.hide()
     }
     
     override func showOrHideMainControls() {
@@ -518,6 +524,9 @@ class ExpandedArtPlayerView: PlayerView {
         overlayBox.hide()
         
         infoBox.isTransparent = false
+        
+//        lblTimeElapsed.hide()
+//        lblTimeRemaining.hide()
     }
     
     override func showOrHideMainControls() {

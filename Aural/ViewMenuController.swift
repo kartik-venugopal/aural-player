@@ -26,6 +26,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     @IBOutlet weak var showSequenceInfoMenuItem: NSMenuItem!
     @IBOutlet weak var showTrackFunctionsMenuItem: NSMenuItem!
     @IBOutlet weak var showMainControlsMenuItem: NSMenuItem!
+    @IBOutlet weak var showTimeElapsedRemainingMenuItem: NSMenuItem!
     
     @IBOutlet weak var timeElapsedMenuItem_hms: NSMenuItem!
     @IBOutlet weak var timeElapsedMenuItem_seconds: NSMenuItem!
@@ -115,12 +116,15 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         
         showTrackInfoMenuItem.hideIf(PlayerViewState.viewType == .defaultView)
         showSequenceInfoMenuItem.showIf(PlayerViewState.showTrackInfo)
+        showTimeElapsedRemainingMenuItem.showIf(PlayerViewState.showControls)
         
         showArtMenuItem.onIf(PlayerViewState.showAlbumArt)
         showTrackInfoMenuItem.onIf(PlayerViewState.showTrackInfo)
         showSequenceInfoMenuItem.onIf(PlayerViewState.showSequenceInfo)
         showTrackFunctionsMenuItem.onIf(PlayerViewState.showPlayingTrackFunctions)
+        
         showMainControlsMenuItem.onIf(PlayerViewState.showControls)
+        showTimeElapsedRemainingMenuItem.onIf(PlayerViewState.showTimeElapsedRemaining)
         
         timeElapsedDisplayFormats.forEach({$0.off()})
         
@@ -248,6 +252,10 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
     @IBAction func showOrHideMainControlsAction(_ sender: NSMenuItem) {
         SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideMainControls))
+    }
+    
+    @IBAction func showOrHideTimeElapsedRemainingAction(_ sender: NSMenuItem) {
+        SyncMessenger.publishActionMessage(ViewActionMessage(.showOrHideTimeElapsedRemaining))
     }
     
     @IBAction func timeElapsedDisplayFormatAction(_ sender: NSMenuItem) {
