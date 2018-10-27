@@ -68,9 +68,9 @@ class PlayerView: NSView {
     
     func showOrHidePlayingTrackInfo() {
         
-        PlayerViewState.showPlayingTrackInfo = !PlayerViewState.showPlayingTrackInfo
+        PlayerViewState.showTrackInfo = !PlayerViewState.showTrackInfo
         
-        if PlayerViewState.showPlayingTrackInfo {
+        if PlayerViewState.showTrackInfo {
             
             infoBox.show()
             
@@ -81,6 +81,14 @@ class PlayerView: NSView {
             PlayerViewState.showAlbumArt = true
             artView.show()
         }
+    }
+    
+    func showOrHideSequenceInfo() {
+        
+        PlayerViewState.showSequenceInfo = !PlayerViewState.showSequenceInfo
+        
+        [lblPlaybackScope, lblSequenceProgress, imgScope].forEach({$0?.showIf(PlayerViewState.showSequenceInfo)})
+        positionTrackInfoLabels()
     }
     
     func showOrHideAlbumArt() {
@@ -95,7 +103,7 @@ class PlayerView: NSView {
             
             artView.hide()
             
-            PlayerViewState.showPlayingTrackInfo = true
+            PlayerViewState.showTrackInfo = true
             infoBox.show()
         }
     }
@@ -121,7 +129,7 @@ class PlayerView: NSView {
     }
     
     func needsMouseTracking() -> Bool {
-        return !PlayerViewState.showControls || !PlayerViewState.showPlayingTrackInfo
+        return !PlayerViewState.showControls || !PlayerViewState.showTrackInfo
     }
     
     fileprivate func bringViewToFront(_ aView: NSView) {
@@ -144,7 +152,12 @@ class PlayerView: NSView {
             artistAndTitleAvailable = true
             
             // Both title and artist
-            lblTrackArtist.stringValue = track.displayInfo.artist!
+            if let album = track.groupingInfo.album {
+                lblTrackArtist.stringValue = String(format: "%@ -- %@", track.displayInfo.artist!, album)
+            } else {
+                lblTrackArtist.stringValue = track.displayInfo.artist!
+            }
+            
             lblTrackTitle.stringValue = track.displayInfo.title!
             
         } else {
@@ -166,6 +179,10 @@ class PlayerView: NSView {
         }
         
         showPlaybackScope(sequence)
+    }
+    
+    fileprivate func positionTrackInfoLabels() {
+        positionTrackNameLabel()
     }
     
     fileprivate func positionTrackNameLabel() {
@@ -319,7 +336,7 @@ class PlayerView: NSView {
         }
             
         // TODO: Also show info box if auto-hide-showing
-        infoBox.showIf(PlayerViewState.showPlayingTrackInfo || autoHideFields_showing)
+        infoBox.showIf(PlayerViewState.showTrackInfo || autoHideFields_showing)
         functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
     }
     
@@ -362,12 +379,16 @@ class DefaultPlayerView: PlayerView {
         PlayerViewState.showControls = true
         PlayerViewState.showPlayingTrackFunctions = true
         PlayerViewState.showAlbumArt = true
-        PlayerViewState.showPlayingTrackInfo = true
+        PlayerViewState.showTrackInfo = true
+        PlayerViewState.showSequenceInfo = true
         
         controlsBox.isTransparent = false
 
         artView.show()
         infoBox.show()
+        [lblSequenceProgress, lblPlaybackScope, imgScope].forEach({$0?.show()})
+        positionTrackInfoLabels()
+        
         controlsBox.show()
     }
     
@@ -391,7 +412,7 @@ class DefaultPlayerView: PlayerView {
         
         super.mouseEntered()
         
-        if !PlayerViewState.showPlayingTrackInfo {
+        if !PlayerViewState.showTrackInfo {
             autoHideInfo_show()
         }
         
@@ -404,7 +425,7 @@ class DefaultPlayerView: PlayerView {
         
         super.mouseExited()
         
-        if !PlayerViewState.showPlayingTrackInfo {
+        if !PlayerViewState.showTrackInfo {
             autoHideInfo_hide()
         }
         
@@ -448,6 +469,24 @@ class DefaultPlayerView: PlayerView {
         artView.frame.origin.y = artViewYCentered
         centerFunctionsBox()
     }
+    
+    override fileprivate func positionTrackInfoLabels() {
+        
+        // Re-position and resize the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
+        
+        if PlayerViewState.showSequenceInfo {
+            
+            lblTrackArtist.frame.origin.y = 48
+            lblTrackTitle.frame.origin.y = 67
+            
+        } else {
+            
+            lblTrackArtist.frame.origin.y = 28
+            lblTrackTitle.frame.origin.y = 47
+        }
+        
+        positionTrackNameLabel()
+    }
 }
 
 @IBDesignable
@@ -464,12 +503,17 @@ class ExpandedArtPlayerView: PlayerView {
         // Show/hide individual components
         PlayerViewState.showControls = false
         PlayerViewState.showPlayingTrackFunctions = true
+        
         PlayerViewState.showAlbumArt = true
-        PlayerViewState.showPlayingTrackInfo = true
+        PlayerViewState.showTrackInfo = true
+        PlayerViewState.showSequenceInfo = true
         
         controlsBox.isTransparent = true
         
         artView.show()
+        infoBox.show()
+        [lblSequenceProgress, lblPlaybackScope, imgScope].forEach({$0?.show()})
+        positionTrackInfoLabels()
         controlsBox.hide()
         overlayBox.hide()
         
@@ -490,7 +534,7 @@ class ExpandedArtPlayerView: PlayerView {
         
         autoHideControls_show()
         
-        if !PlayerViewState.showPlayingTrackInfo {
+        if !PlayerViewState.showTrackInfo {
             autoHideInfo_show()
         }
     }
@@ -499,7 +543,7 @@ class ExpandedArtPlayerView: PlayerView {
         
         super.mouseExited()
         
-        if !PlayerViewState.showPlayingTrackInfo {
+        if !PlayerViewState.showTrackInfo {
             autoHideInfo_hide()
         }
         
@@ -522,7 +566,7 @@ class ExpandedArtPlayerView: PlayerView {
         infoBox.isTransparent = false
         gapBox.isTransparent = false
         
-        if !PlayerViewState.showPlayingTrackInfo {
+        if !PlayerViewState.showTrackInfo {
             infoBox.hide()
         }
     }
@@ -561,9 +605,27 @@ class ExpandedArtPlayerView: PlayerView {
         centerFunctionsBox()
         
         // Show info box as overlay temporarily
-        if !PlayerViewState.showPlayingTrackInfo {
+        if !PlayerViewState.showTrackInfo {
             infoBox.hide()
         }
+    }
+    
+    override fileprivate func positionTrackInfoLabels() {
+        
+        // Re-position and resize the track name label, depending on whether it is displaying one or two lines of text (i.e. depending on the length of the track name)
+        
+        if PlayerViewState.showSequenceInfo {
+            
+            lblTrackArtist.frame.origin.y = 40
+            lblTrackTitle.frame.origin.y = 59
+            
+        } else {
+            
+            lblTrackArtist.frame.origin.y = 22
+            lblTrackTitle.frame.origin.y = 41
+        }
+        
+        positionTrackNameLabel()
     }
 }
 
