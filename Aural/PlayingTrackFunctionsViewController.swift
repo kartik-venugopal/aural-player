@@ -118,8 +118,10 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         
         if loc.view.isVisible {
             bookmarkNamePopover.show(loc.view, loc.edge)
-        } else {
+        } else if btnBookmark.isVisible {
             bookmarkNamePopover.show(btnBookmark, NSRectEdge.maxX)
+        } else {
+            bookmarkNamePopover.show(self.view.window!.contentView!, NSRectEdge.maxX)
         }
     }
     
@@ -145,8 +147,10 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
                 
                 if loc.view.isVisible {
                     bookmarkNamePopover.show(loc.view, loc.edge)
-                } else {
+                } else if btnBookmark.isVisible {
                     bookmarkNamePopover.show(btnBookmark, NSRectEdge.maxX)
+                } else {
+                    bookmarkNamePopover.show(self.view.window!.contentView!, NSRectEdge.maxX)
                 }
             }
         }
