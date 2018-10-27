@@ -82,7 +82,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     private func prepareForTrackChange() {
         
         let curState = getPlaybackState()
-        let isPlayingOrPaused = curState == .playing || curState == .paused
+        let isPlayingOrPaused = curState.playingOrPaused()
         
         let curTrack = isPlayingOrPaused ? getPlayingTrack() : (curState == .waiting ? getWaitingTrack() : nil)
         
@@ -290,7 +290,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     func replay() {
         
         let curState = getPlaybackState()
-        let isPlayingOrPaused = curState == .playing || curState == .paused
+        let isPlayingOrPaused = curState.playingOrPaused()
         
         if !isPlayingOrPaused {return}
         
@@ -322,6 +322,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     // Temporarily halts playback
     private func haltPlayback() {
+        
         if (player.getPlaybackState() != .noTrack) {
             player.stop()
         }
@@ -350,7 +351,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func seekForward(_ actionMode: ActionMode = .discrete) {
         
-        if (player.getPlaybackState() == .noTrack) {
+        if (player.getPlaybackState().notPlaying()) {
             return
         }
         
@@ -359,7 +360,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func seekForwardSecondary() {
         
-        if (player.getPlaybackState() == .noTrack) {
+        if (player.getPlaybackState().notPlaying()) {
             return
         }
         
@@ -414,7 +415,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func seekBackward(_ actionMode: ActionMode = .discrete) {
         
-        if (player.getPlaybackState() == .noTrack) {
+        if (player.getPlaybackState().notPlaying()) {
             return
         }
         
@@ -423,7 +424,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func seekBackwardSecondary() {
         
-        if (player.getPlaybackState() == .noTrack) {
+        if (player.getPlaybackState().notPlaying()) {
             return
         }
         
@@ -489,7 +490,9 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     func seekToPercentage(_ percentage: Double) {
         
-        if (player.getPlaybackState() == .noTrack) {
+        let playbackState = player.getPlaybackState()
+        
+        if (playbackState.notPlaying()) {
             return
         }
         
@@ -519,7 +522,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         // If this seek takes the track to its end, stop playback and proceed to the next track
         
-        if (player.getPlaybackState() == .playing) {
+        if (playbackState == .playing) {
             
             if (newPosn < trackDuration) {
                 player.seekToTime(playingTrack!.track, newPosn)

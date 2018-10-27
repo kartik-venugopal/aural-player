@@ -382,8 +382,7 @@ class ExpandedArtPlayerView: PlayerView {
         infoBox.isTransparent = true
         gapBox.isTransparent = true
         
-        let plState = player.getPlaybackState()
-        if plState == .playing || plState == .paused {
+        if player.getPlaybackState().playingOrPaused() {
             infoBox.show()
         }
     }
@@ -408,9 +407,7 @@ class ExpandedArtPlayerView: PlayerView {
         [infoBox, controlsBox, functionsBox, gapBox].forEach({self.bringViewToFront($0)})
         
         // Re-position the info box, art view, and functions box
-        let plState = player.getPlaybackState()
-        // TODO: Add a convenience func to PlaybackState enum to check if playing or paused
-        if plState == .playing || plState == .paused {
+        if player.getPlaybackState().playingOrPaused() {
             infoBox.show()
         }
         

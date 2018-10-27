@@ -83,7 +83,7 @@ class GestureHandler {
         if preferences.allowSeeking {
             
             // If no track is playing, seeking cannot be performed
-            if (playbackInfo.getPlaybackState() == .noTrack) {
+            if (playbackInfo.getPlaybackState().notPlaying()) {
                 return
             }
             

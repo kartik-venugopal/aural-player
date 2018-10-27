@@ -311,16 +311,14 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
                 }
             }, queue: DispatchQueue.main)
             
-            let playbackState = player.getPlaybackState()
-            setSeekTimerState(playbackState == .playing)
+            setSeekTimerState(player.getPlaybackState() == .playing)
         }
     }
     
     // When the playback state changes (e.g. playing -> paused), fields may need to be updated
     private func playbackStateChanged() {
         
-        let playbackState = player.getPlaybackState()
-        let isPlaying: Bool = playbackState == .playing
+        let isPlaying: Bool = player.getPlaybackState() == .playing
         
         btnPlayPause.onIf(isPlaying)
         // The seek timer can be disabled when not needed (e.g. when paused)
@@ -511,9 +509,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     private func toggleLoop() {
         
-        let playbackState = player.getPlaybackState()
-        
-        if playbackState == .playing || playbackState == .paused {
+        if player.getPlaybackState().playingOrPaused() {
         
             if let _ = player.getPlayingTrack() {
                 
