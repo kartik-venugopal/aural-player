@@ -1,6 +1,6 @@
 import Cocoa
 
-class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber {
+class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber, StringInputClient {
     
     // Button to display more details about the playing track
     @IBOutlet weak var btnMoreInfo: NSButton!
@@ -14,6 +14,12 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // Button to bookmark current track and position
     @IBOutlet weak var btnBookmark: NSButton!
     
+    @IBOutlet weak var seekSlider: NSSlider!
+    @IBOutlet weak var seekSliderCell: SeekSliderCell!
+    
+    // Used to display the bookmark name prompt popover
+    @IBOutlet weak var seekPositionMarker: NSView!
+    
     // Delegate that conveys all seek and playback info requests to the player
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
@@ -25,6 +31,9 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     
     // Popup view that displays a brief notification when the currently playing track is added/removed to/from the Favorites list
     private lazy var favoritesPopup: FavoritesPopupProtocol = ViewFactory.getFavoritesPopup()
+    
+    private lazy var bookmarks: BookmarksDelegateProtocol = ObjectGraph.getBookmarksDelegate()
+    private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     override func viewDidLoad() {
         initSubscriptions()
@@ -44,7 +53,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         
         AsyncMessenger.subscribe([.addedToFavorites, .removedFromFavorites], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(actionTypes: [.moreInfo], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop], subscriber: self)
         
         SyncMessenger.subscribe(messageTypes: [.trackChangedNotification], subscriber: self)
     }
@@ -53,7 +62,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         
         AsyncMessenger.unsubscribe([.addedToFavorites, .removedFromFavorites], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.moreInfo], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.moreInfo, .bookmarkPosition, .bookmarkLoop], subscriber: self)
         
         SyncMessenger.unsubscribe(messageTypes: [.trackChangedNotification], subscriber: self)
     }
@@ -97,8 +106,59 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     // Adds/removes the currently playing track to/from the "Favorites" list
     @IBAction func bookmarkAction(_ sender: Any) {
         
-        // Publish an action message to add/remove the item to/from Favorites
-        SyncMessenger.publishActionMessage(BookmarkActionMessage.instance)
+        // Mark the playing track and position
+        BookmarkContext.bookmarkedTrack = player.getPlayingTrack()!.track
+        BookmarkContext.bookmarkedTrackStartPosition = player.getSeekPosition().timeElapsed
+        BookmarkContext.bookmarkedTrackEndPosition = nil
+        
+        BookmarkContext.defaultBookmarkName = String(format: "%@ (%@)", BookmarkContext.bookmarkedTrack!.conciseDisplayName, StringUtils.formatSecondsToHMS(BookmarkContext.bookmarkedTrackStartPosition!))
+        
+        // Show popover
+        let loc = getLocationForBookmarkPrompt()
+        
+        if loc.view.isVisible {
+            bookmarkNamePopover.show(loc.view, loc.edge)
+        } else {
+            bookmarkNamePopover.show(btnBookmark, NSRectEdge.maxX)
+        }
+    }
+    
+    // When a bookmark menu item is clicked, the item is played
+    private func bookmarkLoop() {
+        
+        // Mark the playing track and position
+        BookmarkContext.bookmarkedTrack = player.getPlayingTrack()!.track
+        if let loop = player.getPlaybackLoop() {
+            
+            if loop.isComplete() {
+                
+                BookmarkContext.bookmarkedTrackStartPosition = loop.startTime
+                BookmarkContext.bookmarkedTrackEndPosition = loop.endTime
+                
+                let startTime = StringUtils.formatSecondsToHMS(loop.startTime)
+                let endTime = StringUtils.formatSecondsToHMS(loop.endTime!)
+                
+                BookmarkContext.defaultBookmarkName = String(format: "%@ (%@ ⇄ %@)", BookmarkContext.bookmarkedTrack!.conciseDisplayName, startTime, endTime)
+                
+                // Show popover
+                let loc = getLocationForBookmarkPrompt()
+                
+                if loc.view.isVisible {
+                    bookmarkNamePopover.show(loc.view, loc.edge)
+                } else {
+                    bookmarkNamePopover.show(btnBookmark, NSRectEdge.maxX)
+                }
+            }
+        }
+    }
+    
+    private func getLocationForBookmarkPrompt() -> (view: NSView, edge: NSRectEdge) {
+        
+        // Slider knob position
+        let knobRect = seekSliderCell.knobRect(flipped: false)
+        seekPositionMarker.setFrameOrigin(NSPoint(x: seekSlider.frame.origin.x + knobRect.minX + 2, y: seekSlider.frame.origin.y + knobRect.minY))
+        
+        return (seekPositionMarker, NSRectEdge.maxY)
     }
     
     // Responds to a notification that a track has been added to / removed from the Favorites list, by updating the UI to reflect the new state
@@ -150,7 +210,6 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
                     player.getPlayingTrack()!.track.loadDetailedInfo()
                     detailedInfoPopover.refresh(player.getPlayingTrack()!.track)
                 }
-                
             }
             
         } else {
@@ -198,9 +257,58 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         switch message.actionType {
             
         case .moreInfo: moreInfoAction(self)
+        
+        case .bookmarkPosition: bookmarkAction(self)
+            
+        case .bookmarkLoop: bookmarkLoop()
 
          default: return
             
         }
     }
+    
+    // MARK - StringInputClient functions
+    
+    func getInputPrompt() -> String {
+        return "Enter a bookmark name:"
+    }
+    
+    func getDefaultValue() -> String? {
+        return BookmarkContext.defaultBookmarkName!
+    }
+    
+    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
+        
+        let valid = !bookmarks.bookmarkWithNameExists(string)
+        
+        if (!valid) {
+            return (false, "A bookmark with this name already exists !")
+        } else {
+            return (true, nil)
+        }
+    }
+    
+    // Receives a new EQ preset name and saves the new preset
+    func acceptInput(_ string: String) {
+        
+        if (BookmarkContext.bookmarkedTrackEndPosition == nil) {
+            
+            // Track position
+            _ = bookmarks.addBookmark(string, BookmarkContext.bookmarkedTrack!.file, BookmarkContext.bookmarkedTrackStartPosition!)
+            
+        } else {
+            
+            // Loop
+            _ = bookmarks.addBookmark(string, BookmarkContext.bookmarkedTrack!.file, BookmarkContext.bookmarkedTrackStartPosition!, BookmarkContext.bookmarkedTrackEndPosition!)
+        }
+    }
+}
+
+class BookmarkContext {
+    
+    // Changes whenever a bookmark is added
+    static var defaultBookmarkName: String?
+    static var bookmarkedTrack: Track?
+    static var bookmarkedTrackStartPosition: Double?
+    static var bookmarkedTrackEndPosition: Double?
 }

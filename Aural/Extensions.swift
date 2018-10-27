@@ -142,6 +142,18 @@ extension NSView {
     func showIf(_ condition: Bool) {
         self.isHidden = !condition
     }
+    
+    var isVisible: Bool {
+        
+        var curView: NSView? = self
+        while curView != nil {
+            
+            if curView!.isHidden {return false}
+            curView = curView!.superview
+        }
+        
+        return true
+    }
 }
 
 extension NSControl {

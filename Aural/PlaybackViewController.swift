@@ -62,7 +62,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     override var nibName: String? {return "Player"}
     
     override func viewDidLoad() {
-        
+
         oneTimeSetup()
         AppModeManager.registerConstituentView(.regular, self)
     }

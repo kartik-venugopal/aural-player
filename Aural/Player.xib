@@ -10,8 +10,6 @@
             <connections>
                 <outlet property="defaultView" destination="MHw-PR-9nt" id="onf-KS-q8w"/>
                 <outlet property="expandedArtView" destination="r7J-IJ-3Cp" id="tpC-9o-fXo"/>
-                <outlet property="functionsBox" destination="RmC-sy-Ygh" id="j5P-pJ-LpP"/>
-                <outlet property="playbackBox" destination="IyJ-bL-zmI" id="NPE-VU-lxQ"/>
                 <outlet property="view" destination="LIp-8K-VJD" id="Yh9-bd-ONw"/>
             </connections>
         </customObject>
@@ -307,6 +305,9 @@
                 <outlet property="btnFavorite" destination="yVw-vK-fRX" id="HeW-cd-tUr"/>
                 <outlet property="btnMoreInfo" destination="gad-us-Dhf" id="0DQ-1U-bmJ"/>
                 <outlet property="btnShowPlayingTrackInPlaylist" destination="AXZ-wh-jXs" id="pkX-ff-KI4"/>
+                <outlet property="seekPositionMarker" destination="hGa-vL-OD4" id="mP9-4y-2Gh"/>
+                <outlet property="seekSlider" destination="lQg-lW-5YM" id="kpQ-kG-rGn"/>
+                <outlet property="seekSliderCell" destination="gw1-uf-YzQ" id="jFb-t0-v5K"/>
                 <outlet property="view" destination="RmC-sy-Ygh" id="dan-Qq-feF"/>
             </connections>
         </viewController>

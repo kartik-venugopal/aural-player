@@ -7,8 +7,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     @IBOutlet weak var defaultView: PlayerView!
     @IBOutlet weak var expandedArtView: PlayerView!
-    @IBOutlet weak var playbackBox: NSBox!
-    @IBOutlet weak var functionsBox: NSBox!
     
     private lazy var mouseTrackingView: MouseTrackingView = ViewFactory.getMainWindowMouseTrackingView()
     
@@ -144,17 +142,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     func mouseExited() {
         theView.mouseExited()
-    }
-    
-    func getLocationForBookmarkPrompt() -> (view: NSView, edge: NSRectEdge) {
-        
-        // TODO
-        
-        // Slider knob position
-//        let knobRect = seekSliderCell.knobRect(flipped: false)
-//        seekPositionMarker.setFrameOrigin(NSPoint(x: seekSlider.frame.origin.x + knobRect.minX + 2, y: seekSlider.frame.origin.y + knobRect.minY))
-        
-        return (functionsBox, NSRectEdge.maxY)
     }
     
     // MARK: Message handling

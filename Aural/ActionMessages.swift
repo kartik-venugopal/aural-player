@@ -267,7 +267,8 @@ enum ActionType {
     // Show/hide the Effects panel
     case toggleEffects
     
-    case bookmark
+    case bookmarkPosition
+    case bookmarkLoop
     
     case windowLayout
     
@@ -404,11 +405,11 @@ struct AppModeActionMessage: ActionMessage {
 
 struct BookmarkActionMessage: ActionMessage {
     
-    let actionType: ActionType = .bookmark
+    let actionType: ActionType
     
-    private init() {}
-    
-    static let instance: BookmarkActionMessage = BookmarkActionMessage()
+    init(_ actionType: ActionType) {
+        self.actionType = actionType
+    }
 }
 
 struct WindowLayoutActionMessage: ActionMessage {
