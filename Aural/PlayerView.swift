@@ -27,10 +27,7 @@ class PlayerView: NSView {
         infoView.showView(playbackState)
         gapView.showView(playbackState)
         
-        moveInfoBoxTo(infoBoxDefaultPosition)
-        functionsBox.hideIf_elseShow(playbackState.notPlaying())
-        
-        playbackState == .waiting ? showGapFields() : gapBox.hide()
+        playbackState == .waiting ? showGapFields() : showPlayingTrackFields()
     }
     
     fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -90,7 +87,7 @@ class PlayerView: NSView {
     }
     
     func needsMouseTracking() -> Bool {
-        return !PlayerViewState.showControls || !PlayerViewState.showTrackInfo
+        return false
     }
     
     // MARK: Track info functions
@@ -106,13 +103,9 @@ class PlayerView: NSView {
     
     func clearNowPlayingInfo() {
         
-        // If gap is ongoing, end it
-        if gapBox.isShown {
-            gapBox.hide()
-            gapView.endGap()
-        }
-        
         infoView.clearNowPlayingInfo()
+        showPlayingTrackFields()
+        
         artView.image = Images.imgPausedArt
     }
     
@@ -138,12 +131,16 @@ class PlayerView: NSView {
         hideViews(infoBox, functionsBox)
     }
     
-    private func showPlayingTrackFields() {
+    fileprivate func showPlayingTrackFields() {
         
-        gapBox.hide()
-        
-        infoBox.showIf_elseHide(PlayerViewState.showTrackInfo || autoHideFields_showing)
-        functionsBox.showIf_elseHide(PlayerViewState.showPlayingTrackFunctions)
+        if gapBox.isShown {
+            
+            gapBox.hide()
+            gapView.endGap()
+            
+            infoBox.showIf_elseHide(PlayerViewState.showTrackInfo || autoHideFields_showing)
+            functionsBox.showIf_elseHide(PlayerViewState.showPlayingTrackFunctions)
+        }
     }
     
     func handOff(_ otherView: PlayerView) {
@@ -162,16 +159,15 @@ class DefaultPlayerView: PlayerView {
     
     override func showView(_ playbackState: PlaybackState) {
         
-        PlayerViewState.showControls = true
-        PlayerViewState.showPlayingTrackFunctions = true
-        PlayerViewState.showAlbumArt = true
-        PlayerViewState.showTrackInfo = true
-        PlayerViewState.showSequenceInfo = true
-        
         super.showView(playbackState)
+
+        moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
         
-        controlsBox.isTransparent = false
-        showViews(artView, infoBox, controlsBox)
+        artView.showIf_elseHide(PlayerViewState.showAlbumArt)
+        functionsBox.showIf_elseHide(PlayerViewState.showPlayingTrackFunctions)
+        infoBox.show()
+        controlsBox.showIf_elseHide(PlayerViewState.showControls)
+        controlsBox.isTransparent = true
     }
     
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -243,29 +239,34 @@ class DefaultPlayerView: PlayerView {
         controlsBox.hide()
         moveInfoBoxTo(infoBoxCenteredPosition)
     }
+    
+    override fileprivate func showPlayingTrackFields() {
+        
+        super.showPlayingTrackFields()
+        infoBox.show()
+    }
+    
+    override func needsMouseTracking() -> Bool {
+        return !PlayerViewState.showControls || !PlayerViewState.showTrackInfo
+    }
 }
 
 @IBDesignable
 class ExpandedArtPlayerView: PlayerView {
     
     private let infoBoxTopPosition: NSPoint = NSPoint(x: 0, y: 85)
-    
     @IBOutlet weak var overlayBox: NSBox!
     
     override func showView(_ playbackState: PlaybackState) {
         
-        PlayerViewState.showControls = false
-        PlayerViewState.showPlayingTrackFunctions = true
-        PlayerViewState.showAlbumArt = true
-        PlayerViewState.showTrackInfo = true
-        PlayerViewState.showSequenceInfo = true
-        
         super.showView(playbackState)
         
-        controlsBox.isTransparent = true
-        infoBox.isTransparent = false
+        moveInfoBoxTo(infoBoxDefaultPosition)
+        
+        artView.show()
+        functionsBox.showIf_elseHide(PlayerViewState.showPlayingTrackFunctions)
+        infoBox.showIf_elseHide(PlayerViewState.showTrackInfo)
 
-        showViews(artView, infoBox)
         hideViews(controlsBox, overlayBox)
     }
     
@@ -334,6 +335,10 @@ class ExpandedArtPlayerView: PlayerView {
         
         // Show info box as overlay temporarily
         infoBox.hideIf(!PlayerViewState.showTrackInfo)
+    }
+    
+    override func needsMouseTracking() -> Bool {
+        return true
     }
 }
 
