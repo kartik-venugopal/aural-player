@@ -194,6 +194,19 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         
         return barBackgroundGradient!
     }()
+    
+    private var knobColor: NSColor {
+        
+        switch self.unitState {
+            
+        case .active:   return Colors.activeKnobColor
+            
+        case .bypassed: return Colors.bypassedKnobColor
+            
+        case .suppressed:   return Colors.suppressedKnobColor
+            
+        }
+    }
 
     private var barFillGradient: NSGradient {
         
@@ -238,8 +251,8 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
     
     //MARK: - UI Sizing -
     
-    private let sliderWidth: CGFloat = 8
-    private let sliderHeight: CGFloat = 4.5
+    private let sliderWidth: CGFloat = 10
+    private let sliderHeight: CGFloat = 5
     
     private let minSliderX: CGFloat = 0
     private var maxSliderX: CGFloat { return NSWidth(bounds) - sliderWidth - barTrailingMargin }
@@ -251,8 +264,8 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         if !enabled {return}
 
         let point = convert(event.locationInWindow, from: nil)
-        let startSlider = frameForStartSlider()
-        let endSlider = frameForEndSlider()
+        let startSlider = startKnobFrame()
+        let endSlider = endKnobFrame()
         
         if NSPointInRect(point, startSlider) {
             currentSliderDragging = .start
@@ -312,14 +325,14 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         return newRect
     }
     
-    private func frameForStartSlider() -> NSRect {
+    private func startKnobFrame() -> NSRect {
         var x = max(CGFloat(selection.start) * NSWidth(bounds) - (sliderWidth / 2.0), minSliderX)
         x = min(x, maxSliderX)
         
         return crispLineRect(NSMakeRect(x, (NSHeight(bounds) - sliderHeight) / 2.0, sliderWidth, sliderHeight))
     }
     
-    private func frameForEndSlider() -> NSRect {
+    private func endKnobFrame() -> NSRect {
         let width = NSWidth(bounds)
         var x = CGFloat(selection.end) * width
         x -= (sliderWidth / 2.0)
@@ -347,11 +360,11 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         let width = NSWidth(bounds) - barTrailingMargin
         let height = NSHeight(bounds)
         
-        let barHeight: CGFloat = 4
+        let barHeight: CGFloat = 5
         let barY = floor((height - barHeight) / 2.0)
         
-        let startSliderFrame = frameForStartSlider()
-        let endSliderFrame = frameForEndSlider()
+        let startSliderFrame = startKnobFrame()
+        let endSliderFrame = endKnobFrame()
         
         let barRect = crispLineRect(NSMakeRect(0, barY, width, barHeight))
         let selectedRect = crispLineRect(NSMakeRect(CGFloat(selection.start) * width, barY,
@@ -394,7 +407,6 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         sliderGradient.draw(in: startSliderPath, angle: UIConstants.horizontalGradientDegrees)
         startSliderPath.stroke()
         
-        let knobColor = Colors.sliderKnobColor
         knobColor.setFill()
         
         startSliderPath.fill()

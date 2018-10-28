@@ -15,7 +15,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     @IBOutlet weak var btnBookmark: NSButton!
     
     @IBOutlet weak var seekSlider: NSSlider!
-    @IBOutlet weak var seekSliderCell: NewSeekSliderCell!
+    @IBOutlet weak var seekSliderCell: SeekSliderCell!
     
     // Used to display the bookmark name prompt popover
     @IBOutlet weak var seekPositionMarker: NSView!

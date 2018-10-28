@@ -11,7 +11,7 @@ class HorizontalSliderCell: NSSliderCell {
     
     var barRadius: CGFloat {return 1}
     var barPlainGradient: NSGradient {return Colors.sliderBarPlainGradient}
-    var barColoredGradient: NSGradient {return Colors.activeSliderBarColoredGradient}
+    var barColoredGradient: NSGradient {return Colors.neutralSliderBarColoredGradient}
     var gradientDegrees: CGFloat {return UIConstants.horizontalGradientDegrees}
     var barInsetX: CGFloat {return 0}
     var barInsetY: CGFloat {return 0}
@@ -19,7 +19,7 @@ class HorizontalSliderCell: NSSliderCell {
     var knobWidth: CGFloat {return 10}
     var knobHeightOutsideBar: CGFloat {return 2}
     var knobRadius: CGFloat {return 1}
-    var knobColor: NSColor {return Colors.sliderKnobColor}
+    var knobColor: NSColor {return Colors.neutralKnobColor}
     
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
@@ -60,10 +60,11 @@ class HorizontalSliderCell: NSSliderCell {
 // Cell for volume slider
 class VolumeSliderCell: HorizontalSliderCell {
     
+    override var barRadius: CGFloat {return 0.5}
     override var barInsetY: CGFloat {return 0.25}
     override var knobWidth: CGFloat {return 6}
     override var knobRadius: CGFloat {return 0.5}
-    override var knobHeightOutsideBar: CGFloat {return 0.5}
+    override var knobHeightOutsideBar: CGFloat {return 1}
     
     override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
 }
@@ -80,13 +81,12 @@ struct PlaybackLoopRange {
 // Cell for seek position slider
 class SeekSliderCell: HorizontalSliderCell {
     
-    override var barRadius: CGFloat {return 1}
+    override var barRadius: CGFloat {return 0.5}
     override var barInsetY: CGFloat {return 0.25}
     
     override var knobRadius: CGFloat {return 1}
-    override var knobColor: NSColor {return NSColor(white: 1, alpha: 1.0)}
-    override var knobWidth: CGFloat {return 10}
-    override var knobHeightOutsideBar: CGFloat {return 0.5}
+    override var knobWidth: CGFloat {return 8}
+    override var knobHeightOutsideBar: CGFloat {return 2}
     
     override var barPlainGradient: NSGradient {return Colors.seekBarPlainGradient}
     override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
@@ -149,8 +149,8 @@ class SeekSliderCell: HorizontalSliderCell {
             var drawPath = NSBezierPath.init(roundedRect: loopRect, xRadius: barRadius, yRadius: barRadius)
             Colors.playbackLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
             
-            let markerMinY = knobFrame.minY
-            let markerHeight: CGFloat = aRect.height + knobHeightOutsideBar * 2
+            let markerMinY = knobFrame.minY + knobHeightOutsideBar / 2
+            let markerHeight: CGFloat = aRect.height + knobHeightOutsideBar
             let markerRadius: CGFloat = 0
             
             // Loop start marker
@@ -186,17 +186,13 @@ class SeekSliderCell: HorizontalSliderCell {
         
         let bar = barRect(flipped: true)
         
-        let knobHeight: CGFloat = bar.height + knobHeightOutsideBar * 2
+        let knobHeight: CGFloat = bar.height + knobHeightOutsideBar
         let knobMinX = knobRect.minX
         let rect = NSRect(x: knobMinX, y: bar.minY - ((knobHeight - bar.height) / 2), width: knobWidth, height: knobHeight)
         
         let knobPath = NSBezierPath(roundedRect: rect, xRadius: knobRadius, yRadius: knobRadius)
         knobColor.setFill()
         knobPath.fill()
-        
-//        NSColor.white.setStroke()
-//        knobPath.lineWidth = 0.5
-//        knobPath.stroke()
     }
 }
 

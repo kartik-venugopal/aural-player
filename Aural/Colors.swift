@@ -34,8 +34,10 @@ struct Colors {
     static let editorSelectionBoxColor: NSColor = NSColor(calibratedWhite: 0.55, alpha: 1)
     
     // Fill color of all slider knobs
-//    static let sliderKnobColor: NSColor = NSColor(calibratedWhite: 0.8, alpha: 1)
-    static let sliderKnobColor: NSColor = NSColor(red: 0, green: 0.65, blue: 0, alpha: 1)
+    static let neutralKnobColor: NSColor = NSColor(white: 0.5, alpha: 1.0)
+    static let activeKnobColor: NSColor = NSColor(red: 0, green: 0.55, blue: 0, alpha: 1)
+    static let bypassedKnobColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)
+    static let suppressedKnobColor: NSColor = NSColor(red: 0.8, green: 0.6, blue: 0, alpha: 1)
     
     // Outline color of buttons on modal dialogs
     static let modalDialogButtonOutlineColor: NSColor = NSColor(calibratedWhite: 0.575, alpha: 1)
@@ -59,7 +61,7 @@ struct Colors {
     
     // Color of the displayed text in popup menus
     static let popupMenuTextColor: NSColor = NSColor(calibratedWhite: 0.9, alpha: 1)
-    
+
     static let sliderBarGradient: NSGradient = {
         
         let backgroundStart = NSColor(white: 0.7, alpha: 1.0)
@@ -80,11 +82,11 @@ struct Colors {
     }()
     
     static let neutralSliderBarColoredGradient: NSGradient = {
-
-        let backgroundStart = NSColor(red: 1, green: 0, blue: 0, alpha: 1)
-        let backgroundEnd =  NSColor(red: 0.4, green: 0, blue: 0, alpha: 1)
+        
+        let backgroundStart = NSColor(white: 0.6, alpha: 1.0)
+        let backgroundEnd =  NSColor(white: 0.4, alpha: 1.0)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-
+        
         return barBackgroundGradient!
     }()
     
@@ -118,7 +120,7 @@ struct Colors {
     static let playbackLoopGradient: NSGradient = {
         
         let backgroundStart = NSColor(red: 1, green: 0, blue: 0, alpha: 1)
-        let backgroundEnd =  NSColor(red: 0.7, green: 0, blue: 0, alpha: 1)
+        let backgroundEnd =  NSColor(red: 0.5, green: 0, blue: 0, alpha: 1)
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
         
         return barBackgroundGradient!
@@ -133,17 +135,10 @@ struct Colors {
         return barBackgroundGradient!
     }()
     
-    static let seekBarColoredGradient: NSGradient = {
-        
-        let backgroundStart = NSColor(calibratedRed: 0.67, green: 0.8, blue: 1, alpha: 1)
-        let backgroundEnd =  NSColor(calibratedRed: 0.67, green: 0.8, blue: 0.7, alpha: 1)
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        
-        return barBackgroundGradient!
-    }()
+    static let seekBarColoredGradient: NSGradient = Colors.neutralSliderBarColoredGradient
     
     // Color of the ticks/notches on sliders
-    static let sliderNotchColor: NSColor = NSColor(calibratedWhite: 0.2, alpha: 1)
+    static let sliderNotchColor: NSColor = NSColor(calibratedWhite: 0, alpha: 1)
     
     // Pop up menu (reverb/EQ/recorder) color
     static let popupMenuColor: NSColor = NSColor(calibratedWhite: 0.6, alpha: 1)

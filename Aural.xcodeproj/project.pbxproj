@@ -238,7 +238,6 @@
 		3EB2A7EE1F04697E001DF748 /* GraphicsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7ED1F04697E001DF748 /* GraphicsUtils.swift */; };
 		3EB2F1FF1FB311760031B6C1 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2F1FE1FB311760031B6C1 /* Fonts.swift */; };
 		3EB2F2011FB311FB0031B6C1 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2F2001FB311FB0031B6C1 /* Images.swift */; };
-		3EB3A6D62184573E003C7F07 /* SeekSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A6D52184573E003C7F07 /* SeekSliderCell.swift */; };
 		3EB3A6D821847941003C7F07 /* 15BandEQ.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EB3A6D721847941003C7F07 /* 15BandEQ.xib */; };
 		3EB3A6DA21850D40003C7F07 /* TrackInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A6D921850D40003C7F07 /* TrackInfoView.swift */; };
 		3EB3A6DC2185105A003C7F07 /* GapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A6DB2185105A003C7F07 /* GapView.swift */; };
@@ -559,7 +558,6 @@
 		3EB2A7ED1F04697E001DF748 /* GraphicsUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphicsUtils.swift; sourceTree = "<group>"; };
 		3EB2F1FE1FB311760031B6C1 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		3EB2F2001FB311FB0031B6C1 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
-		3EB3A6D52184573E003C7F07 /* SeekSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekSliderCell.swift; sourceTree = "<group>"; };
 		3EB3A6D721847941003C7F07 /* 15BandEQ.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = 15BandEQ.xib; sourceTree = "<group>"; };
 		3EB3A6D921850D40003C7F07 /* TrackInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInfoView.swift; sourceTree = "<group>"; };
 		3EB3A6DB2185105A003C7F07 /* GapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GapView.swift; sourceTree = "<group>"; };
@@ -708,7 +706,6 @@
 				3E7D8A63218118FF00EF8746 /* GapViewController.swift */,
 				3E7C6FFF1F5F45F00035AEF2 /* PlaybackViewController.swift */,
 				3E7D8A692181910800EF8746 /* PlayingTrackFunctionsViewController.swift */,
-				3EB3A6D52184573E003C7F07 /* SeekSliderCell.swift */,
 				3E309B721FB70B7800C61E72 /* FavoritesPopup */,
 			);
 			name = Player;
@@ -2006,7 +2003,6 @@
 				3E5F00C3215386CA00A76C23 /* TimePresets.swift in Sources */,
 				3E1D93521F626BF9008AC59E /* Playlist.swift in Sources */,
 				3EC7E8AF217B300E00F21695 /* EffectsUnitSliderCellProtocol.swift in Sources */,
-				3EB3A6D62184573E003C7F07 /* SeekSliderCell.swift in Sources */,
 				3E00122A1F26A5100059B2D0 /* SearchQuery.swift in Sources */,
 				3E3F29672159FAFB00581EFE /* LayoutPreviewView.swift in Sources */,
 				3E65F6351FCC031F0058B7D4 /* AutoHideHandler.swift in Sources */,

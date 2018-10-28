@@ -53,20 +53,33 @@ class TickedSliderCell: HorizontalSliderCell {
 // Cell for pan slider
 class PanTickedSliderCell: TickedSliderCell {
     
+    override var barRadius: CGFloat {return 0.5}
     override var barInsetY: CGFloat {return 0.25}
-    override var barRadius: CGFloat {return 1}
-    
     override var knobWidth: CGFloat {return 6}
     override var knobRadius: CGFloat {return 0.5}
-    override var knobHeightOutsideBar: CGFloat {return 0.5}
+    override var knobHeightOutsideBar: CGFloat {return 1}
     
     // Draw entire bar with single gradient
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
-        let drawPath = NSBezierPath.init(roundedRect: aRect, xRadius: barRadius, yRadius: barRadius)
+        var drawPath = NSBezierPath.init(roundedRect: aRect, xRadius: barRadius, yRadius: barRadius)
         barPlainGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
         
         drawTicks(aRect)
+        
+        // Draw rect between knob and center, to show panning
+        let knobCenter = knobRect(flipped: false).centerX
+        let barCenter = aRect.centerX
+        let panRectX = min(knobCenter, barCenter)
+        let panRectWidth = abs(knobCenter - barCenter)
+        
+        if panRectWidth > 0 {
+            
+            let panRect = NSRect(x: panRectX, y: aRect.minY, width: panRectWidth, height: aRect.height)
+            drawPath = NSBezierPath.init(roundedRect: panRect, xRadius: barRadius, yRadius: barRadius)
+            barColoredGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+            
+        }
     }
 }
 
@@ -76,12 +89,24 @@ class EffectsTickedSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
     override var barRadius: CGFloat {return 1.5}
     override var barInsetY: CGFloat {return 0.5}
     
-    override var knobWidth: CGFloat {return 8}
+    override var knobWidth: CGFloat {return 10}
     override var knobRadius: CGFloat {return 1}
-    override var knobHeightOutsideBar: CGFloat {return 1}
+    override var knobHeightOutsideBar: CGFloat {return 1.5}
+    
+    override var knobColor: NSColor {
+        
+        switch self.unitState {
+            
+        case .active:   return Colors.activeKnobColor
+            
+        case .bypassed: return Colors.bypassedKnobColor
+            
+        case .suppressed:   return Colors.suppressedKnobColor
+            
+        }
+    }
     
     override var tickVerticalSpacing: CGFloat {return 1}
-    override var tickColor: NSColor {return NSColor.black}
     
     override var barColoredGradient: NSGradient {
      

@@ -7,14 +7,29 @@ import Cocoa
 class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     
     let barRadius: CGFloat = 0.75
-    let barInsetX: CGFloat = 0.75
+    let barInsetX: CGFloat = 0.25
     let barInsetY: CGFloat = 0
     
     let knobHeight: CGFloat = 10
     let knobInsetX: CGFloat = 1.5
     let knobInsetY: CGFloat = 0
+    let knobRadius: CGFloat = 1
+    let knobWidthOutsideBar: CGFloat = 1.5
     
     var unitState: EffectsUnitState = .bypassed
+    
+    var knobColor: NSColor {
+        
+        switch self.unitState {
+            
+        case .active:   return Colors.activeKnobColor
+            
+        case .bypassed: return Colors.bypassedKnobColor
+            
+        case .suppressed:   return Colors.suppressedKnobColor
+            
+        }
+    }
     
     override internal func drawKnob(_ knobRect: NSRect) {
         
@@ -22,12 +37,12 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
         let bar = barRect(flipped: true).insetBy(dx: barInsetX, dy: barInsetY)
         let yCenter = knobRect.minY + (rectHeight / 2)
         
-        let knobWidth: CGFloat = bar.width + 1.5
+        let knobWidth: CGFloat = bar.width + knobWidthOutsideBar
         let knobMinY = yCenter - (knobHeight / 2)
         let rect = NSRect(x: bar.minX - ((knobWidth - bar.width) / 2), y: knobMinY, width: knobWidth, height: knobHeight)
         
-        let knobPath = NSBezierPath(roundedRect: rect, xRadius: 1, yRadius: 1)
-        Colors.sliderKnobColor.setFill()
+        let knobPath = NSBezierPath(roundedRect: rect, xRadius: knobRadius, yRadius: knobRadius)
+        knobColor.setFill()
         knobPath.fill()
     }
     
