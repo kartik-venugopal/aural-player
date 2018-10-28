@@ -110,7 +110,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         
         let numRows = editorView.numberOfSelectedRows
         
-        previewBox.hideIf(numRows != 1)
+        previewBox.hideIf_elseShow(numRows != 1)
         
         if numRows == 1 {
             

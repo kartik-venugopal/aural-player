@@ -31,7 +31,7 @@
                 <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rbO-oI-Q0q" userLabel="Playing Track Info Box">
                     <rect key="frame" x="90" y="70" width="365" height="94"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView" ambiguous="YES" id="OTb-xb-jQR">
+                    <view key="contentView" ambiguous="YES" id="OTb-xb-jQR" customClass="TrackInfoView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="365" height="94"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -86,6 +86,14 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <connections>
+                            <outlet property="imgScope" destination="uEq-VT-e8Y" id="5Q5-10-98b"/>
+                            <outlet property="lblArtist" destination="bOQ-z9-Qgx" id="AQ8-qy-SJU"/>
+                            <outlet property="lblName" destination="IeZ-j0-7DQ" id="Nqy-QL-aEi"/>
+                            <outlet property="lblScope" destination="Ncw-1E-Ruw" id="M2u-YF-msx"/>
+                            <outlet property="lblSequence" destination="Jty-b4-NqQ" id="cDG-be-mh2"/>
+                            <outlet property="lblTitle" destination="bSm-uR-5kK" id="NEf-xs-5C7"/>
+                        </connections>
                     </view>
                     <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -93,7 +101,7 @@
                 <box hidden="YES" wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nxu-x0-KHZ" userLabel="Gap Info Box">
                     <rect key="frame" x="90" y="70" width="365" height="94"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView" ambiguous="YES" id="uER-ZE-fk4">
+                    <view key="contentView" ambiguous="YES" id="uER-ZE-fk4" customClass="GapView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="365" height="94"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -116,6 +124,10 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <connections>
+                            <outlet property="lblTimeRemaining" destination="52i-lD-wrI" id="VV9-Kj-CKY"/>
+                            <outlet property="lblTrackName" destination="GFy-Pd-rl3" id="fA7-s3-Pee"/>
+                        </connections>
                     </view>
                     <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -126,17 +138,9 @@
                 <outlet property="controlsBox" destination="IyJ-bL-zmI" id="Hsz-wC-BW6"/>
                 <outlet property="functionsBox" destination="RmC-sy-Ygh" id="9bD-ap-z0x"/>
                 <outlet property="gapBox" destination="nxu-x0-KHZ" id="Yg5-wL-4Bh"/>
-                <outlet property="imgScope" destination="uEq-VT-e8Y" id="AXq-NR-AQf"/>
+                <outlet property="gapView" destination="uER-ZE-fk4" id="TyS-8E-lQN"/>
                 <outlet property="infoBox" destination="rbO-oI-Q0q" id="6QW-Bm-wDg"/>
-                <outlet property="lblGapTimeRemaining" destination="52i-lD-wrI" id="2zQ-XB-5hH"/>
-                <outlet property="lblGapTrackName" destination="GFy-Pd-rl3" id="Y1b-ZV-POT"/>
-                <outlet property="lblPlaybackScope" destination="Ncw-1E-Ruw" id="x0Q-82-6aT"/>
-                <outlet property="lblSequenceProgress" destination="Jty-b4-NqQ" id="VfZ-hH-7TU"/>
-                <outlet property="lblTimeElapsed" destination="ZjM-LM-vv4" id="PBr-o4-J8f"/>
-                <outlet property="lblTimeRemaining" destination="Byf-Gi-f6M" id="WkW-t5-Iq5"/>
-                <outlet property="lblTrackArtist" destination="bOQ-z9-Qgx" id="9WE-FM-etW"/>
-                <outlet property="lblTrackName" destination="IeZ-j0-7DQ" id="cfo-TY-fDk"/>
-                <outlet property="lblTrackTitle" destination="bSm-uR-5kK" id="GAQ-6I-TDS"/>
+                <outlet property="infoView" destination="OTb-xb-jQR" id="NPj-DN-XbW"/>
             </connections>
             <point key="canvasLocation" x="245" y="-83"/>
         </view>
@@ -148,7 +152,7 @@
                 <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="k6x-e4-14q" userLabel="Playing Track Info Box">
                     <rect key="frame" x="0.0" y="46" width="470" height="82"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView" ambiguous="YES" id="LvL-VM-cc0">
+                    <view key="contentView" ambiguous="YES" id="LvL-VM-cc0" customClass="TrackInfoView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="470" height="82"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -203,6 +207,14 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <connections>
+                            <outlet property="imgScope" destination="67e-z1-ERL" id="kuq-lz-wQJ"/>
+                            <outlet property="lblArtist" destination="Tg3-H8-fu1" id="Idd-FH-eWX"/>
+                            <outlet property="lblName" destination="Jz2-jJ-DLn" id="obb-KZ-3UK"/>
+                            <outlet property="lblScope" destination="Amh-rC-QU4" id="y7a-KW-Hqu"/>
+                            <outlet property="lblSequence" destination="6TY-UP-OlP" id="gjh-eg-zib"/>
+                            <outlet property="lblTitle" destination="pQ4-y8-MHZ" id="w0n-ba-Oc4"/>
+                        </connections>
                     </view>
                     <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.74614876760563376" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -210,7 +222,7 @@
                 <box hidden="YES" wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="BKw-xe-F4l" userLabel="Gap Info Box">
                     <rect key="frame" x="0.0" y="46" width="470" height="82"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView" ambiguous="YES" id="3cE-X5-3xz">
+                    <view key="contentView" ambiguous="YES" id="3cE-X5-3xz" customClass="GapView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="470" height="82"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -233,6 +245,10 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <connections>
+                            <outlet property="lblTimeRemaining" destination="SJU-tD-CPb" id="2n4-Th-yOO"/>
+                            <outlet property="lblTrackName" destination="3kn-aW-0ra" id="ELr-EO-95P"/>
+                        </connections>
                     </view>
                     <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -258,17 +274,9 @@
                 <outlet property="controlsBox" destination="IyJ-bL-zmI" id="UWx-sJ-Ei1"/>
                 <outlet property="functionsBox" destination="RmC-sy-Ygh" id="QpI-0l-T9y"/>
                 <outlet property="gapBox" destination="BKw-xe-F4l" id="J4r-Ed-Dx5"/>
-                <outlet property="imgScope" destination="67e-z1-ERL" id="a58-pF-oMl"/>
+                <outlet property="gapView" destination="3cE-X5-3xz" id="V8K-Q6-9Dv"/>
                 <outlet property="infoBox" destination="k6x-e4-14q" id="aQP-Bg-wqf"/>
-                <outlet property="lblGapTimeRemaining" destination="SJU-tD-CPb" id="coi-Mi-knR"/>
-                <outlet property="lblGapTrackName" destination="3kn-aW-0ra" id="w3o-pw-Mfg"/>
-                <outlet property="lblPlaybackScope" destination="Amh-rC-QU4" id="iXW-O2-9B4"/>
-                <outlet property="lblSequenceProgress" destination="6TY-UP-OlP" id="ie6-KS-oqm"/>
-                <outlet property="lblTimeElapsed" destination="ZjM-LM-vv4" id="r2V-tV-1IX"/>
-                <outlet property="lblTimeRemaining" destination="Byf-Gi-f6M" id="RrB-OR-d8j"/>
-                <outlet property="lblTrackArtist" destination="Tg3-H8-fu1" id="1Hq-eG-JCD"/>
-                <outlet property="lblTrackName" destination="Jz2-jJ-DLn" id="Hdy-O3-29S"/>
-                <outlet property="lblTrackTitle" destination="pQ4-y8-MHZ" id="ghv-cW-EUH"/>
+                <outlet property="infoView" destination="LvL-VM-cc0" id="zTK-tC-B7m"/>
                 <outlet property="overlayBox" destination="H2c-eI-RaT" id="ANM-Hz-Eki"/>
             </connections>
             <point key="canvasLocation" x="214" y="175"/>

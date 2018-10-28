@@ -101,9 +101,9 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(track.file))
             
             let gaps = playlist.getGapsAroundTrack(track)
-            insertGapsMenuItem.hideIf(gaps.hasGaps)
-            removeGapsMenuItem.showIf(gaps.hasGaps)
-            editGapsMenuItem.showIf(gaps.hasGaps)
+            insertGapsMenuItem.hideIf_elseShow(gaps.hasGaps)
+            removeGapsMenuItem.showIf_elseHide(gaps.hasGaps)
+            editGapsMenuItem.showIf_elseHide(gaps.hasGaps)
             
         case .group:
             

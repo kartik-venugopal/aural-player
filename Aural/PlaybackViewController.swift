@@ -226,7 +226,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private func initSeekPosition() {
         
         seekSlider.show()
-        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
+        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf_elseHide(PlayerViewState.showTimeElapsedRemaining)})
         updateSeekPosition()
         
         if PlayerViewState.showTimeElapsedRemaining {
@@ -749,7 +749,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private func showOrHideTimeElapsedRemaining() {
         
         PlayerViewState.showTimeElapsedRemaining = !PlayerViewState.showTimeElapsedRemaining
-        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
+        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf_elseHide(PlayerViewState.showTimeElapsedRemaining)})
         
         if PlayerViewState.showTimeElapsedRemaining {
             

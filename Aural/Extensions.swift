@@ -92,11 +92,11 @@ extension NSMenuItem {
         self.isHidden = false
     }
     
-    func hideIf(_ condition: Bool) {
+    func hideIf_elseShow(_ condition: Bool) {
         self.isHidden = condition
     }
     
-    func showIf(_ condition: Bool) {
+    func showIf_elseHide(_ condition: Bool) {
         self.isHidden = !condition
     }
     
@@ -135,12 +135,20 @@ extension NSView {
         self.isHidden = false
     }
     
-    func hideIf(_ condition: Bool) {
+    func hideIf_elseShow(_ condition: Bool) {
         self.isHidden = condition
     }
     
-    func showIf(_ condition: Bool) {
+    func showIf_elseHide(_ condition: Bool) {
         self.isHidden = !condition
+    }
+    
+    func hideIf(_ condition: Bool) {
+        if condition {hide()}
+    }
+
+    func showIf(_ condition: Bool) {
+        if condition {show()}
     }
     
     var isVisible: Bool {
