@@ -47,7 +47,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     @IBOutlet weak var windowLayoutsMenu: NSMenu!
     @IBOutlet weak var manageLayoutsMenuItem: NSMenuItem!
     
-    private let viewAppState = ObjectGraph.getAppState().uiState.nowPlayingState
+    private let viewAppState = ObjectGraph.getAppState().uiState.playerState
     
     // To save the name of a custom window layout
     private lazy var layoutNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
@@ -115,8 +115,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         [showArtMenuItem, showMainControlsMenuItem].forEach({$0.hideIf_elseShow(PlayerViewState.viewType == .expandedArt)})
         
         showTrackInfoMenuItem.hideIf_elseShow(PlayerViewState.viewType == .defaultView)
-        showSequenceInfoMenuItem.showIf_elseHide(PlayerViewState.showTrackInfo)
-        showTimeElapsedRemainingMenuItem.showIf_elseHide(PlayerViewState.showControls)
+        showSequenceInfoMenuItem.showIf_elseHide(PlayerViewState.viewType == .defaultView || PlayerViewState.showTrackInfo)
+        showTimeElapsedRemainingMenuItem.showIf_elseHide(PlayerViewState.viewType == .defaultView && PlayerViewState.showControls)
         
         showArtMenuItem.onIf(PlayerViewState.showAlbumArt)
         showTrackInfoMenuItem.onIf(PlayerViewState.showTrackInfo)

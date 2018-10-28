@@ -27,9 +27,7 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         defaultView.setFrameOrigin(NSPoint.zero)
         expandedArtView.setFrameOrigin(NSPoint.zero)
         
-        // TODO: This value will come from appState
-        PlayerViewState.viewType = .defaultView
-        
+        PlayerViewState.initialize(ObjectGraph.getAppState().uiState.playerState)
         showView(PlayerViewState.viewType)
         
         AppModeManager.registerConstituentView(.regular, self)
@@ -206,23 +204,44 @@ class PlayerViewState {
     
     static var viewType: PlayerViewType = .defaultView
     
-    static var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
-    static var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
-    
-    static var showControls: Bool = true
-    
+    static var showAlbumArt: Bool = true
     static var showTrackInfo: Bool = true
     static var showSequenceInfo: Bool = true
     static var showPlayingTrackFunctions: Bool = true
-    static var showAlbumArt: Bool = true
+    static var showControls: Bool = true
     static var showTimeElapsedRemaining: Bool = true
+    
+    static var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
+    static var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
+    
+    static func initialize(_ appState: PlayerState) {
+        
+        viewType = appState.viewType
+        
+        showAlbumArt = appState.showAlbumArt
+        showTrackInfo = appState.showTrackInfo
+        showSequenceInfo = appState.showSequenceInfo
+        showPlayingTrackFunctions = appState.showPlayingTrackFunctions
+        showControls = appState.showControls
+        showTimeElapsedRemaining = appState.showTimeElapsedRemaining
+        
+        timeElapsedDisplayType = appState.timeElapsedDisplayType
+        timeRemainingDisplayType = appState.timeRemainingDisplayType
+    }
     
     static func persistentState() -> PlayerState {
         
-//        let state = NowPlayingState()
         let state = PlayerState()
-//        state.showAlbumArt = DefaultViewState.showAlbumArt
-//        state.showPlayingTrackFunctions = DefaultViewState.showPlayingTrackFunctions
+        
+        state.viewType = viewType
+        
+        state.showAlbumArt = showAlbumArt
+        state.showTrackInfo = showTrackInfo
+        state.showSequenceInfo = showSequenceInfo
+        state.showPlayingTrackFunctions = showPlayingTrackFunctions
+        state.showControls = showControls
+        state.showTimeElapsedRemaining = showTimeElapsedRemaining
+        
         state.timeElapsedDisplayType = timeElapsedDisplayType
         state.timeRemainingDisplayType = timeRemainingDisplayType
         

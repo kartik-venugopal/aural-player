@@ -5,7 +5,6 @@ class MouseTrackingView: NSView {
     private var trackingArea: NSTrackingArea?
     
     private var isTracking: Bool = false
-    
     private var inArea: Bool = false
     
     func startTracking() {
@@ -41,13 +40,16 @@ class MouseTrackingView: NSView {
     
     override func mouseEntered(with event: NSEvent) {
         
-        SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
-        inArea = true
+        if !inArea {
+        
+            SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
+            inArea = true
+        }
     }
     
     override func mouseMoved(with event: NSEvent) {
         
-        if (!inArea) {
+        if !inArea {
             
             SyncMessenger.publishNotification(MouseTrackingNotification.mouseEntered)
             inArea = true
@@ -56,18 +58,24 @@ class MouseTrackingView: NSView {
     
     override func mouseExited(with event: NSEvent) {
         
+        
 //        if (!inArea) {
+//            print("Not in area")
 //            return
 //        }
-        
-        // TODO: There seems to be a bug/issue with false exit events triggered by hovering over some sub-views. So, this redundant validation is necessary to validate the X position.
-        
+//
+//        // TODO: There seems to be a bug/issue with false exit events triggered by hovering over some sub-views. So, this redundant validation is necessary to validate the X position.
+//
 //        let loc = event.locationInWindow
 //
 //        let xExit = loc.x < self.bounds.minX || loc.x > self.bounds.maxX
 //        let yExit = loc.y < self.bounds.minY || loc.y > self.bounds.maxY
 //
-//        if (xExit || yExit) {
+//        // TODO: Assign an ID to the popover, and check for that ID here
+//        let mouseOverInfoPopover = WindowState.showingPopover
+//
+//        if (xExit || yExit || mouseOverInfoPopover) {
+//            print(mouseOverInfoPopover)
             SyncMessenger.publishNotification(MouseTrackingNotification.mouseExited)
             inArea = false
 //        }

@@ -38,12 +38,10 @@ class UIState: PersistentState {
     
     var windowLayoutState: WindowLayoutState
     var playerState: PlayerState
-    var nowPlayingState: NowPlayingState
     
     init() {
         self.windowLayoutState = WindowLayoutState()
         self.playerState = PlayerState()
-        self.nowPlayingState = NowPlayingState()
     }
     
     func toSerializableMap() -> NSDictionary {
@@ -52,7 +50,6 @@ class UIState: PersistentState {
         
         map["windowLayout"] = windowLayoutState.toSerializableMap()
         map["player"] = playerState.toSerializableMap()
-        map["nowPlaying"] = nowPlayingState.toSerializableMap()
         
         return map as NSDictionary
     }
@@ -69,47 +66,20 @@ class UIState: PersistentState {
             state.playerState = PlayerState.deserialize(playerMap) as! PlayerState
         }
         
-        if let nowPlayingMap = map["nowPlaying"] as? NSDictionary {
-            state.nowPlayingState = NowPlayingState.deserialize(nowPlayingMap) as! NowPlayingState
-        }
-        
         return state
     }
 }
-
-class NowPlayingState: PersistentState {
-    
-    var showAlbumArt: Bool = true
-    var showPlayingTrackFunctions: Bool = true
-    
-    func toSerializableMap() -> NSDictionary {
-        
-        var map = [NSString: AnyObject]()
-        
-        map["showAlbumArt"] = showAlbumArt as AnyObject
-        map["showPlayingTrackFunctions"] = showPlayingTrackFunctions as AnyObject
-        
-        return map as NSDictionary
-    }
-    
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
-        
-        let state = NowPlayingState()
-        
-        if let showAlbumArt = map["showAlbumArt"] as? Bool {
-            state.showAlbumArt = showAlbumArt
-        }
-        
-        if let showPlayingTrackFunctions = map["showPlayingTrackFunctions"] as? Bool {
-            state.showPlayingTrackFunctions = showPlayingTrackFunctions
-        }
-        
-        return state
-    }
-}
-
 
 class PlayerState: PersistentState {
+    
+    var viewType: PlayerViewType = .defaultView
+    
+    var showAlbumArt: Bool = true
+    var showTrackInfo: Bool = true
+    var showSequenceInfo: Bool = true
+    var showPlayingTrackFunctions: Bool = true
+    var showControls: Bool = true
+    var showTimeElapsedRemaining: Bool = true
     
     var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
     var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
@@ -117,6 +87,15 @@ class PlayerState: PersistentState {
     func toSerializableMap() -> NSDictionary {
         
         var map = [NSString: AnyObject]()
+        
+        map["viewType"] = viewType.rawValue as AnyObject
+        
+        map["showAlbumArt"] = showAlbumArt as AnyObject
+        map["showTrackInfo"] = showTrackInfo as AnyObject
+        map["showSequenceInfo"] = showSequenceInfo as AnyObject
+        map["showControls"] = showControls as AnyObject
+        map["showTimeElapsedRemaining"] = showTimeElapsedRemaining as AnyObject
+        map["showPlayingTrackFunctions"] = showPlayingTrackFunctions as AnyObject
         
         map["timeElapsedDisplayType"] = timeElapsedDisplayType.rawValue as AnyObject
         map["timeRemainingDisplayType"] = timeRemainingDisplayType.rawValue as AnyObject
@@ -127,6 +106,34 @@ class PlayerState: PersistentState {
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = PlayerState()
+        
+        if let viewTypeStr = map["viewType"] as? String, let viewType = PlayerViewType(rawValue: viewTypeStr) {
+            state.viewType = viewType
+        }
+        
+        if let showAlbumArt = map["showAlbumArt"] as? Bool {
+            state.showAlbumArt = showAlbumArt
+        }
+        
+        if let showTrackInfo = map["showTrackInfo"] as? Bool {
+            state.showTrackInfo = showTrackInfo
+        }
+        
+        if let showSequenceInfo = map["showSequenceInfo"] as? Bool {
+            state.showSequenceInfo = showSequenceInfo
+        }
+        
+        if let showControls = map["showControls"] as? Bool {
+            state.showControls = showControls
+        }
+        
+        if let showTimeElapsedRemaining = map["showTimeElapsedRemaining"] as? Bool {
+            state.showTimeElapsedRemaining = showTimeElapsedRemaining
+        }
+        
+        if let showPlayingTrackFunctions = map["showPlayingTrackFunctions"] as? Bool {
+            state.showPlayingTrackFunctions = showPlayingTrackFunctions
+        }
         
         if let displayTypeStr = map["timeElapsedDisplayType"] as? String, let timeElapsedDisplayType = TimeElapsedDisplayType(rawValue: displayTypeStr) {
             state.timeElapsedDisplayType = timeElapsedDisplayType

@@ -82,24 +82,26 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         // Button tool tips
         btnPreviousTrack.toolTipFunction = {
-            () -> String in
+            () -> String? in
             
             if let prevTrack = self.playbackSequence.peekPrevious() {
                 return String(format: "Previous track: '%@'", prevTrack.track.conciseDisplayName)
             }
             
-            return "Previous track"
+            return nil
         }
         
         btnNextTrack.toolTipFunction = {
-            () -> String in
+            () -> String? in
             
             if let nextTrack = self.playbackSequence.peekNext() {
                 return String(format: "Next track: '%@'", nextTrack.track.conciseDisplayName)
             }
             
-            return "Next track"
+            return nil
         }
+        
+        [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
         
         let timeBypassed = audioGraph.getTimeState() != .active
         let seekTimerInterval = timeBypassed ? UIConstants.seekTimerIntervalMillis : Int(1000 / (2 * audioGraph.getTimeRate().rate))
@@ -562,6 +564,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         let modes = player.toggleRepeatMode()
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
+        [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
     }
     
     // Toggles the shuffle mode
@@ -569,6 +572,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         let modes = player.toggleShuffleMode()
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
+        [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
     }
     
     // Sets the repeat mode to "Off"
@@ -576,6 +580,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         let modes = player.setRepeatMode(.off)
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
+        [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
     }
     
     // Sets the repeat mode to "Repeat One"
@@ -583,6 +588,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         let modes = player.setRepeatMode(.one)
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
+        [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
     }
     
     // Sets the repeat mode to "Repeat All"
@@ -590,6 +596,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         let modes = player.setRepeatMode(.all)
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
+        [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
     }
     
     // Sets the shuffle mode to "Off"
@@ -597,6 +604,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         let modes = player.setShuffleMode(.off)
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
+        [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
     }
     
     // Sets the shuffle mode to "On"
@@ -604,6 +612,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         let modes = player.setShuffleMode(.on)
         updateRepeatAndShuffleControls(modes.repeatMode, modes.shuffleMode)
+        [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
     }
     
     private func updateRepeatAndShuffleControls(_ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
@@ -617,6 +626,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         btnPlayPause.onIf(player.getPlaybackState() == .playing)
         btnLoop.switchState(player.getPlaybackLoop() != nil ? LoopState.complete : LoopState.none)
+        [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
         
         if (player.getPlaybackLoop()) != nil {
             renderLoop()
