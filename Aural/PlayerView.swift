@@ -167,7 +167,6 @@ class DefaultPlayerView: PlayerView {
         functionsBox.showIf_elseHide(PlayerViewState.showPlayingTrackFunctions)
         infoBox.show()
         controlsBox.showIf_elseHide(PlayerViewState.showControls)
-        controlsBox.isTransparent = true
     }
     
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -192,10 +191,6 @@ class DefaultPlayerView: PlayerView {
         
         super.mouseEntered()
         
-        if !PlayerViewState.showTrackInfo {
-            autoHideInfo_show()
-        }
-        
         if !PlayerViewState.showControls {
             autoHideControls_show()
         }
@@ -205,25 +200,9 @@ class DefaultPlayerView: PlayerView {
         
         super.mouseExited()
         
-        if !PlayerViewState.showTrackInfo {
-            autoHideInfo_hide()
-        }
-        
         if !PlayerViewState.showControls {
             autoHideControls_hide()
         }
-    }
-    
-    private func autoHideInfo_show() {
-        
-        infoBox.isTransparent = false
-        infoBox.show()
-    }
-    
-    private func autoHideInfo_hide() {
-        
-        infoBox.isTransparent = true
-        infoBox.hide()
     }
     
     private func autoHideControls_show() {
@@ -247,7 +226,7 @@ class DefaultPlayerView: PlayerView {
     }
     
     override func needsMouseTracking() -> Bool {
-        return !PlayerViewState.showControls || !PlayerViewState.showTrackInfo
+        return !PlayerViewState.showControls
     }
 }
 
@@ -266,6 +245,7 @@ class ExpandedArtPlayerView: PlayerView {
         artView.show()
         functionsBox.showIf_elseHide(PlayerViewState.showPlayingTrackFunctions)
         infoBox.showIf_elseHide(PlayerViewState.showTrackInfo)
+        infoBox.isTransparent = false
 
         hideViews(controlsBox, overlayBox)
     }
