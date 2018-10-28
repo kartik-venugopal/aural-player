@@ -274,6 +274,39 @@ class StringUtils {
         return size
     }
     
+    static func widthOfString(_ text: String, _ font: NSFont) -> CGFloat {
+        
+        let attrs: [String: AnyObject] = [
+            convertFromNSAttributedStringKey(NSAttributedString.Key.font): font]
+        let size: CGSize = text.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
+        
+        return size.width
+    }
+    
+    static func truncate(_ text: String, _ font: NSFont, _ maxWidth: CGFloat) -> String {
+        
+        if widthOfString(text, font) <= maxWidth {
+            return text
+        }
+        
+        let len = text.count
+        var cur = len - 2
+        var str: String = ""
+        
+        while cur >= 0 {
+            
+            str = text.substring(range: 0..<(cur + 1)) + "..."
+            
+            if widthOfString(str, font) <= maxWidth {
+                return str
+            }
+            
+            cur -= 1
+        }
+        
+        return str
+    }
+    
     static func parseFirstNumber(_ string: String) -> Int? {
         
         // No separator in string
@@ -300,4 +333,19 @@ fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Ke
 fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
 	guard let input = input else { return nil }
 	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+extension String {
+    
+    subscript (index: Int) -> Character {
+        let charIndex = self.index(self.startIndex, offsetBy: index)
+        return self[charIndex]
+    }
+    
+    func substring(range: Range<Int>) -> String {
+        let startIndex = self.index(self.startIndex, offsetBy: range.startIndex)
+        let stopIndex = self.index(self.startIndex, offsetBy: range.startIndex + range.count)
+        return String(self[startIndex..<stopIndex])
+    }
+    
 }

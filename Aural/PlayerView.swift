@@ -14,7 +14,7 @@ class PlayerView: NSView {
     
     fileprivate let player: PlaybackInfoDelegateProtocol = ObjectGraph.getPlaybackInfoDelegate()
     
-    fileprivate var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 0, y: 46) }
+    fileprivate var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 0, y: 52) }
     fileprivate var autoHideFields_showing: Bool = false
     
     func showView(_ playbackState: PlaybackState) {
@@ -43,7 +43,7 @@ class PlayerView: NSView {
     fileprivate func centerFunctionsBox() {
         
         // Vertically center functions box w.r.t. info box
-        let funcY = infoBox.frame.minY + (infoBox.frame.height / 2) - (functionsBox.frame.height / 2)
+        let funcY = infoBox.frame.minY + (infoBox.frame.height / 2) - (functionsBox.frame.height / 2) - 2
         functionsBox.setFrameOrigin(NSPoint(x: self.frame.width - 5 - functionsBox.frame.width, y: funcY))
     }
     
@@ -157,8 +157,8 @@ class PlayerView: NSView {
 @IBDesignable
 class DefaultPlayerView: PlayerView {
     
-    override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 90, y: 70) }
-    private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 90, y: 40)
+    override var infoBoxDefaultPosition: NSPoint { return NSPoint(x: 90, y: 85) }
+    private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 90, y: 52)
     
     override func showView(_ playbackState: PlaybackState) {
         
@@ -177,7 +177,7 @@ class DefaultPlayerView: PlayerView {
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
         
         super.moveInfoBoxTo(point)
-        artView.frame.origin.y = infoBox.frame.origin.y + 13
+        artView.frame.origin.y = infoBox.frame.origin.y
     }
     
     override func showOrHideMainControls() {
@@ -248,7 +248,7 @@ class DefaultPlayerView: PlayerView {
 @IBDesignable
 class ExpandedArtPlayerView: PlayerView {
     
-    private let infoBoxTopPosition: NSPoint = NSPoint(x: 0, y: 75)
+    private let infoBoxTopPosition: NSPoint = NSPoint(x: 0, y: 85)
     
     @IBOutlet weak var overlayBox: NSBox!
     
