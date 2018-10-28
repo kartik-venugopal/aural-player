@@ -228,33 +228,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         seekSlider.show()
         [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf_elseHide(PlayerViewState.showTimeElapsedRemaining)})
         updateSeekPosition()
-        
-        if PlayerViewState.showTimeElapsedRemaining {
-            
-            let seekPosn = player.getSeekPosition()
-            let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration, seekPosn.percentageElapsed, PlayerViewState.timeElapsedDisplayType, TimeRemainingDisplayType.seconds)
-            
-            print(trackTimes.remaining)
-            
-            let timeRemString: NSString = trackTimes.remaining as NSString
-            let stringSize: CGSize = timeRemString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): lblTimeRemaining.font as AnyObject]))
-            let lblWidth = lblTimeRemaining.frame.width
-            let textWidth = min(stringSize.width, lblWidth)
-            
-            seekSlider.frame.origin.x = lblTimeElapsed.frame.minX + textWidth + 10
-            var sf = seekSlider.frame
-            sf.size = NSMakeSize(lblTimeRemaining.frame.maxX - textWidth - 10 - seekSlider.frame.origin.x, sf.height)
-            
-            seekSlider.setFrameSize(sf.size)
-            
-            seekSliderFrame = seekSlider.frame
-            
-        } else {
-            
-            seekSlider.frame.origin.x = 12
-            seekSlider.frame.size = NSMakeSize(476, seekSlider.frame.height)
-            seekSliderFrame = nil
-        }
     }
     
     private func setSeekTimerState(_ timerOn: Bool) {
@@ -264,16 +237,12 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     private func updateSeekPosition() {
         
         let seekPosn = player.getSeekPosition()
+        seekSlider.doubleValue = seekPosn.percentageElapsed
         
         let trackTimes = StringUtils.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration, seekPosn.percentageElapsed, PlayerViewState.timeElapsedDisplayType, PlayerViewState.timeRemainingDisplayType)
         
         lblTimeElapsed.stringValue = trackTimes.elapsed
         lblTimeRemaining.stringValue = trackTimes.remaining
-        
-//        seekSliderCell.timeElapsed = trackTimes.elapsed
-//        seekSliderCell.timeRemaining = trackTimes.remaining
-        
-        seekSlider.doubleValue = seekPosn.percentageElapsed
     }
     
     // Resets the seek slider and time elapsed/remaining labels when playback of a track begins
@@ -750,39 +719,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         PlayerViewState.showTimeElapsedRemaining = !PlayerViewState.showTimeElapsedRemaining
         [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf_elseHide(PlayerViewState.showTimeElapsedRemaining)})
-        
-        if PlayerViewState.showTimeElapsedRemaining {
-            
-            if let duration = player.getPlayingTrack()?.track.duration {
-                
-                if let frame = seekSliderFrame {
-                    
-                    seekSlider.frame = frame
-                    
-                } else {
-                    
-                    let trackTimes = StringUtils.formatTrackTimes(0, duration, 0, PlayerViewState.timeElapsedDisplayType, TimeRemainingDisplayType.seconds)
-                    
-                    let timeRemString: NSString = trackTimes.remaining as NSString
-                    let stringSize: CGSize = timeRemString.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): lblTimeRemaining.font as AnyObject]))
-                    let lblWidth = lblTimeRemaining.frame.width
-                    let textWidth = min(stringSize.width, lblWidth)
-                    
-                    seekSlider.frame.origin.x = lblTimeElapsed.frame.minX + textWidth + 10
-                    var sf = seekSlider.frame
-                    sf.size = NSMakeSize(lblTimeRemaining.frame.maxX - textWidth - 10 - seekSlider.frame.origin.x, sf.height)
-                    
-                    seekSlider.setFrameSize(sf.size)
-                    
-                    seekSliderFrame = seekSlider.frame
-                }
-            }
-            
-        } else {
-            
-            seekSlider.frame.origin.x = 12
-            seekSlider.frame.size = NSMakeSize(476, seekSlider.frame.height)
-        }
     }
     
     // MARK: Message handling
