@@ -7,13 +7,11 @@ class TrackInfoView: NSView {
     @IBOutlet weak var lblName: NSTextField!
     
     // Fields that display information about the current playback sequence
-//    @IBOutlet weak var lblSequence: NSTextField!
     @IBOutlet weak var lblScope: NSTextField!
     @IBOutlet weak var imgScope: NSImageView!
     
     func showView(_ playbackState: PlaybackState) {
         
-//        [lblScope, lblSequence, imgScope].forEach({$0?.showIf_elseHide(PlayerViewState.showSequenceInfo)})
         [lblScope, imgScope].forEach({$0?.showIf_elseHide(PlayerViewState.showSequenceInfo)})
         positionTrackInfoLabels()
     }
@@ -22,7 +20,6 @@ class TrackInfoView: NSView {
         
         PlayerViewState.showSequenceInfo = !PlayerViewState.showSequenceInfo
         
-//        [lblScope, lblSequence, imgScope].forEach({$0?.showIf_elseHide(PlayerViewState.showSequenceInfo)})
         [lblScope, imgScope].forEach({$0?.showIf_elseHide(PlayerViewState.showSequenceInfo)})
         positionTrackInfoLabels()
     }
@@ -153,7 +150,6 @@ class TrackInfoView: NSView {
     
     func clearNowPlayingInfo() {
         
-//        [lblName, lblArtist, lblTitle, lblScope, lblSequence].forEach({$0?.stringValue = ""})
         [lblName, lblArtist, lblTitle, lblScope].forEach({$0?.stringValue = ""})
         imgScope.image = nil
     }
@@ -174,7 +170,6 @@ class TrackInfoView: NSView {
         
         otherView.imgScope.image = imgScope.image
         otherView.lblScope.stringValue = lblScope.stringValue
-//        otherView.lblSequence.stringValue = lblSequence.stringValue
         
         otherView.positionTrackInfoLabels()
         otherView.positionScopeImage()

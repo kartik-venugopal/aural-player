@@ -70,6 +70,8 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
         
         PlayerViewState.viewType = viewType
         
+        theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
+        
         switch viewType {
             
         case .defaultView:
@@ -82,8 +84,6 @@ class PlayerViewController: NSViewController, MessageSubscriber, ActionMessageSu
             defaultView.handOff(expandedArtView)
             showExpandedArtView()
         }
-        
-        theView.needsMouseTracking() ? mouseTrackingView.startTracking() : mouseTrackingView.stopTracking()
     }
     
     private func showDefaultView() {

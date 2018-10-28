@@ -174,12 +174,12 @@
                                 </textFieldCell>
                             </textField>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="67e-z1-ERL" userLabel="Img Scope">
-                                <rect key="frame" x="37" y="8" width="11" height="11"/>
+                                <rect key="frame" x="41" y="8" width="11" height="11"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="QCm-FK-zGX"/>
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Amh-rC-QU4" userLabel="Lbl Playback Scope">
-                                <rect key="frame" x="52" y="5" width="405" height="16"/>
+                                <rect key="frame" x="54" y="5" width="405" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" id="OPG-tw-GpH">
                                     <font key="font" size="10" name="GillSans"/>
