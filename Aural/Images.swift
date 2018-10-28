@@ -38,6 +38,7 @@ struct Images {
     
     static let imgPlaylistOn: NSImage = NSImage(named: "PlaylistView-On")!
     static let imgPlaylistOff: NSImage = NSImage(named: "PlaylistView-Off")!
+    static let imgPlaylist_padded: NSImage = NSImage(named: "Playlist-Padded")!
     
     // Displayed in the playlist view
     static let imgGroup: NSImage = NSImage(named: "Group")!

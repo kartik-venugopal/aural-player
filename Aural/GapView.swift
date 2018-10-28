@@ -2,42 +2,58 @@ import Cocoa
 
 class GapView: NSView {
     
-    @IBOutlet weak var lblGapTrackName: NSTextField!
-    @IBOutlet weak var lblGapTimeRemaining: NSTextField!
+    @IBOutlet weak var lblTrackName: NSTextField!
+    @IBOutlet weak var lblTimeRemaining: NSTextField!
     
-    private var gapTimer: RepeatingTaskExecutor?
+    private var timer: RepeatingTaskExecutor?
+    private var endTime: Date?
     
-    func clearNowPlayingInfo() {
+    func showView(_ playbackState: PlaybackState) {}
+    
+    func endGap() {
         
-        // If gap is ongoing, end it
-            gapTimer?.stop()
-            gapTimer = nil
+        timer?.stop()
+        timer = nil
+        endTime = nil
     }
     
-    private func updateGapCountdown(_ endTime: Date) {
+    private func updateCountdown() {
         
-        let seconds = max(DateUtils.timeUntil(endTime), 0)
-        lblGapTimeRemaining.stringValue = StringUtils.formatSecondsToHMS(seconds)
+        if let endTime = self.endTime {
         
-        if seconds == 0 {
-            gapTimer?.stop()
-            gapTimer = nil
+            let seconds = max(DateUtils.timeUntil(endTime), 0)
+            lblTimeRemaining.stringValue = StringUtils.formatSecondsToHMS(seconds)
+            
+            if seconds == 0 {endGap()}
         }
     }
     
     func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
         
         let track = msg.nextTrack.track
+        endTime = msg.gapEndTime
         
-        lblGapTrackName.stringValue = String(format: "Up next:   %@", track.conciseDisplayName)
-        updateGapCountdown(msg.gapEndTime)
+        lblTrackName.stringValue = String(format: "Up next:   %@", track.conciseDisplayName)
+        updateCountdown()
+        startTimer()
+    }
+    
+    private func startTimer() {
         
-        gapTimer = RepeatingTaskExecutor(intervalMillis: 500, task: {
+        timer = RepeatingTaskExecutor(intervalMillis: 500, task: {self.updateCountdown()}, queue: DispatchQueue.main)
+        timer?.startOrResume()
+    }
+    
+    func handOff(_ other: GapView) {
+        
+        other.lblTrackName.stringValue = lblTrackName.stringValue
+        other.lblTimeRemaining.stringValue = lblTimeRemaining.stringValue
+        
+        if endTime != nil {
             
-            self.updateGapCountdown(msg.gapEndTime)
-            
-        }, queue: DispatchQueue.main)
-        
-        gapTimer?.startOrResume()
+            other.endTime = endTime
+            other.updateCountdown()
+            other.startTimer()
+        }
     }
 }

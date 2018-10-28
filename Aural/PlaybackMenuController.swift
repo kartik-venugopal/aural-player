@@ -84,7 +84,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         [seekForwardMenuItem, seekBackwardMenuItem, seekForwardSecondaryMenuItem, seekBackwardSecondaryMenuItem].forEach({$0.enableIf(isPlayingOrPaused && !showingDialogOrPopover)})
         
-        rememberLastPositionMenuItem.showIf(preferences.rememberLastPosition && preferences.rememberLastPositionOption == .individualTracks)
+        rememberLastPositionMenuItem.showIf_elseHide(preferences.rememberLastPosition && preferences.rememberLastPositionOption == .individualTracks)
         
         if let playingTrack = playbackInfo.getPlayingTrack()?.track {
             

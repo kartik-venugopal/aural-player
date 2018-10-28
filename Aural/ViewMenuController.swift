@@ -68,7 +68,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         switchViewMenuItem.onIf(AppModeManager.mode != .regular)
-        dockMiniBarMenu.hideIf(AppModeManager.mode == .regular)
+        dockMiniBarMenu.hideIf_elseShow(AppModeManager.mode == .regular)
         
         if (AppModeManager.mode == .regular) {
             
@@ -112,11 +112,11 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         playerDefaultViewMenuItem.onIf(PlayerViewState.viewType == .defaultView)
         playerExpandedArtViewMenuItem.onIf(PlayerViewState.viewType == .expandedArt)
         
-        [showArtMenuItem, showMainControlsMenuItem].forEach({$0.hideIf(PlayerViewState.viewType == .expandedArt)})
+        [showArtMenuItem, showMainControlsMenuItem].forEach({$0.hideIf_elseShow(PlayerViewState.viewType == .expandedArt)})
         
-        showTrackInfoMenuItem.hideIf(PlayerViewState.viewType == .defaultView)
-        showSequenceInfoMenuItem.showIf(PlayerViewState.showTrackInfo)
-        showTimeElapsedRemainingMenuItem.showIf(PlayerViewState.showControls)
+        showTrackInfoMenuItem.hideIf_elseShow(PlayerViewState.viewType == .defaultView)
+        showSequenceInfoMenuItem.showIf_elseHide(PlayerViewState.showTrackInfo)
+        showTimeElapsedRemainingMenuItem.showIf_elseHide(PlayerViewState.showControls)
         
         showArtMenuItem.onIf(PlayerViewState.showAlbumArt)
         showTrackInfoMenuItem.onIf(PlayerViewState.showTrackInfo)

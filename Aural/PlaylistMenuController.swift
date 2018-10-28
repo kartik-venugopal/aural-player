@@ -86,9 +86,9 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
                 let track = selectedTrack()
                 
                 let gaps = playlist.getGapsAroundTrack(track)
-                insertGapsMenuItem.hideIf(gaps.hasGaps)
-                removeGapsMenuItem.showIf(gaps.hasGaps)
-                editGapsMenuItem.showIf(gaps.hasGaps)
+                insertGapsMenuItem.hideIf_elseShow(gaps.hasGaps)
+                removeGapsMenuItem.showIf_elseHide(gaps.hasGaps)
+                editGapsMenuItem.showIf_elseHide(gaps.hasGaps)
                 
             } else {
                 [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.hide()})
@@ -100,13 +100,13 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         playSelectedItemDelayedMenuItem.enableIf(numSelectedRows == 1)
         
-        expandSelectedGroupsMenuItem.hideIf(PlaylistViewState.current == .tracks)
+        expandSelectedGroupsMenuItem.hideIf_elseShow(PlaylistViewState.current == .tracks)
         expandSelectedGroupsMenuItem.enableIf(atLeastOneItemSelected && areOnlyGroupsSelected())
         
-        collapseSelectedItemsMenuItem.hideIf(PlaylistViewState.current == .tracks)
+        collapseSelectedItemsMenuItem.hideIf_elseShow(PlaylistViewState.current == .tracks)
         collapseSelectedItemsMenuItem.enableIf(atLeastOneItemSelected)
         
-        [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.hideIf(!(PlaylistViewState.current != .tracks && playlistNotEmpty))})
+        [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.hideIf_elseShow(!(PlaylistViewState.current != .tracks && playlistNotEmpty))})
     }
     
     private func areOnlyGroupsSelected() -> Bool {

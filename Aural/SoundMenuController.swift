@@ -92,7 +92,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         [panLeftMenuItem, panRightMenuItem].forEach({$0?.enableIf(isRegularMode && !showingDialogOrPopover)})
         [eqMenu, pitchMenu, timeMenu].forEach({$0?.enableIf(isRegularMode)})
         
-        rememberSettingsMenuItem.showIf(preferences.rememberEffectsSettings && preferences.rememberEffectsSettingsOption == .individualTracks)
+        rememberSettingsMenuItem.showIf_elseHide(preferences.rememberEffectsSettings && preferences.rememberEffectsSettingsOption == .individualTracks)
         
         if let playingTrack = player.getPlayingTrack()?.track {
             
