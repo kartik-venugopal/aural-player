@@ -27,7 +27,7 @@ class PlayerView: NSView {
         infoView.showView(playbackState)
         gapView.showView(playbackState)
         
-        playbackState == .waiting ? showGapFields() : showPlayingTrackFields()
+        playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
     }
     
     fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -95,7 +95,7 @@ class PlayerView: NSView {
     func showNowPlayingInfo(_ track: Track, _ playbackState: PlaybackState, _ sequence: (scope: SequenceScope, trackIndex: Int, totalTracks: Int)) {
         
         infoView.showNowPlayingInfo(track, sequence)
-        showPlayingTrackFields()
+        showPlayingTrackInfo()
         
         let trackArt = track.displayInfo.art
         artView.image = trackArt != nil ? trackArt! : (playbackState == .playing ? Images.imgPlayingArt : Images.imgPausedArt)
@@ -104,7 +104,7 @@ class PlayerView: NSView {
     func clearNowPlayingInfo() {
         
         infoView.clearNowPlayingInfo()
-        showPlayingTrackFields()
+        showPlayingTrackInfo()
         
         artView.image = Images.imgPausedArt
     }
@@ -115,7 +115,7 @@ class PlayerView: NSView {
     
     func gapStarted(_ msg: PlaybackGapStartedAsyncMessage) {
         
-        showGapFields()
+        showGapInfo()
         
         let track = msg.nextTrack.track
         let trackArt = track.displayInfo.art
@@ -124,23 +124,23 @@ class PlayerView: NSView {
         gapView.gapStarted(msg)
     }
     
-    private func showGapFields() {
+    fileprivate func showGapInfo() {
         
         gapBox.coLocate(infoBox)
         gapBox.show()
         hideViews(infoBox, functionsBox)
     }
     
-    fileprivate func showPlayingTrackFields() {
+    fileprivate func showPlayingTrackInfo() {
         
         if gapBox.isShown {
             
             gapBox.hide()
             gapView.endGap()
-            
-            infoBox.showIf_elseHide(PlayerViewState.showTrackInfo || autoHideFields_showing)
-            functionsBox.showIf_elseHide(PlayerViewState.showPlayingTrackFunctions)
         }
+        
+        infoBox.showIf_elseHide(PlayerViewState.showTrackInfo || autoHideFields_showing)
+        functionsBox.showIf_elseHide(PlayerViewState.showPlayingTrackFunctions)
     }
     
     func handOff(_ otherView: PlayerView) {
@@ -164,9 +164,9 @@ class DefaultPlayerView: PlayerView {
         moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
         
         artView.showIf_elseHide(PlayerViewState.showAlbumArt)
-        functionsBox.showIf_elseHide(PlayerViewState.showPlayingTrackFunctions)
-        infoBox.show()
         controlsBox.showIf_elseHide(PlayerViewState.showControls)
+        
+        playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
     }
     
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -219,9 +219,9 @@ class DefaultPlayerView: PlayerView {
         moveInfoBoxTo(infoBoxCenteredPosition)
     }
     
-    override fileprivate func showPlayingTrackFields() {
+    override fileprivate func showPlayingTrackInfo() {
         
-        super.showPlayingTrackFields()
+        super.showPlayingTrackInfo()
         infoBox.show()
     }
     
@@ -243,11 +243,11 @@ class ExpandedArtPlayerView: PlayerView {
         moveInfoBoxTo(infoBoxDefaultPosition)
         
         artView.show()
-        functionsBox.showIf_elseHide(PlayerViewState.showPlayingTrackFunctions)
-        infoBox.showIf_elseHide(PlayerViewState.showTrackInfo)
         infoBox.isTransparent = false
 
         hideViews(controlsBox, overlayBox)
+        
+        playbackState == .waiting ? showGapInfo() : showPlayingTrackInfo()
     }
     
     override func showOrHideMainControls() {
