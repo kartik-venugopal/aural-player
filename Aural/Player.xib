@@ -392,6 +392,9 @@ G1BhbiBTbGlkZXI
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="defaultTooltip" value="Next track"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="nextTrackAction:" target="RSE-vv-5aa" id="gV0-SU-uvl"/>
                         </connections>
@@ -420,6 +423,9 @@ G1BhbiBTbGlkZXI
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="defaultTooltip" value="Previous track"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="previousTrackAction:" target="RSE-vv-5aa" id="dwi-rh-ba1"/>
                         </connections>
