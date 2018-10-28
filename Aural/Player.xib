@@ -89,14 +89,14 @@
                     <color key="fillColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
                 <box hidden="YES" wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nxu-x0-KHZ" userLabel="Gap Info Box">
-                    <rect key="frame" x="90" y="70" width="365" height="94"/>
+                    <rect key="frame" x="90" y="70" width="365" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="uER-ZE-fk4" customClass="GapView" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="365" height="94"/>
+                        <rect key="frame" x="0.0" y="0.0" width="365" height="70"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GFy-Pd-rl3" userLabel="Gap Track Name">
-                                <rect key="frame" x="0.0" y="47" width="320" height="30"/>
+                                <rect key="frame" x="0.0" y="30" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Up next:" id="fnW-p4-Wxy">
                                     <font key="font" size="14" name="GillSans-SemiBold"/>
@@ -105,7 +105,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="52i-lD-wrI" userLabel="Gap Time Remaining">
-                                <rect key="frame" x="85" y="24" width="150" height="27"/>
+                                <rect key="frame" x="85" y="7" width="150" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="00:00:00" placeholderString="" id="a6I-UQ-NDt">
                                     <font key="font" size="16" name="GillSans-SemiBold"/>
@@ -200,14 +200,14 @@
                     <color key="fillColor" white="0.0" alpha="0.74614876760563376" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
                 <box hidden="YES" wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="BKw-xe-F4l" userLabel="Gap Info Box">
-                    <rect key="frame" x="0.0" y="46" width="470" height="82"/>
+                    <rect key="frame" x="0.0" y="46" width="470" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="3cE-X5-3xz" customClass="GapView" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="470" height="82"/>
+                        <rect key="frame" x="0.0" y="0.0" width="470" height="70"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3kn-aW-0ra" userLabel="Gap Track Name">
-                                <rect key="frame" x="30" y="38" width="440" height="30"/>
+                                <rect key="frame" x="30" y="30" width="440" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Up next:" id="fmO-Gx-ihO">
                                     <font key="font" size="14" name="GillSans-SemiBold"/>
@@ -216,7 +216,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SJU-tD-CPb" userLabel="Gap Time Remaining">
-                                <rect key="frame" x="175" y="15" width="150" height="27"/>
+                                <rect key="frame" x="175" y="7" width="150" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="00:00:00" placeholderString="" id="Ohn-p3-gsw">
                                     <font key="font" size="16" name="GillSans-SemiBold"/>
