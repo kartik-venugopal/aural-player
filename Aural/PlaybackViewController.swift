@@ -3,6 +3,8 @@
  */
 import Cocoa
 
+// TODO: Move view code into a new view class "Controls View". Let this class simply handle events, invoke the delegate, and pass events on to the view.
+
 class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber, AsyncMessageSubscriber, ConstituentView {
     
     // Fields that display/control seek position within the playing track
@@ -11,7 +13,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
     @IBOutlet weak var seekSlider: NSSlider!
-    @IBOutlet weak var seekSliderCell: NewSeekSliderCell!
+    @IBOutlet weak var seekSliderCell: SeekSliderCell!
     
     // A clone of the seek slider, used to render the segment playback loop
     @IBOutlet weak var seekSliderClone: NSSlider!
