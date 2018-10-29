@@ -77,14 +77,14 @@ class PreferencesPopupMenuCell: PopupMenuCell {
 }
 
 // Cell for EQ presets popup menu
-class EQPresetsPopupMenuCell: PopupMenuCell {
+class PresetsPopupMenuCell: PopupMenuCell {
     
-    override var cellInsetX: CGFloat {return 11}
-    override var cellInsetY: CGFloat {return 3.5}
+    override var cellInsetX: CGFloat {return 11.5}
+    override var cellInsetY: CGFloat {return 4}
     override var rectRadius: CGFloat {return 2}
-    override var arrowXMargin: CGFloat {return 6}
-    override var arrowYMargin: CGFloat {return 3}
-    override var arrowHeight: CGFloat {return 4}
+    override var arrowXMargin: CGFloat {return 5.5}
+    override var arrowYMargin: CGFloat {return 2.5}
+    override var arrowHeight: CGFloat {return 3}
     
     override
     func drawTitle(_ title: NSAttributedString, withFrame: NSRect, in inView: NSView) -> NSRect {
