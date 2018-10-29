@@ -214,7 +214,7 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
             
         case .active:   return NSColor(red: 0, green: 0.45, blue: 0, alpha: 1)
             
-        case .bypassed: return NSColor(calibratedWhite: 0.45, alpha: 1)
+        case .bypassed: return NSColor(calibratedWhite: 0.35, alpha: 1)
             
         case .suppressed:   return NSColor(red: 0.53, green: 0.4, blue: 0, alpha: 1)
             
