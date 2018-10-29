@@ -123,9 +123,17 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 ![App screenshot2](/Documentation/Demos/WindowLayout.gif?raw=true "Choosing a window layout")
 
-### Compact view
+### Compact app view, default player view with controls shown
 
 ![App screenshot4](/Documentation/Screenshots/Compact.png?raw=true "App screenshot4")
+
+### Compact app view, default player view with controls hidden
+
+![App screenshot4](/Documentation/Screenshots/Compact-default-noControls.png?raw=true "App screenshot4")
+
+### Compact app view, expanded art player view
+
+![App screenshot4](/Documentation/Screenshots/Compact-ExpandedArt.png?raw=true "App screenshot4")
 
 ### Equalizer effects unit
 
