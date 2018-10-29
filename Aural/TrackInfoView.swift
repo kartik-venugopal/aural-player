@@ -62,7 +62,7 @@ class TrackInfoView: NSView {
         
         if PlayerViewState.showSequenceInfo {
         
-            lblTitle.frame.origin.y = top - lblTitle.frame.height - 1
+            lblTitle.frame.origin.y = top - lblTitle.frame.height - 3
             lblArtist.frame.origin.y = lblTitle.frame.origin.y - lblArtist.frame.height + 2
             
         } else {

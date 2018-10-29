@@ -32,7 +32,7 @@ class ParametricEQNode: AVAudioUnitEQ {
             // Constant
             band.bypass = false
             band.filterType = AVAudioUnitEQFilterType.parametric
-            band.bandwidth = 1
+            band.bandwidth = 0.5
         }
     }
     

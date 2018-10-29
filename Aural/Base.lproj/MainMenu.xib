@@ -134,9 +134,11 @@
                 <outlet property="showTrackFunctionsMenuItem" destination="JiX-rw-gah" id="SUR-wS-Lbs"/>
                 <outlet property="showTrackInfoMenuItem" destination="UzR-MM-ibF" id="Jog-0Q-j1h"/>
                 <outlet property="switchViewMenuItem" destination="Lhd-o1-irA" id="cBX-0N-n7w"/>
+                <outlet property="timeElapsedFormatMenuItem" destination="nsK-2D-RCp" id="dDA-7B-gZO"/>
                 <outlet property="timeElapsedMenuItem_hms" destination="z7S-TB-1Mk" id="cG7-TH-KCL"/>
                 <outlet property="timeElapsedMenuItem_percentage" destination="jXi-ii-Jv1" id="0k3-01-1cL"/>
                 <outlet property="timeElapsedMenuItem_seconds" destination="gY9-cI-tiW" id="Oaf-6d-fgq"/>
+                <outlet property="timeRemainingFormatMenuItem" destination="MVi-gk-qfx" id="iie-mN-eiq"/>
                 <outlet property="timeRemainingMenuItem_durationHMS" destination="nIB-ij-hMS" id="QbV-8z-IqC"/>
                 <outlet property="timeRemainingMenuItem_durationSeconds" destination="LbF-gn-eNa" id="I5X-Ss-GW6"/>
                 <outlet property="timeRemainingMenuItem_hms" destination="NI1-7T-K0P" id="3V8-yW-uZL"/>
