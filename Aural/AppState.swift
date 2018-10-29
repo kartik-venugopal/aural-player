@@ -329,6 +329,7 @@ class AudioGraphState: PersistentState {
     var masterUserPresets: [MasterPreset] = [MasterPreset]()
     
     var eqState: EffectsUnitState = AppDefaults.eqState
+    var eqType: EQType = AppDefaults.eqType
     var eqGlobalGain: Float = AppDefaults.eqGlobalGain
     var eqBands: [Int: Float] = [Int: Float]() // Index -> Gain
     var eqUserPresets: [EQPreset] = [EQPreset]()

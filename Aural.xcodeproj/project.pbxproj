@@ -51,6 +51,8 @@
 		3E176603217DE43D001C6CF9 /* TracksPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E176602217DE43D001C6CF9 /* TracksPlaylistSort.xib */; };
 		3E176605217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E176604217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib */; };
 		3E176607217DE513001C6CF9 /* TracksPlaylistSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E176606217DE513001C6CF9 /* TracksPlaylistSortViewController.swift */; };
+		3E17A8B52187181000CADE89 /* EQ10ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E17A8B42187181000CADE89 /* EQ10ViewController.swift */; };
+		3E17A8B721871D7700CADE89 /* EQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E17A8B621871D7700CADE89 /* EQView.swift */; };
 		3E192394215AEEB600E894B3 /* PlaybackScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */; };
 		3E192396215B0F1100E894B3 /* FavoritesMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */; };
 		3E1CF7ED1F5CBA2500613724 /* AudioGraphProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1CF7EC1F5CBA2500613724 /* AudioGraphProtocols.swift */; };
@@ -238,7 +240,6 @@
 		3EB2A7EE1F04697E001DF748 /* GraphicsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2A7ED1F04697E001DF748 /* GraphicsUtils.swift */; };
 		3EB2F1FF1FB311760031B6C1 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2F1FE1FB311760031B6C1 /* Fonts.swift */; };
 		3EB2F2011FB311FB0031B6C1 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2F2001FB311FB0031B6C1 /* Images.swift */; };
-		3EB3A6D821847941003C7F07 /* 15BandEQ.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EB3A6D721847941003C7F07 /* 15BandEQ.xib */; };
 		3EB3A6DA21850D40003C7F07 /* TrackInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A6D921850D40003C7F07 /* TrackInfoView.swift */; };
 		3EB3A6DC2185105A003C7F07 /* GapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3A6DB2185105A003C7F07 /* GapView.swift */; };
 		3EB7F45F217FC48800A2CE76 /* AlbumsPlaylistSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB7F45E217FC48800A2CE76 /* AlbumsPlaylistSortViewController.swift */; };
@@ -367,6 +368,8 @@
 		3E176602217DE43D001C6CF9 /* TracksPlaylistSort.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TracksPlaylistSort.xib; sourceTree = "<group>"; };
 		3E176604217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtistsPlaylistSort.xib; sourceTree = "<group>"; };
 		3E176606217DE513001C6CF9 /* TracksPlaylistSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksPlaylistSortViewController.swift; sourceTree = "<group>"; };
+		3E17A8B42187181000CADE89 /* EQ10ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQ10ViewController.swift; sourceTree = "<group>"; };
+		3E17A8B621871D7700CADE89 /* EQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQView.swift; sourceTree = "<group>"; };
 		3E192393215AEEB600E894B3 /* PlaybackScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackScheduler.swift; sourceTree = "<group>"; };
 		3E192395215B0F1100E894B3 /* FavoritesMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesMenuController.swift; sourceTree = "<group>"; };
 		3E1CF7EC1F5CBA2500613724 /* AudioGraphProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphProtocols.swift; sourceTree = "<group>"; };
@@ -558,7 +561,6 @@
 		3EB2A7ED1F04697E001DF748 /* GraphicsUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphicsUtils.swift; sourceTree = "<group>"; };
 		3EB2F1FE1FB311760031B6C1 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		3EB2F2001FB311FB0031B6C1 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
-		3EB3A6D721847941003C7F07 /* 15BandEQ.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = 15BandEQ.xib; sourceTree = "<group>"; };
 		3EB3A6D921850D40003C7F07 /* TrackInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInfoView.swift; sourceTree = "<group>"; };
 		3EB3A6DB2185105A003C7F07 /* GapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GapView.swift; sourceTree = "<group>"; };
 		3EB7F45E217FC48800A2CE76 /* AlbumsPlaylistSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsPlaylistSortViewController.swift; sourceTree = "<group>"; };
@@ -733,7 +735,8 @@
 			children = (
 				3E0ED6AE1FBB1AB8008268B3 /* EQ.xib */,
 				3E0ED6C21FBB1E18008268B3 /* EQViewController.swift */,
-				3EB3A6D721847941003C7F07 /* 15BandEQ.xib */,
+				3E17A8B42187181000CADE89 /* EQ10ViewController.swift */,
+				3E17A8B621871D7700CADE89 /* EQView.swift */,
 			);
 			name = EQ;
 			sourceTree = "<group>";
@@ -1747,7 +1750,6 @@
 				3E36E86B1FC0108F0005C62E /* HistoryPreferences.xib in Resources */,
 				3E176605217DE4BE001C6CF9 /* ArtistsPlaylistSort.xib in Resources */,
 				3E98CBC7216B3C8F0025A77E /* EQPresetsEditor.xib in Resources */,
-				3EB3A6D821847941003C7F07 /* 15BandEQ.xib in Resources */,
 				3E2F1049215562DD0099FD06 /* EditorWindow.xib in Resources */,
 				3E85F25F1EFA78D6007BE830 /* MainMenu.xib in Resources */,
 				3E24F4D021699E5000B9CDA6 /* EffectsPresetsEditor.xib in Resources */,
@@ -1804,6 +1806,7 @@
 				3EF5A5501F403D2500C5A2D2 /* PreferencesOptions.swift in Sources */,
 				3E9847821F5CF23D001A2D28 /* HelpMenuController.swift in Sources */,
 				3E24ED451FBB2B430023F9F9 /* ReverbViewController.swift in Sources */,
+				3E17A8B721871D7700CADE89 /* EQView.swift in Sources */,
 				3E3FB7FD215B5BBB00974A59 /* FavoritesDelegate.swift in Sources */,
 				3E4BBA5C1F030E5B0025F371 /* UIConstants.swift in Sources */,
 				3EDFFA0B1FC0283F00158177 /* ViewPreferencesViewController.swift in Sources */,
@@ -1832,6 +1835,7 @@
 				3E0C993B216C82CA00E396DB /* DelayPresetsEditorViewController.swift in Sources */,
 				3EDFFA0D1FC0286E00158177 /* HistoryPreferencesViewController.swift in Sources */,
 				3E06C02C1FB6B137003EE9AB /* HistoryItems.swift in Sources */,
+				3E17A8B52187181000CADE89 /* EQ10ViewController.swift in Sources */,
 				3EB029121FB55EEF00A2D920 /* DockMenuController.swift in Sources */,
 				3E1CF7EF1F5CBA9300613724 /* PlayerProtocol.swift in Sources */,
 				3E85F25A1EFA78D6007BE830 /* AppDelegate.swift in Sources */,

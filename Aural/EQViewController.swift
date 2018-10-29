@@ -7,24 +7,25 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     
     @IBOutlet weak var btnEQBypass: EffectsUnitTriStateBypassButton!
     
-    @IBOutlet weak var eqGlobalGainSlider: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider1k: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider64: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider16k: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider8k: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider4k: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider2k: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider32: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider512: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider256: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider128: EffectsUnitSlider!
+    @IBOutlet weak var container: NSBox!
     
-    private var bandSliders: [EffectsUnitSlider] = []
-    private var allSliders: [EffectsUnitSlider] = []
+    @IBOutlet weak var eq10BandView: EQView!
+    @IBOutlet weak var eq15BandView: EQView!
+    
+    @IBOutlet weak var btn10Band: NSButton!
+    @IBOutlet weak var btn15Band: NSButton!
     
     // Presets menu
-    @IBOutlet weak var eqPresets: NSPopUpButton!
+    @IBOutlet weak var presetsMenu: NSPopUpButton!
     @IBOutlet weak var btnSavePreset: NSButton!
+    
+    private var activeView: EQView {
+        return btn10Band.isOn() ? eq10BandView : eq15BandView
+    }
+    
+    private var inactiveView: EQView {
+        return btn10Band.isOn() ? eq15BandView : eq10BandView
+    }
     
     private lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
@@ -45,22 +46,22 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        let itemCount = eqPresets.itemArray.count
+        let itemCount = presetsMenu.itemArray.count
         
         let customPresetCount = itemCount - 18  // 3 separators, 15 system-defined presets
         
         if customPresetCount > 0 {
             
             for index in (0..<customPresetCount).reversed() {
-                eqPresets.removeItem(at: index)
+                presetsMenu.removeItem(at: index)
             }
         }
         
         // Re-initialize the menu with user-defined presets
-        EQPresets.userDefinedPresets.forEach({eqPresets.insertItem(withTitle: $0.name, at: 0)})
+        EQPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
         
         // Don't select any items from the EQ presets menu
-        eqPresets.selectItem(at: -1)
+        presetsMenu.selectItem(at: -1)
     }
     
     private func oneTimeSetup() {
@@ -71,40 +72,56 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
         }
         
         btnEQBypass.stateFunction = eqStateFunction
-        bandSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
+        eq10BandView.initialize(eqStateFunction)
+        eq15BandView.initialize(eqStateFunction)
         
-        allSliders = [eqGlobalGainSlider, eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
+        eq10BandView.bandSliders.forEach({
+            $0.action = #selector(self.eqSliderAction(_:))
+            $0.target = self
+        })
+        eq15BandView.bandSliders.forEach({
+            $0.action = #selector(self.eqSliderAction(_:))
+            $0.target = self
+        })
         
-        allSliders.forEach({$0.stateFunction = eqStateFunction})
+        // TODO: Choose EQ type depending on state from graph ... graph.getEQType()
+        btn10Band.on()
+        chooseBandsAction(self)
     }
     
     private func initControls() {
         
         btnEQBypass.updateState()
-        
-        updateAllEQSliders(graph.getEQBands(), graph.getEQGlobalGain())
-        redrawSliders()
+        activeView.stateChanged()
+        activeView.updateBands(graph.getEQBands(), graph.getEQGlobalGain())
         
         // Don't select any items from the EQ presets menu
-        eqPresets.selectItem(at: -1)
+        presetsMenu.selectItem(at: -1)
+    }
+    
+    @IBAction func chooseBandsAction(_ sender: AnyObject) {
+        
+        graph.chooseEQType(btn10Band.isOn() ? .tenBand : .fifteenBand)
+        
+        activeView.stateChanged()
+        activeView.updateBands(graph.getEQBands(), graph.getEQGlobalGain())
+        activeView.show()
+        
+        inactiveView.hide()
     }
     
     @IBAction func eqBypassAction(_ sender: AnyObject) {
         
         _ = graph.toggleEQState()
+        
         btnEQBypass.updateState()
-        redrawSliders()
+        activeView.stateChanged()
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
     
-    private func redrawSliders() {
-        allSliders.forEach({$0.updateState()})
-    }
-    
-    // Updates the global gain value of the Equalizer
-    @IBAction func eqGlobalGainAction(_ sender: AnyObject) {
-        graph.setEQGlobalGain(eqGlobalGainSlider.floatValue)
+    @IBAction func eqGlobalGainAction(_ sender: EffectsUnitSlider) {
+        graph.setEQGlobalGain(sender.floatValue)
     }
     
     // Updates the gain value of a single frequency band (specified by the slider parameter) of the Equalizer
@@ -112,10 +129,10 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
         // Slider tags match the corresponding EQ band indexes
         graph.setEQBand(sender.tag, gain: sender.floatValue)
     }
-    
+   
     // Applies a built-in preset to the Equalizer
     @IBAction func eqPresetsAction(_ sender: AnyObject) {
-        graph.applyEQPreset(eqPresets.titleOfSelectedItem!)
+        graph.applyEQPreset(presetsMenu.titleOfSelectedItem!)
         initControls()
     }
     
@@ -128,65 +145,38 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
         WindowState.mainWindow.orderFront(self)
     }
     
-    private func updateAllEQSliders(_ eqBands: [Int: Float], _ globalGain: Float) {
-        
-        // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
-        bandSliders.forEach({
-            $0.floatValue = eqBands[$0.tag] ?? 0
-        })
-        
-        eqGlobalGainSlider.floatValue = globalGain
-    }
-    
     private func showEQTab() {
         SyncMessenger.publishActionMessage(EffectsViewActionMessage(.showEffectsUnitTab, .eq))
     }
     
     // Provides a "bass boost". Increases each of the EQ bass bands by a certain preset increment.
     private func increaseBass() {
-        bandsUpdated(graph.increaseBass())
+//        bandsUpdated(graph.increaseBass())
     }
     
     // Decreases each of the EQ bass bands by a certain preset decrement
     private func decreaseBass() {
-        bandsUpdated(graph.decreaseBass())
+//        bandsUpdated(graph.decreaseBass())
     }
     
     // Increases each of the EQ mid-frequency bands by a certain preset increment
     private func increaseMids() {
-        bandsUpdated(graph.increaseMids())
+//        bandsUpdated(graph.increaseMids())
     }
     
     // Decreases each of the EQ mid-frequency bands by a certain preset decrement
     private func decreaseMids() {
-        bandsUpdated(graph.decreaseMids())
+//        bandsUpdated(graph.decreaseMids())
     }
     
     // Decreases each of the EQ treble bands by a certain preset increment
     private func increaseTreble() {
-        bandsUpdated(graph.increaseTreble())
+//        bandsUpdated(graph.increaseTreble())
     }
     
     // Decreases each of the EQ treble bands by a certain preset decrement
     private func decreaseTreble() {
-        bandsUpdated(graph.decreaseTreble())
-    }
-    
-    private func bandsUpdated(_ bands: [Int: Float]) {
-        
-        btnEQBypass.on()
-        updateAllEQSliders(bands, graph.getEQGlobalGain())
-        redrawSliders()
-        
-        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
-        showEQTab()
-    }
-    
-    private func getAllBands() -> [Int: Float] {
-        
-        var allBands: [Int: Float] = [Int: Float]()
-        bandSliders.forEach({allBands[$0.tag] = $0.floatValue})
-        return allBands
+//        bandsUpdated(graph.decreaseTreble())
     }
     
     func getID() -> String {
@@ -199,7 +189,7 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
         
         if notification is EffectsUnitStateChangedNotification {
             btnEQBypass.updateState()
-            redrawSliders()
+            activeView.stateChanged()
         }
     }
     
@@ -261,6 +251,6 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
         graph.saveEQPreset(string)
         
         // Add a menu item for the new preset, at the top of the menu
-        eqPresets.insertItem(withTitle: string, at: 0)
+        presetsMenu.insertItem(withTitle: string, at: 0)
     }
 }

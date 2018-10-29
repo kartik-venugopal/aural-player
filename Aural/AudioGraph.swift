@@ -15,7 +15,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     internal let playerNode: AVAudioPlayerNode
     
     // Effects
-    private let eqNode: ParametricEQNode
+    private let eqNode: ParametricEQ
     private let pitchNode: AVAudioUnitTimePitch
     private let reverbNode: AVAudioUnitReverb
     private let filterNode: MultiBandStopFilterNode
@@ -52,7 +52,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         audioEngine = AVAudioEngine()
         mainMixer = audioEngine.mainMixerNode
         
-        eqNode = ParametricEQNode()
+        eqNode = ParametricEQ(state.eqType)
         pitchNode = AVAudioUnitTimePitch()
         reverbNode = AVAudioUnitReverb()
         delayNode = AVAudioUnitDelay()
@@ -63,7 +63,10 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         audioEngineHelper = AudioEngineHelper(engine: audioEngine)
         
-        audioEngineHelper.addNodes([playerNode, auxMixer, eqNode, filterNode, pitchNode, reverbNode, delayNode, timeNode.timePitchNode, timeNode.variNode])
+        var nodes = [playerNode, auxMixer]
+        nodes.append(contentsOf: eqNode.allNodes)
+        nodes.append(contentsOf: [filterNode, pitchNode, timeNode.timePitchNode, timeNode.variNode, reverbNode, delayNode])
+        audioEngineHelper.addNodes(nodes)
         
         audioEngineHelper.connectNodes()
         audioEngineHelper.prepareAndStart()
@@ -129,13 +132,12 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         filterNode.setFilterMidBand(state.filterMidMin, state.filterMidMax)
         filterNode.setFilterTrebleBand(state.filterTrebleMin, state.filterTrebleMax)
         FilterPresets.loadUserDefinedPresets(state.filterUserPresets)
-        
-        
     }
 
     private func bypassAllUnits() {
         
-        [eqNode, reverbNode, delayNode, filterNode].forEach({$0.bypass = true})
+        eqNode.bypass = true
+        [reverbNode, delayNode, filterNode].forEach({$0.bypass = true})
         pitchNode.bypass = true
         timeNode.bypass = true
     }
@@ -348,6 +350,10 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     }
     
     // MARK: EQ unit functions
+    
+    func chooseEQType(_ type: EQType) {
+        eqNode.chooseType(type)
+    }
     
     func getEQState() -> EffectsUnitState {
         return masterBypass ? (eqSuppressed ? .suppressed : .bypassed) : (eqNode.bypass ? .bypassed : .active)
@@ -886,4 +892,10 @@ enum EffectsUnitState: String {
     
     // Master unit off, and effects unit on
     case suppressed
+}
+
+enum EQType: String {
+    
+    case tenBand
+    case fifteenBand
 }

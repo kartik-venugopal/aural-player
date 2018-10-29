@@ -43,6 +43,8 @@ protocol AudioGraphProtocol: EQUnitProtocol, PitchShiftUnitProtocol, TimeStretch
 
 protocol EQUnitProtocol {
     
+    func chooseEQType(_ type: EQType)
+    
     // Returns the current state of the Equalizer audio effects unit
     func getEQState() -> EffectsUnitState
     
