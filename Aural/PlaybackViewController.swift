@@ -701,6 +701,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         btnPlayPause.off()
         btnLoop.switchState(LoopState.none)
+        [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
         
         [seekSlider, lblTimeElapsed, lblTimeRemaining].forEach({$0?.hide()})
         
