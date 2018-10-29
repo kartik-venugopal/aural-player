@@ -207,16 +207,16 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
             
         }
     }
-
-    private var barFillGradient: NSGradient {
+    
+    private var barFillColor: NSColor {
         
         switch unitState {
             
-        case .active:   return Colors.activeSliderBarColoredGradient
+        case .active:   return NSColor(red: 0, green: 0.45, blue: 0, alpha: 1)
             
-        case .bypassed: return Colors.bypassedSliderBarColoredGradient
+        case .bypassed: return NSColor(calibratedWhite: 0.45, alpha: 1)
             
-        case .suppressed:   return Colors.suppressedSliderBarColoredGradient
+        case .suppressed:   return NSColor(red: 0.53, green: 0.4, blue: 0, alpha: 1)
             
         }
     }
@@ -382,7 +382,9 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         
         /*  Draw bar fill */
         if NSWidth(selectedRect) > 0.0 {
-            barFillGradient.draw(in: selectedPath, angle: UIConstants.horizontalGradientDegrees)
+
+            barFillColor.setFill()
+            selectedPath.fill()
             barFillStrokeColor.setStroke()
         }
         

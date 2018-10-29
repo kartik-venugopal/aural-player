@@ -83,13 +83,13 @@ class TrackInfoView: NSView {
         
         // The height is dependent on the number of lines
         var lblFrameSize = lblName.frame.size
-        lblFrameSize.height = numLines == 1 ? lblTitle.frame.height : lblTitle.frame.height * 1.5
+        lblFrameSize.height = numLines == 1 ? lblTitle.frame.height : lblTitle.frame.height * 2
         
         // The Y co-ordinate is a function of the other labels' positions
         var origin = lblName.frame.origin
         
         // Center it wrt artist/title labels
-        origin.y = numLines == 1 ? lblArtist.frame.minY + ((lblArtist.frame.height + lblTitle.frame.height) / 2) - (lblName.frame.height / 2) : lblArtist.frame.minY
+        origin.y = numLines == 1 ? lblArtist.frame.minY + ((lblArtist.frame.height + lblTitle.frame.height) / 2) - (lblFrameSize.height / 2) : lblArtist.frame.minY - 5
         
         // Resize the label
         lblName.setFrameSize(lblFrameSize)

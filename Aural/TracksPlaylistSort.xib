@@ -28,7 +28,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nsu-zj-GeW" userLabel="Duration field">
-                    <rect key="frame" x="9" y="74" width="390" height="35"/>
+                    <rect key="frame" x="14" y="74" width="390" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Use track name for tracks without artist / album metadata" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="KIN-48-bN1" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
