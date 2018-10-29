@@ -7,8 +7,6 @@ import Cocoa
  */
 class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     
-    @IBOutlet weak var theMenu: NSMenuItem!
-    
     @IBOutlet weak var dockMiniBarMenu: NSMenuItem!
     
     @IBOutlet weak var dockPlaylistMenuItem: NSMenuItem!
@@ -28,11 +26,13 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
     @IBOutlet weak var showMainControlsMenuItem: NSMenuItem!
     @IBOutlet weak var showTimeElapsedRemainingMenuItem: NSMenuItem!
     
+    @IBOutlet weak var timeElapsedFormatMenuItem: NSMenuItem!
     @IBOutlet weak var timeElapsedMenuItem_hms: NSMenuItem!
     @IBOutlet weak var timeElapsedMenuItem_seconds: NSMenuItem!
     @IBOutlet weak var timeElapsedMenuItem_percentage: NSMenuItem!
     private var timeElapsedDisplayFormats: [NSMenuItem] = []
     
+    @IBOutlet weak var timeRemainingFormatMenuItem: NSMenuItem!
     @IBOutlet weak var timeRemainingMenuItem_hms: NSMenuItem!
     @IBOutlet weak var timeRemainingMenuItem_seconds: NSMenuItem!
     @IBOutlet weak var timeRemainingMenuItem_percentage: NSMenuItem!
@@ -116,7 +116,9 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         
         showTrackInfoMenuItem.hideIf_elseShow(PlayerViewState.viewType == .defaultView)
         showSequenceInfoMenuItem.showIf_elseHide(PlayerViewState.viewType == .defaultView || PlayerViewState.showTrackInfo)
-        showTimeElapsedRemainingMenuItem.showIf_elseHide(PlayerViewState.viewType == .defaultView && PlayerViewState.showControls)
+        
+        let defaultViewAndShowingControls = PlayerViewState.viewType == .defaultView && PlayerViewState.showControls
+        showTimeElapsedRemainingMenuItem.showIf_elseHide(defaultViewAndShowingControls)
         
         showArtMenuItem.onIf(PlayerViewState.showAlbumArt)
         showTrackInfoMenuItem.onIf(PlayerViewState.showTrackInfo)
@@ -126,31 +128,38 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputClient {
         showMainControlsMenuItem.onIf(PlayerViewState.showControls)
         showTimeElapsedRemainingMenuItem.onIf(PlayerViewState.showTimeElapsedRemaining)
         
-        timeElapsedDisplayFormats.forEach({$0.off()})
+        timeElapsedFormatMenuItem.showIf_elseHide(defaultViewAndShowingControls)
+        timeRemainingFormatMenuItem.showIf_elseHide(defaultViewAndShowingControls)
         
-        switch PlayerViewState.timeElapsedDisplayType {
+        if defaultViewAndShowingControls {
             
-        case .formatted:    timeElapsedMenuItem_hms.on()
+            timeElapsedDisplayFormats.forEach({$0.off()})
             
-        case .seconds:      timeElapsedMenuItem_seconds.on()
+            switch PlayerViewState.timeElapsedDisplayType {
+                
+            case .formatted:    timeElapsedMenuItem_hms.on()
+                
+            case .seconds:      timeElapsedMenuItem_seconds.on()
+                
+            case .percentage:   timeElapsedMenuItem_percentage.on()
+                
+            }
             
-        case .percentage:   timeElapsedMenuItem_percentage.on()
+            timeRemainingDisplayFormats.forEach({$0.off()})
             
-        }
-        
-        timeRemainingDisplayFormats.forEach({$0.off()})
-        switch PlayerViewState.timeRemainingDisplayType {
-            
-        case .formatted:    timeRemainingMenuItem_hms.on()
-            
-        case .seconds:      timeRemainingMenuItem_seconds.on()
-            
-        case .percentage:   timeRemainingMenuItem_percentage.on()
-            
-        case .duration_formatted:   timeRemainingMenuItem_durationHMS.on()
-            
-        case .duration_seconds:     timeRemainingMenuItem_durationSeconds.on()
-            
+            switch PlayerViewState.timeRemainingDisplayType {
+                
+            case .formatted:    timeRemainingMenuItem_hms.on()
+                
+            case .seconds:      timeRemainingMenuItem_seconds.on()
+                
+            case .percentage:   timeRemainingMenuItem_percentage.on()
+                
+            case .duration_formatted:   timeRemainingMenuItem_durationHMS.on()
+                
+            case .duration_seconds:     timeRemainingMenuItem_durationSeconds.on()
+                
+            }
         }
     }
  
