@@ -163,47 +163,6 @@ NOTE - This project is currently under heavy development as of 10/07/2018. So, p
 
 ![Preferences](/Documentation/Screenshots/Preferences-Playback.png?raw=true "Delay")
 
-## Recent updates
-
-- **10/17/2018: New release:**
-
-  * New features:
-
-    * **Playback gaps**: Added option to insert gaps of silence before/after/between tracks and configure them (duration and scope)
-    * **Delayed playback**: Added delayed playback function with 2 options: 1 - Start after delay, 2 - Start at time
-    * **Jump to time function**: Seek to a specific location quickly
-    * **Stop function**: Stops all playback and ends the playback sequence (wasn't there before)
-    * **Time remaining / Duration display**: User can now click the "Time remaining" label of the Now Playing box and switch to displaying duration instead of time remaining. Can toggle between the two displays. State is remembered across app launches.
-    * **Playlist move to top/bottom**: New playlist functions - move items to top/bottom
-
-  * Bug fixes:
-    * Loop rendering on seek bar was offset before
-    * Volume per-track setting would not be remembered properly
-    * Sound settings were not being remembered properly
-
-  * Improvements:
-    * More accurate and prompt detection of end of track playback (PlaybackScheduler)
-    * Nicer looking Effects unit bypass buttons
-
-- **10/09/2018: New release:**
-    
-  * Bug fixes:
-    * **Crash when shuffling / moving tracks**: When a new shuffle sequence is started or tracks are moved up/down within the playlist, app crashes. This has been fixed.
-    * **System beep when scrolling through playlist**: When scrolling through the playlist with the arrow keys, the app produces annoying system beeps. This has been fixed.
-    * **Modal dialogs unable to use Shift key**: When modal dialogs such as file browsing dialogs are open, hitting the Cmd/Shift key along with arrows invokes corresponding menu items, instead of acting on the dialog. This has been fixed.
-    * **Playing track selection**: When double-clicking a playlist file, it plays but does not select it (when the option to show it everytime a track plays is selected, it should do this). This has been fixed.
-
-
-- **10/05/2018: New release:**
-    
-  * Bug fixes:
-    * **Headphones/speakers plugged in crash**: When headphones/speakers are plugged in/out, the app stops playing audio. This problem has been fixed.  
-    
-  * Improvements:
-    * **Removed custom buffer scheduling (playback)**: Complex custom code that was used to schedule audio buffers for playback has been decommissioned, in favor of much simpler code that uses higher level AVFoundation functions.
-
-- **10/05/2018: Swift 4.2 port:** All source code has been ported to Swift v4.2 ! Also, the old "swift2" branch has been deleted.
-
 ## Planned updates
 
 - A new status bar player mode
