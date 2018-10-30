@@ -351,6 +351,10 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     
     // MARK: EQ unit functions
     
+    func getEQType() -> EQType {
+        return eqNode.type
+    }
+    
     func chooseEQType(_ type: EQType) {
         eqNode.chooseType(type)
     }
@@ -826,6 +830,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         // EQ
         state.eqState = getEQState()
+        state.eqType = eqNode.type
         state.eqBands = eqNode.allBands()
         state.eqGlobalGain = eqNode.globalGain
         state.eqUserPresets = EQPresets.userDefinedPresets

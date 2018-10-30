@@ -317,8 +317,9 @@ class WindowLayoutState: PersistentState {
 }
 
 /*
- Encapsulates audio graph state
+    Encapsulates audio graph state
  */
+// TODO: Separate this class into separate classes for different effects units
 class AudioGraphState: PersistentState {
     
     var volume: Float = AppDefaults.volume
@@ -462,7 +463,9 @@ class AudioGraphState: PersistentState {
         map["master"] = masterDict as AnyObject
         
         var eqDict = [NSString: AnyObject]()
+        
         eqDict["state"] = eqState.rawValue as AnyObject
+        eqDict["type"] = eqType.rawValue as AnyObject
         eqDict["globalGain"] = eqGlobalGain as NSNumber
         
         var eqBandsDict = [NSString: NSNumber]()
@@ -878,6 +881,10 @@ class AudioGraphState: PersistentState {
                 if let eqState = EffectsUnitState(rawValue: state) {
                     audioGraphState.eqState = eqState
                 }
+            }
+            
+            if let typeStr = eqDict["type"] as? String, let type = EQType(rawValue: typeStr) {
+                audioGraphState.eqType = type
             }
             
             if let globalGain = eqDict["globalGain"] as? NSNumber {
