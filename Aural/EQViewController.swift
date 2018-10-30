@@ -66,6 +66,12 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     
     private func oneTimeSetup() {
         
+        container.addSubview(eq10BandView)
+        container.addSubview(eq15BandView)
+        
+        eq10BandView.setFrameOrigin(NSPoint.zero)
+        eq15BandView.setFrameOrigin(NSPoint.zero)
+        
         let eqStateFunction = {
             () -> EffectsUnitState in
             return self.graph.getEQState()
@@ -79,13 +85,13 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
             $0.action = #selector(self.eqSliderAction(_:))
             $0.target = self
         })
+        
         eq15BandView.bandSliders.forEach({
             $0.action = #selector(self.eqSliderAction(_:))
             $0.target = self
         })
         
-        // TODO: Choose EQ type depending on state from graph ... graph.getEQType()
-        btn10Band.on()
+        graph.getEQType() == .tenBand ? btn10Band.on() : btn15Band.on()
         chooseBandsAction(self)
     }
     
