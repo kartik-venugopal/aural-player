@@ -78,6 +78,7 @@
 		3E26B92B1FBC177F00FA3274 /* AutoHidingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B92A1FBC177F00FA3274 /* AutoHidingView.swift */; };
 		3E26B92D1FBC207C00FA3274 /* MultiStateImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B92C1FBC207C00FA3274 /* MultiStateImageButton.swift */; };
 		3E26B9311FBC53A700FA3274 /* GestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26B9301FBC53A700FA3274 /* GestureHandler.swift */; };
+		3E2CBDAE2189072800BD68B2 /* EQPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2CBDAD2189072800BD68B2 /* EQPlot.swift */; };
 		3E2F1049215562DD0099FD06 /* EditorWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2F1048215562DD0099FD06 /* EditorWindow.xib */; };
 		3E2F104C215569D40099FD06 /* EditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F104B215569D40099FD06 /* EditorWindowController.swift */; };
 		3E2F104F21556A2D0099FD06 /* BookmarksEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2F104E21556A2D0099FD06 /* BookmarksEditor.xib */; };
@@ -394,6 +395,7 @@
 		3E26B92A1FBC177F00FA3274 /* AutoHidingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoHidingView.swift; sourceTree = "<group>"; };
 		3E26B92C1FBC207C00FA3274 /* MultiStateImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiStateImageButton.swift; sourceTree = "<group>"; };
 		3E26B9301FBC53A700FA3274 /* GestureHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureHandler.swift; sourceTree = "<group>"; };
+		3E2CBDAD2189072800BD68B2 /* EQPlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPlot.swift; sourceTree = "<group>"; };
 		3E2F1048215562DD0099FD06 /* EditorWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditorWindow.xib; sourceTree = "<group>"; };
 		3E2F104B215569D40099FD06 /* EditorWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorWindowController.swift; sourceTree = "<group>"; };
 		3E2F104E21556A2D0099FD06 /* BookmarksEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookmarksEditor.xib; sourceTree = "<group>"; };
@@ -1133,6 +1135,7 @@
 			children = (
 				3E4F9FD41FC9158100FA4096 /* VariableRateNode.swift */,
 				3E633C481F14C9110040ECBC /* ParametricEQNode.swift */,
+				3E2CBDAD2189072800BD68B2 /* EQPlot.swift */,
 				3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */,
 			);
 			name = CustomNodes;
@@ -1978,6 +1981,7 @@
 				3EB2A7E41F0436D5001DF748 /* EQSliderCell.swift in Sources */,
 				3EFC506D1F607D4A0032BE21 /* PlaybackInfoDelegateProtocol.swift in Sources */,
 				3E7C70001F5F45F00035AEF2 /* PlaybackViewController.swift in Sources */,
+				3E2CBDAE2189072800BD68B2 /* EQPlot.swift in Sources */,
 				3E3C20A61F0A687400AF5A62 /* DialogsAndAlerts.swift in Sources */,
 				3E3F29652159B7E800581EFE /* LayoutsEditorViewController.swift in Sources */,
 				3E40A9851F0617BC00A66856 /* RepeatingTaskExecutor.swift in Sources */,

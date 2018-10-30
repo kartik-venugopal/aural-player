@@ -45,7 +45,7 @@
                     </view>
                 </box>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0j3-Ye-6lg">
-                    <rect key="frame" x="420" y="24" width="40" height="18"/>
+                    <rect key="frame" x="405" y="6" width="40" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Presets" id="mv0-0j-tp1">
                         <font key="font" size="11" name="GillSans"/>
@@ -54,7 +54,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uwy-7t-2Z1" userLabel="EQ Presets Menu">
-                    <rect key="frame" x="450" y="22" width="34" height="18"/>
+                    <rect key="frame" x="435" y="4" width="34" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="mxu-i3-RJ8" id="34m-O9-Uwu" customClass="PresetsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -120,7 +120,7 @@
                     </connections>
                 </popUpButton>
                 <button toolTip="Save new preset" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="udy-ev-aXo" userLabel="Save">
-                    <rect key="frame" x="476" y="26" width="10" height="10"/>
+                    <rect key="frame" x="461" y="8" width="10" height="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveEQPreset" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Wjw-fK-3PP">
                         <behavior key="behavior" lightByContents="YES"/>
@@ -131,9 +131,9 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QbA-Na-sMq">
-                    <rect key="frame" x="417" y="87" width="65" height="17"/>
+                    <rect key="frame" x="419" y="75" width="67" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="10 bands" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="mini" state="on" inset="2" id="Va7-mP-5X5" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="radio" title="10 bands" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" state="on" inset="2" id="Va7-mP-5X5" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="10" name="GillSans"/>
                     </buttonCell>
@@ -142,9 +142,9 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F0F-Za-5yR">
-                    <rect key="frame" x="417" y="73" width="65" height="17"/>
+                    <rect key="frame" x="419" y="61" width="67" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="15 bands" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="mini" inset="2" id="f1t-rH-fIk" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="radio" title="15 bands" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" inset="2" id="f1t-rH-fIk" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="10" name="GillSans"/>
                     </buttonCell>
@@ -266,7 +266,7 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bSD-XD-6AB" userLabel="Frequencies">
                     <rect key="frame" x="51" y="110" width="320" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="25     40     63    100   160   250    400    630    1k   1.6k   2.5k    4k    6.3k    10k   16k" id="iN2-5K-ScF">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="25     40     63    100   160   250    400    630    1k    1.6k   2.5k    4k    6.3k    10k   16k" id="iN2-5K-ScF">
                         <font key="font" size="9" name="GillSans"/>
                         <color key="textColor" white="0.70393880210000004" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
