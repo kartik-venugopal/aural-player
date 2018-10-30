@@ -130,7 +130,6 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     }
 
     func deactivate() {
-
         removeSubscriptions()
     }
 
@@ -142,7 +141,7 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     private func initTabGroup() {
 
         // Select EQ tab view by default
-        tabViewAction(masterTabViewButton)
+        tabViewAction(eqTabViewButton)
     }
 
     private func initSubscriptions() {

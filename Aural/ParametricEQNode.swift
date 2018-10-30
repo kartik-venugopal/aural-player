@@ -89,7 +89,27 @@ class ParametricEQ: ParametricEQProtocol {
     }
     
     func setBands(_ allBands: [Int: Float]) {
-        activeNode.setBands(allBands)
+        
+        if allBands.count != activeNode.numberOfBands {
+            
+            print("Need to map" , allBands.count, "->", activeNode.numberOfBands)
+            
+            let mapped = mapBands(allBands)
+            print("Mapped:", mapped)
+            activeNode.setBands(mapped)
+            
+        } else {
+            activeNode.setBands(allBands)
+        }
+    }
+    
+    func mapBands(_ srcBands: [Int: Float]) -> [Int: Float] {
+        
+        let plot = EQPlot(srcBands.count == 10 ? eq10Node.frequencies : eq15Node.frequencies, srcBands, srcBands.count == 10 ? eq10Node.bandwidth : eq15Node.bandwidth)
+        
+        let tgtFreqs: [Float] = srcBands.count == 10 ? eq15Node.frequencies : eq10Node.frequencies
+        
+        return plot.mapBands(tgtFreqs)
     }
     
     func allBands() -> [Int: Float] {
