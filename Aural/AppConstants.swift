@@ -23,6 +23,10 @@ class AppConstants {
     static let audibleRangeMin: Double = 20      // 20 Hz
     static let audibleRangeMax: Double = 20480   // 20 KHz
     
+    // Min/max Equalizer gain
+    static let eqGainMin: Float = -20      // -20 dB
+    static let eqGainMax: Float = 20      // -20 dB
+    
     // Frequency ranges for each of the 3 bands (in Hz)
     static let bass_min: Double = audibleRangeMin
     static let bass_max: Double = 250

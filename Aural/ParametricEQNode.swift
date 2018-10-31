@@ -45,6 +45,10 @@ class ParametricEQ: ParametricEQProtocol {
         return type == .tenBand ? eq10Node : eq15Node
     }
     
+    var inactiveNode: ParametricEQNode {
+        return type == .tenBand ? eq15Node : eq10Node
+    }
+    
     init(_ type: EQType) {
         
         eq10Node = ParametricEQNode()
@@ -92,24 +96,18 @@ class ParametricEQ: ParametricEQProtocol {
         
         if allBands.count != activeNode.numberOfBands {
             
-            print("Need to map" , allBands.count, "->", activeNode.numberOfBands)
+            let srcFreqs = allBands.count == 10 ? eq10Node.frequencies : eq15Node.frequencies
+            let srcBandwidth = allBands.count == 10 ? eq10Node.bandwidth : eq15Node.bandwidth
             
-            let mapped = mapBands(allBands)
-            print("Mapped:", mapped)
-            activeNode.setBands(mapped)
+            var srcBands: [Float: Float] = [:]
+            allBands.forEach({srcBands[srcFreqs[$0.key]] = $0.value})
             
+            let mapping = EQMapping(srcBands, srcBandwidth, activeNode.frequencies, activeNode.bandwidth)
+            activeNode.setBands(mapping.mappedBands)
+
         } else {
             activeNode.setBands(allBands)
         }
-    }
-    
-    func mapBands(_ srcBands: [Int: Float]) -> [Int: Float] {
-        
-        let plot = EQPlot(srcBands.count == 10 ? eq10Node.frequencies : eq15Node.frequencies, srcBands, srcBands.count == 10 ? eq10Node.bandwidth : eq15Node.bandwidth)
-        
-        let tgtFreqs: [Float] = srcBands.count == 10 ? eq15Node.frequencies : eq10Node.frequencies
-        
-        return plot.mapBands(tgtFreqs)
     }
     
     func allBands() -> [Int: Float] {
@@ -128,6 +126,17 @@ class ParametricEQNode: AVAudioUnitEQ, ParametricEQProtocol {
     
     var numberOfBands: Int {
         return bands.count
+    }
+    
+    func bandAtFrequency(_ freq: Float) -> AVAudioUnitEQFilterParameters? {
+        
+        for band in bands {
+            if band.frequency == freq {
+                return band
+            }
+        }
+        
+        return nil
     }
     
     private let maxGain: Float = 20
@@ -229,6 +238,13 @@ class ParametricEQNode: AVAudioUnitEQ, ParametricEQProtocol {
             if ((0..<numberOfBands).contains(index)) {
                 bands[index].gain = gain
             }
+        }
+    }
+    
+    func setBands(_ allBands: [Float: Float]) {
+        
+        for (freq, gain) in allBands {
+            bandAtFrequency(freq)!.gain = gain
         }
     }
     
