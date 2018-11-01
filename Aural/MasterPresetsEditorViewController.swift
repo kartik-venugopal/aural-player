@@ -1,5 +1,6 @@
 import Cocoa
 
+// TODO: Encapsulate individual views
 class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, ActionMessageSubscriber {
     
     @IBOutlet weak var editorView: NSTableView!
@@ -19,19 +20,21 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     @IBOutlet weak var eqSubPreview: NSView!
     
-    @IBOutlet weak var eqGlobalGainSlider: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider1k: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider64: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider16k: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider8k: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider4k: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider2k: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider32: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider512: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider256: EffectsUnitSlider!
-    @IBOutlet weak var eqSlider128: EffectsUnitSlider!
+    @IBOutlet weak var eq10BandView: EQView!
+    @IBOutlet weak var eq15BandView: EQView!
     
-    private var eqSliders: [EffectsUnitSlider] = []
+    @IBOutlet weak var btn10Band: NSButton!
+    @IBOutlet weak var btn15Band: NSButton!
+    
+    private var activeEQView: EQView {
+        return btn10Band.isOn() ? eq10BandView : eq15BandView
+    }
+    
+    private var inactiveEQView: EQView {
+        return btn10Band.isOn() ? eq15BandView : eq10BandView
+    }
+    
+    private var curEQPreset: EQPreset?
     
     // Pitch
     
@@ -108,7 +111,19 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         subPreviewViews = [eqSubPreview, pitchSubPreview, timeSubPreview, reverbSubPreview, delaySubPreview, filterSubPreview]
         subPreviewViews.forEach({subPreviewBox.addSubview($0)})
         
-        eqSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
+        let eqStateFunction = {
+            () -> EffectsUnitState in
+            return .active
+        }
+        
+        eq10BandView.initialize(eqStateFunction)
+        eq15BandView.initialize(eqStateFunction)
+        btn10Band.on()
+        eq10BandView.show()
+        eq15BandView.hide()
+        
+        eq10BandView.stateChanged()
+        eq15BandView.stateChanged()
         
         filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, {
             (slider: RangeSlider) -> Void in
@@ -233,19 +248,24 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         previewBox.show()
     }
     
+    @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
+        
+        if let preset = curEQPreset {
+        
+            activeEQView.setState(preset.state)
+            activeEQView.updateBands(preset.bands, preset.globalGain)
+            activeEQView.show()
+            
+            inactiveEQView.hide()
+        }
+    }
+    
     private func renderEQPreview(_ preset: EQPreset) {
         
-        let eqBands: [Int: Float] = preset.bands
-        let globalGain: Float = preset.globalGain
+        curEQPreset = preset
         
-        // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
-        eqSliders.forEach({
-            $0.floatValue = eqBands[$0.tag] ?? 0
-            $0.setUnitState(preset.state)
-        })
-        
-        eqGlobalGainSlider.floatValue = globalGain
-        eqGlobalGainSlider.setUnitState(preset.state)
+        activeEQView.setState(preset.state)
+        activeEQView.updateBands(preset.bands, preset.globalGain)
     }
     
     private func renderPitchPreview(_ preset: PitchPreset) {
