@@ -111,7 +111,7 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
         presetsMenu.selectItem(at: -1)
     }
     
-    @IBAction func chooseBandsAction(_ sender: AnyObject) {
+    @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
         graph.chooseEQType(btn10Band.isOn() ? .tenBand : .fifteenBand)
         

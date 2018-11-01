@@ -17,7 +17,6 @@ class ParametricEQ: ParametricEQProtocol {
     var bypass: Bool {
         
         didSet {
-            
             activeNode.bypass = self.bypass
         }
     }
@@ -107,7 +106,7 @@ class ParametricEQ: ParametricEQProtocol {
         
         if allBands.count != activeNode.numberOfBands {
 
-            type == .tenBand ? map15BandsTo10Bands(allBands) : map10BandsTo15Bands(allBands)
+            type == .tenBand ? eq10Node.setBands(EQMapper.map15BandsTo10Bands(allBands, eq10Node.frequencies)) : eq15Node.setBands(EQMapper.map10BandsTo15Bands(allBands, eq15Node.frequencies))
 
         } else {
             activeNode.setBands(allBands)
@@ -117,61 +116,11 @@ class ParametricEQ: ParametricEQProtocol {
     func allBands() -> [Int: Float] {
         return activeNode.allBands()
     }
-    
-    private func map10BandsTo15Bands(_ srcBands: [Int: Float]) {
-        
-        var mappedBands: [Float: Float] = [:]
-        
-        mappedBands[eq15Node.frequencies[0]] = srcBands[0]
-        mappedBands[eq15Node.frequencies[1]] = srcBands[0]
-        
-        mappedBands[eq15Node.frequencies[2]] = srcBands[1]
-        
-        mappedBands[eq15Node.frequencies[3]] = srcBands[2]
-        mappedBands[eq15Node.frequencies[4]] = srcBands[2]
-        
-        mappedBands[eq15Node.frequencies[5]] = srcBands[3]
-        
-        mappedBands[eq15Node.frequencies[6]] = srcBands[4]
-        mappedBands[eq15Node.frequencies[7]] = srcBands[4]
-        
-        mappedBands[eq15Node.frequencies[8]] = srcBands[5]
-        
-        mappedBands[eq15Node.frequencies[9]] = srcBands[6]
-        mappedBands[eq15Node.frequencies[10]] = srcBands[6]
-        
-        mappedBands[eq15Node.frequencies[11]] = srcBands[7]
-        
-        mappedBands[eq15Node.frequencies[12]] = srcBands[8]
-        mappedBands[eq15Node.frequencies[13]] = srcBands[8]
-        
-        mappedBands[eq15Node.frequencies[14]] = srcBands[9]
-        
-        eq15Node.setBands(mappedBands)
-    }
-    
-    private func map15BandsTo10Bands(_ srcBands: [Int: Float]) {
-        
-        var mappedBands: [Float: Float] = [:]
-        
-        mappedBands[eq10Node.frequencies[0]] = (srcBands[0]! + srcBands[1]!) / 2
-        mappedBands[eq10Node.frequencies[1]] = srcBands[2]
-        mappedBands[eq10Node.frequencies[2]] = (srcBands[3]! + srcBands[4]!) / 2
-        mappedBands[eq10Node.frequencies[3]] = srcBands[5]
-        mappedBands[eq10Node.frequencies[4]] = (srcBands[6]! + srcBands[7]!) / 2
-        mappedBands[eq10Node.frequencies[5]] = srcBands[8]
-        mappedBands[eq10Node.frequencies[6]] = (srcBands[9]! + srcBands[10]!) / 2
-        mappedBands[eq10Node.frequencies[7]] = srcBands[11]
-        mappedBands[eq10Node.frequencies[8]] = (srcBands[12]! + srcBands[13]!) / 2
-        mappedBands[eq10Node.frequencies[9]] = srcBands[14]
-        
-        eq10Node.setBands(mappedBands)
-    }
 }
 
 class ParametricEQNode: AVAudioUnitEQ, ParametricEQProtocol {
     
-    var frequencies: [Float] {return [32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384]}
+    var frequencies: [Float] {return AppConstants.eq10BandFrequencies}
     var bandwidth: Float {return 1}
     
     var bassBandIndexes: [Int] {return [0, 1, 2]}
@@ -315,7 +264,7 @@ class ParametricEQNode: AVAudioUnitEQ, ParametricEQProtocol {
 
 class FifteenBandEQNode: ParametricEQNode {
     
-    override var frequencies: [Float] {return [25, 40, 63, 100, 160, 250, 400, 630, 1024, 1638.4, 2560, 4096, 6451.2, 10240, 16384]}
+    override var frequencies: [Float] {return AppConstants.eq15BandFrequencies}
     override var bandwidth: Float {return 2/3}
     
     override var bassBandIndexes: [Int] {return [0, 1, 2, 3, 4]}
@@ -348,3 +297,55 @@ protocol ParametricEQProtocol {
     func allBands() -> [Int: Float]
 }
 
+class EQMapper {
+    
+    static func map10BandsTo15Bands(_ srcBands: [Int: Float], _ targetFrequencies: [Float]) -> [Float: Float] {
+        
+        var mappedBands: [Float: Float] = [:]
+        
+        mappedBands[targetFrequencies[0]] = srcBands[0]
+        mappedBands[targetFrequencies[1]] = srcBands[0]
+        
+        mappedBands[targetFrequencies[2]] = srcBands[1]
+        
+        mappedBands[targetFrequencies[3]] = srcBands[2]
+        mappedBands[targetFrequencies[4]] = srcBands[2]
+        
+        mappedBands[targetFrequencies[5]] = srcBands[3]
+        
+        mappedBands[targetFrequencies[6]] = srcBands[4]
+        mappedBands[targetFrequencies[7]] = srcBands[4]
+        
+        mappedBands[targetFrequencies[8]] = srcBands[5]
+        
+        mappedBands[targetFrequencies[9]] = srcBands[6]
+        mappedBands[targetFrequencies[10]] = srcBands[6]
+        
+        mappedBands[targetFrequencies[11]] = srcBands[7]
+        
+        mappedBands[targetFrequencies[12]] = srcBands[8]
+        mappedBands[targetFrequencies[13]] = srcBands[8]
+        
+        mappedBands[targetFrequencies[14]] = srcBands[9]
+        
+        return mappedBands
+    }
+    
+    static func map15BandsTo10Bands(_ srcBands: [Int: Float], _ targetFrequencies: [Float]) -> [Float: Float] {
+        
+        var mappedBands: [Float: Float] = [:]
+        
+        mappedBands[targetFrequencies[0]] = (srcBands[0]! + srcBands[1]!) / 2
+        mappedBands[targetFrequencies[1]] = srcBands[2]
+        mappedBands[targetFrequencies[2]] = (srcBands[3]! + srcBands[4]!) / 2
+        mappedBands[targetFrequencies[3]] = srcBands[5]
+        mappedBands[targetFrequencies[4]] = (srcBands[6]! + srcBands[7]!) / 2
+        mappedBands[targetFrequencies[5]] = srcBands[8]
+        mappedBands[targetFrequencies[6]] = (srcBands[9]! + srcBands[10]!) / 2
+        mappedBands[targetFrequencies[7]] = srcBands[11]
+        mappedBands[targetFrequencies[8]] = (srcBands[12]! + srcBands[13]!) / 2
+        mappedBands[targetFrequencies[9]] = srcBands[14]
+
+        return mappedBands
+    }
+}

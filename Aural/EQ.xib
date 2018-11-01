@@ -139,7 +139,7 @@
                         <font key="font" size="10" name="GillSans"/>
                     </buttonCell>
                     <connections>
-                        <action selector="chooseBandsAction:" target="-2" id="i5e-o4-hvn"/>
+                        <action selector="chooseEQTypeAction:" target="-2" id="Ybm-Vi-61R"/>
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F0F-Za-5yR">
@@ -150,7 +150,7 @@
                         <font key="font" size="10" name="GillSans"/>
                     </buttonCell>
                     <connections>
-                        <action selector="chooseBandsAction:" target="-2" id="fU3-Au-hda"/>
+                        <action selector="chooseEQTypeAction:" target="-2" id="QDx-B6-58v"/>
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mqo-fx-3G2">
