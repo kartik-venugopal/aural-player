@@ -24,6 +24,10 @@ class EQView: NSView {
         allSliders.forEach({$0.updateState()})
     }
     
+    func setState(_ state: EffectsUnitState) {
+        allSliders.forEach({$0.setUnitState(state)})
+    }
+    
     func updateBands(_ bands: [Int: Float], _ globalGain: Float) {
         
         // If number of bands doesn't match, need to perform a mapping

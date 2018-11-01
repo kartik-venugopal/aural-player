@@ -54,8 +54,6 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
-        graph.chooseEQType(btn10Band.isOn() ? .tenBand : .fifteenBand)
-        
         activeView.stateChanged()
         
         let selection = getSelectedPresetNames()
