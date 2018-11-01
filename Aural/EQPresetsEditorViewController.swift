@@ -6,19 +6,19 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     @IBOutlet weak var previewBox: NSBox!
     
-    @IBOutlet weak var eqGlobalGainSlider: NSSlider!
-    @IBOutlet weak var eqSlider1k: NSSlider!
-    @IBOutlet weak var eqSlider64: NSSlider!
-    @IBOutlet weak var eqSlider16k: NSSlider!
-    @IBOutlet weak var eqSlider8k: NSSlider!
-    @IBOutlet weak var eqSlider4k: NSSlider!
-    @IBOutlet weak var eqSlider2k: NSSlider!
-    @IBOutlet weak var eqSlider32: NSSlider!
-    @IBOutlet weak var eqSlider512: NSSlider!
-    @IBOutlet weak var eqSlider256: NSSlider!
-    @IBOutlet weak var eqSlider128: NSSlider!
+    @IBOutlet weak var eq10BandView: EQView!
+    @IBOutlet weak var eq15BandView: EQView!
     
-    private var eqSliders: [NSSlider] = []
+    @IBOutlet weak var btn10Band: NSButton!
+    @IBOutlet weak var btn15Band: NSButton!
+    
+    private var activeView: EQView {
+        return btn10Band.isOn() ? eq10BandView : eq15BandView
+    }
+    
+    private var inactiveView: EQView {
+        return btn10Band.isOn() ? eq15BandView : eq10BandView
+    }
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
@@ -28,7 +28,20 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     override func viewDidLoad() {
         
-        eqSliders = [eqSlider32, eqSlider64, eqSlider128, eqSlider256, eqSlider512, eqSlider1k, eqSlider2k, eqSlider4k, eqSlider8k, eqSlider16k]
+        let eqStateFunction = {
+            () -> EffectsUnitState in
+            return .active
+        }
+        
+        eq10BandView.initialize(eqStateFunction)
+        eq15BandView.initialize(eqStateFunction)
+        btn10Band.on()
+        eq10BandView.show()
+        eq15BandView.hide()
+        
+        eq10BandView.stateChanged()
+        eq15BandView.stateChanged()
+        
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
     
@@ -37,6 +50,21 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
         editorView.reloadData()
         editorView.deselectAll(self)
         previewBox.hide()
+    }
+    
+    @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
+        
+        graph.chooseEQType(btn10Band.isOn() ? .tenBand : .fifteenBand)
+        
+        activeView.stateChanged()
+        
+        let selection = getSelectedPresetNames()
+        let preset = EQPresets.presetByName(selection[0])
+        
+        activeView.updateBands(preset.bands, preset.globalGain)
+        activeView.show()
+        
+        inactiveView.hide()
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -87,16 +115,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     }
     
     private func renderPreview(_ preset: EQPreset) {
-        
-        let eqBands: [Int: Float] = preset.bands
-        let globalGain: Float = preset.globalGain
-        
-        // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
-        eqSliders.forEach({
-            $0.floatValue = eqBands[$0.tag] ?? 0
-        })
-        
-        eqGlobalGainSlider.floatValue = globalGain
+        activeView.updateBands(preset.bands, preset.globalGain)
     }
     
     // MARK: View delegate functions
