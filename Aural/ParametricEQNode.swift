@@ -104,6 +104,8 @@ class ParametricEQ: ParametricEQProtocol {
     
     func setBands(_ allBands: [Int: Float]) {
         
+        if allBands.isEmpty {return}
+        
         if allBands.count != activeNode.numberOfBands {
 
             type == .tenBand ? eq10Node.setBands(EQMapper.map15BandsTo10Bands(allBands, eq10Node.frequencies)) : eq15Node.setBands(EQMapper.map10BandsTo15Bands(allBands, eq15Node.frequencies))
