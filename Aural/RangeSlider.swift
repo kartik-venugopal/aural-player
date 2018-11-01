@@ -114,14 +114,14 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
     }
     
     /** The minimum value of the slider. */
-    var minValue: Double = 0.0 {
+    @IBInspectable var minValue: Double = 0.0 {
         didSet {
             setNeedsDisplay(bounds)
         }
     }
     
     /** The maximum value of the slider. */
-    var maxValue: Double = 1.0 {
+    @IBInspectable var maxValue: Double = 1.0 {
         didSet {
             setNeedsDisplay(bounds)
         }
