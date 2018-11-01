@@ -167,32 +167,42 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     
     // Provides a "bass boost". Increases each of the EQ bass bands by a certain preset increment.
     private func increaseBass() {
-//        bandsUpdated(graph.increaseBass())
+        bandsUpdated(graph.increaseBass())
     }
     
     // Decreases each of the EQ bass bands by a certain preset decrement
     private func decreaseBass() {
-//        bandsUpdated(graph.decreaseBass())
+        bandsUpdated(graph.decreaseBass())
     }
     
     // Increases each of the EQ mid-frequency bands by a certain preset increment
     private func increaseMids() {
-//        bandsUpdated(graph.increaseMids())
+        bandsUpdated(graph.increaseMids())
     }
     
     // Decreases each of the EQ mid-frequency bands by a certain preset decrement
     private func decreaseMids() {
-//        bandsUpdated(graph.decreaseMids())
+        bandsUpdated(graph.decreaseMids())
     }
     
     // Decreases each of the EQ treble bands by a certain preset increment
     private func increaseTreble() {
-//        bandsUpdated(graph.increaseTreble())
+        bandsUpdated(graph.increaseTreble())
     }
     
     // Decreases each of the EQ treble bands by a certain preset decrement
     private func decreaseTreble() {
-//        bandsUpdated(graph.decreaseTreble())
+        bandsUpdated(graph.decreaseTreble())
+    }
+    
+    private func bandsUpdated(_ bands: [Int: Float]) {
+        
+        btnEQBypass.on()
+        activeView.stateChanged()
+        activeView.updateBands(bands, graph.getEQGlobalGain())
+        
+        SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
+        showEQTab()
     }
     
     func getID() -> String {
