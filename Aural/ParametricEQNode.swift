@@ -64,8 +64,10 @@ class ParametricEQ: ParametricEQProtocol {
         
         self.type = type
         
-        eq10Node.bypass = type != .tenBand
-        eq15Node.bypass = type != .fifteenBand
+        if !self.bypass {
+            eq10Node.bypass = type != .tenBand
+            eq15Node.bypass = type != .fifteenBand
+        }
         
         if sync {
             setBands(inactiveNode.allBands())
