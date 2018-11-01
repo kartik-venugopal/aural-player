@@ -331,6 +331,7 @@ class AudioGraphState: PersistentState {
     
     var eqState: EffectsUnitState = AppDefaults.eqState
     var eqType: EQType = AppDefaults.eqType
+    var eqSync: Bool = AppDefaults.eqSync
     var eqGlobalGain: Float = AppDefaults.eqGlobalGain
     var eqBands: [Int: Float] = [Int: Float]() // Index -> Gain
     var eqUserPresets: [EQPreset] = [EQPreset]()
@@ -466,6 +467,7 @@ class AudioGraphState: PersistentState {
         
         eqDict["state"] = eqState.rawValue as AnyObject
         eqDict["type"] = eqType.rawValue as AnyObject
+        eqDict["sync"] = eqSync as AnyObject
         eqDict["globalGain"] = eqGlobalGain as NSNumber
         
         var eqBandsDict = [NSString: NSNumber]()
@@ -885,6 +887,10 @@ class AudioGraphState: PersistentState {
             
             if let typeStr = eqDict["type"] as? String, let type = EQType(rawValue: typeStr) {
                 audioGraphState.eqType = type
+            }
+            
+            if let sync = eqDict["sync"] as? Bool {
+                audioGraphState.eqSync = sync
             }
             
             if let globalGain = eqDict["globalGain"] as? NSNumber {

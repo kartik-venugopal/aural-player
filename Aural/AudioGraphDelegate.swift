@@ -156,6 +156,14 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     // MARK: EQ unit functions
     
+    func toggleEQSync() -> Bool {
+        return graph.toggleEQSync()
+    }
+    
+    func getEQSync() -> Bool {
+        return graph.getEQSync()
+    }
+    
     func getEQType() -> EQType {
         return graph.getEQType()
     }

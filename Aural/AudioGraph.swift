@@ -52,7 +52,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         audioEngine = AVAudioEngine()
         mainMixer = audioEngine.mainMixerNode
         
-        eqNode = ParametricEQ(state.eqType)
+        eqNode = ParametricEQ(state.eqType, state.eqSync)
         pitchNode = AVAudioUnitTimePitch()
         reverbNode = AVAudioUnitReverb()
         delayNode = AVAudioUnitDelay()
@@ -350,6 +350,14 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     }
     
     // MARK: EQ unit functions
+    
+    func getEQSync() -> Bool {
+        return eqNode.sync
+    }
+    
+    func toggleEQSync() -> Bool {
+        return eqNode.toggleSync()
+    }
     
     func getEQType() -> EQType {
         return eqNode.type
@@ -831,6 +839,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         // EQ
         state.eqState = getEQState()
         state.eqType = eqNode.type
+        state.eqSync = eqNode.sync
         state.eqBands = eqNode.allBands()
         state.eqGlobalGain = eqNode.globalGain
         state.eqUserPresets = EQPresets.userDefinedPresets
