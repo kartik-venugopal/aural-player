@@ -14,6 +14,7 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     
     @IBOutlet weak var btn10Band: NSButton!
     @IBOutlet weak var btn15Band: NSButton!
+    @IBOutlet weak var btnSync: NSButton!
     
     // Presets menu
     @IBOutlet weak var presetsMenu: NSPopUpButton!
@@ -92,7 +93,12 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
         })
         
         graph.getEQType() == .tenBand ? btn10Band.on() : btn15Band.on()
-        chooseBandsAction(self)
+        activeView.stateChanged()
+        activeView.updateBands(graph.getEQBands(), graph.getEQGlobalGain())
+        activeView.show()
+        inactiveView.hide()
+        
+        btnSync.onIf(graph.getEQSync())
     }
     
     private func initControls() {
@@ -114,6 +120,10 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
         activeView.show()
         
         inactiveView.hide()
+    }
+    
+    @IBAction func eqSyncAction(_ sender: AnyObject) {
+        _ = graph.toggleEQSync()
     }
     
     @IBAction func eqBypassAction(_ sender: AnyObject) {

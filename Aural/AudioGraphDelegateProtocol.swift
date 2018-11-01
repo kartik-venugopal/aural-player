@@ -64,6 +64,10 @@ protocol EQUnitDelegateProtocol {
     
     func chooseEQType(_ type: EQType)
     
+    func toggleEQSync() -> Bool
+    
+    func getEQSync() -> Bool
+    
     // Returns the current state of the Equalizer audio effects unit
     func getEQState() -> EffectsUnitState
     

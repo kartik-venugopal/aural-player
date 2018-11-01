@@ -10,6 +10,7 @@ class ParametricEQ: ParametricEQProtocol {
     
     var eq10Node: ParametricEQNode
     var eq15Node: FifteenBandEQNode
+    var sync: Bool
     
     var allNodes: [ParametricEQNode] { return [eq10Node, eq15Node] }
     
@@ -21,14 +22,7 @@ class ParametricEQ: ParametricEQProtocol {
         }
     }
     
-    var type: EQType {
-        
-        didSet {
-            
-            eq10Node.bypass = type != .tenBand
-            eq15Node.bypass = type != .fifteenBand
-        }
-    }
+    var type: EQType
     
     var globalGain: Float {
 
@@ -49,17 +43,34 @@ class ParametricEQ: ParametricEQProtocol {
         return type == .tenBand ? eq15Node : eq10Node
     }
     
-    init(_ type: EQType) {
+    init(_ type: EQType, _ sync: Bool) {
         
         eq10Node = ParametricEQNode()
         eq15Node = FifteenBandEQNode()
+        
         self.type = type
+        self.sync = sync
         self.bypass = false
         self.globalGain = AppDefaults.eqGlobalGain
     }
     
+    func toggleSync() -> Bool {
+        sync = !sync
+        return sync
+    }
+    
     func chooseType(_ type: EQType) {
+        
+        if self.type == type {return}
+        
         self.type = type
+        
+        eq10Node.bypass = type != .tenBand
+        eq15Node.bypass = type != .fifteenBand
+        
+        if sync {
+            setBands(inactiveNode.allBands())
+        }
     }
     
     // Pass-through functions
@@ -95,15 +106,8 @@ class ParametricEQ: ParametricEQProtocol {
     func setBands(_ allBands: [Int: Float]) {
         
         if allBands.count != activeNode.numberOfBands {
-            
-            let srcFreqs = allBands.count == 10 ? eq10Node.frequencies : eq15Node.frequencies
-            let srcBandwidth = allBands.count == 10 ? eq10Node.bandwidth : eq15Node.bandwidth
-            
-            var srcBands: [Float: Float] = [:]
-            allBands.forEach({srcBands[srcFreqs[$0.key]] = $0.value})
-            
-            let mapping = EQMapping(srcBands, srcBandwidth, activeNode.frequencies, activeNode.bandwidth)
-            activeNode.setBands(mapping.mappedBands)
+
+            type == .tenBand ? map15BandsTo10Bands(allBands) : map10BandsTo15Bands(allBands)
 
         } else {
             activeNode.setBands(allBands)
@@ -112,6 +116,56 @@ class ParametricEQ: ParametricEQProtocol {
     
     func allBands() -> [Int: Float] {
         return activeNode.allBands()
+    }
+    
+    private func map10BandsTo15Bands(_ srcBands: [Int: Float]) {
+        
+        var mappedBands: [Float: Float] = [:]
+        
+        mappedBands[eq15Node.frequencies[0]] = srcBands[0]
+        mappedBands[eq15Node.frequencies[1]] = srcBands[0]
+        
+        mappedBands[eq15Node.frequencies[2]] = srcBands[1]
+        
+        mappedBands[eq15Node.frequencies[3]] = srcBands[2]
+        mappedBands[eq15Node.frequencies[4]] = srcBands[2]
+        
+        mappedBands[eq15Node.frequencies[5]] = srcBands[3]
+        
+        mappedBands[eq15Node.frequencies[6]] = srcBands[4]
+        mappedBands[eq15Node.frequencies[7]] = srcBands[4]
+        
+        mappedBands[eq15Node.frequencies[8]] = srcBands[5]
+        
+        mappedBands[eq15Node.frequencies[9]] = srcBands[6]
+        mappedBands[eq15Node.frequencies[10]] = srcBands[6]
+        
+        mappedBands[eq15Node.frequencies[11]] = srcBands[7]
+        
+        mappedBands[eq15Node.frequencies[12]] = srcBands[8]
+        mappedBands[eq15Node.frequencies[13]] = srcBands[8]
+        
+        mappedBands[eq15Node.frequencies[14]] = srcBands[9]
+        
+        eq15Node.setBands(mappedBands)
+    }
+    
+    private func map15BandsTo10Bands(_ srcBands: [Int: Float]) {
+        
+        var mappedBands: [Float: Float] = [:]
+        
+        mappedBands[eq10Node.frequencies[0]] = (srcBands[0]! + srcBands[1]!) / 2
+        mappedBands[eq10Node.frequencies[1]] = srcBands[2]
+        mappedBands[eq10Node.frequencies[2]] = (srcBands[3]! + srcBands[4]!) / 2
+        mappedBands[eq10Node.frequencies[3]] = srcBands[5]
+        mappedBands[eq10Node.frequencies[4]] = (srcBands[6]! + srcBands[7]!) / 2
+        mappedBands[eq10Node.frequencies[5]] = srcBands[8]
+        mappedBands[eq10Node.frequencies[6]] = (srcBands[9]! + srcBands[10]!) / 2
+        mappedBands[eq10Node.frequencies[7]] = srcBands[11]
+        mappedBands[eq10Node.frequencies[8]] = (srcBands[12]! + srcBands[13]!) / 2
+        mappedBands[eq10Node.frequencies[9]] = srcBands[14]
+        
+        eq10Node.setBands(mappedBands)
     }
 }
 
@@ -293,3 +347,4 @@ protocol ParametricEQProtocol {
     
     func allBands() -> [Int: Float]
 }
+

@@ -43,7 +43,11 @@ protocol AudioGraphProtocol: EQUnitProtocol, PitchShiftUnitProtocol, TimeStretch
 
 protocol EQUnitProtocol {
     
+    func toggleEQSync() -> Bool
+    
     func getEQType() -> EQType
+    
+    func getEQSync() -> Bool
     
     func chooseEQType(_ type: EQType)
     
