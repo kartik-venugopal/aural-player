@@ -2,82 +2,128 @@
     A special (customized) extension of AVAudioUnitEQ to represent a 3-band band-stop filter, with bands for bass, mid, and treble frequency ranges. This is implemented as a 3-band parametric EQ with very low gain (performs more attenuation than an equivalent band-stop filter).
 */
 
-import Cocoa
+import Foundation
 import AVFoundation
 
-class MultiBandStopFilterNode: AVAudioUnitEQ {
+class FlexibleFilterNode: AVAudioUnitEQ, FilterNodeProtocol {
     
     static let bandStopGain: Float = -24
     static let minBandwidth: Float = 0.05
     
-    var bassBand: AVAudioUnitEQFilterParameters {
-        return bands.first!
+    var numberOfBands: Int {
+        return bandInfos.count
     }
     
-    var midBand: AVAudioUnitEQFilterParameters {
-        return bands[1]
+    var maxBands: Int {
+        return bands.count
     }
     
-    var trebleBand: AVAudioUnitEQFilterParameters {
-        return bands[2]
-    }
+    var inactiveBands: [AVAudioUnitEQFilterParameters] = []
+    
+    var bandInfos: [FilterBand] = []
     
     override init() {
         
-        super.init(numberOfBands: 3)
+        super.init(numberOfBands: 31)
         
-        for band in bands {
-            band.filterType = AVAudioUnitEQFilterType.parametric
-            band.bandwidth = MultiBandStopFilterNode.minBandwidth
-            band.gain = MultiBandStopFilterNode.bandStopGain
-        }
+        bands.forEach({
+            $0.bypass = true
+            inactiveBands.append($0)
+        })
     }
     
-    private func setBand(_ band: AVAudioUnitEQFilterParameters, _ min: Float, _ max: Float) {
+    func addBand(_ band: FilterBand) -> Int {
         
         // Should never happen, but for safety
-        if (min > max) {
-            return
+        if (inactiveBands.isEmpty) {
+            return -1
         }
         
-        // Frequency at the center of the band is the geometric mean of the min and max frequencies
-        let centerFrequency = sqrt(min * max)
+        band.params = inactiveBands.removeLast()
         
-        // Bandwidth in octaves is the log of the ratio of max to min
-        // Ex: If min=200 and max=800, bandwidth = 2 octaves (200 to 400, and 400 to 800)
-        let bandwidth = log2(max / min)
+        bandInfos.append(band)
+        activateBand(band)
         
-        // If calculated bandwidth <= min, set bypass to true (bandwidth is negligible)
-        let bypassBand: Bool = bandwidth <= MultiBandStopFilterNode.minBandwidth
-        
-        band.frequency = centerFrequency
-        band.bandwidth = bandwidth
-        band.bypass = bypassBand
-    }
-
-    // Sets the range of frequencies to be attenuated, within the bass frequency band
-    func setFilterBassBand(_ min: Float, _ max: Float) {
-        setBand(bassBand, min, max)
-    }
-
-    // Sets the range of frequencies to be attenuated, within the mid frequency band
-    func setFilterMidBand(_ min: Float, _ max: Float) {
-        setBand(midBand, min, max)
+        return numberOfBands - 1
     }
     
-    // Sets the range of frequencies to be attenuated, within the treble frequency band
-    func setFilterTrebleBand(_ min: Float, _ max: Float) {
-        setBand(trebleBand, min, max)
+    private func activateBand(_ info: FilterBand) {
+        
+        setBandParameters(info)
+        info.params.bypass = false
+        
+        print("Activated band:", info.params.frequency, info.params.bypass, info.params.filterType.rawValue, self.bypass)
     }
     
-    // Calculates and returns all band frequency ranges
-    func getBands() -> (bass: (min: Float, max: Float), mid: (min: Float, max: Float), treble: (min: Float, max: Float)) {
+    private func setBandParameters(_ info: FilterBand) {
         
-        let bass = calcMinMaxForCenterFrequency(freqC: bassBand.frequency, bandwidth: bassBand.bandwidth)
-        let mid = calcMinMaxForCenterFrequency(freqC: midBand.frequency, bandwidth: midBand.bandwidth)
-        let treble = calcMinMaxForCenterFrequency(freqC: trebleBand.frequency, bandwidth: trebleBand.bandwidth)
+        let minFreq = info.minFreq
+        let maxFreq = info.maxFreq
         
-        return (bass, mid, treble)
+        let params = info.params!
+        
+        switch info.type {
+        
+        case .bandPass, .bandStop:
+            
+            // Frequency at the center of the band is the geometric mean of the min and max frequencies
+            let centerFrequency = sqrt(minFreq! * maxFreq!)
+            
+            // Bandwidth in octaves is the log of the ratio of max to min
+            // Ex: If min=200 and max=800, bandwidth = 2 octaves (200 to 400, and 400 to 800)
+            let bandwidth = log2(maxFreq! / minFreq!)
+            
+            params.frequency = centerFrequency
+            params.bandwidth = bandwidth
+            
+        case .lowPass:
+            
+            params.frequency = maxFreq!
+            
+        case .highPass:
+            
+            params.frequency = minFreq!
+        }
+        
+        params.filterType = info.type.toAVFilterType()
+        
+        if params.filterType == .parametric {params.gain = FlexibleFilterNode.bandStopGain}
+    }
+    
+    func updateBand(_ index: Int, _ band: FilterBand) {
+        
+        let updatedBand = bandInfos[index]
+        updatedBand.type = band.type
+        updatedBand.minFreq = band.minFreq
+        updatedBand.maxFreq = band.maxFreq
+        
+        setBandParameters(updatedBand)
+    }
+    
+    func removeBands(_ indexSet: IndexSet) {
+    
+        // Descending order
+        let sortedIndexes = indexSet.sorted(by: {i1, i2 -> Bool in return i1 > i2})
+        sortedIndexes.forEach({removeBand($0)})
+    }
+    
+    private func removeBand(_ index: Int) {
+        
+        let info = bandInfos[index]
+        
+        let params = info.params!
+        params.bypass = true
+        inactiveBands.append(params)
+        
+        bandInfos.remove(at: index)
+    }
+    
+    func allBands() -> [FilterBand] {
+        return bandInfos
+    }
+    
+    func getBand(_ index: Int) -> FilterBand {
+        return bandInfos[index]
     }
     
     // Calculates the min and max of a frequency range, given the center and bandwidth (inverse of the calculation in setBand())
@@ -88,5 +134,65 @@ class MultiBandStopFilterNode: AVAudioUnitEQ {
         let max = min * twoPowerBandwidth
         
         return (min, max)
+    }
+}
+
+class FilterBand {
+    
+    var type: FilterBandType
+    
+    var minFreq: Float?     // Used for highPass, bandPass, and bandStop
+    var maxFreq: Float?     // Used for lowPass, bandPass, and bandStop
+    
+    fileprivate var params: AVAudioUnitEQFilterParameters!
+    
+    init(_ type: FilterBandType) {
+        self.type = type
+    }
+    
+    func withMinFreq(_ freq: Float) -> FilterBand {
+        self.minFreq = freq
+        return self
+    }
+    
+    func withMaxFreq(_ freq: Float) -> FilterBand {
+        self.maxFreq = freq
+        return self
+    }
+}
+
+protocol FilterNodeProtocol {
+    
+    func addBand(_ band: FilterBand) -> Int
+    
+    func updateBand(_ index: Int, _ band: FilterBand)
+    
+    func removeBands(_ indexSet: IndexSet)
+    
+    func allBands() -> [FilterBand]
+    
+    func getBand(_ index: Int) -> FilterBand
+}
+
+enum FilterBandType: String {
+    
+    case bandStop = "Band stop"
+    case bandPass = "Band pass"
+    case lowPass = "Low pass"
+    case highPass = "High pass"
+    
+    func toAVFilterType() -> AVAudioUnitEQFilterType {
+        
+        switch self {
+            
+        case .bandPass: return .bandPass
+            
+        case .bandStop: return .parametric
+            
+        case .lowPass: return .lowPass
+            
+        case .highPass: return .highPass
+            
+        }
     }
 }

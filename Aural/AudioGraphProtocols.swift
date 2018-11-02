@@ -217,20 +217,30 @@ protocol FilterUnitProtocol {
     // Toggles the state of the filter audio effects unit, and returns its new state
     func toggleFilterState() -> EffectsUnitState
     
-    func getFilterBassBand() -> (min: Float, max: Float)
+//    func getFilterBassBand() -> (min: Float, max: Float)
+//
+//    func getFilterMidBand() -> (min: Float, max: Float)
+//
+//    func getFilterTrebleBand() -> (min: Float, max: Float)
+//
+//    // Sets the bass band of the filter to the specified frequency range
+//    func setFilterBassBand(_ min: Float, _ max: Float)
+//
+//    // Sets the mid band of the filter to the specified frequency range
+//    func setFilterMidBand(_ min: Float, _ max: Float)
+//
+//    // Sets the treble band of the filter to the specified frequency range
+//    func setFilterTrebleBand(_ min: Float, _ max: Float)
     
-    func getFilterMidBand() -> (min: Float, max: Float)
+    func addFilterBand(_ band: FilterBand) -> Int
     
-    func getFilterTrebleBand() -> (min: Float, max: Float)
+    func updateFilterBand(_ index: Int, _ band: FilterBand)
     
-    // Sets the bass band of the filter to the specified frequency range
-    func setFilterBassBand(_ min: Float, _ max: Float)
+    func removeFilterBands(_ indexSet: IndexSet)
     
-    // Sets the mid band of the filter to the specified frequency range
-    func setFilterMidBand(_ min: Float, _ max: Float)
+    func allFilterBands() -> [FilterBand]
     
-    // Sets the treble band of the filter to the specified frequency range
-    func setFilterTrebleBand(_ min: Float, _ max: Float)
+    func getFilterBand(_ index: Int) -> FilterBand
     
     func saveFilterPreset(_ presetName: String)
     

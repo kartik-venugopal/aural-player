@@ -549,35 +549,55 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return graph.toggleFilterState()
     }
     
-    func getFilterBassBand() -> (min: Float, max: Float, rangeString: String) {
-        let minMax = graph.getFilterBassBand()
-        return (minMax.min, minMax.max, ValueFormatter.formatFilterFrequencyRange(minMax.min, minMax.max))
+    func addFilterBand(_ band: FilterBand) -> Int {
+        return graph.addFilterBand(band)
     }
     
-    func setFilterBassBand(_ min: Float, _ max: Float) -> String {
-        graph.setFilterBassBand(min, max)
-        return ValueFormatter.formatFilterFrequencyRange(min, max)
+    func updateFilterBand(_ index: Int, _ band: FilterBand) {
+        graph.updateFilterBand(index, band)
     }
     
-    func getFilterMidBand() -> (min: Float, max: Float, rangeString: String) {
-        let minMax = graph.getFilterMidBand()
-        return (minMax.min, minMax.max, ValueFormatter.formatFilterFrequencyRange(minMax.min, minMax.max))
+    func removeFilterBands(_ indexSet: IndexSet) {
+        graph.removeFilterBands(indexSet)
     }
     
-    func setFilterMidBand(_ min: Float, _ max: Float) -> String {
-        graph.setFilterMidBand(min, max)
-        return ValueFormatter.formatFilterFrequencyRange(min, max)
+    func allFilterBands() -> [FilterBand] {
+        return graph.allFilterBands()
     }
     
-    func getFilterTrebleBand() -> (min: Float, max: Float, rangeString: String) {
-        let minMax = graph.getFilterTrebleBand()
-        return (minMax.min, minMax.max, ValueFormatter.formatFilterFrequencyRange(minMax.min, minMax.max))
+    func getFilterBand(_ index: Int) -> FilterBand {
+        return graph.getFilterBand(index)
     }
     
-    func setFilterTrebleBand(_ min: Float, _ max: Float) -> String {
-        graph.setFilterTrebleBand(min, max)
-        return ValueFormatter.formatFilterFrequencyRange(min, max)
-    }
+//    func getFilterBassBand() -> (min: Float, max: Float, rangeString: String) {
+//        let minMax = graph.getFilterBassBand()
+//        return (minMax.min, minMax.max, ValueFormatter.formatFilterFrequencyRange(minMax.min, minMax.max))
+//    }
+//
+//    func setFilterBassBand(_ min: Float, _ max: Float) -> String {
+//        graph.setFilterBassBand(min, max)
+//        return ValueFormatter.formatFilterFrequencyRange(min, max)
+//    }
+//
+//    func getFilterMidBand() -> (min: Float, max: Float, rangeString: String) {
+//        let minMax = graph.getFilterMidBand()
+//        return (minMax.min, minMax.max, ValueFormatter.formatFilterFrequencyRange(minMax.min, minMax.max))
+//    }
+//
+//    func setFilterMidBand(_ min: Float, _ max: Float) -> String {
+//        graph.setFilterMidBand(min, max)
+//        return ValueFormatter.formatFilterFrequencyRange(min, max)
+//    }
+//
+//    func getFilterTrebleBand() -> (min: Float, max: Float, rangeString: String) {
+//        let minMax = graph.getFilterTrebleBand()
+//        return (minMax.min, minMax.max, ValueFormatter.formatFilterFrequencyRange(minMax.min, minMax.max))
+//    }
+//
+//    func setFilterTrebleBand(_ min: Float, _ max: Float) -> String {
+//        graph.setFilterTrebleBand(min, max)
+//        return ValueFormatter.formatFilterFrequencyRange(min, max)
+//    }
     
     func saveFilterPreset(_ presetName: String) {
         graph.saveFilterPreset(presetName)
