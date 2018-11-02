@@ -140,7 +140,7 @@ class PlayerView: NSView {
         }
         
         infoBox.showIf_elseHide(PlayerViewState.showTrackInfo || autoHideFields_showing)
-        functionsBox.showIf_elseHide(PlayerViewState.showPlayingTrackFunctions)
+        functionsBox.showIf_elseHide(player.getPlaybackState().playingOrPaused() && PlayerViewState.showPlayingTrackFunctions)
     }
     
     func handOff(_ otherView: PlayerView) {
