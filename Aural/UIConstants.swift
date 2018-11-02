@@ -26,6 +26,9 @@ struct UIConstants {
     static let favoriteNameColumnID: String = "cid_FavoriteName"
     static let favoriteTrackColumnID: String = "cid_FavoriteTrack"
     
+    static let filterBandsFreqColumnID: String = "cid_Frequencies"
+    static let filterBandsTypeColumnID: String = "cid_Type"
+    
     static let bookmarkPromptLocatorViewID: String = "bookmarkPromptLocator"
     
     // Angles used to fill gradients
