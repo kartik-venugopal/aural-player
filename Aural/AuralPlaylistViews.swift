@@ -422,3 +422,36 @@ class OutlineViewHolder {
     // Mapping of playlist types to their corresponding outline views
     static var instances = [PlaylistType: NSOutlineView]()
 }
+
+class BasicTableCellView: NSTableCellView {
+    
+    // The table view row that this cell is contained in. Used to determine whether or not this cell is selected.
+    var row: Int = -1
+    
+    var selectionFunction: (() -> Bool) = {() -> Bool in return false}
+    
+    var textFont: NSFont = Fonts.gillSans10Font
+    var selectedTextFont: NSFont = Fonts.gillSans10Font
+    
+    // TODO: Store this logic in a closure passed in by the view delegate, instead of using TableViewHolder
+    var isSelRow: Bool {
+        return selectionFunction()
+    }
+    
+    override var backgroundStyle: NSView.BackgroundStyle {
+        
+        didSet {
+            backgroundStyleChanged()
+        }
+    }
+    
+    func backgroundStyleChanged() {
+        
+        // Check if this row is selected, change font and color accordingly
+        if let textField = self.textField {
+            
+            textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
+            textField.font = isSelRow ? selectedTextFont : textFont
+        }
+    }
+}

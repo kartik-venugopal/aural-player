@@ -45,6 +45,8 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
     
     //MARK: - Public API -
     
+    @IBInspectable var index: Int = 0
+    
     @IBInspectable var enabled: Bool = true
     var unitState: EffectsUnitState = .bypassed {
         
@@ -63,7 +65,6 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
             self.setNeedsDisplay(self.bounds)
         }
     }
-
     
     private let verticalShadowPadding: CGFloat = 4.0
     private let barTrailingMargin: CGFloat = 1.0

@@ -8,16 +8,6 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     // Filter controls
     @IBOutlet weak var btnFilterBypass: EffectsUnitTriStateBypassButton!
     
-    @IBOutlet weak var filterBassSlider: RangeSlider!
-    @IBOutlet weak var filterMidSlider: RangeSlider!
-    @IBOutlet weak var filterTrebleSlider: RangeSlider!
-    
-    private var sliders: [RangeSlider] = []
-    
-    @IBOutlet weak var lblFilterBassRange: NSTextField!
-    @IBOutlet weak var lblFilterMidRange: NSTextField!
-    @IBOutlet weak var lblFilterTrebleRange: NSTextField!
-    
     // Presets menu
     @IBOutlet weak var presetsMenu: NSPopUpButton!
     @IBOutlet weak var btnSavePreset: NSButton!
@@ -69,44 +59,11 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         
         btnFilterBypass.stateFunction = stateFunction
         
-        filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, {
-            (slider: RangeSlider) -> Void in
-            self.filterBassChanged()
-        })
-        
-        filterMidSlider.initialize(AppConstants.mid_min, AppConstants.mid_max, {
-            (slider: RangeSlider) -> Void in
-            self.filterMidChanged()
-        })
-        
-        filterTrebleSlider.initialize(AppConstants.treble_min, AppConstants.treble_max, {
-            (slider: RangeSlider) -> Void in
-            self.filterTrebleChanged()
-        })
-        
-        sliders = [filterBassSlider, filterMidSlider, filterTrebleSlider]
-        sliders.forEach({$0.stateFunction = stateFunction})
     }
  
     private func initControls() {
         
         btnFilterBypass.updateState()
-        sliders.forEach({$0.updateState()})
-        
-        let bassBand = graph.getFilterBassBand()
-        filterBassSlider.start = Double(bassBand.min)
-        filterBassSlider.end = Double(bassBand.max)
-        lblFilterBassRange.stringValue = bassBand.rangeString
-        
-        let midBand = graph.getFilterMidBand()
-        filterMidSlider.start = Double(midBand.min)
-        filterMidSlider.end = Double(midBand.max)
-        lblFilterMidRange.stringValue = midBand.rangeString
-        
-        let trebleBand = graph.getFilterTrebleBand()
-        filterTrebleSlider.start = Double(trebleBand.min)
-        filterTrebleSlider.end = Double(trebleBand.max)
-        lblFilterTrebleRange.stringValue = trebleBand.rangeString
         
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
@@ -118,24 +75,8 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         _ = graph.toggleFilterState()
         
         btnFilterBypass.updateState()
-        sliders.forEach({$0.updateState()})
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
-    }
-    
-    // Action function for the Filter unit's bass slider. Updates the Filter bass band.
-    private func filterBassChanged() {
-        lblFilterBassRange.stringValue = graph.setFilterBassBand(Float(filterBassSlider.start), Float(filterBassSlider.end))
-    }
-    
-    // Action function for the Filter unit's mid-frequency slider. Updates the Filter mid-frequency band.
-    private func filterMidChanged() {
-        lblFilterMidRange.stringValue = graph.setFilterMidBand(Float(filterMidSlider.start), Float(filterMidSlider.end))
-    }
-    
-    // Action function for the Filter unit's treble slider. Updates the Filter treble band.
-    private func filterTrebleChanged() {
-        lblFilterTrebleRange.stringValue = graph.setFilterTrebleBand(Float(filterTrebleSlider.start), Float(filterTrebleSlider.end))
     }
     
     // Applies a preset to the effects unit
@@ -194,7 +135,6 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         if notification is EffectsUnitStateChangedNotification {
             
             btnFilterBypass.updateState()
-            sliders.forEach({$0.updateState()})
         }
     }
     

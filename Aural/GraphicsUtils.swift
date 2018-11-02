@@ -56,6 +56,17 @@ class GraphicsUtils {
         
         text.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
     }
+    
+    // Draws text, centered, within an NSRect, with a certain font and color
+    static func drawTextInRect(_ rect: NSRect, _ text: String, _ textColor: NSColor, _ font: NSFont) {
+        
+        let attrs: [String: AnyObject] = [
+            convertFromNSAttributedStringKey(NSAttributedString.Key.font): font,
+            convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): textColor]
+        
+        // Compute size and origin
+        text.draw(in: rect, withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
+    }
 }
 
 // Helper function inserted by Swift 4.2 migrator.
