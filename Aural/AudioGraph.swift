@@ -18,7 +18,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     private let eqNode: ParametricEQ
     private let pitchNode: AVAudioUnitTimePitch
     private let reverbNode: AVAudioUnitReverb
-    private let filterNode: MultiBandStopFilterNode
+    private let filterNode: FlexibleFilterNode
     private let delayNode: AVAudioUnitDelay
     private let timeNode: VariableRateNode
     
@@ -56,7 +56,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         pitchNode = AVAudioUnitTimePitch()
         reverbNode = AVAudioUnitReverb()
         delayNode = AVAudioUnitDelay()
-        filterNode = MultiBandStopFilterNode()
+        filterNode = FlexibleFilterNode()
         timeNode = VariableRateNode()
         auxMixer = AVAudioMixerNode()
         nodeForRecorderTap = mainMixer
@@ -128,9 +128,9 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         // Filter
         filterNode.bypass = state.filterState != .active
         filterSuppressed = state.filterState == .suppressed
-        filterNode.setFilterBassBand(state.filterBassMin, state.filterBassMax)
-        filterNode.setFilterMidBand(state.filterMidMin, state.filterMidMax)
-        filterNode.setFilterTrebleBand(state.filterTrebleMin, state.filterTrebleMax)
+//        filterNode.setFilterBassBand(state.filterBassMin, state.filterBassMax)
+//        filterNode.setFilterMidBand(state.filterMidMin, state.filterMidMax)
+//        filterNode.setFilterTrebleBand(state.filterTrebleMin, state.filterTrebleMax)
         FilterPresets.loadUserDefinedPresets(state.filterUserPresets)
     }
 
@@ -229,14 +229,14 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         // Filter state
         let filterState = getFilterState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        let bassBand = getFilterBassBand()
-        let midBand = getFilterMidBand()
-        let trebleBand = getFilterTrebleBand()
-        
-        let filterPreset = FilterPreset(dummyPresetName, filterState, Double(bassBand.min)...Double(bassBand.max), Double(midBand.min)...Double(midBand.max), Double(trebleBand.min)...Double(trebleBand.max), false)
-        
-        // Save the new preset
-        MasterPresets.addUserDefinedPreset(presetName, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset)
+//        let bassBand = getFilterBassBand()
+//        let midBand = getFilterMidBand()
+//        let trebleBand = getFilterTrebleBand()
+//
+//        let filterPreset = FilterPreset(dummyPresetName, filterState, Double(bassBand.min)...Double(bassBand.max), Double(midBand.min)...Double(midBand.max), Double(trebleBand.min)...Double(trebleBand.max), false)
+//
+//        // Save the new preset
+//        MasterPresets.addUserDefinedPreset(presetName, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset)
     }
     
     func getSettingsAsMasterPreset() -> MasterPreset {
@@ -283,11 +283,13 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         // Filter state
         let filterState = getFilterState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        let bassBand = getFilterBassBand()
-        let midBand = getFilterMidBand()
-        let trebleBand = getFilterTrebleBand()
+//        let bassBand = getFilterBassBand()
+//        let midBand = getFilterMidBand()
+//        let trebleBand = getFilterTrebleBand()
         
-        let filterPreset = FilterPreset(dummyPresetName, filterState, Double(bassBand.min)...Double(bassBand.max), Double(midBand.min)...Double(midBand.max), Double(trebleBand.min)...Double(trebleBand.max), false)
+//        let filterPreset = FilterPreset(dummyPresetName, filterState, Double(bassBand.min)...Double(bassBand.max), Double(midBand.min)...Double(midBand.max), Double(trebleBand.min)...Double(trebleBand.max), false)
+        
+        let filterPreset = FilterPreset(dummyPresetName, filterState, Double(0)...Double(0), Double(0)...Double(0), Double(0)...Double(0), false)
         
         return MasterPreset("_masterPreset_for_soundProfile", eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)
     }
@@ -768,45 +770,65 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         return newState
     }
     
-    func getFilterBassBand() -> (min: Float, max: Float) {
-        return filterNode.getBands().bass
-    }
-    
-    func setFilterBassBand(_ min: Float, _ max: Float) {
-        filterNode.setFilterBassBand(min, max)
-    }
-    
-    func getFilterMidBand() -> (min: Float, max: Float) {
-        return filterNode.getBands().mid
-    }
-    
-    func setFilterMidBand(_ min: Float, _ max: Float) {
-        filterNode.setFilterMidBand(min, max)
-    }
-    
-    func getFilterTrebleBand() -> (min: Float, max: Float) {
-        return filterNode.getBands().treble
-    }
-    
-    func setFilterTrebleBand(_ min: Float, _ max: Float) {
-        filterNode.setFilterTrebleBand(min, max)
-    }
+//    func getFilterBassBand() -> (min: Float, max: Float) {
+//        return filterNode.getBands().bass
+//    }
+//
+//    func setFilterBassBand(_ min: Float, _ max: Float) {
+//        filterNode.setFilterBassBand(min, max)
+//    }
+//
+//    func getFilterMidBand() -> (min: Float, max: Float) {
+//        return filterNode.getBands().mid
+//    }
+//
+//    func setFilterMidBand(_ min: Float, _ max: Float) {
+//        filterNode.setFilterMidBand(min, max)
+//    }
+//
+//    func getFilterTrebleBand() -> (min: Float, max: Float) {
+//        return filterNode.getBands().treble
+//    }
+//
+//    func setFilterTrebleBand(_ min: Float, _ max: Float) {
+//        filterNode.setFilterTrebleBand(min, max)
+//    }
     
     func saveFilterPreset(_ presetName: String) {
         
-        let filterState = getFilterState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        let bassBand = getFilterBassBand()
-        let midBand = getFilterMidBand()
-        let trebleBand = getFilterTrebleBand()
-        
-        FilterPresets.addUserDefinedPreset(presetName, filterState, Double(bassBand.min)...Double(bassBand.max), Double(midBand.min)...Double(midBand.max), Double(trebleBand.min)...Double(trebleBand.max))
+//        let filterState = getFilterState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+//        let bassBand = getFilterBassBand()
+//        let midBand = getFilterMidBand()
+//        let trebleBand = getFilterTrebleBand()
+//
+//        FilterPresets.addUserDefinedPreset(presetName, filterState, Double(bassBand.min)...Double(bassBand.max), Double(midBand.min)...Double(midBand.max), Double(trebleBand.min)...Double(trebleBand.max))
     }
     
     func applyFilterPreset(_ preset: FilterPreset) {
      
-        setFilterBassBand(Float(preset.bassBand.lowerBound), Float(preset.bassBand.upperBound))
-        setFilterMidBand(Float(preset.midBand.lowerBound), Float(preset.midBand.upperBound))
-        setFilterTrebleBand(Float(preset.trebleBand.lowerBound), Float(preset.trebleBand.upperBound))
+//        setFilterBassBand(Float(preset.bassBand.lowerBound), Float(preset.bassBand.upperBound))
+//        setFilterMidBand(Float(preset.midBand.lowerBound), Float(preset.midBand.upperBound))
+//        setFilterTrebleBand(Float(preset.trebleBand.lowerBound), Float(preset.trebleBand.upperBound))
+    }
+    
+    func addFilterBand(_ band: FilterBand) -> Int {
+        return filterNode.addBand(band)
+    }
+    
+    func updateFilterBand(_ index: Int, _ band: FilterBand) {
+        filterNode.updateBand(index, band)
+    }
+    
+    func removeFilterBands(_ indexSet: IndexSet) {
+        filterNode.removeBands(indexSet)
+    }
+    
+    func allFilterBands() -> [FilterBand] {
+        return filterNode.allBands()
+    }
+    
+    func getFilterBand(_ index: Int) -> FilterBand {
+        return filterNode.getBand(index)
     }
     
     // MARK: Miscellaneous functions
@@ -873,13 +895,13 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         // Filter
         state.filterState = getFilterState()
-        let filterBands = filterNode.getBands()
-        state.filterBassMin = filterBands.bass.min
-        state.filterBassMax = filterBands.bass.max
-        state.filterMidMin = filterBands.mid.min
-        state.filterMidMax = filterBands.mid.max
-        state.filterTrebleMin = filterBands.treble.min
-        state.filterTrebleMax = filterBands.treble.max
+//        let filterBands = filterNode.getBands()
+//        state.filterBassMin = filterBands.bass.min
+//        state.filterBassMax = filterBands.bass.max
+//        state.filterMidMin = filterBands.mid.min
+//        state.filterMidMax = filterBands.mid.max
+//        state.filterTrebleMin = filterBands.treble.min
+//        state.filterTrebleMax = filterBands.treble.max
         state.filterUserPresets = FilterPresets.userDefinedPresets
         
         return state

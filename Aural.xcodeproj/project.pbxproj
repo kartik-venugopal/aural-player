@@ -311,6 +311,8 @@
 		3EF5E5D21FBF0373004270A4 /* TracksPlaylistViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E5D11FBF0373004270A4 /* TracksPlaylistViewDelegate.swift */; };
 		3EF5E5D51FBF104D004270A4 /* GroupingPlaylistViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E5D41FBF104D004270A4 /* GroupingPlaylistViewDelegates.swift */; };
 		3EF6A0021FA313120050F0D2 /* SortComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6A0011FA313120050F0D2 /* SortComparator.swift */; };
+		3EF743AF218C366A0060BDE0 /* FilterChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF743AE218C366A0060BDE0 /* FilterChart.swift */; };
+		3EF743B1218C50420060BDE0 /* FilterBandsViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF743B0218C50420060BDE0 /* FilterBandsViewDelegate.swift */; };
 		3EF7EFC82150757D00E582CB /* BarModeNowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF7EFC72150757D00E582CB /* BarModeNowPlayingViewController.swift */; };
 		3EF7EFCA215075A400E582CB /* BarModePlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF7EFC9215075A400E582CB /* BarModePlayerViewController.swift */; };
 		3EF7EFCC215075DD00E582CB /* BarModeNowPlaying.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF7EFCB215075DD00E582CB /* BarModeNowPlaying.xib */; };
@@ -634,6 +636,8 @@
 		3EF5E5D11FBF0373004270A4 /* TracksPlaylistViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracksPlaylistViewDelegate.swift; sourceTree = "<group>"; };
 		3EF5E5D41FBF104D004270A4 /* GroupingPlaylistViewDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistViewDelegates.swift; sourceTree = "<group>"; };
 		3EF6A0011FA313120050F0D2 /* SortComparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortComparator.swift; sourceTree = "<group>"; };
+		3EF743AE218C366A0060BDE0 /* FilterChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterChart.swift; sourceTree = "<group>"; };
+		3EF743B0218C50420060BDE0 /* FilterBandsViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandsViewDelegate.swift; sourceTree = "<group>"; };
 		3EF7EFC72150757D00E582CB /* BarModeNowPlayingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarModeNowPlayingViewController.swift; sourceTree = "<group>"; };
 		3EF7EFC9215075A400E582CB /* BarModePlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarModePlayerViewController.swift; sourceTree = "<group>"; };
 		3EF7EFCB215075DD00E582CB /* BarModeNowPlaying.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BarModeNowPlaying.xib; sourceTree = "<group>"; };
@@ -783,6 +787,8 @@
 			children = (
 				3E3F296A215A395A00581EFE /* Filter.xib */,
 				3E0F947C1FBBA33C00B6E1B3 /* FilterViewController.swift */,
+				3EF743AE218C366A0060BDE0 /* FilterChart.swift */,
+				3EF743B0218C50420060BDE0 /* FilterBandsViewDelegate.swift */,
 				3E93AC16218B14C80055E18E /* NewFilter.xib */,
 			);
 			name = Filter;
@@ -1801,6 +1807,7 @@
 				3E2188A61F0767290085BAB3 /* DetailedTrackInfoRowView.swift in Sources */,
 				3E3FB7F3215B577400974A59 /* PlayableItem.swift in Sources */,
 				3EF043A51F9D5ED8000EE7ED /* ActionMessages.swift in Sources */,
+				3EF743B1218C50420060BDE0 /* FilterBandsViewDelegate.swift in Sources */,
 				3EF5E5D21FBF0373004270A4 /* TracksPlaylistViewDelegate.swift in Sources */,
 				3E066C2B216C6F5300E4FE80 /* TimePresetsEditorViewController.swift in Sources */,
 				3E58CC2B1F0275B200C36DC1 /* TimerUtils.swift in Sources */,
@@ -2047,6 +2054,7 @@
 				3EF5E5BC1FBDB38E004270A4 /* AlbumsPlaylistViewController.swift in Sources */,
 				3EE429AE1FCFD10D00E81C15 /* RegularAppModeController.swift in Sources */,
 				3EFFE6BB1F0372B3003728BD /* TrackIO.swift in Sources */,
+				3EF743AF218C366A0060BDE0 /* FilterChart.swift in Sources */,
 				3E176607217DE513001C6CF9 /* TracksPlaylistSortViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
