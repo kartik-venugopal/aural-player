@@ -1278,17 +1278,17 @@ CA
                         </connections>
                     </menu>
                 </menuItem>
-                <menuItem title="Help" id="aLb-n2-tgZ">
+                <menuItem title="Help" hidden="YES" enabled="NO" id="aLb-n2-tgZ">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" id="0bT-cg-D9L">
                         <items>
-                            <menuItem title=" User guide (pdf)" image="UserGuide" id="h2e-53-n5z" userLabel="User Guide (pdf)">
+                            <menuItem title=" User guide (pdf)" image="UserGuide" enabled="NO" id="h2e-53-n5z" userLabel="User Guide (pdf)">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="pdfUserGuideAction:" target="bac-wa-rgm" id="1j2-bU-bbV"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" User guide (online, HTML)" image="UserGuide" id="LrL-UZ-eQ3" userLabel="User Guide (online HTML)">
+                            <menuItem title=" User guide (online, HTML)" image="UserGuide" enabled="NO" id="LrL-UZ-eQ3" userLabel="User Guide (online HTML)">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="onlineUserGuideAction:" target="bac-wa-rgm" id="mKE-56-BAr"/>
