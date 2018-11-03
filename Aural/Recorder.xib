@@ -38,7 +38,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="355" height="84"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-Td-HFB" userLabel="Record Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
+                            <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-Td-HFB" userLabel="Record Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="70" y="30" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Record" imagePosition="overlaps" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="xy8-DU-p88">
@@ -149,7 +149,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Record" width="256" height="256"/>
-        <image name="RecorderStop" width="256" height="256"/>
+        <image name="Record" width="31" height="31"/>
+        <image name="RecorderStop" width="31" height="31"/>
     </resources>
 </document>
