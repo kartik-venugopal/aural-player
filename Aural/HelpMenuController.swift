@@ -9,11 +9,11 @@ class HelpMenuController: NSObject {
     
     // Opens the online (HTML) user guide
     @IBAction func onlineUserGuideAction(_ sender: Any) {
-        workspace.open(AppConstants.onlineUserGuideURL)
+//        workspace.open(AppConstants.onlineUserGuideURL)
     }
     
     // Opens the bundled (PDF) user guide
     @IBAction func pdfUserGuideAction(_ sender: Any) {
-        workspace.openFile(AppConstants.pdfUserGuidePath)
+//        workspace.openFile(AppConstants.pdfUserGuidePath)
     }
 }
