@@ -13,12 +13,9 @@ class DoubleValueFormatter: Formatter {
 
     override func isPartialStringValid(_ partialString: String, newEditingString newString: AutoreleasingUnsafeMutablePointer<NSString?>?, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
         
-        print("Val", partialString)
-        
         if partialString.isEmpty {
             
             if updateFunction != nil {
-                print("Updating", 0)
                 updateFunction!(0)
             }
             
@@ -28,7 +25,6 @@ class DoubleValueFormatter: Formatter {
         if let num = Double(partialString) {
             
             if num >= minValue && num <= maxValue && updateFunction != nil {
-                print("Updating", num)
                 updateFunction!(num)
             }
             
@@ -36,7 +32,6 @@ class DoubleValueFormatter: Formatter {
             
         } else {
             
-            print(partialString, "is invalid !")
             return false
         }
     }
