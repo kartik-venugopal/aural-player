@@ -758,45 +758,14 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         return newState
     }
     
-//    func getFilterBassBand() -> (min: Float, max: Float) {
-//        return filterNode.getBands().bass
-//    }
-//
-//    func setFilterBassBand(_ min: Float, _ max: Float) {
-//        filterNode.setFilterBassBand(min, max)
-//    }
-//
-//    func getFilterMidBand() -> (min: Float, max: Float) {
-//        return filterNode.getBands().mid
-//    }
-//
-//    func setFilterMidBand(_ min: Float, _ max: Float) {
-//        filterNode.setFilterMidBand(min, max)
-//    }
-//
-//    func getFilterTrebleBand() -> (min: Float, max: Float) {
-//        return filterNode.getBands().treble
-//    }
-//
-//    func setFilterTrebleBand(_ min: Float, _ max: Float) {
-//        filterNode.setFilterTrebleBand(min, max)
-//    }
-    
     func saveFilterPreset(_ presetName: String) {
         
-//        let filterState = getFilterState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-//        let bassBand = getFilterBassBand()
-//        let midBand = getFilterMidBand()
-//        let trebleBand = getFilterTrebleBand()
-//
-//        FilterPresets.addUserDefinedPreset(presetName, filterState, Double(bassBand.min)...Double(bassBand.max), Double(midBand.min)...Double(midBand.max), Double(trebleBand.min)...Double(trebleBand.max))
+        let filterState = getFilterState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
+        FilterPresets.addUserDefinedPreset(presetName, filterState, filterNode.allBands())
     }
     
     func applyFilterPreset(_ preset: FilterPreset) {
-     
-//        setFilterBassBand(Float(preset.bassBand.lowerBound), Float(preset.bassBand.upperBound))
-//        setFilterMidBand(Float(preset.midBand.lowerBound), Float(preset.midBand.upperBound))
-//        setFilterTrebleBand(Float(preset.trebleBand.lowerBound), Float(preset.trebleBand.upperBound))
+        filterNode.setBands(preset.bands)
     }
     
     func addFilterBand(_ band: FilterBand) -> Int {

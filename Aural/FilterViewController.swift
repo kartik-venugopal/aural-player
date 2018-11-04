@@ -69,6 +69,8 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     private func initControls() {
         
         btnFilterBypass.updateState()
+        chart.redraw()
+        bandsTable.reloadData()
         
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
