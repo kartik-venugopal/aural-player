@@ -36,6 +36,11 @@ class FlexibleFilterNode: AVAudioUnitEQ, FilterNodeProtocol {
         bands.forEach({_ = addBand($0)})
     }
     
+    func setBands(_ bands: [FilterBand]) {
+        removeAllBands()
+        addBands(bands)
+    }
+    
     func addBand(_ band: FilterBand) -> Int {
         
         // Should never happen, but for safety

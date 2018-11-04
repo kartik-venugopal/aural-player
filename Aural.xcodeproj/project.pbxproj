@@ -788,12 +788,12 @@
 		3E0ED6BA1FBB1C7A008268B3 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
-				3E6FCF94218D3E2100F5BA26 /* Editor */,
 				3E3F296A215A395A00581EFE /* Filter.xib */,
 				3E0F947C1FBBA33C00B6E1B3 /* FilterViewController.swift */,
 				3EF743AE218C366A0060BDE0 /* FilterChart.swift */,
 				3EF743B0218C50420060BDE0 /* FilterBandsViewDelegate.swift */,
 				3E93AC16218B14C80055E18E /* NewFilter.xib */,
+				3E6FCF94218D3E2100F5BA26 /* Editor */,
 			);
 			name = Filter;
 			sourceTree = "<group>";
