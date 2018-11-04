@@ -259,6 +259,8 @@ enum ActionType {
     
     case updateEffectsView
     
+    case editFilterBand
+    
     // MARK: View actions
     
     // Show/hide the playlist window
@@ -538,5 +540,16 @@ struct PlayerViewActionMessage: ActionMessage {
     
     init(_ viewType: PlayerViewType) {
         self.viewType = viewType
+    }
+}
+
+struct EditFilterBandActionMessage: ActionMessage {
+    
+    let actionType: ActionType = .editFilterBand
+    
+    let band: FilterBand
+    
+    init(_ band: FilterBand) {
+        self.band = band
     }
 }

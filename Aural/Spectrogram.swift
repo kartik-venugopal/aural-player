@@ -33,7 +33,7 @@ class Spectrogram: NSView {
         self.data = data
         
         DispatchQueue.main.sync {
-            self.setNeedsDisplay(self.bounds)
+            redraw()
         }
         
         //        Swift.print("Data: ", data.bandMags)

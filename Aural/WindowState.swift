@@ -1,5 +1,6 @@
 import Cocoa
 
+// TODO: Remove this class .. merge with LayoutManager
 // Provides convenient access to the state of the main and playlist windows, across the view layer of the app
 class WindowState {
     

@@ -51,8 +51,6 @@ class FlexibleFilterNode: AVAudioUnitEQ, FilterNodeProtocol {
         
         setBandParameters(info)
         info.params.bypass = false
-        
-        print("Activated band:", info.params.frequency, info.params.bypass, info.params.filterType.rawValue, self.bypass)
     }
     
     private func setBandParameters(_ info: FilterBand) {
@@ -107,15 +105,26 @@ class FlexibleFilterNode: AVAudioUnitEQ, FilterNodeProtocol {
         sortedIndexes.forEach({removeBand($0)})
     }
     
+    func removeAllBands() {
+        
+        bandInfos.forEach({
+            removeBand($0)
+        })
+        bandInfos.removeAll()
+    }
+    
     private func removeBand(_ index: Int) {
         
         let info = bandInfos[index]
+        removeBand(info)
+        bandInfos.remove(at: index)
+    }
+    
+    private func removeBand(_ info: FilterBand) {
         
         let params = info.params!
         params.bypass = true
         inactiveBands.append(params)
-        
-        bandInfos.remove(at: index)
     }
     
     func allBands() -> [FilterBand] {
@@ -168,6 +177,8 @@ protocol FilterNodeProtocol {
     func updateBand(_ index: Int, _ band: FilterBand)
     
     func removeBands(_ indexSet: IndexSet)
+    
+    func removeAllBands()
     
     func allBands() -> [FilterBand]
     

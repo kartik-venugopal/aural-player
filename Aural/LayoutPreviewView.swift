@@ -20,12 +20,12 @@ class LayoutPreviewView: NSView {
     
     func drawPreviewForLayout(_ layout: WindowLayout) {
         self.layout = layout
-        setNeedsDisplay(self.bounds)
+        redraw()
     }
     
     func clear() {
         self.layout = nil
-        setNeedsDisplay(self.bounds)
+        redraw()
     }
     
     override func draw(_ dirtyRect: NSRect) {

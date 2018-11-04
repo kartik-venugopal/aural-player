@@ -248,26 +248,13 @@ protocol FilterUnitDelegateProtocol {
     // Toggles the state of the filter audio effects unit, and returns its new state
     func toggleFilterState() -> EffectsUnitState
     
-//    func getFilterBassBand() -> (min: Float, max: Float, rangeString: String)
-//
-//    func getFilterMidBand() -> (min: Float, max: Float, rangeString: String)
-//
-//    func getFilterTrebleBand() -> (min: Float, max: Float, rangeString: String)
-//
-//    // Sets the bass band of the filter to the specified frequency range
-//    func setFilterBassBand(_ min: Float, _ max: Float) -> String
-//
-//    // Sets the mid band of the filter to the specified frequency range
-//    func setFilterMidBand(_ min: Float, _ max: Float) -> String
-//
-//    // Sets the treble band of the filter to the specified frequency range
-//    func setFilterTrebleBand(_ min: Float, _ max: Float) -> String
-    
     func addFilterBand(_ band: FilterBand) -> Int
     
     func updateFilterBand(_ index: Int, _ band: FilterBand)
     
     func removeFilterBands(_ indexSet: IndexSet)
+    
+    func removeAllFilterBands()
     
     func allFilterBands() -> [FilterBand]
     

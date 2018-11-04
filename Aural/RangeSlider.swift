@@ -51,7 +51,7 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
     var unitState: EffectsUnitState = .bypassed {
         
         didSet {
-            self.setNeedsDisplay(self.bounds)
+            redraw()
         }
     }
     
@@ -62,7 +62,7 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         if let function = stateFunction {
             
             unitState = function()
-            self.setNeedsDisplay(self.bounds)
+            redraw()
         }
     }
     
@@ -82,7 +82,7 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         set {
             let fractionalStart = (newValue - minValue) / (maxValue - minValue)
             selection = SelectionRange(start: fractionalStart, end: selection.end)
-            setNeedsDisplay(bounds)
+            redraw()
         }
     }
     
@@ -95,7 +95,7 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         set {
             let fractionalEnd = (newValue - minValue) / (maxValue - minValue)
             selection = SelectionRange(start: selection.start, end: fractionalEnd)
-            setNeedsDisplay(bounds)
+            redraw()
         }
     }
     
@@ -117,14 +117,14 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
     /** The minimum value of the slider. */
     @IBInspectable var minValue: Double = 0.0 {
         didSet {
-            setNeedsDisplay(bounds)
+            redraw()
         }
     }
     
     /** The maximum value of the slider. */
     @IBInspectable var maxValue: Double = 1.0 {
         didSet {
-            setNeedsDisplay(bounds)
+            redraw()
         }
     }
     
@@ -196,7 +196,7 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         return barBackgroundGradient!
     }()
     
-    private var knobColor: NSColor {
+    var knobColor: NSColor {
         
         switch self.unitState {
             
@@ -209,7 +209,7 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         }
     }
     
-    private var barFillColor: NSColor {
+    var barFillColor: NSColor {
         
         switch unitState {
             
@@ -222,18 +222,13 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
         }
     }
     
-    func initialize(_ min: Double, _ max: Double, _ changeHandler: ((RangeSlider) -> Void)?) {
-        self.minValue = min
-        self.maxValue = max
-        self.onControlChanged = changeHandler
-    }
-    
     private let barStrokeColor: NSColor = NSColor(white: 0.0, alpha: 0.25)
     
     private var barFillStrokeColor: NSColor = NSColor(deviceRed: CGFloat(0.7), green: CGFloat(0.7), blue: CGFloat(0.7), alpha: CGFloat(1))
     
     private var _sliderShadow: NSShadow? = nil
     private func sliderShadow() -> NSShadow? {
+        
         if (_sliderShadow == nil) {
             let shadowOffset = NSMakeSize(2.0, -2.0)
             let shadowBlurRadius: CGFloat = 2.0
@@ -252,7 +247,7 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
     
     //MARK: - UI Sizing -
     
-    private let sliderWidth: CGFloat = 10
+    private let sliderWidth: CGFloat = 5
     private let sliderHeight: CGFloat = 5
     
     private let minSliderX: CGFloat = 0
@@ -308,7 +303,7 @@ class RangeSlider: NSView, EffectsUnitSliderProtocol {
                 selection = SelectionRange(start: min(selection.start, x), end: x)
             }
             
-            setNeedsDisplay(bounds)
+            redraw()
         }
     }
     
@@ -423,5 +418,44 @@ extension NSColor {
                        saturation: self.saturationComponent * desaturationRatio,
                        brightness: self.brightnessComponent,
                        alpha: self.alphaComponent);
+    }
+}
+
+class FilterBandSlider: RangeSlider {
+    
+    var filterType: FilterBandType = .bandStop {
+        
+        didSet {
+            redraw()
+        }
+    }
+    
+    override var barFillColor: NSColor {
+        
+        switch filterType {
+            
+        case .bandStop: return NSColor(red: 0.45, green: 0, blue: 0, alpha: 1)
+            
+        case .bandPass: return NSColor(red: 0, green: 0.45, blue: 0, alpha: 1)
+            
+        default: return NSColor.lightGray
+            
+        }
+    }
+    
+    var startFrequency: Float {
+        return Float(20 * pow(10, (start - 20) / 6660))
+    }
+    
+    func setStartFrequency(_ freq: Float) {
+        self.start = Double(6660 * log10(freq/20) + 20)
+    }
+    
+    var endFrequency: Float {
+        return Float(20 * pow(10, (end - 20) / 6660))
+    }
+    
+    func setEndFrequency(_ freq: Float) {
+        self.end = Double(6660 * log10(freq/20) + 20)
     }
 }

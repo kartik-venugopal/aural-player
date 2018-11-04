@@ -165,28 +165,28 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     private func showError_playlistFile() {
         
         lblPlaylistFileCell.markError("  Please choose a playlist file!")
-        lblPlaylistFile.setNeedsDisplay()
+        lblPlaylistFile.redraw()
         errorIcon_1.show()
     }
     
     private func showError_tracksFolder() {
         
         lblFolderCell.markError("  Please choose a folder!")
-        lblFolder.setNeedsDisplay()
+        lblFolder.redraw()
         errorIcon_2.show()
     }
     
     private func hideError_playlistFile() {
         
         lblPlaylistFileCell.clearError()
-        lblPlaylistFile.setNeedsDisplay()
+        lblPlaylistFile.redraw()
         errorIcon_1.hide()
     }
     
     private func hideError_tracksFolder() {
         
         lblFolderCell.clearError()
-        lblFolder.setNeedsDisplay()
+        lblFolder.redraw()
         errorIcon_2.hide()
     }
 }

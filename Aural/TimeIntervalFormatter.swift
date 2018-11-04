@@ -1,7 +1,8 @@
 import Cocoa
 
-class JumpToTimeValueFormatter: Formatter {
+class DoubleValueFormatter: Formatter {
     
+    var minValue: Double = 0
     var maxValue: Double = Double.greatestFiniteMagnitude
     
     // Used to get the stepper value
@@ -12,9 +13,12 @@ class JumpToTimeValueFormatter: Formatter {
 
     override func isPartialStringValid(_ partialString: String, newEditingString newString: AutoreleasingUnsafeMutablePointer<NSString?>?, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
         
+        print("Val", partialString)
+        
         if partialString.isEmpty {
             
             if updateFunction != nil {
+                print("Updating", 0)
                 updateFunction!(0)
             }
             
@@ -23,14 +27,16 @@ class JumpToTimeValueFormatter: Formatter {
         
         if let num = Double(partialString) {
             
-            if num <= maxValue && updateFunction != nil {
+            if num >= minValue && num <= maxValue && updateFunction != nil {
+                print("Updating", num)
                 updateFunction!(num)
             }
             
-            return num <= maxValue
+            return num >= minValue && num <= maxValue
             
         } else {
             
+            print(partialString, "is invalid !")
             return false
         }
     }

@@ -21,8 +21,25 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
             
         case UIConstants.filterBandsFreqColumnID:
             
-            let rangeText = String(format: "[ %@ - %@ ]", formatFreqNumber(band.minFreq!), formatFreqNumber(band.maxFreq!))
-            return createCell(tableView, tableColumn!.identifier.rawValue, row, rangeText)
+            switch band.type {
+                
+            case .bandPass, .bandStop:
+                
+                let rangeText = String(format: "[ %@ - %@ ]", formatFreqNumber(band.minFreq!), formatFreqNumber(band.maxFreq!))
+                return createCell(tableView, tableColumn!.identifier.rawValue, row, rangeText)
+                
+            case .lowPass:
+                
+                let cutoffText = String(format: "< %@", formatFreqNumber(band.maxFreq!))
+                return createCell(tableView, tableColumn!.identifier.rawValue, row, cutoffText)
+                
+            case .highPass:
+                
+                let cutoffText = String(format: "> %@", formatFreqNumber(band.minFreq!))
+                return createCell(tableView, tableColumn!.identifier.rawValue, row, cutoffText)
+            }
+            
+            
             
         case UIConstants.filterBandsTypeColumnID:
             
@@ -36,7 +53,7 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
     
     private func formatFreqNumber(_ freq: Float) -> String {
         
-        let num = Int(freq)
+        let num = roundedInt(freq)
         if num % 1024 == 0 {
             return String(format: "%dKHz", num / 1024)
         } else {
@@ -50,8 +67,8 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
             
             cell.textField?.stringValue = text
             cell.row = row
-            cell.textFont = Fonts.gillSans10Font
-            cell.selectedTextFont = Fonts.gillSansSemiBold10Font
+            cell.textFont = Fonts.gillSans11Font
+            cell.selectedTextFont = Fonts.gillSansSemiBold11Font
             cell.selectionFunction = {() -> Bool in
                 return tableView.selectedRowIndexes.contains(row)
             }

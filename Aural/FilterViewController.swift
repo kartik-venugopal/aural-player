@@ -12,7 +12,12 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     @IBOutlet weak var presetsMenu: NSPopUpButton!
     @IBOutlet weak var btnSavePreset: NSButton!
     
+    @IBOutlet weak var bandsTable: NSTableView!
+    @IBOutlet weak var chart: FilterChart!
+    
     private lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
+    
+    private lazy var editor: FilterBandEditorController = FilterBandEditorController()
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
@@ -79,6 +84,45 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
     
+    @IBAction func editBandAction(_ sender: AnyObject) {
+        
+        if bandsTable.numberOfSelectedRows == 1 {
+            
+            let index = bandsTable.selectedRow
+            editor.editBand(index, graph.getFilterBand(index))
+            bandsTable.reloadData(forRowIndexes: IndexSet([index]), columnIndexes: [0, 1])
+            chart!.redraw()
+        }
+    }
+    
+    @IBAction func addBandAction(_ sender: AnyObject) {
+        
+        if editor.showDialog() == .ok {
+            
+            bandsTable.noteNumberOfRowsChanged()
+            chart.redraw()
+        }
+    }
+    
+    @IBAction func removeBandsAction(_ sender: AnyObject) {
+        
+        if bandsTable.numberOfSelectedRows > 0 {
+            
+            graph.removeFilterBands(bandsTable.selectedRowIndexes)
+            
+            bandsTable.reloadData()
+            bandsTable.selectRowIndexes(IndexSet([]), byExtendingSelection: false)
+            
+            chart.redraw()
+        }
+    }
+    
+    @IBAction func removeAllBandsAction(_ sender: AnyObject) {
+        graph.removeAllFilterBands()
+        bandsTable.noteNumberOfRowsChanged()
+        chart.redraw()
+    }
+    
     // Applies a preset to the effects unit
     @IBAction func filterPresetsAction(_ sender: AnyObject) {
         graph.applyFilterPreset(presetsMenu.titleOfSelectedItem!)
@@ -133,7 +177,6 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     func consumeNotification(_ notification: NotificationMessage) {
         
         if notification is EffectsUnitStateChangedNotification {
-            
             btnFilterBypass.updateState()
         }
     }

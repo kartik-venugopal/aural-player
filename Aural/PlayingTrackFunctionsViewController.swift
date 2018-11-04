@@ -326,7 +326,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     }
 }
 
-class BookmarkContext {
+fileprivate class BookmarkContext {
     
     // Changes whenever a bookmark is added
     static var defaultBookmarkName: String?
