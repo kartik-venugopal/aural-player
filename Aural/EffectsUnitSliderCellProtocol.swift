@@ -28,7 +28,7 @@ class EffectsUnitSlider: NSSlider, EffectsUnitSliderProtocol {
                 cell.unitState = unitState
             }
             
-            self.setNeedsDisplay()
+            redraw()
         }
     }
     
@@ -40,6 +40,6 @@ class EffectsUnitSlider: NSSlider, EffectsUnitSliderProtocol {
             cell.unitState = unitState
         }
         
-        self.setNeedsDisplay()
+        redraw()
     }
 }

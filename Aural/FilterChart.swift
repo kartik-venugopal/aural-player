@@ -7,11 +7,14 @@ class FilterChart: NSView {
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
+    private let bandStopColor: NSColor = NSColor(calibratedRed: 0.8, green: 0, blue: 0, alpha: 1)
+    private let bandPassColor: NSColor = NSColor(calibratedRed: 0, green: 0.8, blue: 0, alpha: 1)
+    
     override func awakeFromNib() {
         
-        print(graph.addFilterBand(FilterBand(.bandStop).withMinFreq(25).withMaxFreq(60)))
-        print(graph.addFilterBand(FilterBand(.bandStop).withMinFreq(250).withMaxFreq(300)))
-        print(graph.addFilterBand(FilterBand(.bandPass).withMinFreq(16386).withMaxFreq(20475)))
+        _ = graph.addFilterBand(FilterBand(.bandStop).withMinFreq(25).withMaxFreq(60))
+        _ = graph.addFilterBand(FilterBand(.bandStop).withMinFreq(250).withMaxFreq(300))
+        _ = graph.addFilterBand(FilterBand(.bandPass).withMinFreq(16000).withMaxFreq(20000))
     }
     
     override func draw(_ dirtyRect: NSRect) {
@@ -35,36 +38,57 @@ class FilterChart: NSView {
         
         for band in bands {
             
-            let min = band.minFreq!
-            let max = band.maxFreq!
+            switch band.type {
+                
+            case .bandPass, .bandStop:
             
-            let x1 = log10(min/2) - 1
-            let x2 = log10(max/2) - 1
-            
-            let rx1 = offset + CGFloat(x1) * scale
-            let rx2 = offset + CGFloat(x2) * scale
-            
-            let col = band.type == .bandStop ? NSColor.red : NSColor.green
-            
-            let brect = NSRect(x: rx1, y: 20, width: rx2 - rx1, height: 20)
-            drawPath = NSBezierPath.init(rect: brect)
-            col.setFill()
-            drawPath.fill()
+                let min = band.minFreq!
+                let max = band.maxFreq!
+                
+                let x1 = log10(min/2) - 1
+                let x2 = log10(max/2) - 1
+                
+                let rx1 = offset + CGFloat(x1) * scale
+                let rx2 = offset + CGFloat(x2) * scale
+                
+                let col = band.type == .bandStop ? bandStopColor : bandPassColor
+                
+                let brect = NSRect(x: rx1, y: 20, width: rx2 - rx1, height: 20)
+                drawPath = NSBezierPath.init(rect: brect)
+                col.setFill()
+                drawPath.fill()
+                
+            case .lowPass:
+                
+                let f = band.maxFreq!
+                let x = log10(f/2) - 1
+                let rx = offset + CGFloat(x) * scale
+                
+                GraphicsUtils.drawLine(bandPassColor, pt1: NSPoint(x: rx - 1, y: 20), pt2: NSPoint(x: rx - 1, y: 40), width: 2)
+                GraphicsUtils.drawLine(bandStopColor, pt1: NSPoint(x: rx + 1, y: 20), pt2: NSPoint(x: rx + 1, y: 40), width: 2)
+                
+            case .highPass:
+                
+                let f = band.minFreq!
+                let x = log10(f/2) - 1
+                let rx = offset + CGFloat(x) * scale
+                
+                GraphicsUtils.drawLine(bandStopColor, pt1: NSPoint(x: rx - 1, y: 20), pt2: NSPoint(x: rx - 1, y: 40), width: 2)
+                GraphicsUtils.drawLine(bandPassColor, pt1: NSPoint(x: rx + 1, y: 20), pt2: NSPoint(x: rx + 1, y: 40), width: 2)
+            }
         }
         
         // Draw X-axis markings
-        let xMarks: [CGFloat] = [20, 60, 100, 250, 500, 1024, 2048, 4096, 8192, 10240, 16384, 20480]
+        let xMarks: [CGFloat] = [20, 60, 100, 250, 500, 1000, 2000, 4000, 8000, 10000, 16000, 20000]
         
         for y in xMarks {
 
             let x = log10(y/2) - 1
             let sx = offset + x * scale
 
-            print(y, x, sx)
-
             var text: String
-            if Int(y) % 1024 == 0 {
-                text = String(format: "%dk", Int(y) / 1024)
+            if Int(y) % 1000 == 0 {
+                text = String(format: "%dk", Int(y) / 1000)
             } else {
                 text = String(describing: Int(y))
             }

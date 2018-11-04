@@ -13,9 +13,9 @@ class JumpToTimeEditorWindowController: NSWindowController, AsyncMessageSubscrib
     
     @IBOutlet weak var timePicker: IntervalPicker!
     
-    @IBOutlet weak var secondsFormatter: JumpToTimeValueFormatter!
+    @IBOutlet weak var secondsFormatter: DoubleValueFormatter!
     
-    @IBOutlet weak var percentageFormatter: JumpToTimeValueFormatter!
+    @IBOutlet weak var percentageFormatter: DoubleValueFormatter!
     
     @IBOutlet weak var txtSeconds: NSTextField!
     @IBOutlet weak var secondsStepper: NSStepper!

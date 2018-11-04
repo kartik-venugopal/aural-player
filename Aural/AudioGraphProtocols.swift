@@ -238,6 +238,8 @@ protocol FilterUnitProtocol {
     
     func removeFilterBands(_ indexSet: IndexSet)
     
+    func removeAllFilterBands()
+    
     func allFilterBands() -> [FilterBand]
     
     func getFilterBand(_ index: Int) -> FilterBand

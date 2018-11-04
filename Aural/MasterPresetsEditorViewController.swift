@@ -125,20 +125,20 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         eq10BandView.stateChanged()
         eq15BandView.stateChanged()
         
-        filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, {
-            (slider: RangeSlider) -> Void in
-            // Do nothing
-        })
-        
-        filterMidSlider.initialize(AppConstants.mid_min, AppConstants.mid_max, {
-            (slider: RangeSlider) -> Void in
-            // Do nothing
-        })
-        
-        filterTrebleSlider.initialize(AppConstants.treble_min, AppConstants.treble_max, {
-            (slider: RangeSlider) -> Void in
-            // Do nothing
-        })
+//        filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, {
+//            (slider: RangeSlider) -> Void in
+//            // Do nothing
+//        })
+//
+//        filterMidSlider.initialize(AppConstants.mid_min, AppConstants.mid_max, {
+//            (slider: RangeSlider) -> Void in
+//            // Do nothing
+//        })
+//
+//        filterTrebleSlider.initialize(AppConstants.treble_min, AppConstants.treble_max, {
+//            (slider: RangeSlider) -> Void in
+//            // Do nothing
+//        })
         
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }

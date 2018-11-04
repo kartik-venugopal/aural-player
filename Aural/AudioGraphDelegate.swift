@@ -561,6 +561,10 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         graph.removeFilterBands(indexSet)
     }
     
+    func removeAllFilterBands() {
+        graph.removeAllFilterBands()
+    }
+    
     func allFilterBands() -> [FilterBand] {
         return graph.allFilterBands()
     }

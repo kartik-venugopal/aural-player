@@ -166,6 +166,10 @@ extension NSView {
     func coLocate(_ other: NSView) {
         self.frame.origin = other.frame.origin
     }
+    
+    func redraw() {
+        self.setNeedsDisplay(self.bounds)
+    }
 }
 
 extension NSControl {

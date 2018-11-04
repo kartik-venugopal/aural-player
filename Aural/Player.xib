@@ -597,20 +597,20 @@ G1BhbiBTbGlkZXI
         </slider>
     </objects>
     <resources>
-        <image name="Bookmark" width="68" height="68"/>
-        <image name="Favorites-Off" width="256" height="256"/>
-        <image name="Favorites-On" width="256" height="256"/>
-        <image name="LoopOff" width="2.5120000839233398" height="2.1119999885559082"/>
-        <image name="MoreInfo" width="254" height="254"/>
-        <image name="NextTrack" width="109" height="69.599998474121094"/>
-        <image name="Pause" width="388" height="512"/>
-        <image name="Play" width="61.439998626708984" height="67.919998168945312"/>
-        <image name="PreviousTrack" width="109" height="69.599998474121094"/>
-        <image name="RepeatOff" width="256" height="256"/>
-        <image name="SeekBackward" width="106.80000305175781" height="69.599998474121094"/>
-        <image name="SeekForward" width="106.80000305175781" height="69.599998474121094"/>
+        <image name="Bookmark" width="27" height="27"/>
+        <image name="Favorites-Off" width="26" height="26"/>
+        <image name="Favorites-On" width="26" height="26"/>
+        <image name="LoopOff" width="0.49599999189376831" height="0.41600000858306885"/>
+        <image name="MoreInfo" width="25" height="25"/>
+        <image name="NextTrack" width="8.6400003433227539" height="5.5199999809265137"/>
+        <image name="Pause" width="39" height="51"/>
+        <image name="Play" width="12.239999771118164" height="13.680000305175781"/>
+        <image name="PreviousTrack" width="8.6400003433227539" height="5.5199999809265137"/>
+        <image name="RepeatOff" width="26" height="26"/>
+        <image name="SeekBackward" width="8.6400003433227539" height="5.5199999809265137"/>
+        <image name="SeekForward" width="8.6400003433227539" height="5.5199999809265137"/>
         <image name="ShowPlayingTrack" width="72" height="72"/>
-        <image name="ShuffleOff" width="256" height="256"/>
-        <image name="VolumeMedium" width="256" height="256"/>
+        <image name="ShuffleOff" width="26" height="26"/>
+        <image name="VolumeMedium" width="26" height="26"/>
     </resources>
 </document>

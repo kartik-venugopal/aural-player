@@ -823,6 +823,10 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         filterNode.removeBands(indexSet)
     }
     
+    func removeAllFilterBands() {
+        filterNode.removeAllBands()
+    }
+    
     func allFilterBands() -> [FilterBand] {
         return filterNode.allBands()
     }

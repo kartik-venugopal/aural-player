@@ -166,7 +166,7 @@ class OnOffImageAndTextButton: OnOffImageButton {
         if let onOffCell = self.cell as? OnOffImageAndTextButtonCell {
             
             onOffCell.highlightColor = color
-            self.setNeedsDisplay()
+            redraw()
         }
     }
     
@@ -177,7 +177,7 @@ class OnOffImageAndTextButton: OnOffImageButton {
         // Set the highlight state of the cell, if it is a OnOffImageAndTextButtonCell
         if let onOffCell = self.cell as? OnOffImageAndTextButtonCell {
             onOffCell.shouldHighlight = false
-            self.setNeedsDisplay()
+            redraw()
         }
     }
     
@@ -188,7 +188,7 @@ class OnOffImageAndTextButton: OnOffImageButton {
         // Set the highlight state of the cell, if it is a OnOffImageAndTextButtonCell
         if let onOffCell = self.cell as? OnOffImageAndTextButtonCell {
             onOffCell.shouldHighlight = true
-            self.setNeedsDisplay()
+            redraw()
         }
     }
 }
@@ -211,7 +211,7 @@ class EffectsUnitTabButton: OnOffImageButton {
         
         if let cell = self.cell as? EffectsUnitTabButtonCell {
             cell.updateState(.bypassed)
-            self.setNeedsDisplay()
+            redraw()
         }
     }
     
@@ -221,7 +221,7 @@ class EffectsUnitTabButton: OnOffImageButton {
         
         if let cell = self.cell as? EffectsUnitTabButtonCell {
             cell.updateState(.active)
-            self.setNeedsDisplay()
+            redraw()
         }
     }
     
@@ -232,7 +232,7 @@ class EffectsUnitTabButton: OnOffImageButton {
         
         if let cell = self.cell as? EffectsUnitTabButtonCell {
             cell.updateState(.suppressed)
-            self.setNeedsDisplay()
+            redraw()
         }
     }
     
