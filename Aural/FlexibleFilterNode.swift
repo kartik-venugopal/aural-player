@@ -178,6 +178,22 @@ class FilterBand {
         self.maxFreq = freq
         return self
     }
+    
+    static func bandPassBand(_ minFreq: Float, _ maxFreq: Float) -> FilterBand {
+        return FilterBand(.bandPass, minFreq, maxFreq)
+    }
+    
+    static func bandStopBand(_ minFreq: Float, _ maxFreq: Float) -> FilterBand {
+        return FilterBand(.bandStop, minFreq, maxFreq)
+    }
+    
+    static func lowPassBand(_ maxFreq: Float) -> FilterBand {
+        return FilterBand(.lowPass).withMaxFreq(maxFreq)
+    }
+    
+    static func highPassBand(_ minFreq: Float) -> FilterBand {
+        return FilterBand(.highPass).withMinFreq(minFreq)
+    }
 }
 
 protocol FilterNodeProtocol {

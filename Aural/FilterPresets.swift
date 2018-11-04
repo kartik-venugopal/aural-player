@@ -8,8 +8,7 @@ class FilterPresets {
         var map = [String: FilterPreset]()
         
         SystemDefinedFilterPresets.allValues.forEach({
-            
-            map[$0.rawValue] = FilterPreset($0.rawValue, $0.state, $0.bassBand, $0.midBand, $0.trebleBand, true)
+            map[$0.rawValue] = FilterPreset($0.rawValue, .active, $0.bands, true)
         })
         
         return map
@@ -36,9 +35,8 @@ class FilterPresets {
     }
     
     // Assume preset with this name doesn't already exist
-    static func addUserDefinedPreset(_ name: String, _ state: EffectsUnitState, _ bassBand: ClosedRange<Double>, _ midBand: ClosedRange<Double>, _ trebleBand: ClosedRange<Double>) {
-        
-        presets[name] = FilterPreset(name, state, bassBand, midBand, trebleBand, false)
+    static func addUserDefinedPreset(_ name: String, _ state: EffectsUnitState, _ bands: [FilterBand]) {
+        presets[name] = FilterPreset(name, state, bands, false)
     }
     
     static func presetWithNameExists(_ name: String) -> Bool {
@@ -71,16 +69,11 @@ class FilterPresets {
 
 class FilterPreset: EffectsUnitPreset {
     
-    let bassBand: ClosedRange<Double>
-    let midBand: ClosedRange<Double>
-    let trebleBand: ClosedRange<Double>
+    let bands: [FilterBand]
     
-    init(_ name: String, _ state: EffectsUnitState, _ bassBand: ClosedRange<Double>, _ midBand: ClosedRange<Double>, _ trebleBand: ClosedRange<Double>, _ systemDefined: Bool) {
+    init(_ name: String, _ state: EffectsUnitState, _ bands: [FilterBand], _ systemDefined: Bool) {
         
-        self.bassBand = bassBand
-        self.midBand = midBand
-        self.trebleBand = trebleBand
-        
+        self.bands = bands
         super.init(name, state, systemDefined)
     }
 }
@@ -94,55 +87,42 @@ fileprivate enum SystemDefinedFilterPresets: String {
     case nothingButBass = "Nothing but bass"
     case emphasizedVocals = "Emphasized vocals"
     case noBass = "No bass"
+    case noSubBass = "No sub-bass"
     case karaoke = "Karaoke"
     
-    static var allValues: [SystemDefinedFilterPresets] = [.passThrough, .nothingButBass, .emphasizedVocals, .noBass, .karaoke]
+    var bands: [FilterBand] {
+        
+        switch self {
+            
+        case .passThrough:  return FilterPresetsBands.passThrough
+            
+        case .nothingButBass:   return FilterPresetsBands.nothingButBass
+            
+        case .emphasizedVocals:     return FilterPresetsBands.emphasizedVocals
+            
+        case .noBass:   return FilterPresetsBands.noBass
+            
+        case .noSubBass:    return FilterPresetsBands.noSubBass
+            
+        case .karaoke:  return FilterPresetsBands.karaoke
+            
+        }
+    }
+    
+    static var allValues: [SystemDefinedFilterPresets] = [.passThrough, .nothingButBass, .emphasizedVocals, .noBass, .noSubBass, .karaoke]
     
     // Converts a user-friendly display name to an instance of FilterPresets
     static func fromDisplayName(_ displayName: String) -> SystemDefinedFilterPresets {
         return SystemDefinedFilterPresets(rawValue: displayName) ?? .passThrough
     }
+}
+
+fileprivate struct FilterPresetsBands {
     
-    var bassBand: ClosedRange<Double> {
-        
-        switch self {
-            
-        // Allow all bass
-        case .passThrough, .nothingButBass, .karaoke:  return AppConstants.bass_min...AppConstants.bass_min
-           
-        // Block all bass
-        case .emphasizedVocals, .noBass:   return AppConstants.bass_min...AppConstants.bass_max
-            
-        }
-    }
-    
-    var midBand: ClosedRange<Double> {
-        
-        switch self {
-            
-        // Allow all mids
-        case .passThrough, .emphasizedVocals, .noBass:  return AppConstants.mid_min...AppConstants.mid_min
-            
-        // Block all mids
-        case .nothingButBass, .karaoke:   return AppConstants.mid_min...AppConstants.mid_max
-            
-        }
-    }
-    
-    var trebleBand: ClosedRange<Double> {
-        
-        switch self {
-            
-        // Allow all treble
-        case .passThrough, .noBass, .karaoke:  return AppConstants.treble_min...AppConstants.treble_min
-            
-        // Block all treble
-        case .nothingButBass, .emphasizedVocals:   return AppConstants.treble_min...AppConstants.treble_max
-            
-        }
-    }
-    
-    var state: EffectsUnitState {
-        return .active
-    }
+    static let passThrough: [FilterBand] = []
+    static let nothingButBass: [FilterBand] = [FilterBand.bandPassBand(AppConstants.bass_min, AppConstants.bass_max)]
+    static let emphasizedVocals: [FilterBand] = [FilterBand.bandPassBand(AppConstants.mid_min, AppConstants.mid_max)]
+    static let noBass: [FilterBand] = [FilterBand.bandStopBand(AppConstants.bass_min, AppConstants.bass_max)]
+    static let noSubBass: [FilterBand] = [FilterBand.bandStopBand(AppConstants.subBass_min, AppConstants.subBass_max)]
+    static let karaoke: [FilterBand] = [FilterBand.bandStopBand(AppConstants.mid_min, AppConstants.mid_max)]
 }

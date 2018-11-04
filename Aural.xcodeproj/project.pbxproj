@@ -153,7 +153,7 @@
 		3E5F00D02153A09500A76C23 /* BookmarksMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00CF2153A09500A76C23 /* BookmarksMenuController.swift */; };
 		3E5F00D421543D3800A76C23 /* StringInputClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F00D321543D3800A76C23 /* StringInputClient.swift */; };
 		3E631F771F9A00C20068FD6A /* ConcurrencyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E631F761F9A00C20068FD6A /* ConcurrencyUtils.swift */; };
-		3E633C471F14C6530040ECBC /* MultiBandStopFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */; };
+		3E633C471F14C6530040ECBC /* FlexibleFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C461F14C6530040ECBC /* FlexibleFilterNode.swift */; };
 		3E633C491F14C9110040ECBC /* ParametricEQNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E633C481F14C9110040ECBC /* ParametricEQNode.swift */; };
 		3E65F6351FCC031F0058B7D4 /* AutoHideHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65F6341FCC031F0058B7D4 /* AutoHideHandler.swift */; };
 		3E6D75F81EFF79E0007F22A3 /* PlaylistInputEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */; };
@@ -474,7 +474,7 @@
 		3E5F00CF2153A09500A76C23 /* BookmarksMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksMenuController.swift; sourceTree = "<group>"; };
 		3E5F00D321543D3800A76C23 /* StringInputClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringInputClient.swift; sourceTree = "<group>"; };
 		3E631F761F9A00C20068FD6A /* ConcurrencyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrencyUtils.swift; sourceTree = "<group>"; };
-		3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiBandStopFilterNode.swift; sourceTree = "<group>"; };
+		3E633C461F14C6530040ECBC /* FlexibleFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleFilterNode.swift; sourceTree = "<group>"; };
 		3E633C481F14C9110040ECBC /* ParametricEQNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametricEQNode.swift; sourceTree = "<group>"; };
 		3E65F6341FCC031F0058B7D4 /* AutoHideHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoHideHandler.swift; sourceTree = "<group>"; };
 		3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistInputEventHandler.swift; sourceTree = "<group>"; };
@@ -1149,7 +1149,7 @@
 				3E4F9FD41FC9158100FA4096 /* VariableRateNode.swift */,
 				3E633C481F14C9110040ECBC /* ParametricEQNode.swift */,
 				3E2CBDAD2189072800BD68B2 /* EQMapping.swift */,
-				3E633C461F14C6530040ECBC /* MultiBandStopFilterNode.swift */,
+				3E633C461F14C6530040ECBC /* FlexibleFilterNode.swift */,
 			);
 			name = CustomNodes;
 			sourceTree = "<group>";
@@ -2016,7 +2016,7 @@
 				3E46F55C1F2A7A36007CD384 /* CheckRadioButtonCell.swift in Sources */,
 				3E582E7B1F6A5B440040A092 /* MetadataReader.swift in Sources */,
 				3EF18475217C8E8A00D24F39 /* FFT.swift in Sources */,
-				3E633C471F14C6530040ECBC /* MultiBandStopFilterNode.swift in Sources */,
+				3E633C471F14C6530040ECBC /* FlexibleFilterNode.swift in Sources */,
 				3E9847841F5CF3F6001A2D28 /* AuralMenuController.swift in Sources */,
 				3EB3A6DC2185105A003C7F07 /* GapView.swift in Sources */,
 				3E357B501F9C798500C8F7B1 /* FlatPlaylistProtocols.swift in Sources */,

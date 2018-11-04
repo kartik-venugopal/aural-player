@@ -227,14 +227,10 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         // Filter state
         let filterState = getFilterState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-//        let bassBand = getFilterBassBand()
-//        let midBand = getFilterMidBand()
-//        let trebleBand = getFilterTrebleBand()
-//
-//        let filterPreset = FilterPreset(dummyPresetName, filterState, Double(bassBand.min)...Double(bassBand.max), Double(midBand.min)...Double(midBand.max), Double(trebleBand.min)...Double(trebleBand.max), false)
-//
-//        // Save the new preset
-//        MasterPresets.addUserDefinedPreset(presetName, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset)
+        let filterPreset = FilterPreset(dummyPresetName, filterState, allFilterBands(), false)
+
+        // Save the new preset
+        MasterPresets.addUserDefinedPreset(presetName, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset)
     }
     
     func getSettingsAsMasterPreset() -> MasterPreset {
@@ -281,13 +277,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         // Filter state
         let filterState = getFilterState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-//        let bassBand = getFilterBassBand()
-//        let midBand = getFilterMidBand()
-//        let trebleBand = getFilterTrebleBand()
-        
-//        let filterPreset = FilterPreset(dummyPresetName, filterState, Double(bassBand.min)...Double(bassBand.max), Double(midBand.min)...Double(midBand.max), Double(trebleBand.min)...Double(trebleBand.max), false)
-        
-        let filterPreset = FilterPreset(dummyPresetName, filterState, Double(0)...Double(0), Double(0)...Double(0), Double(0)...Double(0), false)
+        let filterPreset = FilterPreset(dummyPresetName, filterState, filterNode.allBands(), false)
         
         return MasterPreset("_masterPreset_for_soundProfile", eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)
     }
