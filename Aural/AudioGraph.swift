@@ -128,9 +128,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         // Filter
         filterNode.bypass = state.filterState != .active
         filterSuppressed = state.filterState == .suppressed
-//        filterNode.setFilterBassBand(state.filterBassMin, state.filterBassMax)
-//        filterNode.setFilterMidBand(state.filterMidMin, state.filterMidMax)
-//        filterNode.setFilterTrebleBand(state.filterTrebleMin, state.filterTrebleMax)
+        filterNode.addBands(state.filterBands)
         FilterPresets.loadUserDefinedPresets(state.filterUserPresets)
     }
 
@@ -899,13 +897,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         
         // Filter
         state.filterState = getFilterState()
-//        let filterBands = filterNode.getBands()
-//        state.filterBassMin = filterBands.bass.min
-//        state.filterBassMax = filterBands.bass.max
-//        state.filterMidMin = filterBands.mid.min
-//        state.filterMidMax = filterBands.mid.max
-//        state.filterTrebleMin = filterBands.treble.min
-//        state.filterTrebleMax = filterBands.treble.max
+        state.filterBands = filterNode.allBands()
         state.filterUserPresets = FilterPresets.userDefinedPresets
         
         return state
