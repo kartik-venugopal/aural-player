@@ -278,7 +278,7 @@
     <resources>
         <image name="Add" width="25" height="25"/>
         <image name="Clear" width="5.1999998092651367" height="6"/>
-        <image name="EditFilterBand" width="379" height="362"/>
+        <image name="EditFilterBand" width="27" height="25"/>
         <image name="Remove" width="27" height="27"/>
         <image name="SaveEQPreset" width="26" height="26"/>
     </resources>

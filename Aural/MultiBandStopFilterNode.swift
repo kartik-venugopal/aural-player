@@ -32,6 +32,10 @@ class FlexibleFilterNode: AVAudioUnitEQ, FilterNodeProtocol {
         })
     }
     
+    func addBands(_ bands: [FilterBand]) {
+        bands.forEach({_ = addBand($0)})
+    }
+    
     func addBand(_ band: FilterBand) -> Int {
         
         // Should never happen, but for safety
@@ -157,6 +161,12 @@ class FilterBand {
     
     init(_ type: FilterBandType) {
         self.type = type
+    }
+    
+    init(_ type: FilterBandType, _ minFreq: Float?, _ maxFreq: Float?) {
+        self.type = type
+        self.minFreq = minFreq
+        self.maxFreq = maxFreq
     }
     
     func withMinFreq(_ freq: Float) -> FilterBand {

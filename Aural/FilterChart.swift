@@ -10,13 +10,6 @@ class FilterChart: NSView {
     private let bandStopColor: NSColor = NSColor(calibratedRed: 0.8, green: 0, blue: 0, alpha: 1)
     private let bandPassColor: NSColor = NSColor(calibratedRed: 0, green: 0.8, blue: 0, alpha: 1)
     
-    override func awakeFromNib() {
-        
-        _ = graph.addFilterBand(FilterBand(.bandStop).withMinFreq(25).withMaxFreq(60))
-        _ = graph.addFilterBand(FilterBand(.bandStop).withMinFreq(250).withMaxFreq(300))
-        _ = graph.addFilterBand(FilterBand(.bandPass).withMinFreq(16000).withMaxFreq(20000))
-    }
-    
     override func draw(_ dirtyRect: NSRect) {
         
         var drawPath = NSBezierPath.init(rect: dirtyRect)
