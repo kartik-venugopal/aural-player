@@ -20,8 +20,8 @@ class AppConstants {
     static let supportedFileTypes_open: [String] = ["mp3", "m4a", "aac", "aif", "aiff", "aifc", "caf", "wav", m3u, m3u8, AVFileType.mp3.rawValue, AVFileType.m4a.rawValue, AVFileType.aiff.rawValue, AVFileType.aifc.rawValue, AVFileType.caf.rawValue, AVFileType.wav.rawValue]
     
     // Audible range (frequencies)
-    static let audibleRangeMin: Double = 20      // 20 Hz
-    static let audibleRangeMax: Double = 20000   // 20 KHz
+    static let audibleRangeMin: Float = 20      // 20 Hz
+    static let audibleRangeMax: Float = 20000   // 20 KHz
     
     static let eq10BandFrequencies: [Float] = [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]
     static let eq15BandFrequencies: [Float] = [25, 40, 63, 100, 160, 250, 400, 630, 1000, 1600, 2500, 4000, 6300, 10000, 16000]
@@ -30,15 +30,18 @@ class AppConstants {
     static let eqGainMin: Float = -20      // -20 dB
     static let eqGainMax: Float = 20      // -20 dB
     
+    static let subBass_min: Float = audibleRangeMin
+    static let subBass_max: Float = 60
+    
     // Frequency ranges for each of the 3 bands (in Hz)
-    static let bass_min: Double = audibleRangeMin
-    static let bass_max: Double = 250
+    static let bass_min: Float = audibleRangeMin
+    static let bass_max: Float = 250
     
-    static let mid_min: Double = bass_max
-    static let mid_max: Double = 2048
+    static let mid_min: Float = bass_max
+    static let mid_max: Float = 4000
     
-    static let treble_min: Double = mid_max
-    static let treble_max: Double = audibleRangeMax
+    static let treble_min: Float = mid_max
+    static let treble_max: Float = audibleRangeMax
     
     // Units for different effects parameters
     

@@ -323,22 +323,22 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     private func renderFilterPreview(_ preset: FilterPreset) {
         
-        let bassBand = preset.bassBand
-        filterBassSlider.start = Double(bassBand.lowerBound)
-        filterBassSlider.end = Double(bassBand.upperBound)
-        lblFilterBassRange.stringValue = ValueFormatter.formatFilterFrequencyRange(bassBand.lowerBound, bassBand.upperBound)
-        
-        let midBand = preset.midBand
-        filterMidSlider.start = Double(midBand.lowerBound)
-        filterMidSlider.end = Double(midBand.upperBound)
-        lblFilterMidRange.stringValue = ValueFormatter.formatFilterFrequencyRange(midBand.lowerBound, midBand.upperBound)
-        
-        let trebleBand = preset.trebleBand
-        filterTrebleSlider.start = Double(trebleBand.lowerBound)
-        filterTrebleSlider.end = Double(trebleBand.upperBound)
-        lblFilterTrebleRange.stringValue = ValueFormatter.formatFilterFrequencyRange(trebleBand.lowerBound, trebleBand.upperBound)
-        
-        [filterBassSlider, filterMidSlider, filterTrebleSlider].forEach({$0?.unitState = preset.state})
+//        let bassBand = preset.bassBand
+//        filterBassSlider.start = Double(bassBand.lowerBound)
+//        filterBassSlider.end = Double(bassBand.upperBound)
+//        lblFilterBassRange.stringValue = ValueFormatter.formatFilterFrequencyRange(bassBand.lowerBound, bassBand.upperBound)
+//
+//        let midBand = preset.midBand
+//        filterMidSlider.start = Double(midBand.lowerBound)
+//        filterMidSlider.end = Double(midBand.upperBound)
+//        lblFilterMidRange.stringValue = ValueFormatter.formatFilterFrequencyRange(midBand.lowerBound, midBand.upperBound)
+//
+//        let trebleBand = preset.trebleBand
+//        filterTrebleSlider.start = Double(trebleBand.lowerBound)
+//        filterTrebleSlider.end = Double(trebleBand.upperBound)
+//        lblFilterTrebleRange.stringValue = ValueFormatter.formatFilterFrequencyRange(trebleBand.lowerBound, trebleBand.upperBound)
+//        
+//        [filterBassSlider, filterMidSlider, filterTrebleSlider].forEach({$0?.unitState = preset.state})
     }
     
     // MARK: View delegate functions

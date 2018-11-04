@@ -440,14 +440,24 @@ class AudioGraphState: PersistentState {
             var filterPresetDict = [NSString: AnyObject]()
             filterPresetDict["state"] = preset.filter.state.rawValue as AnyObject
             
-            filterPresetDict["bassMin"] = preset.filter.bassBand.lowerBound as NSNumber
-            filterPresetDict["bassMax"] = preset.filter.bassBand.upperBound as NSNumber
+            var bandsArr = [[NSString: AnyObject]]()
+            for band in preset.filter.bands {
+                
+                var bandDict = [NSString: AnyObject]()
+                bandDict["type"] = band.type.rawValue as AnyObject
+                
+                if let minFreq = band.minFreq {
+                    bandDict["minFreq"] = minFreq as NSNumber
+                }
+                
+                if let maxFreq = band.maxFreq {
+                    bandDict["maxFreq"] = maxFreq as NSNumber
+                }
+                
+                bandsArr.append(bandDict)
+            }
             
-            filterPresetDict["midMin"] = preset.filter.midBand.lowerBound as NSNumber
-            filterPresetDict["midMax"] = preset.filter.midBand.upperBound as NSNumber
-            
-            filterPresetDict["trebleMin"] = preset.filter.trebleBand.lowerBound as NSNumber
-            filterPresetDict["trebleMax"] = preset.filter.trebleBand.upperBound as NSNumber
+            filterPresetDict["bands"] = NSArray(array: bandsArr)
             
             presetDict["filter"] = filterPresetDict as AnyObject
             
@@ -596,26 +606,35 @@ class AudioGraphState: PersistentState {
         
         filterDict["bands"] = NSArray(array: bandsArr)
         
-        // TODO
+        var filterUserPresetsArr = [[NSString: AnyObject]]()
+        for preset in filterUserPresets {
+
+            var presetDict = [NSString: AnyObject]()
+            presetDict["name"] = preset.name as AnyObject
+
+            var bandsArr = [[NSString: AnyObject]]()
+            for band in filterBands {
+                
+                var bandDict = [NSString: AnyObject]()
+                bandDict["type"] = band.type.rawValue as AnyObject
+                
+                if let minFreq = band.minFreq {
+                    bandDict["minFreq"] = minFreq as NSNumber
+                }
+                
+                if let maxFreq = band.maxFreq {
+                    bandDict["maxFreq"] = maxFreq as NSNumber
+                }
+                
+                bandsArr.append(bandDict)
+            }
+            
+            presetDict["bands"] = NSArray(array: bandsArr)
+
+            filterUserPresetsArr.append(presetDict)
+        }
         
-//        var filterUserPresetsArr = [[NSString: AnyObject]]()
-//        for preset in filterUserPresets {
-//
-//            var presetDict = [NSString: AnyObject]()
-//            presetDict["name"] = preset.name as AnyObject
-//
-//            presetDict["bassMin"] = preset.bassBand.lowerBound as NSNumber
-//            presetDict["bassMax"] = preset.bassBand.upperBound as NSNumber
-//
-//            presetDict["midMin"] = preset.midBand.lowerBound as NSNumber
-//            presetDict["midMax"] = preset.midBand.upperBound as NSNumber
-//
-//            presetDict["trebleMin"] = preset.trebleBand.lowerBound as NSNumber
-//            presetDict["trebleMax"] = preset.trebleBand.upperBound as NSNumber
-//
-//            filterUserPresetsArr.append(presetDict)
-//        }
-//        filterDict["userPresets"] = NSArray(array: filterUserPresetsArr)
+        filterDict["userPresets"] = NSArray(array: filterUserPresetsArr)
         
         map["filter"] = filterDict as AnyObject
         
@@ -834,16 +853,8 @@ class AudioGraphState: PersistentState {
                     
                     if let filterDict = $0["filter"] as? NSDictionary {
                         
+                        var presetBands: [FilterBand] = []
                         var filterPresetState: EffectsUnitState = .active
-                        
-                        var filterPresetBassMin: Double = Double(AppDefaults.filterBassMin)
-                        var filterPresetBassMax: Double = Double(AppDefaults.filterBassMax)
-                        
-                        var filterPresetMidMin: Double = Double(AppDefaults.filterMidMin)
-                        var filterPresetMidMax: Double = Double(AppDefaults.filterMidMax)
-                        
-                        var filterPresetTrebleMin: Double = Double(AppDefaults.filterTrebleMin)
-                        var filterPresetTrebleMax: Double = Double(AppDefaults.filterTrebleMax)
                     
                         if let state = filterDict["state"] as? String {
                             
@@ -852,31 +863,31 @@ class AudioGraphState: PersistentState {
                             }
                         }
                         
-                        if let bassMin = (filterDict["bassMin"] as? NSNumber) {
-                            filterPresetBassMin = bassMin.doubleValue
+                        if let bands = filterDict["bands"] as? [NSDictionary] {
+                            
+                            for band in bands {
+                                
+                                var bandType: FilterBandType = .bandStop
+                                var bandMinFreq: Float?
+                                var bandMaxFreq: Float?
+                                
+                                if let typeStr = band["type"] as? String, let type = FilterBandType(rawValue: typeStr) {
+                                    bandType = type
+                                }
+                                
+                                if let minFreq = band["minFreq"] as? NSNumber {
+                                    bandMinFreq = minFreq.floatValue
+                                }
+                                
+                                if let maxFreq = band["maxFreq"] as? NSNumber {
+                                    bandMaxFreq = maxFreq.floatValue
+                                }
+                                
+                               presetBands.append(FilterBand(bandType, bandMinFreq, bandMaxFreq))
+                            }
                         }
                         
-                        if let bassMax = (filterDict["bassMax"] as? NSNumber) {
-                            filterPresetBassMax = bassMax.doubleValue
-                        }
-                        
-                        if let midMin = (filterDict["midMin"] as? NSNumber) {
-                            filterPresetMidMin = midMin.doubleValue
-                        }
-                        
-                        if let midMax = (filterDict["midMax"] as? NSNumber) {
-                            filterPresetMidMax = midMax.doubleValue
-                        }
-                        
-                        if let trebleMin = (filterDict["trebleMin"] as? NSNumber) {
-                            filterPresetTrebleMin = trebleMin.doubleValue
-                        }
-                        
-                        if let trebleMax = (filterDict["trebleMax"] as? NSNumber) {
-                            filterPresetTrebleMax = trebleMax.doubleValue
-                        }
-                        
-                        filterPreset = FilterPreset("", filterPresetState, filterPresetBassMin...filterPresetBassMax, filterPresetMidMin...filterPresetMidMax, filterPresetTrebleMin...filterPresetTrebleMax, false)
+                        filterPreset = FilterPreset("", filterPresetState, presetBands, false)
                     }
                     
                     if let presetName = presetName {
@@ -929,7 +940,6 @@ class AudioGraphState: PersistentState {
                 userPresets.forEach({
                     
                     var presetName: String?
-                    let presetState: EffectsUnitState = .active
                     
                     // TODO: Get this from a default value constant
                     var presetGlobalGain: Float = 0
@@ -962,7 +972,7 @@ class AudioGraphState: PersistentState {
                     
                     // Preset must have a name
                     if let presetName = presetName {
-                        audioGraphState.eqUserPresets.append(EQPreset(presetName, presetState, presetBands, presetGlobalGain, false))
+                        audioGraphState.eqUserPresets.append(EQPreset(presetName, .active, presetBands, presetGlobalGain, false))
                     }
                 })
             }
@@ -990,7 +1000,6 @@ class AudioGraphState: PersistentState {
                 userPresets.forEach({
                     
                     var presetName: String?
-                    let presetState: EffectsUnitState = .active
                     var presetPitch: Float?
                     var presetOverlap: Float?
                     
@@ -1008,7 +1017,7 @@ class AudioGraphState: PersistentState {
                     
                     // Preset must have a name
                     if let presetName = presetName {
-                        audioGraphState.pitchUserPresets.append(PitchPreset(presetName, presetState, presetPitch!, presetOverlap!, false))
+                        audioGraphState.pitchUserPresets.append(PitchPreset(presetName, .active, presetPitch!, presetOverlap!, false))
                     }
                 })
             }
@@ -1040,7 +1049,6 @@ class AudioGraphState: PersistentState {
                 userPresets.forEach({
                     
                     var presetName: String?
-                    let presetState: EffectsUnitState = .active
                     var presetRate: Float?
                     var presetOverlap: Float?
                     var presetPitchShift: Bool?
@@ -1063,7 +1071,7 @@ class AudioGraphState: PersistentState {
                     
                     // Preset must have a name
                     if let presetName = presetName {
-                        audioGraphState.timeUserPresets.append(TimePreset(presetName, presetState, presetRate!,  presetOverlap!, presetPitchShift!, false))
+                        audioGraphState.timeUserPresets.append(TimePreset(presetName, .active, presetRate!,  presetOverlap!, presetPitchShift!, false))
                     }
                 })
             }
@@ -1093,7 +1101,6 @@ class AudioGraphState: PersistentState {
                 userPresets.forEach({
                     
                     var presetName: String?
-                    let presetState: EffectsUnitState = .active
                     var presetSpace: String?
                     var presetAmount: Float?
                     
@@ -1112,7 +1119,7 @@ class AudioGraphState: PersistentState {
                     // Preset must have a name
                     if let presetName = presetName {
                         
-                        audioGraphState.reverbUserPresets.append(ReverbPreset(presetName, presetState, ReverbSpaces(rawValue: presetSpace!)!, presetAmount!, false))
+                        audioGraphState.reverbUserPresets.append(ReverbPreset(presetName, .active, ReverbSpaces(rawValue: presetSpace!)!, presetAmount!, false))
                     }
                 })
             }
@@ -1148,7 +1155,6 @@ class AudioGraphState: PersistentState {
                 userPresets.forEach({
                     
                     var presetName: String?
-                    let presetState: EffectsUnitState = .active
                     var presetAmount: Float?
                     var presetTime: Double?
                     var presetFeedback: Float?
@@ -1177,7 +1183,7 @@ class AudioGraphState: PersistentState {
                     // Preset must have a name
                     if let presetName = presetName {
                         
-                        audioGraphState.delayUserPresets.append(DelayPreset(presetName, presetState, presetAmount!, presetTime!, presetFeedback!, presetCutoff!, false))
+                        audioGraphState.delayUserPresets.append(DelayPreset(presetName, .active, presetAmount!, presetTime!, presetFeedback!, presetCutoff!, false))
                     }
                 })
             }
@@ -1222,49 +1228,39 @@ class AudioGraphState: PersistentState {
                 userPresets.forEach({
                     
                     var presetName: String?
-                    let presetState: EffectsUnitState = .active
-                    
-                    var presetBassMin: Double?
-                    var presetBassMax: Double?
-                    
-                    var presetMidMin: Double?
-                    var presetMidMax: Double?
-                    
-                    var presetTrebleMin: Double?
-                    var presetTrebleMax: Double?
+                    var presetBands: [FilterBand] = []
                     
                     if let name = $0["name"] as? String {
                         presetName = name
                     }
                     
-                    if let bassMin = $0["bassMin"] as? NSNumber {
-                        presetBassMin = bassMin.doubleValue
-                    }
-                    
-                    if let bassMax = $0["bassMax"] as? NSNumber {
-                        presetBassMax = bassMax.doubleValue
-                    }
-                    
-                    if let midMin = $0["midMin"] as? NSNumber {
-                        presetMidMin = midMin.doubleValue
-                    }
-                    
-                    if let midMax = $0["midMax"] as? NSNumber {
-                        presetMidMax = midMax.doubleValue
-                    }
-                    
-                    if let trebleMin = $0["trebleMin"] as? NSNumber {
-                        presetTrebleMin = trebleMin.doubleValue
-                    }
-                    
-                    if let trebleMax = $0["trebleMax"] as? NSNumber {
-                        presetTrebleMax = trebleMax.doubleValue
+                    if let bands = $0["bands"] as? [NSDictionary] {
+                        
+                        for band in bands {
+                            
+                            var bandType: FilterBandType = .bandStop
+                            var bandMinFreq: Float?
+                            var bandMaxFreq: Float?
+                            
+                            if let typeStr = band["type"] as? String, let type = FilterBandType(rawValue: typeStr) {
+                                bandType = type
+                            }
+                            
+                            if let minFreq = band["minFreq"] as? NSNumber {
+                                bandMinFreq = minFreq.floatValue
+                            }
+                            
+                            if let maxFreq = band["maxFreq"] as? NSNumber {
+                                bandMaxFreq = maxFreq.floatValue
+                            }
+                            
+                            presetBands.append(FilterBand(bandType, bandMinFreq, bandMaxFreq))
+                        }
                     }
                     
                     // Preset must have a name
                     if let presetName = presetName {
-                        
-                        audioGraphState.filterUserPresets.append(FilterPreset(presetName, presetState, presetBassMin!...presetBassMax!, presetMidMin!...presetMidMax!, presetTrebleMin!...presetTrebleMax!, false))
+                        audioGraphState.filterUserPresets.append(FilterPreset(presetName, .active, presetBands, false))
                     }
                 })
             }
@@ -1670,14 +1666,24 @@ class SoundProfilesState: PersistentState {
             var filterDict = [NSString: AnyObject]()
             filterDict["state"] = effects.filter.state.rawValue as AnyObject
             
-            filterDict["bassMin"] = effects.filter.bassBand.lowerBound as NSNumber
-            filterDict["bassMax"] = effects.filter.bassBand.upperBound as NSNumber
+            var bandsArr = [[NSString: AnyObject]]()
+            for band in effects.filter.bands {
+                
+                var bandDict = [NSString: AnyObject]()
+                bandDict["type"] = band.type.rawValue as AnyObject
+                
+                if let minFreq = band.minFreq {
+                    bandDict["minFreq"] = minFreq as NSNumber
+                }
+                
+                if let maxFreq = band.maxFreq {
+                    bandDict["maxFreq"] = maxFreq as NSNumber
+                }
+                
+                bandsArr.append(bandDict)
+            }
             
-            filterDict["midMin"] = effects.filter.midBand.lowerBound as NSNumber
-            filterDict["midMax"] = effects.filter.midBand.upperBound as NSNumber
-            
-            filterDict["trebleMin"] = effects.filter.trebleBand.lowerBound as NSNumber
-            filterDict["trebleMax"] = effects.filter.trebleBand.upperBound as NSNumber
+            filterDict["bands"] = NSArray(array: bandsArr)
             
             effectsDict["filter"] = filterDict as AnyObject
             
@@ -1889,17 +1895,9 @@ class SoundProfilesState: PersistentState {
                 // Filter preset
                 
                 if let filterDict = effectsDict["filter"] as? NSDictionary {
-                    
+
                     var filterPresetState: EffectsUnitState = .active
-                    
-                    var filterPresetBassMin: Double = Double(AppDefaults.filterBassMin)
-                    var filterPresetBassMax: Double = Double(AppDefaults.filterBassMax)
-                    
-                    var filterPresetMidMin: Double = Double(AppDefaults.filterMidMin)
-                    var filterPresetMidMax: Double = Double(AppDefaults.filterMidMax)
-                    
-                    var filterPresetTrebleMin: Double = Double(AppDefaults.filterTrebleMin)
-                    var filterPresetTrebleMax: Double = Double(AppDefaults.filterTrebleMax)
+                    var presetBands: [FilterBand] = []
                     
                     if let state = filterDict["state"] as? String {
                         
@@ -1908,31 +1906,31 @@ class SoundProfilesState: PersistentState {
                         }
                     }
                     
-                    if let bassMin = (filterDict["bassMin"] as? NSNumber) {
-                        filterPresetBassMin = bassMin.doubleValue
+                    if let bands = filterDict["bands"] as? [NSDictionary] {
+                        
+                        for band in bands {
+                            
+                            var bandType: FilterBandType = .bandStop
+                            var bandMinFreq: Float?
+                            var bandMaxFreq: Float?
+                            
+                            if let typeStr = band["type"] as? String, let type = FilterBandType(rawValue: typeStr) {
+                                bandType = type
+                            }
+                            
+                            if let minFreq = band["minFreq"] as? NSNumber {
+                                bandMinFreq = minFreq.floatValue
+                            }
+                            
+                            if let maxFreq = band["maxFreq"] as? NSNumber {
+                                bandMaxFreq = maxFreq.floatValue
+                            }
+                            
+                            presetBands.append(FilterBand(bandType, bandMinFreq, bandMaxFreq))
+                        }
                     }
                     
-                    if let bassMax = (filterDict["bassMax"] as? NSNumber) {
-                        filterPresetBassMax = bassMax.doubleValue
-                    }
-                    
-                    if let midMin = (filterDict["midMin"] as? NSNumber) {
-                        filterPresetMidMin = midMin.doubleValue
-                    }
-                    
-                    if let midMax = (filterDict["midMax"] as? NSNumber) {
-                        filterPresetMidMax = midMax.doubleValue
-                    }
-                    
-                    if let trebleMin = (filterDict["trebleMin"] as? NSNumber) {
-                        filterPresetTrebleMin = trebleMin.doubleValue
-                    }
-                    
-                    if let trebleMax = (filterDict["trebleMax"] as? NSNumber) {
-                        filterPresetTrebleMax = trebleMax.doubleValue
-                    }
-                    
-                    filterPreset = FilterPreset("", filterPresetState, filterPresetBassMin...filterPresetBassMax, filterPresetMidMin...filterPresetMidMax, filterPresetTrebleMin...filterPresetTrebleMax, false)
+                    filterPreset = FilterPreset("", filterPresetState, presetBands, false)
                 }
                 
                 let effects = MasterPreset("masterPreset_for_soundProfile", eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)
