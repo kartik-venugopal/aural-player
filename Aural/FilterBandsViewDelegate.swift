@@ -1,11 +1,37 @@
 import Cocoa
 
-class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
+protocol FilterBandsDataSource {
+    
+    func countFilterBands() -> Int
+    
+    func getFilterBand(_ index: Int) -> FilterBand
+}
+
+class AudioGraphFilterBandsDataSource: FilterBandsDataSource {
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
-    func numberOfRows(in tableView: NSTableView) -> Int {
+    init(_ graph: AudioGraphDelegateProtocol) {
+        self.graph = graph
+    }
+    
+    func countFilterBands() -> Int {
         return graph.allFilterBands().count
+    }
+    
+    func getFilterBand(_ index: Int) -> FilterBand {
+        return graph.getFilterBand(index)
+    }
+}
+
+class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
+    
+    var dataSource: FilterBandsDataSource?
+    
+    var allowSelection: Bool = true
+    
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return dataSource?.countFilterBands() ?? 0
     }
     
     // Returns a view for a single row
@@ -15,7 +41,7 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let band = graph.getFilterBand(row)
+        let band = dataSource!.getFilterBand(row)
         
         switch tableColumn!.identifier.rawValue {
             
@@ -77,6 +103,11 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
         }
         
         return nil
+    }
+    
+    // Completely disable row selection
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+        return allowSelection
     }
 }
 

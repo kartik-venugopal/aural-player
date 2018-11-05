@@ -5,7 +5,7 @@ class FilterChart: NSView {
     var barRadius: CGFloat {return 1}
     var barColoredGradient: NSGradient {return Colors.neutralSliderBarColoredGradient}
     
-    private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    var bandsDataFunction: (() -> [FilterBand]) = {() -> [FilterBand] in return []}
     
     private let bandStopColor: NSColor = NSColor(calibratedRed: 0.8, green: 0, blue: 0, alpha: 1)
     private let bandPassColor: NSColor = NSColor(calibratedRed: 0, green: 0.8, blue: 0, alpha: 1)
@@ -18,16 +18,17 @@ class FilterChart: NSView {
         
         let offset: CGFloat = 12
         let width = self.frame.width - 2 * offset
+        let height = self.frame.height - 25
         let scale: CGFloat = width / 3
         
-        let frameRect: NSRect = NSRect(x: offset, y: 20, width: width, height: 20)
+        let frameRect: NSRect = NSRect(x: offset, y: 20, width: width, height: height)
         
         drawPath = NSBezierPath.init(rect: frameRect)
         NSColor.lightGray.setStroke()
         drawPath.stroke()
         
         // Draw bands
-        let bands = graph.allFilterBands()
+        let bands = bandsDataFunction()
         
         for band in bands {
             
@@ -46,7 +47,7 @@ class FilterChart: NSView {
                 
                 let col = band.type == .bandStop ? bandStopColor : bandPassColor
                 
-                let brect = NSRect(x: rx1, y: 20, width: rx2 - rx1, height: 20)
+                let brect = NSRect(x: rx1, y: 20, width: rx2 - rx1, height: height)
                 drawPath = NSBezierPath.init(rect: brect)
                 col.setFill()
                 drawPath.fill()
@@ -57,8 +58,8 @@ class FilterChart: NSView {
                 let x = log10(f/2) - 1
                 let rx = offset + CGFloat(x) * scale
                 
-                GraphicsUtils.drawLine(bandPassColor, pt1: NSPoint(x: rx - 1, y: 20), pt2: NSPoint(x: rx - 1, y: 40), width: 2)
-                GraphicsUtils.drawLine(bandStopColor, pt1: NSPoint(x: rx + 1, y: 20), pt2: NSPoint(x: rx + 1, y: 40), width: 2)
+                GraphicsUtils.drawLine(bandPassColor, pt1: NSPoint(x: rx - 1, y: 20), pt2: NSPoint(x: rx - 1, y: 20 + height), width: 2)
+                GraphicsUtils.drawLine(bandStopColor, pt1: NSPoint(x: rx + 1, y: 20), pt2: NSPoint(x: rx + 1, y: 20 + height), width: 2)
                 
             case .highPass:
                 
@@ -66,8 +67,8 @@ class FilterChart: NSView {
                 let x = log10(f/2) - 1
                 let rx = offset + CGFloat(x) * scale
                 
-                GraphicsUtils.drawLine(bandStopColor, pt1: NSPoint(x: rx - 1, y: 20), pt2: NSPoint(x: rx - 1, y: 40), width: 2)
-                GraphicsUtils.drawLine(bandPassColor, pt1: NSPoint(x: rx + 1, y: 20), pt2: NSPoint(x: rx + 1, y: 40), width: 2)
+                GraphicsUtils.drawLine(bandStopColor, pt1: NSPoint(x: rx - 1, y: 20), pt2: NSPoint(x: rx - 1, y: 20 + height), width: 2)
+                GraphicsUtils.drawLine(bandPassColor, pt1: NSPoint(x: rx + 1, y: 20), pt2: NSPoint(x: rx + 1, y: 20 + height), width: 2)
             }
         }
         
@@ -97,11 +98,5 @@ class FilterChart: NSView {
                 GraphicsUtils.drawLine(NSColor.gray, pt1: NSPoint(x: sx, y: 16), pt2: NSPoint(x: sx, y: 24), width: 2)
             }
         }
-        
-//        var tr = NSRect(x: 5, y: 5, width: 50, height: 15)
-//        GraphicsUtils.drawTextInRect(tr, "20", NSColor.red, Fonts.gillSans10Font)
-//
-//        tr = NSRect(x: 185, y: 5, width: 50, height: 15)
-//        GraphicsUtils.drawTextInRect(tr, "200", NSColor.red, Fonts.gillSans10Font)
     }
 }

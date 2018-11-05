@@ -4,9 +4,13 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     @IBOutlet weak var editorView: NSTableView!
     
-    @IBOutlet weak var lblFilterBassRange: NSTextField!
-    
     @IBOutlet weak var previewBox: NSBox!
+    
+    @IBOutlet weak var bandsTable: NSTableView!
+    @IBOutlet weak var tableViewDelegate: FilterBandsViewDelegate!
+    private var bandsDataSource: PresetFilterBandsDataSource = PresetFilterBandsDataSource()
+    
+    @IBOutlet weak var chart: FilterChart!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
@@ -15,6 +19,16 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     override var nibName: String? {return "FilterPresetsEditor"}
     
     override func viewDidLoad() {
+        
+        previewBox.hide()
+        
+        chart.bandsDataFunction = {() -> [FilterBand] in
+            return self.getFilterChartBands()
+        }
+        
+        tableViewDelegate.dataSource = bandsDataSource
+        tableViewDelegate.allowSelection = false
+        
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
     
@@ -76,22 +90,18 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     private func renderPreview(_ preset: FilterPreset) {
         
-//        let bassBand = preset.bassBand
-//        filterBassSlider.start = Double(bassBand.lowerBound)
-//        filterBassSlider.end = Double(bassBand.upperBound)
-//        lblFilterBassRange.stringValue = ValueFormatter.formatFilterFrequencyRange(bassBand.lowerBound, bassBand.upperBound)
-//
-//        let midBand = preset.midBand
-//        filterMidSlider.start = Double(midBand.lowerBound)
-//        filterMidSlider.end = Double(midBand.upperBound)
-//        lblFilterMidRange.stringValue = ValueFormatter.formatFilterFrequencyRange(midBand.lowerBound, midBand.upperBound)
-//
-//        let trebleBand = preset.trebleBand
-//        filterTrebleSlider.start = Double(trebleBand.lowerBound)
-//        filterTrebleSlider.end = Double(trebleBand.upperBound)
-//        lblFilterTrebleRange.stringValue = ValueFormatter.formatFilterFrequencyRange(trebleBand.lowerBound, trebleBand.upperBound)
-        
+        chart.redraw()
+        bandsTable.reloadData()
         previewBox.show()
+    }
+    
+    private func getFilterChartBands() -> [FilterBand] {
+        
+        if !getSelectedPresetNames().isEmpty {
+            return FilterPresets.presetByName(getSelectedPresetNames()[0]).bands
+        }
+        
+        return []
     }
     
     // MARK: View delegate functions
@@ -110,7 +120,9 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         if numRows == 1 {
             
             let presetName = getSelectedPresetNames()[0]
-            renderPreview(FilterPresets.presetByName(presetName))
+            let preset = FilterPresets.presetByName(presetName)
+            bandsDataSource.preset = preset
+            renderPreview(preset)
             oldPresetName = presetName
         }
         
@@ -232,3 +244,15 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     }
 }
 
+class PresetFilterBandsDataSource: FilterBandsDataSource {
+    
+    var preset: FilterPreset?
+    
+    func countFilterBands() -> Int {
+        return preset?.bands.count ?? 0
+    }
+    
+    func getFilterBand(_ index: Int) -> FilterBand {
+        return preset!.bands[index]
+    }
+}
