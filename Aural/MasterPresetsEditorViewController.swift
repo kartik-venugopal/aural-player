@@ -4,6 +4,12 @@ import Cocoa
 class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, ActionMessageSubscriber {
     
     @IBOutlet weak var editorView: NSTableView!
+    @IBOutlet weak var previewBox: NSBox!
+    @IBOutlet weak var subPreviewMenu: NSPopUpButton!
+    
+    // Master
+    
+    @IBOutlet weak var masterSubPreview: NSView!
     
     @IBOutlet weak var btnEQBypass: EffectsUnitTriStateBypassButton!
     @IBOutlet weak var btnPitchBypass: EffectsUnitTriStateBypassButton!
@@ -11,10 +17,6 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     @IBOutlet weak var btnReverbBypass: EffectsUnitTriStateBypassButton!
     @IBOutlet weak var btnDelayBypass: EffectsUnitTriStateBypassButton!
     @IBOutlet weak var btnFilterBypass: EffectsUnitTriStateBypassButton!
-    
-    @IBOutlet weak var previewBox: NSBox!
-    
-    @IBOutlet weak var subPreviewMenu: NSPopUpButton!
     
     // EQ
     
@@ -83,13 +85,11 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     @IBOutlet weak var filterSubPreview: NSView!
     
-    @IBOutlet weak var filterBassSlider: RangeSlider!
-    @IBOutlet weak var filterMidSlider: RangeSlider!
-    @IBOutlet weak var filterTrebleSlider: RangeSlider!
+    @IBOutlet weak var bandsTable: NSTableView!
+    @IBOutlet weak var tableViewDelegate: FilterBandsViewDelegate!
+    private var bandsDataSource: PresetFilterBandsDataSource = PresetFilterBandsDataSource()
     
-    @IBOutlet weak var lblFilterBassRange: NSTextField!
-    @IBOutlet weak var lblFilterMidRange: NSTextField!
-    @IBOutlet weak var lblFilterTrebleRange: NSTextField!
+    @IBOutlet weak var chart: FilterChart!
     
     // --------------------------------
     
@@ -108,7 +108,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     override func viewDidLoad() {
         
-        subPreviewViews = [eqSubPreview, pitchSubPreview, timeSubPreview, reverbSubPreview, delaySubPreview, filterSubPreview]
+        subPreviewViews = [masterSubPreview, eqSubPreview, pitchSubPreview, timeSubPreview, reverbSubPreview, delaySubPreview, filterSubPreview]
         subPreviewViews.forEach({subPreviewBox.addSubview($0)})
         
         let eqStateFunction = {
@@ -125,22 +125,27 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         eq10BandView.stateChanged()
         eq15BandView.stateChanged()
         
-//        filterBassSlider.initialize(AppConstants.bass_min, AppConstants.bass_max, {
-//            (slider: RangeSlider) -> Void in
-//            // Do nothing
-//        })
-//
-//        filterMidSlider.initialize(AppConstants.mid_min, AppConstants.mid_max, {
-//            (slider: RangeSlider) -> Void in
-//            // Do nothing
-//        })
-//
-//        filterTrebleSlider.initialize(AppConstants.treble_min, AppConstants.treble_max, {
-//            (slider: RangeSlider) -> Void in
-//            // Do nothing
-//        })
+        chart.bandsDataFunction = {() -> [FilterBand] in
+            return self.getFilterChartBands()
+        }
+        
+        tableViewDelegate.dataSource = bandsDataSource
+        tableViewDelegate.allowSelection = false
         
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+    }
+    
+    private func getFilterChartBands() -> [FilterBand] {
+        
+        let selection = getSelectedPresetNames()
+        
+        if !selection.isEmpty {
+            
+            let preset = MasterPresets.presetByName(selection[0])!
+            return preset.filter.bands
+        }
+        
+        return []
     }
     
     override func viewDidAppear() {
@@ -152,8 +157,8 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         
         // Show EQ sub preview by default
         subPreviewViews.forEach({$0.hide()})
-        eqSubPreview.show()
-        subPreviewMenu.selectItem(withTitle: "EQ")
+        masterSubPreview.show()
+        subPreviewMenu.selectItem(withTitle: "Master")
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -210,6 +215,8 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         
         switch selItem {
             
+        case "Master": masterSubPreview.show()
+            
         case "EQ": eqSubPreview.show()
             
         case "Pitch": pitchSubPreview.show()
@@ -238,7 +245,6 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         
         // Set up EQ
         renderEQPreview(preset.eq)
-        
         renderPitchPreview(preset.pitch)
         renderTimePreview(preset.time)
         renderReverbPreview(preset.reverb)
@@ -323,22 +329,8 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     private func renderFilterPreview(_ preset: FilterPreset) {
         
-//        let bassBand = preset.bassBand
-//        filterBassSlider.start = Double(bassBand.lowerBound)
-//        filterBassSlider.end = Double(bassBand.upperBound)
-//        lblFilterBassRange.stringValue = ValueFormatter.formatFilterFrequencyRange(bassBand.lowerBound, bassBand.upperBound)
-//
-//        let midBand = preset.midBand
-//        filterMidSlider.start = Double(midBand.lowerBound)
-//        filterMidSlider.end = Double(midBand.upperBound)
-//        lblFilterMidRange.stringValue = ValueFormatter.formatFilterFrequencyRange(midBand.lowerBound, midBand.upperBound)
-//
-//        let trebleBand = preset.trebleBand
-//        filterTrebleSlider.start = Double(trebleBand.lowerBound)
-//        filterTrebleSlider.end = Double(trebleBand.upperBound)
-//        lblFilterTrebleRange.stringValue = ValueFormatter.formatFilterFrequencyRange(trebleBand.lowerBound, trebleBand.upperBound)
-//        
-//        [filterBassSlider, filterMidSlider, filterTrebleSlider].forEach({$0?.unitState = preset.state})
+        chart.redraw()
+        bandsTable.reloadData()
     }
     
     // MARK: View delegate functions
@@ -357,7 +349,10 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         if numRows == 1 {
             
             let presetName = getSelectedPresetNames()[0]
-            renderPreview(MasterPresets.presetByName(presetName)!)
+            let masterPreset = MasterPresets.presetByName(presetName)!
+            
+            bandsDataSource.preset = masterPreset.filter
+            renderPreview(masterPreset)
             oldPresetName = presetName
         }
         

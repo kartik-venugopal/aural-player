@@ -13,6 +13,7 @@
                 <outlet property="btnSavePreset" destination="wvD-pf-0wI" id="dAC-QY-SQi"/>
                 <outlet property="chart" destination="oUt-pL-lCN" id="Ew6-3o-2fz"/>
                 <outlet property="presetsMenu" destination="N3s-tf-ulh" id="OF3-Zy-sqe"/>
+                <outlet property="tableViewDelegate" destination="aHf-z2-jHq" id="Osq-dr-4yu"/>
                 <outlet property="view" destination="e4i-Mp-MMA" id="wyk-QH-lgV"/>
             </connections>
         </customObject>

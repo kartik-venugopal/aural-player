@@ -13,6 +13,8 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     @IBOutlet weak var btnSavePreset: NSButton!
     
     @IBOutlet weak var bandsTable: NSTableView!
+    @IBOutlet weak var tableViewDelegate: FilterBandsViewDelegate!
+    
     @IBOutlet weak var chart: FilterChart!
     
     private lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
@@ -64,6 +66,11 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         
         btnFilterBypass.stateFunction = stateFunction
         
+        chart.bandsDataFunction = {() -> [FilterBand] in
+            return self.graph.allFilterBands()
+        }
+        
+        tableViewDelegate.dataSource = AudioGraphFilterBandsDataSource(graph)
     }
  
     private func initControls() {

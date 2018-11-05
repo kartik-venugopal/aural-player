@@ -613,7 +613,7 @@ class AudioGraphState: PersistentState {
             presetDict["name"] = preset.name as AnyObject
 
             var bandsArr = [[NSString: AnyObject]]()
-            for band in filterBands {
+            for band in preset.bands {
                 
                 var bandDict = [NSString: AnyObject]()
                 bandDict["type"] = band.type.rawValue as AnyObject
