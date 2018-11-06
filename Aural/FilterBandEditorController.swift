@@ -10,7 +10,11 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
     @IBOutlet weak var cutoffSliderCell: CutoffFrequencySliderCell!
     
     @IBOutlet weak var lblRangeCaption: NSTextField!
+    @IBOutlet weak var lblPresetRangesCaption: NSTextField!
+    @IBOutlet weak var presetRangesMenu: NSPopUpButton!
     @IBOutlet weak var lblCutoffCaption: NSTextField!
+    @IBOutlet weak var lblPresetCutoffsCaption: NSTextField!
+    @IBOutlet weak var presetCutoffsMenu: NSPopUpButton!
     
     @IBOutlet weak var lblFreqRange: NSTextField!
     
@@ -38,7 +42,7 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
     }
     
     private func freqRangeChanged() {
-        lblFreqRange.stringValue = String(format: "[%dHz - %dHz]", roundedInt(freqRangeSlider.startFrequency), roundedInt(freqRangeSlider.endFrequency))
+        lblFreqRange.stringValue = String(format: "[%@ - %@]", formatFrequency(freqRangeSlider.startFrequency), formatFrequency(freqRangeSlider.endFrequency))
     }
     
     func showDialog() -> ModalDialogResponse {
@@ -60,10 +64,23 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
     func resetFields() {
         lblTitle.stringValue = action == .add ? "Add filter band" : "Edit filter band"
         bandTypeAction(self)
+        presetCutoffsMenu.selectItem(at: -1)
+        presetRangesMenu.selectItem(at: -1)
     }
     
     @IBAction func cutoffSliderAction(_ sender: Any) {
-        lblFreqRange.stringValue = String(format: "%dHz", roundedInt(cutoffSlider.frequency))
+        lblFreqRange.stringValue = formatFrequency(cutoffSlider.frequency)
+    }
+    
+    private func formatFrequency(_ freq: Float) -> String {
+        
+        let rounded = roundedInt(freq)
+        
+        if rounded % 1000 == 0 {
+            return String(format: "%dKHz", rounded / 1000)
+        } else {
+            return String(format: "%dHz", rounded)
+        }
     }
     
     @IBAction func bandTypeAction(_ sender: Any) {
@@ -75,9 +92,13 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
             freqRangeSlider.filterType = filterType
             freqRangeSlider.show()
             lblRangeCaption.show()
+            lblPresetRangesCaption.show()
+            presetRangesMenu.show()
             
             lblCutoffCaption.hide()
             cutoffSlider.hide()
+            lblPresetCutoffsCaption.hide()
+            presetCutoffsMenu.hide()
             
             freqRangeChanged()
             
@@ -85,14 +106,39 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
             
             freqRangeSlider.hide()
             lblRangeCaption.hide()
+            lblPresetRangesCaption.hide()
+            presetRangesMenu.hide()
             
             lblCutoffCaption.show()
+            lblPresetCutoffsCaption.show()
+            presetCutoffsMenu.show()
+            
             cutoffSliderCell.filterType = filterType
             cutoffSlider.redraw()
             cutoffSlider.show()
             
             cutoffSliderAction(self)
         }
+    }
+    
+    @IBAction func presetRangeAction(_ sender: NSPopUpButton) {
+        
+        if let range = sender.selectedItem as? FrequencyRangeMenuItem {
+        
+            freqRangeSlider.setStartFrequency(range.minFreq)
+            freqRangeSlider.setEndFrequency(range.maxFreq)
+            
+            freqRangeChanged()
+        }
+        
+        presetRangesMenu.selectItem(at: -1)
+    }
+    
+    @IBAction func presetCutoffAction(_ sender: NSPopUpButton) {
+        
+        cutoffSlider.setFrequency(Float(sender.selectedItem!.tag))
+        cutoffSliderAction(self)
+        presetCutoffsMenu.selectItem(at: -1)
     }
     
     @IBAction func saveAction(_ sender: Any) {
@@ -166,4 +212,11 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
 
 func roundedInt(_ float: Float) -> Int {
     return Int(roundf(float))
+}
+
+@IBDesignable
+class FrequencyRangeMenuItem: NSMenuItem {
+    
+    @IBInspectable var minFreq: Float = AppConstants.audibleRangeMin
+    @IBInspectable var maxFreq: Float = AppConstants.audibleRangeMax
 }
