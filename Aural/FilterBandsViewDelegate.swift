@@ -80,8 +80,8 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
     private func formatFreqNumber(_ freq: Float) -> String {
         
         let num = roundedInt(freq)
-        if num % 1024 == 0 {
-            return String(format: "%dKHz", num / 1024)
+        if num % 1000 == 0 {
+            return String(format: "%dKHz", num / 1000)
         } else {
             return String(format: "%dHz", num)
         }
@@ -93,8 +93,8 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
             
             cell.textField?.stringValue = text
             cell.row = row
-            cell.textFont = Fonts.gillSans11Font
-            cell.selectedTextFont = Fonts.gillSansSemiBold11Font
+            cell.textFont = Fonts.gillSans10Font
+            cell.selectedTextFont = Fonts.gillSansSemiBold10Font
             cell.selectionFunction = {() -> Bool in
                 return tableView.selectedRowIndexes.contains(row)
             }

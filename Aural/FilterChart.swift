@@ -10,13 +10,31 @@ class FilterChart: NSView {
     private let bandStopColor: NSColor = NSColor(calibratedRed: 0.8, green: 0, blue: 0, alpha: 1)
     private let bandPassColor: NSColor = NSColor(calibratedRed: 0, green: 0.8, blue: 0, alpha: 1)
     
+    private let bandStopGradient: NSGradient = {
+        
+        let start = NSColor(red: 0.75, green: 0, blue: 0, alpha: 1)
+        let end =  NSColor(red: 0.3, green: 0, blue: 0, alpha: 1)
+        let gradient = NSGradient(starting: start, ending: end)
+        
+        return gradient!
+    }()
+    
+    private let bandPassGradient: NSGradient = {
+        
+        let start = NSColor(red: 0, green: 0.75, blue: 0, alpha: 1)
+        let end =  NSColor(red: 0, green: 0.3, blue: 0, alpha: 1)
+        let gradient = NSGradient(starting: start, ending: end)
+        
+        return gradient!
+    }()
+    
     override func draw(_ dirtyRect: NSRect) {
         
         var drawPath = NSBezierPath.init(rect: dirtyRect)
         NSColor.black.setFill()
         drawPath.fill()
         
-        let offset: CGFloat = 12
+        let offset: CGFloat = 5
         let width = self.frame.width - 2 * offset
         let height = self.frame.height - 25
         let scale: CGFloat = width / 3
@@ -45,12 +63,17 @@ class FilterChart: NSView {
                 let rx1 = offset + CGFloat(x1) * scale
                 let rx2 = offset + CGFloat(x2) * scale
                 
-                let col = band.type == .bandStop ? bandStopColor : bandPassColor
+                let col = band.type == .bandStop ? bandStopGradient : bandPassGradient
                 
                 let brect = NSRect(x: rx1, y: 20, width: rx2 - rx1, height: height)
                 drawPath = NSBezierPath.init(rect: brect)
-                col.setFill()
-                drawPath.fill()
+                
+                /*
+                 drawPath = NSBezierPath.init(roundedRect: loopStartMarker, xRadius: markerRadius, yRadius: markerRadius)
+                 Colors.playbackLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
+                 */
+                
+                col.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
                 
             case .lowPass:
                 
@@ -58,8 +81,8 @@ class FilterChart: NSView {
                 let x = log10(f/2) - 1
                 let rx = offset + CGFloat(x) * scale
                 
-                GraphicsUtils.drawLine(bandPassColor, pt1: NSPoint(x: rx - 1, y: 20), pt2: NSPoint(x: rx - 1, y: 20 + height), width: 2)
-                GraphicsUtils.drawLine(bandStopColor, pt1: NSPoint(x: rx + 1, y: 20), pt2: NSPoint(x: rx + 1, y: 20 + height), width: 2)
+                GraphicsUtils.drawVerticalLine(bandPassGradient, pt1: NSPoint(x: rx - 1, y: 20), pt2: NSPoint(x: rx - 1, y: 20 + height), width: 2)
+                GraphicsUtils.drawVerticalLine(bandStopGradient, pt1: NSPoint(x: rx + 1, y: 20), pt2: NSPoint(x: rx + 1, y: 20 + height), width: 2)
                 
             case .highPass:
                 
@@ -67,13 +90,13 @@ class FilterChart: NSView {
                 let x = log10(f/2) - 1
                 let rx = offset + CGFloat(x) * scale
                 
-                GraphicsUtils.drawLine(bandStopColor, pt1: NSPoint(x: rx - 1, y: 20), pt2: NSPoint(x: rx - 1, y: 20 + height), width: 2)
-                GraphicsUtils.drawLine(bandPassColor, pt1: NSPoint(x: rx + 1, y: 20), pt2: NSPoint(x: rx + 1, y: 20 + height), width: 2)
+                GraphicsUtils.drawVerticalLine(bandStopGradient, pt1: NSPoint(x: rx - 1, y: 20), pt2: NSPoint(x: rx - 1, y: 20 + height), width: 2)
+                GraphicsUtils.drawVerticalLine(bandPassGradient, pt1: NSPoint(x: rx + 1, y: 20), pt2: NSPoint(x: rx + 1, y: 20 + height), width: 2)
             }
         }
         
         // Draw X-axis markings
-        let xMarks: [CGFloat] = [20, 60, 100, 250, 500, 1000, 2000, 4000, 8000, 10000, 16000, 20000]
+        let xMarks: [CGFloat] = [20, 60, 100, 250, 500, 1000, 2000, 4000, 8000, 16000]
         
         for y in xMarks {
 
@@ -95,7 +118,7 @@ class FilterChart: NSView {
             GraphicsUtils.drawTextInRect(trect, text, NSColor.lightGray, Fonts.gillSans8Font)
             
             if (sx != offset && sx != offset + width) {
-                GraphicsUtils.drawLine(NSColor.gray, pt1: NSPoint(x: sx, y: 16), pt2: NSPoint(x: sx, y: 24), width: 2)
+                GraphicsUtils.drawLine(NSColor.gray, pt1: NSPoint(x: sx, y: 16), pt2: NSPoint(x: sx, y: 22), width: 1.5)
             }
         }
     }

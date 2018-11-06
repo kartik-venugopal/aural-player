@@ -184,6 +184,10 @@ class FilterBand {
         return self
     }
     
+    func clone() -> FilterBand {
+        return FilterBand(self.type, self.minFreq, self.maxFreq)
+    }
+    
     static func bandPassBand(_ minFreq: Float, _ maxFreq: Float) -> FilterBand {
         return FilterBand(.bandPass, minFreq, maxFreq)
     }
