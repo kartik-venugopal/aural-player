@@ -761,11 +761,19 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     func saveFilterPreset(_ presetName: String) {
         
         let filterState = getFilterState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        FilterPresets.addUserDefinedPreset(presetName, filterState, filterNode.allBands())
+        
+        // Need to clone the filter's bands to create separate identical copies so that changes to the current filter bands don't modify the preset's bands
+        var presetBands: [FilterBand] = []
+        filterNode.allBands().forEach({presetBands.append($0.clone())})
+        FilterPresets.addUserDefinedPreset(presetName, filterState, presetBands)
     }
     
     func applyFilterPreset(_ preset: FilterPreset) {
-        filterNode.setBands(preset.bands)
+        
+        // Need to clone the filter's bands to create separate identical copies so that changes to the current filter bands don't modify the preset's bands
+        var filterBands: [FilterBand] = []
+        preset.bands.forEach({filterBands.append($0.clone())})
+        filterNode.setBands(filterBands)
     }
     
     func addFilterBand(_ band: FilterBand) -> Int {
