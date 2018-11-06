@@ -8,21 +8,16 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="EQViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btn10Band" destination="QbA-Na-sMq" id="yKo-ps-fCB"/>
-                <outlet property="btn15Band" destination="F0F-Za-5yR" id="jqa-qa-TeH"/>
                 <outlet property="btnEQBypass" destination="lmp-7m-bHA" id="mpH-99-dUS"/>
                 <outlet property="btnSavePreset" destination="udy-ev-aXo" id="UkB-2u-gnw"/>
-                <outlet property="btnSync" destination="mqo-fx-3G2" id="fmd-Iw-O5S"/>
-                <outlet property="container" destination="ESy-Uk-h3y" id="g5V-hn-Fy4"/>
-                <outlet property="eq10BandView" destination="hxB-Ez-uZ4" id="OcN-Wq-IZT"/>
-                <outlet property="eq15BandView" destination="roG-29-d9P" id="bLY-JK-vJH"/>
+                <outlet property="eqView" destination="zTt-IY-Dad" id="Tq0-ny-AWA"/>
                 <outlet property="presetsMenu" destination="uwy-7t-2Z1" id="WcI-AI-kov"/>
                 <outlet property="view" destination="zTt-IY-Dad" id="2gC-LH-eIR"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <view id="zTt-IY-Dad" userLabel="EQ View">
+        <view id="zTt-IY-Dad" userLabel="EQ View" customClass="EQView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="500" height="160"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -165,9 +160,17 @@
                     </connections>
                 </button>
             </subviews>
+            <connections>
+                <outlet property="btn10Band" destination="QbA-Na-sMq" id="Ml6-CQ-Zu9"/>
+                <outlet property="btn15Band" destination="F0F-Za-5yR" id="6VE-KB-2ZW"/>
+                <outlet property="btnSync" destination="mqo-fx-3G2" id="MQ5-r8-Kbs"/>
+                <outlet property="container" destination="ESy-Uk-h3y" id="MmT-QZ-nit"/>
+                <outlet property="eq10BandView" destination="hxB-Ez-uZ4" id="s4H-Xd-11l"/>
+                <outlet property="eq15BandView" destination="roG-29-d9P" id="ScS-5b-QTw"/>
+            </connections>
             <point key="canvasLocation" x="122" y="406"/>
         </view>
-        <view id="hxB-Ez-uZ4" userLabel="10 band EQ" customClass="EQView" customModule="Aural" customModuleProvider="target">
+        <view id="hxB-Ez-uZ4" userLabel="10 band EQ" customClass="EQSubview" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -271,7 +274,7 @@
             </connections>
             <point key="canvasLocation" x="139.5" y="214"/>
         </view>
-        <view id="roG-29-d9P" userLabel="15 band EQ" customClass="EQView" customModule="Aural" customModuleProvider="target">
+        <view id="roG-29-d9P" userLabel="15 band EQ" customClass="EQSubview" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -402,6 +405,6 @@
         </view>
     </objects>
     <resources>
-        <image name="SaveEQPreset" width="128" height="128"/>
+        <image name="SaveEQPreset" width="26" height="26"/>
     </resources>
 </document>

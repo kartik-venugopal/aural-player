@@ -6,17 +6,17 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     @IBOutlet weak var previewBox: NSBox!
     
-    @IBOutlet weak var eq10BandView: EQView!
-    @IBOutlet weak var eq15BandView: EQView!
+    @IBOutlet weak var eq10BandView: EQSubview!
+    @IBOutlet weak var eq15BandView: EQSubview!
     
     @IBOutlet weak var btn10Band: NSButton!
     @IBOutlet weak var btn15Band: NSButton!
     
-    private var activeView: EQView {
+    private var activeView: EQSubview {
         return btn10Band.isOn() ? eq10BandView : eq15BandView
     }
     
-    private var inactiveView: EQView {
+    private var inactiveView: EQSubview {
         return btn10Band.isOn() ? eq15BandView : eq10BandView
     }
     

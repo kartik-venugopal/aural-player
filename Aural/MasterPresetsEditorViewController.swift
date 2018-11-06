@@ -22,17 +22,17 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     @IBOutlet weak var eqSubPreview: NSView!
     
-    @IBOutlet weak var eq10BandView: EQView!
-    @IBOutlet weak var eq15BandView: EQView!
+    @IBOutlet weak var eq10BandView: EQSubview!
+    @IBOutlet weak var eq15BandView: EQSubview!
     
     @IBOutlet weak var btn10Band: NSButton!
     @IBOutlet weak var btn15Band: NSButton!
     
-    private var activeEQView: EQView {
+    private var activeEQView: EQSubview {
         return btn10Band.isOn() ? eq10BandView : eq15BandView
     }
     
-    private var inactiveEQView: EQView {
+    private var inactiveEQView: EQSubview {
         return btn10Band.isOn() ? eq15BandView : eq10BandView
     }
     

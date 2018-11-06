@@ -170,6 +170,14 @@ extension NSView {
     func redraw() {
         self.setNeedsDisplay(self.bounds)
     }
+    
+    func addSubviews(_ subViews: NSView...) {
+        subViews.forEach({self.addSubview($0)})
+    }
+    
+    func positionAtZeroPoint() {
+        self.setFrameOrigin(NSPoint.zero)
+    }
 }
 
 extension NSControl {
