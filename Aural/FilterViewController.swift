@@ -70,6 +70,8 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
             return self.graph.allFilterBands()
         }
         
+        chart.filterUnitStateFunction = {() -> EffectsUnitState in return self.graph.getFilterState()}
+        
         tableViewDelegate.dataSource = AudioGraphFilterBandsDataSource(graph)
     }
  
@@ -89,6 +91,7 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         _ = graph.toggleFilterState()
         
         btnFilterBypass.updateState()
+        chart.redraw()
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
@@ -187,6 +190,7 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         
         if notification is EffectsUnitStateChangedNotification {
             btnFilterBypass.updateState()
+            chart.redraw()
         }
     }
     

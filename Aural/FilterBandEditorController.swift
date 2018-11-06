@@ -3,9 +3,11 @@ import Cocoa
 class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
     
     override var windowNibName: String? {return "FilterBandEditor"}
+    @IBOutlet weak var lblTitle: NSTextField!
     
     @IBOutlet weak var freqRangeSlider: FilterBandSlider!
     @IBOutlet weak var cutoffSlider: CutoffFrequencySlider!
+    @IBOutlet weak var cutoffSliderCell: CutoffFrequencySliderCell!
     
     @IBOutlet weak var lblRangeCaption: NSTextField!
     @IBOutlet weak var lblCutoffCaption: NSTextField!
@@ -56,6 +58,7 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
     }
     
     func resetFields() {
+        lblTitle.stringValue = action == .add ? "Add filter band" : "Edit filter band"
         bandTypeAction(self)
     }
     
@@ -84,6 +87,8 @@ class FilterBandEditorController: NSWindowController, ModalDialogDelegate {
             lblRangeCaption.hide()
             
             lblCutoffCaption.show()
+            cutoffSliderCell.filterType = filterType
+            cutoffSlider.redraw()
             cutoffSlider.show()
             
             cutoffSliderAction(self)
