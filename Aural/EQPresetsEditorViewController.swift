@@ -6,19 +6,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     @IBOutlet weak var previewBox: NSBox!
     
-    @IBOutlet weak var eq10BandView: EQSubview!
-    @IBOutlet weak var eq15BandView: EQSubview!
-    
-    @IBOutlet weak var btn10Band: NSButton!
-    @IBOutlet weak var btn15Band: NSButton!
-    
-    private var activeView: EQSubview {
-        return btn10Band.isOn() ? eq10BandView : eq15BandView
-    }
-    
-    private var inactiveView: EQSubview {
-        return btn10Band.isOn() ? eq15BandView : eq10BandView
-    }
+    @IBOutlet weak var eqView: EQView!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
@@ -28,19 +16,8 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     override func viewDidLoad() {
         
-        let eqStateFunction = {
-            () -> EffectsUnitState in
-            return .active
-        }
-        
-        eq10BandView.initialize(eqStateFunction)
-        eq15BandView.initialize(eqStateFunction)
-        btn10Band.on()
-        eq10BandView.show()
-        eq15BandView.hide()
-        
-        eq10BandView.stateChanged()
-        eq15BandView.stateChanged()
+        eqView.initialize(nil, nil, {() -> EffectsUnitState in return .active})
+        eqView.chooseType(.tenBand)
         
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
@@ -54,15 +31,10 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
-        activeView.stateChanged()
-        
         let selection = getSelectedPresetNames()
         let preset = EQPresets.presetByName(selection[0])
         
-        activeView.updateBands(preset.bands, preset.globalGain)
-        activeView.show()
-        
-        inactiveView.hide()
+        eqView.typeChanged(preset.bands, preset.globalGain)
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -98,8 +70,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     private func renamePresetAction() {
         
-        let rowIndex = editorView.selectedRow
-        let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
+        let rowView = editorView.rowView(atRow: editorView.selectedRow, makeIfNecessary: true)
         let editedTextField = (rowView?.view(atColumn: 0) as! NSTableCellView).textField!
         
         self.view.window?.makeFirstResponder(editedTextField)
@@ -113,7 +84,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     }
     
     private func renderPreview(_ preset: EQPreset) {
-        activeView.updateBands(preset.bands, preset.globalGain)
+        eqView.bandsUpdated(preset.bands, preset.globalGain)
     }
     
     // MARK: View delegate functions
@@ -185,8 +156,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     func controlTextDidEndEditing(_ obj: Notification) {
         
-        let rowIndex = editorView.selectedRow
-        let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
+        let rowView = editorView.rowView(atRow: editorView.selectedRow, makeIfNecessary: true)
         let cell = rowView?.view(atColumn: 0) as! NSTableCellView
         let editedTextField = cell.textField!
         

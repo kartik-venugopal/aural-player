@@ -20,22 +20,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     // EQ
     
-    @IBOutlet weak var eqSubPreview: NSView!
-    
-    @IBOutlet weak var eq10BandView: EQSubview!
-    @IBOutlet weak var eq15BandView: EQSubview!
-    
-    @IBOutlet weak var btn10Band: NSButton!
-    @IBOutlet weak var btn15Band: NSButton!
-    
-    private var activeEQView: EQSubview {
-        return btn10Band.isOn() ? eq10BandView : eq15BandView
-    }
-    
-    private var inactiveEQView: EQSubview {
-        return btn10Band.isOn() ? eq15BandView : eq10BandView
-    }
-    
+    @IBOutlet weak var eqSubPreview: EQView!
     private var curEQPreset: EQPreset?
     
     // Pitch
@@ -113,17 +98,11 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         
         let eqStateFunction = {
             () -> EffectsUnitState in
-            return .active
+            return self.curEQPreset == nil ? .active : self.curEQPreset!.state
         }
         
-        eq10BandView.initialize(eqStateFunction)
-        eq15BandView.initialize(eqStateFunction)
-        btn10Band.on()
-        eq10BandView.show()
-        eq15BandView.hide()
-        
-        eq10BandView.stateChanged()
-        eq15BandView.stateChanged()
+        eqSubPreview.initialize(nil, nil, eqStateFunction)
+        eqSubPreview.chooseType(.tenBand)
         
         chart.bandsDataFunction = {() -> [FilterBand] in
             return self.getFilterChartBands()
@@ -257,21 +236,16 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
         if let preset = curEQPreset {
-        
-            activeEQView.setState(preset.state)
-            activeEQView.updateBands(preset.bands, preset.globalGain)
-            activeEQView.show()
-            
-            inactiveEQView.hide()
+            eqSubPreview.typeChanged(preset.bands, preset.globalGain)
         }
     }
     
     private func renderEQPreview(_ preset: EQPreset) {
         
         curEQPreset = preset
-        
-        activeEQView.setState(preset.state)
-        activeEQView.updateBands(preset.bands, preset.globalGain)
+
+        eqSubPreview.stateChanged()
+        eqSubPreview.bandsUpdated(preset.bands, preset.globalGain)
     }
     
     private func renderPitchPreview(_ preset: PitchPreset) {
