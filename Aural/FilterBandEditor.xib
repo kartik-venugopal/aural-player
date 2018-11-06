@@ -9,11 +9,13 @@
         <customObject id="-2" userLabel="File's Owner" customClass="FilterBandEditorController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="cutoffSlider" destination="QoX-jm-EwY" id="SHh-he-1dd"/>
+                <outlet property="cutoffSliderCell" destination="aZ6-aQ-Xu2" id="bEj-Mz-3nD"/>
                 <outlet property="filterTypeMenu" destination="sgM-FZ-6IS" id="HZT-7f-0nM"/>
                 <outlet property="freqRangeSlider" destination="Hkf-fA-fea" id="noa-uX-11O"/>
                 <outlet property="lblCutoffCaption" destination="5ab-gL-zsb" id="N9D-HJ-xw5"/>
                 <outlet property="lblFreqRange" destination="Dl8-bT-e2A" id="H1W-j3-aMi"/>
                 <outlet property="lblRangeCaption" destination="nAP-3f-igZ" id="TZU-nm-ZNj"/>
+                <outlet property="lblTitle" destination="8MA-kf-g0K" id="JCY-6A-EZN"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="Q4G-Vx-gyd"/>
             </connections>
         </customObject>
@@ -38,7 +40,7 @@
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hkf-fA-fea" customClass="FilterBandSlider" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="150" y="97" width="232" height="20"/>
+                        <rect key="frame" x="150" y="96" width="232" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="minValue">
@@ -59,7 +61,7 @@
                         </textFieldCell>
                     </textField>
                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ab-gL-zsb">
-                        <rect key="frame" x="24" y="97" width="95" height="18"/>
+                        <rect key="frame" x="24" y="99" width="95" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Cutoff frequency" id="yIW-0S-aXt">
                             <font key="font" size="11" name="GillSans"/>
@@ -68,7 +70,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nAP-3f-igZ">
-                        <rect key="frame" x="24" y="98" width="104" height="18"/>
+                        <rect key="frame" x="24" y="100" width="104" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Frequency range" id="kkV-1G-eDQ">
                             <font key="font" size="11" name="GillSans"/>
@@ -79,16 +81,16 @@
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8MA-kf-g0K" userLabel="Title">
                         <rect key="frame" x="129" y="165" width="170" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Add / edit filter band" id="zrM-AS-KMY">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Add filter band" id="zrM-AS-KMY">
                             <font key="font" size="12" name="GillSans-SemiBold"/>
                             <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <slider hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QoX-jm-EwY" userLabel="Cutoff Freq Slider" customClass="CutoffFrequencySlider" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="153" y="96" width="230" height="15"/>
+                        <rect key="frame" x="153" y="98" width="230" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="20" maxValue="20000" doubleValue="20" tickMarkPosition="below" sliderType="linear" id="aZ6-aQ-Xu2" customClass="EffectsTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
+                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="20" maxValue="20000" doubleValue="20" tickMarkPosition="below" sliderType="linear" id="aZ6-aQ-Xu2" customClass="CutoffFrequencySliderCell" customModule="Aural" customModuleProvider="target"/>
                         <connections>
                             <action selector="cutoffSliderAction:" target="-2" id="kTo-bU-kjp"/>
                         </connections>
@@ -149,7 +151,7 @@ Gw
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="liT-IS-tPb" userLabel="Treble 20K">
-                        <rect key="frame" x="388" y="100" width="25" height="15"/>
+                        <rect key="frame" x="388" y="99" width="25" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="20K" id="YbB-Ri-W7J">
                             <font key="font" size="10" name="GillSans"/>
@@ -158,7 +160,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dl8-bT-e2A" userLabel="Lbl Treble Range">
-                        <rect key="frame" x="214" y="87" width="109" height="15"/>
+                        <rect key="frame" x="214" y="85" width="109" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" id="Rmu-2E-nOP">
                             <font key="font" size="10" name="GillSans"/>
@@ -167,7 +169,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KmK-Qf-7fC" userLabel="Bass 20">
-                        <rect key="frame" x="116" y="100" width="30" height="15"/>
+                        <rect key="frame" x="116" y="99" width="30" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="20" id="1ex-6f-ANb">
                             <font key="font" size="10" name="GillSans"/>
