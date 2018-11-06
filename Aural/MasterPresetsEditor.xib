@@ -332,7 +332,7 @@
                         <action selector="chooseEQTypeAction:" target="-2" id="0gh-hj-1so"/>
                     </connections>
                 </button>
-                <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T3T-PL-7Vi" userLabel="10 band EQ" customClass="EQView" customModule="Aural" customModuleProvider="target">
+                <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T3T-PL-7Vi" userLabel="10 band EQ" customClass="EQSubview" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="33" y="73" width="375" height="130"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
@@ -432,7 +432,7 @@
                         <outlet property="globalGainSlider" destination="vgb-6J-cbt" id="dFG-wa-Tl8"/>
                     </connections>
                 </view>
-                <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KvI-OR-4c2" userLabel="15 band EQ" customClass="EQView" customModule="Aural" customModuleProvider="target">
+                <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KvI-OR-4c2" userLabel="15 band EQ" customClass="EQSubview" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="33" y="73" width="375" height="130"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>

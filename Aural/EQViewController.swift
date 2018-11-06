@@ -5,28 +5,13 @@ import Cocoa
  */
 class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, ActionMessageSubscriber, StringInputClient {
     
+    @IBOutlet weak var eqView: EQView!
+    
     @IBOutlet weak var btnEQBypass: EffectsUnitTriStateBypassButton!
-    
-    @IBOutlet weak var container: NSBox!
-    
-    @IBOutlet weak var eq10BandView: EQView!
-    @IBOutlet weak var eq15BandView: EQView!
-    
-    @IBOutlet weak var btn10Band: NSButton!
-    @IBOutlet weak var btn15Band: NSButton!
-    @IBOutlet weak var btnSync: NSButton!
     
     // Presets menu
     @IBOutlet weak var presetsMenu: NSPopUpButton!
     @IBOutlet weak var btnSavePreset: NSButton!
-    
-    private var activeView: EQView {
-        return btn10Band.isOn() ? eq10BandView : eq15BandView
-    }
-    
-    private var inactiveView: EQView {
-        return btn10Band.isOn() ? eq15BandView : eq10BandView
-    }
     
     private lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
@@ -67,45 +52,19 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     
     private func oneTimeSetup() {
         
-        container.addSubview(eq10BandView)
-        container.addSubview(eq15BandView)
-        
-        eq10BandView.setFrameOrigin(NSPoint.zero)
-        eq15BandView.setFrameOrigin(NSPoint.zero)
-        
         let eqStateFunction = {
             () -> EffectsUnitState in
             return self.graph.getEQState()
         }
         
         btnEQBypass.stateFunction = eqStateFunction
-        eq10BandView.initialize(eqStateFunction)
-        eq15BandView.initialize(eqStateFunction)
-        
-        eq10BandView.bandSliders.forEach({
-            $0.action = #selector(self.eqSliderAction(_:))
-            $0.target = self
-        })
-        
-        eq15BandView.bandSliders.forEach({
-            $0.action = #selector(self.eqSliderAction(_:))
-            $0.target = self
-        })
-        
-        graph.getEQType() == .tenBand ? btn10Band.on() : btn15Band.on()
-        activeView.stateChanged()
-        activeView.updateBands(graph.getEQBands(), graph.getEQGlobalGain())
-        activeView.show()
-        inactiveView.hide()
-        
-        btnSync.onIf(graph.getEQSync())
+        eqView.initialize(#selector(self.eqSliderAction(_:)), self, eqStateFunction)
     }
     
     private func initControls() {
         
         btnEQBypass.updateState()
-        activeView.stateChanged()
-        activeView.updateBands(graph.getEQBands(), graph.getEQGlobalGain())
+        eqView.setState(graph.getEQType(), graph.getEQBands(), graph.getEQGlobalGain(), graph.getEQSync())
         
         // Don't select any items from the EQ presets menu
         presetsMenu.selectItem(at: -1)
@@ -113,13 +72,8 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
-        graph.chooseEQType(btn10Band.isOn() ? .tenBand : .fifteenBand)
-        
-        activeView.stateChanged()
-        activeView.updateBands(graph.getEQBands(), graph.getEQGlobalGain())
-        activeView.show()
-        
-        inactiveView.hide()
+        graph.chooseEQType(eqView.type)
+        eqView.typeChanged(graph.getEQBands(), graph.getEQGlobalGain())
     }
     
     @IBAction func eqSyncAction(_ sender: AnyObject) {
@@ -131,7 +85,7 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
         _ = graph.toggleEQState()
         
         btnEQBypass.updateState()
-        activeView.stateChanged()
+        eqView.stateChanged()
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
@@ -148,8 +102,9 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
    
     // Applies a built-in preset to the Equalizer
     @IBAction func eqPresetsAction(_ sender: AnyObject) {
+        
         graph.applyEQPreset(presetsMenu.titleOfSelectedItem!)
-        initControls()
+        eqView.bandsUpdated(graph.getEQBands(), graph.getEQGlobalGain())
     }
     
     // Displays a popover to allow the user to name the new custom preset
@@ -198,8 +153,8 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     private func bandsUpdated(_ bands: [Int: Float]) {
         
         btnEQBypass.on()
-        activeView.stateChanged()
-        activeView.updateBands(bands, graph.getEQGlobalGain())
+        eqView.stateChanged()
+        eqView.bandsUpdated(bands, graph.getEQGlobalGain())
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
         showEQTab()
@@ -215,7 +170,7 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
         
         if notification is EffectsUnitStateChangedNotification {
             btnEQBypass.updateState()
-            activeView.stateChanged()
+            eqView.stateChanged()
         }
     }
     

@@ -2,63 +2,81 @@ import Cocoa
 
 class EQView: NSView {
     
-    @IBOutlet weak var globalGainSlider: EffectsUnitSlider!
+    @IBOutlet weak var container: NSBox!
     
-    var bandSliders: [EffectsUnitSlider] = []
-    var allSliders: [EffectsUnitSlider] = []
+    @IBOutlet weak var eq10BandView: EQSubview!
+    @IBOutlet weak var eq15BandView: EQSubview!
     
-    func initialize(_ stateFunction: @escaping (() -> EffectsUnitState)) {
+    @IBOutlet weak var btn10Band: NSButton!
+    @IBOutlet weak var btn15Band: NSButton!
+    @IBOutlet weak var btnSync: NSButton!
+    
+    var type: EQType {
+        return btn10Band.isOn() ? .tenBand : .fifteenBand
+    }
+    
+    private var activeView: EQSubview {
+        return btn10Band.isOn() ? eq10BandView : eq15BandView
+    }
+    
+    private var inactiveView: EQSubview {
+        return btn10Band.isOn() ? eq15BandView : eq10BandView
+    }
+    
+    var globalGain: Float {
+        return activeView.globalGainSlider.floatValue
+    }
+    
+    override func awakeFromNib() {
         
-        for subView in self.subviews {
-            
-            if let slider = subView as? EffectsUnitSlider {
-                
-                if slider.tag >= 0 {bandSliders.append(slider)}
-                allSliders.append(slider)
-                slider.stateFunction = stateFunction
-            }
-        }
+        container.addSubviews(eq10BandView, eq15BandView)
+        
+        eq10BandView.positionAtZeroPoint()
+        eq15BandView.positionAtZeroPoint()
+    }
+    
+    func initialize(_ sliderAction: Selector, _ sliderActionTarget: AnyObject, _ eqStateFunction: @escaping () -> EffectsUnitState) {
+        
+        eq10BandView.initialize(eqStateFunction)
+        eq15BandView.initialize(eqStateFunction)
+        
+        eq10BandView.bandSliders.forEach({
+            $0.action = sliderAction
+            $0.target = sliderActionTarget
+        })
+        
+        eq15BandView.bandSliders.forEach({
+            $0.action = sliderAction
+            $0.target = sliderActionTarget
+        })
+    }
+    
+    func setState(_ eqType: EQType, _ bands: [Int: Float], _ globalGain: Float, _ sync: Bool) {
+
+        eqType == .tenBand ? btn10Band.on() : btn15Band.on()
+        
+        bandsUpdated(bands, globalGain)
+        
+        activeView.stateChanged()
+        activeView.show()
+        inactiveView.hide()
+        
+        btnSync.onIf(sync)
+    }
+    
+    func typeChanged(_ bands: [Int: Float], _ globalGain: Float) {
+        
+        activeView.stateChanged()
+        activeView.updateBands(bands, globalGain)
+        activeView.show()
+        inactiveView.hide()
+    }
+    
+    func bandsUpdated(_ bands: [Int: Float], _ globalGain: Float) {
+        activeView.updateBands(bands, globalGain)
     }
     
     func stateChanged() {
-        allSliders.forEach({$0.updateState()})
-    }
-    
-    func setState(_ state: EffectsUnitState) {
-        allSliders.forEach({$0.setUnitState(state)})
-    }
-    
-    func updateBands(_ bands: [Int: Float], _ globalGain: Float) {
-        
-        // If number of bands doesn't match, need to perform a mapping
-        if bands.count != bandSliders.count {
-            
-            let mappedBands = bands.count == 10 ? EQMapper.map10BandsTo15Bands(bands, AppConstants.eq15BandFrequencies) : EQMapper.map15BandsTo10Bands(bands, AppConstants.eq10BandFrequencies)
-            self.updateBands(mappedBands, globalGain)
-            return
-        }
-        
-        // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
-        bandSliders.forEach({
-            $0.floatValue = bands[$0.tag] ?? 0
-        })
-        
-        globalGainSlider.floatValue = globalGain
-    }
-    
-    func updateBands(_ bands: [Float: Float], _ globalGain: Float) {
-        
-        var indexedBands: [Int: Float] = [:]
-        
-        let sortedBands = bands.sorted(by: {r1, r2 -> Bool in r1.key < r2.key})
-        
-        var index = 0
-        for (_, gain) in sortedBands {
-            
-            indexedBands[index] = gain
-            index += 1
-        }
-        
-        updateBands(indexedBands, globalGain)
+        activeView.stateChanged()
     }
 }
