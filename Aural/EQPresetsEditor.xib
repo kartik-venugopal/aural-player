@@ -8,11 +8,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="EQPresetsEditorViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btn10Band" destination="aI2-fa-bQZ" id="aLG-ou-fpQ"/>
-                <outlet property="btn15Band" destination="aAC-zP-FcH" id="E7H-wg-wpO"/>
                 <outlet property="editorView" destination="rHa-z3-7sV" id="4nC-Ep-cBl"/>
-                <outlet property="eq10BandView" destination="ezV-8I-tNs" id="zU5-Z6-u6E"/>
-                <outlet property="eq15BandView" destination="4EE-Wa-V8l" id="BDK-Ps-K5f"/>
+                <outlet property="eqView" destination="g0a-GU-cqu" id="Gzh-D8-bZ9"/>
                 <outlet property="previewBox" destination="z5r-ha-mKx" id="rct-O9-XSJ"/>
                 <outlet property="view" destination="haI-ib-O6X" id="uAw-xp-cHj"/>
             </connections>
@@ -93,7 +90,7 @@
                 <box hidden="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="z5r-ha-mKx" userLabel="Preview Box">
                     <rect key="frame" x="233" y="0.0" width="442" height="280"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView" ambiguous="YES" id="g0a-GU-cqu">
+                    <view key="contentView" ambiguous="YES" id="g0a-GU-cqu" customClass="EQView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="442" height="280"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -135,7 +132,7 @@
                                     <rect key="frame" x="1" y="1" width="290" height="134"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ezV-8I-tNs" userLabel="10 band View" customClass="EQView" customModule="Aural" customModuleProvider="target">
+                                        <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ezV-8I-tNs" userLabel="10 band View" customClass="EQSubview" customModule="Aural" customModuleProvider="target">
                                             <rect key="frame" x="-1" y="-1" width="292" height="136"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <subviews>
@@ -235,7 +232,7 @@
                                                 <outlet property="globalGainSlider" destination="zqE-2e-9uu" id="daJ-DQ-rPQ"/>
                                             </connections>
                                         </customView>
-                                        <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4EE-Wa-V8l" userLabel="15 band EQ" customClass="EQView" customModule="Aural" customModuleProvider="target">
+                                        <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4EE-Wa-V8l" userLabel="15 band EQ" customClass="EQSubview" customModule="Aural" customModuleProvider="target">
                                             <rect key="frame" x="-1" y="-1" width="292" height="136"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
@@ -363,7 +360,23 @@
                                     </subviews>
                                 </view>
                             </box>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gv6-gD-2et">
+                                <rect key="frame" x="192" y="-50" width="56" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title=" Sync" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" enabled="NO" state="on" inset="2" id="IEM-Xm-ePE" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="11" name="GillSans"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
+                        <connections>
+                            <outlet property="btn10Band" destination="aI2-fa-bQZ" id="hKP-92-8n9"/>
+                            <outlet property="btn15Band" destination="aAC-zP-FcH" id="D5w-Lr-10p"/>
+                            <outlet property="btnSync" destination="Gv6-gD-2et" id="Qx9-YL-3GJ"/>
+                            <outlet property="container" destination="AYc-cZ-nSy" id="8zy-nh-zFO"/>
+                            <outlet property="eq10BandView" destination="ezV-8I-tNs" id="J6q-n2-92R"/>
+                            <outlet property="eq15BandView" destination="4EE-Wa-V8l" id="GxL-EN-Cse"/>
+                        </connections>
                     </view>
                     <color key="borderColor" white="0.34804687499999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

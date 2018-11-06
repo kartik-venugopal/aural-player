@@ -7,7 +7,7 @@ class EQSubview: NSView {
     var bandSliders: [EffectsUnitSlider] = []
     var allSliders: [EffectsUnitSlider] = []
     
-    func initialize(_ stateFunction: @escaping (() -> EffectsUnitState)) {
+    func initialize(_ stateFunction: @escaping (() -> EffectsUnitState), _ sliderAction: Selector?, _ sliderActionTarget: AnyObject?) {
         
         for subView in self.subviews {
             
@@ -17,6 +17,14 @@ class EQSubview: NSView {
                 allSliders.append(slider)
                 slider.stateFunction = stateFunction
             }
+        }
+        
+        if sliderAction != nil {
+            
+            bandSliders.forEach({
+                $0.action = sliderAction
+                $0.target = sliderActionTarget
+            })
         }
     }
     

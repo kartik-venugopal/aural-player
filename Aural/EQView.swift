@@ -35,33 +35,21 @@ class EQView: NSView {
         eq15BandView.positionAtZeroPoint()
     }
     
-    func initialize(_ sliderAction: Selector, _ sliderActionTarget: AnyObject, _ eqStateFunction: @escaping () -> EffectsUnitState) {
+    func initialize(_ sliderAction: Selector?, _ sliderActionTarget: AnyObject?, _ eqStateFunction: @escaping () -> EffectsUnitState) {
         
-        eq10BandView.initialize(eqStateFunction)
-        eq15BandView.initialize(eqStateFunction)
-        
-        eq10BandView.bandSliders.forEach({
-            $0.action = sliderAction
-            $0.target = sliderActionTarget
-        })
-        
-        eq15BandView.bandSliders.forEach({
-            $0.action = sliderAction
-            $0.target = sliderActionTarget
-        })
+        eq10BandView.initialize(eqStateFunction, sliderAction, sliderActionTarget)
+        eq15BandView.initialize(eqStateFunction, sliderAction, sliderActionTarget)
     }
     
     func setState(_ eqType: EQType, _ bands: [Int: Float], _ globalGain: Float, _ sync: Bool) {
 
-        eqType == .tenBand ? btn10Band.on() : btn15Band.on()
-        
+        chooseType(eqType)
         bandsUpdated(bands, globalGain)
-        
-        activeView.stateChanged()
-        activeView.show()
-        inactiveView.hide()
-        
         btnSync.onIf(sync)
+    }
+    
+    func setUnitState(_ state: EffectsUnitState) {
+        activeView.setState(state)
     }
     
     func typeChanged(_ bands: [Int: Float], _ globalGain: Float) {
@@ -78,5 +66,14 @@ class EQView: NSView {
     
     func stateChanged() {
         activeView.stateChanged()
+    }
+    
+    func chooseType(_ eqType: EQType) {
+        
+        eqType == .tenBand ? btn10Band.on() : btn15Band.on()
+        
+        activeView.stateChanged()
+        activeView.show()
+        inactiveView.hide()
     }
 }
