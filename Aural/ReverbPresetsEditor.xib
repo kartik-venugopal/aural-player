@@ -9,10 +9,10 @@
         <customObject id="-2" userLabel="File's Owner" customClass="ReverbPresetsEditorViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="editorView" destination="MgD-LE-H3z" id="A59-8M-Qg0"/>
-                <outlet property="lblReverbAmountValue" destination="iy0-g1-V3k" id="s76-5V-WL3"/>
+                <outlet property="lblReverbAmountValue" destination="jQN-HS-BKW" id="HSx-HJ-ugV"/>
                 <outlet property="previewBox" destination="NaF-1t-3HE" id="gRj-Nz-7aS"/>
-                <outlet property="reverbAmountSlider" destination="sia-Mt-MGm" id="dtV-ID-uel"/>
-                <outlet property="reverbSpaceMenu" destination="Pkp-pI-7Pc" id="Mmm-uv-edX"/>
+                <outlet property="reverbAmountSlider" destination="eqq-pG-1YQ" id="o0i-df-bgV"/>
+                <outlet property="reverbSpaceMenu" destination="4E3-lX-F33" id="eti-q9-qDl"/>
                 <outlet property="view" destination="hDA-ZO-Qha" id="xZP-lL-FG8"/>
             </connections>
         </customObject>
@@ -30,7 +30,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" id="MgD-LE-H3z" userLabel="Reverb Presets Table View">
-                                <rect key="frame" x="0.0" y="0.0" width="333" height="275"/>
+                                <rect key="frame" x="0.0" y="0.0" width="230" height="275"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -50,11 +50,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="vEt-kh-ZbH" customClass="EditorTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="1" width="330" height="30"/>
+                                                <rect key="frame" x="1" y="1" width="225" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d5Y-bS-aLU" customClass="EditorTextField" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="5" y="0.0" width="325" height="25"/>
+                                                        <rect key="frame" x="5" y="0.0" width="220" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="Lzn-Kp-X4l">
                                                             <font key="font" metaFont="system"/>
@@ -80,7 +80,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </clipView>
                     <edgeInsets key="contentInsets" left="0.0" right="0.0" top="5" bottom="0.0"/>
-                    <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="hjx-nr-yOB">
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="hjx-nr-yOB">
                         <rect key="frame" x="0.0" y="264" width="230" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -105,100 +105,100 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="EUT-mI-HNR" userLabel="Controls Box">
-                                <rect key="frame" x="71" y="172" width="287" height="68"/>
+                            <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="oSw-De-Pg7" userLabel="Controls Box">
+                                <rect key="frame" x="43" y="166" width="355" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" ambiguous="YES" id="Otp-kV-vfC">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="68"/>
+                                <view key="contentView" ambiguous="YES" id="LoO-1F-t7D">
+                                    <rect key="frame" x="0.0" y="0.0" width="355" height="68"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cOw-sw-nsZ">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6kE-dU-nvk">
                                             <rect key="frame" x="6" y="40" width="48" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Space" id="jvD-A8-1Wu">
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Space" id="x9M-FE-vS4">
                                                 <font key="font" size="11" name="GillSans"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pkp-pI-7Pc" userLabel="Reverb Space Menu">
-                                            <rect key="frame" x="75" y="37" width="125" height="22"/>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4E3-lX-F33" userLabel="Reverb Space Menu">
+                                            <rect key="frame" x="80" y="37" width="125" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="Placeholder" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" enabled="NO" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="tHm-LX-cVt" id="fiu-5q-AX7" customClass="ReverbPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                                            <popUpButtonCell key="cell" type="push" title="Placeholder" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" enabled="NO" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="a7X-EB-q01" id="aCa-h9-yMV" customClass="ReverbPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" size="10" name="GillSans"/>
-                                                <menu key="menu" id="xwy-d0-I4N">
+                                                <menu key="menu" id="h1Y-R8-eoa">
                                                     <items>
-                                                        <menuItem title="Placeholder" hidden="YES" enabled="NO" id="tHm-LX-cVt" userLabel="Placeholder">
+                                                        <menuItem title="Placeholder" hidden="YES" enabled="NO" id="a7X-EB-q01" userLabel="Placeholder">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
-                                                        <menuItem title="Small room" id="ZbW-Zl-kIU">
+                                                        <menuItem title="Small room" id="Vwh-qq-yKN">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
-                                                        <menuItem title="Medium room" id="Zrk-AX-ETT">
+                                                        <menuItem title="Medium room" id="Zjt-9U-xZ1">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
-                                                        <menuItem title="Large room" id="Vbf-8q-cHa">
+                                                        <menuItem title="Large room" id="Slm-bD-x5J">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
-                                                        <menuItem title="Medium hall" id="6NB-iA-D5c">
+                                                        <menuItem title="Medium hall" id="nc8-3r-24b">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
-                                                        <menuItem title="Large hall" id="DbZ-sd-lXh">
+                                                        <menuItem title="Large hall" id="ll2-Pp-KOA">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
-                                                        <menuItem title="Medium chamber" id="xHz-PO-lr6">
+                                                        <menuItem title="Medium chamber" id="tlD-rC-SxO">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
-                                                        <menuItem title="Large chamber" id="oHk-F3-JFp">
+                                                        <menuItem title="Large chamber" id="Ux0-4C-zRs">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
-                                                        <menuItem title="Cathedral" id="SA3-5c-qGj">
+                                                        <menuItem title="Cathedral" id="jnc-Ee-QHR">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
-                                                        <menuItem title="Plate" id="wrS-4N-Z5z">
+                                                        <menuItem title="Plate" id="Gp2-zW-2HG">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
                                                     </items>
                                                 </menu>
                                             </popUpButtonCell>
                                         </popUpButton>
-                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sia-Mt-MGm" userLabel="ReverbAmount Slider">
-                                            <rect key="frame" x="75" y="7" width="125" height="18"/>
+                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eqq-pG-1YQ" userLabel="ReverbAmount Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
+                                            <rect key="frame" x="80" y="7" width="190" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="3" sliderType="linear" id="z9d-6b-IQf" customClass="EffectsTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                            <sliderCell key="cell" controlSize="small" enabled="NO" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="11" sliderType="linear" id="5fx-ZP-HNe" customClass="EffectsTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
                                         </slider>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qTo-WQ-dRS">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MWy-s9-pSk">
                                             <rect key="frame" x="6" y="11" width="55" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Amount" id="Og1-4J-se6">
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Amount" id="bvj-Dp-qWb">
                                                 <font key="font" size="11" name="GillSans"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v4x-jT-zl7">
-                                            <rect key="frame" x="40" y="11" width="33" height="15"/>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jh5-xx-s87">
+                                            <rect key="frame" x="45" y="11" width="33" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Dry" id="VUs-pX-ZWa">
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Dry" id="1k8-Ll-weC">
                                                 <font key="font" size="10" name="GillSans"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fMt-Rl-LRZ" userLabel="Wet">
-                                            <rect key="frame" x="202" y="11" width="34" height="15"/>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gRc-jK-pPf" userLabel="Wet">
+                                            <rect key="frame" x="272" y="11" width="34" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Wet" id="pBh-lO-V1X">
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Wet" id="Kza-C5-djP">
                                                 <font key="font" size="10" name="GillSans"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iy0-g1-V3k" userLabel="Lbl Reverb Value">
-                                            <rect key="frame" x="226" y="11" width="53" height="15"/>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jQN-HS-BKW" userLabel="Lbl Reverb Value">
+                                            <rect key="frame" x="294" y="11" width="53" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="100% wet" id="9rP-lv-GAy">
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="100% wet" id="yff-vv-Nyu">
                                                 <font key="font" size="10" name="GillSans"/>
                                                 <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

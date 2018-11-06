@@ -137,27 +137,27 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
-                        <tabViewItem label="Time" identifier="3" id="9bj-nK-KOv">
-                            <view key="view" id="IkI-cp-f8r">
-                                <rect key="frame" x="10" y="7" width="791" height="278"/>
+                        <tabViewItem label="Time" identifier="3" id="kcB-VX-Xgi">
+                            <view key="view" id="WjP-xC-GSC">
+                                <rect key="frame" x="10" y="7" width="791" height="280"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
-                        <tabViewItem label="Reverb" identifier="4" id="Kq5-A1-meF">
-                            <view key="view" id="nKT-El-Ylg">
-                                <rect key="frame" x="10" y="7" width="791" height="278"/>
+                        <tabViewItem label="Reverb" identifier="4" id="yAa-eZ-iRd">
+                            <view key="view" id="hSU-cW-78L">
+                                <rect key="frame" x="10" y="7" width="791" height="280"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
-                        <tabViewItem label="Delay" identifier="5" id="8Cn-JM-gIC">
-                            <view key="view" id="i7g-Aw-R5h">
-                                <rect key="frame" x="10" y="7" width="791" height="278"/>
+                        <tabViewItem label="Delay" identifier="5" id="GpV-Ww-CaW">
+                            <view key="view" id="hbO-Tc-YBj">
+                                <rect key="frame" x="10" y="7" width="791" height="280"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
-                        <tabViewItem label="Filter" identifier="6" id="u2K-U0-Rjo">
-                            <view key="view" id="5nP-ZL-tW8">
-                                <rect key="frame" x="10" y="7" width="791" height="278"/>
+                        <tabViewItem label="Filter" identifier="6" id="XPU-J1-Pkv">
+                            <view key="view" id="rh4-AT-dDX">
+                                <rect key="frame" x="10" y="7" width="791" height="280"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>

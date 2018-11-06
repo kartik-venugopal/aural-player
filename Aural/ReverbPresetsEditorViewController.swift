@@ -5,7 +5,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     @IBOutlet weak var editorView: NSTableView!
     
     @IBOutlet weak var reverbSpaceMenu: NSPopUpButton!
-    @IBOutlet weak var reverbAmountSlider: NSSlider!
+    @IBOutlet weak var reverbAmountSlider: EffectsUnitSlider!
     @IBOutlet weak var lblReverbAmountValue: NSTextField!
     
     @IBOutlet weak var previewBox: NSBox!
@@ -17,6 +17,15 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     override var nibName: String? {return "ReverbPresetsEditor"}
     
     override func viewDidLoad() {
+        
+        let unitStateFunction = {
+            () -> EffectsUnitState in
+            return .active
+        }
+        
+        reverbAmountSlider.stateFunction = unitStateFunction
+        reverbAmountSlider.updateState()
+        
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
     

@@ -4,8 +4,8 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     
     @IBOutlet weak var editorView: NSTableView!
     
-    @IBOutlet weak var pitchSlider: NSSlider!
-    @IBOutlet weak var pitchOverlapSlider: NSSlider!
+    @IBOutlet weak var pitchSlider: EffectsUnitSlider!
+    @IBOutlet weak var pitchOverlapSlider: EffectsUnitSlider!
     @IBOutlet weak var lblPitchValue: NSTextField!
     @IBOutlet weak var lblPitchOverlapValue: NSTextField!
     
@@ -18,6 +18,17 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     override var nibName: String? {return "PitchPresetsEditor"}
     
     override func viewDidLoad() {
+        
+        let pitchStateFunction = {
+            () -> EffectsUnitState in
+            return .active
+        }
+        
+        [pitchSlider, pitchOverlapSlider].forEach({
+            $0?.stateFunction = pitchStateFunction
+            $0?.updateState()
+        })
+        
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
     

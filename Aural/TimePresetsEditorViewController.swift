@@ -5,8 +5,8 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     @IBOutlet weak var editorView: NSTableView!
     
     @IBOutlet weak var btnShiftPitch: NSButton!
-    @IBOutlet weak var timeSlider: NSSlider!
-    @IBOutlet weak var timeOverlapSlider: NSSlider!
+    @IBOutlet weak var timeSlider: EffectsUnitSlider!
+    @IBOutlet weak var timeOverlapSlider: EffectsUnitSlider!
     
     @IBOutlet weak var lblTimeStretchRateValue: NSTextField!
     @IBOutlet weak var lblPitchShiftValue: NSTextField!
@@ -21,6 +21,17 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     override var nibName: String? {return "TimePresetsEditor"}
     
     override func viewDidLoad() {
+        
+        let unitStateFunction = {
+            () -> EffectsUnitState in
+            return .active
+        }
+        
+        [timeSlider, timeOverlapSlider].forEach({
+            $0?.stateFunction = unitStateFunction
+            $0?.updateState()
+        })
+        
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
     

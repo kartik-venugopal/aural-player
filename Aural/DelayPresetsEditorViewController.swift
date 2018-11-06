@@ -4,10 +4,10 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     
     @IBOutlet weak var editorView: NSTableView!
     
-    @IBOutlet weak var delayTimeSlider: NSSlider!
-    @IBOutlet weak var delayAmountSlider: NSSlider!
-    @IBOutlet weak var delayCutoffSlider: NSSlider!
-    @IBOutlet weak var delayFeedbackSlider: NSSlider!
+    @IBOutlet weak var delayTimeSlider: EffectsUnitSlider!
+    @IBOutlet weak var delayAmountSlider: EffectsUnitSlider!
+    @IBOutlet weak var delayCutoffSlider: EffectsUnitSlider!
+    @IBOutlet weak var delayFeedbackSlider: EffectsUnitSlider!
     
     @IBOutlet weak var lblDelayTimeValue: NSTextField!
     @IBOutlet weak var lblDelayAmountValue: NSTextField!
@@ -23,6 +23,17 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     override var nibName: String? {return "DelayPresetsEditor"}
     
     override func viewDidLoad() {
+        
+        let unitStateFunction = {
+            () -> EffectsUnitState in
+            return .active
+        }
+        
+        [delayTimeSlider, delayAmountSlider, delayCutoffSlider, delayFeedbackSlider].forEach({
+            $0?.stateFunction = unitStateFunction
+            $0?.updateState()
+        })
+        
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
     
