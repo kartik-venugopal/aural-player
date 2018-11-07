@@ -46,6 +46,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     
     // Presets
     private(set) var masterPresets: MasterPresets = MasterPresets()
+    private(set) var eqPresets: EQPresets = EQPresets()
     
     // Sets up the audio engine
     init(_ state: AudioGraphState) {
@@ -86,7 +87,6 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         playerNode.pan = state.balance
         
         masterBypass = state.masterState != .active
-//        MasterPresets.loadPresets(state.masterUserPresets)
         masterPresets.addPresets(state.masterUserPresets)
         
         // EQ
@@ -94,7 +94,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         eqSuppressed = state.eqState == .suppressed
         eqNode.setBands(state.eqBands)
         eqNode.globalGain = state.eqGlobalGain
-        EQPresets.loadUserDefinedPresets(state.eqUserPresets)
+        eqPresets.addPresets(state.eqUserPresets)
         
         // Pitch
         pitchNode.bypass = state.pitchState != .active
@@ -438,7 +438,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     func saveEQPreset(_ presetName: String) {
      
         let eqState = getEQState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        EQPresets.addUserDefinedPreset(presetName, eqState, eqNode.allBands(), eqNode.globalGain)
+        eqPresets.addPreset(EQPreset(presetName, eqState, eqNode.allBands(), eqNode.globalGain, false))
     }
     
     func applyEQPreset(_ preset: EQPreset) {
@@ -838,7 +838,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.eqSync = eqNode.sync
         state.eqBands = eqNode.allBands()
         state.eqGlobalGain = eqNode.globalGain
-        state.eqUserPresets = EQPresets.userDefinedPresets
+        state.eqUserPresets = eqPresets.userDefinedPresets
         
         // Pitch
         state.pitchState = getPitchState()

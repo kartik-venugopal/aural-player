@@ -1,68 +1,14 @@
 import Foundation
 
-class EQPresets {
+class EQPresets: FXPresets<EQPreset> {
     
-    private static var presets: [String: EQPreset] = {
-        
-        var map = [String: EQPreset]()
-        SystemDefinedEQPresets.allValues.forEach({
-            map[$0.rawValue] = EQPreset($0.rawValue, $0.state, $0.bands, $0.globalGain, true)
-        })
-        
-        return map
-    }()
-    
-    static var userDefinedPresets: [EQPreset] {
-        return presets.values.filter({$0.systemDefined == false})
+    override init() {
+     
+        super.init()
+        addPresets(SystemDefinedEQPresets.presets)
     }
     
-    static var systemDefinedPresets: [EQPreset] {
-        return presets.values.filter({$0.systemDefined == true})
-    }
-    
-    static var defaultPreset: EQPreset {
-        return presetByName(SystemDefinedEQPresets.flat.rawValue)
-    }
-    
-    static func presetByName(_ name: String) -> EQPreset {
-        return presets[name] ?? defaultPreset
-    }
-    
-    static func countUserDefinedPresets() -> Int {
-        return userDefinedPresets.count
-    }
-    
-    static func deletePresets(_ presetNames: [String]) {
-        
-        presetNames.forEach({
-            presets[$0] = nil
-        })
-    }
-    
-    static func renamePreset(_ oldName: String, _ newName: String) {
-        
-        if presetWithNameExists(oldName) {
-            
-            let preset = presetByName(oldName)
-            
-            presets.removeValue(forKey: oldName)
-            preset.name = newName
-            presets[newName] = preset
-        }
-    }
-    
-    static func loadUserDefinedPresets(_ userDefinedPresets: [EQPreset]) {
-        userDefinedPresets.forEach({presets[$0.name] = $0})
-    }
-    
-    // Assume preset with this name doesn't already exist
-    static func addUserDefinedPreset(_ name: String, _ state: EffectsUnitState, _ bands: [Int: Float], _ globalGain: Float) {
-        presets[name] = EQPreset(name, state, bands, globalGain, false)
-    }
-    
-    static func presetWithNameExists(_ name: String) -> Bool {
-        return presets[name] != nil
-    }
+    static var defaultPreset: EQPreset = {return SystemDefinedEQPresets.presets.first(where: {$0.name == SystemDefinedEQPresetParams.flat.rawValue})!}()
 }
 
 class EQPreset: EffectsUnitPreset {
@@ -78,10 +24,23 @@ class EQPreset: EffectsUnitPreset {
     }
 }
 
+fileprivate struct SystemDefinedEQPresets {
+    
+    static let presets: [EQPreset] = {
+    
+        var arr: [EQPreset] = []
+        SystemDefinedEQPresetParams.allValues.forEach({
+            arr.append(EQPreset($0.rawValue, $0.state, $0.bands, $0.globalGain, true))
+        })
+        
+        return arr
+    }()
+}
+
 /*
     An enumeration of Equalizer presets the user can choose from
  */
-fileprivate enum SystemDefinedEQPresets: String {
+fileprivate enum SystemDefinedEQPresetParams: String {
     
     case flat = "Flat" // default
     case highBassAndTreble = "High bass and treble"
@@ -101,11 +60,11 @@ fileprivate enum SystemDefinedEQPresets: String {
     case karaoke = "Karaoke"
     case vocal = "Vocal"
     
-    static var allValues: [SystemDefinedEQPresets] = [.flat, .highBassAndTreble, .dance, .electronic, .hipHop, .jazz, .latin, .lounge, .piano, .pop, .rAndB, .rock, .soft, .karaoke, .vocal]
+    static var allValues: [SystemDefinedEQPresetParams] = [.flat, .highBassAndTreble, .dance, .electronic, .hipHop, .jazz, .latin, .lounge, .piano, .pop, .rAndB, .rock, .soft, .karaoke, .vocal]
     
     // Converts a user-friendly display name to an instance of EQPresets
-    static func fromDisplayName(_ displayName: String) -> SystemDefinedEQPresets {
-        return SystemDefinedEQPresets(rawValue: displayName) ?? .flat
+    static func fromDisplayName(_ displayName: String) -> SystemDefinedEQPresetParams {
+        return SystemDefinedEQPresetParams(rawValue: displayName) ?? .flat
     }
     
     // Returns the frequency->gain mappings for each of the frequency bands, for this preset

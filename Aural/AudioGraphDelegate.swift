@@ -252,13 +252,17 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         }
     }
     
+    var eqPresets: EQPresets {
+        return graph.eqPresets
+    }
+    
     func saveEQPreset(_ presetName: String) {
         graph.saveEQPreset(presetName)
     }
     
     func applyEQPreset(_ presetName: String) {
         
-        let preset = EQPresets.presetByName(presetName)
+        let preset = eqPresets.presetByName(presetName)!
         graph.applyEQPreset(preset)
     }
     

@@ -37,15 +37,9 @@ class FilterViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        let itemCount = presetsMenu.itemArray.count
-        
-        let customPresetCount = itemCount - 6  // 1 separator, 5 system-defined presets
-        
-        if customPresetCount > 0 {
-            
-            for index in (0..<customPresetCount).reversed() {
-                presetsMenu.removeItem(at: index)
-            }
+        // Remove all custom presets
+        while !presetsMenu.item(at: 0)!.isSeparatorItem {
+            presetsMenu.removeItem(at: 0)
         }
         
         // Re-initialize the menu with user-defined presets
