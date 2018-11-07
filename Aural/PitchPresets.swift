@@ -1,68 +1,14 @@
 import Foundation
 
-class PitchPresets {
+class PitchPresets: FXPresets<PitchPreset> {
     
-    private static var presets: [String: PitchPreset] = {
+    override init() {
         
-        var map = [String: PitchPreset]()
-        SystemDefinedPitchPresets.allValues.forEach({
-            map[$0.rawValue] = PitchPreset($0.rawValue, $0.state, $0.pitch, $0.overlap,true)
-        })
-        
-        return map
-    }()
-    
-    static var userDefinedPresets: [PitchPreset] {
-        return presets.values.filter({$0.systemDefined == false})
+        super.init()
+        addPresets(SystemDefinedPitchPresets.presets)
     }
     
-    static var systemDefinedPresets: [PitchPreset] {
-        return presets.values.filter({$0.systemDefined == true})
-    }
-    
-    static var defaultPreset: PitchPreset {
-        return presetByName(SystemDefinedPitchPresets.normal.rawValue)
-    }
-    
-    static func presetByName(_ name: String) -> PitchPreset {
-        return presets[name] ?? defaultPreset
-    }
-    
-    static func countUserDefinedPresets() -> Int {
-        return userDefinedPresets.count
-    }
-    
-    static func deletePresets(_ presetNames: [String]) {
-        
-        presetNames.forEach({
-            presets[$0] = nil
-        })
-    }
-    
-    static func renamePreset(_ oldName: String, _ newName: String) {
-        
-        if presetWithNameExists(oldName) {
-            
-            let preset = presetByName(oldName)
-            
-            presets.removeValue(forKey: oldName)
-            preset.name = newName
-            presets[newName] = preset
-        }
-    }
-    
-    static func loadUserDefinedPresets(_ userDefinedPresets: [PitchPreset]) {
-        userDefinedPresets.forEach({presets[$0.name] = $0})
-    }
-    
-    // Assume preset with this name doesn't already exist
-    static func addUserDefinedPreset(_ name: String, _ state: EffectsUnitState, _ pitch: Float, _ overlap: Float) {
-        presets[name] = PitchPreset(name, state, pitch, overlap, false)
-    }
-    
-    static func presetWithNameExists(_ name: String) -> Bool {
-        return presets[name] != nil
-    }
+    static var defaultPreset: PitchPreset = {return SystemDefinedPitchPresets.presets.first(where: {$0.name == SystemDefinedPitchPresetParams.normal.rawValue})!}()
 }
 
 class PitchPreset: EffectsUnitPreset {
@@ -78,10 +24,23 @@ class PitchPreset: EffectsUnitPreset {
     }
 }
 
+fileprivate struct SystemDefinedPitchPresets {
+    
+    static let presets: [PitchPreset] = {
+        
+        var arr: [PitchPreset] = []
+        SystemDefinedPitchPresetParams.allValues.forEach({
+            arr.append(PitchPreset($0.rawValue, $0.state, $0.pitch, $0.overlap, true))
+        })
+        
+        return arr
+    }()
+}
+
 /*
     An enumeration of built-in pitch presets the user can choose from
  */
-fileprivate enum SystemDefinedPitchPresets: String {
+fileprivate enum SystemDefinedPitchPresetParams: String {
     
     case normal = "Normal"  // default
     case happyLittleGirl = "Happy little girl"
@@ -94,11 +53,11 @@ fileprivate enum SystemDefinedPitchPresets: String {
     case oneOctaveDown = "-1 8ve"
     case twoOctavesDown = "-2 8ve"
     
-    static var allValues: [SystemDefinedPitchPresets] = [.normal, .chipmunk, .happyLittleGirl, .oneOctaveUp, .twoOctavesUp, .deep, .robocop, .oneOctaveDown, .twoOctavesDown]
+    static var allValues: [SystemDefinedPitchPresetParams] = [.normal, .chipmunk, .happyLittleGirl, .oneOctaveUp, .twoOctavesUp, .deep, .robocop, .oneOctaveDown, .twoOctavesDown]
     
     // Converts a user-friendly display name to an instance of PitchPresets
-    static func fromDisplayName(_ displayName: String) -> SystemDefinedPitchPresets {
-        return SystemDefinedPitchPresets(rawValue: displayName) ?? .normal
+    static func fromDisplayName(_ displayName: String) -> SystemDefinedPitchPresetParams {
+        return SystemDefinedPitchPresetParams(rawValue: displayName) ?? .normal
     }
     
     var pitch: Float {

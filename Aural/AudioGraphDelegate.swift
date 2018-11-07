@@ -346,13 +346,17 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return (convPitch, ValueFormatter.formatPitch(convPitch))
     }
     
+    var pitchPresets: PitchPresets {
+        return graph.pitchPresets
+    }
+    
     func savePitchPreset(_ presetName: String) {
         graph.savePitchPreset(presetName)
     }
     
     func applyPitchPreset(_ presetName: String) {
         
-        let preset = PitchPresets.presetByName(presetName)
+        let preset = pitchPresets.presetByName(presetName)!
         graph.applyPitchPreset(preset)
     }
     
