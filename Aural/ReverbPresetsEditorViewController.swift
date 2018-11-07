@@ -35,7 +35,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        previewBox.hide().
+        previewBox.hide()
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
