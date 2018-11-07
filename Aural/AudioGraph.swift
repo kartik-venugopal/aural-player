@@ -49,6 +49,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     private(set) var eqPresets: EQPresets = EQPresets()
     private(set) var pitchPresets: PitchPresets = PitchPresets()
     private(set) var timePresets: TimePresets = TimePresets()
+    private(set) var delayPresets: DelayPresets = DelayPresets()
     
     // Sets up the audio engine
     init(_ state: AudioGraphState) {
@@ -129,7 +130,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         delayNode.delayTime = state.delayTime
         delayNode.feedback = state.delayFeedback
         delayNode.lowPassCutoff = state.delayLowPassCutoff
-        DelayPresets.loadUserDefinedPresets(state.delayUserPresets)
+        delayPresets.addPresets(state.delayUserPresets)
         
         // Filter
         filterNode.bypass = state.filterState != .active
@@ -713,7 +714,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     func saveDelayPreset(_ presetName: String) {
         
         let delayState = (getDelayState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed)
-        DelayPresets.addUserDefinedPreset(presetName, delayState, delayNode.wetDryMix, delayNode.delayTime, delayNode.feedback, delayNode.lowPassCutoff)
+        delayPresets.addPreset(DelayPreset(presetName, delayState, delayNode.wetDryMix, delayNode.delayTime, delayNode.feedback, delayNode.lowPassCutoff, false))
     }
     
     func applyDelayPreset(_ preset: DelayPreset) {
@@ -867,7 +868,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.delayTime = delayNode.delayTime
         state.delayFeedback = delayNode.feedback
         state.delayLowPassCutoff = delayNode.lowPassCutoff
-        state.delayUserPresets = DelayPresets.userDefinedPresets
+        state.delayUserPresets = delayPresets.userDefinedPresets
         
         // Filter
         state.filterState = getFilterState()

@@ -243,6 +243,8 @@ protocol DelayUnitDelegateProtocol {
     // Sets the delay low pass cutoff frequency, in Hz, specified as a value between 10 and 20k
     func setDelayLowPassCutoff(_ cutoff: Float) -> String
     
+    var delayPresets: DelayPresets {get}
+    
     func saveDelayPreset(_ presetName: String)
     
     func applyDelayPreset(_ presetName: String)

@@ -1,72 +1,14 @@
 import Foundation
 
-// TODO: Create a superclass to reduce code duplication
-class DelayPresets {
+class DelayPresets: FXPresets<DelayPreset> {
     
-    private static var presets: [String: DelayPreset] = {
+    override init() {
         
-        var map = [String: DelayPreset]()
-        
-        SystemDefinedDelayPresets.allValues.forEach({
-            
-            map[$0.rawValue] = DelayPreset($0.rawValue, $0.state, $0.amount, $0.time, $0.feedback, $0.cutoff, true)
-        })
-        
-        return map
-    }()
-    
-    static var userDefinedPresets: [DelayPreset] {
-        return presets.values.filter({$0.systemDefined == false})
+        super.init()
+        addPresets(SystemDefinedDelayPresets.presets)
     }
     
-    static var systemDefinedPresets: [DelayPreset] {
-        return presets.values.filter({$0.systemDefined == true})
-    }
-    
-    static var defaultPreset: DelayPreset {
-        return presetByName(SystemDefinedDelayPresets.oneSecond.rawValue)
-    }
-    
-    static func presetByName(_ name: String) -> DelayPreset {
-        return presets[name] ?? defaultPreset
-    }
-    
-    static func loadUserDefinedPresets(_ userDefinedPresets: [DelayPreset]) {
-        userDefinedPresets.forEach({presets[$0.name] = $0})
-    }
-    
-    // Assume preset with this name doesn't already exist
-    static func addUserDefinedPreset(_ name: String, _ state: EffectsUnitState, _ amount: Float, _ time: Double, _ feedback: Float, _ cutoff: Float) {
-        
-        presets[name] = DelayPreset(name, state, amount, time, feedback, cutoff, false)
-    }
-    
-    static func presetWithNameExists(_ name: String) -> Bool {
-        return presets[name] != nil
-    }
-    
-    static func countUserDefinedPresets() -> Int {
-        return userDefinedPresets.count
-    }
-    
-    static func deletePresets(_ presetNames: [String]) {
-        
-        presetNames.forEach({
-            presets[$0] = nil
-        })
-    }
-    
-    static func renamePreset(_ oldName: String, _ newName: String) {
-        
-        if presetWithNameExists(oldName) {
-            
-            let preset = presetByName(oldName)
-            
-            presets.removeValue(forKey: oldName)
-            preset.name = newName
-            presets[newName] = preset
-        }
-    }
+    static var defaultPreset: DelayPreset = {return SystemDefinedDelayPresets.presets.first(where: {$0.name == SystemDefinedDelayPresetParams.oneSecond.rawValue})!}()
 }
 
 class DelayPreset: EffectsUnitPreset {
@@ -87,10 +29,23 @@ class DelayPreset: EffectsUnitPreset {
     }
 }
 
+fileprivate struct SystemDefinedDelayPresets {
+    
+    static let presets: [DelayPreset] = {
+        
+        var arr: [DelayPreset] = []
+        SystemDefinedDelayPresetParams.allValues.forEach({
+            arr.append(DelayPreset($0.rawValue, $0.state, $0.amount, $0.time, $0.feedback, $0.cutoff, true))
+        })
+        
+        return arr
+    }()
+}
+
 /*
     An enumeration of built-in delay presets the user can choose from
  */
-fileprivate enum SystemDefinedDelayPresets: String {
+fileprivate enum SystemDefinedDelayPresetParams: String {
     
     case quarterSecond = "1/4 second delay"
     case halfSecond = "1/2 second delay"
@@ -100,11 +55,11 @@ fileprivate enum SystemDefinedDelayPresets: String {
     
     case slightEcho = "Slight echo"
     
-    static var allValues: [SystemDefinedDelayPresets] = [.quarterSecond, .halfSecond, .threeFourthsSecond, .oneSecond, .twoSeconds, .slightEcho]
+    static var allValues: [SystemDefinedDelayPresetParams] = [.quarterSecond, .halfSecond, .threeFourthsSecond, .oneSecond, .twoSeconds, .slightEcho]
     
     // Converts a user-friendly display name to an instance of DelayPresets
-    static func fromDisplayName(_ displayName: String) -> SystemDefinedDelayPresets {
-        return SystemDefinedDelayPresets(rawValue: displayName) ?? .oneSecond
+    static func fromDisplayName(_ displayName: String) -> SystemDefinedDelayPresetParams {
+        return SystemDefinedDelayPresetParams(rawValue: displayName) ?? .oneSecond
     }
     
     var time: Double {

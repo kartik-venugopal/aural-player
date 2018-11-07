@@ -545,13 +545,17 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return ValueFormatter.formatDelayLowPassCutoff(cutoff)
     }
     
+    var delayPresets: DelayPresets {
+        return graph.delayPresets
+    }
+    
     func saveDelayPreset(_ presetName: String) {
         graph.saveDelayPreset(presetName)
     }
     
     func applyDelayPreset(_ presetName: String) {
         
-        let preset = DelayPresets.presetByName(presetName)
+        let preset = delayPresets.presetByName(presetName)!
         graph.applyDelayPreset(preset)
     }
     
