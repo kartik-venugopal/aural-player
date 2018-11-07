@@ -4,11 +4,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     
     @IBOutlet weak var editorView: NSTableView!
     
-    @IBOutlet weak var pitchSlider: EffectsUnitSlider!
-    @IBOutlet weak var pitchOverlapSlider: EffectsUnitSlider!
-    @IBOutlet weak var lblPitchValue: NSTextField!
-    @IBOutlet weak var lblPitchOverlapValue: NSTextField!
-    
+    @IBOutlet weak var pitchView: PitchView!
     @IBOutlet weak var previewBox: NSBox!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
@@ -19,15 +15,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     
     override func viewDidLoad() {
         
-        let pitchStateFunction = {
-            () -> EffectsUnitState in
-            return .active
-        }
-        
-        [pitchSlider, pitchOverlapSlider].forEach({
-            $0?.stateFunction = pitchStateFunction
-            $0?.updateState()
-        })
+        pitchView.initialize({() -> EffectsUnitState in return .active})
         
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
@@ -91,11 +79,8 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     private func renderPreview(_ preset: PitchPreset) {
         
         let pitch = preset.pitch * AppConstants.pitchConversion_audioGraphToUI
-        pitchSlider.floatValue = pitch
-        lblPitchValue.stringValue = ValueFormatter.formatPitch(pitch)
-        
-        pitchOverlapSlider.floatValue = preset.overlap
-        lblPitchOverlapValue.stringValue = ValueFormatter.formatOverlap(preset.overlap)
+        pitchView.setPitch((pitch, ValueFormatter.formatPitch(pitch)))
+        pitchView.setPitchOverlap((preset.overlap, ValueFormatter.formatOverlap(preset.overlap)))
         
         previewBox.show()
     }

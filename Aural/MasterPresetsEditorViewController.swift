@@ -21,16 +21,10 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     // EQ
     
     @IBOutlet weak var eqSubPreview: EQView!
-    private var curEQPreset: EQPreset?
     
     // Pitch
     
-    @IBOutlet weak var pitchSubPreview: NSView!
-    
-    @IBOutlet weak var pitchSlider: EffectsUnitSlider!
-    @IBOutlet weak var pitchOverlapSlider: EffectsUnitSlider!
-    @IBOutlet weak var lblPitchValue: NSTextField!
-    @IBOutlet weak var lblPitchOverlapValue: NSTextField!
+    @IBOutlet weak var pitchSubPreview: PitchView!
     
     // Time
     
@@ -98,13 +92,10 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         subPreviewViews = [masterSubPreview, eqSubPreview, pitchSubPreview, timeSubPreview, reverbSubPreview, delaySubPreview, filterSubPreview]
         subPreviewViews.forEach({subPreviewBox.addSubview($0)})
         
-        let eqStateFunction = {
-            () -> EffectsUnitState in
-            return self.curEQPreset == nil ? .active : self.curEQPreset!.state
-        }
-        
-        eqSubPreview.initialize(nil, nil, eqStateFunction)
+        eqSubPreview.initialize(nil, nil, nil)
         eqSubPreview.chooseType(.tenBand)
+        
+        pitchSubPreview.initialize(nil)
         
         chart.bandsDataFunction = {() -> [FilterBand] in
             return self.getFilterChartBands()
@@ -121,6 +112,8 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         let selection = getSelectedPresetNames()
         
         if !selection.isEmpty {
+            
+            // TODO: Write a simple function to get selection[0]
             
             let preset = masterPresets.presetByName(selection[0])!
             return preset.filter.bands
@@ -237,29 +230,19 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
-        if let preset = curEQPreset {
-            eqSubPreview.typeChanged(preset.bands, preset.globalGain)
-        }
+        let presetName = getSelectedPresetNames()[0]
+        let preset = masterPresets.presetByName(presetName)!.eq
+        
+        eqSubPreview.setUnitState(preset.state)
+        eqSubPreview.typeChanged(preset.bands, preset.globalGain)
     }
     
     private func renderEQPreview(_ preset: EQPreset) {
-        
-        curEQPreset = preset
-
-        eqSubPreview.stateChanged()
-        eqSubPreview.bandsUpdated(preset.bands, preset.globalGain)
+        eqSubPreview.applyPreset(preset)
     }
     
     private func renderPitchPreview(_ preset: PitchPreset) {
-        
-        let pitch = preset.pitch * AppConstants.pitchConversion_audioGraphToUI
-        pitchSlider.floatValue = pitch
-        pitchSlider.setUnitState(preset.state)
-        lblPitchValue.stringValue = ValueFormatter.formatPitch(pitch)
-        
-        pitchOverlapSlider.floatValue = preset.overlap
-        pitchOverlapSlider.setUnitState(preset.state)
-        lblPitchOverlapValue.stringValue = ValueFormatter.formatOverlap(preset.overlap)
+        pitchSubPreview.applyPreset(preset)
     }
     
     private func renderTimePreview(_ preset: TimePreset) {
