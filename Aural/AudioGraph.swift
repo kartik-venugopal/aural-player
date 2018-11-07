@@ -49,6 +49,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     private(set) var eqPresets: EQPresets = EQPresets()
     private(set) var pitchPresets: PitchPresets = PitchPresets()
     private(set) var timePresets: TimePresets = TimePresets()
+    private(set) var reverbPresets: ReverbPresets = ReverbPresets()
     private(set) var delayPresets: DelayPresets = DelayPresets()
     
     // Sets up the audio engine
@@ -121,7 +122,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         reverbSpace = avPreset
         reverbNode.loadFactoryPreset(reverbSpace)
         reverbNode.wetDryMix = state.reverbAmount
-        ReverbPresets.loadPresets(state.reverbUserPresets)
+        reverbPresets.addPresets(state.reverbUserPresets)
         
         // Delay
         delayNode.bypass = state.delayState != .active
@@ -639,7 +640,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     func saveReverbPreset(_ presetName: String) {
         
         let reverbState = getReverbState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        ReverbPresets.addUserDefinedPreset(presetName, reverbState, getReverbSpace(), reverbNode.wetDryMix)
+        reverbPresets.addPreset(ReverbPreset(presetName, reverbState, getReverbSpace(), reverbNode.wetDryMix, false))
     }
     
     func applyReverbPreset(_ preset: ReverbPreset) {
@@ -860,7 +861,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.reverbState = getReverbState()
         state.reverbSpace = ReverbSpaces.mapFromAVPreset(reverbSpace)
         state.reverbAmount = reverbNode.wetDryMix
-        state.reverbUserPresets = ReverbPresets.allPresets()
+        state.reverbUserPresets = reverbPresets.userDefinedPresets
         
         // Delay
         state.delayState = getDelayState()

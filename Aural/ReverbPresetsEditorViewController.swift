@@ -11,6 +11,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     @IBOutlet weak var previewBox: NSBox!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private let reverbPresets: ReverbPresets = ObjectGraph.getAudioGraphDelegate().reverbPresets
     
     private var oldPresetName: String?
     
@@ -34,7 +35,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        previewBox.hide()
+        previewBox.hide().
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
@@ -44,7 +45,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     private func deleteSelectedPresetsAction() {
         
         let selection = getSelectedPresetNames()
-        ReverbPresets.deletePresets(selection)
+        reverbPresets.deletePresets(selection)
         editorView.reloadData()
         
         previewBox.hide()
@@ -99,7 +100,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return ReverbPresets.countUserDefinedPresets()
+        return reverbPresets.userDefinedPresets.count
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -111,7 +112,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
         if numRows == 1 {
             
             let presetName = getSelectedPresetNames()[0]
-            renderPreview(ReverbPresets.presetByName(presetName)!)
+            renderPreview(reverbPresets.presetByName(presetName)!)
             oldPresetName = presetName
         }
         
@@ -126,7 +127,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let preset = ReverbPresets.allPresets()[row]
+        let preset = reverbPresets.userDefinedPresets[row]
         return createTextCell(tableView, tableColumn!, row, preset.name)
     }
     
@@ -165,7 +166,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
         // Access the old value from the temp storage variable
         let oldName = oldPresetName ?? editedTextField.stringValue
         
-        if let preset = ReverbPresets.presetByName(oldName) {
+        if let preset = reverbPresets.presetByName(oldName) {
             
             let newPresetName = editedTextField.stringValue
             
@@ -178,7 +179,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
                 
                 editedTextField.stringValue = preset.name
                 
-            } else if ReverbPresets.presetWithNameExists(newPresetName) {
+            } else if reverbPresets.presetWithNameExists(newPresetName) {
                 
                 // Another preset with that name exists, can't rename
                 editedTextField.stringValue = preset.name
@@ -186,7 +187,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
             } else {
                 
                 // Update the preset name
-                ReverbPresets.renamePreset(oldName, newPresetName)
+                reverbPresets.renamePreset(oldName, newPresetName)
             }
             
         } else {
