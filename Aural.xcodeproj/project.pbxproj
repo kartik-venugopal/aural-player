@@ -135,6 +135,7 @@
 		3E4E599D1F74ED8400C18182 /* AudioIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E599C1F74ED8400C18182 /* AudioIO.swift */; };
 		3E4F9E3B1FBFA2C100C54D07 /* FavoritesPopupProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F9E3A1FBFA2C100C54D07 /* FavoritesPopupProtocol.swift */; };
 		3E4F9FD51FC9158100FA4096 /* VariableRateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F9FD41FC9158100FA4096 /* VariableRateNode.swift */; };
+		3E50DC91219388D200D42373 /* DelayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E50DC90219388D200D42373 /* DelayView.swift */; };
 		3E51F6671FC98C7B003A2210 /* StatusBarPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E51F6661FC98C7B003A2210 /* StatusBarPopover.xib */; };
 		3E51F6691FC98CAC003A2210 /* StatusBarPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E51F6681FC98CAC003A2210 /* StatusBarPopoverViewController.swift */; };
 		3E53A7D11FBD1C370058940D /* ToggleMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E53A7D01FBD1C370058940D /* ToggleMenuItem.swift */; };
@@ -464,6 +465,7 @@
 		3E4E599C1F74ED8400C18182 /* AudioIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioIO.swift; sourceTree = "<group>"; };
 		3E4F9E3A1FBFA2C100C54D07 /* FavoritesPopupProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesPopupProtocol.swift; sourceTree = "<group>"; };
 		3E4F9FD41FC9158100FA4096 /* VariableRateNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableRateNode.swift; sourceTree = "<group>"; };
+		3E50DC90219388D200D42373 /* DelayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayView.swift; sourceTree = "<group>"; };
 		3E51F6661FC98C7B003A2210 /* StatusBarPopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusBarPopover.xib; sourceTree = "<group>"; };
 		3E51F6681FC98CAC003A2210 /* StatusBarPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarPopoverViewController.swift; sourceTree = "<group>"; };
 		3E53A7D01FBD1C370058940D /* ToggleMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleMenuItem.swift; sourceTree = "<group>"; };
@@ -802,6 +804,7 @@
 			children = (
 				3E0ED6BC1FBB1CB7008268B3 /* Delay.xib */,
 				3E0F947A1FBBA01500B6E1B3 /* DelayViewController.swift */,
+				3E50DC90219388D200D42373 /* DelayView.swift */,
 			);
 			name = Delay;
 			sourceTree = "<group>";
@@ -1945,6 +1948,7 @@
 				3EC593981F28A0C600153D34 /* RangeSlider.swift in Sources */,
 				3EBA52F51FC2E29E007F902F /* KeyCodeConstants.swift in Sources */,
 				3E1CF7ED1F5CBA2500613724 /* AudioGraphProtocols.swift in Sources */,
+				3E50DC91219388D200D42373 /* DelayView.swift in Sources */,
 				3E24F4DB2169A26700B9CDA6 /* SoundProfile.swift in Sources */,
 				3EDA1FBF214F8B77003591FA /* ConstituentView.swift in Sources */,
 				3E3F296D215A3E4A00581EFE /* MasterViewController.swift in Sources */,

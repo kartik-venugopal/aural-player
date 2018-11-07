@@ -8,15 +8,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="DelayPresetsEditorViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="delayAmountSlider" destination="mMH-xL-RFw" id="NF4-m2-5Z0"/>
-                <outlet property="delayCutoffSlider" destination="5Vk-Mk-3zG" id="85z-n5-Q3H"/>
-                <outlet property="delayFeedbackSlider" destination="JwM-y8-H7v" id="8Ju-93-r6X"/>
-                <outlet property="delayTimeSlider" destination="H9r-Cz-TaM" id="SXz-oo-KUd"/>
+                <outlet property="delayView" destination="fcH-RU-940" id="nL0-Q7-2Vg"/>
                 <outlet property="editorView" destination="Av3-gn-UFU" id="S2e-81-Rhr"/>
-                <outlet property="lblDelayAmountValue" destination="hul-he-1RU" id="HXo-BY-hoN"/>
-                <outlet property="lblDelayFeedbackValue" destination="TVb-Ae-b9g" id="5dw-h8-Gtr"/>
-                <outlet property="lblDelayLowPassCutoffValue" destination="rjZ-g1-ur4" id="plJ-h7-aX1"/>
-                <outlet property="lblDelayTimeValue" destination="GOM-BA-Wzv" id="DaY-YP-7cW"/>
                 <outlet property="previewBox" destination="3jD-XY-CBs" id="vHs-gp-21k"/>
                 <outlet property="view" destination="bei-Ks-bkt" id="3C4-g0-2Ff"/>
             </connections>
@@ -113,7 +106,7 @@
                             <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="b8F-4R-gC8" userLabel="Controls Box">
                                 <rect key="frame" x="43" y="140" width="355" height="101"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" ambiguous="YES" id="fcH-RU-940">
+                                <view key="contentView" ambiguous="YES" id="fcH-RU-940" customClass="DelayView" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="355" height="101"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -282,6 +275,16 @@
                                             </textFieldCell>
                                         </textField>
                                     </subviews>
+                                    <connections>
+                                        <outlet property="amountSlider" destination="mMH-xL-RFw" id="a87-yK-rsc"/>
+                                        <outlet property="cutoffSlider" destination="5Vk-Mk-3zG" id="Ief-nL-fp4"/>
+                                        <outlet property="feedbackSlider" destination="JwM-y8-H7v" id="49y-zF-TYV"/>
+                                        <outlet property="lblAmount" destination="hul-he-1RU" id="T1M-8w-RYY"/>
+                                        <outlet property="lblCutoff" destination="rjZ-g1-ur4" id="HJS-zM-vAc"/>
+                                        <outlet property="lblFeedback" destination="TVb-Ae-b9g" id="aQq-Xi-75C"/>
+                                        <outlet property="lblTime" destination="GOM-BA-Wzv" id="hMj-b5-Nt3"/>
+                                        <outlet property="timeSlider" destination="H9r-Cz-TaM" id="SkD-DC-udA"/>
+                                    </connections>
                                 </view>
                                 <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                                 <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>

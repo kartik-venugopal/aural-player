@@ -3,16 +3,7 @@ import Cocoa
 class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, ActionMessageSubscriber {
     
     @IBOutlet weak var editorView: NSTableView!
-    
-    @IBOutlet weak var delayTimeSlider: EffectsUnitSlider!
-    @IBOutlet weak var delayAmountSlider: EffectsUnitSlider!
-    @IBOutlet weak var delayCutoffSlider: EffectsUnitSlider!
-    @IBOutlet weak var delayFeedbackSlider: EffectsUnitSlider!
-    
-    @IBOutlet weak var lblDelayTimeValue: NSTextField!
-    @IBOutlet weak var lblDelayAmountValue: NSTextField!
-    @IBOutlet weak var lblDelayFeedbackValue: NSTextField!
-    @IBOutlet weak var lblDelayLowPassCutoffValue: NSTextField!
+    @IBOutlet weak var delayView: DelayView!
     
     @IBOutlet weak var previewBox: NSBox!
     
@@ -25,15 +16,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     
     override func viewDidLoad() {
         
-        let unitStateFunction = {
-            () -> EffectsUnitState in
-            return .active
-        }
-        
-        [delayTimeSlider, delayAmountSlider, delayCutoffSlider, delayFeedbackSlider].forEach({
-            $0?.stateFunction = unitStateFunction
-            $0?.updateState()
-        })
+        delayView.setUnitState(.active)
         
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
@@ -96,18 +79,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     
     private func renderPreview(_ preset: DelayPreset) {
         
-        delayAmountSlider.floatValue = preset.amount
-        lblDelayAmountValue.stringValue = ValueFormatter.formatDelayAmount(preset.amount)
-        
-        delayTimeSlider.doubleValue = preset.time
-        lblDelayTimeValue.stringValue = ValueFormatter.formatDelayTime(preset.time)
-        
-        delayFeedbackSlider.floatValue = preset.feedback
-        lblDelayFeedbackValue.stringValue = ValueFormatter.formatDelayFeedback(preset.feedback)
-        
-        delayCutoffSlider.floatValue = preset.cutoff
-        lblDelayLowPassCutoffValue.stringValue = ValueFormatter.formatDelayLowPassCutoff(preset.cutoff)
-        
+        delayView.applyPreset(preset)
         previewBox.show()
     }
     

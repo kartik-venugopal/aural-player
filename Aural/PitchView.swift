@@ -21,7 +21,7 @@ class PitchView: NSView {
         sliders = [pitchSlider, pitchOverlapSlider]
     }
     
-    func initialize(_ stateFunction: (() -> EffectsUnitState)?) {
+    func initialize(_ stateFunction: @escaping () -> EffectsUnitState) {
         
         sliders.forEach({
             $0.stateFunction = stateFunction

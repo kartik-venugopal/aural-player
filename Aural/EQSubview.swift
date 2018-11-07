@@ -7,7 +7,7 @@ class EQSubview: NSView {
     var bandSliders: [EffectsUnitSlider] = []
     var allSliders: [EffectsUnitSlider] = []
     
-    func initialize(_ stateFunction: (() -> EffectsUnitState)?, _ sliderAction: Selector?, _ sliderActionTarget: AnyObject?) {
+    override func awakeFromNib() {
         
         for subView in self.subviews {
             
@@ -15,9 +15,13 @@ class EQSubview: NSView {
                 
                 if slider.tag >= 0 {bandSliders.append(slider)}
                 allSliders.append(slider)
-                slider.stateFunction = stateFunction
             }
         }
+    }
+    
+    func initialize(_ stateFunction: @escaping EffectsUnitStateFunction, _ sliderAction: Selector?, _ sliderActionTarget: AnyObject?) {
+        
+        allSliders.forEach({$0.stateFunction = stateFunction})
         
         if sliderAction != nil {
             

@@ -7,18 +7,7 @@ class DelayViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     
     // Delay controls
     @IBOutlet weak var btnDelayBypass: EffectsUnitTriStateBypassButton!
-    
-    @IBOutlet weak var delayTimeSlider: EffectsUnitSlider!
-    @IBOutlet weak var delayAmountSlider: EffectsUnitSlider!
-    @IBOutlet weak var delayCutoffSlider: EffectsUnitSlider!
-    @IBOutlet weak var delayFeedbackSlider: EffectsUnitSlider!
-    
-    private var sliders: [EffectsUnitSlider] = []
-    
-    @IBOutlet weak var lblDelayTimeValue: NSTextField!
-    @IBOutlet weak var lblDelayAmountValue: NSTextField!
-    @IBOutlet weak var lblDelayFeedbackValue: NSTextField!
-    @IBOutlet weak var lblDelayLowPassCutoffValue: NSTextField!
+    @IBOutlet weak var delayView: DelayView!
     
     // Presets menu
     @IBOutlet weak var presetsMenu: NSPopUpButton!
@@ -57,37 +46,22 @@ class DelayViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     
     private func oneTimeSetup() {
         
-        let stateFunction = {
-            () -> EffectsUnitState in
-            return self.graph.getDelayState()
-        }
-        
+        let stateFunction = {() -> EffectsUnitState in return self.graph.getDelayState()}
         btnDelayBypass.stateFunction = stateFunction
-        
-        sliders = [delayTimeSlider, delayAmountSlider, delayFeedbackSlider, delayCutoffSlider]
-        sliders.forEach({$0.stateFunction = stateFunction})
+        delayView.initialize(stateFunction)
     }
 
     private func initControls() {
         
         btnDelayBypass.updateState()
-        sliders.forEach({$0.updateState()})
+        delayView.stateChanged()
         
         let amount = graph.getDelayAmount()
-        delayAmountSlider.floatValue = amount.amount
-        lblDelayAmountValue.stringValue = amount.amountString
-        
         let time = graph.getDelayTime()
-        delayTimeSlider.doubleValue = time.time
-        lblDelayTimeValue.stringValue = time.timeString
-        
         let feedback = graph.getDelayFeedback()
-        delayFeedbackSlider.floatValue = feedback.percent
-        lblDelayFeedbackValue.stringValue = feedback.percentString
-        
         let cutoff = graph.getDelayLowPassCutoff()
-        delayCutoffSlider.floatValue = cutoff.cutoff
-        lblDelayLowPassCutoffValue.stringValue = cutoff.cutoffString
+        
+        delayView.setState(time.time, time.timeString, amount.amount, amount.amountString, feedback.percent, feedback.percentString, cutoff.cutoff, cutoff.cutoffString)
         
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
@@ -98,29 +72,37 @@ class DelayViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         
         _ = graph.toggleDelayState()
         btnDelayBypass.updateState()
-        sliders.forEach({$0.updateState()})
+        delayView.stateChanged()
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
     
     // Updates the Delay amount parameter
     @IBAction func delayAmountAction(_ sender: AnyObject) {
-        lblDelayAmountValue.stringValue = graph.setDelayAmount(delayAmountSlider.floatValue)
+        
+        let amountString = graph.setDelayAmount(delayView.amount)
+        delayView.setAmount(delayView.amount, amountString)
     }
     
     // Updates the Delay time parameter
     @IBAction func delayTimeAction(_ sender: AnyObject) {
-        lblDelayTimeValue.stringValue = graph.setDelayTime(delayTimeSlider.doubleValue)
+        
+        let timeString = graph.setDelayTime(delayView.time)
+        delayView.setTime(delayView.time, timeString)
     }
     
     // Updates the Delay feedback parameter
     @IBAction func delayFeedbackAction(_ sender: AnyObject) {
-        lblDelayFeedbackValue.stringValue = graph.setDelayFeedback(delayFeedbackSlider.floatValue)
+        
+        let feedbackString = graph.setDelayFeedback(delayView.feedback)
+        delayView.setFeedback(delayView.feedback, feedbackString)
     }
     
     // Updates the Delay low pass cutoff parameter
     @IBAction func delayCutoffAction(_ sender: AnyObject) {
-        lblDelayLowPassCutoffValue.stringValue = graph.setDelayLowPassCutoff(delayCutoffSlider.floatValue)
+        
+        let cutoffString = graph.setDelayLowPassCutoff(delayView.cutoff)
+        delayView.setCutoff(delayView.cutoff, cutoffString)
     }
     
     // Applies a preset to the effects unit
@@ -178,7 +160,7 @@ class DelayViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         
         if notification is EffectsUnitStateChangedNotification {
             btnDelayBypass.updateState()
-            sliders.forEach({$0.updateState()})
+            delayView.stateChanged()
         }
     }
     

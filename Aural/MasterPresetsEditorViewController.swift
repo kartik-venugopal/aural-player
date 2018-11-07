@@ -3,39 +3,23 @@ import Cocoa
 class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, ActionMessageSubscriber {
     
     @IBOutlet weak var editorView: NSTableView!
-    @IBOutlet weak var previewBox: NSBox!
-    @IBOutlet weak var subPreviewMenu: NSPopUpButton!
     
-    // Master
+    @IBOutlet weak var previewBox: NSBox!
+    @IBOutlet weak var subPreviewBox: NSBox!
+    @IBOutlet weak var subPreviewMenu: NSPopUpButton!
+    private var subPreviewViews: [NSView] = []
     
     @IBOutlet weak var masterSubPreview: MasterView!
     @IBOutlet weak var eqSubPreview: EQView!
     @IBOutlet weak var pitchSubPreview: PitchView!
     @IBOutlet weak var timeSubPreview: TimeView!
     @IBOutlet weak var reverbSubPreview: ReverbView!
+    @IBOutlet weak var delaySubPreview: DelayView!
     
     @IBOutlet weak var filterSubPreview: FilterView!
     private var bandsDataSource: PresetFilterBandsDataSource = PresetFilterBandsDataSource()
     
-    // Delay
-    
-    @IBOutlet weak var delaySubPreview: NSView!
-    
-    @IBOutlet weak var delayTimeSlider: EffectsUnitSlider!
-    @IBOutlet weak var delayAmountSlider: EffectsUnitSlider!
-    @IBOutlet weak var delayCutoffSlider: EffectsUnitSlider!
-    @IBOutlet weak var delayFeedbackSlider: EffectsUnitSlider!
-    
-    @IBOutlet weak var lblDelayTimeValue: NSTextField!
-    @IBOutlet weak var lblDelayAmountValue: NSTextField!
-    @IBOutlet weak var lblDelayFeedbackValue: NSTextField!
-    @IBOutlet weak var lblDelayLowPassCutoffValue: NSTextField!
-    
     // --------------------------------
-    
-    private var subPreviewViews: [NSView] = []
-    
-    @IBOutlet weak var subPreviewBox: NSBox!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
     
@@ -53,10 +37,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         subPreviewViews = [masterSubPreview, eqSubPreview, pitchSubPreview, timeSubPreview, reverbSubPreview, delaySubPreview, filterSubPreview]
         subPreviewViews.forEach({subPreviewBox.addSubview($0)})
         
-        eqSubPreview.initialize(nil, nil, nil)
         eqSubPreview.chooseType(.tenBand)
-        
-        pitchSubPreview.initialize(nil)
         
         let bandsDataFunction = {() -> [FilterBand] in return self.getFilterChartBands()}
         filterSubPreview.initialize({() -> EffectsUnitState in return self.getPresetFilterUnitState()}, bandsDataFunction, bandsDataSource, false)
@@ -178,7 +159,6 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         }
     }
     
-    
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
         let presetName = getSelectedPresetNames()[0]
@@ -195,29 +175,12 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         pitchSubPreview.applyPreset(preset.pitch)
         timeSubPreview.applyPreset(preset.time)
         reverbSubPreview.applyPreset(preset.reverb)
-        renderDelayPreview(preset.delay)
+        delaySubPreview.applyPreset(preset.delay)
         
         // TODO: Implement applyPreset() in FilterView
         filterSubPreview.refresh()
         
         previewBox.show()
-    }
-    
-    private func renderDelayPreview(_ preset: DelayPreset) {
-        
-        delayAmountSlider.floatValue = preset.amount
-        lblDelayAmountValue.stringValue = ValueFormatter.formatDelayAmount(preset.amount)
-        
-        delayTimeSlider.doubleValue = preset.time
-        lblDelayTimeValue.stringValue = ValueFormatter.formatDelayTime(preset.time)
-        
-        delayFeedbackSlider.floatValue = preset.feedback
-        lblDelayFeedbackValue.stringValue = ValueFormatter.formatDelayFeedback(preset.feedback)
-        
-        delayCutoffSlider.floatValue = preset.cutoff
-        lblDelayLowPassCutoffValue.stringValue = ValueFormatter.formatDelayLowPassCutoff(preset.cutoff)
-        
-        [delayTimeSlider, delayAmountSlider, delayCutoffSlider, delayFeedbackSlider].forEach({$0?.setUnitState(preset.state)})
     }
     
     // MARK: View delegate functions
