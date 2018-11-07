@@ -4,9 +4,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     @IBOutlet weak var editorView: NSTableView!
     
-    @IBOutlet weak var reverbSpaceMenu: NSPopUpButton!
-    @IBOutlet weak var reverbAmountSlider: EffectsUnitSlider!
-    @IBOutlet weak var lblReverbAmountValue: NSTextField!
+    @IBOutlet weak var reverbView: ReverbView!
     
     @IBOutlet weak var previewBox: NSBox!
     
@@ -19,13 +17,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     override func viewDidLoad() {
         
-        let unitStateFunction = {
-            () -> EffectsUnitState in
-            return .active
-        }
-        
-        reverbAmountSlider.stateFunction = unitStateFunction
-        reverbAmountSlider.updateState()
+        reverbView.initialize({() -> EffectsUnitState in return .active})
         
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
@@ -88,11 +80,7 @@ class ReverbPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     private func renderPreview(_ preset: ReverbPreset) {
         
-        reverbSpaceMenu.select(reverbSpaceMenu.item(withTitle: preset.space.description))
-        
-        reverbAmountSlider.floatValue = preset.amount
-        lblReverbAmountValue.stringValue = ValueFormatter.formatReverbAmount(preset.amount)
-        
+        reverbView.applyPreset(preset)
         previewBox.show()
     }
     

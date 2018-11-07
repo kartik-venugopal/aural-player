@@ -20,14 +20,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     @IBOutlet weak var eqSubPreview: EQView!
     @IBOutlet weak var pitchSubPreview: PitchView!
     @IBOutlet weak var timeSubPreview: TimeView!
-    
-    // Reverb
-    
-    @IBOutlet weak var reverbSubPreview: NSView!
-    
-    @IBOutlet weak var reverbSpaceMenu: NSPopUpButton!
-    @IBOutlet weak var reverbAmountSlider: EffectsUnitSlider!
-    @IBOutlet weak var lblReverbAmountValue: NSTextField!
+    @IBOutlet weak var reverbSubPreview: ReverbView!
     
     // Delay
     
@@ -233,12 +226,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     }
     
     private func renderReverbPreview(_ preset: ReverbPreset) {
-        
-        reverbSpaceMenu.select(reverbSpaceMenu.item(withTitle: preset.space.description))
-        
-        reverbAmountSlider.floatValue = preset.amount
-        reverbAmountSlider.setUnitState(preset.state)
-        lblReverbAmountValue.stringValue = ValueFormatter.formatReverbAmount(preset.amount)
+        reverbSubPreview.applyPreset(preset)
     }
     
     private func renderDelayPreview(_ preset: DelayPreset) {

@@ -7,9 +7,8 @@ class ReverbViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     
     // Reverb controls
     @IBOutlet weak var btnReverbBypass: EffectsUnitTriStateBypassButton!
-    @IBOutlet weak var reverbSpaceMenu: NSPopUpButton!
-    @IBOutlet weak var reverbAmountSlider: EffectsUnitSlider!
-    @IBOutlet weak var lblReverbAmountValue: NSTextField!
+    
+    @IBOutlet weak var reverbView: ReverbView!
     
     // Presets menu
     @IBOutlet weak var presetsMenu: NSPopUpButton!
@@ -44,25 +43,18 @@ class ReverbViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     
     private func oneTimeSetup() {
         
-        let stateFunction = {
-            () -> EffectsUnitState in
-            return self.graph.getReverbState()
-        }
+        let stateFunction = {() -> EffectsUnitState in return self.graph.getReverbState()}
         
         btnReverbBypass.stateFunction = stateFunction
-        reverbAmountSlider.stateFunction = stateFunction
+        reverbView.initialize(stateFunction)
     }
     
     private func initControls() {
         
         btnReverbBypass.updateState()
-        reverbAmountSlider.updateState()
-        
-        reverbSpaceMenu.select(reverbSpaceMenu.item(withTitle: graph.getReverbSpace().description))
         
         let amount = graph.getReverbAmount()
-        reverbAmountSlider.floatValue = amount.amount
-        lblReverbAmountValue.stringValue = amount.amountString
+        reverbView.setState(graph.getReverbSpace().description, amount.amount, amount.amountString)
         
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
@@ -73,19 +65,20 @@ class ReverbViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         
         _ = graph.toggleReverbState()
         btnReverbBypass.updateState()
-        reverbAmountSlider.updateState()
+        reverbView.stateChanged()
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
     }
 
     // Updates the Reverb preset
     @IBAction func reverbSpaceAction(_ sender: AnyObject) {
-        graph.setReverbSpace(ReverbSpaces.fromDescription((reverbSpaceMenu.selectedItem?.title)!))
+        graph.setReverbSpace(ReverbSpaces.fromDescription(reverbView.spaceString))
     }
 
     // Updates the Reverb amount parameter
     @IBAction func reverbAmountAction(_ sender: AnyObject) {
-        lblReverbAmountValue.stringValue = graph.setReverbAmount(reverbAmountSlider.floatValue)
+        let amountString = graph.setReverbAmount(reverbView.amount)
+        reverbView.setAmount(reverbView.amount, amountString)
     }
     
     // Applies a preset to the effects unit
@@ -142,9 +135,8 @@ class ReverbViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     func consumeNotification(_ notification: NotificationMessage) {
         
         if notification is EffectsUnitStateChangedNotification {
-            
             btnReverbBypass.updateState()
-            reverbAmountSlider.updateState()
+            reverbView.stateChanged()
         }
     }
     

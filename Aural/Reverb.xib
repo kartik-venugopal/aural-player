@@ -10,10 +10,8 @@
             <connections>
                 <outlet property="btnReverbBypass" destination="II7-fY-0FS" id="BEG-OU-CVb"/>
                 <outlet property="btnSavePreset" destination="p1b-kR-qyw" id="dn5-pA-b5E"/>
-                <outlet property="lblReverbAmountValue" destination="Mvj-B8-0Yw" id="qSh-Ve-Lwd"/>
                 <outlet property="presetsMenu" destination="zIT-2E-ecK" id="8Jn-Au-Shr"/>
-                <outlet property="reverbAmountSlider" destination="flt-XK-mfg" id="COb-em-s89"/>
-                <outlet property="reverbSpaceMenu" destination="grQ-Tl-H1t" id="VUr-HS-MSF"/>
+                <outlet property="reverbView" destination="4DO-6d-OBI" id="4xZ-De-5Qd"/>
                 <outlet property="view" destination="txu-mA-r9M" id="g6V-BI-hnN"/>
             </connections>
         </customObject>
@@ -46,7 +44,7 @@
                 <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="rwD-oq-vYg" userLabel="Controls Box">
                     <rect key="frame" x="73" y="31" width="355" height="68"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <view key="contentView" ambiguous="YES" id="4DO-6d-OBI">
+                    <view key="contentView" ambiguous="YES" id="4DO-6d-OBI" customClass="ReverbView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="355" height="68"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -149,6 +147,11 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <connections>
+                            <outlet property="lblReverbAmountValue" destination="Mvj-B8-0Yw" id="ero-VO-a89"/>
+                            <outlet property="reverbAmountSlider" destination="flt-XK-mfg" id="qWH-bQ-tFO"/>
+                            <outlet property="reverbSpaceMenu" destination="grQ-Tl-H1t" id="uN4-OM-NxV"/>
+                        </connections>
                     </view>
                     <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                     <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -193,6 +196,6 @@
         </view>
     </objects>
     <resources>
-        <image name="SaveEQPreset" width="128" height="128"/>
+        <image name="SaveEQPreset" width="26" height="26"/>
     </resources>
 </document>
