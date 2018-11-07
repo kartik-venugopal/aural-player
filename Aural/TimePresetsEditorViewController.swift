@@ -15,6 +15,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     @IBOutlet weak var previewBox: NSBox!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private var timePresets: TimePresets = ObjectGraph.getAudioGraphDelegate().timePresets
     
     private var oldPresetName: String?
     
@@ -50,7 +51,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     private func deleteSelectedPresetsAction() {
         
         let selection = getSelectedPresetNames()
-        TimePresets.deletePresets(selection)
+        timePresets.deletePresets(selection)
         editorView.reloadData()
         
         previewBox.hide()
@@ -110,7 +111,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return TimePresets.countUserDefinedPresets()
+        return timePresets.userDefinedPresets.count
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -122,7 +123,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
         if numRows == 1 {
             
             let presetName = getSelectedPresetNames()[0]
-            renderPreview(TimePresets.presetByName(presetName))
+            renderPreview(timePresets.presetByName(presetName)!)
             oldPresetName = presetName
         }
         
@@ -137,7 +138,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let preset = TimePresets.userDefinedPresets[row]
+        let preset = timePresets.userDefinedPresets[row]
         return createTextCell(tableView, tableColumn!, row, preset.name)
     }
     
@@ -176,9 +177,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
         // Access the old value from the temp storage variable
         let oldName = oldPresetName ?? editedTextField.stringValue
         
-        if TimePresets.presetWithNameExists(oldName) {
-            
-            let preset = TimePresets.presetByName(oldName)
+        if let preset = timePresets.presetByName(oldName) {
             
             let newPresetName = editedTextField.stringValue
             
@@ -191,7 +190,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
                 
                 editedTextField.stringValue = preset.name
                 
-            } else if TimePresets.presetWithNameExists(newPresetName) {
+            } else if timePresets.presetWithNameExists(newPresetName) {
                 
                 // Another preset with that name exists, can't rename
                 editedTextField.stringValue = preset.name
@@ -199,7 +198,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
             } else {
                 
                 // Update the preset name
-                TimePresets.renamePreset(oldName, newPresetName)
+                timePresets.renamePreset(oldName, newPresetName)
             }
             
         } else {

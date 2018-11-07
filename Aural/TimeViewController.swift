@@ -25,6 +25,7 @@ class TimeViewController: NSViewController, NSMenuDelegate, MessageSubscriber, A
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private var timePresets: TimePresets = ObjectGraph.getAudioGraphDelegate().timePresets
     
     override var nibName: String? {return "Time"}
     
@@ -47,7 +48,7 @@ class TimeViewController: NSViewController, NSMenuDelegate, MessageSubscriber, A
         }
         
         // Re-initialize the menu with user-defined presets
-        TimePresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        timePresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
         
         // Don't select any items from the EQ presets menu
         presetsMenu.selectItem(at: -1)
@@ -130,15 +131,6 @@ class TimeViewController: NSViewController, NSMenuDelegate, MessageSubscriber, A
         
         // If this isn't done, the app windows are hidden when the popover is displayed
         WindowState.mainWindow.orderFront(self)
-    }
-    
-    // Actually saves the new user-defined preset
-    private func saveUserPreset(_ request: SaveUserPresetRequest) {
-        
-        TimePresets.addUserDefinedPreset(request.presetName, graph.getTimeState(), timeSlider.floatValue, timeOverlapSlider.floatValue, btnShiftPitch.isOn())
-        
-        // Add a menu item for the new preset, at the top of the menu
-        presetsMenu.insertItem(withTitle: request.presetName, at: 0)
     }
     
     private func showTimeTab() {
@@ -256,7 +248,7 @@ class TimeViewController: NSViewController, NSMenuDelegate, MessageSubscriber, A
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        let valid = !TimePresets.presetWithNameExists(string)
+        let valid = !timePresets.presetWithNameExists(string)
         
         if (!valid) {
             return (false, "Preset with this name already exists !")

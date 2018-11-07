@@ -48,6 +48,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     private(set) var masterPresets: MasterPresets = MasterPresets()
     private(set) var eqPresets: EQPresets = EQPresets()
     private(set) var pitchPresets: PitchPresets = PitchPresets()
+    private(set) var timePresets: TimePresets = TimePresets()
     
     // Sets up the audio engine
     init(_ state: AudioGraphState) {
@@ -110,7 +111,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         timeNode.rate = state.timeStretchRate
         timeNode.shiftPitch = state.timeShiftPitch
         timeNode.overlap = state.timeOverlap
-        TimePresets.loadUserDefinedPresets(state.timeUserPresets)
+        timePresets.addPresets(state.timeUserPresets)
         
         // Reverb
         reverbNode.bypass = state.reverbState != .active
@@ -574,7 +575,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     func saveTimePreset(_ presetName: String) {
         
         let timeState = getTimeState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        TimePresets.addUserDefinedPreset(presetName, timeState, timeNode.rate, timeNode.overlap, timeNode.shiftPitch)
+        timePresets.addPreset(TimePreset(presetName, timeState, timeNode.rate, timeNode.overlap, timeNode.shiftPitch, false))
     }
     
     func applyTimePreset(_ preset: TimePreset) {
@@ -852,7 +853,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.timeStretchRate = timeNode.rate
         state.timeShiftPitch = timeNode.shiftPitch
         state.timeOverlap = timeNode.overlap
-        state.timeUserPresets = TimePresets.userDefinedPresets
+        state.timeUserPresets = timePresets.userDefinedPresets
         
         // Reverb
         state.reverbState = getReverbState()

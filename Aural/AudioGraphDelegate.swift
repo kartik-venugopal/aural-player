@@ -443,13 +443,17 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return ValueFormatter.formatOverlap(overlap)
     }
     
+    var timePresets: TimePresets {
+        return graph.timePresets
+    }
+    
     func saveTimePreset(_ presetName: String) {
         graph.saveTimePreset(presetName)
     }
     
     func applyTimePreset(_ presetName: String) {
         
-        let preset = TimePresets.presetByName(presetName)
+        let preset = timePresets.presetByName(presetName)!
         graph.applyTimePreset(preset)
     }
     
