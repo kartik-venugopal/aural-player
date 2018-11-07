@@ -17,8 +17,6 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     override func viewDidLoad() {
 
-        // TODO: Revisit this (unit state and nil selector/target)
-        eqView.initialize(nil, nil, {() -> EffectsUnitState in return .active})
         eqView.chooseType(.tenBand)
         
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
@@ -86,8 +84,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     }
     
     private func renderPreview(_ preset: EQPreset) {
-        // TODO: Revisit this (should be using eqView.applyPreset() )
-        eqView.bandsUpdated(preset.bands, preset.globalGain)
+        eqView.applyPreset(preset)
     }
     
     // MARK: View delegate functions

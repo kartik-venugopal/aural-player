@@ -440,9 +440,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     }
     
     func saveEQPreset(_ presetName: String) {
-     
-        let eqState = getEQState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        eqPresets.addPreset(EQPreset(presetName, eqState, eqNode.allBands(), eqNode.globalGain, false))
+        eqPresets.addPreset(EQPreset(presetName, .active, eqNode.allBands(), eqNode.globalGain, false))
     }
     
     func applyEQPreset(_ preset: EQPreset) {
@@ -500,9 +498,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     }
     
     func savePitchPreset(_ presetName: String) {
-        
-        let pitchState = getPitchState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        pitchPresets.addPreset(PitchPreset(presetName, pitchState, pitchNode.pitch, pitchNode.overlap, false))
+        pitchPresets.addPreset(PitchPreset(presetName, .active, pitchNode.pitch, pitchNode.overlap, false))
     }
     
     func applyPitchPreset(_ preset: PitchPreset) {
@@ -575,9 +571,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     }
     
     func saveTimePreset(_ presetName: String) {
-        
-        let timeState = getTimeState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        timePresets.addPreset(TimePreset(presetName, timeState, timeNode.rate, timeNode.overlap, timeNode.shiftPitch, false))
+        timePresets.addPreset(TimePreset(presetName, .active, timeNode.rate, timeNode.overlap, timeNode.shiftPitch, false))
     }
     
     func applyTimePreset(_ preset: TimePreset) {
@@ -638,9 +632,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     }
     
     func saveReverbPreset(_ presetName: String) {
-        
-        let reverbState = getReverbState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        reverbPresets.addPreset(ReverbPreset(presetName, reverbState, getReverbSpace(), reverbNode.wetDryMix, false))
+        reverbPresets.addPreset(ReverbPreset(presetName, .active, getReverbSpace(), reverbNode.wetDryMix, false))
     }
     
     func applyReverbPreset(_ preset: ReverbPreset) {
@@ -713,9 +705,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     }
     
     func saveDelayPreset(_ presetName: String) {
-        
-        let delayState = (getDelayState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed)
-        delayPresets.addPreset(DelayPreset(presetName, delayState, delayNode.wetDryMix, delayNode.delayTime, delayNode.feedback, delayNode.lowPassCutoff, false))
+        delayPresets.addPreset(DelayPreset(presetName, .active, delayNode.wetDryMix, delayNode.delayTime, delayNode.feedback, delayNode.lowPassCutoff, false))
     }
     
     func applyDelayPreset(_ preset: DelayPreset) {
@@ -769,13 +759,11 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     
     func saveFilterPreset(_ presetName: String) {
         
-        let filterState = getFilterState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        
         // Need to clone the filter's bands to create separate identical copies so that changes to the current filter bands don't modify the preset's bands
         var presetBands: [FilterBand] = []
         filterNode.allBands().forEach({presetBands.append($0.clone())})
         
-        filterPresets.addPreset(FilterPreset(presetName, filterState, presetBands, false))
+        filterPresets.addPreset(FilterPreset(presetName, .active, presetBands, false))
     }
     
     func applyFilterPreset(_ preset: FilterPreset) {
