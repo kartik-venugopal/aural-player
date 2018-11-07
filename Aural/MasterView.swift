@@ -33,11 +33,11 @@ class MasterView: NSView {
     
     func applyPreset(_ preset: MasterPreset) {
         
-        btnEQBypass.setUnitState(preset.eq.state)
-        btnPitchBypass.setUnitState(preset.pitch.state)
-        btnTimeBypass.setUnitState(preset.time.state)
-        btnReverbBypass.setUnitState(preset.reverb.state)
-        btnDelayBypass.setUnitState(preset.delay.state)
-        btnFilterBypass.setUnitState(preset.filter.state)
+        btnEQBypass.onIf(preset.eq.state == .active)
+        btnPitchBypass.onIf(preset.pitch.state == .active)
+        btnTimeBypass.onIf(preset.time.state == .active)
+        btnReverbBypass.onIf(preset.reverb.state == .active)
+        btnDelayBypass.onIf(preset.delay.state == .active)
+        btnFilterBypass.onIf(preset.filter.state == .active)
     }
 }

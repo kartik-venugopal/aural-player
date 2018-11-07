@@ -8,15 +8,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     // Master
     
-    @IBOutlet weak var masterSubPreview: NSView!
-    
-    @IBOutlet weak var btnEQBypass: EffectsUnitTriStateBypassButton!
-    @IBOutlet weak var btnPitchBypass: EffectsUnitTriStateBypassButton!
-    @IBOutlet weak var btnTimeBypass: EffectsUnitTriStateBypassButton!
-    @IBOutlet weak var btnReverbBypass: EffectsUnitTriStateBypassButton!
-    @IBOutlet weak var btnDelayBypass: EffectsUnitTriStateBypassButton!
-    @IBOutlet weak var btnFilterBypass: EffectsUnitTriStateBypassButton!
-    
+    @IBOutlet weak var masterSubPreview: MasterView!
     @IBOutlet weak var eqSubPreview: EQView!
     @IBOutlet weak var pitchSubPreview: PitchView!
     @IBOutlet weak var timeSubPreview: TimeView!
@@ -186,25 +178,6 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         }
     }
     
-    private func renderPreview(_ preset: MasterPreset) {
-        
-        btnEQBypass.onIf(preset.eq.state == .active)
-        btnPitchBypass.onIf(preset.pitch.state == .active)
-        btnTimeBypass.onIf(preset.time.state == .active)
-        btnReverbBypass.onIf(preset.reverb.state == .active)
-        btnDelayBypass.onIf(preset.delay.state == .active)
-        btnFilterBypass.onIf(preset.filter.state == .active)
-        
-        // Set up EQ
-        renderEQPreview(preset.eq)
-        renderPitchPreview(preset.pitch)
-        renderTimePreview(preset.time)
-        renderReverbPreview(preset.reverb)
-        renderDelayPreview(preset.delay)
-        renderFilterPreview(preset.filter)
-        
-        previewBox.show()
-    }
     
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
@@ -215,20 +188,19 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         eqSubPreview.typeChanged(preset.bands, preset.globalGain)
     }
     
-    private func renderEQPreview(_ preset: EQPreset) {
-        eqSubPreview.applyPreset(preset)
-    }
-    
-    private func renderPitchPreview(_ preset: PitchPreset) {
-        pitchSubPreview.applyPreset(preset)
-    }
-    
-    private func renderTimePreview(_ preset: TimePreset) {
-        timeSubPreview.applyPreset(preset)
-    }
-    
-    private func renderReverbPreview(_ preset: ReverbPreset) {
-        reverbSubPreview.applyPreset(preset)
+    private func renderPreview(_ preset: MasterPreset) {
+        
+        masterSubPreview.applyPreset(preset)
+        eqSubPreview.applyPreset(preset.eq)
+        pitchSubPreview.applyPreset(preset.pitch)
+        timeSubPreview.applyPreset(preset.time)
+        reverbSubPreview.applyPreset(preset.reverb)
+        renderDelayPreview(preset.delay)
+        
+        // TODO: Implement applyPreset() in FilterView
+        filterSubPreview.refresh()
+        
+        previewBox.show()
     }
     
     private func renderDelayPreview(_ preset: DelayPreset) {
@@ -246,10 +218,6 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         lblDelayLowPassCutoffValue.stringValue = ValueFormatter.formatDelayLowPassCutoff(preset.cutoff)
         
         [delayTimeSlider, delayAmountSlider, delayCutoffSlider, delayFeedbackSlider].forEach({$0?.setUnitState(preset.state)})
-    }
-    
-    private func renderFilterPreview(_ preset: FilterPreset) {
-        filterSubPreview.refresh()
     }
     
     // MARK: View delegate functions
