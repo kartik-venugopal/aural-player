@@ -8,12 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MasterPresetsEditorViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnDelayBypass" destination="y39-xH-1Z6" id="WIu-fP-XrX"/>
-                <outlet property="btnEQBypass" destination="Em0-up-Bac" id="Fgn-05-51y"/>
-                <outlet property="btnFilterBypass" destination="lzY-R3-qwN" id="ppy-Qi-aPl"/>
-                <outlet property="btnPitchBypass" destination="SBT-Xb-vKM" id="b2n-9H-a9b"/>
-                <outlet property="btnReverbBypass" destination="bWn-GO-Ov3" id="Lb1-53-He5"/>
-                <outlet property="btnTimeBypass" destination="fyY-bR-Are" id="Jjx-SY-mtr"/>
                 <outlet property="delayAmountSlider" destination="lhf-PH-K3k" id="lYW-EI-fQj"/>
                 <outlet property="delayCutoffSlider" destination="KOn-Py-FzY" id="4SQ-KO-Kwf"/>
                 <outlet property="delayFeedbackSlider" destination="djJ-wg-eYj" id="fnG-3s-aJV"/>
@@ -176,7 +170,7 @@
             </subviews>
             <point key="canvasLocation" x="394" y="331"/>
         </customView>
-        <view id="wYT-Ux-qZh" userLabel="Master Sub Preview">
+        <view id="wYT-Ux-qZh" userLabel="Master Sub Preview" customClass="MasterView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="442" height="236"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -283,6 +277,14 @@
                     </textFieldCell>
                 </textField>
             </subviews>
+            <connections>
+                <outlet property="btnDelayBypass" destination="y39-xH-1Z6" id="0Sz-cr-rTo"/>
+                <outlet property="btnEQBypass" destination="Em0-up-Bac" id="wA4-ZX-B3G"/>
+                <outlet property="btnFilterBypass" destination="lzY-R3-qwN" id="yGB-sw-uwg"/>
+                <outlet property="btnPitchBypass" destination="SBT-Xb-vKM" id="AVt-Rl-efV"/>
+                <outlet property="btnReverbBypass" destination="bWn-GO-Ov3" id="58c-ZV-3zc"/>
+                <outlet property="btnTimeBypass" destination="fyY-bR-Are" id="pQ8-PV-uLM"/>
+            </connections>
             <point key="canvasLocation" x="50" y="-34"/>
         </view>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
