@@ -12,7 +12,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     @IBOutlet weak var btnFilterBypass: EffectsUnitTriStateBypassButton!
     
     // Presets menu
-    @IBOutlet weak var masterPresets: NSPopUpButton!
+    @IBOutlet weak var presetsMenu: NSPopUpButton!
     @IBOutlet weak var btnSavePreset: NSButton!
     
     private lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
@@ -23,6 +23,8 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     private let soundPreferences: SoundPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().soundPreferences
     private let playbackPreferences: PlaybackPreferences = ObjectGraph.getPreferencesDelegate().getPreferences().playbackPreferences
+    
+    private let masterPresets: MasterPresets = ObjectGraph.getAudioGraphDelegate().masterPresets
  
     override var nibName: String? {return "Master"}
     
@@ -36,13 +38,13 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        masterPresets.removeAllItems()
+        presetsMenu.removeAllItems()
         
         // Initialize the menu with user-defined presets
-        MasterPresets.userDefinedPresets.forEach({masterPresets.insertItem(withTitle: $0.name, at: 0)})
+        masterPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
         
         // Don't select any items from the presets menu
-        masterPresets.selectItem(at: -1)
+        presetsMenu.selectItem(at: -1)
     }
     
     private func oneTimeSetup() {
@@ -83,10 +85,10 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
             return self.graph.getFilterState()
         }
         
-        self.menuNeedsUpdate(masterPresets.menu!)
+        self.menuNeedsUpdate(presetsMenu.menu!)
         
         // Don't select any items from the EQ presets menu
-        masterPresets.selectItem(at: -1)
+        presetsMenu.selectItem(at: -1)
         
         // If specific startup behavior is defined, update controls accordingly
         if soundPreferences.effectsSettingsOnStartupOption == .applyMasterPreset {
@@ -98,7 +100,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
                 _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
                 
                 // Don't select any of the items
-                masterPresets.selectItem(at: -1)
+                presetsMenu.selectItem(at: -1)
                 
             } else {
                 initControls()
@@ -122,12 +124,12 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     @IBAction func masterPresetsAction(_ sender: AnyObject) {
         
-        graph.applyMasterPreset(masterPresets.titleOfSelectedItem!)
+        graph.applyMasterPreset(presetsMenu.titleOfSelectedItem!)
 
         _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
         
         // Don't select any of the items
-        masterPresets.selectItem(at: -1)
+        presetsMenu.selectItem(at: -1)
     }
     
     // Displays a popover to allow the user to name the new custom preset
@@ -323,7 +325,7 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        let valid = !MasterPresets.presetWithNameExists(string)
+        let valid = !masterPresets.presetWithNameExists(string)
         
         if (!valid) {
             return (false, "Preset with this name already exists !")
@@ -338,6 +340,6 @@ class MasterViewController: NSViewController, MessageSubscriber, ActionMessageSu
         graph.saveMasterPreset(string)
         
         // Add a menu item for the new preset, at the top of the menu
-        masterPresets.insertItem(withTitle: string, at: 0)
+        presetsMenu.insertItem(withTitle: string, at: 0)
     }
 }

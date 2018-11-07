@@ -220,6 +220,9 @@
 		3EA19C211FC16A3C0072929E /* ControlsPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA19C201FC16A3C0072929E /* ControlsPreferencesViewController.swift */; };
 		3EA19C231FC174A30072929E /* ControlsPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EA19C221FC174A30072929E /* ControlsPreferences.xib */; };
 		3EA29AD51F0B470600DA239E /* AsyncMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA29AD41F0B470600DA239E /* AsyncMessenger.swift */; };
+		3EA2E648219256BD00FB5BAC /* PitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2E647219256BD00FB5BAC /* PitchView.swift */; };
+		3EA2E64A2192709000FB5BAC /* EffectsUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2E6492192709000FB5BAC /* EffectsUnitView.swift */; };
+		3EA2E64C2192723300FB5BAC /* FXPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2E64B2192723300FB5BAC /* FXPresets.swift */; };
 		3EAD098F216478440007D7DF /* MasterPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD098E216478440007D7DF /* MasterPresets.swift */; };
 		3EAD0991216482B60007D7DF /* EffectsUnitPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD0990216482B60007D7DF /* EffectsUnitPreset.swift */; };
 		3EAEBCAC1FDCD644000FBC04 /* BannerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAEBCAB1FDCD644000FBC04 /* BannerLabel.swift */; };
@@ -546,6 +549,9 @@
 		3EA19C201FC16A3C0072929E /* ControlsPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlsPreferencesViewController.swift; sourceTree = "<group>"; };
 		3EA19C221FC174A30072929E /* ControlsPreferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlsPreferences.xib; sourceTree = "<group>"; };
 		3EA29AD41F0B470600DA239E /* AsyncMessenger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncMessenger.swift; sourceTree = "<group>"; };
+		3EA2E647219256BD00FB5BAC /* PitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchView.swift; sourceTree = "<group>"; };
+		3EA2E6492192709000FB5BAC /* EffectsUnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitView.swift; sourceTree = "<group>"; };
+		3EA2E64B2192723300FB5BAC /* FXPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXPresets.swift; sourceTree = "<group>"; };
 		3EA5C7A21F458EB400556669 /* UserGuide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = UserGuide.pdf; sourceTree = "<group>"; };
 		3EAD098E216478440007D7DF /* MasterPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterPresets.swift; sourceTree = "<group>"; };
 		3EAD0990216482B60007D7DF /* EffectsUnitPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsUnitPreset.swift; sourceTree = "<group>"; };
@@ -746,6 +752,7 @@
 			children = (
 				3E0ED6AE1FBB1AB8008268B3 /* EQ.xib */,
 				3E0ED6C21FBB1E18008268B3 /* EQViewController.swift */,
+				3EA2E6492192709000FB5BAC /* EffectsUnitView.swift */,
 				3E0D664A21918E3A00A779A9 /* EQView.swift */,
 				3E17A8B621871D7700CADE89 /* EQSubview.swift */,
 			);
@@ -757,6 +764,7 @@
 			children = (
 				3E0ED6B11FBB1B0B008268B3 /* Pitch.xib */,
 				3E24ED401FBB246C0023F9F9 /* PitchViewController.swift */,
+				3EA2E647219256BD00FB5BAC /* PitchView.swift */,
 			);
 			name = Pitch;
 			sourceTree = "<group>";
@@ -1075,6 +1083,7 @@
 				3E551B861F10801100354DE2 /* AudioEngineHelper.swift */,
 				3E4F9FD31FC9156600FA4096 /* CustomNodes */,
 				3E047B0D1F01436700ADE0F1 /* ReverbSpaces.swift */,
+				3EA2E64B2192723300FB5BAC /* FXPresets.swift */,
 				3EAD098E216478440007D7DF /* MasterPresets.swift */,
 				3EFFE6BD1F0381FA003728BD /* EQPresets.swift */,
 				3E5F00C021536CF000A76C23 /* PitchPresets.swift */,
@@ -1960,6 +1969,7 @@
 				3E76D9BC1F0F4228007FF3F8 /* AppDefaults.swift in Sources */,
 				3EF5E5C81FBDBE9C004270A4 /* PlaylistContextMenuController.swift in Sources */,
 				3E066C29216C601500E4FE80 /* PitchPresetsEditorViewController.swift in Sources */,
+				3EA2E648219256BD00FB5BAC /* PitchView.swift in Sources */,
 				3EB2A7EA1F04424E001DF748 /* PopupMenuCells.swift in Sources */,
 				3E97967D1F00286200690DA2 /* Track.swift in Sources */,
 				3EFFE6B91F036E81003728BD /* PlaylistIO.swift in Sources */,
@@ -1980,6 +1990,7 @@
 				3E84F83F1F5FBB260010BCDA /* PlaybackDelegateProtocol.swift in Sources */,
 				3E3AEB121F9D3BA200E9BEDE /* GroupingPlaylistViewController.swift in Sources */,
 				3E06DE71218DAD9D00CD912C /* PlayerControlsView.swift in Sources */,
+				3EA2E64C2192723300FB5BAC /* FXPresets.swift in Sources */,
 				3ECD17441F6BBEE400492F56 /* ID3Spec.swift in Sources */,
 				3E9463971F29960F00A9019C /* TabGroupButtonCells.swift in Sources */,
 				3E3F2969215A392E00581EFE /* ReverbPresets.swift in Sources */,
@@ -2013,6 +2024,7 @@
 				3E2CBDAE2189072800BD68B2 /* EQMapping.swift in Sources */,
 				3E3C20A61F0A687400AF5A62 /* DialogsAndAlerts.swift in Sources */,
 				3E3F29652159B7E800581EFE /* LayoutsEditorViewController.swift in Sources */,
+				3EA2E64A2192709000FB5BAC /* EffectsUnitView.swift in Sources */,
 				3E40A9851F0617BC00A66856 /* RepeatingTaskExecutor.swift in Sources */,
 				3EAF29D11FD14AFC00EBB35A /* StatusBarAppModeController.swift in Sources */,
 				3E23D6591F32887E00DBF426 /* RecordingInfo.swift in Sources */,
