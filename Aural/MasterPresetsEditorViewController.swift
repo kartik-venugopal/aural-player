@@ -1,6 +1,5 @@
 import Cocoa
 
-// TODO: Encapsulate individual views
 class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, ActionMessageSubscriber {
     
     @IBOutlet weak var editorView: NSTableView!
@@ -18,25 +17,9 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     @IBOutlet weak var btnDelayBypass: EffectsUnitTriStateBypassButton!
     @IBOutlet weak var btnFilterBypass: EffectsUnitTriStateBypassButton!
     
-    // EQ
-    
     @IBOutlet weak var eqSubPreview: EQView!
-    
-    // Pitch
-    
     @IBOutlet weak var pitchSubPreview: PitchView!
-    
-    // Time
-    
-    @IBOutlet weak var timeSubPreview: NSView!
-    
-    @IBOutlet weak var btnShiftPitch: NSButton!
-    @IBOutlet weak var timeSlider: EffectsUnitSlider!
-    @IBOutlet weak var timeOverlapSlider: EffectsUnitSlider!
-    
-    @IBOutlet weak var lblTimeStretchRateValue: NSTextField!
-    @IBOutlet weak var lblPitchShiftValue: NSTextField!
-    @IBOutlet weak var lblTimeOverlapValue: NSTextField!
+    @IBOutlet weak var timeSubPreview: TimeView!
     
     // Reverb
     
@@ -246,18 +229,7 @@ class MasterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     }
     
     private func renderTimePreview(_ preset: TimePreset) {
-        
-        btnShiftPitch.onIf(preset.pitchShift)
-        let pitchShift = (preset.pitchShift ? 1200 * log2(preset.rate) : 0) * AppConstants.pitchConversion_audioGraphToUI
-        lblPitchShiftValue.stringValue = ValueFormatter.formatPitch(pitchShift)
-        
-        timeSlider.floatValue = preset.rate
-        timeSlider.setUnitState(preset.state)
-        lblTimeStretchRateValue.stringValue = ValueFormatter.formatTimeStretchRate(preset.rate)
-        
-        timeOverlapSlider.floatValue = preset.overlap
-        timeOverlapSlider.setUnitState(preset.state)
-        lblTimeOverlapValue.stringValue = ValueFormatter.formatOverlap(preset.overlap)
+        timeSubPreview.applyPreset(preset)
     }
     
     private func renderReverbPreview(_ preset: ReverbPreset) {

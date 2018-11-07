@@ -223,6 +223,7 @@
 		3EA2E648219256BD00FB5BAC /* PitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2E647219256BD00FB5BAC /* PitchView.swift */; };
 		3EA2E64A2192709000FB5BAC /* EffectsUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2E6492192709000FB5BAC /* EffectsUnitView.swift */; };
 		3EA2E64C2192723300FB5BAC /* FXPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2E64B2192723300FB5BAC /* FXPresets.swift */; };
+		3EA2E64E2192E60000FB5BAC /* TimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2E64D2192E60000FB5BAC /* TimeView.swift */; };
 		3EAD098F216478440007D7DF /* MasterPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD098E216478440007D7DF /* MasterPresets.swift */; };
 		3EAD0991216482B60007D7DF /* EffectsUnitPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD0990216482B60007D7DF /* EffectsUnitPreset.swift */; };
 		3EAEBCAC1FDCD644000FBC04 /* BannerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAEBCAB1FDCD644000FBC04 /* BannerLabel.swift */; };
@@ -552,6 +553,7 @@
 		3EA2E647219256BD00FB5BAC /* PitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchView.swift; sourceTree = "<group>"; };
 		3EA2E6492192709000FB5BAC /* EffectsUnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitView.swift; sourceTree = "<group>"; };
 		3EA2E64B2192723300FB5BAC /* FXPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXPresets.swift; sourceTree = "<group>"; };
+		3EA2E64D2192E60000FB5BAC /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
 		3EA5C7A21F458EB400556669 /* UserGuide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = UserGuide.pdf; sourceTree = "<group>"; };
 		3EAD098E216478440007D7DF /* MasterPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterPresets.swift; sourceTree = "<group>"; };
 		3EAD0990216482B60007D7DF /* EffectsUnitPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsUnitPreset.swift; sourceTree = "<group>"; };
@@ -774,6 +776,7 @@
 			children = (
 				3E0ED6B41FBB1B64008268B3 /* Time.xib */,
 				3E24ED421FBB28700023F9F9 /* TimeViewController.swift */,
+				3EA2E64D2192E60000FB5BAC /* TimeView.swift */,
 			);
 			name = Time;
 			sourceTree = "<group>";
@@ -2083,6 +2086,7 @@
 				3EB2A7E81F043BBE001DF748 /* TickedSliderCells.swift in Sources */,
 				3EF5E5BC1FBDB38E004270A4 /* AlbumsPlaylistViewController.swift in Sources */,
 				3EE429AE1FCFD10D00E81C15 /* RegularAppModeController.swift in Sources */,
+				3EA2E64E2192E60000FB5BAC /* TimeView.swift in Sources */,
 				3EFFE6BB1F0372B3003728BD /* TrackIO.swift in Sources */,
 				3EF743AF218C366A0060BDE0 /* FilterChart.swift in Sources */,
 				3E176607217DE513001C6CF9 /* TracksPlaylistSortViewController.swift in Sources */,

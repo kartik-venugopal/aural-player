@@ -4,13 +4,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     
     @IBOutlet weak var editorView: NSTableView!
     
-    @IBOutlet weak var btnShiftPitch: NSButton!
-    @IBOutlet weak var timeSlider: EffectsUnitSlider!
-    @IBOutlet weak var timeOverlapSlider: EffectsUnitSlider!
-    
-    @IBOutlet weak var lblTimeStretchRateValue: NSTextField!
-    @IBOutlet weak var lblPitchShiftValue: NSTextField!
-    @IBOutlet weak var lblTimeOverlapValue: NSTextField!
+    @IBOutlet weak var timeView: TimeView!
     
     @IBOutlet weak var previewBox: NSBox!
     
@@ -28,10 +22,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
             return .active
         }
         
-        [timeSlider, timeOverlapSlider].forEach({
-            $0?.stateFunction = unitStateFunction
-            $0?.updateState()
-        })
+        timeView.initialize(unitStateFunction)
         
         SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
     }
@@ -94,16 +85,7 @@ class TimePresetsEditorViewController: NSViewController, NSTableViewDataSource, 
     
     private func renderPreview(_ preset: TimePreset) {
         
-        btnShiftPitch.onIf(preset.pitchShift)
-        let pitchShift = (preset.pitchShift ? 1200 * log2(preset.rate) : 0) * AppConstants.pitchConversion_audioGraphToUI
-        lblPitchShiftValue.stringValue = ValueFormatter.formatPitch(pitchShift)
-        
-        timeSlider.floatValue = preset.rate
-        lblTimeStretchRateValue.stringValue = ValueFormatter.formatTimeStretchRate(preset.rate)
-        
-        timeOverlapSlider.floatValue = preset.overlap
-        lblTimeOverlapValue.stringValue = ValueFormatter.formatOverlap(preset.overlap)
-        
+        timeView.applyPreset(preset)
         previewBox.show()
     }
     
