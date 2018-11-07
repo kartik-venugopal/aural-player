@@ -14,7 +14,6 @@
                 <outlet property="btnFilterBypass" destination="lzY-R3-qwN" id="ppy-Qi-aPl"/>
                 <outlet property="btnPitchBypass" destination="SBT-Xb-vKM" id="b2n-9H-a9b"/>
                 <outlet property="btnReverbBypass" destination="bWn-GO-Ov3" id="Lb1-53-He5"/>
-                <outlet property="btnShiftPitch" destination="1Be-y6-oMR" id="ySj-Fb-QHa"/>
                 <outlet property="btnTimeBypass" destination="fyY-bR-Are" id="Jjx-SY-mtr"/>
                 <outlet property="chart" destination="LiR-Xe-bfV" id="Zq0-Oq-hcu"/>
                 <outlet property="delayAmountSlider" destination="lhf-PH-K3k" id="lYW-EI-fQj"/>
@@ -29,10 +28,7 @@
                 <outlet property="lblDelayFeedbackValue" destination="PWa-FU-KzL" id="ZQ4-Fi-wcA"/>
                 <outlet property="lblDelayLowPassCutoffValue" destination="IjN-vR-obd" id="crl-Yp-dUZ"/>
                 <outlet property="lblDelayTimeValue" destination="PUp-z8-SB1" id="ekv-g4-Del"/>
-                <outlet property="lblPitchShiftValue" destination="HRL-6Y-HcC" id="oyF-tR-C0D"/>
                 <outlet property="lblReverbAmountValue" destination="JhC-oP-Rsz" id="nXQ-pO-yDw"/>
-                <outlet property="lblTimeOverlapValue" destination="t0w-7K-HGH" id="Lo5-8l-ler"/>
-                <outlet property="lblTimeStretchRateValue" destination="Gnc-tj-xO2" id="yaR-b8-c23"/>
                 <outlet property="masterSubPreview" destination="wYT-Ux-qZh" id="9i5-ee-Z91"/>
                 <outlet property="pitchSubPreview" destination="C2E-kk-H0a" id="eim-UU-J9Q"/>
                 <outlet property="previewBox" destination="YKi-uu-2WR" id="0z1-6E-ck2"/>
@@ -42,8 +38,6 @@
                 <outlet property="subPreviewBox" destination="dqF-fM-dIL" id="3Vl-sQ-mw0"/>
                 <outlet property="subPreviewMenu" destination="ZNB-27-TV8" id="zGP-FF-SOS"/>
                 <outlet property="tableViewDelegate" destination="qdg-81-gZG" id="qG7-hm-QSe"/>
-                <outlet property="timeOverlapSlider" destination="3rf-dW-Se9" id="j4V-gk-2eh"/>
-                <outlet property="timeSlider" destination="6fu-w0-FJ2" id="bLc-lQ-Nnn"/>
                 <outlet property="timeSubPreview" destination="yVZ-ub-RLG" id="2Hf-IH-yDn"/>
                 <outlet property="view" destination="8lH-Uc-Wf5" id="wtr-SV-Pzy"/>
             </connections>
@@ -578,7 +572,7 @@
             </connections>
             <point key="canvasLocation" x="-104" y="760"/>
         </customView>
-        <view id="yVZ-ub-RLG" userLabel="Time Sub Preview">
+        <view id="yVZ-ub-RLG" userLabel="Time Sub Preview" customClass="TimeView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="442" height="236"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -694,6 +688,14 @@
                     <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
             </subviews>
+            <connections>
+                <outlet property="btnShiftPitch" destination="1Be-y6-oMR" id="mYX-d1-jpT"/>
+                <outlet property="lblPitchShiftValue" destination="HRL-6Y-HcC" id="jtZ-SJ-BI6"/>
+                <outlet property="lblTimeOverlapValue" destination="t0w-7K-HGH" id="BbH-eM-lvW"/>
+                <outlet property="lblTimeStretchRateValue" destination="Gnc-tj-xO2" id="u6g-nJ-S8Y"/>
+                <outlet property="timeOverlapSlider" destination="3rf-dW-Se9" id="vyl-Hk-z2O"/>
+                <outlet property="timeSlider" destination="6fu-w0-FJ2" id="Vio-3x-AeG"/>
+            </connections>
             <point key="canvasLocation" x="553" y="-45"/>
         </view>
         <view id="LeN-Zr-EZ5" userLabel="Reverb Sub Preview">

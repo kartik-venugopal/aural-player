@@ -8,14 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TimePresetsEditorViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnShiftPitch" destination="fAb-B7-V4R" id="UxX-uT-Iih"/>
                 <outlet property="editorView" destination="5AF-Uq-T8E" id="bXK-su-C9q"/>
-                <outlet property="lblPitchShiftValue" destination="uDs-4W-f2g" id="8KG-lK-tBk"/>
-                <outlet property="lblTimeOverlapValue" destination="CGa-fL-LXJ" id="Ho2-gW-5JA"/>
-                <outlet property="lblTimeStretchRateValue" destination="fZZ-18-CI3" id="F5Z-s6-Oju"/>
                 <outlet property="previewBox" destination="9TF-F8-zrP" id="RZJ-hU-HLS"/>
-                <outlet property="timeOverlapSlider" destination="yxn-Uj-7el" id="QbX-Zn-zoR"/>
-                <outlet property="timeSlider" destination="1NL-IP-TKL" id="r9A-a1-18U"/>
+                <outlet property="timeView" destination="tOK-Xi-xQr" id="Hj9-bf-w8Z"/>
                 <outlet property="view" destination="jJn-fE-cch" id="2a7-99-XKA"/>
             </connections>
         </customObject>
@@ -111,7 +106,7 @@
                             <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="iDM-hl-gve" userLabel="Controls Box">
                                 <rect key="frame" x="43" y="153" width="355" height="84"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" ambiguous="YES" id="tOK-Xi-xQr">
+                                <view key="contentView" ambiguous="YES" id="tOK-Xi-xQr" customClass="TimeView" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="355" height="84"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -215,6 +210,14 @@
                                             </textFieldCell>
                                         </textField>
                                     </subviews>
+                                    <connections>
+                                        <outlet property="btnShiftPitch" destination="fAb-B7-V4R" id="5C2-m5-5AV"/>
+                                        <outlet property="lblPitchShiftValue" destination="uDs-4W-f2g" id="zWv-OA-0lL"/>
+                                        <outlet property="lblTimeOverlapValue" destination="CGa-fL-LXJ" id="Ue9-9I-rph"/>
+                                        <outlet property="lblTimeStretchRateValue" destination="fZZ-18-CI3" id="1hT-K1-pZg"/>
+                                        <outlet property="timeOverlapSlider" destination="yxn-Uj-7el" id="vYV-sM-CpB"/>
+                                        <outlet property="timeSlider" destination="1NL-IP-TKL" id="tOG-oO-kQ8"/>
+                                    </connections>
                                 </view>
                                 <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                                 <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>

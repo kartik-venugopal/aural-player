@@ -5,17 +5,10 @@ import Cocoa
  */
 class TimeViewController: NSViewController, NSMenuDelegate, MessageSubscriber, ActionMessageSubscriber, StringInputClient {
     
+    @IBOutlet weak var timeView: TimeView!
+    
     // Time controls
     @IBOutlet weak var btnTimeBypass: EffectsUnitTriStateBypassButton!
-    
-    @IBOutlet weak var timeSlider: EffectsUnitSlider!
-    @IBOutlet weak var timeOverlapSlider: EffectsUnitSlider!
-    
-    @IBOutlet weak var btnShiftPitch: NSButton!
-    
-    @IBOutlet weak var lblTimeStretchRateValue: NSTextField!
-    @IBOutlet weak var lblPitchShiftValue: NSTextField!
-    @IBOutlet weak var lblTimeOverlapValue: NSTextField!
     
     // Presets menu
     @IBOutlet weak var presetsMenu: NSPopUpButton!
@@ -34,9 +27,7 @@ class TimeViewController: NSViewController, NSMenuDelegate, MessageSubscriber, A
         oneTimeSetup()
         initControls()
         
-        SyncMessenger.subscribe(messageTypes: [.saveTimeUserPresetRequest, .effectsUnitStateChangedNotification], subscriber: self)
-        
-        // Subscribe to message notifications
+        SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
         SyncMessenger.subscribe(actionTypes: [.increaseRate, .decreaseRate, .setRate, .updateEffectsView], subscriber: self)
     }
     
@@ -62,24 +53,18 @@ class TimeViewController: NSViewController, NSMenuDelegate, MessageSubscriber, A
         }
         
         btnTimeBypass.stateFunction = stateFunction
-        [timeSlider, timeOverlapSlider].forEach({$0?.stateFunction = stateFunction})
+        timeView.initialize(stateFunction)
     }
     
     private func initControls() {
         
         btnTimeBypass.updateState()
-        [timeSlider, timeOverlapSlider].forEach({$0?.updateState()})
-        
-        btnShiftPitch.onIf(graph.isTimePitchShift())
-        updatePitchShift()
+        timeView.stateChanged()
         
         let rate = graph.getTimeRate()
-        timeSlider.floatValue = rate.rate
-        lblTimeStretchRateValue.stringValue = rate.rateString
-        
         let overlap = graph.getTimeOverlap()
-        timeOverlapSlider.floatValue = overlap.overlap
-        lblTimeOverlapValue.stringValue = overlap.overlapString
+        
+        timeView.setState(rate.rate, rate.rateString, overlap.overlap, overlap.overlapString, graph.isTimePitchShift(), graph.getTimePitchShift())
         
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
@@ -90,9 +75,9 @@ class TimeViewController: NSViewController, NSMenuDelegate, MessageSubscriber, A
         
         let newBypassState = graph.toggleTimeState() != .active
         btnTimeBypass.updateState()
-        [timeSlider, timeOverlapSlider].forEach({$0?.updateState()})
+        timeView.stateChanged()
         
-        let newRate = newBypassState ? 1 : timeSlider.floatValue
+        let newRate = newBypassState ? 1 : timeView.rate
         let playbackRateChangedMsg = PlaybackRateChangedNotification(newRate)
         SyncMessenger.publishNotification(playbackRateChangedMsg)
         
@@ -109,12 +94,12 @@ class TimeViewController: NSViewController, NSMenuDelegate, MessageSubscriber, A
     // Updates the playback rate value
     @IBAction func timeStretchAction(_ sender: AnyObject) {
         
-        lblTimeStretchRateValue.stringValue = graph.setTimeStretchRate(timeSlider.floatValue)
-        updatePitchShift()
+        let rateString = graph.setTimeStretchRate(timeView.rate)
+        timeView.setRate(timeView.rate, rateString, graph.getTimePitchShift())
         
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if (graph.getTimeState() == .active) {
-            SyncMessenger.publishNotification(PlaybackRateChangedNotification(timeSlider.floatValue))
+            SyncMessenger.publishNotification(PlaybackRateChangedNotification(timeView.rate))
         }
     }
     
@@ -146,14 +131,13 @@ class TimeViewController: NSViewController, NSMenuDelegate, MessageSubscriber, A
             
             _ = graph.toggleTimeState()
             btnTimeBypass.updateState()
-            [timeSlider, timeOverlapSlider].forEach({$0?.updateState()})
+            timeView.stateChanged()
             
             SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
         }
         
-        lblTimeStretchRateValue.stringValue = graph.setTimeStretchRate(rate)
-        timeSlider.floatValue = rate
-        updatePitchShift()
+        let rateString = graph.setTimeStretchRate(rate)
+        timeView.setRate(rate, rateString, graph.getTimePitchShift())
         
         showTimeTab()
         
@@ -175,12 +159,10 @@ class TimeViewController: NSViewController, NSMenuDelegate, MessageSubscriber, A
         
         SyncMessenger.publishNotification(EffectsUnitStateChangedNotification.instance)
         
-        timeSlider.floatValue = rateInfo.rate
-        lblTimeStretchRateValue.stringValue = rateInfo.rateString
+        timeView.setRate(rateInfo.rate, rateInfo.rateString, graph.getTimePitchShift())
         
-        updatePitchShift()
         btnTimeBypass.on()
-        [timeSlider, timeOverlapSlider].forEach({$0?.updateState()})
+        timeView.stateChanged()
         
         showTimeTab()
         
@@ -189,12 +171,14 @@ class TimeViewController: NSViewController, NSMenuDelegate, MessageSubscriber, A
     
     // Updates the Overlap parameter of the Time stretch effects unit
     @IBAction func timeOverlapAction(_ sender: Any) {
-        lblTimeOverlapValue.stringValue = graph.setTimeOverlap(timeOverlapSlider.floatValue)
+        
+        let overlapString = graph.setTimeOverlap(timeView.overlap)
+        timeView.setOverlap(timeView.overlap, overlapString)
     }
     
     // Updates the label that displays the pitch shift value
     private func updatePitchShift() {
-        lblPitchShiftValue.stringValue = graph.getTimePitchShift()
+        timeView.updatePitchShift(graph.getTimePitchShift())
     }
     
     func getID() -> String {
@@ -207,7 +191,7 @@ class TimeViewController: NSViewController, NSMenuDelegate, MessageSubscriber, A
         
         if notification is EffectsUnitStateChangedNotification {
             btnTimeBypass.updateState()
-            [timeSlider, timeOverlapSlider].forEach({$0?.updateState()})
+            timeView.stateChanged()
         }
     }
     

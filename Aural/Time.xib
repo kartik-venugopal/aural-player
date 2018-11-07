@@ -9,14 +9,9 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TimeViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnSavePreset" destination="Zcn-3u-MVb" id="RZL-Xa-E1E"/>
-                <outlet property="btnShiftPitch" destination="5TX-uq-BeN" id="wNA-UJ-CVh"/>
                 <outlet property="btnTimeBypass" destination="0b3-aI-4fr" id="9e8-5X-poD"/>
-                <outlet property="lblPitchShiftValue" destination="CIZ-jM-pHe" id="mdR-eU-xUh"/>
-                <outlet property="lblTimeOverlapValue" destination="DcH-Hf-ey4" id="HMZ-kc-mAr"/>
-                <outlet property="lblTimeStretchRateValue" destination="4Bh-R6-0a8" id="sCc-Jv-Z5n"/>
                 <outlet property="presetsMenu" destination="jID-iV-7XK" id="Z0Y-xG-h8D"/>
-                <outlet property="timeOverlapSlider" destination="Lrx-h1-AHh" id="fQE-xW-zuN"/>
-                <outlet property="timeSlider" destination="CJC-Zn-SHV" id="QNK-dO-l7H"/>
+                <outlet property="timeView" destination="qyk-i5-HuE" id="2u0-6D-ArB"/>
                 <outlet property="view" destination="cWd-Fu-GJN" id="02m-Ap-0Qq"/>
             </connections>
         </customObject>
@@ -49,7 +44,7 @@
                 <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="cgm-Fs-HA3" userLabel="Controls Box">
                     <rect key="frame" x="73" y="32" width="355" height="84"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <view key="contentView" ambiguous="YES" id="qyk-i5-HuE">
+                    <view key="contentView" ambiguous="YES" id="qyk-i5-HuE" customClass="TimeView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="355" height="84"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -162,6 +157,14 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <connections>
+                            <outlet property="btnShiftPitch" destination="5TX-uq-BeN" id="1kx-ac-0C2"/>
+                            <outlet property="lblPitchShiftValue" destination="CIZ-jM-pHe" id="ZLC-Sy-eRE"/>
+                            <outlet property="lblTimeOverlapValue" destination="DcH-Hf-ey4" id="UJF-kF-3Zr"/>
+                            <outlet property="lblTimeStretchRateValue" destination="4Bh-R6-0a8" id="Rkn-ok-8Cu"/>
+                            <outlet property="timeOverlapSlider" destination="Lrx-h1-AHh" id="fZS-xo-oZ7"/>
+                            <outlet property="timeSlider" destination="CJC-Zn-SHV" id="NMY-qq-Vj3"/>
+                        </connections>
                     </view>
                     <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                     <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -243,6 +246,6 @@
         </view>
     </objects>
     <resources>
-        <image name="SaveEQPreset" width="128" height="128"/>
+        <image name="SaveEQPreset" width="26" height="26"/>
     </resources>
 </document>
