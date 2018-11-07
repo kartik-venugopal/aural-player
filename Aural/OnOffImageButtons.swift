@@ -146,6 +146,19 @@ class EffectsUnitTriStateBypassButton: EffectsUnitBypassButton {
         }
     }
     
+    func setUnitState(_ state: EffectsUnitState) {
+        
+        switch state {
+            
+        case .bypassed: off()
+            
+        case .active: on()
+            
+        case .suppressed: mixed()
+            
+        }
+    }
+    
     func mixed() {
         self.toolTip = mixedStateTooltip
         self.image = mixedStateImage
