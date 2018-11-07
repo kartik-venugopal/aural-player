@@ -17,6 +17,7 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private let eqPresets: EQPresets = ObjectGraph.getAudioGraphDelegate().eqPresets
     
     override var nibName: String? {return "EQ"}
     
@@ -32,16 +33,13 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        if !presetsMenu.itemArray.isEmpty {
-            
-            // Remove all custom presets
-            while !presetsMenu.itemArray[0].isSeparatorItem {
-                presetsMenu.removeItem(at: 0)
-            }
+        // Remove all custom presets
+        while !presetsMenu.item(at: 0)!.isSeparatorItem {
+            presetsMenu.removeItem(at: 0)
         }
         
         // Re-initialize the menu with user-defined presets
-        EQPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        eqPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
         
         // Don't select any items from the EQ presets menu
         presetsMenu.selectItem(at: -1)
@@ -214,7 +212,7 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        let valid = !EQPresets.presetWithNameExists(string)
+        let valid = !eqPresets.presetWithNameExists(string)
         
         if (!valid) {
             return (false, "Preset with this name already exists !")

@@ -110,6 +110,8 @@ protocol EQUnitDelegateProtocol {
     // Decreases the equalizer treble band gains by a small decrement, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
     func decreaseTreble() -> [Int: Float]
     
+    var eqPresets: EQPresets {get}
+    
     func saveEQPreset(_ presetName: String)
     
     func applyEQPreset(_ presetName: String)

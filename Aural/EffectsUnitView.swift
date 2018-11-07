@@ -8,6 +8,8 @@ class EffectsUnitView: NSView, NSMenuDelegate, StringInputClient {
     @IBOutlet weak var presetsMenu: NSPopUpButton!
     @IBOutlet weak var btnSavePreset: NSButton!
     
+    private let eqPresets: EQPresets = ObjectGraph.getAudioGraphDelegate().eqPresets
+    
     private lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     func initialize(_ stateFunction: @escaping () -> EffectsUnitState) {
@@ -32,7 +34,7 @@ class EffectsUnitView: NSView, NSMenuDelegate, StringInputClient {
         
         // Re-initialize the menu with user-defined presets
         // TODO
-        EQPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        eqPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
         
         // Don't select any items from the EQ presets menu
         presetsMenu.selectItem(at: -1)
@@ -51,7 +53,7 @@ class EffectsUnitView: NSView, NSMenuDelegate, StringInputClient {
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
         // TODO
-        let valid = !EQPresets.presetWithNameExists(string)
+        let valid = !eqPresets.presetWithNameExists(string)
         
         if (!valid) {
             return (false, "Preset with this name already exists !")

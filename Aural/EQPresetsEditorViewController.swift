@@ -9,6 +9,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     @IBOutlet weak var eqView: EQView!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private let eqPresets: EQPresets = ObjectGraph.getAudioGraphDelegate().eqPresets
     
     private var oldPresetName: String?
     
@@ -32,7 +33,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
         let selection = getSelectedPresetNames()
-        let preset = EQPresets.presetByName(selection[0])
+        let preset = eqPresets.presetByName(selection[0])!
         
         eqView.typeChanged(preset.bands, preset.globalGain)
     }
@@ -44,7 +45,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     private func deleteSelectedPresetsAction() {
         
         let selection = getSelectedPresetNames()
-        EQPresets.deletePresets(selection)
+        eqPresets.deletePresets(selection)
         editorView.reloadData()
         previewBox.hide()
         
@@ -91,7 +92,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return EQPresets.countUserDefinedPresets()
+        return eqPresets.userDefinedPresets.count
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -105,7 +106,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
             let selection = getSelectedPresetNames()
             let presetName = selection[0]
             
-            let preset = EQPresets.presetByName(presetName)
+            let preset = eqPresets.presetByName(presetName)!
             oldPresetName = presetName
             
             renderPreview(preset)
@@ -125,7 +126,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let preset = EQPresets.userDefinedPresets[row]
+        let preset = eqPresets.userDefinedPresets[row]
         return createTextCell(tableView, tableColumn!, row, preset.name)
     }
     
@@ -163,9 +164,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
         // Access the old value from the temp storage variable
         let oldName = oldPresetName ?? editedTextField.stringValue
         
-        if EQPresets.presetWithNameExists(oldName) {
-            
-            let preset = EQPresets.presetByName(oldName)
+        if let preset = eqPresets.presetByName(oldName) {
             
             let newPresetName = editedTextField.stringValue
             
@@ -178,7 +177,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
                 
                 editedTextField.stringValue = preset.name
                 
-            } else if EQPresets.presetWithNameExists(newPresetName) {
+            } else if eqPresets.presetWithNameExists(newPresetName) {
                 
                 // Another preset with that name exists, can't rename
                 editedTextField.stringValue = preset.name
@@ -186,7 +185,7 @@ class EQPresetsEditorViewController: NSViewController, NSTableViewDataSource, NS
             } else {
                 
                 // Update the preset name
-                EQPresets.renamePreset(oldName, newPresetName)
+                eqPresets.renamePreset(oldName, newPresetName)
             }
             
         } else {

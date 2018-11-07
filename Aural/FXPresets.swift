@@ -7,8 +7,6 @@ class FXPresets<T: EffectsUnitPreset> {
     private(set) var userDefinedPresets: [T] = []
     private(set) var systemDefinedPresets: [T] = []
     
-    var defaultPreset: T?
-    
     func presetByName(_ name: String) -> T? {
         return map[name]
     }
@@ -47,7 +45,7 @@ class FXPresets<T: EffectsUnitPreset> {
     func addPreset(_ preset: T) {
         
         map[preset.name] = preset
-        userDefinedPresets.append(preset)
+        preset.systemDefined ? systemDefinedPresets.append(preset) : userDefinedPresets.append(preset)
     }
     
     func presetWithNameExists(_ name: String) -> Bool {
