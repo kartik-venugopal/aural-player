@@ -19,6 +19,7 @@ class ReverbViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private let reverbPresets: ReverbPresets = ObjectGraph.getAudioGraphDelegate().reverbPresets
     
     override var nibName: String? {return "Reverb"}
     
@@ -36,7 +37,7 @@ class ReverbViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
         presetsMenu.removeAllItems()
         
         // Re-initialize the menu with user-defined presets
-        ReverbPresets.allPresets().forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        reverbPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
         
         presetsMenu.selectItem(at: -1)
     }
@@ -114,7 +115,7 @@ class ReverbViewController: NSViewController, NSMenuDelegate, MessageSubscriber,
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        let valid = !ReverbPresets.presetWithNameExists(string)
+        let valid = !reverbPresets.presetWithNameExists(string)
 
         if (!valid) {
             return (false, "Preset with this name already exists !")

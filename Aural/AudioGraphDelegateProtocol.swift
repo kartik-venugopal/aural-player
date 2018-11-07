@@ -210,6 +210,8 @@ protocol ReverbUnitDelegateProtocol {
     // Sets the reverb amount, specified as a value between 0 (dry) and 100 (wet)
     func setReverbAmount(_ amount: Float) -> String
     
+    var reverbPresets: ReverbPresets {get}
+    
     func saveReverbPreset(_ presetName: String)
     
     func applyReverbPreset(_ presetName: String)

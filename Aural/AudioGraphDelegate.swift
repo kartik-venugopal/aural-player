@@ -485,13 +485,17 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return ValueFormatter.formatReverbAmount(amount)
     }
     
+    var reverbPresets: ReverbPresets {
+        return graph.reverbPresets
+    }
+    
     func saveReverbPreset(_ presetName: String) {
         graph.saveReverbPreset(presetName)
     }
     
     func applyReverbPreset(_ presetName: String) {
         
-        let preset = ReverbPresets.presetByName(presetName)!
+        let preset = reverbPresets.presetByName(presetName)!
         graph.applyReverbPreset(preset)
     }
     
