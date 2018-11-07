@@ -10,14 +10,7 @@
             <connections>
                 <outlet property="btnDelayBypass" destination="0Oi-jb-bmq" id="omJ-pP-Peb"/>
                 <outlet property="btnSavePreset" destination="RNY-r7-uAF" id="vu3-Em-haf"/>
-                <outlet property="delayAmountSlider" destination="82T-N1-PUx" id="Xjf-9K-OYh"/>
-                <outlet property="delayCutoffSlider" destination="ACj-TQ-Mnp" id="uHR-k6-jAw"/>
-                <outlet property="delayFeedbackSlider" destination="Exm-O9-toy" id="zDf-Ta-NKV"/>
-                <outlet property="delayTimeSlider" destination="thY-d8-36A" id="z4W-0n-exJ"/>
-                <outlet property="lblDelayAmountValue" destination="GmU-X7-HyO" id="kOj-jH-fJw"/>
-                <outlet property="lblDelayFeedbackValue" destination="t2I-Cj-ddy" id="cYm-bb-ick"/>
-                <outlet property="lblDelayLowPassCutoffValue" destination="4qK-Gy-L1x" id="Asv-4r-dD1"/>
-                <outlet property="lblDelayTimeValue" destination="L6J-K8-maZ" id="g8w-gN-PeJ"/>
+                <outlet property="delayView" destination="sjB-aa-i0k" id="dXX-ZS-n8D"/>
                 <outlet property="presetsMenu" destination="diN-gY-3YR" id="f0D-zP-ZbY"/>
                 <outlet property="view" destination="eXu-49-wDq" id="ENz-f9-LMp"/>
             </connections>
@@ -51,7 +44,7 @@
                 <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Okh-7w-ICh" userLabel="Controls Box">
                     <rect key="frame" x="73" y="25" width="355" height="101"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <view key="contentView" ambiguous="YES" id="sjB-aa-i0k">
+                    <view key="contentView" ambiguous="YES" id="sjB-aa-i0k" customClass="DelayView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="355" height="101"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -232,6 +225,16 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <connections>
+                            <outlet property="amountSlider" destination="82T-N1-PUx" id="zLO-aS-3zq"/>
+                            <outlet property="cutoffSlider" destination="ACj-TQ-Mnp" id="52K-x2-nME"/>
+                            <outlet property="feedbackSlider" destination="Exm-O9-toy" id="nL8-Lb-IHV"/>
+                            <outlet property="lblAmount" destination="GmU-X7-HyO" id="ofL-5Y-XDa"/>
+                            <outlet property="lblCutoff" destination="4qK-Gy-L1x" id="lMz-Ll-qs1"/>
+                            <outlet property="lblFeedback" destination="t2I-Cj-ddy" id="hhV-PB-NbO"/>
+                            <outlet property="lblTime" destination="L6J-K8-maZ" id="wGx-dt-9lA"/>
+                            <outlet property="timeSlider" destination="thY-d8-36A" id="gl7-Ng-rnr"/>
+                        </connections>
                     </view>
                     <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                     <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>

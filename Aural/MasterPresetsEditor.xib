@@ -8,18 +8,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MasterPresetsEditorViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="delayAmountSlider" destination="lhf-PH-K3k" id="lYW-EI-fQj"/>
-                <outlet property="delayCutoffSlider" destination="KOn-Py-FzY" id="4SQ-KO-Kwf"/>
-                <outlet property="delayFeedbackSlider" destination="djJ-wg-eYj" id="fnG-3s-aJV"/>
                 <outlet property="delaySubPreview" destination="BU7-1k-Qab" id="gaQ-Uk-kc6"/>
-                <outlet property="delayTimeSlider" destination="RRG-Oj-TyP" id="uer-EB-ePe"/>
                 <outlet property="editorView" destination="Oib-QJ-T7y" id="qnX-4w-J4q"/>
                 <outlet property="eqSubPreview" destination="MbF-3u-Dem" id="lRs-OY-lUa"/>
                 <outlet property="filterSubPreview" destination="aH6-oj-Cn9" id="KQP-I3-Ueb"/>
-                <outlet property="lblDelayAmountValue" destination="mZh-U0-ZiE" id="UyM-0s-UNj"/>
-                <outlet property="lblDelayFeedbackValue" destination="PWa-FU-KzL" id="ZQ4-Fi-wcA"/>
-                <outlet property="lblDelayLowPassCutoffValue" destination="IjN-vR-obd" id="crl-Yp-dUZ"/>
-                <outlet property="lblDelayTimeValue" destination="PUp-z8-SB1" id="ekv-g4-Del"/>
                 <outlet property="masterSubPreview" destination="wYT-Ux-qZh" id="9i5-ee-Z91"/>
                 <outlet property="pitchSubPreview" destination="C2E-kk-H0a" id="eim-UU-J9Q"/>
                 <outlet property="previewBox" destination="YKi-uu-2WR" id="0z1-6E-ck2"/>
@@ -905,7 +897,7 @@
             </connections>
             <point key="canvasLocation" x="-411" y="221"/>
         </view>
-        <view id="BU7-1k-Qab" userLabel="Delay Sub Preview">
+        <view id="BU7-1k-Qab" userLabel="Delay Sub Preview" customClass="DelayView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="442" height="236"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -1086,6 +1078,16 @@
                     <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
             </subviews>
+            <connections>
+                <outlet property="amountSlider" destination="lhf-PH-K3k" id="Whw-b2-Z3K"/>
+                <outlet property="cutoffSlider" destination="KOn-Py-FzY" id="Kuc-62-2hj"/>
+                <outlet property="feedbackSlider" destination="djJ-wg-eYj" id="aA0-6D-rPU"/>
+                <outlet property="lblAmount" destination="mZh-U0-ZiE" id="7Q1-yh-vqF"/>
+                <outlet property="lblCutoff" destination="IjN-vR-obd" id="AQb-bP-Gsi"/>
+                <outlet property="lblFeedback" destination="PWa-FU-KzL" id="Rf1-IP-kFj"/>
+                <outlet property="lblTime" destination="PUp-z8-SB1" id="RFU-nC-Xm0"/>
+                <outlet property="timeSlider" destination="RRG-Oj-TyP" id="R2Z-v5-bfJ"/>
+            </connections>
             <point key="canvasLocation" x="636" y="828"/>
         </view>
         <view id="aH6-oj-Cn9" userLabel="Filter Sub Preview" customClass="FilterView" customModule="Aural" customModuleProvider="target">
