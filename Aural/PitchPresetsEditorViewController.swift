@@ -8,6 +8,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     @IBOutlet weak var previewBox: NSBox!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private let pitchPresets: PitchPresets = ObjectGraph.getAudioGraphDelegate().pitchPresets
     
     private var oldPresetName: String?
     
@@ -35,7 +36,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     private func deleteSelectedPresetsAction() {
         
         let selection = getSelectedPresetNames()
-        PitchPresets.deletePresets(selection)
+        pitchPresets.deletePresets(selection)
         editorView.reloadData()
         
         previewBox.hide()
@@ -85,7 +86,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return PitchPresets.countUserDefinedPresets()
+        return pitchPresets.userDefinedPresets.count
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -97,7 +98,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         if numRows == 1 {
             
             let presetName = getSelectedPresetNames()[0]
-            renderPreview(PitchPresets.presetByName(presetName))
+            renderPreview(pitchPresets.presetByName(presetName)!)
             oldPresetName = presetName
         }
         
@@ -112,7 +113,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let preset = PitchPresets.userDefinedPresets[row]
+        let preset = pitchPresets.userDefinedPresets[row]
         return createTextCell(tableView, tableColumn!, row, preset.name)
     }
     
@@ -151,9 +152,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         // Access the old value from the temp storage variable
         let oldName = oldPresetName ?? editedTextField.stringValue
         
-        if PitchPresets.presetWithNameExists(oldName) {
-            
-            let preset = PitchPresets.presetByName(oldName)
+        if let preset = pitchPresets.presetByName(oldName) {
             
             let newPresetName = editedTextField.stringValue
             
@@ -166,7 +165,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
                 
                 editedTextField.stringValue = preset.name
                 
-            } else if PitchPresets.presetWithNameExists(newPresetName) {
+            } else if pitchPresets.presetWithNameExists(newPresetName) {
                 
                 // Another preset with that name exists, can't rename
                 editedTextField.stringValue = preset.name
@@ -174,7 +173,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
             } else {
                 
                 // Update the preset name
-                PitchPresets.renamePreset(oldName, newPresetName)
+                pitchPresets.renamePreset(oldName, newPresetName)
             }
             
         } else {

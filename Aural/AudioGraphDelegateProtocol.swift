@@ -143,6 +143,8 @@ protocol PitchShiftUnitDelegateProtocol {
     // Sets the amount of overlap between segments of the input audio signal into the pitch effects unit, specified as a value between 3 and 32
     func setPitchOverlap(_ overlap: Float) -> String
     
+    var pitchPresets: PitchPresets {get}
+    
     func savePitchPreset(_ presetName: String)
     
     func applyPitchPreset(_ presetName: String)

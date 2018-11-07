@@ -47,6 +47,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     // Presets
     private(set) var masterPresets: MasterPresets = MasterPresets()
     private(set) var eqPresets: EQPresets = EQPresets()
+    private(set) var pitchPresets: PitchPresets = PitchPresets()
     
     // Sets up the audio engine
     init(_ state: AudioGraphState) {
@@ -101,7 +102,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         pitchSuppressed = state.pitchState == .suppressed
         pitchNode.pitch = state.pitch
         pitchNode.overlap = state.pitchOverlap
-        PitchPresets.loadUserDefinedPresets(state.pitchUserPresets)
+        pitchPresets.addPresets(state.pitchUserPresets)
         
         // Time
         timeNode.bypass = state.timeState != .active
@@ -498,7 +499,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     func savePitchPreset(_ presetName: String) {
         
         let pitchState = getPitchState() == EffectsUnitState.active ? EffectsUnitState.active : EffectsUnitState.bypassed
-        PitchPresets.addUserDefinedPreset(presetName, pitchState, pitchNode.pitch, pitchNode.overlap)
+        pitchPresets.addPreset(PitchPreset(presetName, pitchState, pitchNode.pitch, pitchNode.overlap, false))
     }
     
     func applyPitchPreset(_ preset: PitchPreset) {
@@ -844,7 +845,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.pitchState = getPitchState()
         state.pitch = pitchNode.pitch
         state.pitchOverlap = pitchNode.overlap
-        state.pitchUserPresets = PitchPresets.userDefinedPresets
+        state.pitchUserPresets = pitchPresets.userDefinedPresets
         
         // Time
         state.timeState = getTimeState()

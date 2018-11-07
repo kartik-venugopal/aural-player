@@ -19,6 +19,7 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private let pitchPresets: PitchPresets = ObjectGraph.getAudioGraphDelegate().pitchPresets
     
     override var nibName: String? {return "Pitch"}
     
@@ -37,7 +38,7 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         }
         
         // Re-initialize the menu with user-defined presets
-        PitchPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        pitchPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
         
         // Don't select any items from the EQ presets menu
         presetsMenu.selectItem(at: -1)
@@ -200,7 +201,7 @@ class PitchViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        let valid = !PitchPresets.presetWithNameExists(string)
+        let valid = !pitchPresets.presetWithNameExists(string)
         
         if (!valid) {
             return (false, "Preset with this name already exists !")
