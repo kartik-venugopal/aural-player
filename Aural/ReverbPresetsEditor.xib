@@ -9,10 +9,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="ReverbPresetsEditorViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="editorView" destination="MgD-LE-H3z" id="A59-8M-Qg0"/>
-                <outlet property="lblReverbAmountValue" destination="jQN-HS-BKW" id="HSx-HJ-ugV"/>
                 <outlet property="previewBox" destination="NaF-1t-3HE" id="gRj-Nz-7aS"/>
-                <outlet property="reverbAmountSlider" destination="eqq-pG-1YQ" id="o0i-df-bgV"/>
-                <outlet property="reverbSpaceMenu" destination="4E3-lX-F33" id="eti-q9-qDl"/>
+                <outlet property="reverbView" destination="LoO-1F-t7D" id="BFs-tP-b3S"/>
                 <outlet property="view" destination="hDA-ZO-Qha" id="xZP-lL-FG8"/>
             </connections>
         </customObject>
@@ -108,7 +106,7 @@
                             <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="oSw-De-Pg7" userLabel="Controls Box">
                                 <rect key="frame" x="43" y="166" width="355" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" ambiguous="YES" id="LoO-1F-t7D">
+                                <view key="contentView" ambiguous="YES" id="LoO-1F-t7D" customClass="ReverbView" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="355" height="68"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -205,6 +203,11 @@
                                             </textFieldCell>
                                         </textField>
                                     </subviews>
+                                    <connections>
+                                        <outlet property="lblReverbAmountValue" destination="jQN-HS-BKW" id="EvG-Gj-Mlr"/>
+                                        <outlet property="reverbAmountSlider" destination="eqq-pG-1YQ" id="Ns8-fX-spP"/>
+                                        <outlet property="reverbSpaceMenu" destination="4E3-lX-F33" id="KGW-ju-XRx"/>
+                                    </connections>
                                 </view>
                                 <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                                 <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>

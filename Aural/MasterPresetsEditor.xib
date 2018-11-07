@@ -28,12 +28,9 @@
                 <outlet property="lblDelayFeedbackValue" destination="PWa-FU-KzL" id="ZQ4-Fi-wcA"/>
                 <outlet property="lblDelayLowPassCutoffValue" destination="IjN-vR-obd" id="crl-Yp-dUZ"/>
                 <outlet property="lblDelayTimeValue" destination="PUp-z8-SB1" id="ekv-g4-Del"/>
-                <outlet property="lblReverbAmountValue" destination="JhC-oP-Rsz" id="nXQ-pO-yDw"/>
                 <outlet property="masterSubPreview" destination="wYT-Ux-qZh" id="9i5-ee-Z91"/>
                 <outlet property="pitchSubPreview" destination="C2E-kk-H0a" id="eim-UU-J9Q"/>
                 <outlet property="previewBox" destination="YKi-uu-2WR" id="0z1-6E-ck2"/>
-                <outlet property="reverbAmountSlider" destination="GZs-G1-3cz" id="1QF-Bd-mCS"/>
-                <outlet property="reverbSpaceMenu" destination="79S-8N-xsq" id="WqM-Rr-6tE"/>
                 <outlet property="reverbSubPreview" destination="LeN-Zr-EZ5" id="cvd-vg-Tjt"/>
                 <outlet property="subPreviewBox" destination="dqF-fM-dIL" id="3Vl-sQ-mw0"/>
                 <outlet property="subPreviewMenu" destination="ZNB-27-TV8" id="zGP-FF-SOS"/>
@@ -698,7 +695,7 @@
             </connections>
             <point key="canvasLocation" x="553" y="-45"/>
         </view>
-        <view id="LeN-Zr-EZ5" userLabel="Reverb Sub Preview">
+        <view id="LeN-Zr-EZ5" userLabel="Reverb Sub Preview" customClass="ReverbView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="442" height="236"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -807,6 +804,11 @@
                     <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
             </subviews>
+            <connections>
+                <outlet property="lblReverbAmountValue" destination="JhC-oP-Rsz" id="QLW-Hb-bu6"/>
+                <outlet property="reverbAmountSlider" destination="GZs-G1-3cz" id="Po3-mg-JCd"/>
+                <outlet property="reverbSpaceMenu" destination="79S-8N-xsq" id="my7-1y-T7s"/>
+            </connections>
             <point key="canvasLocation" x="-411" y="221"/>
         </view>
         <view id="BU7-1k-Qab" userLabel="Delay Sub Preview">
