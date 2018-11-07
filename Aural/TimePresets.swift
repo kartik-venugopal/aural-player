@@ -1,69 +1,14 @@
 import Foundation
 
-class TimePresets {
+class TimePresets: FXPresets<TimePreset> {
     
-    private static var presets: [String: TimePreset] = {
+    override init() {
         
-        var map = [String: TimePreset]()
-        SystemDefinedTimePresets.allValues.forEach({
-            map[$0.rawValue] = TimePreset($0.rawValue, $0.state, $0.rate, $0.overlap, $0.pitchShift, true)
-        })
-        
-        return map
-    }()
-    
-    static var userDefinedPresets: [TimePreset] {
-        return presets.values.filter({$0.systemDefined == false})
+        super.init()
+        addPresets(SystemDefinedTimePresets.presets)
     }
     
-    static var systemDefinedPresets: [TimePreset] {
-        return presets.values.filter({$0.systemDefined == true})
-    }
-    
-    static var defaultPreset: TimePreset {
-        return presetByName(SystemDefinedTimePresets.normal.rawValue)
-    }
-    
-    static func presetByName(_ name: String) -> TimePreset {
-        return presets[name] ?? defaultPreset
-    }
-    
-    static func loadUserDefinedPresets(_ userDefinedPresets: [TimePreset]) {
-        userDefinedPresets.forEach({presets[$0.name] = $0})
-    }
-    
-    // Assume preset with this name doesn't already exist
-    static func addUserDefinedPreset(_ name: String, _ state: EffectsUnitState, _ rate: Float, _ overlap: Float, _ pitchShift: Bool) {
-        
-        presets[name] = TimePreset(name, state, rate, overlap, pitchShift, false)
-    }
-    
-    static func presetWithNameExists(_ name: String) -> Bool {
-        return presets[name] != nil
-    }
-    
-    static func countUserDefinedPresets() -> Int {
-        return userDefinedPresets.count
-    }
-    
-    static func deletePresets(_ presetNames: [String]) {
-        
-        presetNames.forEach({
-            presets[$0] = nil
-        })
-    }
-    
-    static func renamePreset(_ oldName: String, _ newName: String) {
-        
-        if presetWithNameExists(oldName) {
-            
-            let preset = presetByName(oldName)
-            
-            presets.removeValue(forKey: oldName)
-            preset.name = newName
-            presets[newName] = preset
-        }
-    }
+    static var defaultPreset: TimePreset = {return SystemDefinedTimePresets.presets.first(where: {$0.name == SystemDefinedTimePresetParams.normal.rawValue})!}()
 }
 
 class TimePreset: EffectsUnitPreset {
@@ -81,10 +26,23 @@ class TimePreset: EffectsUnitPreset {
     }
 }
 
+fileprivate struct SystemDefinedTimePresets {
+    
+    static let presets: [TimePreset] = {
+        
+        var arr: [TimePreset] = []
+        SystemDefinedTimePresetParams.allValues.forEach({
+            arr.append(TimePreset($0.rawValue, $0.state, $0.rate, $0.overlap, $0.pitchShift, true))
+        })
+        
+        return arr
+    }()
+}
+
 /*
     An enumeration of built-in pitch presets the user can choose from
  */
-fileprivate enum SystemDefinedTimePresets: String {
+fileprivate enum SystemDefinedTimePresetParams: String {
     
     case normal = "Normal (1x)"  // default
     
@@ -101,11 +59,11 @@ fileprivate enum SystemDefinedTimePresets: String {
     case speedyGonzales = "Speedy Gonzales"
     case slowLikeMolasses = "Slow like molasses"
     
-    static var allValues: [SystemDefinedTimePresets] = [.normal, .quarterX, .halfX, .threeFourthsX, .twoX, .threeX, .fourX, .speedyGonzales, .slowLikeMolasses, .tooMuchCoffee, .laidBack]
+    static var allValues: [SystemDefinedTimePresetParams] = [.normal, .quarterX, .halfX, .threeFourthsX, .twoX, .threeX, .fourX, .speedyGonzales, .slowLikeMolasses, .tooMuchCoffee, .laidBack]
     
     // Converts a user-friendly display name to an instance of TimePresets
-    static func fromDisplayName(_ displayName: String) -> SystemDefinedTimePresets {
-        return SystemDefinedTimePresets(rawValue: displayName) ?? .normal
+    static func fromDisplayName(_ displayName: String) -> SystemDefinedTimePresetParams {
+        return SystemDefinedTimePresetParams(rawValue: displayName) ?? .normal
     }
     
     var rate: Float {

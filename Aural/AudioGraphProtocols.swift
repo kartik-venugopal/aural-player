@@ -154,6 +154,8 @@ protocol TimeStretchUnitProtocol {
     // Sets the amount of overlap between segments of the input audio signal into the time effects unit, specified as a value between 3 and 32
     func setTimeOverlap(_ overlap: Float)
     
+    var timePresets: TimePresets {get}
+    
     func saveTimePreset(_ presetName: String)
     
     func applyTimePreset(_ preset: TimePreset)
