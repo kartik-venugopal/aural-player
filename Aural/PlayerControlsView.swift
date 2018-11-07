@@ -47,6 +47,7 @@ class PlayerControlsView: NSView {
         return (0, 0, 0)
     }
     
+    // TODO: Remove this dependency and instead pass in a closure
     // Delegate that retrieves playback sequencing info (previous/next track)
     private let playbackSequence: PlaybackSequencerInfoDelegateProtocol = ObjectGraph.getPlaybackSequencerInfoDelegate()
     

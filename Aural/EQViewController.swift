@@ -32,14 +32,11 @@ class EQViewController: NSViewController, MessageSubscriber, NSMenuDelegate, Act
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        let itemCount = presetsMenu.itemArray.count
-        
-        let customPresetCount = itemCount - 18  // 3 separators, 15 system-defined presets
-        
-        if customPresetCount > 0 {
+        if !presetsMenu.itemArray.isEmpty {
             
-            for index in (0..<customPresetCount).reversed() {
-                presetsMenu.removeItem(at: index)
+            // Remove all custom presets
+            while !presetsMenu.itemArray[0].isSeparatorItem {
+                presetsMenu.removeItem(at: 0)
             }
         }
         

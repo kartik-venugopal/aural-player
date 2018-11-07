@@ -31,6 +31,8 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     @IBOutlet weak var btnRememberSettings_allTracks: NSButton!
     @IBOutlet weak var btnRememberSettings_individualTracks: NSButton!
     
+    private let masterPresets: MasterPresets = ObjectGraph.getAudioGraphDelegate().masterPresets
+    
     override var nibName: String? {return "SoundPreferences"}
     
     func getView() -> NSView {
@@ -100,7 +102,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         masterPresetsMenu.removeAllItems()
         
         // Initialize the menu with user-defined presets
-        MasterPresets.userDefinedPresets.forEach({masterPresetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        masterPresets.userDefinedPresets.forEach({masterPresetsMenu.insertItem(withTitle: $0.name, at: 0)})
     }
     
     @IBAction func volumeDeltaAction(_ sender: Any) {

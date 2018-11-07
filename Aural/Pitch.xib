@@ -11,10 +11,7 @@
                 <outlet property="box" destination="SqM-jh-LRn" id="YvI-vh-auk"/>
                 <outlet property="btnPitchBypass" destination="0Wm-Yf-mhU" id="UQt-48-ZEB"/>
                 <outlet property="btnSavePreset" destination="TzI-w2-CP3" id="asl-Yn-CDX"/>
-                <outlet property="lblPitchOverlapValue" destination="dY7-MC-kOz" id="TZk-90-dK0"/>
-                <outlet property="lblPitchValue" destination="bTO-XK-qFj" id="Tbv-PX-Isu"/>
-                <outlet property="pitchOverlapSlider" destination="VNQ-VI-tw3" id="DZk-Oe-dz1"/>
-                <outlet property="pitchSlider" destination="h3Q-co-Bu9" id="NGW-qG-Zah"/>
+                <outlet property="pitchView" destination="dcu-Yh-pFz" id="pSd-Fr-VNU"/>
                 <outlet property="presetsMenu" destination="Xsu-z4-oQ0" id="Fj2-KP-Tp2"/>
                 <outlet property="view" destination="rBN-FU-dcW" id="36W-5X-XyO"/>
             </connections>
@@ -48,7 +45,7 @@
                 <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="SqM-jh-LRn" userLabel="Controls Box">
                     <rect key="frame" x="73" y="36" width="355" height="68"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <view key="contentView" ambiguous="YES" id="dcu-Yh-pFz">
+                    <view key="contentView" ambiguous="YES" id="dcu-Yh-pFz" customClass="PitchView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="355" height="68"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -141,6 +138,12 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <connections>
+                            <outlet property="lblPitchOverlapValue" destination="dY7-MC-kOz" id="sXQ-7l-gyj"/>
+                            <outlet property="lblPitchValue" destination="bTO-XK-qFj" id="orn-jn-dur"/>
+                            <outlet property="pitchOverlapSlider" destination="VNQ-VI-tw3" id="epq-fk-hzA"/>
+                            <outlet property="pitchSlider" destination="h3Q-co-Bu9" id="w2K-ec-dS8"/>
+                        </connections>
                     </view>
                     <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                     <color key="fillColor" white="0.20445421006944445" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -216,6 +219,6 @@
         </view>
     </objects>
     <resources>
-        <image name="SaveEQPreset" width="128" height="128"/>
+        <image name="SaveEQPreset" width="26" height="26"/>
     </resources>
 </document>
