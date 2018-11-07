@@ -17,6 +17,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     @IBOutlet weak var previewBox: NSBox!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private let delayPresets: DelayPresets = ObjectGraph.getAudioGraphDelegate().delayPresets
     
     private var oldPresetName: String?
     
@@ -52,7 +53,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     private func deleteSelectedPresetsAction() {
         
         let selection = getSelectedPresetNames()
-        DelayPresets.deletePresets(selection)
+        delayPresets.deletePresets(selection)
         editorView.reloadData()
         
         previewBox.hide()
@@ -114,7 +115,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return DelayPresets.countUserDefinedPresets()
+        return delayPresets.userDefinedPresets.count
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -126,7 +127,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         if numRows == 1 {
             
             let presetName = getSelectedPresetNames()[0]
-            renderPreview(DelayPresets.presetByName(presetName))
+            renderPreview(delayPresets.presetByName(presetName)!)
             oldPresetName = presetName
         }
         
@@ -141,7 +142,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let preset = DelayPresets.userDefinedPresets[row]
+        let preset = delayPresets.userDefinedPresets[row]
         return createTextCell(tableView, tableColumn!, row, preset.name)
     }
     
@@ -180,9 +181,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
         // Access the old value from the temp storage variable
         let oldName = oldPresetName ?? editedTextField.stringValue
         
-        if DelayPresets.presetWithNameExists(oldName) {
-            
-            let preset = DelayPresets.presetByName(oldName)
+        if let preset = delayPresets.presetByName(oldName) {
             
             let newPresetName = editedTextField.stringValue
             
@@ -195,7 +194,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
                 
                 editedTextField.stringValue = preset.name
                 
-            } else if DelayPresets.presetWithNameExists(newPresetName) {
+            } else if delayPresets.presetWithNameExists(newPresetName) {
                 
                 // Another preset with that name exists, can't rename
                 editedTextField.stringValue = preset.name
@@ -203,7 +202,7 @@ class DelayPresetsEditorViewController: NSViewController, NSTableViewDataSource,
             } else {
                 
                 // Update the preset name
-                DelayPresets.renamePreset(oldName, newPresetName)
+                delayPresets.renamePreset(oldName, newPresetName)
             }
             
         } else {

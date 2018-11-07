@@ -28,6 +28,7 @@ class DelayViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private let delayPresets: DelayPresets = ObjectGraph.getAudioGraphDelegate().delayPresets
     
     override var nibName: String? {return "Delay"}
     
@@ -48,7 +49,7 @@ class DelayViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
         }
         
         // Re-initialize the menu with user-defined presets
-        DelayPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
+        delayPresets.userDefinedPresets.forEach({presetsMenu.insertItem(withTitle: $0.name, at: 0)})
         
         // Don't select any items from the presets menu
         presetsMenu.selectItem(at: -1)
@@ -149,7 +150,7 @@ class DelayViewController: NSViewController, NSMenuDelegate, MessageSubscriber, 
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        let valid = !DelayPresets.presetWithNameExists(string)
+        let valid = !delayPresets.presetWithNameExists(string)
         
         if (!valid) {
             return (false, "Preset with this name already exists !")
