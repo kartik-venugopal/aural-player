@@ -7,7 +7,7 @@ class EQSubview: NSView {
     var bandSliders: [EffectsUnitSlider] = []
     var allSliders: [EffectsUnitSlider] = []
     
-    func initialize(_ stateFunction: @escaping (() -> EffectsUnitState), _ sliderAction: Selector?, _ sliderActionTarget: AnyObject?) {
+    func initialize(_ stateFunction: (() -> EffectsUnitState)?, _ sliderAction: Selector?, _ sliderActionTarget: AnyObject?) {
         
         for subView in self.subviews {
             

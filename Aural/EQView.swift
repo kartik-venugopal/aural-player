@@ -35,7 +35,7 @@ class EQView: NSView {
         eq15BandView.positionAtZeroPoint()
     }
     
-    func initialize(_ sliderAction: Selector?, _ sliderActionTarget: AnyObject?, _ eqStateFunction: @escaping () -> EffectsUnitState) {
+    func initialize(_ sliderAction: Selector?, _ sliderActionTarget: AnyObject?, _ eqStateFunction: (() -> EffectsUnitState)?) {
         
         eq10BandView.initialize(eqStateFunction, sliderAction, sliderActionTarget)
         eq15BandView.initialize(eqStateFunction, sliderAction, sliderActionTarget)
@@ -75,5 +75,11 @@ class EQView: NSView {
         activeView.stateChanged()
         activeView.show()
         inactiveView.hide()
+    }
+    
+    func applyPreset(_ preset: EQPreset) {
+    
+        setUnitState(preset.state)
+        bandsUpdated(preset.bands, preset.globalGain)
     }
 }
