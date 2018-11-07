@@ -10,6 +10,8 @@ protocol AudioGraphProtocol: EQUnitProtocol, PitchShiftUnitProtocol, TimeStretch
     
     func isMasterBypass() -> Bool
     
+    var masterPresets: MasterPresets {get}
+    
     func saveMasterPreset(_ presetName: String)
     
     func applyMasterPreset(_ preset: MasterPreset)

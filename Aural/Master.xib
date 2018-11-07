@@ -16,7 +16,7 @@
                 <outlet property="btnReverbBypass" destination="3Wt-Nm-aFs" id="2Uw-VG-7Wm"/>
                 <outlet property="btnSavePreset" destination="8or-Oa-uMa" id="X8Y-GB-CUL"/>
                 <outlet property="btnTimeBypass" destination="Glf-iV-e0N" id="r3F-T8-y8J"/>
-                <outlet property="masterPresets" destination="ryf-gT-ZGe" id="bPR-Og-a7n"/>
+                <outlet property="presetsMenu" destination="ryf-gT-ZGe" id="82S-Df-bBT"/>
                 <outlet property="view" destination="0Bs-7g-5at" id="Vo0-Tr-kPb"/>
             </connections>
         </customObject>
@@ -213,6 +213,6 @@
         </view>
     </objects>
     <resources>
-        <image name="SaveEQPreset" width="128" height="128"/>
+        <image name="SaveEQPreset" width="26" height="26"/>
     </resources>
 </document>

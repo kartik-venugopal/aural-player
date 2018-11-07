@@ -9,6 +9,8 @@ protocol AudioGraphDelegateProtocol: EQUnitDelegateProtocol, PitchShiftUnitDeleg
     
     func isMasterBypass() -> Bool
     
+    var masterPresets: MasterPresets {get}
+    
     func saveMasterPreset(_ presetName: String)
     
     func applyMasterPreset(_ presetName: String)

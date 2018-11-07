@@ -31,13 +31,17 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         return graph.isMasterBypass()
     }
     
+    var masterPresets: MasterPresets {
+        return graph.masterPresets
+    }
+    
     func saveMasterPreset(_ presetName: String) {
         graph.saveMasterPreset(presetName)
     }
     
     func applyMasterPreset(_ presetName: String) {
         
-        if let preset = MasterPresets.presetByName(presetName) {
+        if let preset = masterPresets.presetByName(presetName) {
             graph.applyMasterPreset(preset)
         }
     }

@@ -44,6 +44,9 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     private var muted: Bool
     private var reverbSpace: AVAudioUnitReverbPreset
     
+    // Presets
+    private(set) var masterPresets: MasterPresets = MasterPresets()
+    
     // Sets up the audio engine
     init(_ state: AudioGraphState) {
         
@@ -83,7 +86,8 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         playerNode.pan = state.balance
         
         masterBypass = state.masterState != .active
-        MasterPresets.loadPresets(state.masterUserPresets)
+//        MasterPresets.loadPresets(state.masterUserPresets)
+        masterPresets.addPresets(state.masterUserPresets)
         
         // EQ
         eqNode.bypass = state.eqState != .active
@@ -230,7 +234,8 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         let filterPreset = FilterPreset(dummyPresetName, filterState, allFilterBands(), false)
 
         // Save the new preset
-        MasterPresets.addUserDefinedPreset(presetName, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset)
+        let masterPreset = MasterPreset(presetName, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)
+        masterPresets.addPreset(masterPreset)
     }
     
     func getSettingsAsMasterPreset() -> MasterPreset {
@@ -825,7 +830,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         state.balance = playerNode.pan
         
         state.masterState = masterBypass ? .bypassed : .active
-        state.masterUserPresets = MasterPresets.userDefinedPresets
+        state.masterUserPresets = masterPresets.userDefinedPresets
         
         // EQ
         state.eqState = getEQState()
