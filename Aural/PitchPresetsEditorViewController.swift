@@ -77,11 +77,7 @@ class PitchPresetsEditorViewController: NSViewController, NSTableViewDataSource,
     }
     
     private func renderPreview(_ preset: PitchPreset) {
-        
-        let pitch = preset.pitch * AppConstants.pitchConversion_audioGraphToUI
-        pitchView.setPitch((pitch, ValueFormatter.formatPitch(pitch)))
-        pitchView.setPitchOverlap((preset.overlap, ValueFormatter.formatOverlap(preset.overlap)))
-        
+        pitchView.applyPreset(preset)
         previewBox.show()
     }
     
