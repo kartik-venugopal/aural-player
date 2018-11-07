@@ -51,6 +51,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
     private(set) var timePresets: TimePresets = TimePresets()
     private(set) var reverbPresets: ReverbPresets = ReverbPresets()
     private(set) var delayPresets: DelayPresets = DelayPresets()
+    private(set) var filterPresets: FilterPresets = FilterPresets()
     
     // Sets up the audio engine
     init(_ state: AudioGraphState) {
@@ -118,8 +119,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         // Reverb
         reverbNode.bypass = state.reverbState != .active
         reverbSuppressed = state.reverbState == .suppressed
-        let avPreset: AVAudioUnitReverbPreset = state.reverbSpace.avPreset
-        reverbSpace = avPreset
+        reverbSpace = state.reverbSpace.avPreset
         reverbNode.loadFactoryPreset(reverbSpace)
         reverbNode.wetDryMix = state.reverbAmount
         reverbPresets.addPresets(state.reverbUserPresets)
@@ -137,7 +137,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         filterNode.bypass = state.filterState != .active
         filterSuppressed = state.filterState == .suppressed
         filterNode.addBands(state.filterBands)
-        FilterPresets.loadUserDefinedPresets(state.filterUserPresets)
+        filterPresets.addPresets(state.filterUserPresets)
     }
 
     private func bypassAllUnits() {
@@ -774,7 +774,8 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         // Need to clone the filter's bands to create separate identical copies so that changes to the current filter bands don't modify the preset's bands
         var presetBands: [FilterBand] = []
         filterNode.allBands().forEach({presetBands.append($0.clone())})
-        FilterPresets.addUserDefinedPreset(presetName, filterState, presetBands)
+        
+        filterPresets.addPreset(FilterPreset(presetName, filterState, presetBands, false))
     }
     
     func applyFilterPreset(_ preset: FilterPreset) {
@@ -874,7 +875,7 @@ class AudioGraph: AudioGraphProtocol, PlayerGraphProtocol, RecorderGraphProtocol
         // Filter
         state.filterState = getFilterState()
         state.filterBands = filterNode.allBands()
-        state.filterUserPresets = FilterPresets.userDefinedPresets
+        state.filterUserPresets = filterPresets.userDefinedPresets
         
         return state
     }

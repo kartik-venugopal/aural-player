@@ -1,70 +1,14 @@
 import Foundation
 
-// TODO: Create a superclass to reduce code duplication
-class FilterPresets {
+class FilterPresets: FXPresets<FilterPreset> {
     
-    private static var presets: [String: FilterPreset] = {
+    override init() {
         
-        var map = [String: FilterPreset]()
-        
-        SystemDefinedFilterPresets.allValues.forEach({
-            map[$0.rawValue] = FilterPreset($0.rawValue, .active, $0.bands, true)
-        })
-        
-        return map
-    }()
-    
-    static var userDefinedPresets: [FilterPreset] {
-        return presets.values.filter({$0.systemDefined == false})
+        super.init()
+        addPresets(SystemDefinedFilterPresets.presets)
     }
     
-    static var systemDefinedPresets: [FilterPreset] {
-        return presets.values.filter({$0.systemDefined == true})
-    }
-    
-    static var defaultPreset: FilterPreset {
-        return presetByName(SystemDefinedFilterPresets.passThrough.rawValue)
-    }
-    
-    static func presetByName(_ name: String) -> FilterPreset {
-        return presets[name] ?? defaultPreset
-    }
-    
-    static func loadUserDefinedPresets(_ userDefinedPresets: [FilterPreset]) {
-        userDefinedPresets.forEach({presets[$0.name] = $0})
-    }
-    
-    // Assume preset with this name doesn't already exist
-    static func addUserDefinedPreset(_ name: String, _ state: EffectsUnitState, _ bands: [FilterBand]) {
-        presets[name] = FilterPreset(name, state, bands, false)
-    }
-    
-    static func presetWithNameExists(_ name: String) -> Bool {
-        return presets[name] != nil
-    }
-    
-    static func countUserDefinedPresets() -> Int {
-        return userDefinedPresets.count
-    }
-    
-    static func deletePresets(_ presetNames: [String]) {
-        
-        presetNames.forEach({
-            presets[$0] = nil
-        })
-    }
-    
-    static func renamePreset(_ oldName: String, _ newName: String) {
-        
-        if presetWithNameExists(oldName) {
-            
-            let preset = presetByName(oldName)
-            
-            presets.removeValue(forKey: oldName)
-            preset.name = newName
-            presets[newName] = preset
-        }
-    }
+    static var defaultPreset: FilterPreset = {return SystemDefinedFilterPresets.presets.first(where: {$0.name == SystemDefinedFilterPresetParams.passThrough.rawValue})!}()
 }
 
 class FilterPreset: EffectsUnitPreset {
@@ -78,10 +22,23 @@ class FilterPreset: EffectsUnitPreset {
     }
 }
 
+fileprivate struct SystemDefinedFilterPresets {
+    
+    static let presets: [FilterPreset] = {
+        
+        var arr: [FilterPreset] = []
+        SystemDefinedFilterPresetParams.allValues.forEach({
+            arr.append(FilterPreset($0.rawValue, .active, $0.bands, true))
+        })
+        
+        return arr
+    }()
+}
+
 /*
     An enumeration of built-in delay presets the user can choose from
  */
-fileprivate enum SystemDefinedFilterPresets: String {
+fileprivate enum SystemDefinedFilterPresetParams: String {
     
     case passThrough = "Pass through"   // default
     case nothingButBass = "Nothing but bass"
@@ -109,11 +66,11 @@ fileprivate enum SystemDefinedFilterPresets: String {
         }
     }
     
-    static var allValues: [SystemDefinedFilterPresets] = [.passThrough, .nothingButBass, .emphasizedVocals, .noBass, .noSubBass, .karaoke]
+    static var allValues: [SystemDefinedFilterPresetParams] = [.passThrough, .nothingButBass, .emphasizedVocals, .noBass, .noSubBass, .karaoke]
     
     // Converts a user-friendly display name to an instance of FilterPresets
-    static func fromDisplayName(_ displayName: String) -> SystemDefinedFilterPresets {
-        return SystemDefinedFilterPresets(rawValue: displayName) ?? .passThrough
+    static func fromDisplayName(_ displayName: String) -> SystemDefinedFilterPresetParams {
+        return SystemDefinedFilterPresetParams(rawValue: displayName) ?? .passThrough
     }
 }
 

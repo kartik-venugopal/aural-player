@@ -13,6 +13,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     @IBOutlet weak var chart: FilterChart!
     
     private var graph: AudioGraphDelegateProtocol = ObjectGraph.getAudioGraphDelegate()
+    private let filterPresets: FilterPresets = ObjectGraph.getAudioGraphDelegate().filterPresets
     
     private var oldPresetName: String?
     
@@ -47,7 +48,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     private func deleteSelectedPresetsAction() {
         
         let selection = getSelectedPresetNames()
-        FilterPresets.deletePresets(selection)
+        filterPresets.deletePresets(selection)
         editorView.reloadData()
         
         previewBox.hide()
@@ -98,7 +99,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     private func getFilterChartBands() -> [FilterBand] {
         
         if !getSelectedPresetNames().isEmpty {
-            return FilterPresets.presetByName(getSelectedPresetNames()[0]).bands
+            return filterPresets.presetByName(getSelectedPresetNames()[0])!.bands
         }
         
         return []
@@ -108,7 +109,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return FilterPresets.countUserDefinedPresets()
+        return filterPresets.userDefinedPresets.count
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -120,7 +121,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         if numRows == 1 {
             
             let presetName = getSelectedPresetNames()[0]
-            let preset = FilterPresets.presetByName(presetName)
+            let preset = filterPresets.presetByName(presetName)!
             bandsDataSource.preset = preset
             renderPreview(preset)
             oldPresetName = presetName
@@ -137,7 +138,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let preset = FilterPresets.userDefinedPresets[row]
+        let preset = filterPresets.userDefinedPresets[row]
         return createTextCell(tableView, tableColumn!, row, preset.name)
     }
     
@@ -177,9 +178,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
         
         let oldName = oldPresetName ?? editedTextField.stringValue
         
-        if FilterPresets.presetWithNameExists(oldName) {
-            
-            let preset = FilterPresets.presetByName(oldName)
+        if let preset = filterPresets.presetByName(oldName) {
             
             let newPresetName = editedTextField.stringValue
             
@@ -192,7 +191,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
                 
                 editedTextField.stringValue = preset.name
                 
-            } else if FilterPresets.presetWithNameExists(newPresetName) {
+            } else if filterPresets.presetWithNameExists(newPresetName) {
                 
                 // Another preset with that name exists, can't rename
                 editedTextField.stringValue = preset.name
@@ -200,7 +199,7 @@ class FilterPresetsEditorViewController: NSViewController, NSTableViewDataSource
             } else {
                 
                 // Update the preset name
-                FilterPresets.renamePreset(oldName, newPresetName)
+                filterPresets.renamePreset(oldName, newPresetName)
             }
             
         } else {
